@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #17211d;
+  --paper: #f6f4ed;
+  --muted: #5d6962;
+  --lime: #c7f94a;
+  --line: #d8d8cf;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a { color: inherit; text-decoration: none; }
+
+main { min-height: 100vh; }
+
+.nav {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 28px 32px;
+}
+
+.brand { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.08em; }
+.brand span { color: #607b18; }
+.nav-link { font-size: 0.9rem; font-weight: 700; }
+
+.hero {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 112px 32px 128px;
+}
+
+.eyebrow {
+  color: #607b18;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(3.4rem, 8vw, 7.5rem);
+  font-weight: 800;
+  letter-spacing: -0.075em;
+  line-height: 0.88;
+  margin: 0;
+  max-width: 900px;
+}
+
+.intro {
+  color: var(--muted);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1.55;
+  margin: 36px 0;
+  max-width: 640px;
+}
+
+.button {
+  background: var(--ink);
+  color: white;
+  display: inline-block;
+  font-weight: 700;
+  padding: 15px 21px;
+}
+
+.button:hover { background: #334139; }
+
+.capabilities {
+  background: var(--lime);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.capabilities article { min-height: 230px; padding: 32px; }
+.capabilities article + article { border-left: 1px solid rgba(23, 33, 29, 0.24); }
+.capabilities p { font-size: 0.8rem; font-weight: 800; margin: 0 0 72px; }
+.capabilities h2 { font-size: 1.35rem; letter-spacing: -0.03em; margin: 0; max-width: 220px; }
+
+@media (max-width: 640px) {
+  .nav, .hero { padding-left: 20px; padding-right: 20px; }
+  .hero { padding-bottom: 88px; padding-top: 72px; }
+  .capabilities { grid-template-columns: 1fr; }
+  .capabilities article { min-height: auto; padding: 28px 20px; }
+  .capabilities article + article { border-left: 0; border-top: 1px solid rgba(23, 33, 29, 0.24); }
+  .capabilities p { margin-bottom: 34px; }
+}
