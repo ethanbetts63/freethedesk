@@ -18,6 +18,7 @@ export function SiteFooter() {
           <Link href="/automation">Automation</Link>
           <Link href="/work/scooter-shop">Scooter Shop case study</Link>
           <Link href="/contact">Contact</Link>
+          <Link href="/login">Admin login</Link>
         </div>
         <div className="footer-links">
           <p className="footer-label">Based in</p>
