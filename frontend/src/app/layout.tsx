@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { SiteChrome } from "@/components/SiteChrome";
+import { AuthProvider } from "@/context/AuthContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -8,14 +10,17 @@ export const metadata: Metadata = {
     default: "Free the Desk | Dealer Operations Systems",
     template: "%s | Free the Desk",
   },
-  description: "Websites and operational systems for dealerships that need less admin and better customer experiences.",
+  description: "Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AuthProvider>
+          <SiteChrome>{children}</SiteChrome>
+        </AuthProvider>
+      </body>
     </html>
   );
 }
-

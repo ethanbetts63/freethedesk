@@ -29,3 +29,31 @@ npm.cmd run dev
 The homepage runs at `http://localhost:3000`. Requests to `/api/*` are proxied to
 the Django server through `DJANGO_API_URL` (which defaults to the local backend).
 
+## Admin dashboard
+
+Apply the migrations and create the staff account used to sign in:
+
+```powershell
+.\.venv\Scripts\python.exe manage.py migrate
+.\.venv\Scripts\python.exe manage.py createsuperuser
+```
+
+With both development servers running, open `http://localhost:3000/login`.
+The dashboard contains the colour-coded enquiry queue, enquiry detail and status
+editing, outbound message history, and an email composer with attachments.
+
+## Enquiry notifications
+
+The public form always saves the enquiry before attempting either notification.
+Email and SMS attempts are retained in the dashboard, including failures.
+
+Copy the notification settings from `.env.example` into `.env`, configure the
+Mailgun and Twilio credentials, set `ADMIN_EMAIL` and `ADMIN_NUMBER`, then change:
+
+```dotenv
+NOTIFICATIONS_ENABLED=True
+```
+
+Leave delivery disabled until the Mailgun sending domain is verified and the
+Twilio messaging service or sending number is ready. `ADMIN_NUMBER` should use
+E.164 format, for example `+61400111222`.
