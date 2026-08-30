@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     template: "%s | Free the Desk",
   },
   description: "Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.",
+  verification: {
+    google: "NPT1jo_98rxtDYj63w_sk4NePShMgItyKEdFQdigwOk",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
