@@ -1,9 +1,7 @@
-export interface StaffUser {
-  id: number;
-  username: string;
-  email: string;
-  is_staff: boolean;
-}
+import { authedFetch, jsonOrError, queryString, type Paginated } from "./api";
+
+export type { Paginated, Principal as StaffUser } from "./api";
+export { authedFetch, formatDateTime, login, logout, getProfile } from "./api";
 
 export interface Enquiry {
   id: number;
@@ -21,9 +19,23 @@ export interface Enquiry {
   updated_at: string;
 }
 
+export interface Dealer {
+  id: number;
+  business_name: string;
+  contact_name: string;
+  email: string;
+  phone: string;
+  status: "pending" | "active" | "suspended" | "denied";
+  status_label: string;
+  staff_notes: string;
+  status_changed_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface AdminMessage {
   id: number;
-  recipient_type: "admin" | "manual";
+  recipient_type: "admin" | "dealer" | "manual";
   recipient: string;
   channel: "email" | "sms";
   subject: string;
@@ -33,72 +45,9 @@ export interface AdminMessage {
   error_message: string;
   related_enquiry: number | null;
   related_enquiry_business: string | null;
+  related_dealer: number | null;
+  related_dealer_business: string | null;
   created_at: string;
-}
-
-export interface Paginated<T> {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: T[];
-}
-
-function csrfToken(): string | null {
-  const value = document.cookie.split("; ").find((row) => row.startsWith("csrftoken="))?.split("=")[1];
-  return value ? decodeURIComponent(value) : null;
-}
-
-export async function authedFetch(url: string, options: RequestInit = {}): Promise<Response> {
-  const request = { ...options, credentials: "include" as RequestCredentials };
-  const headers = new Headers(options.headers);
-  if (options.body && !(options.body instanceof FormData)) headers.set("Content-Type", "application/json");
-  if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(options.method ?? "GET")) {
-    const token = csrfToken();
-    if (token) headers.set("X-CSRFToken", token);
-  }
-  request.headers = headers;
-  let response = await fetch(url, request);
-  if (response.status === 401) {
-    const refreshed = await fetch("/api/token/refresh/", { method: "POST", credentials: "include" });
-    if (refreshed.ok) response = await fetch(url, request);
-    else {
-      localStorage.removeItem("hasStaffSession");
-      window.dispatchEvent(new Event("staff-auth-failure"));
-    }
-  }
-  return response;
-}
-
-async function jsonOrError<T>(response: Response): Promise<T> {
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(data.detail || Object.values(data)[0] || "Request failed");
-  return data as T;
-}
-
-export async function login(identifier: string, password: string): Promise<void> {
-  const response = await fetch("/api/token/", {
-    method: "POST",
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username: identifier, password }),
-  });
-  await jsonOrError(response);
-}
-
-export async function logout(): Promise<void> {
-  await fetch("/api/token/logout/", { method: "POST", credentials: "include" });
-}
-
-export async function getStaffProfile(): Promise<StaffUser> {
-  return jsonOrError(await authedFetch("/api/auth/me/"));
-}
-
-function queryString(values: Record<string, string | number | undefined>): string {
-  const query = new URLSearchParams();
-  Object.entries(values).forEach(([key, value]) => {
-    if (value !== undefined && value !== "" && value !== "all") query.set(key, String(value));
-  });
-  return query.size ? `?${query}` : "";
 }
 
 export async function getEnquiries(params: Record<string, string | number | undefined>): Promise<Paginated<Enquiry>> {
@@ -113,6 +62,21 @@ export async function updateEnquiryStatus(id: number, status: string): Promise<E
   return jsonOrError(await authedFetch(`/api/admin/enquiries/${id}/`, {
     method: "PATCH",
     body: JSON.stringify({ status }),
+  }));
+}
+
+export async function getDealers(params: Record<string, string | number | undefined>): Promise<Paginated<Dealer>> {
+  return jsonOrError(await authedFetch(`/api/admin/dealers/${queryString(params)}`));
+}
+
+export async function getDealer(id: number): Promise<Dealer> {
+  return jsonOrError(await authedFetch(`/api/admin/dealers/${id}/`));
+}
+
+export async function updateDealer(id: number, changes: Partial<Pick<Dealer, "status" | "staff_notes">>): Promise<Dealer> {
+  return jsonOrError(await authedFetch(`/api/admin/dealers/${id}/`, {
+    method: "PATCH",
+    body: JSON.stringify(changes),
   }));
 }
 
@@ -138,12 +102,4 @@ export async function sendMessage(payload: {
   if (payload.relatedEnquiry) form.set("related_enquiry", String(payload.relatedEnquiry));
   payload.attachments.forEach((file) => form.append("attachments", file));
   await jsonOrError(await authedFetch("/api/admin/messages/compose/", { method: "POST", body: form }));
-}
-
-export function formatDateTime(value: string | null): string {
-  if (!value) return "—";
-  return new Date(value).toLocaleString("en-AU", {
-    day: "numeric", month: "short", year: "numeric", hour: "numeric", minute: "2-digit",
-    timeZone: "Australia/Perth",
-  });
 }

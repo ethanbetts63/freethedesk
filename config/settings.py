@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "core",
+    "dealers",
 ]
 
 MIDDLEWARE = [
@@ -92,7 +93,7 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
-    "DEFAULT_THROTTLE_RATES": {"enquiry": "10/hour"},
+    "DEFAULT_THROTTLE_RATES": {"enquiry": "10/hour", "dealer-signup": "5/hour"},
 }
 
 AUTH_COOKIE = "freethedesk_access"

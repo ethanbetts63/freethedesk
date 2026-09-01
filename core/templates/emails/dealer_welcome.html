@@ -1,0 +1,16 @@
+{% extends "emails/base.html" %}
+
+{% block title %}We have your application — Free the Desk{% endblock %}
+{% block preheader %}Thanks for signing up. We review every dealership by hand before switching an account on.{% endblock %}
+
+{% block content %}
+<p style="margin: 0 0 20px; font-size: 18px; font-weight: 700;">Thanks, {{ dealer.contact_name }}.</p>
+
+<p style="margin: 0 0 20px;">We have your application for <strong>{{ dealer.business_name }}</strong>.</p>
+
+<p style="margin: 0 0 20px;">Every dealership is reviewed by hand before we switch an account on — we check that the business is licensed and that online licensing will actually work for how you sell. That usually takes a business day.</p>
+
+<p style="margin: 0 0 20px;">Once you are approved we will email you a link to finish setting up: your dealer details, the paperwork we prefill on your behalf, and the sale conditions you want to use.</p>
+
+<p style="margin: 0 0 8px;">Nothing to do in the meantime. If anything is urgent, reply to this email.</p>
+{% endblock %}

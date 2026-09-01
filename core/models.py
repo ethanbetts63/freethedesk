@@ -39,6 +39,7 @@ class Enquiry(models.Model):
 class Notification(models.Model):
     class RecipientType(models.TextChoices):
         ADMIN = "admin", "Admin"
+        DEALER = "dealer", "Dealer"
         MANUAL = "manual", "Manual email"
 
     class Channel(models.TextChoices):
@@ -60,6 +61,15 @@ class Notification(models.Model):
     error_message = models.TextField(blank=True)
     related_enquiry = models.ForeignKey(
         Enquiry,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="notifications",
+    )
+    # String reference so core carries no import of dealers; the dependency
+    # runs dealers -> core, and Django resolves this lazily.
+    related_dealer = models.ForeignKey(
+        "dealers.Dealer",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

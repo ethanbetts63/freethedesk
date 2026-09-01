@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .auth_views import CookieTokenObtainPairView, CookieTokenRefreshView, LogoutView, StaffProfileView
+from .auth_views import CookieTokenObtainPairView, CookieTokenRefreshView, LogoutView, ProfileView
 from .views import (
     AdminComposeMessageView,
     AdminEnquiryDetailView,
@@ -18,7 +18,7 @@ urlpatterns = [
     path("token/", CookieTokenObtainPairView.as_view(), name="token"),
     path("token/refresh/", CookieTokenRefreshView.as_view(), name="token-refresh"),
     path("token/logout/", LogoutView.as_view(), name="token-logout"),
-    path("auth/me/", StaffProfileView.as_view(), name="staff-profile"),
+    path("auth/me/", ProfileView.as_view(), name="profile"),
     path("admin/enquiries/", AdminEnquiryListView.as_view(), name="admin-enquiry-list"),
     path("admin/enquiries/<int:pk>/", AdminEnquiryDetailView.as_view(), name="admin-enquiry-detail"),
     path("admin/messages/", AdminNotificationListView.as_view(), name="admin-message-list"),

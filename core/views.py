@@ -103,10 +103,13 @@ class AdminNotificationListView(ListAPIView):
 
     def get_queryset(self):
         params = self.request.query_params
-        queryset = Notification.objects.select_related("related_enquiry")
+        queryset = Notification.objects.select_related("related_enquiry", "related_dealer")
         related_enquiry = params.get("related_enquiry", "").strip()
         if related_enquiry.isdigit():
             queryset = queryset.filter(related_enquiry_id=int(related_enquiry))
+        related_dealer = params.get("related_dealer", "").strip()
+        if related_dealer.isdigit():
+            queryset = queryset.filter(related_dealer_id=int(related_dealer))
         for field in ("status", "channel", "recipient_type"):
             value = params.get(field, "").strip()
             if value:
@@ -130,7 +133,7 @@ class AdminNotificationListView(ListAPIView):
 class AdminNotificationDetailView(RetrieveAPIView):
     permission_classes = [IsAdminUser]
     serializer_class = AdminNotificationSerializer
-    queryset = Notification.objects.select_related("related_enquiry")
+    queryset = Notification.objects.select_related("related_enquiry", "related_dealer")
 
 
 class AdminComposeMessageView(APIView):

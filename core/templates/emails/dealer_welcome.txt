@@ -1,0 +1,13 @@
+Thanks, {{ dealer.contact_name }}.
+
+We have your application for {{ dealer.business_name }}.
+
+Every dealership is reviewed by hand before we switch an account on — we check
+that the business is licensed and that online licensing will actually work for
+how you sell. That usually takes a business day.
+
+Once you are approved we will email you a link to finish setting up: your dealer
+details, the paperwork we prefill on your behalf, and the sale conditions you
+want to use.
+
+Nothing to do in the meantime. If anything is urgent, reply to this email.

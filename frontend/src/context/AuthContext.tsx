@@ -1,54 +1,60 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { getStaffProfile, login as loginRequest, logout as logoutRequest, type StaffUser } from "@/lib/adminApi";
+import {
+  AUTH_FAILURE_EVENT,
+  SESSION_FLAG,
+  getProfile,
+  login as loginRequest,
+  logout as logoutRequest,
+  type Principal,
+} from "@/lib/api";
 
 interface AuthValue {
-  user: StaffUser | null;
+  user: Principal | null;
   loading: boolean;
-  login: (identifier: string, password: string) => Promise<void>;
+  /** Resolves with the signed-in principal so callers can route by role. */
+  login: (identifier: string, password: string) => Promise<Principal>;
   logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthValue | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<StaffUser | null>(null);
+  const [user, setUser] = useState<Principal | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const load = useCallback(async () => {
-    try { setUser(await getStaffProfile()); }
-    catch { localStorage.removeItem("hasStaffSession"); setUser(null); }
-    finally { setLoading(false); }
+  const clear = useCallback(() => {
+    localStorage.removeItem(SESSION_FLAG);
+    setUser(null);
   }, []);
 
   useEffect(() => {
     let cancelled = false;
-    const profile = localStorage.getItem("hasStaffSession")
-      ? getStaffProfile()
-      : Promise.resolve(null);
+    const profile = localStorage.getItem(SESSION_FLAG) ? getProfile() : Promise.resolve(null);
     profile
       .then((result) => { if (!cancelled) setUser(result); })
-      .catch(() => { if (!cancelled) { localStorage.removeItem("hasStaffSession"); setUser(null); } })
+      .catch(() => { if (!cancelled) clear(); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, []);
+  }, [clear]);
 
   useEffect(() => {
     const failed = () => setUser(null);
-    window.addEventListener("staff-auth-failure", failed);
-    return () => window.removeEventListener("staff-auth-failure", failed);
+    window.addEventListener(AUTH_FAILURE_EVENT, failed);
+    return () => window.removeEventListener(AUTH_FAILURE_EVENT, failed);
   }, []);
 
   async function login(identifier: string, password: string) {
-    await loginRequest(identifier, password);
-    localStorage.setItem("hasStaffSession", "1");
-    setLoading(true);
-    await load();
+    const principal = await loginRequest(identifier, password);
+    localStorage.setItem(SESSION_FLAG, "1");
+    setUser(principal);
+    setLoading(false);
+    return principal;
   }
 
   async function logout() {
-    localStorage.removeItem("hasStaffSession");
+    localStorage.removeItem(SESSION_FLAG);
     await logoutRequest().catch(() => undefined);
     setUser(null);
   }

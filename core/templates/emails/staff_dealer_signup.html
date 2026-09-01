@@ -1,0 +1,31 @@
+{% extends "emails/base.html" %}
+
+{% block title %}New dealer signup — {{ dealer.business_name }}{% endblock %}
+{% block preheader %}{{ dealer.business_name }} has signed up and is waiting for approval.{% endblock %}
+
+{% block content %}
+<p style="margin: 0 0 20px; font-size: 18px; font-weight: 700;">New dealer signup</p>
+
+<p style="margin: 0 0 24px;"><strong>{{ dealer.business_name }}</strong> has created an account and is waiting for approval.</p>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0 0 28px; font-size: 15px;">
+    <tr>
+        <td style="padding: 8px 0; color: #78716c; width: 140px;">Business</td>
+        <td style="padding: 8px 0;">{{ dealer.business_name }}</td>
+    </tr>
+    <tr>
+        <td style="padding: 8px 0; color: #78716c;">Contact</td>
+        <td style="padding: 8px 0;">{{ dealer.contact_name }}</td>
+    </tr>
+    <tr>
+        <td style="padding: 8px 0; color: #78716c;">Email</td>
+        <td style="padding: 8px 0;"><a href="mailto:{{ dealer.email }}" style="color: #1c1917;">{{ dealer.email }}</a></td>
+    </tr>
+    <tr>
+        <td style="padding: 8px 0; color: #78716c;">Phone</td>
+        <td style="padding: 8px 0;">{{ dealer.phone|default:"Not supplied" }}</td>
+    </tr>
+</table>
+
+<a href="{{ dealer_url }}" target="_blank" style="background-color: #16201a; border-radius: 5px; color: #ffffff; display: inline-block; font-size: 14px; font-weight: 700; padding: 13px 22px; text-decoration: none;">Review this dealer</a>
+{% endblock %}

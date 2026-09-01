@@ -12,8 +12,33 @@ from .models import Enquiry, Notification
 logger = logging.getLogger(__name__)
 
 
-def send_notification(notification: Notification, attachments=None) -> Notification:
-    """Deliver one persisted notification and retain the result for the admin log."""
+DEFAULT_EMAIL_TEMPLATE = "notifications/admin_notification"
+
+
+def resolve_recipient(recipient_type: str, *, dealer=None, email: str = "", phone: str = "") -> tuple[str, str]:
+    """Map a recipient type to an (email, phone) pair.
+
+    Keeps callers from hardcoding addresses, which matters now that the same
+    delivery path serves staff, dealers and — from phase 3 — customers.
+    """
+    if recipient_type == Notification.RecipientType.ADMIN:
+        return settings.ADMIN_EMAIL or "", settings.ADMIN_NUMBER or ""
+    if recipient_type == Notification.RecipientType.DEALER:
+        if dealer is None:
+            return "", ""
+        return dealer.email or getattr(dealer.user, "email", "") or "", dealer.phone or ""
+    return email or "", phone or ""
+
+
+def send_notification(notification: Notification, attachments=None, template=None, context=None) -> Notification:
+    """Deliver one persisted notification and retain the result for the admin log.
+
+    ``template`` names a pair of templates without their extension — for example
+    ``"emails/dealer_welcome"`` renders both ``.txt`` and ``.html``. Callers that
+    pass nothing keep the generic subject/body rendering, so existing senders are
+    unaffected. Context is not persisted: a resend rebuilds it or falls back to
+    the plain body, which is why ``body`` always carries the full message.
+    """
     if not settings.NOTIFICATIONS_ENABLED:
         notification.error_message = "Delivery is disabled until notification credentials are enabled."
         notification.save(update_fields=["error_message"])
@@ -23,7 +48,13 @@ def send_notification(notification: Notification, attachments=None) -> Notificat
         if notification.channel == Notification.Channel.EMAIL:
             if not all([settings.MAILGUN_API_KEY, settings.MAILGUN_DOMAIN, notification.recipient]):
                 raise ValueError("Mailgun or recipient email is not configured.")
-            context = {"subject": notification.subject, "body": notification.body}
+            template_context = {
+                "subject": notification.subject,
+                "body": notification.body,
+                "site_url": settings.SITE_URL.rstrip("/"),
+                **(context or {}),
+            }
+            template_name = template or DEFAULT_EMAIL_TEMPLATE
             files = [
                 ("attachment", (Path(filename).name, content, mimetype))
                 for filename, content, mimetype in (attachments or [])
@@ -35,8 +66,8 @@ def send_notification(notification: Notification, attachments=None) -> Notificat
                     "from": settings.DEFAULT_FROM_EMAIL,
                     "to": [notification.recipient],
                     "subject": notification.subject or "Free the Desk notification",
-                    "text": render_to_string("notifications/admin_notification.txt", context),
-                    "html": render_to_string("notifications/admin_notification.html", context),
+                    "text": render_to_string(f"{template_name}.txt", template_context),
+                    "html": render_to_string(f"{template_name}.html", template_context),
                 },
                 files=files or None,
                 timeout=30 if files else 10,

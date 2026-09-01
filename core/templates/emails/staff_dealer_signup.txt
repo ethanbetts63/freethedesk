@@ -1,0 +1,10 @@
+New dealer signup
+
+{{ dealer.business_name }} has created an account and is waiting for approval.
+
+Business: {{ dealer.business_name }}
+Contact:  {{ dealer.contact_name }}
+Email:    {{ dealer.email }}
+Phone:    {{ dealer.phone|default:"Not supplied" }}
+
+Review this dealer: {{ dealer_url }}

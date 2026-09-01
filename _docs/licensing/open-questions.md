@@ -1,82 +1,143 @@
 # Open questions and concerns
 
-Nothing here is answered.
+Plain answers are Ethan's. **Bold notes** are research outcomes — detail in
+`research/findings-2026-08-30.md`.
+
+## Found in research, not previously listed
+
+**A. The offer lapses at close of business the next business day.** Schedule 5
+cl 1.3. The customer's signature is only an offer; a contract exists when the
+dealer countersigns *and* gives notice (cl 1.2). Sign Friday, countersign
+Tuesday, no contract. Async remote flow makes this routine — needs a hard dealer
+escalation clock, acceptance recorded as its own event, live status for the
+customer. Most important finding so far.
+
+**B. MR9B is a two-part carbon form signed by both parties.** Can't be produced
+digitally, so the used path may not be automatable without Dealer Online. Ask
+DVS alongside Q4.
+
+**C. Warranty statement must be given *before* the sale** (reg 7). Form 5A or 6
+shown before signing, not bundled into the pack after.
 
 ## Blocking — decides whether there is a product
 
-1. **Market size.** WA motorcycle dealers with the volume to want this is a
-   short list. The business only exists if it generalises, and the forms are the
-   part that doesn't.
+**1. Market size.** WA motorcycle dealers with the volume for this is a short
+list, and the forms are the part that doesn't generalise.
+→ not an issue. we will solve the forms for all vehicle types — that's part of
+the product. start with motorcycles / mopeds.
 
-2. **Selling on allbikes' accepted risks.** `contract_special_conditions.md`
-   accepts several risks as one dealer's judgment call for their own business.
-   Selling the flow to others hands those risks to people who never assessed
-   them. Its four "before this goes live" questions need real answers first: can
-   a Special Condition displace prescribed cl 3.1; can an authorised rep lodge
-   VL17 for the customer; is a deposit on an identified vehicle already a sale
-   agreement requiring the Schedule 5 form; does an online flow satisfy cl 1.1.
+**2. Selling on allbikes' accepted risks.** `contract_special_conditions.md`
+accepts risks as one dealer's judgment for their own business; selling the flow
+hands them to people who never assessed them.
+→ provide default special clauses, let dealers add and edit.
 
-   answer: i think a good way to mitigate this is to provide our default special clauses
-   but allow the user to add special clauses / edit existing ones. 
+**Settled model.** Writing our own terms is unrestricted; the only line is
+advising a *specific* dealer which clause fits *their* circumstances.
 
-3. **Does the pack include the sale contract, or only the DoT forms?** With the
-   contract, every dealer's special conditions need legal review and we inherit
-   Q2. Without it, the customer signs in two places and the one-flow pitch dies.
+- One template — prescribed Schedule 5 + our defaults — reviewed once by a WA
+  lawyer before shipping. This review is load-bearing, not optional.
+- Per-clause approval at dealer onboarding. Removal and additions allowed, with
+  deviations recorded ("SC5 removed by dealer, 4 Sep 2026"). That record beats
+  immutability as evidence the dealer exercised judgment.
+- Never review, validate or comment on their edits. Liability for their final
+  contract is theirs.
+- Default sets vary by stock type (see Q6). Clauses the flow needs (SC2) are a
+  stated product requirement, not advice — remove it and the feature is off.
+- No clause library with "when to use this" guidance. That's the shape that
+  crosses into advice.
 
-answer: yes. we are going to make this an all inclusive package. or package variants 
-at different price points. but at least for v1 yes we will have the contract and the licensing. 
-4. **Will DoT accept a printed form bearing an electronic signature?** Open in
-   the research. Only matters for dealers without Dealer Online — who are
-   exactly the small dealers most likely to buy this. Ask DVS.
+**3. Contract, or only the DoT forms?**
+→ both, optionally either — dealer choice. All-inclusive package or variants at
+different price points. v1 has contract and licensing.
 
-5. **Read the Dealer Online contract and business rules.** We hold them; not
-   public. NSW's equivalent deputises the dealer as identity checker outright.
-   If ours does too, the identity standard is already set. Do this first.
+**4. Will DoT accept a printed form bearing an electronic signature?** Only
+matters for dealers without Dealer Online — who are the ones most likely to buy.
+→ i'll call and find out. don't think it's an issue.
 
-## Structural — the used vehicle path isn't designed
+**5. Read the Dealer Online contract and business rules.** We hold them; not
+public. NSW's equivalent deputises the dealer as identity checker.
+→ yes, i'll try to get hold of it.
 
-6. **Special conditions are new-stock only.** SC3 (manufacturer discontinues a
-   colour) and SC4 (manufacturer supply date) are meaningless for a used bike.
-   SC5's justification is about first licensing; a used bike is transferred by
-   MR9B, so the stated reason doesn't hold.
+## Structural — the used vehicle path
 
-7. **Statutory warranty forms are absent.** Form 5, 5A and 6 are in
-   `wa_dealer_forms/` and nothing references them. Which applies is a rule —
-   picking it automatically is a real feature, but the rule needs establishing.
+**6. Special conditions are new-stock only.** SC3 and SC4 assume a manufacturer;
+SC5's justification is about first licensing.
+→ requires research.
 
-8. **Condition disclosure for a sight-unseen used vehicle.** SC9 covers transit
-   damage only. No condition report, no defects schedule, no position on a bike
-   arriving worse than represented. Most likely source of dispute.
+**Resolved — the used path is simpler.** MR9B is lodged within 7 days *of sale*;
+no proof of payment needed, nothing requires transfer before delivery. SC5 has
+no basis here — prescribed cl 3.1 works unmodified. Schedule 5 already splits
+new from used (cl 4.3 gives 1 month not 3; cl 3.2/3.3 are new-only). Make SC3–5
+conditional on stock type. See also item B.
 
-9. **Roadworthiness inspection on the used path.** A Bulk Licensing Permit
-   removes the AIS inspection for new stock. Used is unresearched.
+**7. Statutory warranty forms absent.** Form 5, 5A and 6 are unreferenced.
+→ good point, we must give the customer the warranty form. already automated on
+our site, so not hard to repeat.
+
+**Rule established.** Motorcycle: ≥$3,500 **and** ≤8yr **and** ≤80,000km → Form
+5A ("Used Bike Warranty"), 3 months or 5,000km. Fail any → Form 6. Cars tier
+separately. Reg 5 also makes Form 4 declare warranty status. All forms reissued
+Jul–Aug 2025 — version checking is a standing task.
+
+**8. Condition disclosure for a sight-unseen used vehicle.** SC9 covers transit
+damage only.
+→ we need a stronger clause. be clear in our dealer terms that on a fully online
+sale the customer's understanding of condition comes entirely from its
+representation on the dealer's site, so defects not clearly visible there may be
+cause for rejection.
+
+**Right approach** — a B2B term isn't reached by ACL s64, so it holds where a
+consumer-facing disclaimer would be void. Note WA has **no cooling-off period**
+on vehicle sales. Two refinements: snapshot a timestamped condition report into
+the contract rather than pointing at a mutable website that will be edited or
+gone by dispute time; and if we say "cause for rejection", that right has to
+exist somewhere — a special condition, or phrase it around existing ACL rights.
+
+**9. Roadworthiness inspection on the used path.**
+→ not an issue.
 
 ## Design — affects how it gets built
 
-10. **Payment is dealer-confirmed, not system-observed.** Default is the
-    dealer's own BSB, so we never see the money. Needs an explicit gate:
-    instructions issued → customer marks paid → dealer confirms received →
-    licensing unlocked. Stripe Connect is the opt-in branch that collapses
-    those. Stripe Identity works either way — it needs no payments integration.
+**10. Payment is dealer-confirmed, not system-observed.** Default is the
+dealer's BSB, so we never see the money. Needs an explicit gate: instructions →
+customer marks paid → dealer confirms received → licensing unlocked.
+→ start with BSB and manual verification; Stripe Connect is a long-term option.
 
-11. **SC8 assumes a card fee the default path doesn't incur.** Pre-estimated
-    damages are set to the actual card processing fee. On BSB there isn't one.
+**11. SC8 assumes a card fee the BSB path doesn't incur.**
+→ true. we probably won't have a deposit flow, so drop the clause.
 
-12. **Confirm DOS rejects a mismatched licence number.** The research assumes it
-    bounces a bad name/DOB/number combination against DVS rather than
-    reconciling later. Untested, and it decides whether a commercial DVS gateway
-    provider is needed at all.
+**12. Confirm DOS rejects a mismatched licence number.**
+→ not an issue.
 
-13. **Temp credentials vs. signed link.** A one-time signed link is less code,
-    has nothing to leak, and generates no support calls.
+**13. Temp credentials vs. signed link.**
+→ signed link.
 
-14. **Identity document retention.** Stripe Identity means holding pass/fail and
-    extracted fields, not licence images. But SC10 has the customer consenting
-    to the *dealer* holding a copy — so who controls the images needs settling.
+**14. Identity document retention.** SC10 has the customer consenting to the
+*dealer* holding a licence copy.
+→ the dealer should be able to see the licence image. this is important.
 
-15. **Per-dealer identity policy.** The written policy is the defence, and it
-    belongs to the dealer. Probably generated per dealer, with recorded
-    acceptance.
+**Resolved cleanly.** Stripe exposes images via the FileUpload API and
+recommends sending the client a FileLink URL rather than downloading. Dealer
+views it in their portal, Stripe serves it, we never store it. Needs Files Write
+permission.
 
-16. **Dealer Online isn't 24/7.** Mon–Fri 7:45–18:00, Sat 8:00–13:00. A Sunday
-    purchase is licensed Monday — the customer flow shouldn't imply otherwise.
+**15. Per-dealer identity policy.** The written policy is the dealer's defence —
+probably generated per dealer with recorded acceptance.
+
+**16. Dealer Online isn't 24/7.** Mon–Fri 7:45–18:00, Sat 8:00–13:00.
+→ not really an issue.
+
+**17. We need our own terms — three documents, not two.**
+- **freethedesk ↔ dealer** (subscription): fees, liability allocation, the Q8
+  condition term, data accountability. B2B allocation holds, but the unfair
+  contract terms regime covers standard-form small business contracts.
+- **freethedesk ↔ customer** (platform terms + privacy): nothing else covers
+  this relationship. Must carry consent to transact electronically, consent to
+  identity verification including Stripe and dealer access to images, and a
+  privacy policy naming who holds what.
+- **dealer ↔ customer**: the prescribed contract plus their conditions. Not
+  ours — Q2's model depends on that.
+
+**18. Assume we are a full APP entity from day one.** The Privacy Act small
+business exemption likely doesn't apply, since it falls away where personal
+information is disclosed for a benefit or service.

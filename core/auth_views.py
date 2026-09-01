@@ -8,6 +8,30 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
 
 
+def principal_payload(user):
+    """Describe whoever is signed in, for both portals.
+
+    One shape rather than a staff endpoint and a near-identical dealer one. The
+    frontend routes on ``role``; ``dealer`` is null for staff. ``is_staff`` is
+    kept because the dashboard already reads it.
+    """
+    dealer = getattr(user, "dealer", None)
+    return {
+        "id": user.pk,
+        "username": user.get_username(),
+        "email": user.email,
+        "is_staff": user.is_staff,
+        "role": "staff" if user.is_staff else "dealer" if dealer is not None else "none",
+        "dealer": None if dealer is None else {
+            "id": dealer.pk,
+            "business_name": dealer.business_name,
+            "contact_name": dealer.contact_name,
+            "status": dealer.status,
+            "status_label": dealer.get_status_display(),
+        },
+    }
+
+
 def _set_auth_cookies(response, access_token, refresh_token=None, request=None):
     if request is not None:
         get_token(request)
@@ -54,10 +78,16 @@ class CookieTokenObtainPairView(APIView):
             return Response({"detail": "Invalid staff credentials."}, status=status.HTTP_401_UNAUTHORIZED)
 
         user = serializer.user
-        if not user.is_staff:
-            return Response({"detail": "Staff access is required."}, status=status.HTTP_403_FORBIDDEN)
+        payload = principal_payload(user)
+        if payload["role"] == "none":
+            return Response(
+                {"detail": "This account does not have portal access."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
 
-        response = Response({"detail": "Login successful."})
+        # A dealer awaiting approval, suspended or denied still signs in — the
+        # portal shows them where they stand rather than a generic auth error.
+        response = Response(payload)
         _set_auth_cookies(
             response,
             serializer.validated_data["access"],
@@ -96,15 +126,16 @@ class LogoutView(APIView):
         return response
 
 
-class StaffProfileView(APIView):
+class ProfileView(APIView):
+    """Who am I. Serves both portals; the frontend gates on ``role``."""
+
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        if not request.user.is_staff:
-            return Response({"detail": "Staff access is required."}, status=status.HTTP_403_FORBIDDEN)
-        return Response({
-            "id": request.user.pk,
-            "username": request.user.get_username(),
-            "email": request.user.email,
-            "is_staff": request.user.is_staff,
-        })
+        payload = principal_payload(request.user)
+        if payload["role"] == "none":
+            return Response(
+                {"detail": "This account does not have portal access."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+        return Response(payload)
