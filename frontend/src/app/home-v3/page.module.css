@@ -39,8 +39,8 @@
 .flowLayout { display: grid; grid-template-columns: minmax(0, 1fr) 130px; min-height: calc(100vh - 78px); padding-bottom: 78px; padding-top: 78px; }
 .flowCopy { align-self: center; max-width: 920px; }
 .flowKicker { color: #247ec9; font-size: .68rem; font-weight: 800; letter-spacing: .18em; margin: 0 0 30px; text-transform: uppercase; }
-.flowCopy h2 { color: #000; font-size: clamp(4.4rem, 9.2vw, 9.4rem); font-weight: 300; letter-spacing: -.08em; line-height: .78; margin: 0; }
-.flowCopy h2 span { color: #247ec9; font-weight: 850; }
+.flowCopy h1 { color: #000; font-size: clamp(4.4rem, 9.2vw, 9.4rem); font-weight: 300; letter-spacing: -.08em; line-height: .78; margin: 0; }
+.flowCopy h1 span { color: #247ec9; font-weight: 850; }
 .flowLead { color: #58728c; font-size: clamp(1rem, 1.3vw, 1.16rem); line-height: 1.7; margin: 44px 0 34px; max-width: 570px; }
 .flowActions { align-items: center; display: flex; flex-wrap: wrap; gap: 34px; }
 .flowActions a { align-items: center; display: inline-flex; font-size: .8rem; font-weight: 800; gap: 30px; }
@@ -57,7 +57,7 @@
   .flow { left: 22%; right: -35%; }
   .flowFade { background: radial-gradient(ellipse at 18% 45%, #fff 0 20%, rgba(255,255,255,.9) 52%, rgba(255,255,255,.25) 100%); }
   .flowLayout { grid-template-columns: 1fr; padding-bottom: 48px; padding-top: 62px; }
-  .flowCopy h2 { font-size: clamp(4rem, 20vw, 6rem); line-height: .82; }
+  .flowCopy h1 { font-size: clamp(4rem, 20vw, 6rem); line-height: .82; }
   .flowLead { background: rgba(255,255,255,.66); margin-top: 38px; max-width: 440px; }
   .readout { align-self: end; display: flex; gap: 16px; margin-top: 65px; padding: 8px 0 8px 12px; }
   .readout div { grid-template-columns: 20px 1fr; }

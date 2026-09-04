@@ -1,0 +1,51 @@
+import Link from "next/link";
+
+import { SignalFlow } from "./SignalFlow";
+import styles from "./page.module.css";
+
+type FlowHeroConceptProps = {
+  eyebrow?: string;
+  title?: string;
+  accentTitle?: string;
+  lead?: string;
+  primaryHref?: string;
+  primaryLabel?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+  stages?: string[];
+};
+
+/** Alternate signal-flow hero, kept separate from the home hero for product pages. */
+export function FlowHeroConcept({
+  eyebrow = "Systems that think ahead",
+  title = "Digital",
+  accentTitle = "dealerships.",
+  lead = "Connected websites and operational systems built for the way modern dealerships sell, service and work.",
+  primaryHref = "/website-builder",
+  primaryLabel = "Build your system",
+  secondaryHref = "/work/scooter-shop",
+  secondaryLabel = "See it in action",
+  stages = ["Customer", "System", "Team", "Done"],
+}: FlowHeroConceptProps) {
+  return (
+    <section className={styles.flowHero}>
+      <div className={styles.flow}><SignalFlow /></div>
+      <div className={styles.flowGrid} />
+      <div className={styles.flowFade} />
+      <div className={`shell ${styles.flowLayout}`}>
+        <div className={styles.flowCopy}>
+          <p className={styles.flowKicker}>{eyebrow}</p>
+          <h1>{title}<br /><span>{accentTitle}</span></h1>
+          <p className={styles.flowLead}>{lead}</p>
+          <div className={styles.flowActions}>
+            <Link href={primaryHref}>{primaryLabel} <span>↗</span></Link>
+            <Link href={secondaryHref}>{secondaryLabel} <span>→</span></Link>
+          </div>
+        </div>
+        <div className={styles.readout} aria-hidden="true">
+          {stages.map((stage, index) => <div key={stage}><span>0{index + 1}</span><p>{stage}</p></div>)}
+        </div>
+      </div>
+    </section>
+  );
+}

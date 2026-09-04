@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
+
 export const metadata: Metadata = {
   title: "Dealership Automation",
   description: "Practical workflow automation and custom integrations for Australian dealerships and equipment businesses.",
@@ -18,31 +20,24 @@ const workflows = [
 export default function AutomationPage() {
   return (
     <main>
-      <section className="automation-hero">
-        <div className="shell automation-hero-grid">
-          <div>
-            <p className="eyebrow eyebrow-light"><span />Dealership automation</p>
-            <h1>Remove the work your team should not have to repeat.</h1>
-            <p className="hero-lead hero-lead-light">We connect the systems you already use and build the missing pieces, so information moves and people stay focused on customers.</p>
-            <Link className="button button-lime" href="/contact">Find your first automation <span>↗</span></Link>
-          </div>
-          <div className="workflow-visual">
-            <div className="workflow-step"><span>01</span><div><small>Customer</small><strong>Enquiry received</strong></div><b>✓</b></div>
-            <div className="workflow-line"><i /></div>
-            <div className="workflow-step"><span>02</span><div><small>System</small><strong>Lead enriched & routed</strong></div><b>✓</b></div>
-            <div className="workflow-line"><i /></div>
-            <div className="workflow-step"><span>03</span><div><small>Team</small><strong>Next action ready</strong></div><b>→</b></div>
-            <p>Human judgement stays human. The repeated handovers happen automatically.</p>
-          </div>
-        </div>
-      </section>
+      <FlowHeroConcept
+        eyebrow="Dealership automation"
+        title="Less repetition."
+        accentTitle="More progress."
+        lead="We connect the systems you already use and build the missing pieces, so information moves while your team stays focused on customers."
+        primaryHref="/contact"
+        primaryLabel="Find your first automation"
+        secondaryHref="#workflows"
+        secondaryLabel="Explore workflows"
+        stages={["Capture", "Connect", "Action", "Done"]}
+      />
 
       <section className="section shell intro-section">
         <div><p className="section-number">01 / Practical automation</p><h2>Start with the friction already costing time.</h2></div>
         <p className="section-intro">The strongest first project is usually one repeated workflow with a clear owner, clear inputs and an obvious measure of success. It does not need “AI” in every step.</p>
       </section>
 
-      <section className="shell capability-grid automation-capability-grid">
+      <section className="shell capability-grid automation-capability-grid" id="workflows">
         {workflows.map(([title, body], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}
       </section>
 

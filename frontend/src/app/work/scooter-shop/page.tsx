@@ -1,136 +1,170 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+
+import { ScooterShopTour } from "./ScooterShopTour";
 
 export const metadata: Metadata = {
   title: "Scooter Shop Dealer Website Case Study",
-  description: "How Scooter Shop built a faster, search-led dealership website and operating system that increased organic clicks by 200%.",
+  description: "A connected dealership website for sales, online purchasing, licensing, parts, service, hire and long-term organic growth.",
 };
 
-const outcomes = [
-  ["+200%", "increase in organic clicks", "Measured in Google Search Console"],
-  ["Fast", "customer experience", "Across stock, parts, hire and service"],
-  ["Ready", "for agentic browsing", "Passes the new Lighthouse agent-readiness checks"],
+const capabilities = [
+  "Inventory",
+  "Online purchasing",
+  "Licensing",
+  "Parts",
+  "Service bookings",
+  "Hire",
+  "Guides",
+  "SEO",
 ];
 
-const problems = [
-  {
-    number: "01",
-    title: "One dealership, several very different customer journeys.",
-    problem: "Scooter Shop sells motorcycles, scooters, e-scooters and parts while also operating service and hire departments. A single generic catalogue or contact page could not explain the whole business clearly.",
-    solution: "The site was structured around what each customer is trying to do: browse a vehicle, find a part, book service, organise hire or understand the dealership. Every path has its own information and next step while still feeling like one connected business.",
-  },
-  {
-    number: "02",
-    title: "Stock and parts needed to be discoverable, not merely displayed.",
-    problem: "Dealer inventory changes constantly, and customers arrive with different levels of product knowledge. Parts create an even larger information problem, with customers searching by product, model and need.",
-    solution: "Products were organised into useful categories and detailed pages with clear availability, specifications and enquiry paths. The parts section became a genuine discovery channel rather than an afterthought attached to the workshop phone number.",
-  },
-  {
-    number: "03",
-    title: "The public website could not create more work for the team.",
-    problem: "A broad site is only valuable if staff can keep it current and customer information reaches the right place. Otherwise every new page, product and enquiry becomes another manual task.",
-    solution: "The management experience was designed around the dealership’s real day-to-day work. Repeated steps were simplified or automated, enquiries arrive with useful context, and the team can manage the information customers rely on.",
-  },
-  {
-    number: "04",
-    title: "Organic growth had to be built into the system.",
-    problem: "A visually attractive site does not create search demand on its own. Dealer sites often hide inventory in weak feeds, load slowly or provide too little useful information for search engines to understand.",
-    solution: "Search intent informed the structure from the beginning. Fast pages, indexable inventory, useful category content, clear internal paths and machine-readable information gave Google more valuable pages to understand and customers a better experience after the click.",
-  },
+const operations = [
+  { number: "01", title: "Action queue", detail: "Enquiries and next steps arrive with the context staff need." },
+  { number: "02", title: "Orders & licensing", detail: "Customer paperwork, payment and handover progress stay connected." },
+  { number: "03", title: "Stock & content", detail: "The information customers rely on can be managed in one place." },
+  { number: "04", title: "Service diary", detail: "Bookings become an organised workshop schedule, not another inbox." },
 ];
 
 export default function ScooterShopCaseStudy() {
   return (
-    <main>
-      <section className="case-hero">
-        <div className="shell case-hero-grid">
-          <div>
+    <main className="scooter-case-page">
+      <section className="scooter-case-hero">
+        <div className="scooter-case-grid" aria-hidden="true" />
+        <div className="shell scooter-case-hero-layout">
+          <div className="scooter-case-hero-copy">
             <p className="eyebrow"><span />Scooter Shop case study</p>
-            <h1>Turning a dealership website into a growth and operations asset.</h1>
+            <h1>One dealership.<br /><span>One connected system.</span></h1>
+            <p>A working website that brings sales, parts, service, hire and dealership operations into one customer experience.</p>
+            <div className="button-row">
+              <a className="button button-primary" href="https://www.scootershop.com.au/" target="_blank" rel="noreferrer">Visit the live website <span>↗</span></a>
+              <a className="text-link" href="#tour">Explore the build <span>↓</span></a>
+            </div>
+            <div className="scooter-case-meta">
+              <span>Strategy</span><span>Design</span><span>Development</span><span>SEO</span>
+            </div>
           </div>
-          <div className="case-hero-summary">
-            <p>Scooter Shop is not a concept project. It is a working Australian dealership with sales, parts, service and hire operations—and a project where our experience working with dealerships was put into practice.</p>
-            <a className="text-link" href="https://www.scootershop.com.au/" target="_blank" rel="noreferrer">Visit the live website <span>↗</span></a>
+
+          <div className="scooter-case-hero-media">
+            <div className="case-browser case-browser-hero">
+              <div className="case-browser-bar"><i /><i /><i /><span>www.scootershop.com.au</span></div>
+              <Image src="/case-studies/scooter-shop/home-desktop.png" alt="Scooter Shop homepage on desktop" width={1440} height={960} priority />
+            </div>
+            <div className="case-phone">
+              <div className="case-phone-speaker" />
+              <div className="case-phone-menu" aria-hidden="true"><i /><i /><i /></div>
+              <Image src="/case-studies/scooter-shop/inventory-mobile.png" alt="Scooter Shop used inventory experience on mobile" width={390} height={844} priority />
+            </div>
+            <div className="case-live-note"><i /> Live dealership website</div>
           </div>
         </div>
       </section>
 
-      <section className="case-outcomes">
-        <div className="shell case-outcome-grid">
-          {outcomes.map(([metric, label, note]) => (
-            <article key={label}><strong>{metric}</strong><h2>{label}</h2><p>{note}</p></article>
-          ))}
+      <section className="case-proof-strip" id="results">
+        <div className="shell case-proof-strip-grid">
+          <article><strong>+200%</strong><div><h2>Organic clicks</h2><p>Recorded in Google Search Console after launch.</p></div></article>
+          <article><strong>08</strong><div><h2>Connected capabilities</h2><p>From first search to service after the sale.</p></div></article>
+          <article><strong>01</strong><div><h2>Dealership system</h2><p>Customer journeys and daily operations designed together.</p></div></article>
         </div>
       </section>
 
-      <section className="section shell case-introduction">
-        <p className="section-number">01 / The starting point</p>
+      <section className="section shell case-story-intro">
+        <p className="section-number">01 / The brief</p>
         <div>
-          <h2>The challenge was bigger than redesigning a homepage.</h2>
-          <p>The website needed to represent every part of the dealership without becoming confusing. It needed to help customers make progress before calling, help search engines understand a deep and changing catalogue, and help staff manage it without adding another administrative burden.</p>
-          <p>That meant treating the website, customer journeys and internal workflow as one connected problem.</p>
+          <h2>Not a brochure.<br />A working dealership.</h2>
+          <p>Scooter Shop needed to represent several very different parts of the business without making the experience feel fragmented. Customers should be able to discover stock, make a decision, buy, find a part or book the workshop without starting again each time.</p>
+          <div className="case-capability-list">
+            {capabilities.map((capability) => <span key={capability}>{capability}</span>)}
+          </div>
         </div>
       </section>
 
-      <section className="case-problems">
+      <section className="case-tour-section" id="tour">
         <div className="shell">
-          <p className="section-number">02 / Problems and solutions</p>
-          {problems.map((item) => (
-            <article className="case-problem" key={item.number}>
-              <span>{item.number}</span>
-              <h2>{item.title}</h2>
-              <div><small>The issue</small><p>{item.problem}</p></div>
-              <div><small>The solution</small><p>{item.solution}</p></div>
-            </article>
-          ))}
+          <div className="case-section-heading">
+            <p className="section-number">02 / The customer experience</p>
+            <h2>Built around what<br />the customer came to do.</h2>
+            <p>Select a part of the dealership to explore the live experience.</p>
+          </div>
+          <ScooterShopTour />
         </div>
       </section>
 
-      <section className="section shell search-case-section">
-        <div className="search-case-copy">
-          <p className="section-number">03 / Organic search</p>
-          <h2>200% more clicks from Google.</h2>
-          <p>After the new experience and search foundations were established, Scooter Shop recorded a 200% increase in organic clicks in Google Search Console.</p>
-          <p>The growth matters because it came from a site built to support the full dealership—not a short-lived advertising landing page. Every useful product, category and service journey creates another opportunity to be found.</p>
-          <div className="search-principles">
-            <span>Indexable stock</span><span>Useful categories</span><span>Fast pages</span><span>Clear internal paths</span>
+      <section className="case-mobile-story">
+        <div className="shell case-mobile-story-grid">
+          <div className="case-mobile-copy">
+            <p className="section-number">03 / Every screen</p>
+            <h2>The important journeys work wherever they begin.</h2>
+            <p>Inventory discovery, buying steps and clear next actions are preserved on smaller screens. Mobile is treated as the dealership’s front door, not a reduced desktop layout.</p>
           </div>
-        </div>
-        <div className="gsc-evidence-card">
-          <div className="gsc-evidence-head"><span>Google Search Console</span><span>Organic search performance</span></div>
-          <div className="gsc-evidence-body">
-            <small>CLICKS</small>
-            <strong>+200%</strong>
-            <p>Measured increase following the new site and SEO programme.</p>
-          </div>
-          <div className="gsc-screenshot-slot">
-            <span>Search Console evidence</span>
-            <p>Your supplied performance screenshot will sit here.</p>
+          <div className="case-mobile-stage">
+            <div className="case-mobile-phone">
+              <span />
+              <div className="case-phone-menu" aria-hidden="true"><i /><i /><i /></div>
+              <Image src="/case-studies/scooter-shop/inventory-mobile.png" alt="Responsive Scooter Shop inventory page showing the online buying steps" width={390} height={844} />
+            </div>
+            <div className="case-mobile-callout case-mobile-callout-one"><b>01</b><span>Clear buying path</span></div>
           </div>
         </div>
       </section>
 
-      <section className="section agent-ready-section">
-        <div className="shell agent-ready-grid">
-          <div>
-            <p className="section-number section-number-light">04 / Built for what comes next</p>
-            <h2>Fast for customers. Clear to search engines. Ready for browser agents.</h2>
+      <section className="case-operations-section">
+        <div className="shell">
+          <div className="case-operations-heading">
+            <div>
+              <p className="section-number section-number-light">04 / Behind the website</p>
+              <h2>The part customers<br />never have to see.</h2>
+            </div>
+            <p>The public website is only half the system. The management experience is organised around what dealership staff need to action next, so better customer service does not create more administration.</p>
           </div>
-          <div>
-            <p>Speed is part of the sales experience. Customers can move through a large catalogue without fighting the website, while search engines can efficiently discover and understand the content.</p>
-            <p>Scooter Shop also passes Google Chrome’s new Lighthouse agentic-browsing checks. These assess whether emerging AI browser agents can reliably understand and interact with a site through accessible, predictable and machine-readable signals.</p>
-            <p className="agent-note">This is separate from the traditional Lighthouse SEO score. It is a newer standard for the way AI agents interact directly with websites.</p>
+
+          <div className="case-ops-console">
+            <aside>
+              <strong>Dealer workspace</strong>
+              <span className="active">Today <b>8</b></span>
+              <span>Customers</span>
+              <span>Inventory</span>
+              <span>Orders</span>
+              <span>Service</span>
+            </aside>
+            <div className="case-ops-main">
+              <div className="case-ops-topline"><div><small>Thursday / 9:41 AM</small><h3>What needs attention.</h3></div><span>All systems connected <i /></span></div>
+              <div className="case-ops-list">
+                {operations.map((item) => (
+                  <article key={item.number}>
+                    <span>{item.number}</span>
+                    <div><h4>{item.title}</h4><p>{item.detail}</p></div>
+                    <b>Open →</b>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
+
+      <section className="section shell case-search-section">
+        <div className="case-search-number">
+          <small>Organic search performance</small>
+          <strong>+200%</strong>
+          <span>clicks from Google</span>
+        </div>
+        <div className="case-search-copy">
+          <p className="section-number">05 / Built to be found</p>
+          <h2>Growth was designed into the structure.</h2>
+          <p>Search intent informed the site from the beginning. Indexable stock, useful category pages, guides, strong internal paths and fast structured pages created more ways for customers to find the dealership—and a better experience after the click.</p>
+          <div className="case-search-points"><span>Indexable stock</span><span>Useful categories</span><span>Structured information</span><span>Continuous improvement</span></div>
         </div>
       </section>
 
       <section className="section shell case-result-section">
-        <p className="section-number">05 / The result</p>
+        <p className="section-number">06 / The result</p>
         <div className="case-result-grid">
-          <h2>A website that earns attention and helps operate the business behind it.</h2>
+          <h2>A website that earns attention and helps run the business behind it.</h2>
           <div>
-            <p>Scooter Shop now has a fast public experience across multiple departments, a stronger and growing organic presence, and a practical management system shaped around the dealership.</p>
-            <p>That same approach can transfer to automotive, marine, caravan, agricultural and equipment dealerships: understand the operation first, then build the customer experience and systems around it.</p>
+            <p>Scooter Shop now has one connected experience across multiple departments, stronger organic visibility and a practical operational layer built around the dealership.</p>
+            <p>The same approach transfers to automotive, marine, caravan, agricultural and equipment dealerships: understand the operation first, then build the customer experience around it.</p>
           </div>
         </div>
       </section>
@@ -139,7 +173,10 @@ export default function ScooterShopCaseStudy() {
         <p className="eyebrow eyebrow-light"><span />Your dealership</p>
         <h2>What could your website do beyond looking newer?</h2>
         <p>Send us the current site. We’ll look at the customer journey, search opportunity and operational work behind it.</p>
-        <Link className="button button-lime" href="/contact">Request a dealership review <span>↗</span></Link>
+        <div className="button-row">
+          <Link className="button button-lime" href="/contact">Talk about your dealership <span>→</span></Link>
+          <a className="case-cta-live-link" href="https://www.scootershop.com.au/" target="_blank" rel="noreferrer">Visit Scooter Shop ↗</a>
+        </div>
       </section>
     </main>
   );

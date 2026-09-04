@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { DealerSystemVisual } from "@/components/DealerSystemVisual";
+import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
 
 export const metadata: Metadata = {
   title: "Dealer Website Development",
@@ -20,20 +20,17 @@ const capabilities = [
 export default function WebsitesPage() {
   return (
     <main>
-      <section className="subpage-hero">
-        <div className="shell subpage-hero-grid">
-          <div>
-            <p className="eyebrow"><span />Dealer website development</p>
-            <h1>A dealer website should do more than list a phone number.</h1>
-            <p className="hero-lead">We build fast, custom websites for dealerships with stock to sell, departments to connect and customers who expect useful answers online.</p>
-            <div className="button-row">
-              <Link className="button button-primary" href="/contact">Discuss your website <span>↗</span></Link>
-              <a className="text-link" href="https://www.scootershop.com.au/" target="_blank" rel="noreferrer">See the live example <span>→</span></a>
-            </div>
-          </div>
-          <DealerSystemVisual />
-        </div>
-      </section>
+      <FlowHeroConcept
+        eyebrow="Dealer website development"
+        title="Websites built"
+        accentTitle="to do more."
+        lead="Custom dealership websites with useful inventory, clear customer journeys and the operational tools behind them."
+        primaryHref="/website-builder"
+        primaryLabel="Interactive demo"
+        secondaryHref="/work/scooter-shop"
+        secondaryLabel="See our work"
+        stages={["Discover", "Compare", "Enquire", "Convert"]}
+      />
 
       <section className="section shell intro-section">
         <div><p className="section-number">01 / The difference</p><h2>From brochure site to useful sales system.</h2></div>

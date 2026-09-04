@@ -84,7 +84,7 @@ function HomePreview({ brandName, selected, inventoryAddons, onPageChange, onVeh
 
       <section className={styles.baseDetails}>
         <div className={styles.aboutBlock}><small>About {brandName.trim() || "your dealership"}</small><h3>Good machines.<br />Better advice.</h3><p>We help riders find the right vehicle and keep it performing for the road ahead.</p><button>Meet the dealership →</button></div>
-        <div className={styles.brandsBlock}><small>Brands we work with</small><div><strong>HORIZON</strong><strong>NORTH / CO</strong><strong>AXIS</strong><strong>TRAILWORKS</strong></div></div>
+        <div className={styles.brandsBlock}><small>Brands we work with</small><div className={styles.brandGrid}><article><i className={styles.brandHorizon} /><span><strong>Horizon</strong><small>Road &amp; touring</small></span></article><article><i className={styles.brandNorth} /><span><strong>North / Co</strong><small>Urban mobility</small></span></article><article><i className={styles.brandAxis} /><span><strong>Axis</strong><small>Performance</small></span></article><article><i className={styles.brandTrailworks} /><span><strong>Trailworks</strong><small>Adventure</small></span></article></div></div>
       </section>
 
       <section className={styles.contactBand}><div><small>Have a question?</small><strong>Talk with someone who knows the stock.</strong></div><button onClick={() => onPageChange("contact")}>Contact the team →</button></section>

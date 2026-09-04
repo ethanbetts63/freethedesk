@@ -15,7 +15,7 @@ export function SiteFooter() {
         <div className="footer-links">
           <p className="footer-label">Explore</p>
           <Link href="/websites">Dealer websites</Link>
-          <Link href="/dealers">Online licensing</Link>
+          <Link href="/licensing">Online licensing</Link>
           <Link href="/automation">Automation</Link>
           <Link href="/work/scooter-shop">Scooter Shop case study</Link>
           <Link href="/contact">Contact</Link>

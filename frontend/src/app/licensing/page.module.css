@@ -1,0 +1,88 @@
+.page { background: #fff; color: #000; }
+.sectionLabel { color: #247ec9; font-size: .68rem; font-weight: 850; letter-spacing: .14em; margin: 0 0 24px; text-transform: uppercase; }
+.valueStrip { background: #13315c; color: #fff; }
+.valueGrid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.valueGrid > div { border-left: 1px solid rgba(255,255,255,.15); padding: 25px 28px; }
+.valueGrid > div:last-child { border-right: 1px solid rgba(255,255,255,.15); }
+.valueGrid strong, .valueGrid span { display: block; }
+.valueGrid strong { color: #70bced; font-size: .73rem; margin-bottom: 6px; text-transform: uppercase; }
+.valueGrid span { color: #c1d1df; font-size: .78rem; }
+.problem { display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: 1.05fr .95fr; padding-bottom: 125px; padding-top: 125px; }
+.problem h2, .comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2 { font-size: clamp(3rem, 5.2vw, 5.6rem); letter-spacing: -.07em; line-height: .94; margin: 0; }
+.problemCopy { align-self: end; max-width: 520px; }
+.problemCopy p { color: #536b80; font-size: 1rem; line-height: 1.78; margin: 0 0 20px; }
+.comparisonSection { background: #f2f7fb; padding: 105px 0; }
+.comparison { align-items: center; display: grid; gap: clamp(55px, 8vw, 110px); grid-template-columns: .7fr 1.3fr; }
+.comparisonCopy > p:last-child, .optionsHeading > p:last-child { color: #597188; font-size: .96rem; line-height: 1.7; max-width: 440px; }
+.paths { display: grid; gap: 14px; }
+.paths article { background: #fff; border: 1px solid #cfdeea; padding: 20px; }
+.paths header { align-items: center; display: flex; justify-content: space-between; margin-bottom: 17px; }
+.paths header span { font-size: .77rem; font-weight: 900; text-transform: uppercase; }
+.paths header b { color: #8094a6; font-size: .63rem; text-transform: uppercase; }
+.paths article > div { align-items: center; color: #637b8f; display: flex; flex-wrap: wrap; font-size: .69rem; font-weight: 750; gap: 8px; }
+.paths article i { background: #b8c9d6; height: 1px; width: 14px; }
+.paths article strong { color: #000; }
+.paths .onlinePath { border-color: #247ec9; box-shadow: inset 4px 0 0 #247ec9; }
+.onlinePath header span, .onlinePath header b { color: #247ec9; }
+.onlinePath i { background: #247ec9; }
+.journeySection, .outcomesSection { padding-bottom: 120px; padding-top: 120px; }
+.sectionHeading { max-width: 850px; }
+.journeyGrid { border-top: 1px solid #cedde8; display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 65px; }
+.journeyGrid article { border-left: 1px solid #cedde8; min-height: 310px; padding: 24px 27px; }
+.journeyGrid article:last-child { border-right: 1px solid #cedde8; }
+.journeyGrid article > span, .outcomeGrid article > span { color: #247ec9; font-size: .65rem; font-weight: 900; }
+.journeyGrid h3 { font-size: 1.25rem; margin: 98px 0 13px; }
+.journeyGrid p, .outcomeGrid p { color: #60778b; font-size: .82rem; line-height: 1.67; margin: 0; }
+.optionsSection { background: #13315c; color: #fff; padding: 115px 0; }
+.optionsLayout { align-items: start; display: grid; gap: clamp(55px, 8vw, 110px); grid-template-columns: .8fr 1.2fr; }
+.optionsHeading > p:last-child { color: #a8bfd2; }
+.optionCards { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+.optionCards article { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); display: flex; flex-direction: column; min-height: 520px; padding: 30px; }
+.optionCards article:last-child { background: #fff; color: #000; }
+.optionCards article > span { color: #70bced; font-size: .63rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.optionCards h3 { font-size: 1.55rem; letter-spacing: -.04em; margin: 65px 0 15px; }
+.optionCards p { color: #b9ccdc; font-size: .84rem; line-height: 1.7; }
+.optionCards article:last-child p { color: #60778b; }
+.optionCards ul { border-top: 1px solid rgba(255,255,255,.16); list-style: none; margin: 28px 0 25px; padding: 15px 0 0; }
+.optionCards article:last-child ul { border-top-color: #d4e1ea; }
+.optionCards li { font-size: .72rem; margin-top: 10px; padding-left: 16px; position: relative; }
+.optionCards li::before { color: #70bced; content: "↳"; left: 0; position: absolute; }
+.optionCards article > a { align-items: center; align-self: flex-start; border-bottom: 1px solid currentColor; color: #fff; display: inline-flex; font-size: .72rem; font-weight: 850; gap: 18px; margin-top: auto; padding-bottom: 6px; }
+.optionCards article:last-child > a { color: #247ec9; }
+.optionCards article > a b { font-weight: 850; }
+.outcomeGrid { display: grid; gap: 18px; grid-template-columns: repeat(3, 1fr); margin-top: 60px; }
+.outcomeGrid article { background: #f3f7fa; min-height: 255px; padding: 28px; }
+.outcomeGrid h3 { font-size: 1.28rem; letter-spacing: -.03em; margin: 65px 0 12px; }
+.closing { background: #f2f7fb; margin-bottom: 115px; padding-bottom: 80px; padding-top: 80px; text-align: center; }
+.closing > p:not(.sectionLabel) { color: #587086; font-size: .96rem; line-height: 1.7; margin: 27px auto 31px; max-width: 570px; }
+.closing > div { align-items: center; display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; }
+.closing a { align-items: center; display: inline-flex; font-size: .8rem; font-weight: 850; gap: 32px; }
+.closing a:first-child { background: #247ec9; color: #fff; padding: 16px 18px; }
+.closing a:last-child { border-bottom: 1px solid #000; gap: 13px; padding: 7px 0; }
+
+@media (max-width: 900px) {
+  .problem, .comparison, .optionsLayout { grid-template-columns: 1fr; }
+  .problemCopy { max-width: 650px; }
+  .journeyGrid { grid-template-columns: 1fr 1fr; }
+  .journeyGrid article:nth-child(2) { border-right: 1px solid #cedde8; }
+  .journeyGrid article:nth-child(n + 3) { border-top: 1px solid #cedde8; }
+}
+
+@media (max-width: 650px) {
+  .valueGrid { grid-template-columns: 1fr; padding-bottom: 10px; padding-top: 10px; }
+  .valueGrid > div { border-bottom: 1px solid rgba(255,255,255,.13); border-left: 0; padding: 18px 0; }
+  .valueGrid > div:last-child { border-bottom: 0; border-right: 0; }
+  .problem, .journeySection, .outcomesSection { padding-bottom: 82px; padding-top: 82px; }
+  .comparisonSection, .optionsSection { padding-bottom: 78px; padding-top: 78px; }
+  .problem h2, .comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2 { font-size: clamp(2.75rem, 13vw, 4rem); }
+  .paths article > div { align-items: flex-start; flex-direction: column; }
+  .paths article i { height: 11px; margin-left: 4px; width: 1px; }
+  .journeyGrid, .optionCards, .outcomeGrid { grid-template-columns: 1fr; }
+  .journeyGrid article { border-bottom: 1px solid #cedde8; border-right: 1px solid #cedde8; min-height: auto; }
+  .journeyGrid h3 { margin-top: 38px; }
+  .optionCards article { min-height: auto; padding: 26px; }
+  .optionCards h3 { margin-top: 42px; }
+  .outcomeGrid article { min-height: 220px; }
+  .closing { margin-bottom: 78px; padding: 65px 22px; }
+  .closing > div { align-items: center; flex-direction: column; }
+}
