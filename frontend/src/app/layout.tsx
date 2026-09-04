@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 
 import { SiteChrome } from "@/components/SiteChrome";
 import { AuthProvider } from "@/context/AuthContext";
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <AuthProvider>
           <SiteChrome>{children}</SiteChrome>
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );
