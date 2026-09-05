@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { ProofStrip } from "@/components/ProofStrip";
+
 import { ScooterShopTour } from "./ScooterShopTour";
 
 export const metadata: Metadata = {
@@ -84,13 +86,14 @@ export default function ScooterShopCaseStudy() {
         </div>
       </section>
 
-      <section className="case-proof-strip" id="results">
-        <div className="shell case-proof-strip-grid">
-          <article><strong>+200%</strong><div><h2>Organic clicks</h2><p>Recorded in Google Search Console after launch.</p></div></article>
-          <article><strong>08</strong><div><h2>Connected capabilities</h2><p>From first search to service after the sale.</p></div></article>
-          <article><strong>01</strong><div><h2>Dealership system</h2><p>Customer journeys and daily operations designed together.</p></div></article>
-        </div>
-      </section>
+      <ProofStrip
+        id="results"
+        stats={[
+          { value: "+200%", label: "Organic clicks", description: "Recorded in Google Search Console after launch." },
+          { value: "08", label: "Connected capabilities", description: "From first search to service after the sale." },
+          { value: "01", label: "Dealership system", description: "Customer journeys and daily operations designed together." },
+        ]}
+      />
 
       <section className="section shell case-story-intro">
         <p className="section-number">01 / The brief</p>

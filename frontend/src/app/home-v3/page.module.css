@@ -20,6 +20,7 @@
 .signal b { color: #247ec9; margin-left: 12px; }
 .signalDot { animation: blink 2s ease-in-out infinite; background: #247ec9; border-radius: 50%; height: 6px; width: 6px; }
 .hint { bottom: 44px; color: #7c93aa; font-size: .59rem; left: 50%; letter-spacing: .11em; margin: 0; position: absolute; text-transform: uppercase; transform: translateX(-50%); }
+.trustLine { color: #7c93aa; font-size: .68rem; font-weight: 700; letter-spacing: .09em; margin: 30px 0 0; text-transform: uppercase; }
 @keyframes blink { 50% { box-shadow: 0 0 0 6px rgba(36,126,201,.14); } }
 @media (max-width: 760px) {
   .hero { min-height: calc(100svh - 68px); }
@@ -47,6 +48,7 @@
 .flowActions a:first-child { background: #247ec9; color: #fff; padding: 16px 19px; transition: background .2s, transform .2s; }
 .flowActions a:first-child:hover { background: #000; transform: translateY(-2px); }
 .flowActions a:last-child { border-bottom: 1px solid #000; gap: 14px; padding: 6px 0; }
+.flowTrust { color: #7c93aa; font-size: .68rem; font-weight: 700; letter-spacing: .09em; margin: 30px 0 0; text-transform: uppercase; }
 .readout { align-self: end; backdrop-filter: blur(10px); background: rgba(255,255,255,.72); border-left: 1px solid rgba(40,127,194,.18); padding-left: 18px; }
 .readout div { align-items: center; display: grid; grid-template-columns: 25px 1fr; padding: 8px 0; }
 .readout span { color: #247ec9; font-size: .5rem; font-weight: 900; }

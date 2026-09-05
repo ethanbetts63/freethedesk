@@ -13,6 +13,7 @@ type FlowHeroConceptProps = {
   secondaryHref?: string;
   secondaryLabel?: string;
   stages?: string[];
+  trustLine?: string;
 };
 
 /** Alternate signal-flow hero, kept separate from the home hero for product pages. */
@@ -26,6 +27,7 @@ export function FlowHeroConcept({
   secondaryHref = "/work/scooter-shop",
   secondaryLabel = "See it in action",
   stages = ["Customer", "System", "Team", "Done"],
+  trustLine = "Perth-based · working with businesses across Australia",
 }: FlowHeroConceptProps) {
   return (
     <section className={styles.flowHero}>
@@ -41,6 +43,7 @@ export function FlowHeroConcept({
             <Link href={primaryHref}>{primaryLabel} <span>↗</span></Link>
             <Link href={secondaryHref}>{secondaryLabel} <span>→</span></Link>
           </div>
+          {trustLine ? <p className={styles.flowTrust}>{trustLine}</p> : null}
         </div>
         <div className={styles.readout} aria-hidden="true">
           {stages.map((stage, index) => <div key={stage}><span>0{index + 1}</span><p>{stage}</p></div>)}

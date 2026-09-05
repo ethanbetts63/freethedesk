@@ -3,7 +3,14 @@ import Link from "next/link";
 
 import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
 import { ContactEnquiry } from "../contact/ContactEnquiry";
+import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import styles from "./page.module.css";
+
+const websiteDevStats: [ProofStat, ProofStat, ProofStat] = [
+  { value: "50%", label: "Won't consider you", description: "Of consumers who won't consider a business with no website, per industry research." },
+  { value: "4", label: "Stages, every project", description: "Understand, design, build, improve—the same process each time." },
+  { value: "01", label: "Team, start to finish", description: "The people who scope it design, build and support it too." },
+];
 
 export const metadata: Metadata = {
   title: "Website Development Perth | Custom Websites & Web Apps",
@@ -56,6 +63,8 @@ export default function WebsiteDevelopmentPerthPage() {
         secondaryLabel="See what we build"
         stages={["Understand", "Design", "Build", "Improve"]}
       />
+
+      <ProofStrip stats={websiteDevStats} />
 
       <section className={`shell ${styles.enquirySection}`} id="enquiry">
         <ContactEnquiry />

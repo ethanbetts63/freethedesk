@@ -2,8 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
+import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { SignupPlans } from "./SignupPlans";
 import styles from "./page.module.css";
+
+const licensingStats: [ProofStat, ProofStat, ProofStat] = [
+  { value: "72%", label: "Want it online", description: "Of car buyers say they'd rather complete paperwork online, per Cox Automotive research." },
+  { value: "45 min", label: "Saved per customer", description: "Average time saved at the dealership when paperwork starts online." },
+  { value: "03", label: "Plans to fit your team", description: "Licensing, contracts, or both—priced by what you actually need." },
+];
 
 export const metadata: Metadata = {
   title: "Online Vehicle Licensing",
@@ -37,6 +44,8 @@ export default function LicensingPage() {
         secondaryLabel="Talk to us"
         stages={["Choose", "Sign", "Pay", "Delivery / pickup"]}
       />
+
+      <ProofStrip stats={licensingStats} />
 
       <SignupPlans />
 

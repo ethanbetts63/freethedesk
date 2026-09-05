@@ -2,26 +2,25 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
+import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
+import { ServiceScroll } from "./ServiceScroll";
 
 export const metadata: Metadata = {
-  title: "Dealership Automation",
-  description: "Practical workflow automation and custom integrations for Australian dealerships and equipment businesses.",
+  title: "Business Automation",
+  description: "Practical workflow automation and custom integrations for Australian small and medium businesses.",
 };
 
-const workflows = [
-  ["Lead handling", "Capture the product and customer context, route it to the right person and make sure the next action is visible."],
-  ["Parts workflows", "Move requests from customer to parts desk, supplier and quote without losing the details in an inbox thread."],
-  ["Service and bookings", "Collect better booking details, send reminders and keep customers informed at the useful moments."],
-  ["Documents and data", "Generate, classify, extract or transfer information where people are currently copying and pasting."],
-  ["Reporting", "Bring live operational information together so the owner sees the decision, not another spreadsheet job."],
-  ["Custom integrations", "Connect systems through their APIs when an off-the-shelf connector is missing or too limited."],
+const automationStats: [ProofStat, ProofStat, ProofStat] = [
+  { value: "36%", label: "Of the work week", description: "Time small business owners lose to manual admin tasks, per Xero research." },
+  { value: "0", label: "Times re-keyed", description: "Information entered once, reused everywhere it's needed." },
+  { value: "03", label: "Steps to launch", description: "Map it, prove it, run it—a focused workflow, not a platform overhaul." },
 ];
 
 export default function AutomationPage() {
   return (
-    <main>
+    <main className="automation-page">
       <FlowHeroConcept
-        eyebrow="Dealership automation"
+        eyebrow="Business automation"
         title="Less repetition."
         accentTitle="More progress."
         lead="We connect the systems you already use and build the missing pieces, so information moves while your team stays focused on customers."
@@ -32,19 +31,29 @@ export default function AutomationPage() {
         stages={["Capture", "Connect", "Action", "Done"]}
       />
 
-      <section className="section shell intro-section">
-        <div><p className="section-number">01 / Practical automation</p><h2>Start with the friction already costing time.</h2></div>
-        <p className="section-intro">The strongest first project is usually one repeated workflow with a clear owner, clear inputs and an obvious measure of success. It does not need “AI” in every step.</p>
+      <ProofStrip stats={automationStats} />
+
+      <section className="shell automation-intro">
+        <p className="section-number">01 / Practical automation</p>
+        <div className="automation-intro-row">
+          <h2>Start with the friction already costing time.</h2>
+          <div className="automation-intro-shapes" aria-hidden="true">
+            <i style={{ background: "var(--blue-500)" }} />
+            <i style={{ background: "var(--blue-700)" }} />
+            <i style={{ background: "var(--blue-900)" }} />
+            <i style={{ background: "var(--accent-strong)" }} />
+          </div>
+        </div>
       </section>
 
-      <section className="shell capability-grid automation-capability-grid" id="workflows">
-        {workflows.map(([title, body], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}
+      <section className="shell" id="workflows">
+        <ServiceScroll />
       </section>
 
       <section className="section lime-band">
         <div className="shell split-content split-content-dark">
           <div><p className="section-number">02 / Our approach</p><h2>Improve what works. Replace only what does not.</h2></div>
-          <div><p>Most dealerships already have useful accounting, CRM, inventory or job-management software. We begin with those systems and add the workflow, interface or integration that is missing.</p><ul className="check-list check-list-dark"><li>Process mapped before tools are chosen</li><li>Error handling and monitoring included</li><li>Human approval at consequential steps</li><li>Documented handover and clear ownership</li></ul></div>
+          <div><p>Most businesses already have useful accounting, CRM, inventory or job-management software. We begin with those systems and add the workflow, interface or integration that is missing.</p><ul className="check-list check-list-dark"><li>Process mapped before tools are chosen</li><li>Error handling and monitoring included</li><li>Human approval at consequential steps</li><li>Documented handover and clear ownership</li></ul></div>
         </div>
       </section>
 
