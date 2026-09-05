@@ -56,6 +56,7 @@ class SubscriptionCheckoutTests(TestCase):
         self.assertEqual(price_data["currency"], "aud")
         self.assertEqual(price_data["tax_behavior"], "inclusive")
         self.assertEqual(price_data["recurring"], {"interval": "month"})
+        self.assertEqual(create_kwargs["customer_update"], {"address": "auto"})
         acceptance = DealerSubscriptionTermsAcceptance.objects.get()
         self.assertEqual(acceptance.monthly_price, Decimal("219.50"))
         self.assertEqual(str(acceptance.accepted_ip), "198.51.100.24")

@@ -22,7 +22,10 @@ class DealerSubscriptionTermsAcceptance(models.Model):
         ordering = ["-accepted_at"]
         constraints = [
             models.UniqueConstraint(
-                fields=["dealer", "plan", "monthly_price", "currency", "terms_sha256"],
+                fields=[
+                    "dealer", "plan", "monthly_price", "currency",
+                    "terms_version", "terms_sha256",
+                ],
                 name="unique_dealer_subscription_offer_acceptance",
             )
         ]

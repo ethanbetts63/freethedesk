@@ -65,11 +65,11 @@ def accept_current_offer(*, dealer, user, accepted_ip):
         plan=dealer.plan,
         monthly_price=quote.monthly_price,
         currency=quote.currency.upper(),
+        terms_version=settings.DEALER_TERMS_VERSION,
         terms_sha256=terms_hash,
         defaults={
             "accepted_by": user,
             "accepted_ip": accepted_ip,
-            "terms_version": settings.DEALER_TERMS_VERSION,
         },
     )
     return acceptance, quote
@@ -150,6 +150,7 @@ def create_or_reuse_checkout_session(dealer, acceptance, quote):
             "quantity": 1,
         }],
         billing_address_collection="required",
+        customer_update={"address": "auto"},
         automatic_tax={"enabled": True},
         return_url=return_url,
         client_reference_id=str(dealer.pk),

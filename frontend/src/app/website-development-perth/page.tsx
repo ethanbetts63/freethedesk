@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
-import { ContactForm } from "../contact/ContactForm";
+import { ContactEnquiry } from "../contact/ContactEnquiry";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -58,13 +58,7 @@ export default function WebsiteDevelopmentPerthPage() {
       />
 
       <section className={`shell ${styles.enquirySection}`} id="enquiry">
-        <div className={styles.enquiryWrap}>
-          <div className="contact-form-wrap">
-            <h2>Tell us about the business.</h2>
-            <p>No polished brief needed. Start with the problem.</p>
-            <ContactForm />
-          </div>
-        </div>
+        <ContactEnquiry />
       </section>
 
       <section className={`shell ${styles.intro}`}>

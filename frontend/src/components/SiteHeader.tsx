@@ -13,16 +13,17 @@ export function SiteHeader({ minimal = false }: { minimal?: boolean }) {
             className="nav-logo-image"
             src="/logo-192x192.png"
             alt=""
-            width={52}
-            height={52}
+            width={40}
+            height={40}
             priority
           />
+          <span className="nav-logo-text">free<span>the</span>desk<span className="wordmark-dot">.</span></span>
         </Link>
         {!minimal && <>
           <nav className="desktop-nav" aria-label="Primary navigation">
             <DesktopNavMenu label="Websites" items={WEBSITE_NAVIGATION} />
             {PRIMARY_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
-            <Link className="nav-cta" href="/dealership-website-builder">Interactive demo</Link>
+            <Link className="nav-cta" href="/dealership-website-builder">Try dealer demo</Link>
           </nav>
           <details className="mobile-nav">
             <summary aria-label="Open navigation menu"><i /><i /><i /></summary>
@@ -30,7 +31,7 @@ export function SiteHeader({ minimal = false }: { minimal?: boolean }) {
               <p className="mobile-nav-label">Websites</p>
               {WEBSITE_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}<span>→</span></Link>)}
               {PRIMARY_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}<span>→</span></Link>)}
-              <Link className="mobile-nav-cta" href="/dealership-website-builder">Interactive demo<span>↗</span></Link>
+              <Link className="mobile-nav-cta" href="/dealership-website-builder">Try dealer demo<span>↗</span></Link>
             </nav>
           </details>
         </>}

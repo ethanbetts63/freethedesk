@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
   skipTrailingSlashRedirect: true,
   async redirects() {
     return [
-      { source: "/websites", destination: "/dealer-websites", permanent: true },
+      { source: "/websites", destination: "/", permanent: true },
+      { source: "/dealer-websites", destination: "/", permanent: true },
       { source: "/website-builder", destination: "/dealership-website-builder", permanent: true },
       { source: "/dealers", destination: "/licensing", permanent: true },
       { source: "/dealers/signup", destination: "/licensing#signup", permanent: true },

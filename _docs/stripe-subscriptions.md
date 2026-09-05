@@ -11,7 +11,8 @@ future subscriptions.
 
 Enable Stripe Tax and configure the appropriate default product tax code in the
 Stripe account. Checkout collects the dealership billing address, calculates
-the included tax, and does not add GST above the displayed total.
+the included tax, saves that address to the Stripe Customer for renewals, and
+does not add GST above the displayed total.
 
 Set `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` in Django's environment. In
 `frontend/.env.local`, set the publishable key from the same Stripe account as

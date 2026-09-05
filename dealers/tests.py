@@ -3,6 +3,7 @@ from django.core.cache import cache
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.urls import reverse
+from rest_framework.test import APIClient
 
 from core.models import Notification
 
@@ -197,11 +198,14 @@ class DealerPortalTests(TestCase):
         self.dealer.payment_status = Dealer.PaymentStatus.ACTIVE
         self.dealer.save()
         self.client.force_login(self.user)
-        response = self.client.patch(
+        api_client = APIClient()
+        api_client.force_authenticate(user=self.user)
+        response = api_client.patch(
             reverse("dealer-onboarding"),
             {"dealer_licence_document": SimpleUploadedFile(
                 "licence.png", b"<script>not an image</script>", content_type="image/png"
             )},
+            format="multipart",
         )
         self.assertEqual(response.status_code, 400)
         self.assertIn("dealer_licence_document", response.json())

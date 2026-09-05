@@ -1,7 +1,6 @@
 .page { background: #fff; color: #07121c; }
 .label { color: #247ec9; font-size: .68rem; font-weight: 900; letter-spacing: .14em; margin: 0 0 23px; text-transform: uppercase; }
 .enquirySection { padding-bottom: 20px; padding-top: 70px; }
-.enquiryWrap { margin: 0 auto; max-width: 640px; }
 .intro { display: grid; gap: clamp(60px, 9vw, 135px); grid-template-columns: 1fr .9fr; padding-bottom: 125px; padding-top: 125px; }
 .intro h2, .sectionHeading h2, .systemCopy h2, .proofSection h2, .faqLayout h2, .closing h2 { font-size: clamp(3rem, 5.3vw, 5.7rem); letter-spacing: -.072em; line-height: .93; margin: 0; }
 .intro > div:last-child { align-self: end; max-width: 520px; }
