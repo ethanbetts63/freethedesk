@@ -1,12 +1,47 @@
 .page { background: #fff; color: #000; }
 .sectionLabel { color: #247ec9; font-size: .68rem; font-weight: 850; letter-spacing: .14em; margin: 0 0 24px; text-transform: uppercase; }
-.valueStrip { background: #13315c; color: #fff; }
-.valueGrid { display: grid; grid-template-columns: repeat(3, 1fr); }
-.valueGrid > div { border-left: 1px solid rgba(255,255,255,.15); padding: 25px 28px; }
-.valueGrid > div:last-child { border-right: 1px solid rgba(255,255,255,.15); }
-.valueGrid strong, .valueGrid span { display: block; }
-.valueGrid strong { color: #70bced; font-size: .73rem; margin-bottom: 6px; text-transform: uppercase; }
-.valueGrid span { color: #c1d1df; font-size: .78rem; }
+.signupSection { background: #fff; padding: 112px 0 122px; }
+.signupHeading { align-items: end; display: grid; gap: 50px; grid-template-columns: 1.1fr .9fr; margin-bottom: 58px; }
+.signupHeading h2 { font-size: clamp(3rem, 5.2vw, 5.6rem); letter-spacing: -.07em; line-height: .94; margin: 0; }
+.signupHeading > p { color: #536b80; font-size: 1.02rem; line-height: 1.72; margin: 0; max-width: 490px; }
+.planGrid { display: grid; gap: 10px; grid-template-columns: repeat(4, 1fr); }
+.planCard { appearance: none; background: #f5f8fa; border: 1px solid #d7e2e9; color: #000; cursor: pointer; display: flex; flex-direction: column; font: inherit; min-height: 292px; padding: 23px; position: relative; text-align: left; transition: border-color .2s ease, transform .2s ease, background .2s ease; }
+.planCard:hover { border-color: #247ec9; transform: translateY(-3px); }
+.planCard:focus-visible { outline: 3px solid rgba(36, 126, 201, .25); outline-offset: 3px; }
+.planCard.planSelected { background: #fff; border-color: #247ec9; box-shadow: inset 0 4px 0 #247ec9; }
+.planTopline { color: #247ec9; font-size: .63rem; font-weight: 900; letter-spacing: .12em; min-height: 34px; text-transform: uppercase; }
+.planCard > strong { font-size: 1.18rem; letter-spacing: -.03em; }
+.planPrice { font-size: 2.15rem; font-weight: 850; letter-spacing: -.06em; margin: 24px 0 15px; white-space: nowrap; }
+.planPrice small { color: #60778b; font-size: .62rem; font-weight: 650; letter-spacing: 0; }
+.planCard p { color: #5a7185; font-size: .8rem; line-height: 1.58; margin: 0; }
+.planCard i { align-items: center; background: #247ec9; border: 1px solid #b7cbd9; border-radius: 50%; bottom: 20px; color: #fff; display: flex; font-size: .7rem; font-style: normal; height: 23px; justify-content: center; position: absolute; right: 20px; width: 23px; }
+.planCard:not(.planSelected) i { background: #fff; }
+.signupPanel { background: #13315c; display: grid; grid-template-columns: .78fr 1.22fr; margin-top: 18px; min-height: 560px; }
+.selectedSummary { color: #fff; display: flex; flex-direction: column; padding: clamp(34px, 4.5vw, 64px); }
+.selectedSummary > span, .formTitle > span { color: #70bced; font-size: .66rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+.selectedSummary h3 { font-size: clamp(2rem, 3vw, 3.25rem); letter-spacing: -.055em; line-height: 1; margin: 72px 0 18px; }
+.selectedSummary > p { color: #b9ccdc; font-size: .91rem; line-height: 1.68; margin: 0; max-width: 380px; }
+.selectedSummary ul { border-top: 1px solid rgba(255,255,255,.18); list-style: none; margin: 34px 0; padding: 19px 0 0; }
+.selectedSummary li { font-size: .78rem; margin: 11px 0; padding-left: 18px; position: relative; }
+.selectedSummary li::before { color: #70bced; content: "↳"; left: 0; position: absolute; }
+.selectedSummary > div { align-items: baseline; display: flex; gap: 11px; margin-top: auto; }
+.selectedSummary > div strong { font-size: 2.5rem; letter-spacing: -.06em; }
+.selectedSummary > div span { color: #b9ccdc; font-size: .72rem; }
+.signupForm { background: #f3f7fa; display: flex; flex-direction: column; padding: clamp(34px, 5vw, 72px); }
+.formTitle { margin-bottom: 35px; }
+.formTitle h3 { font-size: clamp(1.8rem, 2.8vw, 2.7rem); letter-spacing: -.05em; margin: 10px 0 0; }
+.fieldRow { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+.signupForm label { color: #2b4051; display: block; font-size: .69rem; font-weight: 850; margin-bottom: 16px; }
+.signupForm label > span { display: block; margin-bottom: 8px; }
+.signupForm input, .signupForm select { background: #fff; border: 1px solid #cbd9e2; border-radius: 0; color: #000; font: inherit; font-size: .9rem; min-height: 50px; outline: none; padding: 0 14px; width: 100%; }
+.signupForm input:focus, .signupForm select:focus { border-color: #247ec9; box-shadow: 0 0 0 3px rgba(36,126,201,.12); }
+.signupForm label small { color: #70869a; display: block; font-size: .66rem; font-weight: 550; margin-top: 7px; }
+.honeypot { left: -10000px !important; position: absolute !important; }
+.signupSubmit { align-items: center; background: #247ec9; border: 0; color: #fff; cursor: pointer; display: flex; font: inherit; font-size: .78rem; font-weight: 900; justify-content: space-between; margin-top: 8px; min-height: 58px; padding: 0 20px; text-align: left; }
+.signupSubmit:disabled { cursor: wait; opacity: .65; }
+.signupSubmit span { font-size: 1.1rem; }
+.secureNote { color: #718698; font-size: .68rem; margin: 12px 0 0; text-align: center; }
+.signupError { background: #fff0f0; border-left: 3px solid #b52c2c; color: #842222; font-size: .75rem; line-height: 1.5; margin: 0 0 12px; padding: 11px 13px; }
 .problem { display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: 1.05fr .95fr; padding-bottom: 125px; padding-top: 125px; }
 .problem h2, .comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2 { font-size: clamp(3rem, 5.2vw, 5.6rem); letter-spacing: -.07em; line-height: .94; margin: 0; }
 .problemCopy { align-self: end; max-width: 520px; }
@@ -61,7 +96,10 @@
 .closing a:last-child { border-bottom: 1px solid #000; gap: 13px; padding: 7px 0; }
 
 @media (max-width: 900px) {
-  .problem, .comparison, .optionsLayout { grid-template-columns: 1fr; }
+  .problem, .comparison, .optionsLayout, .signupHeading { grid-template-columns: 1fr; }
+  .planGrid { grid-template-columns: 1fr 1fr; }
+  .signupPanel { grid-template-columns: 1fr; }
+  .selectedSummary { min-height: 480px; }
   .problemCopy { max-width: 650px; }
   .journeyGrid { grid-template-columns: 1fr 1fr; }
   .journeyGrid article:nth-child(2) { border-right: 1px solid #cedde8; }
@@ -69,15 +107,15 @@
 }
 
 @media (max-width: 650px) {
-  .valueGrid { grid-template-columns: 1fr; padding-bottom: 10px; padding-top: 10px; }
-  .valueGrid > div { border-bottom: 1px solid rgba(255,255,255,.13); border-left: 0; padding: 18px 0; }
-  .valueGrid > div:last-child { border-bottom: 0; border-right: 0; }
-  .problem, .journeySection, .outcomesSection { padding-bottom: 82px; padding-top: 82px; }
+  .problem, .journeySection, .outcomesSection, .signupSection { padding-bottom: 82px; padding-top: 82px; }
   .comparisonSection, .optionsSection { padding-bottom: 78px; padding-top: 78px; }
   .problem h2, .comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2 { font-size: clamp(2.75rem, 13vw, 4rem); }
   .paths article > div { align-items: flex-start; flex-direction: column; }
   .paths article i { height: 11px; margin-left: 4px; width: 1px; }
   .journeyGrid, .optionCards, .outcomeGrid { grid-template-columns: 1fr; }
+  .planGrid, .fieldRow { grid-template-columns: 1fr; }
+  .planCard { min-height: 250px; }
+  .selectedSummary { min-height: 430px; }
   .journeyGrid article { border-bottom: 1px solid #cedde8; border-right: 1px solid #cedde8; min-height: auto; }
   .journeyGrid h3 { margin-top: 38px; }
   .optionCards article { min-height: auto; padding: 26px; }

@@ -45,6 +45,10 @@ export default function EnquiryDetailPage() {
   if (error && !enquiry) return <div className="admin-page"><Link className="admin-back" href="/dashboard/enquiries">← Enquiries</Link><p className="admin-banner admin-banner-error">{error}</p></div>;
   if (!enquiry) return null;
 
+  const configuration = enquiry.configuration ?? {};
+  const chosenCapabilities = configuration.capabilities?.filter((item) => item.selected) ?? [];
+  const chosenInventoryOptions = configuration.inventory_options?.filter((item) => item.selected) ?? [];
+
   return (
     <div className="admin-page">
       <Link className="admin-back" href="/dashboard/enquiries">← Back to enquiries</Link>
@@ -68,6 +72,23 @@ export default function EnquiryDetailPage() {
             <div><dt>Website</dt><dd>{enquiry.website ? <a href={enquiry.website} target="_blank" rel="noreferrer">{enquiry.website} ↗</a> : "Not supplied"}</dd></div><div><dt>Interested in</dt><dd>{enquiry.help_with_label}</dd></div>
           </dl>
         </section>
+        {enquiry.help_with === "website_builder" && (
+          <section className="admin-detail-card admin-detail-wide">
+            <div className="admin-card-heading"><h2>Website configuration</h2><span className="admin-config-label">Interactive builder</span></div>
+            <dl className="admin-detail-list admin-config-basics">
+              <div><dt>Brand name</dt><dd>{configuration.appearance?.brand_name || enquiry.business}</dd></div>
+              <div><dt>Current URL</dt><dd>{configuration.appearance?.current_url || "Not supplied"}</dd></div>
+              <div><dt>Accent</dt><dd className="admin-config-accent">{configuration.appearance?.accent_hex && <i style={{ background: configuration.appearance.accent_hex }} />}{configuration.appearance?.accent || "Not supplied"}</dd></div>
+              <div><dt>Build version</dt><dd>{configuration.version ?? "—"}</dd></div>
+            </dl>
+            <div className="admin-config-group">
+              <strong>Selected capabilities</strong>
+              <div>{chosenCapabilities.length ? chosenCapabilities.map((item) => <span key={item.key}>{item.name}</span>) : <em>Base website only</em>}</div>
+            </div>
+            {chosenInventoryOptions.length > 0 && <div className="admin-config-group"><strong>Inventory options</strong><div>{chosenInventoryOptions.map((item) => <span key={item.key}>{item.name}</span>)}</div></div>}
+            {configuration.custom_capability && <div className="admin-config-request"><strong>Custom capability</strong><p>{configuration.custom_capability}</p></div>}
+          </section>
+        )}
         <section className="admin-detail-card admin-detail-wide"><h2>What they said</h2><p className="admin-message-body">{enquiry.message}</p></section>
         <section className="admin-detail-card admin-detail-wide">
           <div className="admin-card-heading"><h2>Related messages</h2><Link href={replyHref}>Compose reply</Link></div>

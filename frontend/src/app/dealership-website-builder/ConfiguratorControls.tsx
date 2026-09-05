@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 import { CapabilityIcon } from "./CapabilityIcon";
 import { ACCENTS, INVENTORY_OPTIONS, MODULES } from "./configuratorData";
@@ -25,6 +24,11 @@ type ConfiguratorControlsProps = {
 
 export function ConfiguratorControls(props: ConfiguratorControlsProps) {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactPhone, setContactPhone] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const [submissionStatus, setSubmissionStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const { accent, brandName, currentUrl, customRequest, selected, inventoryAddons, onAccentChange, onBrandNameChange, onCurrentUrlChange, onCustomRequestChange, onModuleToggle, onInventoryAddonToggle } = props;
   const selectedModules = MODULES.filter((module) => selected[module.key]);
   const selectedInventoryAddons = selected.inventory ? INVENTORY_OPTIONS.filter((option) => inventoryAddons[option.key]) : [];
@@ -32,6 +36,59 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
   const additionCount = selectedModules.length + selectedInventoryAddons.length + Number(hasCustomRequest);
   const summaryItems = [...selectedModules.map((item) => item.name), ...selectedInventoryAddons.map((item) => item.name), ...(hasCustomRequest ? ["Custom capability"] : [])];
   const toggleExpanded = (key: string) => setExpanded((current) => ({ ...current, [key]: !current[key] }));
+
+  async function submitConfiguration(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSubmissionStatus("submitting");
+
+    const suppliedUrl = currentUrl.trim();
+    const website = suppliedUrl && !/^https?:\/\//i.test(suppliedUrl) ? `https://${suppliedUrl}` : suppliedUrl;
+    const configuration = {
+      version: 1,
+      appearance: {
+        brand_name: brandName.trim(),
+        current_url: suppliedUrl,
+        accent,
+        accent_hex: ACCENTS[accent],
+      },
+      capabilities: MODULES.map((module) => ({
+        key: module.key,
+        name: module.name,
+        selected: selected[module.key],
+      })),
+      inventory_options: INVENTORY_OPTIONS.map((option) => ({
+        key: option.key,
+        name: option.name,
+        selected: selected.inventory && inventoryAddons[option.key],
+      })),
+      custom_capability: customRequest.trim(),
+    };
+    const message = hasCustomRequest
+      ? `Website builder configuration. Custom request: ${customRequest.trim()}`
+      : "Interactive dealership website configuration submitted.";
+
+    try {
+      const response = await fetch("/api/enquiries/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: contactName.trim(),
+          business: brandName.trim() || "Dealership website enquiry",
+          email: contactEmail.trim(),
+          phone: contactPhone.trim(),
+          website,
+          help_with: "website_builder",
+          message,
+          configuration,
+          company_website: honeypot,
+        }),
+      });
+      if (!response.ok) throw new Error("Unable to submit configuration");
+      setSubmissionStatus("success");
+    } catch {
+      setSubmissionStatus("error");
+    }
+  }
 
   return (
     <aside className={styles.controls} aria-label="Website configuration options">
@@ -46,7 +103,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
         <label htmlFor="brand-name">Brand name</label>
         <input id="brand-name" className={styles.brandInput} value={brandName} onChange={(event) => onBrandNameChange(event.target.value)} maxLength={28} placeholder="Your dealership" />
         <label htmlFor="current-url">Current website <span className={styles.optionalLabel}>Optional</span></label>
-        <input id="current-url" className={styles.brandInput} type="text" inputMode="url" value={currentUrl} onChange={(event) => onCurrentUrlChange(event.target.value)} placeholder="www.scootershop.com.au" />
+        <input id="current-url" className={styles.brandInput} type="text" inputMode="url" value={currentUrl} onChange={(event) => onCurrentUrlChange(event.target.value)} placeholder="www.example.com.au" />
         <small className={styles.fieldNote}>Helps us understand your current content and setup.</small>
         <label>Brand accent</label>
         <div className={styles.swatches}>
@@ -102,11 +159,30 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
         </div>
       </section>
 
-      <section className={styles.summary}>
-        <div><span>Your configuration</span><strong>{additionCount === 0 ? "Base website" : `Base + ${additionCount}`}</strong></div>
-        {summaryItems.length > 0 && <p>{summaryItems.join(" · ")}</p>}
-        <Link href="/contact">Get a tailored proposal <span>→</span></Link>
-        <small>No payment today. We’ll confirm integrations, scope and timing with you first.</small>
+      <section className={styles.detailsSection}>
+        <div className={styles.groupTitle}><span>03</span><div><strong>Your details</strong><small>Send this configuration to our team.</small></div></div>
+        <form className={styles.detailsForm} onSubmit={submitConfiguration}>
+          <label className={styles.honeypot} aria-hidden="true">
+            <span>Company website confirmation</span>
+            <input value={honeypot} onChange={(event) => setHoneypot(event.target.value)} tabIndex={-1} autoComplete="off" />
+          </label>
+          <label><span>Name</span><input value={contactName} onChange={(event) => { setContactName(event.target.value); setSubmissionStatus("idle"); }} autoComplete="name" required /></label>
+          <label><span>Email</span><input value={contactEmail} onChange={(event) => { setContactEmail(event.target.value); setSubmissionStatus("idle"); }} type="email" autoComplete="email" required /></label>
+          <label><span>Phone number</span><input value={contactPhone} onChange={(event) => { setContactPhone(event.target.value); setSubmissionStatus("idle"); }} type="tel" autoComplete="tel" required /></label>
+          <div className={styles.configurationReview}>
+            <div><span>Your configuration</span><strong>{additionCount === 0 ? "Base website" : `Base + ${additionCount}`}</strong></div>
+            {summaryItems.length > 0 && <p>{summaryItems.join(" · ")}</p>}
+          </div>
+          <button className={styles.detailsSubmit} type="submit" disabled={submissionStatus === "submitting"}>
+            {submissionStatus === "submitting" ? "Sending…" : submissionStatus === "success" ? "Send updated configuration" : "Send my configuration"}
+            <span aria-hidden="true">→</span>
+          </button>
+          <small className={styles.submissionNote}>No payment today. We’ll confirm integrations, scope and timing with you first.</small>
+          <div className={styles.submissionMessage} aria-live="polite">
+            {submissionStatus === "success" && <p className={styles.submissionSuccess}>Thanks — your complete configuration is now with our team.</p>}
+            {submissionStatus === "error" && <p className={styles.submissionError}>Something went wrong. Please try again or email hello@freethedesk.com.au.</p>}
+          </div>
+        </form>
       </section>
     </aside>
   );

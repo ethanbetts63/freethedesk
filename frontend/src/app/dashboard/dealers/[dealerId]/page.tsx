@@ -96,12 +96,17 @@ export default function DealerDetailPage() {
             <div><dt>Contact</dt><dd>{dealer.contact_name}</dd></div>
             <div><dt>Email</dt><dd><a href={`mailto:${dealer.email}`}>{dealer.email}</a></dd></div>
             <div><dt>Phone</dt><dd>{dealer.phone ? <a href={`tel:${dealer.phone}`}>{dealer.phone}</a> : "Not supplied"}</dd></div>
+            <div><dt>State</dt><dd>{dealer.state_label}</dd></div>
           </dl>
         </section>
 
         <section className="admin-detail-card">
           <h2>Account</h2>
           <dl className="admin-detail-list">
+            <div><dt>Plan</dt><dd>{dealer.plan_label}</dd></div>
+            <div><dt>Payment</dt><dd>{dealer.payment_status_label}</dd></div>
+            <div><dt>Current period ends</dt><dd>{formatDateTime(dealer.subscription_current_period_end)}</dd></div>
+            <div><dt>Cancels at period end</dt><dd>{dealer.cancel_at_period_end ? "Yes" : "No"}</dd></div>
             <div><dt>Status</dt><dd>{dealer.status_label}</dd></div>
             <div><dt>Status changed</dt><dd>{formatDateTime(dealer.status_changed_at)}</dd></div>
             <div><dt>Signed up</dt><dd>{formatDateTime(dealer.created_at)}</dd></div>

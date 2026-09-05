@@ -136,7 +136,7 @@
 @keyframes conversionPulse { 45% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--preview-accent) 20%, transparent); transform: scale(.975); } }
 @keyframes successMark { 0% { opacity: 0; transform: scale(.3); } 22% { opacity: 1; transform: scale(1.15); } 68% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(.8) translateY(-6px); } }
 @keyframes confettiBurst { 0% { opacity: 0; transform: translate(0,0) rotate(0); } 12% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--burst-x), var(--burst-y)) rotate(var(--burst-rotation)); } }
-.baseProduct, .controlGroup, .summary { padding: 26px; }
+.baseProduct, .controlGroup, .detailsSection { padding: 26px; }
 .baseProduct { background: #edf4fa; border-bottom: 1px solid #cbdbe8; }
 .baseProduct > div { display: flex; justify-content: space-between; }
 .baseProduct > div span, .baseProduct > div b { color: #247ec9; font-size: .61rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
@@ -202,13 +202,25 @@
 .customRequestPanel textarea { background: #fff; border: 1px solid #cbd9e4; color: #000; font: inherit; font-size: .73rem; line-height: 1.55; min-height: 112px; outline: none; padding: 12px; resize: vertical; width: 100%; }
 .customRequestPanel textarea:focus { border-color: #247ec9; box-shadow: 0 0 0 3px rgba(36,126,201,.1); }
 .customRequestPanel > small { color: #71879a; display: block; font-size: .61rem; line-height: 1.5; margin-top: 8px; }
-.summary { background: #f4f8fd; }
-.summary > div { align-items: center; display: flex; justify-content: space-between; }
-.summary > div span { color: #71879a; font-size: .62rem; text-transform: uppercase; }
-.summary > div strong { font-size: .92rem; }
-.summary > p { color: #657b8e; font-size: .63rem; line-height: 1.55; margin: 12px 0; }
-.summary > a { align-items: center; background: #247ec9; color: #fff; display: flex; font-size: .78rem; font-weight: 800; justify-content: space-between; margin-top: 18px; padding: 15px 16px; }
-.summary > small { color: #8295a5; display: block; font-size: .56rem; line-height: 1.55; margin-top: 10px; }
+.detailsSection { background: #f4f8fd; }
+.detailsForm { display: flex; flex-direction: column; gap: 14px; }
+.detailsForm > label > span { color: #60788d; display: block; font-size: .62rem; font-weight: 850; letter-spacing: .04em; margin-bottom: 7px; text-transform: uppercase; }
+.detailsForm > label > input { background: #fff; border: 1px solid #c5d5e1; color: #000; font: inherit; font-size: .82rem; font-weight: 700; outline: none; padding: 14px; transition: border-color .15s, box-shadow .15s; width: 100%; }
+.detailsForm > label > input:focus { border-color: #247ec9; box-shadow: 0 0 0 3px rgba(36,126,201,.1); }
+.honeypot { height: 0; left: -10000px; overflow: hidden; position: absolute; width: 0; }
+.configurationReview { border-top: 1px solid #d5e2ec; margin-top: 5px; padding-top: 17px; }
+.configurationReview > div { align-items: center; display: flex; justify-content: space-between; }
+.configurationReview > div span { color: #71879a; font-size: .62rem; text-transform: uppercase; }
+.configurationReview > div strong { font-size: .92rem; }
+.configurationReview > p { color: #657b8e; font-size: .67rem; line-height: 1.55; margin: 10px 0 0; }
+.detailsSubmit { align-items: center; background: #247ec9; border: 0; color: #fff; cursor: pointer; display: flex; font: inherit; font-size: .8rem; font-weight: 850; justify-content: space-between; margin-top: 3px; padding: 15px 16px; width: 100%; }
+.detailsSubmit:hover { background: #196eb6; }
+.detailsSubmit:disabled { cursor: wait; opacity: .7; }
+.submissionNote { color: #8295a5; display: block; font-size: .59rem; line-height: 1.55; }
+.submissionMessage:empty { display: none; }
+.submissionMessage p { font-size: .67rem; font-weight: 750; line-height: 1.55; margin: 0; padding: 11px 12px; }
+.submissionSuccess { background: #e8f6ee; color: #17653f; }
+.submissionError { background: #fff0ee; color: #a33529; }
 
 .examplePage { min-height: 590px; padding: 32px 28px; }
 .exampleHeading { align-items: end; border-bottom: 1px solid #dce6ee; display: flex; justify-content: space-between; padding-bottom: 20px; }

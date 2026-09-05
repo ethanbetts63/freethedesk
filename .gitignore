@@ -4,6 +4,7 @@ __pycache__/
 *.py[cod]
 db.sqlite3
 staticfiles/
+private-media/
 node_modules/
 .next/
 out/

@@ -93,6 +93,18 @@ export function homeFor(user: Principal): string {
   return user.role === "staff" ? "/dashboard/enquiries" : "/portal";
 }
 
+export interface PublicLicensingSettings {
+  licensing_price: string;
+  contracts_price: string;
+  complete_price: string;
+  updated_at: string;
+}
+
+/** Unauthenticated: powers the public licensing pricing page, no cookies required. */
+export async function getLicensingSettings(): Promise<PublicLicensingSettings> {
+  return jsonOrError(await fetch("/api/licensing-settings/"));
+}
+
 export function formatDateTime(value: string | null): string {
   if (!value) return "—";
   return new Date(value).toLocaleString("en-AU", {

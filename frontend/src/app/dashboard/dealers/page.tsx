@@ -62,15 +62,21 @@ export default function DealersPage() {
               <th><button onClick={() => sort("created_at")}>Signed up ↕</button></th>
               <th><button onClick={() => sort("business_name")}>Business ↕</button></th>
               <th><button onClick={() => sort("contact_name")}>Contact ↕</button></th>
+              <th>Plan</th>
+              <th>State</th>
+              <th>Payment</th>
               <th>Phone</th>
               <th><button onClick={() => sort("status")}>Status ↕</button></th>
             </tr></thead>
             <tbody>
-              {loading ? <tr><td colSpan={5} className="admin-empty">Loading dealers…</td></tr> : data.results.length === 0 ? <tr><td colSpan={5} className="admin-empty">No dealers match these filters.</td></tr> : data.results.map((dealer) => (
+              {loading ? <tr><td colSpan={8} className="admin-empty">Loading dealers…</td></tr> : data.results.length === 0 ? <tr><td colSpan={8} className="admin-empty">No dealers match these filters.</td></tr> : data.results.map((dealer) => (
                 <tr key={dealer.id} className={`admin-row-${dealer.status}`} onClick={() => router.push(`/dashboard/dealers/${dealer.id}`)}>
                   <td>{formatDateTime(dealer.created_at)}</td>
                   <td><strong>{dealer.business_name}</strong></td>
                   <td><strong>{dealer.contact_name}</strong><small>{dealer.email}</small></td>
+                  <td>{dealer.plan_label}</td>
+                  <td>{dealer.state}</td>
+                  <td>{dealer.payment_status_label}</td>
                   <td>{dealer.phone || "—"}</td>
                   <td><StatusPill status={dealer.status} /></td>
                 </tr>

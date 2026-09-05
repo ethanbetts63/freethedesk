@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "core",
     "dealers",
+    "payments",
 ]
 
 MIDDLEWARE = [
@@ -85,6 +86,8 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+MEDIA_ROOT = BASE_DIR / "private-media"
+MEDIA_URL = "/private-media/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
@@ -124,3 +127,10 @@ TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID", "")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN", "")
 TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER", "")
 TWILIO_MESSAGING_SERVICE_SID = os.getenv("TWILIO_MESSAGING_SERVICE_SID", "")
+
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
+STRIPE_PRICE_LICENSING = os.getenv("STRIPE_PRICE_LICENSING", "")
+STRIPE_PRICE_CONTRACTS = os.getenv("STRIPE_PRICE_CONTRACTS", "")
+STRIPE_PRICE_COMPLETE = os.getenv("STRIPE_PRICE_COMPLETE", "")
+DEALER_TERMS_VERSION = "2026-09-05"

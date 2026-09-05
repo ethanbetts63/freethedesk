@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
+import { SignupPlans } from "./SignupPlans";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -30,12 +31,14 @@ export default function LicensingPage() {
         title="License online."
         accentTitle="Lose the visit."
         lead="Use our portal or build it into your website. Customers verify and sign online—no dealership visit required."
-        primaryHref="#configuration-options"
-        primaryLabel="See the two options"
+        primaryHref="#signup"
+        primaryLabel="Choose your plan"
         secondaryHref="/contact"
         secondaryLabel="Talk to us"
-        stages={["Customer", "Verify", "Sign", "Handover"]}
+        stages={["Choose", "Sign", "Pay", "Delivery / pickup"]}
       />
+
+      <SignupPlans />
 
       <section className={styles.comparisonSection}>
         <div className={`shell ${styles.comparison}`}>
@@ -51,17 +54,9 @@ export default function LicensingPage() {
             </article>
             <article className={styles.onlinePath}>
               <header><span>Online</span><b>4 steps</b></header>
-              <div><span>Ready to buy</span><i /> <span>Verify</span><i /> <span>Sign</span><i /> <strong>Handover</strong></div>
+              <div><span>Choose</span><i /> <span>Sign</span><i /> <span>Pay</span><i /> <strong>Delivery / pickup</strong></div>
             </article>
           </div>
-        </div>
-      </section>
-
-      <section className={styles.valueStrip} aria-label="Online licensing benefits">
-        <div className={`shell ${styles.valueGrid}`}>
-          <div><strong>Sell further</strong><span>Reach customers beyond the local area</span></div>
-          <div><strong>Move faster</strong><span>No appointment just to sign forms</span></div>
-          <div><strong>Stay connected</strong><span>One journey for customer and team</span></div>
         </div>
       </section>
 
@@ -78,7 +73,7 @@ export default function LicensingPage() {
               <h3>Use the Free the Desk portal.</h3>
               <p>Sign your dealership up once. When a customer wants to complete licensing or their contract online, your team emails them a secure link to our customer portal.</p>
               <ul><li>Dealer account and admin dashboard</li><li>Secure customer link sent by email</li><li>Customer login and guided paperwork</li><li>Completed deal returned to your team</li></ul>
-              <Link href="/dealers/signup">Create a dealer account <b>↗</b></Link>
+              <Link href="#signup">Choose a plan <b>↗</b></Link>
             </article>
             <article>
               <span>Option 02 / Website integration</span>
@@ -138,7 +133,7 @@ export default function LicensingPage() {
         <p>We will map the licensing flow to your dealership, your vehicles and the way your team already works.</p>
         <div>
           <Link href="/contact">Talk about online licensing <span>↗</span></Link>
-          <Link href="/website-builder">Build your system <span>→</span></Link>
+          <Link href="/dealership-website-builder">Try the Free Demo <span>→</span></Link>
         </div>
       </section>
     </main>

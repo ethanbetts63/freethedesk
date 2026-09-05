@@ -1,0 +1,71 @@
+.page { background: #fff; color: #07121c; }
+.label { color: #247ec9; font-size: .68rem; font-weight: 900; letter-spacing: .14em; margin: 0 0 23px; text-transform: uppercase; }
+.intro { display: grid; gap: clamp(60px, 9vw, 135px); grid-template-columns: 1fr .9fr; padding-bottom: 125px; padding-top: 125px; }
+.intro h2, .sectionHeading h2, .systemCopy h2, .proofSection h2, .faqLayout h2, .closing h2 { font-size: clamp(3rem, 5.3vw, 5.7rem); letter-spacing: -.072em; line-height: .93; margin: 0; }
+.intro > div:last-child { align-self: end; max-width: 520px; }
+.intro > div:last-child p, .systemCopy > p, .proofSection > div:last-child > p { color: #536c80; font-size: .98rem; line-height: 1.78; margin: 0 0 18px; }
+.servicesSection { background: #f2f7fb; padding: 115px 0 125px; }
+.sectionHeading { max-width: 900px; }
+.serviceGrid { border-left: 1px solid #cad9e4; border-top: 1px solid #cad9e4; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 66px; }
+.serviceGrid article { background: rgba(255,255,255,.5); border-bottom: 1px solid #cad9e4; border-right: 1px solid #cad9e4; min-height: 300px; padding: 28px; }
+.serviceGrid article > span, .processGrid article > span { color: #247ec9; font-size: .65rem; font-weight: 900; }
+.serviceGrid h3 { font-size: 1.35rem; letter-spacing: -.04em; margin: 82px 0 14px; }
+.serviceGrid p, .processGrid p { color: #60778b; font-size: .83rem; line-height: 1.68; margin: 0; }
+.systemSection { align-items: center; display: grid; gap: clamp(65px, 10vw, 145px); grid-template-columns: 1.08fr .92fr; padding-bottom: 135px; padding-top: 135px; }
+.systemVisual { background: #13315c; box-shadow: 22px 22px 0 #e2edf4; color: #fff; min-height: 515px; overflow: hidden; position: relative; }
+.systemVisual::before { background-image: linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px); background-size: 35px 35px; content: ""; inset: 0; position: absolute; }
+.browser { align-items: center; background: #fff; color: #60778b; display: flex; font-size: .62rem; gap: 6px; height: 42px; padding: 0 14px; position: relative; }
+.browser i { background: #b8cbd9; border-radius: 50%; height: 6px; width: 6px; }
+.browser span { background: #edf3f7; margin-left: 9px; padding: 6px 13px; width: 60%; }
+.visualBody { display: flex; flex-direction: column; inset: 42px 0 0; justify-content: space-between; padding: clamp(28px, 5vw, 58px); position: absolute; }
+.visualPage { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); display: grid; gap: 13px; grid-template-columns: 1.2fr .8fr; padding: 27px; }
+.visualPage span { background: #70bced; grid-column: 1 / -1; height: 7px; width: 25%; }
+.visualPage strong { background: #fff; grid-column: 1 / -1; height: 55px; opacity: .94; width: 73%; }
+.visualPage i { background: rgba(255,255,255,.16); display: block; height: 58px; }
+.visualFlow { align-items: center; display: flex; flex-wrap: wrap; font-size: .68rem; gap: 11px; }
+.visualFlow b { background: #fff; color: #13315c; padding: 9px 12px; }
+.visualFlow em { color: #70bced; font-style: normal; }
+.systemCopy ul { border-top: 1px solid #d4e0e8; list-style: none; margin: 32px 0 0; padding: 16px 0 0; }
+.systemCopy li { font-size: .78rem; font-weight: 750; margin: 13px 0; padding-left: 20px; position: relative; }
+.systemCopy li::before { color: #247ec9; content: "↳"; left: 0; position: absolute; }
+.processSection { background: #13315c; color: #fff; padding: 120px 0; }
+.processSection .label { color: #70bced; }
+.processGrid { border-top: 1px solid rgba(255,255,255,.2); display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 65px; }
+.processGrid article { border-right: 1px solid rgba(255,255,255,.2); min-height: 315px; padding: 25px; }
+.processGrid article:first-child { border-left: 1px solid rgba(255,255,255,.2); }
+.processGrid article > span { color: #70bced; }
+.processGrid article div { margin-top: 100px; }
+.processGrid h3 { font-size: 1.35rem; margin: 0 0 13px; }
+.processGrid p { color: #b5c9d8; }
+.proofSection { display: grid; gap: clamp(60px, 9vw, 130px); grid-template-columns: 1fr .9fr; padding-bottom: 125px; padding-top: 125px; }
+.proofSection > div:last-child { align-self: end; }
+.linkRow { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 31px; }
+.linkRow a { align-items: center; border-bottom: 1px solid #247ec9; color: #247ec9; display: flex; font-size: .76rem; font-weight: 900; gap: 25px; padding: 8px 0; }
+.faqSection { background: #f2f7fb; padding: 115px 0; }
+.faqLayout { display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: .75fr 1.25fr; }
+.faqList { border-top: 1px solid #c9d9e4; }
+.faqList details { border-bottom: 1px solid #c9d9e4; }
+.faqList summary { align-items: center; cursor: pointer; display: flex; font-size: .94rem; font-weight: 850; justify-content: space-between; list-style: none; padding: 24px 0; }
+.faqList summary::-webkit-details-marker { display: none; }
+.faqList summary span { color: #247ec9; font-size: 1.2rem; }
+.faqList details[open] summary span { transform: rotate(45deg); }
+.faqList details p { color: #5a7286; font-size: .84rem; line-height: 1.72; margin: -4px 45px 25px 0; }
+.closing { background: #f2f7fb; margin-bottom: 115px; margin-top: 115px; padding: 82px; text-align: center; }
+.closing > p:not(.label) { color: #587086; font-size: .96rem; line-height: 1.7; margin: 27px auto 31px; max-width: 570px; }
+.closing > a { align-items: center; background: #247ec9; color: #fff; display: inline-flex; font-size: .8rem; font-weight: 900; gap: 35px; padding: 17px 20px; }
+
+@media (max-width: 900px) {
+  .intro, .systemSection, .proofSection, .faqLayout { grid-template-columns: 1fr; }
+  .serviceGrid { grid-template-columns: 1fr 1fr; }
+  .processGrid { grid-template-columns: 1fr 1fr; }
+  .processGrid article { border-bottom: 1px solid rgba(255,255,255,.2); }
+}
+
+@media (max-width: 620px) {
+  .intro, .systemSection, .proofSection { padding-bottom: 82px; padding-top: 82px; }
+  .servicesSection, .processSection, .faqSection { padding-bottom: 80px; padding-top: 80px; }
+  .serviceGrid, .processGrid { grid-template-columns: 1fr; }
+  .serviceGrid article { min-height: 260px; }
+  .systemVisual { min-height: 440px; }
+  .closing { margin-bottom: 80px; margin-top: 80px; padding: 65px 22px; }
+}

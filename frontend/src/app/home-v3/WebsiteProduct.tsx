@@ -14,7 +14,7 @@ export function WebsiteProduct() {
           </p>
 
           <div className={styles.actions}>
-            <Link className={styles.primary} href="/website-builder">
+            <Link className={styles.primary} href="/dealership-website-builder">
               Configure now <span>→</span>
             </Link>
             <a className={styles.dealerExample} href="https://www.scootershop.com.au" target="_blank" rel="noreferrer">

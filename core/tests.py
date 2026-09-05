@@ -4,7 +4,7 @@ from django.test import override_settings
 from rest_framework.test import APIClient
 from unittest.mock import patch
 
-from .models import Enquiry, Notification
+from .models import Enquiry, LicensingSettings, Notification
 from .notifications import send_notification
 
 
@@ -16,6 +16,20 @@ class CoreApiTests(TestCase):
         response = self.client.get("/api/health/")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["status"], "ok")
+
+    def test_licensing_settings_are_publicly_readable(self):
+        response = self.client.get("/api/licensing-settings/")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["licensing_price"], "149.00")
+        self.assertEqual(data["contracts_price"], "99.00")
+        self.assertEqual(data["complete_price"], "199.00")
+
+    def test_licensing_settings_are_a_singleton(self):
+        first = LicensingSettings.load()
+        second = LicensingSettings.load()
+        self.assertEqual(first.pk, second.pk)
+        self.assertEqual(LicensingSettings.objects.count(), 1)
 
     def test_enquiry_can_be_created(self):
         response = self.client.post(
@@ -73,6 +87,44 @@ class CoreApiTests(TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Enquiry.objects.get().help_with, "everything")
 
+    def test_website_builder_enquiry_stores_full_configuration(self):
+        configuration = {
+            "version": 1,
+            "appearance": {
+                "brand_name": "Northline",
+                "current_url": "www.example.com.au",
+                "accent": "blue",
+                "accent_hex": "#247ec9",
+            },
+            "capabilities": [
+                {"key": "inventory", "name": "Inventory catalogue", "selected": True},
+                {"key": "service", "name": "Service bookings", "selected": False},
+            ],
+            "inventory_options": [
+                {"key": "purchase", "name": "Buy online", "selected": True},
+            ],
+            "custom_capability": "Connect our existing stock feed.",
+        }
+        response = self.client.post(
+            "/api/enquiries/",
+            {
+                "name": "Jane Dealer",
+                "business": "Northline",
+                "email": "jane@example.com",
+                "phone": "0400 000 000",
+                "website": "https://www.example.com.au",
+                "help_with": "website_builder",
+                "message": "Connect our existing stock feed.",
+                "configuration": configuration,
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 201)
+        enquiry = Enquiry.objects.get()
+        self.assertEqual(enquiry.get_help_with_display(), "Dealer web enquiry")
+        self.assertEqual(enquiry.configuration, configuration)
+
     def test_honeypot_submission_is_quietly_discarded(self):
         response = self.client.post(
             "/api/enquiries/",
@@ -105,17 +157,40 @@ class AdminApiTests(TestCase):
             email="alex@example.com",
             help_with="everything",
             message="We need a faster website and a better enquiry workflow.",
+            configuration={"version": 1},
         )
 
     def test_enquiry_dashboard_requires_staff(self):
         response = self.client.get("/api/admin/enquiries/")
         self.assertEqual(response.status_code, 401)
 
+    def test_licensing_settings_dashboard_requires_staff(self):
+        response = self.client.get("/api/admin/licensing-settings/")
+        self.assertEqual(response.status_code, 401)
+
+    def test_staff_can_view_and_update_licensing_settings(self):
+        self.client.force_authenticate(self.staff)
+        response = self.client.get("/api/admin/licensing-settings/")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["licensing_price"], "149.00")
+
+        response = self.client.patch(
+            "/api/admin/licensing-settings/",
+            {"licensing_price": "163.90", "contracts_price": "108.90", "complete_price": "218.90"},
+            format="json",
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["licensing_price"], "163.90")
+
+        public_response = self.client.get("/api/licensing-settings/")
+        self.assertEqual(public_response.json()["complete_price"], "218.90")
+
     def test_staff_can_list_and_update_enquiries(self):
         self.client.force_authenticate(self.staff)
         response = self.client.get("/api/admin/enquiries/?status=new")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["count"], 1)
+        self.assertEqual(response.json()["results"][0]["configuration"], {"version": 1})
 
         response = self.client.patch(
             f"/api/admin/enquiries/{self.enquiry.pk}/",

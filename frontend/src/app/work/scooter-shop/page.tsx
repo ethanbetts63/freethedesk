@@ -27,6 +27,29 @@ const operations = [
   { number: "04", title: "Service diary", detail: "Bookings become an organised workshop schedule, not another inbox." },
 ];
 
+const intentGroups = [
+  {
+    number: "01",
+    title: "Ready to buy",
+    pages: ["New Scooters", "Used Scooters", "Used Motorcycles", "E-Scooters", "50cc Scooters Perth", "125cc Scooters Perth"],
+  },
+  {
+    number: "02",
+    title: "Need the workshop",
+    pages: ["Servicing", "Scooter Repairs", "Vespa Service Perth", "Motorcycle Service", "Tyre Fitting"],
+  },
+  {
+    number: "03",
+    title: "Brand, parts or hire",
+    pages: ["SYM Scooters", "SYM Parts", "Parts Enquiry", "Patrol Mountain Bikes", "Motorcycle Hire Perth"],
+  },
+  {
+    number: "04",
+    title: "Local and researching",
+    pages: ["Motorcycles Perth", "Used Vespa Scooters Perth", "SYM Scooters Perth", "Scooters Morley", "Scooters Mount Lawley", "Scooter Service North Perth", "Car vs Moped Cost Calculator"],
+  },
+];
+
 export default function ScooterShopCaseStudy() {
   return (
     <main className="scooter-case-page">
@@ -96,7 +119,11 @@ export default function ScooterShopCaseStudy() {
           <div className="case-mobile-copy">
             <p className="section-number">03 / Every screen</p>
             <h2>The important journeys work wherever they begin.</h2>
-            <p>Inventory discovery, buying steps and clear next actions are preserved on smaller screens. Mobile is treated as the dealership’s front door, not a reduced desktop layout.</p>
+            <p>Across Australian dealerships, we find that an average of 66% of users are browsing on mobile. That is why every journey starts with the smallest screen in our process—not as a reduced version of desktop.</p>
+            <div className="case-mobile-stat">
+              <strong>66%</strong>
+              <span><b>of dealership users are on mobile</b><small>Average across the Australian dealership traffic we see.</small></span>
+            </div>
           </div>
           <div className="case-mobile-stage">
             <div className="case-mobile-phone">
@@ -158,14 +185,25 @@ export default function ScooterShopCaseStudy() {
         </div>
       </section>
 
-      <section className="section shell case-result-section">
-        <p className="section-number">06 / The result</p>
-        <div className="case-result-grid">
-          <h2>A website that earns attention and helps run the business behind it.</h2>
-          <div>
-            <p>Scooter Shop now has one connected experience across multiple departments, stronger organic visibility and a practical operational layer built around the dealership.</p>
-            <p>The same approach transfers to automotive, marine, caravan, agricultural and equipment dealerships: understand the operation first, then build the customer experience around it.</p>
+      <section className="case-intent-section">
+        <div className="shell">
+          <div className="case-intent-heading">
+            <div>
+              <p className="section-number">06 / High-intent pages</p>
+              <h2>One website.<br />Many useful ways in.</h2>
+            </div>
+            <p>Different customers reveal different intent in the way they search: a Vespa service, a used motorcycle or a specific SYM part. We build focused pages around those searches to capture more high-intent organic traffic—then give each visitor a more relevant next step.</p>
           </div>
+
+          <div className="case-intent-grid">
+            {intentGroups.map((group) => (
+              <article key={group.number}>
+                <header><span>{group.number}</span><h3>{group.title}</h3></header>
+                <ul>{group.pages.map((page) => <li key={page}>{page}<span>↗</span></li>)}</ul>
+              </article>
+            ))}
+          </div>
+
         </div>
       </section>
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { homeFor } from "@/lib/api";
+import { SignalFlow } from "../home-v3/SignalFlow";
 
 function LoginContent() {
   const { user, loading, login } = useAuth();
@@ -37,6 +38,7 @@ function LoginContent() {
 
   return (
     <main className="login-page">
+      <div className="login-signal-flow"><SignalFlow /></div>
       <section className="login-card">
         <Link className="login-brand" href="/">free<span>the</span>desk<i>.</i></Link>
         <p className="admin-kicker">Sign in</p>

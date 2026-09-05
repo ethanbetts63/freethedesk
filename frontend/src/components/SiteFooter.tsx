@@ -14,17 +14,23 @@ export function SiteFooter() {
         </div>
         <div className="footer-links">
           <p className="footer-label">Explore</p>
+          <Link href="/website-development-perth">Perth website development</Link>
           <Link href="/websites">Dealer websites</Link>
           <Link href="/licensing">Online licensing</Link>
           <Link href="/automation">Automation</Link>
           <Link href="/work/scooter-shop">Scooter Shop case study</Link>
           <Link href="/contact">Contact</Link>
-          <Link href="/login">Admin login</Link>
+          <Link href="/login">Login</Link>
         </div>
         <div className="footer-links">
           <p className="footer-label">Based in</p>
           <span>Perth, Western Australia</span>
           <a href="mailto:hello@freethedesk.com.au">hello@freethedesk.com.au</a>
+        </div>
+        <div className="footer-links">
+          <p className="footer-label">Terms &amp; policies</p>
+          <Link href="/legal/privacy">Privacy policy</Link>
+          <Link href="/legal/dealer-subscription-terms">Dealer subscription terms</Link>
         </div>
       </div>
       <div className="shell footer-bottom">

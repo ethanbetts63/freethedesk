@@ -1,10 +1,11 @@
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import TestCase
 from django.urls import reverse
 
 from core.models import Notification
 
-from .models import Dealer
+from .models import Dealer, DealerProfile
 
 
 class DealerSignupTests(TestCase):
@@ -13,8 +14,12 @@ class DealerSignupTests(TestCase):
         "contact_name": "Jo Ryan",
         "email": "jo@perthmotorcycles.com.au",
         "phone": "0400 000 000",
+        "state": "WA",
         "password": "Sturdy-Passphrase-42",
     }
+
+    def setUp(self):
+        cache.clear()
 
     def test_signup_creates_pending_dealer_and_user(self):
         response = self.client.post(reverse("dealer-signup"), self.payload, content_type="application/json")
@@ -22,9 +27,37 @@ class DealerSignupTests(TestCase):
 
         dealer = Dealer.objects.get()
         self.assertEqual(dealer.status, Dealer.Status.PENDING)
+        self.assertEqual(dealer.plan, Dealer.Plan.DEMO)
+        self.assertEqual(dealer.payment_status, Dealer.PaymentStatus.DEMO)
         self.assertEqual(dealer.business_name, "Perth Motorcycle Centre")
         self.assertFalse(dealer.user.is_staff)
         self.assertTrue(dealer.user.check_password("Sturdy-Passphrase-42"))
+
+    def test_paid_plan_starts_payment_pending(self):
+        response = self.client.post(
+            reverse("dealer-signup"),
+            {**self.payload, "plan": Dealer.Plan.COMPLETE},
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 201)
+        dealer = Dealer.objects.get()
+        self.assertEqual(dealer.plan, Dealer.Plan.COMPLETE)
+        self.assertEqual(dealer.payment_status, Dealer.PaymentStatus.PAYMENT_PENDING)
+
+    def test_signup_rejects_unknown_plan(self):
+        response = self.client.post(
+            reverse("dealer-signup"),
+            {**self.payload, "plan": "everything-for-free"},
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(Dealer.objects.exists())
+
+    def test_signup_requires_state(self):
+        payload = {key: value for key, value in self.payload.items() if key != "state"}
+        response = self.client.post(reverse("dealer-signup"), payload, content_type="application/json")
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(Dealer.objects.exists())
 
     def test_signup_records_staff_and_dealer_notifications(self):
         self.client.post(reverse("dealer-signup"), self.payload, content_type="application/json")
@@ -137,6 +170,26 @@ class DealerPortalTests(TestCase):
     def test_dealer_cannot_reach_staff_endpoints(self):
         self.client.force_login(self.user)
         self.assertEqual(self.client.get(reverse("admin-dealer-list")).status_code, 403)
+
+    def test_onboarding_requires_active_payment(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse("dealer-onboarding"))
+        self.assertEqual(response.status_code, 403)
+
+    def test_paid_dealer_can_save_onboarding_draft(self):
+        self.dealer.plan = Dealer.Plan.COMPLETE
+        self.dealer.payment_status = Dealer.PaymentStatus.ACTIVE
+        self.dealer.save()
+        self.client.force_login(self.user)
+        response = self.client.patch(
+            reverse("dealer-onboarding"),
+            {"legal_name": "Bikes WA Pty Ltd", "trading_name": "Bikes WA"},
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 200)
+        profile = DealerProfile.objects.get(dealer=self.dealer)
+        self.assertEqual(profile.legal_name, "Bikes WA Pty Ltd")
+        self.assertEqual(profile.verification_status, DealerProfile.VerificationStatus.IN_PROGRESS)
 
 
 class AdminDealerViewTests(TestCase):

@@ -1,9 +1,43 @@
+from decimal import Decimal
+
 from django.db import models
+
+
+class LicensingSettings(models.Model):
+    """Singleton holding the subscription prices shown on the licensing page.
+
+    All prices are GST inclusive — what a dealer actually pays each month, with
+    no "+ GST" added at checkout. Editable from the admin dashboard so pricing
+    can change without a deploy. This drives the marketing copy only; the
+    amount Stripe actually charges still comes from the STRIPE_PRICE_* env vars.
+    """
+
+    licensing_price = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal("149.00"))
+    contracts_price = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal("99.00"))
+    complete_price = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal("199.00"))
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Licensing settings"
+        verbose_name_plural = "Licensing settings"
+
+    def __str__(self) -> str:
+        return "Licensing settings"
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def load(cls) -> "LicensingSettings":
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
 
 
 class Enquiry(models.Model):
     class HelpWith(models.TextChoices):
         WEBSITE = "website", "Dealer website"
+        WEBSITE_BUILDER = "website_builder", "Dealer web enquiry"
         INVENTORY = "inventory", "Inventory, parts, service or hire"
         AUTOMATION = "automation", "Business automation"
         EVERYTHING = "everything", "All of the above"
@@ -24,6 +58,7 @@ class Enquiry(models.Model):
     website = models.URLField(blank=True)
     help_with = models.CharField(max_length=20, choices=HelpWith.choices)
     message = models.TextField()
+    configuration = models.JSONField(default=dict, blank=True)
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

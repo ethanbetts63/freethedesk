@@ -57,6 +57,7 @@ export function SignupForm() {
         <label><span>Email *</span><input name="email" type="email" autoComplete="email" required /></label>
         <label><span>Phone</span><input name="phone" type="tel" autoComplete="tel" /></label>
       </div>
+      <label><span>State or territory *</span><select name="state" defaultValue="WA" required><option value="WA">Western Australia</option><option value="NSW">New South Wales</option><option value="VIC">Victoria</option><option value="QLD">Queensland</option><option value="SA">South Australia</option><option value="TAS">Tasmania</option><option value="ACT">Australian Capital Territory</option><option value="NT">Northern Territory</option></select><small className="field-hint">No street address needed at this stage.</small></label>
       <label>
         <span>Password *</span>
         <input name="password" type="password" autoComplete="new-password" minLength={8} required />

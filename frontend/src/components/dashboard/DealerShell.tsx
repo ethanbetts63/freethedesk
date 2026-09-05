@@ -4,6 +4,7 @@ import { PortalShell } from "./PortalShell";
 
 const nav = [
   { href: "/portal/overview", label: "Overview" },
+  { href: "/portal/setup", label: "Dealership setup" },
   { href: "/portal/account", label: "Account" },
 ];
 

@@ -16,7 +16,7 @@ export default function DealerSignupPage() {
           <p className="eyebrow"><span />Dealer signup</p>
           <h1>Create your dealer account.</h1>
           <p className="hero-lead">
-            Five fields now. The rest — your licence details, the paperwork we prefill for you and the sale
+            Basic account details now. The rest — your licence details, the paperwork we prefill for you and the sale
             conditions you want to use — comes after we approve the account.
           </p>
           <div className="contact-detail"><span>01</span><div><strong>We review every dealership</strong><p>By hand, usually within a business day. We check the business is licensed and that online licensing suits how you sell.</p></div></div>

@@ -5,7 +5,7 @@ import { getDealerAccount, updateDealerAccount, type DealerAccount } from "@/lib
 
 export default function PortalAccountPage() {
   const [account, setAccount] = useState<DealerAccount | null>(null);
-  const [form, setForm] = useState({ business_name: "", contact_name: "", phone: "" });
+  const [form, setForm] = useState({ business_name: "", contact_name: "", phone: "", state: "WA" as DealerAccount["state"] });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState("");
@@ -15,7 +15,7 @@ export default function PortalAccountPage() {
     getDealerAccount()
       .then((result) => {
         setAccount(result);
-        setForm({ business_name: result.business_name, contact_name: result.contact_name, phone: result.phone });
+        setForm({ business_name: result.business_name, contact_name: result.contact_name, phone: result.phone, state: result.state });
       })
       .catch((reason) => setError(reason instanceof Error ? reason.message : "Your account could not be loaded."))
       .finally(() => setLoading(false));
@@ -25,6 +25,7 @@ export default function PortalAccountPage() {
     form.business_name !== account.business_name
     || form.contact_name !== account.contact_name
     || form.phone !== account.phone
+    || form.state !== account.state
   );
 
   async function submit(event: FormEvent) {
@@ -33,7 +34,7 @@ export default function PortalAccountPage() {
     try {
       const updated = await updateDealerAccount(form);
       setAccount(updated);
-      setForm({ business_name: updated.business_name, contact_name: updated.contact_name, phone: updated.phone });
+      setForm({ business_name: updated.business_name, contact_name: updated.contact_name, phone: updated.phone, state: updated.state });
       setNotice("Your details have been saved.");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Your details could not be saved.");
@@ -82,6 +83,12 @@ export default function PortalAccountPage() {
                 value={form.phone}
                 onChange={(event) => setForm({ ...form, phone: event.target.value })}
               />
+            </label>
+            <label>
+              State or territory
+              <select value={form.state} onChange={(event) => setForm({ ...form, state: event.target.value as DealerAccount["state"] })}>
+                <option value="WA">Western Australia</option><option value="NSW">New South Wales</option><option value="VIC">Victoria</option><option value="QLD">Queensland</option><option value="SA">South Australia</option><option value="TAS">Tasmania</option><option value="ACT">Australian Capital Territory</option><option value="NT">Northern Territory</option>
+              </select>
             </label>
             <label>
               Email

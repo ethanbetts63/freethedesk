@@ -57,3 +57,9 @@ NOTIFICATIONS_ENABLED=True
 Leave delivery disabled until the Mailgun sending domain is verified and the
 Twilio messaging service or sending number is ready. `ADMIN_NUMBER` should use
 E.164 format, for example `+61400111222`.
+
+## Stripe subscriptions
+
+The licensing page creates a minimal dealer account and paid plans continue to
+an embedded Stripe subscription checkout. Configuration and webhook events are
+documented in `_docs/stripe-subscriptions.md`.

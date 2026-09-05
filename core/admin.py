@@ -1,6 +1,18 @@
 from django.contrib import admin
 
-from .models import Enquiry, Notification
+from .models import Enquiry, LicensingSettings, Notification
+
+
+@admin.register(LicensingSettings)
+class LicensingSettingsAdmin(admin.ModelAdmin):
+    list_display = ("licensing_price", "contracts_price", "complete_price", "updated_at")
+    readonly_fields = ("updated_at",)
+
+    def has_add_permission(self, request):
+        return not LicensingSettings.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(Enquiry)

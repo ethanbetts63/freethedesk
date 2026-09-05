@@ -11,10 +11,15 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Enquiry, Notification
+from .models import Enquiry, LicensingSettings, Notification
 from .notifications import notify_admin_of_enquiry, send_manual_email
 from .pagination import DashboardPagination
-from .serializers import AdminEnquirySerializer, AdminNotificationSerializer, EnquirySerializer
+from .serializers import (
+    AdminEnquirySerializer,
+    AdminNotificationSerializer,
+    EnquirySerializer,
+    LicensingSettingsSerializer,
+)
 from .throttles import EnquiryRateThrottle
 
 
@@ -22,6 +27,25 @@ from .throttles import EnquiryRateThrottle
 @permission_classes([AllowAny])
 def health_check(request):
     return Response({"status": "ok", "service": "freethedesk-api"})
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def licensing_settings(request):
+    return Response(LicensingSettingsSerializer(LicensingSettings.load()).data)
+
+
+class AdminLicensingSettingsView(APIView):
+    permission_classes = [IsAdminUser]
+
+    def get(self, request):
+        return Response(LicensingSettingsSerializer(LicensingSettings.load()).data)
+
+    def patch(self, request):
+        serializer = LicensingSettingsSerializer(LicensingSettings.load(), data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 
 @api_view(["POST"])

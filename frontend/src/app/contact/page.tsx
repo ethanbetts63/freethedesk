@@ -5,7 +5,7 @@ import { ContactForm } from "./ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Talk to Free the Desk about a dealer website, operational system or business automation project.",
+  description: "Talk to Free the Desk about a custom website, online licensing product, web application or business automation project.",
 };
 
 export default function ContactPage() {

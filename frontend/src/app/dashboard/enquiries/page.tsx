@@ -53,6 +53,7 @@ export default function EnquiriesPage() {
             <select aria-label="Filter enquiries by type" value={helpWith} onChange={(event) => { setHelpWith(event.target.value); setPage(1); }}>
               <option value="all">All enquiry types</option>
               <option value="website">Dealer website</option>
+              <option value="website_builder">Dealer web enquiry</option>
               <option value="inventory">Inventory, parts, service or hire</option>
               <option value="automation">Business automation</option>
               <option value="everything">All of the above</option>

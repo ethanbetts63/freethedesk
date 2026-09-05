@@ -5,16 +5,20 @@ from .views import (
     AdminComposeMessageView,
     AdminEnquiryDetailView,
     AdminEnquiryListView,
+    AdminLicensingSettingsView,
     AdminNotificationDetailView,
     AdminNotificationListView,
     create_enquiry,
     health_check,
+    licensing_settings,
 )
 
 
 urlpatterns = [
     path("health/", health_check, name="health-check"),
     path("enquiries/", create_enquiry, name="create-enquiry"),
+    path("licensing-settings/", licensing_settings, name="licensing-settings"),
+    path("admin/licensing-settings/", AdminLicensingSettingsView.as_view(), name="admin-licensing-settings"),
     path("token/", CookieTokenObtainPairView.as_view(), name="token"),
     path("token/refresh/", CookieTokenRefreshView.as_view(), name="token-refresh"),
     path("token/logout/", LogoutView.as_view(), name="token-logout"),
