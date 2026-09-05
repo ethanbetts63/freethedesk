@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.urls import reverse
 
@@ -190,6 +191,20 @@ class DealerPortalTests(TestCase):
         profile = DealerProfile.objects.get(dealer=self.dealer)
         self.assertEqual(profile.legal_name, "Bikes WA Pty Ltd")
         self.assertEqual(profile.verification_status, DealerProfile.VerificationStatus.IN_PROGRESS)
+
+    def test_onboarding_rejects_a_file_disguised_by_its_extension(self):
+        self.dealer.plan = Dealer.Plan.COMPLETE
+        self.dealer.payment_status = Dealer.PaymentStatus.ACTIVE
+        self.dealer.save()
+        self.client.force_login(self.user)
+        response = self.client.patch(
+            reverse("dealer-onboarding"),
+            {"dealer_licence_document": SimpleUploadedFile(
+                "licence.png", b"<script>not an image</script>", content_type="image/png"
+            )},
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("dealer_licence_document", response.json())
 
 
 class AdminDealerViewTests(TestCase):

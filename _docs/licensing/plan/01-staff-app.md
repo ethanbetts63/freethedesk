@@ -96,7 +96,7 @@ carry the product.
 ## Frontend
 
 **Marketing:** `/dealers` — the sales pitch. Fits the existing pattern alongside
-`/websites` and `/automation`. `/dealers/signup` for the form.
+`/dealer-websites` and `/automation`. Dealer signup is part of `/licensing#signup`.
 
 **Staff:** `/dashboard/dealers` (list, filterable by status) and
 `/dashboard/dealers/[dealerId]` (detail, with approve and deny). Reuses

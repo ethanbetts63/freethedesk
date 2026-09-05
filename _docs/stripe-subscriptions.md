@@ -1,14 +1,21 @@
 # Stripe subscription setup
 
-Create three monthly recurring Stripe Prices in the Free the Desk Stripe account:
+Subscription prices are managed in Django's **Licensing settings** admin page.
+They are monthly Australian-dollar prices and are GST inclusive everywhere.
 
-- Online licensing: AUD 149 + GST per month
-- Online contracts: AUD 99 + GST per month
-- Licensing and contracts: AUD 199 + GST per month
+Django is the pricing authority. For each new Checkout Session it sends Stripe
+inline recurring `price_data` containing the current model price in cents and
+sets `tax_behavior` to `inclusive`. Existing subscriptions retain the price that
+was accepted when they were created; changing Licensing settings affects only
+future subscriptions.
 
-Enable Stripe Tax for the account. Checkout collects the dealership billing address and asks Stripe to calculate applicable tax.
+Enable Stripe Tax and configure the appropriate default product tax code in the
+Stripe account. Checkout collects the dealership billing address, calculates
+the included tax, and does not add GST above the displayed total.
 
-Copy the three `price_...` identifiers into the Django `.env` variables documented in `.env.example`. Add the matching Stripe secret key. In `frontend/.env.local`, add the publishable key from the same Stripe account as `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`.
+Set `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` in Django's environment. In
+`frontend/.env.local`, set the publishable key from the same Stripe account as
+`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`.
 
 Register this webhook endpoint:
 
@@ -23,6 +30,10 @@ Subscribe it to:
 - `invoice.paid`
 - `invoice.payment_failed`
 
-Copy the endpoint signing secret into `STRIPE_WEBHOOK_SECRET`. Use test-mode keys and test-mode Prices locally, then replace every Stripe value together for production. The browser sends only the chosen plan code; Django selects the trusted Price ID.
+The endpoint verifies Stripe's signature and records each Stripe event ID before
+processing it. Replays are ignored and stale or superseded subscription events
+cannot replace current state.
 
-For local webhook testing, forward Stripe events to `http://127.0.0.1:8000/api/payments/webhook/` with the Stripe CLI and use the temporary signing secret printed by the CLI.
+For local testing, forward Stripe events to
+`http://127.0.0.1:8000/api/payments/webhook/` with the Stripe CLI and use the
+temporary signing secret printed by the CLI.

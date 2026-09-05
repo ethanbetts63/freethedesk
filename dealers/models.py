@@ -4,6 +4,8 @@ from uuid import uuid4
 from django.conf import settings
 from django.db import models
 
+from .storage import private_document_storage
+
 
 def dealer_document_path(instance, filename: str) -> str:
     """Keep original filenames and dealer details out of stored object keys."""
@@ -16,9 +18,8 @@ class Dealer(models.Model):
 
     This is the tenant root for the licensing product: everything a dealer owns
     in later phases hangs off this row through a ``dealer`` foreign key. Signup
-    deliberately collects the minimum — licence numbers, Dealer Online status,
-    bank details and the special-conditions approval all belong to the
-    onboarding wizard, behind approval.
+    deliberately collects the minimum — licence numbers, documents and
+    special-condition choices all belong to the post-payment onboarding flow.
     """
 
     class Status(models.TextChoices):
@@ -67,11 +68,9 @@ class Dealer(models.Model):
     stripe_customer_id = models.CharField(max_length=255, null=True, blank=True, unique=True)
     stripe_subscription_id = models.CharField(max_length=255, null=True, blank=True, unique=True)
     stripe_checkout_session_id = models.CharField(max_length=255, null=True, blank=True, unique=True)
+    stripe_last_event_created_at = models.DateTimeField(null=True, blank=True)
     subscription_current_period_end = models.DateTimeField(null=True, blank=True)
     cancel_at_period_end = models.BooleanField(default=False)
-    subscription_terms_version = models.CharField(max_length=30, blank=True)
-    subscription_terms_accepted_at = models.DateTimeField(null=True, blank=True)
-    subscription_terms_accepted_ip = models.GenericIPAddressField(null=True, blank=True)
     status = models.CharField(
         max_length=20, choices=Status.choices, default=Status.PENDING, db_index=True
     )
@@ -111,7 +110,6 @@ class DealerProfile(models.Model):
     )
 
     legal_name = models.CharField(max_length=200, blank=True)
-    trading_name = models.CharField(max_length=200, blank=True)
     dealer_licence_number = models.CharField(max_length=50, blank=True)
     repairer_licence_number = models.CharField(max_length=50, blank=True)
     organisation_code = models.CharField(max_length=50, blank=True)
@@ -119,19 +117,22 @@ class DealerProfile(models.Model):
     acn = models.CharField(max_length=20, blank=True)
     address_line1 = models.CharField(max_length=200, blank=True)
     suburb = models.CharField(max_length=100, blank=True)
-    state = models.CharField(max_length=50, blank=True, default="WA")
     postcode = models.CharField(max_length=20, blank=True)
-    phone = models.CharField(max_length=50, blank=True)
-    email = models.EmailField(blank=True)
 
     authorised_officer_name = models.CharField(max_length=200, blank=True)
     authorised_officer_licence_number = models.CharField(max_length=50, blank=True)
     authorised_officer_date_of_birth = models.DateField(null=True, blank=True)
     declared_at = models.CharField(max_length=100, blank=True)
 
-    dealer_licence_document = models.FileField(upload_to=dealer_document_path, blank=True)
-    authorised_officer_identity_document = models.FileField(upload_to=dealer_document_path, blank=True)
-    business_evidence_document = models.FileField(upload_to=dealer_document_path, blank=True)
+    dealer_licence_document = models.FileField(
+        storage=private_document_storage, upload_to=dealer_document_path, blank=True
+    )
+    authorised_officer_identity_document = models.FileField(
+        storage=private_document_storage, upload_to=dealer_document_path, blank=True
+    )
+    business_evidence_document = models.FileField(
+        storage=private_document_storage, upload_to=dealer_document_path, blank=True
+    )
 
     condition_choices = models.JSONField(default=dict, blank=True)
     conditions_version = models.PositiveIntegerField(default=1)

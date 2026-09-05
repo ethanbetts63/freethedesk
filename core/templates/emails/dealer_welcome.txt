@@ -1,13 +1,9 @@
-Thanks, {{ dealer.contact_name }}.
+Thanks, {{ dealer.contact_name }}. Your account for {{ dealer.business_name }} is ready.
 
-We have your application for {{ dealer.business_name }}.
+{% if dealer.plan == "demo" %}Open your demo portal: {{ portal_url }}
 
-Every dealership is reviewed by hand before we switch an account on — we check
-that the business is licensed and that online licensing will actually work for
-how you sell. That usually takes a business day.
+Live customer transactions stay off until you choose a paid plan and complete verification.{% else %}Selected plan: {{ dealer.get_plan_display }}
 
-Once you are approved we will email you a link to finish setting up: your dealer
-details, the paperwork we prefill on your behalf, and the sale conditions you
-want to use.
+Continue to secure payment: {{ payment_url }}
 
-Nothing to do in the meantime. If anything is urgent, reply to this email.
+Once Stripe confirms payment, you can enter your licence and dealership details immediately. We verify those details before enabling live customer transactions.{% endif %}

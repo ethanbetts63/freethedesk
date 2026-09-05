@@ -1,16 +1,19 @@
 .page { background: #fff; color: #07121c; }
 .label { color: #247ec9; font-size: .68rem; font-weight: 900; letter-spacing: .14em; margin: 0 0 23px; text-transform: uppercase; }
+.enquirySection { padding-bottom: 20px; padding-top: 70px; }
+.enquiryWrap { margin: 0 auto; max-width: 640px; }
 .intro { display: grid; gap: clamp(60px, 9vw, 135px); grid-template-columns: 1fr .9fr; padding-bottom: 125px; padding-top: 125px; }
 .intro h2, .sectionHeading h2, .systemCopy h2, .proofSection h2, .faqLayout h2, .closing h2 { font-size: clamp(3rem, 5.3vw, 5.7rem); letter-spacing: -.072em; line-height: .93; margin: 0; }
 .intro > div:last-child { align-self: end; max-width: 520px; }
 .intro > div:last-child p, .systemCopy > p, .proofSection > div:last-child > p { color: #536c80; font-size: .98rem; line-height: 1.78; margin: 0 0 18px; }
 .servicesSection { background: #f2f7fb; padding: 115px 0 125px; }
 .sectionHeading { max-width: 900px; }
-.serviceGrid { border-left: 1px solid #cad9e4; border-top: 1px solid #cad9e4; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 66px; }
-.serviceGrid article { background: rgba(255,255,255,.5); border-bottom: 1px solid #cad9e4; border-right: 1px solid #cad9e4; min-height: 300px; padding: 28px; }
+.serviceGrid { border-left: 1px solid #cad9e4; border-top: 1px solid #cad9e4; display: grid; grid-template-columns: repeat(2, 1fr); margin-top: 66px; }
+.serviceGrid article { background: rgba(255,255,255,.5); border-bottom: 1px solid #cad9e4; border-right: 1px solid #cad9e4; min-height: 260px; padding: 28px; }
 .serviceGrid article > span, .processGrid article > span { color: #247ec9; font-size: .65rem; font-weight: 900; }
-.serviceGrid h3 { font-size: 1.35rem; letter-spacing: -.04em; margin: 82px 0 14px; }
+.serviceGrid h3 { font-size: 1.35rem; letter-spacing: -.04em; margin: 60px 0 14px; }
 .serviceGrid p, .processGrid p { color: #60778b; font-size: .83rem; line-height: 1.68; margin: 0; }
+.servicesClosing { color: #13315c; font-size: 1.25rem; font-weight: 750; letter-spacing: -.02em; line-height: 1.5; margin: 48px 0 0; max-width: 720px; }
 .systemSection { align-items: center; display: grid; gap: clamp(65px, 10vw, 145px); grid-template-columns: 1.08fr .92fr; padding-bottom: 135px; padding-top: 135px; }
 .systemVisual { background: #13315c; box-shadow: 22px 22px 0 #e2edf4; color: #fff; min-height: 515px; overflow: hidden; position: relative; }
 .systemVisual::before { background-image: linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px); background-size: 35px 35px; content: ""; inset: 0; position: absolute; }
@@ -62,6 +65,7 @@
 }
 
 @media (max-width: 620px) {
+  .enquirySection { padding-top: 50px; }
   .intro, .systemSection, .proofSection { padding-bottom: 82px; padding-top: 82px; }
   .servicesSection, .processSection, .faqSection { padding-bottom: 80px; padding-top: 80px; }
   .serviceGrid, .processGrid { grid-template-columns: 1fr; }

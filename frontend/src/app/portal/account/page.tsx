@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { getDealerAccount, updateDealerAccount, type DealerAccount } from "@/lib/dealerApi";
+import { DEALER_STATES } from "@/lib/dealerStates";
 
 export default function PortalAccountPage() {
   const [account, setAccount] = useState<DealerAccount | null>(null);
@@ -87,7 +88,7 @@ export default function PortalAccountPage() {
             <label>
               State or territory
               <select value={form.state} onChange={(event) => setForm({ ...form, state: event.target.value as DealerAccount["state"] })}>
-                <option value="WA">Western Australia</option><option value="NSW">New South Wales</option><option value="VIC">Victoria</option><option value="QLD">Queensland</option><option value="SA">South Australia</option><option value="TAS">Tasmania</option><option value="ACT">Australian Capital Territory</option><option value="NT">Northern Territory</option>
+                {DEALER_STATES.map((state) => <option key={state.value} value={state.value}>{state.label}</option>)}
               </select>
             </label>
             <label>

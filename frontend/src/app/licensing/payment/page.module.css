@@ -7,7 +7,6 @@
 .brand { color: #0d1c29; font-size: 1.18rem; font-weight: 900; letter-spacing: -.07em; width: fit-content; }
 .brand span { color: #73889b; font-size: .73em; font-weight: 650; margin: 0 2px; }
 .brand i { color: #247ec9; font-style: normal; }
-.back { color: #49647a; font-size: .72rem; font-weight: 800; margin-top: 30px; width: fit-content; }
 .summaryCopy { margin: auto 0 50px; max-width: 610px; }
 .summaryCopy > p { color: #247ec9; font-size: .65rem; font-weight: 900; letter-spacing: .15em; margin: 0 0 20px; text-transform: uppercase; }
 .summaryCopy h1 { font-size: clamp(3.4rem, 6.5vw, 7rem); letter-spacing: -.075em; line-height: .87; margin: 0 0 27px; max-width: 690px; }

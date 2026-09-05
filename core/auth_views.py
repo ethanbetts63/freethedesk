@@ -1,3 +1,5 @@
+import logging
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.middleware.csrf import get_token
@@ -6,6 +8,11 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
+
+from .throttles import LoginRateThrottle
+
+
+logger = logging.getLogger(__name__)
 
 
 def principal_payload(user):
@@ -58,6 +65,7 @@ def _set_auth_cookies(response, access_token, refresh_token=None, request=None):
 class CookieTokenObtainPairView(APIView):
     authentication_classes = []
     permission_classes = [AllowAny]
+    throttle_classes = [LoginRateThrottle]
 
     def post(self, request):
         identifier = (request.data.get("username") or request.data.get("email") or "").strip()
@@ -75,7 +83,8 @@ class CookieTokenObtainPairView(APIView):
         try:
             serializer.is_valid(raise_exception=True)
         except Exception:
-            return Response({"detail": "Invalid staff credentials."}, status=status.HTTP_401_UNAUTHORIZED)
+            logger.warning("Portal login failed identifier=%s", identifier)
+            return Response({"detail": "Invalid email or password."}, status=status.HTTP_401_UNAUTHORIZED)
 
         user = serializer.user
         payload = principal_payload(user)

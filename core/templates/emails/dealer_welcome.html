@@ -1,16 +1,19 @@
 {% extends "emails/base.html" %}
 
-{% block title %}We have your application — Free the Desk{% endblock %}
-{% block preheader %}Thanks for signing up. We review every dealership by hand before switching an account on.{% endblock %}
+{% block title %}Your account is ready — Free the Desk{% endblock %}
+{% block preheader %}Your Free the Desk dealer login has been created.{% endblock %}
 
 {% block content %}
 <p style="margin: 0 0 20px; font-size: 18px; font-weight: 700;">Thanks, {{ dealer.contact_name }}.</p>
 
-<p style="margin: 0 0 20px;">We have your application for <strong>{{ dealer.business_name }}</strong>.</p>
+<p style="margin: 0 0 20px;">Your account for <strong>{{ dealer.business_name }}</strong> is ready.</p>
 
-<p style="margin: 0 0 20px;">Every dealership is reviewed by hand before we switch an account on — we check that the business is licensed and that online licensing will actually work for how you sell. That usually takes a business day.</p>
-
-<p style="margin: 0 0 20px;">Once you are approved we will email you a link to finish setting up: your dealer details, the paperwork we prefill on your behalf, and the sale conditions you want to use.</p>
-
-<p style="margin: 0 0 8px;">Nothing to do in the meantime. If anything is urgent, reply to this email.</p>
+{% if dealer.plan == "demo" %}
+<p style="margin: 0 0 20px;"><a href="{{ portal_url }}">Open your demo portal</a>.</p>
+<p style="margin: 0 0 8px;">Live customer transactions stay off until you choose a paid plan and complete verification.</p>
+{% else %}
+<p style="margin: 0 0 20px;">Selected plan: <strong>{{ dealer.get_plan_display }}</strong>.</p>
+<p style="margin: 0 0 20px;"><a href="{{ payment_url }}">Continue to secure payment</a>.</p>
+<p style="margin: 0 0 8px;">Once Stripe confirms payment, you can enter your licence and dealership details immediately. We verify those details before enabling live customer transactions.</p>
+{% endif %}
 {% endblock %}

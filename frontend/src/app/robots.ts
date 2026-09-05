@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://freethedesk.com.au").replace(/\/$/, "");
+import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -11,11 +11,9 @@ export default function robots(): MetadataRoute.Robots {
         "/api/",
         "/dashboard",
         "/portal",
-        "/dealers/signup",
         "/licensing/payment",
-        "/website-builder",
       ],
     },
-    sitemap: `${siteUrl}/sitemap.xml`,
+    sitemap: `${PUBLIC_SITE_URL}/sitemap.xml`,
   };
 }

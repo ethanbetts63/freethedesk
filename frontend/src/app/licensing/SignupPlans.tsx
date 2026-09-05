@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { useAuth } from "@/context/AuthContext";
 import { getLicensingSettings } from "@/lib/api";
+import { DEALER_STATES } from "@/lib/dealerStates";
 import { buildDealerPlans, type DealerPlan, type DealerPlanCode } from "./plans";
 import styles from "./page.module.css";
 
@@ -118,7 +119,7 @@ export function SignupPlans() {
             </div>
             <div className={styles.fieldRow}>
               <label><span>Password</span><input name="password" type="password" autoComplete="new-password" minLength={8} required /><small>At least 8 characters.</small></label>
-              <label><span>State or territory</span><select name="state" defaultValue="WA" required><option value="WA">Western Australia</option><option value="NSW">New South Wales</option><option value="VIC">Victoria</option><option value="QLD">Queensland</option><option value="SA">South Australia</option><option value="TAS">Tasmania</option><option value="ACT">Australian Capital Territory</option><option value="NT">Northern Territory</option></select><small>No street address needed yet.</small></label>
+              <label><span>State or territory</span><select name="state" defaultValue="WA" required>{DEALER_STATES.map((state) => <option key={state.value} value={state.value}>{state.label}</option>)}</select><small>No street address needed yet.</small></label>
             </div>
             {error && <p className={styles.signupError} role="alert">{error}</p>}
             <button className={styles.signupSubmit} disabled={status === "submitting"}>

@@ -1,26 +1,25 @@
 import type { MetadataRoute } from "next";
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://freethedesk.com.au").replace(/\/$/, "");
+import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date("2026-09-05T00:00:00+08:00");
   const pages = [
-    { path: "", changeFrequency: "weekly" as const, priority: 1 },
-    { path: "/licensing", changeFrequency: "weekly" as const, priority: 0.95 },
-    { path: "/websites", changeFrequency: "weekly" as const, priority: 0.9 },
-    { path: "/website-development-perth", changeFrequency: "weekly" as const, priority: 0.9 },
-    { path: "/dealership-website-builder", changeFrequency: "monthly" as const, priority: 0.85 },
-    { path: "/automation", changeFrequency: "monthly" as const, priority: 0.75 },
-    { path: "/work/scooter-shop", changeFrequency: "monthly" as const, priority: 0.75 },
-    { path: "/contact", changeFrequency: "yearly" as const, priority: 0.65 },
-    { path: "/login", changeFrequency: "yearly" as const, priority: 0.25 },
-    { path: "/legal/privacy", changeFrequency: "yearly" as const, priority: 0.3 },
-    { path: "/legal/dealer-subscription-terms", changeFrequency: "yearly" as const, priority: 0.3 },
+    { path: "", lastModified: "2026-09-05", changeFrequency: "weekly" as const, priority: 1 },
+    { path: "/licensing", lastModified: "2026-09-05", changeFrequency: "weekly" as const, priority: 0.95 },
+    { path: "/dealer-websites", lastModified: "2026-09-05", changeFrequency: "weekly" as const, priority: 0.9 },
+    { path: "/website-development-perth", lastModified: "2026-09-05", changeFrequency: "weekly" as const, priority: 0.9 },
+    { path: "/dealership-website-builder", lastModified: "2026-09-05", changeFrequency: "monthly" as const, priority: 0.85 },
+    { path: "/automation", lastModified: "2026-09-05", changeFrequency: "monthly" as const, priority: 0.75 },
+    { path: "/work/scooter-shop", lastModified: "2026-09-05", changeFrequency: "monthly" as const, priority: 0.75 },
+    { path: "/contact", lastModified: "2026-09-05", changeFrequency: "yearly" as const, priority: 0.65 },
+    { path: "/login", lastModified: "2026-09-05", changeFrequency: "yearly" as const, priority: 0.25 },
+    { path: "/legal/privacy", lastModified: "2026-09-05", changeFrequency: "yearly" as const, priority: 0.3 },
+    { path: "/legal/dealer-subscription-terms", lastModified: "2026-09-05", changeFrequency: "yearly" as const, priority: 0.3 },
   ];
 
   return pages.map((page) => ({
-    url: `${siteUrl}${page.path}`,
-    lastModified,
+    url: `${PUBLIC_SITE_URL}${page.path}`,
+    lastModified: new Date(`${page.lastModified}T00:00:00+08:00`),
     changeFrequency: page.changeFrequency,
     priority: page.priority,
   }));

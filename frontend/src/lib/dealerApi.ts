@@ -14,8 +14,6 @@ export interface DealerAccount {
   payment_status_label: string;
   subscription_current_period_end: string | null;
   cancel_at_period_end: boolean;
-  subscription_terms_version: string;
-  subscription_terms_accepted_at: string | null;
   status: DealerStatus;
   status_label: string;
   created_at: string;
@@ -24,6 +22,9 @@ export interface DealerAccount {
 
 export interface SubscriptionCheckout {
   client_secret: string;
+  monthly_price: string;
+  currency: string;
+  terms_version: string;
 }
 
 export interface DealerOnboardingProfile {
@@ -46,9 +47,9 @@ export interface DealerOnboardingProfile {
   authorised_officer_licence_number: string;
   authorised_officer_date_of_birth: string | null;
   declared_at: string;
-  dealer_licence_document: string | null;
-  authorised_officer_identity_document: string | null;
-  business_evidence_document: string | null;
+  dealer_licence_document_uploaded: boolean;
+  authorised_officer_identity_document_uploaded: boolean;
+  business_evidence_document_uploaded: boolean;
   submitted_at: string | null;
   updated_at: string;
 }
@@ -67,13 +68,9 @@ export async function updateDealerAccount(changes: DealerAccountChanges): Promis
 }
 
 export async function createSubscriptionCheckout(): Promise<SubscriptionCheckout> {
-  return jsonOrError(await authedFetch("/api/payments/subscription/", { method: "POST" }));
-}
-
-export async function acceptDealerSubscriptionTerms(): Promise<void> {
-  await jsonOrError(await authedFetch("/api/payments/subscription/terms/", {
+  return jsonOrError(await authedFetch("/api/payments/subscription/", {
     method: "POST",
-    body: JSON.stringify({ accepted: true }),
+    body: JSON.stringify({ accepted_terms: true }),
   }));
 }
 

@@ -23,11 +23,11 @@ We may provide the same capabilities as an integration within a Dealer website u
 - Online contracts: the hosted online sales-contract workflow and related portal access.
 - Licensing and contracts: both paid products in one connected subscription.
 
-The selected plan, current price, billing frequency and applicable GST are displayed before payment. If there is a conflict between these terms and a signed custom proposal, the custom proposal prevails to the extent of the conflict.
+The selected plan, current GST-inclusive price and billing frequency are displayed before payment. If there is a conflict between these terms and a signed custom proposal, the custom proposal prevails to the extent of the conflict.
 
 ## 4. Signup, payment and renewal
 
-A paid subscription begins when Stripe confirms the first payment. You authorise Stripe to charge the payment method supplied for the displayed monthly fee, GST and any separately approved charges.
+A paid subscription begins when Stripe confirms the first payment. You authorise Stripe to charge the payment method supplied for the displayed GST-inclusive monthly fee and any separately approved charges.
 
 Paid plans renew monthly until cancelled. There is no fixed minimum term unless a separate written proposal says otherwise. Invoices and payment records may be issued electronically.
 

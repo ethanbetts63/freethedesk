@@ -4,14 +4,25 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
-SECRET_KEY = os.getenv("SECRET_KEY", "local-development-key-change-before-deploying")
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not DEBUG:
+    required_production_secrets = {
+        "SECRET_KEY": SECRET_KEY,
+        "STRIPE_SECRET_KEY": os.getenv("STRIPE_SECRET_KEY"),
+        "STRIPE_WEBHOOK_SECRET": os.getenv("STRIPE_WEBHOOK_SECRET"),
+    }
+    missing = [name for name, value in required_production_secrets.items() if not value]
+    if missing:
+        raise ImproperlyConfigured(f"Missing required production secrets: {', '.join(missing)}")
+SECRET_KEY = SECRET_KEY or "local-development-key-change-before-deploying"
 ALLOWED_HOSTS = [host.strip() for host in os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,testserver").split(",") if host.strip()]
 
 INSTALLED_APPS = [
@@ -30,6 +41,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "core.middleware.NoCacheApiMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -86,8 +98,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-MEDIA_ROOT = BASE_DIR / "private-media"
-MEDIA_URL = "/private-media/"
+PRIVATE_MEDIA_ROOT = BASE_DIR / "private-media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
@@ -95,8 +106,19 @@ REST_FRAMEWORK = {
         "core.authentication.CookieJWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ],
-    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
-    "DEFAULT_THROTTLE_RATES": {"enquiry": "10/hour", "dealer-signup": "5/hour"},
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ],
+    "NUM_PROXIES": 1,
+    "DEFAULT_THROTTLE_RATES": {
+        "anon": "250/day",
+        "user": "10000/day",
+        "login": "5/minute",
+        "enquiry": "10/hour",
+        "dealer-signup": "5/hour",
+    },
 }
 
 AUTH_COOKIE = "freethedesk_access"
@@ -116,6 +138,13 @@ CSRF_TRUSTED_ORIGINS = [
     if origin.strip()
 ]
 
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 63072000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
 SITE_URL = os.getenv("SITE_URL", "http://localhost:3000")
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "")
 ADMIN_NUMBER = os.getenv("ADMIN_NUMBER", "")
@@ -130,7 +159,5 @@ TWILIO_MESSAGING_SERVICE_SID = os.getenv("TWILIO_MESSAGING_SERVICE_SID", "")
 
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
-STRIPE_PRICE_LICENSING = os.getenv("STRIPE_PRICE_LICENSING", "")
-STRIPE_PRICE_CONTRACTS = os.getenv("STRIPE_PRICE_CONTRACTS", "")
-STRIPE_PRICE_COMPLETE = os.getenv("STRIPE_PRICE_COMPLETE", "")
 DEALER_TERMS_VERSION = "2026-09-05"
+DEALER_TERMS_FILE = BASE_DIR / "frontend" / "content" / "legal" / "dealer-subscription-terms.md"

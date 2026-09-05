@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -8,13 +9,23 @@ class LicensingSettings(models.Model):
 
     All prices are GST inclusive — what a dealer actually pays each month, with
     no "+ GST" added at checkout. Editable from the admin dashboard so pricing
-    can change without a deploy. This drives the marketing copy only; the
-    amount Stripe actually charges still comes from the STRIPE_PRICE_* env vars.
+    can change without a deploy. These values are the source of truth sent to
+    Stripe for new subscriptions. Existing subscriptions retain their accepted
+    price.
     """
 
-    licensing_price = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal("149.00"))
-    contracts_price = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal("99.00"))
-    complete_price = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal("199.00"))
+    licensing_price = models.DecimalField(
+        max_digits=8, decimal_places=2, default=Decimal("149.00"),
+        validators=[MinValueValidator(Decimal("0.01"))],
+    )
+    contracts_price = models.DecimalField(
+        max_digits=8, decimal_places=2, default=Decimal("99.00"),
+        validators=[MinValueValidator(Decimal("0.01"))],
+    )
+    complete_price = models.DecimalField(
+        max_digits=8, decimal_places=2, default=Decimal("199.00"),
+        validators=[MinValueValidator(Decimal("0.01"))],
+    )
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:

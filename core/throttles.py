@@ -9,3 +9,7 @@ class DealerSignupRateThrottle(AnonRateThrottle):
     # Its own bucket: a dealer who already sent an enquiry should not find
     # themselves unable to create an account.
     scope = "dealer-signup"
+
+
+class LoginRateThrottle(AnonRateThrottle):
+    scope = "login"

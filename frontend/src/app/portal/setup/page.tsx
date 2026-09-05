@@ -11,7 +11,6 @@ import {
 
 const textFields = [
   ["legal_name", "Legal business name", "Exactly as registered."],
-  ["trading_name", "Trading name", "Exactly as licensed."],
   ["dealer_licence_number", "Dealer licence (MD)", "Printed on licensing and contract forms."],
   ["repairer_licence_number", "Repairer licence (MRB)", "Leave blank if it does not apply."],
   ["organisation_code", "DoT organisation code", "Organisation code or premises number."],
@@ -20,8 +19,7 @@ const textFields = [
 ] as const;
 
 const addressFields = [
-  ["address_line1", "Street address"], ["suburb", "Suburb"], ["state", "State"],
-  ["postcode", "Postcode"], ["phone", "Dealership phone"], ["email", "Dealership email"],
+  ["address_line1", "Street address"], ["suburb", "Suburb"], ["postcode", "Postcode"],
 ] as const;
 
 const officerFields = [
@@ -88,9 +86,10 @@ export default function DealerSetupPage() {
 
         <fieldset disabled={locked || saving}>
           <legend>Dealership contact</legend>
-          <p>Use the address and contact details that should appear on transaction records.</p>
+          <p>Trading name, state, phone and email come from your account so they are maintained in one place.</p>
+          <p className="admin-muted">{profile.trading_name} · {profile.state} · {profile.phone || "Phone required before submission"} · {profile.email}</p>
           <div className="portal-field-grid">
-            {addressFields.map(([name, label]) => <label key={name}><span>{label}</span><input name={name} type={name === "email" ? "email" : name === "phone" ? "tel" : "text"} defaultValue={profile[name] ?? ""} /></label>)}
+            {addressFields.map(([name, label]) => <label key={name}><span>{label}</span><input name={name} type="text" defaultValue={profile[name] ?? ""} /></label>)}
           </div>
         </fieldset>
 
@@ -107,9 +106,9 @@ export default function DealerSetupPage() {
           <legend>Verification documents</legend>
           <p>PDF, JPG, PNG or WebP. Maximum 10 MB per file.</p>
           <div className="portal-field-grid portal-file-grid">
-            <label><span>Dealer licence</span><input name="dealer_licence_document" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" /><small>{profile.dealer_licence_document ? "Already uploaded — choose a file only to replace it." : "Required before submission."}</small></label>
-            <label><span>Authorised officer ID</span><input name="authorised_officer_identity_document" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" /><small>{profile.authorised_officer_identity_document ? "Already uploaded — choose a file only to replace it." : "Required before submission."}</small></label>
-            <label><span>Business evidence</span><input name="business_evidence_document" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" /><small>{profile.business_evidence_document ? "Already uploaded — choose a file only to replace it." : "Required before submission."}</small></label>
+            <label><span>Dealer licence</span><input name="dealer_licence_document" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" /><small>{profile.dealer_licence_document_uploaded ? "Already uploaded — choose a file only to replace it." : "Required before submission."}</small></label>
+            <label><span>Authorised officer ID</span><input name="authorised_officer_identity_document" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" /><small>{profile.authorised_officer_identity_document_uploaded ? "Already uploaded — choose a file only to replace it." : "Required before submission."}</small></label>
+            <label><span>Business evidence</span><input name="business_evidence_document" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" /><small>{profile.business_evidence_document_uploaded ? "Already uploaded — choose a file only to replace it." : "Required before submission."}</small></label>
           </div>
         </fieldset>
 

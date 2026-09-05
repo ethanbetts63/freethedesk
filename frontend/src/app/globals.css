@@ -100,12 +100,42 @@ main { min-height: 70vh; overflow: hidden; }
 .wordmark { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.085em; line-height: 1; }
 .wordmark span { color: var(--accent-ink); }
 .wordmark .wordmark-dot { color: var(--accent-strong); }
-.desktop-nav { align-items: center; display: flex; font-size: 0.88rem; font-weight: 700; gap: clamp(14px, 2vw, 36px); }
+.nav-logo { align-items: center; display: flex; flex: 0 0 auto; }
+.nav-logo-image { display: block; height: 52px; object-fit: contain; width: 52px; }
+.desktop-nav { align-items: center; align-self: stretch; display: flex; font-size: 0.88rem; font-weight: 700; gap: clamp(14px, 2vw, 36px); }
 .desktop-nav > a:not(.nav-cta) { position: relative; }
 .desktop-nav > a:not(.nav-cta)::after { background: var(--text); bottom: -7px; content: ""; height: 1px; left: 0; position: absolute; transform: scaleX(0); transform-origin: right; transition: transform .2s; width: 100%; }
 .desktop-nav > a:not(.nav-cta):hover::after { transform: scaleX(1); transform-origin: left; }
 .nav-cta { background: var(--surface-dark); color: var(--text-on-dark); padding: 12px 17px; transition: background .2s, transform .2s; }
 .nav-cta:hover { background: var(--surface-dark-soft); transform: translateY(-1px); }
+.nav-dropdown { align-items: center; align-self: stretch; display: flex; position: relative; }
+.nav-dropdown-trigger {
+  align-items: center; background: transparent; border: 0; color: var(--text); cursor: pointer;
+  display: flex; font: inherit; font-weight: 700; gap: 6px; height: 100%; padding: 9px 12px; transition: background .2s, color .2s;
+}
+.nav-dropdown-trigger svg { transition: transform .2s; }
+.nav-dropdown:hover .nav-dropdown-trigger,
+.nav-dropdown:has(:focus-visible) .nav-dropdown-trigger,
+.nav-dropdown[data-open="true"] .nav-dropdown-trigger {
+  background: var(--surface-dark); color: var(--text-on-dark);
+}
+.nav-dropdown:hover .nav-dropdown-trigger svg,
+.nav-dropdown:has(:focus-visible) .nav-dropdown-trigger svg,
+.nav-dropdown[data-open="true"] .nav-dropdown-trigger svg {
+  transform: rotate(180deg);
+}
+.nav-dropdown-menu {
+  background: var(--surface-dark); border: 1px solid var(--border-on-dark); box-shadow: 0 22px 55px rgba(var(--shadow-color), .3);
+  display: flex; flex-direction: column; left: 0; min-width: 190px; opacity: 0; padding: 6px; pointer-events: none;
+  position: absolute; top: 100%; transition: opacity .15s; visibility: hidden; z-index: 60;
+}
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:has(:focus-visible) .nav-dropdown-menu,
+.nav-dropdown[data-open="true"] .nav-dropdown-menu {
+  opacity: 1; pointer-events: auto; visibility: visible;
+}
+.nav-dropdown-menu a { color: var(--text-on-dark); font-size: .85rem; font-weight: 700; padding: 12px; transition: background .15s, color .15s; }
+.nav-dropdown-menu a:hover { background: rgba(255,255,255,.08); color: var(--accent); }
 .mobile-nav { display: none; position: relative; }
 .mobile-nav summary { align-items: center; background: var(--surface-dark); cursor: pointer; display: flex; flex-direction: column; gap: 5px; height: 44px; justify-content: center; list-style: none; width: 48px; }
 .mobile-nav summary::-webkit-details-marker { display: none; }
@@ -115,6 +145,7 @@ main { min-height: 70vh; overflow: hidden; }
 .mobile-nav[open] summary i:last-child { transform: translateY(-7px) rotate(-45deg); }
 .mobile-nav summary:focus-visible { box-shadow: 0 0 0 3px var(--focus-ring); outline: 0; }
 .mobile-nav nav { background: var(--surface); border: 1px solid var(--border); box-shadow: 0 22px 55px rgba(var(--shadow-color), .18); display: flex; flex-direction: column; padding: 10px; position: absolute; right: 0; top: calc(100% + 12px); width: min(330px, calc(100vw - 40px)); }
+.mobile-nav-label { color: var(--text-muted); font-size: .68rem; font-weight: 800; letter-spacing: .08em; padding: 10px 12px 2px; text-transform: uppercase; }
 .mobile-nav nav a { align-items: center; border-bottom: 1px solid var(--border); display: flex; font-size: .88rem; font-weight: 800; justify-content: space-between; padding: 14px 12px; }
 .mobile-nav nav a span { color: var(--accent-ink); }
 .mobile-nav nav .mobile-nav-cta { background: var(--surface-dark); border: 0; color: var(--text-on-dark); margin-top: 9px; padding: 16px 14px; }
@@ -481,6 +512,7 @@ main { min-height: 70vh; overflow: hidden; }
   .shell { padding-left: 20px; padding-right: 20px; }
   .section { padding-bottom: 78px; padding-top: 78px; }
   .header-inner { min-height: 68px; }
+  .nav-logo-image { height: 46px; width: 46px; }
   .desktop-nav { display: none; }
   .mobile-nav { display: block; }
   .home-hero, .subpage-hero, .automation-hero { padding-bottom: 80px; padding-top: 70px; }

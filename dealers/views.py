@@ -14,6 +14,7 @@ from core.throttles import DealerSignupRateThrottle
 from .models import Dealer, DealerProfile
 from .notifications import notify_staff_of_dealer_signup, send_dealer_welcome
 from .permissions import IsDealer
+from .services import ensure_dealer_profile
 from .serializers import (
     AdminDealerSerializer,
     DealerOnboardingSerializer,
@@ -23,12 +24,7 @@ from .serializers import (
 
 
 class DealerRegistrationView(APIView):
-    """Public dealer signup.
-
-    No auth cookies are set. A dealer has nothing to log into until phase 2
-    builds the portal, and issuing a session for an account that cannot be used
-    would only produce a confusing dead end.
-    """
+    """Create the basic dealer login before demo access or paid checkout."""
 
     authentication_classes = []
     permission_classes = [AllowAny]
@@ -71,11 +67,7 @@ class DealerOnboardingView(RetrieveUpdateAPIView):
         dealer = self.request.user.dealer
         if dealer.payment_status != Dealer.PaymentStatus.ACTIVE:
             raise PermissionDenied("Complete payment before starting dealership setup.")
-        profile, _ = DealerProfile.objects.get_or_create(
-            dealer=dealer,
-            defaults={"trading_name": dealer.business_name, "state": dealer.state, "phone": dealer.phone, "email": dealer.email},
-        )
-        return profile
+        return ensure_dealer_profile(dealer)
 
 
 class DealerOnboardingSubmitView(APIView):
@@ -83,16 +75,12 @@ class DealerOnboardingSubmitView(APIView):
 
     required_fields = {
         "legal_name": "Legal business name",
-        "trading_name": "Trading name",
         "dealer_licence_number": "Dealer licence (MD)",
         "organisation_code": "DoT organisation code",
         "abn": "ABN",
         "address_line1": "Street address",
         "suburb": "Suburb",
-        "state": "State",
         "postcode": "Postcode",
-        "phone": "Dealership phone",
-        "email": "Dealership email",
         "authorised_officer_name": "Authorised officer",
         "authorised_officer_licence_number": "Officer licence number",
         "authorised_officer_date_of_birth": "Officer date of birth",
@@ -106,11 +94,15 @@ class DealerOnboardingSubmitView(APIView):
         dealer = request.user.dealer
         if dealer.payment_status != Dealer.PaymentStatus.ACTIVE:
             raise PermissionDenied("Complete payment before submitting dealership setup.")
-        profile, _ = DealerProfile.objects.get_or_create(
-            dealer=dealer,
-            defaults={"trading_name": dealer.business_name, "state": dealer.state, "phone": dealer.phone, "email": dealer.email},
-        )
+        profile = ensure_dealer_profile(dealer)
         missing = [label for field, label in self.required_fields.items() if not getattr(profile, field)]
+        dealer_required = {
+            "business_name": "Trading name",
+            "state": "State",
+            "phone": "Dealership phone",
+            "email": "Dealership email",
+        }
+        missing.extend(label for field, label in dealer_required.items() if not getattr(dealer, field))
         if missing:
             raise ValidationError({"detail": f"Complete these fields before submitting: {', '.join(missing)}."})
         profile.verification_status = DealerProfile.VerificationStatus.SUBMITTED

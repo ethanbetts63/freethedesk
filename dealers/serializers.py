@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
@@ -7,6 +5,7 @@ from django.db import transaction
 from rest_framework import serializers
 
 from .models import Dealer, DealerProfile
+from .uploads import validate_and_rename_upload
 
 
 class DealerRegistrationSerializer(serializers.Serializer):
@@ -75,13 +74,13 @@ class DealerSelfSerializer(serializers.ModelSerializer):
         fields = [
             "id", "business_name", "contact_name", "email", "phone", "state", "state_label", "plan", "plan_label",
             "payment_status", "payment_status_label", "subscription_current_period_end",
-            "cancel_at_period_end", "subscription_terms_version", "subscription_terms_accepted_at",
+            "cancel_at_period_end",
             "status", "status_label", "created_at", "updated_at",
         ]
         read_only_fields = [
             "id", "email", "state_label", "plan", "plan_label", "payment_status", "payment_status_label",
-            "subscription_current_period_end", "cancel_at_period_end", "subscription_terms_version",
-            "subscription_terms_accepted_at", "status", "status_label", "created_at", "updated_at",
+            "subscription_current_period_end", "cancel_at_period_end",
+            "status", "status_label", "created_at", "updated_at",
         ]
 
 
@@ -96,14 +95,14 @@ class AdminDealerSerializer(serializers.ModelSerializer):
         fields = [
             "id", "business_name", "contact_name", "email", "phone", "state", "state_label", "plan", "plan_label",
             "payment_status", "payment_status_label", "subscription_current_period_end",
-            "cancel_at_period_end", "subscription_terms_version", "subscription_terms_accepted_at",
+            "cancel_at_period_end",
             "status", "status_label", "staff_notes", "status_changed_at",
             "created_at", "updated_at",
         ]
         read_only_fields = [
             "id", "business_name", "contact_name", "email", "phone", "state", "state_label", "plan", "plan_label",
             "payment_status", "payment_status_label", "subscription_current_period_end",
-            "cancel_at_period_end", "subscription_terms_version", "subscription_terms_accepted_at",
+            "cancel_at_period_end",
             "status_label", "status_changed_at", "created_at", "updated_at",
         ]
 
@@ -112,6 +111,16 @@ class DealerOnboardingSerializer(serializers.ModelSerializer):
     verification_status_label = serializers.CharField(
         source="get_verification_status_display", read_only=True
     )
+    trading_name = serializers.CharField(source="dealer.business_name", read_only=True)
+    state = serializers.CharField(source="dealer.state", read_only=True)
+    phone = serializers.CharField(source="dealer.phone", read_only=True)
+    email = serializers.EmailField(source="dealer.email", read_only=True)
+    dealer_licence_document = serializers.FileField(write_only=True, required=False)
+    authorised_officer_identity_document = serializers.FileField(write_only=True, required=False)
+    business_evidence_document = serializers.FileField(write_only=True, required=False)
+    dealer_licence_document_uploaded = serializers.SerializerMethodField()
+    authorised_officer_identity_document_uploaded = serializers.SerializerMethodField()
+    business_evidence_document_uploaded = serializers.SerializerMethodField()
 
     class Meta:
         model = DealerProfile
@@ -121,7 +130,9 @@ class DealerOnboardingSerializer(serializers.ModelSerializer):
             "address_line1", "suburb", "state", "postcode", "phone", "email",
             "authorised_officer_name", "authorised_officer_licence_number",
             "authorised_officer_date_of_birth", "declared_at", "dealer_licence_document",
-            "authorised_officer_identity_document", "business_evidence_document", "submitted_at",
+            "authorised_officer_identity_document", "business_evidence_document",
+            "dealer_licence_document_uploaded", "authorised_officer_identity_document_uploaded",
+            "business_evidence_document_uploaded", "submitted_at",
             "created_at", "updated_at",
         ]
         read_only_fields = [
@@ -129,19 +140,26 @@ class DealerOnboardingSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, attrs):
-        allowed_extensions = {".pdf", ".jpg", ".jpeg", ".png", ".webp"}
         for field_name in (
             "dealer_licence_document", "authorised_officer_identity_document", "business_evidence_document",
         ):
             document = attrs.get(field_name)
             if not document:
                 continue
-            suffix = Path(document.name).suffix.lower()
-            if suffix not in allowed_extensions:
-                raise serializers.ValidationError({field_name: "Upload a PDF, JPG, PNG or WebP file."})
-            if document.size > 10 * 1024 * 1024:
-                raise serializers.ValidationError({field_name: "Files must be no larger than 10 MB."})
+            document, error = validate_and_rename_upload(document)
+            if error:
+                raise serializers.ValidationError({field_name: error})
+            attrs[field_name] = document
         return attrs
+
+    def get_dealer_licence_document_uploaded(self, instance):
+        return bool(instance.dealer_licence_document)
+
+    def get_authorised_officer_identity_document_uploaded(self, instance):
+        return bool(instance.authorised_officer_identity_document)
+
+    def get_business_evidence_document_uploaded(self, instance):
+        return bool(instance.business_evidence_document)
 
     def update(self, instance, validated_data):
         if instance.verification_status in {

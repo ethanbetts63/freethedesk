@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
+import { ContactForm } from "../contact/ContactForm";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -11,12 +12,10 @@ export const metadata: Metadata = {
 };
 
 const services = [
-  ["Custom business websites", "A clear, fast site designed around what customers need to understand and what you need them to do next."],
-  ["Ecommerce", "Product discovery, purchasing, payments and fulfilment flows shaped around the way your business actually sells."],
-  ["Web applications", "Secure portals, booking tools, quoting systems and internal interfaces when an ordinary website is not enough."],
-  ["System integrations", "Connect your website to inventory, CRM, accounting, communications or specialist platforms through reliable APIs."],
-  ["Search foundations", "Technical SEO, useful page structure and focused content that give relevant searches a strong page to land on."],
-  ["Ongoing improvement", "Measure real behaviour after launch, maintain the system and improve the parts that can create more value."],
+  ["Stock and pricing that update themselves", "If your suppliers publish stock or pricing anywhere—even without a proper API—we build a sync that checks it on a schedule, so nobody is cross-referencing a spreadsheet by hand."],
+  ["The moment something happens, you know", "A new order, a booking, an enquiry, a failed sync. SMS and email alerts land the second it matters, not whenever someone next opens a dashboard."],
+  ["Every routine email, already written", "Order confirmations, booking reminders, status updates. Sent automatically the moment they are triggered, never drafted from scratch."],
+  ["Your calendar and your other tools, in sync", "If you already run a booking or job system, we connect it to your website instead of asking your team to enter the same thing twice."],
 ];
 
 const process = [
@@ -48,15 +47,25 @@ export default function WebsiteDevelopmentPerthPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <FlowHeroConcept
         eyebrow="Website development Perth"
-        title="Built to work."
-        accentTitle="Made in Perth."
-        lead="Custom websites, ecommerce and web applications for businesses that need a useful digital system—not another generic template."
-        primaryHref="/contact"
+        title="Built as a system."
+        accentTitle="Not just a page."
+        lead="A website is the part your customers see. We build the part that saves your team hours every week—automated notifications, supplier syncs and booking workflows behind a site that also happens to look good."
+        primaryHref="#enquiry"
         primaryLabel="Discuss your website"
-        secondaryHref="#services"
+        secondaryHref="/work/scooter-shop"
         secondaryLabel="See what we build"
         stages={["Understand", "Design", "Build", "Improve"]}
       />
+
+      <section className={`shell ${styles.enquirySection}`} id="enquiry">
+        <div className={styles.enquiryWrap}>
+          <div className="contact-form-wrap">
+            <h2>Tell us about the business.</h2>
+            <p>No polished brief needed. Start with the problem.</p>
+            <ContactForm />
+          </div>
+        </div>
+      </section>
 
       <section className={`shell ${styles.intro}`}>
         <div><p className={styles.label}>01 / The approach</p><h2>A website with a job to do.</h2></div>
@@ -65,10 +74,11 @@ export default function WebsiteDevelopmentPerthPage() {
 
       <section className={styles.servicesSection} id="services">
         <div className="shell">
-          <div className={styles.sectionHeading}><p className={styles.label}>02 / What we build</p><h2>From the public website to the system behind it.</h2></div>
+          <div className={styles.sectionHeading}><p className={styles.label}>02 / What we build</p><h2>The website is the easy part.</h2></div>
           <div className={styles.serviceGrid}>
             {services.map(([title, body], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}
           </div>
+          <p className={styles.servicesClosing}>Anyone can put your stock on a nice-looking page. We build the parts behind it that save you actual hours.</p>
         </div>
       </section>
 
@@ -117,7 +127,7 @@ export default function WebsiteDevelopmentPerthPage() {
         <p className={styles.label}>Start with the useful part</p>
         <h2>What should your website make easier?</h2>
         <p>Tell us what you sell, who the site is for and where the current process gets in the way.</p>
-        <Link href="/contact">Talk about your project <span>↗</span></Link>
+        <Link href="#enquiry">Talk about your project <span>↗</span></Link>
       </section>
     </main>
   );

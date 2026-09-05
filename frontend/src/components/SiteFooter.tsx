@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { FOOTER_NAVIGATION } from "@/lib/siteConfig";
+
 export function SiteFooter() {
   return (
     <footer className="site-footer">
@@ -14,13 +16,7 @@ export function SiteFooter() {
         </div>
         <div className="footer-links">
           <p className="footer-label">Explore</p>
-          <Link href="/website-development-perth">Perth website development</Link>
-          <Link href="/websites">Dealer websites</Link>
-          <Link href="/licensing">Online licensing</Link>
-          <Link href="/automation">Automation</Link>
-          <Link href="/work/scooter-shop">Scooter Shop case study</Link>
-          <Link href="/contact">Contact</Link>
-          <Link href="/login">Login</Link>
+          {FOOTER_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
         </div>
         <div className="footer-links">
           <p className="footer-label">Based in</p>
