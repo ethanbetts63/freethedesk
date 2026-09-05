@@ -144,17 +144,22 @@ export function NetworkField() {
     };
 
     const onPointerLeave = () => { pointer.active = false; };
+    const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     resize();
     draw(0);
     window.addEventListener("resize", resize);
-    canvas.addEventListener("pointermove", onPointerMove);
-    canvas.addEventListener("pointerleave", onPointerLeave);
+    if (supportsHover) {
+      canvas.addEventListener("pointermove", onPointerMove);
+      canvas.addEventListener("pointerleave", onPointerLeave);
+    }
 
     return () => {
       window.cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
-      canvas.removeEventListener("pointermove", onPointerMove);
-      canvas.removeEventListener("pointerleave", onPointerLeave);
+      if (supportsHover) {
+        canvas.removeEventListener("pointermove", onPointerMove);
+        canvas.removeEventListener("pointerleave", onPointerLeave);
+      }
     };
   }, []);
 

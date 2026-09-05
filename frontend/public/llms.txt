@@ -1,0 +1,17 @@
+# Free the Desk
+
+> Free the Desk builds websites and operational systems for Australian small and medium businesses and vehicle dealerships — connected sites, online licensing and business automation, not template brochureware.
+
+Perth-based, working with businesses across Australia. The differentiator is the admin side: supplier stock syncs, instant staff notifications, precomposed transactional emails and booking-system integrations sit behind every site built, not just the public-facing pages.
+
+## Products
+- [Website development](https://freethedesk.com.au/website-development-perth): Custom web applications for small and medium businesses, built around automation that saves staff time, not just a marketing site.
+- [Dealer websites](https://freethedesk.com.au/dealer-websites): Inventory, parts, service and hire websites built specifically for vehicle and equipment dealerships.
+- [Online licensing](https://freethedesk.com.au/licensing): Online vehicle licensing and contract signing so customers can complete paperwork without a dealership visit.
+- [Business automation](https://freethedesk.com.au/automation): Workflow automation and custom integrations connecting the systems a business already runs.
+
+## Case studies
+- [Scooter Shop](https://freethedesk.com.au/work/scooter-shop): A full case study of a live dealership website covering inventory, online purchasing, licensing, parts, service and hire.
+
+## Company
+- [Contact](https://freethedesk.com.au/contact): Start a conversation about a website, licensing or automation project.

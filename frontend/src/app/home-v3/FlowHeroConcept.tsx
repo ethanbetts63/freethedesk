@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { SignalFlow } from "./SignalFlow";
+import { NetworkField } from "./NetworkField";
 import styles from "./page.module.css";
 
 type FlowHeroConceptProps = {
@@ -16,9 +16,9 @@ type FlowHeroConceptProps = {
   trustLine?: string;
 };
 
-/** Alternate signal-flow hero, kept separate from the home hero for product pages. */
+/** Alternate hero layout, kept separate from the home hero for product pages. */
 export function FlowHeroConcept({
-  eyebrow = "Systems that think ahead",
+  eyebrow = "Efficiency First Solutions",
   title = "Digital",
   accentTitle = "dealerships.",
   lead = "Connected websites and operational systems built for the way modern dealerships sell, service and work.",
@@ -31,7 +31,7 @@ export function FlowHeroConcept({
 }: FlowHeroConceptProps) {
   return (
     <section className={styles.flowHero}>
-      <div className={styles.flow}><SignalFlow /></div>
+      <div className={styles.flow}><NetworkField /></div>
       <div className={styles.flowGrid} />
       <div className={styles.flowFade} />
       <div className={`shell ${styles.flowLayout}`}>

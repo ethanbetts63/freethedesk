@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { SiteChrome } from "@/components/SiteChrome";
 import { AuthProvider } from "@/context/AuthContext";
 import { METADATA_BASE_URL } from "@/lib/siteConfig";
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
+        <ScrollToTop />
         <AuthProvider>
           <SiteChrome>{children}</SiteChrome>
         </AuthProvider>

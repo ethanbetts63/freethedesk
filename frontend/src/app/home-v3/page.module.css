@@ -36,9 +36,10 @@
 .flowHero { background: #fff; border-top: 1px solid rgba(19,49,92,.09); min-height: calc(100vh - 78px); overflow: hidden; position: relative; isolation: isolate; }
 .flow { bottom: 0; left: 40%; position: absolute; right: -8%; top: 0; z-index: -3; }
 .flow canvas { height: 100%; width: 100%; }
-.flowGrid { background-image: linear-gradient(rgba(17,70,126,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(17,70,126,.035) 1px, transparent 1px); background-size: 64px 64px; inset: 0; mask-image: radial-gradient(circle at 70% 48%, #000, transparent 73%); position: absolute; z-index: -1; }
-.flowFade { background: radial-gradient(ellipse at 27% 50%, #fff 0 20%, rgba(255,255,255,.94) 39%, rgba(255,255,255,.34) 70%, rgba(255,255,255,.08) 100%); inset: 0; position: absolute; z-index: -2; }
-.flowLayout { display: grid; grid-template-columns: minmax(0, 1fr) 130px; min-height: calc(100vh - 78px); padding-bottom: 78px; padding-top: 78px; }
+.flowGrid { background-image: linear-gradient(rgba(17,70,126,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(17,70,126,.035) 1px, transparent 1px); background-size: 64px 64px; inset: 0; mask-image: radial-gradient(circle at 70% 48%, #000, transparent 73%); pointer-events: none; position: absolute; z-index: -1; }
+.flowFade { background: radial-gradient(ellipse at 27% 50%, #fff 0 20%, rgba(255,255,255,.94) 39%, rgba(255,255,255,.34) 70%, rgba(255,255,255,.08) 100%); inset: 0; pointer-events: none; position: absolute; z-index: -2; }
+.flowLayout { display: grid; grid-template-columns: minmax(0, 1fr) 130px; min-height: calc(100vh - 78px); padding-bottom: 78px; padding-top: 78px; pointer-events: none; }
+.flowLayout a { pointer-events: auto; }
 .flowCopy { align-self: center; max-width: 920px; }
 .flowKicker { color: #247ec9; font-size: .68rem; font-weight: 800; letter-spacing: .18em; margin: 0 0 30px; text-transform: uppercase; }
 .flowCopy h1 { color: #000; font-size: clamp(4.4rem, 9.2vw, 9.4rem); font-weight: 300; letter-spacing: -.08em; line-height: .78; margin: 0; }

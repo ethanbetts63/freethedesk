@@ -4,8 +4,9 @@ export function ContactEnquiry() {
   return (
     <div className="contact-grid">
       <div className="contact-copy">
-        <p className="section-number">Tell us what is getting in the way</p>
-        <h2>Show us the hard part.</h2>
+        <p className="eyebrow"><span /> Start a conversation</p>
+        <h1>Start with the problem.</h1>
+        <p className="contact-lead">A website URL and a plain-English explanation are enough. We&apos;ll review the business and come back with useful questions.</p>
         <div className="contact-detail">
           <span>01</span>
           <div>

@@ -9,7 +9,7 @@ export type Service = {
 };
 
 const customService = {
-  title: "Something only your business does",
+  title: "Custom automation",
   body: "The repetitive, computer-based task too specific for any off-the-shelf tool. Tell us what eats your week.",
   color: "var(--accent-strong)",
   icon: (
@@ -38,8 +38,10 @@ export function ServiceScroll({ services }: { services: Service[] }) {
             <h3>{service.title}</h3>
           </div>
           <div className="service-content">
-            <div className="service-icon" style={{ color: service.color }}>{service.icon}</div>
-            <p>{service.body}</p>
+            <div className="service-lead">
+              <div className="service-icon" style={{ color: service.color }}>{service.icon}</div>
+              <p>{service.body}</p>
+            </div>
             <ul className="service-examples">
               {service.examples.map((example) => <li key={example}>{example}</li>)}
             </ul>
@@ -52,8 +54,10 @@ export function ServiceScroll({ services }: { services: Service[] }) {
           <h3>{customService.title}</h3>
         </div>
         <div className="service-content">
-          <div className="service-icon" style={{ color: customService.color }}>{customService.icon}</div>
-          <p>{customService.body}</p>
+          <div className="service-lead">
+            <div className="service-icon" style={{ color: customService.color }}>{customService.icon}</div>
+            <p>{customService.body}</p>
+          </div>
           <Link className="service-cta" href="/contact" style={{ background: customService.color }}>
             Tell us about it <span>→</span>
           </Link>
