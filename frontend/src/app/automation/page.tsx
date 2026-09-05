@@ -3,7 +3,8 @@ import Link from "next/link";
 
 import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
-import { ServiceScroll } from "./ServiceScroll";
+import { ServiceScroll } from "@/components/ServiceScroll";
+import { automationServices } from "./automationServices";
 
 export const metadata: Metadata = {
   title: "Business Automation",
@@ -18,7 +19,7 @@ const automationStats: [ProofStat, ProofStat, ProofStat] = [
 
 export default function AutomationPage() {
   return (
-    <main className="automation-page">
+    <main>
       <FlowHeroConcept
         eyebrow="Business automation"
         title="Less repetition."
@@ -47,7 +48,7 @@ export default function AutomationPage() {
       </section>
 
       <section className="shell" id="workflows">
-        <ServiceScroll />
+        <ServiceScroll services={automationServices} />
       </section>
 
       <section className="section lime-band">

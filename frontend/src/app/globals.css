@@ -88,7 +88,7 @@ main { min-height: 70vh; overflow: hidden; }
 /* The sticky service list needs main to not clip—position:sticky is inert under
    any ancestor with overflow != visible. FlowHeroConcept clips its own background
    independently, so this override does not un-clip anything that relied on it. */
-main.automation-page { overflow: visible; }
+main:has(.service-scroll) { overflow: visible; }
 .shell { margin: 0 auto; max-width: 1240px; padding-left: 32px; padding-right: 32px; width: 100%; }
 .section { padding-bottom: 112px; padding-top: 112px; }
 
@@ -322,9 +322,16 @@ main.automation-page { overflow: visible; }
 .workflow-line i { background: var(--accent-strong); border-radius: 50%; height: 5px; left: -2px; position: absolute; top: 14px; width: 5px; }
 .workflow-visual > p { color: var(--text-on-dark-muted); font-size: .71rem; line-height: 1.6; margin: 26px 0 0; }
 
-.service-scroll { margin-top: 30px; }
+.automation-intro { padding: 90px 0 10px; }
+.automation-intro .section-number { margin-bottom: 22px; }
+.automation-intro-row { align-items: center; display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; }
+.automation-intro-row h2 { font-size: clamp(2.6rem, 4.6vw, 4.2rem); letter-spacing: -.045em; line-height: 1; margin: 0; max-width: 700px; }
+.automation-intro-shapes { display: flex; flex: 0 0 auto; gap: 10px; }
+.automation-intro-shapes i { border-radius: 6px; display: block; height: 28px; transform: rotate(8deg); width: 28px; }
+
+.service-scroll { margin-top: 0; }
 .service-row { border-top: 1px solid var(--border); display: grid; gap: 60px; grid-template-columns: .8fr 1.2fr; padding: 110px 0; }
-.service-row:first-child { border-top: 0; }
+.service-row:first-child { border-top: 0; padding-top: 30px; }
 .service-sticky { align-self: start; position: sticky; top: 130px; }
 .service-sticky span { color: var(--accent-ink); font-size: .68rem; font-weight: 800; }
 .service-sticky h3 { font-size: clamp(2.1rem, 3.6vw, 3.1rem); letter-spacing: -.04em; line-height: 1.05; margin: 16px 0 0; }

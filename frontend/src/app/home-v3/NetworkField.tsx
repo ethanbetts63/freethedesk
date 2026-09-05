@@ -30,7 +30,7 @@ export function NetworkField() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const makeNodes = () => {
-      const count = Math.max(28, Math.min(82, Math.round((width * height) / 18000)));
+      const count = Math.max(51, Math.min(147, Math.round((width * height) / 10000)));
       nodes = Array.from({ length: count }, (_, index) => ({
         x: Math.random() * width,
         y: Math.random() * height,
@@ -52,6 +52,13 @@ export function NetworkField() {
       context.setTransform(scale, 0, 0, scale, 0, 0);
       makeNodes();
     };
+
+    const pointerRadius = 260;
+    const eventHorizon = 16;
+    const pullStrength = 0.035;
+    const swirlStrength = 0.018;
+    const maxSpeed = 2.4;
+    const bounds = 40;
 
     const draw = (time: number) => {
       context.clearRect(0, 0, width, height);
@@ -81,13 +88,23 @@ export function NetworkField() {
 
       nodes.forEach((node) => {
         const pointerDistance = Math.hypot(node.x - pointer.x, node.y - pointer.y);
-        if (pointer.active && pointerDistance < 190 && pointerDistance > 0) {
-          const pull = (1 - pointerDistance / 190) * 0.012;
-          node.vx += ((pointer.x - node.x) / pointerDistance) * pull;
-          node.vy += ((pointer.y - node.y) / pointerDistance) * pull;
+        if (pointer.active && pointerDistance < pointerRadius) {
+          const clampedDistance = Math.max(pointerDistance, eventHorizon);
+          const falloff = 1 - clampedDistance / pointerRadius;
+          const nx = (pointer.x - node.x) / (pointerDistance || 1);
+          const ny = (pointer.y - node.y) / (pointerDistance || 1);
+          const pull = falloff * falloff * pullStrength;
+          const swirl = falloff * swirlStrength;
+          node.vx += nx * pull - ny * swirl;
+          node.vy += ny * pull + nx * swirl;
         }
 
         if (!reduceMotion) {
+          const speed = Math.hypot(node.vx, node.vy);
+          if (speed > maxSpeed) {
+            node.vx = (node.vx / speed) * maxSpeed;
+            node.vy = (node.vy / speed) * maxSpeed;
+          }
           node.x += node.vx;
           node.y += node.vy;
           node.vx *= 0.996;
@@ -96,10 +113,10 @@ export function NetworkField() {
           node.vy += Math.cos(time * 0.00014 + node.phase) * 0.0008;
         }
 
-        if (node.x < -10) node.x = width + 10;
-        if (node.x > width + 10) node.x = -10;
-        if (node.y < -10) node.y = height + 10;
-        if (node.y > height + 10) node.y = -10;
+        if (node.x < -bounds) { node.x = -bounds; node.vx = Math.abs(node.vx); }
+        if (node.x > width + bounds) { node.x = width + bounds; node.vx = -Math.abs(node.vx); }
+        if (node.y < -bounds) { node.y = -bounds; node.vy = Math.abs(node.vy); }
+        if (node.y > height + bounds) { node.y = height + bounds; node.vy = -Math.abs(node.vy); }
 
         const pulse = reduceMotion ? 1 : 1 + Math.sin(time * 0.0015 + node.phase) * 0.16;
         context.fillStyle = node.tone === "dark" ? "#13315c" : "#5aaee9";

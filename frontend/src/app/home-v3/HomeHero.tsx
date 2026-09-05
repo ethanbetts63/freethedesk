@@ -16,8 +16,6 @@ export function HomeHero() {
         <div className={styles.actions}><Link className={styles.primary} href="/dealership-website-builder">Try the Free Demo <span>↗</span></Link><Link className={styles.secondary} href="/work/scooter-shop">See it in action <span>→</span></Link></div>
         <p className={styles.trustLine}>Perth-based &middot; working with businesses across Australia</p>
       </div>
-      <div className={styles.signal} aria-hidden="true"><span className={styles.signalDot} /><span>Network active</span><b>24 / 7</b></div>
-      <p className={styles.hint}>Move your cursor to explore the network</p>
     </section>
   );
 }

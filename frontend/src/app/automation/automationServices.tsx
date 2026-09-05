@@ -1,18 +1,8 @@
-import Link from "next/link";
-
-type Service = {
-  title: string;
-  body: string;
-  examples?: string[];
-  color: string;
-  icon: React.ReactNode;
-  highlight?: boolean;
-  cta?: { label: string; href: string };
-};
+import type { Service } from "@/components/ServiceScroll";
 
 const iconProps = { viewBox: "0 0 64 64", width: 56, height: 56, fill: "none" as const, "aria-hidden": true };
 
-const services: Service[] = [
+export const automationServices: Service[] = [
   {
     title: "Lead handling",
     body: "Capture the product and customer context, route it to the right person and make sure the next action is visible.",
@@ -28,6 +18,25 @@ const services: Service[] = [
         <circle cx="32" cy="32" r="23" stroke="currentColor" strokeWidth="2" opacity=".2" />
         <circle cx="32" cy="32" r="14" stroke="currentColor" strokeWidth="2" opacity=".45" />
         <circle cx="32" cy="32" r="6" fill="currentColor" />
+      </svg>
+    ),
+  },
+  {
+    title: "Parts workflows",
+    body: "Move requests from customer to parts desk, supplier and quote without losing the details in an inbox thread.",
+    examples: [
+      "Customer part requests captured with the right details the first time",
+      "Sent straight to the parts desk, not buried in a shared inbox",
+      "Supplier quote requests built from information already on file",
+      "Status visible without a phone call to check",
+    ],
+    color: "var(--blue-600)",
+    icon: (
+      <svg {...iconProps}>
+        <rect x="4" y="22" width="20" height="20" rx="4" stroke="currentColor" strokeWidth="2.5" />
+        <rect x="40" y="22" width="20" height="20" rx="4" fill="currentColor" />
+        <path d="M26 32H37" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M33 27L38 32L33 37" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -88,45 +97,4 @@ const services: Service[] = [
       </svg>
     ),
   },
-  {
-    title: "Something only your business does",
-    body: "The repetitive, computer-based task too specific for any off-the-shelf tool. Tell us what eats your week.",
-    color: "var(--accent-strong)",
-    icon: (
-      <svg viewBox="0 0 64 64" width={96} height={96} fill="none" aria-hidden="true">
-        <path d="M32 2V62M6 12L58 52M58 12L6 52" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
-      </svg>
-    ),
-    highlight: true,
-    cta: { label: "Tell us about it", href: "/contact" },
-  },
 ];
-
-export function ServiceScroll() {
-  return (
-    <div className="service-scroll">
-      {services.map((service, index) => (
-        <div className={`service-row${service.highlight ? " service-row-highlight" : ""}`} key={service.title}>
-          <div className="service-sticky">
-            <span style={{ color: service.color }}>0{index + 1}</span>
-            <h3>{service.title}</h3>
-          </div>
-          <div className="service-content">
-            <div className="service-icon" style={{ color: service.color }}>{service.icon}</div>
-            <p>{service.body}</p>
-            {service.examples && (
-              <ul className="service-examples">
-                {service.examples.map((example) => <li key={example}>{example}</li>)}
-              </ul>
-            )}
-            {service.cta && (
-              <Link className="service-cta" href={service.cta.href} style={{ background: service.color }}>
-                {service.cta.label} <span>→</span>
-              </Link>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}

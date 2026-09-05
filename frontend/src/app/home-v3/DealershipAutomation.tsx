@@ -1,10 +1,4 @@
-type Service = {
-  title: string;
-  body: string;
-  examples: string[];
-  color: string;
-  icon: React.ReactNode;
-};
+import { ServiceScroll, type Service } from "@/components/ServiceScroll";
 
 const iconProps = { viewBox: "0 0 64 64", width: 56, height: 56, fill: "none" as const, "aria-hidden": true };
 
@@ -93,27 +87,11 @@ export function DealershipAutomation() {
           <p className="eyebrow"><span /> Dealership automation</p>
           <h2>The systems that keep a sales floor moving.</h2>
         </div>
-        <p className="section-intro">The same connected systems, aimed at what actually eats a dealership's week: enquiries, licensing paperwork, delivery handoffs and the emails your team writes every day.</p>
+        <p className="section-intro">The same connected systems, aimed at what actually eats a dealership&apos;s week: enquiries, licensing paperwork, delivery handoffs and the emails your team writes every day.</p>
       </section>
 
       <section className="shell" id="dealership-automation">
-        <div className="service-scroll">
-          {services.map((service, index) => (
-            <div className="service-row" key={service.title}>
-              <div className="service-sticky">
-                <span style={{ color: service.color }}>0{index + 1}</span>
-                <h3>{service.title}</h3>
-              </div>
-              <div className="service-content">
-                <div className="service-icon" style={{ color: service.color }}>{service.icon}</div>
-                <p>{service.body}</p>
-                <ul className="service-examples">
-                  {service.examples.map((example) => <li key={example}>{example}</li>)}
-                </ul>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ServiceScroll services={services} />
       </section>
     </>
   );
