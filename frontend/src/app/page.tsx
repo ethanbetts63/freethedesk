@@ -10,7 +10,7 @@ import styles from "./home-v3/page.module.css";
 const homeStats: [ProofStat, ProofStat, ProofStat] = [
   { value: "86%", label: "Research online first", description: "Car shoppers who research online before ever visiting." },
   { value: "24/7", label: "Always-on operations", description: "Notifications and syncs that don't wait for business hours." },
-  { value: "01", label: "Connected system", description: "Your website and back office working from the same data." },
+  { value: "AI", label: "Are you AI ready?", description: "At a minimum you should meet Google's 3 recommendations." },
 ];
 
 export default function Home() {

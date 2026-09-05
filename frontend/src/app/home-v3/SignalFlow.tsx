@@ -13,12 +13,12 @@ type Stream = {
 };
 
 const STREAMS: Stream[] = [
-  { y: .20, amplitude: 52, frequency: 1.45, phase: .2, speed: .00012, color: "rgba(35, 131, 207, .22)", width: 1 },
-  { y: .28, amplitude: 84, frequency: 1.05, phase: 2.2, speed: -.0001, color: "rgba(19, 49, 92, .28)", width: 1.2 },
-  { y: .39, amplitude: 58, frequency: 1.75, phase: 4.1, speed: .00015, color: "rgba(91, 174, 232, .34)", width: 1 },
-  { y: .52, amplitude: 100, frequency: .85, phase: 1.4, speed: -.00008, color: "rgba(14, 77, 139, .2)", width: 1.4 },
-  { y: .64, amplitude: 62, frequency: 1.3, phase: 3.3, speed: .00011, color: "rgba(63, 151, 218, .27)", width: 1 },
-  { y: .76, amplitude: 74, frequency: 1.6, phase: 5.4, speed: -.00013, color: "rgba(19, 49, 92, .2)", width: 1.2 },
+  { y: .20, amplitude: 52, frequency: 1.45, phase: .2, speed: .000072, color: "rgba(35, 131, 207, .22)", width: 1 },
+  { y: .28, amplitude: 84, frequency: 1.05, phase: 2.2, speed: -.00006, color: "rgba(19, 49, 92, .28)", width: 1.2 },
+  { y: .39, amplitude: 58, frequency: 1.75, phase: 4.1, speed: .00009, color: "rgba(91, 174, 232, .34)", width: 1 },
+  { y: .52, amplitude: 100, frequency: .85, phase: 1.4, speed: -.000048, color: "rgba(14, 77, 139, .2)", width: 1.4 },
+  { y: .64, amplitude: 62, frequency: 1.3, phase: 3.3, speed: .000066, color: "rgba(63, 151, 218, .27)", width: 1 },
+  { y: .76, amplitude: 74, frequency: 1.6, phase: 5.4, speed: -.000078, color: "rgba(19, 49, 92, .2)", width: 1.2 },
 ];
 
 export function SignalFlow() {
@@ -68,7 +68,7 @@ export function SignalFlow() {
 
         const pulseCount = streamIndex % 2 === 0 ? 3 : 2;
         for (let pulse = 0; pulse < pulseCount; pulse += 1) {
-          const raw = reduceMotion ? (pulse + 1) / (pulseCount + 1) : time * (.000035 + streamIndex * .000002) + pulse / pulseCount + streamIndex * .13;
+          const raw = reduceMotion ? (pulse + 1) / (pulseCount + 1) : time * (.000021 + streamIndex * .0000012) + pulse / pulseCount + streamIndex * .13;
           const position = point(stream, raw % 1, time);
           const dark = (pulse + streamIndex) % 3 === 0;
 

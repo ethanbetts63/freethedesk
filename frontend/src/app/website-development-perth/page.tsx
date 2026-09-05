@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 const websiteDevStats: [ProofStat, ProofStat, ProofStat] = [
   { value: "50%", label: "Won't consider you", description: "Of consumers who won't consider a business with no website, per industry research." },
   { value: "4", label: "Stages, every project", description: "Understand, design, build, improve—the same process each time." },
-  { value: "01", label: "Team, start to finish", description: "The people who scope it design, build and support it too." },
+  { value: "AI", label: "Are you AI ready?", description: "At a minimum you should meet Google's 3 recommendations." },
 ];
 
 export const metadata: Metadata = {

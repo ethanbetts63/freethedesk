@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 const licensingStats: [ProofStat, ProofStat, ProofStat] = [
   { value: "72%", label: "Want it online", description: "Of car buyers say they'd rather complete paperwork online, per Cox Automotive research." },
   { value: "45 min", label: "Saved per customer", description: "Average time saved at the dealership when paperwork starts online." },
-  { value: "03", label: "Plans to fit your team", description: "Licensing, contracts, or both—priced by what you actually need." },
+  { value: "24 / 7", label: "Always available", description: "Customers can verify, sign and pay at any time, without booking a dealership appointment." },
 ];
 
 export const metadata: Metadata = {
@@ -142,7 +142,7 @@ export default function LicensingPage() {
         <p>We will map the licensing flow to your dealership, your vehicles and the way your team already works.</p>
         <div>
           <Link href="/contact">Talk about online licensing <span>↗</span></Link>
-          <Link href="/dealership-website-builder">Try the Free Demo <span>→</span></Link>
+          <Link href="/dealership-website-builder">Try the Licensing Demo <span>→</span></Link>
         </div>
       </section>
     </main>

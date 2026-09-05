@@ -13,6 +13,9 @@ import { stripeConfigured, stripePromise } from "@/lib/stripe";
 import { buildDealerPlans, planByCode, type DealerPlan } from "../plans";
 import styles from "./page.module.css";
 
+/** Stripe's Appearance API needs a literal color, so this can't reference the --checkout-accent CSS variable directly — keep the two in sync by hand. */
+const STRIPE_ACCENT = "#247ec9";
+
 function PaymentForm({ planName }: { planName: string }) {
   const result = useCheckoutElements();
   const [submitting, setSubmitting] = useState(false);
@@ -150,7 +153,7 @@ export function SubscriptionPaymentPage() {
               elementsOptions: {
                 appearance: {
                   theme: "stripe",
-                  variables: { colorPrimary: "#247ec9", colorText: "#0d1c29", borderRadius: "0px", fontFamily: "Arial, sans-serif" },
+                  variables: { colorPrimary: STRIPE_ACCENT, colorText: "#0d1c29", borderRadius: "0px", fontFamily: "Arial, sans-serif" },
                 },
               },
             }}

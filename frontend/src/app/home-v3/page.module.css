@@ -1,28 +1,33 @@
 .page { background: #fff; color: #000; }
-.hero { align-items: center; background: #fff; display: flex; min-height: calc(100vh - 78px); overflow: hidden; position: relative; isolation: isolate; }
+.hero {
+  /* Single place to retune the home hero's accent color. */
+  --hero-accent: #247ec9;
+  --hero-accent-rgb: 36, 126, 201;
+  align-items: center; background: #fff; display: flex; min-height: calc(100vh - 78px); overflow: hidden; position: relative; isolation: isolate;
+}
 .network, .network canvas, .grid, .glow { inset: 0; position: absolute; }
 .network { z-index: -2; }
 .network canvas { height: 100%; width: 100%; }
-.grid { background-image: linear-gradient(rgba(17, 70, 126, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(17, 70, 126, .035) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(circle at 65% 50%, #000, transparent 72%); pointer-events: none; z-index: -1; }
+.grid { background-image: linear-gradient(rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px, transparent 1px); background-size: var(--hero-grid-size) var(--hero-grid-size); mask-image: radial-gradient(circle at 65% 50%, #000, transparent 72%); pointer-events: none; z-index: -1; }
 .glow { background: radial-gradient(circle at 34% 48%, rgba(255,255,255,.98) 0 18%, rgba(255,255,255,.78) 36%, transparent 62%); pointer-events: none; z-index: -1; }
 .content { padding-bottom: 100px; padding-top: 100px; pointer-events: none; }
 .content a { pointer-events: auto; }
-.eyebrow { align-items: center; color: #247ec9; display: flex; font-size: .69rem; font-weight: 800; gap: 11px; letter-spacing: .18em; margin: 0 0 26px; text-transform: uppercase; }
-.eyebrow span { background: #247ec9; border-radius: 50%; box-shadow: 0 0 0 5px rgba(36,126,201,.12); height: 7px; width: 7px; }
+.eyebrow { align-items: center; color: var(--hero-accent); display: flex; font-size: .69rem; font-weight: 800; gap: 11px; letter-spacing: .18em; margin: 0 0 26px; text-transform: uppercase; }
+.eyebrow span { background: var(--hero-accent); border-radius: 50%; box-shadow: 0 0 0 5px rgba(var(--hero-accent-rgb), .12), 0 0 10px 2px rgba(var(--hero-accent-rgb), .7); height: 7px; width: 7px; }
 .content h1 { color: #000; font-size: clamp(4.2rem, 8.3vw, 8.5rem); font-weight: 800; letter-spacing: -.085em; line-height: .83; margin: 0; max-width: 1000px; }
-.content h1 em { color: #247ec9; font-style: normal; }
+.content h1 em { color: var(--hero-accent); font-style: normal; }
 .lead { color: #526d89; font-size: clamp(1rem, 1.4vw, 1.22rem); line-height: 1.65; margin: 36px 0; max-width: 570px; }
 .actions { align-items: center; display: flex; flex-wrap: wrap; gap: 30px; }
 .primary, .secondary { align-items: center; display: inline-flex; font-size: .82rem; font-weight: 800; justify-content: space-between; }
-.primary { background: #247ec9; color: #fff; gap: 42px; padding: 17px 20px; transition: background .2s, transform .2s; }
+.primary { background: var(--hero-accent); color: #fff; gap: 42px; padding: 17px 20px; transition: background .2s, transform .2s; }
 .primary:hover { background: #000; transform: translateY(-2px); }
 .secondary { border-bottom: 1px solid #000; gap: 14px; padding: 7px 0; }
-.signal { align-items: center; background: rgba(255,255,255,.84); border: 1px solid rgba(36,126,201,.18); bottom: 45px; box-shadow: 0 12px 35px rgba(0,0,0,.07); display: flex; font-size: .6rem; gap: 9px; letter-spacing: .09em; padding: 11px 13px; position: absolute; right: 4vw; text-transform: uppercase; backdrop-filter: blur(10px); }
-.signal b { color: #247ec9; margin-left: 12px; }
-.signalDot { animation: blink 2s ease-in-out infinite; background: #247ec9; border-radius: 50%; height: 6px; width: 6px; }
+.signal { align-items: center; background: rgba(255,255,255,.84); border: 1px solid rgba(var(--hero-accent-rgb), .18); bottom: 45px; box-shadow: 0 12px 35px rgba(0,0,0,.07); display: flex; font-size: .6rem; gap: 9px; letter-spacing: .09em; padding: 11px 13px; position: absolute; right: 4vw; text-transform: uppercase; backdrop-filter: blur(10px); }
+.signal b { color: var(--hero-accent); margin-left: 12px; }
+.signalDot { animation: blink 2s ease-in-out infinite; background: var(--hero-accent); border-radius: 50%; height: 6px; width: 6px; }
 .hint { bottom: 44px; color: #7c93aa; font-size: .59rem; left: 50%; letter-spacing: .11em; margin: 0; position: absolute; text-transform: uppercase; transform: translateX(-50%); }
 .trustLine { color: #7c93aa; font-size: .68rem; font-weight: 700; letter-spacing: .09em; margin: 30px 0 0; text-transform: uppercase; }
-@keyframes blink { 50% { box-shadow: 0 0 0 6px rgba(36,126,201,.14); } }
+@keyframes blink { 50% { box-shadow: 0 0 0 6px rgba(var(--hero-accent-rgb), .14); } }
 @media (max-width: 760px) {
   .hero { min-height: calc(100svh - 68px); }
   .content { padding-bottom: 120px; padding-top: 80px; }
@@ -33,27 +38,33 @@
 }
 @media (prefers-reduced-motion: reduce) { .signalDot { animation: none; } }
 
-.flowHero { background: #fff; border-top: 1px solid rgba(19,49,92,.09); min-height: calc(100vh - 78px); overflow: hidden; position: relative; isolation: isolate; }
+.flowHero {
+  /* Single place to retune the flow hero's accent color. */
+  --flow-accent: #247ec9;
+  --flow-accent-rgb: 36, 126, 201;
+  background: #fff; border-top: 1px solid rgba(19,49,92,.09); min-height: calc(100vh - 78px); overflow: hidden; position: relative; isolation: isolate;
+}
 .flow { bottom: 0; left: 40%; position: absolute; right: -8%; top: 0; z-index: -3; }
 .flow canvas { height: 100%; width: 100%; }
-.flowGrid { background-image: linear-gradient(rgba(17,70,126,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(17,70,126,.035) 1px, transparent 1px); background-size: 64px 64px; inset: 0; mask-image: radial-gradient(circle at 70% 48%, #000, transparent 73%); pointer-events: none; position: absolute; z-index: -1; }
+.flowGrid { background-image: linear-gradient(rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px, transparent 1px); background-size: var(--hero-grid-size) var(--hero-grid-size); inset: 0; mask-image: radial-gradient(circle at 70% 48%, #000, transparent 73%); pointer-events: none; position: absolute; z-index: -1; }
 .flowFade { background: radial-gradient(ellipse at 27% 50%, #fff 0 20%, rgba(255,255,255,.94) 39%, rgba(255,255,255,.34) 70%, rgba(255,255,255,.08) 100%); inset: 0; pointer-events: none; position: absolute; z-index: -2; }
 .flowLayout { display: grid; grid-template-columns: minmax(0, 1fr) 130px; min-height: calc(100vh - 78px); padding-bottom: 78px; padding-top: 78px; pointer-events: none; }
 .flowLayout a { pointer-events: auto; }
 .flowCopy { align-self: center; max-width: 920px; }
-.flowKicker { color: #247ec9; font-size: .68rem; font-weight: 800; letter-spacing: .18em; margin: 0 0 30px; text-transform: uppercase; }
+.flowKicker { align-items: center; color: var(--flow-accent); display: flex; font-size: .68rem; font-weight: 800; gap: 11px; letter-spacing: .18em; margin: 0 0 30px; text-transform: uppercase; }
+.flowKicker span { background: var(--flow-accent); border-radius: 50%; box-shadow: 0 0 0 5px rgba(var(--flow-accent-rgb), .12), 0 0 10px 2px rgba(var(--flow-accent-rgb), .7); flex: 0 0 auto; height: 7px; width: 7px; }
 .flowCopy h1 { color: #000; font-size: clamp(4.4rem, 9.2vw, 9.4rem); font-weight: 300; letter-spacing: -.08em; line-height: .78; margin: 0; }
-.flowCopy h1 span { color: #247ec9; font-weight: 850; }
+.flowCopy h1 span { color: var(--flow-accent); font-weight: 850; }
 .flowLead { color: #58728c; font-size: clamp(1rem, 1.3vw, 1.16rem); line-height: 1.7; margin: 44px 0 34px; max-width: 570px; }
 .flowActions { align-items: center; display: flex; flex-wrap: wrap; gap: 34px; }
 .flowActions a { align-items: center; display: inline-flex; font-size: .8rem; font-weight: 800; gap: 30px; }
-.flowActions a:first-child { background: #247ec9; color: #fff; padding: 16px 19px; transition: background .2s, transform .2s; }
+.flowActions a:first-child { background: var(--flow-accent); color: #fff; padding: 16px 19px; transition: background .2s, transform .2s; }
 .flowActions a:first-child:hover { background: #000; transform: translateY(-2px); }
 .flowActions a:last-child { border-bottom: 1px solid #000; gap: 14px; padding: 6px 0; }
 .flowTrust { color: #7c93aa; font-size: .68rem; font-weight: 700; letter-spacing: .09em; margin: 30px 0 0; text-transform: uppercase; }
 .readout { align-self: end; backdrop-filter: blur(10px); background: rgba(255,255,255,.72); border-left: 1px solid rgba(40,127,194,.18); padding-left: 18px; }
 .readout div { align-items: center; display: grid; grid-template-columns: 25px 1fr; padding: 8px 0; }
-.readout span { color: #247ec9; font-size: .5rem; font-weight: 900; }
+.readout span { color: var(--flow-accent); font-size: .5rem; font-weight: 900; }
 .readout p { color: #607a94; font-size: .57rem; letter-spacing: .1em; margin: 0; text-transform: uppercase; }
 
 @media (max-width: 760px) {

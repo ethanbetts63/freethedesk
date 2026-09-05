@@ -1,8 +1,12 @@
-.page { background: #f5f8fa; color: #101820; min-height: 100vh; padding: clamp(80px, 10vw, 145px) 24px; position: relative; }
+.page {
+  /* Single place to retune the legal page's accent color. */
+  --legal-accent: #247ec9;
+  background: #f5f8fa; color: #101820; min-height: 100vh; padding: clamp(80px, 10vw, 145px) 24px; position: relative;
+}
 .grid { background-image: linear-gradient(rgba(19,49,92,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(19,49,92,.045) 1px, transparent 1px); background-size: 42px 42px; inset: 0; pointer-events: none; position: absolute; }
 .document { background: #fff; border: 1px solid #d5e1e9; box-shadow: 0 24px 75px rgba(19,49,92,.07); margin: 0 auto; max-width: 900px; padding: clamp(35px, 7vw, 90px); position: relative; }
 .document h1 { font-size: clamp(3.2rem, 7vw, 6.4rem); letter-spacing: -.075em; line-height: .9; margin: 0 0 25px; }
-.document h1 + p { color: #247ec9; font-size: .7rem; font-weight: 850; letter-spacing: .1em; margin-bottom: 30px; text-transform: uppercase; }
+.document h1 + p { color: var(--legal-accent); font-size: .7rem; font-weight: 850; letter-spacing: .1em; margin-bottom: 30px; text-transform: uppercase; }
 .document aside { background: #fff7df; border-left: 4px solid #e3aa24; color: #634c13; font-size: .78rem; line-height: 1.65; margin: 28px 0 55px; padding: 18px 20px; }
 .document h2 { border-top: 1px solid #d8e3ea; font-size: clamp(1.45rem, 3vw, 2rem); letter-spacing: -.04em; line-height: 1.15; margin: 52px 0 17px; padding-top: 25px; }
 .document h3 { font-size: 1.1rem; margin: 34px 0 12px; }
@@ -10,8 +14,8 @@
 .document p { margin: 0 0 17px; }
 .document ul, .document ol { margin: 15px 0 25px; padding-left: 24px; }
 .document li { margin: 8px 0; padding-left: 5px; }
-.document li::marker { color: #247ec9; font-weight: 850; }
-.document a { color: #247ec9; text-decoration: underline; text-underline-offset: 3px; }
+.document li::marker { color: var(--legal-accent); font-weight: 850; }
+.document a { color: var(--legal-accent); text-decoration: underline; text-underline-offset: 3px; }
 
 @media (max-width: 600px) {
   .page { padding: 60px 14px; }

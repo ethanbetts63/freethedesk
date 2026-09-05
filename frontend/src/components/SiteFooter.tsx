@@ -1,14 +1,18 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { FOOTER_NAVIGATION } from "@/lib/siteConfig";
+import { SignalFlow } from "@/app/home-v3/SignalFlow";
 
 export function SiteFooter() {
   return (
     <footer className="site-footer">
+      <div className="footer-signal-flow"><SignalFlow /></div>
       <div className="shell footer-grid">
         <div>
-          <Link className="wordmark wordmark-light" href="/">
-            free<span>the</span>desk<span className="wordmark-dot">.</span>
+          <Link className="wordmark footer-logo" href="/" aria-label="Free the Desk home">
+            <Image className="nav-logo-image" src="/logo-192x192.png" alt="" width={40} height={40} />
+            <span className="nav-logo-text">free<span>the</span>desk<span className="wordmark-dot">.</span></span>
           </Link>
           <p className="footer-summary">
             Dealer websites and operational systems built by a development team with hands-on experience across dealerships and automotive suppliers.

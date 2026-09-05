@@ -6,10 +6,13 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { getLicensingSettings } from "@/lib/api";
 import { DEALER_STATES } from "@/lib/dealerStates";
-import { buildDealerPlans, type DealerPlan, type DealerPlanCode } from "./plans";
+import { buildDealerPlans, type DealerPlan, type DealerPlanCode, type LicensingSettings } from "./plans";
 import styles from "./page.module.css";
 
 type FormStatus = "idle" | "submitting" | "error";
+
+/** Renders the real plan cards immediately so the grid doesn't jump once real prices load. */
+const PLACEHOLDER_SETTINGS: LicensingSettings = { licensing_price: "0", contracts_price: "0", complete_price: "0", updated_at: "" };
 
 function firstError(data: Record<string, unknown>) {
   if (typeof data.detail === "string") return data.detail;
@@ -20,7 +23,7 @@ function firstError(data: Record<string, unknown>) {
 export function SignupPlans() {
   const router = useRouter();
   const { login } = useAuth();
-  const [plans, setPlans] = useState<DealerPlan[]>([]);
+  const [plans, setPlans] = useState<DealerPlan[]>(() => buildDealerPlans(PLACEHOLDER_SETTINGS));
   const [selectedCode, setSelectedCode] = useState<DealerPlanCode>("complete");
   const [status, setStatus] = useState<FormStatus>("idle");
   const [error, setError] = useState("");
@@ -67,7 +70,6 @@ export function SignupPlans() {
             <p className={styles.sectionLabel}>Start here</p>
             <h2>Choose what you need.</h2>
           </div>
-          <p>Create the login now. Dealership verification and licence details happen inside your account after checkout.</p>
         </div>
 
         <div className={styles.planGrid} role="radiogroup" aria-label="Subscription plan">
@@ -123,7 +125,7 @@ export function SignupPlans() {
             </div>
             {error && <p className={styles.signupError} role="alert">{error}</p>}
             <button className={styles.signupSubmit} disabled={status === "submitting"}>
-              {status === "submitting" ? "Creating your account…" : selectedCode === "demo" ? "Start the demo" : "Continue to secure payment"}
+              {status === "submitting" ? "Creating your account…" : selectedCode === "demo" ? "Start the licensing demo" : "Continue to secure payment"}
               <span>→</span>
             </button>
             <p className={styles.secureNote}>{selectedCode === "demo" ? "No payment details required." : "Your plan summary and secure card entry are on the next page."}</p>

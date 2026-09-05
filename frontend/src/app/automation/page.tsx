@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const automationStats: [ProofStat, ProofStat, ProofStat] = [
   { value: "36%", label: "Of the work week", description: "Time small business owners lose to manual admin tasks, per Xero research." },
   { value: "0", label: "Times re-keyed", description: "Information entered once, reused everywhere it's needed." },
-  { value: "03", label: "Steps to launch", description: "Map it, prove it, run it—a focused workflow, not a platform overhaul." },
+  { value: "AI", label: "Automation like never before", description: "What AI can automate has grown fast—broader, smarter and easier to build than it was a year ago." },
 ];
 
 export default function AutomationPage() {

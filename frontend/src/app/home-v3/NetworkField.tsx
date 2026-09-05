@@ -12,7 +12,33 @@ type Node = {
   phase: number;
 };
 
-export function NetworkField() {
+export type NetworkFieldColors = {
+  /** Node fill for the lighter tone. */
+  nodeLight: string;
+  /** Node fill for the darker tone, also used for large-node rings. */
+  nodeDark: string;
+  /** Link gradient start, as an "r, g, b" triplet. */
+  linkStart: string;
+  /** Link gradient end, as an "r, g, b" triplet. */
+  linkEnd: string;
+  /** Ring stroke around large nodes, as an "r, g, b" triplet. */
+  ring: string;
+};
+
+/** Single place to retune the network's palette; pass `colors` to override per hero. */
+export const DEFAULT_NETWORK_COLORS: NetworkFieldColors = {
+  nodeLight: "#5aaee9",
+  nodeDark: "#13315c",
+  linkStart: "36, 126, 201",
+  linkEnd: "19, 49, 92",
+  ring: "61, 146, 211",
+};
+
+type NetworkFieldProps = {
+  colors?: NetworkFieldColors;
+};
+
+export function NetworkField({ colors = DEFAULT_NETWORK_COLORS }: NetworkFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -74,8 +100,8 @@ export function NetworkField() {
           if (distance < linkDistance) {
             const opacity = (1 - distance / linkDistance) * 0.34;
             const gradient = context.createLinearGradient(a.x, a.y, b.x, b.y);
-            gradient.addColorStop(0, `rgba(36, 126, 201, ${opacity})`);
-            gradient.addColorStop(1, `rgba(19, 49, 92, ${opacity * 0.72})`);
+            gradient.addColorStop(0, `rgba(${colors.linkStart}, ${opacity})`);
+            gradient.addColorStop(1, `rgba(${colors.linkEnd}, ${opacity * 0.72})`);
             context.strokeStyle = gradient;
             context.lineWidth = 0.8;
             context.beginPath();
@@ -119,13 +145,13 @@ export function NetworkField() {
         if (node.y > height + bounds) { node.y = height + bounds; node.vy = -Math.abs(node.vy); }
 
         const pulse = reduceMotion ? 1 : 1 + Math.sin(time * 0.0015 + node.phase) * 0.16;
-        context.fillStyle = node.tone === "dark" ? "#13315c" : "#5aaee9";
+        context.fillStyle = node.tone === "dark" ? colors.nodeDark : colors.nodeLight;
         context.beginPath();
         context.arc(node.x, node.y, node.radius * pulse, 0, Math.PI * 2);
         context.fill();
 
         if (node.radius > 4) {
-          context.strokeStyle = "rgba(61, 146, 211, .2)";
+          context.strokeStyle = `rgba(${colors.ring}, .2)`;
           context.lineWidth = 1;
           context.beginPath();
           context.arc(node.x, node.y, 11 * pulse, 0, Math.PI * 2);
@@ -161,7 +187,7 @@ export function NetworkField() {
         canvas.removeEventListener("pointerleave", onPointerLeave);
       }
     };
-  }, []);
+  }, [colors]);
 
   return <canvas ref={canvasRef} aria-hidden="true" />;
 }

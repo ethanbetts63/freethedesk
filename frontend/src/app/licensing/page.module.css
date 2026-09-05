@@ -1,20 +1,24 @@
-.page { background: #fff; color: #000; }
-.sectionLabel { color: #247ec9; font-size: .68rem; font-weight: 850; letter-spacing: .14em; margin: 0 0 24px; text-transform: uppercase; }
+.page {
+  /* Single place to retune this page's accent color. */
+  --page-accent: #247ec9;
+  --page-accent-rgb: 36, 126, 201;
+  background: #fff; color: #000;
+}
+.sectionLabel { color: var(--page-accent); font-size: .68rem; font-weight: 850; letter-spacing: .14em; margin: 0 0 24px; text-transform: uppercase; }
 .signupSection { background: #fff; padding: 112px 0 122px; }
-.signupHeading { align-items: end; display: grid; gap: 50px; grid-template-columns: 1.1fr .9fr; margin-bottom: 58px; }
+.signupHeading { margin-bottom: 58px; }
 .signupHeading h2 { font-size: clamp(3rem, 5.2vw, 5.6rem); letter-spacing: -.07em; line-height: .94; margin: 0; }
-.signupHeading > p { color: #536b80; font-size: 1.02rem; line-height: 1.72; margin: 0; max-width: 490px; }
 .planGrid { display: grid; gap: 10px; grid-template-columns: repeat(4, 1fr); }
 .planCard { appearance: none; background: #f5f8fa; border: 1px solid #d7e2e9; color: #000; cursor: pointer; display: flex; flex-direction: column; font: inherit; min-height: 292px; padding: 23px; position: relative; text-align: left; transition: border-color .2s ease, transform .2s ease, background .2s ease; }
-.planCard:hover { border-color: #247ec9; transform: translateY(-3px); }
-.planCard:focus-visible { outline: 3px solid rgba(36, 126, 201, .25); outline-offset: 3px; }
-.planCard.planSelected { background: #fff; border-color: #247ec9; box-shadow: inset 0 4px 0 #247ec9; }
-.planTopline { color: #247ec9; font-size: .63rem; font-weight: 900; letter-spacing: .12em; min-height: 34px; text-transform: uppercase; }
+.planCard:hover { border-color: var(--page-accent); transform: translateY(-3px); }
+.planCard:focus-visible { outline: 3px solid rgba(var(--page-accent-rgb), .25); outline-offset: 3px; }
+.planCard.planSelected { background: #fff; border-color: var(--page-accent); box-shadow: inset 0 4px 0 var(--page-accent); }
+.planTopline { color: var(--page-accent); font-size: .63rem; font-weight: 900; letter-spacing: .12em; min-height: 34px; text-transform: uppercase; }
 .planCard > strong { font-size: 1.18rem; letter-spacing: -.03em; }
 .planPrice { font-size: 2.15rem; font-weight: 850; letter-spacing: -.06em; margin: 24px 0 15px; white-space: nowrap; }
 .planPrice small { color: #60778b; font-size: .62rem; font-weight: 650; letter-spacing: 0; }
 .planCard p { color: #5a7185; font-size: .8rem; line-height: 1.58; margin: 0; }
-.planCard i { align-items: center; background: #247ec9; border: 1px solid #b7cbd9; border-radius: 50%; bottom: 20px; color: #fff; display: flex; font-size: .7rem; font-style: normal; height: 23px; justify-content: center; position: absolute; right: 20px; width: 23px; }
+.planCard i { align-items: center; background: var(--page-accent); border: 1px solid #b7cbd9; border-radius: 50%; bottom: 20px; color: #fff; display: flex; font-size: .7rem; font-style: normal; height: 23px; justify-content: center; position: absolute; right: 20px; width: 23px; }
 .planCard:not(.planSelected) i { background: #fff; }
 .signupPanel { background: #13315c; display: grid; grid-template-columns: .78fr 1.22fr; margin-top: 18px; min-height: 560px; }
 .selectedSummary { color: #fff; display: flex; flex-direction: column; padding: clamp(34px, 4.5vw, 64px); }
@@ -34,10 +38,10 @@
 .signupForm label { color: #2b4051; display: block; font-size: .69rem; font-weight: 850; margin-bottom: 16px; }
 .signupForm label > span { display: block; margin-bottom: 8px; }
 .signupForm input, .signupForm select { background: #fff; border: 1px solid #cbd9e2; border-radius: 0; color: #000; font: inherit; font-size: .9rem; min-height: 50px; outline: none; padding: 0 14px; width: 100%; }
-.signupForm input:focus, .signupForm select:focus { border-color: #247ec9; box-shadow: 0 0 0 3px rgba(36,126,201,.12); }
+.signupForm input:focus, .signupForm select:focus { border-color: var(--page-accent); box-shadow: 0 0 0 3px rgba(var(--page-accent-rgb),.12); }
 .signupForm label small { color: #70869a; display: block; font-size: .66rem; font-weight: 550; margin-top: 7px; }
 .honeypot { left: -10000px !important; position: absolute !important; }
-.signupSubmit { align-items: center; background: #247ec9; border: 0; color: #fff; cursor: pointer; display: flex; font: inherit; font-size: .78rem; font-weight: 900; justify-content: space-between; margin-top: 8px; min-height: 58px; padding: 0 20px; text-align: left; }
+.signupSubmit { align-items: center; background: var(--page-accent); border: 0; color: #fff; cursor: pointer; display: flex; font: inherit; font-size: .78rem; font-weight: 900; justify-content: space-between; margin-top: 8px; min-height: 58px; padding: 0 20px; text-align: left; }
 .signupSubmit:disabled { cursor: wait; opacity: .65; }
 .signupSubmit span { font-size: 1.1rem; }
 .secureNote { color: #718698; font-size: .68rem; margin: 12px 0 0; text-align: center; }
@@ -57,15 +61,15 @@
 .paths article > div { align-items: center; color: #637b8f; display: flex; flex-wrap: wrap; font-size: .69rem; font-weight: 750; gap: 8px; }
 .paths article i { background: #b8c9d6; height: 1px; width: 14px; }
 .paths article strong { color: #000; }
-.paths .onlinePath { border-color: #247ec9; box-shadow: inset 4px 0 0 #247ec9; }
-.onlinePath header span, .onlinePath header b { color: #247ec9; }
-.onlinePath i { background: #247ec9; }
+.paths .onlinePath { border-color: var(--page-accent); box-shadow: inset 4px 0 0 var(--page-accent); }
+.onlinePath header span, .onlinePath header b { color: var(--page-accent); }
+.onlinePath i { background: var(--page-accent); }
 .journeySection, .outcomesSection { padding-bottom: 120px; padding-top: 120px; }
 .sectionHeading { max-width: 850px; }
 .journeyGrid { border-top: 1px solid #cedde8; display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 65px; }
 .journeyGrid article { border-left: 1px solid #cedde8; min-height: 310px; padding: 24px 27px; }
 .journeyGrid article:last-child { border-right: 1px solid #cedde8; }
-.journeyGrid article > span, .outcomeGrid article > span { color: #247ec9; font-size: .65rem; font-weight: 900; }
+.journeyGrid article > span, .outcomeGrid article > span { color: var(--page-accent); font-size: .65rem; font-weight: 900; }
 .journeyGrid h3 { font-size: 1.25rem; margin: 98px 0 13px; }
 .journeyGrid p, .outcomeGrid p { color: #60778b; font-size: .82rem; line-height: 1.67; margin: 0; }
 .optionsSection { background: #13315c; color: #fff; padding: 115px 0; }
@@ -83,7 +87,7 @@
 .optionCards li { font-size: .72rem; margin-top: 10px; padding-left: 16px; position: relative; }
 .optionCards li::before { color: #70bced; content: "↳"; left: 0; position: absolute; }
 .optionCards article > a { align-items: center; align-self: flex-start; border-bottom: 1px solid currentColor; color: #fff; display: inline-flex; font-size: .72rem; font-weight: 850; gap: 18px; margin-top: auto; padding-bottom: 6px; }
-.optionCards article:last-child > a { color: #247ec9; }
+.optionCards article:last-child > a { color: var(--page-accent); }
 .optionCards article > a b { font-weight: 850; }
 .outcomeGrid { display: grid; gap: 18px; grid-template-columns: repeat(3, 1fr); margin-top: 60px; }
 .outcomeGrid article { background: #f3f7fa; min-height: 255px; padding: 28px; }
@@ -92,7 +96,7 @@
 .closing > p:not(.sectionLabel) { color: #587086; font-size: .96rem; line-height: 1.7; margin: 27px auto 31px; max-width: 570px; }
 .closing > div { align-items: center; display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; }
 .closing a { align-items: center; display: inline-flex; font-size: .8rem; font-weight: 850; gap: 32px; }
-.closing a:first-child { background: #247ec9; color: #fff; padding: 16px 18px; }
+.closing a:first-child { background: var(--page-accent); color: #fff; padding: 16px 18px; }
 .closing a:last-child { border-bottom: 1px solid #000; gap: 13px; padding: 7px 0; }
 
 @media (max-width: 900px) {

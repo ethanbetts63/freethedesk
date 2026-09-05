@@ -1,4 +1,8 @@
-.checkoutPage { background: #fff; color: #0d1c29; display: grid; grid-template-columns: minmax(390px, .92fr) minmax(520px, 1.08fr); min-height: 100vh; }
+.checkoutPage {
+  /* Single place to retune the checkout page's accent color. */
+  --checkout-accent: #247ec9;
+  background: #fff; color: #0d1c29; display: grid; grid-template-columns: minmax(390px, .92fr) minmax(520px, 1.08fr); min-height: 100vh;
+}
 .summarySide { background: #eef5fa; min-height: 100vh; overflow: hidden; position: relative; }
 .summarySide::after { background-image: linear-gradient(rgba(19,49,92,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(19,49,92,.055) 1px, transparent 1px); background-size: 42px 42px; content: ""; inset: 0; pointer-events: none; position: absolute; }
 .signal { inset: 0; opacity: .85; position: absolute; }
@@ -6,9 +10,9 @@
 .summaryContent { display: flex; flex-direction: column; min-height: 100vh; padding: clamp(30px, 5vw, 72px); position: relative; z-index: 2; }
 .brand { color: #0d1c29; font-size: 1.18rem; font-weight: 900; letter-spacing: -.07em; width: fit-content; }
 .brand span { color: #73889b; font-size: .73em; font-weight: 650; margin: 0 2px; }
-.brand i { color: #247ec9; font-style: normal; }
+.brand i { color: var(--checkout-accent); font-style: normal; }
 .summaryCopy { margin: auto 0 50px; max-width: 610px; }
-.summaryCopy > p { color: #247ec9; font-size: .65rem; font-weight: 900; letter-spacing: .15em; margin: 0 0 20px; text-transform: uppercase; }
+.summaryCopy > p { color: var(--checkout-accent); font-size: .65rem; font-weight: 900; letter-spacing: .15em; margin: 0 0 20px; text-transform: uppercase; }
 .summaryCopy h1 { font-size: clamp(3.4rem, 6.5vw, 7rem); letter-spacing: -.075em; line-height: .87; margin: 0 0 27px; max-width: 690px; }
 .summaryCopy > span { color: #49647a; display: block; font-size: .95rem; line-height: 1.65; max-width: 430px; }
 .orderSummary { backdrop-filter: blur(12px); background: rgba(255,255,255,.82); border: 1px solid rgba(168,190,207,.68); padding: 23px 25px; }
@@ -16,18 +20,18 @@
 .orderSummary > div span { color: #536d82; }
 .orderSummary > div strong { font-size: .76rem; }
 .orderSummary .orderTotal { border-top: 1px solid #cddce7; margin-top: 10px; padding-top: 17px; }
-.orderSummary .orderTotal strong { color: #247ec9; font-size: 1.35rem; letter-spacing: -.04em; }
+.orderSummary .orderTotal strong { color: var(--checkout-accent); font-size: 1.35rem; letter-spacing: -.04em; }
 .orderTotal small { color: #6c8192; font-size: .58rem; letter-spacing: 0; }
 .paymentSide { align-items: center; display: flex; justify-content: center; min-height: 100vh; overflow-y: auto; padding: clamp(44px, 7vw, 100px); }
 .paymentForm, .checkoutState { max-width: 560px; width: 100%; }
 .paymentHeading { border-bottom: 1px solid #d5e1e9; margin-bottom: 32px; padding-bottom: 31px; }
-.paymentHeading > span, .checkoutState > span { color: #247ec9; font-size: .65rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+.paymentHeading > span, .checkoutState > span { color: var(--checkout-accent); font-size: .65rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
 .paymentHeading h2, .checkoutState h2 { font-size: clamp(2.5rem, 4vw, 4rem); letter-spacing: -.065em; line-height: .96; margin: 12px 0 13px; }
 .paymentHeading p, .checkoutState p { color: #60778b; font-size: .83rem; line-height: 1.6; margin: 0; }
 .consent { align-items: flex-start; color: #536b80; cursor: pointer; display: flex; font-size: .72rem; gap: 11px; line-height: 1.5; margin: 26px 0 16px; }
-.consent input { accent-color: #247ec9; flex: 0 0 auto; height: 17px; margin: 1px 0 0; width: 17px; }
-.consent a { color: #247ec9; font-weight: 800; text-decoration: underline; text-underline-offset: 2px; }
-.payButton, .checkoutState button { align-items: center; background: #247ec9; border: 0; color: #fff; cursor: pointer; display: flex; font: inherit; font-size: .8rem; font-weight: 900; justify-content: space-between; min-height: 60px; padding: 0 21px; width: 100%; }
+.consent input { accent-color: var(--checkout-accent); flex: 0 0 auto; height: 17px; margin: 1px 0 0; width: 17px; }
+.consent a { color: var(--checkout-accent); font-weight: 800; text-decoration: underline; text-underline-offset: 2px; }
+.payButton, .checkoutState button { align-items: center; background: var(--checkout-accent); border: 0; color: #fff; cursor: pointer; display: flex; font: inherit; font-size: .8rem; font-weight: 900; justify-content: space-between; min-height: 60px; padding: 0 21px; width: 100%; }
 .payButton:disabled { cursor: not-allowed; opacity: .45; }
 .payButton b { font-size: 1.1rem; }
 .paymentFineprint { color: #8193a3; font-size: .64rem; line-height: 1.5; margin: 12px auto 0; max-width: 430px; text-align: center; }
@@ -35,15 +39,19 @@
 .paymentLoading { color: #647b8e; font-size: .8rem; padding: 25px 0; }
 .checkoutState button { justify-content: center; margin-top: 28px; max-width: 190px; }
 
-.completePage { align-items: center; background: #eef5fa; display: flex; justify-content: center; min-height: 100vh; overflow: hidden; padding: 28px; position: relative; }
+.completePage {
+  /* Single place to retune the payment-complete page's accent color. */
+  --complete-accent: #247ec9;
+  align-items: center; background: #eef5fa; display: flex; justify-content: center; min-height: 100vh; overflow: hidden; padding: 28px; position: relative;
+}
 .completePage::after { background-image: linear-gradient(rgba(19,49,92,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(19,49,92,.055) 1px, transparent 1px); background-size: 42px 42px; content: ""; inset: 0; position: absolute; }
 .completeSignal { inset: 0; opacity: .72; position: absolute; }
 .completeSignal canvas { height: 100%; width: 100%; }
 .completeCard { backdrop-filter: blur(14px); background: rgba(255,255,255,.91); border: 1px solid #cedde8; box-shadow: 0 30px 90px rgba(19,49,92,.12); max-width: 650px; padding: clamp(38px, 6vw, 74px); position: relative; text-align: center; width: 100%; z-index: 2; }
-.completeCard > span { align-items: center; background: #247ec9; border-radius: 50%; color: #fff; display: inline-flex; font-size: 1.3rem; height: 50px; justify-content: center; margin-bottom: 27px; width: 50px; }
+.completeCard > span { align-items: center; background: var(--complete-accent); border-radius: 50%; color: #fff; display: inline-flex; font-size: 1.3rem; height: 50px; justify-content: center; margin-bottom: 27px; width: 50px; }
 .completeCard h1 { font-size: clamp(2.8rem, 6vw, 5rem); letter-spacing: -.07em; line-height: .94; margin: 0 0 18px; }
 .completeCard p { color: #586f83; font-size: .9rem; line-height: 1.7; margin: 0 auto; max-width: 480px; }
-.completeCard a, .completeCard button { background: #247ec9; border: 0; color: #fff; cursor: pointer; display: inline-block; font: inherit; font-size: .76rem; font-weight: 900; margin-top: 28px; padding: 17px 24px; }
+.completeCard a, .completeCard button { background: var(--complete-accent); border: 0; color: #fff; cursor: pointer; display: inline-block; font: inherit; font-size: .76rem; font-weight: 900; margin-top: 28px; padding: 17px 24px; }
 
 @media (max-width: 900px) {
   .checkoutPage { grid-template-columns: 1fr; }

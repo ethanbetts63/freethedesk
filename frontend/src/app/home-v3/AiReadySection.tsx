@@ -19,12 +19,12 @@ export function AiReadySection() {
         <p className="ai-ready-kicker">Google Lighthouse · Agentic Browsing</p>
         <h2>Is your site <span className="ai-ready-ai">AI</span> ready?</h2>
         <div className="ai-ready-gauge">
-          <div
-            className="ai-ready-ring"
-            aria-hidden="true"
-            style={{ background: `conic-gradient(${checks[0].color} 0deg 119deg, transparent 119deg 121deg, ${checks[1].color} 121deg 239deg, transparent 239deg 241deg, ${checks[2].color} 241deg 360deg)` }}
-          >
-            <div className="ai-ready-ring-hole"><span>?</span><small>/3</small></div>
+          <div className="ai-ready-ring" aria-hidden="true">
+            <div
+              className="ai-ready-ring-spin"
+              style={{ background: `conic-gradient(${checks[0].color}, ${checks[1].color}, ${checks[2].color}, ${checks[0].color})` }}
+            />
+            <div className="ai-ready-ring-hole"><span>?</span></div>
           </div>
           <ul className="ai-ready-checks">
             {checks.map((check) => <li key={check.label}><i aria-hidden="true" style={{ background: check.color, color: check.color }} />{check.label}</li>)}

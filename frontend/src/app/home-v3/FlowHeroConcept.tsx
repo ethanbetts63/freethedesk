@@ -36,7 +36,7 @@ export function FlowHeroConcept({
       <div className={styles.flowFade} />
       <div className={`shell ${styles.flowLayout}`}>
         <div className={styles.flowCopy}>
-          <p className={styles.flowKicker}>{eyebrow}</p>
+          <p className={styles.flowKicker}><span /> {eyebrow}</p>
           <h1>{title}<br /><span>{accentTitle}</span></h1>
           <p className={styles.flowLead}>{lead}</p>
           <div className={styles.flowActions}>
