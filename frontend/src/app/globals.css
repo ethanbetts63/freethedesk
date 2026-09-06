@@ -118,6 +118,8 @@ main:has(.service-scroll) { overflow: visible; }
 .desktop-nav > a:not(.nav-cta):hover::after { transform: scaleX(1); transform-origin: left; }
 .nav-cta { background: var(--surface-dark); color: var(--text-on-dark); padding: 12px 17px; transition: background .2s, transform .2s; }
 .nav-cta:hover { background: var(--surface-dark-soft); transform: translateY(-1px); }
+.nav-cta.nav-cta-glow { background: #247ec9; }
+.nav-cta.nav-cta-glow:hover { background: #2f8fdd; }
 .nav-dropdown { align-items: center; align-self: stretch; display: flex; position: relative; }
 .nav-dropdown-trigger {
   align-items: center; background: transparent; border: 0; color: var(--text); cursor: pointer;
@@ -160,6 +162,8 @@ main:has(.service-scroll) { overflow: visible; }
 .mobile-nav nav a span { color: var(--accent-ink); }
 .mobile-nav nav .mobile-nav-cta { background: var(--surface-dark); border: 0; color: var(--text-on-dark); margin-top: 9px; padding: 16px 14px; }
 .mobile-nav nav .mobile-nav-cta span { color: var(--accent); }
+.mobile-nav nav .mobile-nav-cta.nav-cta-glow { background: #247ec9; }
+.mobile-nav nav .mobile-nav-cta.nav-cta-glow span { color: #fff; }
 
 .home-hero { padding: 92px 0 104px; }
 .hero-grid { align-items: center; display: grid; gap: 70px; grid-template-columns: .92fr 1.08fr; }
@@ -321,8 +325,8 @@ main:has(.service-scroll) { overflow: visible; }
 @media (prefers-reduced-motion: reduce) { .ai-ready-ai, .proof-strip strong { animation: none; } }
 .ai-ready-gauge { align-items: center; display: flex; flex-wrap: wrap; gap: 50px; justify-content: center; margin-bottom: 32px; }
 .ai-ready-ring { aspect-ratio: 1; border-radius: 50%; filter: drop-shadow(0 0 30px rgba(120,120,255,.35)); flex: 0 0 auto; position: relative; width: 172px; }
-.ai-ready-ring-spin { animation: ai-ready-spin 6s linear infinite; animation-timeline: view(); animation-range: entry 0% exit 100%; border-radius: 50%; inset: 0; position: absolute; }
-@keyframes ai-ready-spin { to { transform: rotate(1080deg); } }
+.ai-ready-ring-spin { animation: ai-ready-spin 18s linear infinite; border-radius: 50%; inset: 0; position: absolute; }
+@keyframes ai-ready-spin { to { transform: rotate(360deg); } }
 .ai-ready-ring-hole { align-items: center; background: var(--surface-dark); border-radius: 50%; display: flex; inset: 15px; justify-content: center; position: absolute; }
 .ai-ready-ring-hole span { font-size: 2.8rem; font-weight: 800; letter-spacing: -.03em; }
 .ai-ready-checks { display: flex; flex-direction: column; gap: 16px; list-style: none; margin: 0; padding: 0; text-align: left; }
@@ -354,6 +358,21 @@ main:has(.service-scroll) { overflow: visible; }
 .automation-intro-row h2 { font-size: clamp(2.6rem, 4.6vw, 4.2rem); letter-spacing: -.045em; line-height: 1; margin: 0; max-width: 700px; }
 .automation-intro-shapes { display: flex; flex: 0 0 auto; gap: 10px; }
 .automation-intro-shapes i { border-radius: 6px; display: block; height: 28px; transform: rotate(8deg); width: 28px; }
+
+.approach-section { background: var(--surface-dark); color: var(--text-on-dark); padding: 130px 0; text-align: center; }
+.approach-inner { margin: 0 auto; max-width: 720px; }
+.approach-section h2 { font-size: clamp(2.7rem, 6vw, 4.6rem); letter-spacing: -.045em; line-height: 1; margin: 22px 0 26px; }
+.approach-lead { color: var(--text-on-dark-muted); font-size: 1rem; line-height: 1.72; margin: 0 auto 76px; max-width: 560px; }
+.approach-steps { display: flex; flex-direction: column; list-style: none; margin: 0 auto; max-width: 480px; padding: 0; text-align: left; }
+.approach-step { display: flex; gap: 26px; }
+.approach-step-rail { align-items: center; display: flex; flex: 0 0 auto; flex-direction: column; }
+.approach-step-icon { align-items: center; background: var(--accent-strong); border-radius: 50%; display: flex; flex: 0 0 auto; height: 58px; justify-content: center; width: 58px; }
+.approach-step-line { background: var(--border-on-dark); flex: 1; margin: 8px 0; min-height: 20px; width: 1px; }
+.approach-step-body { padding-bottom: 48px; }
+.approach-step:last-child .approach-step-body { padding-bottom: 0; }
+.approach-step-index { color: var(--accent-strong); font-size: .68rem; font-weight: 900; letter-spacing: .12em; }
+.approach-step-body h3 { font-size: 1.4rem; letter-spacing: -.03em; margin: 8px 0 9px; }
+.approach-step-body p { color: var(--text-on-dark-muted); font-size: .89rem; line-height: 1.62; margin: 0; }
 
 .service-scroll { margin-top: 0; }
 .service-row { border-top: 1px solid var(--border); display: grid; gap: 60px; grid-template-columns: .8fr 1.2fr; padding: 110px 0; }
@@ -535,12 +554,12 @@ main:has(.service-scroll) { overflow: visible; }
 .case-intent-grid li span { color: var(--accent-ink); font-size: .6rem; margin-left: 10px; }
 .case-cta-live-link { border-bottom: 1px solid var(--border-on-dark-strong); color: var(--text-on-dark-muted); font-size: .78rem; font-weight: 800; padding-bottom: 7px; }
 
-.site-footer { background: var(--surface-flow); color: var(--text); overflow: hidden; padding: 80px 0 25px; position: relative; }
+.site-footer { background: #fff; color: var(--text); overflow: hidden; padding: 80px 0 25px; position: relative; }
 .site-footer::before {
   background-image:
-    linear-gradient(to top, var(--surface-flow) 0%, transparent 20%),
-    linear-gradient(to right, var(--surface-flow) 0%, transparent 14%),
-    linear-gradient(to left, var(--surface-flow) 0%, transparent 14%),
+    linear-gradient(to top, #fff 0%, transparent 20%),
+    linear-gradient(to right, #fff 0%, transparent 14%),
+    linear-gradient(to left, #fff 0%, transparent 14%),
     linear-gradient(rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px, transparent 1px),
     linear-gradient(90deg, rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px, transparent 1px);
   background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat;
@@ -612,6 +631,8 @@ main:has(.service-scroll) { overflow: visible; }
   .feature-list { margin-top: 38px; }
   .proof-section { padding-bottom: 80px; padding-top: 80px; }
   .closing-cta { margin-bottom: 78px; padding-bottom: 60px; padding-top: 60px; }
+  .approach-section { padding: 80px 0; }
+  .approach-lead { margin-bottom: 54px; }
   .comparison-table > div { gap: 28px; padding-left: 5px; padding-right: 5px; }
   .automation-hero-grid { grid-template-columns: 1fr; }
   .workflow-visual { padding: 20px; }

@@ -7,12 +7,10 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: [
-        "/api/",
-        "/dashboard",
-        "/portal",
-        "/licensing/payment",
-      ],
+      // /dashboard, /portal and /licensing/payment are deliberately NOT disallowed here:
+      // each carries its own noindex meta tag (see their layout/page metadata), and a
+      // robots.txt disallow would stop Googlebot from ever crawling far enough to see it.
+      disallow: ["/api/"],
     },
     sitemap: `${PUBLIC_SITE_URL}/sitemap.xml`,
   };

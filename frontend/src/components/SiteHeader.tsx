@@ -22,7 +22,7 @@ export function SiteHeader() {
         <nav className="desktop-nav" aria-label="Primary navigation">
           <DesktopNavMenu label="Websites" items={WEBSITE_NAVIGATION} />
           {PRIMARY_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
-          <Link className="nav-cta" href="/dealership-website-builder">Try dealer demo</Link>
+          <Link className="nav-cta nav-cta-glow" href="/dealership-website-builder">Dealer Web Demo</Link>
         </nav>
         <details className="mobile-nav">
           <summary aria-label="Open navigation menu"><i /><i /><i /></summary>
@@ -30,7 +30,7 @@ export function SiteHeader() {
             <p className="mobile-nav-label">Websites</p>
             {WEBSITE_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}<span>→</span></Link>)}
             {PRIMARY_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}<span>→</span></Link>)}
-            <Link className="mobile-nav-cta" href="/dealership-website-builder">Try dealer demo<span>↗</span></Link>
+            <Link className="mobile-nav-cta nav-cta-glow" href="/dealership-website-builder">Dealer Web Demo<span>↗</span></Link>
           </nav>
         </details>
       </div>

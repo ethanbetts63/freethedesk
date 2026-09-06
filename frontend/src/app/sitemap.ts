@@ -11,7 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/automation", lastModified: "2026-09-05", changeFrequency: "monthly" as const, priority: 0.75 },
     { path: "/portfolio/scooter-shop", lastModified: "2026-09-05", changeFrequency: "monthly" as const, priority: 0.75 },
     { path: "/contact", lastModified: "2026-09-05", changeFrequency: "yearly" as const, priority: 0.65 },
-    { path: "/login", lastModified: "2026-09-05", changeFrequency: "yearly" as const, priority: 0.25 },
     { path: "/legal/privacy", lastModified: "2026-09-05", changeFrequency: "yearly" as const, priority: 0.3 },
     { path: "/legal/dealer-subscription-terms", lastModified: "2026-09-05", changeFrequency: "yearly" as const, priority: 0.3 },
   ];

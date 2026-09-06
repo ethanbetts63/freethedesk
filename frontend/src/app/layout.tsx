@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { SiteChrome } from "@/components/SiteChrome";
 import { AuthProvider } from "@/context/AuthContext";
+import { buildOrganizationSchema, buildWebsiteSchema } from "@/lib/seo";
 import { METADATA_BASE_URL } from "@/lib/siteConfig";
 import "./globals.css";
 
@@ -33,6 +34,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([buildOrganizationSchema(), buildWebsiteSchema()]) }}
+        />
         <ScrollToTop />
         <AuthProvider>
           <SiteChrome>{children}</SiteChrome>

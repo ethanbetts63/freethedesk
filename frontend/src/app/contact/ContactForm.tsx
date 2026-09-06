@@ -45,7 +45,8 @@ export function ContactForm() {
       <label><span>What can we help with? *</span>
         <select name="help_with" defaultValue="" required>
           <option value="" disabled>Select one</option>
-          <option value="website">A new or improved dealer website</option>
+          <option value="business-website">A new or improved business website</option>
+          <option value="dealer-website">A new or improved dealer website</option>
           <option value="inventory">Inventory, parts, service or hire</option>
           <option value="automation">Business automation</option>
           <option value="everything">All of the above</option>

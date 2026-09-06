@@ -2,12 +2,27 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
+import { Faq } from "@/components/Faq";
+import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
+import { pageMetadata } from "@/lib/seo";
 import { FlowCompare } from "./FlowCompare";
 import { LicensingNextStepPhone } from "./LicensingNextStepPhone";
 import { LoginPreviewPhone } from "./LoginPreviewPhone";
 import { SignupPlans } from "./SignupPlans";
 import styles from "./page.module.css";
+
+const TITLE = "Online Vehicle Licensing";
+const DESCRIPTION = "Let customers verify their identity, complete vehicle licensing and sign paperwork online without an unnecessary dealership visit.";
+const PATH = "/licensing";
+
+const questions = [
+  ["Do I need a new website to use this?", "No. Choose the hosted portal and keep your current site, or have it built directly into a dealership website we design for you."],
+  ["How does the customer actually pay?", "Online, as part of the same flow—card payment for a plan, or the BSB details shown when licensing is built into a vehicle purchase on your website."],
+  ["What happens once the customer signs?", "The completed paperwork lands straight back in your dealer queue—no scanning, printing or chasing an emailed PDF."],
+  ["Can I try it before signing up?", "Yes. The demo plan is free, no card required, and walks through the same dealer and customer journey as a live account."],
+  ["Do I need both licensing and contracts?", "No—pick whichever you need. Online licensing and online contracts are priced separately, or combined at a lower combined rate."],
+];
 
 const licensingStats: [ProofStat, ProofStat, ProofStat] = [
   { value: "72%", label: "Want licensing online", description: "Of car buyers say they'd rather complete paperwork online, per Cox Automotive research." },
@@ -15,20 +30,12 @@ const licensingStats: [ProofStat, ProofStat, ProofStat] = [
   { value: "24 / 7", label: "Always available", description: "Customers can verify, sign and pay at any time, without booking a dealership appointment." },
 ];
 
-export const metadata: Metadata = {
-  title: "Online Vehicle Licensing",
-  description: "Let customers verify their identity, complete vehicle licensing and sign paperwork online without an unnecessary dealership visit.",
-};
-
-const outcomes = [
-  ["Fewer barriers to a sale", "The customer can keep moving while their decision is fresh, even when they live nowhere near the dealership."],
-  ["Less administration", "Information flows into the paperwork once, reducing re-keying, follow-up calls and incomplete forms."],
-  ["A better customer experience", "A clear guided journey replaces appointments, printing, scanning and long email chains."],
-];
+export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
 
 export default function LicensingPage() {
   return (
     <main className={styles.page}>
+      <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
       <FlowHeroConcept
         eyebrow="Online vehicle licensing"
         title="License online."
@@ -100,30 +107,16 @@ export default function LicensingPage() {
             A customer can be ready to buy and still be stopped by the practical friction of getting to your store. Distance, work, family and opening hours all become reasons to delay.
           </p>
           <p>
-            Online licensing removes that dead time. The paperwork reaches the customer, the completed sale returns to your team, and delivery can become the final step instead of another obstacle.
+            Let the paperwork do the travelling, not your customers.
           </p>
         </div>
       </section>
 
-      <section className={`shell ${styles.outcomesSection}`}>
-        <div className={styles.sectionHeading}>
-          <p className={styles.sectionLabel}>03 / What changes</p>
-          <h2>Better for the customer. Better for the desk.</h2>
-        </div>
-        <div className={styles.outcomeGrid}>
-          {outcomes.map(([title, body], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}
-        </div>
-      </section>
-
-      <section className={`shell ${styles.closing}`}>
-        <p className={styles.sectionLabel}>Make the next sale easier</p>
-        <h2>Let the paperwork travel.<br />Not the customer.</h2>
-        <p>We will map the licensing flow to your dealership, your vehicles and the way your team already works.</p>
-        <div>
-          <Link href="/contact">Talk about online licensing <span>↗</span></Link>
-          <Link href="/dealership-website-builder">Try the Licensing Demo <span>→</span></Link>
-        </div>
-      </section>
+      <Faq
+        eyebrow="04 / Common questions"
+        title="Before you sign up."
+        items={questions.map(([question, answer]) => ({ question, answer }))}
+      />
     </main>
   );
 }

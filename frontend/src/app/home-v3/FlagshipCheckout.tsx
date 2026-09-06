@@ -5,21 +5,21 @@ import styles from "./FlagshipCheckout.module.css";
 const journey = [
   {
     number: "01",
-    title: "Purchase",
-    detail: "Deposit or full payment",
-    icon: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 10h18M7 15h4" /></svg>,
+    title: "Choose",
+    detail: "Select the vehicle online",
+    icon: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6v6H4zM14 5h6v6h-6zM4 13h6v6H4zM14 13h6v6h-6z" /></svg>,
   },
   {
     number: "02",
-    title: "License",
+    title: "Sign",
     detail: "Identity, forms and signatures",
     icon: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v4h4M9 12h6m-6 4h4" /></svg>,
   },
   {
     number: "03",
-    title: "Handover",
-    detail: "Delivery or collection",
-    icon: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7zM7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" /></svg>,
+    title: "Pay",
+    detail: "Deposit or full payment",
+    icon: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 10h18M7 15h4" /></svg>,
   },
 ];
 
@@ -45,8 +45,14 @@ export function FlagshipCheckout() {
           </div>
 
           <div className={styles.status}>
-            <span><i /> Customer journey complete</span>
-            <strong>Dealership notified <b>✓</b></strong>
+            <svg className={styles.stripeMark} viewBox="0 0 24 24" aria-hidden="true">
+              <rect width="24" height="24" rx="6" fill="#635bff" />
+              <path
+                d="M11.6 8.4c-.8 0-1.2.35-1.2.85 0 1.5 4 .95 4 3.75 0 1.65-1.35 2.65-3.25 2.65-.85 0-1.75-.2-2.6-.55v-1.9c.75.4 1.65.65 2.45.65.8 0 1.25-.3 1.25-.85 0-1.55-4-.95-4-3.75 0-1.6 1.25-2.55 3.05-2.55.8 0 1.6.15 2.35.45v1.85c-.65-.35-1.35-.6-2.05-.6Z"
+                fill="#fff"
+              />
+            </svg>
+            <span>Identity verified with <b>Stripe Identity</b></span>
           </div>
         </div>
 
@@ -57,9 +63,10 @@ export function FlagshipCheckout() {
             Let customers purchase, complete their paperwork and arrange handover without needing to visit the dealership.
           </p>
           <ul>
-            <li>Accept a deposit or full payment</li>
-            <li>Complete licensing and contracts digitally</li>
-            <li>Arrange delivery or collection online</li>
+            <li>Sales contracts</li>
+            <li>Licensing documents</li>
+            <li>Identity verification</li>
+            <li>Optional payment and delivery handling</li>
           </ul>
           <Link href="/licensing">Explore online licensing <span>→</span></Link>
         </div>

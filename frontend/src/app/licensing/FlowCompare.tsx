@@ -1,41 +1,79 @@
+import Link from "next/link";
+
 import styles from "./page.module.css";
 
-const hostedSteps = ["Vehicle sold", "Dealer enters details", "Secure link emailed", "Customer logs in"];
-const builtInSteps = ["Customer selects vehicle", "Details already filled"];
+type Step = { title: string; caption?: string };
 
-function Lane({ label, steps }: { label: string; steps: string[] }) {
+const hostedSteps: Step[] = [
+  { title: "Log in to our portal" },
+  { title: "Enter the vehicle details" },
+  { title: "Send the customer their secure link" },
+  { title: "Customer signs online" },
+  { title: "Paperwork lands back in your queue" },
+];
+
+const builtInSteps: Step[] = [
+  { title: "Customer checks out on your website" },
+  { title: "Customer signs and pays online" },
+  { title: "Paperwork lands in your queue" },
+];
+
+function FlowColumn({
+  label,
+  badge,
+  steps,
+  highlight,
+  eyebrow,
+  cta,
+}: {
+  label: string;
+  badge: string;
+  steps: Step[];
+  highlight?: boolean;
+  eyebrow?: string;
+  cta?: { href: string; label: string };
+}) {
   return (
-    <div className={styles.flowLane}>
-      <span className={styles.flowLaneLabel}>{label}</span>
-      <div className={styles.flowSteps}>
-        {steps.map((step, index) => (
-          <span key={step}>
-            <i className={styles.flowStep}>{step}</i>
-            {index < steps.length - 1 && <b className={styles.flowDash} aria-hidden="true" />}
-          </span>
+    <div className={`${styles.flowColumn} ${highlight ? styles.flowColumnHighlight : ""}`}>
+      {eyebrow && <p className={styles.flowEyebrow}>{eyebrow}</p>}
+      <header className={styles.flowColumnHead}>
+        <span>{label}</span>
+        <b>{badge}</b>
+      </header>
+      <ol className={styles.flowStepsList}>
+        {steps.map((step) => (
+          <li key={step.title}>
+            <span className={styles.flowStepText}>
+              <strong>{step.title}</strong>
+              {step.caption && <small>{step.caption}</small>}
+            </span>
+          </li>
         ))}
-        <b className={styles.flowDash} aria-hidden="true" />
-      </div>
+      </ol>
+      {cta && (
+        <Link className={styles.flowColumnCta} href={cta.href}>
+          {cta.label} <span>↗</span>
+        </Link>
+      )}
     </div>
   );
 }
 
-/** Compares the hosted-portal and built-in-website flows, converging where the steps are shared. */
+/** What your team actually does for each setup: the hosted portal (manual entry) vs. built into your website (automatic). */
 export function FlowCompare() {
   return (
     <div className={styles.flowCompare}>
-      <div className={styles.flowLanes}>
-        <Lane label="Hosted portal" steps={hostedSteps} />
-        <Lane label="Built into your website" steps={builtInSteps} />
-      </div>
-      <div className={styles.flowBracket} aria-hidden="true" />
-      <div className={styles.flowMerge}>
-        <i className={styles.flowStepMerged}>Signs paperwork online</i>
-        <b className={styles.flowDash} aria-hidden="true" />
-        <div>
-          <i className={styles.flowStepEnd}>Pays via BSB details</i>
-          <span className={styles.flowStepEndCaption}>Built-in flow only</span>
-        </div>
+      <p className={styles.flowCompareLabel}>What your team does</p>
+      <div className={styles.flowGrid}>
+        <FlowColumn label="Hosted portal" badge="5 steps, you enter each sale" steps={hostedSteps} />
+        <FlowColumn
+          label="Built into your website"
+          badge="4 steps, nothing to re-key"
+          steps={builtInSteps}
+          highlight
+          eyebrow="Recommended"
+          cta={{ href: "/dealership-website-builder", label: "Dealer Web Demo" }}
+        />
       </div>
     </div>
   );

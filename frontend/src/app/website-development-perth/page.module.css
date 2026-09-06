@@ -6,7 +6,7 @@
 .label { color: var(--page-accent); font-size: .68rem; font-weight: 900; letter-spacing: .14em; margin: 0 0 23px; text-transform: uppercase; }
 .enquirySection { padding-bottom: 20px; padding-top: 70px; }
 .intro { display: grid; gap: clamp(60px, 9vw, 135px); grid-template-columns: 1fr .9fr; padding-bottom: 125px; padding-top: 125px; }
-.intro h2, .sectionHeading h2, .systemCopy h2, .proofSection h2, .faqLayout h2, .closing h2 { font-size: clamp(3rem, 5.3vw, 5.7rem); letter-spacing: -.072em; line-height: .93; margin: 0; }
+.intro h2, .sectionHeading h2, .systemCopy h2, .proofSection h2, .closing h2 { font-size: clamp(3rem, 5.3vw, 5.7rem); letter-spacing: -.072em; line-height: .93; margin: 0; }
 .intro > div:last-child { align-self: end; max-width: 520px; }
 .intro > div:last-child p, .systemCopy > p, .proofSection > div:last-child > p { color: #536c80; font-size: .98rem; line-height: 1.78; margin: 0 0 18px; }
 .servicesSection { background: #f2f7fb; padding: 115px 0 125px; }
@@ -47,21 +47,12 @@
 .proofSection > div:last-child { align-self: end; }
 .linkRow { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 31px; }
 .linkRow a { align-items: center; border-bottom: 1px solid var(--page-accent); color: var(--page-accent); display: flex; font-size: .76rem; font-weight: 900; gap: 25px; padding: 8px 0; }
-.faqSection { background: #f2f7fb; padding: 115px 0; }
-.faqLayout { display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: .75fr 1.25fr; }
-.faqList { border-top: 1px solid #c9d9e4; }
-.faqList details { border-bottom: 1px solid #c9d9e4; }
-.faqList summary { align-items: center; cursor: pointer; display: flex; font-size: .94rem; font-weight: 850; justify-content: space-between; list-style: none; padding: 24px 0; }
-.faqList summary::-webkit-details-marker { display: none; }
-.faqList summary span { color: var(--page-accent); font-size: 1.2rem; }
-.faqList details[open] summary span { transform: rotate(45deg); }
-.faqList details p { color: #5a7286; font-size: .84rem; line-height: 1.72; margin: -4px 45px 25px 0; }
 .closing { background: #f2f7fb; margin-bottom: 115px; margin-top: 115px; padding: 82px; text-align: center; }
 .closing > p:not(.label) { color: #587086; font-size: .96rem; line-height: 1.7; margin: 27px auto 31px; max-width: 570px; }
 .closing > a { align-items: center; background: var(--page-accent); color: #fff; display: inline-flex; font-size: .8rem; font-weight: 900; gap: 35px; padding: 17px 20px; }
 
 @media (max-width: 900px) {
-  .intro, .systemSection, .proofSection, .faqLayout { grid-template-columns: 1fr; }
+  .intro, .systemSection, .proofSection { grid-template-columns: 1fr; }
   .serviceGrid { grid-template-columns: 1fr 1fr; }
   .processGrid { grid-template-columns: 1fr 1fr; }
   .processGrid article { border-bottom: 1px solid rgba(255,255,255,.2); }
@@ -70,7 +61,7 @@
 @media (max-width: 620px) {
   .enquirySection { padding-top: 50px; }
   .intro, .systemSection, .proofSection { padding-bottom: 82px; padding-top: 82px; }
-  .servicesSection, .processSection, .faqSection { padding-bottom: 80px; padding-top: 80px; }
+  .servicesSection, .processSection { padding-bottom: 80px; padding-top: 80px; }
   .serviceGrid, .processGrid { grid-template-columns: 1fr; }
   .serviceGrid article { min-height: 260px; }
   .systemVisual { min-height: 440px; }

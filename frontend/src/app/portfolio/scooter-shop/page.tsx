@@ -2,14 +2,22 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip } from "@/components/ProofStrip";
+import { pageMetadata } from "@/lib/seo";
 
 import { ScooterShopTour } from "./ScooterShopTour";
 
-export const metadata: Metadata = {
-  title: "Scooter Shop Dealer Website Case Study",
-  description: "A connected dealership website for sales, online purchasing, licensing, parts, service, hire and long-term organic growth.",
-};
+const TITLE = "Scooter Shop Dealer Website Case Study";
+const DESCRIPTION = "A connected dealership website for sales, online purchasing, licensing, parts, service, hire and long-term organic growth.";
+const PATH = "/portfolio/scooter-shop";
+
+export const metadata: Metadata = pageMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: PATH,
+  ogImage: "/case-studies/scooter-shop/home-desktop.png",
+});
 
 const capabilities = [
   "Inventory",
@@ -55,6 +63,7 @@ const intentGroups = [
 export default function ScooterShopCaseStudy() {
   return (
     <main className="scooter-case-page">
+      <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
       <section className="scooter-case-hero">
         <div className="scooter-case-grid" aria-hidden="true" />
         <div className="shell scooter-case-hero-layout">

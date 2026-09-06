@@ -3,8 +3,15 @@ import Link from "next/link";
 
 import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
 import { ContactEnquiry } from "../contact/ContactEnquiry";
+import { Faq } from "@/components/Faq";
+import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
+import { pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
+
+const TITLE = "Website Development Perth | Custom Websites & Web Apps";
+const DESCRIPTION = "Perth website development for businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.";
+const PATH = "/website-development-perth";
 
 const websiteDevStats: [ProofStat, ProofStat, ProofStat] = [
   { value: "50%", label: "Won't consider you", description: "Of consumers who won't consider a business with no website, per industry research." },
@@ -12,11 +19,7 @@ const websiteDevStats: [ProofStat, ProofStat, ProofStat] = [
   { value: "AI", label: "Are you AI ready?", description: "At a minimum you should meet Google's 3 recommendations." },
 ];
 
-export const metadata: Metadata = {
-  title: "Website Development Perth | Custom Websites & Web Apps",
-  description: "Perth website development for businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.",
-  alternates: { canonical: "/website-development-perth" },
-};
+export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH, absoluteTitle: true });
 
 const services = [
   ["Stock and pricing that update themselves", "If your suppliers publish stock or pricing anywhere—even without a proper API—we build a sync that checks it on a schedule, so nobody is cross-referencing a spreadsheet by hand."],
@@ -51,6 +54,7 @@ export default function WebsiteDevelopmentPerthPage() {
 
   return (
     <main className={styles.page}>
+      <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <FlowHeroConcept
         eyebrow="Website development Perth"
@@ -119,12 +123,11 @@ export default function WebsiteDevelopmentPerthPage() {
         </div>
       </section>
 
-      <section className={styles.faqSection}>
-        <div className={`shell ${styles.faqLayout}`}>
-          <div><p className={styles.label}>06 / Common questions</p><h2>Before we begin.</h2></div>
-          <div className={styles.faqList}>{questions.map(([question, answer]) => <details key={question}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div>
-        </div>
-      </section>
+      <Faq
+        eyebrow="06 / Common questions"
+        title="Before we begin."
+        items={questions.map(([question, answer]) => ({ question, answer }))}
+      />
 
       <section className={`shell ${styles.closing}`}>
         <p className={styles.label}>Start with the useful part</p>
