@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import styles from "./FlagshipCheckout.module.css";
@@ -45,14 +46,9 @@ export function FlagshipCheckout() {
           </div>
 
           <div className={styles.status}>
-            <svg className={styles.stripeMark} viewBox="0 0 24 24" aria-hidden="true">
-              <rect width="24" height="24" rx="6" fill="#635bff" />
-              <path
-                d="M11.6 8.4c-.8 0-1.2.35-1.2.85 0 1.5 4 .95 4 3.75 0 1.65-1.35 2.65-3.25 2.65-.85 0-1.75-.2-2.6-.55v-1.9c.75.4 1.65.65 2.45.65.8 0 1.25-.3 1.25-.85 0-1.55-4-.95-4-3.75 0-1.6 1.25-2.55 3.05-2.55.8 0 1.6.15 2.35.45v1.85c-.65-.35-1.35-.6-2.05-.6Z"
-                fill="#fff"
-              />
-            </svg>
-            <span>Identity verified with <b>Stripe Identity</b></span>
+            <span>Verified with</span>
+            <Image className={styles.stripeLogo} src="/stripe-ar21.svg" alt="Stripe" width={120} height={60} />
+            <b>Identity</b>
           </div>
         </div>
 

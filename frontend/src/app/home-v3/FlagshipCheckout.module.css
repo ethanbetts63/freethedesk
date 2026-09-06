@@ -19,7 +19,7 @@
 .journey article > small { color: #6e8497; font-size: .66rem; line-height: 1.45; margin-top: 6px; }
 .status { align-items: center; background: #13315c; color: #cfdcea; display: flex; font-size: .76rem; font-weight: 650; gap: 11px; justify-content: center; padding: 15px 17px; }
 .status b { color: #fff; font-weight: 850; }
-.stripeMark { border-radius: 6px; flex: 0 0 auto; height: 22px; width: 22px; }
+.stripeLogo { flex: 0 0 auto; height: 15px; width: auto; }
 .copy { max-width: 520px; }
 .eyebrow { align-items: center; color: var(--section-accent); display: flex; font-size: .68rem; font-weight: 800; gap: 11px; letter-spacing: .17em; margin: 0 0 25px; text-transform: uppercase; }
 .eyebrow span { background: var(--section-accent); border-radius: 50%; box-shadow: 0 0 0 5px rgba(var(--section-accent-rgb),.1); height: 7px; width: 7px; }
