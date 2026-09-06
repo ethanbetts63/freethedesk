@@ -13,7 +13,7 @@ export function HomeHero() {
         <p className={styles.eyebrow}><span /> Efficiency First Solutions</p>
         <h1>Digital<br /><em>dealerships.</em></h1>
         <p className={styles.lead}>Connected websites and operational systems built for the way modern dealerships sell, service and work.</p>
-        <div className={styles.actions}><Link className={styles.primary} href="/dealership-website-builder">Try the Free Demo <span>↗</span></Link><Link className={styles.secondary} href="/work/scooter-shop">See it in action <span>→</span></Link></div>
+        <div className={styles.actions}><Link className={styles.primary} href="/dealership-website-builder">Try the Free Demo <span>↗</span></Link><Link className={styles.secondary} href="/portfolio/scooter-shop">See it in action <span>→</span></Link></div>
         <p className={styles.trustLine}>Perth-based &middot; working with businesses across Australia</p>
       </div>
     </section>

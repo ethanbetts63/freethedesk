@@ -13,7 +13,20 @@
 .planCard:hover { border-color: var(--page-accent); transform: translateY(-3px); }
 .planCard:focus-visible { outline: 3px solid rgba(var(--page-accent-rgb), .25); outline-offset: 3px; }
 .planCard.planSelected { background: #fff; border-color: var(--page-accent); box-shadow: inset 0 4px 0 var(--page-accent); }
+.planCard.planRecommended {
+  animation: plan-recommended-shift 6s linear infinite;
+  background-clip: padding-box, border-box;
+  background-image: linear-gradient(#f5f8fa, #f5f8fa), linear-gradient(100deg, #38bdf8, #a855f7 55%, #f472b6, #38bdf8);
+  background-origin: border-box;
+  background-size: 100% 100%, 300% 100%;
+  border: 2px solid transparent;
+}
+.planCard.planRecommended:hover { border-color: transparent; }
+.planCard.planRecommended.planSelected { background-image: linear-gradient(#fff, #fff), linear-gradient(100deg, #38bdf8, #a855f7 55%, #f472b6, #38bdf8); }
+@keyframes plan-recommended-shift { to { background-position: 0 0, 300% 50%; } }
+@media (prefers-reduced-motion: reduce) { .planCard.planRecommended, .planCard.planRecommended .planTopline { animation: none; } }
 .planTopline { color: var(--page-accent); font-size: .63rem; font-weight: 900; letter-spacing: .12em; min-height: 34px; text-transform: uppercase; }
+.planCard.planRecommended .planTopline { background: linear-gradient(90deg, #38bdf8, #a855f7, #f472b6, #38bdf8); -webkit-background-clip: text; background-clip: text; background-size: 300% 100%; color: transparent; animation: ai-ready-shift 6s linear infinite; }
 .planCard > strong { font-size: 1.18rem; letter-spacing: -.03em; }
 .planPrice { font-size: 2.15rem; font-weight: 850; letter-spacing: -.06em; margin: 24px 0 15px; white-space: nowrap; }
 .planPrice small { color: #60778b; font-size: .62rem; font-weight: 650; letter-spacing: 0; }
@@ -64,31 +77,64 @@
 .paths .onlinePath { border-color: var(--page-accent); box-shadow: inset 4px 0 0 var(--page-accent); }
 .onlinePath header span, .onlinePath header b { color: var(--page-accent); }
 .onlinePath i { background: var(--page-accent); }
-.journeySection, .outcomesSection { padding-bottom: 120px; padding-top: 120px; }
+.outcomesSection { padding-bottom: 120px; padding-top: 120px; }
 .sectionHeading { max-width: 850px; }
-.journeyGrid { border-top: 1px solid #cedde8; display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 65px; }
-.journeyGrid article { border-left: 1px solid #cedde8; min-height: 310px; padding: 24px 27px; }
-.journeyGrid article:last-child { border-right: 1px solid #cedde8; }
-.journeyGrid article > span, .outcomeGrid article > span { color: var(--page-accent); font-size: .65rem; font-weight: 900; }
-.journeyGrid h3 { font-size: 1.25rem; margin: 98px 0 13px; }
-.journeyGrid p, .outcomeGrid p { color: #60778b; font-size: .82rem; line-height: 1.67; margin: 0; }
+.outcomeGrid article > span { color: var(--page-accent); font-size: .65rem; font-weight: 900; }
+.outcomeGrid p { color: #60778b; font-size: .82rem; line-height: 1.67; margin: 0; }
 .optionsSection { background: #13315c; color: #fff; padding: 115px 0; }
 .optionsLayout { align-items: start; display: grid; gap: clamp(55px, 8vw, 110px); grid-template-columns: .8fr 1.2fr; }
 .optionsHeading > p:last-child { color: #a8bfd2; }
-.optionCards { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
-.optionCards article { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); display: flex; flex-direction: column; min-height: 520px; padding: 30px; }
-.optionCards article:last-child { background: #fff; color: #000; }
-.optionCards article > span { color: #70bced; font-size: .63rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
-.optionCards h3 { font-size: 1.55rem; letter-spacing: -.04em; margin: 65px 0 15px; }
-.optionCards p { color: #b9ccdc; font-size: .84rem; line-height: 1.7; }
-.optionCards article:last-child p { color: #60778b; }
-.optionCards ul { border-top: 1px solid rgba(255,255,255,.16); list-style: none; margin: 28px 0 25px; padding: 15px 0 0; }
-.optionCards article:last-child ul { border-top-color: #d4e1ea; }
-.optionCards li { font-size: .72rem; margin-top: 10px; padding-left: 16px; position: relative; }
-.optionCards li::before { color: #70bced; content: "↳"; left: 0; position: absolute; }
-.optionCards article > a { align-items: center; align-self: flex-start; border-bottom: 1px solid currentColor; color: #fff; display: inline-flex; font-size: .72rem; font-weight: 850; gap: 18px; margin-top: auto; padding-bottom: 6px; }
-.optionCards article:last-child > a { color: var(--page-accent); }
-.optionCards article > a b { font-weight: 850; }
+.optionPhones { align-items: flex-start; display: flex; gap: 46px; justify-content: center; }
+.optionPhoneTile { align-items: center; display: flex; flex-direction: column; }
+.optionPhoneCaption { color: #fff; font-size: .8rem; font-weight: 850; margin: 18px 0 0; }
+.optionPhoneTile > a { align-items: center; border-bottom: 1px solid rgba(255,255,255,.5); color: #cfe0ee; display: inline-flex; font-size: .68rem; font-weight: 800; gap: 10px; margin-top: 10px; padding-bottom: 4px; }
+
+.flowCompare { align-items: center; border-top: 1px solid rgba(255,255,255,.14); display: grid; gap: 22px; grid-template-columns: minmax(0, 1fr) 26px auto; margin-top: 90px; padding-top: 60px; }
+.flowLanes { display: flex; flex-direction: column; gap: 26px; }
+.flowBracket { align-self: stretch; margin: 6px 0; position: relative; }
+.flowBracket::before { background: #4d6c8c; bottom: 0; content: ""; left: 0; position: absolute; top: 0; width: 1px; }
+.flowBracket::after { background: #4d6c8c; content: ""; height: 1px; left: 0; position: absolute; top: 50%; width: 100%; }
+.flowLaneLabel { color: #70bced; display: block; font-size: .62rem; font-weight: 900; letter-spacing: .12em; margin-bottom: 12px; text-transform: uppercase; }
+.flowSteps { align-items: center; display: flex; flex-wrap: wrap; gap: 10px; }
+.flowSteps > span { align-items: center; display: inline-flex; gap: 10px; }
+.flowStep { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.2); border-radius: 8px; color: #fff; font-size: .74rem; font-style: normal; font-weight: 750; padding: 10px 14px; white-space: nowrap; }
+.flowDash { background: #4d6c8c; display: inline-block; height: 1px; width: 16px; }
+.flowMerge { align-items: center; display: flex; flex-direction: column; gap: 12px; }
+.flowStepMerged { background: var(--page-accent); border-radius: 8px; color: #fff; font-size: .8rem; font-style: normal; font-weight: 850; padding: 12px 16px; text-align: center; white-space: nowrap; }
+.flowMerge > .flowDash { height: 16px; width: 1px; }
+.flowMerge > div { text-align: center; }
+.flowStepEnd { background: rgba(255,255,255,.07); border: 1px dashed rgba(255,255,255,.4); border-radius: 8px; color: #cfe0ee; display: inline-block; font-size: .72rem; font-style: normal; font-weight: 750; padding: 10px 14px; white-space: nowrap; }
+.flowStepEndCaption { color: #7c93aa; display: block; font-size: .6rem; margin-top: 6px; }
+
+/* Shared phone-mockup frame used by both option previews. */
+.phoneMock { background: #0d1725; border: 6px solid #0d1725; border-radius: 26px; box-shadow: 0 30px 60px rgba(0,0,0,.4); flex: 0 0 auto; height: 340px; overflow: hidden; position: relative; width: 175px; }
+.phoneMockNotch { background: #0d1725; border-radius: 0 0 8px 8px; height: 8px; left: 50%; position: absolute; top: 0; transform: translateX(-50%); width: 44px; z-index: 3; }
+.phoneMockHomebar { background: #fff; border-radius: 3px; bottom: 8px; height: 3px; left: 50%; opacity: .5; position: absolute; transform: translateX(-50%); width: 46px; z-index: 3; }
+.phoneMockScreen { background: #eef3f7; height: 100%; overflow: hidden; position: relative; width: 100%; }
+
+.loginPhoneNetwork { inset: 0; opacity: .8; position: absolute; }
+.loginPhoneNetwork canvas { display: block; height: 100%; width: 100%; }
+.loginPhoneGrid { background-image: linear-gradient(rgba(19,49,92,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(19,49,92,.06) 1px, transparent 1px); background-size: 18px 18px; inset: 0; position: absolute; }
+.loginPhoneCard { background: rgba(255,255,255,.94); border: 1px solid rgba(180,199,213,.85); border-radius: 8px; box-shadow: 0 14px 30px rgba(15,35,60,.2); left: 14px; padding: 15px 13px; position: absolute; right: 14px; top: 68px; }
+.loginPhoneBrand { align-items: center; display: flex; gap: 6px; margin: 0 0 14px; }
+.loginPhoneBrandImage { display: block; height: 16px; width: 16px; }
+.loginPhoneBrandText { color: var(--text); font-size: .66rem; font-weight: 900; letter-spacing: -.06em; }
+.loginPhoneBrandText span { color: var(--accent-ink); }
+.loginPhoneBrandText b { color: var(--accent-strong); font-weight: 900; }
+.loginPhoneHeading { color: #0f1b2b; font-size: 1rem; font-weight: 800; letter-spacing: -.04em; margin: 0 0 12px; }
+.loginPhoneField { background: #eef3f7; border: 1px solid #d7e2e9; border-radius: 4px; height: 20px; margin-bottom: 8px; }
+.loginPhoneButton { align-items: center; background: var(--page-accent); border-radius: 4px; color: #fff; display: flex; font-size: .6rem; font-weight: 800; height: 25px; justify-content: center; margin-top: 6px; }
+
+.successPhoneHeader { align-items: center; background: #fff; border-bottom: 1px solid #e5ebf0; display: flex; gap: 6px; height: 30px; padding: 0 12px; position: relative; z-index: 2; }
+.successPhoneHeader i { background: #cfd8e0; border-radius: 2px; display: block; height: 8px; width: 8px; }
+.successPhoneHeader span { color: #45535f; font-size: .58rem; font-weight: 800; letter-spacing: -.02em; }
+.successPhoneBody { background: #f6f8fa; height: 100%; padding: 30px 16px; text-align: center; }
+.successPhoneCheck { align-items: center; background: #16a34a; border-radius: 50%; color: #fff; display: flex; font-size: .85rem; height: 34px; justify-content: center; margin: 0 auto 12px; width: 34px; }
+.successPhoneBody h4 { color: #0f1b2b; font-size: .92rem; font-weight: 850; letter-spacing: -.03em; margin: 0 0 5px; }
+.successPhoneBody p { color: #66798c; font-size: .62rem; line-height: 1.4; margin: 0 0 20px; }
+.successPhoneNext { background: #fff; border: 1px solid var(--page-accent); border-radius: 8px; padding: 12px; text-align: left; }
+.successPhoneNext span { color: var(--page-accent); display: block; font-size: .56rem; font-weight: 900; letter-spacing: .1em; margin-bottom: 5px; text-transform: uppercase; }
+.successPhoneNext strong { align-items: center; color: #0f1b2b; display: flex; font-size: .78rem; font-weight: 850; justify-content: space-between; }
 .outcomeGrid { display: grid; gap: 18px; grid-template-columns: repeat(3, 1fr); margin-top: 60px; }
 .outcomeGrid article { background: #f3f7fa; min-height: 255px; padding: 28px; }
 .outcomeGrid h3 { font-size: 1.28rem; letter-spacing: -.03em; margin: 65px 0 12px; }
@@ -105,26 +151,22 @@
   .signupPanel { grid-template-columns: 1fr; }
   .selectedSummary { min-height: 480px; }
   .problemCopy { max-width: 650px; }
-  .journeyGrid { grid-template-columns: 1fr 1fr; }
-  .journeyGrid article:nth-child(2) { border-right: 1px solid #cedde8; }
-  .journeyGrid article:nth-child(n + 3) { border-top: 1px solid #cedde8; }
+  .flowCompare { grid-template-columns: 1fr; justify-items: center; }
+  .flowBracket { display: none; }
 }
 
 @media (max-width: 650px) {
-  .problem, .journeySection, .outcomesSection, .signupSection { padding-bottom: 82px; padding-top: 82px; }
+  .problem, .outcomesSection, .signupSection { padding-bottom: 82px; padding-top: 82px; }
   .comparisonSection, .optionsSection { padding-bottom: 78px; padding-top: 78px; }
   .problem h2, .comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2 { font-size: clamp(2.75rem, 13vw, 4rem); }
   .paths article > div { align-items: flex-start; flex-direction: column; }
   .paths article i { height: 11px; margin-left: 4px; width: 1px; }
-  .journeyGrid, .optionCards, .outcomeGrid { grid-template-columns: 1fr; }
+  .outcomeGrid { grid-template-columns: 1fr; }
   .planGrid, .fieldRow { grid-template-columns: 1fr; }
   .planCard { min-height: 250px; }
   .selectedSummary { min-height: 430px; }
-  .journeyGrid article { border-bottom: 1px solid #cedde8; border-right: 1px solid #cedde8; min-height: auto; }
-  .journeyGrid h3 { margin-top: 38px; }
-  .optionCards article { min-height: auto; padding: 26px; }
-  .optionCards h3 { margin-top: 42px; }
   .outcomeGrid article { min-height: 220px; }
   .closing { margin-bottom: 78px; padding: 65px 22px; }
   .closing > div { align-items: center; flex-direction: column; }
+  .optionPhones { flex-wrap: wrap; gap: 34px; }
 }

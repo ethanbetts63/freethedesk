@@ -7,21 +7,21 @@ import { ServiceScroll } from "@/components/ServiceScroll";
 import { automationServices } from "./automationServices";
 
 export const metadata: Metadata = {
-  title: "Business Automation",
+  title: "Automate Boring Away",
   description: "Practical workflow automation and custom integrations for Australian small and medium businesses.",
 };
 
 const automationStats: [ProofStat, ProofStat, ProofStat] = [
-  { value: "36%", label: "Of the work week", description: "Time small business owners lose to manual admin tasks, per Xero research." },
+  { value: "36%", label: "Of the work week", description: "Time small business owners lose to manual admin tasks." },
   { value: "0", label: "Times re-keyed", description: "Information entered once, reused everywhere it's needed." },
-  { value: "AI", label: "Automation like never before", description: "What AI can automate has grown fast—broader, smarter and easier to build than it was a year ago." },
+  { value: "AI", label: "Automation like never before", description: "What AI can automate has grown fast—broader, smarter and easier than ever." },
 ];
 
 export default function AutomationPage() {
   return (
     <main>
       <FlowHeroConcept
-        eyebrow="Business automation"
+        eyebrow="Automate Boring Away"
         title="Less repetition."
         accentTitle="More progress."
         lead="We connect the systems you already use and build the missing pieces, so information moves while your team stays focused on customers."

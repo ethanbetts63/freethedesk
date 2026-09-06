@@ -9,7 +9,7 @@ export const automationServices: Service[] = [
     examples: [
       "New enquiries arrive with the product, page and customer detail already attached",
       "Routed to the right person automatically, not whoever opens the inbox first",
-      "A notification the moment it lands, not the next time someone checks email",
+      "A text the moment it lands, not the next time someone checks email",
       "A reminder if a lead sits untouched for too long",
     ],
     color: "var(--blue-500)",
@@ -18,25 +18,6 @@ export const automationServices: Service[] = [
         <circle cx="32" cy="32" r="23" stroke="currentColor" strokeWidth="2" opacity=".2" />
         <circle cx="32" cy="32" r="14" stroke="currentColor" strokeWidth="2" opacity=".45" />
         <circle cx="32" cy="32" r="6" fill="currentColor" />
-      </svg>
-    ),
-  },
-  {
-    title: "Parts workflows",
-    body: "Move requests from customer to parts desk, supplier and quote without losing the details in an inbox thread.",
-    examples: [
-      "Customer part requests captured with the right details the first time",
-      "Sent straight to the parts desk, not buried in a shared inbox",
-      "Supplier quote requests built from information already on file",
-      "Status visible without a phone call to check",
-    ],
-    color: "var(--blue-600)",
-    icon: (
-      <svg {...iconProps}>
-        <rect x="4" y="22" width="20" height="20" rx="4" stroke="currentColor" strokeWidth="2.5" />
-        <rect x="40" y="22" width="20" height="20" rx="4" fill="currentColor" />
-        <path d="M26 32H37" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M33 27L38 32L33 37" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },

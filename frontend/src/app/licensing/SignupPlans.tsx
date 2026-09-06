@@ -75,7 +75,7 @@ export function SignupPlans() {
         <div className={styles.planGrid} role="radiogroup" aria-label="Subscription plan">
           {plans.map((plan) => (
             <button
-              className={`${styles.planCard} ${selectedCode === plan.code ? styles.planSelected : ""}`}
+              className={`${styles.planCard} ${selectedCode === plan.code ? styles.planSelected : ""} ${plan.recommended ? styles.planRecommended : ""}`}
               key={plan.code}
               type="button"
               role="radio"

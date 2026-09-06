@@ -9,7 +9,7 @@ export const WEBSITE_NAVIGATION = [
 export const PRIMARY_NAVIGATION = [
   { href: "/licensing", label: "Online licensing" },
   { href: "/automation", label: "Automation" },
-  { href: "/work/scooter-shop", label: "Our work" },
+  { href: "/portfolio/scooter-shop", label: "Our work" },
   { href: "/contact", label: "Contact" },
   { href: "/login", label: "Login" },
 ] as const;
@@ -19,7 +19,7 @@ export const FOOTER_NAVIGATION = [
   { href: "/", label: "Dealer websites" },
   { href: "/licensing", label: "Online licensing" },
   { href: "/automation", label: "Automation" },
-  { href: "/work/scooter-shop", label: "Scooter Shop case study" },
+  { href: "/portfolio/scooter-shop", label: "Scooter Shop case study" },
   { href: "/contact", label: "Contact" },
   { href: "/login", label: "Login" },
 ] as const;

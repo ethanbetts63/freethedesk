@@ -24,7 +24,7 @@ export function FlowHeroConcept({
   lead = "Connected websites and operational systems built for the way modern dealerships sell, service and work.",
   primaryHref = "/dealership-website-builder",
   primaryLabel = "Try the Free Demo",
-  secondaryHref = "/work/scooter-shop",
+  secondaryHref = "/portfolio/scooter-shop",
   secondaryLabel = "See it in action",
   stages = ["Customer", "System", "Team", "Done"],
   trustLine = "Perth-based · working with businesses across Australia",

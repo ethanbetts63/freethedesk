@@ -59,7 +59,7 @@ export default function WebsiteDevelopmentPerthPage() {
         lead="A website is the part your customers see. We build the part that saves your team hours every week—automated notifications, supplier syncs and booking workflows behind a site that also happens to look good."
         primaryHref="#enquiry"
         primaryLabel="Discuss your website"
-        secondaryHref="/work/scooter-shop"
+        secondaryHref="/portfolio/scooter-shop"
         secondaryLabel="See what we build"
         stages={["Understand", "Design", "Build", "Improve"]}
       />
@@ -115,7 +115,7 @@ export default function WebsiteDevelopmentPerthPage() {
         </div>
         <div>
           <p>Our work for Scooter Shop combines inventory, parts diagrams, online purchasing, service journeys, focused search pages and management tools. It is industry-specific work, but it shows the level of thinking we bring to any complex website.</p>
-          <div className={styles.linkRow}><Link href="/work/scooter-shop">View the case study <span>→</span></Link><Link href="/dealership-website-builder">Try the interactive demo <span>↗</span></Link></div>
+          <div className={styles.linkRow}><Link href="/portfolio/scooter-shop">View the case study <span>→</span></Link><Link href="/dealership-website-builder">Try the interactive demo <span>↗</span></Link></div>
         </div>
       </section>
 

@@ -479,7 +479,8 @@ main:has(.service-scroll) { overflow: visible; }
 .case-mobile-story-grid { align-items: center; display: grid; gap: 110px; grid-template-columns: .9fr 1.1fr; }
 .case-mobile-copy > p:not(.section-number) { color: var(--text-muted); font-size: 1rem; line-height: 1.72; margin: 30px 0 0; max-width: 540px; }
 .case-mobile-stat { align-items: center; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); display: grid; gap: 24px; grid-template-columns: auto 1fr; margin-top: 38px; max-width: 540px; padding: 22px 0; }
-.case-mobile-stat > strong { color: var(--accent-ink); font-size: clamp(3.6rem, 6vw, 5.8rem); letter-spacing: -.08em; line-height: .85; }
+.case-mobile-stat > strong { animation: ai-ready-shift 6s linear infinite; background: linear-gradient(90deg, #38bdf8, #a855f7, #f472b6, #38bdf8); -webkit-background-clip: text; background-clip: text; background-size: 300% 100%; color: transparent; font-size: clamp(3.6rem, 6vw, 5.8rem); letter-spacing: -.08em; line-height: .85; }
+@media (prefers-reduced-motion: reduce) { .case-mobile-stat > strong { animation: none; } }
 .case-mobile-stat > span, .case-mobile-stat b, .case-mobile-stat small { display: block; }
 .case-mobile-stat b { font-size: .83rem; line-height: 1.35; }
 .case-mobile-stat small { color: var(--text-subtle); font-size: .66rem; line-height: 1.45; margin-top: 6px; }

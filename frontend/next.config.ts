@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
       { source: "/website-builder", destination: "/dealership-website-builder", permanent: true },
       { source: "/dealers", destination: "/licensing", permanent: true },
       { source: "/dealers/signup", destination: "/licensing#signup", permanent: true },
+      { source: "/work/:path*", destination: "/portfolio/:path*", permanent: true },
     ];
   },
   async headers() {
