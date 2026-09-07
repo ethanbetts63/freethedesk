@@ -107,9 +107,16 @@ export default async function SeoPage() {
 
       <ProofStrip stats={seoStats} />
 
+      <section className={`shell ${styles.plansSection}`} id="plans">
+        <p className={styles.label}>01 / Plans</p>
+        <h2>Pick how often you want to hear from us.</h2>
+        <p className={styles.introLead}>Every plan is the same report and the same attention—the cadence is the only variable. Cancel or change any time.</p>
+        <SeoPlans settings={settings} />
+      </section>
+
       <section className={`shell ${styles.reportSection}`} id="report">
         <div className={styles.reportCopy}>
-          <p className={styles.label}>01 / What you&apos;re buying</p>
+          <p className={styles.label}>02 / What you&apos;re buying</p>
           <h2>One document.<br />Four sections.</h2>
           <p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>
         </div>
@@ -137,7 +144,7 @@ export default async function SeoPage() {
       <section className={styles.compareSection}>
         <div className={`shell ${styles.compareInner}`}>
           <div className={styles.compareCopy}>
-            <p className={styles.label}>02 / Why it&apos;s cheap</p>
+            <p className={styles.label}>03 / Why it&apos;s cheap</p>
             <h2>Two hours of human judgement. That&apos;s what you&apos;re paying for.</h2>
             <p>Most of an SEO audit is collection work—crawling pages, pulling data, checking the same hundred things. We&apos;ve automated that, so you don&apos;t pay agency prices for it.</p>
             <p>It&apos;s the same process we run internally on every website we build. What can&apos;t be automated is deciding what&apos;s actually worth your time—and that&apos;s the two hours you&apos;re buying.</p>
@@ -161,13 +168,6 @@ export default async function SeoPage() {
             </footer>
           </div>
         </div>
-      </section>
-
-      <section className={`shell ${styles.plansSection}`} id="plans">
-        <p className={styles.label}>03 / Plans</p>
-        <h2>Pick how often you want to hear from us.</h2>
-        <p className={styles.introLead}>Every plan is the same report and the same attention—the cadence is the only variable. Cancel or change any time.</p>
-        <SeoPlans settings={settings} />
       </section>
 
       <section className={`shell ${styles.introSection}`}>
