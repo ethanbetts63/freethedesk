@@ -8,9 +8,9 @@ export interface DealerAccount {
   phone: string;
   state: "WA" | "NSW" | "VIC" | "QLD" | "SA" | "TAS" | "ACT" | "NT";
   state_label: string;
-  plan: "demo" | "licensing" | "contracts" | "complete";
+  plan: "licensing" | "contracts" | "complete";
   plan_label: string;
-  payment_status: "demo" | "payment_pending" | "active" | "past_due" | "cancelled";
+  payment_status: "payment_pending" | "active" | "past_due" | "cancelled";
   payment_status_label: string;
   subscription_current_period_end: string | null;
   cancel_at_period_end: boolean;

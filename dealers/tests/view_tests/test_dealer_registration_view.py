@@ -31,8 +31,8 @@ def test_signup_creates_pending_dealer_and_user(client):
 
     dealer = Dealer.objects.get()
     assert dealer.status == Dealer.Status.PENDING
-    assert dealer.plan == Dealer.Plan.DEMO
-    assert dealer.payment_status == Dealer.PaymentStatus.DEMO
+    assert dealer.plan == Dealer.Plan.COMPLETE
+    assert dealer.payment_status == Dealer.PaymentStatus.PAYMENT_PENDING
     assert dealer.business_name == "Perth Motorcycle Centre"
     assert not dealer.user.is_staff
     assert dealer.user.check_password("Sturdy-Passphrase-42")

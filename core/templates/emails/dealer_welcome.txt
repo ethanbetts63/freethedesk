@@ -1,9 +1,7 @@
 Thanks, {{ dealer.contact_name }}. Your account for {{ dealer.business_name }} is ready.
 
-{% if dealer.plan == "demo" %}Open your demo portal: {{ portal_url }}
-
-Live customer transactions stay off until you choose a paid plan and complete verification.{% else %}Selected plan: {{ dealer.get_plan_display }}
+Selected plan: {{ dealer.get_plan_display }}
 
 Continue to secure payment: {{ payment_url }}
 
-Once Stripe confirms payment, you can enter your licence and dealership details immediately. We verify those details before enabling live customer transactions.{% endif %}
+Once Stripe confirms payment, you can enter your licence and dealership details immediately. We verify those details before enabling live customer transactions.

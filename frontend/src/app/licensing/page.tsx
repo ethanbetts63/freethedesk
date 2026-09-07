@@ -21,7 +21,6 @@ const questions = [
   ["Do I need a new website to use this?", "No. Choose the hosted portal and keep your current site, or have it built directly into a dealership website we design for you."],
   ["How does the customer actually pay?", "Online, as part of the same flow—card payment for a plan, or the BSB details shown when licensing is built into a vehicle purchase on your website."],
   ["What happens once the customer signs?", "The completed paperwork lands straight back in your dealer queue—no scanning, printing or chasing an emailed PDF."],
-  ["Can I try it before signing up?", "Yes. The demo plan is free, no card required, and walks through the same dealer and customer journey as a live account."],
   ["Do I need both licensing and contracts?", "No—pick whichever you need. Online licensing and online contracts are priced separately, or combined at a lower combined rate."],
 ];
 

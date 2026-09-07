@@ -44,7 +44,7 @@ PLAN_DETAILS = {
 def quote_for_plan(plan):
     details = PLAN_DETAILS.get(plan)
     if not details:
-        raise PaymentConfigurationError("The demo plan does not require payment.", code="demo")
+        raise PaymentConfigurationError("This subscription plan is unavailable.", code="invalid_plan")
     field_name, name = details
     price = getattr(SiteSettings.load(), field_name)
     return SubscriptionQuote(plan=plan, name=name, monthly_price=price)

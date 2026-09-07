@@ -47,9 +47,7 @@ export default function PortalOverviewPage() {
     ? { heading: "Payment confirmed. Set up your dealership.", body: "Add the licence, business and authorised-officer details we need to verify the dealership. Your account can be used for live transactions once that review is complete." }
     : account.payment_status === "payment_pending"
       ? { heading: "Your account is saved.", body: "Your selected subscription has not been paid yet. Continue when you are ready; you will not need to enter these signup details again." }
-      : account.payment_status === "demo"
-        ? { heading: "Your demo account is open.", body: "You can explore the portal without completing payment or dealership verification." }
-        : statusCopy[account.status];
+      : statusCopy[account.status];
   const firstName = account.contact_name.trim().split(/\s+/)[0] || account.contact_name;
 
   return (
@@ -72,14 +70,6 @@ export default function PortalOverviewPage() {
             <h2>Finish secure payment</h2>
             <p className="admin-message-body">Your account is saved. Complete payment to unlock dealership setup and verification.</p>
             <Link className="admin-primary-button" href="/licensing/payment">Continue to payment →</Link>
-          </section>
-        )}
-
-        {account.payment_status === "demo" && (
-          <section className="admin-detail-card admin-detail-wide">
-            <h2>Your demo is ready</h2>
-            <p className="admin-message-body">Explore the journey without entering payment details. Live licensing and contract transactions stay off until you choose a paid plan.</p>
-            <Link className="admin-primary-button" href="/licensing#signup">Compare plans →</Link>
           </section>
         )}
 

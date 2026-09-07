@@ -1,4 +1,4 @@
-export type DealerPlanCode = "demo" | "licensing" | "contracts" | "complete";
+export type DealerPlanCode = "licensing" | "contracts" | "complete";
 
 export type DealerPlan = {
   code: DealerPlanCode;
@@ -31,15 +31,6 @@ function priceAmount(value: string): number {
 /** Plan copy and features are static; prices come from SiteSettings so they can be edited from the admin dashboard. */
 export function buildDealerPlans(settings: LicensingPrices): DealerPlan[] {
   const plans = [
-    {
-      code: "demo" as const,
-      name: "Try the licensing demo",
-      amount: 0,
-      price: "$0",
-      cadence: "No card required",
-      summary: "Explore the dealer and customer journey before going live.",
-      features: ["Dealer licensing demo access", "Sample customer journey", "No live transactions"],
-    },
     {
       code: "licensing" as const,
       name: "Online licensing",

@@ -46,21 +46,13 @@ def send_dealer_welcome(dealer: Dealer) -> Notification:
     """Confirm the lightweight account and point the dealer to its next step."""
     email, _ = resolve_recipient(Notification.RecipientType.DEALER, dealer=dealer)
     payment_url = f"{settings.SITE_URL.rstrip('/')}/licensing/payment"
-    portal_url = f"{settings.SITE_URL.rstrip('/')}/portal/overview"
-    if dealer.plan == Dealer.Plan.DEMO:
-        body = (
-            f"Thanks, {dealer.contact_name}. Your demo account for {dealer.business_name} is ready.\n\n"
-            f"Open the dealer portal: {portal_url}\n\n"
-            "Live customer transactions stay off until you choose a paid plan and complete verification."
-        )
-    else:
-        body = (
-            f"Thanks, {dealer.contact_name}. Your account for {dealer.business_name} is saved.\n\n"
-            f"Selected plan: {dealer.get_plan_display()}\n"
-            f"Continue to secure payment: {payment_url}\n\n"
-            "Once Stripe confirms payment, you can enter your licence and dealership details immediately. "
-            "We verify those details before enabling live customer transactions."
-        )
+    body = (
+        f"Thanks, {dealer.contact_name}. Your account for {dealer.business_name} is saved.\n\n"
+        f"Selected plan: {dealer.get_plan_display()}\n"
+        f"Continue to secure payment: {payment_url}\n\n"
+        "Once Stripe confirms payment, you can enter your licence and dealership details immediately. "
+        "We verify those details before enabling live customer transactions."
+    )
     notification = Notification.objects.create(
         recipient_type=Notification.RecipientType.DEALER,
         recipient=email,
@@ -72,5 +64,5 @@ def send_dealer_welcome(dealer: Dealer) -> Notification:
     return send_notification(
         notification,
         template="emails/dealer_welcome",
-        context={"dealer": dealer, "payment_url": payment_url, "portal_url": portal_url},
+        context={"dealer": dealer, "payment_url": payment_url},
     )

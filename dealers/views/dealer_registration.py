@@ -10,7 +10,7 @@ from ..utils.notifications import notify_staff_of_dealer_signup, send_dealer_wel
 
 
 class DealerRegistrationView(APIView):
-    """Create the basic dealer login before demo access or paid checkout."""
+    """Create the basic dealer login before paid checkout."""
 
     authentication_classes = []
     permission_classes = [AllowAny]

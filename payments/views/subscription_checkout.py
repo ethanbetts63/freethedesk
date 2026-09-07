@@ -38,7 +38,7 @@ class SubscriptionCheckoutView(APIView):
             code = {
                 "active": status.HTTP_409_CONFLICT,
                 "confirmed": status.HTTP_409_CONFLICT,
-                "demo": status.HTTP_400_BAD_REQUEST,
+                "invalid_plan": status.HTTP_400_BAD_REQUEST,
             }.get(error.code, status.HTTP_503_SERVICE_UNAVAILABLE)
             return Response({"detail": str(error)}, status=code)
         except stripe.StripeError as error:

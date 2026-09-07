@@ -38,6 +38,15 @@ const processIcons = [
   <svg key="improve" viewBox="0 0 24 24" width="24" height="24" fill="none"><path d="M4 17l5-5 4 4 7-7" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /><path d="M15 8h5v5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>,
 ];
 
+const automationJobs: [string, string][] = [
+  ["Lead capture & routing", "Enquiries arrive with the page and product context attached, land with the right person, and get chased if one goes cold"],
+  ["Customer onboarding", "New customers get the welcome, the forms and the deposit request without anyone remembering to send them"],
+  ["Booking & reminders", "Customers book themselves in; confirmations and reminders go out on their own; no-shows get followed up"],
+  ["CRM & system sync", "A new contact or a status change on the site updates the CRM, accounts and email tool—entered once"],
+  ["Invoicing & payments", "Invoices raised from the order, overdue accounts chased on schedule, payments matched to the bank feed"],
+  ["Document generation", "Quotes, contracts and paperwork built from details already entered, and data pulled out of supplier PDFs"],
+];
+
 const questions = [
   ["How much does a website cost?", "It depends on whether you need a focused marketing site, ecommerce, custom workflows or integrations. We define the useful first release and give you a clear scope before development begins."],
   ["Can you replace or improve an existing site?", "Yes. We can rebuild it, preserve useful content and search equity, or improve one high-value part without replacing everything at once."],
@@ -78,9 +87,29 @@ export default function WebsiteDevelopmentPage() {
       </section>
 
       <section className={`shell ${styles.intro}`}>
-        <div><p className={styles.label}>01 / What you&apos;re buying</p><h2>Not a website.<br />A system with a job to do.</h2></div>
-        <div><p>A basic website is a brochure: a handful of pages that look fine on launch day and do nothing after that.</p>
-        <p>What we build behaves more like software—it watches stock, sends the alerts, writes the routine emails and keeps working on search long after launch. The pages your customers see should be the tip of the iceberg.</p></div>
+        <div className={styles.introCopy}>
+          <p className={styles.label}>01 / What you&apos;re buying</p>
+          <h2>Not just a website.</h2>
+          <p></p>
+          <p>A basic website is a brochure: a handful of pages that look fine on launch day and do nothing after that.</p>
+          <p>What we is custom software—it watches stock, sends the alerts, writes the routine emails and keeps working on search long after launch. The pages your customers see are just the tip of the iceberg.</p>
+        </div>
+        <div className={styles.iceberg} aria-hidden="true">
+          <div className={styles.icebergTip}>
+            <span className={styles.icebergTag}>What your customers see</span>
+            <div className={styles.icebergPage}><strong /><i /><i /><span /></div>
+          </div>
+          <div className={styles.icebergLine}><span>waterline</span></div>
+          <div className={styles.icebergDepth}>
+            <span className={styles.icebergTag}>What's happening in the background?</span>
+            <ul>
+              <li><em />Notifies Admin</li>
+              <li><em />Writes routine emails</li>
+              <li><em />Tracks stock levels</li>
+              <li><em />Generates Quotes</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       <section className={styles.servicesSection} id="services">
@@ -90,6 +119,27 @@ export default function WebsiteDevelopmentPage() {
         </div>
         <div className="shell">
           <ServiceScroll services={websiteServices} showCustomRow={false} />
+        </div>
+      </section>
+
+      <section className={`shell ${styles.systemSection}`}>
+        <div className={styles.systemVisual} aria-hidden="true">
+          <div className={styles.browser}><i /><i /><i /><span>customer journey</span></div>
+          <div className={styles.funnelBody}>
+            <div className={styles.funnelStart}><span>Point A</span><strong>Interested visitor</strong><small>Intent captured</small></div>
+            <ol className={styles.funnelSteps}>
+              <li><span>01</span><strong>Find the path</strong><small>One clear route forward</small></li>
+              <li><span>02</span><strong>Understand the offer</strong><small>The right detail, in the right order</small></li>
+              <li><span>03</span><strong>Take action</strong><small>Only the essential effort</small></li>
+            </ol>
+            <div className={styles.funnelResult}><span>Point B</span><strong>Action complete</strong><small>Next step confirmed</small></div>
+          </div>
+        </div>
+        <div className={styles.systemCopy}>
+          <p className={styles.label}>04 / Conversion funnels</p>
+          <h2>Make the next step feel obvious.</h2>
+          <p>A good funnel does not pressure people into acting. It removes the uncertainty, unnecessary choices and repeated effort between arriving with intent and completing the thing they came to do.</p>
+          <ul><li>One clear action at every stage</li><li>Fewer fields, choices and dead ends</li><li>Context carried from the page into the form</li><li>A clear confirmation and handoff at the end</li></ul>
         </div>
       </section>
 
@@ -104,22 +154,6 @@ export default function WebsiteDevelopmentPage() {
           </div>
         }
       />
-
-      <section className={`shell ${styles.systemSection}`}>
-        <div className={styles.systemVisual} aria-hidden="true">
-          <div className={styles.browser}><i /><i /><i /><span>yourbusiness.com.au</span></div>
-          <div className={styles.visualBody}>
-            <div className={styles.visualPage}><span /><strong /><i /><i /><i /></div>
-            <div className={styles.visualFlow}><b>Website</b><em>→</em><b>Enquiry</b><em>→</em><b>Your team</b></div>
-          </div>
-        </div>
-        <div className={styles.systemCopy}>
-          <p className={styles.label}>04 / Beyond the surface</p>
-          <h2>Design the customer experience and the handoff.</h2>
-          <p>A polished page is only half the work. We also think about what information is captured, where it goes, what the customer sees next and how your team follows it through.</p>
-          <ul><li>Useful information attached to every enquiry</li><li>Payments and forms designed as one journey</li><li>Content your team can actually manage</li><li>Integrations where they remove repeated work</li></ul>
-        </div>
-      </section>
 
       <section className="approach-section">
         <div className={`shell approach-inner ${styles.approachInner}`}>

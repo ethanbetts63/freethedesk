@@ -18,13 +18,11 @@ class Dealer(models.Model):
         DENIED = "denied", "Denied"
 
     class Plan(models.TextChoices):
-        DEMO = "demo", "Try the demo"
         LICENSING = "licensing", "Online licensing"
         CONTRACTS = "contracts", "Online contracts"
         COMPLETE = "complete", "Complete online sale"
 
     class PaymentStatus(models.TextChoices):
-        DEMO = "demo", "Demo"
         PAYMENT_PENDING = "payment_pending", "Payment pending"
         ACTIVE = "active", "Active"
         PAST_DUE = "past_due", "Past due"
@@ -49,9 +47,9 @@ class Dealer(models.Model):
     contact_name = models.CharField(max_length=120)
     phone = models.CharField(max_length=40, blank=True)
     state = models.CharField(max_length=3, choices=State.choices, default=State.WA)
-    plan = models.CharField(max_length=20, choices=Plan.choices, default=Plan.DEMO, db_index=True)
+    plan = models.CharField(max_length=20, choices=Plan.choices, default=Plan.COMPLETE, db_index=True)
     payment_status = models.CharField(
-        max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.DEMO, db_index=True
+        max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.PAYMENT_PENDING, db_index=True
     )
     stripe_customer_id = models.CharField(max_length=255, null=True, blank=True, unique=True)
     stripe_subscription_id = models.CharField(max_length=255, null=True, blank=True, unique=True)

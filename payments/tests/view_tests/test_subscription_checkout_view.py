@@ -5,7 +5,6 @@ import pytest
 from django.urls import reverse
 
 from core.models import SiteSettings
-from dealers.models import Dealer
 from payments.models import DealerSubscriptionTermsAcceptance
 from payments.tests.conftest import stripe_settings
 
@@ -51,19 +50,6 @@ def test_checkout_requires_terms_acceptance(client, logged_in_dealer):
     response = client.post(reverse("subscription-checkout"), {}, content_type="application/json")
     assert response.status_code == 400
     assert not DealerSubscriptionTermsAcceptance.objects.exists()
-
-
-@stripe_settings
-def test_demo_account_does_not_create_checkout(client, logged_in_dealer):
-    logged_in_dealer.plan = Dealer.Plan.DEMO
-    logged_in_dealer.payment_status = Dealer.PaymentStatus.DEMO
-    logged_in_dealer.save()
-    response = client.post(
-        reverse("subscription-checkout"),
-        {"accepted_terms": True},
-        content_type="application/json",
-    )
-    assert response.status_code == 400
 
 
 @stripe_settings

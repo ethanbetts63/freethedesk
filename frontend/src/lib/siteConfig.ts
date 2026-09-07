@@ -1,11 +1,6 @@
 export const PUBLIC_SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://freethedesk.com.au").replace(/\/$/, "");
 export const METADATA_BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
-export const WEBSITE_NAVIGATION = [
-  { href: "/website-development", label: "All websites" },
-  { href: "/", label: "Dealer websites" },
-] as const;
-
 /** Case studies. Rendered as its own footer column, not in the header nav. */
 export const PORTFOLIO_NAVIGATION = [
   { href: "/portfolio/scooter-shop", label: "Scooter Shop" },
@@ -13,6 +8,7 @@ export const PORTFOLIO_NAVIGATION = [
 ] as const;
 
 export const PRIMARY_NAVIGATION = [
+  { href: "/website-development", label: "Websites" },
   { href: "/dealers", label: "Dealers" },
   { href: "/licensing", label: "Online licensing" },
   { href: "/automation", label: "Automation" },

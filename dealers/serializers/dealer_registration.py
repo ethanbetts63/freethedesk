@@ -15,7 +15,7 @@ class DealerRegistrationSerializer(serializers.Serializer):
     email = serializers.EmailField()
     phone = serializers.CharField(max_length=40, required=False, allow_blank=True)
     state = serializers.ChoiceField(choices=Dealer.State.choices)
-    plan = serializers.ChoiceField(choices=Dealer.Plan.choices, default=Dealer.Plan.DEMO)
+    plan = serializers.ChoiceField(choices=Dealer.Plan.choices, default=Dealer.Plan.COMPLETE)
     password = serializers.CharField(write_only=True, style={"input_type": "password"})
 
     def validate_email(self, value: str) -> str:
@@ -43,14 +43,8 @@ class DealerRegistrationSerializer(serializers.Serializer):
             password=password,
             is_staff=False,
         )
-        plan = validated_data.get("plan", Dealer.Plan.DEMO)
-        payment_status = (
-            Dealer.PaymentStatus.DEMO
-            if plan == Dealer.Plan.DEMO
-            else Dealer.PaymentStatus.PAYMENT_PENDING
-        )
         return Dealer.objects.create(
             user=user,
-            payment_status=payment_status,
+            payment_status=Dealer.PaymentStatus.PAYMENT_PENDING,
             **validated_data,
         )

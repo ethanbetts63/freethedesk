@@ -84,10 +84,6 @@ export function SubscriptionPaymentPage() {
       .then(([account, settings]) => {
         setDealer(account);
         setPlans(buildDealerPlans(settings));
-        if (account.plan === "demo") {
-          router.replace("/portal/overview");
-          return;
-        }
         if (account.payment_status === "active") {
           router.replace("/portal/overview");
           return;

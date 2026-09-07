@@ -18,7 +18,6 @@ We may provide the same capabilities as an integration within a Dealer website u
 
 ## 3. Plans
 
-- Try the demo: access to a demonstration environment only. It does not permit live customer transactions and requires no card.
 - Online licensing: the hosted online vehicle-licensing workflow and related portal access.
 - Online contracts: the hosted online sales-contract workflow and related portal access.
 - Licensing and contracts: both paid products in one connected subscription.

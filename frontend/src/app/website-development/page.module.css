@@ -5,10 +5,41 @@
 }
 .label { color: var(--page-accent); font-size: .68rem; font-weight: 900; letter-spacing: .14em; margin: 0 0 23px; text-transform: uppercase; }
 .enquirySection { padding-bottom: 20px; padding-top: 70px; }
-.intro { display: grid; gap: clamp(60px, 9vw, 135px); grid-template-columns: 1fr .9fr; padding-bottom: 125px; padding-top: 125px; }
+.intro { align-items: center; display: grid; gap: clamp(55px, 8vw, 120px); grid-template-columns: 1.05fr .95fr; padding-bottom: 125px; padding-top: 125px; }
 .intro h2, .sectionHeading h2, .systemCopy h2, .proofSection h2, .closing h2 { font-size: clamp(3rem, 5.3vw, 5.7rem); letter-spacing: -.072em; line-height: .93; margin: 0; }
-.intro > div:last-child { align-self: end; max-width: 520px; }
-.intro > div:last-child p, .systemCopy > p, .proofSection > div:last-child > p { color: #536c80; font-size: .98rem; line-height: 1.78; margin: 0 0 18px; }
+.introCopy { max-width: 540px; }
+.introCopy p:not(.label), .systemCopy > p:not(.label), .proofSection > div:last-child > p { color: #536c80; font-size: .98rem; line-height: 1.78; margin: 0 0 18px; }
+.introCopy h2 + p { margin-top: 26px; }
+
+/* 01 — iceberg: the visible page is the tip; the system runs below the waterline */
+.iceberg { border: 1px solid #d7e2e9; box-shadow: 24px 24px 0 #eef4f8; overflow: hidden; }
+.icebergTip { background: #fff; padding: 26px clamp(22px, 4vw, 34px) 30px; }
+.icebergTag { color: #8098ab; display: block; font-size: .58rem; font-weight: 900; letter-spacing: .14em; margin-bottom: 16px; text-transform: uppercase; }
+.icebergPage { display: grid; gap: 11px; }
+.icebergPage strong { background: #13315c; height: 30px; width: 60%; }
+.icebergPage i { background: #e4edf3; height: 12px; }
+.icebergPage i:nth-of-type(2) { width: 82%; }
+.icebergPage span { background: #70bced; height: 12px; width: 32%; }
+.icebergLine { align-items: center; display: flex; gap: 10px; padding: 13px clamp(22px, 4vw, 34px); }
+.icebergLine::before, .icebergLine::after { background: repeating-linear-gradient(90deg, #bcd0df 0 5px, transparent 5px 11px); content: ""; height: 2px; }
+.icebergLine::before { flex: none; width: 16px; }
+.icebergLine::after { flex: 1; }
+.icebergLine span { color: #9db1c1; font-size: .54rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; }
+.icebergDepth { background: linear-gradient(160deg, #13315c, #0b1d33); color: #fff; padding: 26px clamp(22px, 4vw, 34px) 32px; }
+.icebergDepth .icebergTag { color: #70bced; }
+.icebergDepth ul { list-style: none; margin: 0; padding: 0; }
+.icebergDepth li { align-items: center; border-top: 1px solid rgba(255, 255, 255, .1); display: flex; font-size: .82rem; font-weight: 700; gap: 13px; padding: 13px 0; }
+.icebergDepth li:first-of-type { border-top: 0; padding-top: 0; }
+.icebergDepth li em { animation: icebergPulse 2.4s ease-out infinite; background: #4fd08a; border-radius: 50%; flex: none; height: 7px; width: 7px; }
+.icebergDepth li:nth-of-type(2) em { animation-delay: .6s; }
+.icebergDepth li:nth-of-type(3) em { animation-delay: 1.2s; }
+.icebergDepth li:nth-of-type(4) em { animation-delay: 1.8s; }
+@keyframes icebergPulse {
+  0% { box-shadow: 0 0 0 0 rgba(79, 208, 138, .55); }
+  70% { box-shadow: 0 0 0 7px rgba(79, 208, 138, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(79, 208, 138, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .icebergDepth li em { animation: none; } }
 .servicesSection { background: #f2f7fb; padding: 115px 0 125px; }
 .sectionHeading { max-width: 900px; }
 .servicesClosing { color: #13315c; font-size: 1.25rem; font-weight: 750; letter-spacing: -.02em; line-height: 1.5; margin: 48px 0 0; max-width: 720px; }
@@ -24,14 +55,23 @@
 .browser { align-items: center; background: #fff; color: #60778b; display: flex; font-size: .62rem; gap: 6px; height: 42px; padding: 0 14px; position: relative; }
 .browser i { background: #b8cbd9; border-radius: 50%; height: 6px; width: 6px; }
 .browser span { background: #edf3f7; margin-left: 9px; padding: 6px 13px; width: 60%; }
-.visualBody { display: flex; flex-direction: column; inset: 42px 0 0; justify-content: space-between; padding: clamp(28px, 5vw, 58px); position: absolute; }
-.visualPage { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); display: grid; gap: 13px; grid-template-columns: 1.2fr .8fr; padding: 27px; }
-.visualPage span { background: #70bced; grid-column: 1 / -1; height: 7px; width: 25%; }
-.visualPage strong { background: #fff; grid-column: 1 / -1; height: 55px; opacity: .94; width: 73%; }
-.visualPage i { background: rgba(255,255,255,.16); display: block; height: 58px; }
-.visualFlow { align-items: center; display: flex; flex-wrap: wrap; font-size: .68rem; gap: 11px; }
-.visualFlow b { background: #fff; color: #13315c; padding: 9px 12px; }
-.visualFlow em { color: #70bced; font-style: normal; }
+.funnelBody { display: flex; flex-direction: column; inset: 42px 0 0; justify-content: center; padding: clamp(24px, 4vw, 45px); position: absolute; }
+.funnelStart { align-items: center; border-bottom: 1px solid rgba(255,255,255,.18); display: grid; gap: 4px 13px; grid-template-columns: auto 1fr auto; margin-bottom: 18px; padding: 0 4px 14px; }
+.funnelStart span, .funnelResult span { color: #70bced; font-size: .55rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+.funnelStart strong { font-size: .82rem; letter-spacing: -.01em; }
+.funnelStart small { color: #a8c0d3; font-size: .6rem; }
+.funnelSteps { align-items: center; display: flex; flex-direction: column; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.funnelSteps li { align-items: center; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.17); display: grid; gap: 2px 12px; grid-template-columns: 27px 1fr; padding: 11px 16px; position: relative; }
+.funnelSteps li:nth-child(1) { width: 100%; }
+.funnelSteps li:nth-child(2) { width: 82%; }
+.funnelSteps li:nth-child(3) { min-width: min(220px, 100%); width: 64%; }
+.funnelSteps li > span { align-items: center; background: rgba(112,188,237,.14); color: #70bced; display: flex; font-size: .55rem; font-weight: 900; grid-row: 1 / 3; height: 27px; justify-content: center; width: 27px; }
+.funnelSteps strong { font-size: .72rem; }
+.funnelSteps small { color: #a8c0d3; font-size: .57rem; }
+.funnelResult { align-items: center; align-self: center; background: #fff; color: #13315c; display: grid; gap: 3px 12px; grid-template-columns: auto 1fr; margin-top: 10px; min-width: min(210px, 100%); padding: 13px 16px; width: 48%; }
+.funnelResult span { grid-row: 1 / 3; }
+.funnelResult strong { font-size: .75rem; }
+.funnelResult small { color: #60778b; font-size: .57rem; }
 .systemCopy ul { border-top: 1px solid #d4e0e8; list-style: none; margin: 32px 0 0; padding: 16px 0 0; }
 .systemCopy li { font-size: .78rem; font-weight: 750; margin: 13px 0; padding-left: 20px; position: relative; }
 .systemCopy li::before { color: var(--page-accent); content: "↳"; left: 0; position: absolute; }
@@ -54,5 +94,6 @@
   .servicesSection { padding-bottom: 80px; padding-top: 80px; }
   .seoSection { padding-bottom: 82px; padding-top: 82px; }
   .systemVisual { min-height: 440px; }
+  .iceberg { box-shadow: 12px 12px 0 #eef4f8; }
   .closing { margin-bottom: 80px; margin-top: 80px; padding: 65px 22px; }
 }

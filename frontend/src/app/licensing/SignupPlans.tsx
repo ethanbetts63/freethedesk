@@ -55,7 +55,7 @@ export function SignupPlans() {
       if (!response.ok) throw new Error(firstError(data));
 
       await login(email, password);
-      router.push(selectedCode === "demo" ? "/portal/overview" : "/licensing/payment");
+      router.push("/licensing/payment");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Unable to create your account.");
       setStatus("error");
@@ -125,10 +125,10 @@ export function SignupPlans() {
             </div>
             {error && <p className={styles.signupError} role="alert">{error}</p>}
             <button className={styles.signupSubmit} disabled={status === "submitting"}>
-              {status === "submitting" ? "Creating your account…" : selectedCode === "demo" ? "Start the licensing demo" : "Continue to secure payment"}
+              {status === "submitting" ? "Creating your account…" : "Continue to secure payment"}
               <span>→</span>
             </button>
-            <p className={styles.secureNote}>{selectedCode === "demo" ? "No payment details required." : "Your plan summary and secure card entry are on the next page."}</p>
+            <p className={styles.secureNote}>Your plan summary and secure card entry are on the next page.</p>
           </form>
         </div>
       </div>
