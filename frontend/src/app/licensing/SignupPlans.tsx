@@ -12,7 +12,7 @@ import styles from "./page.module.css";
 type FormStatus = "idle" | "submitting" | "error";
 
 /** Renders the real plan cards immediately so the grid doesn't jump once real prices load. */
-const PLACEHOLDER_SETTINGS: LicensingPrices = { licensing_price: "0", contracts_price: "0", complete_price: "0" };
+const PLACEHOLDER_SETTINGS: LicensingPrices = { licensing_price: "", contracts_price: "", complete_price: "" };
 
 function firstError(data: Record<string, unknown>) {
   if (typeof data.detail === "string") return data.detail;

@@ -19,7 +19,7 @@ class Enquiry(models.Model):
         SPAM = "spam", "Spam"
 
     name = models.CharField(max_length=120)
-    business = models.CharField(max_length=180)
+    business = models.CharField(max_length=180, blank=True)
     email = models.EmailField()
     phone = models.CharField(max_length=40, blank=True)
     website = models.URLField(blank=True)
@@ -35,4 +35,4 @@ class Enquiry(models.Model):
         verbose_name_plural = "enquiries"
 
     def __str__(self) -> str:
-        return f"{self.business} — {self.get_help_with_display()}"
+        return f"{self.business or self.name} — {self.get_help_with_display()}"

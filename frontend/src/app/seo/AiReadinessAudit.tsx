@@ -54,7 +54,7 @@ export function AiReadinessAudit({ standalonePrice }: { standalonePrice: string 
         <h3 id="ai-readiness-title">Can AI systems<br /><span>read your site?</span></h3>
         <p className={styles.intro}>
           A focused technical check for the parts of your website that AI agents and answer
-          engines depend on before they can understand, navigate or cite it reliably.
+          engines like Chat GPT depend on before they can understand, navigate or cite it reliably.
         </p>
 
         <ul className={styles.outputs}>

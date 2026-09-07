@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment } from "react";
 
 import { PRIMARY_NAVIGATION, WEBSITE_NAVIGATION } from "@/lib/siteConfig";
 import { DesktopNavMenu } from "./DesktopNavMenu";
@@ -22,29 +21,16 @@ export function SiteHeader() {
         </Link>
         <nav className="desktop-nav" aria-label="Primary navigation">
           <DesktopNavMenu label="Websites" items={WEBSITE_NAVIGATION} />
-          {PRIMARY_NAVIGATION.map((item) => (
-            "items" in item
-              ? <DesktopNavMenu key={item.label} label={item.label} items={item.items} />
-              : <Link key={item.href} href={item.href}>{item.label}</Link>
-          ))}
-          <Link className="nav-cta nav-cta-glow" href="/dealership-website-builder">Dealer Web Demo</Link>
+          {PRIMARY_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+          <Link className="nav-cta nav-cta-glow" href="/login">Login</Link>
         </nav>
         <details className="mobile-nav">
           <summary aria-label="Open navigation menu"><i /><i /><i /></summary>
           <nav aria-label="Mobile navigation">
             <p className="mobile-nav-label">Websites</p>
             {WEBSITE_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}<span>→</span></Link>)}
-            {PRIMARY_NAVIGATION.map((item) => (
-              "items" in item
-                ? (
-                  <Fragment key={item.label}>
-                    <p className="mobile-nav-label">{item.label}</p>
-                    {item.items.map((child) => <Link key={child.href} href={child.href}>{child.label}<span>→</span></Link>)}
-                  </Fragment>
-                )
-                : <Link key={item.href} href={item.href}>{item.label}<span>→</span></Link>
-            ))}
-            <Link className="mobile-nav-cta nav-cta-glow" href="/dealership-website-builder">Dealer Web Demo<span>↗</span></Link>
+            {PRIMARY_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}<span>→</span></Link>)}
+            <Link className="mobile-nav-cta nav-cta-glow" href="/login">Login<span>→</span></Link>
           </nav>
         </details>
       </div>

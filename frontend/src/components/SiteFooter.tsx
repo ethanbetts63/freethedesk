@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { FOOTER_NAVIGATION } from "@/lib/siteConfig";
+import { FOOTER_NAVIGATION, PORTFOLIO_NAVIGATION } from "@/lib/siteConfig";
 import { SignalFlow } from "@/app/home-v3/SignalFlow";
 
 export function SiteFooter() {
@@ -21,6 +21,10 @@ export function SiteFooter() {
         <div className="footer-links">
           <p className="footer-label">Explore</p>
           {FOOTER_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+        </div>
+        <div className="footer-links">
+          <p className="footer-label">Portfolio</p>
+          {PORTFOLIO_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
         </div>
         <div className="footer-links">
           <p className="footer-label">Based in</p>

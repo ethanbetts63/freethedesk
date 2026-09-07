@@ -18,7 +18,14 @@ export interface LicensingPrices {
 
 function formatPrice(value: string): string {
   const amount = Number(value);
+  if (!value.trim() || !Number.isFinite(amount)) return "—";
   return `$${amount.toLocaleString("en-AU", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+}
+
+function priceAmount(value: string): number {
+  if (!value.trim()) return Number.MAX_SAFE_INTEGER;
+  const amount = Number(value);
+  return Number.isFinite(amount) ? amount : Number.MAX_SAFE_INTEGER;
 }
 
 /** Plan copy and features are static; prices come from SiteSettings so they can be edited from the admin dashboard. */
@@ -36,7 +43,7 @@ export function buildDealerPlans(settings: LicensingPrices): DealerPlan[] {
     {
       code: "licensing" as const,
       name: "Online licensing",
-      amount: Number(settings.licensing_price),
+      amount: priceAmount(settings.licensing_price),
       price: formatPrice(settings.licensing_price),
       cadence: "/ month, GST inc.",
       summary: "Move vehicle licensing out of the showroom and onto any device.",
@@ -45,7 +52,7 @@ export function buildDealerPlans(settings: LicensingPrices): DealerPlan[] {
     {
       code: "contracts" as const,
       name: "Online contracts",
-      amount: Number(settings.contracts_price),
+      amount: priceAmount(settings.contracts_price),
       price: formatPrice(settings.contracts_price),
       cadence: "/ month, GST inc.",
       summary: "Prepare and sign your dealership sales contracts online.",
@@ -54,7 +61,7 @@ export function buildDealerPlans(settings: LicensingPrices): DealerPlan[] {
     {
       code: "complete" as const,
       name: "Licensing + contracts",
-      amount: Number(settings.complete_price),
+      amount: priceAmount(settings.complete_price),
       price: formatPrice(settings.complete_price),
       cadence: "/ month, GST inc.",
       summary: "The complete path from customer decision to ready for handover.",

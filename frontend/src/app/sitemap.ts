@@ -6,6 +6,7 @@ import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = [
     { path: "", lastModified: "2026-09-05", changeFrequency: "weekly" as const, priority: 1 },
+    { path: "/dealers", lastModified: "2026-09-07", changeFrequency: "weekly" as const, priority: 0.95 },
     { path: "/licensing", lastModified: "2026-09-05", changeFrequency: "weekly" as const, priority: 0.95 },
     { path: "/website-development", lastModified: "2026-09-05", changeFrequency: "weekly" as const, priority: 0.9 },
     { path: "/dealership-website-builder", lastModified: "2026-09-05", changeFrequency: "monthly" as const, priority: 0.85 },

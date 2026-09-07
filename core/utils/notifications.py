@@ -124,9 +124,11 @@ def notify_admin_via_channels(channel_messages, *, related_enquiry=None, related
 
 def notify_admin_of_enquiry(enquiry: Enquiry) -> list[Notification]:
     dashboard_url = f"{settings.SITE_URL.rstrip('/')}/dashboard/enquiries/{enquiry.pk}"
+    enquiry_label = enquiry.business or enquiry.name
+    contact_label = f"{enquiry.business} — {enquiry.name}" if enquiry.business else enquiry.name
     email_body = (
         f"A new enquiry has been submitted.\n\n"
-        f"Business: {enquiry.business}\n"
+        f"Business: {enquiry.business or 'Not supplied'}\n"
         f"Contact: {enquiry.name}\n"
         f"Email: {enquiry.email}\n"
         f"Phone: {enquiry.phone or 'Not supplied'}\n"
@@ -136,12 +138,12 @@ def notify_admin_of_enquiry(enquiry: Enquiry) -> list[Notification]:
         f"Open enquiry: {dashboard_url}"
     )
     sms_body = (
-        f"New Free the Desk enquiry: {enquiry.business} — {enquiry.name}, "
+        f"New Free the Desk enquiry: {contact_label}, "
         f"{enquiry.get_help_with_display()}. {dashboard_url}"
     )
     return notify_admin_via_channels(
         [
-            (Notification.Channel.EMAIL, settings.ADMIN_EMAIL, f"New enquiry — {enquiry.business}", email_body),
+            (Notification.Channel.EMAIL, settings.ADMIN_EMAIL, f"New enquiry — {enquiry_label}", email_body),
             (Notification.Channel.SMS, settings.ADMIN_NUMBER, "", sms_body),
         ],
         related_enquiry=enquiry,

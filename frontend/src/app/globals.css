@@ -427,7 +427,9 @@ main:has(.service-scroll) { overflow: visible; }
 .contact-direct a { font-size: 1.1rem; font-weight: 800; }
 .contact-direct > span { color: var(--text-muted); font-size: .7rem; margin-top: 10px; }
 .contact-form-wrap { background: var(--surface); border: 1px solid var(--border); padding: 48px; }
+.contact-form-heading { align-items: flex-start; display: flex; gap: 20px; justify-content: space-between; }
 .contact-form-wrap h2 { font-size: 2rem; letter-spacing: -.04em; margin: 0 0 7px; }
+.contact-enquiry-pill { background: #e7f2fb; border: 1px solid #c9deed; color: var(--accent-ink); flex: 0 0 auto; font-size: .57rem; font-weight: 900; letter-spacing: .08em; margin-top: 5px; padding: 7px 10px; text-transform: uppercase; white-space: nowrap; }
 .contact-form-wrap > p { color: var(--text-muted); font-size: .84rem; margin: 0 0 35px; }
 .contact-form { display: flex; flex-direction: column; gap: 19px; }
 .form-honeypot { height: 1px; left: -10000px; overflow: hidden; position: absolute; top: auto; width: 1px; }
@@ -630,7 +632,7 @@ main:has(.service-scroll) { overflow: visible; }
 }
 .footer-signal-flow { inset: 0; opacity: .6; pointer-events: none; position: absolute; }
 .footer-signal-flow canvas { height: 100%; width: 100%; }
-.footer-grid { display: grid; gap: 55px; grid-template-columns: 1.5fr .6fr .8fr .9fr; position: relative; z-index: 1; }
+.footer-grid { display: grid; gap: 44px; grid-template-columns: 1.4fr .6fr .55fr .75fr .85fr; position: relative; z-index: 1; }
 .footer-logo { align-items: center; display: flex; gap: 10px; }
 .footer-summary { color: color-mix(in srgb, var(--text-subtle) 55%, var(--accent-ink) 45%); font-size: .85rem; line-height: 1.6; margin: 23px 0 0; max-width: 360px; }
 .footer-links { display: flex; flex-direction: column; font-size: .78rem; gap: 13px; }
@@ -701,6 +703,8 @@ main:has(.service-scroll) { overflow: visible; }
   .workflow-visual { padding: 20px; }
   .contact-page { padding: 65px 0 80px; }
   .contact-form-wrap { padding: 30px 20px; }
+  .contact-form-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .contact-enquiry-pill { margin: 0 0 10px; }
   .field-row { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-grid > div:first-child { grid-column: 1 / -1; }

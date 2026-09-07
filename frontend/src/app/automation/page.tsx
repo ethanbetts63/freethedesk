@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
+import { ContactEnquiry } from "../contact/ContactEnquiry";
 import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
@@ -7,6 +9,7 @@ import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { pageMetadata } from "@/lib/seo";
 import { ServiceScroll } from "@/components/ServiceScroll";
 import { automationServices } from "./automationServices";
+import styles from "./page.module.css";
 
 const TITLE = "Automate Boring Away";
 const DESCRIPTION = "Practical workflow automation and custom integrations for Australian small and medium businesses.";
@@ -36,7 +39,7 @@ export default function AutomationPage() {
         title="Less repetition."
         accentTitle="More progress."
         lead="We connect the systems you already use and build the missing pieces, so information moves while your team stays focused on customers."
-        primaryHref="/contact"
+        primaryHref="#enquiry"
         primaryLabel="Find your first automation"
         secondaryHref="#workflows"
         secondaryLabel="Explore workflows"
@@ -44,6 +47,10 @@ export default function AutomationPage() {
       />
 
       <ProofStrip stats={automationStats} />
+
+      <section className={`shell ${styles.enquirySection}`} id="enquiry">
+        <ContactEnquiry defaultHelpWith="automation" />
+      </section>
 
       <section className="shell automation-intro">
         <p className="section-number">01 / Practical automation</p>
@@ -59,7 +66,7 @@ export default function AutomationPage() {
       </section>
 
       <section className="shell" id="workflows">
-        <ServiceScroll services={automationServices} />
+        <ServiceScroll services={automationServices} customHref="#enquiry" />
       </section>
 
       <section className="approach-section">
@@ -122,6 +129,13 @@ export default function AutomationPage() {
         title="Before we start."
         items={questions.map(([question, answer]) => ({ question, answer }))}
       />
+
+      <section className={`shell ${styles.closing}`}>
+        <p className={styles.closingLabel}>Start with the busywork</p>
+        <h2>What is manual admin actually costing you?</h2>
+        <p>Tell us what gets copied, chased or checked each week. We&apos;ll help you find the simplest worthwhile place to begin.</p>
+        <Link href="#enquiry">Find your first automation <span>↗</span></Link>
+      </section>
     </main>
   );
 }

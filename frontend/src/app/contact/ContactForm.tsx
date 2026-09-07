@@ -35,11 +35,7 @@ export function ContactForm({ defaultHelpWith = "" }: { defaultHelpWith?: string
       </label>
       <div className="field-row">
         <label><span>Your name *</span><input name="name" autoComplete="name" required /></label>
-        <label><span>Business name *</span><input name="business" autoComplete="organization" required /></label>
-      </div>
-      <div className="field-row">
         <label><span>Email *</span><input name="email" type="email" autoComplete="email" required /></label>
-        <label><span>Phone</span><input name="phone" type="tel" autoComplete="tel" /></label>
       </div>
       <label><span>Current website</span><input name="website" type="url" placeholder="https://" /></label>
       <label><span>What can we help with? *</span>

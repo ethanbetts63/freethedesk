@@ -28,7 +28,10 @@ export function ContactEnquiry({ defaultHelpWith }: { defaultHelpWith?: string }
         </div>
       </div>
       <div className="contact-form-wrap">
-        <h2>Tell us about the business.</h2>
+        <div className="contact-form-heading">
+          <h2>Tell us about the business.</h2>
+          <span className="contact-enquiry-pill">Enquiry only · no commitment</span>
+        </div>
         <p>No polished brief needed. Start with the problem.</p>
         <ContactForm defaultHelpWith={defaultHelpWith} />
       </div>

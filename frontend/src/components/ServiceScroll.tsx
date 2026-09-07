@@ -28,7 +28,15 @@ const customService = {
  * on whichever page renders this—position:sticky is inert under any ancestor
  * with overflow != visible, and every <main> defaults to overflow: hidden.
  */
-export function ServiceScroll({ services, showCustomRow = true }: { services: Service[]; showCustomRow?: boolean }) {
+export function ServiceScroll({
+  services,
+  showCustomRow = true,
+  customHref = "/contact",
+}: {
+  services: Service[];
+  showCustomRow?: boolean;
+  customHref?: string;
+}) {
   return (
     <div className="service-scroll">
       {services.map((service, index) => (
@@ -59,7 +67,7 @@ export function ServiceScroll({ services, showCustomRow = true }: { services: Se
               <div className="service-icon" style={{ color: customService.color }}>{customService.icon}</div>
               <p>{customService.body}</p>
             </div>
-            <Link className="service-cta" href="/contact" style={{ background: customService.color }}>
+            <Link className="service-cta" href={customHref} style={{ background: customService.color }}>
               Tell us about it <span>→</span>
             </Link>
           </div>

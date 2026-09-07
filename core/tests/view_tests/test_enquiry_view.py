@@ -28,6 +28,25 @@ def test_enquiry_can_be_created(api_client):
     assert set(Notification.objects.values_list("channel", flat=True)) == {"email", "sms"}
 
 
+def test_enquiry_can_be_created_without_business_or_phone(api_client):
+    response = api_client.post(
+        "/api/enquiries/",
+        {
+            "name": "Alex Owner",
+            "email": "alex@example.com",
+            "help_with": "automation",
+            "message": "We want to automate our repeated order entry process.",
+        },
+        format="json",
+    )
+
+    assert response.status_code == 201
+    enquiry = Enquiry.objects.get()
+    assert enquiry.business == ""
+    assert enquiry.phone == ""
+    assert Notification.objects.count() == 2
+
+
 def test_short_enquiry_message_is_rejected(api_client):
     response = api_client.post(
         "/api/enquiries/",
