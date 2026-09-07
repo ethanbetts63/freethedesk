@@ -1,4 +1,4 @@
-import type { InventoryOption, ModuleKey } from "./types";
+import type { InventoryOption, ModuleKey } from "../_lib/types";
 
 type IconType = ModuleKey | InventoryOption;
 

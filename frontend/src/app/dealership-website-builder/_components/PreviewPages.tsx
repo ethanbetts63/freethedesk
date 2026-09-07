@@ -5,8 +5,8 @@ import { useState } from "react";
 
 import { ConversionButton, ConversionLink } from "./ConversionButton";
 import { DemoMap } from "./DemoMap";
-import styles from "./page.module.css";
-import type { InventoryAddonSelection, PreviewPage } from "./types";
+import styles from "../page.module.css";
+import type { InventoryAddonSelection, PreviewPage } from "../_lib/types";
 
 type ExamplePageProps = {
   page: Exclude<PreviewPage, "home">;

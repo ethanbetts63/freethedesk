@@ -3,9 +3,9 @@
 import { FormEvent, useState } from "react";
 
 import { CapabilityIcon } from "./CapabilityIcon";
-import { ACCENTS, INVENTORY_OPTIONS, MODULES } from "./configuratorData";
-import styles from "./page.module.css";
-import type { Accent, InventoryAddonSelection, InventoryOption, ModuleKey, ModuleSelection } from "./types";
+import { ACCENTS, INVENTORY_OPTIONS, MODULES } from "../_lib/configuratorData";
+import styles from "../page.module.css";
+import type { Accent, InventoryAddonSelection, InventoryOption, ModuleKey, ModuleSelection } from "../_lib/types";
 
 type ConfiguratorControlsProps = {
   accent: Accent;

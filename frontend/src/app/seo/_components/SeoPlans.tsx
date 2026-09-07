@@ -4,7 +4,7 @@ import type { PublicSiteSettings } from "@/lib/api";
 import { formatPrice } from "@/lib/serverApi";
 import { AiReadinessAudit } from "./AiReadinessAudit";
 import { GoogleBusinessProfileAudit } from "./GoogleBusinessProfileAudit";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 
 type PlanCopy = {
   field: keyof PublicSiteSettings;

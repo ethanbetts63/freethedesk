@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
+import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
@@ -10,8 +10,8 @@ import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { ServiceScroll } from "@/components/ServiceScroll";
 import { pageMetadata } from "@/lib/seo";
 import { formatPrice, getSiteSettingsServer } from "@/lib/serverApi";
-import { SeoPlans } from "./SeoPlans";
-import { seoServices } from "./seoServices";
+import { SeoPlans } from "./_components/SeoPlans";
+import { seoServices } from "./_components/seoServices";
 import styles from "./page.module.css";
 
 const TITLE = "Your Next SEO Move, Made Clear";
@@ -79,9 +79,9 @@ export default async function SeoPage() {
     <main className={styles.page}>
       <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      <FlowHeroConcept
+      <Hero
         eyebrow="Practical SEO reporting"
-        title="Data Driven,"
+        titleLines={["Data Driven,"]}
         accentTitle="SEO."
         lead="See what's working, what's holding you back and where the best opportunities are."
         primaryHref="/contact"

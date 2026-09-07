@@ -5,12 +5,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CheckoutElementsProvider, PaymentElement, useCheckoutElements } from "@stripe/react-stripe-js/checkout";
 
-import { SignalFlow } from "../../home-v3/SignalFlow";
+import { SignalFlow } from "@/components/visuals/SignalFlow";
 import { useAuth } from "@/context/AuthContext";
 import { createSubscriptionCheckout, getDealerAccount, type DealerAccount } from "@/lib/dealerApi";
 import { getSiteSettings } from "@/lib/api";
 import { stripeConfigured, stripePromise } from "@/lib/stripe";
-import { buildDealerPlans, planByCode, type DealerPlan } from "../plans";
+import { buildDealerPlans, planByCode, type DealerPlan } from "../_lib/plans";
 import styles from "./page.module.css";
 
 /** Stripe's Appearance API needs a literal color, so this can't reference the --checkout-accent CSS variable directly — keep the two in sync by hand. */

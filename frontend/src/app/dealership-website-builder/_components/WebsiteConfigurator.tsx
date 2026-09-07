@@ -3,9 +3,9 @@
 import { useState } from "react";
 
 import { ConfiguratorControls } from "./ConfiguratorControls";
-import { DEFAULT_INVENTORY_ADDONS, DEFAULT_MODULES, INVENTORY_OPTIONS, MODULES } from "./configuratorData";
-import styles from "./page.module.css";
-import type { Accent, InventoryAddonSelection, InventoryOption, ModuleKey, ModuleSelection, PreviewPage } from "./types";
+import { DEFAULT_INVENTORY_ADDONS, DEFAULT_MODULES, INVENTORY_OPTIONS, MODULES } from "../_lib/configuratorData";
+import styles from "../page.module.css";
+import type { Accent, InventoryAddonSelection, InventoryOption, ModuleKey, ModuleSelection, PreviewPage } from "../_lib/types";
 import { WebsitePreview } from "./WebsitePreview";
 
 export function WebsiteConfigurator() {

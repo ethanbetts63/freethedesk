@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
+import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { pageMetadata } from "@/lib/seo";
-import { FlowCompare } from "./FlowCompare";
-import { IdentityVerification } from "./IdentityVerification";
-import { LicensingNextStepPhone } from "./LicensingNextStepPhone";
-import { LoginPreviewPhone } from "./LoginPreviewPhone";
-import { SignupPlans } from "./SignupPlans";
+import { FlowCompare } from "./_components/FlowCompare";
+import { IdentityVerification } from "./_components/IdentityVerification";
+import { LicensingNextStepPhone } from "./_components/LicensingNextStepPhone";
+import { LoginPreviewPhone } from "./_components/LoginPreviewPhone";
+import { SignupPlans } from "./_components/SignupPlans";
 import styles from "./page.module.css";
 
 const TITLE = "Online Vehicle Licensing";
@@ -36,9 +36,9 @@ export default function LicensingPage() {
   return (
     <main className={styles.page}>
       <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
-      <FlowHeroConcept
+      <Hero
         eyebrow="Online vehicle licensing"
-        title="License online."
+        titleLines={["License online."]}
         accentTitle="Lose the visit."
         lead="Use our portal or build it into your website. Customers verify and sign online—no dealership visit required."
         primaryHref="#signup"

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { SignalFlow } from "../../../home-v3/SignalFlow";
+import { SignalFlow } from "@/components/visuals/SignalFlow";
 import { getDealerAccount } from "@/lib/dealerApi";
 import styles from "../page.module.css";
 

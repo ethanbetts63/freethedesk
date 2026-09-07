@@ -5,12 +5,12 @@ import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { pageMetadata } from "@/lib/seo";
 
-import { AiReadySection } from "../home-v3/AiReadySection";
-import { DealershipAutomation } from "../home-v3/DealershipAutomation";
-import { FlagshipCheckout } from "../home-v3/FlagshipCheckout";
-import { HomeHero } from "../home-v3/HomeHero";
-import { WebsiteProduct } from "../home-v3/WebsiteProduct";
-import styles from "../home-v3/page.module.css";
+import { AiReadySection } from "./_components/AiReadySection";
+import { DealershipAutomation } from "./_components/DealershipAutomation";
+import { FlagshipCheckout } from "@/components/marketing/FlagshipCheckout";
+import { Hero } from "@/components/marketing/Hero";
+import { WebsiteProduct } from "@/components/marketing/WebsiteProduct";
+import styles from "@/components/marketing/marketingPage.module.css";
 
 const TITLE = "Dealer Websites & Operations Systems";
 const DESCRIPTION = "Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.";
@@ -36,7 +36,16 @@ export default function Dealers() {
   return (
     <main className={styles.page}>
       <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
-      <HomeHero />
+      <Hero
+        eyebrow="Efficiency First Solutions"
+        titleLines={["Digital"]}
+        accentTitle="dealerships."
+        lead="Connected websites and operational systems built for the way modern dealerships sell, service and work."
+        primaryHref="/dealership-website-builder"
+        primaryLabel="Try the Free Demo"
+        secondaryHref="/portfolio/scooter-shop"
+        secondaryLabel="See it in action"
+      />
       <ProofStrip stats={dealerStats} />
       <FlagshipCheckout />
       <WebsiteProduct />

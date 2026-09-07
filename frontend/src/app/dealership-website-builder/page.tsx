@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { PageSchema } from "@/components/PageSchema";
 import { pageMetadata } from "@/lib/seo";
 
-import { WebsiteConfigurator } from "./WebsiteConfigurator";
+import { WebsiteConfigurator } from "./_components/WebsiteConfigurator";
 
 const TITLE = "Build Your Dealership Website";
 const DESCRIPTION = "Configure a dealership website around the way your business sells, books and grows.";

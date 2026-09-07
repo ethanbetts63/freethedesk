@@ -6,7 +6,7 @@ import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip } from "@/components/ProofStrip";
 import { pageMetadata } from "@/lib/seo";
 
-import { ScooterShopTour } from "./ScooterShopTour";
+import { ScooterShopTour } from "./_components/ScooterShopTour";
 
 const TITLE = "Scooter Shop Dealer Website Case Study";
 const DESCRIPTION = "A connected dealership website for sales, online purchasing, licensing, parts, service, hire and long-term organic growth.";

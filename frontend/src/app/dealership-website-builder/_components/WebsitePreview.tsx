@@ -2,12 +2,12 @@
 
 import { useState, type CSSProperties } from "react";
 
-import { ACCENTS } from "./configuratorData";
+import { ACCENTS } from "../_lib/configuratorData";
 import { ConversionLink } from "./ConversionButton";
 import { DemoMap } from "./DemoMap";
 import { ExamplePage, INVENTORY_VEHICLES, InventoryTile, type InventoryVehicle } from "./PreviewPages";
-import styles from "./page.module.css";
-import type { Accent, InventoryAddonSelection, ModuleSelection, PreviewPage } from "./types";
+import styles from "../page.module.css";
+import type { Accent, InventoryAddonSelection, ModuleSelection, PreviewPage } from "../_lib/types";
 
 type WebsitePreviewProps = {
   accent: Accent;

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type CSSProperties } from "react";
 
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 
 const PARTICLES = [
   ["-35px", "-28px", "-38deg", "var(--preview-accent)"],

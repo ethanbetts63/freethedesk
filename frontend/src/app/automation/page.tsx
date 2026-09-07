@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { ContactEnquiry } from "../contact/ContactEnquiry";
-import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
+import { ContactEnquiry } from "@/components/marketing/ContactEnquiry";
+import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { pageMetadata } from "@/lib/seo";
 import { ServiceScroll } from "@/components/ServiceScroll";
-import { automationServices } from "./automationServices";
+import { automationServices } from "./_components/automationServices";
 import styles from "./page.module.css";
 
 const TITLE = "Automate Boring Away";
@@ -35,9 +35,9 @@ export default function AutomationPage() {
   return (
     <main>
       <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
-      <FlowHeroConcept
+      <Hero
         eyebrow="Automate Boring Away"
-        title="Less repetition."
+        titleLines={["Less repetition."]}
         accentTitle="More progress."
         lead="We connect the systems you already use and build the missing pieces, so information moves while your team stays focused on customers."
         primaryHref="#enquiry"

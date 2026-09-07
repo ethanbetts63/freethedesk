@@ -24,7 +24,7 @@ export function AutomationFeature() {
 
         <div className={styles.copy}>
           <p className={styles.eyebrow}><span /> Business automation</p>
-          <h2>Less repetition.<br /><em>More progress.</em></h2>
+          <h2>Automation built<br /><em>around your business.</em></h2>
           <p className={styles.lead}>We connect the systems you already use and build the missing pieces, so information moves without your team moving it by hand.</p>
           <ul>
             <li>Lead routing and follow-up</li>

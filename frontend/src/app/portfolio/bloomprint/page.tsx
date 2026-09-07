@@ -6,7 +6,7 @@ import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip } from "@/components/ProofStrip";
 import { pageMetadata } from "@/lib/seo";
 
-import { BloomprintTour } from "./BloomprintTour";
+import { BloomprintTour } from "./_components/BloomprintTour";
 
 const TITLE = "Bloomprint Flower Marketplace Case Study";
 const DESCRIPTION = "A two-sided flower delivery marketplace: brief-led ordering for customers, paid local orders for independent florists, and a landing page system built to be found.";

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { FOOTER_NAVIGATION, PORTFOLIO_NAVIGATION } from "@/lib/siteConfig";
-import { SignalFlow } from "@/app/home-v3/SignalFlow";
+import { SignalFlow } from "@/components/visuals/SignalFlow";
 
 export function SiteFooter() {
   return (

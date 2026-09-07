@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
-import { ContactEnquiry } from "../contact/ContactEnquiry";
+import { Hero } from "@/components/marketing/Hero";
+import { ContactEnquiry } from "@/components/marketing/ContactEnquiry";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { ServiceScroll } from "@/components/ServiceScroll";
 import { pageMetadata } from "@/lib/seo";
-import { websiteServices } from "./websiteServices";
+import { websiteServices } from "./_components/websiteServices";
 import styles from "./page.module.css";
 
 const TITLE = "Website Development Perth | Custom Websites & Web Apps";
@@ -68,9 +68,9 @@ export default function WebsiteDevelopmentPage() {
     <main className={styles.page}>
       <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      <FlowHeroConcept
+      <Hero
         eyebrow="Website development Perth"
-        title="Websites that"
+        titleLines={["Websites that"]}
         accentTitle="work harder."
         lead="Custom websites and applications that automate the repetitive work behind your business."
         primaryHref="#enquiry"

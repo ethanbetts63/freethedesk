@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { PageSchema } from "@/components/PageSchema";
 import { pageMetadata } from "@/lib/seo";
 
-import { ContactEnquiry } from "./ContactEnquiry";
+import { ContactEnquiry } from "@/components/marketing/ContactEnquiry";
 
 const TITLE = "Contact";
 const DESCRIPTION = "Talk to Free the Desk about a custom website, online licensing product, web application or business automation project.";

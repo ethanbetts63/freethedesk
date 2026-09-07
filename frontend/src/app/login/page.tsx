@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { homeFor } from "@/lib/api";
-import { SignalFlow } from "../home-v3/SignalFlow";
+import { SignalFlow } from "@/components/visuals/SignalFlow";
 
 function LoginContent() {
   const { user, loading, login } = useAuth();

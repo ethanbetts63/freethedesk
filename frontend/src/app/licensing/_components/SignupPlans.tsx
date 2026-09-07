@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { getSiteSettings } from "@/lib/api";
 import { DEALER_STATES } from "@/lib/dealerStates";
-import { buildDealerPlans, type DealerPlan, type DealerPlanCode, type LicensingPrices } from "./plans";
-import styles from "./page.module.css";
+import { buildDealerPlans, type DealerPlan, type DealerPlanCode, type LicensingPrices } from "../_lib/plans";
+import styles from "../page.module.css";
 
 type FormStatus = "idle" | "submitting" | "error";
 

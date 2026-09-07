@@ -8,12 +8,12 @@ import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { pageMetadata } from "@/lib/seo";
 
-import { AutomationFeature } from "./home-v3/AutomationFeature";
-import { FlagshipCheckout } from "./home-v3/FlagshipCheckout";
-import { HomeHero } from "./home-v3/HomeHero";
-import { WebsiteDevelopmentFeature } from "./home-v3/WebsiteDevelopmentFeature";
-import { WebsiteProduct } from "./home-v3/WebsiteProduct";
-import styles from "./home-v3/page.module.css";
+import { AutomationFeature } from "./_components/AutomationFeature";
+import { FlagshipCheckout } from "@/components/marketing/FlagshipCheckout";
+import { Hero } from "@/components/marketing/Hero";
+import { WebsiteDevelopmentFeature } from "./_components/WebsiteDevelopmentFeature";
+import { WebsiteProduct } from "@/components/marketing/WebsiteProduct";
+import styles from "@/components/marketing/marketingPage.module.css";
 
 const TITLE = "Free the Desk | Dealer Operations Systems";
 const DESCRIPTION = "Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.";
@@ -39,7 +39,16 @@ export default function Home() {
   return (
     <main className={styles.page}>
       <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
-      <HomeHero />
+      <Hero
+        eyebrow="Efficiency First Solutions"
+        titleLines={["Digital", "automation"]}
+        accentTitle="solutions."
+        lead="Connected websites and operational systems built for the way modern dealerships sell, service and work."
+        primaryHref="/dealership-website-builder"
+        primaryLabel="Try the Free Demo"
+        secondaryHref="/portfolio/scooter-shop"
+        secondaryLabel="See it in action"
+      />
       <ProofStrip stats={homeStats} />
       <WebsiteDevelopmentFeature />
       <AutomationFeature />
