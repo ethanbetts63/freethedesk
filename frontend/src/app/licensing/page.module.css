@@ -60,7 +60,7 @@
 .secureNote { color: #718698; font-size: .68rem; margin: 12px 0 0; text-align: center; }
 .signupError { background: #fff0f0; border-left: 3px solid #b52c2c; color: #842222; font-size: .75rem; line-height: 1.5; margin: 0 0 12px; padding: 11px 13px; }
 .problem { display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: 1.05fr .95fr; padding-bottom: 125px; padding-top: 125px; }
-.problem h2, .comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2 { font-size: clamp(3rem, 5.2vw, 5.6rem); letter-spacing: -.07em; line-height: .94; margin: 0; }
+.problem h2, .comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2, .verifyCopy h2 { font-size: clamp(3rem, 5.2vw, 5.6rem); letter-spacing: -.07em; line-height: .94; margin: 0; }
 .problemCopy { align-self: end; max-width: 520px; }
 .problemCopy p { color: #536b80; font-size: 1rem; line-height: 1.78; margin: 0 0 20px; }
 .comparisonSection { background: #f2f7fb; padding: 105px 0; }
@@ -179,8 +179,26 @@
 .closing a:first-child { background: var(--page-accent); color: #fff; padding: 16px 18px; }
 .closing a:last-child { border-bottom: 1px solid #000; gap: 13px; padding: 7px 0; }
 
+.verify { align-items: center; display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: 1.05fr .95fr; padding-bottom: 125px; padding-top: 125px; }
+.verifyCopy p { color: #536b80; font-size: 1rem; line-height: 1.78; margin: 24px 0 0; max-width: 480px; }
+.verifyCopy p + p { margin-top: 16px; }
+.verifyCard { background: #f7fafc; border: 1px solid #cfdeea; padding: 26px; }
+.verifyCardHead { align-items: center; border-bottom: 1px solid #d9e5ef; display: flex; justify-content: space-between; margin-bottom: 6px; padding-bottom: 18px; }
+.verifyCardHead span { font-size: .77rem; font-weight: 900; text-transform: uppercase; }
+.verifyCardHead b { color: var(--page-accent); font-size: .63rem; text-transform: uppercase; }
+.verifySteps { list-style: none; margin: 0; padding: 0; }
+.verifySteps li { align-items: flex-start; border-top: 1px dashed #cfdeea; display: flex; gap: 16px; padding: 18px 0; }
+.verifySteps li:first-child { border-top: 0; }
+.verifySteps strong { color: #000; display: block; font-size: .87rem; font-weight: 800; letter-spacing: -.01em; }
+.verifySteps small { color: #637b8f; display: block; font-size: .74rem; line-height: 1.5; margin-top: 4px; }
+.verifyIcon { align-items: center; background: #e8f3fb; border: 1px solid #c9dfef; color: var(--page-accent); display: flex; flex: 0 0 auto; height: 38px; justify-content: center; width: 38px; }
+.verifyIcon svg { fill: none; height: 19px; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.6; width: 19px; }
+.verifyFooter { align-items: center; border-top: 1px solid #d9e5ef; display: flex; gap: 9px; margin-top: 4px; padding-top: 18px; }
+.verifyFooter span { color: #7c93aa; font-size: .68rem; font-weight: 750; }
+.verifyLogo { height: 20px; width: auto; }
+
 @media (max-width: 900px) {
-  .problem, .comparison, .optionsLayout, .signupHeading { grid-template-columns: 1fr; }
+  .problem, .comparison, .optionsLayout, .signupHeading, .verify { grid-template-columns: 1fr; }
   .planGrid { grid-template-columns: 1fr 1fr; }
   .signupPanel { grid-template-columns: 1fr; }
   .selectedSummary { min-height: 480px; }
@@ -189,9 +207,9 @@
 }
 
 @media (max-width: 650px) {
-  .problem, .outcomesSection, .signupSection { padding-bottom: 82px; padding-top: 82px; }
+  .problem, .outcomesSection, .signupSection, .verify { padding-bottom: 82px; padding-top: 82px; }
   .comparisonSection, .optionsSection { padding-bottom: 78px; padding-top: 78px; }
-  .problem h2, .comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2 { font-size: clamp(2.75rem, 13vw, 4rem); }
+  .problem h2, .comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2, .verifyCopy h2 { font-size: clamp(2.75rem, 13vw, 4rem); }
   .paths article > div { align-items: flex-start; flex-direction: column; }
   .paths article i { height: 11px; margin-left: 4px; width: 1px; }
   .outcomeGrid { grid-template-columns: 1fr; }

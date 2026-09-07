@@ -46,9 +46,8 @@ export function FlagshipCheckout() {
           </div>
 
           <div className={styles.status}>
-            <span>Verified with</span>
             <Image className={styles.stripeLogo} src="/stripe-ar21.svg" alt="Stripe" width={120} height={60} />
-            <b>Identity</b>
+            <b>Verified Identity</b>
           </div>
         </div>
 

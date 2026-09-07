@@ -21,6 +21,26 @@ const STREAMS: Stream[] = [
   { y: .76, amplitude: 74, frequency: 1.6, phase: 5.4, speed: -.000078, color: "rgba(19, 49, 92, .2)", width: 1.2 },
 ];
 
+const DOT_BLUR = 12;
+const DOT_RADIUS = { dark: 3.8, light: 2.5 };
+
+function createDotSprite(fillColor: string, shadowColor: string, radius: number, ratio: number) {
+  const size = (radius + DOT_BLUR) * 2;
+  const sprite = document.createElement("canvas");
+  sprite.width = Math.ceil(size * ratio);
+  sprite.height = Math.ceil(size * ratio);
+  const ctx = sprite.getContext("2d");
+  if (!ctx) return sprite;
+  ctx.scale(ratio, ratio);
+  ctx.fillStyle = fillColor;
+  ctx.shadowColor = shadowColor;
+  ctx.shadowBlur = DOT_BLUR;
+  ctx.beginPath();
+  ctx.arc(size / 2, size / 2, radius, 0, Math.PI * 2);
+  ctx.fill();
+  return sprite;
+}
+
 export function SignalFlow() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -33,7 +53,13 @@ export function SignalFlow() {
     let width = 0;
     let height = 0;
     let frame = 0;
+    let visible = true;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let darkSprite = canvas;
+    let lightSprite = canvas;
+    let darkSize = 0;
+    let lightSize = 0;
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -43,6 +69,11 @@ export function SignalFlow() {
       canvas.width = Math.round(width * ratio);
       canvas.height = Math.round(height * ratio);
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      darkSprite = createDotSprite("#13315c", "rgba(19, 49, 92, .28)", DOT_RADIUS.dark, ratio);
+      lightSprite = createDotSprite("#3f97da", "rgba(63, 151, 218, .4)", DOT_RADIUS.light, ratio);
+      darkSize = (DOT_RADIUS.dark + DOT_BLUR) * 2;
+      lightSize = (DOT_RADIUS.light + DOT_BLUR) * 2;
     };
 
     const point = (stream: Stream, progress: number, time: number) => {
@@ -72,25 +103,30 @@ export function SignalFlow() {
           const position = point(stream, raw % 1, time);
           const dark = (pulse + streamIndex) % 3 === 0;
 
-          context.fillStyle = dark ? "#13315c" : "#3f97da";
-          context.shadowColor = dark ? "rgba(19, 49, 92, .28)" : "rgba(63, 151, 218, .4)";
-          context.shadowBlur = 12;
-          context.beginPath();
-          context.arc(position.x, position.y, dark ? 3.8 : 2.5, 0, Math.PI * 2);
-          context.fill();
-          context.shadowBlur = 0;
+          const sprite = dark ? darkSprite : lightSprite;
+          const size = dark ? darkSize : lightSize;
+          context.drawImage(sprite, position.x - size / 2, position.y - size / 2, size, size);
         }
       });
 
-      if (!reduceMotion) frame = window.requestAnimationFrame(draw);
+      if (!reduceMotion && visible) frame = window.requestAnimationFrame(draw);
+      else frame = 0;
     };
 
     resize();
     draw(0);
     window.addEventListener("resize", resize);
+
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry?.isIntersecting ?? true;
+      if (visible && !reduceMotion && frame === 0) frame = window.requestAnimationFrame(draw);
+    });
+    observer.observe(canvas);
+
     return () => {
       window.cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
+      observer.disconnect();
     };
   }, []);
 

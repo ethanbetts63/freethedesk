@@ -1,6 +1,6 @@
 import { ContactForm } from "./ContactForm";
 
-export function ContactEnquiry() {
+export function ContactEnquiry({ defaultHelpWith }: { defaultHelpWith?: string } = {}) {
   return (
     <div className="contact-grid">
       <div className="contact-copy">
@@ -30,7 +30,7 @@ export function ContactEnquiry() {
       <div className="contact-form-wrap">
         <h2>Tell us about the business.</h2>
         <p>No polished brief needed. Start with the problem.</p>
-        <ContactForm />
+        <ContactForm defaultHelpWith={defaultHelpWith} />
       </div>
     </div>
   );

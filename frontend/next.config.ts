@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       { source: "/websites", destination: "/", permanent: true },
       { source: "/dealer-websites", destination: "/", permanent: true },
       { source: "/website-builder", destination: "/dealership-website-builder", permanent: true },
+      { source: "/website-development-perth", destination: "/website-development", permanent: true },
       { source: "/dealers", destination: "/licensing", permanent: true },
       { source: "/dealers/signup", destination: "/licensing#signup", permanent: true },
       { source: "/work/:path*", destination: "/portfolio/:path*", permanent: true },

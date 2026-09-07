@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-export function ContactForm() {
+export function ContactForm({ defaultHelpWith = "" }: { defaultHelpWith?: string } = {}) {
   const [status, setStatus] = useState<FormStatus>("idle");
 
   async function submitEnquiry(event: FormEvent<HTMLFormElement>) {
@@ -43,7 +43,7 @@ export function ContactForm() {
       </div>
       <label><span>Current website</span><input name="website" type="url" placeholder="https://" /></label>
       <label><span>What can we help with? *</span>
-        <select name="help_with" defaultValue="" required>
+        <select name="help_with" defaultValue={defaultHelpWith} required>
           <option value="" disabled>Select one</option>
           <option value="business-website">A new or improved business website</option>
           <option value="dealer-website">A new or improved dealer website</option>

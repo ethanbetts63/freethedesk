@@ -7,6 +7,7 @@ import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { pageMetadata } from "@/lib/seo";
 import { FlowCompare } from "./FlowCompare";
+import { IdentityVerification } from "./IdentityVerification";
 import { LicensingNextStepPhone } from "./LicensingNextStepPhone";
 import { LoginPreviewPhone } from "./LoginPreviewPhone";
 import { SignupPlans } from "./SignupPlans";
@@ -55,7 +56,7 @@ export default function LicensingPage() {
       <section className={styles.comparisonSection}>
         <div className={`shell ${styles.comparison}`}>
           <div className={styles.comparisonCopy}>
-            <p className={styles.sectionLabel}>A shorter path to sold</p>
+            <p className={styles.sectionLabel}>02 / A shorter path to sold</p>
             <h2>Keep the momentum.</h2>
             <p>Remove the steps that add effort without adding value to the customer or the dealership.</p>
           </div>
@@ -75,7 +76,7 @@ export default function LicensingPage() {
       <section className={styles.optionsSection} id="configuration-options">
         <div className={`shell ${styles.optionsLayout}`}>
           <div className={styles.optionsHeading}>
-            <p className={styles.sectionLabel}>01 / Two ways to use it</p>
+            <p className={styles.sectionLabel}>03 / Two ways to use it</p>
             <h2>Our portal or part of your website.</h2>
             <p>Use the hosted product with the website you already have, or make it a seamless part of a dealership site we build.</p>
           </div>
@@ -99,7 +100,7 @@ export default function LicensingPage() {
 
       <section className={`shell ${styles.problem}`}>
         <div>
-          <p className={styles.sectionLabel}>02 / Remove the barrier</p>
+          <p className={styles.sectionLabel}>04 / Remove the barrier</p>
           <h2>A signature should not require a showroom appointment.</h2>
         </div>
         <div className={styles.problemCopy}>
@@ -112,8 +113,10 @@ export default function LicensingPage() {
         </div>
       </section>
 
+      <IdentityVerification />
+
       <Faq
-        eyebrow="04 / Common questions"
+        eyebrow="06 / Common questions"
         title="Before you sign up."
         items={questions.map(([question, answer]) => ({ question, answer }))}
       />

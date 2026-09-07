@@ -51,9 +51,17 @@ export function NetworkField({ colors = DEFAULT_NETWORK_COLORS }: NetworkFieldPr
     let width = 0;
     let height = 0;
     let frame = 0;
+    let visible = true;
     let nodes: Node[] = [];
     const pointer = { x: -1000, y: -1000, active: false };
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Precompute a single blended link color so the per-pair draw below can use a
+    // cheap solid stroke instead of allocating a canvas gradient per line per frame.
+    const parseRgb = (value: string) => value.split(",").map((part) => parseFloat(part));
+    const [r1, g1, b1] = parseRgb(colors.linkStart);
+    const [r2, g2, b2] = parseRgb(colors.linkEnd);
+    const linkColor = `${Math.round((r1 + r2) / 2)}, ${Math.round((g1 + g2) / 2)}, ${Math.round((b1 + b2) / 2)}`;
 
     const makeNodes = () => {
       const count = Math.max(51, Math.min(147, Math.round((width * height) / 10000)));
@@ -98,11 +106,8 @@ export function NetworkField({ colors = DEFAULT_NETWORK_COLORS }: NetworkFieldPr
           const dy = a.y - b.y;
           const distance = Math.hypot(dx, dy);
           if (distance < linkDistance) {
-            const opacity = (1 - distance / linkDistance) * 0.34;
-            const gradient = context.createLinearGradient(a.x, a.y, b.x, b.y);
-            gradient.addColorStop(0, `rgba(${colors.linkStart}, ${opacity})`);
-            gradient.addColorStop(1, `rgba(${colors.linkEnd}, ${opacity * 0.72})`);
-            context.strokeStyle = gradient;
+            const opacity = (1 - distance / linkDistance) * 0.34 * 0.86;
+            context.strokeStyle = `rgba(${linkColor}, ${opacity})`;
             context.lineWidth = 0.8;
             context.beginPath();
             context.moveTo(a.x, a.y);
@@ -159,7 +164,7 @@ export function NetworkField({ colors = DEFAULT_NETWORK_COLORS }: NetworkFieldPr
         }
       });
 
-      if (!reduceMotion) frame = window.requestAnimationFrame(draw);
+      if (!reduceMotion && visible) frame = window.requestAnimationFrame(draw);
     };
 
     const onPointerMove = (event: PointerEvent) => {
@@ -171,9 +176,28 @@ export function NetworkField({ colors = DEFAULT_NETWORK_COLORS }: NetworkFieldPr
 
     const onPointerLeave = () => { pointer.active = false; };
     const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    let resizeTimeout = 0;
+    const onWindowResize = () => {
+      window.clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(resize, 150);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible && !reduceMotion) {
+          window.cancelAnimationFrame(frame);
+          frame = window.requestAnimationFrame(draw);
+        }
+      },
+      { threshold: 0 },
+    );
+
     resize();
     draw(0);
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", onWindowResize);
+    observer.observe(canvas);
     if (supportsHover) {
       canvas.addEventListener("pointermove", onPointerMove);
       canvas.addEventListener("pointerleave", onPointerLeave);
@@ -181,7 +205,9 @@ export function NetworkField({ colors = DEFAULT_NETWORK_COLORS }: NetworkFieldPr
 
     return () => {
       window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", resize);
+      window.clearTimeout(resizeTimeout);
+      window.removeEventListener("resize", onWindowResize);
+      observer.disconnect();
       if (supportsHover) {
         canvas.removeEventListener("pointermove", onPointerMove);
         canvas.removeEventListener("pointerleave", onPointerLeave);

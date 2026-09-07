@@ -2,23 +2,25 @@ export const PUBLIC_SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://fre
 export const METADATA_BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const WEBSITE_NAVIGATION = [
-  { href: "/website-development-perth", label: "All websites" },
+  { href: "/website-development", label: "All websites" },
   { href: "/", label: "Dealer websites" },
 ] as const;
 
 export const PRIMARY_NAVIGATION = [
   { href: "/licensing", label: "Online licensing" },
   { href: "/automation", label: "Automation" },
+  { href: "/seo", label: "SEO" },
   { href: "/portfolio/scooter-shop", label: "Our work" },
   { href: "/contact", label: "Contact" },
   { href: "/login", label: "Login" },
 ] as const;
 
 export const FOOTER_NAVIGATION = [
-  { href: "/website-development-perth", label: "Perth website development" },
+  { href: "/website-development", label: "Perth website development" },
   { href: "/", label: "Dealer websites" },
   { href: "/licensing", label: "Online licensing" },
   { href: "/automation", label: "Automation" },
+  { href: "/seo", label: "SEO" },
   { href: "/portfolio/scooter-shop", label: "Scooter Shop case study" },
   { href: "/contact", label: "Contact" },
   { href: "/login", label: "Login" },

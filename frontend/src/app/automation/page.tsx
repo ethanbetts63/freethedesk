@@ -65,8 +65,8 @@ export default function AutomationPage() {
       <section className="approach-section">
         <div className="shell approach-inner">
           <p className="section-number section-number-light">02 / Our approach</p>
-          <h2>Improve what works.<br />Replace only what does not.</h2>
-          <p className="approach-lead">Most businesses already have useful accounting, CRM, inventory or job-management software. We begin with those systems and add the workflow, interface or integration that is missing.</p>
+          <h2>Start small.<br /><span className="ai-ready-ai">Dream big.</span></h2>
+          <p className="approach-lead">Every business has more automation opportunities than time. We start with the simplest ones—fast to prove, low risk, and the quickest way to learn how your business works—then take on the bigger, higher-impact projects.</p>
           <ol className="approach-steps">
             <li className="approach-step">
               <div className="approach-step-rail">
@@ -81,7 +81,7 @@ export default function AutomationPage() {
               <div className="approach-step-body">
                 <span className="approach-step-index">01</span>
                 <h3>Map it</h3>
-                <p>Free discovery call, no commitment. We walk through the current process, exceptions and cost of the repeated work.</p>
+                <p>We map every opportunity in the business, from quick fixes to big-ticket projects.</p>
               </div>
             </li>
             <li className="approach-step">
@@ -96,7 +96,7 @@ export default function AutomationPage() {
               <div className="approach-step-body">
                 <span className="approach-step-index">02</span>
                 <h3>Build it</h3>
-                <p>Build and test a focused workflow with realistic data and the staff who will use it.</p>
+                <p>We start with the simplest one first—fast to build and low risk, and it teaches us your business.</p>
               </div>
             </li>
             <li className="approach-step">
@@ -109,8 +109,8 @@ export default function AutomationPage() {
               </div>
               <div className="approach-step-body">
                 <span className="approach-step-index">03</span>
-                <h3>Run it</h3>
-                <p>Launch with monitoring, documentation and support, then measure what it actually saves.</p>
+                <h3>Learn</h3>
+                <p>With trust and understanding in place, we move on to the bigger automations.</p>
               </div>
             </li>
           </ol>

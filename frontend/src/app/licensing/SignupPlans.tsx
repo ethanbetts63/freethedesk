@@ -67,7 +67,7 @@ export function SignupPlans() {
       <div className="shell">
         <div className={styles.signupHeading}>
           <div>
-            <p className={styles.sectionLabel}>Start here</p>
+            <p className={styles.sectionLabel}>01 / Start here</p>
             <h2>Choose what you need.</h2>
           </div>
         </div>

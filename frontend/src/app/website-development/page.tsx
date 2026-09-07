@@ -11,7 +11,7 @@ import styles from "./page.module.css";
 
 const TITLE = "Website Development Perth | Custom Websites & Web Apps";
 const DESCRIPTION = "Perth website development for businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.";
-const PATH = "/website-development-perth";
+const PATH = "/website-development";
 
 const websiteDevStats: [ProofStat, ProofStat, ProofStat] = [
   { value: "50%", label: "Won't consider you", description: "Of consumers who won't consider a business with no website, per industry research." },
@@ -35,6 +35,13 @@ const process = [
   ["Improve", "Launch is the start of useful evidence. We monitor, maintain and refine the site from how people actually use it."],
 ];
 
+const processIcons = [
+  <svg key="understand" viewBox="0 0 24 24" width="24" height="24" fill="none"><circle cx="10" cy="10" r="6" stroke="#fff" strokeWidth="1.6" /><path d="M14.5 14.5 20 20" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
+  <svg key="design" viewBox="0 0 24 24" width="24" height="24" fill="none"><path d="M4 20l1-4L15 6l3 3-10 10-4 1Z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" /></svg>,
+  <svg key="build" viewBox="0 0 24 24" width="24" height="24" fill="none"><path d="M14.7 6.3a3.5 3.5 0 0 0-4.6 4.6L4 17l3 3 6.1-6.1a3.5 3.5 0 0 0 4.6-4.6l-2.3 2.3-2-2 2.3-2.3Z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" /></svg>,
+  <svg key="improve" viewBox="0 0 24 24" width="24" height="24" fill="none"><path d="M4 17l5-5 4 4 7-7" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /><path d="M15 8h5v5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+];
+
 const questions = [
   ["How much does a website cost?", "It depends on whether you need a focused marketing site, ecommerce, custom workflows or integrations. We define the useful first release and give you a clear scope before development begins."],
   ["Can you replace or improve an existing site?", "Yes. We can rebuild it, preserve useful content and search equity, or improve one high-value part without replacing everything at once."],
@@ -42,7 +49,7 @@ const questions = [
   ["Will the website work properly on mobile?", "Yes. We design mobile-first, then use the extra room on larger screens deliberately. Forms, navigation, product pages and conversion paths are tested across practical viewport sizes."],
 ];
 
-export default function WebsiteDevelopmentPerthPage() {
+export default function WebsiteDevelopmentPage() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -71,12 +78,12 @@ export default function WebsiteDevelopmentPerthPage() {
       <ProofStrip stats={websiteDevStats} />
 
       <section className={`shell ${styles.enquirySection}`} id="enquiry">
-        <ContactEnquiry />
+        <ContactEnquiry defaultHelpWith="business-website" />
       </section>
 
       <section className={`shell ${styles.intro}`}>
-        <div><p className={styles.label}>01 / The approach</p><h2>A website with a job to do.</h2></div>
-        <div><p>Good design earns attention. Clear structure helps people make a decision. The right technology removes work for the team behind it.</p><p>We bring those parts together around a real business outcome: better enquiries, online sales, easier bookings, clearer information or a process that no longer needs to live in an inbox.</p></div>
+        <div><p className={styles.label}>01 / What you&apos;re buying</p><h2>Not a website.<br />A system with a job to do.</h2></div>
+        <div><p>A basic website is a brochure: a handful of pages that look fine on launch day and do nothing after that.</p><p>What we build behaves more like software—it watches stock, sends the alerts, writes the routine emails and keeps working on search long after launch. The pages you see are just the part your customers notice.</p></div>
       </section>
 
       <section className={styles.servicesSection} id="services">
@@ -89,6 +96,28 @@ export default function WebsiteDevelopmentPerthPage() {
         </div>
       </section>
 
+      <section className={`shell ${styles.seoSection}`} id="seo">
+        <div className={styles.seoCopy}>
+          <p className={styles.label}>03 / Continuous SEO</p>
+          <h2>Honest SEO. Not the industry&apos;s usual promises.</h2>
+          <p>SEO is one of the most oversold services on the internet. Anyone promising fast, guaranteed rankings is either wrong or lying—real search growth compounds slowly, over months, not weeks.</p>
+          <p>Every site we build launches with the technical and on-page foundations done properly, no extra charge. Ongoing improvement past that point is optional, priced honestly, and stops the moment it stops earning its keep.</p>
+        </div>
+        <div className={styles.seoCard}>
+          <header className={styles.seoCardHead}>
+            <span>Ongoing, data-driven SEO</span>
+            <b>$50/mo</b>
+          </header>
+          <ul className={styles.seoIncluded}>
+            <li>Strong technical &amp; on-page foundation, included on every site we build</li>
+            <li>Monthly review of rankings, competitors and search data</li>
+            <li>Changes made from evidence, not guesses</li>
+          </ul>
+          <p className={styles.seoWarning}><strong>Early gains can be large. Long-term SEO is slow.</strong> Anyone telling you otherwise is selling something.</p>
+          <p className={styles.seoHonesty}>When we stop finding worthwhile improvements, we&apos;ll say so—and turn it off. No agency should keep charging for work that isn&apos;t working.</p>
+        </div>
+      </section>
+
       <section className={`shell ${styles.systemSection}`}>
         <div className={styles.systemVisual} aria-hidden="true">
           <div className={styles.browser}><i /><i /><i /><span>yourbusiness.com.au</span></div>
@@ -98,23 +127,39 @@ export default function WebsiteDevelopmentPerthPage() {
           </div>
         </div>
         <div className={styles.systemCopy}>
-          <p className={styles.label}>03 / Beyond the surface</p>
+          <p className={styles.label}>04 / Beyond the surface</p>
           <h2>Design the customer experience and the handoff.</h2>
           <p>A polished page is only half the work. We also think about what information is captured, where it goes, what the customer sees next and how your team follows it through.</p>
           <ul><li>Useful information attached to every enquiry</li><li>Payments and forms designed as one journey</li><li>Content your team can actually manage</li><li>Integrations where they remove repeated work</li></ul>
         </div>
       </section>
 
-      <section className={styles.processSection}>
-        <div className="shell">
-          <div className={styles.sectionHeading}><p className={styles.label}>04 / How we work</p><h2>Clear enough to move quickly.</h2></div>
-          <div className={styles.processGrid}>{process.map(([title, body], index) => <article key={title}><span>0{index + 1}</span><div><h3>{title}</h3><p>{body}</p></div></article>)}</div>
+      <section className="approach-section">
+        <div className={`shell approach-inner ${styles.approachInner}`}>
+          <p className={styles.label}>05 / How we work</p>
+          <h2>Same process.<br /><span className="ai-ready-ai">Every project.</span></h2>
+          <p className="approach-lead">Clear stages keep every build moving predictably—from understanding the business through to a site your team can actually run.</p>
+          <ol className="approach-steps">
+            {process.map(([title, body], index) => (
+              <li className="approach-step" key={title}>
+                <div className="approach-step-rail">
+                  <span className="approach-step-icon" aria-hidden="true">{processIcons[index]}</span>
+                  {index < process.length - 1 && <span className="approach-step-line" />}
+                </div>
+                <div className="approach-step-body">
+                  <span className="approach-step-index">0{index + 1}</span>
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
       <section className={`shell ${styles.proofSection}`}>
         <div>
-          <p className={styles.label}>05 / See the depth</p>
+          <p className={styles.label}>06 / See the depth</p>
           <h2>Built from real operational experience.</h2>
         </div>
         <div>
@@ -124,7 +169,7 @@ export default function WebsiteDevelopmentPerthPage() {
       </section>
 
       <Faq
-        eyebrow="06 / Common questions"
+        eyebrow="07 / Common questions"
         title="Before we begin."
         items={questions.map(([question, answer]) => ({ question, answer }))}
       />

@@ -1,0 +1,52 @@
+.page {
+  /* Single place to retune this page's accent color. */
+  --page-accent: #247ec9;
+  background: #fff; color: #07121c;
+}
+.label { color: var(--page-accent); font-size: .68rem; font-weight: 900; letter-spacing: .14em; margin: 0 0 23px; text-transform: uppercase; }
+
+.introSection { padding: 125px 0 40px; }
+.introSection h2 { font-size: clamp(2.6rem, 4.6vw, 4.2rem); letter-spacing: -.058em; line-height: 1.06; margin: 0; max-width: 780px; }
+.introLead { color: #536c80; font-size: 1rem; line-height: 1.78; margin: 22px 0 0; max-width: 620px; }
+
+.serviceGrid { border-left: 1px solid #cad9e4; border-top: 1px solid #cad9e4; display: grid; grid-template-columns: repeat(2, 1fr); margin-top: 58px; }
+.serviceGrid article { background: rgba(255,255,255,.5); border-bottom: 1px solid #cad9e4; border-right: 1px solid #cad9e4; min-height: 230px; padding: 28px; }
+.serviceGrid article > span { color: var(--page-accent); font-size: .65rem; font-weight: 900; }
+.serviceGrid h3 { font-size: 1.35rem; letter-spacing: -.04em; margin: 60px 0 14px; }
+.serviceGrid p { color: #60778b; font-size: .83rem; line-height: 1.68; margin: 0; }
+
+.approachInner .label { color: #70bced; }
+
+.compareSection { background: #f2f7fb; padding: 120px 0; }
+.compareInner { align-items: center; display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: 1.05fr .95fr; }
+.compareCopy h2 { font-size: clamp(2.6rem, 4.3vw, 3.6rem); letter-spacing: -.05em; line-height: 1.05; margin: 0 0 20px; }
+.compareCopy p { color: #536c80; font-size: 1rem; line-height: 1.78; margin: 0 0 16px; max-width: 480px; }
+
+.priceCard { background: #fff; border: 1px solid #cad9e4; padding: 30px; }
+.priceCardHead { align-items: center; border-bottom: 1px solid #d9e5ef; display: flex; gap: 12px; justify-content: space-between; margin-bottom: 20px; padding-bottom: 18px; }
+.priceCardHead span { font-size: .77rem; font-weight: 900; text-transform: uppercase; }
+.priceCardHead b { color: var(--page-accent); font-size: 1.35rem; font-weight: 900; white-space: nowrap; }
+.priceIncluded { border-bottom: 1px dashed #cad9e4; list-style: none; margin: 0 0 20px; padding: 0 0 22px; }
+.priceIncluded li { color: #2b4051; font-size: .84rem; font-weight: 650; line-height: 1.6; margin: 12px 0; padding-left: 20px; position: relative; }
+.priceIncluded li::before { color: var(--page-accent); content: "↳"; left: 0; position: absolute; }
+.priceWarning { color: #07121c; font-size: .87rem; line-height: 1.68; margin: 0 0 16px; }
+.priceWarning strong { color: #b52c2c; }
+.priceHonesty { background: #eaf3fb; border-left: 3px solid var(--page-accent); color: #2b4051; font-size: .82rem; line-height: 1.65; margin: 0; padding: 12px 15px; }
+
+.closing { background: #f2f7fb; margin-bottom: 115px; margin-top: 115px; padding: 82px; text-align: center; }
+.closing h2 { font-size: clamp(2.4rem, 4.6vw, 3.6rem); letter-spacing: -.05em; margin: 0; }
+.closing > p:not(.label) { color: #587086; font-size: .96rem; line-height: 1.7; margin: 27px auto 31px; max-width: 570px; }
+.closing > a { align-items: center; background: var(--page-accent); color: #fff; display: inline-flex; font-size: .8rem; font-weight: 900; gap: 35px; padding: 17px 20px; }
+
+@media (max-width: 900px) {
+  .compareInner { grid-template-columns: 1fr; }
+  .serviceGrid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 620px) {
+  .introSection { padding: 82px 0 20px; }
+  .compareSection { padding: 82px 0; }
+  .serviceGrid { grid-template-columns: 1fr; }
+  .serviceGrid article { min-height: 210px; }
+  .closing { margin-bottom: 80px; margin-top: 80px; padding: 65px 22px; }
+}
