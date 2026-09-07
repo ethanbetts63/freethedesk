@@ -10,6 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 
 import { HOME_FAQS } from "./_lib/copy";
 
+import { AiReadinessAudit } from "@/app/seo/_components/AiReadinessAudit";
 import { AutomationFeature } from "./_components/AutomationFeature";
 import { FlagshipCheckout } from "@/components/marketing/FlagshipCheckout";
 import { Hero } from "@/components/marketing/Hero";
@@ -58,6 +59,9 @@ export default function Home() {
           </div>
         }
       />
+      <div className="shell">
+        <AiReadinessAudit className={styles.aiAuditFlush} />
+      </div>
       <FlagshipCheckout />
       <WebsiteProduct />
       <Faq

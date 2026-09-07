@@ -9,9 +9,9 @@ const SIGNALS = [
   ["04", "Crawler access"],
 ] as const;
 
-export function AiReadinessAudit({ standalonePrice }: { standalonePrice: string }) {
+export function AiReadinessAudit({ standalonePrice, className = "" }: { standalonePrice?: string; className?: string }) {
   return (
-    <section className={styles.audit} aria-labelledby="ai-readiness-title">
+    <section className={`${styles.audit} ${className}`} aria-labelledby="ai-readiness-title">
       <div className={styles.grid} aria-hidden="true" />
       <div className={styles.glow} aria-hidden="true" />
       <div className={styles.beam} aria-hidden="true" />
@@ -63,17 +63,19 @@ export function AiReadinessAudit({ standalonePrice }: { standalonePrice: string 
           <li>A prioritised fix list for anything that fails</li>
         </ul>
 
-        <div className={styles.offer}>
-          <div className={styles.offerOption}>
-            <small>Standalone check</small>
-            <span className={styles.priceLine}><strong>{standalonePrice}</strong><em>once</em></span>
+        {standalonePrice ? (
+          <div className={styles.offer}>
+            <div className={styles.offerOption}>
+              <small>Standalone check</small>
+              <span className={styles.priceLine}><strong>{standalonePrice}</strong><em>once</em></span>
+            </div>
+            <span className={styles.offerOr}>OR</span>
+            <div className={styles.offerOption}>
+              <small>With every report plan</small>
+              <strong>Included free</strong>
+            </div>
           </div>
-          <span className={styles.offerOr}>OR</span>
-          <div className={styles.offerOption}>
-            <small>With every report plan</small>
-            <strong>Included free</strong>
-          </div>
-        </div>
+        ) : null}
 
         <Link className={styles.cta} href="/contact">
           Check my site <span aria-hidden="true">↗</span>

@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 
 import { DEALER_FAQS } from "./_lib/copy";
 
-import { AiReadySection } from "./_components/AiReadySection";
+import { AiReadinessAudit } from "@/app/seo/_components/AiReadinessAudit";
 import { DealershipAutomation } from "./_components/DealershipAutomation";
 import { FlagshipCheckout } from "@/components/marketing/FlagshipCheckout";
 import { Hero } from "@/components/marketing/Hero";
@@ -45,7 +45,9 @@ export default function Dealers() {
       <FlagshipCheckout />
       <WebsiteProduct />
       <DealershipAutomation />
-      <AiReadySection />
+      <div className="shell">
+        <AiReadinessAudit />
+      </div>
       <Faq
         eyebrow="Common questions"
         title="Before you get in touch."

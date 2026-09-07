@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useAuth } from "@/context/AuthContext";
@@ -89,6 +90,13 @@ export function SignupPlans() {
               <i aria-hidden="true">{selectedCode === plan.code ? "✓" : ""}</i>
             </button>
           ))}
+          <Link className={styles.planCard} href="/dealership-website-builder">
+            <span className={styles.planTopline}>Custom build</span>
+            <strong>Integrated website</strong>
+            <span className={styles.planPrice}>Custom <small>quoted per project</small></span>
+            <p>Built into a custom dealership website we design and develop.</p>
+            <i aria-hidden="true" style={{ color: "var(--page-accent)" }}>↗</i>
+          </Link>
         </div>
 
         <div className={styles.signupPanel}>
@@ -121,7 +129,7 @@ export function SignupPlans() {
             </div>
             <div className={styles.fieldRow}>
               <label><span>Password</span><input name="password" type="password" autoComplete="new-password" minLength={8} required /><small>At least 8 characters.</small></label>
-              <label><span>State or territory</span><select name="state" defaultValue="WA" required>{DEALER_STATES.map((state) => <option key={state.value} value={state.value}>{state.label}</option>)}</select><small>No street address needed yet.</small></label>
+              <label><span>State or territory</span><select name="state" defaultValue="WA" required>{DEALER_STATES.map((state) => <option key={state.value} value={state.value}>{state.label}</option>)}</select></label>
             </div>
             {error && <p className={styles.signupError} role="alert">{error}</p>}
             <button type="submit" className={styles.signupSubmit} disabled={status === "submitting"}>

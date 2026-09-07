@@ -1,6 +1,7 @@
 /* Shared page shell for the marketing landing pages (/ and /dealers). */
 .page { --page-accent: #247ec9; background: #fff; color: #000; }
-.seoSection { background: #f2f7fb; padding-bottom: 105px; padding-top: 105px; }
+.seoSection { background: #f2f7fb; margin-top: 70px; padding-bottom: 105px; padding-top: 105px; }
+.aiAuditFlush { margin: 0; }
 .seoSummary { display: flex; flex-direction: column; gap: 24px; }
 .seoSummary > span { display: block; }
 .seoSummary a { align-items: center; align-self: flex-start; background: var(--page-accent); color: #fff; display: inline-flex; font-size: .72rem; font-weight: 900; gap: 28px; letter-spacing: .06em; padding: 15px 18px; text-transform: uppercase; }

@@ -22,7 +22,12 @@ if not DEBUG:
     missing = [name for name, value in required_production_secrets.items() if not value]
     if missing:
         raise ImproperlyConfigured(f"Missing required production secrets: {', '.join(missing)}")
-ALLOWED_HOSTS = [host.strip() for host in os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,testserver").split(",") if host.strip()]
+configured_allowed_hosts = [
+    host.strip()
+    for host in os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,testserver").split(",")
+    if host.strip()
+]
+ALLOWED_HOSTS = list(dict.fromkeys(["api.freethedesk.com.au", *configured_allowed_hosts]))
 
 INSTALLED_APPS = [
     "django.contrib.admin",

@@ -102,7 +102,7 @@ export default function LicensingPage() {
 
       <section className={`shell ${styles.closing}`}>
         <p className={styles.sectionLabel}>04 / Remove the barrier</p>
-        <h2>A signature should not require a showroom appointment.</h2>
+        <h2>A signature shouldn't require an appointment.</h2>
         <p>Let customers verify, sign and pay from wherever they are. The paperwork travels—not the customer.</p>
         <Link href="#signup">Choose your plan <span>↑</span></Link>
       </section>
