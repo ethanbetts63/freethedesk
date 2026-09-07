@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/seo", lastModified: "2026-09-06", changeFrequency: "monthly" as const, priority: 0.75 },
     { path: "/guides", lastModified: "2026-09-07", changeFrequency: "weekly" as const, priority: 0.7 },
     { path: "/portfolio/scooter-shop", lastModified: "2026-09-05", changeFrequency: "monthly" as const, priority: 0.75 },
+    { path: "/portfolio/bloomprint", lastModified: "2026-09-07", changeFrequency: "monthly" as const, priority: 0.75 },
     { path: "/contact", lastModified: "2026-09-05", changeFrequency: "yearly" as const, priority: 0.65 },
     { path: "/legal/privacy", lastModified: "2026-09-05", changeFrequency: "yearly" as const, priority: 0.3 },
     { path: "/legal/dealer-subscription-terms", lastModified: "2026-09-05", changeFrequency: "yearly" as const, priority: 0.3 },

@@ -6,6 +6,7 @@ import { ContactEnquiry } from "../contact/ContactEnquiry";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
+import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { ServiceScroll } from "@/components/ServiceScroll";
 import { pageMetadata } from "@/lib/seo";
 import { websiteServices } from "./websiteServices";
@@ -16,7 +17,7 @@ const DESCRIPTION = "Perth website development for businesses that need more tha
 const PATH = "/website-development";
 
 const websiteDevStats: [ProofStat, ProofStat, ProofStat] = [
-  { value: "50%", label: "Won't consider you", description: "Of consumers who won't consider a business with no website, per industry research." },
+  { value: "36%", label: "Of the work week", description: "Time small business owners lose to manual admin tasks." },
   { value: "4", label: "Stages, every project", description: "Understand, design, build, improve—the same process each time." },
   { value: "AI", label: "Are you AI ready?", description: "We check four practical foundations for AI and agentic browsing." },
 ];
@@ -60,9 +61,9 @@ export default function WebsiteDevelopmentPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <FlowHeroConcept
         eyebrow="Website development Perth"
-        title="Built as a system."
-        accentTitle="Not just a page."
-        lead="A website is the part your customers see. We build the part that saves your team hours every week—automated notifications, supplier syncs and booking workflows behind a site that also happens to look good."
+        title="Websites that"
+        accentTitle="work harder."
+        lead="Custom websites and applications that automate the repetitive work behind your business."
         primaryHref="#enquiry"
         primaryLabel="Discuss your website"
         secondaryHref="/portfolio/scooter-shop"
@@ -91,27 +92,17 @@ export default function WebsiteDevelopmentPage() {
         </div>
       </section>
 
-      <section className={`shell ${styles.seoSection}`} id="seo">
-        <div className={styles.seoCopy}>
-          <p className={styles.label}>03 / Continuous SEO</p>
-          <h2>Honest SEO.</h2>
-          <p>SEO is one of the most oversold services on the internet. Anyone promising fast, guaranteed rankings is either wrong or lying—real search growth compounds slowly, over months, not weeks.</p>
-          <p>Every site we build launches with the technical and on-page foundations done properly, no extra charge. Ongoing improvement past that point is optional, priced honestly, and stops the moment it stops earning its keep.</p>
-        </div>
-        <div className={styles.seoCard}>
-          <header className={styles.seoCardHead}>
-            <span>Ongoing, data-driven SEO</span>
-            <b>$50/mo</b>
-          </header>
-          <ul className={styles.seoIncluded}>
-            <li>Strong technical &amp; on-page foundation, included on every site we build</li>
-            <li>Monthly review of rankings, competitors and search data</li>
-            <li>Changes made from evidence, not guesses</li>
-          </ul>
-          <p className={styles.seoWarning}><strong>Early gains can be large. Long-term SEO is slow.</strong> Anyone telling you otherwise is selling something.</p>
-          <p className={styles.seoHonesty}>When we stop finding worthwhile improvements, we&apos;ll say so—and turn it off. No agency should keep charging for work that isn&apos;t working.</p>
-        </div>
-      </section>
+      <SeoReportOverview
+        id="seo"
+        className={styles.seoSection}
+        eyebrow={<>03 / SEO after launch</>}
+        description={
+          <div className={styles.seoReportSummary}>
+            <span>An SEO report subscription for what comes after launch—with a Google Business Profile audit and AI readiness audit included.</span>
+            <Link href="/seo">Explore SEO reports <span>→</span></Link>
+          </div>
+        }
+      />
 
       <section className={`shell ${styles.systemSection}`}>
         <div className={styles.systemVisual} aria-hidden="true">

@@ -6,6 +6,7 @@ import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
+import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { ServiceScroll } from "@/components/ServiceScroll";
 import { pageMetadata } from "@/lib/seo";
 import { formatPrice, getSiteSettingsServer } from "@/lib/serverApi";
@@ -18,20 +19,6 @@ const DESCRIPTION = "See what is working, what is holding your website back and 
 const PATH = "/seo";
 
 export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
-
-const reportSections = [
-  ["Last period tracked", "What moved, what didn't."],
-  ["Issues", "What's broken or holding you back."],
-  ["Opportunities", "Searches you're missing."],
-  ["What to do next", "Ranked, with effort estimates."],
-];
-
-const reportIcons = [
-  <svg key="tracked" viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M3 17l5.5-5.5 3.5 3.5L21 6" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" /><path d="M16 6h5v5" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-  <svg key="issues" viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 3.5 22 20H2L12 3.5Z" stroke="currentColor" strokeWidth="1.9" strokeLinejoin="round" /><path d="M12 10v4" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" /><circle cx="12" cy="17" r="1" fill="currentColor" /></svg>,
-  <svg key="opportunities" viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.9" /><circle cx="12" cy="12" r="4.5" stroke="currentColor" strokeWidth="1.9" /><circle cx="12" cy="12" r="1.2" fill="currentColor" /></svg>,
-  <svg key="next" viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M3 7.5 5 9.5 9 5.5M3 17 5 19l4-4" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" /><path d="M13 8h8M13 17h8" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" /></svg>,
-];
 
 const pipelineSteps = [
   ["Machine sweep", "Pre-written crawl code, benchmark data from past projects and pre-planned AI search routines run over your site and your Search Console data."],
@@ -106,32 +93,11 @@ export default async function SeoPage() {
 
       <ProofStrip stats={seoStats} />
 
-      <section className={`shell ${styles.reportSection}`} id="report">
-        <div className={styles.reportCopy}>
-          <p className={styles.label}>01 / What you&apos;re buying</p>
-          <h2>One document.<br />Four sections.</h2>
-          <p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>
-        </div>
-
-        <div className={styles.reportCard}>
-          <header className={styles.reportCardHead}>
-            <span className={styles.reportDots} aria-hidden="true"><i /><i /><i /></span>
-            <div><strong>Quarterly SEO report</strong><small>Your business · this quarter</small></div>
-          </header>
-          <ol className={styles.reportList}>
-            {reportSections.map(([title, note], index) => (
-              <li key={title}>
-                <span className={styles.reportIndex}>0{index + 1}</span>
-                <span className={styles.reportIcon} aria-hidden="true">{reportIcons[index]}</span>
-                <div><h3>{title}</h3><p>{note}</p></div>
-              </li>
-            ))}
-          </ol>
-          <footer className={styles.reportCardFoot}>
-            <span>Plain English</span><span>Ranked by impact</span><span>Effort estimate on every item</span>
-          </footer>
-        </div>
-      </section>
+      <SeoReportOverview
+        id="report"
+        eyebrow={<>01 / What you&apos;re buying</>}
+        description={<p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>}
+      />
 
       <section className={`shell ${styles.plansSection}`} id="plans">
         <p className={styles.label}>02 / Plans</p>

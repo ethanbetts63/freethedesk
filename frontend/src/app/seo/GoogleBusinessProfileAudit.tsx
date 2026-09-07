@@ -35,9 +35,15 @@ export function GoogleBusinessProfileAudit({ standalonePrice }: { standalonePric
         </p>
 
         <div className={styles.offer}>
-          <span><strong>Included free</strong><small>with every report plan</small></span>
-          <i aria-hidden="true" />
-          <span><strong>{standalonePrice}</strong><small>as a one-off audit</small></span>
+          <div className={styles.offerOption}>
+            <small>With every report plan</small>
+            <strong>Included free</strong>
+          </div>
+          <span className={styles.offerOr}>OR</span>
+          <div className={styles.offerOption}>
+            <small>One-off audit</small>
+            <span className={styles.priceLine}><strong>{standalonePrice}</strong><em>once</em></span>
+          </div>
         </div>
 
         <div className={styles.actions}>

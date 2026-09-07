@@ -23,6 +23,7 @@ export const FOOTER_NAVIGATION = [
   { href: "/automation", label: "Automation" },
   { href: "/seo", label: "SEO" },
   { href: "/portfolio/scooter-shop", label: "Scooter Shop case study" },
+  { href: "/portfolio/bloomprint", label: "Bloomprint case study" },
   { href: "/contact", label: "Contact" },
   { href: "/login", label: "Login" },
 ] as const;

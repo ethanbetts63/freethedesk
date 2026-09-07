@@ -16,12 +16,6 @@ export function AiReadinessAudit({ standalonePrice }: { standalonePrice: string 
       <div className={styles.glow} aria-hidden="true" />
       <div className={styles.beam} aria-hidden="true" />
 
-      <div className={styles.topRail} aria-hidden="true">
-        <span>FTD.AI / READINESS</span>
-        <span><i /> Diagnostic online</span>
-        <span>4 signal protocol</span>
-      </div>
-
       <div className={styles.console} aria-label="AI readiness diagnostic preview">
         <header>
           <span><i /> Example diagnostic</span>
@@ -30,16 +24,8 @@ export function AiReadinessAudit({ standalonePrice }: { standalonePrice: string 
 
         <div className={styles.scanner} aria-hidden="true">
           <span className={`${styles.metric} ${styles.metricOne}`}>DOM <b>1,274</b></span>
-          <span className={`${styles.metric} ${styles.metricTwo}`}>CLS <b>0.04</b></span>
-          <span className={`${styles.metric} ${styles.metricThree}`}>BOT <b>ALLOW</b></span>
-          <svg className={styles.network} viewBox="0 0 430 230" preserveAspectRatio="none">
-            <path d="M35 62 118 38 205 112 309 48 394 84M45 178l73-52 87-14 102 70 87-48M118 38v88m87-14v82M309 48l-2 134M35 62l10 116m349-94v50" />
-            <circle cx="35" cy="62" r="4" /><circle cx="45" cy="178" r="4" />
-            <circle cx="118" cy="38" r="5" /><circle cx="118" cy="126" r="4" />
-            <circle cx="205" cy="112" r="6" /><circle cx="205" cy="194" r="4" />
-            <circle cx="309" cy="48" r="5" /><circle cx="307" cy="182" r="4" />
-            <circle cx="394" cy="84" r="4" /><circle cx="394" cy="134" r="4" />
-          </svg>
+          <span className={`${styles.metric} ${styles.metricTwo}`}>CLS <b>0.31</b></span>
+          <span className={`${styles.metric} ${styles.metricThree}`}>BOT <b>BLOCKED</b></span>
           <div className={styles.core}>
             <div className={styles.orbit}><i /><i /><i /></div>
             <span>AI</span>
@@ -65,7 +51,6 @@ export function AiReadinessAudit({ standalonePrice }: { standalonePrice: string 
       </div>
 
       <div className={styles.copy}>
-        <p className={styles.eyebrow}><i /> Optional AI readiness check</p>
         <h3 id="ai-readiness-title">Can AI systems<br /><span>read your site?</span></h3>
         <p className={styles.intro}>
           A focused technical check for the parts of your website that AI agents and answer
@@ -79,8 +64,15 @@ export function AiReadinessAudit({ standalonePrice }: { standalonePrice: string 
         </ul>
 
         <div className={styles.offer}>
-          <span><small>Standalone check</small><strong>{standalonePrice}</strong><em>once</em></span>
-          <span><small>With any SEO report</small><strong>Included free</strong></span>
+          <div className={styles.offerOption}>
+            <small>Standalone check</small>
+            <span className={styles.priceLine}><strong>{standalonePrice}</strong><em>once</em></span>
+          </div>
+          <span className={styles.offerOr}>OR</span>
+          <div className={styles.offerOption}>
+            <small>With every report plan</small>
+            <strong>Included free</strong>
+          </div>
         </div>
 
         <Link className={styles.cta} href="/contact">

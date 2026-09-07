@@ -6,25 +6,18 @@
 .label { color: var(--page-accent); font-size: .68rem; font-weight: 900; letter-spacing: .14em; margin: 0 0 23px; text-transform: uppercase; }
 .enquirySection { padding-bottom: 20px; padding-top: 70px; }
 .intro { display: grid; gap: clamp(60px, 9vw, 135px); grid-template-columns: 1fr .9fr; padding-bottom: 125px; padding-top: 125px; }
-.intro h2, .sectionHeading h2, .seoCopy h2, .systemCopy h2, .proofSection h2, .closing h2 { font-size: clamp(3rem, 5.3vw, 5.7rem); letter-spacing: -.072em; line-height: .93; margin: 0; }
+.intro h2, .sectionHeading h2, .systemCopy h2, .proofSection h2, .closing h2 { font-size: clamp(3rem, 5.3vw, 5.7rem); letter-spacing: -.072em; line-height: .93; margin: 0; }
 .intro > div:last-child { align-self: end; max-width: 520px; }
 .intro > div:last-child p, .systemCopy > p, .proofSection > div:last-child > p { color: #536c80; font-size: .98rem; line-height: 1.78; margin: 0 0 18px; }
 .servicesSection { background: #f2f7fb; padding: 115px 0 125px; }
 .sectionHeading { max-width: 900px; }
 .servicesClosing { color: #13315c; font-size: 1.25rem; font-weight: 750; letter-spacing: -.02em; line-height: 1.5; margin: 48px 0 0; max-width: 720px; }
-.seoSection { align-items: center; background: #f2f7fb; display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: 1.05fr .95fr; padding: 120px 0; }
-.seoCopy p { color: #536c80; font-size: 1rem; line-height: 1.78; margin: 24px 0 0; max-width: 480px; }
-.seoCopy p + p { margin-top: 16px; }
-.seoCard { background: #fff; border: 1px solid #cad9e4; padding: 28px; }
-.seoCardHead { align-items: center; border-bottom: 1px solid #d9e5ef; display: flex; gap: 12px; justify-content: space-between; margin-bottom: 20px; padding-bottom: 18px; }
-.seoCardHead span { font-size: .77rem; font-weight: 900; text-transform: uppercase; }
-.seoCardHead b { color: var(--page-accent); font-size: .95rem; font-weight: 900; white-space: nowrap; }
-.seoIncluded { border-bottom: 1px dashed #cad9e4; list-style: none; margin: 0 0 20px; padding: 0 0 22px; }
-.seoIncluded li { color: #2b4051; font-size: .84rem; font-weight: 650; line-height: 1.6; margin: 12px 0; padding-left: 20px; position: relative; }
-.seoIncluded li::before { color: var(--page-accent); content: "↳"; left: 0; position: absolute; }
-.seoWarning { color: #07121c; font-size: .87rem; line-height: 1.68; margin: 0 0 16px; }
-.seoWarning strong { color: #b52c2c; }
-.seoHonesty { background: #eaf3fb; border-left: 3px solid var(--page-accent); color: #2b4051; font-size: .82rem; line-height: 1.65; margin: 0; padding: 12px 15px; }
+.seoSection { background: #f2f7fb; padding-bottom: 105px; padding-top: 105px; }
+.seoReportSummary { display: flex; flex-direction: column; gap: 24px; }
+.seoReportSummary > span { display: block; }
+.seoReportSummary a { align-items: center; align-self: flex-start; background: var(--page-accent); color: #fff; display: inline-flex; font-size: .72rem; font-weight: 900; gap: 28px; letter-spacing: .06em; padding: 15px 18px; text-transform: uppercase; }
+.seoReportSummary a span { display: inline-block; transition: transform .2s ease; }
+.seoReportSummary a:hover span { transform: translateX(4px); }
 .systemSection { align-items: center; display: grid; gap: clamp(65px, 10vw, 145px); grid-template-columns: 1.08fr .92fr; padding-bottom: 135px; padding-top: 135px; }
 .systemVisual { background: #13315c; box-shadow: 22px 22px 0 #e2edf4; color: #fff; min-height: 515px; overflow: hidden; position: relative; }
 .systemVisual::before { background-image: linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px); background-size: 35px 35px; content: ""; inset: 0; position: absolute; }
@@ -52,14 +45,14 @@
 .closing > a { align-items: center; background: var(--page-accent); color: #fff; display: inline-flex; font-size: .8rem; font-weight: 900; gap: 35px; padding: 17px 20px; }
 
 @media (max-width: 900px) {
-  .intro, .systemSection, .proofSection, .seoSection { grid-template-columns: 1fr; }
+  .intro, .systemSection, .proofSection { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 620px) {
   .enquirySection { padding-top: 50px; }
   .intro, .systemSection, .proofSection { padding-bottom: 82px; padding-top: 82px; }
   .servicesSection { padding-bottom: 80px; padding-top: 80px; }
-  .seoSection { padding: 82px 0; }
+  .seoSection { padding-bottom: 82px; padding-top: 82px; }
   .systemVisual { min-height: 440px; }
   .closing { margin-bottom: 80px; margin-top: 80px; padding: 65px 22px; }
 }

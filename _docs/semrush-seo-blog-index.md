@@ -1,31 +1,31 @@
 # Semrush Blog - SEO-Relevant Index
 
 Source: semrush.com/blog. Pulled from Semrush's own SEO categories (general SEO, keyword research, link building, local, on-page, technical, FAQ) plus Marketing: AI, Competitor Intelligence & Research, and Analytics.
-968 entries, grouped with the same scheme as the main index (with two Semrush-only groups: 'SEO Careers, Agencies & Pricing' and 'Industry & Niche SEO'). Titles and dates (edit date, else publish date) are from Semrush. Companion to omg-blog-index.md - kept separate so it doesn't swamp the curated set.
-Classification is automated from URL slugs, so some entries will sit in an adjacent group. Excluded: pure PPC, pure social/email, general marketing strategy, and Semrush product/company posts.
+928 entries, grouped with the same scheme as the main index (with two Semrush-only groups: 'SEO Careers, Agencies & Pricing' and 'Industry & Niche SEO'). Titles and dates (edit date, else publish date) are from Semrush. Companion to omg-blog-index.md - kept separate so it doesn't swamp the curated set.
+Classification is automated from URL slugs, so some entries will sit in an adjacent group. Excluded: pure PPC, pure social/email, general marketing strategy, Semrush product/community posts (#Semrushchat, video series, product tours), dead-tech pieces (meta keywords, Fetch and Render, Universal Analytics, AMP, cached pages), one-off past algorithm recaps, and a batch of thin auto-generated FAQ stubs.
 
 ## Contents
 - [SEO Basics & How Search Works](#seo-basics-how-search-works) (27)
-- [SEO Strategy, Cost & Hiring](#seo-strategy-cost-hiring) (112)
+- [SEO Strategy, Cost & Hiring](#seo-strategy-cost-hiring) (104)
 - [SEO Careers, Agencies & Pricing](#seo-careers-agencies-pricing) (21)
 - [Industry & Niche SEO](#industry-niche-seo) (22)
-- [Keyword Research (SEO)](#keyword-research-seo) (97)
+- [Keyword Research (SEO)](#keyword-research-seo) (92)
 - [Content Strategy & Planning](#content-strategy-planning) (9)
-- [Content Writing & On-Page Optimisation](#content-writing-onpage-optimisation) (60)
-- [Technical SEO: Crawling, Indexing & Audits](#technical-seo-crawling-indexing-audits) (140)
+- [Content Writing & On-Page Optimisation](#content-writing-onpage-optimisation) (58)
+- [Technical SEO: Crawling, Indexing & Audits](#technical-seo-crawling-indexing-audits) (130)
 - [Technical SEO: URLs, Redirects & Site Architecture](#technical-seo-urls-redirects-site-architecture) (31)
 - [Site Speed & Core Web Vitals](#site-speed-core-web-vitals) (12)
 - [Link Building & Digital PR](#link-building-digital-pr) (67)
-- [Local SEO & Google Business Profile](#local-seo-google-business-profile) (73)
-- [SERP Features, Zero-Click & Voice Search](#serp-features-zeroclick-voice-search) (28)
-- [SEO Analytics, Reporting & Tools](#seo-analytics-reporting-tools) (69)
-- [SEO Competitor Analysis](#seo-competitor-analysis) (57)
-- [SEO Tools & Software](#seo-tools-software) (23)
-- [Generative Engine Optimisation (GEO / AEO) Strategy](#generative-engine-optimisation-geo-aeo-strategy) (80)
+- [Local SEO & Google Business Profile](#local-seo-google-business-profile) (71)
+- [SERP Features, Zero-Click & Voice Search](#serp-features-zeroclick-voice-search) (27)
+- [SEO Analytics, Reporting & Tools](#seo-analytics-reporting-tools) (64)
+- [SEO Competitor Analysis](#seo-competitor-analysis) (53)
+- [SEO Tools & Software](#seo-tools-software) (22)
+- [Generative Engine Optimisation (GEO / AEO) Strategy](#generative-engine-optimisation-geo-aeo-strategy) (79)
 - [Ranking in AI Overviews & ChatGPT](#ranking-in-ai-overviews-chatgpt) (12)
 - [AI Tools & Platforms](#ai-tools-platforms) (11)
 - [Using AI in Marketing Workflows](#using-ai-in-marketing-workflows) (8)
-- [Platform Search SEO: Pinterest & YouTube](#platform-search-seo-pinterest-youtube) (4)
+- [Platform Search SEO: Pinterest & YouTube](#platform-search-seo-pinterest-youtube) (3)
 - [Ecommerce Store Design & Optimisation](#ecommerce-store-design-optimisation) (5)
 
 ## SEO Basics & How Search Works
@@ -62,17 +62,17 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 
 ## SEO Strategy, Cost & Hiring
 
-112 articles.
+104 articles.
 
 - [How to prepare your site for AI agents](https://www.semrush.com/blog/how-to-prepare-your-site-for-ai-agents/) - Semrush, 2026-09-02
 - [18 SEO KPIs to measure organic & AI search performance](https://www.semrush.com/blog/seo-kpis/) - Semrush, 2026-08-31
 - [SEO strategy in 2026: how to build one (+ free workbook)](https://www.semrush.com/blog/seo-strategy/) - Semrush, 2026-08-17
 - [Google E-E-A-T: What it is & how it affects SEO](https://www.semrush.com/blog/eeat/) - Semrush, 2026-06-23
 - [9 ways to improve SEO rankings and traffic](https://www.semrush.com/blog/improve-seo/) - Semrush, 2026-06-04
-- [How to build brand visibility in AI search](https://www.semrush.com/blog/brand-visibility/) - Semrush, 2026-04-29
 - [SEO mistakes: Common SEO issues & how to fix them](https://www.semrush.com/blog/biggest-seo-mistakes/) - Semrush, 2026-04-29
-- [SEO checklist: 43 tips to optimize your website](https://www.semrush.com/blog/seo-checklist/) - Semrush, 2026-04-20
+- [How to build brand visibility in AI search](https://www.semrush.com/blog/brand-visibility/) - Semrush, 2026-04-29
 - [Brand Mentions: Complete Guide to Tracking, Measuring & Optimizing](https://www.semrush.com/blog/brand-mentions/) - Semrush, 2026-04-20
+- [SEO checklist: 43 tips to optimize your website](https://www.semrush.com/blog/seo-checklist/) - Semrush, 2026-04-20
 - [5 Ways to Increase Your Website Authority in 2026](https://www.semrush.com/blog/how-to-build-website-authority/) - Semrush, 2026-04-14
 - [Your guide to SEO ranking in organic search](https://www.semrush.com/blog/seo-ranking/) - Semrush, 2026-04-10
 - [12 SEO Techniques to Boost Your Visibility and Traffic (2026)](https://www.semrush.com/blog/seo-techniques/) - Semrush, 2026-03-25
@@ -84,17 +84,13 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [9 Biggest SEO Trends of 2025 & How to Leverage Them](https://www.semrush.com/blog/seo-trends/) - Semrush, 2025-12-03
 - [8 Bad SEO Practices to Avoid & What to Do Instead](https://www.semrush.com/blog/bad-seo-practices/) - Semrush, 2025-10-23
 - [News SEO Guide: How to Optimize News Articles for Search](https://www.semrush.com/blog/news-seo/) - Semrush, 2025-10-22
-- [What are top SEO trends marketers need to know?](https://www.semrush.com/blog/what-are-top-seo-trends-marketers-need-to-know/) - Semrush, 2025-09-24
-- [What are common SEO mistakes to avoid?](https://www.semrush.com/blog/what-are-common-seo-mistakes-to-avoid/) - Semrush, 2025-09-24
 - [How do you improve SEO on Amazon?](https://www.semrush.com/blog/how-do-you-improve-seo-on-amazon/) - Semrush, 2025-09-24
+- [What are common SEO mistakes to avoid?](https://www.semrush.com/blog/what-are-common-seo-mistakes-to-avoid/) - Semrush, 2025-09-24
 - [How to Get to the Top of Google Search Results (10 Tips)](https://www.semrush.com/blog/get-to-top-of-google-search/) - Semrush, 2025-09-22
 - [Why Your Brand Is Your Most Important SEO Asset in 2026](https://www.semrush.com/blog/seo-branding/) - Semrush, 2025-09-22
 - [5 Google News SEO Tactics to Help Your Articles Rank](https://www.semrush.com/blog/google-news-seo/) - Semrush, 2025-09-18
 - [What is E-E-A-T in SEO?](https://www.semrush.com/blog/what-is-e-e-a-t-in-seo/) - Semrush, 2025-09-16
-- [What are some case studies demonstrating successful enterprise SEO initiatives?](https://www.semrush.com/blog/what-are-some-case-studies-demonstrating-successful-enterprise-seo-initiatives/) - Semrush, 2025-09-16
 - [What is domain authority and how does it impact SEO?](https://www.semrush.com/blog/what-is-domain-authority-and-how-does-it-impact-seo/) - Semrush, 2025-09-16
-- [What are some challenges and solutions in enterprise-level SEO management?](https://www.semrush.com/blog/what-are-some-challenges-and-solutions-in-enterprise-level-seo-management/) - Semrush, 2025-09-16
-- [What are proven tactics for increasing organic search visibility?](https://www.semrush.com/blog/what-are-proven-tactics-for-increasing-organic-search-visibility/) - Semrush, 2025-09-16
 - [How do you optimize meta tags for SEO?](https://www.semrush.com/blog/how-do-you-optimize-meta-tags-for-seo/) - Semrush, 2025-09-16
 - [What Is SEO Marketing? And How to Do It](https://www.semrush.com/blog/seo-marketing/) - Semrush, 2025-09-15
 - [What Is Google SEO? A Beginner’s Guide to Ranking Higher](https://www.semrush.com/blog/google-seo/) - Semrush, 2025-08-19
@@ -105,8 +101,8 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [SEO Plagiarism: Tools to Identify & Prevent Copycat Content](https://www.semrush.com/blog/seo-plagiarism/) - Semrush, 2025-02-18
 - [SEO for Photographers Who Want More Traffic from Google](https://www.semrush.com/blog/seo-for-photographers/) - Semrush, 2025-01-30
 - [How to Get on the First Page of Google (Without Paying for Ads)](https://www.semrush.com/blog/get-on-first-page-of-google/) - Semrush, 2025-01-16
-- [How do I audit my website?](https://www.semrush.com/blog/how-do-i-audit-my-website/) - Semrush, 2025-01-10
 - [What are SEO best practices?](https://www.semrush.com/blog/what-are-seo-best-practices/) - Semrush, 2025-01-10
+- [How do I audit my website?](https://www.semrush.com/blog/how-do-i-audit-my-website/) - Semrush, 2025-01-10
 - [Low Hanging Fruit SEO: Quick Wins for Your Site](https://www.semrush.com/blog/low-hanging-fruit-seo/) - Semrush, 2024-12-09
 - [How to Rank Higher on Google and Get More Organic Traffic](https://www.semrush.com/blog/rank-higher-on-google/) - Semrush, 2024-11-28
 - [7 SEO Challenges (+ How to Overcome Them)](https://www.semrush.com/blog/seo-challenges/) - Semrush, 2024-11-19
@@ -126,12 +122,12 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [Data Science for SEO: What It Is & How to Apply It](https://www.semrush.com/blog/seo-data-science/) - Semrush, 2024-03-07
 - [Why Is My Business Not Showing Up on Google? (+ Solutions)](https://www.semrush.com/blog/why-your-business-is-not-showing-up-on-google/) - Semrush, 2024-03-06
 - [The Power of PPC and SEO Working Together](https://www.semrush.com/blog/ppc-and-seo-working-together/) - Semrush, 2024-03-05
-- [Semantic Search: What It Is and Why It Matters for SEO](https://www.semrush.com/blog/semantic-search/) - Semrush, 2024-02-22
 - [Wix SEO: How to Rank Better with Your Wix Website](https://www.semrush.com/blog/wix-seo/) - Semrush, 2024-02-22
+- [Semantic Search: What It Is and Why It Matters for SEO](https://www.semrush.com/blog/semantic-search/) - Semrush, 2024-02-22
 - [SEO Leads: 12 Ways to Earn More SEO Clients](https://www.semrush.com/blog/seo-leads/) - Semrush, 2024-02-15
 - [SEO Affiliate Programs: The 13 Best Options for Earning Money (2024)](https://www.semrush.com/blog/seo-affiliate/) - Semrush, 2024-02-13
-- [Search Engine Positioning: What It Is + How to Improve It](https://www.semrush.com/blog/search-engine-positioning/) - Semrush, 2024-02-12
 - [Bing Search Guide: History, AI Features, and SEO Tips](https://www.semrush.com/blog/bing-search/) - Semrush, 2024-02-12
+- [Search Engine Positioning: What It Is + How to Improve It](https://www.semrush.com/blog/search-engine-positioning/) - Semrush, 2024-02-12
 - [Squarespace SEO: 7 Tips to Optimize Your Website](https://www.semrush.com/blog/squarespace-seo/) - Semrush, 2024-02-09
 - [12 of the Biggest SEO Myths: Explained & Debunked](https://www.semrush.com/blog/seo-myths/) - Semrush, 2024-01-31
 - [How to Determine SEO Potential: A Comprehensive Guide](https://www.semrush.com/blog/seo-potential/) - Semrush, 2024-01-24
@@ -162,7 +158,6 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [5 Things Holding Your Website Rankings Back](https://www.semrush.com/blog/google-website-rankings/) - Semrush, 2021-06-30
 - [Top 5 Google SEO Performance Indicators](https://www.semrush.com/blog/top-5-google-seo-performance-indicators/) - Semrush, 2020-12-23
 - [Do TLDs Affect SEO?](https://www.semrush.com/blog/will-using-alternate-tlds-affect-your-seo-negatively/) - Semrush, 2020-12-21
-- [How To Address Attention Spans with SEO in 2020](https://www.semrush.com/blog/attention-span-seo-2020/) - Semrush, 2020-09-04
 - [12 Reasons Why Infographics Still Matter in SEO](https://www.semrush.com/blog/12-reasons-why-infographics-still-matter-in-seo/) - Semrush, 2020-09-04
 - [14 Google Sheets Formulas Every SEO Needs To Know](https://www.semrush.com/blog/google-sheets-formulas-for-seo/) - Semrush, 2020-08-14
 - [SEO for Startups: 5 Steps To Build Your Online Presence](https://www.semrush.com/blog/how-startups-should-do-seo/) - Semrush, 2020-07-02
@@ -173,9 +168,6 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [The Secret to Landing Big SEO Clients and Keeping Them Happy](https://www.semrush.com/blog/the-secret-to-landing-big-seo-clients-and-keeping-them-happy/) - Semrush, 2018-02-13
 - [How To Measure the Impact of Your Site Migration](https://www.semrush.com/blog/how-to-measure-impact-site-migration/) - Semrush, 2017-06-30
 - [6 Common Misconceptions About SEO That Can Hurt Your Digital Marketing](https://www.semrush.com/blog/6-common-misconceptions-about-seo-that-can-hurt-your-digital-marketing/) - Semrush, 2017-02-28
-- [36+ Experts Share Insights About SEO Around Europe](https://www.semrush.com/blog/36-experts-share-insights-about-seo-around-europe/) - Semrush, 2016-12-05
-- [11 Most Common On-Site SEO Mistakes (Semrush Study)](https://www.semrush.com/blog/semrush-study-on-site-seo-issues/) - Semrush, 2016-07-19
-- [Parallax Web Design vs. SEO: What You Need To Know](https://www.semrush.com/blog/parallax-vs-seo-web-design/) - Semrush, 2015-06-04
 
 ## SEO Careers, Agencies & Pricing
 
@@ -232,7 +224,7 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 
 ## Keyword Research (SEO)
 
-97 articles.
+92 articles.
 
 - [Long-tail keywords: the ultimate guide](https://www.semrush.com/blog/how-to-choose-long-tail-keywords/) - Semrush, 2026-09-03
 - [AI keyword research: How to use free chatbot tools](https://www.semrush.com/blog/ai-keyword-research/) - Semrush, 2026-08-13
@@ -256,16 +248,15 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [How to Do Keyword Clustering & Why It Helps SEO](https://www.semrush.com/blog/keyword-clustering/) - Semrush, 2025-10-29
 - [Reddit Keyword Research: How to Find Hidden SEO Opportunities](https://www.semrush.com/blog/reddit-keyword-research/) - Semrush, 2025-10-22
 - [What are methods for keyword clustering and topic modeling?](https://www.semrush.com/blog/what-are-methods-for-keyword-clustering-and-topic-modeling/) - Semrush, 2025-09-25
-- [What is keyword density, and does it matter?](https://www.semrush.com/blog/what-is-keyword-density-and-does-it-matter/) - Semrush, 2025-09-25
 - [Why is keyword research essential to content marketing?](https://www.semrush.com/blog/why-is-keyword-research-essential-to-content-marketing/) - Semrush, 2025-09-25
+- [What is keyword density, and does it matter?](https://www.semrush.com/blog/what-is-keyword-density-and-does-it-matter/) - Semrush, 2025-09-25
 - [How to Track Keywords: Tips, Examples & Checklist](https://www.semrush.com/blog/how-to-track-keywords/) - Semrush, 2025-09-22
 - [A Guide to Keyword Competition in SEO & PPC (2025 Data)](https://www.semrush.com/blog/keyword-competition/) - Semrush, 2025-09-19
 - [Keyword Traffic Analysis: How to Boost SEO Results](https://www.semrush.com/blog/keyword-traffic-analysis/) - Semrush, 2025-09-17
-- [Which free tool is best for keyword research?](https://www.semrush.com/blog/which-free-tool-is-best-for-keyword-research/) - Semrush, 2025-09-16
 - [What is the best free keyword research tool?](https://www.semrush.com/blog/what-is-the-best-free-keyword-research-tool/) - Semrush, 2025-09-16
 - [Keyword Analysis: What It Is & How to Do It](https://www.semrush.com/blog/keyword-analysis/) - Semrush, 2025-09-15
-- [6 Tools to Find New Keywords (Free + Paid Options)](https://www.semrush.com/blog/find-new-keywords/) - Semrush, 2025-08-18
 - [What Are SEO Keywords? How to Find & Use Them](https://www.semrush.com/blog/seo-keywords/) - Semrush, 2025-08-18
+- [6 Tools to Find New Keywords (Free + Paid Options)](https://www.semrush.com/blog/find-new-keywords/) - Semrush, 2025-08-18
 - [11 Best Keyword Tracking Tools for 2025 (Tried & Reviewed)](https://www.semrush.com/blog/keyword-tracking-tools/) - Semrush, 2025-08-12
 - [Keyword Rankings: What They Are & How to Check Yours](https://www.semrush.com/blog/google-keyword-ranking/) - Semrush, 2025-08-08
 - [What Are Keyword Match Types? Examples + Best Practices](https://www.semrush.com/blog/keyword-match-types/) - Semrush, 2025-08-05
@@ -275,19 +266,19 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [Finding SERP Weak Spots: A Guide to Improving Your SEO Rankings](https://www.semrush.com/blog/finding-serp-weak-spots/) - Semrush, 2025-02-10
 - [4 Types of Keywords in SEO (+ Examples)](https://www.semrush.com/blog/types-of-keywords-commercial-informational-navigational-transactional/) - Semrush, 2025-01-21
 - [Mobile Keyword Research: What It Is & How to Do It](https://www.semrush.com/blog/mobile-keyword-research/) - Semrush, 2025-01-15
-- [Is Google Keyword Planner free?](https://www.semrush.com/blog/is-google-keyword-planner-free/) - Semrush, 2025-01-10
 - [What are the different types of keywords?](https://www.semrush.com/blog/what-are-the-different-types-of-keywords/) - Semrush, 2025-01-10
-- [What is an example of a keyword?](https://www.semrush.com/blog/what-is-an-example-of-a-keyword/) - Semrush, 2025-01-10
 - [What is keyword research?](https://www.semrush.com/blog/what-is-keyword-research/) - Semrush, 2025-01-10
 - [What is keyword difficulty?](https://www.semrush.com/blog/what-is-keyword-difficulty/) - Semrush, 2025-01-10
-- [What are long-tail keywords?](https://www.semrush.com/blog/what-are-long-tail-keywords/) - Semrush, 2025-01-10
+- [What is an example of a keyword?](https://www.semrush.com/blog/what-is-an-example-of-a-keyword/) - Semrush, 2025-01-10
+- [Is Google Keyword Planner free?](https://www.semrush.com/blog/is-google-keyword-planner-free/) - Semrush, 2025-01-10
 - [What is keyword analysis?](https://www.semrush.com/blog/what-is-keyword-analysis/) - Semrush, 2025-01-10
+- [What are long-tail keywords?](https://www.semrush.com/blog/what-are-long-tail-keywords/) - Semrush, 2025-01-10
 - [Ecommerce Keyword Research: A Practical Guide](https://www.semrush.com/blog/ecommerce-keyword-research/) - Semrush, 2024-12-16
 - [What Is Keyword Difficulty? (& How to Measure It)](https://www.semrush.com/blog/keyword-difficulty/) - Semrush, 2024-12-11
 - [What Are Keyword Phrases? And How They Help Your SEO](https://www.semrush.com/blog/keyword-phrases/) - Semrush, 2024-11-28
 - [What Is Search Intent? How to Identify It & Optimize for It](https://www.semrush.com/blog/search-intent/) - Semrush, 2024-11-21
-- [What Is Keyword Intent? An Overview & How to Identify It](https://www.semrush.com/blog/keyword-intent/) - Semrush, 2024-11-18
 - [What Is a Search Query? (And How It Differs from a Keyword)](https://www.semrush.com/blog/search-query/) - Semrush, 2024-11-18
+- [What Is Keyword Intent? An Overview & How to Identify It](https://www.semrush.com/blog/keyword-intent/) - Semrush, 2024-11-18
 - [How to Use Keywords for SEO: 7 Best Tips](https://www.semrush.com/blog/how-to-use-keywords-for-seo/) - Semrush, 2024-10-18
 - [Keyword Marketing: What It Is & How to Do It](https://www.semrush.com/blog/keyword-marketing/) - Semrush, 2024-09-16
 - [Keyword Density: What Is It & Does It Impact SEO?](https://www.semrush.com/blog/keyword-density/) - Semrush, 2024-09-12
@@ -320,16 +311,12 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [Advanced Keyword Research with Semrush (ft. Keyword Magic Tool)](https://www.semrush.com/blog/keyword-research-with-semrush-keyword-magic/) - Semrush, 2022-05-27
 - [How to Search for Keywords for Your Business](https://www.semrush.com/blog/how-to-search-for-keywords/) - Semrush, 2021-07-07
 - [The Guide to Finding Keywords You Ranked or Lost After a Google Algorithm Update](https://www.semrush.com/blog/guide-finding-keywords-ranked-lost-google-algorithm-update/) - Semrush, 2020-12-29
-- [How To Target the Right Keywords: Keyword Research](https://www.semrush.com/blog/best-tweets-semrushchat-how-to-target-right-keywords/) - Semrush, 2020-08-01
 - [What Google Trends Teaches Us About When To Trust Data](https://www.semrush.com/blog/what-google-trends-teaches-us-trust-data/) - Semrush, 2019-08-30
 - [Weekly Wisdom with Ross Tavendale: Super Fast Keyword Research](https://www.semrush.com/blog/weekly-wisdom-with-ross-tavendale-super-fast-keyword-research/) - Semrush, 2019-01-29
 - [On-Page Boot Camp: How To Identify Striking Distance Keywords](https://www.semrush.com/blog/on-page-boot-camp-identify-striking-distance-keywords/) - Semrush, 2017-07-31
-- [School of Rush: Latest Guides and Tutorials](https://www.semrush.com/blog/school-of-rush-latest-guides-tutorials/) - Semrush, 2017-03-20
-- [Keyword Research Challenges and How To Master Them in 2017 #Semrushchat](https://www.semrush.com/blog/keyword-research-challenges-and-how-to-master-them-in-2017-semrushchat/) - Semrush, 2016-12-27
 - [Check the List: Exporting Select Keywords in Semrush](https://www.semrush.com/blog/check-the-list-exporting-select-keywords-in-semrush/) - Semrush, 2016-06-16
 - [How To Build a Keyword Research Plan](https://www.semrush.com/blog/how-to-build-a-keyword-research-plan/) - Semrush, 2015-05-12
 - [Keyword Opportunities: 4 Tools That Will Open Your Eyes](https://www.semrush.com/blog/keyword-opportunities-4-tools-will-open-eyes/) - Semrush, 2015-03-10
-- [Meta Keywords Generator: Get Your Meta Keywords Delivered in No Time](https://www.semrush.com/blog/meta-keywords-generator-get-your-meta-keywords-delivered-in-no-time/) - Semrush, 2013-05-31
 - [Predict Your Traffic Volumes with Keyword Traffic Estimator](https://www.semrush.com/blog/predict-your-traffic-volumes-with-keyword-traffic-estimator/) - Semrush, 2013-05-21
 
 ## Content Strategy & Planning
@@ -348,7 +335,7 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 
 ## Content Writing & On-Page Optimisation
 
-60 articles.
+58 articles.
 
 - [SEO content: A complete guide for search and AI](https://www.semrush.com/blog/seo-content/) - Semrush, 2026-08-17
 - [Topical Gravity: Why topics are the new unit of your search strategy](https://www.semrush.com/blog/topical-gravity/) - Semrush, 2026-08-11
@@ -362,10 +349,10 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [How to optimize images for SEO?](https://www.semrush.com/blog/how-to-optimize-images-for-seo/) - Semrush, 2025-09-24
 - [What is SEO in blogging?](https://www.semrush.com/blog/what-is-seo-in-blogging/) - Semrush, 2025-09-24
 - [Homepage SEO: What Makes It Unique & How to Do It](https://www.semrush.com/blog/homepage-seo/) - Semrush, 2025-09-16
-- [What is on-page SEO?](https://www.semrush.com/blog/what-is-on-page-seo/) - Semrush, 2025-09-16
-- [How do you use internal linking for SEO?](https://www.semrush.com/blog/how-do-you-use-internal-linking-for-seo/) - Semrush, 2025-09-16
 - [What is SEO Copywriting?](https://www.semrush.com/blog/what-is-seo-copywriting/) - Semrush, 2025-09-16
+- [What is on-page SEO?](https://www.semrush.com/blog/what-is-on-page-seo/) - Semrush, 2025-09-16
 - [What is the best content length for SEO?](https://www.semrush.com/blog/what-is-the-best-content-length-for-seo/) - Semrush, 2025-09-16
+- [How do you use internal linking for SEO?](https://www.semrush.com/blog/how-do-you-use-internal-linking-for-seo/) - Semrush, 2025-09-16
 - [What Is Alt Text? Why It Matters & How to Write It](https://www.semrush.com/blog/alt-text/) - Semrush, 2025-07-14
 - [What Is a URL? Structure, Types, and Best Practices](https://www.semrush.com/blog/what-is-a-url/) - Semrush, 2025-07-03
 - [What Is Click-Through Rate (CTR)? + How to Improve It](https://www.semrush.com/blog/click-through-rate/) - Semrush, 2025-07-03
@@ -378,8 +365,8 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [21 Best Blogging Tools for Growth](https://www.semrush.com/blog/blogging-tools/) - Semrush, 2025-02-20
 - [What Is Semantic HTML? And How to Use It Correctly](https://www.semrush.com/blog/semantic-html5-guide/) - Semrush, 2025-02-07
 - [13 Best SEO Blogs to Help You Get to the Top of SERPs](https://www.semrush.com/blog/seo-blogs/) - Semrush, 2025-01-31
-- [How to Detect AI-written Content and Plagiarism](https://www.semrush.com/blog/how-to-detect-ai-written-content-and-plagiarism/) - Semrush, 2025-01-30
 - [Meta Tags: What They Are & How to Use Them for SEO](https://www.semrush.com/blog/meta-tag/) - Semrush, 2025-01-30
+- [How to Detect AI-written Content and Plagiarism](https://www.semrush.com/blog/how-to-detect-ai-written-content-and-plagiarism/) - Semrush, 2025-01-30
 - [How to Find and Fix Duplicate Title Tags to Improve SEO](https://www.semrush.com/blog/duplicate-title-tags/) - Semrush, 2025-01-22
 - [Google's Helpful Content Update & What to Do About It](https://www.semrush.com/blog/helpful-content/) - Semrush, 2024-10-21
 - [What Is Fresh Content & Is It Important for Your Site?](https://www.semrush.com/blog/fresh-content/) - Semrush, 2024-09-27
@@ -405,15 +392,13 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [What Are Stop Words in SEO? (+ Stop Words List)](https://www.semrush.com/blog/seo-stop-words/) - Semrush, 2021-02-05
 - [Best Practices for Content Delivery Networks (CDN) SEO](https://www.semrush.com/blog/must-know-seo-practices-for-content-delivery-networks-cdns/) - Semrush, 2020-12-11
 - [The Quick & Easy Guide To Create Relevant Content That Ranks & Converts](https://www.semrush.com/blog/guide-create-relevant-content-ranks-converts/) - Semrush, 2020-09-28
-- [Are Web Push Notifications Helping or Hurting Your Site?](https://www.semrush.com/blog/web-push-notifications-semrushchat/) - Semrush, 2020-04-07
 - [Google NLP API Tool: Optimize Your Content to the Next Level](https://www.semrush.com/blog/optimize-your-content-with-google-nlp-api/) - Semrush, 2019-09-13
 - [Advanced SEO for Food Bloggers: An Interview with Casey Markee](https://www.semrush.com/blog/advanced-seo-food-bloggers-interview-with-casey-markee/) - Semrush, 2018-11-19
 - [How To Make Your Content More Visible in Google with “Articles” Snippet](https://www.semrush.com/blog/how-to-make-your-content-more-visible-in-google-with-articles-snippet/) - Semrush, 2016-11-24
-- [Why “Content Is King” Is the Biggest Myth in SEO](https://www.semrush.com/blog/why-content-is-king-is-the-biggest-myth-in-seo/) - Semrush, 2016-09-16
 
 ## Technical SEO: Crawling, Indexing & Audits
 
-140 articles.
+130 articles.
 
 - [What is schema markup? And how to add it to your site](https://www.semrush.com/blog/schema-markup/) - Semrush, 2026-07-30
 - [13 Advanced SEO techniques & strategies for 2026](https://www.semrush.com/blog/advanced-seo/) - Semrush, 2026-07-27
@@ -431,11 +416,11 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [Google Ranking Factors and How to Optimize for Them](https://www.semrush.com/blog/google-ranking-factors/) - Semrush, 2025-10-22
 - [How does Google’s algorithm work?](https://www.semrush.com/blog/how-does-google-algorithm-work/) - Semrush, 2025-09-25
 - [The Complete Guide to Mobile SEO: 9 Tips & Best Practices](https://www.semrush.com/blog/mobile-seo/) - Semrush, 2025-09-24
-- [7-Step Ecommerce Website Audit to Boost Conversions](https://www.semrush.com/blog/ecommerce-website-audit/) - Semrush, 2025-09-19
 - [What Is a Log File Analysis? & How to Do It for SEO](https://www.semrush.com/blog/log-file-analysis/) - Semrush, 2025-09-19
+- [7-Step Ecommerce Website Audit to Boost Conversions](https://www.semrush.com/blog/ecommerce-website-audit/) - Semrush, 2025-09-19
+- [What is hreflang and how does it work?](https://www.semrush.com/blog/what-is-hreflang-and-how-does-it-work/) - Semrush, 2025-09-16
 - [How to create an XML sitemap?](https://www.semrush.com/blog/how-to-create-an-xml-sitemap/) - Semrush, 2025-09-16
 - [How does JavaScript impact SEO?](https://www.semrush.com/blog/how-does-javascript-impact-seo/) - Semrush, 2025-09-16
-- [What is hreflang and how does it work?](https://www.semrush.com/blog/what-is-hreflang-and-how-does-it-work/) - Semrush, 2025-09-16
 - [What Is a Website Crawler? How It Works + Tools to Try](https://www.semrush.com/blog/website-crawler/) - Semrush, 2025-09-15
 - [JavaScript Explained for Beginners: What It Is and Why It Matters](https://www.semrush.com/blog/javascript/) - Semrush, 2025-08-18
 - [8 Best XML Sitemap Generator Tools (Tested Firsthand)](https://www.semrush.com/blog/sitemap-generator-tools/) - Semrush, 2025-08-18
@@ -450,9 +435,9 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [International SEO: Best Practices for Global Online Success](https://www.semrush.com/blog/international-seo/) - Semrush, 2025-02-06
 - [What Is YMYL & How Does It Affect SEO?](https://www.semrush.com/blog/ymyl/) - Semrush, 2025-01-23
 - [Hreflang Attributes & Tags Explained for Beginners](https://www.semrush.com/blog/hreflang-attribute-101/) - Semrush, 2025-01-22
-- [How UX and SEO Are Related (& How to Optimize for Both)](https://www.semrush.com/blog/ux-and-seo/) - Semrush, 2025-01-10
 - [How often should you do an SEO audit?](https://www.semrush.com/blog/how-often-should-you-do-an-seo-audit/) - Semrush, 2025-01-10
 - [What is an SEO audit?](https://www.semrush.com/blog/what-is-an-seo-audit/) - Semrush, 2025-01-10
+- [How UX and SEO Are Related (& How to Optimize for Both)](https://www.semrush.com/blog/ux-and-seo/) - Semrush, 2025-01-10
 - [Is technical SEO hard?](https://www.semrush.com/blog/is-technical-seo-hard/) - Semrush, 2025-01-10
 - [Google PageRank in 2025: What Google Search Leak Reveals](https://www.semrush.com/blog/pagerank/) - Semrush, 2025-01-09
 - [What Is Google’s Navboost Algorithm?](https://www.semrush.com/blog/navboost/) - Semrush, 2025-01-02
@@ -461,8 +446,8 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [How the Google Search Algorithm Works: A Zero-Fluff Guide](https://www.semrush.com/blog/google-search-algorithm/) - Semrush, 2024-12-05
 - [15 Crawlability Problems & How to Fix Them](https://www.semrush.com/blog/crawlability-issues/) - Semrush, 2024-11-28
 - [Check Website Accessibility: Manual Checks and Tools to Use in 2025](https://www.semrush.com/blog/check-website-accessibility/) - Semrush, 2024-11-27
-- [16 Best Website Monitoring Tools in 2025 (Free & Paid)](https://www.semrush.com/blog/website-monitoring-tools/) - Semrush, 2024-11-19
 - [What Is Dwell Time in SEO (& Is it a Ranking Factor)?](https://www.semrush.com/blog/dwell-time/) - Semrush, 2024-11-19
+- [16 Best Website Monitoring Tools in 2025 (Free & Paid)](https://www.semrush.com/blog/website-monitoring-tools/) - Semrush, 2024-11-19
 - [How to Reduce Bounce Rate: 12 Tips for Better Site Results](https://www.semrush.com/blog/reduce-bounce-rate/) - Semrush, 2024-10-14
 - [How to Recover from a Google Update: A Survival Guide](https://www.semrush.com/blog/recover-from-a-google-update/) - Semrush, 2024-09-24
 - [Enterprise SEO: Operating in Highly Competitive Markets](https://www.semrush.com/blog/enterprise-seo-operating-in-highly-competitive-markets/) - Semrush, 2024-09-17
@@ -476,13 +461,12 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [A Guide to UTM Code Parameters, Creation, & Tracking](https://www.semrush.com/blog/utm-tracking-codes-google-analytics/) - Semrush, 2024-07-29
 - [Crawl Budget: What Is It and Why Is It Important for SEO?](https://www.semrush.com/blog/crawl-budget/) - Semrush, 2024-06-27
 - [The Complete Guide to a Successful CMS Migration (+ Checklist)](https://www.semrush.com/blog/cms-migration-guide/) - Semrush, 2024-06-26
-- [Over-Optimization in SEO: What It Is & How to Avoid It](https://www.semrush.com/blog/over-optimization/) - Semrush, 2024-05-14
 - [JavaScript Rendering: What It Is and How to Handle It](https://www.semrush.com/blog/js-rendering/) - Semrush, 2024-05-14
+- [Over-Optimization in SEO: What It Is & How to Avoid It](https://www.semrush.com/blog/over-optimization/) - Semrush, 2024-05-14
 - [12 SEO HTML Tags You Need to Know](https://www.semrush.com/blog/html-tags-for-seo/) - Semrush, 2024-05-07
 - [HTML Hide Element: What Is the Hidden Attribute & How to Use It](https://www.semrush.com/blog/html-hide-element/) - Semrush, 2024-04-23
 - [16 Tactics for a Winning Mobile App Marketing Strategy](https://www.semrush.com/blog/mobile-app-marketing-strategy/) - Semrush, 2024-04-19
 - [What Is Pogo-Sticking in SEO? Expert Strategies and Tips](https://www.semrush.com/blog/pogo-sticking/) - Semrush, 2024-04-19
-- [Removal of Google Cached Pages: Impact and Alternatives](https://www.semrush.com/blog/google-cached-pages/) - Semrush, 2024-03-20
 - [A Comprehensive Guide to Understanding Google Penalties](https://www.semrush.com/blog/google-penalty/) - Semrush, 2024-02-29
 - [An Introduction to TF-IDF: What It Is & How to Use It](https://www.semrush.com/blog/tf-idf/) - Semrush, 2024-02-28
 - [Website Health: A Guide to Optimal Online Performance](https://www.semrush.com/blog/website-health/) - Semrush, 2024-02-19
@@ -496,8 +480,8 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [Google RankBrain and SEO: Everything You Need to Know](https://www.semrush.com/blog/google-rankbrain/) - Semrush, 2023-12-12
 - [Website Localization 101: How to Expand Your Reach Globally](https://www.semrush.com/blog/website-localization/) - Semrush, 2023-12-07
 - [Enterprise SEO Audit: A Step-by-Step Guide for Site Owners](https://www.semrush.com/blog/enterprise-seo-audit/) - Semrush, 2023-11-14
-- [SEO Localization: Tactics for Targeted Global Online Visibility](https://www.semrush.com/blog/seo-localization/) - Semrush, 2023-11-09
 - [Negative SEO: What It Is & How to Prevent Attacks](https://www.semrush.com/blog/what-is-negative-seo/) - Semrush, 2023-11-09
+- [SEO Localization: Tactics for Targeted Global Online Visibility](https://www.semrush.com/blog/seo-localization/) - Semrush, 2023-11-09
 - [A Beginner’s Guide to Viewport Meta Tags](https://www.semrush.com/blog/viewport-meta-tag/) - Semrush, 2023-11-08
 - [What Is Google Panda? A Complete Guide](https://www.semrush.com/blog/google-panda/) - Semrush, 2023-11-07
 - [Mobile-First Indexing: What It Means & Best Practices](https://www.semrush.com/blog/mobile-first-indexiing/) - Semrush, 2023-10-26
@@ -524,7 +508,6 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [Essential Expert Tips on Fixing and Avoiding Google Penalties](https://www.semrush.com/blog/google-penalties-expert-tips/) - Semrush, 2020-07-17
 - [How Python Can Create Better Content Briefs and Improve SEO](https://www.semrush.com/blog/python-content-briefs-seo/) - Semrush, 2020-05-14
 - [Content Analysis with XML Sitemaps and Python](https://www.semrush.com/blog/content-analysis-xml-sitemaps-python/) - Semrush, 2020-05-08
-- [How to Improve Your SEO by Using Schema Markup](https://www.semrush.com/blog/semrushchat-how-to-boost-seo-using-schema-markup/) - Semrush, 2020-02-10
 - [How To Untangle the Website Architecture of a Site with 500,000+ Pages](https://www.semrush.com/blog/how-to-website-architecture/) - Semrush, 2019-07-10
 - [How to Add FAQ Schema to Any Page Using Google Tag Manager (Easy Guide)](https://www.semrush.com/blog/how-to-add-faq-schema-google-tag-manager/) - Semrush, 2019-06-12
 - [Pagination: You’re Doing It Wrong! (Part 1)](https://www.semrush.com/blog/pagination-you-are-doing-it-wrong-part-1/) - Semrush, 2019-01-21
@@ -541,20 +524,12 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [13 Most Common Hreflang Mistakes (Semrush Study)](https://www.semrush.com/blog/the-most-common-hreflang-mistakes-infographic/) - Semrush, 2017-02-15
 - [How To Develop Your International SEO Strategy](https://www.semrush.com/blog/how-to-develop-your-international-seo-strategy/) - Semrush, 2017-02-01
 - [International Web Hosting Issues: Does Server Location Really Matter?](https://www.semrush.com/blog/international-web-hosting-issues-does-server-location-really-matter/) - Semrush, 2017-01-19
-- [To AMP or Not to AMP: What Is Best for Your Website?](https://www.semrush.com/blog/to-amp-or-not-to-amp-what-is-best-for-your-website/) - Semrush, 2016-12-09
-- [Google Penguin 4.0 Update — The Good, The Bad and The Ugly](https://www.semrush.com/blog/penguin-4-0-update-the-good-the-bad-and-the-ugly/) - Semrush, 2016-09-29
 - [Log File Analysis: SEO Advantages and How To Do It for Free](https://www.semrush.com/blog/log-file-analysis-seo-advantages-and-how-to-do-it-for-free/) - Semrush, 2016-09-07
-- [Baidu 101: An Overview of Baidu Webmaster Tools](https://www.semrush.com/blog/baidu-101-an-overview-of-baidu-webmaster-tools/) - Semrush, 2015-09-03
 - [Did You Configure Your Site for the International Googlebot?](https://www.semrush.com/blog/did-you-configure-your-site-for-the-international-googlebot/) - Semrush, 2015-08-21
 - [5 Common Myths About Choosing Domain Names for International SEO](https://www.semrush.com/blog/5-common-myths-about-choosing-domain-names-for-international-seo/) - Semrush, 2015-08-12
-- [Mobile or Responsive: Which Site Is Right for You?](https://www.semrush.com/blog/mobile-or-responsive-which-site-is-right-for-you/) - Semrush, 2015-06-02
 - [How To Choose the Right International SEO Site Structure](https://www.semrush.com/blog/how-to-choose-the-right-international-seo-site-structure/) - Semrush, 2015-05-12
-- [Google’s Fetch and Render: Why It’s Important](https://www.semrush.com/blog/googles-fetch-and-render-why-its-important/) - Semrush, 2015-04-20
 - [How To Identify and Fix a Google Penalty](https://www.semrush.com/blog/how-to-identify-and-fix-a-google-penalty/) - Semrush, 2015-04-07
 - [The Ultimate Hreflang Guide for Dummies](https://www.semrush.com/blog/ultimate-hreflang-guide-dummies/) - Semrush, 2015-01-21
-- [How To Perform a Quick SEO Audit with Semrush](https://www.semrush.com/blog/perform-quick-seo-audit-semrush/) - Semrush, 2014-12-01
-- [5 Advantages to Yandex over Google in Russia](https://www.semrush.com/blog/5-advantages-yandex-google-russia/) - Semrush, 2014-08-06
-- [URL Shorteners: How They Differ and Why They Matter](https://www.semrush.com/blog/url-shortener-options-differ-matter/) - Semrush, 2013-11-13
 
 ## Technical SEO: URLs, Redirects & Site Architecture
 
@@ -683,7 +658,7 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 
 ## Local SEO & Google Business Profile
 
-73 articles.
+71 articles.
 
 - [How to See Your Google Reviews and Easily Manage Them](https://www.semrush.com/blog/how-to-find-and-manage-google-reviews/) - Semrush, 2026-04-24
 - [7 Google Business Profile Optimization Tips to Drive Visibility](https://www.semrush.com/blog/google-business-profile-optimization/) - Semrush, 2026-02-19
@@ -694,11 +669,10 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [9 Ways to Get More Google Reviews for Your Business](https://www.semrush.com/blog/how-to-get-reviews-on-google/) - Semrush, 2025-11-28
 - [How to Ask for Google Reviews: 5 Tips + Examples](https://www.semrush.com/blog/how-to-ask-for-google-reviews/) - Semrush, 2025-11-28
 - [How to Improve Local SEO: 11 Best Practices](https://www.semrush.com/blog/how-to-improve-local-seo/) - Semrush, 2025-11-13
-- [Location Page SEO: How to Create Optimized Location Pages](https://www.semrush.com/blog/location-page-seo/) - Semrush, 2025-11-13
 - [Local SEO: What Is It & How to Do It](https://www.semrush.com/blog/what-is-local-seo/) - Semrush, 2025-11-13
+- [Location Page SEO: How to Create Optimized Location Pages](https://www.semrush.com/blog/location-page-seo/) - Semrush, 2025-11-13
 - [9 Best Google Business Profile Management Tools of 2025](https://www.semrush.com/blog/google-business-profile-management-tools/) - Semrush, 2025-09-25
 - [How can I improve my local search rankings?](https://www.semrush.com/blog/how-can-i-improve-my-local-search-rankings/) - Semrush, 2025-09-24
-- [What are the best local SEO strategies for small businesses?](https://www.semrush.com/blog/what-are-the-best-local-seo-strategies-for-small-businesses/) - Semrush, 2025-09-24
 - [Local SEO Backlinks: How to Build High-Quality Links](https://www.semrush.com/blog/local-seo-backlinks/) - Semrush, 2025-09-18
 - [Does NAP consistency matter for local SEO?](https://www.semrush.com/blog/does-nap-consistency-matter-for-local-seo/) - Semrush, 2025-09-16
 - [What are local citations in SEO?](https://www.semrush.com/blog/what-are-local-citations-in-seo/) - Semrush, 2025-09-16
@@ -753,7 +727,6 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [SEO for Real Estate: How to Stand Out from Your Competition](https://www.semrush.com/blog/real-estate-seo/) - Semrush, 2023-09-19
 - [Bing Places for Business: Set Up Your Bing Business Listing](https://www.semrush.com/blog/bing-business-listing/) - Semrush, 2023-08-17
 - [Local SEO ranking factors: Your complete guide](https://www.semrush.com/blog/local-seo-ranking-factors/) - Semrush, 2023-06-15
-- [How an Agency Improved a Bakery’s Local SEO to Increase Online Visibility](https://www.semrush.com/blog/seo-reality-show-bakery-8/) - Semrush, 2021-08-30
 - [A Local SEO Citation You Never Knew You Had](https://www.semrush.com/blog/local-seo-citation-you-never-knew-you-had/) - Semrush, 2019-02-21
 - [Local SEO Strategy for Multiple Locations: Everything You Need To Know](https://www.semrush.com/blog/local-seo-for-multiple-locations-everything-you-need-to-know/) - Semrush, 2018-10-24
 - [The Fast Way To Build a Keyword List with Implicit Local Intent](https://www.semrush.com/blog/fast-build-keyword-list-implicit-local-intent/) - Semrush, 2018-10-23
@@ -761,7 +734,7 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 
 ## SERP Features, Zero-Click & Voice Search
 
-28 articles.
+27 articles.
 
 - [How to Win in a Zero-Click Search Market](https://www.semrush.com/blog/zero-click-searches/) - Semrush, 2026-05-13
 - [Google Knowledge Graph: What it is & why it matters](https://www.semrush.com/blog/knowledge-graph/) - Semrush, 2026-04-15
@@ -784,7 +757,6 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [People Also Ask: What It Is & How to Optimize for It](https://www.semrush.com/blog/people-also-ask/) - Semrush, 2024-08-29
 - [SERP Analysis Tools & How to Use Them](https://www.semrush.com/blog/serp-analysis-tools/) - Semrush, 2024-08-26
 - [What Is a SERP Analysis & How Can You Do One?](https://www.semrush.com/blog/serp-analysis/) - Semrush, 2024-08-02
-- [New SERP Features to Find Growth Opportunities](https://www.semrush.com/blog/serp-feature-update-2023/) - Semrush, 2024-07-26
 - [How to Use a SERP Preview Tool for Better Snippets](https://www.semrush.com/blog/serp-preview/) - Semrush, 2024-03-22
 - [7 Up-to-Date Voice Search Statistics (+ 3 Best Practices)](https://www.semrush.com/blog/voice-search-statistics/) - Semrush, 2023-10-20
 - [Voice Search Optimization: 6 Tips to Improve Your Results](https://www.semrush.com/blog/voice-search-optimization/) - Semrush, 2023-08-29
@@ -794,15 +766,15 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 
 ## SEO Analytics, Reporting & Tools
 
-69 articles.
+64 articles.
 
 - [Google Search Console: the ultimate guide for 2026](https://www.semrush.com/blog/google-search-console/) - Semrush, 2026-08-20
 - [What is organic traffic? (And how to increase it)](https://www.semrush.com/blog/organic-traffic/) - Semrush, 2026-08-10
 - [How to measure AI share of voice using Semrush](https://www.semrush.com/blog/how-to-measure-ai-share-of-voice/) - Semrush, 2026-07-17
 - [Google Analytics for beginners: the complete GA4 guide](https://www.semrush.com/blog/google-analytics/) - Semrush, 2026-06-15
 - [How to turn Claude Code into your SEO analyst (with Semrush data)](https://www.semrush.com/blog/claude-code-seo/) - Semrush, 2026-04-30
-- [10 Best Website Traffic Analysis Tools for 2026 (Features & Pricing)](https://www.semrush.com/blog/website-traffic-analysis-tools/) - Semrush, 2026-04-10
 - [How to Create an Effective SEO Report in 2026 (+ Free Template)](https://www.semrush.com/blog/seo-report/) - Semrush, 2026-04-10
+- [10 Best Website Traffic Analysis Tools for 2026 (Features & Pricing)](https://www.semrush.com/blog/website-traffic-analysis-tools/) - Semrush, 2026-04-10
 - [How to Build Your Own Google Analytics Custom Dashboards](https://www.semrush.com/blog/google-analytics-dashboard/) - Semrush, 2026-03-23
 - [6 Steps to Perform Conversion Rate Optimization](https://www.semrush.com/blog/conversion-rate-optimization/) - Semrush, 2025-09-23
 - [What is an SEO report?](https://www.semrush.com/blog/what-is-an-seo-report/) - Semrush, 2025-09-16
@@ -814,8 +786,8 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [Social Media Analytics Guide](https://www.semrush.com/blog/social-media-analytics/) - Semrush, 2025-02-03
 - [A Complete Guide to LinkedIn Analytics in 2025](https://www.semrush.com/blog/linkedin-analytics/) - Semrush, 2025-01-24
 - [Is website traffic a KPI?](https://www.semrush.com/blog/is-website-traffic-a-kpi/) - Semrush, 2025-01-10
-- [What Is Website Traffic? And a Quick Guide on Tracking It](https://www.semrush.com/blog/website-traffic/) - Semrush, 2025-01-09
 - [14 Best Google Analytics Alternatives](https://www.semrush.com/blog/google-analytics-alternatives/) - Semrush, 2025-01-09
+- [What Is Website Traffic? And a Quick Guide on Tracking It](https://www.semrush.com/blog/website-traffic/) - Semrush, 2025-01-09
 - [Pageviews in Google Analytics 4: The Complete Beginner's Guide](https://www.semrush.com/blog/pageviews/) - Semrush, 2024-12-12
 - [Call Tracking: Everything You Need to Know for Smarter Marketing](https://www.semrush.com/blog/call-tracking/) - Semrush, 2024-12-11
 - [The Secrets to Facebook Ads Analytics](https://www.semrush.com/blog/facebook-ads-analytics/) - Semrush, 2024-12-09
@@ -828,8 +800,8 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [The ROI of SEO: How to Measure SEO ROI (with Formulas)](https://www.semrush.com/blog/seo-roi/) - Semrush, 2024-05-15
 - [How to Set Up GA4 Conversion Tracking: A Step-by-Step Guide](https://www.semrush.com/blog/ga4-conversions/) - Semrush, 2024-05-06
 - [A Marketer’s Guide to STP Analysis](https://www.semrush.com/blog/stp-analysis/) - Semrush, 2024-04-30
-- [Integrating Google Analytics 4 with Your Wix Site: An 8-Step Guide](https://www.semrush.com/blog/wix-google-analytics/) - Semrush, 2024-04-18
 - [SEO Results: How to Track & Measure SEO Performance](https://www.semrush.com/blog/seo-results/) - Semrush, 2024-04-18
+- [Integrating Google Analytics 4 with Your Wix Site: An 8-Step Guide](https://www.semrush.com/blog/wix-google-analytics/) - Semrush, 2024-04-18
 - [Google Analytics WordPress Setup: The Ultimate Guide](https://www.semrush.com/blog/google-analytics-for-wordpress/) - Semrush, 2024-03-26
 - [Google Analytics Tracking ID: What It Is & How to Find It](https://www.semrush.com/blog/google-analytics-tracking-id/) - Semrush, 2024-03-25
 - [Google Search Console Errors: Identifying and Fixing Them](https://www.semrush.com/blog/google-search-console-errors/) - Semrush, 2024-03-20
@@ -845,8 +817,8 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [What Is Google Tag Manager & How Does It Work?](https://www.semrush.com/blog/google-tag-manager/) - Semrush, 2024-01-04
 - [Google Analytics Traffic Sources: An In-Depth Guide](https://www.semrush.com/blog/traffic-sources-ga4/) - Semrush, 2024-01-03
 - [What Is Web Analytics? What It Means & How You Can Benefit](https://www.semrush.com/blog/web-analytics/) - Semrush, 2023-12-21
-- [Setting up Google Analytics 4 Custom Events: A Complete Guide](https://www.semrush.com/blog/custom-events-google-analytics-4/) - Semrush, 2023-12-20
 - [Your Ultimate Guide to GA4 Recommended Events](https://www.semrush.com/blog/recommended-events-google-analytics-4/) - Semrush, 2023-12-20
+- [Setting up Google Analytics 4 Custom Events: A Complete Guide](https://www.semrush.com/blog/custom-events-google-analytics-4/) - Semrush, 2023-12-20
 - [7 Advanced Tips for Google Analytics 4: Get More From Your Data](https://www.semrush.com/blog/advanced-google-analytics/) - Semrush, 2023-12-11
 - [The Ultimate Guide to Using Google Analytics 4 for Ecommerce](https://www.semrush.com/blog/google-analytics-4-ecommerce/) - Semrush, 2023-11-24
 - [A/B Testing in Google Analytics 4: Life After Optimize](https://www.semrush.com/blog/a-b-testing-in-google-analytics-4/) - Semrush, 2023-11-17
@@ -860,15 +832,10 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [35 Insights that Google Analytics Can Give You About Your Website](https://www.semrush.com/blog/google-website-analytics/) - Semrush, 2021-10-29
 - [SEO Agency's Advanced Tips for Reporting SEO to Clients](https://www.semrush.com/blog/seo-agency-advanced-tips-for-reporting-seo-to-clients/) - Semrush, 2020-06-24
 - [Google Search Console Techniques for Bloggers](https://www.semrush.com/blog/google-search-console-techniques-for-bloggers/) - Semrush, 2018-04-20
-- [The 10 Most Important SEO Metrics. Are You Tracking All of These?](https://www.semrush.com/blog/most-important-seo-metrics-to-consider-in-2018/) - Semrush, 2018-02-02
-- [5 Hidden Google Analytics Reporting Features You Should Be Using](https://www.semrush.com/blog/hidden-google-analytics-reporting-features/) - Semrush, 2017-10-20
-- [5 Simple Google Analytics Clean-Up Tips](https://www.semrush.com/blog/5-simple-google-analytics-clean-up-tips/) - Semrush, 2016-08-03
-- [4 Ways To Leverage Google Analytics To Reach New Customers](https://www.semrush.com/blog/4-ways-to-leverage-google-analytics-to-reach-new-customers/) - Semrush, 2016-02-03
-- [Event Tracking in Google Universal Analytics With and Without the Help of Tag Manager](https://www.semrush.com/blog/event-tracking-google-universal-analytics-without-help-tag-manager/) - Semrush, 2014-12-04
 
 ## SEO Competitor Analysis
 
-57 articles.
+53 articles.
 
 - [How to use AI tools for competitor analysis in 2026](https://www.semrush.com/blog/ai-tools-for-competitor-analysis/) - Semrush, 2026-08-31
 - [Competitor ad spend: How to analyze your rivals’ budgets](https://www.semrush.com/blog/competitor-ad-spend/) - Semrush, 2026-07-01
@@ -879,12 +846,9 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [Competitive intelligence 101: What it is & how to gather it](https://www.semrush.com/blog/competitive-intelligence/) - Semrush, 2026-04-08
 - [How to Analyze & Compare Competitor Website Traffic in 2026](https://www.semrush.com/blog/analyzing-competitors-traffic/) - Semrush, 2026-03-10
 - [Track brand mentions in AI Overviews and LLMs with Semrush](https://www.semrush.com/blog/benchmark-brand-mentions-in-ai-answers-semrush/) - Semrush, 2026-01-13
-- [What are the key strategies for competitive analysis in marketing?](https://www.semrush.com/blog/what-are-the-key-strategies-for-competitive-analysis-in-marketing/) - Semrush, 2025-09-25
-- [How does rank tracking contribute to SEO success?](https://www.semrush.com/blog/how-does-rank-tracking-contribute-to-seo-success/) - Semrush, 2025-09-24
 - [How do you use competitive intelligence in marketing?](https://www.semrush.com/blog/how-do-you-use-competitive-intelligence-in-marketing/) - Semrush, 2025-09-16
-- [How to use a rank tracker?](https://www.semrush.com/blog/how-to-use-a-rank-tracker/) - Semrush, 2025-09-16
 - [What is a rank tracker?](https://www.semrush.com/blog/what-is-a-rank-tracker/) - Semrush, 2025-09-16
-- [What are the benefits of regular rank tracking?](https://www.semrush.com/blog/what-are-the-benefits-of-regular-rank-tracking/) - Semrush, 2025-09-16
+- [How to use a rank tracker?](https://www.semrush.com/blog/how-to-use-a-rank-tracker/) - Semrush, 2025-09-16
 - [How to Do a Market Analysis: A Step-by-Step Guide](https://www.semrush.com/blog/how-to-do-a-market-analysis/) - Semrush, 2025-08-01
 - [SWOT Analysis: How to Do It, Examples, & Free Template](https://www.semrush.com/blog/swot-analysis-examples/) - Semrush, 2025-07-03
 - [The 14 Best competitive intelligence tools for market research](https://www.semrush.com/blog/best-competitive-intelligence-tools/) - Semrush, 2025-06-24
@@ -893,22 +857,22 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [9 competitive insights & how to get them](https://www.semrush.com/blog/competitive-insights/) - Semrush, 2025-06-17
 - [10 Semrush Traffic & Market features every marketer should explore](https://www.semrush.com/blog/10-trends-features/) - Semrush, 2025-05-30
 - [What Are Website Demographics? (Explained)](https://www.semrush.com/blog/website-demographics/) - Semrush, 2025-05-15
-- [12 Best Market Research Tools: Features & Pricing](https://www.semrush.com/blog/market-research-tools/) - Semrush, 2025-05-15
 - [Competitive matrix: what it is + how to make one (with templates)](https://www.semrush.com/blog/competitive-matrix/) - Semrush, 2025-05-15
-- [How to Use the Semrush Audience Insights for Your Marketing Campaigns](https://www.semrush.com/blog/how-to-use-the-semrush-audience-insights-for-your-marketing-campaigns/) - Semrush, 2025-05-13
-- [19 Best Competitor Analysis Tools to Use in 2025 and Beyond](https://www.semrush.com/blog/competitor-analysis-tools/) - Semrush, 2025-05-13
+- [12 Best Market Research Tools: Features & Pricing](https://www.semrush.com/blog/market-research-tools/) - Semrush, 2025-05-15
 - [Market Analysis: What It Is & How to Do One in 2024](https://www.semrush.com/blog/market-analysis/) - Semrush, 2025-05-13
+- [How to Use the Semrush Audience Insights for Your Marketing Campaigns](https://www.semrush.com/blog/how-to-use-the-semrush-audience-insights-for-your-marketing-campaigns/) - Semrush, 2025-05-13
 - [A Step-by-Step Guide to Market Assessment](https://www.semrush.com/blog/market-assessment/) - Semrush, 2025-05-13
 - [Market Segmentation: Types, Examples, and Strategies](https://www.semrush.com/blog/market-segmentation-strategy/) - Semrush, 2025-05-13
-- [How to calculate market share (formula + guide)](https://www.semrush.com/blog/how-to-calculate-market-share/) - Semrush, 2025-05-13
-- [How to Build an Effective Data Strategy for Your Business](https://www.semrush.com/blog/how-to-build-an-effective-data-strategy/) - Semrush, 2025-05-13
 - [Understanding Porter's Five Forces Model (How to Use It + Template)](https://www.semrush.com/blog/understanding-porters-five-forces-model/) - Semrush, 2025-05-13
 - [How to Build a Go-to-Market Strategy (Template Included)](https://www.semrush.com/blog/go-to-market-strategy-checklist/) - Semrush, 2025-05-13
+- [19 Best Competitor Analysis Tools to Use in 2025 and Beyond](https://www.semrush.com/blog/competitor-analysis-tools/) - Semrush, 2025-05-13
+- [How to Build an Effective Data Strategy for Your Business](https://www.semrush.com/blog/how-to-build-an-effective-data-strategy/) - Semrush, 2025-05-13
+- [How to calculate market share (formula + guide)](https://www.semrush.com/blog/how-to-calculate-market-share/) - Semrush, 2025-05-13
+- [How to do a competitive landscape analysis (if you’ve never done it before)](https://www.semrush.com/blog/competitive-landscape/) - Semrush, 2025-05-12
 - [What is market intelligence? (strategies & tools for your business)](https://www.semrush.com/blog/market-intelligence/) - Semrush, 2025-05-12
 - [6 Ways to Compare Websites (+ Competitor Analysis Tools to Use)](https://www.semrush.com/blog/compare-websites/) - Semrush, 2025-05-12
-- [8 Insights You Can Gain from Competitors’ Top Pages](https://www.semrush.com/blog/8-insights-you-can-gain-from-competitors-top-pages/) - Semrush, 2025-05-12
-- [How to do a competitive landscape analysis (if you’ve never done it before)](https://www.semrush.com/blog/competitive-landscape/) - Semrush, 2025-05-12
 - [Clickstream Data: What Is It and How Does Semrush Traffic & Market Use It?](https://www.semrush.com/blog/what-is-clickstream-data/) - Semrush, 2025-05-12
+- [8 Insights You Can Gain from Competitors’ Top Pages](https://www.semrush.com/blog/8-insights-you-can-gain-from-competitors-top-pages/) - Semrush, 2025-05-12
 - [7 Ways AdClarity Will Make You a Better Advertiser in 2025](https://www.semrush.com/blog/better-advertiser/) - Semrush, 2025-03-10
 - [What is rank tracking?](https://www.semrush.com/blog/what-is-rank-tracking/) - Semrush, 2025-01-10
 - [Best SEO Rank Tracking Software in 2024: 12 Tools Compared](https://www.semrush.com/blog/rank-tracking-software/) - Semrush, 2024-06-27
@@ -925,18 +889,16 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [How to Gain Competitive Insights on Social Media](https://www.semrush.com/blog/free-competitive-insights-on-social-media/) - Semrush, 2022-03-15
 - [How to Reverse Engineer Competitors’ Backlinks (and find valuable links)](https://www.semrush.com/blog/reverse-engineering-your-competitors-backlinks-with-semrush/) - Semrush, 2020-12-14
 - [How To Research and Create a Content Persona for Your Blog: The Complete Guide](https://www.semrush.com/blog/how-to-research-and-create-a-content-persona-for-your-blog-the-complete-guide/) - Semrush, 2016-08-24
-- [How To Understand the Semrush Competitive Positioning Map](https://www.semrush.com/blog/how-to-understand-the-semrush-competitive-positioning-map/) - Semrush, 2016-03-24
 - [The 5-Step Competitor Analysis Strategy That Never Fails!](https://www.semrush.com/blog/5-step-competitor-analysis-strategy-never-fails/) - Semrush, 2015-02-09
 
 ## SEO Tools & Software
 
-23 articles.
+22 articles.
 
 - [9 best SEO audit tools for 2026 (tested)](https://www.semrush.com/blog/seo-audit-tools/) - Semrush, 2026-05-22
 - [7 Free SEO Tools to Boost Rankings & Traffic](https://www.semrush.com/blog/free-seo-tools/) - Semrush, 2026-01-13
 - [16 Best SERP Tracking Tools for 2026 (Free & Paid)](https://www.semrush.com/blog/best-serp-tracking-tools/) - Semrush, 2025-12-19
 - [Best SEO Software for 2026: Overview & How to Choose](https://www.semrush.com/blog/seo-software/) - Semrush, 2025-10-24
-- [What are the best free keyword research tools for beginners?](https://www.semrush.com/blog/what-are-the-best-free-keyword-research-tools-for-beginners/) - Semrush, 2025-09-16
 - [How accurate are rank tracking tools?](https://www.semrush.com/blog/how-accurate-are-rank-tracking-tools/) - Semrush, 2025-09-16
 - [6 Free Google SEO Tools to Boost Your Search Visibility](https://www.semrush.com/blog/google-seo-tools/) - Semrush, 2025-02-12
 - [What is SEO software?](https://www.semrush.com/blog/what-is-seo-software/) - Semrush, 2025-01-10
@@ -958,7 +920,7 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 
 ## Generative Engine Optimisation (GEO / AEO) Strategy
 
-80 articles.
+79 articles.
 
 - [Create an AI Brand Visibility Report (+ Template)](https://www.semrush.com/blog/create-ai-seo-search-marketing-report/) - Semrush, 2026-09-02
 - [Where does AI get its information? And how to get cited](https://www.semrush.com/blog/where-does-ai-get-its-information/) - Semrush, 2026-09-01
@@ -1028,7 +990,6 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 - [We Tested Query Fan-Out Optimization (Here's What We Learned)](https://www.semrush.com/blog/query-fan-out-experiment/) - Semrush, 2025-09-26
 - [How to Track LLM Prompts in 3 Steps](https://www.semrush.com/blog/llm-prompt-tracking/) - Semrush, 2025-09-24
 - [AI B2B Marketing Has Limits: Why Humans Still Matter](https://www.semrush.com/blog/ai-b2b-marketing-has-limits-why-humans-still-matter/) - Semrush, 2025-09-15
-- [What are the top generative engine optimization strategies for AI visibility?](https://www.semrush.com/blog/what-are-the-top-generative-engine-optimization-strategies-for-ai-visibility/) - Semrush, 2025-09-11
 - [Is AI content good for SEO?](https://www.semrush.com/blog/is-ai-content-good-for-seo/) - Semrush, 2025-09-11
 - [How AI Search Really Works: Findings from Our AI Visibility Study](https://www.semrush.com/blog/ai-search-visibility-study-findings/) - Semrush, 2025-09-03
 - [How to Track, Measure, and Boost AI Referral Traffic](https://www.semrush.com/blog/ai-referral-traffic/) - Semrush, 2025-09-02
@@ -1089,10 +1050,9 @@ Classification is automated from URL slugs, so some entries will sit in an adjac
 
 ## Platform Search SEO: Pinterest & YouTube
 
-4 articles.
+3 articles.
 
 - [YouTube SEO: How to Rank Videos & Grow Your Channel](https://www.semrush.com/blog/youtube-seo/) - Semrush, 2025-10-28
-- [What are the best SEO practices for YouTube videos?](https://www.semrush.com/blog/what-are-the-best-seo-practices-for-youtube-videos/) - Semrush, 2025-09-16
 - [What Is App Store Optimization? A Complete Guide to ASO](https://www.semrush.com/blog/app-store-optimization/) - Semrush, 2025-03-21
 - [LinkedIn SEO: Optimize Your Profile for Improved Visibility](https://www.semrush.com/blog/linkedin-seo/) - Semrush, 2023-06-13
 

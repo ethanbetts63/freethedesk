@@ -568,6 +568,51 @@ main:has(.service-scroll) { overflow: visible; }
 .case-intent-grid li span { color: var(--accent-ink); font-size: .6rem; margin-left: 10px; }
 .case-cta-live-link { border-bottom: 1px solid var(--border-on-dark-strong); color: var(--text-on-dark-muted); font-size: .78rem; font-weight: 800; padding-bottom: 7px; }
 
+/* ============================================================
+   Bloomprint case study
+   Reuses the shared .case-* blocks above; only the hero, the
+   two-sided panel and the split sections are specific to it.
+   ============================================================ */
+.bloom-hero { overflow: hidden; padding: 88px 0 96px; position: relative; }
+.bloom-hero-grid { background-image: linear-gradient(rgba(47,124,192,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(47,124,192,.055) 1px, transparent 1px); background-size: 64px 64px; inset: 0; mask-image: linear-gradient(to right, #000 15%, rgba(0,0,0,.48) 64%, transparent); position: absolute; }
+.bloom-hero-grid::before, .bloom-hero-grid::after { background: var(--accent-strong); border-radius: 50%; box-shadow: 0 0 0 7px rgba(11,100,214,.08); content: ""; height: 7px; position: absolute; width: 7px; }
+.bloom-hero-grid::before { left: 16%; top: 30%; }
+.bloom-hero-grid::after { left: 41%; top: 72%; }
+.bloom-hero-layout { align-items: center; display: grid; gap: 76px; grid-template-columns: .86fr 1.14fr; position: relative; }
+.bloom-hero-copy { position: relative; z-index: 3; }
+.bloom-hero-copy h1 { font-size: clamp(3.6rem, 5.8vw, 6rem); font-weight: 800; letter-spacing: -.078em; line-height: .91; margin: 0; }
+.bloom-hero-copy h1 span { color: var(--accent-ink); }
+.bloom-hero-copy > p:not(.eyebrow) { color: var(--text-muted); font-size: 1.08rem; line-height: 1.65; margin: 28px 0 32px; max-width: 555px; }
+.bloom-hero-meta { border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 11px 24px; margin-top: 52px; padding-top: 17px; }
+.bloom-hero-meta span { color: var(--text-subtle); font-size: .65rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+.bloom-hero-media { margin-right: -105px; padding: 34px 0 34px 52px; position: relative; }
+
+.bloom-sides { display: grid; gap: 26px; grid-template-columns: 1fr 1fr; }
+.bloom-side { background: var(--surface); border-radius: 11px; color: var(--text); display: flex; flex-direction: column; padding: 38px 36px 30px; }
+.bloom-side-alt { background: var(--accent); }
+.bloom-side header { border-bottom: 1px solid var(--border); padding-bottom: 26px; }
+.bloom-side small { color: var(--accent-ink); display: block; font-size: .6rem; font-weight: 900; letter-spacing: .12em; margin-bottom: 14px; text-transform: uppercase; }
+.bloom-side-alt small { color: var(--text); }
+.bloom-side h3 { font-size: clamp(1.9rem, 3vw, 2.7rem); letter-spacing: -.06em; margin: 0; }
+.bloom-side header p { color: var(--text-muted); font-size: .86rem; line-height: 1.6; margin: 14px 0 0; max-width: 380px; }
+.bloom-side-alt header p { color: var(--blue-950); }
+.bloom-side ol { list-style: none; margin: 0; padding: 0; }
+.bloom-side li { align-items: start; border-bottom: 1px solid var(--border); display: grid; gap: 20px; grid-template-columns: 26px 1fr; padding: 17px 0; }
+.bloom-side-alt li { border-bottom-color: rgba(var(--shadow-color), .18); }
+.bloom-side li:last-child { border-bottom: 0; }
+.bloom-side b { color: var(--accent-ink); font-size: .62rem; font-weight: 900; padding-top: 3px; }
+.bloom-side-alt b { color: var(--blue-950); }
+.bloom-side li span { font-size: .84rem; line-height: 1.5; }
+
+.bloom-split { align-items: center; display: grid; gap: 90px; grid-template-columns: .95fr 1.05fr; }
+.bloom-split-reverse .bloom-split-copy { order: 2; }
+.bloom-split-copy h2 { font-size: clamp(2.4rem, 4vw, 4.1rem); letter-spacing: -.062em; line-height: 1; margin: 0; }
+.bloom-split-copy > p:not(.section-number) { color: var(--text-muted); font-size: 1rem; line-height: 1.72; margin: 28px 0; max-width: 560px; }
+.bloom-split-points { border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; }
+.bloom-split-points span { border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: .72rem; font-weight: 800; padding: 14px 0; }
+.bloom-split-media .case-browser { box-shadow: 0 28px 70px rgba(var(--shadow-color), .13); }
+.bloom-seo-section { background: var(--surface-tint); padding: 112px 0; }
+
 .site-footer { background: #fff; color: var(--text); overflow: hidden; padding: 80px 0 25px; position: relative; }
 .site-footer::before {
   background-image:
@@ -614,6 +659,10 @@ main:has(.service-scroll) { overflow: visible; }
   .case-intent-heading { gap: 65px; }
   .case-intent-grid { grid-template-columns: 1fr 1fr; }
   .case-intent-grid article { min-height: 420px; }
+  .bloom-hero-layout { gap: 48px; grid-template-columns: .9fr 1.1fr; }
+  .bloom-hero-media { margin-right: -190px; padding-left: 28px; }
+  .bloom-split { gap: 55px; }
+  .bloom-side { padding: 32px 28px 26px; }
 }
 
 @media (max-width: 760px) {
@@ -704,6 +753,16 @@ main:has(.service-scroll) { overflow: visible; }
   .case-intent-grid header { min-height: auto; }
   .case-intent-grid header span { margin-bottom: 22px; }
   .case-intent-grid ul { margin-top: 40px; }
+  .bloom-hero { padding: 65px 0 85px; }
+  .bloom-hero-layout { grid-template-columns: 1fr; }
+  .bloom-hero-copy h1 { font-size: clamp(2.5rem, 8.5vw, 4.2rem); }
+  .bloom-hero .button-row { align-items: flex-start; flex-direction: column; }
+  .bloom-hero-meta { margin-top: 38px; }
+  .bloom-hero-media { margin: 0; padding: 25px 0 20px 28px; }
+  .bloom-sides { grid-template-columns: 1fr; }
+  .bloom-split, .bloom-split-reverse { gap: 44px; grid-template-columns: 1fr; }
+  .bloom-split-reverse .bloom-split-copy { order: 0; }
+  .bloom-seo-section { padding: 78px 0; }
 }
 
 @media (max-width: 430px) {
@@ -724,6 +783,9 @@ main:has(.service-scroll) { overflow: visible; }
   .case-capability-list { grid-template-columns: 1fr; }
   .case-mobile-callout { font-size: .58rem; padding: 10px; }
   .case-search-points { grid-template-columns: 1fr; }
+  .bloom-hero-copy > p:not(.eyebrow) { font-size: 1rem; }
+  .bloom-hero-media { padding-left: 14px; }
+  .bloom-split-points { grid-template-columns: 1fr; }
 }
 
 /* ============================================================

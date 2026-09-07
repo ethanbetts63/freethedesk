@@ -11,25 +11,6 @@
 .introSection h2 { font-size: clamp(2.6rem, 4.6vw, 4.2rem); letter-spacing: -.058em; line-height: 1.06; margin: 0; max-width: 780px; }
 .introLead { color: #536c80; font-size: 1rem; line-height: 1.78; margin: 22px 0 0; max-width: 620px; }
 
-.reportSection { align-items: center; display: grid; gap: clamp(46px, 7vw, 100px); grid-template-columns: .85fr 1.15fr; padding: 72px 0 40px; }
-.reportCopy h2 { font-size: clamp(2.4rem, 4vw, 3.4rem); letter-spacing: -.055em; line-height: 1.05; margin: 0; }
-.reportCopy > p:not(.label) { color: #536c80; font-size: .97rem; line-height: 1.74; margin: 20px 0 0; max-width: 340px; }
-
-.reportCard { background: #fff; border: 1px solid #cad9e4; box-shadow: 0 22px 50px -32px rgba(7,18,28,.4); }
-.reportCardHead { align-items: center; background: #f7fafd; border-bottom: 1px solid #e2ebf3; display: flex; gap: 14px; padding: 16px 22px; }
-.reportDots { display: flex; gap: 5px; }
-.reportDots i { background: #cbd9e5; border-radius: 50%; height: 8px; width: 8px; }
-.reportCardHead strong { display: block; font-size: .84rem; letter-spacing: -.01em; }
-.reportCardHead small { color: #7d93a6; font-size: .7rem; }
-.reportList { list-style: none; margin: 0; padding: 0; }
-.reportList li { align-items: center; border-bottom: 1px solid #eaf1f7; display: flex; gap: 15px; padding: 19px 22px; }
-.reportIndex { color: #b3c6d5; font-size: .66rem; font-weight: 900; }
-.reportIcon { align-items: center; background: #eaf3fb; color: var(--page-accent); display: flex; flex: 0 0 auto; height: 38px; justify-content: center; width: 38px; }
-.reportList h3 { font-size: 1rem; letter-spacing: -.025em; margin: 0 0 3px; }
-.reportList p { color: #7d93a6; font-size: .81rem; line-height: 1.45; margin: 0; }
-.reportCardFoot { display: flex; flex-wrap: wrap; gap: 7px; padding: 18px 22px; }
-.reportCardFoot span { background: #f2f7fb; color: #4e677f; font-size: .68rem; font-weight: 700; padding: 6px 10px; }
-
 .compareSection { background: #f2f7fb; padding: 120px 0; }
 .compareInner { align-items: center; display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: 1.05fr .95fr; }
 .compareCopy h2 { font-size: clamp(2.6rem, 4.3vw, 3.6rem); letter-spacing: -.05em; line-height: 1.05; margin: 0 0 20px; }
@@ -123,18 +104,14 @@
 .closing > a { align-items: center; background: var(--page-accent); color: #fff; display: inline-flex; font-size: .8rem; font-weight: 900; gap: 35px; padding: 17px 20px; }
 
 @media (max-width: 900px) {
-  .compareInner, .caseInner, .reportSection { grid-template-columns: 1fr; }
-  .reportCopy > p:not(.label) { max-width: none; }
+  .compareInner, .caseInner { grid-template-columns: 1fr; }
   .planGrid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 620px) {
   .introSection { padding-top: 82px; }
-  .reportSection { padding-top: 56px; }
   .plansSection { padding-top: 56px; }
   .introSection { padding-bottom: 20px; }
-  .reportList li { padding: 16px 18px; }
-  .reportCardHead, .reportCardFoot { padding-left: 18px; padding-right: 18px; }
   .compareSection { padding: 82px 0; }
   .caseSection { margin-top: 80px; padding: 82px 0; }
   .planGrid { grid-template-columns: 1fr; }
