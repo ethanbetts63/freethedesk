@@ -18,6 +18,7 @@ const SEO_FIELDS: { field: PriceField; label: string }[] = [
   { field: "seo_biannual_price", label: "SEO report — bi-annual ($ / report, GST inc.)" },
   { field: "seo_oneoff_price", label: "SEO report — one-off ($ once, GST inc.)" },
   { field: "gbp_audit_price", label: "Google Business Profile audit ($ once, GST inc.)" },
+  { field: "ai_readiness_audit_price", label: "AI readiness check ($ once, GST inc.)" },
 ];
 
 const ALL_FIELDS = [...LICENSING_FIELDS, ...SEO_FIELDS];
@@ -103,7 +104,7 @@ export default function SiteSettingsPage() {
           <h2>SEO report prices</h2>
           <p className="admin-muted">
             Prices shown on the public SEO page. Each subscription price is what a customer pays per report at that
-            cadence. The Google Business Profile audit is a one-off and comes free with every report plan.
+            cadence. The Google Business Profile audit and AI readiness check are one-offs that come free with every report plan.
           </p>
           <div className="admin-compose-form">
             {SEO_FIELDS.map(renderField)}

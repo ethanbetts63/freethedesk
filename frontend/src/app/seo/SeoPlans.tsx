@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import type { PublicSiteSettings } from "@/lib/api";
 import { formatPrice } from "@/lib/serverApi";
+import { AiReadinessAudit } from "./AiReadinessAudit";
 import { GoogleBusinessProfileAudit } from "./GoogleBusinessProfileAudit";
 import styles from "./page.module.css";
 
@@ -64,6 +65,7 @@ export function SeoPlans({ settings }: { settings: PublicSiteSettings }) {
       </div>
 
       <GoogleBusinessProfileAudit standalonePrice={formatPrice(settings.gbp_audit_price)} />
+      <AiReadinessAudit standalonePrice={formatPrice(settings.ai_readiness_audit_price)} />
     </>
   );
 }

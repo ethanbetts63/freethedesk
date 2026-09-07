@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { AiReadySection } from "../home-v3/AiReadySection";
 import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
@@ -107,16 +106,9 @@ export default async function SeoPage() {
 
       <ProofStrip stats={seoStats} />
 
-      <section className={`shell ${styles.plansSection}`} id="plans">
-        <p className={styles.label}>01 / Plans</p>
-        <h2>Pick how often you want to hear from us.</h2>
-        <p className={styles.introLead}>Every plan is the same report and the same attention—the cadence is the only variable. Cancel or change any time.</p>
-        <SeoPlans settings={settings} />
-      </section>
-
       <section className={`shell ${styles.reportSection}`} id="report">
         <div className={styles.reportCopy}>
-          <p className={styles.label}>02 / What you&apos;re buying</p>
+          <p className={styles.label}>01 / What you&apos;re buying</p>
           <h2>One document.<br />Four sections.</h2>
           <p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>
         </div>
@@ -139,6 +131,13 @@ export default async function SeoPage() {
             <span>Plain English</span><span>Ranked by impact</span><span>Effort estimate on every item</span>
           </footer>
         </div>
+      </section>
+
+      <section className={`shell ${styles.plansSection}`} id="plans">
+        <p className={styles.label}>02 / Plans</p>
+        <h2>Pick how often you want to hear from us.</h2>
+        <p className={styles.introLead}>Every plan is the same report and the same attention—the cadence is the only variable. Cancel or change any time.</p>
+        <SeoPlans settings={settings} />
       </section>
 
       <section className={styles.compareSection}>
@@ -173,7 +172,7 @@ export default async function SeoPage() {
       <section className={`shell ${styles.introSection}`}>
         <p className={styles.label}>04 / What recommendations look like</p>
         <h2>The thinking that shows up in every report.</h2>
-        <p className={styles.introLead}>Three examples of the kind of recommendation the report makes—and the standard each one has to meet before it&apos;s allowed to cost you time.</p>
+        <p className={styles.introLead}>Four examples of the kind of recommendation the report makes—and the standard each one has to meet before it&apos;s allowed to cost you time.</p>
       </section>
 
       <section className="shell">
@@ -214,8 +213,6 @@ export default async function SeoPage() {
         title="Before you connect your data."
         items={questions.map(([question, answer]) => ({ question, answer }))}
       />
-
-      <AiReadySection />
 
       <section className={`shell ${styles.closing}`}>
         <p className={styles.label}>Start with your own data</p>

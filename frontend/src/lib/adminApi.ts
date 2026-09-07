@@ -64,6 +64,7 @@ export interface SiteSettings {
   seo_biannual_price: string;
   seo_oneoff_price: string;
   gbp_audit_price: string;
+  ai_readiness_audit_price: string;
   updated_at: string;
 }
 
