@@ -11,11 +11,6 @@
 .intro > div:last-child p, .systemCopy > p, .proofSection > div:last-child > p { color: #536c80; font-size: .98rem; line-height: 1.78; margin: 0 0 18px; }
 .servicesSection { background: #f2f7fb; padding: 115px 0 125px; }
 .sectionHeading { max-width: 900px; }
-.serviceGrid { border-left: 1px solid #cad9e4; border-top: 1px solid #cad9e4; display: grid; grid-template-columns: repeat(2, 1fr); margin-top: 66px; }
-.serviceGrid article { background: rgba(255,255,255,.5); border-bottom: 1px solid #cad9e4; border-right: 1px solid #cad9e4; min-height: 260px; padding: 28px; }
-.serviceGrid article > span { color: var(--page-accent); font-size: .65rem; font-weight: 900; }
-.serviceGrid h3 { font-size: 1.35rem; letter-spacing: -.04em; margin: 60px 0 14px; }
-.serviceGrid p { color: #60778b; font-size: .83rem; line-height: 1.68; margin: 0; }
 .servicesClosing { color: #13315c; font-size: 1.25rem; font-weight: 750; letter-spacing: -.02em; line-height: 1.5; margin: 48px 0 0; max-width: 720px; }
 .seoSection { align-items: center; background: #f2f7fb; display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: 1.05fr .95fr; padding: 120px 0; }
 .seoCopy p { color: #536c80; font-size: 1rem; line-height: 1.78; margin: 24px 0 0; max-width: 480px; }
@@ -58,7 +53,6 @@
 
 @media (max-width: 900px) {
   .intro, .systemSection, .proofSection, .seoSection { grid-template-columns: 1fr; }
-  .serviceGrid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 620px) {
@@ -66,8 +60,6 @@
   .intro, .systemSection, .proofSection { padding-bottom: 82px; padding-top: 82px; }
   .servicesSection { padding-bottom: 80px; padding-top: 80px; }
   .seoSection { padding: 82px 0; }
-  .serviceGrid { grid-template-columns: 1fr; }
-  .serviceGrid article { min-height: 260px; }
   .systemVisual { min-height: 440px; }
   .closing { margin-bottom: 80px; margin-top: 80px; padding: 65px 22px; }
 }

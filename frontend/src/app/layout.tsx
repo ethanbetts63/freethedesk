@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -43,6 +44,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <SiteChrome>{children}</SiteChrome>
         </AuthProvider>
         <Analytics />
+        <Script
+          id="clarity-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yed3l1lawv");`,
+          }}
+        />
       </body>
     </html>
   );

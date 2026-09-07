@@ -28,7 +28,7 @@ const customService = {
  * on whichever page renders this—position:sticky is inert under any ancestor
  * with overflow != visible, and every <main> defaults to overflow: hidden.
  */
-export function ServiceScroll({ services }: { services: Service[] }) {
+export function ServiceScroll({ services, showCustomRow = true }: { services: Service[]; showCustomRow?: boolean }) {
   return (
     <div className="service-scroll">
       {services.map((service, index) => (
@@ -48,21 +48,23 @@ export function ServiceScroll({ services }: { services: Service[] }) {
           </div>
         </div>
       ))}
-      <div className="service-row service-row-highlight">
-        <div className="service-sticky">
-          <span style={{ color: customService.color }}>0{services.length + 1}</span>
-          <h3>{customService.title}</h3>
-        </div>
-        <div className="service-content">
-          <div className="service-lead">
-            <div className="service-icon" style={{ color: customService.color }}>{customService.icon}</div>
-            <p>{customService.body}</p>
+      {showCustomRow && (
+        <div className="service-row service-row-highlight">
+          <div className="service-sticky">
+            <span style={{ color: customService.color }}>0{services.length + 1}</span>
+            <h3>{customService.title}</h3>
           </div>
-          <Link className="service-cta" href="/contact" style={{ background: customService.color }}>
-            Tell us about it <span>→</span>
-          </Link>
+          <div className="service-content">
+            <div className="service-lead">
+              <div className="service-icon" style={{ color: customService.color }}>{customService.icon}</div>
+              <p>{customService.body}</p>
+            </div>
+            <Link className="service-cta" href="/contact" style={{ background: customService.color }}>
+              Tell us about it <span>→</span>
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

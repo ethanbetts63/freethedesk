@@ -4,15 +4,15 @@ import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useAuth } from "@/context/AuthContext";
-import { getLicensingSettings } from "@/lib/api";
+import { getSiteSettings } from "@/lib/api";
 import { DEALER_STATES } from "@/lib/dealerStates";
-import { buildDealerPlans, type DealerPlan, type DealerPlanCode, type LicensingSettings } from "./plans";
+import { buildDealerPlans, type DealerPlan, type DealerPlanCode, type LicensingPrices } from "./plans";
 import styles from "./page.module.css";
 
 type FormStatus = "idle" | "submitting" | "error";
 
 /** Renders the real plan cards immediately so the grid doesn't jump once real prices load. */
-const PLACEHOLDER_SETTINGS: LicensingSettings = { licensing_price: "0", contracts_price: "0", complete_price: "0", updated_at: "" };
+const PLACEHOLDER_SETTINGS: LicensingPrices = { licensing_price: "0", contracts_price: "0", complete_price: "0" };
 
 function firstError(data: Record<string, unknown>) {
   if (typeof data.detail === "string") return data.detail;
@@ -29,7 +29,7 @@ export function SignupPlans() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    getLicensingSettings()
+    getSiteSettings()
       .then((settings) => setPlans(buildDealerPlans(settings)))
       .catch(() => setError("Plan pricing could not be loaded."));
   }, []);

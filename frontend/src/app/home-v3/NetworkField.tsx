@@ -64,7 +64,7 @@ export function NetworkField({ colors = DEFAULT_NETWORK_COLORS }: NetworkFieldPr
     const linkColor = `${Math.round((r1 + r2) / 2)}, ${Math.round((g1 + g2) / 2)}, ${Math.round((b1 + b2) / 2)}`;
 
     const makeNodes = () => {
-      const count = Math.max(51, Math.min(147, Math.round((width * height) / 10000)));
+      const count = Math.max(61, Math.min(176, Math.round((width * height) / 8333)));
       nodes = Array.from({ length: count }, (_, index) => ({
         x: Math.random() * width,
         y: Math.random() * height,
@@ -89,8 +89,8 @@ export function NetworkField({ colors = DEFAULT_NETWORK_COLORS }: NetworkFieldPr
 
     const pointerRadius = 260;
     const eventHorizon = 16;
-    const pullStrength = 0.035;
-    const swirlStrength = 0.018;
+    const pullStrength = 0.02;
+    const swirlStrength = 0.011;
     const maxSpeed = 2.4;
     const bounds = 40;
 

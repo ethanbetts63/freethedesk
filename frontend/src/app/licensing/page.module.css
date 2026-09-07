@@ -180,7 +180,7 @@
 .closing a:last-child { border-bottom: 1px solid #000; gap: 13px; padding: 7px 0; }
 
 .verify { align-items: center; display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: 1.05fr .95fr; padding-bottom: 125px; padding-top: 125px; }
-.verifyCopy p { color: #536b80; font-size: 1rem; line-height: 1.78; margin: 24px 0 0; max-width: 480px; }
+.verifyCopy p:not(.sectionLabel) { color: #536b80; font-size: 1rem; line-height: 1.78; margin: 24px 0 0; max-width: 480px; }
 .verifyCopy p + p { margin-top: 16px; }
 .verifyCard { background: #f7fafc; border: 1px solid #cfdeea; padding: 26px; }
 .verifyCardHead { align-items: center; border-bottom: 1px solid #d9e5ef; display: flex; justify-content: space-between; margin-bottom: 6px; padding-bottom: 18px; }

@@ -55,10 +55,15 @@ export interface Dealer {
   updated_at: string;
 }
 
-export interface LicensingSettings {
+export interface SiteSettings {
   licensing_price: string;
   contracts_price: string;
   complete_price: string;
+  seo_monthly_price: string;
+  seo_quarterly_price: string;
+  seo_biannual_price: string;
+  seo_oneoff_price: string;
+  gbp_audit_price: string;
   updated_at: string;
 }
 
@@ -109,14 +114,14 @@ export async function updateDealer(id: number, changes: Partial<Pick<Dealer, "st
   }));
 }
 
-export async function getLicensingSettings(): Promise<LicensingSettings> {
-  return jsonOrError(await authedFetch("/api/admin/licensing-settings/"));
+export async function getSiteSettings(): Promise<SiteSettings> {
+  return jsonOrError(await authedFetch("/api/admin/site-settings/"));
 }
 
-export async function updateLicensingSettings(
-  changes: Partial<Pick<LicensingSettings, "licensing_price" | "contracts_price" | "complete_price">>,
-): Promise<LicensingSettings> {
-  return jsonOrError(await authedFetch("/api/admin/licensing-settings/", {
+export async function updateSiteSettings(
+  changes: Partial<Omit<SiteSettings, "updated_at">>,
+): Promise<SiteSettings> {
+  return jsonOrError(await authedFetch("/api/admin/site-settings/", {
     method: "PATCH",
     body: JSON.stringify(changes),
   }));

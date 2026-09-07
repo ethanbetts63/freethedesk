@@ -93,16 +93,21 @@ export function homeFor(user: Principal): string {
   return user.role === "staff" ? "/dashboard/enquiries" : "/portal";
 }
 
-export interface PublicLicensingSettings {
+export interface PublicSiteSettings {
   licensing_price: string;
   contracts_price: string;
   complete_price: string;
+  seo_monthly_price: string;
+  seo_quarterly_price: string;
+  seo_biannual_price: string;
+  seo_oneoff_price: string;
+  gbp_audit_price: string;
   updated_at: string;
 }
 
-/** Unauthenticated: powers the public licensing pricing page, no cookies required. */
-export async function getLicensingSettings(): Promise<PublicLicensingSettings> {
-  return jsonOrError(await fetch("/api/licensing-settings/"));
+/** Unauthenticated: powers the public licensing and SEO pricing pages, no cookies required. */
+export async function getSiteSettings(): Promise<PublicSiteSettings> {
+  return jsonOrError(await fetch("/api/site-settings/"));
 }
 
 export function formatDateTime(value: string | null): string {

@@ -8,7 +8,7 @@ import { CheckoutElementsProvider, PaymentElement, useCheckoutElements } from "@
 import { SignalFlow } from "../../home-v3/SignalFlow";
 import { useAuth } from "@/context/AuthContext";
 import { createSubscriptionCheckout, getDealerAccount, type DealerAccount } from "@/lib/dealerApi";
-import { getLicensingSettings } from "@/lib/api";
+import { getSiteSettings } from "@/lib/api";
 import { stripeConfigured, stripePromise } from "@/lib/stripe";
 import { buildDealerPlans, planByCode, type DealerPlan } from "../plans";
 import styles from "./page.module.css";
@@ -80,7 +80,7 @@ export function SubscriptionPaymentPage() {
     if (started.current) return;
     started.current = true;
 
-    Promise.all([getDealerAccount(), getLicensingSettings()])
+    Promise.all([getDealerAccount(), getSiteSettings()])
       .then(([account, settings]) => {
         setDealer(account);
         setPlans(buildDealerPlans(settings));

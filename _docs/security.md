@@ -41,7 +41,7 @@ document tree in the retention and deletion process.
 ## Payments
 
 The frontend never supplies a trusted price. Django reads the current
-GST-inclusive price from `LicensingSettings`, snapshots the offer and exact terms
+GST-inclusive price from `SiteSettings`, snapshots the offer and exact terms
 acceptance, and sends the amount to Stripe as inclusive recurring price data.
 Webhook signatures are verified and every Stripe event ID is persisted, making
 replay idempotent. Subscription status comes only from subscription events;

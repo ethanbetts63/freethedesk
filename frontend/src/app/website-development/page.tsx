@@ -6,7 +6,9 @@ import { ContactEnquiry } from "../contact/ContactEnquiry";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
+import { ServiceScroll } from "@/components/ServiceScroll";
 import { pageMetadata } from "@/lib/seo";
+import { websiteServices } from "./websiteServices";
 import styles from "./page.module.css";
 
 const TITLE = "Website Development Perth | Custom Websites & Web Apps";
@@ -20,13 +22,6 @@ const websiteDevStats: [ProofStat, ProofStat, ProofStat] = [
 ];
 
 export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH, absoluteTitle: true });
-
-const services = [
-  ["Stock and pricing that update themselves", "If your suppliers publish stock or pricing anywhere—even without a proper API—we build a sync that checks it on a schedule, so nobody is cross-referencing a spreadsheet by hand."],
-  ["The moment something happens, you know", "A new order, a booking, an enquiry, a failed sync. SMS and email alerts land the second it matters, not whenever someone next opens a dashboard."],
-  ["Every routine email, already written", "Order confirmations, booking reminders, status updates. Sent automatically the moment they are triggered, never drafted from scratch."],
-  ["Your calendar and your other tools, in sync", "If you already run a booking or job system, we connect it to your website instead of asking your team to enter the same thing twice."],
-];
 
 const process = [
   ["Understand", "We learn the offer, audience, existing systems and commercial goal before deciding what belongs in the build."],
@@ -89,17 +84,17 @@ export default function WebsiteDevelopmentPage() {
       <section className={styles.servicesSection} id="services">
         <div className="shell">
           <div className={styles.sectionHeading}><p className={styles.label}>02 / What we build</p><h2>The website is the easy part.</h2></div>
-          <div className={styles.serviceGrid}>
-            {services.map(([title, body], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}
-          </div>
           <p className={styles.servicesClosing}>Anyone can put your stock on a nice-looking page. We build the parts behind it that save you actual hours.</p>
+        </div>
+        <div className="shell">
+          <ServiceScroll services={websiteServices} showCustomRow={false} />
         </div>
       </section>
 
       <section className={`shell ${styles.seoSection}`} id="seo">
         <div className={styles.seoCopy}>
           <p className={styles.label}>03 / Continuous SEO</p>
-          <h2>Honest SEO. Not the industry&apos;s usual promises.</h2>
+          <h2>Honest SEO.</h2>
           <p>SEO is one of the most oversold services on the internet. Anyone promising fast, guaranteed rankings is either wrong or lying—real search growth compounds slowly, over months, not weeks.</p>
           <p>Every site we build launches with the technical and on-page foundations done properly, no extra charge. Ongoing improvement past that point is optional, priced honestly, and stops the moment it stops earning its keep.</p>
         </div>

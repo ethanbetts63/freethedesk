@@ -1,0 +1,3 @@
+from .dealer_subscription_terms_acceptance_factory import DealerSubscriptionTermsAcceptanceFactory
+
+__all__ = ["DealerSubscriptionTermsAcceptanceFactory"]

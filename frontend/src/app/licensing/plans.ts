@@ -10,11 +10,10 @@ export type DealerPlan = {
   recommended?: boolean;
 };
 
-export interface LicensingSettings {
+export interface LicensingPrices {
   licensing_price: string;
   contracts_price: string;
   complete_price: string;
-  updated_at: string;
 }
 
 function formatPrice(value: string): string {
@@ -22,8 +21,8 @@ function formatPrice(value: string): string {
   return `$${amount.toLocaleString("en-AU", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
 }
 
-/** Plan copy and features are static; prices come from LicensingSettings so they can be edited from the admin dashboard. */
-export function buildDealerPlans(settings: LicensingSettings): DealerPlan[] {
+/** Plan copy and features are static; prices come from SiteSettings so they can be edited from the admin dashboard. */
+export function buildDealerPlans(settings: LicensingPrices): DealerPlan[] {
   const plans = [
     {
       code: "demo" as const,
