@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ContactEnquiry } from "../contact/ContactEnquiry";
 import { FlowHeroConcept } from "../home-v3/FlowHeroConcept";
 import { Faq } from "@/components/Faq";
+import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { pageMetadata } from "@/lib/seo";
@@ -121,6 +122,9 @@ export default function AutomationPage() {
               </div>
             </li>
           </ol>
+          <Link className="button button-light approach-cta" href="#enquiry">
+            Find your first automation <span>↗</span>
+          </Link>
         </div>
       </section>
 
@@ -130,12 +134,7 @@ export default function AutomationPage() {
         items={questions.map(([question, answer]) => ({ question, answer }))}
       />
 
-      <section className={`shell ${styles.closing}`}>
-        <p className={styles.closingLabel}>Start with the busywork</p>
-        <h2>What is manual admin actually costing you?</h2>
-        <p>Tell us what gets copied, chased or checked each week. We&apos;ll help you find the simplest worthwhile place to begin.</p>
-        <Link href="#enquiry">Find your first automation <span>↗</span></Link>
-      </section>
+      <ManualAdminCta href="#enquiry" />
     </main>
   );
 }

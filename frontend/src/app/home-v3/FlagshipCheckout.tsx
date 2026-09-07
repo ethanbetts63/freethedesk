@@ -52,7 +52,6 @@ export function FlagshipCheckout() {
         </div>
 
         <div className={styles.copy}>
-          <p className={styles.eyebrow}><span /> Flagship product</p>
           <h2>Sell &amp; License.<br /><em>Entirely online.</em></h2>
           <p className={styles.lead}>
             Let customers purchase, complete their paperwork and arrange handover without needing to visit the dealership.

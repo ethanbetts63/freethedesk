@@ -39,12 +39,12 @@ const processIcons = [
 ];
 
 const automationJobs: [string, string][] = [
-  ["Lead capture & routing", "Enquiries arrive with the page and product context attached, land with the right person, and get chased if one goes cold"],
-  ["Customer onboarding", "New customers get the welcome, the forms and the deposit request without anyone remembering to send them"],
-  ["Booking & reminders", "Customers book themselves in; confirmations and reminders go out on their own; no-shows get followed up"],
-  ["CRM & system sync", "A new contact or a status change on the site updates the CRM, accounts and email tool—entered once"],
-  ["Invoicing & payments", "Invoices raised from the order, overdue accounts chased on schedule, payments matched to the bank feed"],
-  ["Document generation", "Quotes, contracts and paperwork built from details already entered, and data pulled out of supplier PDFs"],
+  ["Lead capture & routing", "Enquiries arrive with context, reach the right person, and get chased if they go cold"],
+  ["Customer onboarding", "Welcome, forms and deposit request sent the moment a deal is won"],
+  ["Booking & reminders", "Customers book themselves in; confirmations and no-show follow-ups send themselves"],
+  ["CRM & system sync", "Contacts and status changes flow into your CRM, accounts and email tool—entered once"],
+  ["Invoicing & payments", "Invoices raised from the order, overdue accounts chased, payments reconciled"],
+  ["Document generation", "Quotes, contracts and paperwork built from details already entered"],
 ];
 
 const questions = [
@@ -86,28 +86,37 @@ export default function WebsiteDevelopmentPage() {
         <ContactEnquiry defaultHelpWith="business-website" />
       </section>
 
-      <section className={`shell ${styles.intro}`}>
-        <div className={styles.introCopy}>
-          <p className={styles.label}>01 / What you&apos;re buying</p>
-          <h2>Not just a website.</h2>
-          <p></p>
-          <p>A basic website is a brochure: a handful of pages that look fine on launch day and do nothing after that.</p>
-          <p>What we is custom software—it watches stock, sends the alerts, writes the routine emails and keeps working on search long after launch. The pages your customers see are just the tip of the iceberg.</p>
-        </div>
-        <div className={styles.iceberg} aria-hidden="true">
-          <div className={styles.icebergTip}>
-            <span className={styles.icebergTag}>What your customers see</span>
-            <div className={styles.icebergPage}><strong /><i /><i /><span /></div>
+      <section className={`shell ${styles.introSection}`}>
+        <div className={styles.pitch}>
+          <div className={styles.pitchCopy}>
+            <p className={styles.label}>01 / What you&apos;re buying</p>
+            <h2>Not just a website.</h2>
+            <p className={styles.pitchIntro}>A basic website is a brochure: a handful of pages that look fine on launch day and do nothing after that.</p>
+            <p className={styles.pitchIntro}>What we build is closer to custom software. The pages your customers see are the tip of the iceberg—underneath, the site runs the repetitive jobs your team currently does by hand.</p>
+            <div className={styles.pitchActions}>
+              <Link href="#services">See what we build <span aria-hidden="true">→</span></Link>
+              <Link href="/automation">Want to know more about automation? <span aria-hidden="true">↗</span></Link>
+            </div>
           </div>
-          <div className={styles.icebergLine}><span>waterline</span></div>
-          <div className={styles.icebergDepth}>
-            <span className={styles.icebergTag}>What's happening in the background?</span>
-            <ul>
-              <li><em />Notifies Admin</li>
-              <li><em />Writes routine emails</li>
-              <li><em />Tracks stock levels</li>
-              <li><em />Generates Quotes</li>
-            </ul>
+
+          <div className={styles.pitchPanel} aria-label="Automation jobs your website can run">
+            <header className={styles.pitchPanelHead}>
+              <div>
+                <span className={styles.pitchPanelDot} aria-hidden="true" />
+                <span><small>Runs in the background</small><strong>Your website</strong></span>
+              </div>
+              <span className={styles.pitchPanelCount}>6 jobs</span>
+            </header>
+            <ol className={styles.pitchList}>
+              {automationJobs.map(([title, desc], index) => (
+                <li key={title}>
+                  <span className={styles.pitchIndex}>{String(index + 1).padStart(2, "0")}</span>
+                  <span className={styles.pitchCheck} aria-hidden="true">✓</span>
+                  <span className={styles.pitchItemCopy}><strong>{title}</strong><small>{desc}</small></span>
+                  <span className={styles.pitchTag}>Automated</span>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>

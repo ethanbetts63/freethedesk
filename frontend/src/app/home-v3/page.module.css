@@ -1,4 +1,10 @@
-.page { background: #fff; color: #000; }
+.page { --page-accent: #247ec9; background: #fff; color: #000; }
+.seoSection { background: #f2f7fb; padding-bottom: 105px; padding-top: 105px; }
+.seoSummary { display: flex; flex-direction: column; gap: 24px; }
+.seoSummary > span { display: block; }
+.seoSummary a { align-items: center; align-self: flex-start; background: var(--page-accent); color: #fff; display: inline-flex; font-size: .72rem; font-weight: 900; gap: 28px; letter-spacing: .06em; padding: 15px 18px; text-transform: uppercase; }
+.seoSummary a span { display: inline-block; transition: transform .2s ease; }
+.seoSummary a:hover span { transform: translateX(4px); }
 .hero {
   /* Single place to retune the home hero's accent color. */
   --hero-accent: #247ec9;
@@ -29,6 +35,7 @@
 .trustLine { color: #7c93aa; font-size: .68rem; font-weight: 700; letter-spacing: .09em; margin: 30px 0 0; text-transform: uppercase; }
 @keyframes blink { 50% { box-shadow: 0 0 0 6px rgba(var(--hero-accent-rgb), .14); } }
 @media (max-width: 760px) {
+  .seoSection { padding-bottom: 82px; padding-top: 82px; }
   .hero { min-height: calc(100svh - 68px); }
   .content { padding-bottom: 120px; padding-top: 80px; }
   .content h1 { font-size: clamp(3.6rem, 19vw, 5.6rem); line-height: .87; }

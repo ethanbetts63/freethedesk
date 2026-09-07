@@ -1,0 +1,11 @@
+.closing { background: #f2f7fb; margin-bottom: 115px; margin-top: 115px; padding: 82px; text-align: center; }
+.label { color: var(--page-accent, var(--blue-700)); font-size: .68rem; font-weight: 900; letter-spacing: .14em; margin: 0 0 23px; text-transform: uppercase; }
+.closing h2 { font-size: clamp(2.4rem, 4.6vw, 3.6rem); letter-spacing: -.05em; margin: 0; }
+.closing > p:not(.label) { color: #587086; font-size: .96rem; line-height: 1.7; margin: 27px auto 31px; max-width: 570px; }
+.closing > a { align-items: center; background: var(--page-accent, var(--blue-700)); color: #fff; display: inline-flex; font-size: .8rem; font-weight: 900; gap: 35px; padding: 17px 20px; }
+.closing > a span { display: inline-block; transition: transform .2s ease; }
+.closing > a:hover span { transform: translateX(4px); }
+
+@media (max-width: 620px) {
+  .closing { margin-bottom: 80px; margin-top: 80px; padding: 65px 22px; }
+}

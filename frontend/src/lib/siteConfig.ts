@@ -9,10 +9,10 @@ export const PORTFOLIO_NAVIGATION = [
 
 export const PRIMARY_NAVIGATION = [
   { href: "/website-development", label: "Websites" },
-  { href: "/dealers", label: "Dealers" },
-  { href: "/licensing", label: "Online licensing" },
   { href: "/automation", label: "Automation" },
   { href: "/seo", label: "SEO" },
+  { href: "/dealers", label: "Dealers" },
+  { href: "/licensing", label: "Online licensing" },
   { href: "/contact", label: "Contact" },
 ] as const;
 

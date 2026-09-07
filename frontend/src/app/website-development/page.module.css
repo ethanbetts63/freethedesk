@@ -5,41 +5,44 @@
 }
 .label { color: var(--page-accent); font-size: .68rem; font-weight: 900; letter-spacing: .14em; margin: 0 0 23px; text-transform: uppercase; }
 .enquirySection { padding-bottom: 20px; padding-top: 70px; }
-.intro { align-items: center; display: grid; gap: clamp(55px, 8vw, 120px); grid-template-columns: 1.05fr .95fr; padding-bottom: 125px; padding-top: 125px; }
-.intro h2, .sectionHeading h2, .systemCopy h2, .proofSection h2, .closing h2 { font-size: clamp(3rem, 5.3vw, 5.7rem); letter-spacing: -.072em; line-height: .93; margin: 0; }
-.introCopy { max-width: 540px; }
-.introCopy p:not(.label), .systemCopy > p:not(.label), .proofSection > div:last-child > p { color: #536c80; font-size: .98rem; line-height: 1.78; margin: 0 0 18px; }
-.introCopy h2 + p { margin-top: 26px; }
+.introSection { padding-bottom: 125px; padding-top: 125px; }
+.pitchCopy h2, .sectionHeading h2, .systemCopy h2, .proofSection h2, .closing h2 { font-size: clamp(3rem, 5.3vw, 5.7rem); letter-spacing: -.072em; line-height: .93; margin: 0; }
+.systemCopy > p:not(.label), .proofSection > div:last-child > p { color: #536c80; font-size: .98rem; line-height: 1.78; margin: 0 0 18px; }
 
-/* 01 — iceberg: the visible page is the tip; the system runs below the waterline */
-.iceberg { border: 1px solid #d7e2e9; box-shadow: 24px 24px 0 #eef4f8; overflow: hidden; }
-.icebergTip { background: #fff; padding: 26px clamp(22px, 4vw, 34px) 30px; }
-.icebergTag { color: #8098ab; display: block; font-size: .58rem; font-weight: 900; letter-spacing: .14em; margin-bottom: 16px; text-transform: uppercase; }
-.icebergPage { display: grid; gap: 11px; }
-.icebergPage strong { background: #13315c; height: 30px; width: 60%; }
-.icebergPage i { background: #e4edf3; height: 12px; }
-.icebergPage i:nth-of-type(2) { width: 82%; }
-.icebergPage span { background: #70bced; height: 12px; width: 32%; }
-.icebergLine { align-items: center; display: flex; gap: 10px; padding: 13px clamp(22px, 4vw, 34px); }
-.icebergLine::before, .icebergLine::after { background: repeating-linear-gradient(90deg, #bcd0df 0 5px, transparent 5px 11px); content: ""; height: 2px; }
-.icebergLine::before { flex: none; width: 16px; }
-.icebergLine::after { flex: 1; }
-.icebergLine span { color: #9db1c1; font-size: .54rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; }
-.icebergDepth { background: linear-gradient(160deg, #13315c, #0b1d33); color: #fff; padding: 26px clamp(22px, 4vw, 34px) 32px; }
-.icebergDepth .icebergTag { color: #70bced; }
-.icebergDepth ul { list-style: none; margin: 0; padding: 0; }
-.icebergDepth li { align-items: center; border-top: 1px solid rgba(255, 255, 255, .1); display: flex; font-size: .82rem; font-weight: 700; gap: 13px; padding: 13px 0; }
-.icebergDepth li:first-of-type { border-top: 0; padding-top: 0; }
-.icebergDepth li em { animation: icebergPulse 2.4s ease-out infinite; background: #4fd08a; border-radius: 50%; flex: none; height: 7px; width: 7px; }
-.icebergDepth li:nth-of-type(2) em { animation-delay: .6s; }
-.icebergDepth li:nth-of-type(3) em { animation-delay: 1.2s; }
-.icebergDepth li:nth-of-type(4) em { animation-delay: 1.8s; }
-@keyframes icebergPulse {
-  0% { box-shadow: 0 0 0 0 rgba(79, 208, 138, .55); }
-  70% { box-shadow: 0 0 0 7px rgba(79, 208, 138, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(79, 208, 138, 0); }
-}
-@media (prefers-reduced-motion: reduce) { .icebergDepth li em { animation: none; } }
+/* 01 — automation pitch, styled after the SEO page's Google Business Profile audit */
+.pitch { background: #13315c; color: #fff; display: grid; gap: clamp(44px, 7vw, 88px); grid-template-columns: .92fr 1.08fr; overflow: hidden; padding: clamp(34px, 5vw, 64px); position: relative; }
+.pitch::before { background-image: linear-gradient(rgba(163, 214, 245, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(163, 214, 245, .05) 1px, transparent 1px); background-size: 42px 42px; content: ""; inset: 0; mask-image: linear-gradient(90deg, #000, transparent 82%); pointer-events: none; position: absolute; }
+.pitchCopy, .pitchPanel { position: relative; z-index: 1; }
+.pitchCopy { max-width: 540px; }
+.pitchCopy .label { color: #70bced; }
+.pitchCopy h2 { color: #fff; }
+.pitchIntro { color: #b9ccdc; font-size: .96rem; line-height: 1.75; margin: 0 0 15px; }
+.pitchCopy h2 + .pitchIntro { margin-top: 24px; }
+.pitchNote { border-left: 2px solid #70bced; color: #dce9f5; font-size: .82rem; line-height: 1.62; margin: 4px 0 0; padding: 3px 0 3px 16px; }
+.pitchActions { align-items: center; display: flex; flex-wrap: wrap; gap: 20px; margin-top: 30px; }
+.pitchActions a:first-child { align-items: center; background: #70bced; color: #07121c; display: flex; font-size: .72rem; font-weight: 900; gap: 24px; letter-spacing: .04em; padding: 14px 17px; text-transform: uppercase; }
+.pitchActions a:first-child span { display: inline-block; transition: transform .2s ease; }
+.pitchActions a:first-child:hover span { transform: translateX(4px); }
+.pitchActions a:last-child { border-bottom: 1px solid rgba(255, 255, 255, .28); color: #b9ccdc; font-size: .74rem; font-weight: 750; padding-bottom: 5px; }
+.pitchActions a:last-child:hover { color: #fff; }
+
+.pitchPanel { align-self: center; background: #fff; box-shadow: 0 30px 70px rgba(0, 0, 0, .3); color: #07121c; }
+.pitchPanelHead { align-items: center; background: #f6f9fc; border-bottom: 1px solid #e1e9f1; display: flex; justify-content: space-between; padding: 16px 20px; }
+.pitchPanelHead > div { align-items: center; display: flex; gap: 11px; }
+.pitchPanelHead small, .pitchPanelHead strong { display: block; }
+.pitchPanelHead small { color: #708598; font-size: .5rem; font-weight: 900; letter-spacing: .1em; margin-bottom: 2px; text-transform: uppercase; }
+.pitchPanelHead strong { font-size: .78rem; }
+.pitchPanelDot { background: #4fd08a; border-radius: 50%; box-shadow: 0 0 0 4px rgba(79, 208, 138, .18); flex: none; height: 9px; width: 9px; }
+.pitchPanelCount { background: #eaf3fb; color: var(--page-accent); font-size: .57rem; font-weight: 900; padding: 7px 10px; text-transform: uppercase; }
+.pitchList { list-style: none; margin: 0; padding: 4px 20px 12px; }
+.pitchList li { align-items: center; border-bottom: 1px solid #e8eef4; display: grid; gap: 12px; grid-template-columns: 22px 26px minmax(0, 1fr) auto; padding: 15px 0; }
+.pitchList li:last-child { border-bottom: 0; }
+.pitchIndex { color: #9aacbb; font-size: .57rem; font-weight: 900; }
+.pitchCheck { align-items: center; background: #eaf3fb; border-radius: 50%; color: var(--page-accent); display: flex; font-size: .62rem; font-weight: 900; height: 26px; justify-content: center; width: 26px; }
+.pitchItemCopy strong, .pitchItemCopy small { display: block; }
+.pitchItemCopy strong { font-size: .78rem; margin-bottom: 3px; }
+.pitchItemCopy small { color: #708598; font-size: .62rem; line-height: 1.45; }
+.pitchTag { color: #5f778a; font-size: .53rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
 .servicesSection { background: #f2f7fb; padding: 115px 0 125px; }
 .sectionHeading { max-width: 900px; }
 .servicesClosing { color: #13315c; font-size: 1.25rem; font-weight: 750; letter-spacing: -.02em; line-height: 1.5; margin: 48px 0 0; max-width: 720px; }
@@ -85,15 +88,18 @@
 .closing > a { align-items: center; background: var(--page-accent); color: #fff; display: inline-flex; font-size: .8rem; font-weight: 900; gap: 35px; padding: 17px 20px; }
 
 @media (max-width: 900px) {
-  .intro, .systemSection, .proofSection { grid-template-columns: 1fr; }
+  .pitch, .systemSection, .proofSection { grid-template-columns: 1fr; }
+  .pitchPanel { margin: 0 auto; max-width: 620px; width: 100%; }
 }
 
 @media (max-width: 620px) {
   .enquirySection { padding-top: 50px; }
-  .intro, .systemSection, .proofSection { padding-bottom: 82px; padding-top: 82px; }
+  .introSection, .systemSection, .proofSection { padding-bottom: 82px; padding-top: 82px; }
   .servicesSection { padding-bottom: 80px; padding-top: 80px; }
   .seoSection { padding-bottom: 82px; padding-top: 82px; }
   .systemVisual { min-height: 440px; }
-  .iceberg { box-shadow: 12px 12px 0 #eef4f8; }
+  .pitch { padding: 30px 22px; }
+  .pitchList li { grid-template-columns: 20px 24px minmax(0, 1fr); }
+  .pitchTag { display: none; }
   .closing { margin-bottom: 80px; margin-top: 80px; padding: 65px 22px; }
 }
