@@ -81,14 +81,14 @@ function InventoryPage({ inventoryAddons, onVehicleOpen }: { inventoryAddons: In
   return (
     <div className={styles.inventoryPage}>
       <section className={styles.inventoryHero}>
-        <div><small>Ready when you are</small><h2>Find your next machine.</h2><p>Browse new and pre-owned vehicles, compare the details and take the next step online or in the dealership.</p><button onClick={() => document.getElementById("demo-inventory")?.scrollIntoView({ behavior: "smooth" })}>Browse available stock ↓</button></div>
+        <div><small>Ready when you are</small><h2>Find your next machine.</h2><p>Browse new and pre-owned vehicles, compare the details and take the next step online or in the dealership.</p><button type="button" onClick={() => document.getElementById("demo-inventory")?.scrollIntoView({ behavior: "smooth" })}>Browse available stock ↓</button></div>
         <div className={styles.inventoryHeroVisual} aria-hidden="true"><span /><i /><i /></div>
       </section>
       {showOnlineSteps && <OnlinePurchaseSteps />}
       <div className={styles.inventoryContent} id="demo-inventory">
         {inventoryAddons.newsletter && <form className={styles.stockNewsletter} onSubmit={(event) => { event.preventDefault(); if (newsletterEmail.trim()) setSubscribed(true); }}><div><small>New stock alerts</small><strong>{subscribed ? "You're on the list." : "Be first to see what arrives."}</strong><span>{subscribed ? `Updates will be sent to ${newsletterEmail}.` : "Get an email when new stock is listed. Nothing else."}</span></div>{!subscribed && <label><input type="email" value={newsletterEmail} onChange={(event) => setNewsletterEmail(event.target.value)} required aria-label="Email address for new stock alerts" placeholder="Your email address" /><ConversionButton type="submit">Sign up →</ConversionButton></label>}</form>}
         <CatalogueControls selects={[{ label: "Brand", value: brand, onChange: setBrand, options: [{ label: "All brands", value: "all" }, { label: "Horizon", value: "Horizon" }, { label: "Axis", value: "Axis" }, { label: "Northline", value: "Northline" }] }, { label: "Condition", value: condition, onChange: setCondition, options: [{ label: "All stock", value: "all" }, { label: "New", value: "new" }, { label: "Used", value: "used" }] }, { label: "Sort by", value: sort, onChange: setSort, options: [{ label: "Featured", value: "featured" }, { label: "Price: low to high", value: "price-asc" }, { label: "Price: high to low", value: "price-desc" }, { label: "Year: new to old", value: "year-desc" }, { label: "Year: old to new", value: "year-asc" }, { label: "Engine: low to high", value: "engine-asc" }, { label: "Engine: high to low", value: "engine-desc" }] }]} minPrice={minPrice} maxPrice={maxPrice} onMinPriceChange={setMinPrice} onMaxPriceChange={setMaxPrice} onClear={clearFilters} resultCount={vehicles.length} resultName="vehicles" />
-        {vehicles.length > 0 ? <div className={styles.catalogueGrid}>{vehicles.map((vehicle) => <InventoryTile key={vehicle.name} vehicle={vehicle} inventoryAddons={inventoryAddons} onOpen={() => onVehicleOpen(vehicle)} />)}</div> : <div className={styles.noInventoryResults}><strong>No vehicles match those filters.</strong><button onClick={clearFilters}>Clear filters</button></div>}
+        {vehicles.length > 0 ? <div className={styles.catalogueGrid}>{vehicles.map((vehicle) => <InventoryTile key={vehicle.name} vehicle={vehicle} inventoryAddons={inventoryAddons} onOpen={() => onVehicleOpen(vehicle)} />)}</div> : <div className={styles.noInventoryResults}><strong>No vehicles match those filters.</strong><button type="button" onClick={clearFilters}>Clear filters</button></div>}
       </div>
     </div>
   );
@@ -102,10 +102,10 @@ function VehicleDetailsPage({ vehicle, inventoryAddons, onBack }: { vehicle: Inv
 
   return (
     <div className={styles.vehicleDetailPage}>
-      <button className={styles.backToInventory} onClick={onBack}>← Back to inventory</button>
+      <button type="button" className={styles.backToInventory} onClick={onBack}>← Back to inventory</button>
       <section className={styles.vehicleGallery}>
         <div className={`${styles.vehicleGalleryMain} ${styles[`galleryTone${galleryImage + 1}`]}`}><div className={styles.detailVehicleVisual} aria-hidden="true"><span /><i /><i /></div><span>{vehicle.year} · {vehicle.brand}</span></div>
-        <div className={styles.galleryThumbs}>{[0, 1, 2].map((image) => <button key={image} className={galleryImage === image ? styles.activeGalleryThumb : ""} onClick={() => setGalleryImage(image)} aria-label={`View vehicle image ${image + 1}`}><MiniVehicle /></button>)}</div>
+        <div className={styles.galleryThumbs}>{[0, 1, 2].map((image) => <button type="button" key={image} className={galleryImage === image ? styles.activeGalleryThumb : ""} onClick={() => setGalleryImage(image)} aria-label={`View vehicle image ${image + 1}`}><MiniVehicle /></button>)}</div>
       </section>
       <div className={styles.vehicleDetailLayout}>
         <main>
@@ -157,7 +157,7 @@ function AccessoriesPage() {
       <div className={`${styles.catalogueGrid} ${styles.accessoryGrid}`}>
         {visibleProducts.map((product) => { const originalIndex = products.findIndex((item) => item.name === product.name); return <article key={product.name}><div className={styles.accessoryVisual}><i className={styles[`accessoryShape${originalIndex + 1}`]} /></div><small>{addedProducts.includes(product.name) ? "Added to your selection" : product.available ? "In stock" : "Order item"}</small><strong>{product.name}</strong><p>${product.price}</p><ConversionButton onClick={() => setAddedProducts((current) => current.includes(product.name) ? current : [...current, product.name])}>Add +</ConversionButton></article>; })}
       </div>
-      {visibleProducts.length === 0 && <div className={styles.noInventoryResults}><strong>No accessories match those filters.</strong><button onClick={clearFilters}>Clear filters</button></div>}
+      {visibleProducts.length === 0 && <div className={styles.noInventoryResults}><strong>No accessories match those filters.</strong><button type="button" onClick={clearFilters}>Clear filters</button></div>}
     </div>
   );
 }

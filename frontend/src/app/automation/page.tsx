@@ -8,6 +8,8 @@ import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { pageMetadata } from "@/lib/seo";
+
+import { AUTOMATION_FAQS } from "./_lib/copy";
 import { ServiceScroll } from "@/components/ServiceScroll";
 import { automationServices } from "./_components/automationServices";
 import styles from "./page.module.css";
@@ -18,14 +20,7 @@ const PATH = "/automation";
 
 export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
 
-const questions = [
-  ["What counts as something worth automating?", "Anything copied, chased or checked by hand every week—re-entering data between systems, manual status updates, or repeated follow-ups."],
-  ["Will this replace the software we already use?", "Usually not. We start with the accounting, CRM, inventory or job-management systems you already run and add the missing workflow or integration, rather than replacing what already works."],
-  ["How do we know it's actually working?", "Every workflow launches with monitoring and documentation, so what it saves is measured, not assumed."],
-  ["How do we get started?", "Describe the process in plain English—we'll help you work out whether it's worth automating before any development begins."],
-];
-
-const automationStats: [ProofStat, ProofStat, ProofStat] = [
+const automationStats: ProofStat[] = [
   { value: "36%", label: "Of the work week", description: "Time small business owners lose to manual admin tasks." },
   { value: "0", label: "Times re-keyed", description: "Information entered once, reused everywhere it's needed." },
   { value: "AI", label: "Automation like never before", description: "What AI can automate has grown fast. Get ahead of the curve." },
@@ -131,7 +126,7 @@ export default function AutomationPage() {
       <Faq
         eyebrow="03 / Common questions"
         title="Before we start."
-        items={questions.map(([question, answer]) => ({ question, answer }))}
+        items={AUTOMATION_FAQS}
       />
 
       <ManualAdminCta href="#enquiry" />

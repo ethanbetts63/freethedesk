@@ -71,13 +71,13 @@ const frontDoors = [
 
 export default function BloomprintCaseStudy() {
   return (
-    <main className="bloom-case-page">
+    <main className="case-page">
       <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
 
-      <section className="bloom-hero">
-        <div className="bloom-hero-grid" aria-hidden="true" />
-        <div className="shell bloom-hero-layout">
-          <div className="bloom-hero-copy">
+      <section className="case-hero">
+        <div className="case-hero-grid" aria-hidden="true" />
+        <div className="shell case-hero-layout">
+          <div className="case-hero-copy">
             <p className="eyebrow"><span />Bloomprint case study</p>
             <h1>Not a catalogue.<br /><span>A brief.</span></h1>
             <p>A national flower delivery marketplace where the customer describes what they want and an independent local florist designs it. Customer ordering, florist supply and organic growth built as one product.</p>
@@ -85,12 +85,12 @@ export default function BloomprintCaseStudy() {
               <a className="button button-primary" href="https://www.bloomprint.com.au/" target="_blank" rel="noreferrer">Visit the live website <span>↗</span></a>
               <a className="text-link" href="#tour">Explore the build <span>↓</span></a>
             </div>
-            <div className="bloom-hero-meta">
+            <div className="case-hero-meta">
               <span>Strategy</span><span>Design</span><span>Development</span><span>SEO</span>
             </div>
           </div>
 
-          <div className="bloom-hero-media">
+          <div className="case-hero-media">
             <div className="case-browser case-browser-hero">
               <div className="case-browser-bar"><i /><i /><i /><span>www.bloomprint.com.au</span></div>
               <Image src="/case-studies/bloomprint/home-desktop.png" alt="Bloomprint homepage with the order builder open" width={1440} height={681} priority />

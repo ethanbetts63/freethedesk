@@ -83,8 +83,8 @@ export default function DealerDetailPage() {
             <h2>Approve this dealer</h2>
             <p className="admin-muted">Approving only switches the account on. The dealer still has to complete onboarding — licence details, prefill data and their sale conditions — before they can run a sale.</p>
             <div className="button-row">
-              <button className="admin-primary-button" disabled={saving} onClick={() => save({ status: "active" }, "Dealer approved.")}>Approve</button>
-              <button className="admin-secondary-button" disabled={saving} onClick={() => save({ status: "denied" }, "Dealer denied.")}>Deny</button>
+              <button type="submit" className="admin-primary-button" disabled={saving} onClick={() => save({ status: "active" }, "Dealer approved.")}>Approve</button>
+              <button type="button" className="admin-secondary-button" disabled={saving} onClick={() => save({ status: "denied" }, "Dealer denied.")}>Deny</button>
             </div>
           </section>
         )}
@@ -123,7 +123,7 @@ export default function DealerDetailPage() {
             onChange={(event) => setNotes(event.target.value)}
             placeholder="Anything worth recording about this dealership — licence checks, phone calls, why they were denied."
           />
-          <button className="admin-secondary-button" disabled={saving || notes === dealer.staff_notes} onClick={() => save({ staff_notes: notes }, "Notes saved.")}>
+          <button type="button" className="admin-secondary-button" disabled={saving || notes === dealer.staff_notes} onClick={() => save({ staff_notes: notes }, "Notes saved.")}>
             {saving ? "Saving…" : "Save notes"}
           </button>
         </section>

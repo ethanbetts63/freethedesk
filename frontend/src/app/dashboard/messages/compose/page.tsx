@@ -45,7 +45,7 @@ function ComposeMessageContent() {
             <input ref={inputRef} type="file" multiple hidden onChange={(event) => { setAttachments((current) => [...current, ...Array.from(event.target.files ?? [])]); event.target.value = ""; }} />
             {attachments.length > 0 && <ul>{attachments.map((file, index) => <li key={`${file.name}-${index}`}><span>{file.name} ({(file.size / 1024 / 1024).toFixed(1)} MB)</span><button type="button" onClick={() => setAttachments((current) => current.filter((_, currentIndex) => currentIndex !== index))}>Remove</button></li>)}</ul>}
           </section>
-          <button className="admin-primary-button admin-send-button" disabled={sending}>{sending ? "Sending…" : "Send email"}</button>
+          <button type="submit" className="admin-primary-button admin-send-button" disabled={sending}>{sending ? "Sending…" : "Send email"}</button>
         </form>
       </section>
     </div>

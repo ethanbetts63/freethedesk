@@ -9,6 +9,8 @@ import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { ServiceScroll } from "@/components/ServiceScroll";
 import { pageMetadata } from "@/lib/seo";
+
+import { WEBSITE_DEV_FAQS } from "./_lib/copy";
 import { websiteServices } from "./_components/websiteServices";
 import styles from "./page.module.css";
 
@@ -16,7 +18,7 @@ const TITLE = "Website Development Perth | Custom Websites & Web Apps";
 const DESCRIPTION = "Perth website development for businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.";
 const PATH = "/website-development";
 
-const websiteDevStats: [ProofStat, ProofStat, ProofStat] = [
+const websiteDevStats: ProofStat[] = [
   { value: "36%", label: "Of the work week", description: "Time small business owners lose to manual admin tasks." },
   { value: "4", label: "Stages, every project", description: "Understand, design, build, improve—the same process each time." },
   { value: "AI", label: "Are you AI ready?", description: "We check four practical foundations for AI and agentic browsing." },
@@ -45,13 +47,6 @@ const automationJobs: [string, string][] = [
   ["CRM & system sync", "Contacts and status changes flow into your CRM, accounts and email tool—entered once"],
   ["Invoicing & payments", "Invoices raised from the order, overdue accounts chased, payments reconciled"],
   ["Document generation", "Quotes, contracts and paperwork built from details already entered"],
-];
-
-const questions = [
-  ["How much does a website cost?", "It depends on whether you need a focused marketing site, ecommerce, custom workflows or integrations. We define the useful first release and give you a clear scope before development begins."],
-  ["Can you replace or improve an existing site?", "Yes. We can rebuild it, preserve useful content and search equity, or improve one high-value part without replacing everything at once."],
-  ["Do you work with businesses outside the automotive industry?", "Yes. Our dealership work proves the operational depth of what we build, but the same approach suits Perth service, retail, equipment, trade and specialist businesses."],
-  ["Will the website work properly on mobile?", "Yes. We design mobile-first, then use the extra room on larger screens deliberately. Forms, navigation, product pages and conversion paths are tested across practical viewport sizes."],
 ];
 
 export default function WebsiteDevelopmentPage() {
@@ -201,7 +196,7 @@ export default function WebsiteDevelopmentPage() {
       <Faq
         eyebrow="07 / Common questions"
         title="Before we begin."
-        items={questions.map(([question, answer]) => ({ question, answer }))}
+        items={WEBSITE_DEV_FAQS}
       />
 
       <section className={`shell ${styles.closing}`}>

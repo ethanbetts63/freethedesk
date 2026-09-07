@@ -22,7 +22,6 @@ if not DEBUG:
     missing = [name for name, value in required_production_secrets.items() if not value]
     if missing:
         raise ImproperlyConfigured(f"Missing required production secrets: {', '.join(missing)}")
-SECRET_KEY = SECRET_KEY or "local-development-key-change-before-deploying"
 ALLOWED_HOSTS = [host.strip() for host in os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,testserver").split(",") if host.strip()]
 
 INSTALLED_APPS = [

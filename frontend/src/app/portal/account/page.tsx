@@ -98,7 +98,7 @@ export default function PortalAccountPage() {
                 This is your sign-in address. To change it, email hello@freethedesk.com.au and we will move it across.
               </small>
             </label>
-            <button className="admin-primary-button" disabled={saving || !dirty}>
+            <button type="submit" className="admin-primary-button" disabled={saving || !dirty}>
               {saving ? "Saving…" : "Save changes"}
             </button>
           </form>

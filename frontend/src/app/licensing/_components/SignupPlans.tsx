@@ -124,7 +124,7 @@ export function SignupPlans() {
               <label><span>State or territory</span><select name="state" defaultValue="WA" required>{DEALER_STATES.map((state) => <option key={state.value} value={state.value}>{state.label}</option>)}</select><small>No street address needed yet.</small></label>
             </div>
             {error && <p className={styles.signupError} role="alert">{error}</p>}
-            <button className={styles.signupSubmit} disabled={status === "submitting"}>
+            <button type="submit" className={styles.signupSubmit} disabled={status === "submitting"}>
               {status === "submitting" ? "Creating your account…" : "Continue to secure payment"}
               <span>→</span>
             </button>

@@ -6,6 +6,8 @@ import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { pageMetadata } from "@/lib/seo";
+
+import { LICENSING_FAQS } from "./_lib/copy";
 import { FlowCompare } from "./_components/FlowCompare";
 import { IdentityVerification } from "./_components/IdentityVerification";
 import { LicensingNextStepPhone } from "./_components/LicensingNextStepPhone";
@@ -17,14 +19,7 @@ const TITLE = "Online Vehicle Licensing";
 const DESCRIPTION = "Let customers verify their identity, complete vehicle licensing and sign paperwork online without an unnecessary dealership visit.";
 const PATH = "/licensing";
 
-const questions = [
-  ["Do I need a new website to use this?", "No. Choose the hosted portal and keep your current site, or have it built directly into a dealership website we design for you."],
-  ["How does the customer actually pay?", "Online, as part of the same flow—card payment for a plan, or the BSB details shown when licensing is built into a vehicle purchase on your website."],
-  ["What happens once the customer signs?", "The completed paperwork lands straight back in your dealer queue—no scanning, printing or chasing an emailed PDF."],
-  ["Do I need both licensing and contracts?", "No—pick whichever you need. Online licensing and online contracts are priced separately, or combined at a lower combined rate."],
-];
-
-const licensingStats: [ProofStat, ProofStat, ProofStat] = [
+const licensingStats: ProofStat[] = [
   { value: "72%", label: "Want licensing online", description: "Of car buyers say they'd rather complete paperwork online, per Cox Automotive research." },
   { value: "45 min", label: "Saved per customer", description: "Average time saved at the dealership when paperwork starts online." },
   { value: "24 / 7", label: "Always available", description: "Customers can verify, sign and pay at any time, without booking a dealership appointment." },
@@ -102,7 +97,7 @@ export default function LicensingPage() {
       <Faq
         eyebrow="06 / Common questions"
         title="Before you sign up."
-        items={questions.map(([question, answer]) => ({ question, answer }))}
+        items={LICENSING_FAQS}
       />
 
       <section className={`shell ${styles.closing}`}>

@@ -108,7 +108,7 @@ export default function SiteSettingsPage() {
           </p>
           <div className="admin-compose-form">
             {SEO_FIELDS.map(renderField)}
-            <button className="admin-primary-button" disabled={saving || !dirty}>
+            <button type="submit" className="admin-primary-button" disabled={saving || !dirty}>
               {saving ? "Saving…" : "Save changes"}
             </button>
             <p className="field-hint">Last updated {formatDateTime(settings.updated_at)}.</p>

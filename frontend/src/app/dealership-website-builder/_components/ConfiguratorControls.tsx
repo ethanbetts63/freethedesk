@@ -107,7 +107,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
         <small className={styles.fieldNote}>Helps us understand your current content and setup.</small>
         <label>Brand accent</label>
         <div className={styles.swatches}>
-          {(Object.keys(ACCENTS) as Accent[]).map((option) => <button key={option} className={accent === option ? styles.activeSwatch : ""} onClick={() => onAccentChange(option)} aria-label={`${option} brand accent`} aria-pressed={accent === option}><i style={{ background: ACCENTS[option] }} /></button>)}
+          {(Object.keys(ACCENTS) as Accent[]).map((option) => <button type="button" key={option} className={accent === option ? styles.activeSwatch : ""} onClick={() => onAccentChange(option)} aria-label={`${option} brand accent`} aria-pressed={accent === option}><i style={{ background: ACCENTS[option] }} /></button>)}
         </div>
         <p className={styles.paletteNote}>Demo palette — production design and colours are tailored to your brand.</p>
       </section>
@@ -121,8 +121,8 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             return (
             <div key={module.key} className={styles.moduleChoice}>
               <div className={styles.moduleRow}>
-                <button className={`${styles.moduleToggle} ${selected[module.key] ? styles.moduleSelected : ""}`} onClick={() => onModuleToggle(module.key)} aria-pressed={selected[module.key]}><span className={styles.capabilityLabel}><span className={styles.capabilityIcon}><CapabilityIcon type={module.key} /></span><span><strong>{module.name}</strong><small>{module.description}</small></span></span><i>{selected[module.key] ? "✓" : "+"}</i></button>
-                <button className={`${styles.expandToggle} ${expanded[explanationId] ? styles.expandToggleOpen : ""}`} onClick={() => toggleExpanded(explanationId)} aria-expanded={Boolean(expanded[explanationId])} aria-controls={`${explanationId}-details`} aria-label={`${expanded[explanationId] ? "Hide" : "Learn more about"} ${module.name}`}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5" /></svg></button>
+                <button type="button" className={`${styles.moduleToggle} ${selected[module.key] ? styles.moduleSelected : ""}`} onClick={() => onModuleToggle(module.key)} aria-pressed={selected[module.key]}><span className={styles.capabilityLabel}><span className={styles.capabilityIcon}><CapabilityIcon type={module.key} /></span><span><strong>{module.name}</strong><small>{module.description}</small></span></span><i>{selected[module.key] ? "✓" : "+"}</i></button>
+                <button type="button" className={`${styles.expandToggle} ${expanded[explanationId] ? styles.expandToggleOpen : ""}`} onClick={() => toggleExpanded(explanationId)} aria-expanded={Boolean(expanded[explanationId])} aria-controls={`${explanationId}-details`} aria-label={`${expanded[explanationId] ? "Hide" : "Learn more about"} ${module.name}`}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5" /></svg></button>
               </div>
               {expanded[explanationId] && <div className={styles.moduleExplanation} id={`${explanationId}-details`}><p>{module.detail}</p><ul>{module.includes.map((item) => <li key={item}>{item}</li>)}</ul></div>}
               {module.key === "inventory" && selected.inventory && (
@@ -133,8 +133,8 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
 
                     return <div className={styles.subOption} key={option.key}>
                       <div className={styles.moduleRow}>
-                        <button className={`${styles.moduleToggle} ${inventoryAddons[option.key] ? styles.subOptionSelected : ""}`} onClick={() => onInventoryAddonToggle(option.key)} aria-pressed={inventoryAddons[option.key]}><span className={styles.capabilityLabel}><span className={`${styles.capabilityIcon} ${styles.subCapabilityIcon}`}><CapabilityIcon type={option.key} /></span><span><strong>{option.name}</strong><small>{option.description}</small></span></span><i>{inventoryAddons[option.key] ? "✓" : "+"}</i></button>
-                        <button className={`${styles.expandToggle} ${expanded[optionExplanationId] ? styles.expandToggleOpen : ""}`} onClick={() => toggleExpanded(optionExplanationId)} aria-expanded={Boolean(expanded[optionExplanationId])} aria-controls={`${optionExplanationId}-details`} aria-label={`${expanded[optionExplanationId] ? "Hide" : "Learn more about"} ${option.name}`}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5" /></svg></button>
+                        <button type="button" className={`${styles.moduleToggle} ${inventoryAddons[option.key] ? styles.subOptionSelected : ""}`} onClick={() => onInventoryAddonToggle(option.key)} aria-pressed={inventoryAddons[option.key]}><span className={styles.capabilityLabel}><span className={`${styles.capabilityIcon} ${styles.subCapabilityIcon}`}><CapabilityIcon type={option.key} /></span><span><strong>{option.name}</strong><small>{option.description}</small></span></span><i>{inventoryAddons[option.key] ? "✓" : "+"}</i></button>
+                        <button type="button" className={`${styles.expandToggle} ${expanded[optionExplanationId] ? styles.expandToggleOpen : ""}`} onClick={() => toggleExpanded(optionExplanationId)} aria-expanded={Boolean(expanded[optionExplanationId])} aria-controls={`${optionExplanationId}-details`} aria-label={`${expanded[optionExplanationId] ? "Hide" : "Learn more about"} ${option.name}`}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5" /></svg></button>
                       </div>
                       {expanded[optionExplanationId] && <div className={`${styles.moduleExplanation} ${styles.subExplanation}`} id={`${optionExplanationId}-details`}><p>{option.detail}</p><ul>{option.includes.map((item) => <li key={item}>{item}</li>)}</ul></div>}
                     </div>;
@@ -145,14 +145,14 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           );})}
           <div className={styles.moduleChoice}>
             <div className={styles.moduleRow}>
-              <button className={`${styles.moduleToggle} ${hasCustomRequest ? styles.moduleSelected : ""}`} onClick={() => setExpanded((current) => ({ ...current, custom: !current.custom }))} aria-expanded={Boolean(expanded.custom)} aria-controls="custom-capability-details">
+              <button type="button" className={`${styles.moduleToggle} ${hasCustomRequest ? styles.moduleSelected : ""}`} onClick={() => setExpanded((current) => ({ ...current, custom: !current.custom }))} aria-expanded={Boolean(expanded.custom)} aria-controls="custom-capability-details">
                 <span className={styles.capabilityLabel}>
                   <span className={styles.capabilityIcon}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4" /></svg></span>
                   <span><strong>Custom capability</strong><small>Tell us what would make this work for you.</small></span>
                 </span>
                 <i>{hasCustomRequest ? "✓" : "+"}</i>
               </button>
-              <button className={`${styles.expandToggle} ${expanded.custom ? styles.expandToggleOpen : ""}`} onClick={() => toggleExpanded("custom")} aria-expanded={Boolean(expanded.custom)} aria-controls="custom-capability-details" aria-label={`${expanded.custom ? "Hide" : "Open"} custom capability request`}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5" /></svg></button>
+              <button type="button" className={`${styles.expandToggle} ${expanded.custom ? styles.expandToggleOpen : ""}`} onClick={() => toggleExpanded("custom")} aria-expanded={Boolean(expanded.custom)} aria-controls="custom-capability-details" aria-label={`${expanded.custom ? "Hide" : "Open"} custom capability request`}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5" /></svg></button>
             </div>
             {expanded.custom && <div className={styles.customRequestPanel} id="custom-capability-details"><label htmlFor="custom-request">What would you like your website to do?</label><textarea id="custom-request" value={customRequest} onChange={(event) => onCustomRequestChange(event.target.value)} placeholder="For example: connect to our existing workshop system, show stock shared across two locations, or build a trade-in valuation flow..." rows={5} /><small>It can be rough—we’ll help turn the idea into a clear scope.</small></div>}
           </div>

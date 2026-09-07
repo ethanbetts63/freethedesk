@@ -48,7 +48,7 @@ function LoginContent() {
           <label>Email<input name="identifier" autoComplete="username" required /></label>
           <label>Password<input name="password" type="password" autoComplete="current-password" required /></label>
           {error && <p className="admin-form-error">{error}</p>}
-          <button className="admin-primary-button" disabled={submitting || loading}>{submitting ? "Signing in…" : "Sign in"}</button>
+          <button type="submit" className="admin-primary-button" disabled={submitting || loading}>{submitting ? "Signing in…" : "Sign in"}</button>
         </form>
         <p className="login-alt">No dealer account yet? <Link href="/licensing#signup">Create one</Link></p>
         <Link className="login-back" href="/">← Back to website</Link>

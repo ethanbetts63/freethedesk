@@ -51,7 +51,7 @@ function PaymentForm({ planName }: { planName: string }) {
       <PaymentElement />
       <p className={styles.paymentFineprint}>The selected offer and accepted terms are recorded with this checkout.</p>
       {error && <p className={styles.paymentError} role="alert">{error}</p>}
-      <button className={styles.payButton} disabled={!result.checkout.canConfirm || submitting}>
+      <button type="submit" className={styles.payButton} disabled={!result.checkout.canConfirm || submitting}>
         <span>{submitting ? "Confirming…" : "Start subscription"}</span><b>→</b>
       </button>
       <p className={styles.paymentFineprint}>Prices include GST. Your account opens immediately after Stripe confirms payment.</p>
@@ -139,7 +139,7 @@ export function SubscriptionPaymentPage() {
         {error ? (
           <div className={styles.checkoutState}>
             <span>Checkout unavailable</span><h2>We could not load payment.</h2><p>{error}</p>
-            <button onClick={() => window.location.reload()}>Try again</button>
+            <button type="button" onClick={() => window.location.reload()}>Try again</button>
           </div>
         ) : clientSecret && plan ? (
           <CheckoutElementsProvider
@@ -167,7 +167,7 @@ export function SubscriptionPaymentPage() {
               <input type="checkbox" checked={termsAccepted} onChange={(event) => setTermsAccepted(event.target.checked)} />
               <span>I agree to the <Link href="/legal/dealer-subscription-terms" target="_blank">Dealer Subscription Terms</Link>, acknowledge the <Link href="/legal/privacy" target="_blank">Privacy Policy</Link>, and authorise this monthly subscription.</span>
             </label>
-            <button className={styles.payButton} disabled={!termsAccepted || preparing}>
+            <button type="submit" className={styles.payButton} disabled={!termsAccepted || preparing}>
               <span>{preparing ? "Preparing secure payment…" : "Continue to secure payment"}</span><b>→</b>
             </button>
           </form>

@@ -112,7 +112,7 @@ export default function DealerSetupPage() {
           </div>
         </fieldset>
 
-        {!locked && <div className="portal-form-actions"><button className="admin-secondary-button" disabled={saving}>{saving ? "Saving…" : "Save draft"}</button><button className="admin-primary-button" type="button" disabled={saving} onClick={(event) => { const form = event.currentTarget.form; if (form) save(form, true); }}>Save and submit for verification</button></div>}
+        {!locked && <div className="portal-form-actions"><button type="submit" className="admin-secondary-button" disabled={saving}>{saving ? "Saving…" : "Save draft"}</button><button className="admin-primary-button" type="submit" disabled={saving} onClick={(event) => { const form = event.currentTarget.form; if (form) save(form, true); }}>Save and submit for verification</button></div>}
         {locked && <p className="admin-muted">This profile is locked while it is being reviewed. We will let you know if anything needs changing.</p>}
       </form>
     </div>

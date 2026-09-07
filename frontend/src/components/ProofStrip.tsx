@@ -4,8 +4,8 @@ export type ProofStat = {
   description: string;
 };
 
-/** A thin three-stat dark band, sitting flush under a hero. */
-export function ProofStrip({ stats, id }: { stats: [ProofStat, ProofStat, ProofStat]; id?: string }) {
+/** A thin dark band of stats, sitting flush under a hero. Sized to however many stats it is given. */
+export function ProofStrip({ stats, id }: { stats: readonly ProofStat[]; id?: string }) {
   return (
     <section className="proof-strip" id={id}>
       <div className="shell proof-strip-grid">

@@ -5,6 +5,8 @@ import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { pageMetadata } from "@/lib/seo";
 
+import { DEALER_FAQS } from "./_lib/copy";
+
 import { AiReadySection } from "./_components/AiReadySection";
 import { DealershipAutomation } from "./_components/DealershipAutomation";
 import { FlagshipCheckout } from "@/components/marketing/FlagshipCheckout";
@@ -18,18 +20,10 @@ const PATH = "/dealers";
 
 export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
 
-const dealerStats: [ProofStat, ProofStat, ProofStat] = [
+const dealerStats: ProofStat[] = [
   { value: "86%", label: "Research online first", description: "Car shoppers who research online before ever visiting." },
   { value: "24 / 7", label: "Always-on operations", description: "Notifications and syncs that don't wait for business hours." },
   { value: "AI", label: "Are you AI ready?", description: "We check four practical foundations for AI and agentic browsing." },
-];
-
-const questions = [
-  ["Do you just build websites, or the operations behind them too?", "Both, connected. A dealership site we build ties into licensing, enquiries and delivery scheduling—not just the pages a customer sees."],
-  ["Do you work outside Perth?", "Yes—we're Perth-based and work with businesses across Australia."],
-  ["Can I try it before talking to anyone?", "Yes. The interactive builder lets you configure a complete dealership website and explore every page before you get in touch."],
-  ["How is this different from a template website?", "It's shaped around your brand and connected to the way your team actually sells and services vehicles, not a static template with your logo swapped in."],
-  ["Can I get just the website, or also licensing and automation?", "Either. Websites, online licensing and workflow automation are separate products that work well together, so you can start with what matters most right now."],
 ];
 
 export default function Dealers() {
@@ -55,7 +49,7 @@ export default function Dealers() {
       <Faq
         eyebrow="Common questions"
         title="Before you get in touch."
-        items={questions.map(([question, answer]) => ({ question, answer }))}
+        items={DEALER_FAQS}
       />
     </main>
   );

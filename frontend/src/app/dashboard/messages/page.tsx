@@ -39,7 +39,7 @@ export default function MessagesPage() {
           <div className="admin-filters">
             <select value={status} onChange={(event) => { setStatus(event.target.value); setPage(1); }}><option value="all">All statuses</option><option value="sent">Sent</option><option value="pending">Pending</option><option value="failed">Failed</option></select>
             <select value={channel} onChange={(event) => { setChannel(event.target.value); setPage(1); }}><option value="all">Email and SMS</option><option value="email">Email</option><option value="sms">SMS</option></select>
-            <form className="admin-search" onSubmit={submitSearch}><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search address, subject or body" /><button>Search</button></form>
+            <form className="admin-search" onSubmit={submitSearch}><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search address, subject or body" /><button type="submit">Search</button></form>
           </div>
           <div className="admin-legend"><b>Row colour:</b><span><i className="admin-swatch admin-swatch-sent" />sent</span><span><i className="admin-swatch admin-swatch-pending" />pending</span><span><i className="admin-swatch admin-swatch-failed" />failed</span></div>
         </div>
@@ -54,7 +54,7 @@ export default function MessagesPage() {
             ))}</tbody>
           </table>
         </div>
-        <footer className="admin-pagination"><span>{data.count ? (page - 1) * 50 + 1 : 0}–{Math.min(page * 50, data.count)} of {data.count}</span><div><button disabled={!data.previous || loading} onClick={() => setPage((value) => value - 1)}>← Previous</button><span>Page {page}</span><button disabled={!data.next || loading} onClick={() => setPage((value) => value + 1)}>Next →</button></div></footer>
+        <footer className="admin-pagination"><span>{data.count ? (page - 1) * 50 + 1 : 0}–{Math.min(page * 50, data.count)} of {data.count}</span><div><button type="button" disabled={!data.previous || loading} onClick={() => setPage((value) => value - 1)}>← Previous</button><span>Page {page}</span><button type="button" disabled={!data.next || loading} onClick={() => setPage((value) => value + 1)}>Next →</button></div></footer>
       </section>
     </div>
   );

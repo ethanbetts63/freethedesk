@@ -51,7 +51,7 @@ export function PortalShell({
         </nav>
         <div className="dashboard-account">
           <span>{user.dealer?.business_name || user.email || user.username}</span>
-          <button onClick={async () => { await logout(); router.replace("/login"); }}>Log out</button>
+          <button type="button" onClick={async () => { await logout(); router.replace("/login"); }}>Log out</button>
         </div>
       </aside>
       <main className="dashboard-main">{children}</main>

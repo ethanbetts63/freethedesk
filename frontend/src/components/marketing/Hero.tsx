@@ -42,7 +42,7 @@ export function Hero({
         <div className={styles.copy}>
           <p className={styles.eyebrow}><span /> {eyebrow}</p>
           <h1>
-            {titleLines.map((line) => <span key={line}>{line}<br /></span>)}
+            {titleLines.map((line, index) => <span key={index}>{line}<br /></span>)}
             <em>{accentTitle}</em>
           </h1>
           <p className={styles.lead}>{lead}</p>

@@ -61,7 +61,7 @@ export default function EnquiriesPage() {
             </select>
             <form className="admin-search" onSubmit={submitSearch}>
               <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search business, person or email" />
-              <button>Search</button>
+              <button type="submit">Search</button>
             </form>
           </div>
           <div className="admin-legend"><b>Row colour:</b>{enquiryStatuses.map((value) => <span key={value}><i className={`admin-swatch admin-swatch-${value}`} />{value}</span>)}</div>
@@ -71,12 +71,12 @@ export default function EnquiriesPage() {
         <div className="admin-table-wrap">
           <table className="admin-table admin-enquiry-table">
             <thead><tr>
-              <th><button onClick={() => sort("created_at")}>Received ↕</button></th>
-              <th><button onClick={() => sort("business")}>Business ↕</button></th>
+              <th><button type="button" onClick={() => sort("created_at")}>Received ↕</button></th>
+              <th><button type="button" onClick={() => sort("business")}>Business ↕</button></th>
               <th>Contact</th>
-              <th><button onClick={() => sort("help_with")}>Interested in ↕</button></th>
+              <th><button type="button" onClick={() => sort("help_with")}>Interested in ↕</button></th>
               <th>Phone</th>
-              <th><button onClick={() => sort("status")}>Status ↕</button></th>
+              <th><button type="button" onClick={() => sort("status")}>Status ↕</button></th>
             </tr></thead>
             <tbody>
               {loading ? <tr><td colSpan={6} className="admin-empty">Loading enquiries…</td></tr> : data.results.length === 0 ? <tr><td colSpan={6} className="admin-empty">No enquiries match these filters.</td></tr> : data.results.map((enquiry) => (
@@ -94,7 +94,7 @@ export default function EnquiriesPage() {
         </div>
         <footer className="admin-pagination">
           <span>{data.count ? (page - 1) * 50 + 1 : 0}–{Math.min(page * 50, data.count)} of {data.count}</span>
-          <div><button disabled={!data.previous || loading} onClick={() => setPage((value) => value - 1)}>← Previous</button><span>Page {page}</span><button disabled={!data.next || loading} onClick={() => setPage((value) => value + 1)}>Next →</button></div>
+          <div><button type="button" disabled={!data.previous || loading} onClick={() => setPage((value) => value - 1)}>← Previous</button><span>Page {page}</span><button type="button" disabled={!data.next || loading} onClick={() => setPage((value) => value + 1)}>Next →</button></div>
         </footer>
       </section>
     </div>

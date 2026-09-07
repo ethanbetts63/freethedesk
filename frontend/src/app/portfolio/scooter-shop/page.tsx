@@ -62,12 +62,12 @@ const intentGroups = [
 
 export default function ScooterShopCaseStudy() {
   return (
-    <main className="scooter-case-page">
+    <main className="case-page">
       <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
-      <section className="scooter-case-hero">
-        <div className="scooter-case-grid" aria-hidden="true" />
-        <div className="shell scooter-case-hero-layout">
-          <div className="scooter-case-hero-copy">
+      <section className="case-hero">
+        <div className="case-hero-grid" aria-hidden="true" />
+        <div className="shell case-hero-layout">
+          <div className="case-hero-copy">
             <p className="eyebrow"><span />Scooter Shop case study</p>
             <h1>One dealership.<br /><span>One connected system.</span></h1>
             <p>A working website that brings sales, parts, service, hire and dealership operations into one customer experience.</p>
@@ -75,12 +75,12 @@ export default function ScooterShopCaseStudy() {
               <a className="button button-primary" href="https://www.scootershop.com.au/" target="_blank" rel="noreferrer">Visit the live website <span>↗</span></a>
               <a className="text-link" href="#tour">Explore the build <span>↓</span></a>
             </div>
-            <div className="scooter-case-meta">
+            <div className="case-hero-meta">
               <span>Strategy</span><span>Design</span><span>Development</span><span>SEO</span>
             </div>
           </div>
 
-          <div className="scooter-case-hero-media">
+          <div className="case-hero-media">
             <div className="case-browser case-browser-hero">
               <div className="case-browser-bar"><i /><i /><i /><span>www.scootershop.com.au</span></div>
               <Image src="/case-studies/scooter-shop/home-desktop.png" alt="Scooter Shop homepage on desktop" width={1440} height={960} priority />

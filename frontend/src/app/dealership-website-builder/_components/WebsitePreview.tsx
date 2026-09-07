@@ -40,11 +40,11 @@ function PreviewNavigation({ brandName, selected, previewPage, onPageChange }: P
 
   return (
     <div className={styles.siteNav}>
-      <button className={styles.previewBrand} onClick={() => onPageChange("home")} aria-label="View example home page"><BrandWordmark name={brandName} /></button>
+      <button type="button" className={styles.previewBrand} onClick={() => onPageChange("home")} aria-label="View example home page"><BrandWordmark name={brandName} /></button>
       <div className={styles.siteNavActions}>
         <div className={styles.siteNavLinks}>
-          {navigation.map((item) => selected[item.key] && <button key={item.key} className={previewPage === item.key ? styles.activeNav : ""} onClick={() => onPageChange(item.key)}>{item.label}</button>)}
-          <button className={`${styles.contactNav} ${previewPage === "contact" ? styles.activeNav : ""}`} onClick={() => onPageChange("contact")}>Contact</button>
+          {navigation.map((item) => selected[item.key] && <button type="button" key={item.key} className={previewPage === item.key ? styles.activeNav : ""} onClick={() => onPageChange(item.key)}>{item.label}</button>)}
+          <button type="button" className={`${styles.contactNav} ${previewPage === "contact" ? styles.activeNav : ""}`} onClick={() => onPageChange("contact")}>Contact</button>
         </div>
         <div className={styles.previewContacts}>
           <ConversionLink href={`mailto:hello@${emailName}.com.au`}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM4 7l8 6 8-6" /></svg><small>hello@{emailName}.com.au</small></ConversionLink>
@@ -63,7 +63,7 @@ function HomePreview({ brandName, selected, inventoryAddons, onPageChange, onVeh
           <small>Built for what comes next</small>
           <h2>Find your<br />next machine.</h2>
           <p>Vehicles, service and experienced advice—all in one clear place.</p>
-          <button onClick={() => onPageChange(selected.inventory ? "inventory" : "contact")}>{selected.inventory ? "Explore inventory →" : "Talk to our team →"}</button>
+          <button type="button" onClick={() => onPageChange(selected.inventory ? "inventory" : "contact")}>{selected.inventory ? "Explore inventory →" : "Talk to our team →"}</button>
         </div>
         <div className={styles.vehicle} aria-hidden="true"><span /><i /><i /></div>
       </div>
@@ -74,7 +74,7 @@ function HomePreview({ brandName, selected, inventoryAddons, onPageChange, onVeh
         <div className={styles.reviewAuthor}><strong>Michael R.</strong><span>Verified customer</span></div>
       </section>
 
-      {selected.inventory && <div className={styles.inventoryBlock}><div><strong>Featured inventory</strong><button onClick={() => onPageChange("inventory")}>View all stock →</button></div><div className={`${styles.catalogueGrid} ${styles.featuredInventoryGrid}`}>{INVENTORY_VEHICLES.slice(0, 3).map((vehicle) => <InventoryTile key={vehicle.name} vehicle={vehicle} inventoryAddons={inventoryAddons} onOpen={() => onVehicleOpen(vehicle)} />)}</div></div>}
+      {selected.inventory && <div className={styles.inventoryBlock}><div><strong>Featured inventory</strong><button type="button" onClick={() => onPageChange("inventory")}>View all stock →</button></div><div className={`${styles.catalogueGrid} ${styles.featuredInventoryGrid}`}>{INVENTORY_VEHICLES.slice(0, 3).map((vehicle) => <InventoryTile key={vehicle.name} vehicle={vehicle} inventoryAddons={inventoryAddons} onOpen={() => onVehicleOpen(vehicle)} />)}</div></div>}
 
       <div className={styles.dynamicArea}>
         {selected.hire && <div className={styles.hireCard}><small>Available this weekend</small><strong>Put adventure on the calendar.</strong><span>Check hire availability →</span></div>}
@@ -83,11 +83,11 @@ function HomePreview({ brandName, selected, inventoryAddons, onPageChange, onVeh
       </div>
 
       <section className={styles.baseDetails}>
-        <div className={styles.aboutBlock}><small>About {brandName.trim() || "your dealership"}</small><h3>Good machines.<br />Better advice.</h3><p>We help riders find the right vehicle and keep it performing for the road ahead.</p><button>Meet the dealership →</button></div>
+        <div className={styles.aboutBlock}><small>About {brandName.trim() || "your dealership"}</small><h3>Good machines.<br />Better advice.</h3><p>We help riders find the right vehicle and keep it performing for the road ahead.</p><button type="button">Meet the dealership →</button></div>
         <div className={styles.brandsBlock}><small>Brands we work with</small><div className={styles.brandGrid}><article><i className={styles.brandHorizon} /><span><strong>Horizon</strong><small>Road &amp; touring</small></span></article><article><i className={styles.brandNorth} /><span><strong>North / Co</strong><small>Urban mobility</small></span></article><article><i className={styles.brandAxis} /><span><strong>Axis</strong><small>Performance</small></span></article><article><i className={styles.brandTrailworks} /><span><strong>Trailworks</strong><small>Adventure</small></span></article></div></div>
       </section>
 
-      <section className={styles.contactBand}><div><small>Have a question?</small><strong>Talk with someone who knows the stock.</strong></div><button onClick={() => onPageChange("contact")}>Contact the team →</button></section>
+      <section className={styles.contactBand}><div><small>Have a question?</small><strong>Talk with someone who knows the stock.</strong></div><button type="button" onClick={() => onPageChange("contact")}>Contact the team →</button></section>
     </>
   );
 }
@@ -97,11 +97,11 @@ function PreviewFooter({ brandName, selected, onPageChange }: Pick<WebsitePrevie
 
   return (
     <footer className={styles.previewFooter}>
-      <div className={styles.footerBrand}><button onClick={() => onPageChange("home")}><BrandWordmark name={brandName} /></button><small>Vehicles · Service · Advice</small></div>
-      <div className={styles.footerLinks}><strong>Explore</strong><nav aria-label="Example website footer"><button onClick={() => onPageChange("home")}>Home <span>→</span></button>{selected.inventory && <button onClick={() => onPageChange("inventory")}>Stock <span>→</span></button>}{selected.parts && <button onClick={() => onPageChange("parts")}>Parts <span>→</span></button>}{selected.service && <button onClick={() => onPageChange("service")}>Service <span>→</span></button>}{selected.articles && <button onClick={() => onPageChange("articles")}>Guides <span>→</span></button>}<button onClick={() => onPageChange("contact")}>Contact <span>→</span></button></nav></div>
+      <div className={styles.footerBrand}><button type="button" onClick={() => onPageChange("home")}><BrandWordmark name={brandName} /></button><small>Vehicles · Service · Advice</small></div>
+      <div className={styles.footerLinks}><strong>Explore</strong><nav aria-label="Example website footer"><button type="button" onClick={() => onPageChange("home")}>Home <span>→</span></button>{selected.inventory && <button type="button" onClick={() => onPageChange("inventory")}>Stock <span>→</span></button>}{selected.parts && <button type="button" onClick={() => onPageChange("parts")}>Parts <span>→</span></button>}{selected.service && <button type="button" onClick={() => onPageChange("service")}>Service <span>→</span></button>}{selected.articles && <button type="button" onClick={() => onPageChange("articles")}>Guides <span>→</span></button>}<button type="button" onClick={() => onPageChange("contact")}>Contact <span>→</span></button></nav></div>
       <div className={styles.footerContact}><strong>Contact</strong><ConversionLink href="tel:+61861234567"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.8 10 7.7 8.2 9.5c1.3 2.6 3.6 4.9 6.3 6.3l1.8-1.8 3.9 2.8-.7 3.2c-.2.8-1 1.3-1.8 1.2C9.9 20.1 3.9 14.1 2.8 6.3c-.1-.8.4-1.6 1.2-1.8z" /></svg><span>(08) 6123 4567</span></ConversionLink><ConversionLink href={`mailto:hello@${emailName}.com.au`}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM4 7l8 6 8-6" /></svg><span>hello@{emailName}.com.au</span></ConversionLink><p>Your dealership address</p></div>
       <DemoMap className={styles.footerMap} onClick={() => onPageChange("contact")} ariaLabel="View location on the contact page" actionLabel="Find us →" />
-      <div className={styles.footerLegal}><span>© 2026 {brandName.trim() || "Your dealership"}</span><button onClick={() => onPageChange("terms")}>Terms &amp; conditions</button></div>
+      <div className={styles.footerLegal}><span>© 2026 {brandName.trim() || "Your dealership"}</span><button type="button" onClick={() => onPageChange("terms")}>Terms &amp; conditions</button></div>
     </footer>
   );
 }
