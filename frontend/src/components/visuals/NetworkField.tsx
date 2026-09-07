@@ -92,7 +92,7 @@ export function NetworkField({ colors = DEFAULT_NETWORK_COLORS }: NetworkFieldPr
     const pullStrength = 0.02;
     const swirlStrength = 0.011;
     const maxSpeed = 2.4;
-    const bounds = 40;
+    const bounds = 0;
 
     const draw = (time: number) => {
       context.clearRect(0, 0, width, height);

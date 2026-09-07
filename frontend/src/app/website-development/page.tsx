@@ -14,8 +14,8 @@ import { WEBSITE_DEV_FAQS } from "./_lib/copy";
 import { websiteServices } from "./_components/websiteServices";
 import styles from "./page.module.css";
 
-const TITLE = "Website Development Perth | Custom Websites & Web Apps";
-const DESCRIPTION = "Perth website development for businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.";
+const TITLE = "Website Development | Custom Websites & Web Apps";
+const DESCRIPTION = "Website Development for businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.";
 const PATH = "/website-development";
 
 const websiteDevStats: ProofStat[] = [

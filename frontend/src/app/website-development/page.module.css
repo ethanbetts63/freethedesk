@@ -5,7 +5,7 @@
 }
 .label { color: var(--page-accent); font-size: .68rem; font-weight: 900; letter-spacing: .14em; margin: 0 0 23px; text-transform: uppercase; }
 .enquirySection { padding-bottom: 20px; padding-top: 70px; }
-.introSection { padding-bottom: 125px; padding-top: 125px; }
+.introSection { padding-bottom: 125px; padding-top: 55px; }
 .pitchCopy h2, .sectionHeading h2, .systemCopy h2, .proofSection h2, .closing h2 { font-size: clamp(3rem, 5.3vw, 5.7rem); letter-spacing: -.072em; line-height: .93; margin: 0; }
 .systemCopy > p:not(.label), .proofSection > div:last-child > p { color: #536c80; font-size: .98rem; line-height: 1.78; margin: 0 0 18px; }
 
@@ -95,6 +95,7 @@
 @media (max-width: 620px) {
   .enquirySection { padding-top: 50px; }
   .introSection, .systemSection, .proofSection { padding-bottom: 82px; padding-top: 82px; }
+  .introSection { padding-top: 40px; }
   .servicesSection { padding-bottom: 80px; padding-top: 80px; }
   .seoSection { padding-bottom: 82px; padding-top: 82px; }
   .systemVisual { min-height: 440px; }

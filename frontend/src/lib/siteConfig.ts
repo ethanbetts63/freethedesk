@@ -17,7 +17,7 @@ export const PRIMARY_NAVIGATION = [
 ] as const;
 
 export const FOOTER_NAVIGATION = [
-  { href: "/website-development", label: "Perth website development" },
+  { href: "/website-development", label: "Website Development" },
   { href: "/", label: "Dealer websites" },
   { href: "/guides", label: "Guides & articles" },
   { href: "/licensing", label: "Online licensing" },

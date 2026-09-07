@@ -34,12 +34,12 @@ export default function Home() {
     <main className={styles.page}>
       <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
       <Hero
-        eyebrow="bid boring adieu"
+        eyebrow="Online Automation Services Australia"
         titleLines={["Digital", "automation"]}
         accentTitle="solutions."
-        lead="Connected websites and automation systems built for the way modern business operate."
-        primaryHref="/dealership-website-builder"
-        primaryLabel="Try the Free Demo"
+        lead="Connected websites and automation systems built to reduce the workload of modern businesses."
+        primaryHref="/contact"
+        primaryLabel="Get in touch"
         secondaryHref="/portfolio/scooter-shop"
         secondaryLabel="See it in action"
         stages={["Understand", "Build", "Connect", "Improve"]}
