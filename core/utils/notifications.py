@@ -26,7 +26,7 @@ def resolve_recipient(recipient_type: str, *, dealer=None, email: str = "", phon
     if recipient_type == Notification.RecipientType.DEALER:
         if dealer is None:
             return "", ""
-        return dealer.email or getattr(dealer.user, "email", "") or "", dealer.phone or ""
+        return dealer.user.email or "", dealer.phone or ""
     return email or "", phone or ""
 
 

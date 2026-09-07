@@ -11,7 +11,7 @@ class DealerOnboardingSerializer(serializers.ModelSerializer):
     trading_name = serializers.CharField(source="dealer.business_name", read_only=True)
     state = serializers.CharField(source="dealer.state", read_only=True)
     phone = serializers.CharField(source="dealer.phone", read_only=True)
-    email = serializers.EmailField(source="dealer.email", read_only=True)
+    email = serializers.EmailField(source="dealer.user.email", read_only=True)
     dealer_licence_document = serializers.FileField(write_only=True, required=False)
     authorised_officer_identity_document = serializers.FileField(write_only=True, required=False)
     business_evidence_document = serializers.FileField(write_only=True, required=False)

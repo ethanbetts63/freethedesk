@@ -34,7 +34,7 @@ class DealerRegistrationSerializer(serializers.Serializer):
     @transaction.atomic
     def create(self, validated_data) -> Dealer:
         password = validated_data.pop("password")
-        email = validated_data["email"]
+        email = validated_data.pop("email")
         user = get_user_model().objects.create_user(
             # Username is the email: dealers never see or type a separate one,
             # and it keeps the login form single-field.

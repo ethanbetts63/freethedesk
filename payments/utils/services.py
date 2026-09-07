@@ -113,7 +113,7 @@ def create_or_reuse_checkout_session(dealer, acceptance, quote):
 
     if not dealer.stripe_customer_id:
         customer_data = {
-            "email": dealer.email,
+            "email": dealer.user.email,
             "name": dealer.business_name,
             "metadata": {"dealer_id": str(dealer.pk)},
         }

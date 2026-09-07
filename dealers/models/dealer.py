@@ -47,7 +47,6 @@ class Dealer(models.Model):
     )
     business_name = models.CharField(max_length=180)
     contact_name = models.CharField(max_length=120)
-    email = models.EmailField()
     phone = models.CharField(max_length=40, blank=True)
     state = models.CharField(max_length=3, choices=State.choices, default=State.WA)
     plan = models.CharField(max_length=20, choices=Plan.choices, default=Plan.DEMO, db_index=True)

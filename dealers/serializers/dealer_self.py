@@ -10,6 +10,7 @@ class DealerSelfSerializer(serializers.ModelSerializer):
     flow with its own confirmation rather than a field on a settings form.
     """
 
+    email = serializers.EmailField(source="user.email", read_only=True)
     status_label = serializers.CharField(source="get_status_display", read_only=True)
     plan_label = serializers.CharField(source="get_plan_display", read_only=True)
     payment_status_label = serializers.CharField(source="get_payment_status_display", read_only=True)
@@ -24,7 +25,7 @@ class DealerSelfSerializer(serializers.ModelSerializer):
             "status", "status_label", "created_at", "updated_at",
         ]
         read_only_fields = [
-            "id", "email", "state_label", "plan", "plan_label", "payment_status", "payment_status_label",
+            "id", "state_label", "plan", "plan_label", "payment_status", "payment_status_label",
             "subscription_current_period_end", "cancel_at_period_end",
             "status", "status_label", "created_at", "updated_at",
         ]

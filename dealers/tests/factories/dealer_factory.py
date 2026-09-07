@@ -11,6 +11,5 @@ class DealerFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
     business_name = factory.Faker("company")
     contact_name = factory.Faker("name")
-    email = factory.LazyAttribute(lambda obj: obj.user.email)
     phone = "0400 000 000"
     state = Dealer.State.WA

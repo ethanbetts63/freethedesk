@@ -9,7 +9,7 @@ class DealerAdmin(admin.ModelAdmin):
         "business_name", "contact_name", "state", "plan", "payment_status", "status", "created_at",
     )
     list_filter = ("state", "plan", "payment_status", "status")
-    search_fields = ("business_name", "contact_name", "email", "phone")
+    search_fields = ("business_name", "contact_name", "user__email", "phone")
     readonly_fields = (
         "payment_status", "stripe_customer_id", "stripe_subscription_id",
         "stripe_checkout_session_id", "stripe_last_event_created_at",
@@ -23,6 +23,6 @@ class DealerProfileAdmin(admin.ModelAdmin):
     list_display = ("dealer", "verification_status", "dealer_licence_number", "updated_at")
     list_filter = ("verification_status",)
     search_fields = (
-        "dealer__business_name", "dealer__email", "dealer_licence_number", "abn",
+        "dealer__business_name", "dealer__user__email", "dealer_licence_number", "abn",
     )
     readonly_fields = ("created_at", "updated_at", "submitted_at", "reviewed_at")

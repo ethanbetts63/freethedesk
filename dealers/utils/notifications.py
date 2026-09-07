@@ -21,7 +21,7 @@ def notify_staff_of_dealer_signup(dealer: Dealer) -> list[Notification]:
         f"A new dealer has signed up.\n\n"
         f"Business: {dealer.business_name}\n"
         f"Contact: {dealer.contact_name}\n"
-        f"Email: {dealer.email}\n"
+        f"Email: {dealer.user.email}\n"
         f"Phone: {dealer.phone or 'Not supplied'}\n"
         f"State: {dealer.get_state_display()}\n"
         f"Plan: {dealer.get_plan_display()}\n"

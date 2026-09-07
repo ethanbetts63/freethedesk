@@ -33,7 +33,7 @@ class AdminDealerListView(ListAPIView):
             queryset = queryset.filter(
                 Q(business_name__icontains=search)
                 | Q(contact_name__icontains=search)
-                | Q(email__icontains=search)
+                | Q(user__email__icontains=search)
                 | Q(phone__icontains=search)
             )
         ordering = params.get("ordering", "").strip() or "-created_at"
