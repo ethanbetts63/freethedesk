@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 from ..models import Enquiry, Notification
 from ..serializers import AdminNotificationSerializer
 from ..utils.notifications import send_manual_email
+from ..utils.ordering import apply_ordering
 from ..utils.pagination import DashboardPagination
 
 MESSAGE_ORDERING = {
@@ -51,12 +52,7 @@ class AdminNotificationListView(ListAPIView):
                 | Q(recipient__icontains=search)
                 | Q(related_enquiry__business__icontains=search)
             )
-        ordering = params.get("ordering", "").strip() or "-created_at"
-        descending = ordering.startswith("-")
-        fields = MESSAGE_ORDERING.get(ordering.lstrip("-"), ("created_at",))
-        if descending:
-            fields = tuple(f"-{field}" for field in fields)
-        return queryset.order_by(*fields, "-id")
+        return apply_ordering(queryset, params, MESSAGE_ORDERING)
 
 
 class AdminNotificationDetailView(RetrieveAPIView):

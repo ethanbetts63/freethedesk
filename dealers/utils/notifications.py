@@ -1,7 +1,7 @@
 from django.conf import settings
 
 from core.models import Notification
-from core.utils.notifications import resolve_recipient, send_notification
+from core.utils.notifications import notify_admin_via_channels, resolve_recipient, send_notification
 
 from ..models import Dealer
 
@@ -31,27 +31,15 @@ def notify_staff_of_dealer_signup(dealer: Dealer) -> list[Notification]:
     sms_body = f"New Free the Desk dealer signup: {dealer.business_name} — {dealer.contact_name}. {dealer_url}"
 
     email, phone = resolve_recipient(Notification.RecipientType.ADMIN)
-    notifications = []
-    for channel, recipient, subject, body in (
-        (Notification.Channel.EMAIL, email, f"New dealer signup — {dealer.business_name}", email_body),
-        (Notification.Channel.SMS, phone, "", sms_body),
-    ):
-        notification = Notification.objects.create(
-            recipient_type=Notification.RecipientType.ADMIN,
-            recipient=recipient,
-            channel=channel,
-            subject=subject,
-            body=body,
-            related_dealer=dealer,
-        )
-        notifications.append(
-            send_notification(
-                notification,
-                template="emails/staff_dealer_signup",
-                context={"dealer": dealer, "dealer_url": dealer_url},
-            )
-        )
-    return notifications
+    return notify_admin_via_channels(
+        [
+            (Notification.Channel.EMAIL, email, f"New dealer signup — {dealer.business_name}", email_body),
+            (Notification.Channel.SMS, phone, "", sms_body),
+        ],
+        related_dealer=dealer,
+        template="emails/staff_dealer_signup",
+        context={"dealer": dealer, "dealer_url": dealer_url},
+    )
 
 
 def send_dealer_welcome(dealer: Dealer) -> Notification:

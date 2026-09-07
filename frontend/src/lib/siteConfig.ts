@@ -18,6 +18,7 @@ export const PRIMARY_NAVIGATION = [
 export const FOOTER_NAVIGATION = [
   { href: "/website-development", label: "Perth website development" },
   { href: "/", label: "Dealer websites" },
+  { href: "/guides", label: "Guides & articles" },
   { href: "/licensing", label: "Online licensing" },
   { href: "/automation", label: "Automation" },
   { href: "/seo", label: "SEO" },

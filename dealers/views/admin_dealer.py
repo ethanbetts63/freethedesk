@@ -3,6 +3,7 @@ from django.utils import timezone
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAdminUser
 
+from core.utils.ordering import apply_ordering
 from core.utils.pagination import DashboardPagination
 
 from ..models import Dealer
@@ -36,12 +37,7 @@ class AdminDealerListView(ListAPIView):
                 | Q(user__email__icontains=search)
                 | Q(phone__icontains=search)
             )
-        ordering = params.get("ordering", "").strip() or "-created_at"
-        descending = ordering.startswith("-")
-        fields = DEALER_ORDERING.get(ordering.lstrip("-"), ("created_at",))
-        if descending:
-            fields = tuple(f"-{field}" for field in fields)
-        return queryset.order_by(*fields, "-id")
+        return apply_ordering(queryset, params, DEALER_ORDERING)
 
 
 class AdminDealerDetailView(RetrieveUpdateAPIView):

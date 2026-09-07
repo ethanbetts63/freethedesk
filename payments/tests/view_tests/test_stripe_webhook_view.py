@@ -3,31 +3,14 @@ from unittest.mock import patch
 
 import pytest
 import stripe
-from django.test import override_settings
 from django.urls import reverse
 
 from dealers.models import Dealer, DealerProfile
-from dealers.tests.factories import DealerFactory
 from payments.models import StripeEvent
+from payments.tests.conftest import stripe_settings
 from payments.tests.factories import DealerSubscriptionTermsAcceptanceFactory
 
 pytestmark = pytest.mark.django_db
-
-stripe_settings = override_settings(
-    STRIPE_SECRET_KEY="sk_test_placeholder",
-    STRIPE_WEBHOOK_SECRET="whsec_placeholder",
-)
-
-
-@pytest.fixture
-def dealer():
-    return DealerFactory(
-        business_name="Example Motorcycles",
-        contact_name="Alex Dealer",
-        email="dealer@example.com",
-        plan=Dealer.Plan.COMPLETE,
-        payment_status=Dealer.PaymentStatus.PAYMENT_PENDING,
-    )
 
 
 @stripe_settings

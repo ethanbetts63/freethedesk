@@ -13,5 +13,8 @@ Perth-based, working with businesses across Australia. The differentiator is the
 ## Case studies
 - [Scooter Shop](https://freethedesk.com.au/work/scooter-shop): A full case study of a live dealership website covering inventory, online purchasing, licensing, parts, service and hire.
 
+## Guides
+- [Guides and articles](https://freethedesk.com.au/guides): Practical field notes for Australian dealerships on websites, search visibility, online sales, licensing and operational systems.
+
 ## Company
 - [Contact](https://freethedesk.com.au/contact): Start a conversation about a website, licensing or automation project.

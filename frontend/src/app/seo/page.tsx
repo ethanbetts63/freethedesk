@@ -81,9 +81,9 @@ export default async function SeoPage() {
       description: `From ${formatPrice(settings.seo_monthly_price)}. No setup fee, no lock-in contracts.`,
     },
     {
-      value: "+200%",
-      label: "Organic clicks",
-      description: "What Scooter Shop gained in 6 months, measured in Google Search Console.",
+      value: "~2 hrs",
+      label: "Human Made",
+      description: "Not just AI generated. A real experienced human crafts your report.",
     },
     { value: "AI", label: "Are you AI ready?", description: "At a minimum you should meet Google's 3 recommendations." },
   ];

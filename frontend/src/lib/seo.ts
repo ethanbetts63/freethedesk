@@ -92,7 +92,7 @@ function titleCaseSlug(slug: string): string {
  * the brand suffix on top of it, doubling up (e.g. a title that already ends
  * "| Free the Desk" or has its own distinct suffix).
  */
-export function pageMetadata(options: { title: string; description: string; path: string; ogImage?: string; absoluteTitle?: boolean }): Metadata {
+export function pageMetadata(options: { title: string; description: string; path: string; ogImage?: string; absoluteTitle?: boolean; openGraphType?: "website" | "article" }): Metadata {
   const canonicalUrl = `${PUBLIC_SITE_URL}${options.path}`;
   const imageUrl = `${PUBLIC_SITE_URL}${options.ogImage ?? DEFAULT_OG_IMAGE}`;
 
@@ -103,7 +103,7 @@ export function pageMetadata(options: { title: string; description: string; path
     openGraph: {
       title: options.title,
       description: options.description,
-      type: "website",
+      type: options.openGraphType ?? "website",
       url: canonicalUrl,
       siteName: SITE_NAME,
       images: [{ url: imageUrl, width: 1200, height: 630 }],
@@ -114,5 +114,30 @@ export function pageMetadata(options: { title: string; description: string; path
       description: options.description,
       images: [imageUrl],
     },
+  };
+}
+
+export function buildArticleSchema(article: {
+  slug: string;
+  title: string;
+  excerpt: string;
+  authorName: string;
+  publishedDate: string;
+  lastModified: string;
+}): object {
+  const url = `${PUBLIC_SITE_URL}/${article.slug}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline: article.title,
+    description: article.excerpt,
+    url,
+    mainEntityOfPage: { "@id": `${url}#webpage` },
+    author: { "@type": "Person", name: article.authorName },
+    publisher: { "@id": `${PUBLIC_SITE_URL}/#organization` },
+    datePublished: article.publishedDate,
+    dateModified: article.lastModified,
   };
 }

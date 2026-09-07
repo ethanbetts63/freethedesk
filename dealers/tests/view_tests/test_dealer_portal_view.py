@@ -4,17 +4,8 @@ from django.urls import reverse
 
 from core.tests.factories import UserFactory
 from dealers.models import Dealer, DealerProfile
-from dealers.tests.factories import DealerFactory
 
 pytestmark = pytest.mark.django_db
-
-
-@pytest.fixture
-def dealer():
-    user = UserFactory(username="d@example.com")
-    return DealerFactory(
-        user=user, business_name="Bikes WA", contact_name="Sam Lee", email="d@example.com", phone="0400 111 222"
-    )
 
 
 def test_login_returns_dealer_principal(client, dealer):
@@ -75,12 +66,11 @@ def test_dealer_cannot_change_own_status_or_email(client, dealer):
     )
     dealer.refresh_from_db()
     assert dealer.status == Dealer.Status.PENDING
-    assert dealer.email == "d@example.com"
+    assert dealer.user.email == "d@example.com"
 
 
-def test_staff_cannot_use_the_dealer_profile_endpoint(client, dealer):
-    staff = UserFactory(username="staff", email="staff@freethedesk.com.au", is_staff=True)
-    client.force_login(staff)
+def test_staff_cannot_use_the_dealer_profile_endpoint(client, dealer, staff_user):
+    client.force_login(staff_user)
     assert client.get(reverse("dealer-profile")).status_code == 403
 
 

@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from ..models import Enquiry
 from ..serializers import AdminEnquirySerializer, EnquirySerializer
 from ..utils.notifications import notify_admin_of_enquiry
+from ..utils.ordering import apply_ordering
 from ..utils.pagination import DashboardPagination
 from ..utils.throttles import EnquiryRateThrottle
 
@@ -59,12 +60,7 @@ class AdminEnquiryListView(ListAPIView):
                 | Q(website__icontains=search)
                 | Q(message__icontains=search)
             )
-        ordering = params.get("ordering", "").strip() or "-created_at"
-        descending = ordering.startswith("-")
-        fields = ENQUIRY_ORDERING.get(ordering.lstrip("-"), ("created_at",))
-        if descending:
-            fields = tuple(f"-{field}" for field in fields)
-        return queryset.order_by(*fields, "-id")
+        return apply_ordering(queryset, params, ENQUIRY_ORDERING)
 
 
 class AdminEnquiryDetailView(RetrieveUpdateAPIView):

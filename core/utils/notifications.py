@@ -101,6 +101,27 @@ def send_notification(notification: Notification, attachments=None, template=Non
     return notification
 
 
+def notify_admin_via_channels(channel_messages, *, related_enquiry=None, related_dealer=None, template=None, context=None) -> list[Notification]:
+    """Create and send one ``Notification`` per ``(channel, recipient, subject, body)`` tuple.
+
+    Shared by the "tell staff by email and SMS" pattern used for both new
+    enquiries and new dealer signups.
+    """
+    notifications = []
+    for channel, recipient, subject, body in channel_messages:
+        notification = Notification.objects.create(
+            recipient_type=Notification.RecipientType.ADMIN,
+            recipient=recipient or "",
+            channel=channel,
+            subject=subject,
+            body=body,
+            related_enquiry=related_enquiry,
+            related_dealer=related_dealer,
+        )
+        notifications.append(send_notification(notification, template=template, context=context))
+    return notifications
+
+
 def notify_admin_of_enquiry(enquiry: Enquiry) -> list[Notification]:
     dashboard_url = f"{settings.SITE_URL.rstrip('/')}/dashboard/enquiries/{enquiry.pk}"
     email_body = (
@@ -118,21 +139,13 @@ def notify_admin_of_enquiry(enquiry: Enquiry) -> list[Notification]:
         f"New Free the Desk enquiry: {enquiry.business} — {enquiry.name}, "
         f"{enquiry.get_help_with_display()}. {dashboard_url}"
     )
-    notifications = []
-    for channel, recipient, subject, body in (
-        (Notification.Channel.EMAIL, settings.ADMIN_EMAIL, f"New enquiry — {enquiry.business}", email_body),
-        (Notification.Channel.SMS, settings.ADMIN_NUMBER, "", sms_body),
-    ):
-        notification = Notification.objects.create(
-            recipient_type=Notification.RecipientType.ADMIN,
-            recipient=recipient or "",
-            channel=channel,
-            subject=subject,
-            body=body,
-            related_enquiry=enquiry,
-        )
-        notifications.append(send_notification(notification))
-    return notifications
+    return notify_admin_via_channels(
+        [
+            (Notification.Channel.EMAIL, settings.ADMIN_EMAIL, f"New enquiry — {enquiry.business}", email_body),
+            (Notification.Channel.SMS, settings.ADMIN_NUMBER, "", sms_body),
+        ],
+        related_enquiry=enquiry,
+    )
 
 
 def send_manual_email(*, to: str, subject: str, body: str, related_enquiry=None, attachments=None) -> Notification:
