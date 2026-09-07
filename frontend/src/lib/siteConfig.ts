@@ -6,11 +6,17 @@ export const WEBSITE_NAVIGATION = [
   { href: "/", label: "Dealer websites" },
 ] as const;
 
+export const PORTFOLIO_NAVIGATION = [
+  { href: "/portfolio/scooter-shop", label: "Scooter Shop" },
+  { href: "/portfolio/bloomprint", label: "Bloomprint" },
+] as const;
+
+/** Entries carrying `items` render as a dropdown; the rest are plain links. */
 export const PRIMARY_NAVIGATION = [
   { href: "/licensing", label: "Online licensing" },
   { href: "/automation", label: "Automation" },
   { href: "/seo", label: "SEO" },
-  { href: "/portfolio/scooter-shop", label: "Our work" },
+  { label: "Portfolio", items: PORTFOLIO_NAVIGATION },
   { href: "/contact", label: "Contact" },
   { href: "/login", label: "Login" },
 ] as const;

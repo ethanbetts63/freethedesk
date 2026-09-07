@@ -79,7 +79,8 @@ export default function WebsiteDevelopmentPage() {
 
       <section className={`shell ${styles.intro}`}>
         <div><p className={styles.label}>01 / What you&apos;re buying</p><h2>Not a website.<br />A system with a job to do.</h2></div>
-        <div><p>A basic website is a brochure: a handful of pages that look fine on launch day and do nothing after that.</p><p>What we build behaves more like software—it watches stock, sends the alerts, writes the routine emails and keeps working on search long after launch. The pages you see are just the part your customers notice.</p></div>
+        <div><p>A basic website is a brochure: a handful of pages that look fine on launch day and do nothing after that.</p>
+        <p>What we build behaves more like software—it watches stock, sends the alerts, writes the routine emails and keeps working on search long after launch. The pages your customers see should be the tip of the iceberg.</p></div>
       </section>
 
       <section className={styles.servicesSection} id="services">
