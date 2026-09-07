@@ -77,7 +77,7 @@ export default async function SeoPage() {
   const seoStats: [ProofStat, ProofStat, ProofStat] = [
     {
       value: formatPrice(settings.seo_monthly_price),
-      label: "Per report",
+      label: "SEO Report",
       description: `From ${formatPrice(settings.seo_monthly_price)}. No setup fee, no lock-in contracts.`,
     },
     {
@@ -113,7 +113,7 @@ export default async function SeoPage() {
       <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <FlowHeroConcept
-        eyebrow="Quarterly SEO reports"
+        eyebrow="Data Driven SEO Reports"
         title="SEO advice,"
         accentTitle="not a retainer."
         lead={`For ${formatPrice(settings.seo_quarterly_price)} a quarter, we study your site and your Google Search Console data, then hand you a plain-English report of what we'd do next—ranked, explained, and honest enough to tell you when it's time to cancel.`}
@@ -176,7 +176,7 @@ export default async function SeoPage() {
             </ol>
             <footer className={styles.pipelineFoot}>
               <strong>~2 hrs</strong>
-              <span>of actual human labour per report—experienced hours, but two of them, and priced that way.</span>
+              <span>of actual expereinced human labour per report.</span>
             </footer>
           </div>
         </div>
@@ -239,11 +239,13 @@ export default async function SeoPage() {
 
       <section className={styles.caseSection}>
         <div className={`shell ${styles.caseInner}`}>
-          <div className={styles.caseStat}>
-            <small>Google Search Console, after launch</small>
-            <strong>+200%</strong>
-            <span>organic clicks</span>
-            <div className={styles.casePhone}>
+          <div className={styles.casePhone}>
+            <div className={styles.caseStatOverlay}>
+              <small>Google Search Console</small>
+              <strong>+200%</strong>
+              <span>organic clicks</span>
+            </div>
+            <div className={styles.casePhoneFrame}>
               <div className="case-mobile-phone">
                 <span />
                 <div className="case-phone-menu" aria-hidden="true"><i /><i /><i /></div>
@@ -254,7 +256,7 @@ export default async function SeoPage() {
           <div className={styles.caseCopy}>
             <p className={`${styles.label} ${styles.labelLight}`}>07 / Proof this works</p>
             <h2>Scooter Shop, Perth.</h2>
-            <p>Scooter Shop&apos;s website was built the way our reports recommend: fast structured pages, indexable stock, and focused pages for the searches customers actually make—&ldquo;Vespa service Perth&rdquo;, &ldquo;50cc scooters Perth&rdquo;, &ldquo;SYM parts&rdquo;. Google Search Console recorded organic clicks up 200% after launch.</p>
+            <p>Scooter Shop&apos;s website was built the way our reports recommend: fast structured pages, indexable stock, and focused pages for the searches customers actually make—&ldquo;Vespa service Perth&rdquo;, &ldquo;50cc scooters Perth&rdquo;, &ldquo;SYM parts&rdquo;. Google Search Console recorded organic clicks up 200% in 6 months.</p>
             <p>That&apos;s the loop this service runs on your site: find the gap in the data, build the thing that fills it, then measure whether it earned its place.</p>
             <div className={styles.casePoints}>
               {casePoints.map((point) => <span key={point}>{point}</span>)}

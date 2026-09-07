@@ -19,7 +19,7 @@ const journey = [
   {
     number: "03",
     title: "Pay",
-    detail: "Deposit or full payment",
+    detail: "Optional deposit or full payment",
     icon: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 10h18M7 15h4" /></svg>,
   },
 ];

@@ -111,12 +111,25 @@
 .gbpPrice a { color: #fff; font-size: .75rem; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; }
 .gbpPrice a span { display: inline-block; margin-left: 6px; }
 
-.caseSection { background: #07121c; color: #fff; margin-top: 115px; padding: 120px 0; }
+.caseSection { background: var(--surface-dark); color: var(--text-on-dark); margin-top: 115px; padding: 120px 0; }
 .caseInner { align-items: center; display: grid; gap: clamp(55px, 8vw, 120px); grid-template-columns: .75fr 1.25fr; }
-.caseStat small { color: #70bced; display: block; font-size: .68rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
-.caseStat strong { display: block; font-size: clamp(4.4rem, 8vw, 7rem); font-weight: 850; letter-spacing: -.07em; line-height: 1; margin: 18px 0 8px; }
-.caseStat > span { color: #b9ccdc; font-size: .95rem; }
-.casePhone { margin-top: 44px; }
+/* The phone is the base; the stat floats over it, so this wrapper is the positioning context. */
+.casePhone { position: relative; width: 250px; }
+.casePhoneFrame { position: relative; z-index: 1; }
+.caseStatOverlay {
+  backdrop-filter: blur(9px);
+  background: rgba(7, 18, 28, .88);
+  border: 1px solid rgba(255,255,255,.15);
+  bottom: 52px;
+  box-shadow: 0 26px 60px rgba(0,0,0,.5);
+  left: 112px;
+  padding: 17px 24px 19px;
+  position: absolute;
+  z-index: 2;
+}
+.caseStatOverlay small { color: #70bced; display: block; font-size: .6rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+.caseStatOverlay strong { display: block; font-size: 3.1rem; font-weight: 850; letter-spacing: -.06em; line-height: 1; margin: 9px 0 3px; }
+.caseStatOverlay > span { color: #b9ccdc; font-size: .82rem; white-space: nowrap; }
 .caseCopy h2 { font-size: clamp(2.4rem, 4vw, 3.4rem); letter-spacing: -.05em; margin: 0 0 20px; }
 .caseCopy > p:not(.label) { color: #b9ccdc; font-size: .97rem; line-height: 1.76; margin: 0 0 16px; max-width: 560px; }
 .casePoints { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 30px; }
@@ -149,5 +162,7 @@
   .serviceGrid, .planGrid { grid-template-columns: 1fr; }
   .serviceGrid article { min-height: 210px; }
   .planCard { min-height: 250px; }
+  .caseStatOverlay { bottom: 34px; left: 70px; padding: 14px 18px 16px; }
+  .caseStatOverlay strong { font-size: 2.5rem; }
   .closing { margin-bottom: 80px; margin-top: 80px; padding: 65px 22px; }
 }
