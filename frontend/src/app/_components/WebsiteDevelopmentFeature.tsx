@@ -8,8 +8,8 @@ export function WebsiteDevelopmentFeature() {
       <div className={`shell ${styles.layout}`}>
         <div className={styles.copy}>
           <p className={styles.eyebrow}><span /> Website development</p>
-          <h2>Websites that<br /><em>work harder.</em></h2>
-          <p className={styles.lead}>Custom websites and applications that automate the repetitive work behind your business.</p>
+          <h2>Websites should<br /><em>work harder.</em></h2>
+          <p className={styles.lead}>Custom websites that convert users and automate the repetitive work behind your business.</p>
           <ul>
             <li>Conversion-first customer journeys</li>
             <li>Useful tools for customers and staff</li>

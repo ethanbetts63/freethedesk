@@ -58,10 +58,7 @@
 .signupSubmit span { font-size: 1.1rem; }
 .secureNote { color: #718698; font-size: .68rem; margin: 12px 0 0; text-align: center; }
 .signupError { background: #fff0f0; border-left: 3px solid #b52c2c; color: #842222; font-size: .75rem; line-height: 1.5; margin: 0 0 12px; padding: 11px 13px; }
-.problem { display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: 1.05fr .95fr; padding-bottom: 125px; padding-top: 125px; }
-.problem h2, .comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2, .verifyCopy h2 { font-size: clamp(3rem, 5.2vw, 5.6rem); letter-spacing: -.07em; line-height: .94; margin: 0; }
-.problemCopy { align-self: end; max-width: 520px; }
-.problemCopy p { color: #536b80; font-size: 1rem; line-height: 1.78; margin: 0 0 20px; }
+.comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2, .verifyCopy h2 { font-size: clamp(3rem, 5.2vw, 5.6rem); letter-spacing: -.07em; line-height: .94; margin: 0; }
 .comparisonSection { background: #f2f7fb; padding: 105px 0; }
 .comparison { align-items: center; display: grid; gap: clamp(55px, 8vw, 110px); grid-template-columns: .7fr 1.3fr; }
 .comparisonCopy > p:last-child, .optionsHeading > p:last-child { color: #597188; font-size: .96rem; line-height: 1.7; max-width: 440px; }
@@ -170,12 +167,11 @@
 .outcomeGrid { display: grid; gap: 18px; grid-template-columns: repeat(3, 1fr); margin-top: 60px; }
 .outcomeGrid article { background: #f3f7fa; min-height: 255px; padding: 28px; }
 .outcomeGrid h3 { font-size: 1.28rem; letter-spacing: -.03em; margin: 65px 0 12px; }
-.closing { background: #f2f7fb; margin-bottom: 115px; padding-bottom: 80px; padding-top: 80px; text-align: center; }
+.closing { background: #f2f7fb; margin-bottom: 115px; margin-top: 115px; padding: 82px; text-align: center; }
 .closing > p:not(.sectionLabel) { color: #587086; font-size: .96rem; line-height: 1.7; margin: 27px auto 31px; max-width: 570px; }
-.closing > div { align-items: center; display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; }
-.closing a { align-items: center; display: inline-flex; font-size: .8rem; font-weight: 850; gap: 32px; }
-.closing a:first-child { background: var(--page-accent); color: #fff; padding: 16px 18px; }
-.closing a:last-child { border-bottom: 1px solid #000; gap: 13px; padding: 7px 0; }
+.closing > a { align-items: center; background: var(--page-accent); color: #fff; display: inline-flex; font-size: .8rem; font-weight: 900; gap: 35px; padding: 17px 20px; }
+.closing > a span { display: inline-block; transition: transform .2s ease; }
+.closing > a:hover span { transform: translateY(-3px); }
 
 .verify { align-items: center; display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: 1.05fr .95fr; padding-bottom: 125px; padding-top: 125px; }
 .verifyCopy p:not(.sectionLabel) { color: #536b80; font-size: 1rem; line-height: 1.78; margin: 24px 0 0; max-width: 480px; }
@@ -196,18 +192,17 @@
 .verifyLogo { height: 20px; width: auto; }
 
 @media (max-width: 900px) {
-  .problem, .comparison, .optionsLayout, .signupHeading, .verify { grid-template-columns: 1fr; }
+  .comparison, .optionsLayout, .signupHeading, .verify { grid-template-columns: 1fr; }
   .planGrid { grid-template-columns: 1fr 1fr; }
   .signupPanel { grid-template-columns: 1fr; }
   .selectedSummary { min-height: 480px; }
-  .problemCopy { max-width: 650px; }
   .flowGrid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 650px) {
-  .problem, .outcomesSection, .signupSection, .verify { padding-bottom: 82px; padding-top: 82px; }
+  .outcomesSection, .signupSection, .verify { padding-bottom: 82px; padding-top: 82px; }
   .comparisonSection, .optionsSection { padding-bottom: 78px; padding-top: 78px; }
-  .problem h2, .comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2, .verifyCopy h2 { font-size: clamp(2.75rem, 13vw, 4rem); }
+  .comparisonCopy h2, .sectionHeading h2, .optionsHeading h2, .closing h2, .verifyCopy h2 { font-size: clamp(2.75rem, 13vw, 4rem); }
   .paths article > div { align-items: flex-start; flex-direction: column; }
   .paths article i { height: 11px; margin-left: 4px; width: 1px; }
   .outcomeGrid { grid-template-columns: 1fr; }
@@ -216,6 +211,5 @@
   .selectedSummary { min-height: 430px; }
   .outcomeGrid article { min-height: 220px; }
   .closing { margin-bottom: 78px; padding: 65px 22px; }
-  .closing > div { align-items: center; flex-direction: column; }
   .optionPhones { flex-wrap: wrap; gap: 34px; }
 }

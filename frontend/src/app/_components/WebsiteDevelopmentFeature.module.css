@@ -25,7 +25,7 @@
 .websiteCanvas nav i { background: #dce7ef; display: block; height: 5px; width: 30px; }
 .websiteCanvas nav b { background: var(--feature-accent); display: block; height: 13px; width: 38px; }
 .pageHero { background: linear-gradient(135deg, #edf5fb, #f4f0ff); margin-top: 18px; min-height: 215px; padding: 31px; position: relative; }
-.pageHero::after { background: radial-gradient(circle at 35% 35%, #7bc4ee, #247ec9 60%, #13315c); border-radius: 52% 48% 42% 58%; content: ""; height: 155px; opacity: .92; position: absolute; right: 7%; top: 26px; transform: rotate(-12deg); width: 155px; }
+.pageHero::after { background: radial-gradient(circle at 35% 35%, #7bc4ee, #247ec9 60%, #13315c); border-radius: 50%; content: ""; height: 155px; opacity: .92; position: absolute; right: 7%; top: 26px; width: 155px; }
 .pageHero small { color: var(--feature-accent); display: block; font-size: .48rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
 .pageHero strong { display: block; font-size: clamp(1.9rem, 3vw, 3rem); letter-spacing: -.065em; line-height: .9; margin: 16px 0 19px; position: relative; z-index: 1; }
 .pageHero > span { background: #07121c; color: #fff; display: inline-block; font-size: .5rem; font-weight: 800; padding: 9px 11px; position: relative; z-index: 1; }

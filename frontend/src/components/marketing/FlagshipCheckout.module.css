@@ -5,9 +5,19 @@
   background: #f4f8fd; padding: 108px 0;
 }
 .layout { align-items: center; display: grid; gap: clamp(55px, 8vw, 120px); grid-template-columns: minmax(0, 1.08fr) minmax(380px, .92fr); }
-.visual { background: #fff; border: 1px solid #c9daea; box-shadow: 0 28px 75px rgba(19,49,92,.11); min-width: 0; padding: 28px; }
+.visual {
+  animation: moving-colour-border-shift 6s linear infinite;
+  background-clip: padding-box, border-box;
+  background-image: linear-gradient(#fff, #fff), var(--moving-colour-gradient-surface);
+  background-origin: border-box;
+  background-size: 100% 100%, var(--moving-colour-size);
+  border: 2px solid transparent;
+  box-shadow: 0 28px 75px rgba(19,49,92,.11);
+  min-width: 0;
+  padding: 28px;
+}
 .visualHeader { align-items: center; border-bottom: 1px solid #d9e5ef; color: #758a9c; display: flex; font-size: .66rem; font-weight: 850; justify-content: space-between; letter-spacing: .11em; padding-bottom: 18px; text-transform: uppercase; }
-.visualHeader b { color: var(--section-accent); }
+.visualHeader b { animation: moving-colour-shift 6s linear infinite; background: var(--moving-colour-gradient); background-clip: text; background-size: var(--moving-colour-size); color: transparent; -webkit-background-clip: text; }
 .journey { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); padding: 28px 0; position: relative; }
 .journey::before { background: #bdd4e6; content: ""; height: 1px; left: 15%; position: absolute; right: 15%; top: 57px; }
 .journey article { background: #f7fafc; border: 1px solid #dce7ef; min-width: 0; padding: 16px 14px; position: relative; z-index: 1; }
@@ -17,7 +27,7 @@
 .journey article > span { color: var(--section-accent); font-size: .58rem; font-weight: 900; letter-spacing: .1em; }
 .journey article > strong { font-size: .92rem; margin-top: 7px; }
 .journey article > small { color: #6e8497; font-size: .66rem; line-height: 1.45; margin-top: 6px; }
-.status { align-items: center; background: #13315c; color: #cfdcea; display: flex; font-size: .76rem; font-weight: 650; gap: 11px; justify-content: center; padding: 15px 17px; }
+.status { align-items: center; animation: moving-colour-shift 8s linear infinite; background: var(--moving-colour-gradient-surface); background-size: var(--moving-colour-size); box-shadow: 0 12px 28px rgba(168,85,247,.22); color: rgba(255,255,255,.82); display: flex; font-size: .76rem; font-weight: 650; gap: 11px; justify-content: center; padding: 15px 17px; }
 .status b { color: #fff; font-weight: 850; }
 .stripeLogo { flex: 0 0 auto; height: 20px; width: auto; }
 .copy { max-width: 520px; }
@@ -31,6 +41,10 @@
 .copy li::before { background: var(--section-accent); border-radius: 50%; content: ""; height: 5px; left: 1px; position: absolute; top: 17px; width: 5px; }
 .copy > a { align-items: center; background: var(--section-accent); color: #fff; display: inline-flex; font-size: .8rem; font-weight: 800; gap: 38px; padding: 16px 18px; transition: background .2s, transform .2s; }
 .copy > a:hover { background: #000; transform: translateY(-2px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .visual, .visualHeader b, .status { animation: none; }
+}
 
 @media (max-width: 900px) {
   .layout { grid-template-columns: 1fr; }

@@ -22,7 +22,7 @@ const PATH = "/";
 export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH, absoluteTitle: true });
 
 const homeStats: [ProofStat, ProofStat, ProofStat] = [
-  { value: "86%", label: "Research online first", description: "Car shoppers who research online before ever visiting." },
+  { value: "36%", label: "Of the work week", description: "Time small business owners lose to manual admin tasks." },
   { value: "24 / 7", label: "Always-on operations", description: "Notifications and syncs that don't wait for business hours." },
   { value: "AI", label: "Are you AI ready?", description: "We check four practical foundations for AI and agentic browsing." },
 ];
@@ -40,14 +40,15 @@ export default function Home() {
     <main className={styles.page}>
       <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
       <Hero
-        eyebrow="Efficiency First Solutions"
+        eyebrow="bid boring adieu"
         titleLines={["Digital", "automation"]}
         accentTitle="solutions."
-        lead="Connected websites and operational systems built for the way modern dealerships sell, service and work."
+        lead="Connected websites and automation systems built for the way modern business operate."
         primaryHref="/dealership-website-builder"
         primaryLabel="Try the Free Demo"
         secondaryHref="/portfolio/scooter-shop"
         secondaryLabel="See it in action"
+        stages={["Understand", "Build", "Connect", "Improve"]}
       />
       <ProofStrip stats={homeStats} />
       <WebsiteDevelopmentFeature />

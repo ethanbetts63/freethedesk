@@ -97,21 +97,6 @@ export default function LicensingPage() {
         </div>
       </section>
 
-      <section className={`shell ${styles.problem}`}>
-        <div>
-          <p className={styles.sectionLabel}>04 / Remove the barrier</p>
-          <h2>A signature should not require a showroom appointment.</h2>
-        </div>
-        <div className={styles.problemCopy}>
-          <p>
-            A customer can be ready to buy and still be stopped by the practical friction of getting to your store. Distance, work, family and opening hours all become reasons to delay.
-          </p>
-          <p>
-            Let the paperwork do the travelling, not your customers.
-          </p>
-        </div>
-      </section>
-
       <IdentityVerification />
 
       <Faq
@@ -119,6 +104,13 @@ export default function LicensingPage() {
         title="Before you sign up."
         items={questions.map(([question, answer]) => ({ question, answer }))}
       />
+
+      <section className={`shell ${styles.closing}`}>
+        <p className={styles.sectionLabel}>04 / Remove the barrier</p>
+        <h2>A signature should not require a showroom appointment.</h2>
+        <p>Let customers verify, sign and pay from wherever they are. The paperwork travels—not the customer.</p>
+        <Link href="#signup">Choose your plan <span>↑</span></Link>
+      </section>
     </main>
   );
 }

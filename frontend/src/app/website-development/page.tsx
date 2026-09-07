@@ -70,9 +70,9 @@ export default function WebsiteDevelopmentPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <Hero
         eyebrow="Website development Perth"
-        titleLines={["Websites that"]}
+        titleLines={["Websites should"]}
         accentTitle="work harder."
-        lead="Custom websites and applications that automate the repetitive work behind your business."
+        lead="Custom websites that convert users and automate the repetitive work behind your business."
         primaryHref="#enquiry"
         primaryLabel="Discuss your website"
         secondaryHref="/portfolio/scooter-shop"
