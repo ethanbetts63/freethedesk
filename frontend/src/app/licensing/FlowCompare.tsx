@@ -35,7 +35,7 @@ function FlowColumn({
 }) {
   return (
     <div className={`${styles.flowColumn} ${highlight ? styles.flowColumnHighlight : ""}`}>
-      {eyebrow && <p className={styles.flowEyebrow}>{eyebrow}</p>}
+      {eyebrow && <p className={`${styles.flowEyebrow} moving-colour-text`}>{eyebrow}</p>}
       <header className={styles.flowColumnHead}>
         <span>{label}</span>
         <b>{badge}</b>

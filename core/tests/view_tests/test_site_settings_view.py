@@ -1,7 +1,5 @@
 import pytest
 
-from core.tests.factories import UserFactory
-
 pytestmark = pytest.mark.django_db
 
 
@@ -24,9 +22,8 @@ def test_site_settings_dashboard_requires_staff(api_client):
     assert response.status_code == 401
 
 
-def test_staff_can_view_and_update_site_settings(api_client):
-    staff = UserFactory(username="admin", is_staff=True)
-    api_client.force_authenticate(staff)
+def test_staff_can_view_and_update_site_settings(api_client, staff_user):
+    api_client.force_authenticate(staff_user)
 
     response = api_client.get("/api/admin/site-settings/")
     assert response.status_code == 200

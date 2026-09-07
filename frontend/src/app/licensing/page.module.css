@@ -14,19 +14,18 @@
 .planCard:focus-visible { outline: 3px solid rgba(var(--page-accent-rgb), .25); outline-offset: 3px; }
 .planCard.planSelected { background: #fff; border-color: var(--page-accent); box-shadow: inset 0 4px 0 var(--page-accent); }
 .planCard.planRecommended {
-  animation: plan-recommended-shift 6s linear infinite;
+  animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(#f5f8fa, #f5f8fa), linear-gradient(100deg, #38bdf8, #a855f7 55%, #f472b6, #38bdf8);
+  background-image: linear-gradient(#f5f8fa, #f5f8fa), var(--moving-colour-gradient-surface);
   background-origin: border-box;
-  background-size: 100% 100%, 300% 100%;
+  background-size: 100% 100%, var(--moving-colour-size);
   border: 2px solid transparent;
 }
 .planCard.planRecommended:hover { border-color: transparent; }
-.planCard.planRecommended.planSelected { background-image: linear-gradient(#fff, #fff), linear-gradient(100deg, #38bdf8, #a855f7 55%, #f472b6, #38bdf8); }
-@keyframes plan-recommended-shift { to { background-position: 0 0, 300% 50%; } }
-@media (prefers-reduced-motion: reduce) { .planCard.planRecommended, .planCard.planRecommended .planTopline { animation: none; } }
+.planCard.planRecommended.planSelected { background-image: linear-gradient(#fff, #fff), var(--moving-colour-gradient-surface); }
+@media (prefers-reduced-motion: reduce) { .planCard.planRecommended { animation: none; } }
 .planTopline { color: var(--page-accent); font-size: .63rem; font-weight: 900; letter-spacing: .12em; min-height: 34px; text-transform: uppercase; }
-.planCard.planRecommended .planTopline { background: linear-gradient(90deg, #38bdf8, #a855f7, #f472b6, #38bdf8); -webkit-background-clip: text; background-clip: text; background-size: 300% 100%; color: transparent; animation: ai-ready-shift 6s linear infinite; }
+.planCard.planRecommended .planTopline { --moving-colour-speed: 6s; }
 .planCard > strong { font-size: 1.18rem; letter-spacing: -.03em; }
 .planPrice { font-size: 2.15rem; font-weight: 850; letter-spacing: -.06em; margin: 24px 0 15px; white-space: nowrap; }
 .planPrice small { color: #60778b; font-size: .62rem; font-weight: 650; letter-spacing: 0; }
@@ -94,19 +93,18 @@
 .flowGrid { display: grid; gap: 20px; grid-template-columns: 1fr 1fr; }
 .flowColumn { background: linear-gradient(160deg, #21598f, #163f6c); border: 1px solid #3f8dd1; box-shadow: inset 0 1px 0 rgba(255,255,255,.12); padding: 26px 26px 8px; }
 .flowColumn.flowColumnHighlight {
-  animation: plan-recommended-shift 6s linear infinite;
+  animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(#0f2547, #0f2547), linear-gradient(100deg, #38bdf8, #a855f7 55%, #f472b6, #38bdf8);
+  background-image: linear-gradient(#0f2547, #0f2547), var(--moving-colour-gradient-surface);
   background-origin: border-box;
-  background-size: 100% 100%, 300% 100%;
+  background-size: 100% 100%, var(--moving-colour-size);
   border: 2px solid transparent;
   box-shadow: none;
   padding-bottom: 26px;
 }
 .flowEyebrow {
-  background: linear-gradient(90deg, #38bdf8, #a855f7, #f472b6, #38bdf8); -webkit-background-clip: text; background-clip: text;
-  background-size: 300% 100%; color: transparent; font-size: .64rem; font-weight: 900; letter-spacing: .12em;
-  margin: 0 0 14px; text-transform: uppercase; animation: ai-ready-shift 6s linear infinite;
+  --moving-colour-speed: 6s; font-size: .64rem; font-weight: 900; letter-spacing: .12em;
+  margin: 0 0 14px; text-transform: uppercase;
 }
 .flowColumnHead { align-items: baseline; border-bottom: 1px solid rgba(255,255,255,.18); display: flex; justify-content: space-between; gap: 12px; margin-bottom: 6px; padding-bottom: 18px; }
 .flowColumnHead span { color: #fff; font-size: .85rem; font-weight: 900; }
@@ -121,23 +119,23 @@
   justify-content: center; left: 0; position: absolute; top: 16px; width: 22px;
 }
 .flowColumnHighlight .flowStepsList li::before {
-  animation: plan-recommended-shift 6s linear infinite;
-  background: linear-gradient(100deg, #38bdf8, #a855f7 55%, #f472b6, #38bdf8); background-size: 300% 100%; color: #fff;
+  animation: moving-colour-shift 6s linear infinite;
+  background: var(--moving-colour-gradient-surface); background-size: var(--moving-colour-size); color: #fff;
 }
 .flowStepText { display: flex; flex-direction: column; gap: 5px; }
 .flowStepText strong { color: #fff; font-size: .84rem; font-weight: 800; letter-spacing: -.01em; }
 .flowStepText small { color: #cfe0ee; font-size: .7rem; }
 .flowColumnHighlight .flowStepText small { color: #bcdcfa; }
 .flowColumnCta {
-  align-items: center; animation: plan-recommended-shift 6s linear infinite;
-  background: linear-gradient(100deg, #38bdf8, #a855f7 55%, #f472b6, #38bdf8); background-size: 300% 100%;
+  align-items: center; animation: moving-colour-shift 6s linear infinite;
+  background: var(--moving-colour-gradient-surface); background-size: var(--moving-colour-size);
   box-shadow: 0 12px 28px rgba(168,85,247,.35); color: #fff; display: flex; font-size: .74rem; font-weight: 850;
   justify-content: space-between; margin: 22px 0 4px; padding: 14px 16px; text-decoration: none; transition: box-shadow .2s ease;
 }
 .flowColumnCta:hover { box-shadow: 0 16px 34px rgba(168,85,247,.48); }
 .flowColumnCta span { font-size: 1rem; }
 @media (prefers-reduced-motion: reduce) {
-  .flowColumn.flowColumnHighlight, .flowEyebrow, .flowColumnHighlight .flowStepsList li::before, .flowColumnCta { animation: none; }
+  .flowColumn.flowColumnHighlight, .flowColumnHighlight .flowStepsList li::before, .flowColumnCta { animation: none; }
 }
 
 /* Shared phone-mockup frame used by both option previews. */

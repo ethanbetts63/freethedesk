@@ -82,7 +82,7 @@ export function SignupPlans() {
               aria-checked={selectedCode === plan.code}
               onClick={() => setSelectedCode(plan.code)}
             >
-              <span className={styles.planTopline}>{plan.recommended ? "Recommended" : "Select plan"}</span>
+              <span className={`${styles.planTopline} ${plan.recommended ? "moving-colour-text" : ""}`}>{plan.recommended ? "Recommended" : "Select plan"}</span>
               <strong>{plan.name}</strong>
               <span className={styles.planPrice}>{plan.price} <small>{plan.cadence}</small></span>
               <p>{plan.summary}</p>

@@ -133,7 +133,7 @@ export default function ScooterShopCaseStudy() {
             <h2>The important journeys work wherever they begin.</h2>
             <p>Across Australian dealerships, we find that an average of 66% of users are browsing on mobile. That is why every journey starts with the smallest screen in our process—not as a reduced version of desktop.</p>
             <div className="case-mobile-stat">
-              <strong>66%</strong>
+              <strong className="moving-colour-text">66%</strong>
               <span><b>of dealership users are on mobile</b><small>Average across the Australian dealership traffic we see.</small></span>
             </div>
           </div>

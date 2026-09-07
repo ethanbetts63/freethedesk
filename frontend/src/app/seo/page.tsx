@@ -14,11 +14,11 @@ import { SeoPlans } from "./SeoPlans";
 import { seoServices } from "./seoServices";
 import styles from "./page.module.css";
 
-const TITLE = "Quarterly SEO Reports, Not a Retainer";
-const DESCRIPTION = "We study your site and your Google Search Console data, then hand you a plain-English report of what to do next—ranked, explained, and honest enough to tell you when to cancel.";
+const TITLE = "Your Next SEO Move, Made Clear";
+const DESCRIPTION = "See what is working, what is holding your website back and where the best search opportunities are.";
 const PATH = "/seo";
 
-export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH, absoluteTitle: true });
+export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
 
 const reportSections = [
   ["Last period tracked", "What moved, what didn't."],
@@ -34,29 +34,10 @@ const reportIcons = [
   <svg key="next" viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M3 7.5 5 9.5 9 5.5M3 17 5 19l4-4" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" /><path d="M13 8h8M13 17h8" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" /></svg>,
 ];
 
-const trackItems = [
-  ["You implement it", "The report is written for whoever runs your site—you, your web person, or your platform's editor. GoDaddy, Wix, Squarespace and the rest: every recommendation says what to change and why, not just jargon."],
-  ["We built your site, so we can do it", "If your site is one of ours, every recommendation arrives with a fixed implementation price at a discounted build rate. Tick the ones you want and they get done—no quotes, no back-and-forth."],
-];
-
 const pipelineSteps = [
   ["Machine sweep", "Pre-written crawl code, benchmark data from past projects and pre-planned AI search routines run over your site and your Search Console data."],
   ["Human judgement", "The machines produce a long list of maybes. We cut what doesn't hold up, and add what only experience catches."],
-  ["Your report", "What survives becomes a short, ranked, plain-English list—with a straight answer when nothing is worth doing."],
-];
-
-const steps = [
-  ["Connect", "Read-only Google Search Console. Nothing to install, nothing on your site to touch."],
-  ["Study", "We run our machines over your site and your data, then comb through what they find."],
-  ["Report", "Your first one arrives within a week—not at the end of the quarter."],
-  ["Repeat", "You implement. Next period we check what moved, and go again—until we tell you to stop."],
-];
-
-const stepIcons = [
-  <svg key="connect" viewBox="0 0 24 24" width="24" height="24" fill="none"><circle cx="7" cy="7" r="2.6" stroke="#fff" strokeWidth="1.6" /><circle cx="17" cy="17" r="2.6" stroke="#fff" strokeWidth="1.6" /><path d="M9.2 9.2l5.6 5.6" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
-  <svg key="study" viewBox="0 0 24 24" width="24" height="24" fill="none"><circle cx="10" cy="10" r="6" stroke="#fff" strokeWidth="1.6" /><path d="M14.5 14.5 20 20" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
-  <svg key="report" viewBox="0 0 24 24" width="24" height="24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3 11.2c.6.4 1 1.1 1 1.8h4c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3Z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" /></svg>,
-  <svg key="repeat" viewBox="0 0 24 24" width="24" height="24" fill="none"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /><path d="M18 4v4h-4M6 20v-4h4" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+  ["Your report", "What survives becomes a ranked, plain-English list of issues and opportunities."],
 ];
 
 const casePoints = ["Indexable stock", "Intent-focused pages", "Structured data", "Measured in Search Console"];
@@ -66,7 +47,7 @@ const questions = [
   ["Why is it so cheap? What's the catch?", "Machines do the collection: pre-written crawl code, benchmark data from our previous projects and pre-planned AI search routines produce a long list of potential issues and opportunities. A person then does the judgement—combing the list, cutting the bad ideas and writing up the rest. It's the same process we run internally on every website we build, so it's already paid for. That's about two hours of real human labour per report, priced like it. The other half of the answer: we're betting some subscribers will eventually want a site built by us, and that's where we earn a fair build rate."],
   ["Do you make the changes for us?", "If we built your site, yes—every recommendation comes with a fixed, discounted implementation price, and you tick what you want done. Otherwise the report is written so you, your web person, or whatever platform you already use (GoDaddy, Wix, Squarespace and the rest) can implement it yourselves."],
   ["Why quarterly instead of monthly?", "Because a change takes roughly 8–12 weeks to show its full effect in Google's data. Monthly reporting mostly charges you to hear 'still waiting'. We do offer monthly for genuinely active phases—a new site, a migration, a competitive push—but we'll tell you when to drop back to quarterly."],
-  ["What about AI search—ChatGPT, AI Overviews?", "Search increasingly answers the question directly and cites its sources. The work that earns those citations is the same work that ranks: structured data, fast pages, and clear answers to real questions. Every plan includes a free AI readiness check—whether your site meets Google's three recommendations for AI and agentic browsing: a clean accessibility tree, a stable layout, and an llms.txt file. Every report is then written with both search and AI answers in mind."],
+  ["What about AI search—ChatGPT, AI Overviews?", "Search increasingly answers the question directly and cites its sources. The work that earns those citations is the same work that ranks: structured data, fast pages, and clear answers to real questions. Every plan includes a free four-point AI readiness check: a clean accessibility tree, a stable layout, a useful llms.txt file, and robots.txt rules that do not block the crawlers you want. Every report is then written with both search and AI answers in mind."],
   ["What happens when there's nothing left to improve?", "The report says so and recommends you cancel, or drop to a slower cadence. We'd rather lose the money than keep charging for attention your data doesn't need yet."],
   ["What's the Google Business Profile audit?", "A one-off review of your Google Business Profile: every issue, every field we'd change, and the exact value we'd change it to. It's a one-off because a profile has far fewer levers than a website—and it's free with every report plan."],
 ];
@@ -82,10 +63,10 @@ export default async function SeoPage() {
     },
     {
       value: "~2 hrs",
-      label: "Human Made",
-      description: "Not just AI generated. A real experienced human crafts your report.",
+      label: "Human Labour",
+      description: "Not AI generated. A real experienced human crafts your report.",
     },
-    { value: "AI", label: "Are you AI ready?", description: "At a minimum you should meet Google's 3 recommendations." },
+    { value: "AI", label: "Are you AI ready?", description: "Every report includes our four-point AI readiness check." },
   ];
 
   const schema = {
@@ -113,24 +94,24 @@ export default async function SeoPage() {
       <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <FlowHeroConcept
-        eyebrow="Data Driven SEO Reports"
-        title="SEO advice,"
-        accentTitle="not a retainer."
-        lead={`For ${formatPrice(settings.seo_quarterly_price)} a quarter, we study your site and your Google Search Console data, then hand you a plain-English report of what we'd do next—ranked, explained, and honest enough to tell you when it's time to cancel.`}
+        eyebrow="Practical SEO reporting"
+        title="Data Driven,"
+        accentTitle="SEO."
+        lead="See what's working, what's holding you back and where the best opportunities are."
         primaryHref="/contact"
         primaryLabel="Get your first report"
-        secondaryHref="#plans"
-        secondaryLabel="See plans & pricing"
+        secondaryHref="#report"
+        secondaryLabel="See what you get"
         stages={["Connect", "Study", "Report", "Repeat"]}
       />
 
       <ProofStrip stats={seoStats} />
 
-      <section className={`shell ${styles.reportSection}`}>
+      <section className={`shell ${styles.reportSection}`} id="report">
         <div className={styles.reportCopy}>
           <p className={styles.label}>01 / What you&apos;re buying</p>
           <h2>One document.<br />Four sections.</h2>
-          <p>Not a dashboard. A report you can read in ten minutes and act on for a quarter.</p>
+          <p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>
         </div>
 
         <div className={styles.reportCard}>
@@ -160,11 +141,11 @@ export default async function SeoPage() {
             <h2>Two hours of human judgement. That&apos;s what you&apos;re paying for.</h2>
             <p>Most of an SEO audit is collection work—crawling pages, pulling data, checking the same hundred things. We&apos;ve automated that, so you don&apos;t pay agency prices for it.</p>
             <p>It&apos;s the same process we run internally on every website we build. What can&apos;t be automated is deciding what&apos;s actually worth your time—and that&apos;s the two hours you&apos;re buying.</p>
-            <p className={styles.priceHonesty}>Still too cheap? We&apos;re betting some subscribers will eventually want a site built by us. That&apos;s where we earn a fair rate—which means every report has to be good enough to earn it.</p>
+            <p className={styles.priceHonesty}>Still sounds too cheap? It is. We&apos;re betting some subscribers will eventually want a site built by us.</p>
           </div>
           <div className={styles.pipelineCard}>
             <header className={styles.pipelineHead}>
-              <span>How a report gets made</span>
+              <span className="moving-colour-text">How a report gets made</span>
             </header>
             <ol className={styles.pipelineSteps}>
               {pipelineSteps.map(([title, body], index) => (
@@ -175,60 +156,22 @@ export default async function SeoPage() {
               ))}
             </ol>
             <footer className={styles.pipelineFoot}>
-              <strong>~2 hrs</strong>
-              <span>of actual expereinced human labour per report.</span>
+              <strong className="moving-colour-text">~2 hrs</strong>
+              <span>of experienced human labour per report.</span>
             </footer>
           </div>
         </div>
       </section>
 
-      <section className="approach-section" id="how-it-works">
-        <div className={`shell approach-inner ${styles.approachInner}`}>
-          <p className={styles.label}>03 / Why quarterly</p>
-          <h2>Google moves in quarters.<br /><span className="ai-ready-ai">So do we.</span></h2>
-          <p className="approach-lead">A change takes 8–12 weeks to show its full effect in your data. Quarterly is simply when there&apos;s something new to say.</p>
-          <ol className="approach-steps">
-            {steps.map(([title, body], index) => (
-              <li className="approach-step" key={title}>
-                <div className="approach-step-rail">
-                  <span className="approach-step-icon" aria-hidden="true">{stepIcons[index]}</span>
-                  {index < steps.length - 1 && <span className="approach-step-line" />}
-                </div>
-                <div className="approach-step-body">
-                  <span className="approach-step-index">0{index + 1}</span>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className={`shell ${styles.introSection}`}>
-        <p className={styles.label}>04 / Two ways to use it</p>
-        <h2>Same report. Your choice of hands.</h2>
-        <p className={styles.introLead}>Every plan gets the same study and the same recommendations. The only difference is who does the implementing.</p>
-        <div className={`${styles.serviceGrid} ${styles.trackGrid}`}>
-          {trackItems.map(([title, body], index) => (
-            <article key={title}>
-              <span>0{index + 1}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
       <section className={`shell ${styles.plansSection}`} id="plans">
-        <p className={styles.label}>05 / Plans</p>
+        <p className={styles.label}>03 / Plans</p>
         <h2>Pick how often you want to hear from us.</h2>
         <p className={styles.introLead}>Every plan is the same report and the same attention—the cadence is the only variable. Cancel or change any time.</p>
         <SeoPlans settings={settings} />
       </section>
 
       <section className={`shell ${styles.introSection}`}>
-        <p className={styles.label}>06 / What recommendations look like</p>
+        <p className={styles.label}>04 / What recommendations look like</p>
         <h2>The thinking that shows up in every report.</h2>
         <p className={styles.introLead}>Three examples of the kind of recommendation the report makes—and the standard each one has to meet before it&apos;s allowed to cost you time.</p>
       </section>
@@ -254,7 +197,7 @@ export default async function SeoPage() {
             </div>
           </div>
           <div className={styles.caseCopy}>
-            <p className={`${styles.label} ${styles.labelLight}`}>07 / Proof this works</p>
+            <p className={`${styles.label} ${styles.labelLight}`}>05 / Proof this works</p>
             <h2>Scooter Shop, Perth.</h2>
             <p>Scooter Shop&apos;s website was built the way our reports recommend: fast structured pages, indexable stock, and focused pages for the searches customers actually make—&ldquo;Vespa service Perth&rdquo;, &ldquo;50cc scooters Perth&rdquo;, &ldquo;SYM parts&rdquo;. Google Search Console recorded organic clicks up 200% in 6 months.</p>
             <p>That&apos;s the loop this service runs on your site: find the gap in the data, build the thing that fills it, then measure whether it earned its place.</p>
@@ -267,7 +210,7 @@ export default async function SeoPage() {
       </section>
 
       <Faq
-        eyebrow="08 / Common questions"
+        eyebrow="06 / Common questions"
         title="Before you connect your data."
         items={questions.map(([question, answer]) => ({ question, answer }))}
       />

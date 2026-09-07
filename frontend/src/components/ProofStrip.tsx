@@ -11,7 +11,7 @@ export function ProofStrip({ stats, id }: { stats: [ProofStat, ProofStat, ProofS
       <div className="shell proof-strip-grid">
         {stats.map((stat) => (
           <article key={stat.label}>
-            <strong>{stat.value}</strong>
+            <strong className="moving-colour-text">{stat.value}</strong>
             <div><h2>{stat.label}</h2><p>{stat.description}</p></div>
           </article>
         ))}

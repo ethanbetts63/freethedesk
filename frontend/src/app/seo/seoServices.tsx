@@ -1,4 +1,5 @@
 import type { Service } from "@/components/ServiceScroll";
+import styles from "./seoServices.module.css";
 
 const iconProps = { viewBox: "0 0 64 64", width: 56, height: 56, fill: "none" as const, "aria-hidden": true };
 
@@ -14,11 +15,16 @@ export const seoServices: Service[] = [
     ],
     color: "var(--blue-500)",
     icon: (
-      <svg {...iconProps}>
-        <circle cx="12" cy="44" r="5" stroke="currentColor" strokeWidth="2.5" />
-        <path d="M17 44H36a10 10 0 0 0 10-10v-4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M40 24l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      <div className={styles.redirectVisual} aria-hidden="true">
+        <div className={styles.redirectBar}><i /><i /><i /><span>Redirect check</span></div>
+        <div className={styles.redirectRoute}>
+          <span className={styles.oldUrl}>/old-stock</span>
+          <b>301</b>
+          <span className={styles.routeArrow}>→</span>
+          <span className={styles.liveUrl}>/inventory</span>
+        </div>
+        <div className={styles.redirectStatus}><i /> Crawl path preserved</div>
+      </div>
     ),
   },
   {
@@ -55,6 +61,25 @@ export const seoServices: Service[] = [
         <circle cx="50" cy="48" r="5" stroke="currentColor" strokeWidth="2.5" />
         <path d="M17 32C28 32 28 16 45 16M17 32C28 32 28 48 45 48" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
+    ),
+  },
+  {
+    title: "AI search preparedness",
+    body: "AI answer engines need to understand the page, move through it reliably, and be allowed to read it. We check the practical foundations before anyone promises visibility in AI answers.",
+    examples: [
+      "A clean accessibility tree that exposes headings, controls, links and page meaning without relying on the visual design",
+      "A stable layout that does not move key content or controls around while the page loads",
+      "A useful llms.txt file that points AI systems towards the site's important public content",
+      "robots.txt rules checked so the crawlers you want can reach public pages while admin, checkout and account areas stay protected",
+    ],
+    color: "var(--blue-800)",
+    icon: (
+      <div className={styles.aiReadinessVisual} aria-hidden="true">
+        <div><i /><span>Accessibility</span><b>Ready</b></div>
+        <div><i /><span>Stable layout</span><b>Ready</b></div>
+        <div><i /><span>llms.txt</span><b>Found</b></div>
+        <div><i /><span>robots.txt</span><b>Open</b></div>
+      </div>
     ),
   },
 ];

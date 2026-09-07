@@ -65,7 +65,7 @@ export default function AutomationPage() {
       <section className="approach-section">
         <div className="shell approach-inner">
           <p className="section-number section-number-light">02 / Our approach</p>
-          <h2>Start small.<br /><span className="ai-ready-ai">Dream big.</span></h2>
+          <h2>Start small.<br /><span className="moving-colour-text">Dream big.</span></h2>
           <p className="approach-lead">Every business has more automation opportunities than time. We start with the simplest ones—fast to prove, low risk, and the quickest way to learn how your business works—then take on the bigger, higher-impact projects.</p>
           <ol className="approach-steps">
             <li className="approach-step">

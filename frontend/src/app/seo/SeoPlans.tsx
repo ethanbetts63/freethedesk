@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import type { PublicSiteSettings } from "@/lib/api";
 import { formatPrice } from "@/lib/serverApi";
+import { GoogleBusinessProfileAudit } from "./GoogleBusinessProfileAudit";
 import styles from "./page.module.css";
 
 type PlanCopy = {
@@ -47,7 +48,7 @@ export function SeoPlans({ settings }: { settings: PublicSiteSettings }) {
       <div className={styles.planGrid}>
         {PLANS.map((plan) => (
           <article className={`${styles.planCard} ${plan.recommended ? styles.planRecommended : ""}`} key={plan.field}>
-            <span className={styles.planTopline}>{plan.recommended ? "Recommended" : "Report plan"}</span>
+            <span className={`${styles.planTopline} ${plan.recommended ? "moving-colour-text" : ""}`}>{plan.recommended ? "Recommended" : "Report plan"}</span>
             <strong>{plan.name}</strong>
             <span className={styles.planPrice}>
               {formatPrice(settings[plan.field])} <small>{plan.cadence}</small>
@@ -62,21 +63,7 @@ export function SeoPlans({ settings }: { settings: PublicSiteSettings }) {
         ))}
       </div>
 
-      <aside className={styles.gbpStrip}>
-        <div>
-          <span>Included free with every plan</span>
-          <strong>Google Business Profile audit</strong>
-          <p>
-            A profile has far fewer levers than a website, so it doesn&apos;t need a subscription.
-            We audit it once: every issue, every field we&apos;d change, and exactly what we&apos;d change it to.
-          </p>
-        </div>
-        <div className={styles.gbpPrice}>
-          <b>{formatPrice(settings.gbp_audit_price)}</b>
-          <small>on its own · free with any plan</small>
-          <Link href="/contact">Just the audit <span>→</span></Link>
-        </div>
-      </aside>
+      <GoogleBusinessProfileAudit standalonePrice={formatPrice(settings.gbp_audit_price)} />
     </>
   );
 }

@@ -1,24 +1,23 @@
-# Marketing & SEO Blog Index
+# Online Marketing Gurus - Blog Article Index
 
-Sources: Online Marketing Gurus (onlinemarketinggurus.com.au/blog) - full evergreen set; Vercel (vercel.com/blog) - SEO-relevant posts only.
-220 entries in 42 groups (197 OMG + 23 Vercel). Compiled 2026-09-07. OMG titles are slug-derived; Vercel titles are the real post titles. Non-OMG entries carry a source tag.
-OMG exclusions: dated news roundups, PR/award posts, superseded-product guides.
+Source: https://www.onlinemarketinggurus.com.au/blog/  |  Compiled from post-sitemap.xml on 2026-09-07.
+197 evergreen articles in 42 specific groups. Titles derived from URL slugs. Dated news roundups, PR/award posts and superseded-product guides were removed.
 
 ## Contents
 - [SEO Basics & How Search Works](#seo-basics-how-search-works) (4)
 - [SEO Strategy, Cost & Hiring](#seo-strategy-cost-hiring) (11)
 - [Keyword Research (SEO)](#keyword-research-seo) (3)
 - [Content Strategy & Planning](#content-strategy-planning) (10)
-- [Content Writing & On-Page Optimisation](#content-writing-onpage-optimisation) (10, incl. 3 Vercel)
-- [Technical SEO: Crawling, Indexing & Audits](#technical-seo-crawling-indexing-audits) (19, incl. 6 Vercel)
-- [Technical SEO: URLs, Redirects & Site Architecture](#technical-seo-urls-redirects-site-architecture) (6, incl. 1 Vercel)
-- [Site Speed & Core Web Vitals](#site-speed-core-web-vitals) (11, incl. 8 Vercel)
+- [Content Writing & On-Page Optimisation](#content-writing-onpage-optimisation) (7)
+- [Technical SEO: Crawling, Indexing & Audits](#technical-seo-crawling-indexing-audits) (13)
+- [Technical SEO: URLs, Redirects & Site Architecture](#technical-seo-urls-redirects-site-architecture) (5)
+- [Site Speed & Core Web Vitals](#site-speed-core-web-vitals) (3)
 - [Link Building & Digital PR](#link-building-digital-pr) (7)
 - [Local SEO & Google Business Profile](#local-seo-google-business-profile) (5)
 - [Enterprise SEO](#enterprise-seo) (2)
 - [Google Algorithm Updates](#google-algorithm-updates) (5)
 - [Google Penalties & Ranking Recovery](#google-penalties-ranking-recovery) (3)
-- [Search Quality: White/Black Hat & E-E-A-T](#search-quality-whiteblack-hat-eeat) (5, incl. 1 Vercel)
+- [Search Quality: White/Black Hat & E-E-A-T](#search-quality-whiteblack-hat-eeat) (4)
 - [SERP Features, Zero-Click & Voice Search](#serp-features-zeroclick-voice-search) (5)
 - [SEO Analytics, Reporting & Tools](#seo-analytics-reporting-tools) (6)
 - [SEO Competitor Analysis](#seo-competitor-analysis) (2)
@@ -35,7 +34,7 @@ OMG exclusions: dated news roundups, PR/award posts, superseded-product guides.
 - [Marketing Funnels & Customer Acquisition](#marketing-funnels-customer-acquisition) (4)
 - [Marketing Channels, Psychology & Ethics](#marketing-channels-psychology-ethics) (4)
 - [Seasonal Promotions & Sales Campaigns](#seasonal-promotions-sales-campaigns) (5)
-- [Generative Engine Optimisation (GEO / AEO) Strategy](#generative-engine-optimisation-geo-aeo-strategy) (10, incl. 4 Vercel)
+- [Generative Engine Optimisation (GEO / AEO) Strategy](#generative-engine-optimisation-geo-aeo-strategy) (6)
 - [Ranking in AI Overviews & ChatGPT](#ranking-in-ai-overviews-chatgpt) (3)
 - [AI Tools & Platforms](#ai-tools-platforms) (6)
 - [Using AI in Marketing Workflows](#using-ai-in-marketing-workflows) (3)
@@ -98,7 +97,7 @@ OMG exclusions: dated news roundups, PR/award posts, superseded-product guides.
 
 ## Content Writing & On-Page Optimisation
 
-10 articles.
+7 articles.
 
 - [The Ultimate Guide To On Page SEO Optimisation](https://www.onlinemarketinggurus.com.au/blog/seo/the-ultimate-guide-to-on-page-seo-optimisation/) - updated 2026-08-31
 - [Image SEO Rank Guide](https://www.onlinemarketinggurus.com.au/blog/seo/image-seo-rank-guide/) - updated 2026-08-18
@@ -107,60 +106,42 @@ OMG exclusions: dated news roundups, PR/award posts, superseded-product guides.
 - [Internal Links](https://www.onlinemarketinggurus.com.au/blog/seo/internal-links/) - updated 2026-08-17
 - [SEO Product Descriptions](https://www.onlinemarketinggurus.com.au/blog/seo/seo-product-descriptions/) - updated 2026-08-17
 - [SEO Copywriting Traffic Conversions](https://www.onlinemarketinggurus.com.au/blog/seo/seo-copywriting-traffic-conversions/) - updated 2026-07-10
-- [How v0 is building SEO-optimized sites by default](https://vercel.com/blog/how-v0-is-building-seo-optimized-sites-by-default) - Vercel, 2025-05-02
-- [Improve your search engine ranking with Next.js (SEO playbook)](https://vercel.com/blog/nextjs-seo-playbook) - Vercel, 2023-02-23
-- [Improve the accessibility of your Next.js site](https://vercel.com/blog/improving-the-accessibility-of-our-nextjs-site) - Vercel, 2022-09-30
 
 ## Technical SEO: Crawling, Indexing & Audits
 
-19 articles.
+13 articles.
 
 - [Understanding Website Indexing Crawl Budget](https://www.onlinemarketinggurus.com.au/blog/seo/understanding-website-indexing-crawl-budget/) - updated 2026-08-18
-- [Rapid URL Indexer Guide SEO](https://www.onlinemarketinggurus.com.au/blog/seo/rapid-url-indexer-guide-seo/) - updated 2026-08-18
 - [Optimize WordPress Website SEO Guide](https://www.onlinemarketinggurus.com.au/blog/seo/optimize-wordpress-website-seo-guide/) - updated 2026-08-18
-- [Technical SEO What You Need To Know](https://www.onlinemarketinggurus.com.au/blog/seo/technical-seo-what-you-need-to-know/) - updated 2026-08-18
+- [Rapid URL Indexer Guide SEO](https://www.onlinemarketinggurus.com.au/blog/seo/rapid-url-indexer-guide-seo/) - updated 2026-08-18
 - [Technical SEO Audit Checklist](https://www.onlinemarketinggurus.com.au/blog/seo/technical-seo-audit-checklist/) - updated 2026-08-18
+- [Technical SEO What You Need To Know](https://www.onlinemarketinggurus.com.au/blog/seo/technical-seo-what-you-need-to-know/) - updated 2026-08-18
 - [Log File Analysis SEO](https://www.onlinemarketinggurus.com.au/blog/seo/log-file-analysis-seo/) - updated 2026-08-18
-- [Website Migration](https://www.onlinemarketinggurus.com.au/blog/seo/website-migration/) - updated 2026-08-17
 - [How To Run A Site Audit Like A Pro](https://www.onlinemarketinggurus.com.au/blog/seo/how-to-run-a-site-audit-like-a-pro/) - updated 2026-08-17
-- [Why Is A Robots Txt Important](https://www.onlinemarketinggurus.com.au/blog/seo/why-is-a-robots-txt-important/) - updated 2026-08-17
+- [Website Migration](https://www.onlinemarketinggurus.com.au/blog/seo/website-migration/) - updated 2026-08-17
 - [Why XML Sitemaps Are Important](https://www.onlinemarketinggurus.com.au/blog/seo/why-xml-sitemaps-are-important/) - updated 2026-08-17
+- [Why Is A Robots Txt Important](https://www.onlinemarketinggurus.com.au/blog/seo/why-is-a-robots-txt-important/) - updated 2026-08-17
 - [Orphan Pages](https://www.onlinemarketinggurus.com.au/blog/seo/orphan-pages/) - updated 2026-08-17
 - [Faceted Navigation](https://www.onlinemarketinggurus.com.au/blog/seo/faceted-navigation/) - updated 2026-08-17
 - [SEO Pagination Best Practices](https://www.onlinemarketinggurus.com.au/blog/seo/seo-pagination-best-practices/) - updated 2026-07-10
-- [Technical audits: optimizing cost, performance, and productivity](https://vercel.com/blog/technical-audits) - Vercel, 2024-12-12
-- [JavaScript SEO: how Google crawls, renders & indexes JS](https://vercel.com/blog/how-google-handles-javascript-throughout-the-indexing-process) - Vercel, 2024-07-31
-- [How to choose the best rendering strategy for your app](https://vercel.com/blog/how-to-choose-the-best-rendering-strategy-for-your-app) - Vercel, 2024-07-23
-- [Partial prerendering: a new default rendering model](https://vercel.com/blog/partial-prerendering-with-next-js-creating-a-new-default-rendering-model) - Vercel, 2023-11-09
-- [Navigating tradeoffs in large-scale website migrations (Gatsby to Next.js)](https://vercel.com/blog/navigating-tradeoffs-in-large-scale-website-migrations) - Vercel, 2023-02-09
-- [Next.js: server-side rendering vs. static generation](https://vercel.com/blog/nextjs-server-side-rendering-vs-static-generation) - Vercel, 2020-07-09
 
 ## Technical SEO: URLs, Redirects & Site Architecture
 
-6 articles.
+5 articles.
 
 - [URLs Vs Slugs Explained](https://www.onlinemarketinggurus.com.au/blog/seo/urls-vs-slugs-explained/) - updated 2026-08-18
 - [Subdomains Vs Subdirectories](https://www.onlinemarketinggurus.com.au/blog/seo/subdomains-vs-subdirectories/) - updated 2026-08-17
 - [What Are ccTLDs](https://www.onlinemarketinggurus.com.au/blog/seo/what-are-cctlds/) - updated 2026-08-17
 - [What Is A 301 Redirect](https://www.onlinemarketinggurus.com.au/blog/seo/what-is-a-301-redirect/) - updated 2026-08-17
 - [Website Canonical URL Link Tags Guide](https://www.onlinemarketinggurus.com.au/blog/seo/website-canonical-url-link-tags-guide/) - updated 2026-07-10
-- [Scaling redirects to infinity on Vercel](https://vercel.com/blog/scaling-redirects-to-infinity-on-vercel) - Vercel, 2026-03-03
 
 ## Site Speed & Core Web Vitals
 
-11 articles.
+3 articles.
 
 - [Google Page Experience Guide](https://www.onlinemarketinggurus.com.au/blog/seo/google-page-experience-guide/) - updated 2026-08-17
 - [Google Core Web Vitals](https://www.onlinemarketinggurus.com.au/blog/seo/google-core-web-vitals/) - updated 2026-08-17
 - [Fast Sites Improving Time Website Speed SEO](https://www.onlinemarketinggurus.com.au/blog/seo/fast-sites-improving-time-website-speed-seo/) - updated 2026-08-17
-- [Demystifying INP: new tools and actionable insights](https://vercel.com/blog/demystifying-inp-new-tools-and-actionable-insights) - Vercel, 2024-06-12
-- [How Core Web Vitals & Lighthouse scores affect SEO Rankings](https://vercel.com/blog/how-core-web-vitals-affect-seo) - Vercel, 2024-01-19
-- [Guide to fast websites with Next.js](https://vercel.com/blog/guide-to-fast-websites-with-next-js-tips-for-maximizing-server-speeds) - Vercel, 2023-11-29
-- [Optimizing web fonts](https://vercel.com/blog/optimizing-web-fonts) - Vercel, 2023-09-26
-- [First Input Delay (FID) vs. Interaction to Next Paint (INP)](https://vercel.com/blog/first-input-delay-vs-interaction-to-next-paint) - Vercel, 2023-09-26
-- [How to build zero-CLS A/B tests with Next.js and Edge Config](https://vercel.com/blog/zero-cls-experiments-nextjs-edge-config) - Vercel, 2023-03-23
-- [Optimize your Next.js site: tips from industry leaders](https://vercel.com/blog/optimize-your-nextjs-site) - Vercel, 2022-12-21
-- [How Core Web Vitals Will Impact Google Rankings in 2021](https://vercel.com/blog/core-web-vitals) - Vercel, 2021-04-15
 
 ## Link Building & Digital PR
 
@@ -211,13 +192,12 @@ OMG exclusions: dated news roundups, PR/award posts, superseded-product guides.
 
 ## Search Quality: White/Black Hat & E-E-A-T
 
-5 articles.
+4 articles.
 
-- [SEO Poisoning Comprehensive Guide](https://www.onlinemarketinggurus.com.au/blog/seo/seo-poisoning-comprehensive-guide/) - updated 2026-08-18
 - [Google's EEAT Criteria From EAT](https://www.onlinemarketinggurus.com.au/blog/seo/googles-eeat-criteria-from-eat/) - updated 2026-08-18
+- [SEO Poisoning Comprehensive Guide](https://www.onlinemarketinggurus.com.au/blog/seo/seo-poisoning-comprehensive-guide/) - updated 2026-08-18
 - [Black Hat SEO](https://www.onlinemarketinggurus.com.au/blog/seo/black-hat-seo/) - updated 2026-08-17
 - [White Hat SEO](https://www.onlinemarketinggurus.com.au/blog/seo/white-hat-seo/) - updated 2026-08-17
-- [BotID uncovers hidden SEO poisoning](https://vercel.com/blog/botid-uncovers-hidden-seo-poisoning) - Vercel, 2025-09-22
 
 ## SERP Features, Zero-Click & Voice Search
 
@@ -369,7 +349,7 @@ OMG exclusions: dated news roundups, PR/award posts, superseded-product guides.
 
 ## Generative Engine Optimisation (GEO / AEO) Strategy
 
-10 articles.
+6 articles.
 
 - [AI Search SEO Impact Guide](https://www.onlinemarketinggurus.com.au/blog/ai-search/ai-search-seo-impact-guide/) - updated 2026-08-18
 - [Entity SEO GEO Boost Search Rankings](https://www.onlinemarketinggurus.com.au/blog/ai-search/entity-seo-geo-boost-search-rankings/) - updated 2026-08-18
@@ -377,10 +357,6 @@ OMG exclusions: dated news roundups, PR/award posts, superseded-product guides.
 - [Launching Generative Engine Optimisation What Is GEO](https://www.onlinemarketinggurus.com.au/blog/ai-search/launching-generative-engine-optimisation-what-is-geo/) - updated 2026-08-18
 - [Generative Engine Optimisation Vs SEO](https://www.onlinemarketinggurus.com.au/blog/ai-search/generative-engine-optimisation-vs-seo/) - updated 2026-08-18
 - [SEO GEO AEO Difference](https://www.onlinemarketinggurus.com.au/blog/ai-search/seo-geo-aeo-difference/) - updated 2026-08-13
-- [Making agent-friendly pages with content negotiation](https://vercel.com/blog/making-agent-friendly-pages-with-content-negotiation) - Vercel, 2026-02-03
-- [The three types of AI bot traffic and how to handle them](https://vercel.com/blog/the-three-types-of-ai-bot-traffic-and-how-to-handle-them) - Vercel, 2025-08-13
-- [How Vercel is adapting SEO for LLMs and AI search](https://vercel.com/blog/how-were-adapting-seo-for-llms-and-ai-search) - Vercel, 2025-06-10
-- [The rise of the AI crawler](https://vercel.com/blog/the-rise-of-the-ai-crawler) - Vercel, 2024-12-17
 
 ## Ranking in AI Overviews & ChatGPT
 

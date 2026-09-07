@@ -21,7 +21,7 @@ export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESC
 const homeStats: [ProofStat, ProofStat, ProofStat] = [
   { value: "86%", label: "Research online first", description: "Car shoppers who research online before ever visiting." },
   { value: "24 / 7", label: "Always-on operations", description: "Notifications and syncs that don't wait for business hours." },
-  { value: "AI", label: "Are you AI ready?", description: "At a minimum you should meet Google's 3 recommendations." },
+  { value: "AI", label: "Are you AI ready?", description: "We check four practical foundations for AI and agentic browsing." },
 ];
 
 const questions = [

@@ -30,16 +30,7 @@
 .reportCardFoot { display: flex; flex-wrap: wrap; gap: 7px; padding: 18px 22px; }
 .reportCardFoot span { background: #f2f7fb; color: #4e677f; font-size: .68rem; font-weight: 700; padding: 6px 10px; }
 
-.serviceGrid { border-left: 1px solid #cad9e4; border-top: 1px solid #cad9e4; display: grid; grid-template-columns: repeat(2, 1fr); margin-top: 58px; }
-.serviceGrid article { background: rgba(255,255,255,.5); border-bottom: 1px solid #cad9e4; border-right: 1px solid #cad9e4; min-height: 230px; padding: 28px; }
-.serviceGrid article > span { color: var(--page-accent); font-size: .65rem; font-weight: 900; }
-.serviceGrid h3 { font-size: 1.35rem; letter-spacing: -.04em; margin: 60px 0 14px; }
-.serviceGrid p { color: #60778b; font-size: .83rem; line-height: 1.68; margin: 0; }
-.trackGrid article { min-height: 200px; }
-
-.approachInner .label { color: #70bced; }
-
-.compareSection { background: #f2f7fb; margin-top: 115px; padding: 120px 0; }
+.compareSection { background: #f2f7fb; padding: 120px 0; }
 .compareInner { align-items: center; display: grid; gap: clamp(55px, 9vw, 130px); grid-template-columns: 1.05fr .95fr; }
 .compareCopy h2 { font-size: clamp(2.6rem, 4.3vw, 3.6rem); letter-spacing: -.05em; line-height: 1.05; margin: 0 0 20px; }
 /* Excludes .label and .priceHonesty so their own colours aren't lost to this rule's higher specificity. */
@@ -47,23 +38,23 @@
 .priceHonesty { background: #eaf3fb; border-left: 3px solid var(--page-accent); color: #2b4051; font-size: .82rem; line-height: 1.65; margin: 0; padding: 12px 15px; }
 
 .pipelineCard {
-  animation: plan-recommended-shift 6s linear infinite;
+  animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(#fff, #fff), linear-gradient(100deg, #38bdf8, #a855f7 55%, #f472b6, #38bdf8);
+  background-image: linear-gradient(#fff, #fff), var(--moving-colour-gradient-surface);
   background-origin: border-box;
-  background-size: 100% 100%, 300% 100%;
+  background-size: 100% 100%, var(--moving-colour-size);
   border: 2px solid transparent;
   padding: 30px;
 }
 .pipelineHead { border-bottom: 1px solid #d9e5ef; margin-bottom: 24px; padding-bottom: 18px; }
-.pipelineHead span { background: linear-gradient(90deg, #38bdf8, #a855f7, #f472b6, #38bdf8); -webkit-background-clip: text; background-clip: text; background-size: 300% 100%; color: transparent; font-size: .77rem; font-weight: 900; text-transform: uppercase; animation: ai-ready-shift 6s linear infinite; }
+.pipelineHead span { --moving-colour-speed: 6s; font-size: .77rem; font-weight: 900; text-transform: uppercase; }
 .pipelineSteps { list-style: none; margin: 0; padding: 0; }
 .pipelineSteps li { display: flex; gap: 16px; margin-bottom: 22px; }
 .pipelineSteps li > span { color: var(--page-accent); font-size: .65rem; font-weight: 900; padding-top: 3px; }
 .pipelineSteps h3 { font-size: .98rem; letter-spacing: -.02em; margin: 0 0 6px; }
 .pipelineSteps p { color: #60778b; font-size: .82rem; line-height: 1.62; margin: 0; }
 .pipelineFoot { align-items: center; border-top: 1px dashed #cad9e4; display: flex; gap: 16px; padding-top: 20px; }
-.pipelineFoot strong { color: var(--page-accent); font-size: 1.9rem; font-weight: 850; letter-spacing: -.05em; white-space: nowrap; }
+.pipelineFoot strong { --moving-colour-speed: 6s; font-size: 1.9rem; font-weight: 850; letter-spacing: -.05em; white-space: nowrap; }
 .pipelineFoot span { color: #2b4051; font-size: .8rem; line-height: 1.55; }
 
 .plansSection { padding: 125px 0 0; }
@@ -74,21 +65,19 @@
 .planCard { background: #f5f8fa; border: 1px solid #d7e2e9; display: flex; flex-direction: column; min-height: 340px; padding: 23px; position: relative; transition: border-color .2s ease, transform .2s ease; }
 .planCard:hover { border-color: var(--page-accent); transform: translateY(-3px); }
 .planCard.planRecommended {
-  animation: plan-recommended-shift 6s linear infinite;
+  animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(#f5f8fa, #f5f8fa), linear-gradient(100deg, #38bdf8, #a855f7 55%, #f472b6, #38bdf8);
+  background-image: linear-gradient(#f5f8fa, #f5f8fa), var(--moving-colour-gradient-surface);
   background-origin: border-box;
-  background-size: 100% 100%, 300% 100%;
+  background-size: 100% 100%, var(--moving-colour-size);
   border: 2px solid transparent;
 }
 .planCard.planRecommended:hover { border-color: transparent; }
-@keyframes plan-recommended-shift { to { background-position: 0 0, 300% 50%; } }
 @media (prefers-reduced-motion: reduce) {
-  .planCard.planRecommended, .planCard.planRecommended .planTopline,
-  .pipelineCard, .pipelineHead span { animation: none; }
+  .planCard.planRecommended, .pipelineCard { animation: none; }
 }
 .planTopline { color: var(--page-accent); font-size: .63rem; font-weight: 900; letter-spacing: .12em; min-height: 34px; text-transform: uppercase; }
-.planCard.planRecommended .planTopline { background: linear-gradient(90deg, #38bdf8, #a855f7, #f472b6, #38bdf8); -webkit-background-clip: text; background-clip: text; background-size: 300% 100%; color: transparent; animation: ai-ready-shift 6s linear infinite; }
+.planCard.planRecommended .planTopline { --moving-colour-speed: 6s; }
 .planCard > strong { font-size: 1.18rem; letter-spacing: -.03em; }
 .planPrice { font-size: 2.15rem; font-weight: 850; letter-spacing: -.06em; margin: 24px 0 15px; white-space: nowrap; }
 .planPrice small { color: #60778b; font-size: .62rem; font-weight: 650; letter-spacing: 0; white-space: normal; }
@@ -100,16 +89,6 @@
 .planCta { color: var(--page-accent); font-size: .75rem; font-weight: 900; letter-spacing: .04em; margin-top: auto; padding-top: 18px; text-transform: uppercase; }
 .planCta span { display: inline-block; transition: transform .2s ease; }
 .planCard:hover .planCta span { transform: translateX(4px); }
-
-.gbpStrip { align-items: center; background: #13315c; color: #fff; display: grid; gap: clamp(28px, 5vw, 70px); grid-template-columns: 1.4fr .6fr; margin-top: 18px; padding: clamp(30px, 4vw, 46px); }
-.gbpStrip > div > span { color: #70bced; display: block; font-size: .66rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
-.gbpStrip strong { display: block; font-size: clamp(1.4rem, 2.2vw, 1.9rem); letter-spacing: -.04em; margin: 12px 0 14px; }
-.gbpStrip p { color: #b9ccdc; font-size: .88rem; line-height: 1.68; margin: 0; max-width: 560px; }
-.gbpPrice { border-left: 1px solid rgba(255,255,255,.18); padding-left: clamp(28px, 4vw, 56px); }
-.gbpPrice b { display: block; font-size: 2.3rem; font-weight: 850; letter-spacing: -.06em; }
-.gbpPrice small { color: #b9ccdc; display: block; font-size: .72rem; margin: 6px 0 18px; }
-.gbpPrice a { color: #fff; font-size: .75rem; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; }
-.gbpPrice a span { display: inline-block; margin-left: 6px; }
 
 .caseSection { background: var(--surface-dark); color: var(--text-on-dark); margin-top: 115px; padding: 120px 0; }
 .caseInner { align-items: center; display: grid; gap: clamp(55px, 8vw, 120px); grid-template-columns: .75fr 1.25fr; }
@@ -146,10 +125,7 @@
 @media (max-width: 900px) {
   .compareInner, .caseInner, .reportSection { grid-template-columns: 1fr; }
   .reportCopy > p:not(.label) { max-width: none; }
-  .serviceGrid { grid-template-columns: 1fr 1fr; }
   .planGrid { grid-template-columns: 1fr 1fr; }
-  .gbpStrip { grid-template-columns: 1fr; }
-  .gbpPrice { border-left: 0; border-top: 1px solid rgba(255,255,255,.18); padding-left: 0; padding-top: 24px; }
 }
 
 @media (max-width: 620px) {
@@ -157,10 +133,9 @@
   .introSection { padding-bottom: 20px; }
   .reportList li { padding: 16px 18px; }
   .reportCardHead, .reportCardFoot { padding-left: 18px; padding-right: 18px; }
-  .compareSection { margin-top: 80px; padding: 82px 0; }
+  .compareSection { padding: 82px 0; }
   .caseSection { margin-top: 80px; padding: 82px 0; }
-  .serviceGrid, .planGrid { grid-template-columns: 1fr; }
-  .serviceGrid article { min-height: 210px; }
+  .planGrid { grid-template-columns: 1fr; }
   .planCard { min-height: 250px; }
   .caseStatOverlay { bottom: 34px; left: 70px; padding: 14px 18px 16px; }
   .caseStatOverlay strong { font-size: 2.5rem; }

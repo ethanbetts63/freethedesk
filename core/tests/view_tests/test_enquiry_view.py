@@ -1,7 +1,7 @@
 import pytest
 
 from core.models import Enquiry, Notification
-from core.tests.factories import EnquiryFactory, UserFactory
+from core.tests.factories import EnquiryFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -123,8 +123,7 @@ def test_enquiry_dashboard_requires_staff(api_client):
     assert response.status_code == 401
 
 
-def test_staff_can_list_and_update_enquiries(api_client):
-    staff = UserFactory(username="admin", is_staff=True)
+def test_staff_can_list_and_update_enquiries(api_client, staff_user):
     enquiry = EnquiryFactory(
         name="Alex Smith",
         business="Example Marine",
@@ -133,7 +132,7 @@ def test_staff_can_list_and_update_enquiries(api_client):
         message="We need a faster website and a better enquiry workflow.",
         configuration={"version": 1},
     )
-    api_client.force_authenticate(staff)
+    api_client.force_authenticate(staff_user)
 
     response = api_client.get("/api/admin/enquiries/?status=new")
     assert response.status_code == 200

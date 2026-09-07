@@ -18,7 +18,7 @@ const PATH = "/website-development";
 const websiteDevStats: [ProofStat, ProofStat, ProofStat] = [
   { value: "50%", label: "Won't consider you", description: "Of consumers who won't consider a business with no website, per industry research." },
   { value: "4", label: "Stages, every project", description: "Understand, design, build, improve—the same process each time." },
-  { value: "AI", label: "Are you AI ready?", description: "At a minimum you should meet Google's 3 recommendations." },
+  { value: "AI", label: "Are you AI ready?", description: "We check four practical foundations for AI and agentic browsing." },
 ];
 
 export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH, absoluteTitle: true });
@@ -132,7 +132,7 @@ export default function WebsiteDevelopmentPage() {
       <section className="approach-section">
         <div className={`shell approach-inner ${styles.approachInner}`}>
           <p className={styles.label}>05 / How we work</p>
-          <h2>Same process.<br /><span className="ai-ready-ai">Every project.</span></h2>
+          <h2>Same process.<br /><span className="moving-colour-text">Every project.</span></h2>
           <p className="approach-lead">Clear stages keep every build moving predictably—from understanding the business through to a site your team can actually run.</p>
           <ol className="approach-steps">
             {process.map(([title, body], index) => (
