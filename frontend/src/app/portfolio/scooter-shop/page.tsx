@@ -1,383 +1,217 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 
-import { PageSchema } from "@/components/PageSchema";
-import { ProofStrip } from "@/components/ProofStrip";
+import { PortfolioCaseStudy, type PortfolioCaseStudyConfig } from "@/app/portfolio/_components/PortfolioCaseStudy";
+import { PORTFOLIO_FAQS } from "@/app/portfolio/_lib/copy";
 import { metadataFor } from "@/lib/pages";
-
-import { ScooterShopTour } from "./_components/ScooterShopTour";
 
 export const metadata: Metadata = metadataFor("/portfolio/scooter-shop");
 
-const capabilities = [
-  "Inventory",
-  "Online purchasing",
-  "Licensing",
-  "Parts",
-  "Service bookings",
-  "Hire",
-  "Guides",
-  "SEO",
-];
-
-const operations = [
-  { number: "01", title: "Action queue", detail: "Enquiries and next steps arrive with the context staff need." },
-  {
-    number: "02",
-    title: "Orders & licensing",
-    detail: "Customer paperwork, payment and handover progress stay connected.",
+const config = {
+  path: "/portfolio/scooter-shop",
+  hero: {
+    eyebrow: "Scooter Shop case study",
+    title: { lines: ["One dealership.", "One connected system."], accentLine: 1 },
+    description:
+      "A working website that brings sales, parts, service, hire and dealership operations into one customer experience.",
+    liveHref: "https://www.scootershop.com.au/",
+    browserUrl: "www.scootershop.com.au",
+    desktopImage: {
+      src: "/case-studies/scooter-shop/home-desktop.png",
+      alt: "Scooter Shop homepage on desktop",
+      width: 1440,
+      height: 960,
+    },
+    mobileImage: {
+      src: "/case-studies/scooter-shop/inventory-mobile.png",
+      alt: "Scooter Shop used inventory experience on mobile",
+      width: 390,
+      height: 844,
+    },
+    liveLabel: "Live dealership website",
+    capabilities: ["Strategy", "Design", "Development", "SEO"],
   },
-  { number: "03", title: "Stock & content", detail: "The information customers rely on can be managed in one place." },
-  {
-    number: "04",
-    title: "Service diary",
-    detail: "Bookings become an organised workshop schedule, not another inbox.",
-  },
-];
-
-const intentGroups = [
-  {
-    number: "01",
-    title: "Ready to buy",
-    pages: [
-      "New Scooters",
-      "Used Scooters",
-      "Used Motorcycles",
-      "E-Scooters",
-      "50cc Scooters Perth",
-      "125cc Scooters Perth",
+  proof: {
+    id: "results",
+    stats: [
+      { value: "+200%", label: "Organic clicks", description: "Recorded in Google Search Console over 6 months." },
+      { value: "08", label: "Connected capabilities", description: "From first search to service after the sale." },
+      {
+        value: "01",
+        label: "Dealership system",
+        description: "Customer journeys and daily operations designed together.",
+      },
     ],
   },
-  {
-    number: "02",
-    title: "Need the workshop",
-    pages: ["Servicing", "Scooter Repairs", "Vespa Service Perth", "Motorcycle Service", "Tyre Fitting"],
+  intro: {
+    eyebrow: "01 / The brief",
+    title: { lines: ["Not a brochure.", "A working dealership."] },
+    paragraphs: [
+      "Scooter Shop needed to represent several very different parts of the business without making the experience feel fragmented. Customers should be able to discover stock, make a decision, buy, find a part or book the workshop without starting again each time.",
+    ],
+    capabilities: ["Inventory", "Online purchasing", "Licensing", "Parts", "Service bookings", "Hire", "Guides", "SEO"],
+    showCta: false,
   },
-  {
-    number: "03",
-    title: "Brand, parts or hire",
-    pages: ["SYM Scooters", "SYM Parts", "Parts Enquiry", "Patrol Mountain Bikes", "Motorcycle Hire Perth"],
-  },
-  {
-    number: "04",
-    title: "Local and researching",
-    pages: [
-      "Motorcycles Perth",
-      "Used Vespa Scooters Perth",
-      "SYM Scooters Perth",
-      "Scooters Morley",
-      "Scooters Mount Lawley",
-      "Scooter Service North Perth",
-      "Car vs Moped Cost Calculator",
+  tour: {
+    eyebrow: "02 / The customer experience",
+    title: { lines: ["Built around what", "the customer came to do."] },
+    label: "Scooter Shop website tour",
+    browserUrl: "www.scootershop.com.au",
+    items: [
+      {
+        number: "01",
+        label: "Find the right machine",
+        title: "Inventory that helps people decide.",
+        copy: "Strong category pages, useful filters, stock alerts and a simple three-step buying explanation turn a changing feed into a proper sales experience.",
+        src: "/case-studies/scooter-shop/inventory-desktop.png",
+        alt: "Used motorcycle inventory with buying steps, stock alert and filters",
+        width: 1440,
+        height: 960,
+        url: "https://www.scootershop.com.au/inventory/motorcycles/used",
+        linkLabel: "Open this page live",
+      },
+      {
+        number: "02",
+        label: "Move toward sold",
+        title: "The detail page carries the sale forward.",
+        copy: "Real photography, key facts and price sit beside the next action. Customers can reserve, buy outright or register interest without searching for a way to continue.",
+        src: "/case-studies/scooter-shop/vehicle-desktop.png",
+        alt: "Ducati vehicle detail page with photography, price and reserve option",
+        width: 1440,
+        height: 960,
+        url: "https://www.scootershop.com.au/inventory/motorcycles/2013-ducati-streetfighter-848-41",
+        linkLabel: "Open this page live",
+      },
+      {
+        number: "03",
+        label: "Book the workshop",
+        title: "Service becomes a usable online journey.",
+        copy: "Customers choose a date, time and job type in a focused three-step booking flow. The dealership receives useful information before the motorcycle reaches the workshop.",
+        src: "/case-studies/scooter-shop/service-desktop.png",
+        alt: "Online motorcycle service booking form",
+        width: 1440,
+        height: 960,
+        url: "https://www.scootershop.com.au/service",
+        linkLabel: "Open this page live",
+      },
+      {
+        number: "04",
+        label: "Find an exact part",
+        title: "A technical catalogue people can understand.",
+        copy: "Customers move from model to diagram, match the numbered component and add the correct item from the adjacent list. A specialist counter process becomes available online.",
+        src: "/case-studies/scooter-shop/parts-desktop.png",
+        alt: "SYM visual parts catalogue with exploded diagram and matching parts list",
+        width: 1440,
+        height: 960,
+        url: "https://www.scootershop.com.au/parts/new/sym/crox50-ae05w6-ru/e03-cam-shaft-cyl-head-l-side-cover",
+        linkLabel: "Open this page live",
+      },
     ],
   },
-];
+  mobile: {
+    eyebrow: "03 / Every screen",
+    title: "Mobile First.",
+    description:
+      "For Scooter Shop we found that an average of 66% of users are browsing on mobile. That is why every journey starts with the smallest screen in our process—not as a reduced version of desktop.",
+    stat: {
+      value: "66%",
+      label: "of dealership users are on mobile",
+      description: "Average across the Australian dealership traffic we see.",
+    },
+    image: {
+      src: "/case-studies/scooter-shop/inventory-mobile.png",
+      alt: "Responsive Scooter Shop inventory page showing the online buying steps",
+      width: 390,
+      height: 844,
+    },
+    callout: "Clear buying path",
+  },
+  feature: {
+    variant: "operations",
+    eyebrow: "04 / Behind the website",
+    title: { lines: ["The part customers", "never have to see."] },
+    description:
+      "The public website is only half the system. The management experience is organised around what dealership staff need to action next, so better customer service does not create more administration.",
+    console: {
+      workspace: "Dealer workspace",
+      navigation: ["Today", "Customers", "Inventory", "Orders", "Service"],
+      activeNavigation: "Today",
+      activeCount: "8",
+      timestamp: "Thursday / 9:41 AM",
+      title: "What needs attention.",
+      status: "All systems connected",
+      items: [
+        { number: "01", title: "Action queue", detail: "Enquiries and next steps arrive with the context staff need." },
+        {
+          number: "02",
+          title: "Orders & licensing",
+          detail: "Customer paperwork, payment and handover progress stay connected.",
+        },
+        {
+          number: "03",
+          title: "Stock & content",
+          detail: "The information customers rely on can be managed in one place.",
+        },
+        {
+          number: "04",
+          title: "Service diary",
+          detail: "Bookings become an organised workshop schedule, not another inbox.",
+        },
+      ],
+    },
+  },
+  intent: {
+    eyebrow: "05 / High-intent pages",
+    title: { lines: ["One website.", "Many useful ways in."] },
+    description:
+      "Different customers reveal different intent in the way they search: a Vespa service, a used motorcycle or a specific SYM part. We build focused pages around those searches to capture more high-intent organic traffic—then give each visitor a more relevant next step.",
+    groups: [
+      {
+        number: "01",
+        title: "Ready to buy",
+        pages: [
+          "New Scooters",
+          "Used Scooters",
+          "Used Motorcycles",
+          "E-Scooters",
+          "50cc Scooters Perth",
+          "125cc Scooters Perth",
+        ],
+      },
+      {
+        number: "02",
+        title: "Need the workshop",
+        pages: ["Servicing", "Scooter Repairs", "Vespa Service Perth", "Motorcycle Service", "Tyre Fitting"],
+      },
+      {
+        number: "03",
+        title: "Brand, parts or hire",
+        pages: ["SYM Scooters", "SYM Parts", "Parts Enquiry", "Patrol Mountain Bikes", "Motorcycle Hire Perth"],
+      },
+      {
+        number: "04",
+        title: "Local and researching",
+        pages: [
+          "Motorcycles Perth",
+          "Used Vespa Scooters Perth",
+          "SYM Scooters Perth",
+          "Scooters Morley",
+          "Scooters Mount Lawley",
+          "Scooter Service North Perth",
+          "Car vs Moped Cost Calculator",
+        ],
+      },
+    ],
+  },
+  seo: {
+    eyebrow: "06 / SEO growth",
+    title: "200% growth.",
+    accentTitle: "6 months.",
+    description:
+      "Organic clicks grew 200% in six months. Indexable stock, focused landing pages and useful guides created more ways for ready-to-buy customers to find the dealership.",
+  },
+  faq: { eyebrow: "07 / Common questions", items: PORTFOLIO_FAQS },
+} satisfies PortfolioCaseStudyConfig;
 
 export default function ScooterShopCaseStudy() {
-  return (
-    <main className="case-page">
-      <PageSchema path="/portfolio/scooter-shop" />
-      <section className="case-hero">
-        <div className="case-hero-grid" aria-hidden="true" />
-        <div className="shell case-hero-layout">
-          <div className="case-hero-copy">
-            <p className="eyebrow">
-              <span />
-              Scooter Shop case study
-            </p>
-            <h1>
-              One dealership.
-              <br />
-              <span>One connected system.</span>
-            </h1>
-            <p>
-              A working website that brings sales, parts, service, hire and dealership operations into one customer
-              experience.
-            </p>
-            <div className="button-row">
-              <a
-                className="button button-primary"
-                href="https://www.scootershop.com.au/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Visit the live website <span>↗</span>
-              </a>
-              <a className="text-link" href="#tour">
-                Explore the build <span>↓</span>
-              </a>
-            </div>
-            <div className="case-hero-meta">
-              <span>Strategy</span>
-              <span>Design</span>
-              <span>Development</span>
-              <span>SEO</span>
-            </div>
-          </div>
-
-          <div className="case-hero-media">
-            <div className="case-browser case-browser-hero">
-              <div className="case-browser-bar">
-                <i />
-                <i />
-                <i />
-                <span>www.scootershop.com.au</span>
-              </div>
-              <Image
-                src="/case-studies/scooter-shop/home-desktop.png"
-                alt="Scooter Shop homepage on desktop"
-                width={1440}
-                height={960}
-                priority
-              />
-            </div>
-            <div className="case-phone">
-              <div className="case-phone-speaker" />
-              <div className="case-phone-menu" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-              </div>
-              <Image
-                src="/case-studies/scooter-shop/inventory-mobile.png"
-                alt="Scooter Shop used inventory experience on mobile"
-                width={390}
-                height={844}
-                priority
-              />
-            </div>
-            <div className="case-live-note">
-              <i /> Live dealership website
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <ProofStrip
-        id="results"
-        stats={[
-          { value: "+200%", label: "Organic clicks", description: "Recorded in Google Search Console over 6 months." },
-          { value: "08", label: "Connected capabilities", description: "From first search to service after the sale." },
-          {
-            value: "01",
-            label: "Dealership system",
-            description: "Customer journeys and daily operations designed together.",
-          },
-        ]}
-      />
-
-      <section className="section shell case-story-intro">
-        <p className="section-number">01 / The brief</p>
-        <div>
-          <h2>
-            Not a brochure.
-            <br />A working dealership.
-          </h2>
-          <p>
-            Scooter Shop needed to represent several very different parts of the business without making the experience
-            feel fragmented. Customers should be able to discover stock, make a decision, buy, find a part or book the
-            workshop without starting again each time.
-          </p>
-          <div className="case-capability-list">
-            {capabilities.map((capability) => (
-              <span key={capability}>{capability}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="case-tour-section" id="tour">
-        <div className="shell">
-          <div className="case-section-heading">
-            <p className="section-number">02 / The customer experience</p>
-            <h2>
-              Built around what
-              <br />
-              the customer came to do.
-            </h2>
-            <p>Select a part of the dealership to explore the live experience.</p>
-          </div>
-          <ScooterShopTour />
-        </div>
-      </section>
-
-      <section className="case-mobile-story">
-        <div className="shell case-mobile-story-grid">
-          <div className="case-mobile-copy">
-            <p className="section-number">03 / Every screen</p>
-            <h2>The important journeys work wherever they begin.</h2>
-            <p>
-              Across Australian dealerships, we find that an average of 66% of users are browsing on mobile. That is why
-              every journey starts with the smallest screen in our process—not as a reduced version of desktop.
-            </p>
-            <div className="case-mobile-stat">
-              <strong className="moving-colour-text">66%</strong>
-              <span>
-                <b>of dealership users are on mobile</b>
-                <small>Average across the Australian dealership traffic we see.</small>
-              </span>
-            </div>
-          </div>
-          <div className="case-mobile-stage">
-            <div className="case-mobile-phone">
-              <span />
-              <div className="case-phone-menu" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-              </div>
-              <Image
-                src="/case-studies/scooter-shop/inventory-mobile.png"
-                alt="Responsive Scooter Shop inventory page showing the online buying steps"
-                width={390}
-                height={844}
-              />
-            </div>
-            <div className="case-mobile-callout case-mobile-callout-one">
-              <b>01</b>
-              <span>Clear buying path</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="case-operations-section">
-        <div className="shell">
-          <div className="case-operations-heading">
-            <div>
-              <p className="section-number section-number-light">04 / Behind the website</p>
-              <h2>
-                The part customers
-                <br />
-                never have to see.
-              </h2>
-            </div>
-            <p>
-              The public website is only half the system. The management experience is organised around what dealership
-              staff need to action next, so better customer service does not create more administration.
-            </p>
-          </div>
-
-          <div className="case-ops-console">
-            <aside>
-              <strong>Dealer workspace</strong>
-              <span className="active">
-                Today <b>8</b>
-              </span>
-              <span>Customers</span>
-              <span>Inventory</span>
-              <span>Orders</span>
-              <span>Service</span>
-            </aside>
-            <div className="case-ops-main">
-              <div className="case-ops-topline">
-                <div>
-                  <small>Thursday / 9:41 AM</small>
-                  <h3>What needs attention.</h3>
-                </div>
-                <span>
-                  All systems connected <i />
-                </span>
-              </div>
-              <div className="case-ops-list">
-                {operations.map((item) => (
-                  <article key={item.number}>
-                    <span>{item.number}</span>
-                    <div>
-                      <h4>{item.title}</h4>
-                      <p>{item.detail}</p>
-                    </div>
-                    <b>Open →</b>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section shell case-search-section">
-        <div className="case-search-number">
-          <small>Organic search performance</small>
-          <strong>+200%</strong>
-          <span>clicks from Google</span>
-        </div>
-        <div className="case-search-copy">
-          <p className="section-number">05 / Built to be found</p>
-          <h2>Growth was designed into the structure.</h2>
-          <p>
-            Search intent informed the site from the beginning. Indexable stock, useful category pages, guides, strong
-            internal paths and fast structured pages created more ways for customers to find the dealership—and a better
-            experience after the click.
-          </p>
-          <div className="case-search-points">
-            <span>Indexable stock</span>
-            <span>Useful categories</span>
-            <span>Structured information</span>
-            <span>Continuous improvement</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="case-intent-section">
-        <div className="shell">
-          <div className="case-intent-heading">
-            <div>
-              <p className="section-number">06 / High-intent pages</p>
-              <h2>
-                One website.
-                <br />
-                Many useful ways in.
-              </h2>
-            </div>
-            <p>
-              Different customers reveal different intent in the way they search: a Vespa service, a used motorcycle or
-              a specific SYM part. We build focused pages around those searches to capture more high-intent organic
-              traffic—then give each visitor a more relevant next step.
-            </p>
-          </div>
-
-          <div className="case-intent-grid">
-            {intentGroups.map((group) => (
-              <article key={group.number}>
-                <header>
-                  <span>{group.number}</span>
-                  <h3>{group.title}</h3>
-                </header>
-                <ul>
-                  {group.pages.map((page) => (
-                    <li key={page}>
-                      {page}
-                      <span>↗</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="shell closing-cta">
-        <p className="eyebrow eyebrow-light">
-          <span />
-          Your dealership
-        </p>
-        <h2>What could your website do beyond looking newer?</h2>
-        <p>
-          Send us the current site. We’ll look at the customer journey, search opportunity and operational work behind
-          it.
-        </p>
-        <div className="button-row">
-          <Link className="button button-lime" href="/contact">
-            Talk about your dealership <span>→</span>
-          </Link>
-          <a className="case-cta-live-link" href="https://www.scootershop.com.au/" target="_blank" rel="noreferrer">
-            Visit Scooter Shop ↗
-          </a>
-        </div>
-      </section>
-    </main>
-  );
+  return <PortfolioCaseStudy config={config} />;
 }

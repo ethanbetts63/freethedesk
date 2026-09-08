@@ -4,7 +4,6 @@ export type ProofStat = {
   description: string;
 };
 
-                                                                                                      
 export function ProofStrip({ stats, id }: { stats: readonly ProofStat[]; id?: string }) {
   return (
     <section className="proof-strip" id={id}>

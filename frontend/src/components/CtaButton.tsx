@@ -23,6 +23,8 @@ export type CtaButtonProps = {
   type?: "button" | "submit";
   disabled?: boolean;
   className?: string;
+  target?: "_blank" | "_self";
+  rel?: string;
   /** Defaults to `page`; submit buttons should pass `none` or leave it. */
   direction?: CtaDirection;
 };
@@ -37,6 +39,8 @@ export function CtaButton({
   type = "button",
   disabled = false,
   className = "",
+  target,
+  rel,
   direction = "page",
   baseClass,
 }: CtaButtonProps & { baseClass: string }) {
@@ -50,7 +54,7 @@ export function CtaButton({
 
   if (href) {
     return (
-      <Link className={classes} href={href}>
+      <Link className={classes} href={href} target={target} rel={rel}>
         {content}
       </Link>
     );

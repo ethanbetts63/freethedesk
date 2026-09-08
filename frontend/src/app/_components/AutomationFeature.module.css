@@ -33,11 +33,12 @@
   width: 7px;
 }
 .copy h2 {
-  font-size: clamp(3.6rem, 5.8vw, 6.2rem);
+  font-size: clamp(2.5rem, 5.8vw, 6.2rem);
   font-weight: 800;
   letter-spacing: -0.077em;
   line-height: 0.87;
   margin: 0;
+  overflow-wrap: break-word;
 }
 .copy h2 em {
   color: var(--feature-accent);
@@ -273,9 +274,9 @@
   }
 }
 
-@media (max-width: 950px) {
+@media (max-width: 900px) {
   .layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .copy {
     grid-row: 1;
@@ -288,10 +289,7 @@
 
 @media (max-width: 620px) {
   .section {
-    padding: 82px 0;
-  }
-  .copy h2 {
-    font-size: clamp(3.3rem, 16vw, 4.8rem);
+    padding: var(--section-space) 0;
   }
   .visual {
     box-shadow: 12px 12px 0 rgba(112, 188, 237, 0.07);

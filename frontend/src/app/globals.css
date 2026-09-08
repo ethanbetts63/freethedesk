@@ -75,7 +75,51 @@
   --hero-grid-opacity: 0.035;
   --hero-grid-size: 64px;
                                                                                
-  --section-space: clamp(80px, 10vw, 115px);
+  --section-space: clamp(56px, 9vw, 115px);
+
+  /* ---------------------------------------------------------------
+     RESPONSIVE FOUNDATION
+     ---------------------------------------------------------------
+     Breakpoint contract - these four values ONLY. Media queries are
+     desktop-first (max-width). They exist for LAYOUT changes (grid
+     columns collapsing, elements hiding). Sizing comes from the fluid
+     scales below, which need no breakpoint at all.
+
+       1080px  desktop  -> laptop / landscape tablet
+        900px           -> portrait tablet
+        620px           -> phone
+        430px           -> small phone (use sparingly)
+
+     CSS cannot use custom properties inside @media, so these are
+     written literally. Keep them literal, and keep them to these four.
+     --------------------------------------------------------------- */
+
+  /* Fluid type scale: min at 320px viewport, max at 1240px. */
+  --step--2: clamp(0.6875rem, 0.666rem + 0.109vw, 0.75rem);
+  --step--1: clamp(0.8rem, 0.774rem + 0.13vw, 0.875rem);
+  --step-0: clamp(1rem, 0.978rem + 0.109vw, 1.0625rem);
+  --step-1: clamp(1.125rem, 1.038rem + 0.435vw, 1.375rem);
+  --step-2: clamp(1.375rem, 1.201rem + 0.87vw, 1.875rem);
+  --step-3: clamp(1.75rem, 1.489rem + 1.304vw, 2.5rem);
+  --step-4: clamp(2.25rem, 1.815rem + 2.174vw, 3.5rem);
+  --step-5: clamp(2.75rem, 1.967rem + 3.913vw, 5rem);
+  --step-6: clamp(2.75rem, 0.75rem + 10vw, 8.5rem);
+
+  /* Fluid space scale. */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-s: 12px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: clamp(28px, 4vw, 40px);
+  --space-2xl: clamp(36px, 6vw, 64px);
+  --space-3xl: clamp(48px, 8vw, 96px);
+
+  /* Page gutter - single source of truth for horizontal edge spacing. */
+  --gutter: clamp(16px, 5vw, 32px);
+
+  /* Minimum comfortable touch target. */
+  --tap-min: 44px;
 
                                                              
   --status-new: #e0a020;
@@ -230,8 +274,8 @@ main:has(.service-scroll) {
 .shell {
   margin: 0 auto;
   max-width: 1240px;
-  padding-left: 32px;
-  padding-right: 32px;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
   width: 100%;
 }
 .section {
@@ -509,29 +553,11 @@ main:has(.service-scroll) {
 .section-number-light {
   color: var(--text-on-dark-subtle);
 }
-.process-heading h2,
-.closing-cta h2 {
+.process-heading h2 {
   font-size: clamp(2.5rem, 4.5vw, 4.9rem);
   letter-spacing: -0.065em;
   line-height: 0.98;
   margin: 0;
-}
-
-.closing-cta {
-  background: var(--surface-dark);
-  color: var(--text-on-dark);
-  margin-bottom: 112px;
-  padding-bottom: 85px;
-  padding-top: 85px;
-}
-.closing-cta h2 {
-  max-width: 800px;
-}
-.closing-cta > p:not(.eyebrow) {
-  color: var(--text-on-dark-muted);
-  line-height: 1.65;
-  margin: 25px 0 34px;
-  max-width: 600px;
 }
 
 .approach-section {
@@ -852,24 +878,6 @@ main:has(.service-scroll) {
   mask-image: linear-gradient(to right, #000 15%, rgba(0, 0, 0, 0.48) 64%, transparent);
   position: absolute;
 }
-.case-hero-grid::before,
-.case-hero-grid::after {
-  background: var(--accent-strong);
-  border-radius: 50%;
-  box-shadow: 0 0 0 7px rgba(11, 100, 214, 0.08);
-  content: "";
-  height: 7px;
-  position: absolute;
-  width: 7px;
-}
-.case-hero-grid::before {
-  left: 18%;
-  top: 34%;
-}
-.case-hero-grid::after {
-  left: 43%;
-  top: 69%;
-}
 .case-hero-layout {
   align-items: center;
   display: grid;
@@ -973,6 +981,17 @@ main:has(.service-scroll) {
   height: auto;
   width: 100%;
 }
+.case-phone-crop {
+  aspect-ratio: 390 / 844;
+}
+.case-phone .case-phone-image-cover,
+.case-mobile-phone .case-phone-image-cover {
+  height: 100%;
+  object-fit: cover;
+}
+.case-phone-image-bloom {
+  object-position: 72% top;
+}
 .case-phone-speaker {
   background: var(--surface-dark);
   border-radius: 0 0 8px 8px;
@@ -1061,6 +1080,12 @@ main:has(.service-scroll) {
   line-height: 1.5;
   margin: 0;
 }
+.case-section-cta {
+  margin-top: 36px;
+}
+.case-hero .case-section-cta {
+  margin-top: 0;
+}
 
 .case-story-intro {
   display: grid;
@@ -1073,8 +1098,7 @@ main:has(.service-scroll) {
 .case-story-intro h2,
 .case-section-heading h2,
 .case-mobile-copy h2,
-.case-operations-heading h2,
-.case-search-copy h2 {
+.case-operations-heading h2 {
   font-size: clamp(2.7rem, 4.8vw, 5.2rem);
   letter-spacing: -0.067em;
   line-height: 0.96;
@@ -1257,6 +1281,7 @@ main:has(.service-scroll) {
   font-size: clamp(3.6rem, 6vw, 5.8rem);
   letter-spacing: -0.08em;
   line-height: 0.85;
+  padding-right: 0.08em;
 }
 .case-mobile-stat > span,
 .case-mobile-stat b,
@@ -1346,11 +1371,14 @@ main:has(.service-scroll) {
 }
 .case-operations-heading > p {
   align-self: end;
-  color: var(--text-on-dark-muted);
+  color: rgba(255, 255, 255, 0.78);
   font-size: 0.98rem;
   line-height: 1.72;
   margin: 0;
   max-width: 540px;
+}
+.case-operations-section .section-number-light {
+  color: rgba(255, 255, 255, 0.72);
 }
 .case-ops-console {
   background: var(--surface-tint);
@@ -1462,56 +1490,6 @@ main:has(.service-scroll) {
   font-size: 0.66rem;
 }
 
-.case-search-section {
-  align-items: center;
-  display: grid;
-  gap: 105px;
-  grid-template-columns: 0.9fr 1.1fr;
-}
-.case-search-number {
-  background: var(--accent);
-  display: flex;
-  flex-direction: column;
-  min-height: 490px;
-  padding: 44px;
-}
-.case-search-number small {
-  font-size: 0.64rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.case-search-number strong {
-  font-size: clamp(6rem, 11vw, 11rem);
-  letter-spacing: -0.09em;
-  line-height: 0.85;
-  margin: auto 0 14px;
-}
-.case-search-number span {
-  border-top: 1px solid rgba(var(--shadow-color), 0.3);
-  font-size: 0.82rem;
-  font-weight: 800;
-  padding-top: 16px;
-}
-.case-search-copy > p:not(.section-number) {
-  color: var(--text-muted);
-  font-size: 1rem;
-  line-height: 1.72;
-  margin: 28px 0;
-  max-width: 620px;
-}
-.case-search-points {
-  border-top: 1px solid var(--border);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.case-search-points span {
-  border-bottom: 1px solid var(--border);
-  color: var(--text-muted);
-  font-size: 0.72rem;
-  font-weight: 800;
-  padding: 14px 0;
-}
 .case-intent-section {
   background: var(--surface-tint);
   padding: 120px 0;
@@ -1586,14 +1564,6 @@ main:has(.service-scroll) {
   font-size: 0.6rem;
   margin-left: 10px;
 }
-.case-cta-live-link {
-  border-bottom: 1px solid var(--border-on-dark-strong);
-  color: var(--text-on-dark-muted);
-  font-size: 0.78rem;
-  font-weight: 800;
-  padding-bottom: 7px;
-}
-
                                                                
                                                         
                                                                            
@@ -1839,8 +1809,7 @@ main:has(.service-scroll) {
     grid-template-columns: 0.8fr 1.2fr;
   }
   .case-mobile-story-grid,
-  .case-operations-heading,
-  .case-search-section {
+  .case-operations-heading {
     gap: 65px;
   }
   .case-intent-heading {
@@ -1861,10 +1830,7 @@ main:has(.service-scroll) {
 }
 
 @media (max-width: 760px) {
-  .shell {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+  /* .shell gutter is fluid via --gutter; no breakpoint override needed. */
   .section {
     padding-bottom: 78px;
     padding-top: 78px;
@@ -1887,11 +1853,6 @@ main:has(.service-scroll) {
   }
   .hero-grid {
     gap: 48px;
-  }
-  .closing-cta {
-    margin-bottom: 78px;
-    padding-bottom: 60px;
-    padding-top: 60px;
   }
   .approach-section {
     padding: 80px 0;
@@ -2007,8 +1968,7 @@ main:has(.service-scroll) {
   .case-operations-section {
     padding: 80px 0 88px;
   }
-  .case-operations-heading,
-  .case-search-section {
+  .case-operations-heading {
     grid-template-columns: 1fr;
   }
   .case-operations-heading {
@@ -2051,13 +2011,6 @@ main:has(.service-scroll) {
   }
   .case-ops-list article > b {
     grid-column: 2;
-  }
-  .case-search-number {
-    min-height: 390px;
-    padding: 30px;
-  }
-  .case-search-number strong {
-    font-size: clamp(6rem, 32vw, 9rem);
   }
   .case-intent-section {
     padding: 80px 0;
@@ -2134,9 +2087,6 @@ main:has(.service-scroll) {
   .case-mobile-callout {
     font-size: 0.58rem;
     padding: 10px;
-  }
-  .case-search-points {
-    grid-template-columns: 1fr;
   }
   .bloom-split-points {
     grid-template-columns: 1fr;

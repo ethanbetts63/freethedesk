@@ -1,0 +1,66 @@
+/* The animated-gradient ("moving colour") treatments and their keyframes.
+   Kept together so the reduced-motion opt-out sits next to what it disables.
+   Gradient values live in tokens.css. */
+
+.moving-colour-text {
+  animation: moving-colour-shift var(--moving-colour-speed, 18s) linear infinite;
+  background: var(--moving-colour-gradient);
+  background-clip: text;
+  background-size: var(--moving-colour-size);
+  color: transparent;
+  -webkit-background-clip: text;
+}
+
+.moving-colour-button {
+  align-items: center;
+  animation: moving-colour-shift var(--mcb-speed, 16s) linear infinite;
+  background: var(--moving-colour-gradient-surface);
+  background-size: var(--moving-colour-size);
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: var(--mcb-font-size, 0.72rem);
+  font-weight: 900;
+  gap: var(--mcb-gap, 20px);
+  justify-content: space-between;
+  letter-spacing: 0.05em;
+  min-height: var(--mcb-height, 52px);
+  padding: 0 var(--mcb-padding-x, 18px);
+  text-transform: uppercase;
+  /* Keeps the label readable across the full gradient sweep. */
+  text-shadow: 0 1px 2px rgba(6, 22, 40, 0.32);
+  width: var(--mcb-width, auto);
+}
+.moving-colour-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+.moving-colour-button > span {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.moving-colour-button:hover > span {
+  transform: translateX(4px);
+}
+
+@keyframes moving-colour-shift {
+  to {
+    background-position: 300% 50%;
+  }
+}
+@keyframes moving-colour-border-shift {
+  to {
+    background-position:
+      0 0,
+      300% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moving-colour-text,
+  .moving-colour-button {
+    animation: none;
+  }
+}

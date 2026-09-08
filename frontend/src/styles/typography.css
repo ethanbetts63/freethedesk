@@ -1,0 +1,46 @@
+/* Small typographic primitives used across marketing and portfolio pages:
+   the uppercase kicker, the numbered section label, and the underlined
+   inline link. Each has a -light variant for use on dark surfaces. */
+
+.eyebrow {
+  align-items: center;
+  color: var(--accent-ink);
+  display: flex;
+  font-size: 0.73rem;
+  font-weight: 800;
+  gap: 10px;
+  letter-spacing: 0.15em;
+  margin: 0 0 24px;
+  text-transform: uppercase;
+}
+.eyebrow > span {
+  background: currentColor;
+  border-radius: 50%;
+  height: 7px;
+  width: 7px;
+}
+.eyebrow-light {
+  color: var(--accent);
+}
+
+.section-number {
+  color: var(--text-subtle);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin: 0 0 32px;
+  text-transform: uppercase;
+}
+.section-number-light {
+  color: var(--text-on-dark-subtle);
+}
+
+.text-link {
+  border-bottom: 1px solid var(--text);
+  font-size: 0.88rem;
+  font-weight: 800;
+  padding: 4px 0 7px;
+}
+.text-link span {
+  margin-left: 8px;
+}

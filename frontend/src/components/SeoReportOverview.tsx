@@ -62,6 +62,8 @@ const reportSections = [
 type SeoReportOverviewProps = {
   eyebrow: ReactNode;
   description: ReactNode;
+  title?: string;
+  accentTitle?: string;
   id?: string;
   className?: string;
   showSequence?: boolean;
@@ -70,6 +72,8 @@ type SeoReportOverviewProps = {
 export function SeoReportOverview({
   eyebrow,
   description,
+  title = "One document.",
+  accentTitle = "Four sections.",
   id,
   className = "",
   showSequence = true,
@@ -79,9 +83,9 @@ export function SeoReportOverview({
       <div className={styles.reportCopy}>
         <p className={styles.label}>{eyebrow}</p>
         <h2>
-          One document.
+          {title}
           <br />
-          <span>Four sections.</span>
+          <span>{accentTitle}</span>
         </h2>
         <div className={styles.description}>{description}</div>
         {showSequence && (

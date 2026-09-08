@@ -81,12 +81,15 @@
 }
 .copy h1 {
   color: #000;
-  font-size: clamp(4.2rem, 8.3vw, 8.5rem);
+  /* Lower floor so the longest word ("automation") fits a 320px screen.
+     Desktop maximum is unchanged. */
+  font-size: clamp(2.5rem, 8.3vw, 8.5rem);
   font-weight: 800;
   letter-spacing: -0.085em;
   line-height: 0.83;
   margin: 0;
   max-width: 1000px;
+  overflow-wrap: break-word;
 }
 .copy h1 em {
   color: var(--hero-accent);
@@ -165,20 +168,22 @@
   text-transform: uppercase;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .hero {
     min-height: calc(100svh - 68px);
   }
   .content {
-    padding-bottom: 120px;
-    padding-top: 80px;
+    padding-bottom: var(--space-3xl);
+    padding-top: var(--space-2xl);
   }
+  /* minmax(0, …) is required: a bare 1fr resolves to minmax(auto, 1fr),
+     whose auto floor is the heading's min-content width, which pushed the
+     column past the container and got clipped by .hero's overflow: hidden. */
   .withStages {
     gap: 0;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .copy h1 {
-    font-size: clamp(3.6rem, 19vw, 5.6rem);
     line-height: 0.87;
   }
   .lead {
@@ -186,11 +191,26 @@
   }
   .readout {
     display: flex;
-    gap: 16px;
-    margin-top: 55px;
+    flex-wrap: wrap;
+    gap: var(--space-m);
+    margin-top: var(--space-2xl);
     padding: 8px 0 8px 12px;
   }
   .readout div {
     grid-template-columns: 20px 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .actions {
+    gap: var(--space-m);
+  }
+  /* Full-bleed primary action - the 30px flex gap left it stranded mid-row. */
+  .actions > * {
+    width: 100%;
+  }
+  .secondary {
+    justify-content: space-between;
+    min-height: var(--tap-min);
   }
 }

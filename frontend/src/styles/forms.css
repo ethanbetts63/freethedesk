@@ -1,0 +1,10 @@
+/* Form primitives shared between the admin app and the customer portals. */
+
+.field-hint {
+  color: var(--text-subtle);
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 1.45;
+  margin-top: 6px;
+}

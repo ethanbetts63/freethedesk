@@ -1,0 +1,128 @@
+/* Design tokens. Loaded first by globals.css so every other stylesheet -
+   global, colocated or route-scoped - can rely on these being defined. */
+
+:root {
+
+  /* Blues - primary brand ramp */
+  --blue-50: #f4f8fd;
+  --blue-100: #e7eff9;
+  --blue-200: #dbe7f4;
+  --blue-300: #c4d5e7;
+  --blue-400: #a3d6f5;
+  --blue-500: #3f8fd0;
+  --blue-600: #2f7cc0;
+  --blue-700: #1f6fb8;
+  --blue-800: #1a5ea8;
+  --blue-900: #1d4e8f;
+  --blue-950: #13315c;
+  --blue-990: #0b1f3a;
+
+  /* Cool greys - text and borders */
+  --cool-100: #eef2f6;
+  --cool-300: #b7c6d6;
+  --cool-400: #97a8b8;
+  --cool-500: #7a8896;
+  --cool-600: #5a6b7f;
+  --cool-700: #45535f;
+
+  /* Surfaces */
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-tint: var(--blue-50);
+  --surface-tint-2: var(--blue-100);
+  --surface-dark: var(--blue-950);
+  --surface-dark-soft: var(--blue-900);
+
+  --surface-flow: #f4f8fb;
+
+  /* Text */
+  --text: #000000;
+  --text-muted: var(--cool-600);
+  --text-subtle: var(--cool-500);
+  --text-on-dark: #ffffff;
+  --text-on-dark-muted: #aec6df;
+  --text-on-dark-subtle: #8aa4c1;
+
+  /* Accents and links */
+  --accent: var(--blue-400);
+  --accent-ink: var(--blue-800);
+  --accent-strong: #0b64d6;
+
+  --brand-accent: #247ec9;
+  --link: var(--blue-800);
+
+  /* Borders and focus */
+  --border: var(--blue-200);
+  --border-strong: var(--blue-300);
+  --border-subtle: #e7eef6;
+  --border-on-dark: #2b4c78;
+  --border-on-dark-strong: #4d6f96;
+  --focus-ring: rgba(90, 176, 236, 0.4);
+  --shadow-color: 19, 49, 92;
+
+  /* Animated gradient - see motion.css */
+  --moving-colour-gradient: linear-gradient(90deg, #38bdf8, #a855f7, #f472b6, #38bdf8);
+  --moving-colour-gradient-surface: linear-gradient(100deg, #38bdf8, #a855f7 55%, #f472b6, #38bdf8);
+  --moving-colour-size: 300% 100%;
+
+  /* Hero background grid pattern */
+  --hero-grid-color: 17, 70, 126;
+  --hero-grid-opacity: 0.035;
+  --hero-grid-size: 64px;
+
+  /* Vertical rhythm */
+  --section-space: clamp(56px, 9vw, 115px);
+
+  /* ---------------------------------------------------------------
+     RESPONSIVE FOUNDATION
+     ---------------------------------------------------------------
+     Breakpoint contract - these four values ONLY. Media queries are
+     desktop-first (max-width). They exist for LAYOUT changes (grid
+     columns collapsing, elements hiding). Sizing comes from the fluid
+     scales below, which need no breakpoint at all.
+
+       1080px  desktop  -> laptop / landscape tablet
+        900px           -> portrait tablet
+        620px           -> phone
+        430px           -> small phone (use sparingly)
+
+     CSS cannot use custom properties inside @media, so these are
+     written literally. Keep them literal, and keep them to these four.
+     --------------------------------------------------------------- */
+
+  /* Fluid type scale: min at 320px viewport, max at 1240px. */
+  --step--2: clamp(0.6875rem, 0.666rem + 0.109vw, 0.75rem);
+  --step--1: clamp(0.8rem, 0.774rem + 0.13vw, 0.875rem);
+  --step-0: clamp(1rem, 0.978rem + 0.109vw, 1.0625rem);
+  --step-1: clamp(1.125rem, 1.038rem + 0.435vw, 1.375rem);
+  --step-2: clamp(1.375rem, 1.201rem + 0.87vw, 1.875rem);
+  --step-3: clamp(1.75rem, 1.489rem + 1.304vw, 2.5rem);
+  --step-4: clamp(2.25rem, 1.815rem + 2.174vw, 3.5rem);
+  --step-5: clamp(2.75rem, 1.967rem + 3.913vw, 5rem);
+  --step-6: clamp(2.75rem, 0.75rem + 10vw, 8.5rem);
+
+  /* Fluid space scale. */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-s: 12px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: clamp(28px, 4vw, 40px);
+  --space-2xl: clamp(36px, 6vw, 64px);
+  --space-3xl: clamp(48px, 8vw, 96px);
+
+  /* Page gutter - single source of truth for horizontal edge spacing. */
+  --gutter: clamp(16px, 5vw, 32px);
+
+  /* Minimum comfortable touch target. */
+  --tap-min: 44px;
+
+  /* Status colours - drive the admin row/status/swatch variants */
+  --status-new: #e0a020;
+  --status-contacted: #2f8fca;
+  --status-qualified: #7b5ce2;
+  --status-won: #2ba46a;
+  --status-closed: #7c8b99;
+  --status-spam: #d45b5b;
+  --status-suspended: #dd8a2e;
+}
