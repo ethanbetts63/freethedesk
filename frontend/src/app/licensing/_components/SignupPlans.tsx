@@ -9,7 +9,13 @@ import { useSignup } from "@/lib/useSignup";
 import { buildDealerPlans, type DealerPlanCode, type LicensingPrices } from "../_lib/plans";
 import styles from "../page.module.css";
 
-export function SignupPlans({ settings }: { settings: LicensingPrices }) {
+export function SignupPlans({
+  settings,
+  eyebrow = "01 / Start here",
+}: {
+  settings: LicensingPrices;
+  eyebrow?: string;
+}) {
   // Prices are server-rendered from `settings`; there is nothing to fetch.
   const plans = useMemo(() => buildDealerPlans(settings), [settings]);
   const [selectedCode, setSelectedCode] = useState<DealerPlanCode>("complete");
@@ -25,7 +31,7 @@ export function SignupPlans({ settings }: { settings: LicensingPrices }) {
       <div className="shell">
         <div className={styles.signupHeading}>
           <div>
-            <p className={styles.sectionLabel}>01 / Start here</p>
+            <p className={styles.sectionLabel}>{eyebrow}</p>
             <h2>Choose what you need.</h2>
           </div>
         </div>

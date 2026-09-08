@@ -65,7 +65,12 @@ export function FlowCompare() {
     <div className={styles.flowCompare}>
       <p className={styles.flowCompareLabel}>What your team does</p>
       <div className={styles.flowGrid}>
-        <FlowColumn label="Hosted portal" badge="5 steps, you enter each sale" steps={hostedSteps} />
+        <FlowColumn
+          label="Hosted portal"
+          badge="5 steps, you enter each sale"
+          steps={hostedSteps}
+          cta={{ href: "#signup", label: "Choose a plan" }}
+        />
         <FlowColumn
           label="Built into your website"
           badge="4 steps, nothing to re-key"

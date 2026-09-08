@@ -12,9 +12,13 @@ const SIGNALS = [
 export function AiReadinessAudit({
   standalonePrice,
   className = "",
+  ctaHref = "/contact",
+  ctaLabel = "Check my site",
 }: {
   standalonePrice?: string;
   className?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
 }) {
   return (
     <section className={`${styles.audit} ${className}`} aria-labelledby="ai-readiness-title">
@@ -102,8 +106,8 @@ export function AiReadinessAudit({
           </div>
         ) : null}
 
-        <Link className={styles.cta} href="/contact">
-          Check my site <span aria-hidden="true">↗</span>
+        <Link className={styles.cta} href={ctaHref}>
+          {ctaLabel} <span aria-hidden="true">↗</span>
         </Link>
       </div>
     </section>

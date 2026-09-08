@@ -8,7 +8,7 @@ import { useSignup } from "@/lib/useSignup";
 import { buildSeoPlans, type SeoPlanCode } from "../_lib/plans";
 import styles from "../page.module.css";
 
-export function SeoSignup({ settings }: { settings: PublicSiteSettings }) {
+export function SeoSignup({ settings, eyebrow = "02 / Plans" }: { settings: PublicSiteSettings; eyebrow?: string }) {
   // Prices are server-rendered from `settings`; there is nothing to fetch.
   const plans = useMemo(() => buildSeoPlans(settings), [settings]);
   const [selectedCode, setSelectedCode] = useState<SeoPlanCode>("quarterly");
@@ -21,7 +21,7 @@ export function SeoSignup({ settings }: { settings: PublicSiteSettings }) {
 
   return (
     <section className={`shell ${styles.plansSection}`} id="signup">
-      <p className={styles.label}>02 / Plans</p>
+      <p className={styles.label}>{eyebrow}</p>
       <h2>Pick how often you want to hear from us.</h2>
       <p className={styles.introLead}>
         Every plan is the same report and the same attention&mdash;the cadence is the only variable. Cancel or change

@@ -82,6 +82,15 @@ def test_signup_rejects_duplicate_email(client):
     assert not SeoSubscriber.objects.exists()
 
 
+def test_signup_rejects_email_colliding_with_an_existing_username(client):
+    # Signup accounts use username == email, so a taken username blocks reuse
+    # even when no row has that address in the email column.
+    get_user_model().objects.create_user(username=PAYLOAD["email"], email="", password="x")
+    response = client.post(reverse("seo-signup"), PAYLOAD, content_type="application/json")
+    assert response.status_code == 400
+    assert not SeoSubscriber.objects.exists()
+
+
 def test_signup_rejects_weak_password(client):
     response = client.post(
         reverse("seo-signup"), {**PAYLOAD, "password": "password"}, content_type="application/json"

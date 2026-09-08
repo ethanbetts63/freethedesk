@@ -97,14 +97,27 @@ export default async function SeoPage() {
       <SeoReportOverview
         id="report"
         eyebrow={<>01 / What you&apos;re buying</>}
-        description={<p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>}
+        description={
+          <div className={styles.reportDescription}>
+            <p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>
+            <Link className={styles.sectionCta} href="#signup">
+              Choose your plan <span>→</span>
+            </Link>
+          </div>
+        }
       />
 
-      <SeoSignup settings={settings} />
-
       <div className="shell">
-        <GoogleBusinessProfileAudit standalonePrice={formatPrice(settings.gbp_audit_price)} />
-        <AiReadinessAudit standalonePrice={formatPrice(settings.ai_readiness_audit_price)} />
+        <GoogleBusinessProfileAudit
+          standalonePrice={formatPrice(settings.gbp_audit_price)}
+          ctaHref="#signup"
+          ctaLabel="Choose a report plan"
+        />
+        <AiReadinessAudit
+          standalonePrice={formatPrice(settings.ai_readiness_audit_price)}
+          ctaHref="#signup"
+          ctaLabel="Choose a report plan"
+        />
       </div>
 
       <section className={styles.compareSection}>
@@ -124,6 +137,9 @@ export default async function SeoPage() {
               Still sounds too cheap? It is. We&apos;re betting some subscribers will eventually want a site built by
               us.
             </p>
+            <Link className={styles.sectionCta} href="#signup">
+              Choose your plan <span>→</span>
+            </Link>
           </div>
           <div className={styles.pipelineCard}>
             <header className={styles.pipelineHead}>
@@ -159,6 +175,9 @@ export default async function SeoPage() {
 
       <section className="shell">
         <ServiceScroll services={seoServices} showCustomRow={false} />
+        <Link className={`${styles.sectionCta} ${styles.servicesCta}`} href="#signup">
+          Get your first report <span>→</span>
+        </Link>
       </section>
 
       <section className={styles.caseSection}>
@@ -204,14 +223,21 @@ export default async function SeoPage() {
                 <span key={point}>{point}</span>
               ))}
             </div>
-            <Link href="/portfolio/scooter-shop">
-              Read the full case study <span>→</span>
-            </Link>
+            <div className={styles.caseActions}>
+              <Link className={styles.casePrimary} href="#signup">
+                Choose your plan <span>→</span>
+              </Link>
+              <Link href="/portfolio/scooter-shop">
+                Read the full case study <span>→</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <Faq eyebrow="06 / Common questions" title="Before you connect your data." items={SEO_FAQS} />
+      <SeoSignup settings={settings} eyebrow="06 / Choose your plan" />
+
+      <Faq eyebrow="07 / Common questions" title="Before you connect your data." items={SEO_FAQS} />
 
       <section className={`shell ${styles.closing}`}>
         <p className={styles.label}>Start with your own data</p>
@@ -220,8 +246,8 @@ export default async function SeoPage() {
           Connect Google Search Console and your first report arrives within the week—ranked, plain-English, and honest
           about whether you should keep paying us.
         </p>
-        <Link href="/contact">
-          Get your first report <span>↗</span>
+        <Link href="#signup">
+          Get your first report <span>↑</span>
         </Link>
       </section>
     </main>

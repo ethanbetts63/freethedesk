@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import styles from "../page.module.css";
 
@@ -47,6 +48,9 @@ export function IdentityVerification() {
           Verification runs on Stripe Identity, part of Stripe — one of the world&apos;s largest and most trusted
           payment platforms, used by millions of businesses globally.
         </p>
+        <Link className={styles.sectionCta} href="#signup">
+          Choose your plan <span>→</span>
+        </Link>
       </div>
 
       <div className={styles.verifyCard}>

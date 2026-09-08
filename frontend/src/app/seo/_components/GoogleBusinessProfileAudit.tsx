@@ -13,7 +13,15 @@ const AUDIT_AREAS = [
   ["Customer actions", "Website, booking and social links"],
 ] as const;
 
-export function GoogleBusinessProfileAudit({ standalonePrice }: { standalonePrice: string }) {
+export function GoogleBusinessProfileAudit({
+  standalonePrice,
+  ctaHref = "/contact",
+  ctaLabel = "Request an audit",
+}: {
+  standalonePrice: string;
+  ctaHref?: string;
+  ctaLabel?: string;
+}) {
   return (
     <section className={styles.audit} aria-labelledby="gbp-audit-title">
       <div className={styles.copy}>
@@ -55,8 +63,8 @@ export function GoogleBusinessProfileAudit({ standalonePrice }: { standalonePric
         </div>
 
         <div className={styles.actions}>
-          <Link href="/contact">
-            Request an audit <span aria-hidden="true">→</span>
+          <Link href={ctaHref}>
+            {ctaLabel} <span aria-hidden="true">→</span>
           </Link>
           <a href="https://support.google.com/business/answer/7091?hl=en" target="_blank" rel="noopener noreferrer">
             Google&apos;s published guidance ↗
