@@ -12,6 +12,7 @@ class SeoSubscriptionTermsAcceptance(models.Model):
     )
     accepted_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     plan = models.CharField(max_length=20, choices=SeoSubscriber.Plan.choices)
+    report_type = models.CharField(max_length=10, choices=SeoSubscriber.ReportType.choices)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     currency = models.CharField(max_length=3, default="AUD")
     terms_version = models.CharField(max_length=30)
@@ -24,7 +25,7 @@ class SeoSubscriptionTermsAcceptance(models.Model):
         ordering = ["-accepted_at"]
         constraints = [
             models.UniqueConstraint(
-                fields=["subscriber", "plan", "price", "currency", "terms_version", "terms_sha256"],
+                fields=["subscriber", "plan", "report_type", "price", "currency", "terms_version", "terms_sha256"],
                 name="unique_seo_subscription_offer_acceptance",
             )
         ]

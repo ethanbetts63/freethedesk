@@ -98,8 +98,8 @@ export const PAGES = {
     sitemap: { changeFrequency: "yearly", priority: 0.3 },
   },
   "/legal/seo-subscription-terms": {
-    title: "SEO Subscription Terms",
-    description: "Terms for Free the Desk SEO reporting subscriptions.",
+    title: "SEO Reporting & Audit Terms",
+    description: "Terms for Free the Desk SEO reporting and audit services.",
     sitemap: { changeFrequency: "yearly", priority: 0.3 },
   },
 } as const satisfies Record<string, PageDefinition>;

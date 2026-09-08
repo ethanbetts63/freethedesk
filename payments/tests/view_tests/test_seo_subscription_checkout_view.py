@@ -77,6 +77,64 @@ def test_one_off_checkout_is_a_single_payment(customer_create, session_create, c
 
 
 @stripe_settings
+@patch("payments.utils.seo_services.stripe.checkout.Session.create")
+@patch("payments.utils.seo_services.stripe.Customer.create")
+def test_google_business_profile_audit_uses_its_own_one_off_price(
+    customer_create, session_create, client, seo_subscriber
+):
+    seo_subscriber.plan = SeoSubscriber.Plan.ONEOFF
+    seo_subscriber.report_type = SeoSubscriber.ReportType.GBP
+    seo_subscriber.save(update_fields=["plan", "report_type"])
+    client.force_login(seo_subscriber.user)
+    settings = SiteSettings.load()
+    settings.gbp_audit_price = Decimal("110.00")
+    settings.save()
+    customer_create.return_value = Mock(id="cus_test")
+    session_create.return_value = Mock(id="cs_test", client_secret="cs_test_secret")
+
+    response = client.post(
+        reverse("seo-subscription-checkout"),
+        {"accepted_terms": True},
+        content_type="application/json",
+    )
+
+    assert response.status_code == 200
+    assert response.json()["price"] == "110.00"
+    assert response.json()["mode"] == "payment"
+    price_data = session_create.call_args.kwargs["line_items"][0]["price_data"]
+    assert price_data["unit_amount"] == 11000
+    assert price_data["product_data"]["name"] == "One-off Google Business Profile report"
+    assert "recurring" not in price_data
+
+
+@stripe_settings
+@patch("payments.utils.seo_services.stripe.checkout.Session.create")
+@patch("payments.utils.seo_services.stripe.Customer.create")
+def test_combined_report_adds_the_gbp_and_seo_prices(customer_create, session_create, client, seo_subscriber):
+    seo_subscriber.report_type = SeoSubscriber.ReportType.BOTH
+    seo_subscriber.save(update_fields=["report_type"])
+    client.force_login(seo_subscriber.user)
+    settings = SiteSettings.load()
+    settings.seo_quarterly_price = Decimal("150.00")
+    settings.gbp_audit_price = Decimal("100.00")
+    settings.save()
+    customer_create.return_value = Mock(id="cus_test")
+    session_create.return_value = Mock(id="cs_test", client_secret="cs_test_secret")
+
+    response = client.post(
+        reverse("seo-subscription-checkout"),
+        {"accepted_terms": True},
+        content_type="application/json",
+    )
+
+    assert response.status_code == 200
+    assert response.json()["price"] == "250.00"
+    price_data = session_create.call_args.kwargs["line_items"][0]["price_data"]
+    assert price_data["unit_amount"] == 25000
+    assert price_data["recurring"] == {"interval": "month", "interval_count": 3}
+
+
+@stripe_settings
 def test_checkout_requires_terms_acceptance(client, logged_in_seo_subscriber):
     response = client.post(reverse("seo-subscription-checkout"), {}, content_type="application/json")
     assert response.status_code == 400

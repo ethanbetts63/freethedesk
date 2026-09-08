@@ -10,10 +10,11 @@ import { metadataFor } from "@/lib/pages";
 
 import { HOME_FAQS } from "./_lib/copy";
 
-import { AiReadinessAudit } from "@/components/marketing/AiReadinessAudit";
+import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
 import { AutomationFeature } from "./_components/AutomationFeature";
 import { FlagshipCheckout } from "@/components/marketing/FlagshipCheckout";
 import { Hero } from "@/components/marketing/Hero";
+import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { WebsiteDevelopmentFeature } from "./_components/WebsiteDevelopmentFeature";
 import { WebsiteProduct } from "@/components/marketing/WebsiteProduct";
 import styles from "@/components/marketing/marketingPage.module.css";
@@ -38,6 +39,7 @@ export default function Home() {
   return (
     <main className={styles.page}>
       <PageSchema path="/" />
+      <AiReadinessBanner />
       <Hero
         eyebrow="Online Automation Services Australia"
         titleLines={["Digital", "automation"]}
@@ -60,7 +62,7 @@ export default function Home() {
           <div className={styles.seoSummary}>
             <span>
               Human-written reports that turn your search data into ranked next steps. Every subscription includes a
-              Google Business Profile audit and AI readiness audit.
+              Choose website SEO, a Google Business Profile report, or combine both. The AI readiness check is free.
             </span>
             <Link href="/seo">
               Explore SEO reports <span>→</span>
@@ -70,9 +72,7 @@ export default function Home() {
       />
       <FlagshipCheckout />
       <WebsiteProduct />
-      <div className={`shell ${styles.aiAuditSection}`}>
-        <AiReadinessAudit className={styles.aiAuditFlush} />
-      </div>
+      <ProjectEnquiry />
       <Faq eyebrow="Common questions" title="A useful place to start." items={HOME_FAQS} />
       <ManualAdminCta label="Get in contact" />
     </main>

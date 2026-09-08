@@ -7,6 +7,7 @@ class Enquiry(models.Model):
         WEBSITE_BUILDER = "website_builder", "Dealer web enquiry"
         INVENTORY = "inventory", "Inventory, parts, service or hire"
         AUTOMATION = "automation", "Business automation"
+        AI_READINESS = "ai_readiness", "AI readiness check"
         EVERYTHING = "everything", "All of the above"
         UNSURE = "unsure", "Not sure yet"
 

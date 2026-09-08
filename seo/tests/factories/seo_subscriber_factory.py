@@ -13,4 +13,5 @@ class SeoSubscriberFactory(factory.django.DjangoModelFactory):
     contact_name = factory.Faker("name")
     phone = "0400 000 000"
     website = "https://example.com"
+    report_type = SeoSubscriber.ReportType.SEO
     plan = SeoSubscriber.Plan.QUARTERLY

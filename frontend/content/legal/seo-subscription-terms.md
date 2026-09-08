@@ -1,4 +1,4 @@
-# SEO Subscription Terms
+# SEO Reporting & Audit Terms
 
 Effective date: 7 September 2026
 
@@ -6,13 +6,15 @@ Effective date: 7 September 2026
 
 ## 1. These terms
 
-These terms govern a customer's subscription to the Free the Desk SEO reporting service. They form an agreement between Free the Desk (we, us or our) and the business identified during signup (Customer, you or your).
+These terms govern a customer's purchase of a Free the Desk SEO report, Google Business Profile report, or combined report plan. They form an agreement between Free the Desk (we, us or our) and the business identified during signup (Customer, you or your).
 
 The person accepting these terms confirms that they are authorised to enter the agreement for the Customer. These are business service terms.
 
 ## 2. The service
 
-The service is a periodic SEO report for the Customer's website. Each report is a human-written, plain-English document that reviews the last tracked period, identifies issues and opportunities, and gives a prioritised list of recommended next steps with effort estimates. A Google Business Profile audit and an AI readiness check are included with every report plan.
+The reporting service is a periodic or one-off report covering the Customer's website SEO, Google Business Profile, or both, according to the selections shown before payment. Each report is a human-written, plain-English document that reviews the relevant period, identifies issues and opportunities, and gives a prioritised list of recommended next steps. The free AI readiness check is available separately and does not require a purchase.
+
+A Google Business Profile report is a focused review of the Customer's profile and local-search signals. It does not include a website SEO report unless the combined option is selected.
 
 The service is analysis and recommendations. Implementing the recommendations, whether by us under a separate proposal or by the Customer, is not included in a standard subscription unless expressly stated in writing.
 
@@ -23,13 +25,15 @@ The service is analysis and recommendations. Implementing the recommendations, w
 - Bi-annual report: one report every six months.
 - One-off report: a single report with no ongoing subscription.
 
+The Customer also selects the report content: Google Business Profile, website SEO, or both. The price displayed before payment reflects both the report content and frequency selected.
+
 The selected plan, current GST-inclusive price and billing frequency are displayed before payment. If there is a conflict between these terms and a signed custom proposal, the custom proposal prevails to the extent of the conflict.
 
 ## 4. Signup, payment and renewal
 
-A paid subscription begins when Stripe confirms the first payment. You authorise Stripe to charge the payment method supplied for the displayed GST-inclusive fee at the billing frequency shown for the selected plan.
+A paid service begins when Stripe confirms payment. You authorise Stripe to charge the payment method supplied for the displayed GST-inclusive fee at the billing frequency shown for the selected product.
 
-Recurring plans renew automatically at their billing frequency until cancelled. A one-off report is charged once and does not renew. There is no fixed minimum term unless a separate written proposal says otherwise. Invoices and payment records may be issued electronically.
+Recurring plans renew automatically at their billing frequency until cancelled. A one-off report or standalone audit is charged once and does not renew. There is no fixed minimum term unless a separate written proposal says otherwise. Invoices and payment records may be issued electronically.
 
 If payment fails, we may retry the payment and may pause report delivery until the account is brought up to date. We will not charge a new or increased recurring fee without giving at least 30 days' notice and an opportunity to cancel before the new fee applies.
 
@@ -37,7 +41,7 @@ If payment fails, we may retry the payment and may pause report delivery until t
 
 You may cancel a recurring plan at any time by emailing hello@freethedesk.com.au from an authorised account address. Cancellation takes effect at the end of the already-paid billing period; the report for that period is still delivered.
 
-Fees already paid are not refundable for a change of mind or unused time, except where required by law or where we agree to a refund. A one-off report that has not yet been delivered may be refunded at our discretion.
+Fees already paid are not refundable for a change of mind or unused time, except where required by law or where we agree to a refund. A one-off report or audit that has not yet been delivered may be refunded at our discretion.
 
 ## 6. What we need from you
 

@@ -63,21 +63,17 @@
   gap: 25px;
 }
 .primary {
-  align-items: center;
-  background: var(--section-accent);
-  color: #fff;
-  display: inline-flex;
-  font-size: 0.8rem;
-  font-weight: 800;
-  gap: 44px;
-  padding: 17px 19px;
+  --pb-background: var(--section-accent);
+  --pb-background-hover: #fff;
+  --pb-font-size: 0.8rem;
+  --pb-gap: 44px;
+  --pb-padding: 17px 19px;
   transition:
     background 0.2s,
     color 0.2s,
     transform 0.2s;
 }
 .primary:hover {
-  background: #fff;
   color: #000;
   transform: translateY(-2px);
 }

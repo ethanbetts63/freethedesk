@@ -14,6 +14,7 @@ class SeoSubscriptionTermsAcceptanceFactory(factory.django.DjangoModelFactory):
     subscriber = factory.SubFactory(SeoSubscriberFactory)
     accepted_by = factory.LazyAttribute(lambda obj: obj.subscriber.user)
     plan = factory.LazyAttribute(lambda obj: obj.subscriber.plan)
+    report_type = factory.LazyAttribute(lambda obj: obj.subscriber.report_type)
     price = Decimal("150.00")
     currency = "AUD"
     terms_version = "2026-09-07"

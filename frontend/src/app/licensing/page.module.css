@@ -13,9 +13,19 @@
   margin: 0 0 24px;
   text-transform: uppercase;
 }
+/* Spacing only — the look comes from the global .primary-button. */
+.sectionCta {
+  margin-top: 25px;
+}
+.sectionCtaLight {
+  --pb-background: #70bced;
+  --pb-background-hover: #8acbf3;
+  --pb-color: #07121c;
+}
 .signupSection {
   background: #fff;
-  padding: 112px 0 122px;
+  padding: var(--section-space) 0;
+  scroll-margin-top: 24px;
 }
 .signupHeading {
   margin-bottom: 58px;
@@ -311,7 +321,7 @@
 }
 .comparisonSection {
   background: #f2f7fb;
-  padding: 105px 0;
+  padding: var(--section-space) 0;
 }
 .comparison {
   align-items: center;
@@ -319,8 +329,8 @@
   gap: clamp(55px, 8vw, 110px);
   grid-template-columns: 0.7fr 1.3fr;
 }
-.comparisonCopy > p:last-child,
-.optionsHeading > p:last-child {
+.comparisonCopy > p:last-of-type,
+.optionsHeading > p:last-of-type {
   color: #597188;
   font-size: 0.96rem;
   line-height: 1.7;
@@ -385,7 +395,7 @@
 .optionsSection {
   background: #13315c;
   color: #fff;
-  padding: 115px 0;
+  padding: var(--section-space) 0;
 }
 .optionsLayout {
   align-items: start;
@@ -393,7 +403,7 @@
   gap: clamp(55px, 8vw, 110px);
   grid-template-columns: 0.8fr 1.2fr;
 }
-.optionsHeading > p:last-child {
+.optionsHeading > p:last-of-type {
   color: #a8bfd2;
 }
 .optionPhones {
@@ -546,20 +556,14 @@
 .flowColumnHighlight .flowStepText small {
   color: #bcdcfa;
 }
+/* Sizing and shadow only — the look comes from the global .moving-colour-button. */
 .flowColumnCta {
-  align-items: center;
-  animation: moving-colour-shift 6s linear infinite;
-  background: var(--moving-colour-gradient-surface);
-  background-size: var(--moving-colour-size);
+  --mcb-font-size: 0.74rem;
+  --mcb-height: 48px;
+  --mcb-padding-x: 16px;
+  --mcb-width: 100%;
   box-shadow: 0 12px 28px rgba(168, 85, 247, 0.35);
-  color: #fff;
-  display: flex;
-  font-size: 0.74rem;
-  font-weight: 850;
-  justify-content: space-between;
   margin: 22px 0 4px;
-  padding: 14px 16px;
-  text-decoration: none;
   transition: box-shadow 0.2s ease;
 }
 .flowColumnCta:hover {
@@ -568,10 +572,18 @@
 .flowColumnCta span {
   font-size: 1rem;
 }
+.flowColumnCtaPlain {
+  --pb-font-size: 0.74rem;
+  --pb-padding: 14px 16px;
+  --pb-width: 100%;
+  margin: 22px 0 4px;
+}
+.flowColumnCtaPlain span {
+  font-size: 1rem;
+}
 @media (prefers-reduced-motion: reduce) {
   .flowColumn.flowColumnHighlight,
-  .flowColumnHighlight .flowStepsList li::before,
-  .flowColumnCta {
+  .flowColumnHighlight .flowStepsList li::before {
     animation: none;
   }
 }
@@ -780,8 +792,8 @@
 }
 .closing {
   background: #f2f7fb;
-  margin-bottom: 115px;
-  margin-top: 115px;
+  margin-bottom: var(--section-space);
+  margin-top: var(--section-space);
   padding: 82px;
   text-align: center;
 }
@@ -792,21 +804,14 @@
   margin: 27px auto 31px;
   max-width: 570px;
 }
-.closing > a {
-  align-items: center;
-  background: var(--page-accent);
-  color: #fff;
-  display: inline-flex;
-  font-size: 0.8rem;
-  font-weight: 900;
-  gap: 35px;
-  padding: 17px 20px;
+.closingCta {
+  --pb-font-size: 0.8rem;
+  --pb-gap: 35px;
+  --pb-padding: 17px 20px;
 }
-.closing > a span {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-.closing > a:hover span {
+/* Lifts rather than slides—its glyph is an arrow pointing up. Three classes so
+   it out-specifies the global .primary-button:hover > span rule. */
+.closing .closingCta:hover > span {
   transform: translateY(-3px);
 }
 
@@ -815,8 +820,8 @@
   display: grid;
   gap: clamp(55px, 9vw, 130px);
   grid-template-columns: 1.05fr 0.95fr;
-  padding-bottom: 125px;
-  padding-top: 125px;
+  padding-bottom: var(--section-space);
+  padding-top: var(--section-space);
 }
 .verifyCopy p:not(.sectionLabel) {
   color: #536b80;
@@ -828,43 +833,64 @@
 .verifyCopy p + p {
   margin-top: 16px;
 }
+/* Same card treatment as the checkout journey on the home page: moving-colour
+   border, tiled steps, gradient status bar. */
 .verifyCard {
-  background: #f7fafc;
-  border: 1px solid #cfdeea;
-  padding: 26px;
+  animation: moving-colour-border-shift 6s linear infinite;
+  background-clip: padding-box, border-box;
+  background-image: linear-gradient(#fff, #fff), var(--moving-colour-gradient-surface);
+  background-origin: border-box;
+  background-size:
+    100% 100%,
+    var(--moving-colour-size);
+  border: 2px solid transparent;
+  box-shadow: 0 28px 75px rgba(19, 49, 92, 0.11);
+  min-width: 0;
+  padding: 28px;
 }
 .verifyCardHead {
   align-items: center;
   border-bottom: 1px solid #d9e5ef;
+  color: #758a9c;
   display: flex;
+  font-size: 0.66rem;
+  font-weight: 850;
   justify-content: space-between;
-  margin-bottom: 6px;
+  letter-spacing: 0.11em;
   padding-bottom: 18px;
-}
-.verifyCardHead span {
-  font-size: 0.77rem;
-  font-weight: 900;
   text-transform: uppercase;
 }
 .verifyCardHead b {
-  color: var(--page-accent);
-  font-size: 0.63rem;
-  text-transform: uppercase;
+  animation: moving-colour-shift 6s linear infinite;
+  background: var(--moving-colour-gradient);
+  background-clip: text;
+  background-size: var(--moving-colour-size);
+  color: transparent;
+  -webkit-background-clip: text;
 }
 .verifySteps {
+  display: grid;
+  gap: 12px;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 28px 0;
 }
 .verifySteps li {
   align-items: flex-start;
-  border-top: 1px dashed #cfdeea;
+  background: #f7fafc;
+  border: 1px solid #dce7ef;
   display: flex;
   gap: 16px;
-  padding: 18px 0;
+  min-width: 0;
+  padding: 16px 14px;
 }
-.verifySteps li:first-child {
-  border-top: 0;
+.verifySteps span {
+  color: var(--page-accent);
+  display: block;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
 }
 .verifySteps strong {
   color: #000;
@@ -902,20 +928,32 @@
 }
 .verifyFooter {
   align-items: center;
-  border-top: 1px solid #d9e5ef;
+  animation: moving-colour-shift 8s linear infinite;
+  background: var(--moving-colour-gradient-surface);
+  background-size: var(--moving-colour-size);
+  box-shadow: 0 12px 28px rgba(168, 85, 247, 0.22);
   display: flex;
-  gap: 9px;
-  margin-top: 4px;
-  padding-top: 18px;
+  gap: 11px;
+  justify-content: center;
+  padding: 15px 17px;
 }
 .verifyFooter span {
-  color: #7c93aa;
-  font-size: 0.68rem;
-  font-weight: 750;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.76rem;
+  font-weight: 650;
 }
 .verifyLogo {
+  flex: 0 0 auto;
   height: 20px;
   width: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verifyCard,
+  .verifyCardHead b,
+  .verifyFooter {
+    animation: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -943,13 +981,13 @@
   .outcomesSection,
   .signupSection,
   .verify {
-    padding-bottom: 82px;
-    padding-top: 82px;
+    padding-bottom: var(--section-space);
+    padding-top: var(--section-space);
   }
   .comparisonSection,
   .optionsSection {
-    padding-bottom: 78px;
-    padding-top: 78px;
+    padding-bottom: var(--section-space);
+    padding-top: var(--section-space);
   }
   .comparisonCopy h2,
   .sectionHeading h2,
@@ -984,7 +1022,6 @@
     min-height: 220px;
   }
   .closing {
-    margin-bottom: 78px;
     padding: 65px 22px;
   }
   .optionPhones {

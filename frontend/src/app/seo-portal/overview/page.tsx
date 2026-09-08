@@ -54,16 +54,19 @@ export default function SeoPortalOverviewPage() {
   if (!account) return null;
 
   const hasPaid = account.payment_status === "active" || account.payment_status === "paid";
+  const isGbpAudit = account.report_type === "gbp";
   const copy =
     account.payment_status === "payment_pending"
       ? {
           heading: "Your account is saved.",
-          body: "Your selected plan has not been paid yet. Continue when you are ready; you will not need to enter these signup details again.",
+          body: `Your selected ${isGbpAudit ? "audit" : "plan"} has not been paid yet. Continue when you are ready; you will not need to enter these signup details again.`,
         }
       : hasPaid && account.status === "pending"
         ? {
-            heading: "Payment confirmed. Connect your data.",
-            body: "Add your Search Console property and tell us what to focus on. Your first report follows once we have reviewed the account.",
+            heading: `Payment confirmed. ${isGbpAudit ? "Send us your profile." : "Connect your data."}`,
+            body: isGbpAudit
+              ? "Add your Google Business Profile link and any local-search context we should know. We can then begin the audit."
+              : "Add your Search Console property and tell us what to focus on. Your first report follows once we have reviewed the account.",
           }
         : statusCopy[account.status];
   const firstName = account.contact_name.trim().split(/\s+/)[0] || account.contact_name;
@@ -90,10 +93,20 @@ export default function SeoPortalOverviewPage() {
           <section className="admin-detail-card admin-detail-wide">
             <h2>Finish secure payment</h2>
             <p className="admin-message-body">
-              Your account is saved. Complete payment to unlock your reporting setup.
+              Your account is saved. Complete payment to unlock your {isGbpAudit ? "audit" : "reporting setup"}.
             </p>
             <Link className="admin-primary-button" href="/seo/payment">
               Continue to payment →
+            </Link>
+          </section>
+        )}
+
+        {hasPaid && !account.has_usable_password && (
+          <section className="admin-detail-card admin-detail-wide">
+            <h2>Complete your account</h2>
+            <p className="admin-message-body">Add your business and contact names, then choose your sign-in password.</p>
+            <Link className="admin-primary-button" href="/seo-portal/account">
+              Complete account setup →
             </Link>
           </section>
         )}
@@ -111,22 +124,28 @@ export default function SeoPortalOverviewPage() {
             <h2>What happens next</h2>
             <ol className="portal-steps">
               <li>
-                <strong>Connect your data</strong>
+                <strong>{isGbpAudit ? "Send your profile" : "Connect your data"}</strong>
                 <span>
-                  Grant access to Search Console and, if relevant, Analytics and your Google Business Profile.
+                  {isGbpAudit
+                    ? "Add your Google Business Profile link and primary service location."
+                    : "Grant access to Search Console and, if relevant, Analytics and your Google Business Profile."}
                 </span>
               </li>
               <li>
-                <strong>Tell us the focus</strong>
-                <span>Target locations, the searches you care about and who you compete with.</span>
+                <strong>{isGbpAudit ? "We review it" : "Tell us the focus"}</strong>
+                <span>
+                  {isGbpAudit
+                    ? "We check visibility, completeness, categories, content, reviews and local-search signals."
+                    : "Target locations, the searches you care about and who you compete with."}
+                </span>
               </li>
               <li>
-                <strong>Your first report</strong>
+                <strong>{isGbpAudit ? "Your audit arrives" : "Your first report"}</strong>
                 <span>A plain-English, ranked action list lands in your inbox.</span>
               </li>
             </ol>
             <Link className="admin-primary-button" href="/seo-portal/connect">
-              Connect your data →
+              {isGbpAudit ? "Add profile details" : "Connect your data"} →
             </Link>
           </section>
         )}
@@ -163,6 +182,10 @@ export default function SeoPortalOverviewPage() {
         <section className="admin-detail-card">
           <h2>Account</h2>
           <dl className="admin-detail-list">
+            <div>
+              <dt>Report</dt>
+              <dd>{account.report_type_label}</dd>
+            </div>
             <div>
               <dt>Plan</dt>
               <dd>{account.plan_label}</dd>

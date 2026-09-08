@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
+import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { ServiceScroll } from "@/components/ServiceScroll";
@@ -13,7 +14,7 @@ import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
 
 import { SEO_FAQS } from "./_lib/copy";
 import { formatPrice, getSiteSettingsServer } from "@/lib/serverApi";
-import { AiReadinessAudit } from "@/components/marketing/AiReadinessAudit";
+import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
 import { GoogleBusinessProfileAudit } from "./_components/GoogleBusinessProfileAudit";
 import { SeoSignup } from "./_components/SeoSignup";
 import { seoServices } from "./_components/seoServices";
@@ -52,7 +53,7 @@ export default async function SeoPage() {
     {
       value: "AI",
       label: "Are you AI ready?",
-      description: "Every report includes our four-point AI readiness check.",
+      description: "Run our four-point AI readiness check free, with no plan required.",
     },
   ];
 
@@ -80,6 +81,7 @@ export default async function SeoPage() {
     <main className={styles.page}>
       <PageSchema path="/seo" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <AiReadinessBanner />
       <Hero
         eyebrow="Practical SEO reporting"
         titleLines={["Data Driven,"]}
@@ -100,9 +102,9 @@ export default async function SeoPage() {
         description={
           <div className={styles.reportDescription}>
             <p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>
-            <Link className={styles.sectionCta} href="#signup">
-              Choose your plan <span>→</span>
-            </Link>
+            <PrimaryButton className={styles.sectionCta} href="#signup">
+              Choose your plan
+            </PrimaryButton>
           </div>
         }
       />
@@ -110,13 +112,8 @@ export default async function SeoPage() {
       <div className="shell">
         <GoogleBusinessProfileAudit
           standalonePrice={formatPrice(settings.gbp_audit_price)}
-          ctaHref="#signup"
-          ctaLabel="Choose a report plan"
-        />
-        <AiReadinessAudit
-          standalonePrice={formatPrice(settings.ai_readiness_audit_price)}
-          ctaHref="#signup"
-          ctaLabel="Choose a report plan"
+          ctaHref="#google-business-profile-audit"
+          ctaLabel="Buy this audit"
         />
       </div>
 
@@ -137,9 +134,9 @@ export default async function SeoPage() {
               Still sounds too cheap? It is. We&apos;re betting some subscribers will eventually want a site built by
               us.
             </p>
-            <Link className={styles.sectionCta} href="#signup">
-              Choose your plan <span>→</span>
-            </Link>
+            <PrimaryButton className={styles.sectionCta} href="#signup">
+              Choose your plan
+            </PrimaryButton>
           </div>
           <div className={styles.pipelineCard}>
             <header className={styles.pipelineHead}>
@@ -174,10 +171,10 @@ export default async function SeoPage() {
       </section>
 
       <section className="shell">
-        <ServiceScroll services={seoServices} showCustomRow={false} />
-        <Link className={`${styles.sectionCta} ${styles.servicesCta}`} href="#signup">
-          Get your first report <span>→</span>
-        </Link>
+        <ServiceScroll services={seoServices} customHref="#signup" />
+        <PrimaryButton className={`${styles.sectionCta} ${styles.servicesCta}`} href="#signup">
+          Get your first report
+        </PrimaryButton>
       </section>
 
       <section className={styles.caseSection}>
@@ -246,9 +243,9 @@ export default async function SeoPage() {
           Connect Google Search Console and your first report arrives within the week—ranked, plain-English, and honest
           about whether you should keep paying us.
         </p>
-        <Link href="#signup">
-          Get your first report <span>↑</span>
-        </Link>
+        <PrimaryButton className={styles.closingCta} href="#signup" arrow="↑">
+          Get your first report
+        </PrimaryButton>
       </section>
     </main>
   );

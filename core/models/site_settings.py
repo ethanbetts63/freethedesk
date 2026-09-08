@@ -14,8 +14,8 @@ class SiteSettings(models.Model):
     Licensing prices are per month and are the source of truth sent to Stripe
     for new subscriptions; existing subscriptions retain their accepted price.
     SEO report prices are per report at each cadence. The Google Business
-    Profile audit and AI readiness check are one-offs included free with every
-    SEO report plan.
+    Profile report has its own per-report price and can be purchased alone or
+    combined with an SEO report at the selected cadence.
     """
 
     licensing_price = models.DecimalField(
@@ -48,10 +48,6 @@ class SiteSettings(models.Model):
     )
     gbp_audit_price = models.DecimalField(
         max_digits=8, decimal_places=2, default=Decimal("100.00"),
-        validators=[MinValueValidator(Decimal("0.01"))],
-    )
-    ai_readiness_audit_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=Decimal("50.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
     updated_at = models.DateTimeField(auto_now=True)

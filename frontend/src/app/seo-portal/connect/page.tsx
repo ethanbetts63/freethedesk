@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 
 import {
   getSeoOnboarding,
+  getSeoAccount,
   submitSeoOnboarding,
   updateSeoOnboarding,
   type SeoOnboardingChanges,
@@ -27,10 +28,12 @@ export default function SeoPortalConnectPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [isGbpAudit, setIsGbpAudit] = useState(false);
 
   useEffect(() => {
-    getSeoOnboarding()
-      .then((result) => {
+    Promise.all([getSeoOnboarding(), getSeoAccount()])
+      .then(([result, account]) => {
+        setIsGbpAudit(account.report_type === "gbp");
         setProfile(result);
         setForm({
           website_url: result.website_url,
@@ -54,7 +57,11 @@ export default function SeoPortalConnectPage() {
       const updated = await updateSeoOnboarding(form);
       const finalProfile = submitForReview ? await submitSeoOnboarding() : updated;
       setProfile(finalProfile);
-      setNotice(submitForReview ? "Thanks — your reporting brief has been submitted." : "Draft saved.");
+      setNotice(
+        submitForReview
+          ? `Thanks — your ${isGbpAudit ? "audit details have" : "reporting brief has"} been submitted.`
+          : "Draft saved.",
+      );
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Your setup could not be saved.");
     } finally {
@@ -81,8 +88,12 @@ export default function SeoPortalConnectPage() {
       <header className="admin-page-header">
         <div>
           <p className="admin-kicker">Onboarding</p>
-          <h1>Connect your data</h1>
-          <p>Tell us where to look and what matters. We use this to focus every report.</p>
+          <h1>{isGbpAudit ? "Add your profile details" : "Connect your data"}</h1>
+          <p>
+            {isGbpAudit
+              ? "Send us the profile and location we should review."
+              : "Tell us where to look and what matters. We use this to focus every report."}
+          </p>
         </div>
       </header>
       <p className="admin-banner">
@@ -99,26 +110,32 @@ export default function SeoPortalConnectPage() {
         }}
       >
         <fieldset disabled={locked || saving}>
-          <legend>Reporting brief</legend>
+          <legend>{isGbpAudit ? "Audit brief" : "Reporting brief"}</legend>
           <div className="portal-field-grid">
-            {fields.map(([name, label, hint, kind]) => (
-              <label key={name}>
-                <span>{label}</span>
-                {kind === "textarea" ? (
-                  <textarea
-                    rows={4}
-                    value={form[name] ?? ""}
-                    onChange={(event) => setForm({ ...form, [name]: event.target.value })}
-                  />
-                ) : (
-                  <input
-                    value={form[name] ?? ""}
-                    onChange={(event) => setForm({ ...form, [name]: event.target.value })}
-                  />
-                )}
-                <small>{hint}</small>
-              </label>
-            ))}
+            {fields
+              .filter(
+                ([name]) =>
+                  !isGbpAudit ||
+                  ["website_url", "google_business_profile_url", "primary_location", "notes"].includes(name),
+              )
+              .map(([name, label, hint, kind]) => (
+                <label key={name}>
+                  <span>{label}</span>
+                  {kind === "textarea" ? (
+                    <textarea
+                      rows={4}
+                      value={form[name] ?? ""}
+                      onChange={(event) => setForm({ ...form, [name]: event.target.value })}
+                    />
+                  ) : (
+                    <input
+                      value={form[name] ?? ""}
+                      onChange={(event) => setForm({ ...form, [name]: event.target.value })}
+                    />
+                  )}
+                  <small>{hint}</small>
+                </label>
+              ))}
           </div>
         </fieldset>
 

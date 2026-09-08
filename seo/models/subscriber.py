@@ -22,6 +22,11 @@ class SeoSubscriber(models.Model):
         BIANNUAL = "biannual", "Bi-annual report"
         ONEOFF = "oneoff", "One-off report"
 
+    class ReportType(models.TextChoices):
+        GBP = "gbp", "Google Business Profile report"
+        SEO = "seo", "SEO report"
+        BOTH = "both", "Google Business Profile + SEO report"
+
     class PaymentStatus(models.TextChoices):
         PAYMENT_PENDING = "payment_pending", "Payment pending"
         ACTIVE = "active", "Active"
@@ -38,6 +43,9 @@ class SeoSubscriber(models.Model):
     contact_name = models.CharField(max_length=120)
     phone = models.CharField(max_length=40, blank=True)
     website = models.URLField(blank=True)
+    report_type = models.CharField(
+        max_length=10, choices=ReportType.choices, default=ReportType.BOTH, db_index=True
+    )
     plan = models.CharField(max_length=20, choices=Plan.choices, default=Plan.QUARTERLY, db_index=True)
     payment_status = models.CharField(
         max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.PAYMENT_PENDING, db_index=True

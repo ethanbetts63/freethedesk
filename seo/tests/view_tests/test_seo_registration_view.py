@@ -9,13 +9,11 @@ from seo.models import SeoSubscriber
 pytestmark = pytest.mark.django_db
 
 PAYLOAD = {
-    "business_name": "Peak Digital",
-    "contact_name": "Jo Ryan",
     "email": "jo@peakdigital.com.au",
     "phone": "0400 000 000",
     "website": "https://peakdigital.com.au",
+    "report_type": "both",
     "plan": "quarterly",
-    "password": "Sturdy-Passphrase-42",
 }
 
 
@@ -31,10 +29,15 @@ def test_signup_creates_pending_subscriber_and_user(client):
     subscriber = SeoSubscriber.objects.get()
     assert subscriber.status == SeoSubscriber.Status.PENDING
     assert subscriber.plan == SeoSubscriber.Plan.QUARTERLY
+    assert subscriber.report_type == SeoSubscriber.ReportType.BOTH
     assert subscriber.payment_status == SeoSubscriber.PaymentStatus.PAYMENT_PENDING
-    assert subscriber.business_name == "Peak Digital"
+    assert subscriber.business_name == "peakdigital.com.au"
+    assert subscriber.contact_name == "Account owner"
     assert not subscriber.user.is_staff
-    assert subscriber.user.check_password("Sturdy-Passphrase-42")
+    assert not subscriber.user.has_usable_password()
+    assert response.json()["role"] == "seo"
+    assert response.cookies["freethedesk_access"].value
+    assert response.cookies["freethedesk_refresh"].value
 
 
 def test_signup_defaults_plan_to_quarterly(client):
@@ -50,6 +53,19 @@ def test_signup_accepts_one_off_plan(client):
     )
     assert response.status_code == 201
     assert SeoSubscriber.objects.get().plan == SeoSubscriber.Plan.ONEOFF
+
+
+def test_signup_accepts_standalone_google_business_profile_audit(client):
+    response = client.post(
+        reverse("seo-signup"),
+        {**PAYLOAD, "plan": "oneoff", "report_type": "gbp"},
+        content_type="application/json",
+    )
+    assert response.status_code == 201
+    subscriber = SeoSubscriber.objects.get()
+    assert subscriber.plan == SeoSubscriber.Plan.ONEOFF
+    assert subscriber.report_type == SeoSubscriber.ReportType.GBP
+    assert subscriber.is_one_off
 
 
 def test_signup_rejects_unknown_plan(client):

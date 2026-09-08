@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { PageSchema } from "@/components/PageSchema";
 import { metadataFor } from "@/lib/pages";
 
+import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
 import { ContactEnquiry } from "@/components/marketing/ContactEnquiry";
 
 export const metadata: Metadata = metadataFor("/contact");
@@ -11,6 +12,7 @@ export default function ContactPage() {
   return (
     <main>
       <PageSchema path="/contact" />
+      <AiReadinessBanner />
       <section className="contact-page" id="contact-form">
         <div className="shell">
           <ContactEnquiry />

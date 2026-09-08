@@ -238,25 +238,7 @@
   margin: 48px 0 0;
   max-width: 720px;
 }
-.sectionCta {
-  align-items: center;
-  background: var(--page-accent);
-  color: #fff;
-  display: inline-flex;
-  font-size: 0.76rem;
-  font-weight: 900;
-  gap: 28px;
-  letter-spacing: 0.05em;
-  padding: 16px 19px;
-  text-transform: uppercase;
-}
-.sectionCta span {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-.sectionCta:hover span {
-  transform: translateX(4px);
-}
+/* The look comes from the global .primary-button; these only place it. */
 .servicesCta {
   margin-top: 48px;
 }
@@ -281,31 +263,18 @@
   flex-wrap: wrap;
   gap: 22px;
 }
-.seoReportSummary a {
-  align-items: center;
+.seoReportCta {
+  --pb-font-size: 0.72rem;
+  --pb-padding: 15px 18px;
   align-self: flex-start;
-  background: var(--page-accent);
-  color: #fff;
-  display: inline-flex;
-  font-size: 0.72rem;
-  font-weight: 900;
-  gap: 28px;
   letter-spacing: 0.06em;
-  padding: 15px 18px;
-  text-transform: uppercase;
-}
-.seoReportSummary a span {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-.seoReportSummary a:hover span {
-  transform: translateX(4px);
 }
 .seoReportSummary .seoSecondary {
-  background: transparent;
+  --pb-background: transparent;
+  --pb-background-hover: transparent;
+  --pb-color: var(--page-accent);
+  --pb-padding: 8px 0;
   border-bottom: 1px solid var(--page-accent);
-  color: var(--page-accent);
-  padding: 8px 0;
 }
 .systemSection {
   align-items: center;
@@ -604,15 +573,10 @@
   margin: 27px auto 31px;
   max-width: 570px;
 }
-.closing > a {
-  align-items: center;
-  background: var(--page-accent);
-  color: #fff;
-  display: inline-flex;
-  font-size: 0.8rem;
-  font-weight: 900;
-  gap: 35px;
-  padding: 17px 20px;
+.closingCta {
+  --pb-font-size: 0.8rem;
+  --pb-gap: 35px;
+  --pb-padding: 17px 20px;
 }
 
 @media (max-width: 900px) {

@@ -1,5 +1,5 @@
-import Link from "next/link";
-
+import { MovingColourButton } from "@/components/MovingColourButton";
+import { PrimaryButton } from "@/components/PrimaryButton";
 import styles from "../page.module.css";
 
 type Step = { title: string; caption?: string };
@@ -50,11 +50,18 @@ function FlowColumn({
           </li>
         ))}
       </ol>
-      {cta && (
-        <Link className={styles.flowColumnCta} href={cta.href}>
-          {cta.label} <span>↗</span>
-        </Link>
-      )}
+      {cta &&
+        /* Only the recommended column gets the moving-colour treatment; the
+           hosted-portal column uses the standard accent CTA. */
+        (highlight ? (
+          <MovingColourButton className={styles.flowColumnCta} href={cta.href} arrow="↗">
+            {cta.label}
+          </MovingColourButton>
+        ) : (
+          <PrimaryButton className={styles.flowColumnCtaPlain} href={cta.href} arrow="↗">
+            {cta.label}
+          </PrimaryButton>
+        ))}
     </div>
   );
 }

@@ -1,13 +1,17 @@
 import { authedFetch, jsonOrError, type AccountBase, type OnboardingStatus } from "./api";
 
 export type SeoPlanCode = "monthly" | "quarterly" | "biannual" | "oneoff";
+export type SeoReportType = "gbp" | "seo" | "both";
 export type SeoPaymentStatus = "payment_pending" | "active" | "past_due" | "cancelled" | "paid";
 
 /** An SEO customer's own account: the shared account fields plus what SEO adds. */
 export interface SeoAccount extends AccountBase {
   website: string;
   plan: SeoPlanCode;
+  report_type: SeoReportType;
+  report_type_label: string;
   payment_status: SeoPaymentStatus;
+  has_usable_password: boolean;
 }
 
 export interface SeoCheckout {
@@ -88,4 +92,13 @@ export async function updateSeoOnboarding(changes: SeoOnboardingChanges): Promis
 
 export async function submitSeoOnboarding(): Promise<SeoOnboardingProfile> {
   return jsonOrError(await authedFetch("/api/seo/onboarding/submit/", { method: "POST" }));
+}
+
+export async function setSeoPassword(password: string): Promise<void> {
+  await jsonOrError(
+    await authedFetch("/api/seo/set-password/", {
+      method: "POST",
+      body: JSON.stringify({ password }),
+    }),
+  );
 }

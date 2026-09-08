@@ -77,7 +77,13 @@ export default function SeoSubscriberDetailPage() {
           />
         )}
 
-        <AccountContactCard account={account} extra={[["Website", account.website || "Not supplied"]]} />
+        <AccountContactCard
+          account={account}
+          extra={[
+            ["Website", account.website || "Not supplied"],
+            ["Report", account.report_type_label],
+          ]}
+        />
         <AccountBillingCard account={account} statusChangedAt={account.status_changed_at} />
 
         <StaffNotesCard

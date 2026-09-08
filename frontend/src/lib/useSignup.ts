@@ -4,19 +4,26 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useAuth } from "@/context/AuthContext";
-import { postJson } from "@/lib/api";
+import { normaliseWebsiteUrl, postJson, type Principal } from "@/lib/api";
 
 export type SignupStatus = "idle" | "submitting" | "error";
 
 /**
- * Create an account from a plan-picker form, then sign in and continue to
- * payment. Shared by the licensing and SEO signups: both post the whole form
- * plus the chosen plan, and both depend on the new account being signed in
- * before the payment page can prepare a checkout.
+ * Create an account from a plan-picker form and continue to payment. Licensing
+ * signs in with the submitted password; the lower-friction SEO endpoint creates
+ * the authenticated session itself.
  */
-export function useSignup({ endpoint, nextHref }: { endpoint: string; nextHref: string }) {
+export function useSignup({
+  endpoint,
+  nextHref,
+  sessionFromSignup = false,
+}: {
+  endpoint: string;
+  nextHref: string;
+  sessionFromSignup?: boolean;
+}) {
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, adoptSession } = useAuth();
   const [status, setStatus] = useState<SignupStatus>("idle");
   const [error, setError] = useState("");
 
@@ -26,12 +33,17 @@ export function useSignup({ endpoint, nextHref }: { endpoint: string; nextHref: 
     setError("");
 
     const values = new FormData(event.currentTarget);
+    // Signup forms take a website as a plain host, so add the scheme the API's
+    // URLField needs rather than rejecting what the placeholder told them to type.
+    const website = values.get("website");
+    if (typeof website === "string" && website.trim()) values.set("website", normaliseWebsiteUrl(website));
     const email = String(values.get("email") ?? "");
     const password = String(values.get("password") ?? "");
 
     try {
-      await postJson(endpoint, { ...Object.fromEntries(values.entries()), ...extra });
-      await login(email, password);
+      const result = await postJson<Principal>(endpoint, { ...Object.fromEntries(values.entries()), ...extra });
+      if (sessionFromSignup) adoptSession(result);
+      else await login(email, password);
       router.push(nextHref);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Unable to create your account.");

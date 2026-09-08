@@ -24,6 +24,9 @@ export interface WebsiteEnquiryConfiguration {
   capabilities?: Array<{ key: string; name: string; selected: boolean }>;
   inventory_options?: Array<{ key: string; name: string; selected: boolean }>;
   custom_capability?: string;
+  /** Set by the budget enquiry form rather than the dealer website builder. */
+  project_type?: "website" | "automation" | "both";
+  budget?: string;
 }
 
 export interface Enquiry {

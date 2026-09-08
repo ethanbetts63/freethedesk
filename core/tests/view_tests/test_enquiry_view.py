@@ -1,9 +1,18 @@
 import pytest
+from django.core.cache import cache
 
 from core.models import Enquiry, Notification
 from core.tests.factories import EnquiryFactory
 
 pytestmark = pytest.mark.django_db
+
+
+@pytest.fixture(autouse=True)
+def _clear_throttle_cache():
+    # The enquiry endpoints share a 10/hour bucket held in the default cache,
+    # which outlives a single test. Without this, tests start 429-ing once
+    # enough of them have posted.
+    cache.clear()
 
 
 def test_enquiry_can_be_created(api_client):
@@ -133,6 +142,119 @@ def test_honeypot_submission_is_quietly_discarded(api_client):
         },
         format="json",
     )
+    assert response.status_code == 201
+    assert Enquiry.objects.count() == 0
+
+
+def test_free_ai_readiness_check_creates_a_tagged_enquiry(api_client):
+    response = api_client.post(
+        "/api/ai-readiness/",
+        {
+            "website": "https://www.example.com.au",
+            "phone": "0400 000 000",
+            "email": "owner@example.com.au",
+        },
+        format="json",
+    )
+
+    assert response.status_code == 201
+    enquiry = Enquiry.objects.get()
+    assert enquiry.help_with == Enquiry.HelpWith.AI_READINESS
+    assert enquiry.business == "example.com.au"
+    assert enquiry.website == "https://www.example.com.au"
+    assert Notification.objects.count() == 2
+
+
+def test_free_ai_readiness_check_accepts_a_submission_without_a_phone_number(api_client):
+    response = api_client.post(
+        "/api/ai-readiness/",
+        {"website": "https://example.com.au", "email": "owner@example.com.au"},
+        format="json",
+    )
+
+    assert response.status_code == 201
+    assert Enquiry.objects.get().phone == ""
+
+
+def test_free_ai_readiness_check_requires_a_website_and_email(api_client):
+    response = api_client.post("/api/ai-readiness/", {"phone": "0400 000 000"}, format="json")
+
+    assert response.status_code == 400
+    assert {"website", "email"} <= response.json().keys()
+    assert not Enquiry.objects.exists()
+
+
+def test_project_enquiry_records_the_scope_and_budget(api_client):
+    response = api_client.post(
+        "/api/project-enquiries/",
+        {
+            "project_type": "both",
+            "budget": "$3,000",
+            "website": "https://www.example.com.au",
+            "email": "owner@example.com.au",
+            "phone": "0400 000 000",
+        },
+        format="json",
+    )
+
+    assert response.status_code == 201
+    enquiry = Enquiry.objects.get()
+    assert enquiry.help_with == Enquiry.HelpWith.EVERYTHING
+    assert enquiry.business == "example.com.au"
+    assert enquiry.configuration == {"project_type": "both", "budget": "$3,000"}
+    assert "Budget: $3,000." in enquiry.message
+    assert Notification.objects.count() == 2
+
+
+def test_project_enquiry_accepts_a_custom_budget_without_a_phone_number(api_client):
+    response = api_client.post(
+        "/api/project-enquiries/",
+        {
+            "project_type": "automation",
+            "budget": "Around 12k, flexible",
+            "website": "https://example.com.au",
+            "email": "owner@example.com.au",
+        },
+        format="json",
+    )
+
+    assert response.status_code == 201
+    enquiry = Enquiry.objects.get()
+    assert enquiry.help_with == Enquiry.HelpWith.AUTOMATION
+    assert enquiry.phone == ""
+    assert enquiry.configuration["budget"] == "Around 12k, flexible"
+
+
+def test_project_enquiry_rejects_an_unknown_project_type(api_client):
+    response = api_client.post(
+        "/api/project-enquiries/",
+        {
+            "project_type": "spaceship",
+            "budget": "$1,000",
+            "website": "https://example.com.au",
+            "email": "owner@example.com.au",
+        },
+        format="json",
+    )
+
+    assert response.status_code == 400
+    assert "project_type" in response.json()
+    assert not Enquiry.objects.exists()
+
+
+def test_project_enquiry_honeypot_is_silently_discarded(api_client):
+    response = api_client.post(
+        "/api/project-enquiries/",
+        {
+            "project_type": "website",
+            "budget": "$1,000",
+            "website": "https://example.com.au",
+            "email": "bot@example.com",
+            "company_website": "filled in by a bot",
+        },
+        format="json",
+    )
+
     assert response.status_code == 201
     assert Enquiry.objects.count() == 0
 

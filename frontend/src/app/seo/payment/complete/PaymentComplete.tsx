@@ -25,7 +25,10 @@ export function PaymentComplete() {
         if (cancelled) return;
         if (account.payment_status === "active" || account.payment_status === "paid") {
           setState("active");
-          timeout = setTimeout(() => router.replace("/seo-portal/overview"), 900);
+          timeout = setTimeout(
+            () => router.replace(account.has_usable_password ? "/seo-portal/overview" : "/seo-portal/account"),
+            900,
+          );
           return;
         }
         if (account.payment_status === "past_due" || account.payment_status === "cancelled") {

@@ -39,25 +39,11 @@
   flex-direction: column;
   gap: 24px;
 }
+/* Sizing and placement only — the look comes from the global .primary-button. */
 .sectionCta {
-  align-items: center;
+  --pb-font-size: 0.74rem;
+  --pb-padding: 15px 18px;
   align-self: flex-start;
-  background: var(--page-accent);
-  color: #fff;
-  display: inline-flex;
-  font-size: 0.74rem;
-  font-weight: 900;
-  gap: 28px;
-  letter-spacing: 0.05em;
-  padding: 15px 18px;
-  text-transform: uppercase;
-}
-.sectionCta span {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-.sectionCta:hover span {
-  transform: translateX(4px);
 }
 .servicesCta {
   margin-top: 48px;
@@ -188,6 +174,43 @@
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(4, 1fr);
+}
+.standaloneChoice {
+  align-items: stretch;
+  background: #eaf3fb;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.7fr);
+  margin-top: 18px;
+  padding: 24px;
+  scroll-margin-top: 24px;
+}
+.standaloneCopy {
+  align-self: center;
+  padding: 10px 18px;
+}
+.standaloneCopy > span {
+  color: var(--page-accent);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.standaloneCopy h3 {
+  font-size: clamp(1.7rem, 3vw, 2.7rem);
+  letter-spacing: -0.05em;
+  margin: 8px 0 10px;
+}
+.standaloneCopy p {
+  color: #536c80;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 530px;
+}
+.standaloneCard {
+  background: #fff;
+  min-height: 250px;
 }
 .planCard {
   appearance: none;
@@ -334,22 +357,177 @@
   transform: translateX(4px);
 }
 
-/* Signup panel — mirrors the licensing page's signup layout. */
+/* Report builder — shares the structured, animated-card language of the pipeline above. */
 .signupPanel {
-  background: #13315c;
+  animation: moving-colour-border-shift 6s linear infinite;
+  background-clip: padding-box, border-box;
+  background-image: linear-gradient(#fff, #fff), var(--moving-colour-gradient-surface);
+  background-origin: border-box;
+  background-size:
+    100% 100%,
+    var(--moving-colour-size);
+  border: 2px solid transparent;
   display: grid;
-  grid-template-columns: 0.78fr 1.22fr;
-  margin-top: 18px;
-  min-height: 540px;
+  grid-template-columns: 1.25fr 0.75fr;
+  margin-top: 0;
+  min-height: 590px;
+}
+.selectionPanel {
+  color: #07121c;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(34px, 4.5vw, 64px);
+  scroll-margin-top: 24px;
+}
+.selectionPanel h2 {
+  color: #07121c;
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  margin-bottom: 42px;
+}
+.selectionPanel .labelLight {
+  color: var(--page-accent);
+}
+.choiceGroup + .choiceGroup {
+  margin-top: 28px;
+}
+.choiceGroup > p {
+  border-bottom: 1px solid #d9e5ef;
+  color: var(--page-accent);
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  margin: 0 0 12px;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+}
+.reportTypeGrid,
+.frequencyGrid {
+  display: grid;
+  gap: 8px;
+}
+.reportTypeGrid {
+  grid-template-columns: repeat(3, 1fr);
+}
+.frequencyGrid {
+  grid-template-columns: repeat(4, 1fr);
+}
+.reportTypeGrid button,
+.frequencyGrid button {
+  align-items: center;
+  appearance: none;
+  background: #f5f8fa;
+  border: 1px solid #d7e2e9;
+  color: #213748;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 850;
+  justify-content: center;
+  min-height: 56px;
+  padding: 10px;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+.reportTypeGrid button small,
+.frequencyGrid button small {
+  color: #60778b;
+  font-size: 0.45rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+.reportTypeGrid button:hover,
+.frequencyGrid button:hover {
+  background: #fff;
+  border-color: var(--page-accent);
+}
+.reportTypeGrid button:focus-visible,
+.frequencyGrid button:focus-visible {
+  outline: 3px solid rgba(143, 206, 246, 0.35);
+  outline-offset: 2px;
+}
+.reportTypeGrid .choiceSelected,
+.frequencyGrid .choiceSelected {
+  background: #13315c;
+  border-color: #13315c;
+  color: #fff;
+}
+/* Must out-specify the plain :hover above, which would otherwise repaint the
+   selected tile white and leave its white text invisible. */
+.reportTypeGrid .choiceSelected:hover,
+.frequencyGrid .choiceSelected:hover {
+  background: #1b4275;
+  border-color: #1b4275;
+}
+.reportTypeGrid .choiceSelected small,
+.frequencyGrid .choiceSelected small {
+  color: #8fcef6;
+}
+.reportTypeGrid .choiceRecommended {
+  animation: moving-colour-border-shift 6s linear infinite;
+  background-clip: padding-box, border-box;
+  background-image: linear-gradient(#f5f8fa, #f5f8fa), var(--moving-colour-gradient-surface);
+  background-origin: border-box;
+  background-size:
+    100% 100%,
+    var(--moving-colour-size);
+  border: 2px solid transparent;
+}
+.reportTypeGrid .choiceRecommended.choiceSelected {
+  background-image: linear-gradient(#13315c, #13315c), var(--moving-colour-gradient-surface);
+}
+.frequencyGrid .frequencyRecommended {
+  border-color: var(--page-accent);
+  box-shadow: inset 0 -3px 0 var(--page-accent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reportTypeGrid .choiceRecommended,
+  .signupPanel {
+    animation: none;
+  }
+}
+.selectionTotal {
+  align-items: center;
+  border-top: 1px dashed #cad9e4;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: auto 1fr;
+  margin-top: auto;
+  padding-top: 24px;
+}
+.selectionTotal > span {
+  color: #2b4051;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+.selectionTotal > div {
+  display: grid;
+  gap: 2px;
+}
+.selectionTotal strong {
+  --moving-colour-speed: 6s;
+  font-size: 2.8rem;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+.selectionTotal small {
+  color: #60778b;
+  font-size: 0.62rem;
 }
 .selectedSummary {
   color: #fff;
   display: flex;
   flex-direction: column;
-  padding: clamp(34px, 4.5vw, 64px);
+  padding: clamp(28px, 3.5vw, 48px);
+  scroll-margin-top: 24px;
 }
-.selectedSummary > span,
-.formTitle > span {
+.selectedSummary > span {
   color: #70bced;
   font-size: 0.66rem;
   font-weight: 900;
@@ -360,7 +538,80 @@
   font-size: clamp(2rem, 3vw, 3.25rem);
   letter-spacing: -0.055em;
   line-height: 1;
-  margin: 60px 0 18px;
+  margin: 34px 0 18px;
+}
+.compactPlanGrid {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 18px;
+}
+.compactPlan {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  gap: 2px 8px;
+  grid-template-columns: 1fr auto;
+  min-height: 70px;
+  padding: 11px 12px;
+  position: relative;
+  text-align: left;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+.compactPlan:last-child {
+  grid-column: 1 / -1;
+}
+.compactPlan:hover {
+  border-color: #8fcef6;
+}
+.compactPlan:focus-visible {
+  outline: 3px solid rgba(143, 206, 246, 0.35);
+  outline-offset: 2px;
+}
+.compactPlanSelected {
+  background: #fff;
+  border-color: #fff;
+  color: #07121c;
+}
+.compactPlan > span {
+  align-self: end;
+  font-size: 0.68rem;
+  font-weight: 850;
+  line-height: 1.2;
+}
+.compactPlan > strong {
+  align-self: end;
+  font-size: 0.92rem;
+  letter-spacing: -0.04em;
+}
+.compactPlan > small {
+  color: #9fc0d9;
+  font-size: 0.55rem;
+  grid-column: 2;
+  text-align: right;
+}
+.compactPlanSelected > small {
+  color: #60778b;
+}
+.compactPlan > i {
+  color: #8fcef6;
+  font-size: 0.47rem;
+  font-style: normal;
+  font-weight: 900;
+  left: 12px;
+  letter-spacing: 0.08em;
+  position: absolute;
+  text-transform: uppercase;
+  top: 7px;
+}
+.compactPlanSelected > i {
+  color: #247ec9;
 }
 .selectedSummary > p {
   color: #b9ccdc;
@@ -387,28 +638,32 @@
   left: 0;
   position: absolute;
 }
-.selectedSummary > div {
+.selectedPrice {
   align-items: baseline;
   display: flex;
   gap: 11px;
   margin-top: auto;
 }
-.selectedSummary > div strong {
+.selectedPrice strong {
   font-size: 2.5rem;
   letter-spacing: -0.06em;
 }
-.selectedSummary > div span {
+.selectedPrice span {
   color: #b9ccdc;
   font-size: 0.72rem;
 }
 .signupForm {
-  background: #f3f7fa;
+  background: #f5f8fa;
+  border-left: 1px solid #d9e5ef;
   display: flex;
   flex-direction: column;
-  padding: clamp(34px, 5vw, 72px);
+  justify-content: center;
+  padding: clamp(30px, 3.5vw, 48px);
 }
 .formTitle {
-  margin-bottom: 22px;
+  border-bottom: 1px solid #d9e5ef;
+  margin-bottom: 26px;
+  padding-bottom: 20px;
 }
 .formTitle h3 {
   font-size: clamp(1.5rem, 2.4vw, 2.1rem);
@@ -420,6 +675,9 @@
   gap: 16px;
   grid-template-columns: 1fr 1fr;
 }
+.fieldFull {
+  width: 100%;
+}
 .signupForm label {
   color: #2b4051;
   display: block;
@@ -428,12 +686,14 @@
   margin-bottom: 16px;
 }
 .signupForm label > span {
-  display: block;
+  align-items: center;
+  display: flex;
+  gap: 8px;
   margin-bottom: 8px;
 }
 .signupForm input {
   background: #fff;
-  border: 1px solid #cbd9e2;
+  border: 1px solid #c7d6e0;
   border-radius: 0;
   color: #000;
   font: inherit;
@@ -442,6 +702,13 @@
   outline: none;
   padding: 0 14px;
   width: 100%;
+}
+/* `font: inherit` above pulls the label's 850 weight into the placeholder, so
+   reset it to match the quieter example text in the AI readiness banner. */
+.signupForm input::placeholder {
+  color: #91a9c1;
+  font-size: 0.78rem;
+  font-weight: 400;
 }
 .signupForm input:focus {
   border-color: var(--page-accent);
@@ -460,7 +727,7 @@
 }
 .signupSubmit {
   align-items: center;
-  background: var(--page-accent);
+  background: #13315c;
   border: 0;
   color: #fff;
   cursor: pointer;
@@ -489,12 +756,6 @@
   line-height: 1.5;
   margin: 0 0 12px;
   padding: 11px 13px;
-}
-.secureNote {
-  color: #70869a;
-  font-size: 0.68rem;
-  line-height: 1.5;
-  margin: 12px 0 0;
 }
 
 .caseSection {
@@ -622,15 +883,10 @@
   margin: 27px auto 31px;
   max-width: 570px;
 }
-.closing > a {
-  align-items: center;
-  background: var(--page-accent);
-  color: #fff;
-  display: inline-flex;
-  font-size: 0.8rem;
-  font-weight: 900;
-  gap: 35px;
-  padding: 17px 20px;
+.closingCta {
+  --pb-font-size: 0.8rem;
+  --pb-gap: 35px;
+  --pb-padding: 17px 20px;
 }
 
 @media (max-width: 900px) {
@@ -641,8 +897,15 @@
   .planGrid {
     grid-template-columns: 1fr 1fr;
   }
+  .standaloneChoice {
+    grid-template-columns: 1fr;
+  }
   .signupPanel {
     grid-template-columns: 1fr;
+  }
+  .signupForm {
+    border-left: 0;
+    border-top: 1px solid #d9e5ef;
   }
   .selectedSummary {
     min-height: 420px;
@@ -673,8 +936,23 @@
   .planCard {
     min-height: 250px;
   }
+  .standaloneChoice {
+    padding: 14px;
+  }
+  .standaloneCopy {
+    padding: 14px 8px;
+  }
   .fieldRow {
     grid-template-columns: 1fr;
+  }
+  .reportTypeGrid {
+    grid-template-columns: 1fr;
+  }
+  .frequencyGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .selectionPanel {
+    padding: 34px 20px;
   }
   .caseStatOverlay {
     bottom: 34px;

@@ -52,12 +52,31 @@ SEO_PLAN_DETAILS = {
 }
 
 
-def seo_quote_for_plan(plan) -> SeoQuote:
+def seo_quote_for_plan(plan, report_type) -> SeoQuote:
     details = SEO_PLAN_DETAILS.get(plan)
     if not details:
         raise PaymentConfigurationError("This SEO plan is unavailable.", code="invalid_plan")
-    field_name, name, recurring = details
-    price = getattr(SiteSettings.load(), field_name)
+    field_name, seo_name, recurring = details
+    site_settings = SiteSettings.load()
+    seo_price = getattr(site_settings, field_name)
+    gbp_price = site_settings.gbp_audit_price
+    cadence = {
+        SeoSubscriber.Plan.MONTHLY: "Monthly",
+        SeoSubscriber.Plan.QUARTERLY: "Quarterly",
+        SeoSubscriber.Plan.BIANNUAL: "Bi-annual",
+        SeoSubscriber.Plan.ONEOFF: "One-off",
+    }[plan]
+    if report_type == SeoSubscriber.ReportType.GBP:
+        name = f"{cadence} Google Business Profile report"
+        price = gbp_price
+    elif report_type == SeoSubscriber.ReportType.SEO:
+        name = seo_name
+        price = seo_price
+    elif report_type == SeoSubscriber.ReportType.BOTH:
+        name = f"{cadence} Google Business Profile + SEO report"
+        price = seo_price + gbp_price
+    else:
+        raise PaymentConfigurationError("This report type is unavailable.", code="invalid_report_type")
     return SeoQuote(plan=plan, name=name, price=price, recurring=recurring)
 
 
@@ -65,15 +84,16 @@ def current_seo_terms_sha256() -> str:
     try:
         return sha256(settings.SEO_TERMS_FILE.read_bytes()).hexdigest()
     except OSError as error:
-        raise PaymentConfigurationError("SEO subscription terms are not configured.") from error
+        raise PaymentConfigurationError("SEO reporting and audit terms are not configured.") from error
 
 
 def accept_current_seo_offer(*, subscriber, user, accepted_ip):
-    quote = seo_quote_for_plan(subscriber.plan)
+    quote = seo_quote_for_plan(subscriber.plan, subscriber.report_type)
     terms_hash = current_seo_terms_sha256()
     acceptance, _ = SeoSubscriptionTermsAcceptance.objects.get_or_create(
         subscriber=subscriber,
         plan=subscriber.plan,
+        report_type=subscriber.report_type,
         price=quote.price,
         currency=quote.currency.upper(),
         terms_version=settings.SEO_TERMS_VERSION,
@@ -129,6 +149,7 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
     metadata = {
         "subscriber_id": str(subscriber.pk),
         "plan": subscriber.plan,
+        "report_type": subscriber.report_type,
         "terms_acceptance_id": str(acceptance.pk),
         "terms_sha256": acceptance.terms_sha256,
         "price_cents": str(quote.unit_amount),
@@ -229,7 +250,7 @@ def handle_seo_checkout_session_completed(session):
     subscriber.stripe_customer_id = _value(session, "customer") or subscriber.stripe_customer_id
 
     if _value(session, "mode") == "payment" or subscriber.is_one_off:
-        # One-off report: there is no subscription event, so this is authoritative.
+        # One-off products have no subscription event, so this is authoritative.
         subscriber.stripe_payment_intent_id = (
             _value(session, "payment_intent") or subscriber.stripe_payment_intent_id
         )

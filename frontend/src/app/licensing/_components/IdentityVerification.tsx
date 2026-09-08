@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 
+import { PrimaryButton } from "@/components/PrimaryButton";
 import styles from "../page.module.css";
 
 const steps = [
@@ -48,9 +48,9 @@ export function IdentityVerification() {
           Verification runs on Stripe Identity, part of Stripe — one of the world&apos;s largest and most trusted
           payment platforms, used by millions of businesses globally.
         </p>
-        <Link className={styles.sectionCta} href="#signup">
-          Choose your plan <span>→</span>
-        </Link>
+        <PrimaryButton className={styles.sectionCta} href="#signup">
+          Choose your plan
+        </PrimaryButton>
       </div>
 
       <div className={styles.verifyCard}>
@@ -59,10 +59,11 @@ export function IdentityVerification() {
           <b>~60 seconds</b>
         </header>
         <ol className={styles.verifySteps}>
-          {steps.map((step) => (
+          {steps.map((step, index) => (
             <li key={step.title}>
               <div className={styles.verifyIcon}>{step.icon}</div>
               <div>
+                <span>{String(index + 1).padStart(2, "0")}</span>
                 <strong>{step.title}</strong>
                 <small>{step.detail}</small>
               </div>

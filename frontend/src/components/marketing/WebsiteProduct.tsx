@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { PrimaryButton } from "@/components/PrimaryButton";
 import styles from "./WebsiteProduct.module.css";
 
 export function WebsiteProduct() {
@@ -21,9 +20,9 @@ export function WebsiteProduct() {
           </p>
 
           <div className={styles.actions}>
-            <Link className={styles.primary} href="/dealership-website-builder">
-              Configure now <span>→</span>
-            </Link>
+            <PrimaryButton className={styles.primary} href="/dealership-website-builder">
+              Configure now
+            </PrimaryButton>
             <a className={styles.dealerExample} href="https://www.scootershop.com.au" target="_blank" rel="noreferrer">
               <small>See a complete dealer example</small>
               <strong>

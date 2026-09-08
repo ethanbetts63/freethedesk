@@ -1,7 +1,7 @@
 from .admin import AdminSeoSubscriberDetailView, AdminSeoSubscriberListView
 from .onboarding import SeoOnboardingSubmitView, SeoOnboardingView
 from .registration import SeoRegistrationView
-from .subscriber import SeoAccountView
+from .subscriber import SeoAccountView, SeoPasswordView
 
 __all__ = [
     "AdminSeoSubscriberDetailView",
@@ -10,4 +10,5 @@ __all__ = [
     "SeoOnboardingView",
     "SeoRegistrationView",
     "SeoAccountView",
+    "SeoPasswordView",
 ]

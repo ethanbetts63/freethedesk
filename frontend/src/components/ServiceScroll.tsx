@@ -20,23 +20,16 @@ const customService = {
 };
 
 /**
- * The sticky service list shared by the automation page and the homepage's
- * dealership pitch. Every use gets the same "something only your business
- * does" closer, so the custom-solution pitch never drifts between pages.
+ * The sticky service list, used by /automation, /website-development, /seo and
+ * the dealership pitch. Every page gets the identical layout and the same
+ * "something only your business does" closer; only the service copy and the
+ * closer's destination differ, so the pitch cannot drift between pages.
  *
  * Needs `main:has(.service-scroll) { overflow: visible }` (see globals.css)
  * on whichever page renders this—position:sticky is inert under any ancestor
  * with overflow != visible, and every <main> defaults to overflow: hidden.
  */
-export function ServiceScroll({
-  services,
-  showCustomRow = true,
-  customHref = "/contact",
-}: {
-  services: Service[];
-  showCustomRow?: boolean;
-  customHref?: string;
-}) {
+export function ServiceScroll({ services, customHref }: { services: Service[]; customHref: string }) {
   return (
     <div className="service-scroll">
       {services.map((service, index) => (
@@ -60,25 +53,23 @@ export function ServiceScroll({
           </div>
         </div>
       ))}
-      {showCustomRow && (
-        <div className="service-row service-row-highlight">
-          <div className="service-sticky">
-            <span style={{ color: customService.color }}>0{services.length + 1}</span>
-            <h3>{customService.title}</h3>
-          </div>
-          <div className="service-content">
-            <div className="service-lead">
-              <div className="service-icon" style={{ color: customService.color }}>
-                {customService.icon}
-              </div>
-              <p>{customService.body}</p>
-            </div>
-            <Link className="service-cta" href={customHref} style={{ background: customService.color }}>
-              Tell us about it <span>→</span>
-            </Link>
-          </div>
+      <div className="service-row service-row-highlight">
+        <div className="service-sticky">
+          <span style={{ color: customService.color }}>0{services.length + 1}</span>
+          <h3>{customService.title}</h3>
         </div>
-      )}
+        <div className="service-content">
+          <div className="service-lead">
+            <div className="service-icon" style={{ color: customService.color }}>
+              {customService.icon}
+            </div>
+            <p>{customService.body}</p>
+          </div>
+          <Link className="service-cta" href={customHref} style={{ background: customService.color }}>
+            Tell us about it <span>→</span>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

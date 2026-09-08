@@ -10,10 +10,10 @@ import { useAuth } from "@/context/AuthContext";
 import { createSeoCheckout, getSeoAccount, type SeoAccount } from "@/lib/seoApi";
 import { getSiteSettings } from "@/lib/api";
 import { stripeConfigured, stripePromise, STRIPE_ELEMENTS_OPTIONS } from "@/lib/stripe";
-import { buildSeoPlans, planByCode, type SeoPlan } from "../_lib/plans";
+import { buildSeoPlans, planByCode, reportTypeLabel, type SeoPlan } from "../_lib/plans";
 import styles from "./page.module.css";
 
-function PaymentForm({ planName, oneOff }: { planName: string; oneOff: boolean }) {
+function PaymentForm({ planName, oneOff, isAudit }: { planName: string; oneOff: boolean; isAudit: boolean }) {
   const result = useCheckoutElements();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -53,7 +53,9 @@ function PaymentForm({ planName, oneOff }: { planName: string; oneOff: boolean }
         </p>
       )}
       <button type="submit" className={styles.payButton} disabled={!result.checkout.canConfirm || submitting}>
-        <span>{submitting ? "Confirming…" : oneOff ? "Pay for report" : "Start subscription"}</span>
+        <span>
+          {submitting ? "Confirming…" : isAudit ? "Pay for audit" : oneOff ? "Pay for report" : "Start subscription"}
+        </span>
         <b>→</b>
       </button>
       <p className={styles.paymentFineprint}>
@@ -87,7 +89,7 @@ export function SeoPaymentPage() {
     Promise.all([getSeoAccount(), getSiteSettings()])
       .then(([seoAccount, settings]) => {
         setAccount(seoAccount);
-        setPlans(buildSeoPlans(settings));
+        setPlans(buildSeoPlans(settings, seoAccount.report_type));
         if (seoAccount.payment_status === "active" || seoAccount.payment_status === "paid") {
           router.replace("/seo-portal/overview");
           return;
@@ -98,7 +100,9 @@ export function SeoPaymentPage() {
   }, [authLoading, router, user]);
 
   const plan = account ? planByCode(plans, account.plan) : undefined;
+  const isAudit = account?.report_type === "gbp";
   const oneOff = account?.plan === "oneoff";
+  const productName = account && plan ? `${reportTypeLabel(account.report_type)} · ${plan.name}` : "Your report";
   const displayedPrice = quotedPrice
     ? `$${Number(quotedPrice).toLocaleString("en-AU", { maximumFractionDigits: 2 })}`
     : plan?.price;
@@ -136,14 +140,14 @@ export function SeoPaymentPage() {
             free<span>the</span>desk<i>.</i>
           </Link>
           <div className={styles.summaryCopy}>
-            <p>Selected plan</p>
-            <h1>{plan?.name ?? "Your SEO plan"}</h1>
+            <p>Selected {isAudit ? "product" : "plan"}</p>
+            <h1>{productName}</h1>
             <span>{plan?.summary ?? "Preparing your secure checkout."}</span>
           </div>
           {plan && (
             <div className={styles.orderSummary}>
               <div>
-                <span>{oneOff ? "One-off report" : `${plan.name} report`}</span>
+                <span>{productName}</span>
                 <strong>{displayedPrice}</strong>
               </div>
               <div>
@@ -176,7 +180,7 @@ export function SeoPaymentPage() {
             stripe={stripePromise}
             options={{ clientSecret, elementsOptions: STRIPE_ELEMENTS_OPTIONS }}
           >
-            <PaymentForm planName={plan.name} oneOff={oneOff} />
+            <PaymentForm planName={productName} oneOff={oneOff} isAudit={isAudit} />
           </CheckoutElementsProvider>
         ) : account && plan ? (
           <form className={styles.paymentForm} onSubmit={prepareCheckout}>
@@ -194,7 +198,7 @@ export function SeoPaymentPage() {
               <span>
                 I agree to the{" "}
                 <Link href="/legal/seo-subscription-terms" target="_blank">
-                  SEO Subscription Terms
+                  SEO Reporting &amp; Audit Terms
                 </Link>
                 , acknowledge the{" "}
                 <Link href="/legal/privacy" target="_blank">

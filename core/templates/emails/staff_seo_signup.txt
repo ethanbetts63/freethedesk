@@ -1,6 +1,6 @@
-New SEO signup
+New {% if is_gbp_audit %}Google Business Profile audit{% else %}SEO{% endif %} signup
 
-{{ subscriber.business_name }} has created an SEO account and is waiting for approval.
+{{ subscriber.business_name }} has created a {% if is_gbp_audit %}Google Business Profile audit{% else %}SEO{% endif %} account and is waiting for approval.
 
 Business: {{ subscriber.business_name }}
 Contact:  {{ subscriber.contact_name }}
@@ -8,5 +8,6 @@ Email:    {{ subscriber.user.email }}
 Phone:    {{ subscriber.phone|default:"Not supplied" }}
 Website:  {{ subscriber.website|default:"Not supplied" }}
 Plan:     {{ subscriber.get_plan_display }}
+Report:   {{ subscriber.get_report_type_display }}
 
 Review this customer: {{ subscriber_url }}

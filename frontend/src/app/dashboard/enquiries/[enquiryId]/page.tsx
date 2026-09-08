@@ -146,6 +146,12 @@ export default function EnquiryDetailPage() {
               <dt>Interested in</dt>
               <dd>{enquiry.help_with_label}</dd>
             </div>
+            {configuration.budget && (
+              <div>
+                <dt>Stated budget</dt>
+                <dd>{configuration.budget}</dd>
+              </div>
+            )}
           </dl>
         </section>
         {enquiry.help_with === "website_builder" && (

@@ -79,9 +79,9 @@ export function FlagshipCheckout() {
             <li>Identity verification</li>
             <li>Optional payment and delivery handling</li>
           </ul>
-          <Link href="/licensing">
-            Explore online licensing <span>→</span>
-          </Link>
+          <PrimaryButton className={styles.copyCta} href="/licensing">
+            Explore online licensing
+          </PrimaryButton>
         </div>
       </div>
     </section>

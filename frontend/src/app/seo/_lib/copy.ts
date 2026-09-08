@@ -4,7 +4,7 @@ export const SEO_FAQS: FaqItem[] = [
   {
     question: "What access do you actually need?",
     answer:
-      "Read-only access to Google Search Console—that's it. We can't edit your site, we don't install anything, and we can't see anything beyond how Google already sees you.",
+      "A full SEO report uses read-only Google Search Console access. The standalone Google Business Profile audit only needs your profile link and business location. We can't edit your site or profile, and we don't install anything.",
   },
 
   {
@@ -28,7 +28,7 @@ export const SEO_FAQS: FaqItem[] = [
   {
     question: "What about AI search—ChatGPT, AI Overviews?",
     answer:
-      "Search increasingly answers the question directly and cites its sources. The work that earns those citations is the same work that ranks: structured data, fast pages, and clear answers to real questions. Every plan includes a free four-point AI readiness check: a clean accessibility tree, a stable layout, a useful llms.txt file, and robots.txt rules that do not block the crawlers you want. Every report is then written with both search and AI answers in mind.",
+      "Search increasingly answers the question directly and cites its sources. The work that earns those citations is the same work that ranks: structured data, fast pages, and clear answers to real questions. Our four-point AI readiness check is free for anyone—enter your website, phone and email and we'll send the result. Every paid report is then written with both search and AI answers in mind.",
   },
 
   {
@@ -40,6 +40,6 @@ export const SEO_FAQS: FaqItem[] = [
   {
     question: "What's the Google Business Profile audit?",
     answer:
-      "A one-off review of your Google Business Profile: every issue, every field we'd change, and the exact value we'd change it to. It's a one-off because a profile has far fewer levers than a website—and it's free with every report plan.",
+      "A focused review of your Google Business Profile: every issue, every field we'd change, and the exact value we'd change it to. Choose it by itself or combine it with an SEO report, then select monthly, quarterly, bi-annual or one-off delivery.",
   },
 ];

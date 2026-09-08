@@ -97,7 +97,10 @@ function SeoSubscribersContent() {
                     <strong>{subscriber.contact_name}</strong>
                     <small>{subscriber.email}</small>
                   </td>
-                  <td>{subscriber.plan_label}</td>
+                  <td>
+                    {subscriber.report_type_label}
+                    <small>{subscriber.plan_label}</small>
+                  </td>
                   <td>{subscriber.payment_status_label}</td>
                   <td>{subscriber.phone || "—"}</td>
                   <td>

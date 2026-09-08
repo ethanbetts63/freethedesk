@@ -11,12 +11,6 @@
   padding-bottom: 105px;
   padding-top: 105px;
 }
-.aiAuditSection {
-  padding-top: 56px;
-}
-.aiAuditFlush {
-  margin: 0;
-}
 .seoSummary {
   display: flex;
   flex-direction: column;
@@ -51,8 +45,5 @@
     margin-bottom: 40px;
     padding-bottom: 82px;
     padding-top: 82px;
-  }
-  .aiAuditSection {
-    padding-top: 40px;
   }
 }

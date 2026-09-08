@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { ContactEnquiry } from "@/components/marketing/ContactEnquiry";
+import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
+import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { metadataFor } from "@/lib/pages";
 
@@ -48,16 +49,10 @@ export default function AutomationPage() {
         <p className="section-number">01 / Practical automation</p>
         <div className="automation-intro-row">
           <h2>What gets copied, chased or checked every week?</h2>
-          <div className="automation-intro-shapes" aria-hidden="true">
-            <i style={{ background: "var(--blue-500)" }} />
-            <i style={{ background: "var(--blue-700)" }} />
-            <i style={{ background: "var(--blue-900)" }} />
-            <i style={{ background: "var(--accent-strong)" }} />
-          </div>
+          <PrimaryButton className={styles.introCta} href="#enquiry">
+            Find your first automation
+          </PrimaryButton>
         </div>
-        <Link className={styles.introCta} href="#enquiry">
-          Find your first automation <span>→</span>
-        </Link>
       </section>
 
       <section className="shell" id="workflows">
@@ -141,9 +136,7 @@ export default function AutomationPage() {
         </div>
       </section>
 
-      <section className={`shell ${styles.enquirySection}`} id="enquiry">
-        <ContactEnquiry defaultHelpWith="automation" />
-      </section>
+      <ProjectEnquiry id="enquiry" />
 
       <Faq eyebrow="03 / Common questions" title="Before we start." items={AUTOMATION_FAQS} />
 

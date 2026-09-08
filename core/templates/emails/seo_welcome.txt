@@ -1,7 +1,8 @@
 Thanks, {{ subscriber.contact_name }}. Your account for {{ subscriber.business_name }} is ready.
 
-Selected plan: {{ subscriber.get_plan_display }}
+Selected {% if is_gbp_audit %}product{% else %}plan{% endif %}: {{ subscriber.get_plan_display }}
+Report: {{ subscriber.get_report_type_display }}
 
 Continue to secure payment: {{ payment_url }}
 
-Once Stripe confirms payment, you can connect your Search Console data and tell us what to focus the reporting on.
+{% if is_gbp_audit %}Once Stripe confirms payment, you can send us your Google Business Profile link and business location.{% else %}Once Stripe confirms payment, you can connect your Search Console data and tell us what to focus the reporting on.{% endif %}

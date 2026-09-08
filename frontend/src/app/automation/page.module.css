@@ -3,25 +3,10 @@
   padding-top: 70px;
   scroll-margin-top: 24px;
 }
+/* Sits in the intro row beside the heading; the row's own gap handles spacing
+   once it wraps on narrow screens. The look comes from .primary-button. */
 .introCta {
-  align-items: center;
-  background: var(--brand-accent);
-  color: #fff;
-  display: inline-flex;
-  font-size: 0.76rem;
-  font-weight: 900;
-  gap: 28px;
-  letter-spacing: 0.05em;
-  margin-top: 38px;
-  padding: 16px 19px;
-  text-transform: uppercase;
-}
-.introCta span {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-.introCta:hover span {
-  transform: translateX(4px);
+  flex: 0 0 auto;
 }
 
 @media (max-width: 620px) {

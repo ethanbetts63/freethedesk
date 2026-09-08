@@ -47,16 +47,33 @@ def test_subscriber_can_read_and_update_own_account(client, seo_subscriber):
     assert seo_subscriber.website == "https://peak.example"
 
 
+def test_provisional_subscriber_can_set_a_password(client, seo_subscriber):
+    seo_subscriber.user.set_unusable_password()
+    seo_subscriber.user.save(update_fields=["password"])
+    client.force_login(seo_subscriber.user)
+
+    response = client.post(
+        reverse("seo-set-password"),
+        {"password": "A-New-Sturdy-Passphrase-52"},
+        content_type="application/json",
+    )
+
+    assert response.status_code == 200
+    seo_subscriber.user.refresh_from_db()
+    assert seo_subscriber.user.check_password("A-New-Sturdy-Passphrase-52")
+
+
 def test_subscriber_cannot_change_own_status_or_plan(client, seo_subscriber):
     client.force_login(seo_subscriber.user)
     client.patch(
         reverse("seo-account"),
-        {"status": "active", "plan": "monthly"},
+        {"status": "active", "plan": "monthly", "report_type": "gbp"},
         content_type="application/json",
     )
     seo_subscriber.refresh_from_db()
     assert seo_subscriber.status == SeoSubscriber.Status.PENDING
     assert seo_subscriber.plan == SeoSubscriber.Plan.QUARTERLY
+    assert seo_subscriber.report_type == SeoSubscriber.ReportType.SEO
 
 
 def test_staff_cannot_use_the_seo_account_endpoint(client, seo_subscriber, staff_user):

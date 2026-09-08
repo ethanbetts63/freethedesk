@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
+import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { metadataFor } from "@/lib/pages";
 import { getSiteSettingsServer } from "@/lib/serverApi";
@@ -56,14 +57,15 @@ export default async function LicensingPage() {
 
       <ProofStrip stats={licensingStats} />
 
-      <SignupPlans settings={settings} />
-
       <section className={styles.comparisonSection}>
         <div className={`shell ${styles.comparison}`}>
           <div className={styles.comparisonCopy}>
             <p className={styles.sectionLabel}>02 / A shorter path to sold</p>
             <h2>Keep the momentum.</h2>
             <p>Remove the steps that add effort without adding value to the customer or the dealership.</p>
+            <PrimaryButton className={styles.sectionCta} href="#signup">
+              Choose your plan
+            </PrimaryButton>
           </div>
           <div className={styles.paths}>
             <article>
@@ -105,6 +107,9 @@ export default async function LicensingPage() {
               Use the hosted product with the website you already have, or make it a seamless part of a dealership site
               we build.
             </p>
+            <PrimaryButton className={`${styles.sectionCta} ${styles.sectionCtaLight}`} href="#signup">
+              Choose your plan
+            </PrimaryButton>
           </div>
           <div className={styles.optionPhones}>
             <div className={styles.optionPhoneTile}>
@@ -130,15 +135,17 @@ export default async function LicensingPage() {
 
       <IdentityVerification />
 
-      <Faq eyebrow="06 / Common questions" title="Before you sign up." items={LICENSING_FAQS} />
+      <SignupPlans settings={settings} eyebrow="06 / Choose your plan" />
+
+      <Faq eyebrow="07 / Common questions" title="Before you sign up." items={LICENSING_FAQS} />
 
       <section className={`shell ${styles.closing}`}>
         <p className={styles.sectionLabel}>04 / Remove the barrier</p>
         <h2>A signature shouldn&apos;t require an appointment.</h2>
         <p>Let customers verify, sign and pay from wherever they are. The paperwork travels—not the customer.</p>
-        <Link href="#signup">
-          Choose your plan <span>↑</span>
-        </Link>
+        <PrimaryButton className={styles.closingCta} href="#signup" arrow="↑">
+          Choose your plan
+        </PrimaryButton>
       </section>
     </main>
   );

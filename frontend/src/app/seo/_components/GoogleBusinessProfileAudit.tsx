@@ -30,7 +30,7 @@ export function GoogleBusinessProfileAudit({
             <GoogleLogo size={31} />
           </span>
           <span>
-            <small>Included with every SEO report</small>
+            <small>Available alone or with SEO</small>
             <strong>Google Business Profile</strong>
           </span>
         </div>
@@ -49,15 +49,15 @@ export function GoogleBusinessProfileAudit({
 
         <div className={styles.offer}>
           <div className={styles.offerOption}>
-            <small>With every report plan</small>
-            <strong>Included free</strong>
+            <small>GBP report</small>
+            <strong>Choose it alone</strong>
           </div>
           <span className={styles.offerOr}>OR</span>
           <div className={styles.offerOption}>
-            <small>One-off audit</small>
+            <small>Price per report</small>
             <span className={styles.priceLine}>
               <strong>{standalonePrice}</strong>
-              <em>once</em>
+              <em>from</em>
             </span>
           </div>
         </div>

@@ -1,0 +1,162 @@
+/* Sits between the two #f2f7fb sections, so this one stays white for contrast. */
+.section {
+  padding-bottom: var(--section-space);
+  padding-top: var(--section-space);
+  scroll-margin-top: 24px;
+}
+.heading {
+  max-width: 860px;
+}
+.label {
+  color: var(--page-accent);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  margin: 0 0 23px;
+  text-transform: uppercase;
+}
+.heading h2 {
+  font-size: clamp(2.4rem, 4.3vw, 4rem);
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+  margin: 0;
+}
+.lead {
+  color: #536c80;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  margin: 26px 0 0;
+  max-width: 720px;
+}
+.steps {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+  margin: 56px 0 0;
+  padding: 0;
+}
+.steps li {
+  background: #f2f7fb;
+  padding: 30px 28px 32px;
+}
+.stepIndex {
+  color: var(--page-accent);
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  margin-bottom: 16px;
+}
+.steps strong {
+  color: #13315c;
+  display: block;
+  font-size: 1.08rem;
+  letter-spacing: -0.025em;
+  margin-bottom: 10px;
+}
+.steps p {
+  color: #536c80;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  margin: 0;
+}
+.split {
+  display: grid;
+  gap: clamp(24px, 3vw, 40px);
+  grid-template-columns: 1.05fr 0.95fr;
+  margin-top: clamp(40px, 5vw, 64px);
+}
+.split h3 {
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  margin: 0 0 22px;
+  text-transform: uppercase;
+}
+.worth {
+  background: #f2f7fb;
+  border-top: 3px solid var(--page-accent);
+  padding: 26px 28px 30px;
+}
+.worth h3 {
+  color: var(--page-accent);
+}
+.worth ul {
+  display: grid;
+  gap: 13px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.worth li {
+  color: #13315c;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.5;
+  padding-left: 26px;
+  position: relative;
+}
+.worth li::before {
+  color: var(--page-accent);
+  content: "→";
+  font-weight: 900;
+  left: 0;
+  position: absolute;
+}
+/* Deliberately quieter than the column beside it: this is the honesty note, not the pitch. */
+.keep {
+  border-top: 3px solid #d5e2ec;
+  padding-top: 26px;
+}
+.keep h3 {
+  color: #7d93a6;
+}
+.keep dl {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+.keep dt {
+  color: #13315c;
+  font-size: 0.88rem;
+  font-weight: 850;
+  letter-spacing: -0.01em;
+}
+.keep dd {
+  color: #6b8296;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  margin: 3px 0 0;
+}
+.keep > p {
+  border-top: 1px solid #e3ecf3;
+  color: #536c80;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 22px 0 0;
+  padding-top: 18px;
+}
+.footnote {
+  border-left: 3px solid #d5e2ec;
+  color: #6b8296;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: clamp(40px, 5vw, 60px) 0 0;
+  max-width: 760px;
+  padding-left: 22px;
+}
+/* Spacing only — the look comes from the global .primary-button. */
+.cta {
+  margin-top: 44px;
+}
+
+@media (max-width: 900px) {
+  .steps {
+    grid-template-columns: 1fr;
+  }
+  .split {
+    grid-template-columns: 1fr;
+  }
+}

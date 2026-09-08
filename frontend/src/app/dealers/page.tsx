@@ -7,10 +7,11 @@ import { metadataFor } from "@/lib/pages";
 
 import { DEALER_FAQS } from "./_lib/copy";
 
-import { AiReadinessAudit } from "@/components/marketing/AiReadinessAudit";
+import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
 import { DealershipAutomation } from "./_components/DealershipAutomation";
 import { FlagshipCheckout } from "@/components/marketing/FlagshipCheckout";
 import { Hero } from "@/components/marketing/Hero";
+import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { WebsiteProduct } from "@/components/marketing/WebsiteProduct";
 import styles from "@/components/marketing/marketingPage.module.css";
 
@@ -38,6 +39,7 @@ export default function Dealers() {
   return (
     <main className={styles.page}>
       <PageSchema path="/dealers" />
+      <AiReadinessBanner />
       <Hero
         eyebrow="Efficiency First Solutions"
         titleLines={["Digital"]}
@@ -53,9 +55,7 @@ export default function Dealers() {
       <FlagshipCheckout />
       <WebsiteProduct />
       <DealershipAutomation />
-      <div className="shell">
-        <AiReadinessAudit />
-      </div>
+      <ProjectEnquiry />
       <Faq eyebrow="Common questions" title="Before you get in touch." items={DEALER_FAQS} />
     </main>
   );

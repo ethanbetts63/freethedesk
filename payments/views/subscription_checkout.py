@@ -73,7 +73,7 @@ class SeoSubscriptionCheckoutView(APIView):
     def post(self, request):
         if request.data.get("accepted_terms") is not True:
             return Response(
-                {"detail": "Accept the SEO subscription terms before continuing."},
+                {"detail": "Accept the SEO reporting and audit terms before continuing."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         try:

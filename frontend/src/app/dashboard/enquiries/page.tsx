@@ -23,6 +23,7 @@ const HELP_WITH_OPTIONS = [
   { value: "website_builder", label: "Dealer web enquiry" },
   { value: "inventory", label: "Inventory, parts, service or hire" },
   { value: "automation", label: "Business automation" },
+  { value: "ai_readiness", label: "AI readiness check" },
   { value: "everything", label: "All of the above" },
   { value: "unsure", label: "Not sure yet" },
 ];
@@ -117,7 +118,10 @@ function EnquiriesContent() {
                     <strong>{enquiry.name}</strong>
                     <small>{enquiry.email}</small>
                   </td>
-                  <td>{enquiry.help_with_label}</td>
+                  <td>
+                    <strong>{enquiry.help_with_label}</strong>
+                    {enquiry.configuration?.budget && <small>Budget: {enquiry.configuration.budget}</small>}
+                  </td>
                   <td>
                     <StatusPill status={enquiry.status} />
                   </td>

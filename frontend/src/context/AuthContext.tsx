@@ -15,6 +15,7 @@ interface AuthValue {
   loading: boolean;
   /** Resolves with the signed-in principal so callers can route by role. */
   login: (identifier: string, password: string) => Promise<Principal>;
+  adoptSession: (principal: Principal) => void;
   logout: () => Promise<void>;
 }
 
@@ -61,13 +62,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return principal;
   }
 
+  function adoptSession(principal: Principal) {
+    localStorage.setItem(SESSION_FLAG, "1");
+    setUser(principal);
+    setLoading(false);
+  }
+
   async function logout() {
     localStorage.removeItem(SESSION_FLAG);
     await logoutRequest().catch(() => undefined);
     setUser(null);
   }
 
-  return <AuthContext.Provider value={{ user, loading, login, logout }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, loading, login, adoptSession, logout }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

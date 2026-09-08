@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
+import { SubscriptionSwap } from "./_components/SubscriptionSwap";
 import { Hero } from "@/components/marketing/Hero";
-import { ContactEnquiry } from "@/components/marketing/ContactEnquiry";
+import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
+import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { ServiceScroll } from "@/components/ServiceScroll";
@@ -101,6 +104,7 @@ export default function WebsiteDevelopmentPage() {
     <main className={styles.page}>
       <PageSchema path="/website-development" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <AiReadinessBanner />
       <Hero
         eyebrow="Website development Perth"
         titleLines={["Websites should"]}
@@ -178,17 +182,19 @@ export default function WebsiteDevelopmentPage() {
           </p>
         </div>
         <div className="shell">
-          <ServiceScroll services={websiteServices} showCustomRow={false} />
-          <Link className={`${styles.sectionCta} ${styles.servicesCta}`} href="#enquiry">
-            Discuss what you need <span aria-hidden="true">→</span>
-          </Link>
+          <ServiceScroll services={websiteServices} customHref="#enquiry" />
+          <PrimaryButton className={styles.servicesCta} href="#enquiry">
+            Discuss what you need
+          </PrimaryButton>
         </div>
       </section>
+
+      <SubscriptionSwap />
 
       <SeoReportOverview
         id="seo"
         className={styles.seoSection}
-        eyebrow={<>03 / SEO after launch</>}
+        eyebrow={<>04 / SEO after launch</>}
         description={
           <div className={styles.seoReportSummary}>
             <span>
@@ -196,12 +202,12 @@ export default function WebsiteDevelopmentPage() {
               readiness audit included.
             </span>
             <div className={styles.seoReportActions}>
-              <Link href="#enquiry">
-                Discuss your website <span>→</span>
-              </Link>
-              <Link className={styles.seoSecondary} href="/seo">
-                Explore SEO reports <span>→</span>
-              </Link>
+              <PrimaryButton className={styles.seoReportCta} href="#enquiry">
+                Discuss your website
+              </PrimaryButton>
+              <PrimaryButton className={`${styles.seoReportCta} ${styles.seoSecondary}`} href="/seo">
+                Explore SEO reports
+              </PrimaryButton>
             </div>
           </div>
         }
@@ -300,7 +306,7 @@ export default function WebsiteDevelopmentPage() {
           </div>
         </div>
         <div className={styles.systemCopy}>
-          <p className={styles.label}>04 / Conversion funnels</p>
+          <p className={styles.label}>06 / Conversion funnels</p>
           <h2>Make the next step feel obvious.</h2>
           <p>
             A good funnel does not pressure people into acting. It removes the uncertainty, unnecessary choices and
@@ -312,15 +318,13 @@ export default function WebsiteDevelopmentPage() {
             <li>Context carried from the page into the form</li>
             <li>A clear confirmation and handoff at the end</li>
           </ul>
-          <Link className={styles.sectionCta} href="#enquiry">
-            Plan your customer journey <span aria-hidden="true">→</span>
-          </Link>
+          <PrimaryButton href="#enquiry">Plan your customer journey</PrimaryButton>
         </div>
       </section>
 
       <section className="approach-section">
         <div className={`shell approach-inner ${styles.approachInner}`}>
-          <p className={styles.label}>06 / How we work</p>
+          <p className={styles.label}>07 / How we work</p>
           <h2>
             Same process.
             <br />
@@ -353,19 +357,17 @@ export default function WebsiteDevelopmentPage() {
         </div>
       </section>
 
-      <section className={`shell ${styles.enquirySection}`} id="enquiry">
-        <ContactEnquiry defaultHelpWith="website" />
-      </section>
+      <ProjectEnquiry id="enquiry" />
 
-      <Faq eyebrow="07 / Common questions" title="Before we begin." items={WEBSITE_DEV_FAQS} />
+      <Faq eyebrow="08 / Common questions" title="Before we begin." items={WEBSITE_DEV_FAQS} />
 
       <section className={`shell ${styles.closing}`}>
         <p className={styles.label}>Start with the useful part</p>
         <h2>What should your website make easier?</h2>
         <p>Tell us what you sell, who the site is for and where the current process gets in the way.</p>
-        <Link href="#enquiry">
-          Talk about your project <span>↗</span>
-        </Link>
+        <PrimaryButton className={styles.closingCta} href="#enquiry" arrow="↗">
+          Talk about your project
+        </PrimaryButton>
       </section>
     </main>
   );

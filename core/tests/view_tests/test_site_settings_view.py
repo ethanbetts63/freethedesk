@@ -15,7 +15,6 @@ def test_site_settings_are_publicly_readable(api_client):
     assert data["seo_biannual_price"] == "200.00"
     assert data["seo_oneoff_price"] == "250.00"
     assert data["gbp_audit_price"] == "100.00"
-    assert data["ai_readiness_audit_price"] == "50.00"
 
 
 def test_site_settings_dashboard_requires_staff(api_client):
@@ -37,14 +36,14 @@ def test_staff_can_view_and_update_site_settings(api_client, staff_user):
             "contracts_price": "108.90",
             "complete_price": "218.90",
             "seo_quarterly_price": "165.00",
-            "ai_readiness_audit_price": "55.00",
+            "gbp_audit_price": "110.00",
         },
         format="json",
     )
     assert response.status_code == 200
     assert response.json()["licensing_price"] == "163.90"
     assert response.json()["seo_quarterly_price"] == "165.00"
-    assert response.json()["ai_readiness_audit_price"] == "55.00"
+    assert response.json()["gbp_audit_price"] == "110.00"
 
     public_response = api_client.get("/api/site-settings/")
     assert public_response.json()["complete_price"] == "218.90"

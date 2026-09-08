@@ -186,7 +186,6 @@ export interface PublicSiteSettings {
   seo_biannual_price: string;
   seo_oneoff_price: string;
   gbp_audit_price: string;
-  ai_readiness_audit_price: string;
   updated_at: string;
 }
 
@@ -203,7 +202,8 @@ export async function getSiteSettings(): Promise<PublicSiteSettings> {
  * builder and anything else that opens a lead. `help_with` is typed against the
  * backend's choices so an option that the API would reject cannot be sent.
  */
-export type HelpWith = "website" | "website_builder" | "inventory" | "automation" | "everything" | "unsure";
+export type HelpWith =
+  "website" | "website_builder" | "inventory" | "automation" | "ai_readiness" | "everything" | "unsure";
 
 export interface EnquiryPayload {
   name: string;
@@ -231,6 +231,45 @@ export async function postJson<T = unknown>(url: string, payload: object): Promi
 
 export async function submitEnquiry(payload: EnquiryPayload): Promise<void> {
   await postJson("/api/enquiries/", payload);
+}
+
+/**
+ * People type "www.example.com.au" far more often than they type a scheme, and
+ * both the native url input and the backend's URLField reject that. Prepend
+ * https:// so the common case submits instead of erroring.
+ */
+export function normaliseWebsiteUrl(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed || /^[a-z][a-z0-9+.-]*:\/\//i.test(trimmed)) return trimmed;
+  return `https://${trimmed.replace(/^\/+/, "")}`;
+}
+
+export interface AiReadinessPayload {
+  website: string;
+  /** Optional: the slim banner variant of the form omits it. */
+  phone?: string;
+  email: string;
+  company_website?: string;
+}
+
+export async function submitAiReadinessCheck(payload: AiReadinessPayload): Promise<void> {
+  await postJson("/api/ai-readiness/", payload);
+}
+
+export type ProjectType = "website" | "automation" | "both";
+
+export interface ProjectEnquiryPayload {
+  project_type: ProjectType;
+  /** Free text: the preset amount picked, or whatever they typed under "Custom". */
+  budget: string;
+  website: string;
+  email: string;
+  phone?: string;
+  company_website?: string;
+}
+
+export async function submitProjectEnquiry(payload: ProjectEnquiryPayload): Promise<void> {
+  await postJson("/api/project-enquiries/", payload);
 }
 
 /** A GST-inclusive dollar amount. Blank or unparseable values render as an em dash. */
