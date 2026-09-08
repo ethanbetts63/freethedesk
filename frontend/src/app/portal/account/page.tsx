@@ -122,8 +122,8 @@ export default function PortalAccountPage() {
                 onChange={(event) => setForm({ ...form, state: event.target.value as DealerAccount["state"] })}
               >
                 {DEALER_STATES.map((state) => (
-                  <option key={state.value} value={state.value}>
-                    {state.label}
+                  <option key={state} value={state}>
+                    {state}
                   </option>
                 ))}
               </select>

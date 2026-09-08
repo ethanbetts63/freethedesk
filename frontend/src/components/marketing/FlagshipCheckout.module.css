@@ -1,5 +1,5 @@
 .section {
-  /* Single place to retune this section's accent color. */
+                                                           
   --section-accent: var(--brand-accent);
   --section-accent-rgb: 36, 126, 201;
   background: #f4f8fd;
@@ -123,13 +123,9 @@
   justify-content: center;
   padding: 15px 17px;
 }
-.status b {
-  color: #fff;
-  font-weight: 850;
-}
 .stripeLogo {
   flex: 0 0 auto;
-  height: 20px;
+  height: 28px;
   width: auto;
 }
 .copy {

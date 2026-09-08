@@ -13,7 +13,7 @@ const labels: Record<string, string> = {
   denied: "Denied",
 };
 
-/** Title-cases a status code for a filter option, using the shared label where there is one. */
+                                                                                                
 export function statusLabel(status: string): string {
   return labels[status] ?? status[0].toUpperCase() + status.slice(1);
 }

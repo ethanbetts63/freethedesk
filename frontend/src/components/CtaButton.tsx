@@ -1,5 +1,21 @@
 import Link from "next/link";
 
+/**
+ * Where the click takes you, which decides the glyph. Same-page anchors point
+ * the way the page will scroll, so the arrow always matches the movement:
+ * `down` for a target further down, `up` for one above. `page` is a link to
+ * somewhere else entirely, `right` advances a form without scrolling, and
+ * `none` omits the glyph.
+ */
+export type CtaDirection = "down" | "up" | "page" | "right" | "none";
+
+const ARROWS: Record<Exclude<CtaDirection, "none">, string> = {
+  down: "↓",
+  up: "↑",
+  page: "↗",
+  right: "→",
+};
+
 export type CtaButtonProps = {
   children: React.ReactNode;
   /** Renders a Link when set, a <button> otherwise. */
@@ -7,8 +23,8 @@ export type CtaButtonProps = {
   type?: "button" | "submit";
   disabled?: boolean;
   className?: string;
-  /** Trailing glyph. Pass null for a label-only button. */
-  arrow?: string | null;
+  /** Defaults to `page`; submit buttons should pass `none` or leave it. */
+  direction?: CtaDirection;
 };
 
 /**
@@ -21,13 +37,13 @@ export function CtaButton({
   type = "button",
   disabled = false,
   className = "",
-  arrow = "→",
+  direction = "page",
   baseClass,
 }: CtaButtonProps & { baseClass: string }) {
   const content = (
     <>
       {children}
-      {arrow && <span aria-hidden="true">{arrow}</span>}
+      {direction !== "none" && <span aria-hidden="true">{ARROWS[direction]}</span>}
     </>
   );
   const classes = `${baseClass} ${className}`.trim();

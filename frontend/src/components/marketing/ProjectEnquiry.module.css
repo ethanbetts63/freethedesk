@@ -1,5 +1,5 @@
-/* Mirrors the SEO report builder: a moving-colour bordered panel, chooser on the
-   left, short form on the right. */
+                                                                                 
+                                    
 .section {
   padding-bottom: var(--section-space);
   padding-top: var(--section-space);
@@ -122,8 +122,8 @@
   border-color: #13315c;
   color: #fff;
 }
-/* Must out-specify the plain :hover above, which would otherwise repaint the
-   selected tile white and leave its white text invisible. */
+                                                                             
+                                                             
 .typeGrid .choiceSelected:hover,
 .budgetGrid .choiceSelected:hover {
   background: #1b4275;
@@ -197,6 +197,9 @@
   font-size: 2.4rem;
   letter-spacing: -0.06em;
   line-height: 1.1;
+  /* The negative tracking also applies after the last glyph, so background-clip
+     text would cut its right edge. Give the box that width back. */
+  padding-right: 0.06em;
 }
 .total small {
   color: #60778b;
@@ -265,7 +268,7 @@
   padding: 0 14px;
   width: 100%;
 }
-/* `font: inherit` above pulls the label's 850 weight into the placeholder. */
+                                                                              
 .form input::placeholder {
   color: #91a9c1;
   font-size: 0.78rem;
@@ -279,7 +282,7 @@
   left: -10000px !important;
   position: absolute !important;
 }
-/* Sizing only — the CTA's look comes from the global .moving-colour-button. */
+                                                                               
 .submit {
   --mcb-width: 100%;
   margin-top: 6px;

@@ -866,7 +866,7 @@
   text-underline-offset: 2px;
 }
 .controls {
-  /* Single place to retune the builder controls panel's accent color (separate from --preview-accent, which is the user's chosen site brand color). */
+                                                                                                                                                       
   --controls-accent: var(--brand-accent);
   --controls-accent-rgb: 36, 126, 201;
   background: #fff;

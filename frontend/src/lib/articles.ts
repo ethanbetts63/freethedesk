@@ -19,20 +19,20 @@ export interface Article extends ArticleMeta {
   html: string;
 }
 
-/**
- * Front matter at the top of each guide:
- *
- *     ---
- *     published: 2026-09-08
- *     updated: 2026-09-20        # optional, defaults to `published`
- *     title: Overrides the H1    # optional
- *     description: Overrides...  # optional, else the first paragraph
- *     ---
- *
- * `published` is required and deliberately not derived from the filesystem: a
- * CI checkout gives every file the same creation time, which would date every
- * guide to the deploy and churn the sitemap on each build.
- */
+   
+                                         
+  
+          
+                            
+                                                                     
+                                            
+                                                                      
+          
+  
+                                                                              
+                                                                              
+                                                           
+   
 interface FrontMatter {
   published?: string;
   updated?: string;
@@ -96,8 +96,8 @@ function readArticle(filename: string): { meta: ArticleMeta; body: string } {
   const filepath = path.join(ARTICLES_DIR, filename);
   const { data, body } = parseFrontMatter(fs.readFileSync(filepath, "utf8"));
 
-  // Fail the build rather than invent a date — a wrong `datePublished` in the
-  // Article schema is worse than a page that does not ship.
+
+
   if (!data.published || !ISO_DATE.test(data.published)) {
     throw new Error(`${filename}: front matter needs a "published: YYYY-MM-DD" date.`);
   }

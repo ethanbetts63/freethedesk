@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import { Faq } from "@/components/Faq";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
+import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { metadataFor } from "@/lib/pages";
@@ -64,9 +64,9 @@ export default function Home() {
               Human-written reports that turn your search data into ranked next steps. Every subscription includes a
               Choose website SEO, a Google Business Profile report, or combine both. The AI readiness check is free.
             </span>
-            <Link href="/seo">
-              Explore SEO reports <span>→</span>
-            </Link>
+            <PrimaryButton className={styles.seoSummaryCta} href="/seo">
+              Explore SEO reports
+            </PrimaryButton>
           </div>
         }
       />

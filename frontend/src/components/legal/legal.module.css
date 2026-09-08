@@ -1,5 +1,5 @@
 .page {
-  /* Single place to retune the legal page's accent color. */
+                                                             
   --legal-accent: var(--brand-accent);
   background: #f5f8fa;
   color: #101820;
@@ -39,8 +39,8 @@
   margin-bottom: 30px;
   text-transform: uppercase;
 }
-/* The "> " callout at the top of each document. Markdown renders it as a
-   blockquote; `aside` is kept so older hand-authored markup still styles. */
+                                                                         
+                                                                             
 .document aside,
 .document blockquote {
   background: #fff7df;

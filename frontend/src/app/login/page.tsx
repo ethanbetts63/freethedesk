@@ -14,9 +14,9 @@ function LoginContent() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  // Already signed in: honour ?next= only when it belongs to this principal's
-  // portal, otherwise a staff link would strand a dealer on a page they cannot
-  // load, and vice versa.
+
+
+
   useEffect(() => {
     if (loading || !user) return;
     const next = search.get("next");

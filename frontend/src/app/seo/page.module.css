@@ -1,5 +1,5 @@
 .page {
-  /* Single place to retune this page's accent color. */
+                                                        
   --page-accent: var(--brand-accent);
   --page-accent-rgb: 36, 126, 201;
   background: #fff;
@@ -17,38 +17,17 @@
   color: #70bced;
 }
 
-.introSection {
-  padding: 125px 0 40px;
-}
-.introSection h2 {
-  font-size: clamp(2.6rem, 4.6vw, 4.2rem);
-  letter-spacing: -0.058em;
-  line-height: 1.06;
-  margin: 0;
-  max-width: 780px;
-}
-.introLead {
-  color: #536c80;
-  font-size: 1rem;
-  line-height: 1.78;
-  margin: 22px 0 0;
-  max-width: 620px;
-}
 .reportDescription {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
-/* Sizing and placement only — the look comes from the global .primary-button. */
+                                                                                 
 .sectionCta {
   --pb-font-size: 0.74rem;
   --pb-padding: 15px 18px;
   align-self: flex-start;
 }
-.servicesCta {
-  margin-top: 48px;
-}
-
 .compareSection {
   background: #f2f7fb;
   padding: 120px 0;
@@ -65,7 +44,7 @@
   line-height: 1.05;
   margin: 0 0 20px;
 }
-/* Excludes .label and .priceHonesty so their own colours aren't lost to this rule's higher specificity. */
+                                                                                                           
 .compareCopy p:not(.label):not(.priceHonesty) {
   color: #536c80;
   font-size: 1rem;
@@ -165,9 +144,6 @@
   line-height: 1.06;
   margin: 0;
   max-width: 780px;
-}
-.plansSection .introLead {
-  margin-bottom: 52px;
 }
 
 .planGrid {
@@ -357,7 +333,7 @@
   transform: translateX(4px);
 }
 
-/* Report builder — shares the structured, animated-card language of the pipeline above. */
+                                                                                           
 .signupPanel {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
@@ -457,8 +433,8 @@
   border-color: #13315c;
   color: #fff;
 }
-/* Must out-specify the plain :hover above, which would otherwise repaint the
-   selected tile white and leave its white text invisible. */
+                                                                             
+                                                             
 .reportTypeGrid .choiceSelected:hover,
 .frequencyGrid .choiceSelected:hover {
   background: #1b4275;
@@ -515,6 +491,9 @@
   font-size: 2.8rem;
   letter-spacing: -0.06em;
   line-height: 1;
+  /* The negative tracking also applies after the last glyph, so background-clip
+     text would cut its right edge. Give the box that width back. */
+  padding-right: 0.06em;
 }
 .selectionTotal small {
   color: #60778b;
@@ -703,8 +682,8 @@
   padding: 0 14px;
   width: 100%;
 }
-/* `font: inherit` above pulls the label's 850 weight into the placeholder, so
-   reset it to match the quieter example text in the AI readiness banner. */
+                                                                              
+                                                                            
 .signupForm input::placeholder {
   color: #91a9c1;
   font-size: 0.78rem;
@@ -761,7 +740,9 @@
 .caseSection {
   background: var(--surface-dark);
   color: var(--text-on-dark);
-  margin-top: var(--section-space);
+  /* The report section above ends with 40px of its own padding, so this tops it
+     up to match that section's 72px lead-in rather than stacking a full gap. */
+  margin-top: 32px;
   padding: var(--section-space) 0;
 }
 .caseInner {
@@ -770,7 +751,7 @@
   gap: clamp(55px, 8vw, 120px);
   grid-template-columns: 0.75fr 1.25fr;
 }
-/* The phone is the base; the stat floats over it, so this wrapper is the positioning context. */
+                                                                                                 
 .casePhone {
   position: relative;
   width: 250px;
@@ -843,25 +824,25 @@
   flex-wrap: wrap;
   gap: 22px;
 }
-.caseActions a {
+/* The primary is a .primary-button, so these only style the plain link beside it. */
+.caseActions a:not(.casePrimary) {
   color: #fff;
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-.caseActions .casePrimary {
-  background: #70bced;
-  color: #07121c;
-  padding: 15px 18px;
-}
-.caseActions a span {
+.caseActions a:not(.casePrimary) span {
   display: inline-block;
   margin-left: 6px;
   transition: transform 0.2s ease;
 }
-.caseActions a:hover span {
+.caseActions a:not(.casePrimary):hover span {
   transform: translateX(4px);
+}
+.caseActions .casePrimary {
+  --pb-font-size: 0.78rem;
+  --pb-padding: 15px 18px;
 }
 
 .closing {
@@ -913,15 +894,9 @@
 }
 
 @media (max-width: 620px) {
-  .introSection {
-    padding-top: 82px;
-  }
   .plansSection {
     padding-top: 56px;
     scroll-margin-top: 28px;
-  }
-  .introSection {
-    padding-bottom: 20px;
   }
   .compareSection {
     padding: 82px 0;

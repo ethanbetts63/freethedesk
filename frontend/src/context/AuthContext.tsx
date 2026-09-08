@@ -13,7 +13,7 @@ import {
 interface AuthValue {
   user: Principal | null;
   loading: boolean;
-  /** Resolves with the signed-in principal so callers can route by role. */
+                                                                            
   login: (identifier: string, password: string) => Promise<Principal>;
   adoptSession: (principal: Principal) => void;
   logout: () => Promise<void>;

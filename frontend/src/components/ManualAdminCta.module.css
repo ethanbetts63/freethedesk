@@ -25,22 +25,11 @@
   margin: 27px auto 31px;
   max-width: 570px;
 }
-.closing > a {
-  align-items: center;
-  background: var(--page-accent, var(--blue-700));
-  color: #fff;
-  display: inline-flex;
-  font-size: 0.8rem;
-  font-weight: 900;
-  gap: 35px;
-  padding: 17px 20px;
-}
-.closing > a span {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-.closing > a:hover span {
-  transform: translateX(4px);
+.closingCta {
+  --pb-background: var(--page-accent, var(--blue-700));
+  --pb-font-size: 0.8rem;
+  --pb-gap: 35px;
+  --pb-padding: 17px 20px;
 }
 
 @media (max-width: 620px) {

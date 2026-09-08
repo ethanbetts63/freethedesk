@@ -33,13 +33,13 @@ const steps = [
   },
 ];
 
-/** Explains the Stripe Identity verification step: license photos, a selfie, then an automatic match. */
+                                                                                                         
 export function IdentityVerification() {
   return (
     <section className={`shell ${styles.verify}`}>
       <div className={styles.verifyCopy}>
         <p className={styles.sectionLabel}>05 / Know who&apos;s signing</p>
-        <h2>Verified by Stripe, not just typed in.</h2>
+        <h2>Identity verification by Stripe.</h2>
         <p>
           Anyone can type a name into a form. Before the paperwork goes through, we confirm the person on the other end
           really is who they say they are.
@@ -48,7 +48,7 @@ export function IdentityVerification() {
           Verification runs on Stripe Identity, part of Stripe — one of the world&apos;s largest and most trusted
           payment platforms, used by millions of businesses globally.
         </p>
-        <PrimaryButton className={styles.sectionCta} href="#signup">
+        <PrimaryButton className={styles.sectionCta} href="#signup" direction="down">
           Choose your plan
         </PrimaryButton>
       </div>
@@ -71,7 +71,7 @@ export function IdentityVerification() {
           ))}
         </ol>
         <div className={styles.verifyFooter}>
-          <span>Secured by</span>
+          <span>Identity Verification by</span>
           <Image className={styles.verifyLogo} src="/stripe-ar21.svg" alt="Stripe" width={120} height={60} />
         </div>
       </div>

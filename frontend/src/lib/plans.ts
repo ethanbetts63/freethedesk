@@ -1,8 +1,8 @@
-/**
- * The shape every purchasable plan shares. Licensing and SEO each build their
- * own list of these from SiteSettings, but the card that renders them and the
- * lookup below are common to both.
- */
+   
+                                                                              
+                                                                              
+                                   
+   
 export interface Plan<Code extends string> {
   code: Code;
   name: string;

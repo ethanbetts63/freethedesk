@@ -1,6 +1,5 @@
-import Link from "next/link";
-
 import { GoogleLogo } from "@/components/GoogleLogo";
+import { PrimaryButton } from "@/components/PrimaryButton";
 
 import styles from "./GoogleBusinessProfileAudit.module.css";
 
@@ -42,33 +41,17 @@ export function GoogleBusinessProfileAudit({
           your business is, but you can make the profile clearer, more complete and more useful when a nearby customer
           finds it.
         </p>
-        <p className={styles.deliverable}>
-          We return a prioritised action list—not a vague score. Every issue shows what we found, what we would change
-          and the exact information or asset needed.
-        </p>
 
-        <div className={styles.offer}>
-          <div className={styles.offerOption}>
-            <small>GBP report</small>
-            <strong>Choose it alone</strong>
-          </div>
-          <span className={styles.offerOr}>OR</span>
-          <div className={styles.offerOption}>
-            <small>Price per report</small>
-            <span className={styles.priceLine}>
-              <strong>{standalonePrice}</strong>
-              <em>from</em>
-            </span>
-          </div>
-        </div>
 
         <div className={styles.actions}>
-          <Link href={ctaHref}>
-            {ctaLabel} <span aria-hidden="true">→</span>
-          </Link>
-          <a href="https://support.google.com/business/answer/7091?hl=en" target="_blank" rel="noopener noreferrer">
-            Google&apos;s published guidance ↗
-          </a>
+          {/* This block sits above the signup panel, so an on-page target is below it. */}
+          <PrimaryButton
+            className={styles.auditCta}
+            href={ctaHref}
+            direction={ctaHref.startsWith("#") ? "down" : "page"}
+          >
+            {ctaLabel}
+          </PrimaryButton>
         </div>
       </div>
 

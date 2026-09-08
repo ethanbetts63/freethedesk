@@ -5,7 +5,7 @@ import { PUBLIC_SITE_URL } from "./siteConfig";
 const SITE_NAME = "Free the Desk";
 const DEFAULT_OG_IMAGE = "/og-images/og-default.webp";
 
-/** Sitewide brand identity markup — this is what tells Google which image to show for the brand in search results, separate from the favicon. */
+                                                                                                                                                 
 export function buildOrganizationSchema(): object {
   return {
     "@context": "https://schema.org",

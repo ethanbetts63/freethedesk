@@ -1,5 +1,5 @@
 .page {
-  /* Single place to retune this page's accent color. */
+                                                        
   --page-accent: var(--brand-accent);
   --page-accent-rgb: 36, 126, 201;
   background: #fff;
@@ -13,66 +13,118 @@
   margin: 0 0 24px;
   text-transform: uppercase;
 }
-/* Spacing only — the look comes from the global .primary-button. */
+                                                                    
 .sectionCta {
   margin-top: 25px;
 }
-.sectionCtaLight {
-  --pb-background: #70bced;
-  --pb-background-hover: #8acbf3;
-  --pb-color: #07121c;
-}
 .signupSection {
-  background: #fff;
   padding: var(--section-space) 0;
   scroll-margin-top: 24px;
 }
-.signupHeading {
-  margin-bottom: 58px;
-}
-.signupHeading h2 {
-  font-size: clamp(3rem, 5.2vw, 5.6rem);
-  letter-spacing: -0.07em;
-  line-height: 0.94;
-  margin: 0;
-}
-.planGrid {
+/* Signup panel — the same shape as the SEO report builder: chooser on the left,
+   short form on the right, inside one moving-colour bordered card. */
+.signupPanel {
+  animation: moving-colour-border-shift 6s linear infinite;
+  background-clip: padding-box, border-box;
+  background-image: linear-gradient(#fff, #fff), var(--moving-colour-gradient-surface);
+  background-origin: border-box;
+  background-size:
+    100% 100%,
+    var(--moving-colour-size);
+  border: 2px solid transparent;
   display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1.25fr 0.75fr;
+  min-height: 590px;
 }
-.planCard {
+@media (prefers-reduced-motion: reduce) {
+  .signupPanel,
+  .choiceRecommended {
+    animation: none;
+  }
+}
+.selectionPanel {
+  color: #07121c;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(34px, 4.5vw, 64px);
+}
+.labelAccent {
+  color: var(--page-accent);
+}
+.selectionPanel h2 {
+  color: #07121c;
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  letter-spacing: -0.058em;
+  line-height: 1.02;
+  margin: 0 0 42px;
+}
+.choiceGroup > p {
+  border-bottom: 1px solid #d9e5ef;
+  color: var(--page-accent);
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  margin: 0 0 12px;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+}
+.planTypeGrid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.planTypeGrid button {
+  align-items: center;
   appearance: none;
   background: #f5f8fa;
   border: 1px solid #d7e2e9;
-  color: #000;
+  color: #213748;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   font: inherit;
-  min-height: 292px;
-  padding: 23px;
-  position: relative;
-  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 850;
+  justify-content: center;
+  min-height: 62px;
+  padding: 10px;
+  text-align: center;
   transition:
+    background 0.2s ease,
     border-color 0.2s ease,
-    transform 0.2s ease,
-    background 0.2s ease;
+    color 0.2s ease;
 }
-.planCard:hover {
-  border-color: var(--page-accent);
-  transform: translateY(-3px);
+.planTypeGrid button small {
+  color: #60778b;
+  font-size: 0.45rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  margin-top: 5px;
+  text-transform: uppercase;
 }
-.planCard:focus-visible {
-  outline: 3px solid rgba(var(--page-accent-rgb), 0.25);
-  outline-offset: 3px;
-}
-.planCard.planSelected {
+.planTypeGrid button:hover {
   background: #fff;
   border-color: var(--page-accent);
-  box-shadow: inset 0 4px 0 var(--page-accent);
 }
-.planCard.planRecommended {
+.planTypeGrid button:focus-visible {
+  outline: 3px solid rgba(var(--page-accent-rgb), 0.25);
+  outline-offset: 2px;
+}
+.planTypeGrid .choiceSelected {
+  background: #13315c;
+  border-color: #13315c;
+  color: #fff;
+}
+/* Must out-specify the plain :hover above, which would otherwise repaint the
+   selected tile white and leave its white text invisible. */
+.planTypeGrid .choiceSelected:hover {
+  background: #1b4275;
+  border-color: #1b4275;
+}
+.planTypeGrid .choiceSelected small {
+  color: #8fcef6;
+}
+.planTypeGrid .choiceRecommended {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
   background-image: linear-gradient(#f5f8fa, #f5f8fa), var(--moving-colour-gradient-surface);
@@ -82,149 +134,104 @@
     var(--moving-colour-size);
   border: 2px solid transparent;
 }
-.planCard.planRecommended:hover {
-  border-color: transparent;
+.planTypeGrid .choiceRecommended.choiceSelected {
+  background-image: linear-gradient(#13315c, #13315c), var(--moving-colour-gradient-surface);
 }
-.planCard.planRecommended.planSelected {
-  background-image: linear-gradient(#fff, #fff), var(--moving-colour-gradient-surface);
-}
-@media (prefers-reduced-motion: reduce) {
-  .planCard.planRecommended {
-    animation: none;
-  }
-}
-.planTopline {
-  color: var(--page-accent);
-  font-size: 0.63rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  min-height: 34px;
-  text-transform: uppercase;
-}
-.planCard.planRecommended .planTopline {
-  --moving-colour-speed: 6s;
-}
-.planCard > strong {
-  font-size: 1.18rem;
-  letter-spacing: -0.03em;
-}
-.planPrice {
-  font-size: 2.15rem;
-  font-weight: 850;
-  letter-spacing: -0.06em;
-  margin: 24px 0 15px;
-  white-space: nowrap;
-}
-.planPrice small {
-  color: #60778b;
-  font-size: 0.62rem;
-  font-weight: 650;
-  letter-spacing: 0;
-}
-.planCard p {
-  color: #5a7185;
-  font-size: 0.8rem;
-  line-height: 1.58;
-  margin: 0;
-}
-.planCard i {
-  align-items: center;
-  background: var(--page-accent);
-  border: 1px solid #b7cbd9;
-  border-radius: 50%;
-  bottom: 20px;
-  color: #fff;
-  display: flex;
-  font-size: 0.7rem;
-  font-style: normal;
-  height: 23px;
-  justify-content: center;
-  position: absolute;
-  right: 20px;
-  width: 23px;
-}
-.planCard:not(.planSelected) i {
-  background: #fff;
-}
-.signupPanel {
-  background: #13315c;
-  display: grid;
-  grid-template-columns: 0.78fr 1.22fr;
-  margin-top: 18px;
-  min-height: 560px;
-}
-.selectedSummary {
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  padding: clamp(34px, 4.5vw, 64px);
-}
-.selectedSummary > span,
-.formTitle > span {
-  color: #70bced;
-  font-size: 0.66rem;
-  font-weight: 900;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-}
-.selectedSummary h3 {
-  font-size: clamp(2rem, 3vw, 3.25rem);
-  letter-spacing: -0.055em;
-  line-height: 1;
-  margin: 72px 0 18px;
-}
-.selectedSummary > p {
-  color: #b9ccdc;
-  font-size: 0.91rem;
-  line-height: 1.68;
-  margin: 0;
-  max-width: 380px;
-}
-.selectedSummary ul {
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+.selectionFeatures {
   list-style: none;
-  margin: 34px 0;
-  padding: 19px 0 0;
+  margin: 26px 0 0;
+  padding: 0;
 }
-.selectedSummary li {
-  font-size: 0.78rem;
-  margin: 11px 0;
-  padding-left: 18px;
+.selectionFeatures li {
+  color: #2b4051;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin: 10px 0;
+  padding-left: 20px;
   position: relative;
 }
-.selectedSummary li::before {
-  color: #70bced;
+.selectionFeatures li::before {
+  color: var(--page-accent);
   content: "↳";
+  font-weight: 900;
   left: 0;
   position: absolute;
 }
-.selectedSummary > div {
-  align-items: baseline;
-  display: flex;
-  gap: 11px;
+.selectionTotal {
+  align-items: center;
+  border-top: 1px dashed #cad9e4;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: auto 1fr;
   margin-top: auto;
+  padding-top: 24px;
 }
-.selectedSummary > div strong {
-  font-size: 2.5rem;
+.selectionTotal > div {
+  display: grid;
+  gap: 2px;
+}
+.selectionTotal strong {
+  --moving-colour-speed: 6s;
+  font-size: 2.8rem;
   letter-spacing: -0.06em;
+  line-height: 1;
+  /* The negative tracking also applies after the last glyph, so background-clip
+     text would cut its right edge. Give the box that width back. */
+  padding-right: 0.06em;
 }
-.selectedSummary > div span {
-  color: #b9ccdc;
-  font-size: 0.72rem;
+.selectionTotal small {
+  color: #60778b;
+  font-size: 0.62rem;
+}
+.selectionTotal > span {
+  color: #2b4051;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.45;
 }
 .signupForm {
-  background: #f3f7fa;
+  background: #f5f8fa;
+  border-left: 1px solid #d9e5ef;
   display: flex;
   flex-direction: column;
-  padding: clamp(34px, 5vw, 72px);
+  justify-content: center;
+  padding: clamp(30px, 3.5vw, 48px);
 }
 .formTitle {
-  margin-bottom: 35px;
+  align-items: baseline;
+  border-bottom: 1px solid #d9e5ef;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 26px;
+  padding-bottom: 20px;
 }
 .formTitle h3 {
-  font-size: clamp(1.8rem, 2.8vw, 2.7rem);
-  letter-spacing: -0.05em;
-  margin: 10px 0 0;
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+.formPill {
+  background: #e6f1fa;
+  color: #1d5f97;
+  flex: 0 0 auto;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  padding: 6px 10px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.customBuildNote {
+  color: #5f778a;
+  font-size: 0.82rem;
+  margin: 22px 0 0;
+  text-align: center;
+}
+.customBuildNote a {
+  border-bottom: 1px solid var(--page-accent);
+  color: var(--page-accent);
+  font-weight: 800;
 }
 .fieldRow {
   display: grid;
@@ -245,7 +252,7 @@
 .signupForm input,
 .signupForm select {
   background: #fff;
-  border: 1px solid #cbd9e2;
+  border: 1px solid #c7d6e0;
   border-radius: 0;
   color: #000;
   font: inherit;
@@ -254,6 +261,12 @@
   outline: none;
   padding: 0 14px;
   width: 100%;
+}
+/* `font: inherit` above pulls the label's 850 weight into the placeholder. */
+.signupForm input::placeholder {
+  color: #91a9c1;
+  font-size: 0.78rem;
+  font-weight: 400;
 }
 .signupForm input:focus,
 .signupForm select:focus {
@@ -272,33 +285,15 @@
   position: absolute !important;
 }
 .signupSubmit {
-  align-items: center;
-  background: var(--page-accent);
-  border: 0;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  font: inherit;
-  font-size: 0.78rem;
-  font-weight: 900;
-  justify-content: space-between;
+  --pb-font-size: 0.78rem;
+  --pb-padding: 0 20px;
+  --pb-width: 100%;
   margin-top: 8px;
   min-height: 58px;
-  padding: 0 20px;
   text-align: left;
-}
-.signupSubmit:disabled {
-  cursor: wait;
-  opacity: 0.65;
 }
 .signupSubmit span {
   font-size: 1.1rem;
-}
-.secureNote {
-  color: #718698;
-  font-size: 0.68rem;
-  margin: 12px 0 0;
-  text-align: center;
 }
 .signupError {
   background: #fff0f0;
@@ -378,16 +373,37 @@
 .paths article strong {
   color: #000;
 }
+/* The online path is the one we're selling, so it carries the moving-colour
+   border and heading rather than the flat accent the other card uses. */
 .paths .onlinePath {
-  border-color: var(--page-accent);
-  box-shadow: inset 4px 0 0 var(--page-accent);
+  animation: moving-colour-border-shift 6s linear infinite;
+  background-clip: padding-box, border-box;
+  background-image: linear-gradient(#fff, #fff), var(--moving-colour-gradient-surface);
+  background-origin: border-box;
+  background-size:
+    100% 100%,
+    var(--moving-colour-size);
+  border: 2px solid transparent;
 }
-.onlinePath header span,
+.onlinePath header span {
+  animation: moving-colour-shift 6s linear infinite;
+  background: var(--moving-colour-gradient);
+  background-clip: text;
+  background-size: var(--moving-colour-size);
+  color: transparent;
+  -webkit-background-clip: text;
+}
 .onlinePath header b {
   color: var(--page-accent);
 }
 .onlinePath i {
   background: var(--page-accent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .paths .onlinePath,
+  .onlinePath header span {
+    animation: none;
+  }
 }
 .sectionHeading {
   max-width: 850px;
@@ -556,18 +572,13 @@
 .flowColumnHighlight .flowStepText small {
   color: #bcdcfa;
 }
-/* Sizing and shadow only — the look comes from the global .moving-colour-button. */
+                                                                                    
 .flowColumnCta {
   --mcb-font-size: 0.74rem;
   --mcb-height: 48px;
   --mcb-padding-x: 16px;
   --mcb-width: 100%;
-  box-shadow: 0 12px 28px rgba(168, 85, 247, 0.35);
   margin: 22px 0 4px;
-  transition: box-shadow 0.2s ease;
-}
-.flowColumnCta:hover {
-  box-shadow: 0 16px 34px rgba(168, 85, 247, 0.48);
 }
 .flowColumnCta span {
   font-size: 1rem;
@@ -588,7 +599,7 @@
   }
 }
 
-/* Shared phone-mockup frame used by both option previews. */
+                                                             
 .phoneMock {
   background: #0d1725;
   border: 6px solid #0d1725;
@@ -809,8 +820,8 @@
   --pb-gap: 35px;
   --pb-padding: 17px 20px;
 }
-/* Lifts rather than slides—its glyph is an arrow pointing up. Three classes so
-   it out-specifies the global .primary-button:hover > span rule. */
+                                                                               
+                                                                    
 .closing .closingCta:hover > span {
   transform: translateY(-3px);
 }
@@ -820,7 +831,9 @@
   display: grid;
   gap: clamp(55px, 9vw, 130px);
   grid-template-columns: 1.05fr 0.95fr;
-  padding-bottom: var(--section-space);
+  /* No bottom padding: the navy section above absorbs its own padding into the
+     coloured block, so only the signup section's padding should show below.
+     Matching both here would read as twice the gap underneath. */
   padding-top: var(--section-space);
 }
 .verifyCopy p:not(.sectionLabel) {
@@ -833,8 +846,8 @@
 .verifyCopy p + p {
   margin-top: 16px;
 }
-/* Same card treatment as the checkout journey on the home page: moving-colour
-   border, tiled steps, gradient status bar. */
+                                                                              
+                                               
 .verifyCard {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
@@ -944,7 +957,7 @@
 }
 .verifyLogo {
   flex: 0 0 auto;
-  height: 20px;
+  height: 28px;
   width: auto;
 }
 
@@ -959,18 +972,15 @@
 @media (max-width: 900px) {
   .comparison,
   .optionsLayout,
-  .signupHeading,
   .verify {
     grid-template-columns: 1fr;
-  }
-  .planGrid {
-    grid-template-columns: 1fr 1fr;
   }
   .signupPanel {
     grid-template-columns: 1fr;
   }
-  .selectedSummary {
-    min-height: 480px;
+  .signupForm {
+    border-left: 0;
+    border-top: 1px solid #d9e5ef;
   }
   .flowGrid {
     grid-template-columns: 1fr;
@@ -1008,15 +1018,18 @@
   .outcomeGrid {
     grid-template-columns: 1fr;
   }
-  .planGrid,
   .fieldRow {
     grid-template-columns: 1fr;
   }
-  .planCard {
-    min-height: 250px;
+  .planTypeGrid {
+    grid-template-columns: 1fr;
   }
-  .selectedSummary {
-    min-height: 430px;
+  .selectionPanel {
+    padding: 34px 20px;
+  }
+  .selectionTotal {
+    gap: 12px;
+    grid-template-columns: 1fr;
   }
   .outcomeGrid article {
     min-height: 220px;

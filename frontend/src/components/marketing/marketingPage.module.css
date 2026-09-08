@@ -1,4 +1,4 @@
-/* Shared page shell for the marketing landing pages (/ and /dealers). */
+                                                                         
 .page {
   --page-accent: var(--brand-accent);
   background: #fff;
@@ -19,25 +19,11 @@
 .seoSummary > span {
   display: block;
 }
-.seoSummary a {
-  align-items: center;
+.seoSummaryCta {
+  --pb-font-size: 0.72rem;
+  --pb-padding: 15px 18px;
   align-self: flex-start;
-  background: var(--page-accent);
-  color: #fff;
-  display: inline-flex;
-  font-size: 0.72rem;
-  font-weight: 900;
-  gap: 28px;
   letter-spacing: 0.06em;
-  padding: 15px 18px;
-  text-transform: uppercase;
-}
-.seoSummary a span {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-.seoSummary a:hover span {
-  transform: translateX(4px);
 }
 
 @media (max-width: 760px) {

@@ -24,7 +24,7 @@ export interface WebsiteEnquiryConfiguration {
   capabilities?: Array<{ key: string; name: string; selected: boolean }>;
   inventory_options?: Array<{ key: string; name: string; selected: boolean }>;
   custom_capability?: string;
-  /** Set by the budget enquiry form rather than the dealer website builder. */
+                                                                               
   project_type?: "website" | "automation" | "both";
   budget?: string;
 }
@@ -46,13 +46,13 @@ export interface Enquiry {
   updated_at: string;
 }
 
-/** The staff view of a dealer: their own account plus the staff-only fields. */
+                                                                                
 export type Dealer = DealerAccount & StaffAccountFields;
 
-/** The staff view of an SEO customer: their own account plus the staff-only fields. */
+                                                                                       
 export type SeoSubscriber = SeoAccount & StaffAccountFields;
 
-/** Staff read and write exactly the settings the public pages read. */
+                                                                       
 export type SiteSettings = PublicSiteSettings;
 
 export interface AdminMessage {

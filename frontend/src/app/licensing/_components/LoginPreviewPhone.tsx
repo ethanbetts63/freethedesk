@@ -5,7 +5,7 @@ import Image from "next/image";
 import { SignalFlow } from "@/components/visuals/SignalFlow";
 import styles from "../page.module.css";
 
-/** Decorative phone mockup showing the real, live login-page background so the portal feels tangible next to the copy. */
+                                                                                                                          
 export function LoginPreviewPhone() {
   return (
     <div className={styles.phoneMock} aria-hidden="true">

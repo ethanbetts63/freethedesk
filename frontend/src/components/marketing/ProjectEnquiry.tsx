@@ -12,7 +12,7 @@ const PROJECT_TYPES: { code: ProjectType; name: string }[] = [
   { code: "both", name: "Both" },
 ];
 
-/** `custom` is the escape hatch: picking it swaps in a free-text amount field. */
+                                                                                  
 const BUDGETS = ["$1,000", "$3,000", "$5,000", "custom"] as const;
 type Budget = (typeof BUDGETS)[number];
 
@@ -24,7 +24,7 @@ const SUMMARY: Record<ProjectType, string> = {
 
 export function ProjectEnquiry({
   eyebrow = "Start here",
-  /** Pages where this replaces the long form keep the existing #enquiry anchor. */
+                                                                                   
   id = "project-enquiry",
 }: {
   eyebrow?: string;
@@ -179,7 +179,12 @@ export function ProjectEnquiry({
                   {error}
                 </p>
               )}
-              <MovingColourButton type="submit" className={styles.submit} disabled={status === "submitting"}>
+              <MovingColourButton
+                type="submit"
+                className={styles.submit}
+                direction="right"
+                disabled={status === "submitting"}
+              >
                 {status === "submitting" ? "Sending…" : "Send enquiry"}
               </MovingColourButton>
             </>

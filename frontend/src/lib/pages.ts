@@ -2,22 +2,22 @@ import type { Metadata } from "next";
 
 import { pageMetadata } from "./seo";
 
-/**
- * Every indexable page, in one place.
- *
- * A page's title, description and path were previously written out three times
- * — as consts for `pageMetadata`, again for `<PageSchema>`, and again in
- * sitemap.ts with a hand-maintained date. Registering them here means adding a
- * page to the sitemap is not a separate thing to remember, and the three copies
- * can no longer disagree.
- */
+   
+                                      
+  
+                                                                               
+                                                                         
+                                                                               
+                                                                                
+                          
+   
 export interface PageDefinition {
   title: string;
   description: string;
-  /** Already a complete <title>; skips the "%s | Free the Desk" template. */
+                                                                             
   absoluteTitle?: boolean;
   ogImage?: string;
-  /** Sitemap hints. Omit `sitemap` for a page that should not be listed. */
+                                                                            
   sitemap?: { changeFrequency: "weekly" | "monthly" | "yearly"; priority: number };
 }
 
@@ -106,7 +106,7 @@ export const PAGES = {
 
 export type PagePath = keyof typeof PAGES;
 
-/** The `<head>` metadata for a registered page. */
+                                                   
 export function metadataFor(path: PagePath): Metadata {
   const page: PageDefinition = PAGES[path];
   return pageMetadata({ ...page, path });

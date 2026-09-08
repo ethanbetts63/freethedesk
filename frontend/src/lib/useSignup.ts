@@ -8,11 +8,11 @@ import { normaliseWebsiteUrl, postJson, type Principal } from "@/lib/api";
 
 export type SignupStatus = "idle" | "submitting" | "error";
 
-/**
- * Create an account from a plan-picker form and continue to payment. Licensing
- * signs in with the submitted password; the lower-friction SEO endpoint creates
- * the authenticated session itself.
- */
+   
+                                                                               
+                                                                                
+                                    
+   
 export function useSignup({
   endpoint,
   nextHref,
@@ -33,8 +33,8 @@ export function useSignup({
     setError("");
 
     const values = new FormData(event.currentTarget);
-    // Signup forms take a website as a plain host, so add the scheme the API's
-    // URLField needs rather than rejecting what the placeholder told them to type.
+
+
     const website = values.get("website");
     if (typeof website === "string" && website.trim()) values.set("website", normaliseWebsiteUrl(website));
     const email = String(values.get("email") ?? "");

@@ -6,7 +6,7 @@ import { MovingColourButton } from "@/components/MovingColourButton";
 import { normaliseWebsiteUrl, submitAiReadinessCheck } from "@/lib/api";
 import styles from "./AiReadinessBanner.module.css";
 
-/** Slim, full-bleed variant of AiReadinessAudit sized to sit directly under the nav bar. */
+                                                                                            
 export function AiReadinessBanner({ className = "" }: { className?: string }) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [error, setError] = useState("");
@@ -70,7 +70,12 @@ export function AiReadinessBanner({ className = "" }: { className?: string }) {
               <span>Email</span>
               <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
             </label>
-            <MovingColourButton type="submit" className={styles.submit} disabled={status === "submitting"}>
+            <MovingColourButton
+              type="submit"
+              className={styles.submit}
+              direction="right"
+              disabled={status === "submitting"}
+            >
               {status === "submitting" ? "Starting…" : "Run free check"}
             </MovingColourButton>
             {error && (

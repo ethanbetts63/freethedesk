@@ -3,7 +3,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-/** A sortable column header. `field` must be one of the list's whitelisted sort fields. */
+                                                                                           
 export function SortHeader({
   field,
   ordering,
@@ -26,7 +26,7 @@ export function SortHeader({
   );
 }
 
-/** A `<select>` bound to one of the list's query-string filters. */
+                                                                    
 export function FilterSelect({
   label,
   value,
@@ -52,7 +52,7 @@ export function FilterSelect({
   );
 }
 
-/** Title, result count, the filter controls and an optional row-colour legend. */
+                                                                                  
 export function AdminFilterBar({
   total,
   noun,

@@ -34,7 +34,7 @@ const STREAMS: Stream[] = [
 const DOT_BLUR = 12;
 const DOT_RADIUS = { dark: 3.8, light: 2.5 };
 
-/** A pre-rendered glowing dot. Shadow blur is expensive, so it is paid once per resize. */
+                                                                                           
 function createDotSprite(fillColor: string, shadowColor: string, radius: number, ratio: number) {
   const size = (radius + DOT_BLUR) * 2;
   const sprite = document.createElement("canvas");

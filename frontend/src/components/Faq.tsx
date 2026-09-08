@@ -2,7 +2,7 @@ import styles from "./Faq.module.css";
 
 export type FaqItem = { question: string; answer: string };
 
-/** Renders an FAQ accordion plus its FAQPage JSON-LD, so the visible copy and the structured data can never drift apart. */
+                                                                                                                            
 export function Faq({ eyebrow, title, items, id }: { eyebrow: string; title: string; items: FaqItem[]; id?: string }) {
   const schema = {
     "@context": "https://schema.org",
@@ -27,7 +27,7 @@ export function Faq({ eyebrow, title, items, id }: { eyebrow: string; title: str
             <details key={item.question}>
               <summary>
                 {item.question}
-                <span>+</span>
+                <span aria-hidden="true" />
               </summary>
               <p>{item.answer}</p>
             </details>

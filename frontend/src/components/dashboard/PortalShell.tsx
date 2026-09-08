@@ -11,7 +11,7 @@ export interface NavItem {
   label: string;
 }
 
-/** Sidebar chrome and the signed-in gate, shared by the staff dashboard and the dealer and SEO portals. */
+                                                                                                           
 export function PortalShell({
   role,
   label,

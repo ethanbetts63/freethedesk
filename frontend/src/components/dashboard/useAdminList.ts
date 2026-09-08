@@ -7,7 +7,7 @@ import type { Paginated } from "@/lib/api";
 
 export const ADMIN_PAGE_SIZE = 50;
 
-/** Everything `fetchPage` needs to describe the current view. */
+                                                                 
 export interface AdminListView {
   filters: Record<string, string>;
   search: string;
@@ -17,25 +17,25 @@ export interface AdminListView {
 }
 
 interface Options<Row> {
-  /** Fetches one page. Called from an effect keyed only on the serialised view. */
+                                                                                   
   fetchPage: (view: AdminListView) => Promise<Paginated<Row>>;
-  /** Query-string keys this list filters on. `search` is always included. */
+                                                                             
   filterKeys: readonly string[];
-  /** Whitelisted sort columns; the first is the default, newest-first. */
+                                                                          
   sortFields: readonly string[];
-  /** Shown if the fetch throws. */
+                                   
   loadError: string;
   pageSize?: number;
 }
 
-/**
- * The URL-driven state machine behind every dashboard list.
- *
- * Filters, search, sort and page all live in the query string, so Back/Forward
- * work and a filtered view can be linked to. `loading` is *derived* — true
- * whenever the requested view is not the one last loaded — which keeps it
- * honest when a filter changes without a setState inside the effect.
- */
+   
+                                                            
+  
+                                                                               
+                                                                           
+                                                                          
+                                                                     
+   
 export function useAdminList<Row>({
   fetchPage,
   filterKeys,
@@ -63,9 +63,9 @@ export function useAdminList<Row>({
 
   const search = params.get("search") ?? "";
   const [searchDraft, setSearchDraft] = useState(search);
-  // Re-sync the uncommitted draft when the committed search changes by some
-  // route other than typing — Back/Forward, or a shared link. Adjusted during
-  // render rather than in an effect.
+
+
+
   const [lastSyncedSearch, setLastSyncedSearch] = useState(search);
   if (search !== lastSyncedSearch) {
     setLastSyncedSearch(search);

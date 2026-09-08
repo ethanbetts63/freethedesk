@@ -1,4 +1,4 @@
-/** Shared API primitives for both portals. Staff calls live in adminApi.ts, dealer calls in dealerApi.ts. */
+                                                                                                             
 
 export const SESSION_FLAG = "hasSession";
 export const AUTH_FAILURE_EVENT = "auth-failure";
@@ -33,13 +33,13 @@ export interface Paginated<T> {
   results: T[];
 }
 
-/**
- * Fields every subscriber account carries, whichever product it is on. The
- * dealer and SEO accounts extend this with their own plan/payment unions; the
- * staff-facing versions add `StaffAccountFields` on top. This mirrors the
- * backend, where each admin serializer is the self serializer plus those two
- * staff-only fields.
- */
+   
+                                                                           
+                                                                              
+                                                                          
+                                                                             
+                     
+   
 export interface AccountBase {
   id: number;
   business_name: string;
@@ -56,14 +56,14 @@ export interface AccountBase {
   updated_at: string;
 }
 
-/**
- * How far a customer has got with their own onboarding form — the same three
- * states for dealers and SEO customers. Whether staff have approved the account
- * is `status` on the account itself, not this.
- */
+   
+                                                                             
+                                                                                
+                                               
+   
 export type OnboardingStatus = "not_started" | "in_progress" | "submitted";
 
-/** The two fields only staff see, added by every admin serializer. */
+                                                                      
 export interface StaffAccountFields {
   staff_notes: string;
   status_changed_at: string | null;
@@ -82,11 +82,11 @@ function endSession(): void {
   window.dispatchEvent(new Event(AUTH_FAILURE_EVENT));
 }
 
-/**
- * One shared refresh per burst of 401s. Pages that load several resources at
- * once (the enquiry detail view fetches the enquiry and its messages together)
- * would otherwise each POST their own refresh and race to rotate the cookie.
- */
+   
+                                                                             
+                                                                               
+                                                                             
+   
 let refreshInFlight: Promise<boolean> | null = null;
 
 function refreshSession(): Promise<boolean> {
@@ -117,19 +117,19 @@ export async function authedFetch(url: string, options: RequestInit = {}): Promi
     return response;
   }
 
-  // A retry that still 401s means the session is genuinely finished (the
-  // account was suspended mid-session, say) — end it rather than leaving the
-  // caller to render a bare error on a page it can no longer load.
+
+
+
   const retried = await fetch(url, request);
   if (retried.status === 401) endSession();
   return retried;
 }
 
-/**
- * The first human-readable message in a DRF error body. Field errors arrive as
- * `{ email: ["Already registered."] }`, so the first value has to be unwrapped
- * before it is used — otherwise the array stringifies into the message.
- */
+   
+                                                                               
+                                                                               
+                                                                        
+   
 export function firstError(data: unknown, fallback = "Request failed"): string {
   if (typeof data !== "object" || data === null) return fallback;
   const body = data as Record<string, unknown>;
@@ -246,7 +246,7 @@ export function normaliseWebsiteUrl(value: string): string {
 
 export interface AiReadinessPayload {
   website: string;
-  /** Optional: the slim banner variant of the form omits it. */
+                                                                
   phone?: string;
   email: string;
   company_website?: string;
@@ -260,7 +260,7 @@ export type ProjectType = "website" | "automation" | "both";
 
 export interface ProjectEnquiryPayload {
   project_type: ProjectType;
-  /** Free text: the preset amount picked, or whatever they typed under "Custom". */
+                                                                                    
   budget: string;
   website: string;
   email: string;
@@ -272,7 +272,7 @@ export async function submitProjectEnquiry(payload: ProjectEnquiryPayload): Prom
   await postJson("/api/project-enquiries/", payload);
 }
 
-/** A GST-inclusive dollar amount. Blank or unparseable values render as an em dash. */
+                                                                                       
 export function formatPrice(value: string): string {
   const amount = Number(value);
   if (!value?.trim() || !Number.isFinite(amount)) return "—";

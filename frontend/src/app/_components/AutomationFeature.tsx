@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { PrimaryButton } from "@/components/PrimaryButton";
 import styles from "./AutomationFeature.module.css";
 
 export function AutomationFeature() {
@@ -65,9 +64,9 @@ export function AutomationFeature() {
             <li>Bookings, documents and data transfer</li>
             <li>Reporting built around the decision</li>
           </ul>
-          <Link href="/automation">
-            Explore business automation <span>→</span>
-          </Link>
+          <PrimaryButton className={styles.copyCta} href="/automation">
+            Explore business automation
+          </PrimaryButton>
         </div>
       </div>
     </section>

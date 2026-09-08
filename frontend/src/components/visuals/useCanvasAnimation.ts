@@ -6,31 +6,31 @@ export interface CanvasFrame {
   context: CanvasRenderingContext2D;
   width: number;
   height: number;
-  /** Milliseconds since the animation started. */
+                                                  
   time: number;
-  /** True when the visitor asked for reduced motion: draw one static frame. */
+                                                                               
   reduceMotion: boolean;
 }
 
 interface Options {
-  /** Draws one frame. Called once immediately, then per rAF while on screen. */
+                                                                                
   draw: (frame: CanvasFrame) => void;
-  /** Rebuilds anything sized to the canvas — particles, sprite caches. */
+                                                                          
   onResize?: (size: { width: number; height: number; ratio: number }) => void;
-  /** Debounce for window resizes, in ms. */
+                                            
   resizeDelay?: number;
 }
 
-/**
- * The scaffolding both background canvases need: device-pixel-ratio scaling, a
- * debounced resize, `prefers-reduced-motion` (one static frame, no loop), and
- * an IntersectionObserver that stops the loop while the canvas is off screen.
- */
+   
+                                                                               
+                                                                              
+                                                                              
+   
 export function useCanvasAnimation({ draw, onResize, resizeDelay = 150 }: Options) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // Kept in a ref so a caller passing an inline closure does not restart the
-  // animation — and lose its particle positions — on every render. The ref is
-  // seeded at mount and refreshed after each render, never during one.
+
+
+
   const handlers = useRef({ draw, onResize });
   useEffect(() => {
     handlers.current = { draw, onResize };

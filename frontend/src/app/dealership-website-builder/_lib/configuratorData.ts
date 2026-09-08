@@ -166,11 +166,11 @@ export const DEFAULT_INVENTORY_ADDONS: InventoryAddonSelection = {
   newsletter: false,
 };
 
-/**
- * What the customer has added on top of the base website. The controls panel
- * and the preview both need this — deriving it once keeps the "Base + N" badge
- * on the preview and the summary in the enquiry form from ever disagreeing.
- */
+   
+                                                                             
+                                                                               
+                                                                            
+   
 export function summariseSelection(
   selected: ModuleSelection,
   inventoryAddons: InventoryAddonSelection,

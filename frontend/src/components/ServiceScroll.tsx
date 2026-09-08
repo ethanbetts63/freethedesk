@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { PrimaryButton } from "@/components/PrimaryButton";
+
 export type Service = {
   title: string;
   body: string;
@@ -19,19 +21,49 @@ const customService = {
   ),
 };
 
-/**
- * The sticky service list, used by /automation, /website-development, /seo and
- * the dealership pitch. Every page gets the identical layout and the same
- * "something only your business does" closer; only the service copy and the
- * closer's destination differ, so the pitch cannot drift between pages.
- *
- * Needs `main:has(.service-scroll) { overflow: visible }` (see globals.css)
- * on whichever page renders this—position:sticky is inert under any ancestor
- * with overflow != visible, and every <main> defaults to overflow: hidden.
- */
-export function ServiceScroll({ services, customHref }: { services: Service[]; customHref: string }) {
+   
+                                                                               
+                                                                          
+                                                                            
+                                                                        
+  
+                                                                            
+                                                                             
+                                                                           
+   
+export function ServiceScroll({
+  services,
+  customHref,
+  eyebrow,
+  title,
+  lead,
+  ctaLabel,
+}: {
+  services: Service[];
+  customHref: string;
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  ctaLabel?: string;
+}) {
+  // The list sits above the page's form, so an on-page target is below it.
+  const ctaDirection = customHref.startsWith("#") ? "down" : "page";
+
   return (
     <div className="service-scroll">
+      <div className="service-scroll-intro">
+        <div>
+          <p className="service-scroll-label">{eyebrow}</p>
+          <h2>{title}</h2>
+        </div>
+        {ctaLabel && (
+          <PrimaryButton className="service-scroll-cta" href={customHref} direction={ctaDirection}>
+            {ctaLabel}
+          </PrimaryButton>
+        )}
+      </div>
+      {lead && <p className="service-scroll-lead">{lead}</p>}
+
       {services.map((service, index) => (
         <div className="service-row" key={service.title}>
           <div className="service-sticky">
@@ -65,8 +97,9 @@ export function ServiceScroll({ services, customHref }: { services: Service[]; c
             </div>
             <p>{customService.body}</p>
           </div>
+          {/* The list sits above the page's form, so an on-page target is below. */}
           <Link className="service-cta" href={customHref} style={{ background: customService.color }}>
-            Tell us about it <span>→</span>
+            Tell us about it <span>{ctaDirection === "down" ? "↓" : "↗"}</span>
           </Link>
         </div>
       </div>

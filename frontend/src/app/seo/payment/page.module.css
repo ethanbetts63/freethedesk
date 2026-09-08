@@ -1,5 +1,5 @@
 .checkoutPage {
-  /* Single place to retune the checkout page's accent color. */
+                                                                
   --checkout-accent: var(--brand-accent);
   background: #fff;
   color: #0d1c29;
@@ -232,7 +232,7 @@
 }
 
 .completePage {
-  /* Single place to retune the payment-complete page's accent color. */
+                                                                        
   --complete-accent: var(--brand-accent);
   align-items: center;
   background: #eef5fa;

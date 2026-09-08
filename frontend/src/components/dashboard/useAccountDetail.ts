@@ -9,25 +9,25 @@ type StaffAccount = AccountBase & StaffAccountFields;
 
 interface Options<Account extends StaffAccount> {
   id: number;
-  /** Loads the account itself. */
+                                  
   fetch: (id: number) => Promise<Account>;
-  /** Applies a staff change and returns the updated account. */
+                                                                
   update: (id: number, changes: Partial<Pick<Account, "status" | "staff_notes">>) => Promise<Account>;
-  /** Which admin-message filter links messages to this account. */
+                                                                   
   messageFilter: "related_dealer" | "related_seo_subscriber";
-  /** Subject line for the "email this account" composer link. */
+                                                                 
   replySubject: string;
-  /** Shown when the initial load fails, and when a save fails. */
+                                                                  
   loadError: string;
   saveError: string;
 }
 
-/**
- * The shared state behind both admin account detail pages: load the account and
- * its recent messages, edit staff notes, change status, and build the composer
- * link. Only the copy and the two API functions differ between dealers and SEO
- * customers.
- */
+   
+                                                                                
+                                                                               
+                                                                               
+             
+   
 export function useAccountDetail<Account extends StaffAccount>({
   id,
   fetch,
@@ -63,7 +63,7 @@ export function useAccountDetail<Account extends StaffAccount>({
     return () => {
       active = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [id]);
 
   const replyHref = useMemo(() => {

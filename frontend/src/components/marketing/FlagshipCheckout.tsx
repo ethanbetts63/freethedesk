@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 
+import { PrimaryButton } from "@/components/PrimaryButton";
 import styles from "./FlagshipCheckout.module.css";
 
 const journey = [
@@ -58,8 +58,8 @@ export function FlagshipCheckout() {
           </div>
 
           <div className={styles.status}>
+            <span>Identity Verification by</span>
             <Image className={styles.stripeLogo} src="/stripe-ar21.svg" alt="Stripe" width={120} height={60} />
-            <b>Verified Identity</b>
           </div>
         </div>
 

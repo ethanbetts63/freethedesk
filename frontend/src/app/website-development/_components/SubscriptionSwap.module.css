@@ -1,4 +1,4 @@
-/* Sits between the two #f2f7fb sections, so this one stays white for contrast. */
+                                                                                  
 .section {
   padding-bottom: var(--section-space);
   padding-top: var(--section-space);
@@ -105,7 +105,7 @@
   left: 0;
   position: absolute;
 }
-/* Deliberately quieter than the column beside it: this is the honesty note, not the pitch. */
+                                                                                              
 .keep {
   border-top: 3px solid #d5e2ec;
   padding-top: 26px;
@@ -147,7 +147,7 @@
   max-width: 760px;
   padding-left: 22px;
 }
-/* Spacing only — the look comes from the global .primary-button. */
+                                                                    
 .cta {
   margin-top: 44px;
 }

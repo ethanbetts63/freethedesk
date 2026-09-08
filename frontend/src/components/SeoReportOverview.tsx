@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import styles from "./SeoReportOverview.module.css";
 
-/** Title, note and icon travel together — as parallel arrays they silently mismatched on any reorder. */
+                                                                                                         
 const reportSections = [
   {
     title: "Last period tracked",

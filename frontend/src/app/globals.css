@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
-/* ============================================================
-   Design tokens
-   ------------------------------------------------------------
-   Primitive scale first, then semantic tokens that the rest of
-   the stylesheet references. Re-theming should only ever mean
-   editing the two blocks below.
-   ============================================================ */
+                                                               
+                
+                                                               
+                                                               
+                                                              
+                                
+                                                                  
 :root {
-  /* ---- Primitive: blue ramp ---- */
+                                      
   --blue-50: #f4f8fd;
   --blue-100: #e7eff9;
   --blue-200: #dbe7f4;
@@ -22,7 +22,7 @@
   --blue-950: #13315c;
   --blue-990: #0b1f3a;
 
-  /* ---- Primitive: cool neutrals ---- */
+                                          
   --cool-100: #eef2f6;
   --cool-300: #b7c6d6;
   --cool-400: #97a8b8;
@@ -30,17 +30,17 @@
   --cool-600: #5a6b7f;
   --cool-700: #45535f;
 
-  /* ---- Semantic: surfaces ---- */
+                                    
   --bg: #ffffff;
   --surface: #ffffff;
   --surface-tint: var(--blue-50);
   --surface-tint-2: var(--blue-100);
   --surface-dark: var(--blue-950);
   --surface-dark-soft: var(--blue-900);
-  /* Shared pale surface behind the animated SignalFlow background (login page + footer). */
+                                                                                            
   --surface-flow: #f4f8fb;
 
-  /* ---- Semantic: text ---- */
+                                
   --text: #000000;
   --text-muted: var(--cool-600);
   --text-subtle: var(--cool-500);
@@ -48,17 +48,17 @@
   --text-on-dark-muted: #aec6df;
   --text-on-dark-subtle: #8aa4c1;
 
-  /* ---- Semantic: accent + links ---- */
+                                          
   --accent: var(--blue-400);
-  --accent-ink: var(--blue-800); /* accent used as text on a light bg (AA on white) */
-  --accent-strong: #0b64d6; /* dots, pulses, the wordmark tick */
-  /* The brand blue behind CTAs, page accents and the Stripe checkout theme.
-     lib/brand.ts mirrors this for the Stripe Appearance API, which needs a
-     literal — those two are the only places this hex should appear. */
+  --accent-ink: var(--blue-800);                                                      
+  --accent-strong: #0b64d6;                                      
+                                                                            
+                                                                           
+                                                                       
   --brand-accent: #247ec9;
   --link: var(--blue-800);
 
-  /* ---- Semantic: lines + effects ---- */
+                                           
   --border: var(--blue-200);
   --border-strong: var(--blue-300);
   --border-subtle: #e7eef6;
@@ -66,18 +66,18 @@
   --border-on-dark-strong: #4d6f96;
   --focus-ring: rgba(90, 176, 236, 0.4);
   --shadow-color: 19, 49, 92;
-  /* Shared animated colour treatment used by highlighted text, borders and CTAs. */
+                                                                                    
   --moving-colour-gradient: linear-gradient(90deg, #38bdf8, #a855f7, #f472b6, #38bdf8);
   --moving-colour-gradient-surface: linear-gradient(100deg, #38bdf8, #a855f7 55%, #f472b6, #38bdf8);
   --moving-colour-size: 300% 100%;
-  /* Shared faint grid pattern behind the home/flow heroes and the footer — keep these in sync. */
+                                                                                                  
   --hero-grid-color: 17, 70, 126;
   --hero-grid-opacity: 0.035;
   --hero-grid-size: 64px;
-  /* Standard vertical rhythm for sections that are intentionally separated. */
+                                                                               
   --section-space: clamp(80px, 10vw, 115px);
 
-  /* ---- Semantic: status hues (queue colour-coding) ---- */
+                                                             
   --status-new: #e0a020;
   --status-contacted: #2f8fca;
   --status-qualified: #7b5ce2;
@@ -118,8 +118,8 @@ main {
   overflow: hidden;
 }
 
-/* Reusable moving-colour text. Override --moving-colour-speed locally when a
-   smaller UI element needs a quicker pass than the default. */
+                                                                             
+                                                               
 .moving-colour-text {
   animation: moving-colour-shift var(--moving-colour-speed, 18s) linear infinite;
   background: var(--moving-colour-gradient);
@@ -128,9 +128,9 @@ main {
   color: transparent;
   -webkit-background-clip: text;
 }
-/* The standard accent CTA. Callers only ever set the --pb-* custom properties
-   (never the properties below), so a module class can retune one of these
-   without fighting this rule's specificity. */
+                                                                              
+                                                                          
+                                               
 .primary-button {
   align-items: center;
   background: var(--pb-background, var(--page-accent, var(--brand-accent)));
@@ -164,13 +164,13 @@ main {
   transform: translateX(4px);
 }
 
-/* Shared moving-colour CTA. Callers only ever set the --mcb-* custom properties
-   (never the properties below), so a module class can resize one of these
-   without fighting this rule's specificity. */
+                                                                                
+                                                                          
+                                               
 .moving-colour-button {
   align-items: center;
-  /* Its own speed variable rather than --moving-colour-speed: several sections
-     set that on a wrapper for their text, and a CTA inside would inherit it. */
+                                                                               
+                                                                                
   animation: moving-colour-shift var(--mcb-speed, 16s) linear infinite;
   background: var(--moving-colour-gradient-surface);
   background-size: var(--moving-colour-size);
@@ -187,8 +187,8 @@ main {
   min-height: var(--mcb-height, 52px);
   padding: 0 var(--mcb-padding-x, 18px);
   text-transform: uppercase;
-  /* The gradient runs through a light sky blue, where plain white would fall
-     under 3:1. This keeps the label readable across the whole sweep. */
+                                                                             
+                                                                        
   text-shadow: 0 1px 2px rgba(6, 22, 40, 0.32);
   width: var(--mcb-width, auto);
 }
@@ -221,9 +221,9 @@ main {
     animation: none;
   }
 }
-/* The sticky service list needs main to not clip—position:sticky is inert under
-   any ancestor with overflow != visible. FlowHeroConcept clips its own background
-   independently, so this override does not un-clip anything that relied on it. */
+                                                                                
+                                                                                  
+                                                                                  
 main:has(.service-scroll) {
   overflow: visible;
 }
@@ -499,12 +499,6 @@ main:has(.service-scroll) {
   margin-left: 8px;
 }
 
-.intro-section {
-  align-items: start;
-  display: grid;
-  gap: 100px;
-  grid-template-columns: 1.15fr 0.85fr;
-}
 .section-number {
   color: var(--text-subtle);
   font-size: 0.68rem;
@@ -516,19 +510,12 @@ main:has(.service-scroll) {
 .section-number-light {
   color: var(--text-on-dark-subtle);
 }
-.intro-section h2,
 .process-heading h2,
 .closing-cta h2 {
   font-size: clamp(2.5rem, 4.5vw, 4.9rem);
   letter-spacing: -0.065em;
   line-height: 0.98;
   margin: 0;
-}
-.section-intro {
-  color: var(--text-muted);
-  font-size: 1.12rem;
-  line-height: 1.7;
-  margin: 64px 0 0;
 }
 
 .closing-cta {
@@ -546,27 +533,6 @@ main:has(.service-scroll) {
   line-height: 1.65;
   margin: 25px 0 34px;
   max-width: 600px;
-}
-
-.automation-intro {
-  padding: 90px 0 10px;
-}
-.automation-intro .section-number {
-  margin-bottom: 22px;
-}
-.automation-intro-row {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  justify-content: space-between;
-}
-.automation-intro-row h2 {
-  font-size: clamp(2.6rem, 4.6vw, 4.2rem);
-  letter-spacing: -0.045em;
-  line-height: 1;
-  margin: 0;
-  max-width: 700px;
 }
 
 .approach-section {
@@ -657,6 +623,41 @@ main:has(.service-scroll) {
 
 .service-scroll {
   margin-top: 0;
+}
+/* Shared heading for every service list, so the four pages that use one open
+   the same way. Text comes from the caller. */
+.service-scroll-intro {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+  padding-top: 55px;
+}
+.service-scroll-label {
+  color: var(--page-accent, var(--brand-accent));
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  margin: 0 0 23px;
+  text-transform: uppercase;
+}
+.service-scroll-intro h2 {
+  font-size: clamp(2.6rem, 4.6vw, 4.2rem);
+  letter-spacing: -0.058em;
+  line-height: 1.02;
+  margin: 0;
+  max-width: 780px;
+}
+.service-scroll-cta {
+  flex: 0 0 auto;
+}
+.service-scroll-lead {
+  color: #536c80;
+  font-size: 1rem;
+  line-height: 1.78;
+  margin: 22px 0 0;
+  max-width: 620px;
 }
 .service-row {
   border-top: 1px solid var(--border);
@@ -946,9 +947,9 @@ main:has(.service-scroll) {
   color: #702e16;
 }
 
-/* ============================================================
-   Case studies (Scooter Shop + Bloomprint)
-   ============================================================ */
+                                                               
+                                           
+                                                                  
 .case-hero {
   min-height: 720px;
   overflow: hidden;
@@ -1706,10 +1707,10 @@ main:has(.service-scroll) {
   padding-bottom: 7px;
 }
 
-/* ============================================================
-   Bloomprint case study — sections unique to that page.
-   The hero, browser/phone mocks and grids are shared .case-* blocks above.
-   ============================================================ */
+                                                               
+                                                        
+                                                                           
+                                                                  
 
 .bloom-sides {
   display: grid;
@@ -1929,9 +1930,6 @@ main:has(.service-scroll) {
   .hero-copy {
     max-width: 780px;
   }
-  .intro-section {
-    gap: 65px;
-  }
   .case-hero-layout {
     gap: 48px;
     grid-template-columns: 0.9fr 1.1fr;
@@ -2006,12 +2004,6 @@ main:has(.service-scroll) {
   .hero-grid,
   .contact-grid {
     gap: 48px;
-  }
-  .intro-section {
-    grid-template-columns: 1fr;
-  }
-  .section-intro {
-    margin-top: 0;
   }
   .closing-cta {
     margin-bottom: 78px;
@@ -2288,9 +2280,9 @@ main:has(.service-scroll) {
   }
 }
 
-/* ============================================================
-   Admin dashboard
-   ============================================================ */
+                                                               
+                  
+                                                                  
 .admin-loading {
   align-items: center;
   background: var(--surface-tint);
@@ -2536,8 +2528,8 @@ main:has(.service-scroll) {
   width: 10px;
 }
 
-/* Status colour-coding — each swatch / row tint / pill is derived
-   from a single hue token so the palette stays consistent. */
+                                                                  
+                                                              
 .admin-swatch-new,
 .admin-swatch-pending {
   background: var(--status-new);
@@ -2622,9 +2614,9 @@ main:has(.service-scroll) {
 .admin-table tbody tr:hover {
   filter: brightness(0.975);
 }
-/* The row's first cell holds a real link, so a row is keyboard reachable and
-   can be opened in a new tab. It is stretched over the whole row so the row
-   still behaves like one click target. */
+                                                                             
+                                                                            
+                                          
 .admin-table td:first-child {
   position: relative;
 }

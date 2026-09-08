@@ -1,14 +1,15 @@
 import Link from "next/link";
 
+import { PrimaryButton } from "@/components/PrimaryButton";
 import { NetworkField } from "@/components/visuals/NetworkField";
 
 import styles from "./Hero.module.css";
 
 type HeroProps = {
   eyebrow: string;
-  /** Plain-weight headline lines, rendered one per line above `accentTitle`. */
+                                                                                
   titleLines: readonly string[];
-  /** Final headline line, rendered in the hero accent colour. */
+                                                                 
   accentTitle: string;
   lead: string;
   primaryHref: string;
@@ -16,11 +17,11 @@ type HeroProps = {
   secondaryHref: string;
   secondaryLabel: string;
   trustLine?: string;
-  /** Pass a process to render the numbered rail beside the copy. Omit for a full-width hero. */
+                                                                                                
   stages?: readonly string[];
 };
 
-/** The site's only hero. Every page passes its own copy—nothing here is page-specific. */
+                                                                                          
 export function Hero({
   eyebrow,
   titleLines,
@@ -56,11 +57,16 @@ export function Hero({
           </h1>
           <p className={styles.lead}>{lead}</p>
           <div className={styles.actions}>
-            <Link className={styles.primary} href={primaryHref}>
-              {primaryLabel} <span>↗</span>
-            </Link>
+            {/* The hero sits at the top, so an on-page target is always below. */}
+            <PrimaryButton
+              className={styles.primary}
+              href={primaryHref}
+              direction={primaryHref.startsWith("#") ? "down" : "page"}
+            >
+              {primaryLabel}
+            </PrimaryButton>
             <Link className={styles.secondary} href={secondaryHref}>
-              {secondaryLabel} <span>→</span>
+              {secondaryLabel} <span>{secondaryHref.startsWith("#") ? "↓" : "↗"}</span>
             </Link>
           </div>
           {trustLine ? <p className={styles.trustLine}>{trustLine}</p> : null}

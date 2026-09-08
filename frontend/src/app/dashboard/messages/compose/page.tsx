@@ -20,8 +20,8 @@ function ComposeMessageContent() {
 
   async function submit(event: FormEvent) {
     event.preventDefault();
-    // Two-step send rather than a native confirm(), which blocks the whole tab
-    // and cannot be styled with the rest of the dashboard.
+
+
     if (!confirming) {
       setConfirming(true);
       return;

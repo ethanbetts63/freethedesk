@@ -6,11 +6,11 @@ import { submitEnquiry, type HelpWith } from "@/lib/api";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-/**
- * The values here are the backend's `Enquiry.HelpWith` choices. They are the
- * codes the API stores, not display copy — changing one without changing the
- * model rejects every submission that picks it.
- */
+   
+                                                                             
+                                                                             
+                                                
+   
 const HELP_WITH_OPTIONS: { value: HelpWith; label: string }[] = [
   { value: "website", label: "A new or improved business website" },
   { value: "website_builder", label: "A new or improved dealer website" },
@@ -87,7 +87,7 @@ export function ContactForm({ defaultHelpWith = "" }: { defaultHelpWith?: HelpWi
         <textarea name="message" rows={6} required />
       </label>
       <button className="button button-primary form-submit" type="submit" disabled={status === "submitting"}>
-        {status === "submitting" ? "Sending…" : "Send enquiry"} <span>↗</span>
+        {status === "submitting" ? "Sending…" : "Send enquiry"} <span>→</span>
       </button>
       {status === "success" && (
         <p className="form-message form-success">

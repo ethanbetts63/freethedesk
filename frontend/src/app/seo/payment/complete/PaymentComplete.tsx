@@ -36,7 +36,7 @@ export function PaymentComplete() {
           return;
         }
       } catch {
-        // Brief API or webhook timing gaps are retried below.
+
       }
       attempts += 1;
       if (attempts >= 15) setState("delayed");

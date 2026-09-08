@@ -6,17 +6,17 @@ export type { DealerPlanCode };
 export type DealerPlan = Plan<DealerPlanCode>;
 export { formatPrice, planByCode };
 
-/** Only the three licensing prices are needed to build the plan cards. */
+                                                                          
 export type LicensingPrices = Pick<PublicSiteSettings, "licensing_price" | "contracts_price" | "complete_price">;
 
-/** Sorts unpriced plans last rather than to the front as a zero would. */
+                                                                          
 function priceAmount(value: string): number {
   if (!value.trim()) return Number.MAX_SAFE_INTEGER;
   const amount = Number(value);
   return Number.isFinite(amount) ? amount : Number.MAX_SAFE_INTEGER;
 }
 
-/** Which SiteSettings price backs each plan. Cards render cheapest first. */
+                                                                             
 const PRICE_FIELD: Record<DealerPlanCode, keyof LicensingPrices> = {
   licensing: "licensing_price",
   contracts: "contracts_price",
@@ -48,7 +48,7 @@ const PLAN_COPY: Omit<DealerPlan, "price">[] = [
   },
 ];
 
-/** Plan copy and features are static; prices come from SiteSettings so they can be edited from the admin dashboard. */
+                                                                                                                       
 export function buildDealerPlans(settings: LicensingPrices): DealerPlan[] {
   return PLAN_COPY.map((plan) => ({ ...plan, price: formatPrice(settings[PRICE_FIELD[plan.code]]) })).sort(
     (a, b) => priceAmount(settings[PRICE_FIELD[a.code]]) - priceAmount(settings[PRICE_FIELD[b.code]]),

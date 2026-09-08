@@ -15,19 +15,19 @@ type Node = {
 };
 
 export type NetworkFieldColors = {
-  /** Node fill for the lighter tone. */
+                                        
   nodeLight: string;
-  /** Node fill for the darker tone, also used for large-node rings. */
+                                                                       
   nodeDark: string;
-  /** Link gradient start, as an "r, g, b" triplet. */
+                                                      
   linkStart: string;
-  /** Link gradient end, as an "r, g, b" triplet. */
+                                                    
   linkEnd: string;
-  /** Ring stroke around large nodes, as an "r, g, b" triplet. */
+                                                                 
   ring: string;
 };
 
-/** Single place to retune the network's palette; pass `colors` to override per hero. */
+                                                                                        
 export const DEFAULT_NETWORK_COLORS: NetworkFieldColors = {
   nodeLight: "#5aaee9",
   nodeDark: "#13315c",
@@ -42,11 +42,11 @@ const PULL_STRENGTH = 0.02;
 const SWIRL_STRENGTH = 0.011;
 const MAX_SPEED = 2.4;
 
-/**
- * Links are drawn in a handful of opacity bands rather than one stroke per
- * pair. Every line in a band goes into a single path, so a frame costs a few
- * stroke calls instead of several hundred.
- */
+   
+                                                                           
+                                                                             
+                                           
+   
 const OPACITY_BANDS = 5;
 
 function blend(start: string, end: string): string {

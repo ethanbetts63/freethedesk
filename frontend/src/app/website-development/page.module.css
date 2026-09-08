@@ -1,5 +1,5 @@
 .page {
-  /* Single place to retune this page's accent color. */
+                                                        
   --page-accent: var(--brand-accent);
   background: #fff;
   color: #07121c;
@@ -22,7 +22,6 @@
   padding-top: 55px;
 }
 .pitchCopy h2,
-.sectionHeading h2,
 .systemCopy h2,
 .closing h2 {
   font-size: clamp(3rem, 5.3vw, 5.7rem);
@@ -37,7 +36,7 @@
   margin: 0 0 18px;
 }
 
-/* 01 — automation pitch, styled after the SEO page's Google Business Profile audit */
+                                                                                      
 .pitch {
   background: #13315c;
   color: #fff;
@@ -226,22 +225,7 @@
   background: #f2f7fb;
   padding: var(--section-space) 0;
 }
-.sectionHeading {
-  max-width: 900px;
-}
-.servicesClosing {
-  color: #13315c;
-  font-size: 1.25rem;
-  font-weight: 750;
-  letter-spacing: -0.02em;
-  line-height: 1.5;
-  margin: 48px 0 0;
-  max-width: 720px;
-}
-/* The look comes from the global .primary-button; these only place it. */
-.servicesCta {
-  margin-top: 48px;
-}
+                                                                          
 .seoSection {
   background: #f2f7fb;
   margin-bottom: var(--section-space);
@@ -539,25 +523,25 @@
   flex-wrap: wrap;
   gap: 22px;
 }
-.caseActions a {
+/* The primary is a .primary-button, so these only style the plain link beside it. */
+.caseActions a:not(.casePrimary) {
   color: #fff;
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-.caseActions .casePrimary {
-  background: #70bced;
-  color: #07121c;
-  padding: 15px 18px;
-}
-.caseActions a span {
+.caseActions a:not(.casePrimary) span {
   display: inline-block;
   margin-left: 6px;
   transition: transform 0.2s ease;
 }
-.caseActions a:hover span {
+.caseActions a:not(.casePrimary):hover span {
   transform: translateX(4px);
+}
+.caseActions .casePrimary {
+  --pb-font-size: 0.78rem;
+  --pb-padding: 15px 18px;
 }
 .closing {
   background: #f2f7fb;

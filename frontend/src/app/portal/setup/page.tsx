@@ -196,8 +196,8 @@ export default function DealerSetupPage() {
             <button type="submit" className="admin-secondary-button" disabled={saving}>
               {saving ? "Saving…" : "Save draft"}
             </button>
-            {/* Deliberately type="button": as a submit it would fire this handler
-                and the form's onSubmit, saving twice against one click. */}
+            {                                                                     
+                                                                           }
             <button
               type="button"
               className="admin-primary-button"

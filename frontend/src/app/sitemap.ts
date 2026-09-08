@@ -4,12 +4,12 @@ import { getAllArticleMeta } from "@/lib/articles";
 import { PAGES } from "@/lib/pages";
 import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
 
-/**
- * Built from the page registry and the article files, so a new page appears
- * here by being registered rather than by remembering to add it. `lastModified`
- * comes from the build date instead of a hand-maintained literal per row — a
- * date nobody updates is worse than no date at all.
- */
+   
+                                                                            
+                                                                                
+                                                                             
+                                                    
+   
 export default function sitemap(): MetadataRoute.Sitemap {
   const builtAt = new Date();
 

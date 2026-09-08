@@ -33,6 +33,9 @@ function FlowColumn({
   eyebrow?: string;
   cta?: { href: string; label: string };
 }) {
+  // This block sits above the signup panel, so an on-page target is below it.
+  const ctaDirection = cta?.href.startsWith("#") ? "down" : "page";
+
   return (
     <div className={`${styles.flowColumn} ${highlight ? styles.flowColumnHighlight : ""}`}>
       {eyebrow && <p className={`${styles.flowEyebrow} moving-colour-text`}>{eyebrow}</p>}
@@ -54,11 +57,11 @@ function FlowColumn({
         /* Only the recommended column gets the moving-colour treatment; the
            hosted-portal column uses the standard accent CTA. */
         (highlight ? (
-          <MovingColourButton className={styles.flowColumnCta} href={cta.href} arrow="↗">
+          <MovingColourButton className={styles.flowColumnCta} href={cta.href} direction={ctaDirection}>
             {cta.label}
           </MovingColourButton>
         ) : (
-          <PrimaryButton className={styles.flowColumnCtaPlain} href={cta.href} arrow="↗">
+          <PrimaryButton className={styles.flowColumnCtaPlain} href={cta.href} direction={ctaDirection}>
             {cta.label}
           </PrimaryButton>
         ))}

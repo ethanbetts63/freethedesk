@@ -102,80 +102,12 @@ export default async function SeoPage() {
         description={
           <div className={styles.reportDescription}>
             <p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>
-            <PrimaryButton className={styles.sectionCta} href="#signup">
+            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down">
               Choose your plan
             </PrimaryButton>
           </div>
         }
       />
-
-      <div className="shell">
-        <GoogleBusinessProfileAudit
-          standalonePrice={formatPrice(settings.gbp_audit_price)}
-          ctaHref="#google-business-profile-audit"
-          ctaLabel="Buy this audit"
-        />
-      </div>
-
-      <section className={styles.compareSection}>
-        <div className={`shell ${styles.compareInner}`}>
-          <div className={styles.compareCopy}>
-            <p className={styles.label}>03 / Why it&apos;s cheap</p>
-            <h2>Two hours of human judgement. That&apos;s what you&apos;re paying for.</h2>
-            <p>
-              Most of an SEO audit is collection work—crawling pages, pulling data, checking the same hundred things.
-              We&apos;ve automated that, so you don&apos;t pay agency prices for it.
-            </p>
-            <p>
-              It&apos;s the same process we run internally on every website we build. What can&apos;t be automated is
-              deciding what&apos;s actually worth your time—and that&apos;s the two hours you&apos;re buying.
-            </p>
-            <p className={styles.priceHonesty}>
-              Still sounds too cheap? It is. We&apos;re betting some subscribers will eventually want a site built by
-              us.
-            </p>
-            <PrimaryButton className={styles.sectionCta} href="#signup">
-              Choose your plan
-            </PrimaryButton>
-          </div>
-          <div className={styles.pipelineCard}>
-            <header className={styles.pipelineHead}>
-              <span className="moving-colour-text">How a report gets made</span>
-            </header>
-            <ol className={styles.pipelineSteps}>
-              {pipelineSteps.map(([title, body], index) => (
-                <li key={title}>
-                  <span>0{index + 1}</span>
-                  <div>
-                    <h3>{title}</h3>
-                    <p>{body}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-            <footer className={styles.pipelineFoot}>
-              <strong className="moving-colour-text">~2 hrs</strong>
-              <span>of experienced human labour per report.</span>
-            </footer>
-          </div>
-        </div>
-      </section>
-
-      <section className={`shell ${styles.introSection}`}>
-        <p className={styles.label}>04 / What recommendations look like</p>
-        <h2>The thinking that shows up in every report.</h2>
-        <p className={styles.introLead}>
-          Four examples of the kind of recommendation the report makes—and the standard each one has to meet before
-          it&apos;s allowed to cost you time.
-        </p>
-      </section>
-
-      <section className="shell">
-        <ServiceScroll services={seoServices} customHref="#signup" />
-        <PrimaryButton className={`${styles.sectionCta} ${styles.servicesCta}`} href="#signup">
-          Get your first report
-        </PrimaryButton>
-      </section>
 
       <section className={styles.caseSection}>
         <div className={`shell ${styles.caseInner}`}>
@@ -203,7 +135,7 @@ export default async function SeoPage() {
             </div>
           </div>
           <div className={styles.caseCopy}>
-            <p className={`${styles.label} ${styles.labelLight}`}>05 / Proof this works</p>
+            <p className={`${styles.label} ${styles.labelLight}`}>02 / Proof this works</p>
             <h2>Scooter Shop, Perth.</h2>
             <p>
               Scooter Shop&apos;s website was built the way our reports recommend: fast structured pages, indexable
@@ -221,16 +153,79 @@ export default async function SeoPage() {
               ))}
             </div>
             <div className={styles.caseActions}>
-              <Link className={styles.casePrimary} href="#signup">
-                Choose your plan <span>→</span>
-              </Link>
+              <PrimaryButton className={styles.casePrimary} href="#signup" direction="down">
+                Choose your plan
+              </PrimaryButton>
               <Link href="/portfolio/scooter-shop">
-                Read the full case study <span>→</span>
+                Read the full case study <span>↗</span>
               </Link>
             </div>
           </div>
         </div>
       </section>
+
+      <section className={styles.compareSection}>
+        <div className={`shell ${styles.compareInner}`}>
+          <div className={styles.compareCopy}>
+            <p className={styles.label}>03 / Why it&apos;s cheap</p>
+            <h2>Two hours of human judgement. That&apos;s what you&apos;re paying for.</h2>
+            <p>
+              Most of an SEO audit is collection work—crawling pages, pulling data, checking the same hundred things.
+              We&apos;ve automated that, so you don&apos;t pay agency prices for it.
+            </p>
+            <p>
+              It&apos;s the same process we run internally on every website we build. What can&apos;t be automated is
+              deciding what&apos;s actually worth your time—and that&apos;s the two hours you&apos;re buying.
+            </p>
+            <p className={styles.priceHonesty}>
+              Still sounds too cheap? It is. We&apos;re betting some subscribers will eventually want a site built by
+              us.
+            </p>
+            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down">
+              Choose your plan
+            </PrimaryButton>
+          </div>
+          <div className={styles.pipelineCard}>
+            <header className={styles.pipelineHead}>
+              <span className="moving-colour-text">How a report gets made</span>
+            </header>
+            <ol className={styles.pipelineSteps}>
+              {pipelineSteps.map(([title, body], index) => (
+                <li key={title}>
+                  <span>0{index + 1}</span>
+                  <div>
+                    <h3>{title}</h3>
+                    <p>{body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <footer className={styles.pipelineFoot}>
+              <strong className="moving-colour-text">~2 hrs</strong>
+              <span>of experienced human labour per report.</span>
+            </footer>
+          </div>
+        </div>
+      </section>
+
+      <section className="shell">
+        <ServiceScroll
+          services={seoServices}
+          customHref="#signup"
+          eyebrow="04 / What recommendations look like"
+          title="The thinking that shows up in every report."
+          lead="Four examples of the kind of recommendation the report makes—and the standard each one has to meet before it's allowed to cost you time."
+          ctaLabel="Get your first report"
+        />
+      </section>
+
+      <div className="shell">
+        <GoogleBusinessProfileAudit
+          standalonePrice={formatPrice(settings.gbp_audit_price)}
+          ctaHref="#google-business-profile-audit"
+          ctaLabel="Get this audit"
+        />
+      </div>
 
       <SeoSignup settings={settings} eyebrow="06 / Choose your plan" />
 
@@ -243,7 +238,7 @@ export default async function SeoPage() {
           Connect Google Search Console and your first report arrives within the week—ranked, plain-English, and honest
           about whether you should keep paying us.
         </p>
-        <PrimaryButton className={styles.closingCta} href="#signup" arrow="↑">
+        <PrimaryButton className={styles.closingCta} href="#signup" direction="up">
           Get your first report
         </PrimaryButton>
       </section>

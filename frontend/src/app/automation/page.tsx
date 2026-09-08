@@ -6,14 +6,12 @@ import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
-import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { metadataFor } from "@/lib/pages";
 
 import { AUTOMATION_FAQS } from "./_lib/copy";
 import { ServiceScroll } from "@/components/ServiceScroll";
 import { automationServices } from "./_components/automationServices";
-import styles from "./page.module.css";
 
 export const metadata: Metadata = metadataFor("/automation");
 
@@ -45,18 +43,14 @@ export default function AutomationPage() {
 
       <ProofStrip stats={automationStats} />
 
-      <section className="shell automation-intro">
-        <p className="section-number">01 / Practical automation</p>
-        <div className="automation-intro-row">
-          <h2>What gets copied, chased or checked every week?</h2>
-          <PrimaryButton className={styles.introCta} href="#enquiry">
-            Find your first automation
-          </PrimaryButton>
-        </div>
-      </section>
-
       <section className="shell" id="workflows">
-        <ServiceScroll services={automationServices} customHref="#enquiry" />
+        <ServiceScroll
+          services={automationServices}
+          customHref="#enquiry"
+          eyebrow="01 / Practical automation"
+          title="What gets copied, chased or checked every week?"
+          ctaLabel="Find your first automation"
+        />
       </section>
 
       <section className="approach-section">
@@ -131,7 +125,7 @@ export default function AutomationPage() {
             </li>
           </ol>
           <Link className="button button-light approach-cta" href="#enquiry">
-            Find your first automation <span>↗</span>
+            Find your first automation <span>↓</span>
           </Link>
         </div>
       </section>

@@ -1,5 +1,5 @@
 .section {
-  /* Single place to retune this section's accent color. */
+                                                           
   --section-accent: var(--brand-accent);
   align-items: center;
   background: #13315c;

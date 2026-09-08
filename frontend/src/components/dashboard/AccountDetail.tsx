@@ -8,7 +8,7 @@ import type { AccountBase, DealerStatus } from "@/lib/api";
 
 import { dealerStatuses, StatusPill, statusLabel } from "./StatusPill";
 
-/** Status pill plus the status select, shared by both account detail pages. */
+                                                                               
 export function AccountStatusCard({
   status,
   saving,
@@ -40,7 +40,7 @@ export function AccountStatusCard({
   );
 }
 
-/** The approve/deny prompt shown only while an account is still pending. */
+                                                                            
 export function AccountApprovalCard({
   heading,
   explanation,
@@ -70,7 +70,7 @@ export function AccountApprovalCard({
   );
 }
 
-/** A definition list card. Each row is a `[term, value]` pair. */
+                                                                  
 export function DetailCard({ title, rows }: { title: string; rows: [string, ReactNode][] }) {
   return (
     <section className="admin-detail-card">
@@ -87,7 +87,7 @@ export function DetailCard({ title, rows }: { title: string; rows: [string, Reac
   );
 }
 
-/** Contact details, identical for every account type. `extra` appends rows. */
+                                                                               
 export function AccountContactCard({ account, extra = [] }: { account: AccountBase; extra?: [string, ReactNode][] }) {
   return (
     <DetailCard

@@ -1,6 +1,6 @@
 import styles from "../page.module.css";
 
-/** Decorative phone mockup showing a dealership's own website handing a customer straight from checkout into online licensing. */
+                                                                                                                                  
 export function LicensingNextStepPhone() {
   return (
     <div className={styles.phoneMock} aria-hidden="true">

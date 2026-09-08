@@ -63,7 +63,7 @@ export default async function LicensingPage() {
             <p className={styles.sectionLabel}>02 / A shorter path to sold</p>
             <h2>Keep the momentum.</h2>
             <p>Remove the steps that add effort without adding value to the customer or the dealership.</p>
-            <PrimaryButton className={styles.sectionCta} href="#signup">
+            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down">
               Choose your plan
             </PrimaryButton>
           </div>
@@ -107,7 +107,7 @@ export default async function LicensingPage() {
               Use the hosted product with the website you already have, or make it a seamless part of a dealership site
               we build.
             </p>
-            <PrimaryButton className={`${styles.sectionCta} ${styles.sectionCtaLight}`} href="#signup">
+            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down">
               Choose your plan
             </PrimaryButton>
           </div>
@@ -116,7 +116,7 @@ export default async function LicensingPage() {
               <LoginPreviewPhone />
               <p className={styles.optionPhoneCaption}>Hosted portal</p>
               <Link href="#signup">
-                Choose a plan <b>↗</b>
+                Choose a plan <b>↓</b>
               </Link>
             </div>
             <div className={styles.optionPhoneTile}>
@@ -143,7 +143,7 @@ export default async function LicensingPage() {
         <p className={styles.sectionLabel}>04 / Remove the barrier</p>
         <h2>A signature shouldn&apos;t require an appointment.</h2>
         <p>Let customers verify, sign and pay from wherever they are. The paperwork travels—not the customer.</p>
-        <PrimaryButton className={styles.closingCta} href="#signup" arrow="↑">
+        <PrimaryButton className={styles.closingCta} href="#signup" direction="up">
           Choose your plan
         </PrimaryButton>
       </section>

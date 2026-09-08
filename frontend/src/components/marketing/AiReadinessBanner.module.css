@@ -5,8 +5,8 @@
   overflow: hidden;
   position: relative;
 }
-/* Moving-colour rule along the bottom edge, replacing the flat accent line the
-   full-size audit block uses. */
+                                                                               
+                                 
 .banner::after {
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
@@ -47,7 +47,7 @@
   grid-template-columns: minmax(170px, 1fr) minmax(170px, 1fr) auto;
   min-width: 0;
 }
-/* The banner leans on placeholders to stay slim; the labels stay for screen readers. */
+                                                                                        
 .form label > span {
   clip-path: inset(50%);
   height: 1px;
@@ -80,7 +80,7 @@
   border-color: #8fcef6;
   box-shadow: 0 0 0 3px rgba(143, 206, 246, 0.16);
 }
-/* Sizing only — the CTA's look comes from the global .moving-colour-button. */
+                                                                               
 .submit {
   --mcb-font-size: 0.64rem;
   --mcb-gap: 12px;
@@ -138,7 +138,7 @@
   .form {
     grid-template-columns: 1fr;
   }
-  /* Two classes, so this beats the global .moving-colour-button rule. */
+                                                                         
   .form .submit {
     justify-content: center;
   }

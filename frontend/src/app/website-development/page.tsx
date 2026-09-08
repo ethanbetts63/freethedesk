@@ -133,7 +133,7 @@ export default function WebsiteDevelopmentPage() {
             </p>
             <div className={styles.pitchActions}>
               <Link href="#enquiry">
-                Discuss your website <span aria-hidden="true">→</span>
+                Discuss your website <span aria-hidden="true">↓</span>
               </Link>
               <Link href="/automation">
                 Want to know more about automation? <span aria-hidden="true">↗</span>
@@ -173,19 +173,14 @@ export default function WebsiteDevelopmentPage() {
 
       <section className={styles.servicesSection} id="services">
         <div className="shell">
-          <div className={styles.sectionHeading}>
-            <p className={styles.label}>02 / What we build</p>
-            <h2>The website is the easy part.</h2>
-          </div>
-          <p className={styles.servicesClosing}>
-            Anyone can put your stock on a nice-looking page. We build the parts behind it that save you actual hours.
-          </p>
-        </div>
-        <div className="shell">
-          <ServiceScroll services={websiteServices} customHref="#enquiry" />
-          <PrimaryButton className={styles.servicesCta} href="#enquiry">
-            Discuss what you need
-          </PrimaryButton>
+          <ServiceScroll
+            services={websiteServices}
+            customHref="#enquiry"
+            eyebrow="02 / What we build"
+            title="The website is the easy part."
+            lead="Anyone can put your stock on a nice-looking page. We build the parts behind it that save you actual hours."
+            ctaLabel="Discuss what you need"
+          />
         </div>
       </section>
 
@@ -202,7 +197,7 @@ export default function WebsiteDevelopmentPage() {
               readiness audit included.
             </span>
             <div className={styles.seoReportActions}>
-              <PrimaryButton className={styles.seoReportCta} href="#enquiry">
+              <PrimaryButton className={styles.seoReportCta} href="#enquiry" direction="down">
                 Discuss your website
               </PrimaryButton>
               <PrimaryButton className={`${styles.seoReportCta} ${styles.seoSecondary}`} href="/seo">
@@ -256,11 +251,11 @@ export default function WebsiteDevelopmentPage() {
               ))}
             </div>
             <div className={styles.caseActions}>
-              <Link className={styles.casePrimary} href="#enquiry">
-                Discuss your website <span>→</span>
-              </Link>
+              <PrimaryButton className={styles.casePrimary} href="#enquiry" direction="down">
+                Discuss your website
+              </PrimaryButton>
               <Link href="/portfolio/scooter-shop">
-                Read the full case study <span>→</span>
+                Read the full case study <span>↗</span>
               </Link>
             </div>
           </div>
@@ -318,7 +313,9 @@ export default function WebsiteDevelopmentPage() {
             <li>Context carried from the page into the form</li>
             <li>A clear confirmation and handoff at the end</li>
           </ul>
-          <PrimaryButton href="#enquiry">Plan your customer journey</PrimaryButton>
+          <PrimaryButton href="#enquiry" direction="down">
+            Plan your customer journey
+          </PrimaryButton>
         </div>
       </section>
 
@@ -352,7 +349,7 @@ export default function WebsiteDevelopmentPage() {
             ))}
           </ol>
           <Link className="button button-light approach-cta" href="#enquiry">
-            Discuss your website <span>↗</span>
+            Discuss your website <span>↓</span>
           </Link>
         </div>
       </section>
@@ -365,7 +362,7 @@ export default function WebsiteDevelopmentPage() {
         <p className={styles.label}>Start with the useful part</p>
         <h2>What should your website make easier?</h2>
         <p>Tell us what you sell, who the site is for and where the current process gets in the way.</p>
-        <PrimaryButton className={styles.closingCta} href="#enquiry" arrow="↗">
+        <PrimaryButton className={styles.closingCta} href="#enquiry" direction="up">
           Talk about your project
         </PrimaryButton>
       </section>

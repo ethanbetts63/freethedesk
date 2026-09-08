@@ -1,11 +1,11 @@
 import { PrimaryButton } from "@/components/PrimaryButton";
 import styles from "./SubscriptionSwap.module.css";
 
-/**
- * Reframes the build cost as a payback against the customer's existing monthly
- * tool spend. Deliberately sells the conversation rather than a fixed outcome —
- * every stack is different, and some of them are better left alone.
- */
+   
+                                                                               
+                                                                                
+                                                                    
+   
 const steps: [string, string][] = [
   ["Add up the bill", "Every tool you pay for monthly or annually, including the ones nobody remembers signing up for."],
   [
@@ -89,7 +89,7 @@ export function SubscriptionSwap() {
           ones left over being ones you would happily keep.
         </p>
 
-        <PrimaryButton className={styles.cta} href="#enquiry">
+        <PrimaryButton className={styles.cta} href="#enquiry" direction="down">
           Tell us what you&apos;re paying for
         </PrimaryButton>
       </div>

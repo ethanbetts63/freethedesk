@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Django's API routes are slash-terminated. Keep those slashes intact when
-  // Next proxies browser requests so POST bodies are never lost to a redirect.
+
+
   skipTrailingSlashRedirect: true,
   async redirects() {
     return [
@@ -15,10 +15,10 @@ const nextConfig: NextConfig = {
     ];
   },
   async headers() {
-    // 'unsafe-inline' on script-src is still required: the JSON-LD blocks and
-    // the Clarity loader are inline, and Next's own bootstrap is too. Moving to
-    // a nonce needs middleware, so this is the tightening that is safe today —
-    // it closes off every origin we do not actually load code from.
+
+
+
+
     const csp = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' https://www.clarity.ms https://va.vercel-scripts.com https://js.stripe.com",

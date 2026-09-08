@@ -1,5 +1,5 @@
 .hero {
-  /* Single place to retune the hero accent colour. */
+                                                      
   --hero-accent: var(--brand-accent);
   --hero-accent-rgb: 36, 126, 201;
   align-items: center;
@@ -51,7 +51,7 @@
 .content a {
   pointer-events: auto;
 }
-/* Applied only when the caller passes `stages`, which adds the numbered rail. */
+                                                                                 
 .withStages {
   align-items: center;
   display: grid;
@@ -105,7 +105,7 @@
   flex-wrap: wrap;
   gap: 30px;
 }
-.primary,
+/* .primary is a .primary-button now, which brings its own box styles. */
 .secondary {
   align-items: center;
   display: inline-flex;
@@ -114,16 +114,16 @@
   justify-content: space-between;
 }
 .primary {
-  background: var(--hero-accent);
-  color: #fff;
-  gap: 42px;
-  padding: 17px 20px;
+  --pb-background: var(--hero-accent);
+  --pb-background-hover: #000;
+  --pb-font-size: 0.82rem;
+  --pb-gap: 42px;
+  --pb-padding: 17px 20px;
   transition:
     background 0.2s,
     transform 0.2s;
 }
 .primary:hover {
-  background: #000;
   transform: translateY(-2px);
 }
 .secondary {
