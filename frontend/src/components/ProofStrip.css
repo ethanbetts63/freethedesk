@@ -1,0 +1,69 @@
+/* Three-up proof/stat strip. Imported by ProofStrip.tsx. */
+
+.proof-strip {
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+}
+.proof-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.proof-strip article {
+  align-items: center;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: auto 1fr;
+  min-height: 160px;
+  padding: 34px 30px;
+}
+.proof-strip article + article {
+  border-left: 1px solid var(--border-on-dark);
+}
+.proof-strip strong {
+  display: inline-block;
+  font-size: clamp(2.8rem, 4vw, 4.3rem);
+  letter-spacing: -0.07em;
+  padding-right: 0.07em;
+  /* "24 / 7" split across two lines in the narrow value column. */
+  white-space: nowrap;
+}
+.proof-strip h2 {
+  font-size: 1.05rem;
+  margin: 0 0 7px;
+}
+.proof-strip p {
+  color: var(--text-on-dark-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0;
+}
+@media (max-width: 1080px) {
+  .proof-strip article {
+    align-items: start;
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .proof-strip-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .proof-strip article {
+    gap: 13px;
+    /* auto, not a fixed 105px: the value sets its own column width. */
+    grid-template-columns: auto minmax(0, 1fr);
+    min-height: auto;
+    padding: 28px 0;
+  }
+  .proof-strip article + article {
+    border-left: 0;
+    border-top: 1px solid var(--border-on-dark);
+  }
+  .proof-strip strong {
+    font-size: 2.8rem;
+  }
+}
+@media (max-width: 430px) {
+  .proof-strip strong {
+    font-size: 2.4rem;
+  }
+}

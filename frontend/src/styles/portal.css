@@ -1,0 +1,121 @@
+/* Customer portal setup/overview screens.
+   Imported by app/portal/layout.tsx and app/seo-portal/layout.tsx. */
+
+.portal-steps {
+  display: grid;
+  gap: 18px;
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  counter-reset: portal-step;
+}
+.portal-steps li {
+  border-left: 2px solid var(--border);
+  counter-increment: portal-step;
+  padding-left: 16px;
+  position: relative;
+}
+.portal-steps li::before {
+  color: var(--text-subtle);
+  content: "0" counter(portal-step);
+  font-size: 0.61rem;
+  font-weight: 800;
+  left: 16px;
+  letter-spacing: 0.08em;
+  position: absolute;
+  top: -1px;
+}
+.portal-steps li strong {
+  display: block;
+  font-size: 0.82rem;
+  padding-top: 16px;
+}
+.portal-steps li span {
+  color: var(--text-muted);
+  display: block;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  margin-top: 5px;
+}
+.portal-setup-form {
+  display: grid;
+  gap: 20px;
+}
+.portal-setup-form fieldset {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 0;
+  padding: 28px;
+}
+.portal-setup-form legend {
+  background: var(--surface);
+  font-size: 1rem;
+  font-weight: 850;
+  padding: 0 9px;
+}
+.portal-setup-form fieldset > p {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  line-height: 1.55;
+  margin: 0 0 24px;
+}
+.portal-field-grid {
+  display: grid;
+  gap: 19px;
+  grid-template-columns: 1fr 1fr;
+}
+.portal-field-grid label {
+  font-size: 0.71rem;
+  font-weight: 800;
+}
+.portal-field-grid label > span {
+  display: block;
+  margin-bottom: 7px;
+}
+.portal-field-grid input {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  color: var(--text);
+  min-height: 42px;
+  outline: none;
+  padding: 10px 11px;
+  width: 100%;
+}
+.portal-field-grid input:focus {
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+.portal-field-grid small {
+  color: var(--text-subtle);
+  display: block;
+  font-size: 0.63rem;
+  font-weight: 550;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+.portal-file-grid input {
+  background: var(--surface-tint);
+  font-size: 0.68rem;
+  padding: 8px;
+}
+.portal-form-actions {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 8px 0;
+}
+@media (max-width: 620px) {
+  .portal-field-grid {
+    grid-template-columns: 1fr;
+  }
+  .portal-setup-form fieldset {
+    padding: 22px 18px;
+  }
+  .portal-form-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

@@ -339,16 +339,22 @@
 
 @media (max-width: 620px) {
   .typeGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .budgetGrid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .chooser {
     padding: 34px 20px;
   }
   .total {
     gap: 12px;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* Below 16px, iOS Safari zooms the viewport on focus and never zooms back. */
+  .form input,
+  .form textarea,
+  .customBudget input {
+    font-size: 1rem;
   }
 }

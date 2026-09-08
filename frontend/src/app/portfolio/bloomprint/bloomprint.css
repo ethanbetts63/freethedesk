@@ -1,0 +1,151 @@
+/* Bloomprint case study only. Imported by app/portfolio/layout.tsx. */
+
+.bloom-sides {
+  display: grid;
+  gap: 26px;
+  grid-template-columns: 1fr 1fr;
+}
+.bloom-side {
+  background: var(--surface);
+  border-radius: 11px;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  padding: 38px 36px 30px;
+}
+.bloom-side-alt {
+  background: var(--accent);
+}
+.bloom-side header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 26px;
+}
+.bloom-side small {
+  color: var(--accent-ink);
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.bloom-side-alt small {
+  color: var(--text);
+}
+.bloom-side h3 {
+  font-size: clamp(1.9rem, 3vw, 2.7rem);
+  letter-spacing: -0.06em;
+  margin: 0;
+}
+.bloom-side header p {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.6;
+  margin: 14px 0 0;
+  max-width: 380px;
+}
+.bloom-side-alt header p {
+  color: var(--blue-950);
+}
+.bloom-side ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bloom-side li {
+  align-items: start;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 26px 1fr;
+  padding: 17px 0;
+}
+.bloom-side-alt li {
+  border-bottom-color: rgba(var(--shadow-color), 0.18);
+}
+.bloom-side li:last-child {
+  border-bottom: 0;
+}
+.bloom-side b {
+  color: var(--accent-ink);
+  font-size: 0.62rem;
+  font-weight: 900;
+  padding-top: 3px;
+}
+.bloom-side-alt b {
+  color: var(--blue-950);
+}
+.bloom-side li span {
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+.bloom-split {
+  align-items: center;
+  display: grid;
+  gap: 90px;
+  grid-template-columns: 0.95fr 1.05fr;
+}
+.bloom-split-reverse .bloom-split-copy {
+  order: 2;
+}
+.bloom-split-copy h2 {
+  font-size: clamp(2.4rem, 4vw, 4.1rem);
+  letter-spacing: -0.062em;
+  line-height: 1;
+  margin: 0;
+}
+.bloom-split-copy > p:not(.section-number) {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.72;
+  margin: 28px 0;
+  max-width: 560px;
+}
+.bloom-split-points {
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.bloom-split-points span {
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 14px 0;
+}
+.bloom-split-media .case-browser {
+  box-shadow: 0 28px 70px rgba(var(--shadow-color), 0.13);
+}
+.bloom-seo-section {
+  background: var(--surface-tint);
+  padding: 112px 0;
+}
+@media (max-width: 1000px) {
+  .bloom-split {
+    gap: 55px;
+  }
+  .bloom-side {
+    padding: 32px 28px 26px;
+  }
+}
+@media (max-width: 760px) {
+  .bloom-sides {
+    grid-template-columns: 1fr;
+  }
+  .bloom-split,
+  .bloom-split-reverse {
+    gap: 44px;
+    grid-template-columns: 1fr;
+  }
+  .bloom-split-reverse .bloom-split-copy {
+    order: 0;
+  }
+  .bloom-seo-section {
+    padding: 78px 0;
+  }
+}
+@media (max-width: 430px) {
+  .bloom-split-points {
+    grid-template-columns: 1fr;
+  }
+}

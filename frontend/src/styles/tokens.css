@@ -2,7 +2,6 @@
    global, colocated or route-scoped - can rely on these being defined. */
 
 :root {
-
   /* Blues - primary brand ramp */
   --blue-50: #f4f8fd;
   --blue-100: #e7eff9;

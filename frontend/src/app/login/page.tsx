@@ -1,5 +1,8 @@
 "use client";
 
+import "@/components/dashboard/admin.css";
+import "./login.css";
+
 import { FormEvent, Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";

@@ -1,3 +1,5 @@
+import "./ProofStrip.css";
+
 export type ProofStat = {
   value: string;
   label: string;

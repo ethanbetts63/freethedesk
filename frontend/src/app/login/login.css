@@ -1,0 +1,103 @@
+/* Sign-in page. Pairs with admin.css, which supplies .admin-kicker,
+   .admin-primary-button and .admin-form-error used here. */
+
+.login-page {
+  align-items: center;
+  background: var(--surface-flow);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 30px;
+  position: relative;
+}
+.login-page::before {
+  background-image:
+    linear-gradient(rgba(19, 49, 92, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(19, 49, 92, 0.05) 1px, transparent 1px);
+  background-size: 42px 42px;
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+.login-signal-flow {
+  inset: 0;
+  opacity: 0.78;
+  pointer-events: none;
+  position: absolute;
+}
+.login-signal-flow canvas {
+  height: 100%;
+  width: 100%;
+}
+.login-card {
+  backdrop-filter: blur(13px);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(180, 199, 213, 0.85);
+  box-shadow: 0 25px 70px rgba(var(--shadow-color), 0.12);
+  max-width: 450px;
+  padding: 38px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+.login-card .admin-kicker {
+  margin-top: 42px;
+}
+.login-card h1 {
+  font-size: 2.6rem;
+  letter-spacing: -0.06em;
+  margin: 0;
+}
+.login-intro {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 12px 0 28px;
+}
+.login-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+.login-card form label {
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+.login-card form input {
+  background: var(--surface-tint);
+  border: 1px solid var(--border-strong);
+  display: block;
+  margin-top: 7px;
+  outline: none;
+  padding: 12px;
+  width: 100%;
+}
+.login-card form input:focus {
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+.login-alt {
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  margin: 22px 0 0;
+}
+.login-alt a {
+  color: var(--link);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.login-back {
+  color: var(--text-muted);
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  margin-top: 25px;
+}
+@media (max-width: 620px) {
+  .login-card {
+    padding: 28px 22px;
+  }
+}

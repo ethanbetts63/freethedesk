@@ -151,11 +151,12 @@
 }
 .copy h2 {
   color: #000;
-  font-size: clamp(3.7rem, 5.3vw, 6.1rem);
+  font-size: clamp(2.5rem, 5.3vw, 6.1rem);
   font-weight: 800;
   letter-spacing: -0.075em;
   line-height: 0.88;
   margin: 0;
+  overflow-wrap: break-word;
 }
 .copy h2 em {
   color: var(--section-accent);
@@ -219,7 +220,7 @@
 
 @media (max-width: 900px) {
   .layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .copy {
     grid-row: 1;
@@ -230,15 +231,12 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 620px) {
   .section {
     padding: 78px 0;
   }
   .layout {
     gap: 45px;
-  }
-  .copy h2 {
-    font-size: clamp(3.25rem, 15.5vw, 4.6rem);
   }
   .lead {
     font-size: 0.96rem;

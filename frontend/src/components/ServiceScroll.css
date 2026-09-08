@@ -1,0 +1,213 @@
+/* Sticky-scrolling service list used by the four service pages.
+   Imported by ServiceScroll.tsx. */
+
+main:has(.service-scroll) {
+  overflow: visible;
+}
+.service-scroll {
+  margin-top: 0;
+}
+.service-scroll-intro {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+  padding-top: 55px;
+}
+.service-scroll-label {
+  color: var(--page-accent, var(--brand-accent));
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  margin: 0 0 23px;
+  text-transform: uppercase;
+}
+.service-scroll-intro h2 {
+  font-size: clamp(2.6rem, 4.6vw, 4.2rem);
+  letter-spacing: -0.058em;
+  line-height: 1.02;
+  margin: 0;
+  max-width: 780px;
+}
+.service-scroll-cta {
+  flex: 0 0 auto;
+}
+.service-row {
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 60px;
+  grid-template-columns: 0.8fr 1.2fr;
+  padding: 110px 0;
+}
+.service-scroll-intro + .service-row {
+  border-top: 0;
+  padding-top: 60px;
+}
+.service-sticky {
+  align-self: start;
+  position: sticky;
+  top: 130px;
+}
+.service-sticky span {
+  color: var(--accent-ink);
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+.service-sticky h3 {
+  font-size: clamp(2.1rem, 3.6vw, 3.1rem);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin: 16px 0 0;
+}
+.service-content {
+  max-width: 560px;
+  padding-top: 6px;
+}
+.service-lead {
+  align-items: center;
+  display: flex;
+  gap: 26px;
+}
+.service-icon {
+  flex: 0 0 auto;
+}
+.service-lead > p {
+  color: var(--text-muted);
+  font-size: 0.96rem;
+  font-weight: 500;
+  line-height: 1.65;
+  margin: 0;
+}
+.service-examples {
+  border-top: 1px solid var(--border);
+  list-style: none;
+  margin: 34px 0 0;
+  padding: 0;
+}
+.service-examples li {
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  padding: 16px 0 16px 26px;
+  position: relative;
+}
+.service-examples li::before {
+  color: var(--accent-ink);
+  content: "→";
+  left: 0;
+  position: absolute;
+}
+.service-custom {
+  align-items: center;
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+  display: grid;
+  gap: clamp(30px, 5vw, 64px);
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  margin-top: 24px;
+  overflow: hidden;
+  padding: clamp(38px, 5vw, 64px);
+  position: relative;
+}
+.service-custom::before {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 38px 38px;
+  content: "";
+  inset: 0;
+  mask-image: linear-gradient(90deg, #000, transparent 80%);
+  pointer-events: none;
+  position: absolute;
+}
+.service-custom::after {
+  background: var(--page-accent, var(--brand-accent));
+  content: "";
+  inset: 0 auto 0 0;
+  position: absolute;
+  width: 5px;
+}
+.service-custom > * {
+  position: relative;
+  z-index: 1;
+}
+.service-custom-icon {
+  align-items: center;
+  background: rgba(112, 188, 237, 0.1);
+  border: 1px solid rgba(112, 188, 237, 0.35);
+  color: #70bced;
+  display: flex;
+  height: 112px;
+  justify-content: center;
+  width: 112px;
+}
+.service-custom-icon svg {
+  height: 58px;
+  width: 58px;
+}
+.service-custom-label {
+  align-items: center;
+  color: #70bced;
+  display: flex;
+  font-size: 0.64rem;
+  font-weight: 900;
+  gap: 14px;
+  letter-spacing: 0.13em;
+  margin: 0 0 13px;
+  text-transform: uppercase;
+}
+.service-custom-label span {
+  border-right: 1px solid rgba(112, 188, 237, 0.35);
+  padding-right: 14px;
+}
+.service-custom-copy h3 {
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin: 0 0 16px;
+}
+.service-custom-copy > p:last-child {
+  color: var(--text-on-dark-muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 520px;
+}
+.service-custom-cta {
+  flex: 0 0 auto;
+}
+@media (max-width: 900px) {
+  .service-row {
+    grid-template-columns: 1fr;
+    padding: 70px 0;
+  }
+  .service-sticky {
+    position: static;
+  }
+  .service-custom {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .service-custom-cta {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+@media (max-width: 620px) {
+  .service-custom {
+    grid-template-columns: 1fr;
+    padding: 36px 28px 40px;
+  }
+  .service-custom-icon {
+    height: 82px;
+    width: 82px;
+  }
+  .service-custom-icon svg {
+    height: 44px;
+    width: 44px;
+  }
+  .service-custom-cta {
+    grid-column: auto;
+  }
+}

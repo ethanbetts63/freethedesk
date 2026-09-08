@@ -127,19 +127,32 @@
   .inner {
     display: grid;
     gap: 16px;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .copy h2 {
     white-space: normal;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 620px) {
   .form {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
                                                                          
   .form .submit {
     justify-content: center;
+  }
+  /* 40px controls are under the comfortable touch minimum on a phone. */
+  .form input {
+    font-size: 1rem; /* below 16px, iOS Safari zooms the page on focus */
+    min-height: var(--tap-min);
+  }
+  .form .submit {
+    --mcb-height: var(--tap-min);
+  }
+  .inner {
+    min-height: 0;
+    padding-bottom: var(--space-l);
+    padding-top: var(--space-l);
   }
 }

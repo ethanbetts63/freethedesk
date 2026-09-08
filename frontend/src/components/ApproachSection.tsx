@@ -1,3 +1,5 @@
+import "./ApproachSection.css";
+
 import type { ReactNode } from "react";
 
 import { PrimaryButton } from "./PrimaryButton";

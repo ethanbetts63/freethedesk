@@ -9,10 +9,11 @@
   grid-template-columns: 0.75fr 1.25fr;
 }
 .faqLayout h2 {
-  font-size: clamp(3rem, 5.3vw, 5.7rem);
+  font-size: clamp(2.5rem, 5.3vw, 5.7rem);
   letter-spacing: -0.072em;
   line-height: 0.93;
   margin: 0;
+  overflow-wrap: break-word;
 }
 .faqLabel {
   color: var(--faq-accent);
@@ -65,11 +66,11 @@
 
 @media (max-width: 900px) {
   .faqLayout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 620px) {
   .faqList details p {
     margin-right: 0;
   }

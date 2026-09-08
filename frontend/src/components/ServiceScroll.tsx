@@ -1,3 +1,5 @@
+import "./ServiceScroll.css";
+
 import { PrimaryButton } from "@/components/PrimaryButton";
 
 export type Service = {

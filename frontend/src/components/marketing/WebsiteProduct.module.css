@@ -38,11 +38,12 @@
   width: 7px;
 }
 .copy h2 {
-  font-size: clamp(4rem, 6.8vw, 7.2rem);
+  font-size: clamp(2.5rem, 6.8vw, 7.2rem);
   font-weight: 800;
   letter-spacing: -0.075em;
   line-height: 0.84;
   margin: 0;
+  overflow-wrap: break-word;
 }
 .copy h2 em {
   color: #70bced;
@@ -314,13 +315,13 @@
   margin-right: 7px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1080px) {
   .section {
     padding: 100px 0;
   }
   .layout {
     align-items: start;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .copy {
     max-width: 680px;
@@ -332,16 +333,13 @@
     transform: none;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 620px) {
   .section {
     min-height: auto;
-    padding: 82px 0;
+    padding: var(--section-space) 0;
   }
   .layout {
-    gap: 58px;
-  }
-  .copy h2 {
-    font-size: clamp(3.6rem, 17vw, 5.2rem);
+    gap: var(--space-2xl);
   }
   .actions {
     align-items: flex-start;
@@ -363,16 +361,20 @@
     display: none;
   }
   .siteHero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     margin: 0 11px;
     min-height: 490px;
     padding: 28px;
   }
+  /* Clip the decorative glow rather than let a fixed-width ::before
+     push the grid track wider than the card. */
   .previewVehicle {
     height: 180px;
+    overflow: hidden;
   }
   .previewVehicle::before {
     height: 240px;
+    max-width: 100%;
     width: 280px;
   }
   .previewVehicle i {

@@ -1,5 +1,8 @@
 "use client";
 
+import "./DashboardChrome.css";
+import "./admin.css";
+
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
