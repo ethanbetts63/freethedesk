@@ -43,7 +43,7 @@ const config = {
     ],
   },
   intro: {
-    eyebrow: "01 / The brief",
+    eyebrow: "The brief",
     title: { lines: ["Not a brochure.", "A working dealership."] },
     paragraphs: [
       "Scooter Shop needed to represent several very different parts of the business without making the experience feel fragmented. Customers should be able to discover stock, make a decision, buy, find a part or book the workshop without starting again each time.",
@@ -52,7 +52,7 @@ const config = {
     showCta: false,
   },
   tour: {
-    eyebrow: "02 / The customer experience",
+    eyebrow: "The customer experience",
     title: { lines: ["Built around what", "the customer came to do."] },
     label: "Scooter Shop website tour",
     browserUrl: "www.scootershop.com.au",
@@ -108,7 +108,7 @@ const config = {
     ],
   },
   mobile: {
-    eyebrow: "03 / Every screen",
+    eyebrow: "Every screen",
     title: "Mobile First.",
     description:
       "For Scooter Shop we found that an average of 66% of users are browsing on mobile. That is why every journey starts with the smallest screen in our process—not as a reduced version of desktop.",
@@ -127,7 +127,7 @@ const config = {
   },
   feature: {
     variant: "operations",
-    eyebrow: "04 / Behind the website",
+    eyebrow: "Behind the website",
     title: { lines: ["The part customers", "never have to see."] },
     description:
       "The public website is only half the system. The management experience is organised around what dealership staff need to action next, so better customer service does not create more administration.",
@@ -160,7 +160,7 @@ const config = {
     },
   },
   intent: {
-    eyebrow: "05 / High-intent pages",
+    eyebrow: "High-intent pages",
     title: { lines: ["One website.", "Many useful ways in."] },
     description:
       "Different customers reveal different intent in the way they search: a Vespa service, a used motorcycle or a specific SYM part. We build focused pages around those searches to capture more high-intent organic traffic—then give each visitor a more relevant next step.",
@@ -203,13 +203,13 @@ const config = {
     ],
   },
   seo: {
-    eyebrow: "06 / SEO growth",
+    eyebrow: "SEO growth",
     title: "200% growth.",
     accentTitle: "6 months.",
     description:
       "Organic clicks grew 200% in six months. Indexable stock, focused landing pages and useful guides created more ways for ready-to-buy customers to find the dealership.",
   },
-  faq: { eyebrow: "07 / Common questions", items: PORTFOLIO_FAQS },
+  faq: { eyebrow: "Common questions", items: PORTFOLIO_FAQS },
 } satisfies PortfolioCaseStudyConfig;
 
 export default function ScooterShopCaseStudy() {

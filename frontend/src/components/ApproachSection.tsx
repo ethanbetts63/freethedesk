@@ -1,3 +1,4 @@
+import { SectionNumber } from "@/components/SectionNumber";
 import "./ApproachSection.css";
 
 import type { ReactNode } from "react";
@@ -23,7 +24,7 @@ export function ApproachSection({ eyebrow, title, accentTitle, steps, ctaHref, c
   return (
     <section className="approach-section">
       <div className="shell approach-inner">
-        <p className="section-number section-number-light">{eyebrow}</p>
+        <SectionNumber onDark>{eyebrow}</SectionNumber>
         <h2>
           {title}
           <br />

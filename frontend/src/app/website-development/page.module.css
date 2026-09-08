@@ -4,14 +4,6 @@
   background: #fff;
   color: #07121c;
 }
-.label {
-  color: var(--page-accent);
-  font-size: 0.68rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  margin: 0 0 23px;
-  text-transform: uppercase;
-}
 .enquirySection {
   padding-bottom: 20px;
   padding-top: 70px;
@@ -24,7 +16,7 @@
   line-height: 0.93;
   margin: 0;
 }
-.systemCopy > p:not(.label) {
+.systemCopy > p:not(:global(.section-number)) {
   color: #536c80;
   font-size: 0.98rem;
   line-height: 1.78;
@@ -333,15 +325,12 @@
   font-size: 0.82rem;
   white-space: nowrap;
 }
-.labelLight {
-  color: #70bced;
-}
 .caseCopy h2 {
   font-size: clamp(2.4rem, 4vw, 3.4rem);
   letter-spacing: -0.05em;
   margin: 0 0 20px;
 }
-.caseCopy > p:not(.label) {
+.caseCopy > p:not(:global(.section-number)) {
   color: #b9ccdc;
   font-size: 0.97rem;
   line-height: 1.76;
@@ -394,7 +383,7 @@
   padding: 82px;
   text-align: center;
 }
-.closing > p:not(.label) {
+.closing > p:not(:global(.section-number)) {
   color: #587086;
   font-size: 0.96rem;
   line-height: 1.7;

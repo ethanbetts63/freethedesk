@@ -19,20 +19,19 @@
   height: 7px;
   width: 7px;
 }
-.eyebrow-light {
-  color: var(--accent);
-}
-
+/* The "01 / Section name" eyebrow. Every numbered section on every page uses
+   this - route stylesheets should not restyle it. Pages that set --page-accent
+   tint it automatically; --section-number-light is the dark-surface variant. */
 .section-number {
-  color: var(--text-subtle);
+  color: var(--page-accent, var(--section-number));
   font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  margin: 0 0 32px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  margin: 0 0 24px;
   text-transform: uppercase;
 }
 .section-number-light {
-  color: var(--text-on-dark-subtle);
+  color: var(--section-number-on-dark);
 }
 
 .text-link {

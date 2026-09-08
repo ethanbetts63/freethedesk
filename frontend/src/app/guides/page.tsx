@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageSchema } from "@/components/PageSchema";
+import { SectionNumber } from "@/components/SectionNumber";
 import { getAllArticleMeta } from "@/lib/articles";
 import { metadataFor, PAGES } from "@/lib/pages";
 
@@ -45,7 +46,7 @@ export default function GuidesPage() {
         <div className="shell">
           <header className={styles.indexHeader}>
             <div>
-              <p className={styles.sectionLabel}>The guide library</p>
+              <SectionNumber>The guide library</SectionNumber>
               <h2 id="latest-guides">Built from the work.</h2>
             </div>
             <p>Clear, practical thinking drawn from building and running dealership software in the real world.</p>

@@ -5,8 +5,7 @@
   overflow: hidden;
   position: relative;
 }
-                                                                               
-                                 
+
 .banner::after {
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
@@ -47,7 +46,7 @@
   grid-template-columns: minmax(170px, 1fr) minmax(170px, 1fr) auto;
   min-width: 0;
 }
-                                                                                        
+
 .form label > span {
   clip-path: inset(50%);
   height: 1px;
@@ -80,7 +79,7 @@
   border-color: #8fcef6;
   box-shadow: 0 0 0 3px rgba(143, 206, 246, 0.16);
 }
-                                                                               
+
 .submit {
   --mcb-font-size: 0.64rem;
   --mcb-gap: 12px;
@@ -138,7 +137,7 @@
   .form {
     grid-template-columns: minmax(0, 1fr);
   }
-                                                                         
+
   .form .submit {
     justify-content: center;
   }

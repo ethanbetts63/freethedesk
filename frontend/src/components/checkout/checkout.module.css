@@ -1,5 +1,4 @@
 .checkoutPage {
-                                                                
   --checkout-accent: var(--brand-accent);
   background: #fff;
   color: #0d1c29;
@@ -232,7 +231,6 @@
 }
 
 .completePage {
-                                                                        
   --complete-accent: var(--brand-accent);
   align-items: center;
   background: #eef5fa;

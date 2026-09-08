@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { SectionNumber } from "@/components/SectionNumber";
 import styles from "../page.module.css";
 
 const steps = [
@@ -34,11 +35,11 @@ const steps = [
 ];
 
                                                                                                          
-export function IdentityVerification() {
+export function IdentityVerification({ eyebrow }: { eyebrow: string }) {
   return (
     <section className={`shell ${styles.verify}`}>
       <div className={styles.verifyCopy}>
-        <p className={styles.sectionLabel}>05 / Know who&apos;s signing</p>
+        <SectionNumber>{eyebrow}</SectionNumber>
         <h2>Identity verification by Stripe.</h2>
         <p>
           Anyone can type a name into a form. Before the paperwork goes through, we confirm the person on the other end

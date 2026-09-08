@@ -1,8 +1,5 @@
-/* Element-level resets and document defaults. */
+/* Project-level document defaults. The cross-browser reset lives in reset.css. */
 
-* {
-  box-sizing: border-box;
-}
 html {
   scroll-behavior: smooth;
 }

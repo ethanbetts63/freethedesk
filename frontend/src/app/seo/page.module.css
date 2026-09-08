@@ -5,17 +5,6 @@
   background: #fff;
   color: #07121c;
 }
-.label {
-  color: var(--page-accent);
-  font-size: 0.68rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  margin: 0 0 23px;
-  text-transform: uppercase;
-}
-.labelLight {
-  color: #70bced;
-}
 
 .reportDescription {
   display: flex;
@@ -45,7 +34,7 @@
   margin: 0 0 20px;
 }
                                                                                                            
-.compareCopy p:not(.label):not(.priceHonesty) {
+.compareCopy p:not(:global(.section-number)):not(.priceHonesty) {
   color: #536c80;
   font-size: 1rem;
   line-height: 1.78;
@@ -360,9 +349,6 @@
   font-size: clamp(2.4rem, 4vw, 3.8rem);
   margin-bottom: 42px;
 }
-.selectionPanel .labelLight {
-  color: var(--page-accent);
-}
 .choiceGroup + .choiceGroup {
   margin-top: 28px;
 }
@@ -387,29 +373,36 @@
 .frequencyGrid {
   grid-template-columns: repeat(4, 1fr);
 }
-.reportTypeGrid button,
-.frequencyGrid button {
+.choiceInput {
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 0;
+}
+.reportTypeGrid label,
+.frequencyGrid label {
   align-items: center;
-  appearance: none;
   background: #f5f8fa;
   border: 1px solid #d7e2e9;
   color: #213748;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  font: inherit;
   font-size: 0.72rem;
   font-weight: 850;
   justify-content: center;
   min-height: 56px;
   padding: 10px;
+  position: relative;
+  text-align: center;
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
     color 0.2s ease;
 }
-.reportTypeGrid button small,
-.frequencyGrid button small {
+.reportTypeGrid label small,
+.frequencyGrid label small {
   color: #60778b;
   font-size: 0.45rem;
   font-weight: 900;
@@ -417,13 +410,13 @@
   margin-top: 5px;
   text-transform: uppercase;
 }
-.reportTypeGrid button:hover,
-.frequencyGrid button:hover {
+.reportTypeGrid label:hover,
+.frequencyGrid label:hover {
   background: #fff;
   border-color: var(--page-accent);
 }
-.reportTypeGrid button:focus-visible,
-.frequencyGrid button:focus-visible {
+.reportTypeGrid label:has(.choiceInput:focus-visible),
+.frequencyGrid label:has(.choiceInput:focus-visible) {
   outline: 3px solid rgba(143, 206, 246, 0.35);
   outline-offset: 2px;
 }
@@ -798,7 +791,7 @@
   letter-spacing: -0.05em;
   margin: 0 0 20px;
 }
-.caseCopy > p:not(.label) {
+.caseCopy > p:not(:global(.section-number)) {
   color: #b9ccdc;
   font-size: 0.97rem;
   line-height: 1.76;
@@ -857,7 +850,7 @@
   letter-spacing: -0.05em;
   margin: 0;
 }
-.closing > p:not(.label) {
+.closing > p:not(:global(.section-number)) {
   color: #587086;
   font-size: 0.96rem;
   line-height: 1.7;

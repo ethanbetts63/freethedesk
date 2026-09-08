@@ -6,14 +6,6 @@
 .heading {
   max-width: 860px;
 }
-.label {
-  color: var(--page-accent, var(--brand-accent));
-  font-size: 0.68rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  margin: 0 0 23px;
-  text-transform: uppercase;
-}
 .heading h2 {
   font-size: clamp(2.4rem, 4.3vw, 4rem);
   letter-spacing: -0.055em;

@@ -15,14 +15,12 @@
   "dependencies": {
     "@stripe/react-stripe-js": "^6.9.0",
     "@stripe/stripe-js": "^9.15.0",
-    "@tailwindcss/postcss": "^4.3.0",
     "@vercel/analytics": "^2.0.1",
     "isomorphic-dompurify": "^4.1.0",
     "marked": "^18.0.4",
     "next": "^16.2.6",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "tailwindcss": "^4.1.17"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

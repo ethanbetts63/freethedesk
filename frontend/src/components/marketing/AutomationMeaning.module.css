@@ -11,14 +11,6 @@
 .copy {
   max-width: 540px;
 }
-.label {
-  color: var(--page-accent, var(--brand-accent));
-  font-size: 0.68rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  margin: 0 0 23px;
-  text-transform: uppercase;
-}
 .copy h2 {
   color: #07121c;
   font-size: clamp(3rem, 5.3vw, 5.7rem);

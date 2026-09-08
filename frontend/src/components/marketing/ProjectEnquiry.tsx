@@ -1,8 +1,9 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useId, useState } from "react";
 
 import { MovingColourButton } from "@/components/MovingColourButton";
+import { SectionNumber } from "@/components/SectionNumber";
 import { normaliseWebsiteUrl, submitProjectEnquiry, type ProjectType } from "@/lib/api";
 import styles from "./ProjectEnquiry.module.css";
 
@@ -30,6 +31,7 @@ export function ProjectEnquiry({
   eyebrow?: string;
   id?: string;
 }) {
+  const groupId = useId().replaceAll(":", "");
   const [projectType, setProjectType] = useState<ProjectType>("both");
   const [budget, setBudget] = useState<Budget>("$3,000");
   const [customBudget, setCustomBudget] = useState("");
@@ -69,47 +71,52 @@ export function ProjectEnquiry({
     <section className={`shell ${styles.section}`} id={id}>
       <div className={styles.panel}>
         <aside className={styles.chooser}>
-          <p className={styles.eyebrow}>{eyebrow}</p>
+          <SectionNumber>{eyebrow}</SectionNumber>
           <h2>Tell us your budget.</h2>
           <p className={styles.lead}>
             We&apos;ll tell you what we could build for it.
           </p>
 
           <div className={styles.choiceGroup}>
-            <p>What do you need?</p>
-            <div className={styles.typeGrid} role="radiogroup" aria-label="Project type">
+            <p id={`${groupId}-type`}>What do you need?</p>
+            <div className={styles.typeGrid} role="radiogroup" aria-labelledby={`${groupId}-type`}>
               {PROJECT_TYPES.map((option) => (
-                <button
+                <label
                   className={`${projectType === option.code ? styles.choiceSelected : ""} ${
                     option.code === "both" ? styles.choiceRecommended : ""
                   }`}
                   key={option.code}
-                  type="button"
-                  role="radio"
-                  aria-checked={projectType === option.code}
-                  onClick={() => setProjectType(option.code)}
                 >
+                  <input
+                    className={styles.choiceInput}
+                    type="radio"
+                    name={`${groupId}-project-type`}
+                    value={option.code}
+                    checked={projectType === option.code}
+                    onChange={() => setProjectType(option.code)}
+                  />
                   <span>{option.name}</span>
                   {option.code === "both" && <small className="moving-colour-text">recommended</small>}
-                </button>
+                </label>
               ))}
             </div>
           </div>
 
           <div className={styles.choiceGroup}>
-            <p>What&apos;s your budget?</p>
-            <div className={styles.budgetGrid} role="radiogroup" aria-label="Budget">
+            <p id={`${groupId}-budget`}>What&apos;s your budget?</p>
+            <div className={styles.budgetGrid} role="radiogroup" aria-labelledby={`${groupId}-budget`}>
               {BUDGETS.map((option) => (
-                <button
-                  className={budget === option ? styles.choiceSelected : ""}
-                  key={option}
-                  type="button"
-                  role="radio"
-                  aria-checked={budget === option}
-                  onClick={() => setBudget(option)}
-                >
+                <label className={budget === option ? styles.choiceSelected : ""} key={option}>
+                  <input
+                    className={styles.choiceInput}
+                    type="radio"
+                    name={`${groupId}-budget-choice`}
+                    value={option}
+                    checked={budget === option}
+                    onChange={() => setBudget(option)}
+                  />
                   <span>{option === "custom" ? "Custom" : option}</span>
-                </button>
+                </label>
               ))}
             </div>
             {budget === "custom" && (

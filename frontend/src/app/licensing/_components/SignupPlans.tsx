@@ -4,6 +4,7 @@ import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { SectionNumber } from "@/components/SectionNumber";
 import { DEALER_STATES } from "@/lib/dealerStates";
 import { planByCode } from "@/lib/plans";
 import { useSignup } from "@/lib/useSignup";
@@ -12,10 +13,10 @@ import styles from "../page.module.css";
 
 export function SignupPlans({
   settings,
-  eyebrow = "01 / Start here",
+  eyebrow,
 }: {
   settings: LicensingPrices;
-  eyebrow?: string;
+  eyebrow: string;
 }) {
   const plans = useMemo(() => buildDealerPlans(settings), [settings]);
   const [selectedCode, setSelectedCode] = useState<DealerPlanCode>("complete");
@@ -29,26 +30,30 @@ export function SignupPlans({
     <section className={`shell ${styles.signupSection}`} id="signup">
       <div className={styles.signupPanel}>
         <aside className={styles.selectionPanel}>
-          <p className={`${styles.sectionLabel} ${styles.labelAccent}`}>{eyebrow}</p>
+          <SectionNumber>{eyebrow}</SectionNumber>
           <h2>Choose what you need.</h2>
 
           <div className={styles.choiceGroup}>
             <p>What do you need?</p>
             <div className={styles.planTypeGrid} role="radiogroup" aria-label="Subscription plan">
               {plans.map((plan) => (
-                <button
+                <label
                   className={`${selectedCode === plan.code ? styles.choiceSelected : ""} ${
                     plan.recommended ? styles.choiceRecommended : ""
                   }`}
                   key={plan.code}
-                  type="button"
-                  role="radio"
-                  aria-checked={selectedCode === plan.code}
-                  onClick={() => setSelectedCode(plan.code)}
                 >
+                  <input
+                    className={styles.choiceInput}
+                    type="radio"
+                    name="dealer-plan"
+                    value={plan.code}
+                    checked={selectedCode === plan.code}
+                    onChange={() => setSelectedCode(plan.code)}
+                  />
                   <span>{plan.name}</span>
                   {plan.recommended && <small className="moving-colour-text">Recommended</small>}
-                </button>
+                </label>
               ))}
             </div>
           </div>

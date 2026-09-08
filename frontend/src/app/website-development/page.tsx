@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { SectionNumber } from "@/components/SectionNumber";
 import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
 import { AutomationMeaning } from "@/components/marketing/AutomationMeaning";
 import { Hero } from "@/components/marketing/Hero";
@@ -14,6 +15,7 @@ import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { ServiceScroll } from "@/components/ServiceScroll";
 import { metadataFor } from "@/lib/pages";
+import { numberSections } from "@/lib/sectionNumbers";
 
 import { WEBSITE_DEV_FAQS } from "./_lib/copy";
 import { websiteServices } from "./_components/websiteServices";
@@ -32,6 +34,17 @@ const websiteDevStats: ProofStat[] = [
     description: "We check four practical foundations for AI and agentic browsing.",
   },
 ];
+
+/* Section eyebrows, in the order they appear on the page. */
+const sections = numberSections([
+  "Conversion funnels",
+  "What automation means",
+  "What you're paying for",
+  "What we build",
+  "SEO after launch",
+  "Proof this works",
+  "Common questions",
+] as const);
 
 export const metadata: Metadata = metadataFor("/website-development");
 
@@ -108,7 +121,7 @@ export default function WebsiteDevelopmentPage() {
           </div>
         </div>
         <div className={styles.systemCopy}>
-          <p className={styles.label}>01 / Conversion funnels</p>
+          <SectionNumber>{sections["Conversion funnels"]}</SectionNumber>
           <h2>Make the next step obvious.</h2>
           <p>
             A good funnel doesn&apos;t pressure people. It removes the uncertainty, unnecessary choices and repeated
@@ -126,7 +139,7 @@ export default function WebsiteDevelopmentPage() {
       </section>
 
       <AutomationMeaning
-        eyebrow="02 / What automation means"
+        eyebrow={sections["What automation means"]}
         description="Automation means your website handles the repetitive work around each customer—capturing details, moving them between systems, sending follow-ups and keeping the next step moving without someone doing it by hand."
         primaryHref="#enquiry"
         primaryLabel="Discuss your website"
@@ -135,14 +148,14 @@ export default function WebsiteDevelopmentPage() {
         secondaryLabel="Want to know more about automation?"
       />
 
-      <SubscriptionSwap eyebrow="03 / What you're paying for" />
+      <SubscriptionSwap eyebrow={sections["What you're paying for"]} />
 
       <section className={styles.servicesSection} id="services">
         <div className="shell">
           <ServiceScroll
             services={websiteServices}
             customHref="#enquiry"
-            eyebrow="04 / What we build"
+            eyebrow={sections["What we build"]}
             title="The website is the easy part."
             ctaLabel="Discuss what you need"
           />
@@ -152,7 +165,7 @@ export default function WebsiteDevelopmentPage() {
       <SeoReportOverview
         id="seo"
         className={styles.seoSection}
-        eyebrow={<>05 / SEO after launch</>}
+        eyebrow={sections["SEO after launch"]}
         showSequence={false}
         description={
           <div className={styles.seoReportSummary}>
@@ -197,7 +210,7 @@ export default function WebsiteDevelopmentPage() {
             </div>
           </div>
           <div className={styles.caseCopy}>
-            <p className={`${styles.label} ${styles.labelLight}`}>06 / Proof this works</p>
+            <SectionNumber onDark>{sections["Proof this works"]}</SectionNumber>
             <h2>Scooter Shop, Perth.</h2>
             <p>
               Scooter Shop&apos;s website combines inventory, parts, purchasing and service journeys in one connected
@@ -227,10 +240,10 @@ export default function WebsiteDevelopmentPage() {
 
       <ProjectEnquiry id="enquiry" />
 
-      <Faq eyebrow="07 / Common questions" title="Before we begin." items={WEBSITE_DEV_FAQS} />
+      <Faq eyebrow={sections["Common questions"]} title="Before we begin." items={WEBSITE_DEV_FAQS} />
 
       <section className={`shell ${styles.closing}`}>
-        <p className={styles.label}>Start with the useful part</p>
+        <SectionNumber>Start with the useful part</SectionNumber>
         <h2>What should your website make easier?</h2>
         <p>Tell us what you sell, who the site is for and where the current process gets in the way.</p>
         <PrimaryButton className={styles.closingCta} href="#enquiry" direction="up">

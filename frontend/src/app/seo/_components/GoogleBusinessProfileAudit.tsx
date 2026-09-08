@@ -1,5 +1,6 @@
 import { GoogleLogo } from "@/components/GoogleLogo";
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { SectionNumber } from "@/components/SectionNumber";
 
 import styles from "./GoogleBusinessProfileAudit.module.css";
 
@@ -27,7 +28,7 @@ export function GoogleBusinessProfileAudit({ ctaHref, ctaLabel }: { ctaHref: str
             </span>
           </div>
 
-          <p className={styles.eyebrow}>Your local search presence</p>
+          <SectionNumber onDark>Your local search presence</SectionNumber>
           <h3 id="gbp-audit-title">Google Business Profile audit</h3>
           <p className={styles.intro}>
             Google says local results are shaped mainly by relevance, distance and prominence. You cannot change where

@@ -101,14 +101,6 @@
   margin-bottom: 38px;
   padding-bottom: 42px;
 }
-.sectionLabel {
-  color: var(--accent-ink);
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  margin: 0 0 22px;
-  text-transform: uppercase;
-}
 .indexHeader h2 {
   font-size: clamp(2.7rem, 5vw, 5rem);
   letter-spacing: -0.065em;

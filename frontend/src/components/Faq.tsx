@@ -1,3 +1,4 @@
+import { SectionNumber } from "@/components/SectionNumber";
 import styles from "./Faq.module.css";
 
 export type FaqItem = { question: string; answer: string };
@@ -19,7 +20,7 @@ export function Faq({ eyebrow, title, items, id }: { eyebrow: string; title: str
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <div className={`shell ${styles.faqLayout}`}>
         <div>
-          <p className={styles.faqLabel}>{eyebrow}</p>
+          <SectionNumber>{eyebrow}</SectionNumber>
           <h2>{title}</h2>
         </div>
         <div className={styles.faqList}>

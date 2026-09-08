@@ -5,14 +5,6 @@
   background: #fff;
   color: #000;
 }
-.sectionLabel {
-  color: var(--page-accent);
-  font-size: 0.68rem;
-  font-weight: 850;
-  letter-spacing: 0.14em;
-  margin: 0 0 24px;
-  text-transform: uppercase;
-}
                                                                     
 .sectionCta {
   margin-top: 25px;
@@ -48,9 +40,6 @@
   flex-direction: column;
   padding: clamp(34px, 4.5vw, 64px);
 }
-.labelAccent {
-  color: var(--page-accent);
-}
 .selectionPanel h2 {
   color: #07121c;
   font-size: clamp(2.4rem, 4vw, 3.8rem);
@@ -73,28 +62,34 @@
   gap: 8px;
   grid-template-columns: repeat(3, 1fr);
 }
-.planTypeGrid button {
+.choiceInput {
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 0;
+}
+.planTypeGrid label {
   align-items: center;
-  appearance: none;
   background: #f5f8fa;
   border: 1px solid #d7e2e9;
   color: #213748;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  font: inherit;
   font-size: 0.72rem;
   font-weight: 850;
   justify-content: center;
   min-height: 62px;
   padding: 10px;
+  position: relative;
   text-align: center;
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
     color 0.2s ease;
 }
-.planTypeGrid button small {
+.planTypeGrid label small {
   color: #60778b;
   font-size: 0.45rem;
   font-weight: 900;
@@ -102,11 +97,11 @@
   margin-top: 5px;
   text-transform: uppercase;
 }
-.planTypeGrid button:hover {
+.planTypeGrid label:hover {
   background: #fff;
   border-color: var(--page-accent);
 }
-.planTypeGrid button:focus-visible {
+.planTypeGrid label:has(.choiceInput:focus-visible) {
   outline: 3px solid rgba(var(--page-accent-rgb), 0.25);
   outline-offset: 2px;
 }
@@ -808,7 +803,7 @@
   padding: 82px;
   text-align: center;
 }
-.closing > p:not(.sectionLabel) {
+.closing > p:not(:global(.section-number)) {
   color: #587086;
   font-size: 0.96rem;
   line-height: 1.7;
@@ -836,7 +831,7 @@
      Matching both here would read as twice the gap underneath. */
   padding-top: var(--section-space);
 }
-.verifyCopy p:not(.sectionLabel) {
+.verifyCopy p:not(:global(.section-number)) {
   color: #536b80;
   font-size: 1rem;
   line-height: 1.78;

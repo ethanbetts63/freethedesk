@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { SectionNumber } from "@/components/SectionNumber";
 import styles from "./AutomationMeaning.module.css";
 
 const AUTOMATION_JOBS = [
@@ -35,7 +36,7 @@ export function AutomationMeaning({
     <section className={`shell ${styles.section}`}>
       <div className={styles.layout}>
         <div className={styles.copy}>
-          <p className={styles.label}>{eyebrow}</p>
+          <SectionNumber>{eyebrow}</SectionNumber>
           <h2>Automate admin.</h2>
           <p className={styles.description}>{description}</p>
           <div className={styles.actions}>

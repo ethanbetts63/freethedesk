@@ -6,7 +6,9 @@ import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
+import { SectionNumber } from "@/components/SectionNumber";
 import { metadataFor } from "@/lib/pages";
+import { numberSections } from "@/lib/sectionNumbers";
 import { getSiteSettingsServer } from "@/lib/serverApi";
 
 import { LICENSING_FAQS } from "./_lib/copy";
@@ -35,7 +37,20 @@ const licensingStats: ProofStat[] = [
   },
 ];
 
+/* Section eyebrows, in the order they appear on the page. */
+const sections = numberSections([
+  "A shorter path to sold",
+  "Two ways to use it",
+  "Know who's signing",
+  "Choose your plan",
+  "Common questions",
+  "Remove the barrier",
+] as const);
+
 export const metadata: Metadata = metadataFor("/licensing");
+
+/* Pricing comes from the admin, so this page renders per request. */
+export const dynamic = "force-dynamic";
 
 export default async function LicensingPage() {
   const settings = await getSiteSettingsServer();
@@ -60,7 +75,7 @@ export default async function LicensingPage() {
       <section className={styles.comparisonSection}>
         <div className={`shell ${styles.comparison}`}>
           <div className={styles.comparisonCopy}>
-            <p className={styles.sectionLabel}>02 / A shorter path to sold</p>
+            <SectionNumber>{sections["A shorter path to sold"]}</SectionNumber>
             <h2>Keep the momentum.</h2>
             <p>Remove the steps that add effort without adding value to the customer or the dealership.</p>
             <PrimaryButton className={styles.sectionCta} href="#signup" direction="down">
@@ -101,7 +116,7 @@ export default async function LicensingPage() {
       <section className={styles.optionsSection} id="configuration-options">
         <div className={`shell ${styles.optionsLayout}`}>
           <div className={styles.optionsHeading}>
-            <p className={styles.sectionLabel}>03 / Two ways to use it</p>
+            <SectionNumber>{sections["Two ways to use it"]}</SectionNumber>
             <h2>Our portal or part of your website.</h2>
             <p>
               Use the hosted product with the website you already have, or make it a seamless part of a dealership site
@@ -133,14 +148,14 @@ export default async function LicensingPage() {
         </div>
       </section>
 
-      <IdentityVerification />
+      <IdentityVerification eyebrow={sections["Know who's signing"]} />
 
-      <SignupPlans settings={settings} eyebrow="06 / Choose your plan" />
+      <SignupPlans settings={settings} eyebrow={sections["Choose your plan"]} />
 
-      <Faq eyebrow="07 / Common questions" title="Before you sign up." items={LICENSING_FAQS} />
+      <Faq eyebrow={sections["Common questions"]} title="Before you sign up." items={LICENSING_FAQS} />
 
       <section className={`shell ${styles.closing}`}>
-        <p className={styles.sectionLabel}>04 / Remove the barrier</p>
+        <SectionNumber>{sections["Remove the barrier"]}</SectionNumber>
         <h2>A signature shouldn&apos;t require an appointment.</h2>
         <p>Let customers verify, sign and pay from wherever they are. The paperwork travels—not the customer.</p>
         <PrimaryButton className={styles.closingCta} href="#signup" direction="up">

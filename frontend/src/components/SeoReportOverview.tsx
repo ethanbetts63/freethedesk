@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { SectionNumber } from "@/components/SectionNumber";
 import styles from "./SeoReportOverview.module.css";
 
 const reportSections = [
@@ -60,7 +61,7 @@ const reportSections = [
 ];
 
 type SeoReportOverviewProps = {
-  eyebrow: ReactNode;
+  eyebrow: string;
   description: ReactNode;
   title?: string;
   accentTitle?: string;
@@ -81,7 +82,7 @@ export function SeoReportOverview({
   return (
     <section className={`shell ${styles.reportSection} ${className}`} id={id}>
       <div className={styles.reportCopy}>
-        <p className={styles.label}>{eyebrow}</p>
+        <SectionNumber>{eyebrow}</SectionNumber>
         <h2>
           {title}
           <br />

@@ -1,6 +1,6 @@
-import "./ServiceScroll.css";
-
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { SectionNumber } from "@/components/SectionNumber";
+import "./ServiceScroll.css";
 
 export type Service = {
   title: string;
@@ -42,7 +42,7 @@ export function ServiceScroll({
     <div className="service-scroll">
       <div className="service-scroll-intro">
         <div>
-          <p className="service-scroll-label">{eyebrow}</p>
+          <SectionNumber>{eyebrow}</SectionNumber>
           <h2>{title}</h2>
         </div>
         {ctaLabel && (

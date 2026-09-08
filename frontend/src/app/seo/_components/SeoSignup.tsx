@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 
+import { SectionNumber } from "@/components/SectionNumber";
 import { type PublicSiteSettings } from "@/lib/api";
 import { planByCode } from "@/lib/plans";
 import { useSignup } from "@/lib/useSignup";
@@ -21,7 +22,7 @@ const FREQUENCIES: { code: SeoPlanCode; name: string }[] = [
   { code: "oneoff", name: "One-off" },
 ];
 
-export function SeoSignup({ settings, eyebrow = "02 / Choose" }: { settings: PublicSiteSettings; eyebrow?: string }) {
+export function SeoSignup({ settings, eyebrow }: { settings: PublicSiteSettings; eyebrow: string }) {
   const [reportType, setReportType] = useState<SeoReportType>("both");
   const [selectedCode, setSelectedCode] = useState<SeoPlanCode>("quarterly");
   const plans = useMemo(() => buildSeoPlans(settings, reportType), [settings, reportType]);
@@ -58,26 +59,30 @@ export function SeoSignup({ settings, eyebrow = "02 / Choose" }: { settings: Pub
     <section className={`shell ${styles.plansSection}`} id="signup">
       <div className={styles.signupPanel}>
         <aside className={styles.selectionPanel} id="google-business-profile-audit">
-          <p className={`${styles.label} ${styles.labelLight}`}>{eyebrow}</p>
+          <SectionNumber>{eyebrow}</SectionNumber>
           <h2>Choose your report.</h2>
 
           <div className={styles.choiceGroup}>
             <p>What do you want?</p>
             <div className={styles.reportTypeGrid} role="radiogroup" aria-label="Report type">
               {REPORT_TYPES.map((option) => (
-                <button
+                <label
                   className={`${reportType === option.code ? styles.choiceSelected : ""} ${
                     option.code === "both" ? styles.choiceRecommended : ""
                   }`}
                   key={option.code}
-                  type="button"
-                  role="radio"
-                  aria-checked={reportType === option.code}
-                  onClick={() => selectReportType(option.code)}
                 >
+                  <input
+                    className={styles.choiceInput}
+                    type="radio"
+                    name="seo-report-type"
+                    value={option.code}
+                    checked={reportType === option.code}
+                    onChange={() => selectReportType(option.code)}
+                  />
                   <span>{option.name}</span>
                   {option.code === "both" && <small className="moving-colour-text">Recommended</small>}
-                </button>
+                </label>
               ))}
             </div>
           </div>
@@ -86,19 +91,23 @@ export function SeoSignup({ settings, eyebrow = "02 / Choose" }: { settings: Pub
             <p>How often?</p>
             <div className={styles.frequencyGrid} role="radiogroup" aria-label="Report frequency">
               {FREQUENCIES.map((frequency) => (
-                <button
+                <label
                   className={`${selectedCode === frequency.code ? styles.choiceSelected : ""} ${
                     recommendedFrequency === frequency.code ? styles.frequencyRecommended : ""
                   }`}
                   key={frequency.code}
-                  type="button"
-                  role="radio"
-                  aria-checked={selectedCode === frequency.code}
-                  onClick={() => setSelectedCode(frequency.code)}
                 >
+                  <input
+                    className={styles.choiceInput}
+                    type="radio"
+                    name="seo-report-frequency"
+                    value={frequency.code}
+                    checked={selectedCode === frequency.code}
+                    onChange={() => setSelectedCode(frequency.code)}
+                  />
                   <span>{frequency.name}</span>
                   {recommendedFrequency === frequency.code && <small>Recommended</small>}
-                </button>
+                </label>
               ))}
             </div>
           </div>

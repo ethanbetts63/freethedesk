@@ -1,4 +1,5 @@
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { SectionNumber } from "@/components/SectionNumber";
 import styles from "./SubscriptionSwap.module.css";
 
 const steps: [string, string][] = [
@@ -18,7 +19,7 @@ export function SubscriptionSwap({ eyebrow }: { eyebrow: string }) {
     <section className={styles.section} id="subscriptions">
       <div className="shell">
         <div className={styles.heading}>
-          <p className={styles.label}>{eyebrow}</p>
+          <SectionNumber>{eyebrow}</SectionNumber>
           <h2>
             Not another <span className="moving-colour-text">****ing subscription.</span>
           </h2>

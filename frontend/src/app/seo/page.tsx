@@ -7,9 +7,11 @@ import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
+import { SectionNumber } from "@/components/SectionNumber";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { ServiceScroll } from "@/components/ServiceScroll";
 import { metadataFor } from "@/lib/pages";
+import { numberSections } from "@/lib/sectionNumbers";
 import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
 
 import { SEO_FAQS } from "./_lib/copy";
@@ -20,7 +22,20 @@ import { SeoSignup } from "./_components/SeoSignup";
 import { seoServices } from "./_components/seoServices";
 import styles from "./page.module.css";
 
+/* Section eyebrows, in the order they appear on the page. */
+const sections = numberSections([
+  "What you're buying",
+  "Proof this works",
+  "Why it's cheap",
+  "What recommendations look like",
+  "Choose your plan",
+  "Common questions",
+] as const);
+
 export const metadata: Metadata = metadataFor("/seo");
+
+/* Pricing comes from the admin, so this page renders per request. */
+export const dynamic = "force-dynamic";
 
 const pipelineSteps = [
   [
@@ -98,7 +113,7 @@ export default async function SeoPage() {
 
       <SeoReportOverview
         id="report"
-        eyebrow={<>01 / What you&apos;re buying</>}
+        eyebrow={sections["What you're buying"]}
         description={
           <div className={styles.reportDescription}>
             <p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>
@@ -135,7 +150,7 @@ export default async function SeoPage() {
             </div>
           </div>
           <div className={styles.caseCopy}>
-            <p className={`${styles.label} ${styles.labelLight}`}>02 / Proof this works</p>
+            <SectionNumber onDark>{sections["Proof this works"]}</SectionNumber>
             <h2>Scooter Shop, Perth.</h2>
             <p>
               Scooter Shop&apos;s website was built the way our reports recommend: fast structured pages, indexable
@@ -167,7 +182,7 @@ export default async function SeoPage() {
       <section className={styles.compareSection}>
         <div className={`shell ${styles.compareInner}`}>
           <div className={styles.compareCopy}>
-            <p className={styles.label}>03 / Why it&apos;s cheap</p>
+            <SectionNumber>{sections["Why it's cheap"]}</SectionNumber>
             <h2>Two hours of human judgement. That&apos;s what you&apos;re paying for.</h2>
             <p>
               Most of an SEO audit is collection work—crawling pages, pulling data, checking the same hundred things.
@@ -211,7 +226,7 @@ export default async function SeoPage() {
         <ServiceScroll
           services={seoServices}
           customHref="#signup"
-          eyebrow="04 / What recommendations look like"
+          eyebrow={sections["What recommendations look like"]}
           title="The thinking that shows up in every report."
           ctaLabel="Choose a Report"
           showCustomService={false}
@@ -220,12 +235,12 @@ export default async function SeoPage() {
 
       <GoogleBusinessProfileAudit ctaHref="#google-business-profile-audit" ctaLabel="Choose a Report" />
 
-      <SeoSignup settings={settings} eyebrow="06 / Choose your plan" />
+      <SeoSignup settings={settings} eyebrow={sections["Choose your plan"]} />
 
-      <Faq eyebrow="07 / Common questions" title="Before you connect your data." items={SEO_FAQS} />
+      <Faq eyebrow={sections["Common questions"]} title="Before you connect your data." items={SEO_FAQS} />
 
       <section className={`shell ${styles.closing}`}>
-        <p className={styles.label}>Start with your own data</p>
+        <SectionNumber>Start with your own data</SectionNumber>
         <h2>What is search actually costing you right now?</h2>
         <p>
           Connect Google Search Console and your first report arrives within the week—ranked, plain-English, and honest

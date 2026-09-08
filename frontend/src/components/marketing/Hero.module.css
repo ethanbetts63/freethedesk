@@ -1,5 +1,4 @@
 .hero {
-                                                      
   --hero-accent: var(--brand-accent);
   --hero-accent-rgb: 36, 126, 201;
   align-items: center;
@@ -51,7 +50,7 @@
 .content a {
   pointer-events: auto;
 }
-                                                                                 
+
 .withStages {
   align-items: center;
   display: grid;

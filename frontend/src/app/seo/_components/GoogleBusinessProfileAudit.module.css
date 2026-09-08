@@ -58,14 +58,6 @@
 .googleLockup strong {
   font-size: 0.77rem;
 }
-.eyebrow {
-  color: var(--accent);
-  font-size: 0.64rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  margin: 0 0 16px;
-  text-transform: uppercase;
-}
 .copy h3 {
   font-size: clamp(2.25rem, 4vw, 3.75rem);
   letter-spacing: -0.06em;

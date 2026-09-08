@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { enquiryStatuses, StatusPill } from "@/components/dashboard/StatusPill";
+import { safeWebsiteHref } from "@/lib/api";
 import {
   formatDateTime,
   getEnquiry,
@@ -74,6 +75,7 @@ export default function EnquiryDetailPage() {
   if (!enquiry) return null;
 
   const configuration = enquiry.configuration ?? {};
+  const websiteHref = safeWebsiteHref(enquiry.website);
   const chosenCapabilities = configuration.capabilities?.filter((item) => item.selected) ?? [];
   const chosenInventoryOptions = configuration.inventory_options?.filter((item) => item.selected) ?? [];
 
@@ -133,12 +135,12 @@ export default function EnquiryDetailPage() {
             <div>
               <dt>Website</dt>
               <dd>
-                {enquiry.website ? (
-                  <a href={enquiry.website} target="_blank" rel="noreferrer">
+                {websiteHref ? (
+                  <a href={websiteHref} target="_blank" rel="noreferrer">
                     {enquiry.website} ↗
                   </a>
                 ) : (
-                  "Not supplied"
+                  enquiry.website || "Not supplied"
                 )}
               </dd>
             </div>

@@ -50,6 +50,10 @@
   --brand-accent: #247ec9;
   --link: var(--blue-800);
 
+  /* Numbered section eyebrows - see .section-number in typography.css */
+  --section-number: var(--brand-accent);
+  --section-number-on-dark: #70bced;
+
   /* Borders and focus */
   --border: var(--blue-200);
   --border-strong: var(--blue-300);

@@ -1,20 +1,19 @@
-@import "tailwindcss";
-
 /* Global foundations - loaded on every route via app/layout.tsx.
-   Import order IS the cascade, so keep it: tokens, then resets, then
-   primitives.
+   Import order IS the cascade, so keep it: reset, then tokens, then
+   base, then primitives.
 
    Everything else is colocated with what it styles and imported there:
      components/SiteHeader.css, SiteFooter.css, ApproachSection.css,
      ProofStrip.css, ServiceScroll.css
      components/dashboard/DashboardChrome.css, admin.css  (via PortalShell)
-     app/portfolio/case-study.css, bloomprint/bloomprint.css
+     app/portfolio/case-study.css
      app/portal/portal.css, app/login/login.css
 
    A stylesheet owns its class prefix exclusively - a new rule for
    .case-tour belongs in the file that already owns .case-tour, and its
    media queries go at the bottom of that same file. */
 
+@import "../styles/reset.css";
 @import "../styles/tokens.css";
 @import "../styles/base.css";
 @import "../styles/layout.css";

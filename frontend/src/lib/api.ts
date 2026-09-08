@@ -233,15 +233,40 @@ export async function submitEnquiry(payload: EnquiryPayload): Promise<void> {
   await postJson("/api/enquiries/", payload);
 }
 
+const SCHEME = /^([a-z][a-z0-9+.-]*):\/\//i;
+
 /**
  * People type "www.example.com.au" far more often than they type a scheme, and
  * both the native url input and the backend's URLField reject that. Prepend
  * https:// so the common case submits instead of erroring.
+ *
+ * Only http and https survive as schemes. Anything else is not a website, and
+ * the value is eventually rendered as a link in the admin, so the scheme is
+ * dropped rather than passed through.
  */
 export function normaliseWebsiteUrl(value: string): string {
   const trimmed = value.trim();
-  if (!trimmed || /^[a-z][a-z0-9+.-]*:\/\//i.test(trimmed)) return trimmed;
-  return `https://${trimmed.replace(/^\/+/, "")}`;
+  if (!trimmed) return trimmed;
+  const match = SCHEME.exec(trimmed);
+  if (!match) return `https://${trimmed.replace(/^\/+/, "")}`;
+  const protocol = match[1].toLowerCase();
+  if (protocol === "http" || protocol === "https") return trimmed;
+  return `https://${trimmed.slice(match[0].length).replace(/^\/+/, "")}`;
+}
+
+/**
+ * Anything stored server-side is untrusted by the time it reaches an href.
+ * Returns the value only when it parses as an http(s) URL, so a hostile scheme
+ * renders as text instead of becoming a clickable link.
+ */
+export function safeWebsiteHref(value: string | null | undefined): string | null {
+  if (!value) return null;
+  try {
+    const url = new URL(value.trim());
+    return url.protocol === "http:" || url.protocol === "https:" ? url.href : null;
+  } catch {
+    return null;
+  }
 }
 
 export interface AiReadinessPayload {

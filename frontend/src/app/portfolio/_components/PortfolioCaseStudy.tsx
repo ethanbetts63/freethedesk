@@ -6,24 +6,19 @@ import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
+import { SectionNumber } from "@/components/SectionNumber";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import type { PagePath } from "@/lib/pages";
+import { numberSections } from "@/lib/sectionNumbers";
 
+import { BrowserFrame, type PortfolioImage } from "./BrowserFrame";
 import { PortfolioEnquiryCta } from "./PortfolioEnquiryCta";
 import { PortfolioTour, type PortfolioTourItem } from "./PortfolioTour";
 
 type LineHeading = {
   lines: readonly string[];
   accentLine?: number;
-};
-
-type PortfolioImage = {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-  className?: string;
 };
 
 type MobileStory = {
@@ -144,35 +139,6 @@ function HeadingLines({ heading }: { heading: LineHeading }) {
   );
 }
 
-function BrowserFrame({
-  image,
-  browserUrl,
-  hero = false,
-}: {
-  image: PortfolioImage;
-  browserUrl: string;
-  hero?: boolean;
-}) {
-  return (
-    <div className={`case-browser${hero ? " case-browser-hero" : ""}`}>
-      <div className="case-browser-bar">
-        <i />
-        <i />
-        <i />
-        <span>{browserUrl}</span>
-      </div>
-      <Image
-        className={image.className}
-        src={image.src}
-        alt={image.alt}
-        width={image.width}
-        height={image.height}
-        priority={hero}
-      />
-    </div>
-  );
-}
-
 function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig["hero"] }) {
   return (
     <section className="case-hero">
@@ -232,7 +198,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig["hero"] })
 function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig["intro"] }) {
   return (
     <section className="section shell case-story-intro">
-      <p className="section-number">{config.eyebrow}</p>
+      <SectionNumber>{config.eyebrow}</SectionNumber>
       <div>
         <h2>
           <HeadingLines heading={config.title} />
@@ -256,7 +222,7 @@ function PortfolioTourSection({ config }: { config: PortfolioCaseStudyConfig["to
     <section className="case-tour-section" id="tour">
       <div className="shell">
         <div className="case-section-heading">
-          <p className="section-number">{config.eyebrow}</p>
+          <SectionNumber>{config.eyebrow}</SectionNumber>
           <h2>
             <HeadingLines heading={config.title} />
           </h2>
@@ -272,7 +238,7 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
     <section className="case-mobile-story">
       <div className="shell case-mobile-story-grid">
         <div className="case-mobile-copy">
-          <p className="section-number">{config.eyebrow}</p>
+          <SectionNumber>{config.eyebrow}</SectionNumber>
           <h2>{config.title}</h2>
           <p>{config.description}</p>
           <div className="case-mobile-stat">
@@ -350,9 +316,9 @@ function OperationsConsole({ config }: { config: OperationsFeature["console"] })
 
 function DualSteps({ columns }: { columns: DualStepsFeature["columns"] }) {
   return (
-    <div className="bloom-sides">
+    <div className="case-steps-pair">
       {columns.map((column, index) => (
-        <article className={`bloom-side${index % 2 ? " bloom-side-alt" : ""}`} key={column.label}>
+        <article className={`case-steps-column${index % 2 ? " case-steps-column-alt" : ""}`} key={column.label}>
           <header>
             <small>{column.label}</small>
             <h3>{column.title}</h3>
@@ -378,7 +344,7 @@ function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig["featur
       <div className="shell">
         <div className="case-operations-heading">
           <div>
-            <p className="section-number section-number-light">{config.eyebrow}</p>
+            <SectionNumber onDark>{config.eyebrow}</SectionNumber>
             <h2>
               <HeadingLines heading={config.title} />
             </h2>
@@ -397,20 +363,20 @@ function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig["featur
 
 function PortfolioMediaFeature({ config }: { config: MediaFeature }) {
   return (
-    <section className={config.tinted ? "bloom-seo-section" : "section"}>
-      <div className={`shell bloom-split${config.reverse ? " bloom-split-reverse" : ""}`}>
-        <div className="bloom-split-copy">
-          <p className="section-number">{config.eyebrow}</p>
+    <section className={config.tinted ? "case-tinted-section" : "section"}>
+      <div className={`shell case-split${config.reverse ? " case-split-reverse" : ""}`}>
+        <div className="case-split-copy">
+          <SectionNumber>{config.eyebrow}</SectionNumber>
           <h2>{config.title}</h2>
           <p>{config.description}</p>
-          <div className="bloom-split-points">
+          <div className="case-split-points">
             {config.points.map((point) => (
               <span key={point}>{point}</span>
             ))}
           </div>
           <PortfolioEnquiryCta />
         </div>
-        <div className="bloom-split-media">
+        <div className="case-split-media">
           <BrowserFrame image={config.image} browserUrl={config.browserUrl} />
         </div>
       </div>
@@ -424,7 +390,7 @@ function PortfolioIntent({ config }: { config: IntentSection }) {
       <div className="shell">
         <div className="case-intent-heading">
           <div>
-            <p className="section-number">{config.eyebrow}</p>
+            <SectionNumber>{config.eyebrow}</SectionNumber>
             <h2>
               <HeadingLines heading={config.title} />
             </h2>
@@ -459,7 +425,7 @@ function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, "s
   return (
     <>
       <SeoReportOverview
-        eyebrow={<>{config.seo.eyebrow}</>}
+        eyebrow={config.seo.eyebrow}
         title={config.seo.title}
         accentTitle={config.seo.accentTitle}
         showSequence={false}
@@ -477,7 +443,39 @@ function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, "s
   );
 }
 
-export function PortfolioCaseStudy({ config }: { config: PortfolioCaseStudyConfig }) {
+/**
+ * Case studies render in a fixed order, so the "01 / ..." eyebrows are derived
+ * from that order rather than typed into each page's config by hand.
+ */
+function withSectionNumbers(config: PortfolioCaseStudyConfig): PortfolioCaseStudyConfig {
+  const mediaFeatures = config.mediaFeatures ?? [];
+  const numbered = numberSections([
+    config.intro.eyebrow,
+    config.tour.eyebrow,
+    config.mobile.eyebrow,
+    config.feature.eyebrow,
+    ...mediaFeatures.map((feature) => feature.eyebrow),
+    config.intent.eyebrow,
+    config.seo.eyebrow,
+    config.faq.eyebrow,
+  ]);
+
+  return {
+    ...config,
+    intro: { ...config.intro, eyebrow: numbered[config.intro.eyebrow] },
+    tour: { ...config.tour, eyebrow: numbered[config.tour.eyebrow] },
+    mobile: { ...config.mobile, eyebrow: numbered[config.mobile.eyebrow] },
+    feature: { ...config.feature, eyebrow: numbered[config.feature.eyebrow] },
+    mediaFeatures: mediaFeatures.map((feature) => ({ ...feature, eyebrow: numbered[feature.eyebrow] })),
+    intent: { ...config.intent, eyebrow: numbered[config.intent.eyebrow] },
+    seo: { ...config.seo, eyebrow: numbered[config.seo.eyebrow] },
+    faq: { ...config.faq, eyebrow: numbered[config.faq.eyebrow] },
+  };
+}
+
+export function PortfolioCaseStudy({ config: rawConfig }: { config: PortfolioCaseStudyConfig }) {
+  const config = withSectionNumbers(rawConfig);
+
   return (
     <main className="case-page">
       <PageSchema path={config.path} />

@@ -52,7 +52,7 @@ const config = {
     ],
   },
   intro: {
-    eyebrow: "01 / The brief",
+    eyebrow: "The brief",
     title: { lines: ["Sell a brief,", "not a bouquet photo."] },
     paragraphs: [
       "Online flower delivery usually means scrolling near-identical warehouse bouquets and hoping the photo resembles what turns up. Bloomprint works the other way around: the customer sets the occasion, the budget and their preferences, and an independent florist near the recipient designs to that brief from what is fresh that day.",
@@ -70,7 +70,7 @@ const config = {
     ],
   },
   tour: {
-    eyebrow: "02 / The experience",
+    eyebrow: "The experience",
     title: { lines: ["Four journeys,", "one order engine."] },
     label: "Bloomprint website tour",
     browserUrl: "www.bloomprint.com.au",
@@ -126,7 +126,7 @@ const config = {
     ],
   },
   mobile: {
-    eyebrow: "03 / Every screen",
+    eyebrow: "Every screen",
     title: "Mobile First.",
     description:
       "Flower orders often begin on a phone, so the brief, budget, delivery details and payment path were designed for the smallest screen first. The mobile journey is the product—not a compressed desktop checkout.",
@@ -146,7 +146,7 @@ const config = {
   },
   feature: {
     variant: "dual-steps",
-    eyebrow: "04 / Both sides",
+    eyebrow: "Both sides",
     title: { lines: ["A marketplace only", "works twice."] },
     description:
       "A customer journey that ends in a beautiful order is worthless if no florist wants to make it. Both sides were designed together, so what the customer is asked for is exactly what the florist needs to start work.",
@@ -179,7 +179,7 @@ const config = {
   },
   mediaFeatures: [
     {
-      eyebrow: "05 / Pricing as a product decision",
+      eyebrow: "Pricing as a product decision",
       title: "The budget is set before anything is designed.",
       description:
         "Most flower sites reveal the real price at checkout. Here the customer names the amount—a tier or any custom figure—and that is what they pay, with delivery included over $100. It removes the biggest reason gift buyers abandon an order, and it gives the florist a firm number to design against.",
@@ -198,7 +198,7 @@ const config = {
       },
     },
     {
-      eyebrow: "06 / Built to be found",
+      eyebrow: "Built to be found",
       title: "A new brand needs pages people are already searching for.",
       description:
         "Nobody searches for a marketplace that launched last month. They search for flower delivery in their city, for a subscription, for Mother’s Day, or for a comparison of who is actually any good. The content and landing page structure was built around those searches from the first sprint, not bolted on later.",
@@ -215,7 +215,7 @@ const config = {
     },
   ],
   intent: {
-    eyebrow: "07 / Front doors",
+    eyebrow: "Front doors",
     title: { lines: ["Many ways in.", "One way to order."] },
     description:
       "Each page speaks to a different search, then hands the visitor the same order builder—already framed around their city, their occasion or the way they want flowers to arrive. New front doors can be added without rebuilding the thing behind them.",
@@ -256,13 +256,13 @@ const config = {
     ],
   },
   seo: {
-    eyebrow: "08 / SEO growth",
+    eyebrow: "SEO growth",
     title: "3 months.",
     accentTitle: "68% growth.",
     description:
       "Organic clicks grew 68% in three months. City, occasion and guide pages gave a new brand more ways to meet customers already searching for flower delivery.",
   },
-  faq: { eyebrow: "09 / Common questions", items: PORTFOLIO_FAQS },
+  faq: { eyebrow: "Common questions", items: PORTFOLIO_FAQS },
 } satisfies PortfolioCaseStudyConfig;
 
 export default function BloomprintCaseStudy() {
