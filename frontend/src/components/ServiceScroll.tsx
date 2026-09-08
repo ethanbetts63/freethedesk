@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { PrimaryButton } from "@/components/PrimaryButton";
 
 export type Service = {
@@ -13,7 +11,6 @@ export type Service = {
 const customService = {
   title: "Custom automation",
   body: "The repetitive, computer-based task too specific for any off-the-shelf tool. Tell us what eats your week.",
-  color: "var(--accent-strong)",
   icon: (
     <svg viewBox="0 0 64 64" width={96} height={96} fill="none" aria-hidden="true">
       <path d="M32 2V62M6 12L58 52M58 12L6 52" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
@@ -21,30 +18,20 @@ const customService = {
   ),
 };
 
-   
-                                                                               
-                                                                          
-                                                                            
-                                                                        
-  
-                                                                            
-                                                                             
-                                                                           
-   
 export function ServiceScroll({
   services,
   customHref,
   eyebrow,
   title,
-  lead,
   ctaLabel,
+  showCustomService = true,
 }: {
   services: Service[];
   customHref: string;
   eyebrow: string;
   title: string;
-  lead?: string;
   ctaLabel?: string;
+  showCustomService?: boolean;
 }) {
   // The list sits above the page's form, so an on-page target is below it.
   const ctaDirection = customHref.startsWith("#") ? "down" : "page";
@@ -62,8 +49,6 @@ export function ServiceScroll({
           </PrimaryButton>
         )}
       </div>
-      {lead && <p className="service-scroll-lead">{lead}</p>}
-
       {services.map((service, index) => (
         <div className="service-row" key={service.title}>
           <div className="service-sticky">
@@ -85,24 +70,24 @@ export function ServiceScroll({
           </div>
         </div>
       ))}
-      <div className="service-row service-row-highlight">
-        <div className="service-sticky">
-          <span style={{ color: customService.color }}>0{services.length + 1}</span>
-          <h3>{customService.title}</h3>
-        </div>
-        <div className="service-content">
-          <div className="service-lead">
-            <div className="service-icon" style={{ color: customService.color }}>
-              {customService.icon}
-            </div>
+      {showCustomService && (
+        <div className="service-custom">
+          <div className="service-custom-icon" aria-hidden="true">
+            {customService.icon}
+          </div>
+          <div className="service-custom-copy">
+            <p className="service-custom-label">
+              <span>0{services.length + 1}</span>
+              Built around your business
+            </p>
+            <h3>{customService.title}</h3>
             <p>{customService.body}</p>
           </div>
-          {/* The list sits above the page's form, so an on-page target is below. */}
-          <Link className="service-cta" href={customHref} style={{ background: customService.color }}>
-            Tell us about it <span>{ctaDirection === "down" ? "↓" : "↗"}</span>
-          </Link>
+          <PrimaryButton className="service-custom-cta" href={customHref} direction={ctaDirection}>
+            Tell us about it
+          </PrimaryButton>
         </div>
-      </div>
+      )}
     </div>
   );
 }

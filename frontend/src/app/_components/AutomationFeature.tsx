@@ -59,11 +59,7 @@ export function AutomationFeature() {
             We connect the systems you already use and build the missing pieces, so information moves without your team
             moving it by hand.
           </p>
-          <ul>
-            <li>Lead routing and follow-up</li>
-            <li>Bookings, documents and data transfer</li>
-            <li>Reporting built around the decision</li>
-          </ul>
+
           <PrimaryButton className={styles.copyCta} href="/automation">
             Explore business automation
           </PrimaryButton>

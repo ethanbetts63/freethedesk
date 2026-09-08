@@ -18,21 +18,6 @@ const steps: [string, string][] = [
   ],
 ];
 
-const worthALook = [
-  "Booking and enquiry widgets bolted onto your site",
-  "Form builders, popups and review collectors",
-  "Per-seat tools where you only use one feature",
-  "Single-job plugins carrying a monthly fee",
-  "Email tools you keep for one automated message",
-];
-
-const leaveAlone = [
-  ["Payments", "Stripe and anything else moving money"],
-  ["Accounting", "Xero, MYOB and your bookkeeper's workflow"],
-  ["Email and files", "Google Workspace, Microsoft 365"],
-  ["Anything regulated", "Systems holding records you are required to keep"],
-];
-
 export function SubscriptionSwap() {
   return (
     <section className={styles.section} id="subscriptions">
@@ -58,36 +43,6 @@ export function SubscriptionSwap() {
             </li>
           ))}
         </ol>
-
-        <div className={styles.split}>
-          <div className={styles.worth}>
-            <h3>Usually worth a look</h3>
-            <ul>
-              {worthALook.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div className={styles.keep}>
-            <h3>We&apos;d leave alone</h3>
-            <dl>
-              {leaveAlone.map(([term, detail]) => (
-                <div key={term}>
-                  <dt>{term}</dt>
-                  <dd>{detail}</dd>
-                </div>
-              ))}
-            </dl>
-            <p>Replacing these is a bad idea. If you ask us to, we will say so and explain why.</p>
-          </div>
-        </div>
-
-        <p className={styles.footnote}>
-          Custom software is not free to run—there is still hosting and maintenance, and we would rather say that up
-          front. The goal is not zero subscriptions. It is fewer of them, better connected to everything else, and the
-          ones left over being ones you would happily keep.
-        </p>
 
         <PrimaryButton className={styles.cta} href="#enquiry" direction="down">
           Tell us what you&apos;re paying for

@@ -652,13 +652,6 @@ main:has(.service-scroll) {
 .service-scroll-cta {
   flex: 0 0 auto;
 }
-.service-scroll-lead {
-  color: #536c80;
-  font-size: 1rem;
-  line-height: 1.78;
-  margin: 22px 0 0;
-  max-width: 620px;
-}
 .service-row {
   border-top: 1px solid var(--border);
   display: grid;
@@ -666,9 +659,9 @@ main:has(.service-scroll) {
   grid-template-columns: 0.8fr 1.2fr;
   padding: 110px 0;
 }
-.service-row:first-child {
+.service-scroll-intro + .service-row {
   border-top: 0;
-  padding-top: 30px;
+  padding-top: 60px;
 }
 .service-sticky {
   align-self: start;
@@ -725,37 +718,84 @@ main:has(.service-scroll) {
   left: 0;
   position: absolute;
 }
-.service-row-highlight {
-  background: var(--surface-tint);
-  border-top-color: transparent;
-  margin: 0 -32px;
-  padding: 140px 32px;
-}
-.service-row-highlight .service-sticky h3 {
-  color: var(--accent-strong);
-  font-size: clamp(2.4rem, 4.4vw, 3.7rem);
-}
-.service-row-highlight .service-lead > p {
-  color: var(--text);
-  font-size: 1.3rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.4;
-  max-width: 460px;
-}
-.service-cta {
+.service-custom {
   align-items: center;
-  color: #fff;
-  display: inline-flex;
-  font-size: 0.84rem;
-  font-weight: 800;
-  gap: 34px;
-  margin-top: 40px;
-  padding: 17px 22px;
-  transition: transform 0.2s;
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+  display: grid;
+  gap: clamp(30px, 5vw, 64px);
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  margin-top: 24px;
+  overflow: hidden;
+  padding: clamp(38px, 5vw, 64px);
+  position: relative;
 }
-.service-cta:hover {
-  transform: translateY(-2px);
+.service-custom::before {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 38px 38px;
+  content: "";
+  inset: 0;
+  mask-image: linear-gradient(90deg, #000, transparent 80%);
+  pointer-events: none;
+  position: absolute;
+}
+.service-custom::after {
+  background: var(--page-accent, var(--brand-accent));
+  content: "";
+  inset: 0 auto 0 0;
+  position: absolute;
+  width: 5px;
+}
+.service-custom > * {
+  position: relative;
+  z-index: 1;
+}
+.service-custom-icon {
+  align-items: center;
+  background: rgba(112, 188, 237, 0.1);
+  border: 1px solid rgba(112, 188, 237, 0.35);
+  color: #70bced;
+  display: flex;
+  height: 112px;
+  justify-content: center;
+  width: 112px;
+}
+.service-custom-icon svg {
+  height: 58px;
+  width: 58px;
+}
+.service-custom-label {
+  align-items: center;
+  color: #70bced;
+  display: flex;
+  font-size: 0.64rem;
+  font-weight: 900;
+  gap: 14px;
+  letter-spacing: 0.13em;
+  margin: 0 0 13px;
+  text-transform: uppercase;
+}
+.service-custom-label span {
+  border-right: 1px solid rgba(112, 188, 237, 0.35);
+  padding-right: 14px;
+}
+.service-custom-copy h3 {
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin: 0 0 16px;
+}
+.service-custom-copy > p:last-child {
+  color: var(--text-on-dark-muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 520px;
+}
+.service-custom-cta {
+  flex: 0 0 auto;
 }
 
 @media (max-width: 900px) {
@@ -766,9 +806,30 @@ main:has(.service-scroll) {
   .service-sticky {
     position: static;
   }
-  .service-row-highlight {
-    margin: 0 -20px;
-    padding: 70px 20px;
+  .service-custom {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .service-custom-cta {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 620px) {
+  .service-custom {
+    grid-template-columns: 1fr;
+    padding: 36px 28px 40px;
+  }
+  .service-custom-icon {
+    height: 82px;
+    width: 82px;
+  }
+  .service-custom-icon svg {
+    height: 44px;
+    width: 44px;
+  }
+  .service-custom-cta {
+    grid-column: auto;
   }
 }
 

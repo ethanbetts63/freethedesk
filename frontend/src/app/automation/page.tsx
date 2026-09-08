@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
+import { ApproachSection, type ApproachStep } from "@/components/ApproachSection";
 import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
@@ -22,6 +22,48 @@ const automationStats: ProofStat[] = [
     value: "AI",
     label: "Automation like never before",
     description: "What AI can automate has grown fast. Get ahead of the curve.",
+  },
+];
+
+const approachSteps: ApproachStep[] = [
+  {
+    title: "Map it",
+    description: "We map every opportunity in the business, from quick fixes to big-ticket projects.",
+    icon: (
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+        <path
+          d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"
+          stroke="#fff"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+        />
+        <circle cx="12" cy="9.5" r="2.4" stroke="#fff" strokeWidth="1.6" />
+      </svg>
+    ),
+  },
+  {
+    title: "Build it",
+    description: "We start with the simplest one first—fast to build and low risk, and it teaches us your business.",
+    icon: (
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+        <path
+          d="M14.7 6.3a3.5 3.5 0 0 0-4.6 4.6L4 17l3 3 6.1-6.1a3.5 3.5 0 0 0 4.6-4.6l-2.3 2.3-2-2 2.3-2.3Z"
+          stroke="#fff"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Learn",
+    description: "With trust and understanding in place, we move on to the bigger automations.",
+    icon: (
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+        <path d="M8 5.5v13l11-6.5-11-6.5Z" fill="#fff" />
+      </svg>
+    ),
   },
 ];
 
@@ -53,82 +95,15 @@ export default function AutomationPage() {
         />
       </section>
 
-      <section className="approach-section">
-        <div className="shell approach-inner">
-          <p className="section-number section-number-light">02 / Our approach</p>
-          <h2>
-            Start small.
-            <br />
-            <span className="moving-colour-text">Dream big.</span>
-          </h2>
-          <p className="approach-lead">
-            Every business has more automation opportunities than time. We start with the simplest ones—fast to prove,
-            low risk, and the quickest way to learn how your business works—then take on the bigger, higher-impact
-            projects.
-          </p>
-          <ol className="approach-steps">
-            <li className="approach-step">
-              <div className="approach-step-rail">
-                <span className="approach-step-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-                    <path
-                      d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"
-                      stroke="#fff"
-                      strokeWidth="1.6"
-                      strokeLinejoin="round"
-                    />
-                    <circle cx="12" cy="9.5" r="2.4" stroke="#fff" strokeWidth="1.6" />
-                  </svg>
-                </span>
-                <span className="approach-step-line" />
-              </div>
-              <div className="approach-step-body">
-                <span className="approach-step-index">01</span>
-                <h3>Map it</h3>
-                <p>We map every opportunity in the business, from quick fixes to big-ticket projects.</p>
-              </div>
-            </li>
-            <li className="approach-step">
-              <div className="approach-step-rail">
-                <span className="approach-step-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-                    <path
-                      d="M14.7 6.3a3.5 3.5 0 0 0-4.6 4.6L4 17l3 3 6.1-6.1a3.5 3.5 0 0 0 4.6-4.6l-2.3 2.3-2-2 2.3-2.3Z"
-                      stroke="#fff"
-                      strokeWidth="1.6"
-                      strokeLinejoin="round"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </span>
-                <span className="approach-step-line" />
-              </div>
-              <div className="approach-step-body">
-                <span className="approach-step-index">02</span>
-                <h3>Build it</h3>
-                <p>We start with the simplest one first—fast to build and low risk, and it teaches us your business.</p>
-              </div>
-            </li>
-            <li className="approach-step">
-              <div className="approach-step-rail">
-                <span className="approach-step-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-                    <path d="M8 5.5v13l11-6.5-11-6.5Z" fill="#fff" />
-                  </svg>
-                </span>
-              </div>
-              <div className="approach-step-body">
-                <span className="approach-step-index">03</span>
-                <h3>Learn</h3>
-                <p>With trust and understanding in place, we move on to the bigger automations.</p>
-              </div>
-            </li>
-          </ol>
-          <Link className="button button-light approach-cta" href="#enquiry">
-            Find your first automation <span>↓</span>
-          </Link>
-        </div>
-      </section>
+      <ApproachSection
+        eyebrow="02 / Our approach"
+        title="Start small."
+        accentTitle="Dream big."
+        lead="Every business has more automation opportunities than time. We start with the simplest ones—fast to prove, low risk, and the quickest way to learn how your business works—then take on the bigger, higher-impact projects."
+        steps={approachSteps}
+        ctaHref="#enquiry"
+        ctaLabel="Find your first automation"
+      />
 
       <ProjectEnquiry id="enquiry" />
 

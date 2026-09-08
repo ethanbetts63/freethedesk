@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { ApproachSection, type ApproachStep } from "@/components/ApproachSection";
 import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
 import { SubscriptionSwap } from "./_components/SubscriptionSwap";
 import { Hero } from "@/components/marketing/Hero";
@@ -34,7 +35,7 @@ const websiteDevStats: ProofStat[] = [
 
 export const metadata: Metadata = metadataFor("/website-development");
 
-const process = [
+const process: [string, string][] = [
   [
     "Understand",
     "We learn the offer, audience, existing systems and commercial goal before deciding what belongs in the build.",
@@ -79,13 +80,19 @@ const processIcons = [
   </svg>,
 ];
 
-const automationJobs: [string, string][] = [
-  ["Lead capture & routing", "Enquiries arrive with context, reach the right person, and get chased if they go cold"],
-  ["Customer onboarding", "Welcome, forms and deposit request sent the moment a deal is won"],
-  ["Booking & reminders", "Customers book themselves in; confirmations and no-show follow-ups send themselves"],
-  ["CRM & system sync", "Contacts and status changes flow into your CRM, accounts and email tool—entered once"],
-  ["Invoicing & payments", "Invoices raised from the order, overdue accounts chased, payments reconciled"],
-  ["Document generation", "Quotes, contracts and paperwork built from details already entered"],
+const processSteps: ApproachStep[] = process.map(([title, description], index) => ({
+  title,
+  description,
+  icon: processIcons[index],
+}));
+
+const automationJobs = [
+  "Lead capture & routing",
+  "Customer onboarding",
+  "Booking & reminders",
+  "CRM & system sync",
+  "Invoicing & payments",
+  "Document generation",
 ];
 
 const casePoints = ["Indexable stock", "Intent-focused pages", "Structured data", "Measured in Search Console"];
@@ -119,22 +126,79 @@ export default function WebsiteDevelopmentPage() {
 
       <ProofStrip stats={websiteDevStats} />
 
+      <section className={`shell ${styles.systemSection}`}>
+        <div className={styles.systemVisual} aria-hidden="true">
+          <div className={styles.browser}>
+            <i />
+            <i />
+            <i />
+            <span>customer journey</span>
+          </div>
+          <div className={styles.funnelBody}>
+            <div className={styles.funnelStart}>
+              <span>Point A</span>
+              <strong>Interested visitor</strong>
+              <small>Intent captured</small>
+            </div>
+            <ol className={styles.funnelSteps}>
+              <li>
+                <span>01</span>
+                <strong>Find the path</strong>
+                <small>One clear route forward</small>
+              </li>
+              <li>
+                <span>02</span>
+                <strong>Understand the offer</strong>
+                <small>The right detail, in the right order</small>
+              </li>
+              <li>
+                <span>03</span>
+                <strong>Take action</strong>
+                <small>Only the essential effort</small>
+              </li>
+            </ol>
+            <div className={styles.funnelResult}>
+              <span className={styles.funnelResultTick} aria-hidden="true">
+                ✓
+              </span>
+              <span>Point B</span>
+              <strong>Action complete</strong>
+              <small>Next step confirmed</small>
+            </div>
+          </div>
+        </div>
+        <div className={styles.systemCopy}>
+          <p className={styles.label}>01 / Conversion funnels</p>
+          <h2>Make the next step obvious.</h2>
+          <p>
+            A good funnel does not pressure people into acting. It removes the uncertainty, unnecessary choices and
+            repeated effort between arriving with intent and completing the thing they came to do.
+          </p>
+          <ul>
+            <li>One clear action at every stage</li>
+            <li>Fewer fields, choices and dead ends</li>
+            <li>A clear confirmation and handoff at the end</li>
+          </ul>
+          <PrimaryButton href="#enquiry" direction="down">
+            Plan your customer journey
+          </PrimaryButton>
+        </div>
+      </section>
+
       <section className={`shell ${styles.introSection}`}>
         <div className={styles.pitch}>
           <div className={styles.pitchCopy}>
-            <p className={styles.label}>01 / What you&apos;re buying</p>
-            <h2>Not just a website.</h2>
+            <p className={styles.label}>02 / What automation means</p>
+            <h2>Automate admin.</h2>
             <p className={styles.pitchIntro}>
-              A basic website is a brochure: a handful of pages that look fine on launch day and do nothing after that.
-            </p>
-            <p className={styles.pitchIntro}>
-              What we build is closer to custom software. The pages your customers see are the tip of the
-              iceberg—underneath, the site runs the repetitive jobs your team currently does by hand.
+              Automation means your website handles the repetitive work around each customer—capturing details, moving
+              them between systems, sending follow-ups and keeping the next step moving without someone doing it by
+              hand.
             </p>
             <div className={styles.pitchActions}>
-              <Link href="#enquiry">
-                Discuss your website <span aria-hidden="true">↓</span>
-              </Link>
+              <PrimaryButton href="#enquiry" direction="down">
+                Discuss your website
+              </PrimaryButton>
               <Link href="/automation">
                 Want to know more about automation? <span aria-hidden="true">↗</span>
               </Link>
@@ -153,16 +217,13 @@ export default function WebsiteDevelopmentPage() {
               <span className={styles.pitchPanelCount}>6 jobs</span>
             </header>
             <ol className={styles.pitchList}>
-              {automationJobs.map(([title, desc], index) => (
+              {automationJobs.map((title, index) => (
                 <li key={title}>
                   <span className={styles.pitchIndex}>{String(index + 1).padStart(2, "0")}</span>
                   <span className={styles.pitchCheck} aria-hidden="true">
                     ✓
                   </span>
-                  <span className={styles.pitchItemCopy}>
-                    <strong>{title}</strong>
-                    <small>{desc}</small>
-                  </span>
+                  <strong className={styles.pitchItemCopy}>{title}</strong>
                   <span className={styles.pitchTag}>Automated</span>
                 </li>
               ))}
@@ -171,25 +232,24 @@ export default function WebsiteDevelopmentPage() {
         </div>
       </section>
 
+      <SubscriptionSwap />
+
       <section className={styles.servicesSection} id="services">
         <div className="shell">
           <ServiceScroll
             services={websiteServices}
             customHref="#enquiry"
-            eyebrow="02 / What we build"
+            eyebrow="04 / What we build"
             title="The website is the easy part."
-            lead="Anyone can put your stock on a nice-looking page. We build the parts behind it that save you actual hours."
             ctaLabel="Discuss what you need"
           />
         </div>
       </section>
 
-      <SubscriptionSwap />
-
       <SeoReportOverview
         id="seo"
         className={styles.seoSection}
-        eyebrow={<>04 / SEO after launch</>}
+        eyebrow={<>05 / SEO after launch</>}
         description={
           <div className={styles.seoReportSummary}>
             <span>
@@ -234,7 +294,7 @@ export default function WebsiteDevelopmentPage() {
             </div>
           </div>
           <div className={styles.caseCopy}>
-            <p className={`${styles.label} ${styles.labelLight}`}>05 / Proof this works</p>
+            <p className={`${styles.label} ${styles.labelLight}`}>06 / Proof this works</p>
             <h2>Scooter Shop, Perth.</h2>
             <p>
               Scooter Shop&apos;s website combines inventory, parts, purchasing and service journeys in one connected
@@ -262,97 +322,15 @@ export default function WebsiteDevelopmentPage() {
         </div>
       </section>
 
-      <section className={`shell ${styles.systemSection}`}>
-        <div className={styles.systemVisual} aria-hidden="true">
-          <div className={styles.browser}>
-            <i />
-            <i />
-            <i />
-            <span>customer journey</span>
-          </div>
-          <div className={styles.funnelBody}>
-            <div className={styles.funnelStart}>
-              <span>Point A</span>
-              <strong>Interested visitor</strong>
-              <small>Intent captured</small>
-            </div>
-            <ol className={styles.funnelSteps}>
-              <li>
-                <span>01</span>
-                <strong>Find the path</strong>
-                <small>One clear route forward</small>
-              </li>
-              <li>
-                <span>02</span>
-                <strong>Understand the offer</strong>
-                <small>The right detail, in the right order</small>
-              </li>
-              <li>
-                <span>03</span>
-                <strong>Take action</strong>
-                <small>Only the essential effort</small>
-              </li>
-            </ol>
-            <div className={styles.funnelResult}>
-              <span>Point B</span>
-              <strong>Action complete</strong>
-              <small>Next step confirmed</small>
-            </div>
-          </div>
-        </div>
-        <div className={styles.systemCopy}>
-          <p className={styles.label}>06 / Conversion funnels</p>
-          <h2>Make the next step feel obvious.</h2>
-          <p>
-            A good funnel does not pressure people into acting. It removes the uncertainty, unnecessary choices and
-            repeated effort between arriving with intent and completing the thing they came to do.
-          </p>
-          <ul>
-            <li>One clear action at every stage</li>
-            <li>Fewer fields, choices and dead ends</li>
-            <li>Context carried from the page into the form</li>
-            <li>A clear confirmation and handoff at the end</li>
-          </ul>
-          <PrimaryButton href="#enquiry" direction="down">
-            Plan your customer journey
-          </PrimaryButton>
-        </div>
-      </section>
-
-      <section className="approach-section">
-        <div className={`shell approach-inner ${styles.approachInner}`}>
-          <p className={styles.label}>07 / How we work</p>
-          <h2>
-            Same process.
-            <br />
-            <span className="moving-colour-text">Every project.</span>
-          </h2>
-          <p className="approach-lead">
-            Clear stages keep every build moving predictably—from understanding the business through to a site your team
-            can actually run.
-          </p>
-          <ol className="approach-steps">
-            {process.map(([title, body], index) => (
-              <li className="approach-step" key={title}>
-                <div className="approach-step-rail">
-                  <span className="approach-step-icon" aria-hidden="true">
-                    {processIcons[index]}
-                  </span>
-                  {index < process.length - 1 && <span className="approach-step-line" />}
-                </div>
-                <div className="approach-step-body">
-                  <span className="approach-step-index">0{index + 1}</span>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <Link className="button button-light approach-cta" href="#enquiry">
-            Discuss your website <span>↓</span>
-          </Link>
-        </div>
-      </section>
+      <ApproachSection
+        eyebrow="07 / How we work"
+        title="Same process."
+        accentTitle="Every project."
+        lead="Clear stages keep every build moving predictably—from understanding the business through to a site your team can actually run."
+        steps={processSteps}
+        ctaHref="#enquiry"
+        ctaLabel="Discuss your website"
+      />
 
       <ProjectEnquiry id="enquiry" />
 

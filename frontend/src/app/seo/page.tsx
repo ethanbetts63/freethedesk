@@ -88,7 +88,7 @@ export default async function SeoPage() {
         accentTitle="SEO."
         lead="See what's working, what's holding you back and where the best opportunities are."
         primaryHref="#signup"
-        primaryLabel="Choose your plan"
+        primaryLabel="Choose a Report"
         secondaryHref="#report"
         secondaryLabel="See what you get"
         stages={["Connect", "Study", "Report", "Repeat"]}
@@ -103,7 +103,7 @@ export default async function SeoPage() {
           <div className={styles.reportDescription}>
             <p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>
             <PrimaryButton className={styles.sectionCta} href="#signup" direction="down">
-              Choose your plan
+              Choose a Report
             </PrimaryButton>
           </div>
         }
@@ -154,7 +154,7 @@ export default async function SeoPage() {
             </div>
             <div className={styles.caseActions}>
               <PrimaryButton className={styles.casePrimary} href="#signup" direction="down">
-                Choose your plan
+                Choose a Report
               </PrimaryButton>
               <Link href="/portfolio/scooter-shop">
                 Read the full case study <span>↗</span>
@@ -174,15 +174,14 @@ export default async function SeoPage() {
               We&apos;ve automated that, so you don&apos;t pay agency prices for it.
             </p>
             <p>
-              It&apos;s the same process we run internally on every website we build. What can&apos;t be automated is
-              deciding what&apos;s actually worth your time—and that&apos;s the two hours you&apos;re buying.
+              It&apos;s the same process we run internally on every website we build. 
             </p>
             <p className={styles.priceHonesty}>
               Still sounds too cheap? It is. We&apos;re betting some subscribers will eventually want a site built by
               us.
             </p>
             <PrimaryButton className={styles.sectionCta} href="#signup" direction="down">
-              Choose your plan
+              Choose a Report
             </PrimaryButton>
           </div>
           <div className={styles.pipelineCard}>
@@ -214,18 +213,12 @@ export default async function SeoPage() {
           customHref="#signup"
           eyebrow="04 / What recommendations look like"
           title="The thinking that shows up in every report."
-          lead="Four examples of the kind of recommendation the report makes—and the standard each one has to meet before it's allowed to cost you time."
-          ctaLabel="Get your first report"
+          ctaLabel="Choose a Report"
+          showCustomService={false}
         />
       </section>
 
-      <div className="shell">
-        <GoogleBusinessProfileAudit
-          standalonePrice={formatPrice(settings.gbp_audit_price)}
-          ctaHref="#google-business-profile-audit"
-          ctaLabel="Get this audit"
-        />
-      </div>
+      <GoogleBusinessProfileAudit ctaHref="#google-business-profile-audit" ctaLabel="Choose a Report" />
 
       <SeoSignup settings={settings} eyebrow="06 / Choose your plan" />
 
@@ -239,7 +232,7 @@ export default async function SeoPage() {
           about whether you should keep paying us.
         </p>
         <PrimaryButton className={styles.closingCta} href="#signup" direction="up">
-          Get your first report
+          Choose a Report
         </PrimaryButton>
       </section>
     </main>

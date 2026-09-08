@@ -11,7 +11,6 @@ export function DealershipAutomation() {
         customHref="#project-enquiry"
         eyebrow="Dealership automation"
         title="The systems that keep a sales floor moving."
-        lead="The same connected systems, aimed at what actually eats a dealership's week: enquiries, licensing paperwork, delivery handoffs and the emails your team writes every day."
         ctaLabel="Tell us your budget"
       />
     </section>
