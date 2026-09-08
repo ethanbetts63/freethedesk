@@ -1,7 +1,7 @@
 .redirectVisual {
   background: var(--surface);
   border: 1px solid var(--border-strong);
-  box-shadow: 0 12px 28px rgba(var(--shadow-color), .1);
+  box-shadow: 0 12px 28px rgba(var(--shadow-color), 0.1);
   color: var(--text);
   flex: 0 0 auto;
   width: 190px;
@@ -26,9 +26,9 @@
 
 .redirectBar > span {
   color: var(--text-subtle);
-  font-size: .46rem;
+  font-size: 0.46rem;
   font-weight: 800;
-  letter-spacing: .07em;
+  letter-spacing: 0.07em;
   margin-left: auto;
   text-transform: uppercase;
 }
@@ -44,24 +44,40 @@
 .redirectRoute > span:not(.routeArrow) {
   border: 1px solid var(--border);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: .48rem;
+  font-size: 0.48rem;
   overflow: hidden;
   padding: 7px 6px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.oldUrl { color: var(--text-subtle); text-decoration: line-through; }
-.liveUrl { background: var(--surface-tint); color: var(--blue-800); font-weight: 800; }
-.redirectRoute b { background: var(--blue-100); color: var(--blue-800); font-size: .47rem; padding: 4px 5px; }
-.routeArrow { color: var(--blue-600); font-size: .72rem; font-weight: 900; }
+.oldUrl {
+  color: var(--text-subtle);
+  text-decoration: line-through;
+}
+.liveUrl {
+  background: var(--surface-tint);
+  color: var(--blue-800);
+  font-weight: 800;
+}
+.redirectRoute b {
+  background: var(--blue-100);
+  color: var(--blue-800);
+  font-size: 0.47rem;
+  padding: 4px 5px;
+}
+.routeArrow {
+  color: var(--blue-600);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
 
 .redirectStatus {
   align-items: center;
   border-top: 1px solid var(--border);
   color: var(--text-muted);
   display: flex;
-  font-size: .48rem;
+  font-size: 0.48rem;
   font-weight: 750;
   gap: 6px;
   padding: 8px 11px;
@@ -70,14 +86,20 @@
 .redirectStatus i {
   background: #34a853;
   border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(52, 168, 83, .12);
+  box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.12);
   height: 5px;
   width: 5px;
 }
 
 @media (max-width: 520px) {
-  .redirectVisual { width: 168px; }
-  .redirectRoute { gap: 5px; padding-left: 8px; padding-right: 8px; }
+  .redirectVisual {
+    width: 168px;
+  }
+  .redirectRoute {
+    gap: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
 
 .aiReadinessVisual {
@@ -95,13 +117,17 @@
   padding: 11px 9px;
 }
 
-.aiReadinessVisual > div:nth-child(even) { border-left: 1px solid var(--border-on-dark); }
-.aiReadinessVisual > div:nth-child(n + 3) { border-top: 1px solid var(--border-on-dark); }
+.aiReadinessVisual > div:nth-child(even) {
+  border-left: 1px solid var(--border-on-dark);
+}
+.aiReadinessVisual > div:nth-child(n + 3) {
+  border-top: 1px solid var(--border-on-dark);
+}
 
 .aiReadinessVisual i {
   background: #34a853;
   border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(52, 168, 83, .12);
+  box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.12);
   height: 6px;
   margin-top: 2px;
   width: 6px;
@@ -109,21 +135,26 @@
 
 .aiReadinessVisual span {
   color: var(--text-on-dark);
-  font-size: .5rem;
+  font-size: 0.5rem;
   font-weight: 800;
   white-space: nowrap;
 }
 
 .aiReadinessVisual b {
   color: var(--accent);
-  font-size: .43rem;
+  font-size: 0.43rem;
   font-weight: 800;
   grid-column: 2;
-  letter-spacing: .07em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
 @media (max-width: 520px) {
-  .aiReadinessVisual { width: 168px; }
-  .aiReadinessVisual > div { padding-left: 7px; padding-right: 7px; }
+  .aiReadinessVisual {
+    width: 168px;
+  }
+  .aiReadinessVisual > div {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
 }

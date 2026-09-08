@@ -9,7 +9,13 @@ const SIGNALS = [
   ["04", "Crawler access"],
 ] as const;
 
-export function AiReadinessAudit({ standalonePrice, className = "" }: { standalonePrice?: string; className?: string }) {
+export function AiReadinessAudit({
+  standalonePrice,
+  className = "",
+}: {
+  standalonePrice?: string;
+  className?: string;
+}) {
   return (
     <section className={`${styles.audit} ${className}`} aria-labelledby="ai-readiness-title">
       <div className={styles.grid} aria-hidden="true" />
@@ -18,16 +24,28 @@ export function AiReadinessAudit({ standalonePrice, className = "" }: { standalo
 
       <div className={styles.console} aria-label="AI readiness diagnostic preview">
         <header>
-          <span><i /> Example diagnostic</span>
+          <span>
+            <i /> Example diagnostic
+          </span>
           <b>SCAN / 04 SIGNALS</b>
         </header>
 
         <div className={styles.scanner} aria-hidden="true">
-          <span className={`${styles.metric} ${styles.metricOne}`}>DOM <b>1,274</b></span>
-          <span className={`${styles.metric} ${styles.metricTwo}`}>CLS <b>0.31</b></span>
-          <span className={`${styles.metric} ${styles.metricThree}`}>BOT <b>BLOCKED</b></span>
+          <span className={`${styles.metric} ${styles.metricOne}`}>
+            DOM <b>1,274</b>
+          </span>
+          <span className={`${styles.metric} ${styles.metricTwo}`}>
+            CLS <b>0.31</b>
+          </span>
+          <span className={`${styles.metric} ${styles.metricThree}`}>
+            BOT <b>BLOCKED</b>
+          </span>
           <div className={styles.core}>
-            <div className={styles.orbit}><i /><i /><i /></div>
+            <div className={styles.orbit}>
+              <i />
+              <i />
+              <i />
+            </div>
             <span>AI</span>
             <small>analysing</small>
           </div>
@@ -51,10 +69,14 @@ export function AiReadinessAudit({ standalonePrice, className = "" }: { standalo
       </div>
 
       <div className={styles.copy}>
-        <h3 id="ai-readiness-title">Can AI systems<br /><span>read your site?</span></h3>
+        <h3 id="ai-readiness-title">
+          Can AI systems
+          <br />
+          <span>read your site?</span>
+        </h3>
         <p className={styles.intro}>
-          A focused technical check for the parts of your website that AI agents and answer
-          engines like Chat GPT depend on before they can understand, navigate or cite it reliably.
+          A focused technical check for the parts of your website that AI agents and answer engines like Chat GPT depend
+          on before they can understand, navigate or cite it reliably.
         </p>
 
         <ul className={styles.outputs}>
@@ -67,7 +89,10 @@ export function AiReadinessAudit({ standalonePrice, className = "" }: { standalo
           <div className={styles.offer}>
             <div className={styles.offerOption}>
               <small>Standalone check</small>
-              <span className={styles.priceLine}><strong>{standalonePrice}</strong><em>once</em></span>
+              <span className={styles.priceLine}>
+                <strong>{standalonePrice}</strong>
+                <em>once</em>
+              </span>
             </div>
             <span className={styles.offerOr}>OR</span>
             <div className={styles.offerOption}>

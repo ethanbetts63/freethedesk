@@ -11,5 +11,9 @@ class DealerSignupRateThrottle(AnonRateThrottle):
     scope = "dealer-signup"
 
 
+class SeoSignupRateThrottle(AnonRateThrottle):
+    scope = "seo-signup"
+
+
 class LoginRateThrottle(AnonRateThrottle):
     scope = "login"

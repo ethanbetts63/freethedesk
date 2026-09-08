@@ -285,13 +285,27 @@ def process_stripe_event(event):
     if not created:
         return "duplicate"
 
+    # Deferred import: seo_services imports helpers from this module, so importing
+    # it at module load would be circular.
+    from .seo_services import (
+        handle_seo_checkout_session_completed,
+        handle_seo_subscription_changed,
+        stripe_object_is_seo,
+    )
+
     if event_type == "checkout.session.completed":
-        outcome = handle_checkout_session_completed(stripe_object)
+        if stripe_object_is_seo(stripe_object):
+            outcome = handle_seo_checkout_session_completed(stripe_object)
+        else:
+            outcome = handle_checkout_session_completed(stripe_object)
     elif event_type in {
         "customer.subscription.created", "customer.subscription.updated",
         "customer.subscription.deleted",
     }:
-        outcome = handle_subscription_changed(stripe_object, record.stripe_created_at)
+        if stripe_object_is_seo(stripe_object):
+            outcome = handle_seo_subscription_changed(stripe_object, record.stripe_created_at)
+        else:
+            outcome = handle_subscription_changed(stripe_object, record.stripe_created_at)
     elif event_type in {"invoice.paid", "invoice.payment_failed"}:
         outcome = "invoice recorded; subscription event remains authoritative"
     else:

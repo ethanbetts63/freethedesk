@@ -33,9 +33,20 @@ export const automationServices: Service[] = [
     color: "var(--blue-600)",
     icon: (
       <svg {...iconProps}>
-        <path d="M10 36v12a4 4 0 0 0 4 4h36a4 4 0 0 0 4-4V36" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+        <path
+          d="M10 36v12a4 4 0 0 0 4 4h36a4 4 0 0 0 4-4V36"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
         <path d="M32 8v28" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M21 25l11 11 11-11" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M21 25l11 11 11-11"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
   },
@@ -55,7 +66,13 @@ export const automationServices: Service[] = [
         <path d="M10 26H54" stroke="currentColor" strokeWidth="2.5" />
         <path d="M20 9V18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
         <path d="M44 9V18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M21 39L28 46L43 31" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M21 39L28 46L43 31"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
   },
@@ -109,8 +126,26 @@ export const automationServices: Service[] = [
     color: "var(--blue-950)",
     icon: (
       <svg {...iconProps}>
-        <rect x="14" y="10" width="34" height="44" rx="3" transform="rotate(-8 31 32)" fill="currentColor" opacity=".18" />
-        <rect x="14" y="10" width="34" height="44" rx="3" transform="rotate(4 31 32)" fill="currentColor" opacity=".35" />
+        <rect
+          x="14"
+          y="10"
+          width="34"
+          height="44"
+          rx="3"
+          transform="rotate(-8 31 32)"
+          fill="currentColor"
+          opacity=".18"
+        />
+        <rect
+          x="14"
+          y="10"
+          width="34"
+          height="44"
+          rx="3"
+          transform="rotate(4 31 32)"
+          fill="currentColor"
+          opacity=".35"
+        />
         <rect x="14" y="10" width="34" height="44" rx="3" stroke="currentColor" strokeWidth="2.5" />
         <path d="M22 24H40M22 32H40M22 40H33" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       </svg>

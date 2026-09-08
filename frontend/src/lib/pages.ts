@@ -1,0 +1,113 @@
+import type { Metadata } from "next";
+
+import { pageMetadata } from "./seo";
+
+/**
+ * Every indexable page, in one place.
+ *
+ * A page's title, description and path were previously written out three times
+ * — as consts for `pageMetadata`, again for `<PageSchema>`, and again in
+ * sitemap.ts with a hand-maintained date. Registering them here means adding a
+ * page to the sitemap is not a separate thing to remember, and the three copies
+ * can no longer disagree.
+ */
+export interface PageDefinition {
+  title: string;
+  description: string;
+  /** Already a complete <title>; skips the "%s | Free the Desk" template. */
+  absoluteTitle?: boolean;
+  ogImage?: string;
+  /** Sitemap hints. Omit `sitemap` for a page that should not be listed. */
+  sitemap?: { changeFrequency: "weekly" | "monthly" | "yearly"; priority: number };
+}
+
+export const PAGES = {
+  "/": {
+    title: "Free the Desk | Dealer Operations Systems",
+    description: "Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.",
+    absoluteTitle: true,
+    sitemap: { changeFrequency: "weekly", priority: 1 },
+  },
+  "/dealers": {
+    title: "Dealer Websites & Operations Systems",
+    description: "Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.",
+    sitemap: { changeFrequency: "weekly", priority: 0.95 },
+  },
+  "/licensing": {
+    title: "Online Vehicle Licensing",
+    description:
+      "Let customers verify their identity, complete vehicle licensing and sign paperwork online without an unnecessary dealership visit.",
+    sitemap: { changeFrequency: "weekly", priority: 0.95 },
+  },
+  "/website-development": {
+    title: "Website Development | Custom Websites & Web Apps",
+    description:
+      "Website Development for businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.",
+    absoluteTitle: true,
+    sitemap: { changeFrequency: "weekly", priority: 0.9 },
+  },
+  "/dealership-website-builder": {
+    title: "Build Your Dealership Website",
+    description: "Configure a dealership website around the way your business sells, books and grows.",
+    sitemap: { changeFrequency: "monthly", priority: 0.85 },
+  },
+  "/automation": {
+    title: "Automate Boring Away",
+    description: "Practical workflow automation and custom integrations for Australian small and medium businesses.",
+    sitemap: { changeFrequency: "monthly", priority: 0.75 },
+  },
+  "/seo": {
+    title: "Your Next SEO Move, Made Clear",
+    description: "See what is working, what is holding your website back and where the best search opportunities are.",
+    sitemap: { changeFrequency: "monthly", priority: 0.75 },
+  },
+  "/guides": {
+    title: "Guides & articles",
+    description:
+      "Practical guides for Australian dealerships on websites, search visibility, online sales, licensing and better operational systems.",
+    sitemap: { changeFrequency: "weekly", priority: 0.7 },
+  },
+  "/portfolio/scooter-shop": {
+    title: "Scooter Shop Dealer Website Case Study",
+    description:
+      "A connected dealership website for sales, online purchasing, licensing, parts, service, hire and long-term organic growth.",
+    ogImage: "/case-studies/scooter-shop/home-desktop.png",
+    sitemap: { changeFrequency: "monthly", priority: 0.75 },
+  },
+  "/portfolio/bloomprint": {
+    title: "Bloomprint Flower Marketplace Case Study",
+    description:
+      "A two-sided flower delivery marketplace: brief-led ordering for customers, paid local orders for independent florists, and a landing page system built to be found.",
+    ogImage: "/case-studies/bloomprint/home-desktop.png",
+    sitemap: { changeFrequency: "monthly", priority: 0.75 },
+  },
+  "/contact": {
+    title: "Contact",
+    description:
+      "Talk to Free the Desk about a custom website, online licensing product, web application or business automation project.",
+    sitemap: { changeFrequency: "yearly", priority: 0.65 },
+  },
+  "/legal/privacy": {
+    title: "Privacy Policy",
+    description: "How Free the Desk collects, uses, stores and discloses personal information.",
+    sitemap: { changeFrequency: "yearly", priority: 0.3 },
+  },
+  "/legal/dealer-subscription-terms": {
+    title: "Dealer Subscription Terms",
+    description: "Terms for Free the Desk dealer licensing and contract subscriptions.",
+    sitemap: { changeFrequency: "yearly", priority: 0.3 },
+  },
+  "/legal/seo-subscription-terms": {
+    title: "SEO Subscription Terms",
+    description: "Terms for Free the Desk SEO reporting subscriptions.",
+    sitemap: { changeFrequency: "yearly", priority: 0.3 },
+  },
+} as const satisfies Record<string, PageDefinition>;
+
+export type PagePath = keyof typeof PAGES;
+
+/** The `<head>` metadata for a registered page. */
+export function metadataFor(path: PagePath): Metadata {
+  const page: PageDefinition = PAGES[path];
+  return pageMetadata({ ...page, path });
+}

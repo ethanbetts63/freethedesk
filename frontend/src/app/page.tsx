@@ -6,11 +6,11 @@ import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
-import { pageMetadata } from "@/lib/seo";
+import { metadataFor } from "@/lib/pages";
 
 import { HOME_FAQS } from "./_lib/copy";
 
-import { AiReadinessAudit } from "@/app/seo/_components/AiReadinessAudit";
+import { AiReadinessAudit } from "@/components/marketing/AiReadinessAudit";
 import { AutomationFeature } from "./_components/AutomationFeature";
 import { FlagshipCheckout } from "@/components/marketing/FlagshipCheckout";
 import { Hero } from "@/components/marketing/Hero";
@@ -18,22 +18,26 @@ import { WebsiteDevelopmentFeature } from "./_components/WebsiteDevelopmentFeatu
 import { WebsiteProduct } from "@/components/marketing/WebsiteProduct";
 import styles from "@/components/marketing/marketingPage.module.css";
 
-const TITLE = "Free the Desk | Dealer Operations Systems";
-const DESCRIPTION = "Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.";
-const PATH = "/";
-
-export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH, absoluteTitle: true });
+export const metadata: Metadata = metadataFor("/");
 
 const homeStats: ProofStat[] = [
   { value: "36%", label: "Of the work week", description: "Time small business owners lose to manual admin tasks." },
-  { value: "24 / 7", label: "Always-on operations", description: "Notifications and syncs that don't wait for business hours." },
-  { value: "AI", label: "Are you AI ready?", description: "We check four practical foundations for AI and agentic browsing." },
+  {
+    value: "24 / 7",
+    label: "Always-on operations",
+    description: "Notifications and syncs that don't wait for business hours.",
+  },
+  {
+    value: "AI",
+    label: "Are you AI ready?",
+    description: "We check four practical foundations for AI and agentic browsing.",
+  },
 ];
 
 export default function Home() {
   return (
     <main className={styles.page}>
-      <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
+      <PageSchema path="/" />
       <Hero
         eyebrow="Online Automation Services Australia"
         titleLines={["Digital", "automation"]}
@@ -54,21 +58,22 @@ export default function Home() {
         eyebrow="SEO reporting"
         description={
           <div className={styles.seoSummary}>
-            <span>Human-written reports that turn your search data into ranked next steps. Every subscription includes a Google Business Profile audit and AI readiness audit.</span>
-            <Link href="/seo">Explore SEO reports <span>→</span></Link>
+            <span>
+              Human-written reports that turn your search data into ranked next steps. Every subscription includes a
+              Google Business Profile audit and AI readiness audit.
+            </span>
+            <Link href="/seo">
+              Explore SEO reports <span>→</span>
+            </Link>
           </div>
         }
       />
-      <div className="shell">
-        <AiReadinessAudit className={styles.aiAuditFlush} />
-      </div>
       <FlagshipCheckout />
       <WebsiteProduct />
-      <Faq
-        eyebrow="Common questions"
-        title="A useful place to start."
-        items={HOME_FAQS}
-      />
+      <div className={`shell ${styles.aiAuditSection}`}>
+        <AiReadinessAudit className={styles.aiAuditFlush} />
+      </div>
+      <Faq eyebrow="Common questions" title="A useful place to start." items={HOME_FAQS} />
       <ManualAdminCta label="Get in contact" />
     </main>
   );

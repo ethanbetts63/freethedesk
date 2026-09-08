@@ -53,7 +53,13 @@ const services: Service[] = [
     icon: (
       <svg {...iconProps}>
         <rect x="6" y="14" width="52" height="36" rx="4" stroke="currentColor" strokeWidth="2.5" />
-        <path d="M9 18L32 36L55 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M9 18L32 36L55 18"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
   },
@@ -69,8 +75,26 @@ const services: Service[] = [
     color: "var(--blue-800)",
     icon: (
       <svg {...iconProps}>
-        <rect x="14" y="10" width="34" height="44" rx="3" transform="rotate(-8 31 32)" fill="currentColor" opacity=".18" />
-        <rect x="14" y="10" width="34" height="44" rx="3" transform="rotate(4 31 32)" fill="currentColor" opacity=".35" />
+        <rect
+          x="14"
+          y="10"
+          width="34"
+          height="44"
+          rx="3"
+          transform="rotate(-8 31 32)"
+          fill="currentColor"
+          opacity=".18"
+        />
+        <rect
+          x="14"
+          y="10"
+          width="34"
+          height="44"
+          rx="3"
+          transform="rotate(4 31 32)"
+          fill="currentColor"
+          opacity=".35"
+        />
         <rect x="14" y="10" width="34" height="44" rx="3" stroke="currentColor" strokeWidth="2.5" />
         <path d="M22 24H40M22 32H40M22 40H33" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       </svg>
@@ -84,10 +108,15 @@ export function DealershipAutomation() {
     <>
       <section className="section shell intro-section">
         <div>
-          <p className="eyebrow"><span /> Dealership automation</p>
+          <p className="eyebrow">
+            <span /> Dealership automation
+          </p>
           <h2>The systems that keep a sales floor moving.</h2>
         </div>
-        <p className="section-intro">The same connected systems, aimed at what actually eats a dealership&apos;s week: enquiries, licensing paperwork, delivery handoffs and the emails your team writes every day.</p>
+        <p className="section-intro">
+          The same connected systems, aimed at what actually eats a dealership&apos;s week: enquiries, licensing
+          paperwork, delivery handoffs and the emails your team writes every day.
+        </p>
       </section>
 
       <section className="shell" id="dealership-automation">

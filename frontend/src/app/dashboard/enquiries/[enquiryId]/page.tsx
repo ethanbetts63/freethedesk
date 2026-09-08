@@ -4,7 +4,14 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { enquiryStatuses, StatusPill } from "@/components/dashboard/StatusPill";
-import { formatDateTime, getEnquiry, getMessages, updateEnquiryStatus, type AdminMessage, type Enquiry } from "@/lib/adminApi";
+import {
+  formatDateTime,
+  getEnquiry,
+  getMessages,
+  updateEnquiryStatus,
+  type AdminMessage,
+  type Enquiry,
+} from "@/lib/adminApi";
 
 export default function EnquiryDetailPage() {
   const id = Number(useParams<{ enquiryId: string }>().enquiryId);
@@ -16,7 +23,10 @@ export default function EnquiryDetailPage() {
 
   useEffect(() => {
     Promise.all([getEnquiry(id), getMessages({ related_enquiry: id, page_size: 20 })])
-      .then(([result, messagePage]) => { setEnquiry(result); setMessages(messagePage.results); })
+      .then(([result, messagePage]) => {
+        setEnquiry(result);
+        setMessages(messagePage.results);
+      })
       .catch((reason) => setError(reason instanceof Error ? reason.message : "Enquiry could not be loaded."))
       .finally(() => setLoading(false));
   }, [id]);
@@ -35,14 +45,32 @@ export default function EnquiryDetailPage() {
 
   async function changeStatus(status: string) {
     if (!enquiry) return;
-    setSaving(true); setError("");
-    try { setEnquiry(await updateEnquiryStatus(enquiry.id, status)); }
-    catch (reason) { setError(reason instanceof Error ? reason.message : "Status could not be updated."); }
-    finally { setSaving(false); }
+    setSaving(true);
+    setError("");
+    try {
+      setEnquiry(await updateEnquiryStatus(enquiry.id, status));
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Status could not be updated.");
+    } finally {
+      setSaving(false);
+    }
   }
 
-  if (loading) return <div className="admin-page"><p className="admin-empty">Loading enquiry…</p></div>;
-  if (error && !enquiry) return <div className="admin-page"><Link className="admin-back" href="/dashboard/enquiries">← Enquiries</Link><p className="admin-banner admin-banner-error">{error}</p></div>;
+  if (loading)
+    return (
+      <div className="admin-page">
+        <p className="admin-empty">Loading enquiry…</p>
+      </div>
+    );
+  if (error && !enquiry)
+    return (
+      <div className="admin-page">
+        <Link className="admin-back" href="/dashboard/enquiries">
+          ← Enquiries
+        </Link>
+        <p className="admin-banner admin-banner-error">{error}</p>
+      </div>
+    );
   if (!enquiry) return null;
 
   const configuration = enquiry.configuration ?? {};
@@ -51,48 +79,156 @@ export default function EnquiryDetailPage() {
 
   return (
     <div className="admin-page">
-      <Link className="admin-back" href="/dashboard/enquiries">← Back to enquiries</Link>
+      <Link className="admin-back" href="/dashboard/enquiries">
+        ← Back to enquiries
+      </Link>
       <header className="admin-page-header admin-detail-heading">
-        <div><p className="admin-kicker">Enquiry #{enquiry.id}</p><h1>{enquiry.business}</h1><p>{enquiry.name} · received {formatDateTime(enquiry.created_at)}</p></div>
-        <Link className="admin-primary-button" href={replyHref}>Reply by email →</Link>
+        <div>
+          <p className="admin-kicker">Enquiry #{enquiry.id}</p>
+          <h1>{enquiry.business}</h1>
+          <p>
+            {enquiry.name} · received {formatDateTime(enquiry.created_at)}
+          </p>
+        </div>
+        <Link className="admin-primary-button" href={replyHref}>
+          Reply by email →
+        </Link>
       </header>
       {error && <p className="admin-banner admin-banner-error">{error}</p>}
       <div className="admin-detail-grid">
         <section className="admin-detail-card admin-status-card">
-          <div><p className="admin-card-label">Workflow status</p><StatusPill status={enquiry.status} /></div>
+          <div>
+            <p className="admin-card-label">Workflow status</p>
+            <StatusPill status={enquiry.status} />
+          </div>
           <select value={enquiry.status} disabled={saving} onChange={(event) => changeStatus(event.target.value)}>
-            {enquiryStatuses.map((status) => <option key={status} value={status}>{status[0].toUpperCase() + status.slice(1)}</option>)}
+            {enquiryStatuses.map((status) => (
+              <option key={status} value={status}>
+                {status[0].toUpperCase() + status.slice(1)}
+              </option>
+            ))}
           </select>
         </section>
         <section className="admin-detail-card">
           <h2>Contact</h2>
           <dl className="admin-detail-list">
-            <div><dt>Name</dt><dd>{enquiry.name}</dd></div><div><dt>Business</dt><dd>{enquiry.business}</dd></div>
-            <div><dt>Email</dt><dd><a href={`mailto:${enquiry.email}`}>{enquiry.email}</a></dd></div><div><dt>Phone</dt><dd>{enquiry.phone ? <a href={`tel:${enquiry.phone}`}>{enquiry.phone}</a> : "Not supplied"}</dd></div>
-            <div><dt>Website</dt><dd>{enquiry.website ? <a href={enquiry.website} target="_blank" rel="noreferrer">{enquiry.website} ↗</a> : "Not supplied"}</dd></div><div><dt>Interested in</dt><dd>{enquiry.help_with_label}</dd></div>
+            <div>
+              <dt>Name</dt>
+              <dd>{enquiry.name}</dd>
+            </div>
+            <div>
+              <dt>Business</dt>
+              <dd>{enquiry.business}</dd>
+            </div>
+            <div>
+              <dt>Email</dt>
+              <dd>
+                <a href={`mailto:${enquiry.email}`}>{enquiry.email}</a>
+              </dd>
+            </div>
+            <div>
+              <dt>Phone</dt>
+              <dd>{enquiry.phone ? <a href={`tel:${enquiry.phone}`}>{enquiry.phone}</a> : "Not supplied"}</dd>
+            </div>
+            <div>
+              <dt>Website</dt>
+              <dd>
+                {enquiry.website ? (
+                  <a href={enquiry.website} target="_blank" rel="noreferrer">
+                    {enquiry.website} ↗
+                  </a>
+                ) : (
+                  "Not supplied"
+                )}
+              </dd>
+            </div>
+            <div>
+              <dt>Interested in</dt>
+              <dd>{enquiry.help_with_label}</dd>
+            </div>
           </dl>
         </section>
         {enquiry.help_with === "website_builder" && (
           <section className="admin-detail-card admin-detail-wide">
-            <div className="admin-card-heading"><h2>Website configuration</h2><span className="admin-config-label">Interactive builder</span></div>
+            <div className="admin-card-heading">
+              <h2>Website configuration</h2>
+              <span className="admin-config-label">Interactive builder</span>
+            </div>
             <dl className="admin-detail-list admin-config-basics">
-              <div><dt>Brand name</dt><dd>{configuration.appearance?.brand_name || enquiry.business}</dd></div>
-              <div><dt>Current URL</dt><dd>{configuration.appearance?.current_url || "Not supplied"}</dd></div>
-              <div><dt>Accent</dt><dd className="admin-config-accent">{configuration.appearance?.accent_hex && <i style={{ background: configuration.appearance.accent_hex }} />}{configuration.appearance?.accent || "Not supplied"}</dd></div>
-              <div><dt>Build version</dt><dd>{configuration.version ?? "—"}</dd></div>
+              <div>
+                <dt>Brand name</dt>
+                <dd>{configuration.appearance?.brand_name || enquiry.business}</dd>
+              </div>
+              <div>
+                <dt>Current URL</dt>
+                <dd>{configuration.appearance?.current_url || "Not supplied"}</dd>
+              </div>
+              <div>
+                <dt>Accent</dt>
+                <dd className="admin-config-accent">
+                  {configuration.appearance?.accent_hex && (
+                    <i style={{ background: configuration.appearance.accent_hex }} />
+                  )}
+                  {configuration.appearance?.accent || "Not supplied"}
+                </dd>
+              </div>
+              <div>
+                <dt>Build version</dt>
+                <dd>{configuration.version ?? "—"}</dd>
+              </div>
             </dl>
             <div className="admin-config-group">
               <strong>Selected capabilities</strong>
-              <div>{chosenCapabilities.length ? chosenCapabilities.map((item) => <span key={item.key}>{item.name}</span>) : <em>Base website only</em>}</div>
+              <div>
+                {chosenCapabilities.length ? (
+                  chosenCapabilities.map((item) => <span key={item.key}>{item.name}</span>)
+                ) : (
+                  <em>Base website only</em>
+                )}
+              </div>
             </div>
-            {chosenInventoryOptions.length > 0 && <div className="admin-config-group"><strong>Inventory options</strong><div>{chosenInventoryOptions.map((item) => <span key={item.key}>{item.name}</span>)}</div></div>}
-            {configuration.custom_capability && <div className="admin-config-request"><strong>Custom capability</strong><p>{configuration.custom_capability}</p></div>}
+            {chosenInventoryOptions.length > 0 && (
+              <div className="admin-config-group">
+                <strong>Inventory options</strong>
+                <div>
+                  {chosenInventoryOptions.map((item) => (
+                    <span key={item.key}>{item.name}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+            {configuration.custom_capability && (
+              <div className="admin-config-request">
+                <strong>Custom capability</strong>
+                <p>{configuration.custom_capability}</p>
+              </div>
+            )}
           </section>
         )}
-        <section className="admin-detail-card admin-detail-wide"><h2>What they said</h2><p className="admin-message-body">{enquiry.message}</p></section>
         <section className="admin-detail-card admin-detail-wide">
-          <div className="admin-card-heading"><h2>Related messages</h2><Link href={replyHref}>Compose reply</Link></div>
-          {messages.length ? <div className="admin-related-messages">{messages.map((message) => <Link key={message.id} href={`/dashboard/messages/${message.id}`}><span>{message.channel.toUpperCase()} · {message.status}</span><strong>{message.subject || "SMS notification"}</strong><small>{formatDateTime(message.sent_at || message.created_at)}</small></Link>)}</div> : <p className="admin-muted">No messages are linked to this enquiry yet.</p>}
+          <h2>What they said</h2>
+          <p className="admin-message-body">{enquiry.message}</p>
+        </section>
+        <section className="admin-detail-card admin-detail-wide">
+          <div className="admin-card-heading">
+            <h2>Related messages</h2>
+            <Link href={replyHref}>Compose reply</Link>
+          </div>
+          {messages.length ? (
+            <div className="admin-related-messages">
+              {messages.map((message) => (
+                <Link key={message.id} href={`/dashboard/messages/${message.id}`}>
+                  <span>
+                    {message.channel.toUpperCase()} · {message.status}
+                  </span>
+                  <strong>{message.subject || "SMS notification"}</strong>
+                  <small>{formatDateTime(message.sent_at || message.created_at)}</small>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="admin-muted">No messages are linked to this enquiry yet.</p>
+          )}
         </section>
       </div>
     </div>

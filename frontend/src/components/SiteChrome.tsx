@@ -7,5 +7,11 @@ import { SiteHeader } from "@/components/SiteHeader";
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const standalone = pathname === "/login" || pathname.startsWith("/licensing/payment");
-  return <>{!standalone && <SiteHeader />}{children}{!standalone && <SiteFooter />}</>;
+  return (
+    <>
+      {!standalone && <SiteHeader />}
+      {children}
+      {!standalone && <SiteFooter />}
+    </>
+  );
 }

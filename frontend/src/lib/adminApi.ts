@@ -1,4 +1,14 @@
-import { authedFetch, jsonOrError, queryString, type Paginated } from "./api";
+import {
+  authedFetch,
+  jsonOrError,
+  queryString,
+  type Paginated,
+  type PublicSiteSettings,
+  type StaffAccountFields,
+} from "./api";
+
+import type { DealerAccount } from "./dealerApi";
+import type { SeoAccount } from "./seoApi";
 
 export type { Paginated, Principal as StaffUser } from "./api";
 export { authedFetch, formatDateTime, login, logout, getProfile } from "./api";
@@ -33,44 +43,18 @@ export interface Enquiry {
   updated_at: string;
 }
 
-export interface Dealer {
-  id: number;
-  business_name: string;
-  contact_name: string;
-  email: string;
-  phone: string;
-  state: "WA" | "NSW" | "VIC" | "QLD" | "SA" | "TAS" | "ACT" | "NT";
-  state_label: string;
-  plan: "licensing" | "contracts" | "complete";
-  plan_label: string;
-  payment_status: "payment_pending" | "active" | "past_due" | "cancelled";
-  payment_status_label: string;
-  subscription_current_period_end: string | null;
-  cancel_at_period_end: boolean;
-  status: "pending" | "active" | "suspended" | "denied";
-  status_label: string;
-  staff_notes: string;
-  status_changed_at: string | null;
-  created_at: string;
-  updated_at: string;
-}
+/** The staff view of a dealer: their own account plus the staff-only fields. */
+export type Dealer = DealerAccount & StaffAccountFields;
 
-export interface SiteSettings {
-  licensing_price: string;
-  contracts_price: string;
-  complete_price: string;
-  seo_monthly_price: string;
-  seo_quarterly_price: string;
-  seo_biannual_price: string;
-  seo_oneoff_price: string;
-  gbp_audit_price: string;
-  ai_readiness_audit_price: string;
-  updated_at: string;
-}
+/** The staff view of an SEO customer: their own account plus the staff-only fields. */
+export type SeoSubscriber = SeoAccount & StaffAccountFields;
+
+/** Staff read and write exactly the settings the public pages read. */
+export type SiteSettings = PublicSiteSettings;
 
 export interface AdminMessage {
   id: number;
-  recipient_type: "admin" | "dealer" | "manual";
+  recipient_type: "admin" | "dealer" | "seo" | "manual";
   recipient: string;
   channel: "email" | "sms";
   subject: string;
@@ -82,6 +66,8 @@ export interface AdminMessage {
   related_enquiry_business: string | null;
   related_dealer: number | null;
   related_dealer_business: string | null;
+  related_seo_subscriber: number | null;
+  related_seo_subscriber_business: string | null;
   created_at: string;
 }
 
@@ -94,10 +80,12 @@ export async function getEnquiry(id: number): Promise<Enquiry> {
 }
 
 export async function updateEnquiryStatus(id: number, status: string): Promise<Enquiry> {
-  return jsonOrError(await authedFetch(`/api/admin/enquiries/${id}/`, {
-    method: "PATCH",
-    body: JSON.stringify({ status }),
-  }));
+  return jsonOrError(
+    await authedFetch(`/api/admin/enquiries/${id}/`, {
+      method: "PATCH",
+      body: JSON.stringify({ status }),
+    }),
+  );
 }
 
 export async function getDealers(params: Record<string, string | number | undefined>): Promise<Paginated<Dealer>> {
@@ -108,27 +96,56 @@ export async function getDealer(id: number): Promise<Dealer> {
   return jsonOrError(await authedFetch(`/api/admin/dealers/${id}/`));
 }
 
-export async function updateDealer(id: number, changes: Partial<Pick<Dealer, "status" | "staff_notes">>): Promise<Dealer> {
-  return jsonOrError(await authedFetch(`/api/admin/dealers/${id}/`, {
-    method: "PATCH",
-    body: JSON.stringify(changes),
-  }));
+export async function updateDealer(
+  id: number,
+  changes: Partial<Pick<Dealer, "status" | "staff_notes">>,
+): Promise<Dealer> {
+  return jsonOrError(
+    await authedFetch(`/api/admin/dealers/${id}/`, {
+      method: "PATCH",
+      body: JSON.stringify(changes),
+    }),
+  );
+}
+
+export async function getSeoSubscribers(
+  params: Record<string, string | number | undefined>,
+): Promise<Paginated<SeoSubscriber>> {
+  return jsonOrError(await authedFetch(`/api/admin/seo/${queryString(params)}`));
+}
+
+export async function getSeoSubscriber(id: number): Promise<SeoSubscriber> {
+  return jsonOrError(await authedFetch(`/api/admin/seo/${id}/`));
+}
+
+export async function updateSeoSubscriber(
+  id: number,
+  changes: Partial<Pick<SeoSubscriber, "status" | "staff_notes">>,
+): Promise<SeoSubscriber> {
+  return jsonOrError(
+    await authedFetch(`/api/admin/seo/${id}/`, {
+      method: "PATCH",
+      body: JSON.stringify(changes),
+    }),
+  );
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
   return jsonOrError(await authedFetch("/api/admin/site-settings/"));
 }
 
-export async function updateSiteSettings(
-  changes: Partial<Omit<SiteSettings, "updated_at">>,
-): Promise<SiteSettings> {
-  return jsonOrError(await authedFetch("/api/admin/site-settings/", {
-    method: "PATCH",
-    body: JSON.stringify(changes),
-  }));
+export async function updateSiteSettings(changes: Partial<Omit<SiteSettings, "updated_at">>): Promise<SiteSettings> {
+  return jsonOrError(
+    await authedFetch("/api/admin/site-settings/", {
+      method: "PATCH",
+      body: JSON.stringify(changes),
+    }),
+  );
 }
 
-export async function getMessages(params: Record<string, string | number | undefined>): Promise<Paginated<AdminMessage>> {
+export async function getMessages(
+  params: Record<string, string | number | undefined>,
+): Promise<Paginated<AdminMessage>> {
   return jsonOrError(await authedFetch(`/api/admin/messages/${queryString(params)}`));
 }
 

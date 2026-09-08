@@ -16,6 +16,4 @@ export async function getSiteSettingsServer(): Promise<PublicSiteSettings> {
   return response.json();
 }
 
-export function formatPrice(value: string): string {
-  return `$${Number(value).toLocaleString("en-AU", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
-}
+export { formatPrice } from "./api";

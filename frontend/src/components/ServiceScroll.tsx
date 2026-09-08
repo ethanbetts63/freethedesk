@@ -47,11 +47,15 @@ export function ServiceScroll({
           </div>
           <div className="service-content">
             <div className="service-lead">
-              <div className="service-icon" style={{ color: service.color }}>{service.icon}</div>
+              <div className="service-icon" style={{ color: service.color }}>
+                {service.icon}
+              </div>
               <p>{service.body}</p>
             </div>
             <ul className="service-examples">
-              {service.examples.map((example) => <li key={example}>{example}</li>)}
+              {service.examples.map((example) => (
+                <li key={example}>{example}</li>
+              ))}
             </ul>
           </div>
         </div>
@@ -64,7 +68,9 @@ export function ServiceScroll({
           </div>
           <div className="service-content">
             <div className="service-lead">
-              <div className="service-icon" style={{ color: customService.color }}>{customService.icon}</div>
+              <div className="service-icon" style={{ color: customService.color }}>
+                {customService.icon}
+              </div>
               <p>{customService.body}</p>
             </div>
             <Link className="service-cta" href={customHref} style={{ background: customService.color }}>

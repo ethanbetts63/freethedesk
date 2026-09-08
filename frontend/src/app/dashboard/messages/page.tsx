@@ -1,61 +1,149 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
-import { StatusPill } from "@/components/dashboard/StatusPill";
-import { formatDateTime, getMessages, type AdminMessage, type Paginated } from "@/lib/adminApi";
+import { Suspense, useCallback } from "react";
 
-const empty: Paginated<AdminMessage> = { count: 0, next: null, previous: null, results: [] };
+import {
+  AdminFilterBar,
+  AdminPagination,
+  AdminTableBody,
+  FilterSelect,
+  RowLink,
+} from "@/components/dashboard/AdminList";
+import { adminListParams, useAdminList, type AdminListView } from "@/components/dashboard/useAdminList";
+import { messageStatuses, StatusPill, statusLabel } from "@/components/dashboard/StatusPill";
+import { formatDateTime, getMessages, type AdminMessage } from "@/lib/adminApi";
 
-export default function MessagesPage() {
-  const router = useRouter();
-  const [data, setData] = useState(empty);
-  const [status, setStatus] = useState("all");
-  const [channel, setChannel] = useState("all");
-  const [query, setQuery] = useState("");
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+const SORT_FIELDS = ["created_at"] as const;
+const FILTER_KEYS = ["status", "channel"] as const;
+const COLUMNS = 7;
 
-  useEffect(() => {
-    let cancelled = false;
-    getMessages({ status, channel, search, page, page_size: 50 })
-      .then((result) => { if (!cancelled) { setData(result); setError(""); } })
-      .catch((reason) => { if (!cancelled) setError(reason instanceof Error ? reason.message : "Messages could not be loaded."); })
-      .finally(() => { if (!cancelled) setLoading(false); });
-    return () => { cancelled = true; };
-  }, [channel, page, search, status]);
+const CHANNEL_OPTIONS = [
+  { value: "email", label: "Email" },
+  { value: "sms", label: "SMS" },
+];
 
-  function submitSearch(event: FormEvent) { event.preventDefault(); setPage(1); setSearch(query.trim()); }
+const RECIPIENT_LABELS: Record<AdminMessage["recipient_type"], string> = {
+  admin: "Admin alert",
+  dealer: "Dealer",
+  seo: "SEO customer",
+  manual: "Manual email",
+};
+
+function MessagesContent() {
+  const fetchPage = useCallback((view: AdminListView) => getMessages(adminListParams(view)), []);
+  const list = useAdminList<AdminMessage>({
+    fetchPage,
+    filterKeys: FILTER_KEYS,
+    sortFields: SORT_FIELDS,
+    loadError: "Messages could not be loaded.",
+  });
 
   return (
     <div className="admin-page">
-      <header className="admin-page-header"><div><p className="admin-kicker">Delivery audit</p><h1>Messages</h1></div><Link className="admin-primary-button" href="/dashboard/messages/compose">＋ Compose</Link></header>
-      <section className="admin-panel">
-        <div className="admin-filter-bar">
-          <div><strong>Filters</strong><p>{data.count} {data.count === 1 ? "message" : "messages"} matching this view</p></div>
-          <div className="admin-filters">
-            <select value={status} onChange={(event) => { setStatus(event.target.value); setPage(1); }}><option value="all">All statuses</option><option value="sent">Sent</option><option value="pending">Pending</option><option value="failed">Failed</option></select>
-            <select value={channel} onChange={(event) => { setChannel(event.target.value); setPage(1); }}><option value="all">Email and SMS</option><option value="email">Email</option><option value="sms">SMS</option></select>
-            <form className="admin-search" onSubmit={submitSearch}><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search address, subject or body" /><button type="submit">Search</button></form>
-          </div>
-          <div className="admin-legend"><b>Row colour:</b><span><i className="admin-swatch admin-swatch-sent" />sent</span><span><i className="admin-swatch admin-swatch-pending" />pending</span><span><i className="admin-swatch admin-swatch-failed" />failed</span></div>
+      <header className="admin-page-header">
+        <div>
+          <p className="admin-kicker">Delivery audit</p>
+          <h1>Messages</h1>
         </div>
-        {error && <p className="admin-banner admin-banner-error">{error}</p>}
+        <Link className="admin-primary-button" href="/dashboard/messages/compose">
+          ＋ Compose
+        </Link>
+      </header>
+
+      <section className="admin-panel">
+        <AdminFilterBar
+          total={list.total}
+          noun="message"
+          nounPlural="messages"
+          legend={messageStatuses}
+          search={list.searchDraft}
+          onSearchChange={list.setSearchDraft}
+          onSearchSubmit={list.submitSearch}
+          searchPlaceholder="Search address, subject or body"
+        >
+          <FilterSelect
+            label="Filter messages by status"
+            value={list.filters.status}
+            onChange={(value) => list.setFilter("status", value)}
+            allLabel="All statuses"
+            options={messageStatuses.map((value) => ({ value, label: statusLabel(value) }))}
+          />
+          <FilterSelect
+            label="Filter messages by channel"
+            value={list.filters.channel}
+            onChange={(value) => list.setFilter("channel", value)}
+            allLabel="Email and SMS"
+            options={CHANNEL_OPTIONS}
+          />
+        </AdminFilterBar>
+
+        {list.error && <p className="admin-banner admin-banner-error">{list.error}</p>}
         <div className="admin-table-wrap">
           <table className="admin-table">
-            <thead><tr><th>Created</th><th>Type</th><th>To</th><th>Subject</th><th>Channel</th><th>Status</th><th>Sent</th></tr></thead>
-            <tbody>{loading ? <tr><td colSpan={7} className="admin-empty">Loading messages…</td></tr> : data.results.length === 0 ? <tr><td colSpan={7} className="admin-empty">No messages match these filters.</td></tr> : data.results.map((message) => (
-              <tr key={message.id} className={`admin-row-${message.status}`} onClick={() => router.push(`/dashboard/messages/${message.id}`)}>
-                <td>{formatDateTime(message.created_at)}</td><td>{message.recipient_type === "admin" ? "Admin alert" : "Manual email"}</td><td><strong>{message.recipient}</strong>{message.related_enquiry_business && <small>{message.related_enquiry_business}</small>}</td><td>{message.subject || "—"}</td><td>{message.channel.toUpperCase()}</td><td><StatusPill status={message.status} /></td><td>{formatDateTime(message.sent_at)}</td>
+            <thead>
+              <tr>
+                <th>Created</th>
+                <th>Type</th>
+                <th>To</th>
+                <th>Subject</th>
+                <th>Channel</th>
+                <th>Status</th>
+                <th>Sent</th>
               </tr>
-            ))}</tbody>
+            </thead>
+            <AdminTableBody
+              rows={list.rows}
+              loading={list.loading}
+              columns={COLUMNS}
+              loadingLabel="Loading messages…"
+              emptyLabel="No messages match these filters."
+            >
+              {(message) => (
+                <tr key={message.id} className={`admin-row-${message.status}`}>
+                  <td>
+                    <RowLink href={`/dashboard/messages/${message.id}`}>{formatDateTime(message.created_at)}</RowLink>
+                  </td>
+                  <td>{RECIPIENT_LABELS[message.recipient_type] ?? message.recipient_type}</td>
+                  <td>
+                    <strong>{message.recipient}</strong>
+                    {message.related_enquiry_business && <small>{message.related_enquiry_business}</small>}
+                  </td>
+                  <td>{message.subject || "—"}</td>
+                  <td>{message.channel.toUpperCase()}</td>
+                  <td>
+                    <StatusPill status={message.status} />
+                  </td>
+                  <td>{formatDateTime(message.sent_at)}</td>
+                </tr>
+              )}
+            </AdminTableBody>
           </table>
         </div>
-        <footer className="admin-pagination"><span>{data.count ? (page - 1) * 50 + 1 : 0}–{Math.min(page * 50, data.count)} of {data.count}</span><div><button type="button" disabled={!data.previous || loading} onClick={() => setPage((value) => value - 1)}>← Previous</button><span>Page {page}</span><button type="button" disabled={!data.next || loading} onClick={() => setPage((value) => value + 1)}>Next →</button></div></footer>
+
+        <AdminPagination
+          page={list.page}
+          total={list.total}
+          pageSize={list.pageSize}
+          loading={list.loading}
+          hasNext={list.hasNext}
+          onPage={list.setPage}
+        />
       </section>
     </div>
+  );
+}
+
+export default function MessagesPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="admin-page">
+          <p className="admin-empty">Loading messages…</p>
+        </div>
+      }
+    >
+      <MessagesContent />
+    </Suspense>
   );
 }

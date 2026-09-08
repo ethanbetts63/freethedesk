@@ -12,7 +12,10 @@ export function ProofStrip({ stats, id }: { stats: readonly ProofStat[]; id?: st
         {stats.map((stat) => (
           <article key={stat.label}>
             <strong className="moving-colour-text">{stat.value}</strong>
-            <div><h2>{stat.label}</h2><p>{stat.description}</p></div>
+            <div>
+              <h2>{stat.label}</h2>
+              <p>{stat.description}</p>
+            </div>
           </article>
         ))}
       </div>

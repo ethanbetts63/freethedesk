@@ -41,20 +41,35 @@ export function PaymentComplete() {
     };
 
     check();
-    return () => { cancelled = true; clearTimeout(timeout); };
+    return () => {
+      cancelled = true;
+      clearTimeout(timeout);
+    };
   }, [router]);
 
-  const copy = state === "active"
-    ? ["Payment confirmed.", "Your dealer account is open. Taking you to the next setup step now."]
-    : state === "failed"
-      ? ["Payment needs attention.", "Stripe could not activate the subscription. You can return to secure payment and try again."]
-      : state === "delayed"
-        ? ["Confirmation is taking longer than usual.", "Your payment may still be successful. Open the portal to check the latest account status."]
-        : ["Confirming your subscription.", "Stripe is securely completing the payment. This usually takes only a few seconds."];
+  const copy =
+    state === "active"
+      ? ["Payment confirmed.", "Your dealer account is open. Taking you to the next setup step now."]
+      : state === "failed"
+        ? [
+            "Payment needs attention.",
+            "Stripe could not activate the subscription. You can return to secure payment and try again.",
+          ]
+        : state === "delayed"
+          ? [
+              "Confirmation is taking longer than usual.",
+              "Your payment may still be successful. Open the portal to check the latest account status.",
+            ]
+          : [
+              "Confirming your subscription.",
+              "Stripe is securely completing the payment. This usually takes only a few seconds.",
+            ];
 
   return (
     <main className={styles.completePage}>
-      <div className={styles.completeSignal}><SignalFlow /></div>
+      <div className={styles.completeSignal}>
+        <SignalFlow />
+      </div>
       <section className={styles.completeCard}>
         <span>{state === "active" ? "✓" : "···"}</span>
         <h1>{copy[0]}</h1>

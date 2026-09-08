@@ -2,18 +2,14 @@ import type { Metadata } from "next";
 
 import { LegalDocument } from "@/components/legal/LegalDocument";
 import { PageSchema } from "@/components/PageSchema";
-import { pageMetadata } from "@/lib/seo";
+import { metadataFor } from "@/lib/pages";
 
-const TITLE = "Dealer Subscription Terms";
-const DESCRIPTION = "Terms for Free the Desk dealer licensing and contract subscriptions.";
-const PATH = "/legal/dealer-subscription-terms";
-
-export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
+export const metadata: Metadata = metadataFor("/legal/dealer-subscription-terms");
 
 export default function DealerSubscriptionTermsPage() {
   return (
     <>
-      <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
+      <PageSchema path="/legal/dealer-subscription-terms" />
       <LegalDocument filename="dealer-subscription-terms.md" />
     </>
   );

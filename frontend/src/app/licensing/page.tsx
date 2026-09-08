@@ -5,7 +5,8 @@ import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
-import { pageMetadata } from "@/lib/seo";
+import { metadataFor } from "@/lib/pages";
+import { getSiteSettingsServer } from "@/lib/serverApi";
 
 import { LICENSING_FAQS } from "./_lib/copy";
 import { FlowCompare } from "./_components/FlowCompare";
@@ -15,22 +16,32 @@ import { LoginPreviewPhone } from "./_components/LoginPreviewPhone";
 import { SignupPlans } from "./_components/SignupPlans";
 import styles from "./page.module.css";
 
-const TITLE = "Online Vehicle Licensing";
-const DESCRIPTION = "Let customers verify their identity, complete vehicle licensing and sign paperwork online without an unnecessary dealership visit.";
-const PATH = "/licensing";
-
 const licensingStats: ProofStat[] = [
-  { value: "72%", label: "Want licensing online", description: "Of car buyers say they'd rather complete paperwork online, per Cox Automotive research." },
-  { value: "45 min", label: "Saved per customer", description: "Average time saved at the dealership when paperwork starts online." },
-  { value: "24 / 7", label: "Always available", description: "Customers can verify, sign and pay at any time, without booking a dealership appointment." },
+  {
+    value: "72%",
+    label: "Want licensing online",
+    description: "Of car buyers say they'd rather complete paperwork online, per Cox Automotive research.",
+  },
+  {
+    value: "45 min",
+    label: "Saved per customer",
+    description: "Average time saved at the dealership when paperwork starts online.",
+  },
+  {
+    value: "24 / 7",
+    label: "Always available",
+    description: "Customers can verify, sign and pay at any time, without booking a dealership appointment.",
+  },
 ];
 
-export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
+export const metadata: Metadata = metadataFor("/licensing");
 
-export default function LicensingPage() {
+export default async function LicensingPage() {
+  const settings = await getSiteSettingsServer();
+
   return (
     <main className={styles.page}>
-      <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
+      <PageSchema path="/licensing" />
       <Hero
         eyebrow="Online vehicle licensing"
         titleLines={["License online."]}
@@ -45,7 +56,7 @@ export default function LicensingPage() {
 
       <ProofStrip stats={licensingStats} />
 
-      <SignupPlans />
+      <SignupPlans settings={settings} />
 
       <section className={styles.comparisonSection}>
         <div className={`shell ${styles.comparison}`}>
@@ -56,12 +67,30 @@ export default function LicensingPage() {
           </div>
           <div className={styles.paths}>
             <article>
-              <header><span>Traditional</span><b>6 steps</b></header>
-              <div><span>Ready to buy</span><i /> <span>Arrange visit</span><i /> <span>Travel</span><i /> <span>Wait</span><i /> <span>Sign</span><i /> <strong>Handover</strong></div>
+              <header>
+                <span>Traditional</span>
+                <b>6 steps</b>
+              </header>
+              <div>
+                <span>Ready to buy</span>
+                <i /> <span>Arrange visit</span>
+                <i /> <span>Travel</span>
+                <i /> <span>Wait</span>
+                <i /> <span>Sign</span>
+                <i /> <strong>Handover</strong>
+              </div>
             </article>
             <article className={styles.onlinePath}>
-              <header><span>Online</span><b>4 steps</b></header>
-              <div><span>Choose</span><i /> <span>Sign</span><i /> <span>Pay</span><i /> <strong>Delivery / pickup</strong></div>
+              <header>
+                <span>Online</span>
+                <b>4 steps</b>
+              </header>
+              <div>
+                <span>Choose</span>
+                <i /> <span>Sign</span>
+                <i /> <span>Pay</span>
+                <i /> <strong>Delivery / pickup</strong>
+              </div>
             </article>
           </div>
         </div>
@@ -72,18 +101,25 @@ export default function LicensingPage() {
           <div className={styles.optionsHeading}>
             <p className={styles.sectionLabel}>03 / Two ways to use it</p>
             <h2>Our portal or part of your website.</h2>
-            <p>Use the hosted product with the website you already have, or make it a seamless part of a dealership site we build.</p>
+            <p>
+              Use the hosted product with the website you already have, or make it a seamless part of a dealership site
+              we build.
+            </p>
           </div>
           <div className={styles.optionPhones}>
             <div className={styles.optionPhoneTile}>
               <LoginPreviewPhone />
               <p className={styles.optionPhoneCaption}>Hosted portal</p>
-              <Link href="#signup">Choose a plan <b>↗</b></Link>
+              <Link href="#signup">
+                Choose a plan <b>↗</b>
+              </Link>
             </div>
             <div className={styles.optionPhoneTile}>
               <LicensingNextStepPhone />
               <p className={styles.optionPhoneCaption}>Built into your website</p>
-              <Link href="/portfolio/scooter-shop">See the Scooter Shop approach <b>→</b></Link>
+              <Link href="/portfolio/scooter-shop">
+                See the Scooter Shop approach <b>→</b>
+              </Link>
             </div>
           </div>
         </div>
@@ -94,17 +130,15 @@ export default function LicensingPage() {
 
       <IdentityVerification />
 
-      <Faq
-        eyebrow="06 / Common questions"
-        title="Before you sign up."
-        items={LICENSING_FAQS}
-      />
+      <Faq eyebrow="06 / Common questions" title="Before you sign up." items={LICENSING_FAQS} />
 
       <section className={`shell ${styles.closing}`}>
         <p className={styles.sectionLabel}>04 / Remove the barrier</p>
-        <h2>A signature shouldn't require an appointment.</h2>
+        <h2>A signature shouldn&apos;t require an appointment.</h2>
         <p>Let customers verify, sign and pay from wherever they are. The paperwork travels—not the customer.</p>
-        <Link href="#signup">Choose your plan <span>↑</span></Link>
+        <Link href="#signup">
+          Choose your plan <span>↑</span>
+        </Link>
       </section>
     </main>
   );

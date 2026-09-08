@@ -1,23 +1,16 @@
-import { authedFetch, jsonOrError, type DealerStatus } from "./api";
+import { authedFetch, jsonOrError, type AccountBase } from "./api";
 
-export interface DealerAccount {
-  id: number;
-  business_name: string;
-  contact_name: string;
-  email: string;
-  phone: string;
-  state: "WA" | "NSW" | "VIC" | "QLD" | "SA" | "TAS" | "ACT" | "NT";
+import type { DealerState } from "./dealerStates";
+
+export type DealerPlanCode = "licensing" | "contracts" | "complete";
+export type DealerPaymentStatus = "payment_pending" | "active" | "past_due" | "cancelled";
+
+/** A dealer's own account: the shared account fields plus what licensing adds. */
+export interface DealerAccount extends AccountBase {
+  state: DealerState;
   state_label: string;
-  plan: "licensing" | "contracts" | "complete";
-  plan_label: string;
-  payment_status: "payment_pending" | "active" | "past_due" | "cancelled";
-  payment_status_label: string;
-  subscription_current_period_end: string | null;
-  cancel_at_period_end: boolean;
-  status: DealerStatus;
-  status_label: string;
-  created_at: string;
-  updated_at: string;
+  plan: DealerPlanCode;
+  payment_status: DealerPaymentStatus;
 }
 
 export interface SubscriptionCheckout {
@@ -61,17 +54,21 @@ export async function getDealerAccount(): Promise<DealerAccount> {
 }
 
 export async function updateDealerAccount(changes: DealerAccountChanges): Promise<DealerAccount> {
-  return jsonOrError(await authedFetch("/api/dealers/me/", {
-    method: "PATCH",
-    body: JSON.stringify(changes),
-  }));
+  return jsonOrError(
+    await authedFetch("/api/dealers/me/", {
+      method: "PATCH",
+      body: JSON.stringify(changes),
+    }),
+  );
 }
 
 export async function createSubscriptionCheckout(): Promise<SubscriptionCheckout> {
-  return jsonOrError(await authedFetch("/api/payments/subscription/", {
-    method: "POST",
-    body: JSON.stringify({ accepted_terms: true }),
-  }));
+  return jsonOrError(
+    await authedFetch("/api/payments/subscription/", {
+      method: "POST",
+      body: JSON.stringify({ accepted_terms: true }),
+    }),
+  );
 }
 
 export async function getDealerOnboarding(): Promise<DealerOnboardingProfile> {

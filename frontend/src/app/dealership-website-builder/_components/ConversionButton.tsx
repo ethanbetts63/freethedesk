@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type CSSProperties } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type AnchorHTMLAttributes,
+  type ButtonHTMLAttributes,
+  type CSSProperties,
+} from "react";
 
 import styles from "../page.module.css";
 
@@ -20,7 +27,12 @@ function useConversionBurst() {
   const [burst, setBurst] = useState(0);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => () => { if (timeout.current) clearTimeout(timeout.current); }, []);
+  useEffect(
+    () => () => {
+      if (timeout.current) clearTimeout(timeout.current);
+    },
+    [],
+  );
 
   const trigger = () => {
     setBurst((current) => current + 1);
@@ -34,10 +46,38 @@ function useConversionBurst() {
 function SuccessEffect({ burst }: { burst: number }) {
   if (!burst) return null;
 
-  return <><span className={styles.successBurst} key={burst} aria-hidden="true"><b>✓</b>{PARTICLES.map(([x, y, rotation, colour], index) => <i key={index} style={{ "--burst-x": x, "--burst-y": y, "--burst-rotation": rotation, "--burst-colour": colour } as CSSProperties} />)}</span><span className={styles.srOnly} aria-live="polite">Action successful</span></>;
+  return (
+    <>
+      <span className={styles.successBurst} key={burst} aria-hidden="true">
+        <b>✓</b>
+        {PARTICLES.map(([x, y, rotation, colour], index) => (
+          <i
+            key={index}
+            style={
+              {
+                "--burst-x": x,
+                "--burst-y": y,
+                "--burst-rotation": rotation,
+                "--burst-colour": colour,
+              } as CSSProperties
+            }
+          />
+        ))}
+      </span>
+      <span className={styles.srOnly} aria-live="polite">
+        Action successful
+      </span>
+    </>
+  );
 }
 
-export function ConversionButton({ className = "", onClick, type = "button", children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) {
+export function ConversionButton({
+  className = "",
+  onClick,
+  type = "button",
+  children,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement>) {
   const { burst, trigger: triggerBurst } = useConversionBurst();
 
   const trigger: ButtonHTMLAttributes<HTMLButtonElement>["onClick"] = (event) => {
@@ -48,15 +88,37 @@ export function ConversionButton({ className = "", onClick, type = "button", chi
   };
 
   return (
-    <button {...props} type={type} className={`${styles.conversionButton} ${burst ? styles.conversionSuccess : ""} ${className}`} onClick={trigger}>
+    <button
+      {...props}
+      type={type}
+      className={`${styles.conversionButton} ${burst ? styles.conversionSuccess : ""} ${className}`}
+      onClick={trigger}
+    >
       <span className={styles.conversionLabel}>{children}</span>
       <SuccessEffect burst={burst} />
     </button>
   );
 }
 
-export function ConversionLink({ className = "", onClick, children, ...props }: AnchorHTMLAttributes<HTMLAnchorElement>) {
+export function ConversionLink({
+  className = "",
+  onClick,
+  children,
+  ...props
+}: AnchorHTMLAttributes<HTMLAnchorElement>) {
   const { burst, trigger: triggerBurst } = useConversionBurst();
 
-  return <a {...props} className={`${styles.conversionLink} ${burst ? styles.conversionSuccess : ""} ${className}`} onClick={(event) => { onClick?.(event); if (!event.defaultPrevented) triggerBurst(); }}><span className={styles.conversionLabel}>{children}</span><SuccessEffect burst={burst} /></a>;
+  return (
+    <a
+      {...props}
+      className={`${styles.conversionLink} ${burst ? styles.conversionSuccess : ""} ${className}`}
+      onClick={(event) => {
+        onClick?.(event);
+        if (!event.defaultPrevented) triggerBurst();
+      }}
+    >
+      <span className={styles.conversionLabel}>{children}</span>
+      <SuccessEffect burst={burst} />
+    </a>
+  );
 }

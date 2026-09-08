@@ -33,10 +33,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     let cancelled = false;
     const profile = localStorage.getItem(SESSION_FLAG) ? getProfile() : Promise.resolve(null);
     profile
-      .then((result) => { if (!cancelled) setUser(result); })
-      .catch(() => { if (!cancelled) clear(); })
-      .finally(() => { if (!cancelled) setLoading(false); });
-    return () => { cancelled = true; };
+      .then((result) => {
+        if (!cancelled) setUser(result);
+      })
+      .catch(() => {
+        if (!cancelled) clear();
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [clear]);
 
   useEffect(() => {

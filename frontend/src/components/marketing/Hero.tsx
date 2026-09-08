@@ -36,25 +36,43 @@ export function Hero({
   return (
     <section className={styles.hero}>
       <div className={styles.glow} />
-      <div className={styles.network}><NetworkField /></div>
+      <div className={styles.network}>
+        <NetworkField />
+      </div>
       <div className={styles.grid} />
       <div className={`shell ${styles.content}${stages ? ` ${styles.withStages}` : ""}`}>
         <div className={styles.copy}>
-          <p className={styles.eyebrow}><span /> {eyebrow}</p>
+          <p className={styles.eyebrow}>
+            <span /> {eyebrow}
+          </p>
           <h1>
-            {titleLines.map((line, index) => <span key={index}>{line}<br /></span>)}
+            {titleLines.map((line, index) => (
+              <span key={index}>
+                {line}
+                <br />
+              </span>
+            ))}
             <em>{accentTitle}</em>
           </h1>
           <p className={styles.lead}>{lead}</p>
           <div className={styles.actions}>
-            <Link className={styles.primary} href={primaryHref}>{primaryLabel} <span>↗</span></Link>
-            <Link className={styles.secondary} href={secondaryHref}>{secondaryLabel} <span>→</span></Link>
+            <Link className={styles.primary} href={primaryHref}>
+              {primaryLabel} <span>↗</span>
+            </Link>
+            <Link className={styles.secondary} href={secondaryHref}>
+              {secondaryLabel} <span>→</span>
+            </Link>
           </div>
           {trustLine ? <p className={styles.trustLine}>{trustLine}</p> : null}
         </div>
         {stages ? (
           <div className={styles.readout} aria-hidden="true">
-            {stages.map((stage, index) => <div key={stage}><span>0{index + 1}</span><p>{stage}</p></div>)}
+            {stages.map((stage, index) => (
+              <div key={stage}>
+                <span>0{index + 1}</span>
+                <p>{stage}</p>
+              </div>
+            ))}
           </div>
         ) : null}
       </div>

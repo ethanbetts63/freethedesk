@@ -22,18 +22,31 @@ def principal_payload(user):
     kept because the dashboard already reads it.
     """
     dealer = getattr(user, "dealer", None)
+    seo = getattr(user, "seo_subscriber", None)
     return {
         "id": user.pk,
         "username": user.get_username(),
         "email": user.email,
         "is_staff": user.is_staff,
-        "role": "staff" if user.is_staff else "dealer" if dealer is not None else "none",
+        "role": (
+            "staff" if user.is_staff
+            else "dealer" if dealer is not None
+            else "seo" if seo is not None
+            else "none"
+        ),
         "dealer": None if dealer is None else {
             "id": dealer.pk,
             "business_name": dealer.business_name,
             "contact_name": dealer.contact_name,
             "status": dealer.status,
             "status_label": dealer.get_status_display(),
+        },
+        "seo": None if seo is None else {
+            "id": seo.pk,
+            "business_name": seo.business_name,
+            "contact_name": seo.contact_name,
+            "status": seo.status,
+            "status_label": seo.get_status_display(),
         },
     }
 

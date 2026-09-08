@@ -17,7 +17,13 @@ export const websiteServices: Service[] = [
       <svg {...iconProps}>
         <path d="M46 20a16 16 0 0 0-27-8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
         <path d="M18 44a16 16 0 0 0 27 8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M17 6v9h9M47 58v-9h-9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M17 6v9h9M47 58v-9h-9"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
   },
@@ -33,7 +39,12 @@ export const websiteServices: Service[] = [
     color: "var(--blue-600)",
     icon: (
       <svg {...iconProps}>
-        <path d="M32 8a16 16 0 0 0-16 16v10l-5 8h42l-5-8V24A16 16 0 0 0 32 8Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
+        <path
+          d="M32 8a16 16 0 0 0-16 16v10l-5 8h42l-5-8V24A16 16 0 0 0 32 8Z"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinejoin="round"
+        />
         <path d="M26 52a6 6 0 0 0 12 0" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
     ),
@@ -51,7 +62,13 @@ export const websiteServices: Service[] = [
     icon: (
       <svg {...iconProps}>
         <rect x="6" y="14" width="52" height="36" rx="4" stroke="currentColor" strokeWidth="2.5" />
-        <path d="M9 18L32 36L55 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M9 18L32 36L55 18"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
   },
@@ -70,7 +87,13 @@ export const websiteServices: Service[] = [
         <rect x="10" y="12" width="44" height="42" rx="4" stroke="currentColor" strokeWidth="2.5" />
         <path d="M10 24H54" stroke="currentColor" strokeWidth="2.5" />
         <path d="M21 6v10M43 6v10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M20 34l5 5 11-11" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M20 34l5 5 11-11"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
   },

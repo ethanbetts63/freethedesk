@@ -64,7 +64,11 @@ export function BloomprintTour() {
             onClick={() => setActiveIndex(index)}
           >
             <span>{item.number}</span>
-            <div><small>{item.label}</small><strong>{item.title}</strong>{activeIndex === index && <p>{item.copy}</p>}</div>
+            <div>
+              <small>{item.label}</small>
+              <strong>{item.title}</strong>
+              {activeIndex === index && <p>{item.copy}</p>}
+            </div>
             <i>{activeIndex === index ? "—" : "+"}</i>
           </button>
         ))}
@@ -72,10 +76,24 @@ export function BloomprintTour() {
 
       <div className="case-tour-preview" id="bloom-tour-preview" role="tabpanel" aria-live="polite">
         <div className="case-browser">
-          <div className="case-browser-bar"><i /><i /><i /><span>www.bloomprint.com.au</span></div>
-          <Image key={active.src} className="case-tour-image" src={active.src} alt={active.alt} width={1440} height={681} />
+          <div className="case-browser-bar">
+            <i />
+            <i />
+            <i />
+            <span>www.bloomprint.com.au</span>
+          </div>
+          <Image
+            key={active.src}
+            className="case-tour-image"
+            src={active.src}
+            alt={active.alt}
+            width={1440}
+            height={681}
+          />
         </div>
-        <a href={active.url} target="_blank" rel="noreferrer">{active.linkLabel} <span>↗</span></a>
+        <a href={active.url} target="_blank" rel="noreferrer">
+          {active.linkLabel} <span>↗</span>
+        </a>
       </div>
     </div>
   );

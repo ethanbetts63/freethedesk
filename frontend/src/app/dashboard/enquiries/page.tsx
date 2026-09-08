@@ -1,102 +1,155 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
-import { enquiryStatuses, StatusPill } from "@/components/dashboard/StatusPill";
-import { formatDateTime, getEnquiries, type Enquiry, type Paginated } from "@/lib/adminApi";
+import { Suspense, useCallback } from "react";
 
-const empty: Paginated<Enquiry> = { count: 0, next: null, previous: null, results: [] };
+import {
+  AdminFilterBar,
+  AdminPagination,
+  AdminTableBody,
+  FilterSelect,
+  RowLink,
+  SortHeader,
+} from "@/components/dashboard/AdminList";
+import { adminListParams, useAdminList, type AdminListView } from "@/components/dashboard/useAdminList";
+import { enquiryStatuses, StatusPill, statusLabel } from "@/components/dashboard/StatusPill";
+import { formatDateTime, getEnquiries, type Enquiry } from "@/lib/adminApi";
 
-export default function EnquiriesPage() {
-  const router = useRouter();
-  const [data, setData] = useState(empty);
-  const [status, setStatus] = useState("all");
-  const [helpWith, setHelpWith] = useState("all");
-  const [query, setQuery] = useState("");
-  const [search, setSearch] = useState("");
-  const [ordering, setOrdering] = useState("-created_at");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+const SORT_FIELDS = ["created_at", "business", "help_with", "status"] as const;
+const FILTER_KEYS = ["status", "help_with"] as const;
 
-  useEffect(() => {
-    let cancelled = false;
-    getEnquiries({ status, help_with: helpWith, search, ordering, page, page_size: 50 })
-      .then((result) => { if (!cancelled) { setData(result); setError(""); } })
-      .catch((reason) => { if (!cancelled) setError(reason instanceof Error ? reason.message : "Enquiries could not be loaded."); })
-      .finally(() => { if (!cancelled) setLoading(false); });
-    return () => { cancelled = true; };
-  }, [helpWith, ordering, page, search, status]);
+const HELP_WITH_OPTIONS = [
+  { value: "website", label: "Dealer website" },
+  { value: "website_builder", label: "Dealer web enquiry" },
+  { value: "inventory", label: "Inventory, parts, service or hire" },
+  { value: "automation", label: "Business automation" },
+  { value: "everything", label: "All of the above" },
+  { value: "unsure", label: "Not sure yet" },
+];
 
-  function submitSearch(event: FormEvent) { event.preventDefault(); setPage(1); setSearch(query.trim()); }
-  function sort(field: string) {
-    setPage(1);
-    setOrdering((current) => current.replace(/^-/, "") === field && !current.startsWith("-") ? `-${field}` : field);
-  }
+const COLUMNS = 5;
+
+function EnquiriesContent() {
+  const fetchPage = useCallback((view: AdminListView) => getEnquiries(adminListParams(view)), []);
+  const list = useAdminList<Enquiry>({
+    fetchPage,
+    filterKeys: FILTER_KEYS,
+    sortFields: SORT_FIELDS,
+    loadError: "Enquiries could not be loaded.",
+  });
 
   return (
     <div className="admin-page">
       <header className="admin-page-header">
-        <div><p className="admin-kicker">Lead management</p><h1>Enquiries</h1></div>
-        <Link className="admin-primary-button" href="/dashboard/messages/compose">＋ Compose</Link>
+        <div>
+          <p className="admin-kicker">Lead management</p>
+          <h1>Enquiries</h1>
+        </div>
+        <Link className="admin-primary-button" href="/dashboard/messages/compose">
+          ＋ Compose
+        </Link>
       </header>
 
       <section className="admin-panel">
-        <div className="admin-filter-bar">
-          <div><strong>Filters</strong><p>{data.count} {data.count === 1 ? "enquiry" : "enquiries"} matching this view</p></div>
-          <div className="admin-filters">
-            <select aria-label="Filter enquiries by status" value={status} onChange={(event) => { setStatus(event.target.value); setPage(1); }}>
-              <option value="all">All statuses</option>
-              {enquiryStatuses.map((value) => <option value={value} key={value}>{value[0].toUpperCase() + value.slice(1)}</option>)}
-            </select>
-            <select aria-label="Filter enquiries by type" value={helpWith} onChange={(event) => { setHelpWith(event.target.value); setPage(1); }}>
-              <option value="all">All enquiry types</option>
-              <option value="website">Dealer website</option>
-              <option value="website_builder">Dealer web enquiry</option>
-              <option value="inventory">Inventory, parts, service or hire</option>
-              <option value="automation">Business automation</option>
-              <option value="everything">All of the above</option>
-              <option value="unsure">Not sure yet</option>
-            </select>
-            <form className="admin-search" onSubmit={submitSearch}>
-              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search business, person or email" />
-              <button type="submit">Search</button>
-            </form>
-          </div>
-          <div className="admin-legend"><b>Row colour:</b>{enquiryStatuses.map((value) => <span key={value}><i className={`admin-swatch admin-swatch-${value}`} />{value}</span>)}</div>
-        </div>
+        <AdminFilterBar
+          total={list.total}
+          noun="enquiry"
+          nounPlural="enquiries"
+          legend={enquiryStatuses}
+          search={list.searchDraft}
+          onSearchChange={list.setSearchDraft}
+          onSearchSubmit={list.submitSearch}
+          searchPlaceholder="Search business, person or email"
+        >
+          <FilterSelect
+            label="Filter enquiries by status"
+            value={list.filters.status}
+            onChange={(value) => list.setFilter("status", value)}
+            allLabel="All statuses"
+            options={enquiryStatuses.map((value) => ({ value, label: statusLabel(value) }))}
+          />
+          <FilterSelect
+            label="Filter enquiries by type"
+            value={list.filters.help_with}
+            onChange={(value) => list.setFilter("help_with", value)}
+            allLabel="All enquiry types"
+            options={HELP_WITH_OPTIONS}
+          />
+        </AdminFilterBar>
 
-        {error && <p className="admin-banner admin-banner-error">{error}</p>}
+        {list.error && <p className="admin-banner admin-banner-error">{list.error}</p>}
         <div className="admin-table-wrap">
           <table className="admin-table admin-enquiry-table">
-            <thead><tr>
-              <th><button type="button" onClick={() => sort("created_at")}>Received ↕</button></th>
-              <th><button type="button" onClick={() => sort("business")}>Business ↕</button></th>
-              <th>Contact</th>
-              <th><button type="button" onClick={() => sort("help_with")}>Interested in ↕</button></th>
-              <th>Phone</th>
-              <th><button type="button" onClick={() => sort("status")}>Status ↕</button></th>
-            </tr></thead>
-            <tbody>
-              {loading ? <tr><td colSpan={6} className="admin-empty">Loading enquiries…</td></tr> : data.results.length === 0 ? <tr><td colSpan={6} className="admin-empty">No enquiries match these filters.</td></tr> : data.results.map((enquiry) => (
-                <tr key={enquiry.id} className={`admin-row-${enquiry.status}`} onClick={() => router.push(`/dashboard/enquiries/${enquiry.id}`)}>
-                  <td>{formatDateTime(enquiry.created_at)}</td>
-                  <td><strong>{enquiry.business}</strong>{enquiry.website && <small>{enquiry.website.replace(/^https?:\/\//, "")}</small>}</td>
-                  <td><strong>{enquiry.name}</strong><small>{enquiry.email}</small></td>
+            <thead>
+              <tr>
+                <SortHeader field="created_at" ordering={list.ordering} onSort={list.toggleSort}>
+                  Received
+                </SortHeader>
+                <SortHeader field="business" ordering={list.ordering} onSort={list.toggleSort}>
+                  Business
+                </SortHeader>
+                <th>Contact</th>
+                <SortHeader field="help_with" ordering={list.ordering} onSort={list.toggleSort}>
+                  Interested in
+                </SortHeader>
+                <SortHeader field="status" ordering={list.ordering} onSort={list.toggleSort}>
+                  Status
+                </SortHeader>
+              </tr>
+            </thead>
+            <AdminTableBody
+              rows={list.rows}
+              loading={list.loading}
+              columns={COLUMNS}
+              loadingLabel="Loading enquiries…"
+              emptyLabel="No enquiries match these filters."
+            >
+              {(enquiry) => (
+                <tr key={enquiry.id} className={`admin-row-${enquiry.status}`}>
+                  <td>
+                    <RowLink href={`/dashboard/enquiries/${enquiry.id}`}>{formatDateTime(enquiry.created_at)}</RowLink>
+                  </td>
+                  <td>
+                    <strong>{enquiry.business || "—"}</strong>
+                    {enquiry.website && <small>{enquiry.website.replace(/^https?:\/\//, "")}</small>}
+                  </td>
+                  <td>
+                    <strong>{enquiry.name}</strong>
+                    <small>{enquiry.email}</small>
+                  </td>
                   <td>{enquiry.help_with_label}</td>
-                  <td>{enquiry.phone || "—"}</td>
-                  <td><StatusPill status={enquiry.status} /></td>
+                  <td>
+                    <StatusPill status={enquiry.status} />
+                  </td>
                 </tr>
-              ))}
-            </tbody>
+              )}
+            </AdminTableBody>
           </table>
         </div>
-        <footer className="admin-pagination">
-          <span>{data.count ? (page - 1) * 50 + 1 : 0}–{Math.min(page * 50, data.count)} of {data.count}</span>
-          <div><button type="button" disabled={!data.previous || loading} onClick={() => setPage((value) => value - 1)}>← Previous</button><span>Page {page}</span><button type="button" disabled={!data.next || loading} onClick={() => setPage((value) => value + 1)}>Next →</button></div>
-        </footer>
+
+        <AdminPagination
+          page={list.page}
+          total={list.total}
+          pageSize={list.pageSize}
+          loading={list.loading}
+          hasNext={list.hasNext}
+          onPage={list.setPage}
+        />
       </section>
     </div>
+  );
+}
+
+export default function EnquiriesPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="admin-page">
+          <p className="admin-empty">Loading enquiries…</p>
+        </div>
+      }
+    >
+      <EnquiriesContent />
+    </Suspense>
   );
 }

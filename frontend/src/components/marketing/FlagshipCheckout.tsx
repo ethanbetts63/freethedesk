@@ -8,19 +8,31 @@ const journey = [
     number: "01",
     title: "Choose",
     detail: "Select the vehicle online",
-    icon: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6v6H4zM14 5h6v6h-6zM4 13h6v6H4zM14 13h6v6h-6z" /></svg>,
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 5h6v6H4zM14 5h6v6h-6zM4 13h6v6H4zM14 13h6v6h-6z" />
+      </svg>
+    ),
   },
   {
     number: "02",
     title: "Sign",
     detail: "Identity, forms and signatures",
-    icon: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v4h4M9 12h6m-6 4h4" /></svg>,
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 3h9l3 3v15H6zM15 3v4h4M9 12h6m-6 4h4" />
+      </svg>
+    ),
   },
   {
     number: "03",
     title: "Pay",
     detail: "Optional deposit or full payment",
-    icon: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 10h18M7 15h4" /></svg>,
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 6h18v12H3zM3 10h18M7 15h4" />
+      </svg>
+    ),
   },
 ];
 
@@ -52,9 +64,14 @@ export function FlagshipCheckout() {
         </div>
 
         <div className={styles.copy}>
-          <h2>Sell &amp; License.<br /><em>Entirely online.</em></h2>
+          <h2>
+            Sell &amp; License.
+            <br />
+            <em>Entirely online.</em>
+          </h2>
           <p className={styles.lead}>
-            Let customers purchase, complete their paperwork and arrange handover without needing to visit the dealership.
+            Let customers purchase, complete their paperwork and arrange handover without needing to visit the
+            dealership.
           </p>
           <ul>
             <li>Sales contracts</li>
@@ -62,7 +79,9 @@ export function FlagshipCheckout() {
             <li>Identity verification</li>
             <li>Optional payment and delivery handling</li>
           </ul>
-          <Link href="/licensing">Explore online licensing <span>→</span></Link>
+          <Link href="/licensing">
+            Explore online licensing <span>→</span>
+          </Link>
         </div>
       </div>
     </section>

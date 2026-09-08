@@ -1,12 +1,19 @@
+import type { HelpWith } from "@/lib/api";
+
 import { ContactForm } from "./ContactForm";
 
-export function ContactEnquiry({ defaultHelpWith }: { defaultHelpWith?: string } = {}) {
+export function ContactEnquiry({ defaultHelpWith }: { defaultHelpWith?: HelpWith } = {}) {
   return (
     <div className="contact-grid">
       <div className="contact-copy">
-        <p className="eyebrow"><span /> Start a conversation</p>
+        <p className="eyebrow">
+          <span /> Start a conversation
+        </p>
         <h1>Start with the problem.</h1>
-        <p className="contact-lead">A website URL and a plain-English explanation are enough. We&apos;ll review the business and come back with useful questions.</p>
+        <p className="contact-lead">
+          A website URL and a plain-English explanation are enough. We&apos;ll review the business and come back with
+          useful questions.
+        </p>
         <div className="contact-detail">
           <span>01</span>
           <div>

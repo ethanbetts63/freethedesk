@@ -16,14 +16,21 @@ export const seoServices: Service[] = [
     color: "var(--blue-500)",
     icon: (
       <div className={styles.redirectVisual} aria-hidden="true">
-        <div className={styles.redirectBar}><i /><i /><i /><span>Redirect check</span></div>
+        <div className={styles.redirectBar}>
+          <i />
+          <i />
+          <i />
+          <span>Redirect check</span>
+        </div>
         <div className={styles.redirectRoute}>
           <span className={styles.oldUrl}>/old-stock</span>
           <b>301</b>
           <span className={styles.routeArrow}>→</span>
           <span className={styles.liveUrl}>/inventory</span>
         </div>
-        <div className={styles.redirectStatus}><i /> Crawl path preserved</div>
+        <div className={styles.redirectStatus}>
+          <i /> Crawl path preserved
+        </div>
       </div>
     ),
   },
@@ -39,8 +46,26 @@ export const seoServices: Service[] = [
     color: "var(--blue-600)",
     icon: (
       <svg {...iconProps}>
-        <rect x="6" y="24" width="24" height="16" rx="8" transform="rotate(-40 18 32)" stroke="currentColor" strokeWidth="2.5" />
-        <rect x="34" y="24" width="24" height="16" rx="8" transform="rotate(-40 46 32)" stroke="currentColor" strokeWidth="2.5" />
+        <rect
+          x="6"
+          y="24"
+          width="24"
+          height="16"
+          rx="8"
+          transform="rotate(-40 18 32)"
+          stroke="currentColor"
+          strokeWidth="2.5"
+        />
+        <rect
+          x="34"
+          y="24"
+          width="24"
+          height="16"
+          rx="8"
+          transform="rotate(-40 46 32)"
+          stroke="currentColor"
+          strokeWidth="2.5"
+        />
       </svg>
     ),
   },
@@ -59,7 +84,12 @@ export const seoServices: Service[] = [
         <circle cx="12" cy="32" r="5" stroke="currentColor" strokeWidth="2.5" />
         <circle cx="50" cy="16" r="5" stroke="currentColor" strokeWidth="2.5" />
         <circle cx="50" cy="48" r="5" stroke="currentColor" strokeWidth="2.5" />
-        <path d="M17 32C28 32 28 16 45 16M17 32C28 32 28 48 45 48" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+        <path
+          d="M17 32C28 32 28 16 45 16M17 32C28 32 28 48 45 48"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
       </svg>
     ),
   },
@@ -75,10 +105,26 @@ export const seoServices: Service[] = [
     color: "var(--blue-800)",
     icon: (
       <div className={styles.aiReadinessVisual} aria-hidden="true">
-        <div><i /><span>Accessibility</span><b>Ready</b></div>
-        <div><i /><span>Stable layout</span><b>Ready</b></div>
-        <div><i /><span>llms.txt</span><b>Found</b></div>
-        <div><i /><span>robots.txt</span><b>Open</b></div>
+        <div>
+          <i />
+          <span>Accessibility</span>
+          <b>Ready</b>
+        </div>
+        <div>
+          <i />
+          <span>Stable layout</span>
+          <b>Ready</b>
+        </div>
+        <div>
+          <i />
+          <span>llms.txt</span>
+          <b>Found</b>
+        </div>
+        <div>
+          <i />
+          <span>robots.txt</span>
+          <b>Open</b>
+        </div>
       </div>
     ),
   },

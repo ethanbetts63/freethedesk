@@ -7,24 +7,37 @@ import { SignalFlow } from "@/components/visuals/SignalFlow";
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <div className="footer-signal-flow"><SignalFlow /></div>
+      <div className="footer-signal-flow">
+        <SignalFlow />
+      </div>
       <div className="shell footer-grid">
         <div>
           <Link className="wordmark footer-logo" href="/" aria-label="Free the Desk home">
             <Image className="nav-logo-image" src="/logo-192x192.png" alt="" width={40} height={40} />
-            <span className="nav-logo-text">free<span>the</span>desk<span className="wordmark-dot">.</span></span>
+            <span className="nav-logo-text">
+              free<span>the</span>desk<span className="wordmark-dot">.</span>
+            </span>
           </Link>
           <p className="footer-summary">
-            Dealer websites and operational systems built by a development team with hands-on experience across dealerships and automotive suppliers.
+            Dealer websites and operational systems built by a development team with hands-on experience across
+            dealerships and automotive suppliers.
           </p>
         </div>
         <div className="footer-links">
           <p className="footer-label">Explore</p>
-          {FOOTER_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+          {FOOTER_NAVIGATION.map((item) => (
+            <Link key={item.href} href={item.href}>
+              {item.label}
+            </Link>
+          ))}
         </div>
         <div className="footer-links">
           <p className="footer-label">Portfolio</p>
-          {PORTFOLIO_NAVIGATION.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+          {PORTFOLIO_NAVIGATION.map((item) => (
+            <Link key={item.href} href={item.href}>
+              {item.label}
+            </Link>
+          ))}
         </div>
         <div className="footer-links">
           <p className="footer-label">Based in</p>

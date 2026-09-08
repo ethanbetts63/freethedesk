@@ -3,19 +3,11 @@ import Link from "next/link";
 
 import { PageSchema } from "@/components/PageSchema";
 import { getAllArticleMeta } from "@/lib/articles";
-import { pageMetadata } from "@/lib/seo";
+import { metadataFor, PAGES } from "@/lib/pages";
 
 import styles from "./guides.module.css";
 
-const TITLE = "Guides & articles";
-const DESCRIPTION = "Practical guides for Australian dealerships on websites, search visibility, online sales, licensing and better operational systems.";
-const PATH = "/guides";
-
-export const metadata: Metadata = pageMetadata({
-  title: TITLE,
-  description: DESCRIPTION,
-  path: PATH,
-});
+export const metadata: Metadata = metadataFor("/guides");
 
 const dateFormatter = new Intl.DateTimeFormat("en-AU", {
   day: "numeric",
@@ -29,15 +21,24 @@ export default function GuidesPage() {
 
   return (
     <main>
-      <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
+      <PageSchema path="/guides" />
 
       <section className={styles.hero}>
         <div className={`shell ${styles.heroInner}`}>
-          <p className={styles.eyebrow}><span /> Field notes for dealers</p>
-          <h1>Useful systems.<br /><em>Plain English.</em></h1>
-          <p className={styles.lead}>{DESCRIPTION}</p>
+          <p className={styles.eyebrow}>
+            <span /> Field notes for dealers
+          </p>
+          <h1>
+            Useful systems.
+            <br />
+            <em>Plain English.</em>
+          </h1>
+          <p className={styles.lead}>{PAGES["/guides"].description}</p>
         </div>
-        <div className={styles.heroMark} aria-hidden="true"><span>01</span><i /></div>
+        <div className={styles.heroMark} aria-hidden="true">
+          <span>01</span>
+          <i />
+        </div>
       </section>
 
       <section className={styles.index} aria-labelledby="latest-guides">
@@ -60,14 +61,17 @@ export default function GuidesPage() {
                   </div>
                   <div className={styles.cardBody}>
                     <p className={styles.byline}>
-                      By {article.authorName} · <time dateTime={article.publishedDate}>
+                      By {article.authorName} ·{" "}
+                      <time dateTime={article.publishedDate}>
                         {dateFormatter.format(new Date(`${article.publishedDate}T00:00:00+08:00`))}
                       </time>
                     </p>
                     <h3>{article.title}</h3>
                     <p>{article.excerpt}</p>
                   </div>
-                  <span className={styles.readLink}>Read guide <b aria-hidden="true">→</b></span>
+                  <span className={styles.readLink}>
+                    Read guide <b aria-hidden="true">→</b>
+                  </span>
                 </Link>
               ))}
             </div>
@@ -78,7 +82,9 @@ export default function GuidesPage() {
                 <h3>The first field note is on the way.</h3>
                 <p>We are assembling practical guides for dealers who want clearer websites and less administration.</p>
               </div>
-              <Link href="/contact">Ask us a question <b aria-hidden="true">→</b></Link>
+              <Link href="/contact">
+                Ask us a question <b aria-hidden="true">→</b>
+              </Link>
             </div>
           )}
         </div>

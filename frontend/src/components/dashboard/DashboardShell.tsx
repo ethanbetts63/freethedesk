@@ -5,6 +5,7 @@ import { PortalShell } from "./PortalShell";
 const nav = [
   { href: "/dashboard/enquiries", label: "Enquiries" },
   { href: "/dashboard/dealers", label: "Dealers" },
+  { href: "/dashboard/seo", label: "SEO" },
   { href: "/dashboard/messages", label: "Messages" },
   { href: "/dashboard/settings/site", label: "Site settings" },
 ];

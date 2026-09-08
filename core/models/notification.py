@@ -7,6 +7,7 @@ class Notification(models.Model):
     class RecipientType(models.TextChoices):
         ADMIN = "admin", "Admin"
         DEALER = "dealer", "Dealer"
+        SEO = "seo", "SEO customer"
         MANUAL = "manual", "Manual email"
 
     class Channel(models.TextChoices):
@@ -37,6 +38,13 @@ class Notification(models.Model):
     # runs dealers -> core, and Django resolves this lazily.
     related_dealer = models.ForeignKey(
         "dealers.Dealer",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="notifications",
+    )
+    related_seo_subscriber = models.ForeignKey(
+        "seo.SeoSubscriber",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

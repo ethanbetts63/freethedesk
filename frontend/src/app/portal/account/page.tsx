@@ -6,7 +6,12 @@ import { DEALER_STATES } from "@/lib/dealerStates";
 
 export default function PortalAccountPage() {
   const [account, setAccount] = useState<DealerAccount | null>(null);
-  const [form, setForm] = useState({ business_name: "", contact_name: "", phone: "", state: "WA" as DealerAccount["state"] });
+  const [form, setForm] = useState({
+    business_name: "",
+    contact_name: "",
+    phone: "",
+    state: "WA" as DealerAccount["state"],
+  });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState("");
@@ -16,26 +21,38 @@ export default function PortalAccountPage() {
     getDealerAccount()
       .then((result) => {
         setAccount(result);
-        setForm({ business_name: result.business_name, contact_name: result.contact_name, phone: result.phone, state: result.state });
+        setForm({
+          business_name: result.business_name,
+          contact_name: result.contact_name,
+          phone: result.phone,
+          state: result.state,
+        });
       })
       .catch((reason) => setError(reason instanceof Error ? reason.message : "Your account could not be loaded."))
       .finally(() => setLoading(false));
   }, []);
 
-  const dirty = account !== null && (
-    form.business_name !== account.business_name
-    || form.contact_name !== account.contact_name
-    || form.phone !== account.phone
-    || form.state !== account.state
-  );
+  const dirty =
+    account !== null &&
+    (form.business_name !== account.business_name ||
+      form.contact_name !== account.contact_name ||
+      form.phone !== account.phone ||
+      form.state !== account.state);
 
   async function submit(event: FormEvent) {
     event.preventDefault();
-    setSaving(true); setError(""); setNotice("");
+    setSaving(true);
+    setError("");
+    setNotice("");
     try {
       const updated = await updateDealerAccount(form);
       setAccount(updated);
-      setForm({ business_name: updated.business_name, contact_name: updated.contact_name, phone: updated.phone, state: updated.state });
+      setForm({
+        business_name: updated.business_name,
+        contact_name: updated.contact_name,
+        phone: updated.phone,
+        state: updated.state,
+      });
       setNotice("Your details have been saved.");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Your details could not be saved.");
@@ -44,14 +61,27 @@ export default function PortalAccountPage() {
     }
   }
 
-  if (loading) return <div className="admin-page"><p className="admin-empty">Loading your account…</p></div>;
-  if (error && !account) return <div className="admin-page"><p className="admin-banner admin-banner-error">{error}</p></div>;
+  if (loading)
+    return (
+      <div className="admin-page">
+        <p className="admin-empty">Loading your account…</p>
+      </div>
+    );
+  if (error && !account)
+    return (
+      <div className="admin-page">
+        <p className="admin-banner admin-banner-error">{error}</p>
+      </div>
+    );
   if (!account) return null;
 
   return (
     <div className="admin-page">
       <header className="admin-page-header">
-        <div><p className="admin-kicker">Dealer portal</p><h1>Account details</h1></div>
+        <div>
+          <p className="admin-kicker">Dealer portal</p>
+          <h1>Account details</h1>
+        </div>
       </header>
 
       {error && <p className="admin-banner admin-banner-error">{error}</p>}
@@ -87,8 +117,15 @@ export default function PortalAccountPage() {
             </label>
             <label>
               State or territory
-              <select value={form.state} onChange={(event) => setForm({ ...form, state: event.target.value as DealerAccount["state"] })}>
-                {DEALER_STATES.map((state) => <option key={state.value} value={state.value}>{state.label}</option>)}
+              <select
+                value={form.state}
+                onChange={(event) => setForm({ ...form, state: event.target.value as DealerAccount["state"] })}
+              >
+                {DEALER_STATES.map((state) => (
+                  <option key={state.value} value={state.value}>
+                    {state.label}
+                  </option>
+                ))}
               </select>
             </label>
             <label>

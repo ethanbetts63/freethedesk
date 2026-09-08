@@ -8,23 +8,28 @@ import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { ServiceScroll } from "@/components/ServiceScroll";
-import { pageMetadata } from "@/lib/seo";
+import { metadataFor } from "@/lib/pages";
+import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
 
 import { SEO_FAQS } from "./_lib/copy";
 import { formatPrice, getSiteSettingsServer } from "@/lib/serverApi";
-import { SeoPlans } from "./_components/SeoPlans";
+import { AiReadinessAudit } from "@/components/marketing/AiReadinessAudit";
+import { GoogleBusinessProfileAudit } from "./_components/GoogleBusinessProfileAudit";
+import { SeoSignup } from "./_components/SeoSignup";
 import { seoServices } from "./_components/seoServices";
 import styles from "./page.module.css";
 
-const TITLE = "Your Next SEO Move, Made Clear";
-const DESCRIPTION = "See what is working, what is holding your website back and where the best search opportunities are.";
-const PATH = "/seo";
-
-export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
+export const metadata: Metadata = metadataFor("/seo");
 
 const pipelineSteps = [
-  ["Machine sweep", "Pre-written crawl code, benchmark data from past projects and pre-planned AI search routines run over your site and your Search Console data."],
-  ["Human judgement", "The machines produce a long list of maybes. We cut what doesn't hold up, and add what only experience catches."],
+  [
+    "Machine sweep",
+    "Pre-written crawl code, benchmark data from past projects and pre-planned AI search routines run over your site and your Search Console data.",
+  ],
+  [
+    "Human judgement",
+    "The machines produce a long list of maybes. We cut what doesn't hold up, and add what only experience catches.",
+  ],
   ["Your report", "What survives becomes a ranked, plain-English list of issues and opportunities."],
 ];
 
@@ -44,7 +49,11 @@ export default async function SeoPage() {
       label: "Human Labour",
       description: "Not AI generated. A real experienced human crafts your report.",
     },
-    { value: "AI", label: "Are you AI ready?", description: "Every report includes our four-point AI readiness check." },
+    {
+      value: "AI",
+      label: "Are you AI ready?",
+      description: "Every report includes our four-point AI readiness check.",
+    },
   ];
 
   const schema = {
@@ -53,7 +62,7 @@ export default async function SeoPage() {
     name: "Quarterly SEO Reports",
     serviceType: "SEO consulting and reporting",
     areaServed: { "@type": "Country", name: "Australia" },
-    provider: { "@type": "Organization", name: "Free the Desk", url: "https://freethedesk.com.au" },
+    provider: { "@type": "Organization", name: "Free the Desk", url: PUBLIC_SITE_URL },
     offers: {
       "@type": "Offer",
       price: settings.seo_quarterly_price,
@@ -69,15 +78,15 @@ export default async function SeoPage() {
 
   return (
     <main className={styles.page}>
-      <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
+      <PageSchema path="/seo" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <Hero
         eyebrow="Practical SEO reporting"
         titleLines={["Data Driven,"]}
         accentTitle="SEO."
         lead="See what's working, what's holding you back and where the best opportunities are."
-        primaryHref="/contact"
-        primaryLabel="Get your first report"
+        primaryHref="#signup"
+        primaryLabel="Choose your plan"
         secondaryHref="#report"
         secondaryLabel="See what you get"
         stages={["Connect", "Study", "Report", "Repeat"]}
@@ -91,21 +100,30 @@ export default async function SeoPage() {
         description={<p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>}
       />
 
-      <section className={`shell ${styles.plansSection}`} id="plans">
-        <p className={styles.label}>02 / Plans</p>
-        <h2>Pick how often you want to hear from us.</h2>
-        <p className={styles.introLead}>Every plan is the same report and the same attention—the cadence is the only variable. Cancel or change any time.</p>
-        <SeoPlans settings={settings} />
-      </section>
+      <SeoSignup settings={settings} />
+
+      <div className={`shell ${styles.auditSection}`}>
+        <GoogleBusinessProfileAudit standalonePrice={formatPrice(settings.gbp_audit_price)} />
+        <AiReadinessAudit standalonePrice={formatPrice(settings.ai_readiness_audit_price)} />
+      </div>
 
       <section className={styles.compareSection}>
         <div className={`shell ${styles.compareInner}`}>
           <div className={styles.compareCopy}>
             <p className={styles.label}>03 / Why it&apos;s cheap</p>
             <h2>Two hours of human judgement. That&apos;s what you&apos;re paying for.</h2>
-            <p>Most of an SEO audit is collection work—crawling pages, pulling data, checking the same hundred things. We&apos;ve automated that, so you don&apos;t pay agency prices for it.</p>
-            <p>It&apos;s the same process we run internally on every website we build. What can&apos;t be automated is deciding what&apos;s actually worth your time—and that&apos;s the two hours you&apos;re buying.</p>
-            <p className={styles.priceHonesty}>Still sounds too cheap? It is. We&apos;re betting some subscribers will eventually want a site built by us.</p>
+            <p>
+              Most of an SEO audit is collection work—crawling pages, pulling data, checking the same hundred things.
+              We&apos;ve automated that, so you don&apos;t pay agency prices for it.
+            </p>
+            <p>
+              It&apos;s the same process we run internally on every website we build. What can&apos;t be automated is
+              deciding what&apos;s actually worth your time—and that&apos;s the two hours you&apos;re buying.
+            </p>
+            <p className={styles.priceHonesty}>
+              Still sounds too cheap? It is. We&apos;re betting some subscribers will eventually want a site built by
+              us.
+            </p>
           </div>
           <div className={styles.pipelineCard}>
             <header className={styles.pipelineHead}>
@@ -115,7 +133,10 @@ export default async function SeoPage() {
               {pipelineSteps.map(([title, body], index) => (
                 <li key={title}>
                   <span>0{index + 1}</span>
-                  <div><h3>{title}</h3><p>{body}</p></div>
+                  <div>
+                    <h3>{title}</h3>
+                    <p>{body}</p>
+                  </div>
                 </li>
               ))}
             </ol>
@@ -130,7 +151,10 @@ export default async function SeoPage() {
       <section className={`shell ${styles.introSection}`}>
         <p className={styles.label}>04 / What recommendations look like</p>
         <h2>The thinking that shows up in every report.</h2>
-        <p className={styles.introLead}>Four examples of the kind of recommendation the report makes—and the standard each one has to meet before it&apos;s allowed to cost you time.</p>
+        <p className={styles.introLead}>
+          Four examples of the kind of recommendation the report makes—and the standard each one has to meet before
+          it&apos;s allowed to cost you time.
+        </p>
       </section>
 
       <section className="shell">
@@ -148,35 +172,57 @@ export default async function SeoPage() {
             <div className={styles.casePhoneFrame}>
               <div className="case-mobile-phone">
                 <span />
-                <div className="case-phone-menu" aria-hidden="true"><i /><i /><i /></div>
-                <Image src="/case-studies/scooter-shop/inventory-mobile.png" alt="Scooter Shop inventory page on mobile" width={390} height={844} />
+                <div className="case-phone-menu" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                </div>
+                <Image
+                  src="/case-studies/scooter-shop/inventory-mobile.png"
+                  alt="Scooter Shop inventory page on mobile"
+                  width={390}
+                  height={844}
+                />
               </div>
             </div>
           </div>
           <div className={styles.caseCopy}>
             <p className={`${styles.label} ${styles.labelLight}`}>05 / Proof this works</p>
             <h2>Scooter Shop, Perth.</h2>
-            <p>Scooter Shop&apos;s website was built the way our reports recommend: fast structured pages, indexable stock, and focused pages for the searches customers actually make—&ldquo;Vespa service Perth&rdquo;, &ldquo;50cc scooters Perth&rdquo;, &ldquo;SYM parts&rdquo;. Google Search Console recorded organic clicks up 200% in 6 months.</p>
-            <p>That&apos;s the loop this service runs on your site: find the gap in the data, build the thing that fills it, then measure whether it earned its place.</p>
+            <p>
+              Scooter Shop&apos;s website was built the way our reports recommend: fast structured pages, indexable
+              stock, and focused pages for the searches customers actually make—&ldquo;Vespa service Perth&rdquo;,
+              &ldquo;50cc scooters Perth&rdquo;, &ldquo;SYM parts&rdquo;. Google Search Console recorded organic clicks
+              up 200% in 6 months.
+            </p>
+            <p>
+              That&apos;s the loop this service runs on your site: find the gap in the data, build the thing that fills
+              it, then measure whether it earned its place.
+            </p>
             <div className={styles.casePoints}>
-              {casePoints.map((point) => <span key={point}>{point}</span>)}
+              {casePoints.map((point) => (
+                <span key={point}>{point}</span>
+              ))}
             </div>
-            <Link href="/portfolio/scooter-shop">Read the full case study <span>→</span></Link>
+            <Link href="/portfolio/scooter-shop">
+              Read the full case study <span>→</span>
+            </Link>
           </div>
         </div>
       </section>
 
-      <Faq
-        eyebrow="06 / Common questions"
-        title="Before you connect your data."
-        items={SEO_FAQS}
-      />
+      <Faq eyebrow="06 / Common questions" title="Before you connect your data." items={SEO_FAQS} />
 
       <section className={`shell ${styles.closing}`}>
         <p className={styles.label}>Start with your own data</p>
         <h2>What is search actually costing you right now?</h2>
-        <p>Connect Google Search Console and your first report arrives within the week—ranked, plain-English, and honest about whether you should keep paying us.</p>
-        <Link href="/contact">Get your first report <span>↗</span></Link>
+        <p>
+          Connect Google Search Console and your first report arrives within the week—ranked, plain-English, and honest
+          about whether you should keep paying us.
+        </p>
+        <Link href="/contact">
+          Get your first report <span>↗</span>
+        </Link>
       </section>
     </main>
   );

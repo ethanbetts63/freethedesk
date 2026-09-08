@@ -92,7 +92,14 @@ function titleCaseSlug(slug: string): string {
  * the brand suffix on top of it, doubling up (e.g. a title that already ends
  * "| Free the Desk" or has its own distinct suffix).
  */
-export function pageMetadata(options: { title: string; description: string; path: string; ogImage?: string; absoluteTitle?: boolean; openGraphType?: "website" | "article" }): Metadata {
+export function pageMetadata(options: {
+  title: string;
+  description: string;
+  path: string;
+  ogImage?: string;
+  absoluteTitle?: boolean;
+  openGraphType?: "website" | "article";
+}): Metadata {
   const canonicalUrl = `${PUBLIC_SITE_URL}${options.path}`;
   const imageUrl = `${PUBLIC_SITE_URL}${options.ogImage ?? DEFAULT_OG_IMAGE}`;
 

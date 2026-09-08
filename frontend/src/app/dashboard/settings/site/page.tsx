@@ -1,9 +1,9 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import type { PriceField } from "@/lib/api";
 import { formatDateTime, getSiteSettings, updateSiteSettings, type SiteSettings } from "@/lib/adminApi";
 
-type PriceField = Exclude<keyof SiteSettings, "updated_at">;
 type FormState = Record<PriceField, string>;
 
 const LICENSING_FIELDS: { field: PriceField; label: string }[] = [
@@ -37,18 +37,22 @@ export default function SiteSettingsPage() {
 
   useEffect(() => {
     getSiteSettings()
-      .then((result) => { setSettings(result); setForm(toForm(result)); })
+      .then((result) => {
+        setSettings(result);
+        setForm(toForm(result));
+      })
       .catch((reason) => setError(reason instanceof Error ? reason.message : "Site settings could not be loaded."))
       .finally(() => setLoading(false));
   }, []);
 
-  const dirty = settings !== null && form !== null
-    && ALL_FIELDS.some(({ field }) => form[field] !== settings[field]);
+  const dirty = settings !== null && form !== null && ALL_FIELDS.some(({ field }) => form[field] !== settings[field]);
 
   async function submit(event: FormEvent) {
     event.preventDefault();
     if (!form) return;
-    setSaving(true); setError(""); setNotice("");
+    setSaving(true);
+    setError("");
+    setNotice("");
     try {
       const updated = await updateSiteSettings(form);
       setSettings(updated);
@@ -61,8 +65,18 @@ export default function SiteSettingsPage() {
     }
   }
 
-  if (loading) return <div className="admin-page"><p className="admin-empty">Loading site settings…</p></div>;
-  if (error && !settings) return <div className="admin-page"><p className="admin-banner admin-banner-error">{error}</p></div>;
+  if (loading)
+    return (
+      <div className="admin-page">
+        <p className="admin-empty">Loading site settings…</p>
+      </div>
+    );
+  if (error && !settings)
+    return (
+      <div className="admin-page">
+        <p className="admin-banner admin-banner-error">{error}</p>
+      </div>
+    );
   if (!settings || !form) return null;
 
   const renderField = ({ field, label }: { field: PriceField; label: string }) => (
@@ -82,7 +96,10 @@ export default function SiteSettingsPage() {
   return (
     <div className="admin-page">
       <header className="admin-page-header">
-        <div><p className="admin-kicker">Site settings</p><h1>Site settings</h1></div>
+        <div>
+          <p className="admin-kicker">Site settings</p>
+          <h1>Site settings</h1>
+        </div>
       </header>
 
       {error && <p className="admin-banner admin-banner-error">{error}</p>}
@@ -92,19 +109,18 @@ export default function SiteSettingsPage() {
         <section className="admin-detail-card admin-detail-wide">
           <h2>Licensing subscription prices</h2>
           <p className="admin-muted">
-            These are the prices shown on the public licensing page and at checkout. All prices are GST inclusive —
-            this is the total a dealer pays each month, with nothing added on top.
+            These are the prices shown on the public licensing page and at checkout. All prices are GST inclusive — this
+            is the total a dealer pays each month, with nothing added on top.
           </p>
-          <div className="admin-compose-form">
-            {LICENSING_FIELDS.map(renderField)}
-          </div>
+          <div className="admin-compose-form">{LICENSING_FIELDS.map(renderField)}</div>
         </section>
 
         <section className="admin-detail-card admin-detail-wide">
           <h2>SEO report prices</h2>
           <p className="admin-muted">
             Prices shown on the public SEO page. Each subscription price is what a customer pays per report at that
-            cadence. The Google Business Profile audit and AI readiness check are one-offs that come free with every report plan.
+            cadence. The Google Business Profile audit and AI readiness check are one-offs that come free with every
+            report plan.
           </p>
           <div className="admin-compose-form">
             {SEO_FIELDS.map(renderField)}

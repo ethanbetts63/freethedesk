@@ -3,9 +3,16 @@
 import { useState } from "react";
 
 import { ConfiguratorControls } from "./ConfiguratorControls";
-import { DEFAULT_INVENTORY_ADDONS, DEFAULT_MODULES, INVENTORY_OPTIONS, MODULES } from "../_lib/configuratorData";
+import { DEFAULT_INVENTORY_ADDONS, DEFAULT_MODULES, summariseSelection } from "../_lib/configuratorData";
 import styles from "../page.module.css";
-import type { Accent, InventoryAddonSelection, InventoryOption, ModuleKey, ModuleSelection, PreviewPage } from "../_lib/types";
+import type {
+  Accent,
+  InventoryAddonSelection,
+  InventoryOption,
+  ModuleKey,
+  ModuleSelection,
+  PreviewPage,
+} from "../_lib/types";
 import { WebsitePreview } from "./WebsitePreview";
 
 export function WebsiteConfigurator() {
@@ -17,9 +24,7 @@ export function WebsiteConfigurator() {
   const [inventoryAddons, setInventoryAddons] = useState<InventoryAddonSelection>(DEFAULT_INVENTORY_ADDONS);
   const [selected, setSelected] = useState<ModuleSelection>(DEFAULT_MODULES);
 
-  const selectedModuleCount = MODULES.filter((module) => selected[module.key]).length;
-  const inventoryAddonCount = selected.inventory ? INVENTORY_OPTIONS.filter((option) => inventoryAddons[option.key]).length : 0;
-  const additionCount = selectedModuleCount + inventoryAddonCount + Number(customRequest.trim().length > 0);
+  const { additionCount } = summariseSelection(selected, inventoryAddons, customRequest);
 
   const toggleModule = (key: ModuleKey) => {
     const willSelect = !selected[key];
@@ -41,8 +46,30 @@ export function WebsiteConfigurator() {
   return (
     <main className={styles.page}>
       <div className={styles.builder}>
-        <WebsitePreview accent={accent} brandName={brandName} currentUrl={currentUrl} selected={selected} inventoryAddons={inventoryAddons} previewPage={previewPage} additionCount={additionCount} onPageChange={setPreviewPage} />
-        <ConfiguratorControls accent={accent} brandName={brandName} currentUrl={currentUrl} customRequest={customRequest} selected={selected} inventoryAddons={inventoryAddons} onAccentChange={setAccent} onBrandNameChange={setBrandName} onCurrentUrlChange={setCurrentUrl} onCustomRequestChange={setCustomRequest} onModuleToggle={toggleModule} onInventoryAddonToggle={toggleInventoryAddon} />
+        <WebsitePreview
+          accent={accent}
+          brandName={brandName}
+          currentUrl={currentUrl}
+          selected={selected}
+          inventoryAddons={inventoryAddons}
+          previewPage={previewPage}
+          additionCount={additionCount}
+          onPageChange={setPreviewPage}
+        />
+        <ConfiguratorControls
+          accent={accent}
+          brandName={brandName}
+          currentUrl={currentUrl}
+          customRequest={customRequest}
+          selected={selected}
+          inventoryAddons={inventoryAddons}
+          onAccentChange={setAccent}
+          onBrandNameChange={setBrandName}
+          onCurrentUrlChange={setCurrentUrl}
+          onCustomRequestChange={setCustomRequest}
+          onModuleToggle={toggleModule}
+          onInventoryAddonToggle={toggleInventoryAddon}
+        />
       </div>
     </main>
   );

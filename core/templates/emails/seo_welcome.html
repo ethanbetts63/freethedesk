@@ -1,0 +1,14 @@
+{% extends "emails/base.html" %}
+
+{% block title %}Your SEO account is ready — Free the Desk{% endblock %}
+{% block preheader %}Your Free the Desk SEO login has been created.{% endblock %}
+
+{% block content %}
+<p style="margin: 0 0 20px; font-size: 18px; font-weight: 700;">Thanks, {{ subscriber.contact_name }}.</p>
+
+<p style="margin: 0 0 20px;">Your account for <strong>{{ subscriber.business_name }}</strong> is ready.</p>
+
+<p style="margin: 0 0 20px;">Selected plan: <strong>{{ subscriber.get_plan_display }}</strong>.</p>
+<p style="margin: 0 0 20px;"><a href="{{ payment_url }}">Continue to secure payment</a>.</p>
+<p style="margin: 0 0 8px;">Once Stripe confirms payment, you can connect your Search Console data and tell us what to focus the reporting on.</p>
+{% endblock %}

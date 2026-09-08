@@ -13,11 +13,7 @@ export function generateStaticParams() {
   return getAllArticleSlugs().map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
 
@@ -33,11 +29,7 @@ export async function generateMetadata({
   });
 }
 
-export default async function ArticlePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
   if (!article) notFound();
@@ -55,10 +47,7 @@ export default async function ArticlePage({
 
   return (
     <main>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <ArticleView article={article} />
     </main>
   );
@@ -77,9 +66,13 @@ function ArticleView({ article }: { article: Article }) {
       <header className={styles.hero}>
         <div className={`shell ${styles.heroInner}`}>
           <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-            <Link href="/">Home</Link><span>/</span><Link href="/guides">Guides</Link>
+            <Link href="/">Home</Link>
+            <span>/</span>
+            <Link href="/guides">Guides</Link>
           </nav>
-          <p className={styles.eyebrow}><span /> Dealer field notes</p>
+          <p className={styles.eyebrow}>
+            <span /> Dealer field notes
+          </p>
           <h1>{article.title}</h1>
           <p className={styles.intro}>{article.excerpt}</p>
           <p className={styles.byline}>
@@ -102,7 +95,9 @@ function ArticleView({ article }: { article: Article }) {
       <section className={styles.returnSection}>
         <div className={`shell ${styles.returnInner}`}>
           <p>Keep exploring</p>
-          <Link href="/guides">Back to all guides <span aria-hidden="true">→</span></Link>
+          <Link href="/guides">
+            Back to all guides <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </section>
     </>

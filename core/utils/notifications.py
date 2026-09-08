@@ -15,11 +15,13 @@ logger = logging.getLogger(__name__)
 DEFAULT_EMAIL_TEMPLATE = "notifications/admin_notification"
 
 
-def resolve_recipient(recipient_type: str, *, dealer=None, email: str = "", phone: str = "") -> tuple[str, str]:
+def resolve_recipient(
+    recipient_type: str, *, dealer=None, subscriber=None, email: str = "", phone: str = ""
+) -> tuple[str, str]:
     """Map a recipient type to an (email, phone) pair.
 
     Keeps callers from hardcoding addresses, which matters now that the same
-    delivery path serves staff, dealers and — from phase 3 — customers.
+    delivery path serves staff, dealers and SEO customers.
     """
     if recipient_type == Notification.RecipientType.ADMIN:
         return settings.ADMIN_EMAIL or "", settings.ADMIN_NUMBER or ""
@@ -27,6 +29,10 @@ def resolve_recipient(recipient_type: str, *, dealer=None, email: str = "", phon
         if dealer is None:
             return "", ""
         return dealer.user.email or "", dealer.phone or ""
+    if recipient_type == Notification.RecipientType.SEO:
+        if subscriber is None:
+            return "", ""
+        return subscriber.user.email or "", subscriber.phone or ""
     return email or "", phone or ""
 
 
@@ -101,11 +107,14 @@ def send_notification(notification: Notification, attachments=None, template=Non
     return notification
 
 
-def notify_admin_via_channels(channel_messages, *, related_enquiry=None, related_dealer=None, template=None, context=None) -> list[Notification]:
+def notify_admin_via_channels(
+    channel_messages, *, related_enquiry=None, related_dealer=None,
+    related_seo_subscriber=None, template=None, context=None,
+) -> list[Notification]:
     """Create and send one ``Notification`` per ``(channel, recipient, subject, body)`` tuple.
 
-    Shared by the "tell staff by email and SMS" pattern used for both new
-    enquiries and new dealer signups.
+    Shared by the "tell staff by email and SMS" pattern used for new enquiries,
+    dealer signups and SEO signups.
     """
     notifications = []
     for channel, recipient, subject, body in channel_messages:
@@ -117,6 +126,7 @@ def notify_admin_via_channels(channel_messages, *, related_enquiry=None, related
             body=body,
             related_enquiry=related_enquiry,
             related_dealer=related_dealer,
+            related_seo_subscriber=related_seo_subscriber,
         )
         notifications.append(send_notification(notification, template=template, context=context))
     return notifications

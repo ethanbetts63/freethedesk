@@ -1,8 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { marked } from "marked";
-
-import { getArticlePageMeta } from "@/lib/articleMeta";
+import { renderMarkdown } from "./markdown";
 
 const ARTICLES_DIR = path.join(process.cwd(), "content", "articles");
 const EXCLUDED_FILES = new Set(["overview.md"]);
@@ -41,13 +39,6 @@ function extractExcerpt(markdown: string): string {
     .slice(0, 180);
 }
 
-function markExternalLinks(html: string): string {
-  return html.replace(
-    /<a href="(https?:\/\/[^\"]+)"/g,
-    '<a href="$1" target="_blank" rel="nofollow noopener noreferrer"',
-  );
-}
-
 function articleFilenames(): string[] {
   if (!fs.existsSync(ARTICLES_DIR)) return [];
 
@@ -62,14 +53,13 @@ function buildArticleMeta(filename: string): ArticleMeta {
   const filepath = path.join(ARTICLES_DIR, filename);
   const markdown = fs.readFileSync(filepath, "utf8");
   const stat = fs.statSync(filepath);
-  const pageMeta = getArticlePageMeta(slug);
 
   return {
     slug,
-    title: pageMeta?.title ?? extractTitle(markdown),
-    excerpt: pageMeta?.description ?? extractExcerpt(markdown),
+    title: extractTitle(markdown),
+    excerpt: extractExcerpt(markdown),
     authorName: AUTHOR_NAME,
-    publishedDate: pageMeta?.publishedDate ?? stat.birthtime.toISOString().split("T")[0],
+    publishedDate: stat.birthtime.toISOString().split("T")[0],
     lastModified: stat.mtime.toISOString().split("T")[0],
   };
 }
@@ -95,7 +85,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
 
   const markdown = fs.readFileSync(filepath, "utf8");
   const articleBody = markdown.replace(/^#\s+.+(?:\r?\n)+/, "");
-  const html = markExternalLinks(await marked(articleBody, { gfm: true }));
+  const html = await renderMarkdown(articleBody);
 
   return {
     ...buildArticleMeta(filename),

@@ -50,11 +50,18 @@ function PaymentForm({ planName }: { planName: string }) {
       </div>
       <PaymentElement />
       <p className={styles.paymentFineprint}>The selected offer and accepted terms are recorded with this checkout.</p>
-      {error && <p className={styles.paymentError} role="alert">{error}</p>}
+      {error && (
+        <p className={styles.paymentError} role="alert">
+          {error}
+        </p>
+      )}
       <button type="submit" className={styles.payButton} disabled={!result.checkout.canConfirm || submitting}>
-        <span>{submitting ? "Confirming…" : "Start subscription"}</span><b>→</b>
+        <span>{submitting ? "Confirming…" : "Start subscription"}</span>
+        <b>→</b>
       </button>
-      <p className={styles.paymentFineprint}>Prices include GST. Your account opens immediately after Stripe confirms payment.</p>
+      <p className={styles.paymentFineprint}>
+        Prices include GST. Your account opens immediately after Stripe confirms payment.
+      </p>
     </form>
   );
 }
@@ -117,9 +124,13 @@ export function SubscriptionPaymentPage() {
   return (
     <main className={styles.checkoutPage}>
       <section className={styles.summarySide}>
-        <div className={styles.signal}><SignalFlow /></div>
+        <div className={styles.signal}>
+          <SignalFlow />
+        </div>
         <div className={styles.summaryContent}>
-          <Link className={styles.brand} href="/">free<span>the</span>desk<i>.</i></Link>
+          <Link className={styles.brand} href="/">
+            free<span>the</span>desk<i>.</i>
+          </Link>
           <div className={styles.summaryCopy}>
             <p>Selected product</p>
             <h1>{plan?.name ?? "Your subscription"}</h1>
@@ -127,9 +138,20 @@ export function SubscriptionPaymentPage() {
           </div>
           {plan && (
             <div className={styles.orderSummary}>
-              <div><span>Monthly subscription</span><strong>{displayedPrice}</strong></div>
-              <div><span>GST</span><strong>Included</strong></div>
-              <div className={styles.orderTotal}><span>Due monthly</span><strong>{displayedPrice} <small>GST inc.</small></strong></div>
+              <div>
+                <span>Monthly subscription</span>
+                <strong>{displayedPrice}</strong>
+              </div>
+              <div>
+                <span>GST</span>
+                <strong>Included</strong>
+              </div>
+              <div className={styles.orderTotal}>
+                <span>Due monthly</span>
+                <strong>
+                  {displayedPrice} <small>GST inc.</small>
+                </strong>
+              </div>
             </div>
           )}
         </div>
@@ -138,8 +160,12 @@ export function SubscriptionPaymentPage() {
       <section className={styles.paymentSide}>
         {error ? (
           <div className={styles.checkoutState}>
-            <span>Checkout unavailable</span><h2>We could not load payment.</h2><p>{error}</p>
-            <button type="button" onClick={() => window.location.reload()}>Try again</button>
+            <span>Checkout unavailable</span>
+            <h2>We could not load payment.</h2>
+            <p>{error}</p>
+            <button type="button" onClick={() => window.location.reload()}>
+              Try again
+            </button>
           </div>
         ) : clientSecret && plan ? (
           <CheckoutElementsProvider
@@ -149,7 +175,12 @@ export function SubscriptionPaymentPage() {
               elementsOptions: {
                 appearance: {
                   theme: "stripe",
-                  variables: { colorPrimary: STRIPE_ACCENT, colorText: "#0d1c29", borderRadius: "0px", fontFamily: "Arial, sans-serif" },
+                  variables: {
+                    colorPrimary: STRIPE_ACCENT,
+                    colorText: "#0d1c29",
+                    borderRadius: "0px",
+                    fontFamily: "Arial, sans-serif",
+                  },
                 },
               },
             }}
@@ -164,15 +195,34 @@ export function SubscriptionPaymentPage() {
               <p>Your GST-inclusive monthly price and the exact terms accepted are saved with this checkout.</p>
             </div>
             <label className={styles.consent}>
-              <input type="checkbox" checked={termsAccepted} onChange={(event) => setTermsAccepted(event.target.checked)} />
-              <span>I agree to the <Link href="/legal/dealer-subscription-terms" target="_blank">Dealer Subscription Terms</Link>, acknowledge the <Link href="/legal/privacy" target="_blank">Privacy Policy</Link>, and authorise this monthly subscription.</span>
+              <input
+                type="checkbox"
+                checked={termsAccepted}
+                onChange={(event) => setTermsAccepted(event.target.checked)}
+              />
+              <span>
+                I agree to the{" "}
+                <Link href="/legal/dealer-subscription-terms" target="_blank">
+                  Dealer Subscription Terms
+                </Link>
+                , acknowledge the{" "}
+                <Link href="/legal/privacy" target="_blank">
+                  Privacy Policy
+                </Link>
+                , and authorise this monthly subscription.
+              </span>
             </label>
             <button type="submit" className={styles.payButton} disabled={!termsAccepted || preparing}>
-              <span>{preparing ? "Preparing secure payment…" : "Continue to secure payment"}</span><b>→</b>
+              <span>{preparing ? "Preparing secure payment…" : "Continue to secure payment"}</span>
+              <b>→</b>
             </button>
           </form>
         ) : (
-          <div className={styles.checkoutState}><span>Secure checkout</span><h2>Preparing payment…</h2><p>Connecting your dealer account to Stripe.</p></div>
+          <div className={styles.checkoutState}>
+            <span>Secure checkout</span>
+            <h2>Preparing payment…</h2>
+            <p>Connecting your dealer account to Stripe.</p>
+          </div>
         )}
       </section>
     </main>

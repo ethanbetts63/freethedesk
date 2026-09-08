@@ -11,12 +11,16 @@ export function LoginPreviewPhone() {
     <div className={styles.phoneMock} aria-hidden="true">
       <div className={styles.phoneMockNotch} />
       <div className={styles.phoneMockScreen}>
-        <div className={styles.loginPhoneNetwork}><SignalFlow /></div>
+        <div className={styles.loginPhoneNetwork}>
+          <SignalFlow />
+        </div>
         <div className={styles.loginPhoneGrid} />
         <div className={styles.loginPhoneCard}>
           <p className={styles.loginPhoneBrand}>
             <Image className={styles.loginPhoneBrandImage} src="/logo-192x192.png" alt="" width={16} height={16} />
-            <span className={styles.loginPhoneBrandText}>free<span>the</span>desk<b>.</b></span>
+            <span className={styles.loginPhoneBrandText}>
+              free<span>the</span>desk<b>.</b>
+            </span>
           </p>
           <p className={styles.loginPhoneHeading}>Welcome back</p>
           <div className={styles.loginPhoneField} />

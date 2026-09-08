@@ -33,13 +33,16 @@ class AdminNotificationListView(ListAPIView):
 
     def get_queryset(self):
         params = self.request.query_params
-        queryset = Notification.objects.select_related("related_enquiry", "related_dealer")
+        queryset = Notification.objects.select_related("related_enquiry", "related_dealer", "related_seo_subscriber")
         related_enquiry = params.get("related_enquiry", "").strip()
         if related_enquiry.isdigit():
             queryset = queryset.filter(related_enquiry_id=int(related_enquiry))
         related_dealer = params.get("related_dealer", "").strip()
         if related_dealer.isdigit():
             queryset = queryset.filter(related_dealer_id=int(related_dealer))
+        related_seo_subscriber = params.get("related_seo_subscriber", "").strip()
+        if related_seo_subscriber.isdigit():
+            queryset = queryset.filter(related_seo_subscriber_id=int(related_seo_subscriber))
         for field in ("status", "channel", "recipient_type"):
             value = params.get(field, "").strip()
             if value:
@@ -58,7 +61,7 @@ class AdminNotificationListView(ListAPIView):
 class AdminNotificationDetailView(RetrieveAPIView):
     permission_classes = [IsAdminUser]
     serializer_class = AdminNotificationSerializer
-    queryset = Notification.objects.select_related("related_enquiry", "related_dealer")
+    queryset = Notification.objects.select_related("related_enquiry", "related_dealer", "related_seo_subscriber")
 
 
 class AdminComposeMessageView(APIView):

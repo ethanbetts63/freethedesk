@@ -1,0 +1,7 @@
+Thanks, {{ subscriber.contact_name }}. Your account for {{ subscriber.business_name }} is ready.
+
+Selected plan: {{ subscriber.get_plan_display }}
+
+Continue to secure payment: {{ payment_url }}
+
+Once Stripe confirms payment, you can connect your Search Console data and tell us what to focus the reporting on.

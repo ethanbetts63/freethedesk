@@ -7,29 +7,29 @@ import { Faq } from "@/components/Faq";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
-import { pageMetadata } from "@/lib/seo";
+import { metadataFor } from "@/lib/pages";
 
 import { AUTOMATION_FAQS } from "./_lib/copy";
 import { ServiceScroll } from "@/components/ServiceScroll";
 import { automationServices } from "./_components/automationServices";
 import styles from "./page.module.css";
 
-const TITLE = "Automate Boring Away";
-const DESCRIPTION = "Practical workflow automation and custom integrations for Australian small and medium businesses.";
-const PATH = "/automation";
-
-export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
+export const metadata: Metadata = metadataFor("/automation");
 
 const automationStats: ProofStat[] = [
   { value: "36%", label: "Of the work week", description: "Time small business owners lose to manual admin tasks." },
   { value: "0", label: "Times re-keyed", description: "Information entered once, reused everywhere it's needed." },
-  { value: "AI", label: "Automation like never before", description: "What AI can automate has grown fast. Get ahead of the curve." },
+  {
+    value: "AI",
+    label: "Automation like never before",
+    description: "What AI can automate has grown fast. Get ahead of the curve.",
+  },
 ];
 
 export default function AutomationPage() {
   return (
     <main>
-      <PageSchema title={TITLE} description={DESCRIPTION} path={PATH} />
+      <PageSchema path="/automation" />
       <Hero
         eyebrow="Automate Boring Away"
         titleLines={["Less repetition."]}
@@ -68,14 +68,27 @@ export default function AutomationPage() {
       <section className="approach-section">
         <div className="shell approach-inner">
           <p className="section-number section-number-light">02 / Our approach</p>
-          <h2>Start small.<br /><span className="moving-colour-text">Dream big.</span></h2>
-          <p className="approach-lead">Every business has more automation opportunities than time. We start with the simplest ones—fast to prove, low risk, and the quickest way to learn how your business works—then take on the bigger, higher-impact projects.</p>
+          <h2>
+            Start small.
+            <br />
+            <span className="moving-colour-text">Dream big.</span>
+          </h2>
+          <p className="approach-lead">
+            Every business has more automation opportunities than time. We start with the simplest ones—fast to prove,
+            low risk, and the quickest way to learn how your business works—then take on the bigger, higher-impact
+            projects.
+          </p>
           <ol className="approach-steps">
             <li className="approach-step">
               <div className="approach-step-rail">
                 <span className="approach-step-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-                    <path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" />
+                    <path
+                      d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"
+                      stroke="#fff"
+                      strokeWidth="1.6"
+                      strokeLinejoin="round"
+                    />
                     <circle cx="12" cy="9.5" r="2.4" stroke="#fff" strokeWidth="1.6" />
                   </svg>
                 </span>
@@ -91,7 +104,13 @@ export default function AutomationPage() {
               <div className="approach-step-rail">
                 <span className="approach-step-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-                    <path d="M14.7 6.3a3.5 3.5 0 0 0-4.6 4.6L4 17l3 3 6.1-6.1a3.5 3.5 0 0 0 4.6-4.6l-2.3 2.3-2-2 2.3-2.3Z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" />
+                    <path
+                      d="M14.7 6.3a3.5 3.5 0 0 0-4.6 4.6L4 17l3 3 6.1-6.1a3.5 3.5 0 0 0 4.6-4.6l-2.3 2.3-2-2 2.3-2.3Z"
+                      stroke="#fff"
+                      strokeWidth="1.6"
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                    />
                   </svg>
                 </span>
                 <span className="approach-step-line" />
@@ -123,14 +142,9 @@ export default function AutomationPage() {
         </div>
       </section>
 
-      <Faq
-        eyebrow="03 / Common questions"
-        title="Before we start."
-        items={AUTOMATION_FAQS}
-      />
+      <Faq eyebrow="03 / Common questions" title="Before we start." items={AUTOMATION_FAQS} />
 
       <ManualAdminCta href="#enquiry" />
     </main>
   );
 }
-
