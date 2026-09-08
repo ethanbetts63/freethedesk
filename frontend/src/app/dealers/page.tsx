@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { Faq } from "@/components/Faq";
+import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { metadataFor } from "@/lib/pages";
@@ -57,6 +58,7 @@ export default function Dealers() {
       <DealershipAutomation />
       <ProjectEnquiry />
       <Faq eyebrow="Common questions" title="Before you get in touch." items={DEALER_FAQS} />
+      <ManualAdminCta href="#project-enquiry" />
     </main>
   );
 }

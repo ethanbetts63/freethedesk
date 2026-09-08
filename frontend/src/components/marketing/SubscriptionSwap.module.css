@@ -1,4 +1,3 @@
-                                                                                  
 .section {
   padding-bottom: var(--section-space);
   padding-top: 0;
@@ -8,7 +7,7 @@
   max-width: 860px;
 }
 .label {
-  color: var(--page-accent);
+  color: var(--page-accent, var(--brand-accent));
   font-size: 0.68rem;
   font-weight: 900;
   letter-spacing: 0.14em;
@@ -41,7 +40,7 @@
   padding: 30px 28px 32px;
 }
 .stepIndex {
-  color: var(--page-accent);
+  color: var(--page-accent, var(--brand-accent));
   display: block;
   font-size: 0.72rem;
   font-weight: 900;

@@ -53,6 +53,7 @@ export function ProjectEnquiry({
         website: normaliseWebsiteUrl(value("website")),
         email: value("email"),
         phone: value("phone"),
+        notes: value("notes"),
         company_website: value("company_website"),
       });
       form.reset();
@@ -71,8 +72,7 @@ export function ProjectEnquiry({
           <p className={styles.eyebrow}>{eyebrow}</p>
           <h2>Tell us your budget.</h2>
           <p className={styles.lead}>
-            We&apos;ll tell you what we could build for it—honestly, including when the answer is that it is not enough
-            yet.
+            We&apos;ll tell you what we could build for it.
           </p>
 
           <div className={styles.choiceGroup}>
@@ -90,7 +90,7 @@ export function ProjectEnquiry({
                   onClick={() => setProjectType(option.code)}
                 >
                   <span>{option.name}</span>
-                  {option.code === "both" && <small className="moving-colour-text">Most common</small>}
+                  {option.code === "both" && <small className="moving-colour-text">recommended</small>}
                 </button>
               ))}
             </div>
@@ -129,7 +129,6 @@ export function ProjectEnquiry({
           <div className={styles.total} aria-live="polite">
             <div>
               <strong className="moving-colour-text">{budgetLabel}</strong>
-              <small>starting point, not a quote</small>
             </div>
             <span>{SUMMARY[projectType]}</span>
           </div>
@@ -137,8 +136,8 @@ export function ProjectEnquiry({
 
         <form className={styles.form} onSubmit={send}>
           <div className={styles.formTitle}>
-            <h3>Send your enquiry.</h3>
             <span className={styles.pill}>No commitment</span>
+            <h3>Send your enquiry.</h3>
           </div>
 
           {status === "success" ? (
@@ -172,6 +171,15 @@ export function ProjectEnquiry({
                   placeholder="e.g. www.yoursite.com"
                   autoComplete="url"
                   required
+                />
+              </label>
+              <label>
+                <span>Notes (optional)</span>
+                <textarea
+                  name="notes"
+                  rows={3}
+                  maxLength={2000}
+                  placeholder="Anything else we should know about the project?"
                 />
               </label>
               {error && (

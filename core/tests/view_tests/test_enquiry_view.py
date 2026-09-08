@@ -193,6 +193,7 @@ def test_project_enquiry_records_the_scope_and_budget(api_client):
             "website": "https://www.example.com.au",
             "email": "owner@example.com.au",
             "phone": "0400 000 000",
+            "notes": "We want enquiries routed to different teams by location.",
         },
         format="json",
     )
@@ -203,6 +204,7 @@ def test_project_enquiry_records_the_scope_and_budget(api_client):
     assert enquiry.business == "example.com.au"
     assert enquiry.configuration == {"project_type": "both", "budget": "$3,000"}
     assert "Budget: $3,000." in enquiry.message
+    assert "Notes:\nWe want enquiries routed to different teams by location." in enquiry.message
     assert Notification.objects.count() == 2
 
 
@@ -223,6 +225,7 @@ def test_project_enquiry_accepts_a_custom_budget_without_a_phone_number(api_clie
     assert enquiry.help_with == Enquiry.HelpWith.AUTOMATION
     assert enquiry.phone == ""
     assert enquiry.configuration["budget"] == "Around 12k, flexible"
+    assert "Notes:" not in enquiry.message
 
 
 def test_project_enquiry_rejects_an_unknown_project_type(api_client):

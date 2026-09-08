@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { ApproachSection, type ApproachStep } from "@/components/ApproachSection";
+import { AutomationMeaning } from "@/components/marketing/AutomationMeaning";
 import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
@@ -85,21 +86,28 @@ export default function AutomationPage() {
 
       <ProofStrip stats={automationStats} />
 
+      <AutomationMeaning
+        eyebrow="01 / What automation means"
+        description="Automation means the systems you already use handle repetitive work—capturing details, moving information, sending follow-ups and keeping work moving without someone doing it by hand."
+        primaryHref="#enquiry"
+        primaryLabel="Find your first automation"
+        panelTitle="Your business"
+      />
+
       <section className="shell" id="workflows">
         <ServiceScroll
           services={automationServices}
           customHref="#enquiry"
-          eyebrow="01 / Practical automation"
+          eyebrow="02 / Practical automation"
           title="What gets copied, chased or checked every week?"
           ctaLabel="Find your first automation"
         />
       </section>
 
       <ApproachSection
-        eyebrow="02 / Our approach"
+        eyebrow="03 / Our approach"
         title="Start small."
         accentTitle="Dream big."
-        lead="Every business has more automation opportunities than time. We start with the simplest ones—fast to prove, low risk, and the quickest way to learn how your business works—then take on the bigger, higher-impact projects."
         steps={approachSteps}
         ctaHref="#enquiry"
         ctaLabel="Find your first automation"
@@ -107,7 +115,7 @@ export default function AutomationPage() {
 
       <ProjectEnquiry id="enquiry" />
 
-      <Faq eyebrow="03 / Common questions" title="Before we start." items={AUTOMATION_FAQS} />
+      <Faq eyebrow="04 / Common questions" title="Before we start." items={AUTOMATION_FAQS} />
 
       <ManualAdminCta href="#enquiry" />
     </main>

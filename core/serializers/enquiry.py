@@ -64,11 +64,16 @@ class ProjectEnquirySerializer(serializers.Serializer):
     website = serializers.URLField()
     email = serializers.EmailField()
     phone = serializers.CharField(max_length=40, required=False, allow_blank=True, default="")
+    notes = serializers.CharField(max_length=2000, required=False, allow_blank=True, default="")
 
     def create(self, validated_data):
         project_type = validated_data["project_type"]
         budget = validated_data["budget"].strip()
+        notes = validated_data["notes"].strip()
         hostname = urlsplit(validated_data["website"]).hostname or ""
+        message = f"{self.PROJECT_LABELS[project_type]} enquiry. Budget: {budget}."
+        if notes:
+            message = f"{message}\n\nNotes:\n{notes}"
         return Enquiry.objects.create(
             name="Website owner",
             business=hostname.removeprefix("www."),
@@ -76,7 +81,7 @@ class ProjectEnquirySerializer(serializers.Serializer):
             phone=validated_data["phone"],
             website=validated_data["website"],
             help_with=self.HELP_WITH_BY_TYPE[project_type],
-            message=f"{self.PROJECT_LABELS[project_type]} enquiry. Budget: {budget}.",
+            message=message,
             configuration={"project_type": project_type, "budget": budget},
         )
 

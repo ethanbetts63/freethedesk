@@ -12,13 +12,12 @@ type ApproachSectionProps = {
   eyebrow: string;
   title: string;
   accentTitle: string;
-  lead: string;
   steps: readonly ApproachStep[];
   ctaHref: string;
   ctaLabel: string;
 };
 
-export function ApproachSection({ eyebrow, title, accentTitle, lead, steps, ctaHref, ctaLabel }: ApproachSectionProps) {
+export function ApproachSection({ eyebrow, title, accentTitle, steps, ctaHref, ctaLabel }: ApproachSectionProps) {
   return (
     <section className="approach-section">
       <div className="shell approach-inner">
@@ -28,7 +27,6 @@ export function ApproachSection({ eyebrow, title, accentTitle, lead, steps, ctaH
           <br />
           <span className="moving-colour-text">{accentTitle}</span>
         </h2>
-        <p className="approach-lead">{lead}</p>
         <ol className="approach-steps">
           {steps.map(({ title: stepTitle, description, icon }, index) => (
             <li className="approach-step" key={stepTitle}>

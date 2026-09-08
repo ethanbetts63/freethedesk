@@ -265,6 +265,7 @@ export interface ProjectEnquiryPayload {
   website: string;
   email: string;
   phone?: string;
+  notes?: string;
   company_website?: string;
 }
 

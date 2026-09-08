@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 
 import styles from "./SeoReportOverview.module.css";
 
-                                                                                                         
 const reportSections = [
   {
     title: "Last period tracked",
@@ -65,9 +64,16 @@ type SeoReportOverviewProps = {
   description: ReactNode;
   id?: string;
   className?: string;
+  showSequence?: boolean;
 };
 
-export function SeoReportOverview({ eyebrow, description, id, className = "" }: SeoReportOverviewProps) {
+export function SeoReportOverview({
+  eyebrow,
+  description,
+  id,
+  className = "",
+  showSequence = true,
+}: SeoReportOverviewProps) {
   return (
     <section className={`shell ${styles.reportSection} ${className}`} id={id}>
       <div className={styles.reportCopy}>
@@ -78,15 +84,17 @@ export function SeoReportOverview({ eyebrow, description, id, className = "" }: 
           <span>Four sections.</span>
         </h2>
         <div className={styles.description}>{description}</div>
-        <div className={styles.reportSequence} aria-hidden="true">
-          <span>01</span>
-          <i />
-          <span>02</span>
-          <i />
-          <span>03</span>
-          <i />
-          <span>04</span>
-        </div>
+        {showSequence && (
+          <div className={styles.reportSequence} aria-hidden="true">
+            <span>01</span>
+            <i />
+            <span>02</span>
+            <i />
+            <span>03</span>
+            <i />
+            <span>04</span>
+          </div>
+        )}
       </div>
 
       <div className={styles.reportCard}>

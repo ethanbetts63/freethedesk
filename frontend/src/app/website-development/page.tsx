@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { ApproachSection, type ApproachStep } from "@/components/ApproachSection";
 import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
-import { SubscriptionSwap } from "./_components/SubscriptionSwap";
+import { AutomationMeaning } from "@/components/marketing/AutomationMeaning";
 import { Hero } from "@/components/marketing/Hero";
 import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
+import { SubscriptionSwap } from "@/components/marketing/SubscriptionSwap";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
 import { PrimaryButton } from "@/components/PrimaryButton";
@@ -34,66 +34,6 @@ const websiteDevStats: ProofStat[] = [
 ];
 
 export const metadata: Metadata = metadataFor("/website-development");
-
-const process: [string, string][] = [
-  [
-    "Understand",
-    "We learn the offer, audience, existing systems and commercial goal before deciding what belongs in the build.",
-  ],
-  [
-    "Design",
-    "We shape the structure and important interactions first, with mobile treated as the main experience—not an afterthought.",
-  ],
-  ["Build", "We develop the production site, connect the necessary systems and test the complete customer journey."],
-  [
-    "Improve",
-    "Launch is the start of useful evidence. We monitor, maintain and refine the site from how people actually use it.",
-  ],
-];
-
-const processIcons = [
-  <svg key="understand" viewBox="0 0 24 24" width="24" height="24" fill="none">
-    <circle cx="10" cy="10" r="6" stroke="#fff" strokeWidth="1.6" />
-    <path d="M14.5 14.5 20 20" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
-  </svg>,
-  <svg key="design" viewBox="0 0 24 24" width="24" height="24" fill="none">
-    <path
-      d="M4 20l1-4L15 6l3 3-10 10-4 1Z"
-      stroke="#fff"
-      strokeWidth="1.6"
-      strokeLinejoin="round"
-      strokeLinecap="round"
-    />
-  </svg>,
-  <svg key="build" viewBox="0 0 24 24" width="24" height="24" fill="none">
-    <path
-      d="M14.7 6.3a3.5 3.5 0 0 0-4.6 4.6L4 17l3 3 6.1-6.1a3.5 3.5 0 0 0 4.6-4.6l-2.3 2.3-2-2 2.3-2.3Z"
-      stroke="#fff"
-      strokeWidth="1.6"
-      strokeLinejoin="round"
-      strokeLinecap="round"
-    />
-  </svg>,
-  <svg key="improve" viewBox="0 0 24 24" width="24" height="24" fill="none">
-    <path d="M4 17l5-5 4 4 7-7" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M15 8h5v5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>,
-];
-
-const processSteps: ApproachStep[] = process.map(([title, description], index) => ({
-  title,
-  description,
-  icon: processIcons[index],
-}));
-
-const automationJobs = [
-  "Lead capture & routing",
-  "Customer onboarding",
-  "Booking & reminders",
-  "CRM & system sync",
-  "Invoicing & payments",
-  "Document generation",
-];
 
 const casePoints = ["Indexable stock", "Intent-focused pages", "Structured data", "Measured in Search Console"];
 
@@ -171,8 +111,8 @@ export default function WebsiteDevelopmentPage() {
           <p className={styles.label}>01 / Conversion funnels</p>
           <h2>Make the next step obvious.</h2>
           <p>
-            A good funnel does not pressure people into acting. It removes the uncertainty, unnecessary choices and
-            repeated effort between arriving with intent and completing the thing they came to do.
+            A good funnel doesn&apos;t pressure people. It removes the uncertainty, unnecessary choices and repeated
+            effort between arriving with intent and completing the thing they came to do.
           </p>
           <ul>
             <li>One clear action at every stage</li>
@@ -185,54 +125,17 @@ export default function WebsiteDevelopmentPage() {
         </div>
       </section>
 
-      <section className={`shell ${styles.introSection}`}>
-        <div className={styles.pitch}>
-          <div className={styles.pitchCopy}>
-            <p className={styles.label}>02 / What automation means</p>
-            <h2>Automate admin.</h2>
-            <p className={styles.pitchIntro}>
-              Automation means your website handles the repetitive work around each customer—capturing details, moving
-              them between systems, sending follow-ups and keeping the next step moving without someone doing it by
-              hand.
-            </p>
-            <div className={styles.pitchActions}>
-              <PrimaryButton href="#enquiry" direction="down">
-                Discuss your website
-              </PrimaryButton>
-              <Link href="/automation">
-                Want to know more about automation? <span aria-hidden="true">↗</span>
-              </Link>
-            </div>
-          </div>
+      <AutomationMeaning
+        eyebrow="02 / What automation means"
+        description="Automation means your website handles the repetitive work around each customer—capturing details, moving them between systems, sending follow-ups and keeping the next step moving without someone doing it by hand."
+        primaryHref="#enquiry"
+        primaryLabel="Discuss your website"
+        panelTitle="Your website"
+        secondaryHref="/automation"
+        secondaryLabel="Want to know more about automation?"
+      />
 
-          <div className={styles.pitchPanel} aria-label="Automation jobs your website can run">
-            <header className={styles.pitchPanelHead}>
-              <div>
-                <span className={styles.pitchPanelDot} aria-hidden="true" />
-                <span>
-                  <small>Runs in the background</small>
-                  <strong>Your website</strong>
-                </span>
-              </div>
-              <span className={styles.pitchPanelCount}>6 jobs</span>
-            </header>
-            <ol className={styles.pitchList}>
-              {automationJobs.map((title, index) => (
-                <li key={title}>
-                  <span className={styles.pitchIndex}>{String(index + 1).padStart(2, "0")}</span>
-                  <span className={styles.pitchCheck} aria-hidden="true">
-                    ✓
-                  </span>
-                  <strong className={styles.pitchItemCopy}>{title}</strong>
-                  <span className={styles.pitchTag}>Automated</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      <SubscriptionSwap />
+      <SubscriptionSwap eyebrow="03 / What you're paying for" />
 
       <section className={styles.servicesSection} id="services">
         <div className="shell">
@@ -250,11 +153,11 @@ export default function WebsiteDevelopmentPage() {
         id="seo"
         className={styles.seoSection}
         eyebrow={<>05 / SEO after launch</>}
+        showSequence={false}
         description={
           <div className={styles.seoReportSummary}>
             <span>
-              An SEO report subscription for what comes after launch—with a Google Business Profile audit and AI
-              readiness audit included.
+              We build SEO in from day one. Then, on your schedule, we report on the next opportunities for growth.
             </span>
             <div className={styles.seoReportActions}>
               <PrimaryButton className={styles.seoReportCta} href="#enquiry" direction="down">
@@ -322,19 +225,9 @@ export default function WebsiteDevelopmentPage() {
         </div>
       </section>
 
-      <ApproachSection
-        eyebrow="07 / How we work"
-        title="Same process."
-        accentTitle="Every project."
-        lead="Clear stages keep every build moving predictably—from understanding the business through to a site your team can actually run."
-        steps={processSteps}
-        ctaHref="#enquiry"
-        ctaLabel="Discuss your website"
-      />
-
       <ProjectEnquiry id="enquiry" />
 
-      <Faq eyebrow="08 / Common questions" title="Before we begin." items={WEBSITE_DEV_FAQS} />
+      <Faq eyebrow="07 / Common questions" title="Before we begin." items={WEBSITE_DEV_FAQS} />
 
       <section className={`shell ${styles.closing}`}>
         <p className={styles.label}>Start with the useful part</p>

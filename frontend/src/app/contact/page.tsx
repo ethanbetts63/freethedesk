@@ -4,7 +4,7 @@ import { PageSchema } from "@/components/PageSchema";
 import { metadataFor } from "@/lib/pages";
 
 import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
-import { ContactEnquiry } from "@/components/marketing/ContactEnquiry";
+import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 
 export const metadata: Metadata = metadataFor("/contact");
 
@@ -13,11 +13,7 @@ export default function ContactPage() {
     <main>
       <PageSchema path="/contact" />
       <AiReadinessBanner />
-      <section className="contact-page" id="contact-form">
-        <div className="shell">
-          <ContactEnquiry />
-        </div>
-      </section>
+      <ProjectEnquiry id="contact-form" />
     </main>
   );
 }
