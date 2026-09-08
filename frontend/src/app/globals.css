@@ -52,6 +52,10 @@
   --accent: var(--blue-400);
   --accent-ink: var(--blue-800); /* accent used as text on a light bg (AA on white) */
   --accent-strong: #0b64d6; /* dots, pulses, the wordmark tick */
+  /* The brand blue behind CTAs, page accents and the Stripe checkout theme.
+     lib/brand.ts mirrors this for the Stripe Appearance API, which needs a
+     literal — those two are the only places this hex should appear. */
+  --brand-accent: #247ec9;
   --link: var(--blue-800);
 
   /* ---- Semantic: lines + effects ---- */
@@ -70,6 +74,8 @@
   --hero-grid-color: 17, 70, 126;
   --hero-grid-opacity: 0.035;
   --hero-grid-size: 64px;
+  /* Standard vertical rhythm for sections that are intentionally separated. */
+  --section-space: clamp(80px, 10vw, 115px);
 
   /* ---- Semantic: status hues (queue colour-coding) ---- */
   --status-new: #e0a020;
@@ -238,7 +244,7 @@ main:has(.service-scroll) {
   transform: translateY(-1px);
 }
 .nav-cta.nav-cta-glow {
-  background: #247ec9;
+  background: var(--brand-accent);
 }
 .nav-cta.nav-cta-glow:hover {
   background: #2f8fdd;
@@ -319,7 +325,7 @@ main:has(.service-scroll) {
   color: var(--accent);
 }
 .mobile-nav nav .mobile-nav-cta.nav-cta-glow {
-  background: #247ec9;
+  background: var(--brand-accent);
 }
 .mobile-nav nav .mobile-nav-cta.nav-cta-glow span {
   color: #fff;
@@ -502,7 +508,7 @@ main:has(.service-scroll) {
 .approach-section {
   background: var(--surface-dark);
   color: var(--text-on-dark);
-  padding: 130px 0;
+  padding: var(--section-space) 0;
   text-align: center;
 }
 .approach-inner {

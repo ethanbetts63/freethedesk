@@ -1,6 +1,6 @@
 /* Shared page shell for the marketing landing pages (/ and /dealers). */
 .page {
-  --page-accent: #247ec9;
+  --page-accent: var(--brand-accent);
   background: #fff;
   color: #000;
 }

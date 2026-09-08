@@ -80,7 +80,7 @@ export default function DealerSetupPage() {
         <p className="admin-banner admin-banner-error">{error}</p>
       </div>
     );
-  const locked = profile.verification_status === "submitted" || profile.verification_status === "verified";
+  const locked = profile.onboarding_status === "submitted";
 
   return (
     <div className="admin-page">
@@ -92,7 +92,7 @@ export default function DealerSetupPage() {
         </div>
       </header>
       <p className="admin-banner">
-        Verification status: <strong>{profile.verification_status_label}</strong>
+        Setup status: <strong>{profile.onboarding_status_label}</strong>
       </p>
       {error && <p className="admin-banner admin-banner-error">{error}</p>}
       {notice && <p className="admin-banner">{notice}</p>}

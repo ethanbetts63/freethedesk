@@ -10,7 +10,6 @@ class SeoProfile(models.Model):
         NOT_STARTED = "not_started", "Not started"
         IN_PROGRESS = "in_progress", "In progress"
         SUBMITTED = "submitted", "Submitted"
-        ACTIVE = "active", "Active"
 
     subscriber = models.OneToOneField(SeoSubscriber, on_delete=models.CASCADE, related_name="profile")
     onboarding_status = models.CharField(

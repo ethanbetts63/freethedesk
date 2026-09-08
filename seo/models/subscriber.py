@@ -64,10 +64,6 @@ class SeoSubscriber(models.Model):
         return f"{self.business_name} ({self.get_status_display()})"
 
     @property
-    def is_active(self) -> bool:
-        return self.status == self.Status.ACTIVE
-
-    @property
     def is_one_off(self) -> bool:
         return self.plan == self.Plan.ONEOFF
 

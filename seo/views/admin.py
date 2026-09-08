@@ -25,7 +25,7 @@ class AdminSeoSubscriberListView(ListAPIView):
 
     def get_queryset(self):
         params = self.request.query_params
-        queryset = SeoSubscriber.objects.all()
+        queryset = SeoSubscriber.objects.select_related("user")
         value = params.get("status", "").strip()
         if value:
             queryset = queryset.filter(status__in=[part.strip() for part in value.split(",") if part.strip()])
@@ -43,7 +43,7 @@ class AdminSeoSubscriberListView(ListAPIView):
 class AdminSeoSubscriberDetailView(RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser]
     serializer_class = AdminSeoSubscriberSerializer
-    queryset = SeoSubscriber.objects.all()
+    queryset = SeoSubscriber.objects.select_related("user")
     http_method_names = ["get", "patch", "head", "options"]
 
     def perform_update(self, serializer):

@@ -21,6 +21,24 @@ from ..utils.services import (
 
 logger = logging.getLogger(__name__)
 
+_CHECKOUT_ERROR_STATUS = {
+    "active": status.HTTP_409_CONFLICT,
+    "confirmed": status.HTTP_409_CONFLICT,
+    "invalid_plan": status.HTTP_400_BAD_REQUEST,
+}
+
+
+def checkout_failure_response(error):
+    """Map a checkout-preparation exception to a client-safe DRF ``Response``."""
+    if isinstance(error, PaymentConfigurationError):
+        code = _CHECKOUT_ERROR_STATUS.get(error.code, status.HTTP_503_SERVICE_UNAVAILABLE)
+        return Response({"detail": str(error)}, status=code)
+    logger.exception("Stripe checkout preparation failed request_id=%s", getattr(error, "request_id", ""))
+    return Response(
+        {"detail": "Stripe could not prepare payment. Please try again."},
+        status=status.HTTP_502_BAD_GATEWAY,
+    )
+
 
 class SubscriptionCheckoutView(APIView):
     permission_classes = [IsDealer]
@@ -39,19 +57,8 @@ class SubscriptionCheckoutView(APIView):
                 accepted_ip=client_ip(request),
             )
             client_secret = create_or_reuse_checkout_session(dealer, acceptance, quote)
-        except PaymentConfigurationError as error:
-            code = {
-                "active": status.HTTP_409_CONFLICT,
-                "confirmed": status.HTTP_409_CONFLICT,
-                "invalid_plan": status.HTTP_400_BAD_REQUEST,
-            }.get(error.code, status.HTTP_503_SERVICE_UNAVAILABLE)
-            return Response({"detail": str(error)}, status=code)
-        except stripe.StripeError as error:
-            logger.exception("Stripe checkout preparation failed request_id=%s", getattr(error, "request_id", ""))
-            return Response(
-                {"detail": "Stripe could not prepare payment. Please try again."},
-                status=status.HTTP_502_BAD_GATEWAY,
-            )
+        except (PaymentConfigurationError, stripe.StripeError) as error:
+            return checkout_failure_response(error)
         return Response({
             "client_secret": client_secret,
             "monthly_price": str(quote.monthly_price),
@@ -77,19 +84,8 @@ class SeoSubscriptionCheckoutView(APIView):
                 accepted_ip=client_ip(request),
             )
             client_secret = create_or_reuse_seo_checkout_session(subscriber, acceptance, quote)
-        except PaymentConfigurationError as error:
-            code = {
-                "active": status.HTTP_409_CONFLICT,
-                "confirmed": status.HTTP_409_CONFLICT,
-                "invalid_plan": status.HTTP_400_BAD_REQUEST,
-            }.get(error.code, status.HTTP_503_SERVICE_UNAVAILABLE)
-            return Response({"detail": str(error)}, status=code)
-        except stripe.StripeError as error:
-            logger.exception("Stripe SEO checkout preparation failed request_id=%s", getattr(error, "request_id", ""))
-            return Response(
-                {"detail": "Stripe could not prepare payment. Please try again."},
-                status=status.HTTP_502_BAD_GATEWAY,
-            )
+        except (PaymentConfigurationError, stripe.StripeError) as error:
+            return checkout_failure_response(error)
         return Response({
             "client_secret": client_secret,
             "price": str(quote.price),

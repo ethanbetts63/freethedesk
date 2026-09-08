@@ -1,7 +1,7 @@
 .closing {
   background: #f2f7fb;
-  margin-bottom: 115px;
-  margin-top: 115px;
+  margin-bottom: var(--section-space);
+  margin-top: var(--section-space);
   padding: 82px;
   text-align: center;
 }
@@ -45,8 +45,6 @@
 
 @media (max-width: 620px) {
   .closing {
-    margin-bottom: 80px;
-    margin-top: 80px;
     padding: 65px 22px;
   }
 }

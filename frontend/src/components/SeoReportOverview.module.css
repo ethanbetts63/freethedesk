@@ -10,7 +10,7 @@
   position: relative;
 }
 .label {
-  color: var(--page-accent, #247ec9);
+  color: var(--page-accent, var(--brand-accent));
   font-size: 0.68rem;
   font-weight: 900;
   letter-spacing: 0.14em;
@@ -24,7 +24,7 @@
   margin: 0;
 }
 .reportCopy h2 span {
-  background: linear-gradient(105deg, #247ec9 8%, #4ba8da 52%, #6558dc 92%);
+  background: linear-gradient(105deg, var(--brand-accent) 8%, #4ba8da 52%, #6558dc 92%);
   background-clip: text;
   color: transparent;
   -webkit-background-clip: text;
@@ -58,7 +58,7 @@
   align-items: center;
   background: #eaf3fb;
   border: 1px solid #ccdfed;
-  color: var(--page-accent, #247ec9);
+  color: var(--page-accent, var(--brand-accent));
   display: flex;
   height: 27px;
   justify-content: center;
@@ -79,7 +79,7 @@
   position: relative;
 }
 .reportCard::before {
-  background: linear-gradient(180deg, var(--page-accent, #247ec9), #6b5be4);
+  background: linear-gradient(180deg, var(--page-accent, var(--brand-accent)), #6b5be4);
   content: "";
   inset: -1px auto -1px -1px;
   position: absolute;
@@ -117,7 +117,7 @@
 .reportBadge {
   background: #e7f2fb;
   border: 1px solid #c9deed;
-  color: var(--page-accent, #247ec9);
+  color: var(--page-accent, var(--brand-accent));
   font-size: 0.56rem;
   font-weight: 900;
   letter-spacing: 0.1em;
@@ -162,7 +162,7 @@
   align-items: center;
   background: linear-gradient(135deg, #eaf3fb, #f2edff);
   border: 1px solid #d8e6f0;
-  color: var(--page-accent, #247ec9);
+  color: var(--page-accent, var(--brand-accent));
   display: flex;
   flex: 0 0 auto;
   height: 40px;

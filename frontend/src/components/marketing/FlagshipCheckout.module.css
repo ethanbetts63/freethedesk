@@ -1,6 +1,6 @@
 .section {
   /* Single place to retune this section's accent color. */
-  --section-accent: #247ec9;
+  --section-accent: var(--brand-accent);
   --section-accent-rgb: 36, 126, 201;
   background: #f4f8fd;
   padding: 108px 0;

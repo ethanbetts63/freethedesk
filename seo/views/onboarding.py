@@ -4,12 +4,10 @@ from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..models import SeoProfile, SeoSubscriber
+from ..models import SeoProfile
 from ..serializers import SeoOnboardingSerializer
 from ..utils.permissions import IsSeoSubscriber
 from ..utils.services import ensure_seo_profile
-
-_PAID_STATUSES = {SeoSubscriber.PaymentStatus.ACTIVE, SeoSubscriber.PaymentStatus.PAID}
 
 
 class SeoOnboardingView(RetrieveUpdateAPIView):
@@ -21,7 +19,7 @@ class SeoOnboardingView(RetrieveUpdateAPIView):
 
     def get_object(self):
         subscriber = self.request.user.seo_subscriber
-        if subscriber.payment_status not in _PAID_STATUSES:
+        if not subscriber.has_paid:
             raise PermissionDenied("Complete payment before connecting your data.")
         return ensure_seo_profile(subscriber)
 
@@ -38,7 +36,7 @@ class SeoOnboardingSubmitView(APIView):
 
     def post(self, request):
         subscriber = request.user.seo_subscriber
-        if subscriber.payment_status not in _PAID_STATUSES:
+        if not subscriber.has_paid:
             raise PermissionDenied("Complete payment before submitting your reporting brief.")
         profile = ensure_seo_profile(subscriber)
         missing = [label for field, label in self.required_fields.items() if not getattr(profile, field)]

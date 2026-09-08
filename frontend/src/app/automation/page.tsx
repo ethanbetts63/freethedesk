@@ -44,10 +44,6 @@ export default function AutomationPage() {
 
       <ProofStrip stats={automationStats} />
 
-      <section className={`shell ${styles.enquirySection}`} id="enquiry">
-        <ContactEnquiry defaultHelpWith="automation" />
-      </section>
-
       <section className="shell automation-intro">
         <p className="section-number">01 / Practical automation</p>
         <div className="automation-intro-row">
@@ -59,6 +55,9 @@ export default function AutomationPage() {
             <i style={{ background: "var(--accent-strong)" }} />
           </div>
         </div>
+        <Link className={styles.introCta} href="#enquiry">
+          Find your first automation <span>→</span>
+        </Link>
       </section>
 
       <section className="shell" id="workflows">
@@ -140,6 +139,10 @@ export default function AutomationPage() {
             Find your first automation <span>↗</span>
           </Link>
         </div>
+      </section>
+
+      <section className={`shell ${styles.enquirySection}`} id="enquiry">
+        <ContactEnquiry defaultHelpWith="automation" />
       </section>
 
       <Faq eyebrow="03 / Common questions" title="Before we start." items={AUTOMATION_FAQS} />

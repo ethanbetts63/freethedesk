@@ -102,7 +102,7 @@ export default async function SeoPage() {
 
       <SeoSignup settings={settings} />
 
-      <div className={`shell ${styles.auditSection}`}>
+      <div className="shell">
         <GoogleBusinessProfileAudit standalonePrice={formatPrice(settings.gbp_audit_price)} />
         <AiReadinessAudit standalonePrice={formatPrice(settings.ai_readiness_audit_price)} />
       </div>

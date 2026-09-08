@@ -1,4 +1,4 @@
-import { authedFetch, jsonOrError, type AccountBase } from "./api";
+import { authedFetch, jsonOrError, type AccountBase, type OnboardingStatus } from "./api";
 
 import type { DealerState } from "./dealerStates";
 
@@ -21,8 +21,8 @@ export interface SubscriptionCheckout {
 }
 
 export interface DealerOnboardingProfile {
-  verification_status: "not_started" | "in_progress" | "submitted" | "changes_requested" | "verified" | "rejected";
-  verification_status_label: string;
+  onboarding_status: OnboardingStatus;
+  onboarding_status_label: string;
   legal_name: string;
   trading_name: string;
   dealer_licence_number: string;

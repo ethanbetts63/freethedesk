@@ -74,7 +74,7 @@ export default function SeoPortalConnectPage() {
         <p className="admin-banner admin-banner-error">{error}</p>
       </div>
     );
-  const locked = profile.onboarding_status === "submitted" || profile.onboarding_status === "active";
+  const locked = profile.onboarding_status === "submitted";
 
   return (
     <div className="admin-page">

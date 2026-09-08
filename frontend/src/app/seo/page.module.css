@@ -1,6 +1,6 @@
 .page {
   /* Single place to retune this page's accent color. */
-  --page-accent: #247ec9;
+  --page-accent: var(--brand-accent);
   --page-accent-rgb: 36, 126, 201;
   background: #fff;
   color: #07121c;
@@ -150,10 +150,6 @@
 }
 .plansSection .introLead {
   margin-bottom: 52px;
-}
-.auditSection {
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .planGrid {

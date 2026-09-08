@@ -1,7 +1,7 @@
 .faqSection {
-  --faq-accent: #247ec9;
+  --faq-accent: var(--brand-accent);
   background: #f2f7fb;
-  padding: 115px 0;
+  padding: var(--section-space) 0;
 }
 .faqLayout {
   display: grid;
@@ -63,9 +63,6 @@
 }
 
 @media (max-width: 650px) {
-  .faqSection {
-    padding: 78px 0;
-  }
   .faqList details p {
     margin-right: 0;
   }

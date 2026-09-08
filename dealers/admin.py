@@ -20,8 +20,8 @@ class DealerAdmin(admin.ModelAdmin):
 
 @admin.register(DealerProfile)
 class DealerProfileAdmin(admin.ModelAdmin):
-    list_display = ("dealer", "verification_status", "dealer_licence_number", "updated_at")
-    list_filter = ("verification_status",)
+    list_display = ("dealer", "onboarding_status", "dealer_licence_number", "updated_at")
+    list_filter = ("onboarding_status",)
     search_fields = (
         "dealer__business_name", "dealer__user__email", "dealer_licence_number", "abn",
     )

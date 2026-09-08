@@ -98,7 +98,7 @@ def test_paid_dealer_can_save_onboarding_draft(client, dealer):
     assert response.status_code == 200
     profile = DealerProfile.objects.get(dealer=dealer)
     assert profile.legal_name == "Bikes WA Pty Ltd"
-    assert profile.verification_status == DealerProfile.VerificationStatus.IN_PROGRESS
+    assert profile.onboarding_status == DealerProfile.OnboardingStatus.IN_PROGRESS
 
 
 def test_onboarding_rejects_a_file_disguised_by_its_extension(api_client, dealer):

@@ -1,6 +1,6 @@
 .hero {
   /* Single place to retune the hero accent colour. */
-  --hero-accent: #247ec9;
+  --hero-accent: var(--brand-accent);
   --hero-accent-rgb: 36, 126, 201;
   align-items: center;
   background: #fff;

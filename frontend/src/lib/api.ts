@@ -56,6 +56,13 @@ export interface AccountBase {
   updated_at: string;
 }
 
+/**
+ * How far a customer has got with their own onboarding form — the same three
+ * states for dealers and SEO customers. Whether staff have approved the account
+ * is `status` on the account itself, not this.
+ */
+export type OnboardingStatus = "not_started" | "in_progress" | "submitted";
+
 /** The two fields only staff see, added by every admin serializer. */
 export interface StaffAccountFields {
   staff_notes: string;

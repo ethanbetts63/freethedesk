@@ -61,7 +61,7 @@ class DealerOnboardingSubmitView(APIView):
         missing.extend(label for field, label in dealer_required.items() if not getattr(dealer, field))
         if missing:
             raise ValidationError({"detail": f"Complete these fields before submitting: {', '.join(missing)}."})
-        profile.verification_status = DealerProfile.VerificationStatus.SUBMITTED
+        profile.onboarding_status = DealerProfile.OnboardingStatus.SUBMITTED
         profile.submitted_at = timezone.now()
-        profile.save(update_fields=["verification_status", "submitted_at", "updated_at"])
+        profile.save(update_fields=["onboarding_status", "submitted_at", "updated_at"])
         return Response(DealerOnboardingSerializer(profile, context={"request": request}).data)

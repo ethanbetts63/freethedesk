@@ -5,8 +5,8 @@ from ..utils.uploads import validate_and_rename_upload
 
 
 class DealerOnboardingSerializer(serializers.ModelSerializer):
-    verification_status_label = serializers.CharField(
-        source="get_verification_status_display", read_only=True
+    onboarding_status_label = serializers.CharField(
+        source="get_onboarding_status_display", read_only=True
     )
     trading_name = serializers.CharField(source="dealer.business_name", read_only=True)
     state = serializers.CharField(source="dealer.state", read_only=True)
@@ -22,7 +22,7 @@ class DealerOnboardingSerializer(serializers.ModelSerializer):
     class Meta:
         model = DealerProfile
         fields = [
-            "verification_status", "verification_status_label", "legal_name", "trading_name",
+            "onboarding_status", "onboarding_status_label", "legal_name", "trading_name",
             "dealer_licence_number", "repairer_licence_number", "organisation_code", "abn", "acn",
             "address_line1", "suburb", "state", "postcode", "phone", "email",
             "authorised_officer_name", "authorised_officer_licence_number",
@@ -33,7 +33,7 @@ class DealerOnboardingSerializer(serializers.ModelSerializer):
             "created_at", "updated_at",
         ]
         read_only_fields = [
-            "verification_status", "verification_status_label", "submitted_at", "created_at", "updated_at",
+            "onboarding_status", "onboarding_status_label", "submitted_at", "created_at", "updated_at",
         ]
 
     def validate(self, attrs):
@@ -59,13 +59,10 @@ class DealerOnboardingSerializer(serializers.ModelSerializer):
         return bool(instance.business_evidence_document)
 
     def update(self, instance, validated_data):
-        if instance.verification_status in {
-            DealerProfile.VerificationStatus.SUBMITTED,
-            DealerProfile.VerificationStatus.VERIFIED,
-        }:
+        if instance.onboarding_status == DealerProfile.OnboardingStatus.SUBMITTED:
             raise serializers.ValidationError(
                 "This profile is locked while it is being reviewed."
             )
-        if instance.verification_status == DealerProfile.VerificationStatus.NOT_STARTED:
-            validated_data["verification_status"] = DealerProfile.VerificationStatus.IN_PROGRESS
+        if instance.onboarding_status == DealerProfile.OnboardingStatus.NOT_STARTED:
+            validated_data["onboarding_status"] = DealerProfile.OnboardingStatus.IN_PROGRESS
         return super().update(instance, validated_data)

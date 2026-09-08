@@ -1,4 +1,4 @@
-import { authedFetch, jsonOrError, type AccountBase } from "./api";
+import { authedFetch, jsonOrError, type AccountBase, type OnboardingStatus } from "./api";
 
 export type SeoPlanCode = "monthly" | "quarterly" | "biannual" | "oneoff";
 export type SeoPaymentStatus = "payment_pending" | "active" | "past_due" | "cancelled" | "paid";
@@ -20,7 +20,7 @@ export interface SeoCheckout {
 }
 
 export interface SeoOnboardingProfile {
-  onboarding_status: "not_started" | "in_progress" | "submitted" | "active";
+  onboarding_status: OnboardingStatus;
   onboarding_status_label: string;
   business_name: string;
   email: string;

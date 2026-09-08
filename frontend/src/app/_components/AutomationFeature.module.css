@@ -77,7 +77,7 @@
 }
 .copy > a {
   align-items: center;
-  background: #247ec9;
+  background: var(--brand-accent);
   color: #fff;
   display: inline-flex;
   font-size: 0.8rem;
@@ -154,7 +154,7 @@
   display: block;
 }
 .event small {
-  color: #247ec9;
+  color: var(--brand-accent);
   font-size: 0.53rem;
   font-weight: 900;
   letter-spacing: 0.12em;

@@ -25,7 +25,7 @@ class AdminDealerListView(ListAPIView):
 
     def get_queryset(self):
         params = self.request.query_params
-        queryset = Dealer.objects.all()
+        queryset = Dealer.objects.select_related("user")
         value = params.get("status", "").strip()
         if value:
             queryset = queryset.filter(status__in=[part.strip() for part in value.split(",") if part.strip()])
@@ -43,7 +43,7 @@ class AdminDealerListView(ListAPIView):
 class AdminDealerDetailView(RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser]
     serializer_class = AdminDealerSerializer
-    queryset = Dealer.objects.all()
+    queryset = Dealer.objects.select_related("user")
     http_method_names = ["get", "patch", "head", "options"]
 
     def perform_update(self, serializer):

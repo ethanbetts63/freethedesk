@@ -9,12 +9,9 @@ import { SignalFlow } from "@/components/visuals/SignalFlow";
 import { useAuth } from "@/context/AuthContext";
 import { createSeoCheckout, getSeoAccount, type SeoAccount } from "@/lib/seoApi";
 import { getSiteSettings } from "@/lib/api";
-import { stripeConfigured, stripePromise } from "@/lib/stripe";
+import { stripeConfigured, stripePromise, STRIPE_ELEMENTS_OPTIONS } from "@/lib/stripe";
 import { buildSeoPlans, planByCode, type SeoPlan } from "../_lib/plans";
 import styles from "./page.module.css";
-
-/** Stripe's Appearance API needs a literal color, so this can't reference the --checkout-accent CSS variable directly — keep the two in sync by hand. */
-const STRIPE_ACCENT = "#247ec9";
 
 function PaymentForm({ planName, oneOff }: { planName: string; oneOff: boolean }) {
   const result = useCheckoutElements();
@@ -177,20 +174,7 @@ export function SeoPaymentPage() {
         ) : clientSecret && plan ? (
           <CheckoutElementsProvider
             stripe={stripePromise}
-            options={{
-              clientSecret,
-              elementsOptions: {
-                appearance: {
-                  theme: "stripe",
-                  variables: {
-                    colorPrimary: STRIPE_ACCENT,
-                    colorText: "#0d1c29",
-                    borderRadius: "0px",
-                    fontFamily: "Arial, sans-serif",
-                  },
-                },
-              },
-            }}
+            options={{ clientSecret, elementsOptions: STRIPE_ELEMENTS_OPTIONS }}
           >
             <PaymentForm planName={plan.name} oneOff={oneOff} />
           </CheckoutElementsProvider>

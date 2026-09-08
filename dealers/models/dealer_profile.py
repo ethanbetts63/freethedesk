@@ -9,19 +9,18 @@ from .dealer import Dealer
 class DealerProfile(models.Model):
     """The operational and compliance details collected after payment."""
 
-    class VerificationStatus(models.TextChoices):
+    class OnboardingStatus(models.TextChoices):
         NOT_STARTED = "not_started", "Not started"
         IN_PROGRESS = "in_progress", "In progress"
         SUBMITTED = "submitted", "Submitted"
-        CHANGES_REQUESTED = "changes_requested", "Changes requested"
-        VERIFIED = "verified", "Verified"
-        REJECTED = "rejected", "Rejected"
 
     dealer = models.OneToOneField(Dealer, on_delete=models.CASCADE, related_name="profile")
-    verification_status = models.CharField(
-        max_length=24,
-        choices=VerificationStatus.choices,
-        default=VerificationStatus.NOT_STARTED,
+    # Matches SeoProfile: how far the customer has got with their own form.
+    # Whether staff have approved the account is Dealer.status, not this.
+    onboarding_status = models.CharField(
+        max_length=20,
+        choices=OnboardingStatus.choices,
+        default=OnboardingStatus.NOT_STARTED,
         db_index=True,
     )
 

@@ -9,12 +9,9 @@ import { SignalFlow } from "@/components/visuals/SignalFlow";
 import { useAuth } from "@/context/AuthContext";
 import { createSubscriptionCheckout, getDealerAccount, type DealerAccount } from "@/lib/dealerApi";
 import { getSiteSettings } from "@/lib/api";
-import { stripeConfigured, stripePromise } from "@/lib/stripe";
+import { stripeConfigured, stripePromise, STRIPE_ELEMENTS_OPTIONS } from "@/lib/stripe";
 import { buildDealerPlans, planByCode, type DealerPlan } from "../_lib/plans";
 import styles from "./page.module.css";
-
-/** Stripe's Appearance API needs a literal color, so this can't reference the --checkout-accent CSS variable directly — keep the two in sync by hand. */
-const STRIPE_ACCENT = "#247ec9";
 
 function PaymentForm({ planName }: { planName: string }) {
   const result = useCheckoutElements();
@@ -170,20 +167,7 @@ export function SubscriptionPaymentPage() {
         ) : clientSecret && plan ? (
           <CheckoutElementsProvider
             stripe={stripePromise}
-            options={{
-              clientSecret,
-              elementsOptions: {
-                appearance: {
-                  theme: "stripe",
-                  variables: {
-                    colorPrimary: STRIPE_ACCENT,
-                    colorText: "#0d1c29",
-                    borderRadius: "0px",
-                    fontFamily: "Arial, sans-serif",
-                  },
-                },
-              },
-            }}
+            options={{ clientSecret, elementsOptions: STRIPE_ELEMENTS_OPTIONS }}
           >
             <PaymentForm planName={plan.name} />
           </CheckoutElementsProvider>

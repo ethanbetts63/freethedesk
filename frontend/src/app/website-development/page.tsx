@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { Hero } from "@/components/marketing/Hero";
@@ -84,6 +85,8 @@ const automationJobs: [string, string][] = [
   ["Document generation", "Quotes, contracts and paperwork built from details already entered"],
 ];
 
+const casePoints = ["Indexable stock", "Intent-focused pages", "Structured data", "Measured in Search Console"];
+
 export default function WebsiteDevelopmentPage() {
   const schema = {
     "@context": "https://schema.org",
@@ -112,10 +115,6 @@ export default function WebsiteDevelopmentPage() {
 
       <ProofStrip stats={websiteDevStats} />
 
-      <section className={`shell ${styles.enquirySection}`} id="enquiry">
-        <ContactEnquiry defaultHelpWith="website" />
-      </section>
-
       <section className={`shell ${styles.introSection}`}>
         <div className={styles.pitch}>
           <div className={styles.pitchCopy}>
@@ -129,8 +128,8 @@ export default function WebsiteDevelopmentPage() {
               iceberg—underneath, the site runs the repetitive jobs your team currently does by hand.
             </p>
             <div className={styles.pitchActions}>
-              <Link href="#services">
-                See what we build <span aria-hidden="true">→</span>
+              <Link href="#enquiry">
+                Discuss your website <span aria-hidden="true">→</span>
               </Link>
               <Link href="/automation">
                 Want to know more about automation? <span aria-hidden="true">↗</span>
@@ -180,6 +179,85 @@ export default function WebsiteDevelopmentPage() {
         </div>
         <div className="shell">
           <ServiceScroll services={websiteServices} showCustomRow={false} />
+          <Link className={`${styles.sectionCta} ${styles.servicesCta}`} href="#enquiry">
+            Discuss what you need <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      </section>
+
+      <SeoReportOverview
+        id="seo"
+        className={styles.seoSection}
+        eyebrow={<>03 / SEO after launch</>}
+        description={
+          <div className={styles.seoReportSummary}>
+            <span>
+              An SEO report subscription for what comes after launch—with a Google Business Profile audit and AI
+              readiness audit included.
+            </span>
+            <div className={styles.seoReportActions}>
+              <Link href="#enquiry">
+                Discuss your website <span>→</span>
+              </Link>
+              <Link className={styles.seoSecondary} href="/seo">
+                Explore SEO reports <span>→</span>
+              </Link>
+            </div>
+          </div>
+        }
+      />
+
+      <section className={styles.caseSection}>
+        <div className={`shell ${styles.caseInner}`}>
+          <div className={styles.casePhone}>
+            <div className={styles.caseStatOverlay}>
+              <small>Google Search Console</small>
+              <strong>+200%</strong>
+              <span>organic clicks</span>
+            </div>
+            <div className={styles.casePhoneFrame}>
+              <div className="case-mobile-phone">
+                <span />
+                <div className="case-phone-menu" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                </div>
+                <Image
+                  src="/case-studies/scooter-shop/inventory-mobile.png"
+                  alt="Scooter Shop inventory page on mobile"
+                  width={390}
+                  height={844}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={styles.caseCopy}>
+            <p className={`${styles.label} ${styles.labelLight}`}>05 / Proof this works</p>
+            <h2>Scooter Shop, Perth.</h2>
+            <p>
+              Scooter Shop&apos;s website combines inventory, parts, purchasing and service journeys in one connected
+              experience. Fast structured pages and focused search content helped organic clicks grow by 200% in six
+              months.
+            </p>
+            <p>
+              It is a practical example of what happens when the public website and the work behind it are designed as
+              one system.
+            </p>
+            <div className={styles.casePoints}>
+              {casePoints.map((point) => (
+                <span key={point}>{point}</span>
+              ))}
+            </div>
+            <div className={styles.caseActions}>
+              <Link className={styles.casePrimary} href="#enquiry">
+                Discuss your website <span>→</span>
+              </Link>
+              <Link href="/portfolio/scooter-shop">
+                Read the full case study <span>→</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -234,29 +312,15 @@ export default function WebsiteDevelopmentPage() {
             <li>Context carried from the page into the form</li>
             <li>A clear confirmation and handoff at the end</li>
           </ul>
+          <Link className={styles.sectionCta} href="#enquiry">
+            Plan your customer journey <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </section>
 
-      <SeoReportOverview
-        id="seo"
-        className={styles.seoSection}
-        eyebrow={<>03 / SEO after launch</>}
-        description={
-          <div className={styles.seoReportSummary}>
-            <span>
-              An SEO report subscription for what comes after launch—with a Google Business Profile audit and AI
-              readiness audit included.
-            </span>
-            <Link href="/seo">
-              Explore SEO reports <span>→</span>
-            </Link>
-          </div>
-        }
-      />
-
       <section className="approach-section">
         <div className={`shell approach-inner ${styles.approachInner}`}>
-          <p className={styles.label}>05 / How we work</p>
+          <p className={styles.label}>06 / How we work</p>
           <h2>
             Same process.
             <br />
@@ -283,29 +347,14 @@ export default function WebsiteDevelopmentPage() {
               </li>
             ))}
           </ol>
+          <Link className="button button-light approach-cta" href="#enquiry">
+            Discuss your website <span>↗</span>
+          </Link>
         </div>
       </section>
 
-      <section className={`shell ${styles.proofSection}`}>
-        <div>
-          <p className={styles.label}>06 / See the depth</p>
-          <h2>Built from real operational experience.</h2>
-        </div>
-        <div>
-          <p>
-            Our work for Scooter Shop combines inventory, parts diagrams, online purchasing, service journeys, focused
-            search pages and management tools. It is industry-specific work, but it shows the level of thinking we bring
-            to any complex website.
-          </p>
-          <div className={styles.linkRow}>
-            <Link href="/portfolio/scooter-shop">
-              View the case study <span>→</span>
-            </Link>
-            <Link href="/dealership-website-builder">
-              Try the interactive demo <span>↗</span>
-            </Link>
-          </div>
-        </div>
+      <section className={`shell ${styles.enquirySection}`} id="enquiry">
+        <ContactEnquiry defaultHelpWith="website" />
       </section>
 
       <Faq eyebrow="07 / Common questions" title="Before we begin." items={WEBSITE_DEV_FAQS} />

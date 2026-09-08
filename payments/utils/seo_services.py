@@ -6,7 +6,6 @@ deferred import of the handlers here and dispatches by Stripe metadata.
 """
 
 from dataclasses import dataclass
-from datetime import datetime, timezone as datetime_timezone
 from decimal import Decimal
 from hashlib import sha256
 
@@ -18,7 +17,13 @@ from seo.models import SeoSubscriber
 from seo.utils.services import ensure_seo_profile
 
 from ..models import SeoSubscriptionTermsAcceptance
-from .services import PaymentConfigurationError, _period_end, _subscription_id, _value
+from .services import (
+    PaymentConfigurationError,
+    _period_end,
+    _session_matches_acceptance,
+    _subscription_id,
+    _value,
+)
 
 
 @dataclass(frozen=True)
@@ -81,11 +86,6 @@ def accept_current_seo_offer(*, subscriber, user, accepted_ip):
     return acceptance, quote
 
 
-def _session_matches_acceptance(session, acceptance):
-    metadata = _value(session, "metadata", {}) or {}
-    return str(_value(metadata, "terms_acceptance_id", "")) == str(acceptance.pk)
-
-
 def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
     if subscriber.payment_status in {
         SeoSubscriber.PaymentStatus.ACTIVE, SeoSubscriber.PaymentStatus.PAID,
@@ -129,7 +129,6 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
     metadata = {
         "subscriber_id": str(subscriber.pk),
         "plan": subscriber.plan,
-        "mode": quote.mode,
         "terms_acceptance_id": str(acceptance.pk),
         "terms_sha256": acceptance.terms_sha256,
         "price_cents": str(quote.unit_amount),

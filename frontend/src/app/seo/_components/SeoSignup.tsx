@@ -28,7 +28,7 @@ export function SeoSignup({ settings }: { settings: PublicSiteSettings }) {
         any time.
       </p>
 
-      <div className={styles.planGrid} id="plans" role="radiogroup" aria-label="SEO report plan">
+      <div className={styles.planGrid} role="radiogroup" aria-label="SEO report plan">
         {plans.map((plan) => (
           <button
             className={`${styles.planCard} ${selectedCode === plan.code ? styles.planSelected : ""} ${plan.recommended ? styles.planRecommended : ""}`}
