@@ -17,8 +17,8 @@
 }
 .audit::before {
   background-image:
-    linear-gradient(rgba(163, 214, 245, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(163, 214, 245, 0.045) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--blue-400) 4.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--blue-400) 4.5%, transparent) 1px, transparent 1px);
   background-size: 42px 42px;
   content: "";
   inset: 0;
@@ -79,13 +79,13 @@
   align-self: center;
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
     var(--moving-colour-size);
   border: 2px solid transparent;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 30px 70px color-mix(in srgb, var(--text) 30%, transparent);
   color: var(--text);
   margin: 0 auto;
   max-width: 660px;
@@ -147,13 +147,13 @@
   padding: 15px 0;
 }
 .index {
-  color: var(--cool-400);
+  color: var(--slate-400);
   font-size: 0.57rem;
   font-weight: 900;
 }
 .check {
   align-items: center;
-  background: var(--blue-100);
+  background: var(--slate-100);
   border-radius: 50%;
   color: var(--accent-ink);
   display: flex;
@@ -174,12 +174,12 @@
 }
 .auditCopy small {
   display: block;
-  color: var(--ink-500);
+  color: var(--slate-500);
   font-size: 0.58rem;
   line-height: 1.4;
 }
 .reviewed {
-  color: var(--ink-510);
+  color: var(--slate-600);
   font-size: 0.53rem;
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -189,7 +189,7 @@
 .previewFooter {
   align-items: flex-start;
   animation: moving-colour-shift 8s linear infinite;
-  background: var(--moving-colour-gradient-surface);
+  background: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
   display: flex;
   justify-content: space-between;
@@ -199,7 +199,7 @@
 }
 .previewFooter > span {
   align-items: center;
-  color: rgba(255, 255, 255, 0.82);
+  color: color-mix(in srgb, var(--bg) 82%, transparent);
   display: flex;
   font-size: 0.56rem;
   font-weight: 800;

@@ -104,8 +104,8 @@ main:has(.service-scroll) {
 }
 .service-custom::before {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--bg) 4.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--bg) 4.5%, transparent) 1px, transparent 1px);
   background-size: 38px 38px;
   content: "";
   inset: 0;
@@ -126,8 +126,8 @@ main:has(.service-scroll) {
 }
 .service-custom-icon {
   align-items: center;
-  background: rgba(112, 188, 237, 0.1);
-  border: 1px solid rgba(112, 188, 237, 0.35);
+  background: color-mix(in srgb, var(--accent-on-dark) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-on-dark) 35%, transparent);
   color: var(--accent-on-dark);
   display: flex;
   height: 82px;
@@ -150,7 +150,7 @@ main:has(.service-scroll) {
   text-transform: uppercase;
 }
 .service-custom-label span {
-  border-right: 1px solid rgba(112, 188, 237, 0.35);
+  border-right: 1px solid color-mix(in srgb, var(--accent-on-dark) 35%, transparent);
   padding-right: 14px;
 }
 .service-custom-copy h3 {

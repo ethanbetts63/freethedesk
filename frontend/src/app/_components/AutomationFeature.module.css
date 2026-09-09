@@ -22,7 +22,7 @@
 .eyebrow span {
   background: var(--feature-accent);
   border-radius: 50%;
-  box-shadow: 0 0 0 5px rgba(112, 188, 237, 0.12);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-on-dark) 12%, transparent);
   height: 7px;
   width: 7px;
 }
@@ -40,21 +40,21 @@
   font-weight: 350;
 }
 .lead {
-  color: var(--ink-200);
+  color: var(--slate-300);
   font-size: var(--step-1);
   line-height: 1.7;
   margin: 30px 0 26px;
   max-width: 480px;
 }
 .copy ul {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid color-mix(in srgb, var(--bg) 15%, transparent);
   list-style: none;
   margin: 0 0 30px;
   padding: 0;
 }
 .copy li {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--line-210);
+  border-bottom: 1px solid color-mix(in srgb, var(--bg) 15%, transparent);
+  color: var(--slate-200);
   font-size: 0.78rem;
   font-weight: 750;
   padding: 12px 0 12px 21px;
@@ -90,13 +90,13 @@
 .visual {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
     var(--moving-colour-size);
   border: 2px solid transparent;
-  box-shadow: 12px 12px 0 rgba(112, 188, 237, 0.07);
+  box-shadow: 12px 12px 0 color-mix(in srgb, var(--accent-on-dark) 7%, transparent);
   color: var(--ink-navy);
   grid-row: 2;
   padding: 20px 14px;
@@ -104,8 +104,8 @@
 }
 .visual::before {
   background-image:
-    linear-gradient(rgba(36, 126, 201, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(36, 126, 201, 0.045) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--brand-accent) 4.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--brand-accent) 4.5%, transparent) 1px, transparent 1px);
   background-size: 32px 32px;
   content: "";
   inset: 0;
@@ -117,8 +117,8 @@
 }
 .visual > header {
   align-items: center;
-  border-bottom: 1px solid var(--blue-200);
-  color: var(--ink-500);
+  border-bottom: 1px solid var(--slate-100);
+  color: var(--slate-500);
   display: flex;
   font-size: 0.58rem;
   font-weight: 900;
@@ -142,7 +142,7 @@
 }
 .visual > header i {
   animation: moving-colour-shift 6s linear infinite;
-  background: var(--moving-colour-gradient-surface);
+  background: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
   border-radius: 50%;
   height: 6px;
@@ -150,7 +150,7 @@
 }
 .event {
   background: var(--surface-flow);
-  border: 1px solid var(--blue-200);
+  border: 1px solid var(--slate-100);
   color: var(--ink-navy);
   margin: 25px auto 0;
   padding: 18px 20px;
@@ -173,7 +173,7 @@
   margin: 7px 0 5px;
 }
 .event span {
-  color: var(--ink-520);
+  color: var(--slate-500);
   font-size: 0.63rem;
 }
 .route {
@@ -185,8 +185,8 @@
   width: 83%;
 }
 .route i {
-  border-left: 1px solid rgba(112, 188, 237, 0.55);
-  border-top: 1px solid rgba(112, 188, 237, 0.55);
+  border-left: 1px solid color-mix(in srgb, var(--accent-on-dark) 55%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--accent-on-dark) 55%, transparent);
   height: 38px;
   width: 33%;
 }
@@ -198,7 +198,7 @@
 }
 .route i:last-child {
   border-left: 0;
-  border-right: 1px solid rgba(112, 188, 237, 0.55);
+  border-right: 1px solid color-mix(in srgb, var(--accent-on-dark) 55%, transparent);
 }
 .actions {
   display: grid;
@@ -207,7 +207,7 @@
 }
 .actions article {
   background: var(--surface-flow);
-  border: 1px solid var(--blue-200);
+  border: 1px solid var(--slate-100);
   display: grid;
   gap: 3px 10px;
   grid-template-columns: 25px minmax(0, 1fr);
@@ -228,19 +228,19 @@
   font-weight: 900;
 }
 .actions strong {
-  color: #173047;
+  color: var(--blue-950);
   font-size: 0.7rem;
   margin: 0;
 }
 .actions small {
-  color: var(--ink-500);
+  color: var(--slate-500);
   font-size: 0.56rem;
   line-height: 1.4;
 }
 .visual footer {
   align-items: center;
   animation: moving-colour-shift 8s linear infinite;
-  background: var(--moving-colour-gradient-surface);
+  background: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
   display: grid;
   gap: 5px 13px;
@@ -249,7 +249,7 @@
   padding: 14px 17px;
 }
 .visual footer span {
-  color: rgba(255, 255, 255, 0.82);
+  color: color-mix(in srgb, var(--bg) 82%, transparent);
   font-size: 0.58rem;
   font-weight: 800;
   letter-spacing: 0.09em;
@@ -277,7 +277,7 @@
 
 @media (min-width: 640px) {
   .visual {
-    box-shadow: 24px 24px 0 rgba(7, 18, 28, 0.14);
+    box-shadow: 24px 24px 0 color-mix(in srgb, var(--ink-strong) 14%, transparent);
     padding: 26px;
   }
   .event {

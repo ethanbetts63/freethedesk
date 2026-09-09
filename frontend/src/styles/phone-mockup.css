@@ -10,7 +10,7 @@
   border: 4px solid var(--surface-dark);
   border-radius: 20px;
   bottom: 10px;
-  box-shadow: 0 20px 55px rgba(var(--shadow-color), 0.25);
+  box-shadow: 0 20px 55px color-mix(in srgb, var(--blue-950) 25%, transparent);
   left: -6px;
   overflow: hidden;
   position: absolute;
@@ -68,7 +68,7 @@
   background: var(--surface-ink);
   border: 7px solid var(--surface-ink);
   border-radius: 29px;
-  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.32);
+  box-shadow: 0 35px 70px color-mix(in srgb, var(--text) 32%, transparent);
   height: 410px;
   overflow: hidden;
   position: relative;
@@ -93,7 +93,7 @@
 .case-live-note {
   align-items: center;
   background: var(--surface);
-  box-shadow: 0 12px 35px rgba(var(--shadow-color), 0.16);
+  box-shadow: 0 12px 35px color-mix(in srgb, var(--blue-950) 16%, transparent);
   display: flex;
   font-size: 0.56rem;
   font-weight: 800;
@@ -107,7 +107,7 @@
 .case-live-note i {
   background: var(--status-won);
   border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(43, 164, 106, 0.13);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--status-won) 13%, transparent);
   height: 7px;
   width: 7px;
 }

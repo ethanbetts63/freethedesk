@@ -78,7 +78,7 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
-  box-shadow: 0 8px 30px rgba(var(--shadow-color), 0.05);
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--blue-950) 5%, transparent);
   overflow: hidden;
 }
 .admin-filter-bar {
@@ -222,7 +222,7 @@
   text-transform: inherit;
 }
 .admin-table td {
-  border-bottom: 1px solid rgba(var(--shadow-color), 0.08);
+  border-bottom: 1px solid color-mix(in srgb, var(--blue-950) 8%, transparent);
   color: var(--text-muted);
   font-size: 0.72rem;
   line-height: 1.45;
@@ -402,7 +402,7 @@
   padding: 12px 16px;
 }
 .admin-secondary-button:hover {
-  border-color: var(--cool-400);
+  border-color: var(--slate-400);
 }
 .admin-secondary-button:disabled {
   cursor: default;
@@ -443,7 +443,7 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
-  box-shadow: 0 8px 30px rgba(var(--shadow-color), 0.05);
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--blue-950) 5%, transparent);
   overflow: hidden;
   padding: 25px;
 }
@@ -638,7 +638,7 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
-  box-shadow: 0 8px 30px rgba(var(--shadow-color), 0.05);
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--blue-950) 5%, transparent);
   overflow: hidden;
   padding: 20px;
 }

@@ -7,8 +7,8 @@
 }
 .hero::before {
   background-image:
-    linear-gradient(rgba(163, 214, 245, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(163, 214, 245, 0.055) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--blue-400) 5.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--blue-400) 5.5%, transparent) 1px, transparent 1px);
   background-size: 64px 64px;
   content: "";
   inset: 0;
@@ -128,7 +128,7 @@
 }
 .card:hover {
   border-color: var(--blue-500);
-  box-shadow: 0 24px 60px rgba(var(--shadow-color), 0.11);
+  box-shadow: 0 24px 60px color-mix(in srgb, var(--blue-950) 11%, transparent);
   transform: translateY(-3px);
 }
 .cardTop {

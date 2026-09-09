@@ -1,7 +1,6 @@
 .section {
   --section-accent: var(--brand-accent);
-  --section-accent-rgb: 36, 126, 201;
-  background: var(--blue-50);
+  background: var(--slate-50);
   padding: var(--section-space) 0;
 }
 .layout {
@@ -13,21 +12,21 @@
 .visual {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
     var(--moving-colour-size);
   border: 2px solid transparent;
-  box-shadow: 0 28px 75px rgba(19, 49, 92, 0.11);
+  box-shadow: 0 28px 75px color-mix(in srgb, var(--blue-950) 11%, transparent);
   grid-row: 2;
   min-width: 0;
   padding: 20px;
 }
 .visualHeader {
   align-items: flex-start;
-  border-bottom: 1px solid var(--blue-200);
-  color: var(--ink-500);
+  border-bottom: 1px solid var(--slate-100);
+  color: var(--slate-500);
   display: flex;
   flex-direction: column;
   font-size: 0.66rem;
@@ -54,7 +53,7 @@
   position: relative;
 }
 .journey::before {
-  background: var(--blue-300);
+  background: var(--slate-200);
   bottom: 20%;
   content: "";
   height: auto;
@@ -66,7 +65,7 @@
 .journey article {
   align-items: center;
   background: var(--surface-flow);
-  border: 1px solid var(--blue-200);
+  border: 1px solid var(--slate-100);
   display: grid;
   gap: 4px 13px;
   grid-template-columns: 38px 28px minmax(0, 1fr);
@@ -77,8 +76,8 @@
 }
 .icon {
   align-items: center;
-  background: var(--blue-100);
-  border: 1px solid var(--line-220);
+  background: var(--slate-100);
+  border: 1px solid var(--slate-200);
   color: var(--section-accent);
   display: flex;
   grid-row: 1 / 3;
@@ -115,7 +114,7 @@
   margin: 0;
 }
 .journey article > small {
-  color: var(--ink-500);
+  color: var(--slate-500);
   font-size: 0.66rem;
   grid-column: 3;
   line-height: 1.45;
@@ -124,10 +123,10 @@
 .status {
   align-items: center;
   animation: moving-colour-shift 8s linear infinite;
-  background: var(--moving-colour-gradient-surface);
+  background: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
   box-shadow: 0 12px 28px rgba(168, 85, 247, 0.22);
-  color: rgba(255, 255, 255, 0.82);
+  color: color-mix(in srgb, var(--bg) 82%, transparent);
   display: flex;
   font-size: 0.68rem;
   font-weight: 650;
@@ -151,7 +150,7 @@
 .eyebrow span {
   background: var(--section-accent);
   border-radius: 50%;
-  box-shadow: 0 0 0 5px rgba(var(--section-accent-rgb), 0.1);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--section-accent) 10%, transparent);
   height: 7px;
   width: 7px;
 }
@@ -170,14 +169,14 @@
   font-weight: 350;
 }
 .lead {
-  color: var(--cool-600);
+  color: var(--slate-600);
   font-size: var(--step-1);
   line-height: 1.7;
   margin: 25px 0 24px;
   max-width: 470px;
 }
 .copy ul {
-  border-top: 1px solid var(--line-210);
+  border-top: 1px solid var(--slate-200);
   display: grid;
   gap: 0;
   list-style: none;
@@ -185,8 +184,8 @@
   padding: 0;
 }
 .copy li {
-  border-bottom: 1px solid var(--line-210);
-  color: var(--ink-730);
+  border-bottom: 1px solid var(--slate-200);
+  color: var(--slate-800);
   font-size: 0.78rem;
   font-weight: 750;
   padding: 12px 0 12px 21px;

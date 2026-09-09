@@ -22,7 +22,7 @@
   -webkit-background-clip: text;
 }
 .description {
-  color: var(--cool-600);
+  color: var(--slate-600);
   font-size: 0.97rem;
   line-height: 1.74;
   margin-top: 20px;
@@ -36,7 +36,7 @@
 }
 .reportSequence {
   align-items: center;
-  color: #7892a7;
+  color: var(--slate-500);
   display: flex;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 0.56rem;
@@ -48,8 +48,8 @@
 }
 .reportSequence span {
   align-items: center;
-  background: var(--blue-100);
-  border: 1px solid var(--line-220);
+  background: var(--slate-100);
+  border: 1px solid var(--slate-200);
   color: var(--page-accent, var(--brand-accent));
   display: flex;
   height: 27px;
@@ -57,17 +57,17 @@
   width: 27px;
 }
 .reportSequence i {
-  background: linear-gradient(90deg, #b9d3e6, var(--blue-200));
+  background: linear-gradient(90deg, var(--slate-300), var(--slate-100));
   flex: 1;
   height: 1px;
 }
 .reportCard {
   background: var(--surface);
-  border: 1px solid #bcd2e2;
+  border: 1px solid var(--slate-300);
   box-shadow:
-    9px 9px 0 var(--blue-100),
+    9px 9px 0 var(--slate-100),
     18px 18px 0 var(--surface-flow),
-    0 28px 55px -35px rgba(7, 18, 28, 0.55);
+    0 28px 55px -35px color-mix(in srgb, var(--ink-strong) 55%, transparent);
   position: relative;
 }
 .reportCard::before {
@@ -81,7 +81,7 @@
 .reportCardHead {
   align-items: center;
   background: var(--surface-flow);
-  border-bottom: 1px solid var(--blue-200);
+  border-bottom: 1px solid var(--slate-100);
   display: flex;
   gap: 14px;
   padding: 16px 18px;
@@ -91,7 +91,7 @@
   gap: 5px;
 }
 .reportDots i {
-  background: var(--line-200);
+  background: var(--slate-200);
   border-radius: 50%;
   height: 8px;
   width: 8px;
@@ -102,13 +102,13 @@
   letter-spacing: -0.01em;
 }
 .reportCardHead small {
-  color: var(--ink-400);
+  color: var(--slate-500);
   display: block;
   font-size: 0.7rem;
 }
 .reportBadge {
-  background: var(--blue-100);
-  border: 1px solid var(--line-220);
+  background: var(--slate-100);
+  border: 1px solid var(--slate-200);
   color: var(--page-accent, var(--brand-accent));
   font-size: 0.56rem;
   font-weight: 900;
@@ -125,7 +125,7 @@
 }
 .reportList li {
   align-items: center;
-  border-bottom: 1px solid var(--blue-100);
+  border-bottom: 1px solid var(--slate-100);
   display: flex;
   gap: 15px;
   padding: 16px 18px;
@@ -152,8 +152,8 @@
 }
 .reportIcon {
   align-items: center;
-  background: linear-gradient(135deg, var(--blue-100), #f2edff);
-  border: 1px solid var(--blue-200);
+  background: linear-gradient(135deg, var(--slate-100), #f2edff);
+  border: 1px solid var(--slate-100);
   color: var(--page-accent, var(--brand-accent));
   display: flex;
   flex: 0 0 auto;
@@ -167,7 +167,7 @@
   margin: 0 0 3px;
 }
 .reportList p {
-  color: var(--ink-400);
+  color: var(--slate-500);
   font-size: 0.81rem;
   line-height: 1.45;
   margin: 0;
@@ -180,7 +180,7 @@
 }
 .reportCardFoot span {
   background: var(--surface-flow);
-  color: #4e677f;
+  color: var(--slate-600);
   font-size: 0.68rem;
   font-weight: 700;
   padding: 6px 10px;

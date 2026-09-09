@@ -19,7 +19,7 @@
   margin: 0;
 }
 .description {
-  color: var(--cool-600);
+  color: var(--slate-600);
   font-size: 0.96rem;
   line-height: 1.75;
   margin: 24px 0 0;
@@ -32,8 +32,8 @@
   margin-top: 30px;
 }
 .actions > a:last-child:not(:first-child) {
-  border-bottom: 1px solid var(--ink-200);
-  color: var(--cool-600);
+  border-bottom: 1px solid var(--slate-300);
+  color: var(--slate-600);
   font-size: 0.74rem;
   font-weight: 750;
   padding-bottom: 5px;
@@ -44,13 +44,13 @@
 .panel {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
     var(--moving-colour-size);
   border: 2px solid transparent;
-  box-shadow: 0 28px 75px rgba(19, 49, 92, 0.11);
+  box-shadow: 0 28px 75px color-mix(in srgb, var(--blue-950) 11%, transparent);
   color: var(--ink-strong);
   min-width: 0;
   padding: 28px;
@@ -60,7 +60,7 @@
 }
 .panelHead {
   align-items: center;
-  border-bottom: 1px solid var(--blue-200);
+  border-bottom: 1px solid var(--slate-100);
   display: flex;
   justify-content: space-between;
   padding-bottom: 18px;
@@ -76,7 +76,7 @@
 }
 .panelHead small {
   display: block;
-  color: var(--ink-500);
+  color: var(--slate-500);
   font-size: 0.5rem;
   font-weight: 900;
   letter-spacing: 0.1em;
@@ -116,20 +116,20 @@
 .list li {
   align-items: center;
   background: var(--surface-flow);
-  border: 1px solid var(--blue-200);
+  border: 1px solid var(--slate-100);
   display: grid;
   gap: 12px;
   grid-template-columns: 20px 24px minmax(0, 1fr);
   padding: 16px 14px;
 }
 .index {
-  color: var(--cool-400);
+  color: var(--slate-400);
   font-size: 0.57rem;
   font-weight: 900;
 }
 .check {
   align-items: center;
-  background: var(--blue-100);
+  background: var(--slate-100);
   border-radius: 50%;
   color: var(--page-accent, var(--brand-accent));
   display: flex;
@@ -143,7 +143,7 @@
   font-size: 0.78rem;
 }
 .tag {
-  color: var(--ink-510);
+  color: var(--slate-600);
   font-size: 0.53rem;
   font-weight: 900;
   letter-spacing: 0.06em;

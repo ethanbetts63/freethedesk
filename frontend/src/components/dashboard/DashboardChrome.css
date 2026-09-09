@@ -29,7 +29,7 @@
   grid-template-columns: minmax(0, 1fr) auto;
 }
 .dashboard-sidebar-label {
-  border-bottom: 1px solid rgba(var(--shadow-color), 0.12);
+  border-bottom: 1px solid color-mix(in srgb, var(--blue-950) 12%, transparent);
   color: var(--text-subtle);
   font-size: 0.65rem;
   font-weight: 800;
@@ -60,11 +60,11 @@
 }
 .dashboard-nav a:hover,
 .dashboard-nav a.active {
-  background: rgba(var(--shadow-color), 0.08);
+  background: color-mix(in srgb, var(--blue-950) 8%, transparent);
   color: var(--text);
 }
 .dashboard-account {
-  border-top: 1px solid rgba(var(--shadow-color), 0.12);
+  border-top: 1px solid color-mix(in srgb, var(--blue-950) 12%, transparent);
   display: block;
   flex-direction: column;
   gap: 11px;
@@ -134,7 +134,7 @@
     padding: 12px 13px;
   }
   .dashboard-account {
-    border-top: 1px solid rgba(var(--shadow-color), 0.12);
+    border-top: 1px solid color-mix(in srgb, var(--blue-950) 12%, transparent);
     display: flex;
     padding-top: 17px;
   }

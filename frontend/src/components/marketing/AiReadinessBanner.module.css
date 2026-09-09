@@ -61,8 +61,8 @@
   min-width: 0;
 }
 .form input {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(143, 206, 246, 0.32);
+  background: color-mix(in srgb, var(--bg) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-on-dark-soft) 32%, transparent);
   border-radius: 0;
   color: var(--text-on-dark);
   font: inherit;
@@ -77,9 +77,9 @@
   color: var(--text-on-dark-subtle);
 }
 .form input:focus {
-  background: rgba(255, 255, 255, 0.12);
+  background: color-mix(in srgb, var(--bg) 12%, transparent);
   border-color: var(--accent-on-dark-soft);
-  box-shadow: 0 0 0 3px rgba(143, 206, 246, 0.16);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-on-dark-soft) 16%, transparent);
 }
 
 .submit {
@@ -101,7 +101,7 @@
 }
 .success {
   align-items: center;
-  color: var(--blue-200);
+  color: var(--slate-100);
   display: flex;
   font-size: 0.82rem;
   gap: 12px;

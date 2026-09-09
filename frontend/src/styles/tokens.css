@@ -2,72 +2,85 @@
    global, colocated or route-scoped - can rely on these being defined. */
 
 :root {
-  /* Blues - primary brand ramp */
-  --blue-50: #f4f8fd;
-  --blue-100: #e7eff9;
-  --blue-200: #dbe7f4;
-  --blue-300: #c4d5e7;
-  --blue-400: #a3d6f5;
-  --blue-500: #3f8fd0;
-  --blue-600: #2f7cc0;
-  --blue-700: #1f6fb8;
-  --blue-800: #1a5ea8;
-  --blue-900: #1d4e8f;
-  --blue-950: #13315c;
-  --blue-990: #0b1f3a;
+  /* ---------------------------------------------------------------
+     THE PALETTE. Three ramps, one hue family each. Everything else is
+     a semantic alias pointing at a ramp step - so a colour is defined
+     exactly once, and components reference intent, not a shade.
 
-  /* Cool greys - text and borders */
-  --cool-100: #eef2f6;
-  --cool-300: #b7c6d6;
-  --cool-400: #97a8b8;
-  --cool-500: #7a8896;
-  --cool-600: #5a6b7f;
-  --cool-700: #45535f;
+       slate-*  desaturated blue-grey : text, borders, muted surfaces
+       blue-*   brand blue            : links, accents, dark surfaces
+       sky-*    bright cyan-blue      : accents on the navy sections
 
-  /* Surfaces */
+     Do not add a colour here without checking a ramp step will not do.
+     --------------------------------------------------------------- */
+
+  --slate-50: #f6f7f9;
+  --slate-100: #eaedf1;
+  --slate-200: #d3dbe4;
+  --slate-300: #bac9d8;
+  --slate-400: #97a8ba;
+  --slate-500: #718498;
+  --slate-600: #5c7084;
+  --slate-700: #405164;
+  --slate-800: #2a3d51;
+  --slate-900: #122336;
+  --slate-950: #09121b;
+  --blue-400: #a3cbf5;
+  --blue-500: #3d85d1;
+  --blue-600: #2473c6;
+  --blue-700: #1f69b7;
+  --blue-800: #1a5fa8;
+  --blue-900: #1d528c;
+  --blue-950: #133458;
+  --blue-990: #0b2038;
+  --sky-300: #a3d6f5;
+  --sky-400: #8ecef6;
+  --sky-500: #6fbcec;
+
+  /* Semantic aliases - use these in components, not the ramp steps. */
   --bg: #ffffff;
   --surface: #ffffff;
-  --surface-tint: var(--blue-50);
-  --surface-tint-2: var(--blue-100);
+  --surface-tint: var(--slate-50);
+  --surface-tint-2: var(--slate-100);
+  --surface-flow: var(--slate-50);
   --surface-dark: var(--blue-950);
   --surface-dark-soft: var(--blue-900);
-
-  --surface-flow: #f4f8fb;
-
-  /* Text */
+  --surface-dark-hover: var(--blue-900);
+  --surface-ink: var(--slate-950);
+  --surface-navy: var(--slate-900);
   --text: #000000;
-  --text-muted: var(--cool-600);
-  --text-subtle: var(--cool-500);
+  --text-muted: var(--slate-600);
+  --text-subtle: var(--slate-500);
   --text-on-dark: #ffffff;
-  --text-on-dark-muted: #aec6df;
-  --text-on-dark-subtle: #8aa4c1;
-
-  /* Accents and links */
-  --accent: var(--blue-400);
+  --text-on-dark-muted: var(--slate-300);
+  --text-on-dark-subtle: var(--slate-400);
+  --ink-strong: var(--slate-950);
+  --ink-navy: var(--slate-900);
+  --line-ink: #111111;
+  --border: var(--slate-200);
+  --border-strong: var(--slate-300);
+  --border-subtle: var(--slate-100);
+  --border-on-dark: var(--blue-900);
+  --border-on-dark-strong: var(--slate-600);
+  --accent: var(--sky-300);
+  --accent-on-dark: var(--sky-500);
+  --accent-on-dark-soft: var(--sky-400);
   --accent-ink: var(--blue-800);
   --accent-strong: #0b64d6;
-
-  --brand-accent: #247ec9;
-  /* Accent for the dark navy sections, where --brand-accent is too dim. */
-  --accent-on-dark: #70bced;
+  --brand-accent: var(--blue-600);
   --link: var(--blue-800);
-
-  /* Numbered section eyebrows - see .section-number in typography.css */
   --section-number: var(--brand-accent);
   --section-number-on-dark: var(--accent-on-dark);
+  --focus-ring: color-mix(in srgb, var(--sky-500) 40%, transparent);
+  --danger-surface: #fff0f0;
+  --danger-line: #b52c2c;
+  --danger-ink: #842222;
+  --success-ink: #28755f;
 
-  /* Borders and focus */
-  --border: var(--blue-200);
-  --border-strong: var(--blue-300);
-  --border-subtle: #e7eef6;
-  --border-on-dark: #2b4c78;
-  --border-on-dark-strong: #4d6f96;
-  --focus-ring: rgba(90, 176, 236, 0.4);
-  --shadow-color: 19, 49, 92;
-
-  /* Animated gradient - see motion.css */
-  --moving-colour-gradient: linear-gradient(90deg, #38bdf8, #a855f7, #f472b6, #38bdf8);
-  --moving-colour-gradient-surface: linear-gradient(100deg, #38bdf8, #a855f7 55%, #f472b6, #38bdf8);
+  /* One animated gradient, used for both the moving text and the
+     moving borders. The two used to differ by 10deg and a stop
+     position, which nobody could perceive as a distinct treatment. */
+  --moving-colour-gradient: linear-gradient(100deg, var(--sky-500), #a855f7 55%, #f472b6, var(--sky-500));
   --moving-colour-size: 300% 100%;
 
   /* Hero background grid pattern */
@@ -153,33 +166,6 @@
      existed in 12 spellings). Names describe the role, not the hue:
        ink-*   text     line-*  borders/rules     fill-*  surfaces
      --------------------------------------------------------------- */
-  --fill-300: #adc0cf; /* surface, 7 uses */
-  --danger-surface: #fff0f0; /* surface, 7 uses */
-  --surface-dark-hover: #1b4275; /* surface, 6 uses */
-  --surface-ink: #0d1725; /* surface, 13 uses */
-  --surface-navy: #0f2547; /* surface, 3 uses */
-  --ink-200: #b9ccdc; /* text, 17 uses */
-  --accent-on-dark-soft: #8fcef6; /* text, 7 uses */
-  --ink-310: #9eb6cc; /* text, 5 uses */
-  --ink-400: #8295a5; /* text, 12 uses */
-  --ink-410: #8facca; /* text, 3 uses */
-  --ink-500: #718698; /* text, 44 uses */
-  --ink-510: #60778b; /* text, 34 uses */
-  --ink-520: #6a8092; /* text, 10 uses */
-  --ink-600: #587086; /* text, 9 uses */
-  --ink-610: #4e6679; /* text, 6 uses */
-  --success-ink: #28755f; /* text, 4 uses */
-  --ink-700: #2b4051; /* text, 14 uses */
-  --danger-ink: #842222; /* text, 4 uses */
-  --ink-720: #213748; /* text, 4 uses */
-  --ink-730: #2c475d; /* text, 3 uses */
-  --ink-strong: #07121c; /* text, 18 uses */
-  --ink-navy: #10283b; /* text, 3 uses */
-  --line-200: #cad9e4; /* border, 32 uses */
-  --line-210: #d5e1e9; /* border, 20 uses */
-  --line-220: #c9dfef; /* border, 4 uses */
-  --danger-line: #b52c2c; /* border, 3 uses */
-  --line-ink: #111111; /* border, 7 uses */
 
   /* Status colours - drive the admin row/status/swatch variants */
   --status-new: #e0a020;

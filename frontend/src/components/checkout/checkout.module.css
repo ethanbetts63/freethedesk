@@ -14,8 +14,8 @@
 }
 .summarySide::after {
   background-image:
-    linear-gradient(rgba(19, 49, 92, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(19, 49, 92, 0.055) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--blue-950) 5.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--blue-950) 5.5%, transparent) 1px, transparent 1px);
   background-size: 42px 42px;
   content: "";
   inset: 0;
@@ -47,7 +47,7 @@
   width: fit-content;
 }
 .brand span {
-  color: var(--ink-500);
+  color: var(--slate-500);
   font-size: 0.73em;
   font-weight: 650;
   margin: 0 2px;
@@ -77,7 +77,7 @@
   max-width: 690px;
 }
 .summaryCopy > span {
-  color: var(--ink-610);
+  color: var(--slate-600);
   display: block;
   font-size: 0.95rem;
   line-height: 1.65;
@@ -85,8 +85,8 @@
 }
 .orderSummary {
   backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(168, 190, 207, 0.68);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  border: 1px solid color-mix(in srgb, var(--slate-300) 68%, transparent);
   padding: 18px;
 }
 .orderSummary > div {
@@ -97,13 +97,13 @@
   padding: 7px 0;
 }
 .orderSummary > div span {
-  color: var(--cool-600);
+  color: var(--slate-600);
 }
 .orderSummary > div strong {
   font-size: 0.76rem;
 }
 .orderSummary .orderTotal {
-  border-top: 1px solid var(--line-200);
+  border-top: 1px solid var(--slate-200);
   margin-top: 10px;
   padding-top: 17px;
 }
@@ -113,7 +113,7 @@
   letter-spacing: -0.04em;
 }
 .orderTotal small {
-  color: var(--ink-520);
+  color: var(--slate-500);
   font-size: 0.58rem;
   letter-spacing: 0;
 }
@@ -133,7 +133,7 @@
   width: 100%;
 }
 .paymentHeading {
-  border-bottom: 1px solid var(--line-210);
+  border-bottom: 1px solid var(--slate-200);
   margin-bottom: 32px;
   padding-bottom: 31px;
 }
@@ -154,14 +154,14 @@
 }
 .paymentHeading p,
 .checkoutState p {
-  color: var(--ink-510);
+  color: var(--slate-600);
   font-size: 0.83rem;
   line-height: 1.6;
   margin: 0;
 }
 .consent {
   align-items: flex-start;
-  color: var(--cool-600);
+  color: var(--slate-600);
   cursor: pointer;
   display: flex;
   font-size: 0.72rem;
@@ -205,7 +205,7 @@
   font-size: 1.1rem;
 }
 .paymentFineprint {
-  color: var(--ink-400);
+  color: var(--slate-500);
   font-size: 0.64rem;
   line-height: 1.5;
   margin: 12px auto 0;
@@ -222,7 +222,7 @@
   padding: 12px 14px;
 }
 .paymentLoading {
-  color: var(--ink-510);
+  color: var(--slate-600);
   font-size: 0.8rem;
   padding: 25px 0;
 }
@@ -256,8 +256,8 @@
 }
 .completePage::after {
   background-image:
-    linear-gradient(rgba(19, 49, 92, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(19, 49, 92, 0.055) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--blue-950) 5.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--blue-950) 5.5%, transparent) 1px, transparent 1px);
   background-size: 42px 42px;
   content: "";
   inset: 0;
@@ -274,9 +274,9 @@
 }
 .completeCard {
   backdrop-filter: blur(14px);
-  background: rgba(255, 255, 255, 0.91);
-  border: 1px solid var(--line-200);
-  box-shadow: 0 30px 90px rgba(19, 49, 92, 0.12);
+  background: color-mix(in srgb, var(--bg) 91%, transparent);
+  border: 1px solid var(--slate-200);
+  box-shadow: 0 30px 90px color-mix(in srgb, var(--blue-950) 12%, transparent);
   max-width: 650px;
   padding: clamp(38px, 6vw, 74px);
   position: relative;
@@ -303,7 +303,7 @@
   margin: 0 0 18px;
 }
 .completeCard p {
-  color: var(--cool-600);
+  color: var(--slate-600);
   font-size: 0.9rem;
   line-height: 1.7;
   margin: 0 auto;

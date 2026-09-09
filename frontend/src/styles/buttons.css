@@ -22,7 +22,7 @@
   width: var(--pb-width, auto);
 }
 .primary-button:hover {
-  background: var(--pb-background-hover, #2f8fdd);
+  background: var(--pb-background-hover, var(--blue-500));
 }
 .primary-button:disabled {
   cursor: wait;

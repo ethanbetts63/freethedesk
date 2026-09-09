@@ -8,8 +8,8 @@
 }
 .grid {
   background-image:
-    linear-gradient(rgba(19, 49, 92, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(19, 49, 92, 0.045) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--blue-950) 4.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--blue-950) 4.5%, transparent) 1px, transparent 1px);
   background-size: 42px 42px;
   inset: 0;
   pointer-events: none;
@@ -17,8 +17,8 @@
 }
 .document {
   background: var(--surface);
-  border: 1px solid var(--line-210);
-  box-shadow: 0 24px 75px rgba(19, 49, 92, 0.07);
+  border: 1px solid var(--slate-200);
+  box-shadow: 0 24px 75px color-mix(in srgb, var(--blue-950) 7%, transparent);
   margin: 0 auto;
   max-width: 900px;
   padding: 34px 22px;
@@ -54,7 +54,7 @@
   margin: 0;
 }
 .document h2 {
-  border-top: 1px solid #d8e3ea;
+  border-top: 1px solid var(--slate-200);
   font-size: clamp(1.45rem, 3vw, 2rem);
   letter-spacing: -0.04em;
   line-height: 1.15;
@@ -67,12 +67,12 @@
 }
 .document p,
 .document li {
-  color: var(--ink-610);
+  color: var(--slate-600);
   font-size: 0.86rem;
   line-height: 1.78;
 }
 .document p {
-  color: var(--ink-610);
+  color: var(--slate-600);
   font-size: 0.86rem;
   line-height: 1.78;
   margin: 0 0 17px;
@@ -83,7 +83,7 @@
   padding-left: 24px;
 }
 .document li {
-  color: var(--ink-610);
+  color: var(--slate-600);
   font-size: 0.86rem;
   line-height: 1.78;
   margin: 8px 0;

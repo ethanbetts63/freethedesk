@@ -2,8 +2,8 @@
    Owns .site-header, .header-inner, .wordmark*, .nav-logo*, .desktop-nav*,
    .nav-cta* and .mobile-nav*. Imported by SiteHeader.tsx. */
 .site-header {
-  background: rgba(255, 255, 255, 0.92);
-  border-bottom: 1px solid rgba(var(--shadow-color), 0.1);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--blue-950) 10%, transparent);
   position: sticky;
   top: 0;
   z-index: 50;
@@ -85,7 +85,7 @@
   background: var(--brand-accent);
 }
 .nav-cta.nav-cta-glow:hover {
-  background: #2f8fdd;
+  background: var(--blue-500);
 }
 .mobile-nav {
   display: block;
@@ -131,7 +131,7 @@
 .mobile-nav nav {
   background: var(--surface);
   border: 1px solid var(--border);
-  box-shadow: 0 22px 55px rgba(var(--shadow-color), 0.18);
+  box-shadow: 0 22px 55px color-mix(in srgb, var(--blue-950) 18%, transparent);
   display: flex;
   flex-direction: column;
   padding: 10px;

@@ -26,7 +26,7 @@
 .eyebrow span {
   background: var(--accent-on-dark);
   border-radius: 50%;
-  box-shadow: 0 0 0 5px rgba(112, 188, 237, 0.12);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-on-dark) 12%, transparent);
   height: 7px;
   width: 7px;
 }
@@ -44,7 +44,7 @@
   font-weight: 350;
 }
 .lead {
-  color: var(--blue-300);
+  color: var(--slate-200);
   font-size: var(--step-1);
   line-height: 1.72;
   margin: 36px 0 32px;
@@ -73,7 +73,7 @@
   transform: translateY(-2px);
 }
 .dealerExample {
-  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  border-top: 1px solid color-mix(in srgb, var(--bg) 22%, transparent);
   padding-top: 18px;
 }
 .dealerExample small,
@@ -81,7 +81,7 @@
   display: block;
 }
 .dealerExample small {
-  color: var(--ink-410);
+  color: var(--slate-400);
   font-size: 0.57rem;
   margin-bottom: 6px;
 }
@@ -101,7 +101,7 @@
 }
 .visualLabel {
   align-items: center;
-  color: var(--ink-410);
+  color: var(--slate-400);
   display: flex;
   font-size: 0.54rem;
   font-weight: 800;
@@ -115,7 +115,7 @@
 }
 .browser {
   background: var(--surface);
-  box-shadow: 0 36px 90px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 36px 90px color-mix(in srgb, var(--text) 28%, transparent);
   color: var(--text);
   min-width: 0;
   transform: none;
@@ -123,9 +123,9 @@
 }
 .browserTop {
   align-items: center;
-  background: var(--blue-100);
-  border-bottom: 1px solid #d8e3ec;
-  color: var(--ink-400);
+  background: var(--slate-100);
+  border-bottom: 1px solid var(--slate-200);
+  color: var(--slate-500);
   display: grid;
   font-size: 0.48rem;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -137,7 +137,7 @@
   gap: 5px;
 }
 .browserTop i {
-  background: var(--fill-300);
+  background: var(--slate-300);
   border-radius: 50%;
   height: 6px;
   width: 6px;
@@ -207,7 +207,7 @@
   margin: 15px 0;
 }
 .siteHero p {
-  color: var(--ink-510);
+  color: var(--slate-600);
   font-size: 0.62rem;
   line-height: 1.6;
   max-width: 250px;
@@ -240,7 +240,7 @@
   width: 280px;
 }
 .previewVehicle > span {
-  background: linear-gradient(150deg, #69b8e8, var(--section-accent) 58%, #164f85);
+  background: linear-gradient(150deg, var(--sky-500), var(--section-accent) 58%, var(--blue-900));
   border-radius: 60% 45% 18% 18% / 45% 45% 28% 28%;
   height: 76px;
   position: relative;
@@ -249,7 +249,7 @@
   z-index: 1;
 }
 .previewVehicle > span::before {
-  background: #375c78;
+  background: var(--slate-700);
   border: 5px solid var(--section-accent);
   border-bottom: 0;
   border-radius: 70% 40% 0 0;
@@ -293,7 +293,7 @@
   gap: 7px;
 }
 .inventoryStrip i {
-  background: var(--blue-200);
+  background: var(--slate-100);
   height: 8px;
   width: 34px;
 }
@@ -305,7 +305,7 @@
   justify-self: end;
 }
 .visualSteps {
-  color: var(--ink-410);
+  color: var(--slate-400);
   display: flex;
   font-size: 0.45rem;
   justify-content: space-between;
@@ -324,7 +324,7 @@
     flex-direction: row;
   }
   .dealerExample {
-    border-left: 1px solid rgba(255, 255, 255, 0.22);
+    border-left: 1px solid color-mix(in srgb, var(--bg) 22%, transparent);
     border-top: 0;
     padding-left: 20px;
     padding-top: 0;

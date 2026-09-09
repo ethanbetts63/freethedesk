@@ -19,7 +19,7 @@
   margin: 0;
 }
 .closing > p:not(.label) {
-  color: var(--ink-600);
+  color: var(--slate-600);
   font-size: 0.96rem;
   line-height: 1.7;
   margin: 27px auto 31px;

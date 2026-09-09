@@ -19,7 +19,7 @@
 .eyebrow span {
   background: var(--feature-accent);
   border-radius: 50%;
-  box-shadow: 0 0 0 5px rgba(36, 126, 201, 0.1);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--brand-accent) 10%, transparent);
   height: 7px;
   width: 7px;
 }
@@ -38,21 +38,21 @@
   font-weight: 350;
 }
 .lead {
-  color: var(--cool-600);
+  color: var(--slate-600);
   font-size: var(--step-1);
   line-height: 1.7;
   margin: 30px 0 26px;
   max-width: 470px;
 }
 .copy ul {
-  border-top: 1px solid var(--line-210);
+  border-top: 1px solid var(--slate-200);
   list-style: none;
   margin: 0 0 30px;
   padding: 0;
 }
 .copy li {
-  border-bottom: 1px solid var(--line-210);
-  color: var(--ink-730);
+  border-bottom: 1px solid var(--slate-200);
+  color: var(--slate-800);
   font-size: 0.78rem;
   font-weight: 750;
   padding: 12px 0 12px 21px;
@@ -87,15 +87,15 @@
 }
 .visual {
   background: var(--surface-dark);
-  box-shadow: 12px 12px 0 var(--blue-100);
+  box-shadow: 12px 12px 0 var(--slate-100);
   min-height: 450px;
   padding: 32px 14px 20px;
   position: relative;
 }
 .browserBar {
   align-items: center;
-  background: var(--blue-100);
-  color: var(--ink-500);
+  background: var(--slate-100);
+  color: var(--slate-500);
   display: grid;
   font-size: 0.52rem;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -107,7 +107,7 @@
   gap: 5px;
 }
 .browserBar i {
-  background: var(--fill-300);
+  background: var(--slate-300);
   border-radius: 50%;
   height: 6px;
   width: 6px;
@@ -151,7 +151,7 @@
   gap: 8px;
 }
 .websiteCanvas nav i {
-  background: var(--blue-200);
+  background: var(--slate-100);
   display: block;
   height: 5px;
   width: 30px;
@@ -163,14 +163,14 @@
   width: 38px;
 }
 .pageHero {
-  background: linear-gradient(135deg, var(--surface-flow), var(--blue-50));
+  background: linear-gradient(135deg, var(--surface-flow), var(--slate-50));
   margin-top: 18px;
   min-height: 210px;
   padding: 25px 20px;
   position: relative;
 }
 .pageHero::after {
-  background: radial-gradient(circle at 35% 35%, #7bc4ee, var(--brand-accent) 60%, var(--surface-dark));
+  background: radial-gradient(circle at 35% 35%, var(--sky-500), var(--brand-accent) 60%, var(--surface-dark));
   border-radius: 50%;
   content: "";
   height: 110px;
@@ -217,16 +217,16 @@
   margin-top: 12px;
 }
 .pageCards i {
-  background: var(--blue-100);
+  background: var(--slate-100);
   display: block;
   height: 42px;
 }
 .systemPanel {
   background: var(--surface);
-  border: 1px solid var(--line-200);
+  border: 1px solid var(--slate-200);
   bottom: 0;
-  box-shadow: 0 22px 55px rgba(4, 17, 29, 0.24);
-  color: #173047;
+  box-shadow: 0 22px 55px color-mix(in srgb, var(--ink-strong) 24%, transparent);
+  color: var(--blue-950);
   padding: 16px 18px;
   position: absolute;
   right: 8px;
@@ -235,7 +235,7 @@
 }
 .systemPanel header {
   align-items: center;
-  border-bottom: 1px solid var(--blue-200);
+  border-bottom: 1px solid var(--slate-100);
   display: flex;
   font-size: 0.57rem;
   font-weight: 900;
@@ -250,7 +250,7 @@
 }
 .systemPanel > div {
   align-items: center;
-  border-bottom: 1px solid var(--blue-100);
+  border-bottom: 1px solid var(--slate-100);
   display: grid;
   font-size: 0.65rem;
   gap: 10px;
@@ -274,7 +274,7 @@
 
 @media (min-width: 640px) {
   .visual {
-    box-shadow: 24px 24px 0 var(--blue-100);
+    box-shadow: 24px 24px 0 var(--slate-100);
     min-height: 520px;
     padding: 42px 30px 30px;
   }

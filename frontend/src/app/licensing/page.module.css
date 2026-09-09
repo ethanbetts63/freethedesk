@@ -1,6 +1,5 @@
 .page {
   --page-accent: var(--brand-accent);
-  --page-accent-rgb: 36, 126, 201;
   background: var(--surface);
   color: var(--text);
 }
@@ -18,7 +17,7 @@
 .signupPanel {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -48,7 +47,7 @@
   margin: 0 0 42px;
 }
 .choiceGroup > p {
-  border-bottom: 1px solid var(--blue-200);
+  border-bottom: 1px solid var(--slate-100);
   color: var(--page-accent);
   font-size: 0.6rem;
   font-weight: 900;
@@ -72,8 +71,8 @@
 .planTypeGrid label {
   align-items: center;
   background: var(--surface-flow);
-  border: 1px solid #d7e2e9;
-  color: var(--ink-720);
+  border: 1px solid var(--slate-200);
+  color: var(--slate-800);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -90,7 +89,7 @@
     color 0.2s ease;
 }
 .planTypeGrid label small {
-  color: var(--ink-510);
+  color: var(--slate-600);
   font-size: 0.45rem;
   font-weight: 900;
   letter-spacing: 0.1em;
@@ -102,7 +101,7 @@
   border-color: var(--page-accent);
 }
 .planTypeGrid label:has(.choiceInput:focus-visible) {
-  outline: 3px solid rgba(var(--page-accent-rgb), 0.25);
+  outline: 3px solid color-mix(in srgb, var(--page-accent) 25%, transparent);
   outline-offset: 2px;
 }
 .planTypeGrid .choiceSelected {
@@ -122,7 +121,7 @@
 .planTypeGrid .choiceRecommended {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface-flow), var(--surface-flow)), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface-flow), var(--surface-flow)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -130,7 +129,7 @@
   border: 2px solid transparent;
 }
 .planTypeGrid .choiceRecommended.choiceSelected {
-  background-image: linear-gradient(var(--surface-dark), var(--surface-dark)), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface-dark), var(--surface-dark)), var(--moving-colour-gradient);
 }
 .selectionFeatures {
   list-style: none;
@@ -138,7 +137,7 @@
   padding: 0;
 }
 .selectionFeatures li {
-  color: var(--ink-700);
+  color: var(--slate-800);
   font-size: 0.8rem;
   font-weight: 700;
   margin: 10px 0;
@@ -154,7 +153,7 @@
 }
 .selectionTotal {
   align-items: center;
-  border-top: 1px dashed var(--line-200);
+  border-top: 1px dashed var(--slate-200);
   display: grid;
   gap: 12px;
   grid-template-columns: minmax(0, 1fr);
@@ -173,11 +172,11 @@
   padding-right: 0.06em;
 }
 .selectionTotal small {
-  color: var(--ink-510);
+  color: var(--slate-600);
   font-size: 0.62rem;
 }
 .selectionTotal > span {
-  color: var(--ink-700);
+  color: var(--slate-800);
   font-size: 0.76rem;
   font-weight: 800;
   line-height: 1.45;
@@ -189,11 +188,11 @@
   flex-direction: column;
   justify-content: center;
   padding: clamp(30px, 3.5vw, 48px);
-  border-top: 1px solid var(--blue-200);
+  border-top: 1px solid var(--slate-100);
 }
 .formTitle {
   align-items: baseline;
-  border-bottom: 1px solid var(--blue-200);
+  border-bottom: 1px solid var(--slate-100);
   display: flex;
   gap: 16px;
   justify-content: space-between;
@@ -206,8 +205,8 @@
   margin: 0;
 }
 .formPill {
-  background: var(--blue-100);
-  color: #1d5f97;
+  background: var(--slate-100);
+  color: var(--blue-800);
   flex: 0 0 auto;
   font-size: 0.58rem;
   font-weight: 900;
@@ -217,7 +216,7 @@
   white-space: nowrap;
 }
 .customBuildNote {
-  color: var(--ink-510);
+  color: var(--slate-600);
   font-size: 0.82rem;
   margin: 22px 0 0;
   text-align: center;
@@ -233,7 +232,7 @@
   grid-template-columns: minmax(0, 1fr);
 }
 .signupForm label {
-  color: var(--ink-700);
+  color: var(--slate-800);
   display: block;
   font-size: 0.69rem;
   font-weight: 850;
@@ -246,7 +245,7 @@
 .signupForm input,
 .signupForm select {
   background: var(--surface);
-  border: 1px solid var(--line-200);
+  border: 1px solid var(--slate-200);
   border-radius: 0;
   color: var(--text);
   font: inherit;
@@ -265,10 +264,10 @@
 .signupForm input:focus,
 .signupForm select:focus {
   border-color: var(--page-accent);
-  box-shadow: 0 0 0 3px rgba(var(--page-accent-rgb), 0.12);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--page-accent) 12%, transparent);
 }
 .signupForm label small {
-  color: var(--ink-500);
+  color: var(--slate-500);
   display: block;
   font-size: 0.66rem;
   font-weight: 550;
@@ -331,7 +330,7 @@
 }
 .paths article {
   background: var(--surface);
-  border: 1px solid var(--line-210);
+  border: 1px solid var(--slate-200);
   padding: 20px;
 }
 .paths header {
@@ -346,13 +345,13 @@
   text-transform: uppercase;
 }
 .paths header b {
-  color: var(--ink-400);
+  color: var(--slate-500);
   font-size: 0.63rem;
   text-transform: uppercase;
 }
 .paths article > div {
   align-items: flex-start;
-  color: var(--ink-510);
+  color: var(--slate-600);
   display: flex;
   flex-wrap: wrap;
   font-size: 0.69rem;
@@ -361,7 +360,7 @@
   flex-direction: column;
 }
 .paths article i {
-  background: var(--ink-200);
+  background: var(--slate-300);
   height: 11px;
   width: 1px;
   margin-left: 4px;
@@ -374,7 +373,7 @@
 .paths .onlinePath {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -418,7 +417,7 @@
   grid-template-columns: minmax(0, 1fr);
 }
 .optionsHeading > p:last-of-type {
-  color: var(--fill-300);
+  color: var(--slate-300);
   font-size: 0.96rem;
   line-height: 1.7;
   max-width: 440px;
@@ -443,8 +442,8 @@
 }
 .optionPhoneTile > a {
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  color: var(--line-210);
+  border-bottom: 1px solid color-mix(in srgb, var(--bg) 50%, transparent);
+  color: var(--slate-200);
   display: inline-flex;
   font-size: 0.68rem;
   font-weight: 800;
@@ -469,15 +468,15 @@
   grid-template-columns: minmax(0, 1fr);
 }
 .flowColumn {
-  background: linear-gradient(160deg, #21598f, #163f6c);
+  background: linear-gradient(160deg, var(--blue-900), var(--blue-950));
   border: 1px solid var(--blue-500);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--bg) 12%, transparent);
   padding: 26px 26px 8px;
 }
 .flowColumn.flowColumnHighlight {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface-navy), var(--surface-navy)), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface-navy), var(--surface-navy)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -496,7 +495,7 @@
 }
 .flowColumnHead {
   align-items: baseline;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid color-mix(in srgb, var(--bg) 18%, transparent);
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -509,13 +508,13 @@
   font-weight: 900;
 }
 .flowColumnHead b {
-  color: var(--blue-200);
+  color: var(--slate-100);
   font-size: 0.64rem;
   font-weight: 750;
   text-align: right;
 }
 .flowColumnHighlight .flowColumnHead b {
-  color: #bcdcfa;
+  color: var(--sky-300);
 }
 .flowStepsList {
   list-style: none;
@@ -524,7 +523,7 @@
   counter-reset: flow-step;
 }
 .flowStepsList li {
-  border-top: 1px dashed rgba(255, 255, 255, 0.2);
+  border-top: 1px dashed color-mix(in srgb, var(--bg) 20%, transparent);
   counter-increment: flow-step;
   padding: 18px 0 18px 34px;
   position: relative;
@@ -551,7 +550,7 @@
 }
 .flowColumnHighlight .flowStepsList li::before {
   animation: moving-colour-shift 6s linear infinite;
-  background: var(--moving-colour-gradient-surface);
+  background: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
   color: var(--text-on-dark);
 }
@@ -567,11 +566,11 @@
   letter-spacing: -0.01em;
 }
 .flowStepText small {
-  color: var(--line-210);
+  color: var(--slate-200);
   font-size: 0.7rem;
 }
 .flowColumnHighlight .flowStepText small {
-  color: #bcdcfa;
+  color: var(--sky-300);
 }
 .flowColumnCta {
   --mcb-font-size: 0.74rem;
@@ -602,7 +601,7 @@
   background: var(--surface-ink);
   border: 6px solid var(--surface-ink);
   border-radius: 26px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 30px 60px color-mix(in srgb, var(--text) 40%, transparent);
   flex: 0 0 auto;
   height: 340px;
   overflow: hidden;
@@ -633,7 +632,7 @@
   z-index: 3;
 }
 .phoneMockScreen {
-  background: #eef3f7;
+  background: var(--slate-50);
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -651,17 +650,17 @@
 }
 .loginPhoneGrid {
   background-image:
-    linear-gradient(rgba(19, 49, 92, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(19, 49, 92, 0.06) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--blue-950) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--blue-950) 6%, transparent) 1px, transparent 1px);
   background-size: 18px 18px;
   inset: 0;
   position: absolute;
 }
 .loginPhoneCard {
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(180, 199, 213, 0.85);
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  border: 1px solid color-mix(in srgb, var(--slate-300) 85%, transparent);
   border-radius: 8px;
-  box-shadow: 0 14px 30px rgba(15, 35, 60, 0.2);
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--ink-navy) 20%, transparent);
   left: 14px;
   padding: 15px 13px;
   position: absolute;
@@ -700,8 +699,8 @@
   margin: 0 0 12px;
 }
 .loginPhoneField {
-  background: #eef3f7;
-  border: 1px solid #d7e2e9;
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
   border-radius: 4px;
   height: 20px;
   margin-bottom: 8px;
@@ -721,7 +720,7 @@
 .successPhoneHeader {
   align-items: center;
   background: var(--surface);
-  border-bottom: 1px solid #e5ebf0;
+  border-bottom: 1px solid var(--slate-100);
   display: flex;
   gap: 6px;
   height: 30px;
@@ -730,14 +729,14 @@
   z-index: 2;
 }
 .successPhoneHeader i {
-  background: var(--line-200);
+  background: var(--slate-200);
   border-radius: 2px;
   display: block;
   height: 8px;
   width: 8px;
 }
 .successPhoneHeader span {
-  color: var(--cool-700);
+  color: var(--slate-700);
   font-size: 0.58rem;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -768,7 +767,7 @@
   margin: 0 0 5px;
 }
 .successPhoneBody p {
-  color: var(--ink-510);
+  color: var(--slate-600);
   font-size: 0.62rem;
   line-height: 1.4;
   margin: 0 0 20px;
@@ -805,7 +804,7 @@
   text-align: center;
 }
 .closing > p:not(:global(.section-number)) {
-  color: var(--ink-600);
+  color: var(--slate-600);
   font-size: 0.96rem;
   line-height: 1.7;
   margin: 27px auto 31px;
@@ -828,7 +827,7 @@
   padding-bottom: var(--section-space);
 }
 .verifyCopy p:not(:global(.section-number)) {
-  color: var(--cool-600);
+  color: var(--slate-600);
   font-size: 1rem;
   line-height: 1.78;
   margin: 24px 0 0;
@@ -840,20 +839,20 @@
 .verifyCard {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
     var(--moving-colour-size);
   border: 2px solid transparent;
-  box-shadow: 0 28px 75px rgba(19, 49, 92, 0.11);
+  box-shadow: 0 28px 75px color-mix(in srgb, var(--blue-950) 11%, transparent);
   min-width: 0;
   padding: 28px;
 }
 .verifyCardHead {
   align-items: center;
-  border-bottom: 1px solid var(--blue-200);
-  color: var(--ink-500);
+  border-bottom: 1px solid var(--slate-100);
+  color: var(--slate-500);
   display: flex;
   font-size: 0.66rem;
   font-weight: 850;
@@ -880,7 +879,7 @@
 .verifySteps li {
   align-items: flex-start;
   background: var(--surface-flow);
-  border: 1px solid var(--blue-200);
+  border: 1px solid var(--slate-100);
   display: flex;
   gap: 16px;
   min-width: 0;
@@ -902,7 +901,7 @@
   letter-spacing: -0.01em;
 }
 .verifySteps small {
-  color: var(--ink-510);
+  color: var(--slate-600);
   display: block;
   font-size: 0.74rem;
   line-height: 1.5;
@@ -910,8 +909,8 @@
 }
 .verifyIcon {
   align-items: center;
-  background: var(--blue-100);
-  border: 1px solid var(--line-220);
+  background: var(--slate-100);
+  border: 1px solid var(--slate-200);
   color: var(--page-accent);
   display: flex;
   flex: 0 0 auto;
@@ -931,7 +930,7 @@
 .verifyFooter {
   align-items: center;
   animation: moving-colour-shift 8s linear infinite;
-  background: var(--moving-colour-gradient-surface);
+  background: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
   box-shadow: 0 12px 28px rgba(168, 85, 247, 0.22);
   display: flex;
@@ -940,7 +939,7 @@
   padding: 15px 17px;
 }
 .verifyFooter span {
-  color: rgba(255, 255, 255, 0.82);
+  color: color-mix(in srgb, var(--bg) 82%, transparent);
   font-size: 0.76rem;
   font-weight: 650;
 }
@@ -1044,7 +1043,7 @@
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
   }
   .signupForm {
-    border-left: 1px solid var(--blue-200);
+    border-left: 1px solid var(--slate-100);
     border-top: revert;
   }
   .flowGrid {

@@ -12,8 +12,8 @@
 }
 .login-page::before {
   background-image:
-    linear-gradient(rgba(19, 49, 92, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(19, 49, 92, 0.05) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--blue-950) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--blue-950) 5%, transparent) 1px, transparent 1px);
   background-size: 42px 42px;
   content: "";
   inset: 0;
@@ -32,9 +32,9 @@
 }
 .login-card {
   backdrop-filter: blur(13px);
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(180, 199, 213, 0.85);
-  box-shadow: 0 25px 70px rgba(var(--shadow-color), 0.12);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--slate-300) 85%, transparent);
+  box-shadow: 0 25px 70px color-mix(in srgb, var(--blue-950) 12%, transparent);
   max-width: 450px;
   padding: 28px 22px;
   position: relative;

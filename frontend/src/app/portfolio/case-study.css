@@ -10,11 +10,16 @@
 }
 .case-hero-grid {
   background-image:
-    linear-gradient(rgba(47, 124, 192, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(47, 124, 192, 0.055) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--blue-600) 5.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--blue-600) 5.5%, transparent) 1px, transparent 1px);
   background-size: 64px 64px;
   inset: 0;
-  mask-image: linear-gradient(to right, var(--text) 15%, rgba(0, 0, 0, 0.48) 64%, transparent);
+  mask-image: linear-gradient(
+    to right,
+    var(--text) 15%,
+    color-mix(in srgb, var(--text) 48%, transparent) 64%,
+    transparent
+  );
   position: absolute;
 }
 .case-hero-layout {
@@ -71,7 +76,7 @@
   background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: 9px;
-  box-shadow: 0 28px 75px rgba(var(--shadow-color), 0.16);
+  box-shadow: 0 28px 75px color-mix(in srgb, var(--blue-950) 16%, transparent);
   overflow: hidden;
 }
 .case-browser > img {
@@ -89,7 +94,7 @@
   padding: 0 12px;
 }
 .case-browser-bar i {
-  background: var(--cool-300);
+  background: var(--slate-300);
   border-radius: 50%;
   height: 6px;
   width: 6px;
@@ -255,7 +260,7 @@
   width: 100%;
 }
 .case-tour-preview .case-browser {
-  box-shadow: 0 28px 70px rgba(var(--shadow-color), 0.13);
+  box-shadow: 0 28px 70px color-mix(in srgb, var(--blue-950) 13%, transparent);
 }
 .case-tour-image {
   animation: case-image-in 0.35s ease both;
@@ -336,8 +341,8 @@
   align-items: center;
   background-color: var(--surface-dark);
   background-image:
-    linear-gradient(rgba(163, 214, 245, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(163, 214, 245, 0.1) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--blue-400) 10%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--blue-400) 10%, transparent) 1px, transparent 1px);
   background-size: 46px 46px;
   display: flex;
   justify-content: center;
@@ -348,7 +353,7 @@
 .case-mobile-callout {
   align-items: center;
   background: var(--surface);
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 14px 35px color-mix(in srgb, var(--text) 20%, transparent);
   display: flex;
   font-size: 0.58rem;
   font-weight: 800;
@@ -378,14 +383,14 @@
 }
 .case-operations-heading > p {
   align-self: end;
-  color: rgba(255, 255, 255, 0.78);
+  color: color-mix(in srgb, var(--bg) 78%, transparent);
   font-size: 0.98rem;
   line-height: 1.72;
   margin: 0;
   max-width: 540px;
 }
 .case-operations-section .section-number-light {
-  color: rgba(255, 255, 255, 0.72);
+  color: color-mix(in srgb, var(--bg) 72%, transparent);
 }
 .case-ops-console {
   background: var(--surface-tint);
@@ -644,7 +649,7 @@
   padding: 17px 0;
 }
 .case-steps-column-alt li {
-  border-bottom-color: rgba(var(--shadow-color), 0.18);
+  border-bottom-color: color-mix(in srgb, var(--blue-950) 18%, transparent);
 }
 .case-steps-column li:last-child {
   border-bottom: 0;
@@ -697,7 +702,7 @@
   padding: 14px 0;
 }
 .case-split-media .case-browser {
-  box-shadow: 0 28px 70px rgba(var(--shadow-color), 0.13);
+  box-shadow: 0 28px 70px color-mix(in srgb, var(--blue-950) 13%, transparent);
 }
 .case-tinted-section {
   background: var(--surface-tint);

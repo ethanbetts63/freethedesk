@@ -1,7 +1,7 @@
 .redirectVisual {
   background: var(--surface);
   border: 1px solid var(--border-strong);
-  box-shadow: 0 12px 28px rgba(var(--shadow-color), 0.1);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--blue-950) 10%, transparent);
   color: var(--text);
   flex: 0 0 auto;
   width: 168px;
@@ -16,7 +16,7 @@
   padding: 0 8px;
 }
 .redirectBar > i {
-  background: var(--cool-300);
+  background: var(--slate-300);
   border-radius: 50%;
   height: 4px;
   width: 4px;
@@ -57,7 +57,7 @@
   font-weight: 800;
 }
 .redirectRoute b {
-  background: var(--blue-100);
+  background: var(--slate-100);
   color: var(--blue-800);
   font-size: 0.47rem;
   padding: 4px 5px;

@@ -7,8 +7,8 @@
 }
 .hero::before {
   background-image:
-    linear-gradient(rgba(163, 214, 245, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(163, 214, 245, 0.05) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--blue-400) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--blue-400) 5%, transparent) 1px, transparent 1px);
   background-size: 64px 64px;
   content: "";
   inset: 0;
