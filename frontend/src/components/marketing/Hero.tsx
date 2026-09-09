@@ -18,8 +18,6 @@ type HeroProps = {
   secondaryHref: string;
   secondaryLabel: string;
   trustLine?: string;
-
-  stages?: readonly string[];
 };
 
 export function Hero({
@@ -32,7 +30,6 @@ export function Hero({
   secondaryHref,
   secondaryLabel,
   trustLine = "Perth-based · working with businesses across Australia",
-  stages,
 }: HeroProps) {
   return (
     <section className={styles.hero}>
@@ -41,7 +38,7 @@ export function Hero({
         <NetworkField />
       </div>
       <div className={styles.grid} />
-      <div className={`shell ${styles.content}${stages ? ` ${styles.withStages}` : ""}`}>
+      <div className={`shell ${styles.content}`}>
         <div className={styles.copy}>
           <Eyebrow className={styles.eyebrow}>{eyebrow}</Eyebrow>
           <h1>
@@ -70,16 +67,6 @@ export function Hero({
           </div>
           {trustLine ? <p className={styles.trustLine}>{trustLine}</p> : null}
         </div>
-        {stages ? (
-          <div className={styles.readout} aria-hidden="true">
-            {stages.map((stage, index) => (
-              <div key={stage}>
-                <span>0{index + 1}</span>
-                <p>{stage}</p>
-              </div>
-            ))}
-          </div>
-        ) : null}
       </div>
     </section>
   );

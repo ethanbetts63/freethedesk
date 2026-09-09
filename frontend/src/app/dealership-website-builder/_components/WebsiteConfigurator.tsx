@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { ConfiguratorControls } from "./ConfiguratorControls";
 import { DEFAULT_INVENTORY_ADDONS, DEFAULT_MODULES, summariseSelection } from "../_lib/configuratorData";
-import styles from "../page.module.css";
+import styles from "../_styles/layout.module.css";
 import type {
   Accent,
   InventoryAddonSelection,

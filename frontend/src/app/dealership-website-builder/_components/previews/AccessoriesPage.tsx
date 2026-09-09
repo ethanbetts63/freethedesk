@@ -5,15 +5,11 @@ import { useState } from "react";
 import { ConversionButton } from "../ConversionButton";
 import { ProductArtwork } from "../PreviewArtwork";
 import { CatalogueControls, PageHeading } from "./shared";
-import styles from "../../page.module.css";
+import styles from "../../_styles/preview.module.css";
 
 export function AccessoriesPage() {
-  const [addedProducts, setAddedProducts] = useState<string[]>([]);
   const [category, setCategory] = useState("all");
   const [availability, setAvailability] = useState("all");
-  const [sort, setSort] = useState("featured");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
   const products = [
     { name: "Touring luggage", price: 680, category: "touring", available: true },
     { name: "Protection bars", price: 420, category: "protection", available: true },
@@ -24,22 +20,10 @@ export function AccessoriesPage() {
   ];
   const visibleProducts = products
     .filter((product) => category === "all" || product.category === category)
-    .filter((product) => availability === "all" || product.available)
-    .filter((product) => !minPrice || product.price >= Number(minPrice))
-    .filter((product) => !maxPrice || product.price <= Number(maxPrice))
-    .sort((a, b) =>
-      sort === "price-asc"
-        ? a.price - b.price
-        : sort === "price-desc"
-          ? b.price - a.price
-          : products.indexOf(a) - products.indexOf(b),
-    );
+    .filter((product) => availability === "all" || product.available);
   const clearFilters = () => {
     setCategory("all");
     setAvailability("all");
-    setSort("featured");
-    setMinPrice("");
-    setMaxPrice("");
   };
 
   return (
@@ -68,21 +52,7 @@ export function AccessoriesPage() {
               { label: "In stock", value: "available" },
             ],
           },
-          {
-            label: "Sort by",
-            value: sort,
-            onChange: setSort,
-            options: [
-              { label: "Featured", value: "featured" },
-              { label: "Price: low to high", value: "price-asc" },
-              { label: "Price: high to low", value: "price-desc" },
-            ],
-          },
         ]}
-        minPrice={minPrice}
-        maxPrice={maxPrice}
-        onMinPriceChange={setMinPrice}
-        onMaxPriceChange={setMaxPrice}
         onClear={clearFilters}
         resultCount={visibleProducts.length}
         resultName="products"
@@ -95,22 +65,10 @@ export function AccessoriesPage() {
               <div className={styles.accessoryVisual}>
                 <ProductArtwork variant={originalIndex + 1} />
               </div>
-              <small>
-                {addedProducts.includes(product.name)
-                  ? "Added to your selection"
-                  : product.available
-                    ? "In stock"
-                    : "Order item"}
-              </small>
+              <small>{product.available ? "In stock" : "Order item"}</small>
               <strong>{product.name}</strong>
               <p>${product.price}</p>
-              <ConversionButton
-                onClick={() =>
-                  setAddedProducts((current) => (current.includes(product.name) ? current : [...current, product.name]))
-                }
-              >
-                Add +
-              </ConversionButton>
+              <ConversionButton>Add +</ConversionButton>
             </article>
           );
         })}

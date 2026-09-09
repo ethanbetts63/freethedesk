@@ -90,7 +90,6 @@ export default function AutomationPage() {
         primaryLabel="Find your first automation"
         secondaryHref="#workflows"
         secondaryLabel="Explore workflows"
-        stages={["Capture", "Connect", "Action", "Done"]}
       />
 
       <ProofStrip stats={automationStats} />
@@ -109,7 +108,6 @@ export default function AutomationPage() {
           customHref="#enquiry"
           eyebrow={sections["Practical automation"]}
           title="What gets copied, chased or checked every week?"
-          ctaLabel="Find your first automation"
         />
       </section>
 

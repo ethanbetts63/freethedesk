@@ -71,7 +71,7 @@ def send_notification(notification: Notification, attachments=None, template=Non
                 data={
                     "from": settings.DEFAULT_FROM_EMAIL,
                     "to": [notification.recipient],
-                    "subject": notification.subject or "Free the Desk notification",
+                    "subject": notification.subject or "freethedesk notification",
                     "text": render_to_string(f"{template_name}.txt", template_context),
                     "html": render_to_string(f"{template_name}.html", template_context),
                 },
@@ -148,7 +148,7 @@ def notify_admin_of_enquiry(enquiry: Enquiry) -> list[Notification]:
         f"Open enquiry: {dashboard_url}"
     )
     sms_body = (
-        f"New Free the Desk enquiry: {contact_label}, "
+        f"New freethedesk enquiry: {contact_label}, "
         f"{enquiry.get_help_with_display()}. {dashboard_url}"
     )
     return notify_admin_via_channels(

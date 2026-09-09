@@ -14,12 +14,6 @@ export const WEBSITE_DEV_FAQS: FaqItem[] = [
   },
 
   {
-    question: "Do you work with businesses outside the automotive industry?",
-    answer:
-      "Yes. Our dealership work proves the operational depth of what we build, but the same approach suits Perth service, retail, equipment, trade and specialist businesses.",
-  },
-
-  {
     question: "Will the website work properly on mobile?",
     answer:
       "Yes. We design mobile-first, then use the extra room on larger screens deliberately. Forms, navigation, product pages and conversion paths are tested across practical viewport sizes.",

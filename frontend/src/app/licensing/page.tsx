@@ -68,7 +68,6 @@ export default async function LicensingPage() {
         primaryLabel="Choose your plan"
         secondaryHref="/contact"
         secondaryLabel="Talk to us"
-        stages={["Choose", "Sign", "Pay", "Delivery / pickup"]}
       />
 
       <ProofStrip stats={licensingStats} />

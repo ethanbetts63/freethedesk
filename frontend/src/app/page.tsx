@@ -49,7 +49,6 @@ export default function Home() {
         primaryLabel="Get in touch"
         secondaryHref="/portfolio/scooter-shop"
         secondaryLabel="See it in action"
-        stages={["Understand", "Build", "Connect", "Improve"]}
       />
       <ProofStrip stats={homeStats} />
       <WebsiteDevelopmentFeature />

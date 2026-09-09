@@ -5,9 +5,9 @@ import { useState } from "react";
 import { ConversionButton } from "../ConversionButton";
 import { VehicleArtwork } from "../PreviewArtwork";
 import type { InventoryVehicle } from "./data";
-import { MiniVehicle, OnlinePurchaseSteps } from "./shared";
+import { OnlinePurchaseSteps } from "./shared";
 import type { InventoryAddonSelection } from "../../_lib/types";
-import styles from "../../page.module.css";
+import styles from "../../_styles/preview.module.css";
 
 export function VehicleDetailsPage({
   vehicle,
@@ -18,7 +18,6 @@ export function VehicleDetailsPage({
   inventoryAddons: InventoryAddonSelection;
   onBack: () => void;
 }) {
-  const [galleryImage, setGalleryImage] = useState(0);
   const [interestEmail, setInterestEmail] = useState("");
   const [interestSent, setInterestSent] = useState(false);
   const showOnlineSteps = inventoryAddons.contract && inventoryAddons.licensing;
@@ -29,26 +28,13 @@ export function VehicleDetailsPage({
         ← Back to inventory
       </button>
       <section className={styles.vehicleGallery}>
-        <div className={`${styles.vehicleGalleryMain} ${styles[`galleryTone${galleryImage + 1}`]}`}>
+        <div className={styles.vehicleGalleryMain}>
           <div className={styles.detailVehicleVisual}>
             <VehicleArtwork />
           </div>
           <span>
             {vehicle.year} · {vehicle.brand}
           </span>
-        </div>
-        <div className={styles.galleryThumbs}>
-          {[0, 1, 2].map((image) => (
-            <button
-              type="button"
-              key={image}
-              className={galleryImage === image ? styles.activeGalleryThumb : ""}
-              onClick={() => setGalleryImage(image)}
-              aria-label={`View vehicle image ${image + 1}`}
-            >
-              <MiniVehicle />
-            </button>
-          ))}
         </div>
       </section>
       <div className={styles.vehicleDetailLayout}>

@@ -21,6 +21,7 @@ export const MODULES: ModuleDefinition[] = [
   {
     key: "inventory",
     name: "Inventory catalogue",
+    preview: { page: "inventory", label: "Stock", footer: true },
     description: "Searchable, sales-ready live stock.",
     detail: "Turn dealership stock into a fast, easy-to-browse online catalogue that stays useful on every screen.",
     includes: [
@@ -32,6 +33,7 @@ export const MODULES: ModuleDefinition[] = [
   {
     key: "accessories",
     name: "Accessories catalogue",
+    preview: { page: "accessories", label: "Accessories" },
     description: "Sell apparel and useful extras.",
     detail:
       "Give customers a dedicated place to discover and purchase accessories, apparel and vehicle-specific extras.",
@@ -44,6 +46,7 @@ export const MODULES: ModuleDefinition[] = [
   {
     key: "parts",
     name: "Visual parts catalogue",
+    preview: { page: "parts", label: "Parts", footer: true },
     description: "Model lookup and selectable parts diagrams.",
     detail:
       "Help customers identify the correct component by selecting their vehicle and exploring an interactive exploded-parts diagram.",
@@ -52,6 +55,7 @@ export const MODULES: ModuleDefinition[] = [
   {
     key: "service",
     name: "Service bookings",
+    preview: { page: "service", label: "Service", footer: true },
     description: "Online bookings and workshop diary.",
     detail: "Let customers find an available workshop time and book without having to call the dealership.",
     includes: [
@@ -63,6 +67,7 @@ export const MODULES: ModuleDefinition[] = [
   {
     key: "hire",
     name: "Hire and fleet",
+    preview: { page: "hire", label: "Hire" },
     description: "Availability, reservations and payments.",
     detail:
       "Create an additional revenue stream from used stock or a dedicated fleet with a complete online hire journey.",
@@ -75,6 +80,7 @@ export const MODULES: ModuleDefinition[] = [
   {
     key: "articles",
     name: "Guides and articles",
+    preview: { page: "articles", label: "Guides", footer: true },
     description: "Publish useful, search-ready content.",
     detail: "Build authority and organic traffic with useful buying guides, ownership advice and dealership stories.",
     includes: ["Flexible article templates", "Categories and related content", "Search and social metadata"],
@@ -147,6 +153,17 @@ export const INVENTORY_OPTIONS: InventoryOptionDefinition[] = [
     includes: ["Prominent inventory-page signup", "Customer email capture", "New-stock campaign integration"],
   },
 ];
+
+export const PREVIEW_NAVIGATION = MODULES.flatMap((module) =>
+  module.preview
+    ? [
+        {
+          moduleKey: module.key,
+          ...module.preview,
+        },
+      ]
+    : [],
+);
 
 export const DEFAULT_MODULES: ModuleSelection = {
   inventory: false,

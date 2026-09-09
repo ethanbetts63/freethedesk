@@ -8,3 +8,37 @@
   line-height: 1.45;
   margin-top: 6px;
 }
+
+.form-label {
+  color: var(--text-muted);
+  display: block;
+  font-size: var(--step--2);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-xs);
+  text-transform: uppercase;
+}
+
+.form-control {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--step--1);
+  outline: 0;
+  padding: var(--space-s) var(--space-m);
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+  width: 100%;
+}
+
+.form-control:focus {
+  border-color: var(--form-accent, var(--brand-accent));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--form-accent, var(--brand-accent)) 12%, transparent);
+}
+
+textarea.form-control {
+  line-height: 1.55;
+  resize: vertical;
+}

@@ -14,7 +14,7 @@ export function SiteFooter() {
       </div>
       <div className="shell footer-grid">
         <div>
-          <Link className="wordmark footer-logo" href="/" aria-label="Free the Desk home">
+          <Link className="wordmark footer-logo" href="/" aria-label="freethedesk home">
             <Image className="nav-logo-image" src="/logo-192x192.png" alt="" width={40} height={40} />
             <span className="nav-logo-text">
               free<span>the</span>desk<span className="wordmark-dot">.</span>
@@ -53,7 +53,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="shell footer-bottom">
-        <span>© {new Date().getFullYear()} Free the Desk</span>
+        <span>© {new Date().getFullYear()} freethedesk</span>
         <span>Working with dealers across Australia</span>
       </div>
     </footer>

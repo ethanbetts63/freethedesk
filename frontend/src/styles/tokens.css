@@ -84,6 +84,16 @@
     var(--gradient-pink),
     var(--gradient-sky)
   );
+  /* Same ramp read the other way round, so a surface that carries the Stripe
+     wordmark (a blue-violet #6772e5) puts the sky blue under it instead of the
+     purple it disappears into. */
+  --moving-colour-gradient-reverse: linear-gradient(
+    100deg,
+    var(--gradient-purple),
+    var(--gradient-sky) 55%,
+    var(--gradient-pink),
+    var(--gradient-purple)
+  );
   /* One speed everywhere. Override per-component only with a real reason. */
   --moving-colour-speed: 16s;
   --moving-colour-size: 300% 100%;

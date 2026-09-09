@@ -34,7 +34,7 @@ def notify_staff_of_seo_signup(subscriber: SeoSubscriber) -> list[Notification]:
         f"Open this customer: {subscriber_url}"
     )
     sms_body = (
-        f"New Free the Desk {subscriber.get_plan_display()} signup: {subscriber.business_name} — "
+        f"New freethedesk {subscriber.get_plan_display()} signup: {subscriber.business_name} — "
         f"{subscriber.contact_name}. {subscriber_url}"
     )
 
@@ -79,7 +79,7 @@ def send_seo_welcome(subscriber: SeoSubscriber) -> Notification:
         recipient_type=Notification.RecipientType.SEO,
         recipient=email,
         channel=Notification.Channel.EMAIL,
-        subject=f"Your Free the Desk {'audit' if is_gbp_audit else 'SEO'} account is ready",
+        subject=f"Your freethedesk {'audit' if is_gbp_audit else 'SEO'} account is ready",
         body=body,
         related_seo_subscriber=subscriber,
     )

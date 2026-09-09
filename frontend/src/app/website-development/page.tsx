@@ -57,7 +57,7 @@ export default function WebsiteDevelopmentPage() {
     name: "Website Development Perth",
     serviceType: "Website development and web application development",
     areaServed: { "@type": "City", name: "Perth" },
-    provider: { "@type": "Organization", name: "Free the Desk", url: "https://freethedesk.com.au" },
+    provider: { "@type": "Organization", name: "freethedesk", url: "https://freethedesk.com.au" },
   };
 
   return (
@@ -74,7 +74,6 @@ export default function WebsiteDevelopmentPage() {
         primaryLabel="Discuss your website"
         secondaryHref="/portfolio/scooter-shop"
         secondaryLabel="See what we build"
-        stages={["Understand", "Design", "Build", "Improve"]}
       />
 
       <ProofStrip stats={websiteDevStats} />
@@ -157,7 +156,6 @@ export default function WebsiteDevelopmentPage() {
             customHref="#enquiry"
             eyebrow={sections["What we build"]}
             title="The website is the easy part."
-            ctaLabel="Discuss what you need"
           />
         </div>
       </section>

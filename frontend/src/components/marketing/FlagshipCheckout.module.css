@@ -123,7 +123,7 @@
 .status {
   align-items: center;
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
-  background: var(--moving-colour-gradient);
+  background: var(--moving-colour-gradient-reverse);
   background-size: var(--moving-colour-size);
   box-shadow: 0 12px 28px rgba(168, 85, 247, 0.22);
   color: color-mix(in srgb, var(--bg) 82%, transparent);

@@ -2,13 +2,14 @@
 
 import { useState, type CSSProperties } from "react";
 
-import { ACCENTS } from "../_lib/configuratorData";
+import { ACCENTS, PREVIEW_NAVIGATION } from "../_lib/configuratorData";
 import { getDemoBrandIdentity } from "../_lib/demoBrand";
 import { ConversionLink } from "./ConversionButton";
 import { DemoMap } from "./DemoMap";
 import { BrandArtwork, LandscapeArtwork, VehicleArtwork } from "./PreviewArtwork";
 import { ExamplePage, INVENTORY_VEHICLES, InventoryTile, type InventoryVehicle } from "./PreviewPages";
-import styles from "../page.module.css";
+import layoutStyles from "../_styles/layout.module.css";
+import previewStyles from "../_styles/preview.module.css";
 import type { Accent, InventoryAddonSelection, ModuleSelection, PreviewPage } from "../_lib/types";
 
 type WebsitePreviewProps = {
@@ -21,6 +22,8 @@ type WebsitePreviewProps = {
   additionCount: number;
   onPageChange: (page: PreviewPage) => void;
 };
+
+const styles = { ...layoutStyles, ...previewStyles };
 
 function BrandWordmark({ name }: { name: string }) {
   const displayName = name.trim() || "Your brand";
@@ -40,14 +43,6 @@ function PreviewNavigation({
   previewPage,
   onPageChange,
 }: Pick<WebsitePreviewProps, "brandName" | "selected" | "previewPage" | "onPageChange">) {
-  const navigation: Array<{ key: Exclude<PreviewPage, "home" | "vehicle" | "contact" | "terms">; label: string }> = [
-    { key: "inventory", label: "Stock" },
-    { key: "accessories", label: "Accessories" },
-    { key: "parts", label: "Parts" },
-    { key: "hire", label: "Hire" },
-    { key: "service", label: "Service" },
-    { key: "articles", label: "Guides" },
-  ];
   const { email } = getDemoBrandIdentity(brandName);
 
   return (
@@ -62,14 +57,14 @@ function PreviewNavigation({
       </button>
       <div className={styles.siteNavActions}>
         <div className={styles.siteNavLinks}>
-          {navigation.map(
+          {PREVIEW_NAVIGATION.map(
             (item) =>
-              selected[item.key] && (
+              selected[item.moduleKey] && (
                 <button
                   type="button"
-                  key={item.key}
-                  className={previewPage === item.key ? styles.activeNav : ""}
-                  onClick={() => onPageChange(item.key)}
+                  key={item.page}
+                  className={previewPage === item.page ? styles.activeNav : ""}
+                  onClick={() => onPageChange(item.page)}
                 >
                   {item.label}
                 </button>
@@ -276,26 +271,11 @@ function PreviewFooter({
           <button type="button" onClick={() => onPageChange("home")}>
             Home <span>→</span>
           </button>
-          {selected.inventory && (
-            <button type="button" onClick={() => onPageChange("inventory")}>
-              Stock <span>→</span>
+          {PREVIEW_NAVIGATION.filter((item) => item.footer && selected[item.moduleKey]).map((item) => (
+            <button type="button" key={item.page} onClick={() => onPageChange(item.page)}>
+              {item.label} <span>→</span>
             </button>
-          )}
-          {selected.parts && (
-            <button type="button" onClick={() => onPageChange("parts")}>
-              Parts <span>→</span>
-            </button>
-          )}
-          {selected.service && (
-            <button type="button" onClick={() => onPageChange("service")}>
-              Service <span>→</span>
-            </button>
-          )}
-          {selected.articles && (
-            <button type="button" onClick={() => onPageChange("articles")}>
-              Guides <span>→</span>
-            </button>
-          )}
+          ))}
           <button type="button" onClick={() => onPageChange("contact")}>
             Contact <span>→</span>
           </button>

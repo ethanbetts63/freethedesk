@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { ConversionButton } from "../ConversionButton";
 import { PageHeading } from "./shared";
-import styles from "../../page.module.css";
+import styles from "../../_styles/preview.module.css";
 
 export function PartsPage() {
   const [addedParts, setAddedParts] = useState<string[]>([]);

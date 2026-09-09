@@ -14,8 +14,8 @@ const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "";
 export const metadata: Metadata = {
   metadataBase: new URL(METADATA_BASE_URL),
   title: {
-    default: "Free the Desk | Dealer Operations Systems",
-    template: "%s | Free the Desk",
+    default: "freethedesk | Dealer Operations Systems",
+    template: "%s | freethedesk",
   },
   description: "Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.",
   verification: {

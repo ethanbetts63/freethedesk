@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { ConversionButton } from "../ConversionButton";
 import { MiniVehicle, PageHeading } from "./shared";
-import styles from "../../page.module.css";
+import styles from "../../_styles/preview.module.css";
 
 export function HirePage() {
   const [pickupDate, setPickupDate] = useState("2026-09-18");

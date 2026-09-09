@@ -37,8 +37,8 @@ export default function EnquiryDetailPage() {
     const firstName = enquiry.name.trim().split(/\s+/)[0] || enquiry.name;
     const params = new URLSearchParams({
       to: enquiry.email,
-      subject: `Re: Your Free the Desk enquiry`,
-      body: `Hi ${firstName},\n\nThanks for getting in touch with Free the Desk.\n\n`,
+      subject: `Re: Your freethedesk enquiry`,
+      body: `Hi ${firstName},\n\nThanks for getting in touch with freethedesk.\n\n`,
       enquiry: String(enquiry.id),
     });
     return `/dashboard/messages/compose?${params}`;

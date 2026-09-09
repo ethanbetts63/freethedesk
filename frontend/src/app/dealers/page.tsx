@@ -50,7 +50,6 @@ export default function Dealers() {
         primaryLabel="Try the Free Demo"
         secondaryHref="/portfolio/scooter-shop"
         secondaryLabel="See it in action"
-        stages={["Search", "Enquire", "Buy", "Service"]}
       />
       <ProofStrip stats={dealerStats} />
       <FlagshipCheckout />

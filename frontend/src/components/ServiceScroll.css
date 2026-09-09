@@ -21,9 +21,6 @@ main:has(.service-scroll) {
   margin: 0;
   max-width: 780px;
 }
-.service-scroll-cta {
-  flex: 0 0 auto;
-}
 .service-row {
   border-top: 1px solid var(--border);
   display: grid;

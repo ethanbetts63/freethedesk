@@ -4,13 +4,12 @@ import { useState } from "react";
 
 import { ConversionButton } from "../ConversionButton";
 import { DemoMap } from "../DemoMap";
-import styles from "../../page.module.css";
+import styles from "../../_styles/preview.module.css";
 
 export function ServicePage() {
   const [step, setStep] = useState(1);
   const [serviceTypes, setServiceTypes] = useState<string[]>([]);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("2026-09-18");
   const [time, setTime] = useState("");
   const [notes, setNotes] = useState("");
   const [vehicle, setVehicle] = useState("");
@@ -24,8 +23,6 @@ export function ServicePage() {
     { name: "Diagnosis or repair", description: "For a vehicle that will not start, feels different or needs repair." },
     { name: "Tyre fitting", description: "Supply and fit, fit-only replacement or wheel balancing." },
   ];
-  const calendarDays = [null, ...Array.from({ length: 30 }, (_, index) => index + 1)];
-  const unavailableDays = [1, 2, 3, 4, 5, 6, 10, 12, 13, 19, 20, 21, 26, 27];
   const canProceed = Boolean(selectedDate && time && serviceTypes.length);
   const toggleServiceType = (name: string) =>
     setServiceTypes((current) =>
@@ -85,57 +82,17 @@ export function ServicePage() {
               <div className={styles.serviceDateTimeFields}>
                 <div className={styles.bookingField}>
                   <label htmlFor="service-date">Drop-off date *</label>
-                  <button
+                  <input
                     id="service-date"
-                    type="button"
-                    className={`${styles.datePickerTrigger} ${selectedDate ? styles.dateChosen : ""}`}
-                    onClick={() => setCalendarOpen((current) => !current)}
-                    aria-expanded={calendarOpen}
-                  >
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M5 3v3m14-3v3M4 8h16M4 5h16v16H4z" />
-                    </svg>
-                    <span>{selectedDate || "Pick a date"}</span>
-                    <b>⌄</b>
-                  </button>
-                  {calendarOpen && (
-                    <div className={styles.bookingCalendar}>
-                      <header>
-                        <button type="button" aria-label="Previous month">
-                          ‹
-                        </button>
-                        <strong>September 2026</strong>
-                        <button type="button" aria-label="Next month">
-                          ›
-                        </button>
-                      </header>
-                      <div className={styles.calendarGrid}>
-                        {["M", "T", "W", "T", "F", "S", "S"].map((weekday, index) => (
-                          <span key={`${weekday}-${index}`}>{weekday}</span>
-                        ))}
-                        {calendarDays.map((date, index) =>
-                          date === null ? (
-                            <i key={`blank-${index}`} />
-                          ) : (
-                            <button
-                              key={date}
-                              type="button"
-                              disabled={unavailableDays.includes(date)}
-                              className={selectedDate === `${date} September 2026` ? styles.selectedCalendarDay : ""}
-                              onClick={() => {
-                                setSelectedDate(`${date} September 2026`);
-                                setTime("");
-                                setCalendarOpen(false);
-                              }}
-                            >
-                              {date}
-                            </button>
-                          ),
-                        )}
-                      </div>
-                      <small>Unavailable days cannot be selected</small>
-                    </div>
-                  )}
+                    type="date"
+                    min="2026-09-10"
+                    value={selectedDate}
+                    onChange={(event) => {
+                      setSelectedDate(event.target.value);
+                      setTime("");
+                    }}
+                    required
+                  />
                 </div>
                 <div className={styles.bookingField}>
                   <label htmlFor="service-time">Drop-off time *</label>
@@ -298,11 +255,6 @@ export function ServicePage() {
           <span>“</span>
           <p>Easy to book, excellent communication and my vehicle was ready exactly when promised.</p>
           <footer>— Matt R. · Annual service</footer>
-        </blockquote>
-        <blockquote>
-          <span>“</span>
-          <p>The team explained everything clearly and made the whole workshop visit effortless.</p>
-          <footer>— Amelia K. · First service</footer>
         </blockquote>
       </section>
       <section className={styles.serviceWork}>

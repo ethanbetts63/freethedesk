@@ -64,10 +64,7 @@
 .reportCard {
   background: var(--surface);
   border: 1px solid var(--slate-300);
-  box-shadow:
-    9px 9px 0 var(--slate-100),
-    18px 18px 0 var(--surface-flow),
-    0 28px 55px -35px color-mix(in srgb, var(--slate-950) 55%, transparent);
+  box-shadow: 12px 12px 0 var(--slate-100);
   position: relative;
 }
 .reportCard::before {

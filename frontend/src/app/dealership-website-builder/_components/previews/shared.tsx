@@ -4,7 +4,7 @@
 
 import type { InventoryVehicle } from "./data";
 import type { InventoryAddonSelection } from "../../_lib/types";
-import styles from "../../page.module.css";
+import styles from "../../_styles/preview.module.css";
 import { VehicleArtwork } from "../PreviewArtwork";
 
 export function PageHeading({ eyebrow, title, detail }: { eyebrow: string; title: string; detail: string }) {
@@ -28,19 +28,11 @@ export type CatalogueSelect = {
 
 export function CatalogueControls({
   selects,
-  minPrice,
-  maxPrice,
-  onMinPriceChange,
-  onMaxPriceChange,
   onClear,
   resultCount,
   resultName,
 }: {
   selects: CatalogueSelect[];
-  minPrice: string;
-  maxPrice: string;
-  onMinPriceChange: (value: string) => void;
-  onMaxPriceChange: (value: string) => void;
   onClear: () => void;
   resultCount: number;
   resultName: string;
@@ -60,25 +52,6 @@ export function CatalogueControls({
             </select>
           </label>
         ))}
-        <label>
-          <span>Price</span>
-          <div>
-            <input
-              type="number"
-              min="0"
-              value={minPrice}
-              onChange={(event) => onMinPriceChange(event.target.value)}
-              placeholder="Min"
-            />
-            <input
-              type="number"
-              min="0"
-              value={maxPrice}
-              onChange={(event) => onMaxPriceChange(event.target.value)}
-              placeholder="Max"
-            />
-          </div>
-        </label>
         <button type="button" onClick={onClear}>
           Clear
         </button>

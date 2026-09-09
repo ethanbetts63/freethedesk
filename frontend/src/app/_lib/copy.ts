@@ -2,7 +2,7 @@ import type { FaqItem } from "@/components/Faq";
 
 export const HOME_FAQS: FaqItem[] = [
   {
-    question: "What does Free the Desk actually build?",
+    question: "What does freethedesk actually build?",
     answer:
       "Custom websites, workflow automations, practical SEO reports and online systems for dealerships. Each can stand alone, or connect into one larger system around how your business works.",
   },

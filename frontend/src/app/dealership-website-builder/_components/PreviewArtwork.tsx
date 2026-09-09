@@ -1,21 +1,18 @@
-import styles from "../page.module.css";
+import Image from "next/image";
 
+import styles from "../_styles/preview.module.css";
+
+/** The demo vehicle. object-fit: contain, so it letterboxes rather than stretching. */
 export function VehicleArtwork({ compact = false }: { compact?: boolean }) {
   return (
-    <svg
+    <Image
       className={compact ? styles.vehicleArtworkCompact : styles.vehicleArtwork}
-      viewBox="0 0 320 170"
+      src="/images/car.png"
+      alt=""
+      width={520}
+      height={262}
       aria-hidden="true"
-    >
-      <ellipse className={styles.artworkGlow} cx="160" cy="91" rx="142" ry="73" />
-      <path className={styles.vehicleBody} d="M34 104 67 72h127l42 22 48 10-8 28H43z" />
-      <path className={styles.vehicleScreen} d="m122 72 26-37h58l25 59-38-22z" />
-      <path className={styles.vehicleDetail} d="M74 93h104M228 101h31" />
-      <circle className={styles.vehicleWheel} cx="88" cy="132" r="27" />
-      <circle className={styles.vehicleWheel} cx="238" cy="132" r="27" />
-      <circle className={styles.vehicleHub} cx="88" cy="132" r="9" />
-      <circle className={styles.vehicleHub} cx="238" cy="132" r="9" />
-    </svg>
+    />
   );
 }
 

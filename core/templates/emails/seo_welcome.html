@@ -1,7 +1,7 @@
 {% extends "emails/base.html" %}
 
-{% block title %}Your {% if is_gbp_audit %}audit{% else %}SEO{% endif %} account is ready — Free the Desk{% endblock %}
-{% block preheader %}Your Free the Desk {% if is_gbp_audit %}audit{% else %}SEO{% endif %} login has been created.{% endblock %}
+{% block title %}Your {% if is_gbp_audit %}audit{% else %}SEO{% endif %} account is ready — freethedesk{% endblock %}
+{% block preheader %}Your freethedesk {% if is_gbp_audit %}audit{% else %}SEO{% endif %} login has been created.{% endblock %}
 
 {% block content %}
 <p style="margin: 0 0 20px; font-size: 18px; font-weight: 700;">Thanks, {{ subscriber.contact_name }}.</p>

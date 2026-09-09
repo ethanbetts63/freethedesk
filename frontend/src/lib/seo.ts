@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { PUBLIC_SITE_URL } from "./siteConfig";
 
-const SITE_NAME = "Free the Desk";
+const SITE_NAME = "freethedesk";
 const DEFAULT_OG_IMAGE = "/og-images/og-default.webp";
 
 export function buildOrganizationSchema(): object {
@@ -87,7 +87,7 @@ function titleCaseSlug(slug: string): string {
  * single title/description/path so the three can't drift apart.
  *
  * Set `absoluteTitle: true` when `title` is already final — otherwise the root
- * layout's "%s | Free the Desk" template appends the brand suffix a second time.
+ * layout's "%s | freethedesk" template appends the brand suffix a second time.
  */
 export function pageMetadata(options: {
   title: string;

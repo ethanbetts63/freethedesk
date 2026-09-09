@@ -25,14 +25,12 @@ export function ServiceScroll({
   customHref,
   eyebrow,
   title,
-  ctaLabel,
   showCustomService = true,
 }: {
   services: Service[];
   customHref: string;
   eyebrow: string;
   title: string;
-  ctaLabel?: string;
   showCustomService?: boolean;
 }) {
   // The form is below this list, so in-page links scroll down.
@@ -45,11 +43,6 @@ export function ServiceScroll({
           <SectionNumber>{eyebrow}</SectionNumber>
           <h2>{title}</h2>
         </div>
-        {ctaLabel && (
-          <PrimaryButton className="service-scroll-cta" href={customHref} direction={ctaDirection}>
-            {ctaLabel}
-          </PrimaryButton>
-        )}
       </div>
       {services.map((service, index) => (
         <div className="service-row" key={service.title}>

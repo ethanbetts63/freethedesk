@@ -190,9 +190,11 @@
 .route i:nth-child(2) {
   width: 1px;
 }
+/* Mirror of :first-child - a straight riser, no elbow across the top. */
 .route i:last-child {
   border-left: 0;
   border-right: 1px solid color-mix(in srgb, var(--accent-on-dark) 55%, transparent);
+  border-top: 0;
 }
 .actions {
   display: grid;

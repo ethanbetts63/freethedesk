@@ -10,7 +10,6 @@ export function DealershipAutomation() {
         customHref="#project-enquiry"
         eyebrow="Dealership automation"
         title="The systems that keep a sales floor moving."
-        ctaLabel="Tell us your budget"
       />
     </section>
   );

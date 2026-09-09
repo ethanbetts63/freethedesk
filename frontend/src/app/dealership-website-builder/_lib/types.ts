@@ -13,6 +13,11 @@ export type ModuleDefinition = {
   description: string;
   detail: string;
   includes: string[];
+  preview?: {
+    page: Exclude<PreviewPage, "home" | "vehicle" | "contact" | "terms">;
+    label: string;
+    footer?: boolean;
+  };
 };
 
 export type InventoryOptionDefinition = {

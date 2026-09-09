@@ -78,7 +78,7 @@ export default async function SeoPage() {
     name: "Quarterly SEO Reports",
     serviceType: "SEO consulting and reporting",
     areaServed: { "@type": "Country", name: "Australia" },
-    provider: { "@type": "Organization", name: "Free the Desk", url: PUBLIC_SITE_URL },
+    provider: { "@type": "Organization", name: "freethedesk", url: PUBLIC_SITE_URL },
     offers: {
       "@type": "Offer",
       price: settings.seo_quarterly_price,
@@ -106,7 +106,6 @@ export default async function SeoPage() {
         primaryLabel="Choose a Report"
         secondaryHref="#report"
         secondaryLabel="See what you get"
-        stages={["Connect", "Study", "Report", "Repeat"]}
       />
 
       <ProofStrip stats={seoStats} />
@@ -189,7 +188,6 @@ export default async function SeoPage() {
           customHref="#signup"
           eyebrow={sections["What recommendations look like"]}
           title="The thinking that shows up in every report."
-          ctaLabel="Choose a Report"
           showCustomService={false}
         />
       </section>

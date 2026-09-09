@@ -23,7 +23,7 @@ export default function DealerDetailPage() {
       fetch: getDealer,
       update: updateDealer,
       messageFilter: "related_dealer",
-      replySubject: "Your Free the Desk dealer account",
+      replySubject: "Your freethedesk dealer account",
       loadError: "Dealer could not be loaded.",
       saveError: "The dealer could not be updated.",
     });

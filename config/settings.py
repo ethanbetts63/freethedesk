@@ -1,4 +1,4 @@
-"""Settings for the Free the Desk Django API."""
+"""Settings for the freethedesk Django API."""
 
 import os
 from datetime import timedelta
@@ -157,7 +157,7 @@ ADMIN_NUMBER = os.getenv("ADMIN_NUMBER", "")
 NOTIFICATIONS_ENABLED = os.getenv("NOTIFICATIONS_ENABLED", "False").lower() == "true"
 MAILGUN_API_KEY = os.getenv("MAILGUN_API_KEY", "")
 MAILGUN_DOMAIN = os.getenv("MAILGUN_DOMAIN", "")
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "Free the Desk <hello@freethedesk.com.au>")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "freethedesk <hello@freethedesk.com.au>")
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID", "")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN", "")
 TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER", "")

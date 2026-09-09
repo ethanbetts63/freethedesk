@@ -61,7 +61,9 @@ export function ProjectEnquiry({
       <div className={`${formStyles.panel} ${styles.panel}`}>
         <aside className={`${formStyles.chooser} ${styles.chooser}`}>
           <SectionNumber>{eyebrow}</SectionNumber>
-          <h2>Tell us your budget.</h2>
+          <h2>
+            Tell us your <span className="moving-colour-text">budget.</span>
+          </h2>
           <p className={styles.lead}>We&apos;ll tell you what we could build for it.</p>
 
           <div className={formStyles.choiceGroup}>
@@ -138,8 +140,8 @@ export function ProjectEnquiry({
 
         <form className={`${formStyles.form} ${styles.form}`} onSubmit={send}>
           <div className={`${formStyles.formTitle} ${styles.formTitle}`}>
-            <span className={formStyles.pill}>No commitment</span>
             <h3>Send your enquiry.</h3>
+            <span className={formStyles.pill}>No commitment</span>
           </div>
 
           {status === "success" ? (

@@ -10,7 +10,13 @@
   gap: clamp(55px, 8vw, 120px);
   grid-template-columns: minmax(0, 1fr);
 }
+/* Copy leads on mobile; the phone follows and sits centred in the column. */
+.copy {
+  grid-row: 1;
+}
 .phone {
+  grid-row: 2;
+  margin-inline: auto;
   position: relative;
   width: 250px;
 }
@@ -116,5 +122,13 @@
 @media (min-width: 900px) {
   .inner {
     grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  }
+  /* Two columns: DOM order already puts the phone on the left. */
+  .copy,
+  .phone {
+    grid-row: auto;
+  }
+  .phone {
+    margin-inline: 0;
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { PageHeading } from "./shared";
-import styles from "../../page.module.css";
+import styles from "../../_styles/preview.module.css";
 
 export function ArticlesPage() {
   return (

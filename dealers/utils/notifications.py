@@ -28,7 +28,7 @@ def notify_staff_of_dealer_signup(dealer: Dealer) -> list[Notification]:
         f"Payment: {dealer.get_payment_status_display()}\n\n"
         f"Open this dealer: {dealer_url}"
     )
-    sms_body = f"New Free the Desk dealer signup: {dealer.business_name} — {dealer.contact_name}. {dealer_url}"
+    sms_body = f"New freethedesk dealer signup: {dealer.business_name} — {dealer.contact_name}. {dealer_url}"
 
     email, phone = resolve_recipient(Notification.RecipientType.ADMIN)
     return notify_admin_via_channels(
@@ -57,7 +57,7 @@ def send_dealer_welcome(dealer: Dealer) -> Notification:
         recipient_type=Notification.RecipientType.DEALER,
         recipient=email,
         channel=Notification.Channel.EMAIL,
-        subject="Your Free the Desk account is ready",
+        subject="Your freethedesk account is ready",
         body=body,
         related_dealer=dealer,
     )

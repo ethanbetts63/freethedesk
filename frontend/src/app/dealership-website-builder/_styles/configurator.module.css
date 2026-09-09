@@ -1,0 +1,529 @@
+.controls {
+  --controls-accent: var(--brand-accent);
+  background: var(--surface);
+  border: 0;
+  border-left: 0;
+  height: auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-color: var(--slate-400) var(--slate-100);
+  scrollbar-width: thin;
+  border-top: 1px solid var(--slate-200);
+  overflow: visible;
+}
+.baseProduct,
+.controlGroup,
+.detailsSection {
+  padding: 26px;
+}
+.baseProduct {
+  padding: 26px;
+  background: var(--surface-flow);
+  border-bottom: 1px solid var(--slate-200);
+}
+.baseProduct > div {
+  display: flex;
+  justify-content: space-between;
+}
+.baseProduct > div span,
+.baseProduct > div b {
+  color: var(--controls-accent);
+  font-size: 0.61rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.baseProduct h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.04em;
+  margin: 15px 0 8px;
+}
+.baseProduct p {
+  color: var(--slate-500);
+  font-size: 0.76rem;
+  line-height: 1.55;
+  margin: 0;
+}
+.controlGroup {
+  padding: 26px;
+  border-bottom: 1px solid var(--slate-100);
+}
+.groupTitle {
+  align-items: start;
+  display: flex;
+  gap: 11px;
+  margin-bottom: 19px;
+}
+.groupTitle > span {
+  color: var(--controls-accent);
+  font-size: 0.61rem;
+  font-weight: 900;
+  padding-top: 2px;
+}
+.groupTitle strong,
+.groupTitle small {
+  display: block;
+}
+.groupTitle strong {
+  display: block;
+  font-size: 0.88rem;
+}
+.groupTitle small {
+  display: block;
+  color: var(--slate-500);
+  font-size: 0.77rem;
+  line-height: 1.45;
+  margin-top: 5px;
+}
+.controlGroup > label {
+  color: var(--slate-500);
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 800;
+  margin: 19px 0 9px;
+  text-transform: uppercase;
+}
+.brandInput {
+  background: var(--surface);
+  border: 1px solid var(--slate-200);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 750;
+  outline: none;
+  padding: 13px 14px;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+  width: 100%;
+}
+.brandInput:focus {
+  border-color: var(--controls-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--controls-accent) 10%, transparent);
+}
+.optionalLabel {
+  color: var(--slate-400);
+  font-size: 0.52rem;
+  font-weight: 700;
+  margin-left: 5px;
+  text-transform: none;
+}
+.fieldNote {
+  color: var(--slate-500);
+  display: block;
+  font-size: 0.54rem;
+  line-height: 1.45;
+  margin-top: 6px;
+}
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+.swatches button {
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--slate-200);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  height: 31px;
+  justify-content: center;
+  padding: 4px;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s,
+    transform 0.15s;
+  width: 31px;
+}
+.swatches button i {
+  border-radius: 50%;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.swatches button:hover {
+  transform: translateY(-1px);
+}
+.swatches .activeSwatch {
+  border-color: var(--controls-accent);
+  box-shadow:
+    0 0 0 2px var(--surface),
+    0 0 0 4px var(--controls-accent);
+}
+.paletteNote {
+  color: var(--slate-500);
+  font-size: 0.58rem;
+  line-height: 1.55;
+  margin: 14px 0 0;
+  max-width: 340px;
+}
+.moduleOptions {
+  display: flex;
+  flex-direction: column;
+}
+.moduleChoice {
+  border-top: 1px solid var(--slate-100);
+}
+.moduleRow {
+  align-items: stretch;
+  display: flex;
+}
+.moduleToggle {
+  align-items: center;
+  background: var(--surface);
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 19px 2px;
+  text-align: left;
+}
+.capabilityLabel {
+  align-items: center;
+  display: flex;
+  gap: 11px;
+  min-width: 0;
+}
+.capabilityIcon {
+  align-items: center;
+  background: var(--surface-flow);
+  border: 1px solid var(--slate-100);
+  color: var(--controls-accent);
+  display: flex;
+  flex: 0 0 44px;
+  height: 44px;
+  justify-content: center;
+}
+.capabilityIcon svg {
+  fill: none;
+  height: 21px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.45;
+  width: 21px;
+}
+.moduleSelected .capabilityIcon {
+  background: var(--controls-accent);
+  border-color: var(--controls-accent);
+  color: var(--text-on-dark);
+}
+.moduleToggle > span strong,
+.moduleToggle > span small {
+  display: block;
+}
+.moduleToggle > span strong {
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+.moduleToggle > span small {
+  display: block;
+  color: var(--slate-500);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  margin-top: 5px;
+}
+.moduleToggle > i {
+  align-items: center;
+  border: 1px solid var(--slate-200);
+  border-radius: 50%;
+  color: var(--controls-accent);
+  display: flex;
+  flex: 0 0 24px;
+  font-size: 0.7rem;
+  font-style: normal;
+  height: 24px;
+  justify-content: center;
+}
+.moduleSelected > i {
+  background: var(--controls-accent);
+  border-color: var(--controls-accent);
+  color: var(--text-on-dark);
+}
+.moduleSelected > span strong {
+  color: var(--controls-accent);
+}
+.expandToggle {
+  align-items: center;
+  background: var(--surface);
+  border: 0;
+  color: var(--slate-500);
+  cursor: pointer;
+  display: flex;
+  flex: 0 0 34px;
+  justify-content: center;
+  padding: 0;
+}
+.expandToggle:hover {
+  color: var(--controls-accent);
+}
+.expandToggle svg {
+  fill: none;
+  height: 17px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+  transition: transform 0.2s;
+  width: 17px;
+}
+.expandToggleOpen {
+  color: var(--controls-accent);
+}
+.expandToggleOpen svg {
+  transform: rotate(180deg);
+}
+.moduleExplanation {
+  background: var(--surface-flow);
+  border-left: 2px solid var(--controls-accent);
+  margin: 0 0 14px;
+  padding: 15px 16px;
+}
+.moduleExplanation p {
+  color: var(--slate-600);
+  font-size: 0.72rem;
+  line-height: 1.65;
+  margin: 0 0 12px;
+}
+.moduleExplanation ul {
+  display: grid;
+  gap: 5px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.moduleExplanation li {
+  color: var(--slate-600);
+  font-size: 0.65rem;
+  line-height: 1.5;
+  padding-left: 13px;
+  position: relative;
+}
+.moduleExplanation li::before {
+  background: var(--controls-accent);
+  border-radius: 50%;
+  content: "";
+  height: 4px;
+  left: 0;
+  position: absolute;
+  top: 0.4em;
+  width: 4px;
+}
+.inventorySubOptions {
+  background: var(--surface-flow);
+  border-left: 2px solid var(--controls-accent);
+  margin: 0 0 12px 12px;
+  padding: 10px 10px 4px;
+}
+.inventorySubOptions > p {
+  color: var(--slate-500);
+  font-size: 0.53rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+.subOption {
+  border-top: 1px solid var(--slate-100);
+}
+.inventorySubOptions .moduleToggle,
+.inventorySubOptions .expandToggle {
+  background: transparent;
+}
+.inventorySubOptions .moduleToggle {
+  background: transparent;
+  padding: 14px 2px;
+}
+.inventorySubOptions .moduleToggle > span strong {
+  font-size: 0.79rem;
+}
+.inventorySubOptions .moduleToggle > span small {
+  font-size: 0.66rem;
+}
+.inventorySubOptions .moduleToggle > i {
+  background: var(--surface);
+  height: 21px;
+  width: 21px;
+}
+.inventorySubOptions .subCapabilityIcon {
+  background: var(--surface);
+  flex-basis: 29px;
+  height: 29px;
+}
+.inventorySubOptions .subCapabilityIcon svg {
+  height: 16px;
+  width: 16px;
+}
+.inventorySubOptions .subOptionSelected .subCapabilityIcon {
+  background: var(--controls-accent);
+  color: var(--text-on-dark);
+}
+.inventorySubOptions .subOptionSelected > i {
+  background: var(--controls-accent);
+  border-color: var(--controls-accent);
+  color: var(--text-on-dark);
+}
+.inventorySubOptions .subOptionSelected > span strong {
+  color: var(--controls-accent);
+}
+.subExplanation {
+  background: var(--surface);
+  margin: 0 0 11px;
+}
+.customRequestPanel {
+  background: var(--surface-flow);
+  border-left: 2px solid var(--controls-accent);
+  margin: 0 0 14px;
+  padding: 15px 16px;
+  width: 100%;
+}
+.customRequestPanel label {
+  color: var(--slate-800);
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 850;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+.customRequestPanel textarea {
+  background: var(--surface);
+  border: 1px solid var(--slate-200);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.73rem;
+  line-height: 1.55;
+  min-height: 112px;
+  outline: none;
+  padding: 12px;
+  resize: vertical;
+  width: 100%;
+}
+.customRequestPanel textarea:focus {
+  border-color: var(--controls-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--controls-accent) 10%, transparent);
+}
+.customRequestPanel > small {
+  color: var(--slate-500);
+  display: block;
+  font-size: 0.61rem;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+.detailsSection {
+  padding: 26px;
+  background: var(--slate-50);
+}
+.detailsForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.detailsForm > label > span {
+  color: var(--slate-600);
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+}
+.detailsForm > label > input {
+  background: var(--surface);
+  border: 1px solid var(--slate-200);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  outline: none;
+  padding: 14px;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+  width: 100%;
+}
+.detailsForm > label > input:focus {
+  border-color: var(--controls-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--controls-accent) 10%, transparent);
+}
+.configurationReview {
+  border-top: 1px solid var(--slate-200);
+  margin-top: 5px;
+  padding-top: 17px;
+}
+.configurationReview > div {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.configurationReview > div span {
+  color: var(--slate-500);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+}
+.configurationReview > div strong {
+  font-size: 0.92rem;
+}
+.configurationReview > p {
+  color: var(--slate-600);
+  font-size: 0.67rem;
+  line-height: 1.55;
+  margin: 10px 0 0;
+}
+.detailsSubmit {
+  align-items: center;
+  background: var(--controls-accent);
+  border: 0;
+  color: var(--text-on-dark);
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 850;
+  justify-content: space-between;
+  margin-top: 3px;
+  padding: 15px 16px;
+  width: 100%;
+}
+.detailsSubmit:hover {
+  background: var(--blue-700);
+}
+.detailsSubmit:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+.submissionNote {
+  color: var(--slate-500);
+  display: block;
+  font-size: 0.59rem;
+  line-height: 1.55;
+}
+.submissionMessage:empty {
+  display: none;
+}
+.submissionMessage p {
+  font-size: 0.67rem;
+  font-weight: 750;
+  line-height: 1.55;
+  margin: 0;
+  padding: 11px 12px;
+}
+.submissionSuccess {
+  background: var(--success-surface);
+  color: var(--success-ink);
+}
+.submissionError {
+  background: var(--danger-surface);
+  color: var(--danger-ink);
+}
+@media (min-width: 900px) {
+  .controls {
+    border-left: 1px solid var(--slate-200);
+    border-top: 0;
+    height: 100%;
+    overflow-y: auto;
+  }
+}

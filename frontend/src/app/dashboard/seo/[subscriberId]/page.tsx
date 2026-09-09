@@ -23,7 +23,7 @@ export default function SeoSubscriberDetailPage() {
       fetch: getSeoSubscriber,
       update: updateSeoSubscriber,
       messageFilter: "related_seo_subscriber",
-      replySubject: "Your Free the Desk SEO account",
+      replySubject: "Your freethedesk SEO account",
       loadError: "SEO customer could not be loaded.",
       saveError: "The SEO customer could not be updated.",
     });

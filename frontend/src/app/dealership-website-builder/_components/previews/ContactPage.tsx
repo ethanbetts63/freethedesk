@@ -6,7 +6,7 @@ import { ConversionButton, ConversionLink } from "../ConversionButton";
 import { DemoMap } from "../DemoMap";
 import { getDemoBrandIdentity } from "../../_lib/demoBrand";
 import { PageHeading } from "./shared";
-import styles from "../../page.module.css";
+import styles from "../../_styles/preview.module.css";
 
 export function ContactPage({ brandName }: { brandName: string }) {
   const [sent, setSent] = useState(false);

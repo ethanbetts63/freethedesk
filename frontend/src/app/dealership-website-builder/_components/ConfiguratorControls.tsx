@@ -3,10 +3,12 @@
 import { FormEvent, useState } from "react";
 
 import { submitEnquiry } from "@/lib/api";
+import { PrimaryButton } from "@/components/PrimaryButton";
 
 import { CapabilityIcon } from "./CapabilityIcon";
+import { CapabilityOption } from "./CapabilityOption";
 import { ACCENTS, INVENTORY_OPTIONS, MODULES, summariseSelection } from "../_lib/configuratorData";
-import styles from "../page.module.css";
+import styles from "../_styles/configurator.module.css";
 import type { Accent, InventoryAddonSelection, InventoryOption, ModuleKey, ModuleSelection } from "../_lib/types";
 
 type ConfiguratorControlsProps = {
@@ -117,29 +119,31 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             <small>Make the foundation feel like yours.</small>
           </div>
         </div>
-        <label htmlFor="brand-name">Brand name</label>
+        <label className="form-label" htmlFor="brand-name">
+          Brand name
+        </label>
         <input
           id="brand-name"
-          className={styles.brandInput}
+          className={`form-control ${styles.brandInput}`}
           value={brandName}
           onChange={(event) => onBrandNameChange(event.target.value)}
           maxLength={28}
           placeholder="Your dealership"
         />
-        <label htmlFor="current-url">
+        <label className="form-label" htmlFor="current-url">
           Current website <span className={styles.optionalLabel}>Optional</span>
         </label>
         <input
           id="current-url"
-          className={styles.brandInput}
+          className={`form-control ${styles.brandInput}`}
           type="text"
           inputMode="url"
           value={currentUrl}
           onChange={(event) => onCurrentUrlChange(event.target.value)}
           placeholder="www.example.com.au"
         />
-        <small className={styles.fieldNote}>Helps us understand your current content and setup.</small>
-        <label>Brand accent</label>
+        <small className="field-hint">Helps us understand your current content and setup.</small>
+        <label className="form-label">Brand accent</label>
         <div className={styles.swatches}>
           {(Object.keys(ACCENTS) as Accent[]).map((option) => (
             <button
@@ -170,106 +174,35 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             const explanationId = `module-${module.key}`;
 
             return (
-              <div key={module.key} className={styles.moduleChoice}>
-                <div className={styles.moduleRow}>
-                  <button
-                    type="button"
-                    className={`${styles.moduleToggle} ${selected[module.key] ? styles.moduleSelected : ""}`}
-                    onClick={() => onModuleToggle(module.key)}
-                    aria-pressed={selected[module.key]}
-                  >
-                    <span className={styles.capabilityLabel}>
-                      <span className={styles.capabilityIcon}>
-                        <CapabilityIcon type={module.key} />
-                      </span>
-                      <span>
-                        <strong>{module.name}</strong>
-                        <small>{module.description}</small>
-                      </span>
-                    </span>
-                    <i>{selected[module.key] ? "✓" : "+"}</i>
-                  </button>
-                  <button
-                    type="button"
-                    className={`${styles.expandToggle} ${expanded[explanationId] ? styles.expandToggleOpen : ""}`}
-                    onClick={() => toggleExpanded(explanationId)}
-                    aria-expanded={Boolean(expanded[explanationId])}
-                    aria-controls={`${explanationId}-details`}
-                    aria-label={`${expanded[explanationId] ? "Hide" : "Learn more about"} ${module.name}`}
-                  >
-                    <svg viewBox="0 0 20 20" aria-hidden="true">
-                      <path d="m5 7.5 5 5 5-5" />
-                    </svg>
-                  </button>
-                </div>
-                {expanded[explanationId] && (
-                  <div className={styles.moduleExplanation} id={`${explanationId}-details`}>
-                    <p>{module.detail}</p>
-                    <ul>
-                      {module.includes.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {module.key === "inventory" && selected.inventory && (
+              <CapabilityOption
+                key={module.key}
+                option={module}
+                selected={selected[module.key]}
+                expanded={Boolean(expanded[explanationId])}
+                onToggle={() => onModuleToggle(module.key)}
+                onExpandedChange={() => toggleExpanded(explanationId)}
+              >
+                {module.key === "inventory" && selected.inventory ? (
                   <div className={styles.inventorySubOptions}>
                     <p>Optional online actions</p>
                     {INVENTORY_OPTIONS.map((option) => {
                       const optionExplanationId = `inventory-${option.key}`;
 
                       return (
-                        <div className={styles.subOption} key={option.key}>
-                          <div className={styles.moduleRow}>
-                            <button
-                              type="button"
-                              className={`${styles.moduleToggle} ${inventoryAddons[option.key] ? styles.subOptionSelected : ""}`}
-                              onClick={() => onInventoryAddonToggle(option.key)}
-                              aria-pressed={inventoryAddons[option.key]}
-                            >
-                              <span className={styles.capabilityLabel}>
-                                <span className={`${styles.capabilityIcon} ${styles.subCapabilityIcon}`}>
-                                  <CapabilityIcon type={option.key} />
-                                </span>
-                                <span>
-                                  <strong>{option.name}</strong>
-                                  <small>{option.description}</small>
-                                </span>
-                              </span>
-                              <i>{inventoryAddons[option.key] ? "✓" : "+"}</i>
-                            </button>
-                            <button
-                              type="button"
-                              className={`${styles.expandToggle} ${expanded[optionExplanationId] ? styles.expandToggleOpen : ""}`}
-                              onClick={() => toggleExpanded(optionExplanationId)}
-                              aria-expanded={Boolean(expanded[optionExplanationId])}
-                              aria-controls={`${optionExplanationId}-details`}
-                              aria-label={`${expanded[optionExplanationId] ? "Hide" : "Learn more about"} ${option.name}`}
-                            >
-                              <svg viewBox="0 0 20 20" aria-hidden="true">
-                                <path d="m5 7.5 5 5 5-5" />
-                              </svg>
-                            </button>
-                          </div>
-                          {expanded[optionExplanationId] && (
-                            <div
-                              className={`${styles.moduleExplanation} ${styles.subExplanation}`}
-                              id={`${optionExplanationId}-details`}
-                            >
-                              <p>{option.detail}</p>
-                              <ul>
-                                {option.includes.map((item) => (
-                                  <li key={item}>{item}</li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                        </div>
+                        <CapabilityOption
+                          key={option.key}
+                          option={option}
+                          compact
+                          selected={inventoryAddons[option.key]}
+                          expanded={Boolean(expanded[optionExplanationId])}
+                          onToggle={() => onInventoryAddonToggle(option.key)}
+                          onExpandedChange={() => toggleExpanded(optionExplanationId)}
+                        />
                       );
                     })}
                   </div>
-                )}
-              </div>
+                ) : null}
+              </CapabilityOption>
             );
           })}
           <div className={styles.moduleChoice}>
@@ -309,9 +242,12 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             </div>
             {expanded.custom && (
               <div className={styles.customRequestPanel} id="custom-capability-details">
-                <label htmlFor="custom-request">What would you like your website to do?</label>
+                <label className="form-label" htmlFor="custom-request">
+                  What would you like your website to do?
+                </label>
                 <textarea
                   id="custom-request"
+                  className="form-control"
                   value={customRequest}
                   onChange={(event) => onCustomRequestChange(event.target.value)}
                   placeholder="For example: connect to our existing workshop system, show stock shared across two locations, or build a trade-in valuation flow..."
@@ -336,6 +272,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           <label>
             <span>Name</span>
             <input
+              className="form-control"
               value={contactName}
               onChange={(event) => {
                 setContactName(event.target.value);
@@ -348,6 +285,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           <label>
             <span>Email</span>
             <input
+              className="form-control"
               value={contactEmail}
               onChange={(event) => {
                 setContactEmail(event.target.value);
@@ -361,6 +299,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           <label>
             <span>Phone number</span>
             <input
+              className="form-control"
               value={contactPhone}
               onChange={(event) => {
                 setContactPhone(event.target.value);
@@ -378,14 +317,19 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             </div>
             {summaryItems.length > 0 && <p>{summaryItems.join(" · ")}</p>}
           </div>
-          <button className={styles.detailsSubmit} type="submit" disabled={submissionStatus === "submitting"}>
+          <PrimaryButton
+            className={styles.detailsSubmit}
+            type="submit"
+            disabled={submissionStatus === "submitting"}
+            direction="right"
+            fullWidth
+          >
             {submissionStatus === "submitting"
               ? "Sending…"
               : submissionStatus === "success"
                 ? "Send updated configuration"
                 : "Send my configuration"}
-            <span aria-hidden="true">→</span>
-          </button>
+          </PrimaryButton>
           <small className={styles.submissionNote}>
             No payment today. We’ll confirm integrations, scope and timing with you first.
           </small>

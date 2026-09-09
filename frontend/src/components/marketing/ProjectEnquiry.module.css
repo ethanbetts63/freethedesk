@@ -66,11 +66,14 @@
 .form {
   --selection-input-font-size: 1rem;
 }
+/* Heading and pill share a line; the pill drops below only once the heading
+   can no longer fit beside it. */
 .formTitle {
-  align-items: stretch;
+  align-items: baseline;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  justify-content: space-between;
 }
 .formTitle h3 {
   margin: 0;

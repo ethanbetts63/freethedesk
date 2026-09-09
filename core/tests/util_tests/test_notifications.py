@@ -13,7 +13,7 @@ pytestmark = pytest.mark.django_db
     NOTIFICATIONS_ENABLED=True,
     MAILGUN_API_KEY="test-key",
     MAILGUN_DOMAIN="mail.example.com",
-    DEFAULT_FROM_EMAIL="Free the Desk <hello@example.com>",
+    DEFAULT_FROM_EMAIL="freethedesk <hello@example.com>",
 )
 @patch("core.utils.notifications.requests.post")
 def test_email_delivery_is_marked_sent(post):
@@ -23,7 +23,7 @@ def test_email_delivery_is_marked_sent(post):
         recipient="lead@example.com",
         channel="email",
         subject="Hello",
-        body="A message from Free the Desk.",
+        body="A message from freethedesk.",
     )
     send_notification(notification)
     notification.refresh_from_db()

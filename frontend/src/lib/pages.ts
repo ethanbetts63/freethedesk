@@ -14,7 +14,7 @@ export interface PageDefinition {
 
 export const PAGES = {
   "/": {
-    title: "Free the Desk | Dealer Operations Systems",
+    title: "freethedesk | Dealer Operations Systems",
     description: "Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.",
     absoluteTitle: true,
     sitemap: { changeFrequency: "weekly", priority: 1 },
@@ -75,22 +75,22 @@ export const PAGES = {
   "/contact": {
     title: "Contact",
     description:
-      "Talk to Free the Desk about a custom website, online licensing product, web application or business automation project.",
+      "Talk to freethedesk about a custom website, online licensing product, web application or business automation project.",
     sitemap: { changeFrequency: "yearly", priority: 0.65 },
   },
   "/legal/privacy": {
     title: "Privacy Policy",
-    description: "How Free the Desk collects, uses, stores and discloses personal information.",
+    description: "How freethedesk collects, uses, stores and discloses personal information.",
     sitemap: { changeFrequency: "yearly", priority: 0.3 },
   },
   "/legal/dealer-subscription-terms": {
     title: "Dealer Subscription Terms",
-    description: "Terms for Free the Desk dealer licensing and contract subscriptions.",
+    description: "Terms for freethedesk dealer licensing and contract subscriptions.",
     sitemap: { changeFrequency: "yearly", priority: 0.3 },
   },
   "/legal/seo-subscription-terms": {
     title: "SEO Reporting & Audit Terms",
-    description: "Terms for Free the Desk SEO reporting and audit services.",
+    description: "Terms for freethedesk SEO reporting and audit services.",
     sitemap: { changeFrequency: "yearly", priority: 0.3 },
   },
 } as const satisfies Record<string, PageDefinition>;

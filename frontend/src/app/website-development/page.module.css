@@ -52,6 +52,10 @@
   padding-bottom: var(--section-space);
   padding-top: var(--section-space);
 }
+/* Copy leads on mobile; the browser mock follows it. */
+.systemCopy {
+  grid-row: 1;
+}
 .systemVisual {
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
@@ -63,6 +67,7 @@
   border: 2px solid transparent;
   box-shadow: 22px 22px 0 var(--slate-100);
   color: var(--text-on-dark);
+  grid-row: 2;
   min-height: 440px;
   overflow: hidden;
   position: relative;
@@ -264,5 +269,10 @@
 @media (min-width: 900px) {
   .systemSection {
     grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  }
+  /* Two columns: DOM order already puts the visual on the left. */
+  .systemCopy,
+  .systemVisual {
+    grid-row: auto;
   }
 }
