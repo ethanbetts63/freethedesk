@@ -8,6 +8,7 @@ export function DealershipAutomation() {
       <ServiceScroll
         services={dealerServices}
         customHref="#project-enquiry"
+        ctaLabel="Discuss your dealership"
         eyebrow="Dealership automation"
         title="The systems that keep a sales floor moving."
       />

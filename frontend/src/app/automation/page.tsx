@@ -106,6 +106,7 @@ export default function AutomationPage() {
         <ServiceScroll
           services={automationServices}
           customHref="#enquiry"
+          ctaLabel="Find your first automation"
           eyebrow={sections["Practical automation"]}
           title="What gets copied, chased or checked every week?"
         />

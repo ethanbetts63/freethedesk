@@ -22,7 +22,7 @@ export function WebsiteProduct() {
 
           <div className={styles.actions}>
             <PrimaryButton className={styles.primary} href="/dealership-website-builder" size="large">
-              Configure now
+              Try the free demo
             </PrimaryButton>
             <a className={styles.dealerExample} href="https://www.scootershop.com.au" target="_blank" rel="noreferrer">
               <small>See a complete dealer example</small>

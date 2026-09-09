@@ -73,7 +73,7 @@ export default function Home() {
       <WebsiteProduct />
       <ProjectEnquiry />
       <Faq eyebrow="Common questions" title="A useful place to start." items={HOME_FAQS} />
-      <ManualAdminCta buttonLabel="Get in contact" />
+      <ManualAdminCta buttonLabel="Get in touch" />
     </main>
   );
 }

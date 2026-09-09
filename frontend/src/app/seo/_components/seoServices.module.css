@@ -22,7 +22,7 @@
   width: 4px;
 }
 .redirectBar > span {
-  color: var(--text-subtle);
+  color: var(--slate-700);
   font-size: 0.46rem;
   font-weight: 800;
   letter-spacing: 0.07em;
@@ -48,7 +48,7 @@
   white-space: nowrap;
 }
 .oldUrl {
-  color: var(--text-subtle);
+  color: var(--text-muted);
   text-decoration: line-through;
 }
 .liveUrl {

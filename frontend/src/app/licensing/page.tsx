@@ -130,7 +130,7 @@ export default async function LicensingPage() {
               <LoginPreviewPhone />
               <p className={styles.optionPhoneCaption}>Hosted portal</p>
               <Link href="#signup">
-                Choose a plan <b>↓</b>
+                Choose your plan <b>↓</b>
               </Link>
             </div>
             <div className={styles.optionPhoneTile}>

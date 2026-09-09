@@ -41,7 +41,7 @@ export function SubscriptionSwap({ eyebrow }: { eyebrow: string }) {
         </ol>
 
         <PrimaryButton className={styles.cta} href="#enquiry" direction="down">
-          Tell us what you&apos;re paying for
+          Discuss your website
         </PrimaryButton>
       </div>
     </section>

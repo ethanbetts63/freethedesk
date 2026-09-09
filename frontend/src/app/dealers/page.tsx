@@ -47,7 +47,7 @@ export default function Dealers() {
         accentTitle="dealerships."
         lead="Connected websites and operational systems built for the way modern dealerships sell, service and work."
         primaryHref="/dealership-website-builder"
-        primaryLabel="Try the Free Demo"
+        primaryLabel="Try the free demo"
         secondaryHref="/portfolio/scooter-shop"
         secondaryLabel="See it in action"
       />
@@ -57,7 +57,7 @@ export default function Dealers() {
       <DealershipAutomation />
       <ProjectEnquiry />
       <Faq eyebrow="Common questions" title="Before you get in touch." items={DEALER_FAQS} />
-      <ManualAdminCta href="#project-enquiry" />
+      <ManualAdminCta href="#project-enquiry" buttonLabel="Discuss your dealership" />
     </main>
   );
 }

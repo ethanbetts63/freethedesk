@@ -25,12 +25,14 @@ export function ServiceScroll({
   customHref,
   eyebrow,
   title,
+  ctaLabel = "Tell us about it",
   showCustomService = true,
 }: {
   services: Service[];
   customHref: string;
   eyebrow: string;
   title: string;
+  ctaLabel?: string;
   showCustomService?: boolean;
 }) {
   // The form is below this list, so in-page links scroll down.
@@ -47,7 +49,9 @@ export function ServiceScroll({
       {services.map((service, index) => (
         <div className="service-row" key={service.title}>
           <div className="service-sticky">
-            <span style={{ color: service.color }}>0{index + 1}</span>
+            {/* Number colour comes from the stylesheet (--accent-ink) so it always
+                clears contrast; service.color only tints the decorative icon. */}
+            <span>0{index + 1}</span>
             <h3>{service.title}</h3>
           </div>
           <div className="service-content">
@@ -79,7 +83,7 @@ export function ServiceScroll({
             <p>{customService.body}</p>
           </div>
           <PrimaryButton className="service-custom-cta" href={customHref} direction={ctaDirection}>
-            Tell us about it
+            {ctaLabel}
           </PrimaryButton>
         </div>
       )}

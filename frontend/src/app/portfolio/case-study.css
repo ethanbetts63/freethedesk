@@ -122,6 +122,7 @@
   display: grid;
   gap: 30px;
   grid-template-columns: minmax(0, 1fr);
+  padding-block: 78px;
 }
 .case-story-intro > div {
   max-width: 880px;
@@ -756,6 +757,7 @@
   .case-story-intro {
     gap: 105px;
     grid-template-columns: minmax(0, 0.42fr) minmax(0, 1.58fr);
+    padding-block: 112px;
   }
   .case-capability-list {
     grid-template-columns: repeat(4, minmax(0, 1fr));

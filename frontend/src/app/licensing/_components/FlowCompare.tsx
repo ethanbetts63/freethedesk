@@ -90,7 +90,7 @@ export function FlowCompare() {
           label="Hosted portal"
           badge="5 steps, you enter each sale"
           steps={hostedSteps}
-          cta={{ href: "#signup", label: "Choose a plan" }}
+          cta={{ href: "#signup", label: "Choose your plan" }}
         />
         <FlowColumn
           label="Built into your website"

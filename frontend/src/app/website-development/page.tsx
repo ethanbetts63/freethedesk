@@ -73,7 +73,7 @@ export default function WebsiteDevelopmentPage() {
         primaryHref="#enquiry"
         primaryLabel="Discuss your website"
         secondaryHref="/portfolio/scooter-shop"
-        secondaryLabel="See what we build"
+        secondaryLabel="Read the full case study"
       />
 
       <ProofStrip stats={websiteDevStats} />
@@ -132,7 +132,7 @@ export default function WebsiteDevelopmentPage() {
             <li>A clear confirmation and handoff at the end</li>
           </ul>
           <PrimaryButton href="#enquiry" direction="down">
-            Plan your customer journey
+            Discuss your website
           </PrimaryButton>
         </div>
       </section>
@@ -143,8 +143,6 @@ export default function WebsiteDevelopmentPage() {
         primaryHref="#enquiry"
         primaryLabel="Discuss your website"
         panelTitle="Your website"
-        secondaryHref="/automation"
-        secondaryLabel="Want to know more about automation?"
       />
 
       <SubscriptionSwap eyebrow={sections["What you're paying for"]} />
@@ -154,8 +152,9 @@ export default function WebsiteDevelopmentPage() {
           <ServiceScroll
             services={websiteServices}
             customHref="#enquiry"
+            ctaLabel="Discuss your website"
             eyebrow={sections["What we build"]}
-            title="The website is the easy part."
+            title="Features we can build in."
           />
         </div>
       </section>
@@ -206,7 +205,7 @@ export default function WebsiteDevelopmentPage() {
         eyebrow="Start with the useful part"
         title="What should your website make easier?"
         href="#enquiry"
-        buttonLabel="Talk about your project"
+        buttonLabel="Discuss your website"
       >
         Tell us what you sell, who the site is for and where the current process gets in the way.
       </ManualAdminCta>
