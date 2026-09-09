@@ -2,6 +2,6 @@ Thanks, {{ dealer.contact_name }}. Your account for {{ dealer.business_name }} i
 
 Selected plan: {{ dealer.get_plan_display }}
 
-Continue to secure payment: {{ payment_url }}
+Payment: {{ payment_url }}
 
 Once Stripe confirms payment, you can enter your licence and dealership details immediately. We verify those details before enabling live customer transactions.

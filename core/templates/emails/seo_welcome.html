@@ -10,6 +10,6 @@
 
 <p style="margin: 0 0 20px;">Selected {% if is_gbp_audit %}product{% else %}plan{% endif %}: <strong>{{ subscriber.get_plan_display }}</strong>.</p>
 <p style="margin: 0 0 20px;">Report: <strong>{{ subscriber.get_report_type_display }}</strong>.</p>
-<p style="margin: 0 0 20px;"><a href="{{ payment_url }}">Continue to secure payment</a>.</p>
+<p style="margin: 0 0 20px;"><a href="{{ payment_url }}">Payment</a>.</p>
 <p style="margin: 0 0 8px;">{% if is_gbp_audit %}Once Stripe confirms payment, you can send us your Google Business Profile link and business location.{% else %}Once Stripe confirms payment, you can connect your Search Console data and tell us what to focus the reporting on.{% endif %}</p>
 {% endblock %}

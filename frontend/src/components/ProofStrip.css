@@ -5,12 +5,14 @@
   color: var(--text-on-dark);
 }
 /* Stacked: the articles share one value column through subgrid, so the label
-   starts at the same x whether the value reads "AI" or "36%". Each article
-   sizing its own column made the text jump left and right down the list. */
+   starts at the same x whether the value reads "AI" or "36%" - each article
+   sizing its own column made the text jump left and right down the list. Both
+   tracks size to content and the pair is centred in whatever room is left. */
 .proof-strip-grid {
   column-gap: 13px;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, max-content);
+  justify-content: center;
 }
 .proof-strip article {
   align-items: center;
@@ -26,9 +28,12 @@
 .proof-strip article + article {
   border-top: 1px solid var(--border-on-dark);
 }
+/* Centred in the shared column, so a short value like "AI" is not stranded
+   against the left edge of a track sized for "24 / 7". */
 .proof-strip strong {
   display: inline-block;
   font-size: var(--display-2);
+  justify-self: center;
   letter-spacing: -0.07em;
   padding-right: 0.07em;
   /* "24 / 7" split across two lines in the narrow value column. */
@@ -49,6 +54,7 @@
   .proof-strip-grid {
     column-gap: 0;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    justify-content: normal;
   }
   /* Side by side now, so each article is its own grid again. */
   .proof-strip article {
@@ -58,6 +64,9 @@
     grid-template-columns: minmax(0, 1fr);
     min-height: 160px;
     padding: 34px 30px;
+  }
+  .proof-strip strong {
+    justify-self: start;
   }
   .proof-strip article + article {
     border-left: 1px solid var(--border-on-dark);

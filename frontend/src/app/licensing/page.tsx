@@ -117,14 +117,13 @@ export default async function LicensingPage() {
         <div className={`shell ${styles.optionsLayout}`}>
           <div className={styles.optionsHeading}>
             <SectionNumber>{sections["Two ways to use it"]}</SectionNumber>
-            <h2>Our portal or your website.</h2>
+            <h2>
+              Our portal or <span className="moving-colour-text">your website.</span>
+            </h2>
             <p>
               Use the hosted product with the website you already have, or make it a seamless part of a dealership site
               we build.
             </p>
-            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down" size="compact">
-              Choose your plan
-            </PrimaryButton>
           </div>
           <div className={styles.optionPhones}>
             <div className={styles.optionPhoneTile}>

@@ -5,6 +5,7 @@
 }
 .panel {
   --selection-panel-min-height: 560px;
+  margin-inline: calc(var(--gutter) * -1);
 }
 .chooser h2 {
   color: var(--text-strong);
@@ -102,6 +103,9 @@
 }
 
 @media (min-width: 640px) {
+  .panel {
+    margin-inline: 0;
+  }
   .typeGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }

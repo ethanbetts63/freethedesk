@@ -10,7 +10,7 @@ export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="footer-signal-flow">
-        <SignalFlow />
+        <SignalFlow smooth />
       </div>
       <div className="shell footer-grid">
         <div>

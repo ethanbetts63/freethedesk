@@ -1,6 +1,7 @@
 .banner {
   background: var(--surface-navy);
   color: var(--text-on-dark);
+  display: none;
   overflow: hidden;
   position: relative;
 }
@@ -109,6 +110,67 @@
   height: 28px;
   justify-content: center;
 }
+.modalBackdrop {
+  align-items: center;
+  background: color-mix(in srgb, var(--surface-navy) 72%, transparent);
+  display: grid;
+  inset: 0;
+  justify-items: center;
+  padding: var(--gutter);
+  position: fixed;
+  z-index: 1000;
+}
+.modal {
+  box-shadow: 0 24px 80px color-mix(in srgb, var(--surface-navy) 55%, transparent);
+  max-height: calc(100dvh - (var(--gutter) * 2));
+  overflow: auto;
+  position: relative;
+  width: min(100%, 440px);
+}
+.modalBanner {
+  display: block;
+}
+.modalBanner .inner {
+  align-items: stretch;
+  padding: 58px 24px 28px;
+}
+.modalBanner .copy h2 {
+  font-size: var(--display-1);
+  max-width: 320px;
+}
+.modalClose {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--text-on-dark-muted);
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  font-size: 1.8rem;
+  height: var(--tap-min);
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  width: var(--tap-min);
+  z-index: 1;
+}
+.modalClose:hover {
+  color: var(--text-on-dark);
+}
+.modalClose:focus-visible {
+  outline: 2px solid var(--accent-on-dark-soft);
+  outline-offset: -4px;
+}
+.visuallyHidden {
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .banner::after {
@@ -117,6 +179,12 @@
 }
 
 @media (min-width: 640px) {
+  .banner {
+    display: block;
+  }
+  .modalBackdrop {
+    display: none;
+  }
   .form {
     grid-template-columns: minmax(170px, 1fr) minmax(170px, 1fr) auto;
   }

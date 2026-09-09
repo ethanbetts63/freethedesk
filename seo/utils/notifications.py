@@ -72,7 +72,7 @@ def send_seo_welcome(subscriber: SeoSubscriber) -> Notification:
     body = (
         f"Thanks, {subscriber.contact_name}. Your account for {subscriber.business_name} is saved.\n\n"
         f"Selected plan: {subscriber.get_plan_display()}\n"
-        f"Continue to secure payment: {payment_url}\n\n"
+        f"Payment: {payment_url}\n\n"
         f"{next_step}"
     )
     notification = Notification.objects.create(

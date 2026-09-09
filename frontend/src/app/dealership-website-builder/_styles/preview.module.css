@@ -576,10 +576,6 @@
   stroke-width: 14;
   width: 100%;
 }
-.demoMapMinorRoad {
-  opacity: 0.65;
-  stroke-width: 5;
-}
 .demoMapPin {
   fill: var(--preview-accent);
   stroke: var(--surface);

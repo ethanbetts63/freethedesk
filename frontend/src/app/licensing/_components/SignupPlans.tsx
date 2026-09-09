@@ -123,7 +123,7 @@ export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; 
             fullWidth
             disabled={status === "submitting"}
           >
-            {status === "submitting" ? "Creating your account…" : "Continue to secure payment"}
+            {status === "submitting" ? "Creating your account…" : "Payment"}
           </PrimaryButton>
         </form>
       </div>

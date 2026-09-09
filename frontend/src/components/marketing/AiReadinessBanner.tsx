@@ -5,7 +5,13 @@ import { normaliseWebsiteUrl, submitAiReadinessCheck } from "@/lib/api";
 import styles from "./AiReadinessBanner.module.css";
 import { useEnquiryForm } from "@/lib/useEnquiryForm";
 
-export function AiReadinessBanner({ className = "" }: { className?: string }) {
+export function AiReadinessBanner({
+  className = "",
+  titleId = "ai-readiness-banner-title",
+}: {
+  className?: string;
+  titleId?: string;
+}) {
   const { status, error, submit } = useEnquiryForm(
     (value) =>
       submitAiReadinessCheck({
@@ -16,10 +22,10 @@ export function AiReadinessBanner({ className = "" }: { className?: string }) {
   );
 
   return (
-    <section className={`${styles.banner} ${className}`} aria-labelledby="ai-readiness-banner-title">
+    <section className={`${styles.banner} ${className}`} aria-labelledby={titleId}>
       <div className={`shell ${styles.inner}`}>
         <div className={styles.copy}>
-          <h2 id="ai-readiness-banner-title">
+          <h2 id={titleId}>
             Can AI systems <span className="moving-colour-text">read your site?</span>
           </h2>
         </div>

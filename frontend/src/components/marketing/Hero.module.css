@@ -15,7 +15,10 @@
   inset: 0;
   position: absolute;
 }
+/* Hidden in a single column: the drifting nodes crowd the headline, and the
+   IntersectionObserver in the canvas hook parks the loop once it is not shown. */
 .network {
+  display: none;
   z-index: -2;
 }
 .network canvas {
@@ -142,6 +145,9 @@
 @media (min-width: 900px) {
   .hero {
     min-height: calc(100vh - 78px);
+  }
+  .network {
+    display: block;
   }
   .content {
     padding-bottom: 100px;

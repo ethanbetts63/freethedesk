@@ -2,7 +2,7 @@
   background: var(--surface-flow);
   margin-bottom: var(--section-space);
   margin-top: var(--section-space);
-  padding: 82px;
+  padding: 82px var(--gutter);
   text-align: center;
 }
 .closing h2 {

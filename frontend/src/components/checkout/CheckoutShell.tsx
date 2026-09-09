@@ -147,7 +147,7 @@ export function CheckoutTermsForm({
         </span>
       </label>
       <button type="submit" className={styles.payButton} disabled={!accepted || preparing}>
-        <span>{preparing ? "Preparing secure payment…" : "Continue to secure payment"}</span>
+        <span>{preparing ? "Preparing secure payment…" : "Payment"}</span>
         <b>→</b>
       </button>
     </form>

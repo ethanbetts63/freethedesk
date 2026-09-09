@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 
 import { submitEnquiry } from "@/lib/api";
-import { PrimaryButton } from "@/components/PrimaryButton";
+import { MovingColourButton } from "@/components/MovingColourButton";
 
 import { CapabilityOption } from "./CapabilityOption";
 import { ACCENTS, INVENTORY_OPTIONS, MODULES, summariseSelection } from "../_lib/configuratorData";
@@ -139,7 +139,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           inputMode="url"
           value={currentUrl}
           onChange={(event) => onCurrentUrlChange(event.target.value)}
-          placeholder="www.example.com.au"
+          placeholder="e.g. www.example.com.au"
         />
         <small className="field-hint">Helps us understand your current content and setup.</small>
         <label className="form-label">Brand accent</label>
@@ -278,6 +278,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
                 setSubmissionStatus("idle");
               }}
               autoComplete="name"
+              placeholder="e.g. Alex Smith"
               required
             />
           </label>
@@ -292,6 +293,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
               }}
               type="email"
               autoComplete="email"
+              placeholder="e.g. email@example.com"
               required
             />
           </label>
@@ -306,6 +308,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
               }}
               type="tel"
               autoComplete="tel"
+              placeholder="e.g. 0400 000 000"
               required
             />
           </label>
@@ -316,11 +319,12 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             </div>
             {summaryItems.length > 0 && <p>{summaryItems.join(" · ")}</p>}
           </div>
-          <PrimaryButton
+          <MovingColourButton
             className={styles.detailsSubmit}
             type="submit"
             disabled={submissionStatus === "submitting"}
             direction="right"
+            size="large"
             fullWidth
           >
             {submissionStatus === "submitting"
@@ -328,7 +332,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
               : submissionStatus === "success"
                 ? "Send updated configuration"
                 : "Send my configuration"}
-          </PrimaryButton>
+          </MovingColourButton>
           <small className={styles.submissionNote}>
             No payment today. We’ll confirm integrations, scope and timing with you first.
           </small>

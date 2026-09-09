@@ -164,7 +164,7 @@ export function SeoSignup({ settings, eyebrow }: { settings: PublicSiteSettings;
             fullWidth
             disabled={status === "submitting"}
           >
-            {status === "submitting" ? "Creating your checkout…" : "Continue to secure payment"}
+            {status === "submitting" ? "Creating your checkout…" : "Payment"}
           </PrimaryButton>
         </form>
       </div>

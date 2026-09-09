@@ -159,11 +159,11 @@
   width: 100%;
 }
 .funnelSteps li:nth-child(2) {
-  width: 82%;
+  width: calc(100% - 18px);
 }
 .funnelSteps li:nth-child(3) {
-  min-width: min(220px, 100%);
-  width: 64%;
+  min-width: 0;
+  width: calc(100% - 36px);
 }
 .funnelSteps li > span {
   align-items: center;
@@ -198,10 +198,10 @@
   gap: 3px 12px;
   grid-template-columns: auto auto minmax(0, 1fr);
   margin-top: 10px;
-  min-width: min(235px, 100%);
+  min-width: 0;
   padding: 13px 16px;
   text-shadow: 0 1px 2px color-mix(in srgb, var(--surface-ink) 32%, transparent);
-  width: 54%;
+  width: calc(100% - 54px);
 }
 .funnelResult .funnelResultTick {
   align-items: center;
@@ -261,6 +261,17 @@
   margin-top: 22px;
 }
 @media (min-width: 640px) {
+  .funnelSteps li:nth-child(2) {
+    width: 82%;
+  }
+  .funnelSteps li:nth-child(3) {
+    min-width: min(220px, 100%);
+    width: 64%;
+  }
+  .funnelResult {
+    min-width: min(235px, 100%);
+    width: 54%;
+  }
   .systemVisual {
     min-height: 515px;
   }

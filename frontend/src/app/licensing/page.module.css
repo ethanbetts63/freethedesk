@@ -661,19 +661,20 @@
   stroke-width: 1.6;
   width: 19px;
 }
-/* Flat brand blue, not the moving gradient: the Stripe wordmark is a blue-violet
-   and vanished as the gradient swept its own colours under it. */
+/* Pale blue, not the moving gradient: the Stripe wordmark is a blue-violet and
+   vanished as the gradient swept its own colours under it. Label goes dark to
+   stay readable on the light ground. */
 .verifyFooter {
   align-items: center;
-  background: var(--page-accent, var(--brand-accent));
-  box-shadow: 0 12px 28px color-mix(in srgb, var(--page-accent, var(--brand-accent)) 22%, transparent);
+  background: var(--blue-400);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--blue-900) 18%, transparent);
   display: flex;
-  gap: 11px;
+  gap: 0;
   justify-content: center;
   padding: 15px 17px;
 }
 .verifyFooter span {
-  color: color-mix(in srgb, var(--bg) 82%, transparent);
+  color: var(--blue-950);
   font-size: 0.76rem;
   font-weight: var(--weight-strong);
 }

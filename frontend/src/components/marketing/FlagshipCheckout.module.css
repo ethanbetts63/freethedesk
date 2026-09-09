@@ -120,17 +120,18 @@
   line-height: 1.45;
   margin: 0;
 }
-/* Flat brand blue, not the moving gradient: the Stripe wordmark is a blue-violet
-   and vanished as the gradient swept its own colours under it. */
+/* Pale blue, not the moving gradient: the Stripe wordmark is a blue-violet and
+   vanished as the gradient swept its own colours under it. Label goes dark to
+   stay readable on the light ground. */
 .status {
   align-items: center;
-  background: var(--page-accent, var(--brand-accent));
-  box-shadow: 0 12px 28px color-mix(in srgb, var(--page-accent, var(--brand-accent)) 22%, transparent);
-  color: color-mix(in srgb, var(--bg) 82%, transparent);
+  background: var(--blue-400);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--blue-900) 18%, transparent);
+  color: var(--blue-950);
   display: flex;
   font-size: 0.68rem;
   font-weight: var(--weight-strong);
-  gap: 8px;
+  gap: 0;
   justify-content: center;
   padding: 15px 17px;
 }
@@ -245,7 +246,6 @@
   }
   .status {
     font-size: 0.76rem;
-    gap: 11px;
   }
 }
 

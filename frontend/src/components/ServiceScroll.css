@@ -53,8 +53,9 @@ main:has(.service-scroll) {
   padding-top: 6px;
 }
 .service-lead {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
+  flex-direction: column;
   gap: 26px;
 }
 .service-icon {
@@ -94,6 +95,7 @@ main:has(.service-scroll) {
   display: grid;
   gap: clamp(30px, 5vw, 64px);
   grid-template-columns: minmax(0, 1fr);
+  margin-inline: calc(var(--gutter) * -1);
   margin-top: 24px;
   overflow: hidden;
   padding: 36px 28px 40px;
@@ -170,8 +172,13 @@ main:has(.service-scroll) {
 }
 
 @media (min-width: 640px) {
+  .service-lead {
+    align-items: center;
+    flex-direction: row;
+  }
   .service-custom {
     grid-template-columns: auto minmax(0, 1fr);
+    margin-inline: 0;
     padding: clamp(38px, 5vw, 64px);
   }
   .service-custom-icon {

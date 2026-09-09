@@ -39,7 +39,11 @@ export function IdentityVerification({ eyebrow }: { eyebrow: string }) {
     <section className={`shell ${styles.verify}`}>
       <div className={styles.verifyCopy}>
         <SectionNumber>{eyebrow}</SectionNumber>
-        <h2>Identity verification by Stripe.</h2>
+        <h2>
+          Identity verification
+          <br />
+          <span className="moving-colour-text">by Stripe.</span>
+        </h2>
         <p>
           Anyone can type a name into a form. Before the paperwork goes through, we confirm the person on the other end
           really is who they say they are.

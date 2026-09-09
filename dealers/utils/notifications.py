@@ -49,7 +49,7 @@ def send_dealer_welcome(dealer: Dealer) -> Notification:
     body = (
         f"Thanks, {dealer.contact_name}. Your account for {dealer.business_name} is saved.\n\n"
         f"Selected plan: {dealer.get_plan_display()}\n"
-        f"Continue to secure payment: {payment_url}\n\n"
+        f"Payment: {payment_url}\n\n"
         "Once Stripe confirms payment, you can enter your licence and dealership details immediately. "
         "We verify those details before enabling live customer transactions."
     )

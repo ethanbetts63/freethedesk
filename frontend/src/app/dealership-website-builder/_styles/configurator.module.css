@@ -76,11 +76,32 @@
   line-height: 1.45;
   margin-top: 5px;
 }
-.controlGroup > label {
-  margin: 19px 0 9px;
+.controlGroup > :global(.form-label),
+.detailsForm :global(.form-label) {
+  color: var(--text-control);
+  font-size: 0.69rem;
+  font-weight: var(--weight-control);
+  letter-spacing: 0;
+  margin: 0 0 8px;
+  text-transform: none;
 }
-.brandInput {
-  font-weight: 750;
+.controlGroup > :global(.form-label) {
+  margin-top: 19px;
+}
+.controlGroup > :global(.form-control),
+.detailsForm :global(.form-control) {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: var(--weight-normal);
+  min-height: 50px;
+  padding: 0 14px;
+}
+.controlGroup > :global(.form-control)::placeholder,
+.detailsForm :global(.form-control)::placeholder {
+  color: var(--text-on-dark-subtle);
+  font-size: var(--text-small);
 }
 .optionalLabel {
   color: var(--slate-400);
@@ -377,9 +398,6 @@
   flex-direction: column;
   gap: 14px;
 }
-.detailsForm > label > input {
-  font-weight: 700;
-}
 .configurationReview {
   border-top: 1px solid var(--slate-200);
   margin-top: 5px;
@@ -405,11 +423,6 @@
   margin: 10px 0 0;
 }
 .detailsSubmit {
-  --pb-background: var(--controls-accent);
-  --pb-background-hover: var(--blue-700);
-  --pb-font-size: var(--demo-text-lg);
-  --pb-padding: 15px 16px;
-  --pb-width: 100%;
   margin-top: 3px;
 }
 .submissionNote {

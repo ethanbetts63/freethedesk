@@ -28,6 +28,7 @@
   position: absolute;
 }
 .footer-signal-flow {
+  display: none;
   inset: 0;
   opacity: 0.6;
   pointer-events: none;
@@ -103,6 +104,9 @@
   z-index: 1;
 }
 @media (min-width: 640px) {
+  .footer-signal-flow {
+    display: block;
+  }
   .footer-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
