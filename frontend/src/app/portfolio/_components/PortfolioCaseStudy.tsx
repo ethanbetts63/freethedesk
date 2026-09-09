@@ -7,6 +7,7 @@ import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
+import { ScrollCtaButton } from "@/components/ScrollCtaButton";
 import { SectionNumber } from "@/components/SectionNumber";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
@@ -155,9 +156,9 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig["hero"] })
             <PrimaryButton href={config.liveHref} target="_blank" rel="noreferrer">
               Visit the live website
             </PrimaryButton>
-            <a className="text-link" href="#tour">
+            <ScrollCtaButton targetId="tour" className="text-link">
               Explore the build <span>↓</span>
-            </a>
+            </ScrollCtaButton>
           </div>
           <div className="case-hero-meta">
             {config.capabilities.map((capability) => (

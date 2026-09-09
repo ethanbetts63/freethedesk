@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { ScrollCtaButton } from "./ScrollCtaButton";
+
 /**
  * Which glyph the CTA shows. In-page anchors use the scroll direction (`down` /
  * `up`); `page` links elsewhere, `right` advances a form, `none` omits it.
@@ -63,6 +65,16 @@ export function CtaButton({
     .filter(Boolean)
     .join(" ");
 
+  // A bare "#fragment" is an in-page scroll, not navigation: render a button
+  // that drives the scroll itself so it works on every click and leaves the URL
+  // alone. Real routes (including "/path#fragment") still go through Link.
+  if (href?.startsWith("#")) {
+    return (
+      <ScrollCtaButton targetId={href.slice(1)} className={classes}>
+        {content}
+      </ScrollCtaButton>
+    );
+  }
   if (href) {
     return (
       <Link className={classes} href={href} target={target} rel={rel}>

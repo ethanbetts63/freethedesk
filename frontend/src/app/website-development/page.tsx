@@ -19,6 +19,7 @@ import { numberSections } from "@/lib/sectionNumbers";
 
 import { WEBSITE_DEV_FAQS } from "./_lib/copy";
 import { websiteServices } from "./_components/websiteServices";
+import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
 import styles from "./page.module.css";
 
 const websiteDevStats: ProofStat[] = [
@@ -57,7 +58,7 @@ export default function WebsiteDevelopmentPage() {
     name: "Website Development Perth",
     serviceType: "Website development and web application development",
     areaServed: { "@type": "City", name: "Perth" },
-    provider: { "@type": "Organization", name: "freethedesk", url: "https://freethedesk.com.au" },
+    provider: { "@id": `${PUBLIC_SITE_URL}/#organization` },
   };
 
   return (

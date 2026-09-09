@@ -7,6 +7,7 @@ import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
+import { ScrollCtaButton } from "@/components/ScrollCtaButton";
 import { SectionNumber } from "@/components/SectionNumber";
 import { metadataFor } from "@/lib/pages";
 import { numberSections } from "@/lib/sectionNumbers";
@@ -129,9 +130,9 @@ export default async function LicensingPage() {
             <div className={styles.optionPhoneTile}>
               <LoginPreviewPhone />
               <p className={styles.optionPhoneCaption}>Hosted portal</p>
-              <Link href="#signup">
+              <ScrollCtaButton targetId="signup">
                 Choose your plan <b>↓</b>
-              </Link>
+              </ScrollCtaButton>
             </div>
             <div className={styles.optionPhoneTile}>
               <LicensingNextStepPhone />

@@ -23,6 +23,12 @@ textarea {
 button {
   color: inherit;
 }
+/* scrollToId() briefly focuses the destination section so keyboard and
+   screen-reader users follow an in-page CTA. It's a scroll target, not a
+   control - don't paint a focus box around the whole section. */
+[tabindex="-1"]:focus {
+  outline: none;
+}
 main {
   min-height: 70vh;
   overflow: hidden;

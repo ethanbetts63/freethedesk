@@ -4,19 +4,42 @@ import { PUBLIC_SITE_URL } from "./siteConfig";
 
 const SITE_NAME = "freethedesk";
 const DEFAULT_OG_IMAGE = "/og-images/og-default.webp";
+const CONTACT_EMAIL = "hello@freethedesk.com.au";
 
+/**
+ * The single business entity every other node points at via `@id`.
+ *
+ * Typed `ProfessionalService` (a LocalBusiness subtype) rather than a bare
+ * Organization so the Perth address carries local weight, while `areaServed`
+ * keeps the national service area honest. Only verifiable facts belong here -
+ * no phone or opening hours until there is a real one to publish.
+ */
 export function buildOrganizationSchema(): object {
   return {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "ProfessionalService",
     "@id": `${PUBLIC_SITE_URL}/#organization`,
     name: SITE_NAME,
     url: PUBLIC_SITE_URL,
+    email: CONTACT_EMAIL,
     logo: {
       "@type": "ImageObject",
       url: `${PUBLIC_SITE_URL}/logo-512x512.png`,
       width: 512,
       height: 512,
+    },
+    image: `${PUBLIC_SITE_URL}/logo-512x512.png`,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Dianella",
+      addressRegion: "WA",
+      postalCode: "6059",
+      addressCountry: "AU",
+    },
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "ABN",
+      value: "11493753896",
     },
     areaServed: { "@type": "Country", name: "Australia" },
   };
@@ -33,8 +56,20 @@ export function buildWebsiteSchema(): object {
   };
 }
 
-/** The per-page WebPage entity, linked to the sitewide Organization/WebSite via @id. */
-export function buildWebPageSchema(options: { title: string; description?: string; path: string }): object {
+/**
+ * The per-page WebPage entity, linked to the sitewide Organization/WebSite via @id.
+ *
+ * `updated` emits `dateModified`, which is the only freshness signal a marketing
+ * page has - articles carry their own dates from front matter. Bump it in PAGES
+ * when a page's content materially changes, the same way an article's `updated`
+ * is bumped; a date that never moves is worse than no date.
+ */
+export function buildWebPageSchema(options: {
+  title: string;
+  description?: string;
+  path: string;
+  updated?: string;
+}): object {
   const url = `${PUBLIC_SITE_URL}${options.path}`;
 
   return {
@@ -44,6 +79,7 @@ export function buildWebPageSchema(options: { title: string; description?: strin
     url,
     name: options.title,
     ...(options.description ? { description: options.description } : {}),
+    ...(options.updated ? { dateModified: options.updated } : {}),
     isPartOf: { "@id": `${PUBLIC_SITE_URL}/#website` },
     publisher: { "@id": `${PUBLIC_SITE_URL}/#organization` },
   };

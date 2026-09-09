@@ -1,20 +1,33 @@
-# Free the Desk
+# freethedesk
 
-> Free the Desk builds websites and operational systems for Australian small and medium businesses and vehicle dealerships — connected sites, online licensing and business automation, not template brochureware.
+> freethedesk builds websites and operational systems for Australian small and medium businesses and vehicle dealerships: connected sites, online licensing and business automation rather than template brochureware.
 
-Perth-based, working with businesses across Australia. The differentiator is the admin side: supplier stock syncs, instant staff notifications, precomposed transactional emails and booking-system integrations sit behind every site built, not just the public-facing pages.
+Perth-based, working with businesses across Australia. The differentiator is the admin side. Supplier stock syncs, instant staff notifications, precomposed transactional emails and booking-system integrations sit behind every site built, not just the public-facing pages.
 
-## Products
-- [Website development](https://freethedesk.com.au/website-development): Custom web applications for small and medium businesses, built around automation that saves staff time, not just a marketing site.
-- [Dealer websites](https://freethedesk.com.au/dealer-websites): Inventory, parts, service and hire websites built specifically for vehicle and equipment dealerships.
-- [Online licensing](https://freethedesk.com.au/licensing): Online vehicle licensing and contract signing so customers can complete paperwork without a dealership visit.
-- [Business automation](https://freethedesk.com.au/automation): Workflow automation and custom integrations connecting the systems a business already runs.
+## Services
+- [Website development](https://www.freethedesk.com.au/website-development): Custom websites and web applications for small and medium businesses, built around automation that saves staff time rather than a marketing site alone.
+- [Business automation](https://www.freethedesk.com.au/automation): Workflow automation and custom integrations connecting the systems a business already runs.
+- [SEO reports and audits](https://www.freethedesk.com.au/seo): Human-written quarterly SEO reporting and audits covering technical health, content and search opportunities. Not AI-generated.
+- [Dealer websites](https://www.freethedesk.com.au/dealers): Inventory, parts, service and hire websites built specifically for vehicle and equipment dealerships.
+- [Online vehicle licensing](https://www.freethedesk.com.au/licensing): Online vehicle licensing and contract signing so customers can complete paperwork without a dealership visit.
+- [Dealership website builder](https://www.freethedesk.com.au/dealership-website-builder): An interactive configurator for specifying a dealership website around how a business sells, books and grows.
 
 ## Case studies
-- [Scooter Shop](https://freethedesk.com.au/work/scooter-shop): A full case study of a live dealership website covering inventory, online purchasing, licensing, parts, service and hire.
+- [Scooter Shop](https://www.freethedesk.com.au/portfolio/scooter-shop): A live dealership website covering inventory, online purchasing, licensing, parts, service and hire, and the organic growth that followed.
+- [Bloomprint](https://www.freethedesk.com.au/portfolio/bloomprint): A two-sided flower delivery marketplace with brief-led ordering for customers and paid local orders for independent florists.
 
 ## Guides
-- [Guides and articles](https://freethedesk.com.au/guides): Practical field notes for Australian dealerships on websites, search visibility, online sales, licensing and operational systems.
+- [Guides and articles](https://www.freethedesk.com.au/guides): Practical field notes for Australian dealerships on websites, search visibility, online sales, licensing and operational systems.
 
 ## Company
-- [Contact](https://freethedesk.com.au/contact): Start a conversation about a website, licensing or automation project.
+- [Contact](https://www.freethedesk.com.au/contact): Start a conversation about a website, licensing or automation project.
+- [Privacy policy](https://www.freethedesk.com.au/legal/privacy)
+- [Dealer subscription terms](https://www.freethedesk.com.au/legal/dealer-subscription-terms)
+- [SEO reporting and audit terms](https://www.freethedesk.com.au/legal/seo-subscription-terms)
+
+## Key facts
+- Trading name: freethedesk
+- ABN: 11 493 753 896
+- Based in Dianella, Western Australia 6059; serves clients Australia-wide
+- Contact: hello@freethedesk.com.au
+- Industries served: vehicle, equipment and leisure dealerships, plus small and medium businesses generally

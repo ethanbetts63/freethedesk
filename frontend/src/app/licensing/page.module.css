@@ -204,11 +204,18 @@
   font-weight: var(--weight-control);
   margin: 18px 0 0;
 }
-.optionPhoneTile > a {
+/* The "choose your plan" tile is a scroll button, the other a real link. */
+.optionPhoneTile > a,
+.optionPhoneTile > button {
   align-items: center;
+  appearance: none;
+  background: none;
+  border: 0;
   border-bottom: 1px solid color-mix(in srgb, var(--bg) 50%, transparent);
   color: var(--slate-200);
+  cursor: pointer;
   display: inline-flex;
+  font: inherit;
   font-size: 0.68rem;
   font-weight: 800;
   gap: 10px;

@@ -35,8 +35,15 @@
   color: var(--section-number-on-dark);
 }
 
+/* Also rendered as a <button> for in-page scroll links, hence the reset. */
 .text-link {
+  appearance: none;
+  background: none;
+  border: 0;
   border-bottom: 1px solid var(--text);
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
   font-size: 0.88rem;
   font-weight: 800;
   padding: 4px 0 7px;

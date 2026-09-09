@@ -78,7 +78,7 @@ export default async function SeoPage() {
     name: "Quarterly SEO Reports",
     serviceType: "SEO consulting and reporting",
     areaServed: { "@type": "Country", name: "Australia" },
-    provider: { "@type": "Organization", name: "freethedesk", url: PUBLIC_SITE_URL },
+    provider: { "@id": `${PUBLIC_SITE_URL}/#organization` },
     offers: {
       "@type": "Offer",
       price: settings.seo_quarterly_price,
