@@ -42,7 +42,7 @@
   color: var(--page-accent, var(--brand-accent));
 }
 .panel {
-  animation: moving-colour-border-shift 6s linear infinite;
+  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
   background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
   background-origin: border-box;
@@ -88,7 +88,7 @@
   font-size: 0.78rem;
 }
 .panelDot {
-  background: #4fd08a;
+  background: var(--success-accent);
   border-radius: 50%;
   box-shadow: 0 0 0 4px rgba(79, 208, 138, 0.18);
   flex: none;
@@ -96,7 +96,7 @@
   width: 9px;
 }
 .panelCount {
-  animation: moving-colour-shift 6s linear infinite;
+  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
   background-clip: text;
   background-size: var(--moving-colour-size);

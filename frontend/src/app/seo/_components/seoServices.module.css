@@ -78,7 +78,7 @@
   padding: 8px 11px;
 }
 .redirectStatus i {
-  background: #34a853;
+  background: var(--success-accent);
   border-radius: 50%;
   box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.12);
   height: 5px;
@@ -106,7 +106,7 @@
   border-top: 1px solid var(--border-on-dark);
 }
 .aiReadinessVisual i {
-  background: #34a853;
+  background: var(--success-accent);
   border-radius: 50%;
   box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.12);
   height: 6px;

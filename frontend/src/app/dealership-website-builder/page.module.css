@@ -892,7 +892,7 @@
 .footerLegal {
   align-items: center;
   border-top: 1px solid color-mix(in srgb, var(--bg) 13%, transparent);
-  color: #7899b6;
+  color: var(--slate-500);
   display: flex;
   font-size: 0.44rem;
   grid-column: 1 / -1;
@@ -1529,12 +1529,12 @@
   padding: 11px 12px;
 }
 .submissionSuccess {
-  background: #e8f6ee;
-  color: #17653f;
+  background: var(--success-surface);
+  color: var(--success-ink);
 }
 .submissionError {
   background: var(--danger-surface);
-  color: #a33529;
+  color: var(--danger-ink);
 }
 .examplePage {
   min-height: 550px;
@@ -2576,15 +2576,15 @@
 }
 .partsList li > div small {
   display: block;
-  color: #8a9aa7;
+  color: var(--slate-400);
   font-size: 0.42rem;
   margin-top: 3px;
 }
 .partsList li > div .inStock {
-  color: #27836a;
+  color: var(--success-ink);
 }
 .partsList li > div .limitedStock {
-  color: #b66c24;
+  color: var(--warning-ink);
 }
 .partsList li > b {
   font-size: 0.51rem;
@@ -3053,7 +3053,7 @@
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 .calendarGrid > span {
-  color: #8a9aa7;
+  color: var(--slate-400);
   font-size: 0.39rem;
   font-weight: 900;
   padding: 3px 0;

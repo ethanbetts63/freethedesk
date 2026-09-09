@@ -77,7 +77,7 @@
    animated value in the header, gradient bar along the bottom. */
 .preview {
   align-self: center;
-  animation: moving-colour-border-shift 6s linear infinite;
+  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
   background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
   background-origin: border-box;
@@ -123,7 +123,7 @@
   font-size: 0.75rem;
 }
 .areaCount {
-  animation: moving-colour-shift 6s linear infinite;
+  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
   background-clip: text;
   background-size: var(--moving-colour-size);
@@ -188,7 +188,7 @@
 }
 .previewFooter {
   align-items: flex-start;
-  animation: moving-colour-shift 8s linear infinite;
+  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
   display: flex;

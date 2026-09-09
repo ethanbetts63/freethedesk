@@ -40,9 +40,9 @@
 }
 .document aside,
 .document blockquote {
-  background: #fff7df;
-  border-left: 4px solid #e3aa24;
-  color: #634c13;
+  background: var(--warning-surface);
+  border-left: 4px solid var(--warning-accent);
+  color: var(--warning-ink);
   font-size: 0.78rem;
   line-height: 1.65;
   margin: 28px 0 55px;

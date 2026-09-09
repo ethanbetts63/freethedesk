@@ -70,7 +70,7 @@
   padding-top: var(--section-space);
 }
 .systemVisual {
-  animation: moving-colour-border-shift 6s linear infinite;
+  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
   background-image: linear-gradient(var(--surface-dark), var(--surface-dark)), var(--moving-colour-gradient);
   background-origin: border-box;
@@ -201,7 +201,7 @@
 .funnelResult {
   align-items: center;
   align-self: center;
-  animation: moving-colour-shift 6s linear infinite;
+  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background-image: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
   box-shadow: 0 12px 28px color-mix(in srgb, var(--surface-ink) 34%, transparent);

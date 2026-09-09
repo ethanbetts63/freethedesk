@@ -364,20 +364,20 @@
   line-height: 1.5;
   margin: 16px 0;
   padding: 12px 14px;
-  background: #edf9f1;
-  border: 1px solid #c3e5d1;
-  color: #176039;
+  background: var(--success-surface);
+  border: 1px solid var(--success-line);
+  color: var(--success-ink);
 }
 .admin-banner-error,
 .admin-form-error {
   background: var(--danger-surface);
-  border: 1px solid #efc8c8;
-  color: #842f2f;
+  border: 1px solid var(--danger-line);
+  color: var(--danger-ink);
 }
 .admin-banner-warning {
-  background: #fff8e3;
-  border: 1px solid #efdea7;
-  color: #735711;
+  background: var(--warning-surface);
+  border: 1px solid var(--warning-line);
+  color: var(--warning-ink);
 }
 .admin-inline-button {
   background: none;
@@ -733,7 +733,7 @@
 .admin-attachments li button {
   background: transparent;
   border: 0;
-  color: #8a3333;
+  color: var(--danger-ink);
   cursor: pointer;
   font-size: 0.65rem;
   font-weight: 800;
@@ -743,8 +743,8 @@
 }
 .admin-form-error {
   background: var(--danger-surface);
-  border: 1px solid #efc8c8;
-  color: #842f2f;
+  border: 1px solid var(--danger-line);
+  color: var(--danger-ink);
   border-radius: 4px;
   font-size: 0.68rem;
   margin: 0;

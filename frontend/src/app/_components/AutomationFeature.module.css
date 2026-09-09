@@ -88,7 +88,7 @@
 /* Same card treatment as the Stripe verification panel: moving-colour border,
    animated status in the header, gradient bar along the bottom. */
 .visual {
-  animation: moving-colour-border-shift 6s linear infinite;
+  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
   background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
   background-origin: border-box;
@@ -131,7 +131,7 @@
    status dot is a child element with its own background, so it is unaffected. */
 .visual > header b {
   align-items: center;
-  animation: moving-colour-shift 6s linear infinite;
+  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
   background-clip: text;
   background-size: var(--moving-colour-size);
@@ -141,7 +141,7 @@
   -webkit-background-clip: text;
 }
 .visual > header i {
-  animation: moving-colour-shift 6s linear infinite;
+  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
   border-radius: 50%;
@@ -239,7 +239,7 @@
 }
 .visual footer {
   align-items: center;
-  animation: moving-colour-shift 8s linear infinite;
+  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
   display: grid;

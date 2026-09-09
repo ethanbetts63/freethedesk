@@ -3,7 +3,7 @@
    Gradient values live in tokens.css. */
 
 .moving-colour-text {
-  animation: moving-colour-shift var(--moving-colour-speed, 18s) linear infinite;
+  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
   background-clip: text;
   background-size: var(--moving-colour-size);
@@ -13,7 +13,7 @@
 
 .moving-colour-button {
   align-items: center;
-  animation: moving-colour-shift var(--mcb-speed, 16s) linear infinite;
+  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
   border: 0;

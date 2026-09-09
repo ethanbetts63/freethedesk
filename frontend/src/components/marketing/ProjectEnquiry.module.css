@@ -4,7 +4,7 @@
   scroll-margin-top: 24px;
 }
 .panel {
-  animation: moving-colour-border-shift 6s linear infinite;
+  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
   background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
   background-origin: border-box;
@@ -129,7 +129,7 @@
   color: var(--accent-on-dark-soft);
 }
 .typeGrid .choiceRecommended {
-  animation: moving-colour-border-shift 6s linear infinite;
+  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
   background-image: linear-gradient(var(--surface-flow), var(--surface-flow)), var(--moving-colour-gradient);
   background-origin: border-box;
@@ -190,7 +190,6 @@
   gap: 2px;
 }
 .total strong {
-  --moving-colour-speed: 6s;
   font-size: 2.4rem;
   letter-spacing: -0.06em;
   line-height: 1.1;

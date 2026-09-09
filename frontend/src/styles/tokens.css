@@ -72,16 +72,62 @@
   --section-number: var(--brand-accent);
   --section-number-on-dark: var(--accent-on-dark);
   --focus-ring: color-mix(in srgb, var(--sky-500) 40%, transparent);
-  --danger-surface: #fff0f0;
-  --danger-line: #b52c2c;
-  --danger-ink: #842222;
-  --success-ink: #28755f;
 
   /* One animated gradient, used for both the moving text and the
      moving borders. The two used to differ by 10deg and a stop
      position, which nobody could perceive as a distinct treatment. */
-  --moving-colour-gradient: linear-gradient(100deg, var(--sky-500), #a855f7 55%, #f472b6, var(--sky-500));
+  /* The animated gradient is its own vivid treatment, deliberately NOT drawn
+     from the site palette - those colours are muted by design and wash it out.
+     Values are the original brand triad. */
+  --gradient-sky: #38bdf8;
+  --gradient-purple: #a855f7;
+  --gradient-pink: #f472b6;
+  --moving-colour-gradient: linear-gradient(
+    100deg,
+    var(--gradient-sky),
+    var(--gradient-purple) 55%,
+    var(--gradient-pink),
+    var(--gradient-sky)
+  );
+  /* One speed everywhere. Override per-component only with a real reason. */
+  --moving-colour-speed: 6s;
   --moving-colour-size: 300% 100%;
+
+  /* ---------------------------------------------------------------
+     Feedback colours. Four roles per family so a banner, its border
+     and its text always come from the same place.
+       -surface  pale background   -line  border on that surface
+       -accent   solid fill/rule   -ink   text on that surface
+     --------------------------------------------------------------- */
+  --success-surface: #eaf7f0;
+  --success-line: #c3e5d1;
+  --success-accent: #1f9d57;
+  --success-ink: #17653f;
+
+  --warning-surface: #fff8e3;
+  --warning-line: #efdea7;
+  --warning-accent: #e3aa24;
+  --warning-ink: #6b5212;
+
+  --danger-surface: #fff0f0;
+  --danger-line: #efc8c8;
+  --danger-accent: #b52c2c;
+  --danger-ink: #842222;
+  --danger-on-dark: #ffb4b4;
+
+  --purple-surface: #f2edff;
+  --purple-accent: #6558dc;
+
+  /* Enum colours for admin status badges. These MUST stay mutually
+     distinguishable - that is the whole job - so only the ones that
+     genuinely are a feedback state are aliased onto the families above. */
+  --status-new: var(--warning-accent);
+  --status-contacted: var(--blue-500);
+  --status-qualified: var(--purple-accent);
+  --status-won: var(--success-accent);
+  --status-closed: var(--slate-500);
+  --status-spam: #d45b5b;
+  --status-suspended: #dd8a2e;
 
   /* Hero background grid pattern */
   --hero-grid-color: 17, 70, 126;
@@ -166,13 +212,4 @@
      existed in 12 spellings). Names describe the role, not the hue:
        ink-*   text     line-*  borders/rules     fill-*  surfaces
      --------------------------------------------------------------- */
-
-  /* Status colours - drive the admin row/status/swatch variants */
-  --status-new: #e0a020;
-  --status-contacted: #2f8fca;
-  --status-qualified: #7b5ce2;
-  --status-won: #2ba46a;
-  --status-closed: #7c8b99;
-  --status-spam: #d45b5b;
-  --status-suspended: #dd8a2e;
 }

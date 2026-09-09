@@ -314,7 +314,6 @@
   padding: 22px 0;
 }
 .case-mobile-stat > strong {
-  --moving-colour-speed: 6s;
   font-size: clamp(3.6rem, 6vw, 5.8rem);
   letter-spacing: -0.08em;
   line-height: 0.85;

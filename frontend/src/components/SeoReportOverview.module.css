@@ -16,7 +16,7 @@
   margin: 0;
 }
 .reportCopy h2 span {
-  background: linear-gradient(105deg, var(--brand-accent) 8%, #4ba8da 52%, #6558dc 92%);
+  background: linear-gradient(105deg, var(--brand-accent) 8%, var(--sky-500) 52%, var(--purple-accent) 92%);
   background-clip: text;
   color: transparent;
   -webkit-background-clip: text;
@@ -71,7 +71,7 @@
   position: relative;
 }
 .reportCard::before {
-  background: linear-gradient(180deg, var(--page-accent, var(--brand-accent)), #6b5be4);
+  background: linear-gradient(180deg, var(--page-accent, var(--brand-accent)), var(--purple-accent));
   content: "";
   inset: -1px auto -1px -1px;
   position: absolute;
@@ -152,7 +152,7 @@
 }
 .reportIcon {
   align-items: center;
-  background: linear-gradient(135deg, var(--slate-100), #f2edff);
+  background: linear-gradient(135deg, var(--slate-100), var(--purple-surface));
   border: 1px solid var(--slate-100);
   color: var(--page-accent, var(--brand-accent));
   display: flex;

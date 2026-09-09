@@ -1,5 +1,4 @@
 .banner {
-  --moving-colour-speed: 6s;
   background: var(--surface-navy);
   color: var(--text-on-dark);
   overflow: hidden;
@@ -94,7 +93,7 @@
   composes: honeypot from global;
 }
 .error {
-  color: #ffb4b4;
+  color: var(--danger-on-dark);
   font-size: 0.66rem;
   grid-column: 1 / -1;
   margin: 0;
