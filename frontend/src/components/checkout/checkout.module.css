@@ -1,14 +1,14 @@
 .checkoutPage {
   --checkout-accent: var(--brand-accent);
-  background: #fff;
-  color: #0d1c29;
+  background: var(--surface);
+  color: var(--surface-ink);
   display: grid;
-  grid-template-columns: minmax(390px, 0.92fr) minmax(520px, 1.08fr);
+  grid-template-columns: minmax(0, 1fr);
   min-height: 100vh;
 }
 .summarySide {
-  background: #eef5fa;
-  min-height: 100vh;
+  background: var(--surface-flow);
+  min-height: 540px;
   overflow: hidden;
   position: relative;
 }
@@ -34,20 +34,20 @@
 .summaryContent {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  padding: clamp(30px, 5vw, 72px);
+  min-height: 540px;
+  padding: 28px 22px;
   position: relative;
   z-index: 2;
 }
 .brand {
-  color: #0d1c29;
+  color: var(--surface-ink);
   font-size: 1.18rem;
   font-weight: 900;
   letter-spacing: -0.07em;
   width: fit-content;
 }
 .brand span {
-  color: #73889b;
+  color: var(--ink-500);
   font-size: 0.73em;
   font-weight: 650;
   margin: 0 2px;
@@ -59,6 +59,7 @@
 .summaryCopy {
   margin: auto 0 50px;
   max-width: 610px;
+  margin-bottom: 30px;
 }
 .summaryCopy > p {
   color: var(--checkout-accent);
@@ -69,14 +70,14 @@
   text-transform: uppercase;
 }
 .summaryCopy h1 {
-  font-size: clamp(3.4rem, 6.5vw, 7rem);
+  font-size: clamp(3.25rem, 18vw, 5rem);
   letter-spacing: -0.075em;
   line-height: 0.87;
   margin: 0 0 27px;
   max-width: 690px;
 }
 .summaryCopy > span {
-  color: #49647a;
+  color: var(--ink-610);
   display: block;
   font-size: 0.95rem;
   line-height: 1.65;
@@ -86,7 +87,7 @@
   backdrop-filter: blur(12px);
   background: rgba(255, 255, 255, 0.82);
   border: 1px solid rgba(168, 190, 207, 0.68);
-  padding: 23px 25px;
+  padding: 18px;
 }
 .orderSummary > div {
   align-items: center;
@@ -96,13 +97,13 @@
   padding: 7px 0;
 }
 .orderSummary > div span {
-  color: #536d82;
+  color: var(--cool-600);
 }
 .orderSummary > div strong {
   font-size: 0.76rem;
 }
 .orderSummary .orderTotal {
-  border-top: 1px solid #cddce7;
+  border-top: 1px solid var(--line-200);
   margin-top: 10px;
   padding-top: 17px;
 }
@@ -112,7 +113,7 @@
   letter-spacing: -0.04em;
 }
 .orderTotal small {
-  color: #6c8192;
+  color: var(--ink-520);
   font-size: 0.58rem;
   letter-spacing: 0;
 }
@@ -120,9 +121,11 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  min-height: 100vh;
+  min-height: auto;
   overflow-y: auto;
-  padding: clamp(44px, 7vw, 100px);
+  padding: 60px 22px;
+  padding-bottom: 80px;
+  padding-top: 80px;
 }
 .paymentForm,
 .checkoutState {
@@ -130,7 +133,7 @@
   width: 100%;
 }
 .paymentHeading {
-  border-bottom: 1px solid #d5e1e9;
+  border-bottom: 1px solid var(--line-210);
   margin-bottom: 32px;
   padding-bottom: 31px;
 }
@@ -151,14 +154,14 @@
 }
 .paymentHeading p,
 .checkoutState p {
-  color: #60778b;
+  color: var(--ink-510);
   font-size: 0.83rem;
   line-height: 1.6;
   margin: 0;
 }
 .consent {
   align-items: flex-start;
-  color: #536b80;
+  color: var(--cool-600);
   cursor: pointer;
   display: flex;
   font-size: 0.72rem;
@@ -184,13 +187,12 @@
   align-items: center;
   background: var(--checkout-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   display: flex;
   font: inherit;
   font-size: 0.8rem;
   font-weight: 900;
-  justify-content: space-between;
   min-height: 60px;
   padding: 0 21px;
   width: 100%;
@@ -203,7 +205,7 @@
   font-size: 1.1rem;
 }
 .paymentFineprint {
-  color: #8193a3;
+  color: var(--ink-400);
   font-size: 0.64rem;
   line-height: 1.5;
   margin: 12px auto 0;
@@ -211,29 +213,40 @@
   text-align: center;
 }
 .paymentError {
-  background: #fff0f0;
-  border-left: 3px solid #b52c2c;
-  color: #842222;
+  background: var(--danger-surface);
+  border-left: 3px solid var(--danger-line);
+  color: var(--danger-ink);
   font-size: 0.74rem;
   line-height: 1.55;
   margin: 16px 0;
   padding: 12px 14px;
 }
 .paymentLoading {
-  color: #647b8e;
+  color: var(--ink-510);
   font-size: 0.8rem;
   padding: 25px 0;
 }
 .checkoutState button {
+  align-items: center;
+  background: var(--checkout-accent);
+  border: 0;
+  color: var(--text-on-dark);
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 900;
   justify-content: center;
+  min-height: 60px;
+  padding: 0 21px;
+  width: 100%;
   margin-top: 28px;
   max-width: 190px;
 }
-
 .completePage {
   --complete-accent: var(--brand-accent);
   align-items: center;
-  background: #eef5fa;
+  background: var(--surface-flow);
   display: flex;
   justify-content: center;
   min-height: 100vh;
@@ -262,7 +275,7 @@
 .completeCard {
   backdrop-filter: blur(14px);
   background: rgba(255, 255, 255, 0.91);
-  border: 1px solid #cedde8;
+  border: 1px solid var(--line-200);
   box-shadow: 0 30px 90px rgba(19, 49, 92, 0.12);
   max-width: 650px;
   padding: clamp(38px, 6vw, 74px);
@@ -275,7 +288,7 @@
   align-items: center;
   background: var(--complete-accent);
   border-radius: 50%;
-  color: #fff;
+  color: var(--text-on-dark);
   display: inline-flex;
   font-size: 1.3rem;
   height: 50px;
@@ -290,7 +303,7 @@
   margin: 0 0 18px;
 }
 .completeCard p {
-  color: #586f83;
+  color: var(--cool-600);
   font-size: 0.9rem;
   line-height: 1.7;
   margin: 0 auto;
@@ -300,7 +313,7 @@
 .completeCard button {
   background: var(--complete-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   display: inline-block;
   font: inherit;
@@ -310,39 +323,41 @@
   padding: 17px 24px;
 }
 
-@media (max-width: 900px) {
-  .checkoutPage {
-    grid-template-columns: 1fr;
-  }
-  .summarySide,
-  .summaryContent {
+@media (min-width: 640px) {
+  .summarySide {
     min-height: 620px;
   }
+  .summaryContent {
+    min-height: 620px;
+    padding: clamp(30px, 5vw, 72px);
+  }
+  .summaryCopy {
+    margin-bottom: 50px;
+  }
+  .summaryCopy h1 {
+    font-size: clamp(3.4rem, 6.5vw, 7rem);
+  }
+  .orderSummary {
+    padding: 23px 25px;
+  }
   .paymentSide {
-    min-height: auto;
-    padding-bottom: 80px;
-    padding-top: 80px;
+    padding: clamp(44px, 7vw, 100px);
   }
 }
 
-@media (max-width: 600px) {
-  .summarySide,
-  .summaryContent {
-    min-height: 540px;
+@media (min-width: 900px) {
+  .checkoutPage {
+    grid-template-columns: minmax(390px, 0.92fr) minmax(520px, 1.08fr);
+  }
+  .summarySide {
+    min-height: 100vh;
   }
   .summaryContent {
-    padding: 28px 22px;
-  }
-  .summaryCopy {
-    margin-bottom: 30px;
-  }
-  .summaryCopy h1 {
-    font-size: clamp(3.25rem, 18vw, 5rem);
-  }
-  .orderSummary {
-    padding: 18px;
+    min-height: 100vh;
   }
   .paymentSide {
-    padding: 60px 22px;
+    min-height: 100vh;
+    padding-bottom: clamp(44px, 7vw, 100px);
+    padding-top: clamp(44px, 7vw, 100px);
   }
 }

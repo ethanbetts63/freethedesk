@@ -24,7 +24,7 @@ export interface WebsiteEnquiryConfiguration {
   capabilities?: Array<{ key: string; name: string; selected: boolean }>;
   inventory_options?: Array<{ key: string; name: string; selected: boolean }>;
   custom_capability?: string;
-                                                                               
+
   project_type?: "website" | "automation" | "both";
   budget?: string;
 }
@@ -46,13 +46,10 @@ export interface Enquiry {
   updated_at: string;
 }
 
-                                                                                
 export type Dealer = DealerAccount & StaffAccountFields;
 
-                                                                                       
 export type SeoSubscriber = SeoAccount & StaffAccountFields;
 
-                                                                       
 export type SiteSettings = PublicSiteSettings;
 
 export interface AdminMessage {

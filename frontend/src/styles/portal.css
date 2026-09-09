@@ -1,6 +1,5 @@
 /* Customer portal setup/overview screens.
    Imported by app/portal/layout.tsx and app/seo-portal/layout.tsx. */
-
 .portal-steps {
   display: grid;
   gap: 18px;
@@ -46,7 +45,7 @@
   border: 1px solid var(--border);
   border-radius: 10px;
   margin: 0;
-  padding: 28px;
+  padding: 22px 18px;
 }
 .portal-setup-form legend {
   background: var(--surface);
@@ -63,7 +62,7 @@
 .portal-field-grid {
   display: grid;
   gap: 19px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 .portal-field-grid label {
   font-size: 0.71rem;
@@ -101,21 +100,23 @@
   padding: 8px;
 }
 .portal-form-actions {
-  align-items: center;
+  align-items: stretch;
   display: flex;
   gap: 12px;
   justify-content: flex-end;
   padding: 8px 0;
+  flex-direction: column;
 }
-@media (max-width: 620px) {
+
+@media (min-width: 640px) {
   .portal-field-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .portal-setup-form fieldset {
-    padding: 22px 18px;
+    padding: 28px;
   }
   .portal-form-actions {
-    align-items: stretch;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: revert;
   }
 }

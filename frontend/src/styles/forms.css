@@ -8,3 +8,11 @@
   line-height: 1.45;
   margin-top: 6px;
 }
+
+/* Spam trap. Must stay off-screen no matter what else is on the page, hence
+   !important: if a stray rule ever revealed it, real users would fill it in
+   and be silently classified as bots. */
+.honeypot {
+  left: -10000px !important;
+  position: absolute !important;
+}

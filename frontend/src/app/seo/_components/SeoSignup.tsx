@@ -6,13 +6,7 @@ import { SectionNumber } from "@/components/SectionNumber";
 import { type PublicSiteSettings } from "@/lib/api";
 import { planByCode } from "@/lib/plans";
 import { useSignup } from "@/lib/useSignup";
-import {
-  buildSeoPlans,
-  REPORT_TYPES,
-  reportTypeLabel,
-  type SeoPlanCode,
-  type SeoReportType,
-} from "../_lib/plans";
+import { buildSeoPlans, REPORT_TYPES, reportTypeLabel, type SeoPlanCode, type SeoReportType } from "../_lib/plans";
 import styles from "../page.module.css";
 
 const FREQUENCIES: { code: SeoPlanCode; name: string }[] = [

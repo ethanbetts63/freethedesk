@@ -104,7 +104,9 @@ export default function SeoPortalOverviewPage() {
         {hasPaid && !account.has_usable_password && (
           <section className="admin-detail-card admin-detail-wide">
             <h2>Complete your account</h2>
-            <p className="admin-message-body">Add your business and contact names, then choose your sign-in password.</p>
+            <p className="admin-message-body">
+              Add your business and contact names, then choose your sign-in password.
+            </p>
             <Link className="admin-primary-button" href="/seo-portal/account">
               Complete account setup →
             </Link>

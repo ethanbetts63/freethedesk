@@ -5,7 +5,6 @@ import Image from "next/image";
 import { SignalFlow } from "@/components/visuals/SignalFlow";
 import styles from "../page.module.css";
 
-                                                                                                                          
 export function LoginPreviewPhone() {
   return (
     <div className={styles.phoneMock} aria-hidden="true">

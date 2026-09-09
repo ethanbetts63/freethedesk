@@ -1,15 +1,14 @@
-                                                                         
 .page {
   --page-accent: var(--brand-accent);
-  background: #fff;
-  color: #000;
+  background: var(--surface);
+  color: var(--text);
 }
 .seoSection {
-  background: #f2f7fb;
-  margin-bottom: 56px;
-  margin-top: 70px;
-  padding-bottom: 105px;
-  padding-top: 105px;
+  background: var(--surface-flow);
+  margin-bottom: var(--space-2xl);
+  margin-top: var(--space-3xl);
+  padding-bottom: var(--section-space);
+  padding-top: var(--section-space);
 }
 .seoSummary {
   display: flex;
@@ -24,12 +23,4 @@
   --pb-padding: 15px 18px;
   align-self: flex-start;
   letter-spacing: 0.06em;
-}
-
-@media (max-width: 760px) {
-  .seoSection {
-    margin-bottom: 40px;
-    padding-bottom: 82px;
-    padding-top: 82px;
-  }
 }

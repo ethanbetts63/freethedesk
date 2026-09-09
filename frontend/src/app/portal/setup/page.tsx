@@ -196,8 +196,7 @@ export default function DealerSetupPage() {
             <button type="submit" className="admin-secondary-button" disabled={saving}>
               {saving ? "Saving…" : "Save draft"}
             </button>
-            {                                                                     
-                                                                           }
+            {}
             <button
               type="button"
               className="admin-primary-button"

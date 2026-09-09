@@ -5,7 +5,6 @@ import { PUBLIC_SITE_URL } from "./siteConfig";
 const SITE_NAME = "Free the Desk";
 const DEFAULT_OG_IMAGE = "/og-images/og-default.webp";
 
-                                                                                                                                                 
 export function buildOrganizationSchema(): object {
   return {
     "@context": "https://schema.org",

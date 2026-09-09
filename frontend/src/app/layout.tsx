@@ -9,7 +9,6 @@ import { buildOrganizationSchema, buildWebsiteSchema } from "@/lib/seo";
 import { METADATA_BASE_URL } from "@/lib/siteConfig";
 import "./globals.css";
 
-                                                                                    
 const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "";
 
 export const metadata: Metadata = {

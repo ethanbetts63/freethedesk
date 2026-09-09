@@ -1,5 +1,3 @@
-                                                                                                             
-
 export const SESSION_FLAG = "hasSession";
 export const AUTH_FAILURE_EVENT = "auth-failure";
 
@@ -33,13 +31,6 @@ export interface Paginated<T> {
   results: T[];
 }
 
-   
-                                                                           
-                                                                              
-                                                                          
-                                                                             
-                     
-   
 export interface AccountBase {
   id: number;
   business_name: string;
@@ -56,14 +47,8 @@ export interface AccountBase {
   updated_at: string;
 }
 
-   
-                                                                             
-                                                                                
-                                               
-   
 export type OnboardingStatus = "not_started" | "in_progress" | "submitted";
 
-                                                                      
 export interface StaffAccountFields {
   staff_notes: string;
   status_changed_at: string | null;
@@ -82,11 +67,6 @@ function endSession(): void {
   window.dispatchEvent(new Event(AUTH_FAILURE_EVENT));
 }
 
-   
-                                                                             
-                                                                               
-                                                                             
-   
 let refreshInFlight: Promise<boolean> | null = null;
 
 function refreshSession(): Promise<boolean> {
@@ -117,19 +97,11 @@ export async function authedFetch(url: string, options: RequestInit = {}): Promi
     return response;
   }
 
-
-
-
   const retried = await fetch(url, request);
   if (retried.status === 401) endSession();
   return retried;
 }
 
-   
-                                                                               
-                                                                               
-                                                                        
-   
 export function firstError(data: unknown, fallback = "Request failed"): string {
   if (typeof data !== "object" || data === null) return fallback;
   const body = data as Record<string, unknown>;
@@ -271,7 +243,7 @@ export function safeWebsiteHref(value: string | null | undefined): string | null
 
 export interface AiReadinessPayload {
   website: string;
-                                                                
+
   phone?: string;
   email: string;
   company_website?: string;
@@ -285,7 +257,7 @@ export type ProjectType = "website" | "automation" | "both";
 
 export interface ProjectEnquiryPayload {
   project_type: ProjectType;
-                                                                                    
+
   budget: string;
   website: string;
   email: string;
@@ -298,7 +270,6 @@ export async function submitProjectEnquiry(payload: ProjectEnquiryPayload): Prom
   await postJson("/api/project-enquiries/", payload);
 }
 
-                                                                                       
 export function formatPrice(value: string): string {
   const amount = Number(value);
   if (!value?.trim() || !Number.isFinite(amount)) return "—";

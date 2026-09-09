@@ -4,13 +4,14 @@
 
 .eyebrow {
   align-items: center;
-  color: var(--accent-ink);
+  /* Each section sets --eyebrow-accent to its own accent colour. */
+  color: var(--eyebrow-accent, var(--accent-ink));
   display: flex;
-  font-size: 0.73rem;
+  font-size: 0.68rem;
   font-weight: 800;
-  gap: 10px;
-  letter-spacing: 0.15em;
-  margin: 0 0 24px;
+  gap: 11px;
+  letter-spacing: 0.17em;
+  margin: 0 0 25px;
   text-transform: uppercase;
 }
 .eyebrow > span {

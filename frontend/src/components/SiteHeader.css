@@ -1,7 +1,6 @@
 /* Site header: wordmark, desktop nav, and the <details>-based mobile nav.
    Owns .site-header, .header-inner, .wordmark*, .nav-logo*, .desktop-nav*,
    .nav-cta* and .mobile-nav*. Imported by SiteHeader.tsx. */
-
 .site-header {
   background: rgba(255, 255, 255, 0.92);
   border-bottom: 1px solid rgba(var(--shadow-color), 0.1);
@@ -14,7 +13,7 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  min-height: 78px;
+  min-height: 68px;
 }
 .wordmark {
   font-size: 1.35rem;
@@ -36,9 +35,9 @@
 }
 .nav-logo-image {
   display: block;
-  height: 40px;
+  height: 46px;
   object-fit: contain;
-  width: 40px;
+  width: 46px;
 }
 .wordmark .nav-logo-text {
   color: var(--text);
@@ -46,7 +45,7 @@
 .desktop-nav {
   align-items: center;
   align-self: stretch;
-  display: flex;
+  display: none;
   font-size: 0.88rem;
   font-weight: 700;
   gap: clamp(14px, 2vw, 36px);
@@ -89,7 +88,7 @@
   background: #2f8fdd;
 }
 .mobile-nav {
-  display: none;
+  display: block;
   position: relative;
 }
 .mobile-nav summary {
@@ -167,21 +166,21 @@
   background: var(--brand-accent);
 }
 .mobile-nav nav .mobile-nav-cta.nav-cta-glow span {
-  color: #fff;
+  color: var(--text-on-dark);
 }
 
-@media (max-width: 760px) {
+@media (min-width: 900px) {
   .header-inner {
-    min-height: 68px;
+    min-height: 78px;
   }
   .nav-logo-image {
-    height: 46px;
-    width: 46px;
+    height: 40px;
+    width: 40px;
   }
   .desktop-nav {
-    display: none;
+    display: flex;
   }
   .mobile-nav {
-    display: block;
+    display: none;
   }
 }

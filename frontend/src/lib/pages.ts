@@ -2,22 +2,13 @@ import type { Metadata } from "next";
 
 import { pageMetadata } from "./seo";
 
-   
-                                      
-  
-                                                                               
-                                                                         
-                                                                               
-                                                                                
-                          
-   
 export interface PageDefinition {
   title: string;
   description: string;
-                                                                             
+
   absoluteTitle?: boolean;
   ogImage?: string;
-                                                                            
+
   sitemap?: { changeFrequency: "weekly" | "monthly" | "yearly"; priority: number };
 }
 
@@ -106,7 +97,6 @@ export const PAGES = {
 
 export type PagePath = keyof typeof PAGES;
 
-                                                   
 export function metadataFor(path: PagePath): Metadata {
   const page: PageDefinition = PAGES[path];
   return pageMetadata({ ...page, path });

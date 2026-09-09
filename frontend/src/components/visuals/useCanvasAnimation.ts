@@ -6,30 +6,22 @@ export interface CanvasFrame {
   context: CanvasRenderingContext2D;
   width: number;
   height: number;
-                                                  
+
   time: number;
-                                                                               
+
   reduceMotion: boolean;
 }
 
 interface Options {
-                                                                                
   draw: (frame: CanvasFrame) => void;
-                                                                          
+
   onResize?: (size: { width: number; height: number; ratio: number }) => void;
-                                            
+
   resizeDelay?: number;
 }
 
-   
-                                                                               
-                                                                              
-                                                                              
-   
 export function useCanvasAnimation({ draw, onResize, resizeDelay = 150 }: Options) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-
 
   const handlers = useRef({ draw, onResize });
   useEffect(() => {

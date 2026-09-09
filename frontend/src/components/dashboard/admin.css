@@ -1,7 +1,6 @@
 /* Shared admin UI kit - tables, filters, detail cards, status pills,
    compose forms. Used by /dashboard, /portal, /seo-portal and /login,
    so it is imported by each shell rather than scoped to one route. */
-
 .dashboard-brand,
 .login-brand {
   font-size: 1.45rem;
@@ -21,15 +20,16 @@
 .admin-page {
   margin: 0 auto;
   max-width: 1500px;
-  padding: 34px;
+  padding: 24px 18px;
   width: 100%;
 }
 .admin-page-header {
-  align-items: flex-end;
+  align-items: flex-start;
   display: flex;
   gap: 30px;
   justify-content: space-between;
   margin-bottom: 24px;
+  flex-direction: column;
 }
 .admin-page-header h1,
 .admin-compose-card h1 {
@@ -97,7 +97,7 @@
 .admin-filters {
   display: grid;
   gap: 10px;
-  grid-template-columns: minmax(155px, 0.55fr) minmax(190px, 0.8fr) minmax(300px, 1.5fr);
+  grid-template-columns: minmax(0, 1fr);
   margin-top: 17px;
 }
 .admin-filters select,
@@ -126,6 +126,7 @@
 .admin-search {
   display: flex;
   gap: 7px;
+  grid-column: auto;
 }
 .admin-search button,
 .admin-attachments > button,
@@ -152,6 +153,7 @@
   gap: 12px;
   margin-top: 15px;
   text-transform: capitalize;
+  line-height: 1.8;
 }
 .admin-legend span {
   align-items: center;
@@ -268,29 +270,29 @@
 }
 .admin-row-new,
 .admin-row-pending {
-  background: color-mix(in srgb, var(--status-new) 12%, #fff);
+  background: color-mix(in srgb, var(--status-new) 12%, var(--surface));
 }
 .admin-row-contacted {
-  background: color-mix(in srgb, var(--status-contacted) 12%, #fff);
+  background: color-mix(in srgb, var(--status-contacted) 12%, var(--surface));
 }
 .admin-row-qualified {
-  background: color-mix(in srgb, var(--status-qualified) 12%, #fff);
+  background: color-mix(in srgb, var(--status-qualified) 12%, var(--surface));
 }
 .admin-row-won,
 .admin-row-sent,
 .admin-row-active {
-  background: color-mix(in srgb, var(--status-won) 12%, #fff);
+  background: color-mix(in srgb, var(--status-won) 12%, var(--surface));
 }
 .admin-row-closed {
-  background: color-mix(in srgb, var(--status-closed) 12%, #fff);
+  background: color-mix(in srgb, var(--status-closed) 12%, var(--surface));
 }
 .admin-row-spam,
 .admin-row-failed,
 .admin-row-denied {
-  background: color-mix(in srgb, var(--status-spam) 12%, #fff);
+  background: color-mix(in srgb, var(--status-spam) 12%, var(--surface));
 }
 .admin-row-suspended {
-  background: color-mix(in srgb, var(--status-suspended) 12%, #fff);
+  background: color-mix(in srgb, var(--status-suspended) 12%, var(--surface));
 }
 .admin-status {
   border-radius: 999px;
@@ -301,44 +303,46 @@
 }
 .admin-status-new,
 .admin-status-pending {
-  background: color-mix(in srgb, var(--status-new) 26%, #fff);
-  color: color-mix(in srgb, var(--status-new) 45%, #000);
+  background: color-mix(in srgb, var(--status-new) 26%, var(--surface));
+  color: color-mix(in srgb, var(--status-new) 45%, var(--text));
 }
 .admin-status-contacted {
-  background: color-mix(in srgb, var(--status-contacted) 26%, #fff);
-  color: color-mix(in srgb, var(--status-contacted) 45%, #000);
+  background: color-mix(in srgb, var(--status-contacted) 26%, var(--surface));
+  color: color-mix(in srgb, var(--status-contacted) 45%, var(--text));
 }
 .admin-status-qualified {
-  background: color-mix(in srgb, var(--status-qualified) 26%, #fff);
-  color: color-mix(in srgb, var(--status-qualified) 45%, #000);
+  background: color-mix(in srgb, var(--status-qualified) 26%, var(--surface));
+  color: color-mix(in srgb, var(--status-qualified) 45%, var(--text));
 }
 .admin-status-won,
 .admin-status-sent,
 .admin-status-active {
-  background: color-mix(in srgb, var(--status-won) 26%, #fff);
-  color: color-mix(in srgb, var(--status-won) 45%, #000);
+  background: color-mix(in srgb, var(--status-won) 26%, var(--surface));
+  color: color-mix(in srgb, var(--status-won) 45%, var(--text));
 }
 .admin-status-closed {
-  background: color-mix(in srgb, var(--status-closed) 26%, #fff);
-  color: color-mix(in srgb, var(--status-closed) 48%, #000);
+  background: color-mix(in srgb, var(--status-closed) 26%, var(--surface));
+  color: color-mix(in srgb, var(--status-closed) 48%, var(--text));
 }
 .admin-status-spam,
 .admin-status-failed,
 .admin-status-denied {
-  background: color-mix(in srgb, var(--status-spam) 26%, #fff);
-  color: color-mix(in srgb, var(--status-spam) 45%, #000);
+  background: color-mix(in srgb, var(--status-spam) 26%, var(--surface));
+  color: color-mix(in srgb, var(--status-spam) 45%, var(--text));
 }
 .admin-status-suspended {
-  background: color-mix(in srgb, var(--status-suspended) 26%, #fff);
-  color: color-mix(in srgb, var(--status-suspended) 45%, #000);
+  background: color-mix(in srgb, var(--status-suspended) 26%, var(--surface));
+  color: color-mix(in srgb, var(--status-suspended) 45%, var(--text));
 }
 .admin-pagination {
-  align-items: center;
+  align-items: flex-start;
   color: var(--text-subtle);
   display: flex;
   font-size: 0.68rem;
   justify-content: space-between;
   padding: 13px 18px;
+  flex-direction: column;
+  gap: 12px;
 }
 .admin-pagination > div {
   align-items: center;
@@ -360,15 +364,13 @@
   line-height: 1.5;
   margin: 16px 0;
   padding: 12px 14px;
-}
-.admin-banner {
   background: #edf9f1;
   border: 1px solid #c3e5d1;
   color: #176039;
 }
 .admin-banner-error,
 .admin-form-error {
-  background: #fff0f0;
+  background: var(--danger-surface);
   border: 1px solid #efc8c8;
   color: #842f2f;
 }
@@ -435,9 +437,14 @@
 .admin-detail-grid {
   display: grid;
   gap: 20px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 .admin-detail-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(var(--shadow-color), 0.05);
+  overflow: hidden;
   padding: 25px;
 }
 .admin-detail-card h2 {
@@ -445,13 +452,14 @@
   margin: 0 0 20px;
 }
 .admin-detail-wide {
-  grid-column: 1 / -1;
+  grid-column: auto;
 }
 .admin-status-card {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
-  grid-column: 1 / -1;
+  grid-column: auto;
   justify-content: space-between;
+  flex-direction: column;
 }
 .admin-status-card > div {
   align-items: center;
@@ -459,7 +467,14 @@
   gap: 13px;
 }
 .admin-status-card select {
-  max-width: 210px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  color: var(--text);
+  outline: none;
+  padding: 10px 11px;
+  width: 100%;
+  max-width: none;
 }
 .admin-card-label {
   font-size: 0.72rem;
@@ -469,7 +484,7 @@
 .admin-detail-list {
   display: grid;
   gap: 20px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
   margin: 0;
 }
 .admin-detail-list div {
@@ -565,6 +580,7 @@
   font-style: normal;
 }
 .admin-config-request {
+  margin-top: 20px;
   background: var(--surface-tint);
   border-left: 3px solid var(--blue-600);
   padding: 14px 16px;
@@ -579,11 +595,11 @@
   border-top: 1px solid var(--border);
 }
 .admin-related-messages a {
-  align-items: center;
+  align-items: flex-start;
   border-bottom: 1px solid var(--border);
   display: grid;
   gap: 15px;
-  grid-template-columns: 120px 1fr 170px;
+  grid-template-columns: minmax(0, 1fr);
   padding: 14px 5px;
 }
 .admin-related-messages span,
@@ -595,7 +611,9 @@
   font-size: 0.75rem;
 }
 .admin-related-messages small {
-  text-align: right;
+  color: var(--text-subtle);
+  font-size: 0.64rem;
+  text-align: left;
 }
 .admin-muted {
   color: var(--text-subtle);
@@ -617,7 +635,12 @@
   max-width: 1020px;
 }
 .admin-compose-card {
-  padding: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(var(--shadow-color), 0.05);
+  overflow: hidden;
+  padding: 20px;
 }
 .admin-compose-card header {
   align-items: flex-start;
@@ -626,6 +649,8 @@
   justify-content: space-between;
   margin-bottom: 24px;
   padding-bottom: 22px;
+  flex-direction: column;
+  gap: 14px;
 }
 .admin-compose-card header > span {
   background: var(--surface-tint-2);
@@ -647,10 +672,26 @@
 .admin-compose-form input,
 .admin-compose-form select,
 .admin-compose-form textarea {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  color: var(--text);
+  outline: none;
+  padding: 10px 11px;
+  width: 100%;
   display: block;
   margin-top: 7px;
 }
 .admin-compose-form textarea {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  color: var(--text);
+  outline: none;
+  padding: 10px 11px;
+  width: 100%;
+  display: block;
+  margin-top: 7px;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   line-height: 1.55;
   resize: vertical;
@@ -662,7 +703,7 @@
   border-radius: 6px;
   display: grid;
   gap: 14px;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   padding: 15px;
 }
 .admin-attachments strong,
@@ -670,6 +711,7 @@
   display: block;
 }
 .admin-attachments small {
+  display: block;
   color: var(--text-subtle);
   font-size: 0.62rem;
   margin-top: 4px;
@@ -700,73 +742,78 @@
   align-self: flex-start;
 }
 .admin-form-error {
+  background: var(--danger-surface);
+  border: 1px solid #efc8c8;
+  color: #842f2f;
   border-radius: 4px;
   font-size: 0.68rem;
   margin: 0;
   padding: 10px;
 }
-@media (max-width: 900px) {
-  .admin-page {
-    padding: 24px 18px;
+
+@media (min-width: 640px) {
+  .admin-page-header {
+    align-items: flex-end;
+    flex-direction: revert;
+  }
+  .admin-page-header .admin-primary-button {
+    width: revert;
   }
   .admin-filters {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .admin-search {
     grid-column: 1 / -1;
   }
-}
-@media (max-width: 620px) {
-  .admin-page-header {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-  .admin-page-header .admin-primary-button {
-    width: 100%;
-  }
-  .admin-filters {
-    grid-template-columns: 1fr;
-  }
-  .admin-search {
-    grid-column: auto;
-  }
   .admin-legend {
-    line-height: 1.8;
+    line-height: revert;
   }
   .admin-pagination {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    flex-direction: revert;
+    gap: revert;
   }
   .admin-detail-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
-  .admin-detail-wide,
-  .admin-status-card {
-    grid-column: auto;
+  .admin-detail-wide {
+    grid-column: 1 / -1;
   }
   .admin-status-card {
-    align-items: flex-start;
-    flex-direction: column;
+    grid-column: 1 / -1;
+    align-items: center;
+    flex-direction: revert;
   }
   .admin-status-card select {
-    max-width: none;
+    max-width: 210px;
   }
   .admin-detail-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .admin-related-messages a {
-    align-items: flex-start;
-    grid-template-columns: 1fr;
+    align-items: center;
+    grid-template-columns: 120px minmax(0, 1fr) 170px;
   }
   .admin-related-messages small {
-    text-align: left;
+    text-align: right;
   }
   .admin-compose-card {
-    padding: 20px;
+    padding: 28px;
   }
   .admin-compose-card header {
-    flex-direction: column;
-    gap: 14px;
+    flex-direction: revert;
+    gap: revert;
+  }
+}
+
+@media (min-width: 900px) {
+  .admin-page {
+    padding: 34px;
+  }
+  .admin-filters {
+    grid-template-columns: minmax(155px, 0.55fr) minmax(190px, 0.8fr) minmax(300px, 1.5fr);
+  }
+  .admin-search {
+    grid-column: revert;
   }
 }

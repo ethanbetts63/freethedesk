@@ -1,12 +1,6 @@
-   
-                                                                          
-                                                                             
-                                                                  
-   
 export const PUBLIC_SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://freethedesk.com.au").replace(/\/$/, "");
 export const METADATA_BASE_URL = PUBLIC_SITE_URL;
 
-                                                                              
 export const PORTFOLIO_NAVIGATION = [
   { href: "/portfolio/scooter-shop", label: "Scooter Shop" },
   { href: "/portfolio/bloomprint", label: "Bloomprint" },

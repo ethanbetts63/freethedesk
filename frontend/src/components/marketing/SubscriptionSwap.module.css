@@ -13,7 +13,7 @@
   margin: 0;
 }
 .lead {
-  color: #536c80;
+  color: var(--cool-600);
   font-size: 1.02rem;
   line-height: 1.75;
   margin: 26px 0 0;
@@ -22,13 +22,13 @@
 .steps {
   display: grid;
   gap: 1px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   list-style: none;
   margin: 56px 0 0;
   padding: 0;
 }
 .steps li {
-  background: #f2f7fb;
+  background: var(--surface-flow);
   padding: 30px 28px 32px;
 }
 .stepIndex {
@@ -40,14 +40,14 @@
   margin-bottom: 16px;
 }
 .steps strong {
-  color: #13315c;
+  color: var(--blue-950);
   display: block;
   font-size: 1.08rem;
   letter-spacing: -0.025em;
   margin-bottom: 10px;
 }
 .steps p {
-  color: #536c80;
+  color: var(--cool-600);
   font-size: 0.88rem;
   line-height: 1.65;
   margin: 0;
@@ -56,8 +56,8 @@
   margin-top: 44px;
 }
 
-@media (max-width: 900px) {
+@media (min-width: 900px) {
   .steps {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

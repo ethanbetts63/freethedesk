@@ -1,35 +1,38 @@
 .section {
   --section-accent: var(--brand-accent);
   --section-accent-rgb: 36, 126, 201;
-  background: #f4f8fd;
-  padding: 108px 0;
+  background: var(--blue-50);
+  padding: var(--section-space) 0;
 }
 .layout {
   align-items: center;
   display: grid;
-  gap: clamp(55px, 8vw, 120px);
-  grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
+  gap: 45px;
+  grid-template-columns: minmax(0, 1fr);
 }
 .visual {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(#fff, #fff), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient-surface);
   background-origin: border-box;
   background-size:
     100% 100%,
     var(--moving-colour-size);
   border: 2px solid transparent;
   box-shadow: 0 28px 75px rgba(19, 49, 92, 0.11);
+  grid-row: 2;
   min-width: 0;
-  padding: 28px;
+  padding: 20px;
 }
 .visualHeader {
-  align-items: center;
-  border-bottom: 1px solid #d9e5ef;
-  color: #758a9c;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--blue-200);
+  color: var(--ink-500);
   display: flex;
+  flex-direction: column;
   font-size: 0.66rem;
   font-weight: 850;
+  gap: 6px;
   justify-content: space-between;
   letter-spacing: 0.11em;
   padding-bottom: 18px;
@@ -46,36 +49,42 @@
 .journey {
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 28px 0;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 20px 0;
   position: relative;
 }
 .journey::before {
-  background: #bdd4e6;
+  background: var(--blue-300);
+  bottom: 20%;
   content: "";
-  height: 1px;
-  left: 15%;
+  height: auto;
+  left: 19px;
   position: absolute;
-  right: 15%;
-  top: 57px;
+  top: 14%;
+  width: 1px;
 }
 .journey article {
-  background: #f7fafc;
-  border: 1px solid #dce7ef;
+  align-items: center;
+  background: var(--surface-flow);
+  border: 1px solid var(--blue-200);
+  display: grid;
+  gap: 4px 13px;
+  grid-template-columns: 38px 28px minmax(0, 1fr);
   min-width: 0;
-  padding: 16px 14px;
+  padding: 13px;
   position: relative;
   z-index: 1;
 }
 .icon {
   align-items: center;
-  background: #e8f3fb;
-  border: 1px solid #c9dfef;
+  background: var(--blue-100);
+  border: 1px solid var(--line-220);
   color: var(--section-accent);
   display: flex;
+  grid-row: 1 / 3;
   height: 38px;
   justify-content: center;
-  margin-bottom: 22px;
+  margin: 0;
   width: 38px;
 }
 .icon svg {
@@ -96,17 +105,21 @@
   color: var(--section-accent);
   font-size: 0.58rem;
   font-weight: 900;
+  grid-column: 2;
+  grid-row: 1 / 3;
   letter-spacing: 0.1em;
 }
 .journey article > strong {
   font-size: 0.92rem;
-  margin-top: 7px;
+  grid-column: 3;
+  margin: 0;
 }
 .journey article > small {
-  color: #6e8497;
+  color: var(--ink-500);
   font-size: 0.66rem;
+  grid-column: 3;
   line-height: 1.45;
-  margin-top: 6px;
+  margin: 0;
 }
 .status {
   align-items: center;
@@ -116,9 +129,9 @@
   box-shadow: 0 12px 28px rgba(168, 85, 247, 0.22);
   color: rgba(255, 255, 255, 0.82);
   display: flex;
-  font-size: 0.76rem;
+  font-size: 0.68rem;
   font-weight: 650;
-  gap: 11px;
+  gap: 8px;
   justify-content: center;
   padding: 15px 17px;
 }
@@ -128,18 +141,12 @@
   width: auto;
 }
 .copy {
-  max-width: 520px;
+  grid-row: 1;
+  max-width: 650px;
 }
 .eyebrow {
-  align-items: center;
-  color: var(--section-accent);
-  display: flex;
-  font-size: 0.68rem;
-  font-weight: 800;
-  gap: 11px;
-  letter-spacing: 0.17em;
-  margin: 0 0 25px;
-  text-transform: uppercase;
+  composes: eyebrow from global;
+  --eyebrow-accent: var(--section-accent);
 }
 .eyebrow span {
   background: var(--section-accent);
@@ -149,8 +156,8 @@
   width: 7px;
 }
 .copy h2 {
-  color: #000;
-  font-size: clamp(2.5rem, 5.3vw, 6.1rem);
+  color: var(--text);
+  font-size: var(--display-4);
   font-weight: 800;
   letter-spacing: -0.075em;
   line-height: 0.88;
@@ -163,14 +170,14 @@
   font-weight: 350;
 }
 .lead {
-  color: #536b82;
-  font-size: 1.03rem;
+  color: var(--cool-600);
+  font-size: var(--step-1);
   line-height: 1.7;
-  margin: 30px 0 24px;
+  margin: 25px 0 24px;
   max-width: 470px;
 }
 .copy ul {
-  border-top: 1px solid #cfdeea;
+  border-top: 1px solid var(--line-210);
   display: grid;
   gap: 0;
   list-style: none;
@@ -178,8 +185,8 @@
   padding: 0;
 }
 .copy li {
-  border-bottom: 1px solid #cfdeea;
-  color: #2f4b62;
+  border-bottom: 1px solid var(--line-210);
+  color: var(--ink-730);
   font-size: 0.78rem;
   font-weight: 750;
   padding: 12px 0 12px 21px;
@@ -197,7 +204,7 @@
 }
 .copyCta {
   --pb-background: var(--section-accent);
-  --pb-background-hover: #000;
+  --pb-background-hover: var(--text);
   --pb-font-size: 0.8rem;
   --pb-gap: 38px;
   --pb-padding: 16px 18px;
@@ -217,75 +224,61 @@
   }
 }
 
-@media (max-width: 900px) {
-  .layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .copy {
-    grid-row: 1;
-    max-width: 650px;
-  }
+@media (min-width: 640px) {
   .visual {
-    grid-row: 2;
+    padding: 28px;
+  }
+  .visualHeader {
+    align-items: center;
+    flex-direction: row;
+    gap: 0;
+  }
+  .journey {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 28px 0;
+  }
+  .journey::before {
+    bottom: auto;
+    height: 1px;
+    left: 15%;
+    right: 15%;
+    top: 57px;
+    width: auto;
+  }
+  .journey article {
+    display: block;
+    padding: 16px 14px;
+  }
+  .icon {
+    margin-bottom: 22px;
+  }
+  .journey article > strong {
+    margin-top: 7px;
+  }
+  .journey article > small {
+    margin-top: 6px;
+  }
+  .status {
+    font-size: 0.76rem;
+    gap: 11px;
   }
 }
 
-@media (max-width: 620px) {
+@media (min-width: 900px) {
   .section {
-    padding: 78px 0;
+    padding: 108px 0;
+  }
+  /* Release the mobile row-ordering so the two columns sit side by side.
+     .visual precedes .copy in the DOM, so natural placement is correct here. */
+  .copy,
+  .visual {
+    grid-row: auto;
   }
   .layout {
-    gap: 45px;
+    gap: clamp(55px, 8vw, 120px);
+    grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
   }
-  .lead {
-    font-size: 0.96rem;
-    margin-top: 25px;
-  }
-  .visual {
-    padding: 20px;
-  }
-  .visualHeader {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .journey {
-    grid-template-columns: 1fr;
-    padding: 20px 0;
-  }
-  .journey::before {
-    bottom: 20%;
-    height: auto;
-    left: 19px;
-    right: auto;
-    top: 14%;
-    width: 1px;
-  }
-  .journey article {
-    align-items: center;
-    display: grid;
-    gap: 4px 13px;
-    grid-template-columns: 38px 28px 1fr;
-    padding: 13px;
-  }
-  .icon {
-    grid-row: 1 / 3;
-    margin: 0;
-  }
-  .journey article > span {
-    grid-column: 2;
-    grid-row: 1 / 3;
-  }
-  .journey article > strong {
-    grid-column: 3;
-    margin: 0;
-  }
-  .journey article > small {
-    grid-column: 3;
-    margin: 0;
-  }
-  .status {
-    font-size: 0.68rem;
-    gap: 8px;
+  .copy {
+    max-width: 520px;
   }
 }

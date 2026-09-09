@@ -11,13 +11,7 @@ import { useSignup } from "@/lib/useSignup";
 import { buildDealerPlans, type DealerPlanCode, type LicensingPrices } from "../_lib/plans";
 import styles from "../page.module.css";
 
-export function SignupPlans({
-  settings,
-  eyebrow,
-}: {
-  settings: LicensingPrices;
-  eyebrow: string;
-}) {
+export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; eyebrow: string }) {
   const plans = useMemo(() => buildDealerPlans(settings), [settings]);
   const [selectedCode, setSelectedCode] = useState<DealerPlanCode>("complete");
   const { submit, status, error } = useSignup({ endpoint: "/api/dealers/signup/", nextHref: "/licensing/payment" });
@@ -95,13 +89,7 @@ export function SignupPlans({
           <div className={styles.fieldRow}>
             <label>
               <span>Email</span>
-              <input
-                name="email"
-                type="email"
-                placeholder="e.g. email@example.com"
-                autoComplete="email"
-                required
-              />
+              <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
             </label>
             <label>
               <span>Phone</span>

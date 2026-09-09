@@ -13,7 +13,7 @@ import {
 interface AuthValue {
   user: Principal | null;
   loading: boolean;
-                                                                            
+
   login: (identifier: string, password: string) => Promise<Principal>;
   adoptSession: (principal: Principal) => void;
   logout: () => Promise<void>;

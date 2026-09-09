@@ -15,19 +15,17 @@ type Node = {
 };
 
 export type NetworkFieldColors = {
-                                        
   nodeLight: string;
-                                                                       
+
   nodeDark: string;
-                                                      
+
   linkStart: string;
-                                                    
+
   linkEnd: string;
-                                                                 
+
   ring: string;
 };
 
-                                                                                        
 export const DEFAULT_NETWORK_COLORS: NetworkFieldColors = {
   nodeLight: "#5aaee9",
   nodeDark: "#13315c",
@@ -42,11 +40,6 @@ const PULL_STRENGTH = 0.02;
 const SWIRL_STRENGTH = 0.011;
 const MAX_SPEED = 2.4;
 
-   
-                                                                           
-                                                                             
-                                           
-   
 const OPACITY_BANDS = 5;
 
 function blend(start: string, end: string): string {

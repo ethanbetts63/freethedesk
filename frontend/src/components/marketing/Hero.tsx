@@ -7,9 +7,9 @@ import styles from "./Hero.module.css";
 
 type HeroProps = {
   eyebrow: string;
-                                                                                
+
   titleLines: readonly string[];
-                                                                 
+
   accentTitle: string;
   lead: string;
   primaryHref: string;
@@ -17,11 +17,10 @@ type HeroProps = {
   secondaryHref: string;
   secondaryLabel: string;
   trustLine?: string;
-                                                                                                
+
   stages?: readonly string[];
 };
 
-                                                                                          
 export function Hero({
   eyebrow,
   titleLines,

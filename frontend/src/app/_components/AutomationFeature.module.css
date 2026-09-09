@@ -1,29 +1,23 @@
 .section {
-  --feature-accent: #70bced;
-  background: #13315c;
-  color: #fff;
+  --feature-accent: var(--accent-on-dark);
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
   overflow: hidden;
-  padding: 118px 0;
+  padding: var(--section-space) 0;
 }
 .layout {
   align-items: center;
   display: grid;
   gap: clamp(58px, 9vw, 135px);
-  grid-template-columns: 1.12fr 0.88fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 .copy {
-  max-width: 520px;
+  grid-row: 1;
+  max-width: 680px;
 }
 .eyebrow {
-  align-items: center;
-  color: var(--feature-accent);
-  display: flex;
-  font-size: 0.68rem;
-  font-weight: 850;
-  gap: 11px;
-  letter-spacing: 0.17em;
-  margin: 0 0 25px;
-  text-transform: uppercase;
+  composes: eyebrow from global;
+  --eyebrow-accent: var(--feature-accent);
 }
 .eyebrow span {
   background: var(--feature-accent);
@@ -33,7 +27,7 @@
   width: 7px;
 }
 .copy h2 {
-  font-size: clamp(2.5rem, 5.8vw, 6.2rem);
+  font-size: var(--display-4);
   font-weight: 800;
   letter-spacing: -0.077em;
   line-height: 0.87;
@@ -46,8 +40,8 @@
   font-weight: 350;
 }
 .lead {
-  color: #b9ccdc;
-  font-size: 1.03rem;
+  color: var(--ink-200);
+  font-size: var(--step-1);
   line-height: 1.7;
   margin: 30px 0 26px;
   max-width: 480px;
@@ -60,7 +54,7 @@
 }
 .copy li {
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  color: #d5e1ea;
+  color: var(--line-210);
   font-size: 0.78rem;
   font-weight: 750;
   padding: 12px 0 12px 21px;
@@ -78,7 +72,7 @@
 }
 .copyCta {
   --pb-background: var(--brand-accent);
-  --pb-background-hover: #fff;
+  --pb-background-hover: var(--surface);
   --pb-font-size: 0.8rem;
   --pb-gap: 38px;
   --pb-padding: 16px 18px;
@@ -88,7 +82,7 @@
     transform 0.2s;
 }
 .copyCta:hover {
-  color: #07121c;
+  color: var(--ink-strong);
   transform: translateY(-2px);
 }
 /* Same card treatment as the Stripe verification panel: moving-colour border,
@@ -96,15 +90,16 @@
 .visual {
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(#fff, #fff), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient-surface);
   background-origin: border-box;
   background-size:
     100% 100%,
     var(--moving-colour-size);
   border: 2px solid transparent;
-  box-shadow: 24px 24px 0 rgba(7, 18, 28, 0.14);
-  color: #10283b;
-  padding: 26px;
+  box-shadow: 12px 12px 0 rgba(112, 188, 237, 0.07);
+  color: var(--ink-navy);
+  grid-row: 2;
+  padding: 20px 14px;
   position: relative;
 }
 .visual::before {
@@ -122,8 +117,8 @@
 }
 .visual > header {
   align-items: center;
-  border-bottom: 1px solid #d9e5ef;
-  color: #70889b;
+  border-bottom: 1px solid var(--blue-200);
+  color: var(--ink-500);
   display: flex;
   font-size: 0.58rem;
   font-weight: 900;
@@ -154,12 +149,12 @@
   width: 6px;
 }
 .event {
-  background: #f2f7fb;
-  border: 1px solid #d9e5ef;
-  color: #10283b;
+  background: var(--surface-flow);
+  border: 1px solid var(--blue-200);
+  color: var(--ink-navy);
   margin: 25px auto 0;
   padding: 18px 20px;
-  width: 78%;
+  width: 92%;
 }
 .event small,
 .event strong,
@@ -178,16 +173,16 @@
   margin: 7px 0 5px;
 }
 .event span {
-  color: #6b8295;
+  color: var(--ink-520);
   font-size: 0.63rem;
 }
 .route {
   display: flex;
-  height: 38px;
+  height: 24px;
   justify-content: space-around;
   margin: 0 auto;
   overflow: hidden;
-  width: 72%;
+  width: 83%;
 }
 .route i {
   border-left: 1px solid rgba(112, 188, 237, 0.55);
@@ -208,13 +203,19 @@
 .actions {
   display: grid;
   gap: 9px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: minmax(0, 1fr);
 }
 .actions article {
-  background: #f7fafc;
-  border: 1px solid #d9e5ef;
+  background: var(--surface-flow);
+  border: 1px solid var(--blue-200);
+  display: grid;
+  gap: 3px 10px;
+  grid-template-columns: 25px minmax(0, 1fr);
   min-width: 0;
   padding: 15px 13px;
+}
+.actions span {
+  grid-row: 1 / 3;
 }
 .actions span,
 .actions strong,
@@ -229,10 +230,10 @@
 .actions strong {
   color: #173047;
   font-size: 0.7rem;
-  margin: 12px 0 5px;
+  margin: 0;
 }
 .actions small {
-  color: #70889b;
+  color: var(--ink-500);
   font-size: 0.56rem;
   line-height: 1.4;
 }
@@ -243,7 +244,7 @@
   background-size: var(--moving-colour-size);
   display: grid;
   gap: 5px 13px;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   margin-top: 16px;
   padding: 14px 17px;
 }
@@ -255,12 +256,12 @@
   text-transform: uppercase;
 }
 .visual footer strong {
-  color: #fff;
+  color: var(--text-on-dark);
   font-size: 2rem;
   grid-row: 1 / 3;
 }
 .visual footer small {
-  color: #fff;
+  color: var(--text-on-dark);
   font-size: 0.64rem;
   font-weight: 650;
 }
@@ -274,48 +275,46 @@
   }
 }
 
-@media (max-width: 900px) {
-  .layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .copy {
-    grid-row: 1;
-    max-width: 680px;
-  }
+@media (min-width: 640px) {
   .visual {
-    grid-row: 2;
+    box-shadow: 24px 24px 0 rgba(7, 18, 28, 0.14);
+    padding: 26px;
+  }
+  .event {
+    width: 78%;
+  }
+  .route {
+    height: 38px;
+    width: 72%;
+  }
+  .actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .actions article {
+    display: block;
+  }
+  .actions span {
+    grid-row: auto;
+  }
+  .actions strong {
+    margin: 12px 0 5px;
   }
 }
 
-@media (max-width: 620px) {
+@media (min-width: 900px) {
   .section {
-    padding: var(--section-space) 0;
+    padding: 118px 0;
   }
+  /* Release the mobile row-ordering so the two columns sit side by side.
+     .visual precedes .copy in the DOM, so natural placement is correct here. */
+  .copy,
   .visual {
-    box-shadow: 12px 12px 0 rgba(112, 188, 237, 0.07);
-    padding: 20px 14px;
+    grid-row: auto;
   }
-  .event {
-    width: 92%;
+  .layout {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
   }
-  .route {
-    width: 83%;
-  }
-  .actions {
-    grid-template-columns: 1fr;
-  }
-  .route {
-    height: 24px;
-  }
-  .actions article {
-    display: grid;
-    gap: 3px 10px;
-    grid-template-columns: 25px 1fr;
-  }
-  .actions span {
-    grid-row: 1 / 3;
-  }
-  .actions strong {
-    margin: 0;
+  .copy {
+    max-width: 520px;
   }
 }

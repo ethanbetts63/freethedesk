@@ -34,7 +34,6 @@ const steps = [
   },
 ];
 
-                                                                                                         
 export function IdentityVerification({ eyebrow }: { eyebrow: string }) {
   return (
     <section className={`shell ${styles.verify}`}>

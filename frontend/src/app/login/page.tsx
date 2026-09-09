@@ -17,9 +17,6 @@ function LoginContent() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-
-
-
   useEffect(() => {
     if (loading || !user) return;
     const next = search.get("next");

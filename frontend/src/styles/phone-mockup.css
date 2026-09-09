@@ -5,17 +5,16 @@
    .case-phone        small phone pinned into a larger composition
    .case-mobile-phone large free-standing phone
    .case-live-note    the floating "live" pill that sits alongside them */
-
 .case-phone {
   background: var(--surface-dark);
   border: 4px solid var(--surface-dark);
   border-radius: 20px;
-  bottom: 0;
+  bottom: 10px;
   box-shadow: 0 20px 55px rgba(var(--shadow-color), 0.25);
-  left: 0;
+  left: -6px;
   overflow: hidden;
   position: absolute;
-  width: 160px;
+  width: 84px;
   z-index: 3;
 }
 .case-phone img {
@@ -47,7 +46,7 @@
 }
 .case-phone-menu {
   align-items: stretch;
-  background: #0d1725;
+  background: var(--surface-ink);
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -60,25 +59,24 @@
   z-index: 4;
 }
 .case-phone-menu i {
-  background: #fff;
+  background: var(--surface);
   display: block;
   height: 1px;
   width: 100%;
 }
-
 .case-mobile-phone {
-  background: #0d1725;
-  border: 7px solid #0d1725;
+  background: var(--surface-ink);
+  border: 7px solid var(--surface-ink);
   border-radius: 29px;
   box-shadow: 0 35px 70px rgba(0, 0, 0, 0.32);
-  height: 465px;
+  height: 410px;
   overflow: hidden;
   position: relative;
-  width: 250px;
+  width: 218px;
   z-index: 2;
 }
 .case-mobile-phone > span {
-  background: #0d1725;
+  background: var(--surface-ink);
   border-radius: 0 0 10px 10px;
   height: 16px;
   left: 50%;
@@ -92,50 +90,49 @@
   height: auto;
   width: 100%;
 }
-
 .case-live-note {
   align-items: center;
   background: var(--surface);
   box-shadow: 0 12px 35px rgba(var(--shadow-color), 0.16);
   display: flex;
-  font-size: 0.67rem;
+  font-size: 0.56rem;
   font-weight: 800;
   gap: 9px;
-  padding: 13px 15px;
+  padding: 10px;
   position: absolute;
-  right: 22px;
+  right: -4px;
   top: 9px;
   z-index: 4;
 }
 .case-live-note i {
-  background: #2ba46a;
+  background: var(--status-won);
   border-radius: 50%;
   box-shadow: 0 0 0 4px rgba(43, 164, 106, 0.13);
   height: 7px;
   width: 7px;
 }
 
-@media (max-width: 760px) {
+@media (min-width: 640px) {
   .case-phone {
+    bottom: 0;
+    left: 0;
     width: 105px;
   }
   .case-live-note {
-    right: -4px;
-  }
-  .case-mobile-phone {
-    height: 410px;
-    width: 218px;
+    font-size: 0.67rem;
+    padding: 13px 15px;
   }
 }
 
-@media (max-width: 430px) {
+@media (min-width: 900px) {
   .case-phone {
-    bottom: 10px;
-    left: -6px;
-    width: 84px;
+    width: 160px;
   }
   .case-live-note {
-    font-size: 0.56rem;
-    padding: 10px;
+    right: 22px;
+  }
+  .case-mobile-phone {
+    height: 465px;
+    width: 250px;
   }
 }

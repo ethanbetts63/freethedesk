@@ -10,13 +10,6 @@
   width: 100%;
 }
 .section {
-  padding-bottom: 112px;
-  padding-top: 112px;
-}
-
-@media (max-width: 760px) {
-  .section {
-    padding-bottom: 78px;
-    padding-top: 78px;
-  }
+  padding-bottom: var(--section-space);
+  padding-top: var(--section-space);
 }

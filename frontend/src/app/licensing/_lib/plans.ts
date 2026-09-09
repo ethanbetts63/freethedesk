@@ -6,17 +6,14 @@ export type { DealerPlanCode };
 export type DealerPlan = Plan<DealerPlanCode>;
 export { formatPrice, planByCode };
 
-                                                                          
 export type LicensingPrices = Pick<PublicSiteSettings, "licensing_price" | "contracts_price" | "complete_price">;
 
-                                                                          
 function priceAmount(value: string): number {
   if (!value.trim()) return Number.MAX_SAFE_INTEGER;
   const amount = Number(value);
   return Number.isFinite(amount) ? amount : Number.MAX_SAFE_INTEGER;
 }
 
-                                                                             
 const PRICE_FIELD: Record<DealerPlanCode, keyof LicensingPrices> = {
   licensing: "licensing_price",
   contracts: "contracts_price",
@@ -48,7 +45,6 @@ const PLAN_COPY: Omit<DealerPlan, "price">[] = [
   },
 ];
 
-                                                                                                                       
 export function buildDealerPlans(settings: LicensingPrices): DealerPlan[] {
   return PLAN_COPY.map((plan) => ({ ...plan, price: formatPrice(settings[PRICE_FIELD[plan.code]]) })).sort(
     (a, b) => priceAmount(settings[PRICE_FIELD[a.code]]) - priceAmount(settings[PRICE_FIELD[b.code]]),

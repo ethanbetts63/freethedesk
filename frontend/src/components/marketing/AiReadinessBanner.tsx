@@ -6,7 +6,6 @@ import { MovingColourButton } from "@/components/MovingColourButton";
 import { normaliseWebsiteUrl, submitAiReadinessCheck } from "@/lib/api";
 import styles from "./AiReadinessBanner.module.css";
 
-                                                                                            
 export function AiReadinessBanner({ className = "" }: { className?: string }) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [error, setError] = useState("");

@@ -8,7 +8,6 @@ import type { AccountBase, DealerStatus } from "@/lib/api";
 
 import { dealerStatuses, StatusPill, statusLabel } from "./StatusPill";
 
-                                                                               
 export function AccountStatusCard({
   status,
   saving,
@@ -40,7 +39,6 @@ export function AccountStatusCard({
   );
 }
 
-                                                                            
 export function AccountApprovalCard({
   heading,
   explanation,
@@ -70,7 +68,6 @@ export function AccountApprovalCard({
   );
 }
 
-                                                                  
 export function DetailCard({ title, rows }: { title: string; rows: [string, ReactNode][] }) {
   return (
     <section className="admin-detail-card">
@@ -87,7 +84,6 @@ export function DetailCard({ title, rows }: { title: string; rows: [string, Reac
   );
 }
 
-                                                                               
 export function AccountContactCard({ account, extra = [] }: { account: AccountBase; extra?: [string, ReactNode][] }) {
   return (
     <DetailCard

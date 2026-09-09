@@ -166,11 +166,6 @@ export const DEFAULT_INVENTORY_ADDONS: InventoryAddonSelection = {
   newsletter: false,
 };
 
-   
-                                                                             
-                                                                               
-                                                                            
-   
 export function summariseSelection(
   selected: ModuleSelection,
   inventoryAddons: InventoryAddonSelection,

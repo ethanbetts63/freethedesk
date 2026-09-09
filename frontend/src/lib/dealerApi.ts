@@ -5,7 +5,6 @@ import type { DealerState } from "./dealerStates";
 export type DealerPlanCode = "licensing" | "contracts" | "complete";
 export type DealerPaymentStatus = "payment_pending" | "active" | "past_due" | "cancelled";
 
-                                                                                  
 export interface DealerAccount extends AccountBase {
   state: DealerState;
   state_label: string;

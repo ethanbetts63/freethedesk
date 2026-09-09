@@ -48,11 +48,13 @@
   --accent-strong: #0b64d6;
 
   --brand-accent: #247ec9;
+  /* Accent for the dark navy sections, where --brand-accent is too dim. */
+  --accent-on-dark: #70bced;
   --link: var(--blue-800);
 
   /* Numbered section eyebrows - see .section-number in typography.css */
   --section-number: var(--brand-accent);
-  --section-number-on-dark: #70bced;
+  --section-number-on-dark: var(--accent-on-dark);
 
   /* Borders and focus */
   --border: var(--blue-200);
@@ -79,30 +81,55 @@
   /* ---------------------------------------------------------------
      RESPONSIVE FOUNDATION
      ---------------------------------------------------------------
-     Breakpoint contract - these four values ONLY. Media queries are
-     desktop-first (max-width). They exist for LAYOUT changes (grid
-     columns collapsing, elements hiding). Sizing comes from the fluid
-     scales below, which need no breakpoint at all.
+     THIS CODEBASE IS MOBILE-FIRST. Base rules describe the phone.
+     Every media query is `min-width` and only ever ADDS capability
+     as the screen grows - never undoes a desktop assumption.
 
-       1080px  desktop  -> laptop / landscape tablet
-        900px           -> portrait tablet
-        620px           -> phone
-        430px           -> small phone (use sparingly)
+     Breakpoint contract - these three values ONLY:
 
-     CSS cannot use custom properties inside @media, so these are
-     written literally. Keep them literal, and keep them to these four.
+       @media (min-width: 640px)   large phone / small tablet
+       @media (min-width: 900px)   tablet / small laptop
+       @media (min-width: 1080px)  desktop
+
+     Media queries exist for LAYOUT ONLY - column counts, what is
+     visible, what reorders. They must never set a font-size or a
+     padding that the fluid scales below already handle.
+
+     Two rules that prevent the bugs this replaced:
+       - Never write a bare `1fr` grid track. Use `minmax(0, 1fr)`;
+         a bare 1fr is minmax(auto, 1fr) and cannot shrink below its
+         content, which overflows and gets clipped.
+       - Never hand-roll a clamp(). Pick a step. If no step fits,
+         the scale is wrong - fix it here, not in the component.
+
+     CSS cannot use custom properties inside @media, so the three
+     breakpoints are written literally. Keep them to these three.
      --------------------------------------------------------------- */
 
-  /* Fluid type scale: min at 320px viewport, max at 1240px. */
+  /* Text scale. Fluid between a 320px and a 1240px viewport.
+     Body copy barely moves; only display type travels far. */
   --step--2: clamp(0.6875rem, 0.666rem + 0.109vw, 0.75rem);
   --step--1: clamp(0.8rem, 0.774rem + 0.13vw, 0.875rem);
   --step-0: clamp(1rem, 0.978rem + 0.109vw, 1.0625rem);
-  --step-1: clamp(1.125rem, 1.038rem + 0.435vw, 1.375rem);
+  /* step-1 is the lead-paragraph size. It shares step-0's 16px floor
+     deliberately - 16px is the smallest comfortable body size on a phone,
+     and it is also the threshold below which iOS Safari zooms on focus. */
+  --step-1: clamp(1rem, 0.924rem + 0.383vw, 1.22rem);
   --step-2: clamp(1.375rem, 1.201rem + 0.87vw, 1.875rem);
   --step-3: clamp(1.75rem, 1.489rem + 1.304vw, 2.5rem);
-  --step-4: clamp(2.25rem, 1.815rem + 2.174vw, 3.5rem);
-  --step-5: clamp(2.75rem, 1.967rem + 3.913vw, 5rem);
-  --step-6: clamp(2.75rem, 0.75rem + 10vw, 8.5rem);
+
+  /* Display scale - modular, 3.5rem base, ratio 1.2, so the steps are
+     3.5 / 4.2 / 5.04 / 6.05 / 7.26 / 8.71rem at full size.
+     Floors are set by a hard typographic constraint: the longest single
+     word in a heading ("automation", 10 characters at ~0.574em each in
+     Arial 800 with -0.085em tracking) must fit 288px, the content box of
+     a 320px screen. That caps the floor at 40px / 2.5rem. */
+  --display-1: clamp(2rem, 1.478rem + 2.609vw, 3.5rem);
+  --display-2: clamp(2.25rem, 1.572rem + 3.391vw, 4.2rem);
+  --display-3: clamp(2.375rem, 1.448rem + 4.635vw, 5.04rem);
+  --display-4: clamp(2.5rem, 1.265rem + 6.174vw, 6.05rem);
+  --display-5: clamp(2.5rem, 0.844rem + 8.278vw, 7.26rem);
+  --display-6: clamp(2.5rem, 0.34rem + 10.8vw, 8.71rem);
 
   /* Fluid space scale. */
   --space-2xs: 4px;
@@ -119,6 +146,40 @@
 
   /* Minimum comfortable touch target. */
   --tap-min: 44px;
+
+  /* ---------------------------------------------------------------
+     Consolidated palette. These replace ~290 near-duplicate hex values
+     that had drifted across the stylesheets (one border colour alone
+     existed in 12 spellings). Names describe the role, not the hue:
+       ink-*   text     line-*  borders/rules     fill-*  surfaces
+     --------------------------------------------------------------- */
+  --fill-300: #adc0cf; /* surface, 7 uses */
+  --danger-surface: #fff0f0; /* surface, 7 uses */
+  --surface-dark-hover: #1b4275; /* surface, 6 uses */
+  --surface-ink: #0d1725; /* surface, 13 uses */
+  --surface-navy: #0f2547; /* surface, 3 uses */
+  --ink-200: #b9ccdc; /* text, 17 uses */
+  --accent-on-dark-soft: #8fcef6; /* text, 7 uses */
+  --ink-310: #9eb6cc; /* text, 5 uses */
+  --ink-400: #8295a5; /* text, 12 uses */
+  --ink-410: #8facca; /* text, 3 uses */
+  --ink-500: #718698; /* text, 44 uses */
+  --ink-510: #60778b; /* text, 34 uses */
+  --ink-520: #6a8092; /* text, 10 uses */
+  --ink-600: #587086; /* text, 9 uses */
+  --ink-610: #4e6679; /* text, 6 uses */
+  --success-ink: #28755f; /* text, 4 uses */
+  --ink-700: #2b4051; /* text, 14 uses */
+  --danger-ink: #842222; /* text, 4 uses */
+  --ink-720: #213748; /* text, 4 uses */
+  --ink-730: #2c475d; /* text, 3 uses */
+  --ink-strong: #07121c; /* text, 18 uses */
+  --ink-navy: #10283b; /* text, 3 uses */
+  --line-200: #cad9e4; /* border, 32 uses */
+  --line-210: #d5e1e9; /* border, 20 uses */
+  --line-220: #c9dfef; /* border, 4 uses */
+  --danger-line: #b52c2c; /* border, 3 uses */
+  --line-ink: #111111; /* border, 7 uses */
 
   /* Status colours - drive the admin row/status/swatch variants */
   --status-new: #e0a020;

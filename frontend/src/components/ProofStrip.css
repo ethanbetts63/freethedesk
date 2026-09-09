@@ -6,22 +6,23 @@
 }
 .proof-strip-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: minmax(0, 1fr);
 }
 .proof-strip article {
   align-items: center;
   display: grid;
-  gap: 22px;
-  grid-template-columns: auto 1fr;
-  min-height: 160px;
-  padding: 34px 30px;
+  gap: 13px;
+  /* auto, not a fixed width: the value sets its own column. */
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: auto;
+  padding: 28px 0;
 }
 .proof-strip article + article {
-  border-left: 1px solid var(--border-on-dark);
+  border-top: 1px solid var(--border-on-dark);
 }
 .proof-strip strong {
   display: inline-block;
-  font-size: clamp(2.8rem, 4vw, 4.3rem);
+  font-size: var(--display-2);
   letter-spacing: -0.07em;
   padding-right: 0.07em;
   /* "24 / 7" split across two lines in the narrow value column. */
@@ -37,33 +38,27 @@
   line-height: 1.5;
   margin: 0;
 }
-@media (max-width: 1080px) {
+
+@media (min-width: 900px) {
+  .proof-strip-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
   .proof-strip article {
     align-items: start;
+    gap: 22px;
     grid-template-columns: minmax(0, 1fr);
-  }
-}
-@media (max-width: 900px) {
-  .proof-strip-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .proof-strip article {
-    gap: 13px;
-    /* auto, not a fixed 105px: the value sets its own column width. */
-    grid-template-columns: auto minmax(0, 1fr);
-    min-height: auto;
-    padding: 28px 0;
+    min-height: 160px;
+    padding: 34px 30px;
   }
   .proof-strip article + article {
-    border-left: 0;
-    border-top: 1px solid var(--border-on-dark);
-  }
-  .proof-strip strong {
-    font-size: 2.8rem;
+    border-left: 1px solid var(--border-on-dark);
+    border-top: 0;
   }
 }
-@media (max-width: 430px) {
-  .proof-strip strong {
-    font-size: 2.4rem;
+
+@media (min-width: 1080px) {
+  .proof-strip article {
+    align-items: center;
+    grid-template-columns: auto minmax(0, 1fr);
   }
 }

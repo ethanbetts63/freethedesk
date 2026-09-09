@@ -3,7 +3,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-                                                                                           
 export function SortHeader({
   field,
   ordering,
@@ -26,7 +25,6 @@ export function SortHeader({
   );
 }
 
-                                                                    
 export function FilterSelect({
   label,
   value,
@@ -52,7 +50,6 @@ export function FilterSelect({
   );
 }
 
-                                                                                  
 export function AdminFilterBar({
   total,
   noun,

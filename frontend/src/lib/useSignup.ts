@@ -8,11 +8,6 @@ import { normaliseWebsiteUrl, postJson, type Principal } from "@/lib/api";
 
 export type SignupStatus = "idle" | "submitting" | "error";
 
-   
-                                                                               
-                                                                                
-                                    
-   
 export function useSignup({
   endpoint,
   nextHref,
@@ -33,7 +28,6 @@ export function useSignup({
     setError("");
 
     const values = new FormData(event.currentTarget);
-
 
     const website = values.get("website");
     if (typeof website === "string" && website.trim()) values.set("website", normaliseWebsiteUrl(website));

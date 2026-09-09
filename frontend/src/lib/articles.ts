@@ -19,20 +19,6 @@ export interface Article extends ArticleMeta {
   html: string;
 }
 
-   
-                                         
-  
-          
-                            
-                                                                     
-                                            
-                                                                      
-          
-  
-                                                                              
-                                                                              
-                                                           
-   
 interface FrontMatter {
   published?: string;
   updated?: string;
@@ -95,8 +81,6 @@ function articleFilenames(): string[] {
 function readArticle(filename: string): { meta: ArticleMeta; body: string } {
   const filepath = path.join(ARTICLES_DIR, filename);
   const { data, body } = parseFrontMatter(fs.readFileSync(filepath, "utf8"));
-
-
 
   if (!data.published || !ISO_DATE.test(data.published)) {
     throw new Error(`${filename}: front matter needs a "published: YYYY-MM-DD" date.`);

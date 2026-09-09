@@ -3,17 +3,15 @@
 .audit {
   background: var(--surface-dark);
   color: var(--text-on-dark);
-  /* Stands as its own section now, so it needs the page's section spacing
-     rather than the small tuck-under gap it had when it followed the plans. */
   margin-top: var(--section-space);
   overflow: hidden;
-  padding: var(--section-space) 0;
+  padding: 82px 0;
   position: relative;
 }
 .auditInner {
   display: grid;
   gap: clamp(45px, 7vw, 90px);
-  grid-template-columns: 0.92fr 1.08fr;
+  grid-template-columns: minmax(0, 1fr);
   position: relative;
   z-index: 1;
 }
@@ -24,7 +22,7 @@
   background-size: 42px 42px;
   content: "";
   inset: 0;
-  mask-image: linear-gradient(90deg, #000, transparent 82%);
+  mask-image: linear-gradient(90deg, var(--text), transparent 82%);
   pointer-events: none;
   position: absolute;
 }
@@ -32,11 +30,11 @@
   align-items: center;
   display: flex;
   gap: 13px;
-  margin-bottom: clamp(48px, 6vw, 78px);
+  margin-bottom: 46px;
 }
 .googleMark {
   align-items: center;
-  background: #fff;
+  background: var(--surface);
   border-radius: 50%;
   display: flex;
   height: 46px;
@@ -63,26 +61,25 @@
   letter-spacing: -0.06em;
   line-height: 0.98;
   margin: 0;
-  max-width: 520px;
+  max-width: 680px;
 }
 .intro {
   color: var(--text-on-dark-muted);
   font-size: 0.91rem;
   line-height: 1.72;
   margin: 28px 0 16px;
-  max-width: 570px;
+  max-width: 680px;
 }
 .actions {
   margin-top: 26px;
 }
-
 /* Same card treatment as the Stripe verification panel: moving-colour border,
    animated value in the header, gradient bar along the bottom. */
 .preview {
   align-self: center;
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(#fff, #fff), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient-surface);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -90,14 +87,18 @@
   border: 2px solid transparent;
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
   color: var(--text);
+  margin: 0 auto;
+  max-width: 660px;
+  width: 100%;
 }
 .previewHeader {
-  align-items: center;
-  background: #f6f9fc;
+  align-items: flex-start;
+  background: var(--surface-flow);
   border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   padding: 17px 19px;
+  gap: 12px;
 }
 .previewHeader > div {
   align-items: center;
@@ -109,6 +110,7 @@
   display: block;
 }
 .previewHeader small {
+  display: block;
   color: var(--text-subtle);
   font-size: 0.5rem;
   font-weight: 900;
@@ -117,6 +119,7 @@
   text-transform: uppercase;
 }
 .previewHeader strong {
+  display: block;
   font-size: 0.75rem;
 }
 .areaCount {
@@ -137,20 +140,20 @@
 }
 .auditList li {
   align-items: center;
-  border-bottom: 1px solid #e8eef4;
+  border-bottom: 1px solid var(--border-subtle);
   display: grid;
   gap: 11px;
-  grid-template-columns: 24px 27px minmax(0, 1fr) auto;
+  grid-template-columns: 22px 27px minmax(0, 1fr);
   padding: 15px 0;
 }
 .index {
-  color: #9aacbb;
+  color: var(--cool-400);
   font-size: 0.57rem;
   font-weight: 900;
 }
 .check {
   align-items: center;
-  background: #eaf3fb;
+  background: var(--blue-100);
   border-radius: 50%;
   color: var(--accent-ink);
   display: flex;
@@ -165,29 +168,34 @@
   display: block;
 }
 .auditCopy strong {
+  display: block;
   font-size: 0.75rem;
   margin-bottom: 3px;
 }
 .auditCopy small {
-  color: #708598;
+  display: block;
+  color: var(--ink-500);
   font-size: 0.58rem;
   line-height: 1.4;
 }
 .reviewed {
-  color: #5f778a;
+  color: var(--ink-510);
   font-size: 0.53rem;
   font-weight: 900;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  display: none;
 }
 .previewFooter {
-  align-items: center;
+  align-items: flex-start;
   animation: moving-colour-shift 8s linear infinite;
   background: var(--moving-colour-gradient-surface);
   background-size: var(--moving-colour-size);
   display: flex;
   justify-content: space-between;
   padding: 16px 19px;
+  flex-direction: column;
+  gap: 8px;
 }
 .previewFooter > span {
   align-items: center;
@@ -199,16 +207,15 @@
   text-transform: uppercase;
 }
 .previewFooter i {
-  background: #fff;
+  background: var(--surface);
   border-radius: 50%;
   height: 6px;
   width: 6px;
 }
 .previewFooter strong {
-  color: #fff;
+  color: var(--text-on-dark);
   font-size: 0.67rem;
 }
-
 @media (prefers-reduced-motion: reduce) {
   .preview,
   .areaCount,
@@ -217,41 +224,43 @@
   }
 }
 
-@media (max-width: 920px) {
-  .auditInner {
-    grid-template-columns: 1fr;
+@media (min-width: 640px) {
+  .audit {
+    padding: var(--section-space) 0;
   }
-  .copy h3,
-  .intro {
-    max-width: 680px;
+  .googleLockup {
+    margin-bottom: clamp(48px, 6vw, 78px);
   }
-  .preview {
-    margin: 0 auto;
-    max-width: 660px;
-    width: 100%;
+  .previewHeader {
+    align-items: center;
+    gap: revert;
+  }
+  .auditList li {
+    grid-template-columns: 24px 27px minmax(0, 1fr) auto;
+  }
+  .reviewed {
+    display: revert;
+  }
+  .previewFooter {
+    align-items: center;
+    flex-direction: revert;
+    gap: revert;
   }
 }
 
-@media (max-width: 560px) {
-  .audit {
-    padding: 82px 0;
+@media (min-width: 900px) {
+  .auditInner {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
   }
-  .googleLockup {
-    margin-bottom: 46px;
+  .copy h3 {
+    max-width: 520px;
   }
-  .previewHeader {
-    align-items: flex-start;
-    gap: 12px;
+  .intro {
+    max-width: 570px;
   }
-  .auditList li {
-    grid-template-columns: 22px 27px minmax(0, 1fr);
-  }
-  .reviewed {
-    display: none;
-  }
-  .previewFooter {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 8px;
+  .preview {
+    margin: revert;
+    max-width: revert;
+    width: revert;
   }
 }

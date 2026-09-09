@@ -1,6 +1,5 @@
 import styles from "../page.module.css";
 
-                                                                                                                                  
 export function LicensingNextStepPhone() {
   return (
     <div className={styles.phoneMock} aria-hidden="true">

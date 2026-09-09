@@ -34,7 +34,6 @@ const STREAMS: Stream[] = [
 const DOT_BLUR = 12;
 const DOT_RADIUS = { dark: 3.8, light: 2.5 };
 
-                                                                                           
 function createDotSprite(fillColor: string, shadowColor: string, radius: number, ratio: number) {
   const size = (radius + DOT_BLUR) * 2;
   const sprite = document.createElement("canvas");

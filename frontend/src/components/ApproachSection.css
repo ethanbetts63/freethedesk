@@ -1,10 +1,9 @@
 /* The numbered "approach" steps section. Imported by ApproachSection.tsx. */
-
 .approach-section {
   background: var(--surface-dark);
   color: var(--text-on-dark);
   margin-top: clamp(48px, 6vw, 72px);
-  padding: var(--section-space) 0;
+  padding: 80px 0;
   text-align: center;
 }
 .approach-inner {
@@ -79,8 +78,9 @@
   line-height: 1.62;
   margin: 0;
 }
-@media (max-width: 760px) {
+
+@media (min-width: 900px) {
   .approach-section {
-    padding: 80px 0;
+    padding: var(--section-space) 0;
   }
 }

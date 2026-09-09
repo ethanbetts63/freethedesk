@@ -4,7 +4,6 @@ export type SeoPlanCode = "monthly" | "quarterly" | "biannual" | "oneoff";
 export type SeoReportType = "gbp" | "seo" | "both";
 export type SeoPaymentStatus = "payment_pending" | "active" | "past_due" | "cancelled" | "paid";
 
-                                                                                   
 export interface SeoAccount extends AccountBase {
   website: string;
   plan: SeoPlanCode;

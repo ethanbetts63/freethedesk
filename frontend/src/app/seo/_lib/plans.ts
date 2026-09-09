@@ -38,8 +38,7 @@ export function buildSeoPlans(settings: PublicSiteSettings, reportType: SeoRepor
 
   return frequencies.map(([code, name, seoPrice, cadence]) => {
     const numericSeoPrice = Number(seoPrice);
-    const price =
-      reportType === "gbp" ? gbpPrice : reportType === "seo" ? numericSeoPrice : numericSeoPrice + gbpPrice;
+    const price = reportType === "gbp" ? gbpPrice : reportType === "seo" ? numericSeoPrice : numericSeoPrice + gbpPrice;
     return {
       code,
       name,

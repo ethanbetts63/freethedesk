@@ -2,7 +2,6 @@ import { ServiceScroll } from "@/components/ServiceScroll";
 
 import { dealerServices } from "./dealerServices";
 
-                                                                                    
 export function DealershipAutomation() {
   return (
     <section className="shell" id="dealership-automation">

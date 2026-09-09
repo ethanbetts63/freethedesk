@@ -188,9 +188,7 @@ export default async function SeoPage() {
               Most of an SEO audit is collection work—crawling pages, pulling data, checking the same hundred things.
               We&apos;ve automated that, so you don&apos;t pay agency prices for it.
             </p>
-            <p>
-              It&apos;s the same process we run internally on every website we build. 
-            </p>
+            <p>It&apos;s the same process we run internally on every website we build.</p>
             <p className={styles.priceHonesty}>
               Still sounds too cheap? It is. We&apos;re betting some subscribers will eventually want a site built by
               us.

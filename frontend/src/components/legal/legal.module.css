@@ -1,10 +1,9 @@
 .page {
-                                                             
   --legal-accent: var(--brand-accent);
-  background: #f5f8fa;
-  color: #101820;
+  background: var(--surface-flow);
+  color: var(--surface-ink);
   min-height: 100vh;
-  padding: clamp(80px, 10vw, 145px) 24px;
+  padding: 60px 14px;
   position: relative;
 }
 .grid {
@@ -17,16 +16,16 @@
   position: absolute;
 }
 .document {
-  background: #fff;
-  border: 1px solid #d5e1e9;
+  background: var(--surface);
+  border: 1px solid var(--line-210);
   box-shadow: 0 24px 75px rgba(19, 49, 92, 0.07);
   margin: 0 auto;
   max-width: 900px;
-  padding: clamp(35px, 7vw, 90px);
+  padding: 34px 22px;
   position: relative;
 }
 .document h1 {
-  font-size: clamp(3.2rem, 7vw, 6.4rem);
+  font-size: 3.1rem;
   letter-spacing: -0.075em;
   line-height: 0.9;
   margin: 0 0 25px;
@@ -39,8 +38,6 @@
   margin-bottom: 30px;
   text-transform: uppercase;
 }
-                                                                         
-                                                                             
 .document aside,
 .document blockquote {
   background: #fff7df;
@@ -70,11 +67,14 @@
 }
 .document p,
 .document li {
-  color: #4e6679;
-  font-size: 0.9rem;
+  color: var(--ink-610);
+  font-size: 0.86rem;
   line-height: 1.78;
 }
 .document p {
+  color: var(--ink-610);
+  font-size: 0.86rem;
+  line-height: 1.78;
   margin: 0 0 17px;
 }
 .document ul,
@@ -83,6 +83,9 @@
   padding-left: 24px;
 }
 .document li {
+  color: var(--ink-610);
+  font-size: 0.86rem;
+  line-height: 1.78;
   margin: 8px 0;
   padding-left: 5px;
 }
@@ -96,18 +99,20 @@
   text-underline-offset: 3px;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 640px) {
   .page {
-    padding: 60px 14px;
+    padding: clamp(80px, 10vw, 145px) 24px;
   }
   .document {
-    padding: 34px 22px;
+    padding: clamp(35px, 7vw, 90px);
   }
   .document h1 {
-    font-size: 3.1rem;
+    font-size: clamp(3.2rem, 7vw, 6.4rem);
   }
-  .document p,
+  .document p {
+    font-size: 0.9rem;
+  }
   .document li {
-    font-size: 0.86rem;
+    font-size: 0.9rem;
   }
 }

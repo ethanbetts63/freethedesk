@@ -1,7 +1,7 @@
 .banner {
   --moving-colour-speed: 6s;
-  background: #0d2340;
-  color: #fff;
+  background: var(--surface-navy);
+  color: var(--text-on-dark);
   overflow: hidden;
   position: relative;
 }
@@ -17,15 +17,16 @@
 }
 .inner {
   align-items: center;
-  display: flex;
-  gap: clamp(24px, 4vw, 56px);
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr);
   justify-content: space-between;
-  min-height: 92px;
-  padding-bottom: 16px;
-  padding-top: 16px;
+  min-height: 0;
+  padding-bottom: var(--space-l);
+  padding-top: var(--space-l);
 }
 .eyebrow {
-  color: #8fcef6;
+  color: var(--accent-on-dark-soft);
   font-size: 0.58rem;
   font-weight: 900;
   letter-spacing: 0.13em;
@@ -37,13 +38,13 @@
   letter-spacing: -0.035em;
   line-height: 1.1;
   margin: 0;
-  white-space: nowrap;
+  white-space: normal;
 }
 .form {
   align-items: center;
   display: grid;
   gap: 8px;
-  grid-template-columns: minmax(170px, 1fr) minmax(170px, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   min-width: 0;
 }
 
@@ -63,33 +64,34 @@
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(143, 206, 246, 0.32);
   border-radius: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   font: inherit;
-  font-size: 0.75rem;
-  min-height: 40px;
+  /* 16px floor: below it, iOS Safari zooms the page on focus. */
+  font-size: 1rem;
+  min-height: var(--tap-min);
   outline: none;
   padding: 0 11px;
   width: 100%;
 }
 .form input::placeholder {
-  color: #91a9c1;
+  color: var(--text-on-dark-subtle);
 }
 .form input:focus {
   background: rgba(255, 255, 255, 0.12);
-  border-color: #8fcef6;
+  border-color: var(--accent-on-dark-soft);
   box-shadow: 0 0 0 3px rgba(143, 206, 246, 0.16);
 }
 
 .submit {
   --mcb-font-size: 0.64rem;
   --mcb-gap: 12px;
-  --mcb-height: 40px;
+  --mcb-height: var(--tap-min);
   --mcb-padding-x: 15px;
+  justify-content: center;
   white-space: nowrap;
 }
 .honeypot {
-  left: -10000px !important;
-  position: absolute !important;
+  composes: honeypot from global;
 }
 .error {
   color: #ffb4b4;
@@ -99,7 +101,7 @@
 }
 .success {
   align-items: center;
-  color: #d8e8f6;
+  color: var(--blue-200);
   display: flex;
   font-size: 0.82rem;
   gap: 12px;
@@ -107,9 +109,9 @@
 }
 .success > span {
   align-items: center;
-  background: #247ec9;
+  background: var(--brand-accent);
   border-radius: 50%;
-  color: #fff;
+  color: var(--text-on-dark);
   display: flex;
   flex: 0 0 28px;
   height: 28px;
@@ -122,36 +124,29 @@
   }
 }
 
-@media (max-width: 1080px) {
-  .inner {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: minmax(0, 1fr);
+@media (min-width: 640px) {
+  .form {
+    grid-template-columns: minmax(170px, 1fr) minmax(170px, 1fr) auto;
   }
-  .copy h2 {
-    white-space: normal;
+  .form input {
+    font-size: 0.75rem;
+    min-height: 40px;
+  }
+  .submit {
+    --mcb-height: 40px;
+    justify-content: flex-start;
   }
 }
 
-@media (max-width: 620px) {
-  .form {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .form .submit {
-    justify-content: center;
-  }
-  /* 40px controls are under the comfortable touch minimum on a phone. */
-  .form input {
-    font-size: 1rem; /* below 16px, iOS Safari zooms the page on focus */
-    min-height: var(--tap-min);
-  }
-  .form .submit {
-    --mcb-height: var(--tap-min);
-  }
+@media (min-width: 1080px) {
   .inner {
-    min-height: 0;
-    padding-bottom: var(--space-l);
-    padding-top: var(--space-l);
+    display: flex;
+    gap: clamp(24px, 4vw, 56px);
+    min-height: 92px;
+    padding-bottom: 16px;
+    padding-top: 16px;
+  }
+  .copy h2 {
+    white-space: nowrap;
   }
 }

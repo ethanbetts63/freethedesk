@@ -1,27 +1,29 @@
 .page {
-  background: #f4f8fd;
-  color: #000;
-  height: calc(100vh - 78px);
-  overflow: hidden;
+  background: var(--blue-50);
+  color: var(--text);
+  height: auto;
+  overflow: visible;
+  min-height: calc(100svh - 68px);
 }
 .builder {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(390px, 0.7fr);
-  height: 100%;
-  overflow: hidden;
+  grid-template-columns: minmax(0, 1fr);
+  height: auto;
+  overflow: visible;
 }
 .previewColumn {
-  background: #eaf1f6;
+  background: var(--blue-100);
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  min-height: 560px;
   min-width: 0;
-  padding: 15px 24px 20px;
-  position: sticky;
-  top: 78px;
+  padding: 12px;
+  position: relative;
+  top: 0;
+  height: 72svh;
 }
 .previewLabel {
-  color: #71879b;
+  color: var(--ink-500);
   display: flex;
   font-size: 0.61rem;
   font-weight: 800;
@@ -34,34 +36,34 @@
   color: var(--preview-accent);
 }
 .previewGuide {
-  background: #fff;
-  border: 1px solid #bfd0de;
+  background: var(--surface);
+  border: 1px solid var(--ink-200);
   border-bottom: 0;
   border-top: 3px solid var(--preview-accent);
   box-shadow: 0 8px 24px rgba(19, 49, 92, 0.08);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   position: relative;
   z-index: 1;
 }
 .previewGuide > div {
   align-items: center;
   display: flex;
-  gap: 14px;
+  gap: 7px;
   min-width: 0;
-  padding: 16px 18px;
+  padding: 11px 8px;
   position: relative;
 }
 .previewGuide > div:first-child {
   background: color-mix(in srgb, var(--preview-accent) 5%, white);
 }
 .previewGuide > div:not(:last-child) {
-  border-right: 1px solid #dce6ee;
+  border-right: 1px solid var(--blue-200);
 }
 .previewGuide > div:not(:last-child)::after {
-  background: #fff;
-  border-right: 1px solid #dce6ee;
-  border-top: 1px solid #dce6ee;
+  background: var(--surface);
+  border-right: 1px solid var(--blue-200);
+  border-top: 1px solid var(--blue-200);
   content: "";
   height: 8px;
   position: absolute;
@@ -79,46 +81,50 @@
   color: var(--preview-accent);
   display: flex;
   flex: 0 0 31px;
-  font-size: 0.64rem;
-  height: 31px;
+  font-size: 0.63rem;
+  height: 25px;
   justify-content: center;
+  flex-basis: 25px;
 }
 .previewGuide span,
 .previewGuide strong,
 .previewGuide small {
-  display: block;
   min-width: 0;
 }
 .previewGuide strong {
-  font-size: 0.72rem;
+  display: block;
+  min-width: 0;
+  font-size: 0.62rem;
   letter-spacing: -0.01em;
 }
 .previewGuide small {
-  color: #657d90;
+  display: none;
+  min-width: 0;
+  color: var(--ink-520);
   font-size: 0.61rem;
   line-height: 1.35;
   margin-top: 3px;
 }
 .browser {
-  background: #fff;
-  border: 1px solid #ccdae6;
+  background: var(--surface);
+  border: 1px solid var(--line-200);
   box-shadow: 0 20px 55px rgba(19, 49, 92, 0.11);
   flex: 1;
   min-height: 0;
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
-  scrollbar-color: #a9bdce transparent;
+  scrollbar-color: var(--fill-300) transparent;
   scrollbar-width: thin;
 }
 .browserTop {
   align-items: center;
-  background: #edf3f8;
+  background: var(--blue-100);
   border-bottom: 1px solid #d8e3ec;
-  color: #8296a7;
+  color: var(--ink-400);
   display: grid;
   font-size: 0.55rem;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   height: 38px;
   padding: 0 12px;
 }
@@ -127,15 +133,15 @@
   gap: 5px;
 }
 .browserTop i {
-  background: #adc0cf;
+  background: var(--fill-300);
   border-radius: 50%;
   height: 6px;
   width: 6px;
 }
 .browserTop > span {
-  background: #fff;
+  background: var(--surface);
   border-radius: 3px;
-  padding: 5px 42px;
+  padding: 5px 14px;
 }
 .syncStatus {
   color: var(--preview-accent);
@@ -143,6 +149,7 @@
   justify-self: end;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  display: none;
 }
 .siteNav {
   align-items: center;
@@ -153,7 +160,7 @@
 .previewBrand {
   background: transparent;
   border: 0;
-  color: #000;
+  color: var(--text);
   cursor: pointer;
   font-size: 1rem;
   font-weight: 900;
@@ -168,6 +175,7 @@
   display: flex;
   gap: 14px;
   min-width: 0;
+  max-width: 76%;
 }
 .siteNavLinks {
   align-items: center;
@@ -179,7 +187,7 @@
 .siteNavLinks button {
   background: transparent;
   border: 0;
-  color: #000;
+  color: var(--text);
   cursor: pointer;
   font-size: inherit;
   font-weight: inherit;
@@ -199,15 +207,15 @@
   width: 100%;
 }
 .previewContacts {
-  border-left: 1px solid #dce5ec;
-  display: flex;
+  border-left: 1px solid var(--blue-200);
+  display: none;
   flex-direction: column;
   gap: 4px;
   padding-left: 12px;
 }
 .previewContacts > a {
   align-items: center;
-  color: #5f7688;
+  color: var(--ink-510);
   display: flex;
   gap: 5px;
   white-space: nowrap;
@@ -228,11 +236,11 @@
   align-items: center;
   background: color-mix(in srgb, var(--preview-accent) 9%, white);
   display: grid;
-  grid-template-columns: 0.88fr 1.12fr;
+  grid-template-columns: minmax(0, 1fr);
   margin: 0 16px;
-  min-height: 310px;
+  min-height: 470px;
   overflow: hidden;
-  padding: 34px;
+  padding: 26px;
   transition: background 0.3s;
 }
 .heroCopy {
@@ -253,7 +261,7 @@
   margin: 12px 0;
 }
 .heroCopy p {
-  color: #607589;
+  color: var(--ink-510);
   font-size: 0.63rem;
   line-height: 1.55;
   max-width: 220px;
@@ -261,7 +269,7 @@
 .heroCopy > button {
   background: var(--preview-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   display: inline-block;
   font-size: 0.56rem;
@@ -272,7 +280,7 @@
 .vehicle {
   align-items: center;
   display: flex;
-  height: 230px;
+  height: 185px;
   justify-content: center;
   position: relative;
   transition: transform 0.35s;
@@ -312,8 +320,8 @@
   width: 38%;
 }
 .vehicle i {
-  background: #fff;
-  border: 8px solid #111;
+  background: var(--surface);
+  border: 8px solid var(--line-ink);
   border-radius: 50%;
   bottom: 20%;
   height: 44px;
@@ -328,7 +336,7 @@
   right: 9%;
 }
 .inventoryBlock {
-  border-bottom: 1px solid #e1e9f0;
+  border-bottom: 1px solid var(--blue-200);
   padding: 17px 22px 20px;
 }
 .inventoryBlock > div:first-child {
@@ -353,17 +361,20 @@
 .dynamicArea {
   display: grid;
   gap: 8px;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   padding: 12px 16px;
 }
 .hireCard,
 .articleCard,
 .serviceCard {
-  border: 1px solid #dce6ee;
+  border: 1px solid var(--blue-200);
   min-height: 92px;
   padding: 13px;
 }
 .hireCard {
+  border: 1px solid var(--blue-200);
+  min-height: 92px;
+  padding: 13px;
   background: color-mix(in srgb, var(--preview-accent) 8%, white);
 }
 .hireCard small,
@@ -380,20 +391,25 @@
   text-transform: uppercase;
 }
 .hireCard strong {
+  display: block;
   font-size: 0.66rem;
   margin: 8px 0;
 }
 .hireCard span {
+  display: block;
   font-size: 0.54rem;
   font-weight: 800;
 }
 .articleCard {
+  border: 1px solid var(--blue-200);
+  min-height: 92px;
+  padding: 13px;
   align-items: center;
   display: flex;
   gap: 11px;
 }
 .guideImage {
-  background: linear-gradient(145deg, color-mix(in srgb, var(--preview-accent) 20%, white), #f8fbfd);
+  background: linear-gradient(145deg, color-mix(in srgb, var(--preview-accent) 20%, white), var(--surface-flow));
   flex: 0 0 76px;
   height: 67px;
   overflow: hidden;
@@ -412,22 +428,24 @@
 .guideImage > span,
 .guideImage > i {
   background: var(--preview-accent);
-  bottom: -15px;
   clip-path: polygon(0 100%, 39% 19%, 58% 58%, 72% 37%, 100% 100%);
   height: 57px;
-  left: -5px;
-  opacity: 0.35;
   position: absolute;
   width: 88px;
 }
 .guideImage > i {
+  background: var(--preview-accent);
   bottom: -22px;
+  clip-path: polygon(0 100%, 39% 19%, 58% 58%, 72% 37%, 100% 100%);
+  height: 57px;
   left: 13px;
   opacity: 0.7;
+  position: absolute;
+  width: 88px;
   transform: scale(0.8);
 }
 .guideImage > b {
-  border-left: 2px solid #fff;
+  border-left: 2px solid var(--surface);
   bottom: -2px;
   height: 28px;
   left: 39px;
@@ -439,11 +457,13 @@
   display: block;
 }
 .articleCard strong {
+  display: block;
   font-size: 0.61rem;
   margin: 5px 0;
 }
 .articleCard span {
-  color: #8193a2;
+  display: block;
+  color: var(--ink-400);
   font-size: 0.48rem;
 }
 .serviceCard strong,
@@ -451,19 +471,21 @@
   display: block;
 }
 .serviceCard strong {
+  display: block;
   font-size: 0.68rem;
   margin: 9px 0;
 }
 .serviceCard b {
+  display: block;
   color: var(--preview-accent);
   font-size: 0.55rem;
 }
 .reviewsBlock {
   align-items: center;
-  border-bottom: 1px solid #e0e8ef;
+  border-bottom: 1px solid var(--blue-200);
   display: grid;
   gap: 18px;
-  grid-template-columns: 105px 1fr 100px;
+  grid-template-columns: 78px minmax(0, 1fr);
   margin: 0 16px;
   padding: 20px 10px;
 }
@@ -473,16 +495,19 @@
   display: block;
 }
 .reviewsBlock > div:first-child strong {
+  display: block;
   font-size: 1.15rem;
 }
 .reviewsBlock > div:first-child span {
+  display: block;
   color: var(--preview-accent);
   font-size: 0.56rem;
   letter-spacing: 0.08em;
   margin: 2px 0;
 }
 .reviewsBlock > div:first-child small {
-  color: #8093a4;
+  display: block;
+  color: var(--ink-400);
   font-size: 0.47rem;
   text-transform: uppercase;
 }
@@ -498,20 +523,22 @@
   display: block;
 }
 .reviewAuthor strong {
+  display: block;
   font-size: 0.58rem;
 }
 .reviewAuthor span {
-  color: #8295a5;
+  display: block;
+  color: var(--ink-400);
   font-size: 0.47rem;
   margin-top: 3px;
 }
 .baseDetails {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
   margin: 10px 16px 0;
 }
 .aboutBlock {
-  background: #f1f6fa;
+  background: var(--surface-flow);
   padding: 25px;
 }
 .aboutBlock > small,
@@ -529,7 +556,7 @@
   margin: 11px 0;
 }
 .aboutBlock p {
-  color: #667c8f;
+  color: var(--ink-520);
   font-size: 0.55rem;
   line-height: 1.55;
   max-width: 230px;
@@ -543,22 +570,22 @@
   padding: 5px 0;
 }
 .brandsBlock {
-  border: 1px solid #e0e8ef;
+  border: 1px solid var(--blue-200);
   padding: 25px;
 }
 .brandsBlock > .brandGrid {
   display: grid;
   gap: 7px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   margin-top: 17px;
 }
 .brandGrid article {
   align-items: center;
-  background: #f7fafc;
+  background: var(--surface-flow);
   border: 1px solid #e1e9ef;
   display: grid;
   gap: 9px;
-  grid-template-columns: 34px 1fr;
+  grid-template-columns: 34px minmax(0, 1fr);
   min-height: 56px;
   padding: 8px;
   transition:
@@ -583,13 +610,15 @@
   display: block;
 }
 .brandGrid strong {
-  color: #1d3549;
+  display: block;
+  color: var(--ink-720);
   font-size: 0.62rem;
   letter-spacing: 0.02em;
   text-transform: uppercase;
 }
 .brandGrid small {
-  color: #6f8596;
+  display: block;
+  color: var(--ink-500);
   font-size: 0.54rem;
   line-height: 1.35;
   margin-top: 3px;
@@ -641,11 +670,17 @@
   left: 7px;
   position: absolute;
   top: 15px;
-  transform: rotate(45deg);
   width: 20px;
 }
 .brandAxis::after {
+  background: var(--preview-accent);
+  content: "";
+  height: 3px;
+  left: 7px;
+  position: absolute;
+  top: 15px;
   transform: rotate(-45deg);
+  width: 20px;
 }
 .brandTrailworks::before {
   border: 2px solid var(--preview-accent);
@@ -671,7 +706,7 @@
 .contactBand {
   align-items: center;
   background: var(--preview-accent);
-  color: #fff;
+  color: var(--text-on-dark);
   display: flex;
   justify-content: space-between;
   margin: 10px 16px 16px;
@@ -682,6 +717,7 @@
   display: block;
 }
 .contactBand small {
+  display: block;
   font-size: 0.46rem;
   letter-spacing: 0.1em;
   margin-bottom: 4px;
@@ -689,30 +725,31 @@
   text-transform: uppercase;
 }
 .contactBand strong {
+  display: block;
   font-size: 0.62rem;
 }
 .contactBand button {
-  background: #fff;
+  background: var(--surface);
   border: 0;
-  color: #000;
+  color: var(--text);
   cursor: pointer;
   font-size: 0.52rem;
   font-weight: 900;
   padding: 9px 10px;
 }
 .previewFooter {
-  background: #13315c;
-  color: #fff;
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
   display: grid;
   gap: 18px;
-  grid-template-columns: 1.05fr 0.9fr 0.75fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   padding: 24px;
   position: relative;
 }
 .footerBrand > button {
   background: transparent;
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   font-size: 0.85rem;
   font-weight: 900;
   letter-spacing: -0.06em;
@@ -722,7 +759,7 @@
   color: var(--preview-accent);
 }
 .footerBrand > small {
-  color: #9eb6cc;
+  color: var(--ink-310);
   display: block;
   font-size: 0.46rem;
   margin-top: 7px;
@@ -730,7 +767,7 @@
 }
 .footerLinks > strong,
 .footerContact > strong {
-  color: #fff;
+  color: var(--text-on-dark);
   display: block;
   font-size: 0.48rem;
   letter-spacing: 0.1em;
@@ -739,14 +776,14 @@
 }
 .footerLinks nav {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
 .footerLinks nav button {
   align-items: center;
   background: transparent;
   border: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  color: #b9ccdc;
+  color: var(--ink-200);
   cursor: pointer;
   display: flex;
   font-size: 0.48rem;
@@ -759,7 +796,7 @@
 }
 .footerContact > a {
   align-items: center;
-  color: #b9ccdc;
+  color: var(--ink-200);
   display: flex;
   font-size: 0.45rem;
   gap: 5px;
@@ -775,7 +812,7 @@
   width: 10px;
 }
 .footerContact p {
-  color: #88a5bc;
+  color: var(--text-on-dark-subtle);
   font-size: 0.45rem;
   line-height: 1.5;
   margin: 8px 0 0;
@@ -792,19 +829,25 @@
 }
 .demoMapRoadOne,
 .demoMapRoadTwo {
-  background: #fff;
-  height: 12%;
+  background: var(--surface);
   min-height: 7px;
   position: absolute;
 }
 .demoMapRoadOne {
+  background: var(--surface);
+  height: 12%;
+  min-height: 7px;
+  position: absolute;
   left: -9%;
   top: 50%;
   transform: rotate(-13deg);
   width: 120%;
 }
 .demoMapRoadTwo {
+  background: var(--surface);
   height: 13%;
+  min-height: 7px;
+  position: absolute;
   left: 50%;
   top: 0;
   transform: rotate(67deg);
@@ -812,7 +855,7 @@
 }
 .demoMapPin {
   background: var(--preview-accent);
-  border: 2px solid #fff;
+  border: 2px solid var(--surface);
   border-radius: 50% 50% 50% 0;
   box-shadow: 0 4px 12px rgba(18, 58, 88, 0.22);
   height: 20px;
@@ -823,7 +866,7 @@
   width: 20px;
 }
 .demoMapPin > i {
-  background: #fff;
+  background: var(--surface);
   border-radius: 50%;
   height: 6px;
   left: 5px;
@@ -832,9 +875,9 @@
   width: 6px;
 }
 .demoMapAction {
-  background: #fff;
+  background: var(--surface);
   bottom: 4px;
-  color: #000;
+  color: var(--text);
   font-size: 0.42rem;
   font-weight: 900;
   left: 4px;
@@ -844,6 +887,7 @@
 .footerMap {
   cursor: pointer;
   height: 58px;
+  min-height: 64px;
 }
 .footerLegal {
   align-items: center;
@@ -858,7 +902,7 @@
 .footerLegal button {
   background: transparent;
   border: 0;
-  color: #9eb6cc;
+  color: var(--ink-310);
   cursor: pointer;
   font-size: inherit;
   padding: 0;
@@ -866,17 +910,18 @@
   text-underline-offset: 2px;
 }
 .controls {
-                                                                                                                                                       
   --controls-accent: var(--brand-accent);
   --controls-accent-rgb: 36, 126, 201;
-  background: #fff;
+  background: var(--surface);
   border: 0;
-  border-left: 1px solid #ccdae6;
-  height: 100%;
+  border-left: 0;
+  height: auto;
   min-height: 0;
   overflow-y: auto;
-  scrollbar-color: #9eb4c6 #edf3f8;
+  scrollbar-color: var(--ink-310) var(--blue-100);
   scrollbar-width: thin;
+  border-top: 1px solid var(--line-200);
+  overflow: visible;
 }
 .conversionButton,
 .conversionLink {
@@ -902,7 +947,7 @@
 .successBurst > b {
   align-items: center;
   animation: successMark 0.85s ease-out both;
-  background: #fff;
+  background: var(--surface);
   border: 2px solid var(--preview-accent);
   border-radius: 50%;
   box-shadow: 0 5px 16px rgba(14, 43, 66, 0.2);
@@ -987,8 +1032,9 @@
   padding: 26px;
 }
 .baseProduct {
-  background: #edf4fa;
-  border-bottom: 1px solid #cbdbe8;
+  padding: 26px;
+  background: var(--surface-flow);
+  border-bottom: 1px solid var(--line-200);
 }
 .baseProduct > div {
   display: flex;
@@ -1014,7 +1060,8 @@
   margin: 0;
 }
 .controlGroup {
-  border-bottom: 1px solid #dce6ee;
+  padding: 26px;
+  border-bottom: 1px solid var(--blue-200);
 }
 .groupTitle {
   align-items: start;
@@ -1033,16 +1080,18 @@
   display: block;
 }
 .groupTitle strong {
+  display: block;
   font-size: 0.88rem;
 }
 .groupTitle small {
-  color: #667f94;
+  display: block;
+  color: var(--ink-520);
   font-size: 0.77rem;
   line-height: 1.45;
   margin-top: 5px;
 }
 .controlGroup > label {
-  color: #6c8295;
+  color: var(--ink-500);
   display: block;
   font-size: 0.6rem;
   font-weight: 800;
@@ -1050,9 +1099,9 @@
   text-transform: uppercase;
 }
 .brandInput {
-  background: #fff;
-  border: 1px solid #cbd9e4;
-  color: #000;
+  background: var(--surface);
+  border: 1px solid var(--line-200);
+  color: var(--text);
   font: inherit;
   font-size: 0.78rem;
   font-weight: 750;
@@ -1075,7 +1124,7 @@
   text-transform: none;
 }
 .fieldNote {
-  color: #8496a5;
+  color: var(--ink-400);
   display: block;
   font-size: 0.54rem;
   line-height: 1.45;
@@ -1088,8 +1137,8 @@
 }
 .swatches button {
   align-items: center;
-  background: #fff;
-  border: 1px solid #d4e0e9;
+  background: var(--surface);
+  border: 1px solid var(--line-210);
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -1114,11 +1163,11 @@
 .swatches .activeSwatch {
   border-color: var(--controls-accent);
   box-shadow:
-    0 0 0 2px #fff,
+    0 0 0 2px var(--surface),
     0 0 0 4px var(--controls-accent);
 }
 .paletteNote {
-  color: #72879a;
+  color: var(--ink-500);
   font-size: 0.58rem;
   line-height: 1.55;
   margin: 14px 0 0;
@@ -1137,7 +1186,7 @@
 }
 .moduleToggle {
   align-items: center;
-  background: #fff;
+  background: var(--surface);
   border: 0;
   cursor: pointer;
   display: flex;
@@ -1155,8 +1204,8 @@
 }
 .capabilityIcon {
   align-items: center;
-  background: #edf5fb;
-  border: 1px solid #d3e5f3;
+  background: var(--surface-flow);
+  border: 1px solid var(--blue-200);
   color: var(--controls-accent);
   display: flex;
   flex: 0 0 44px;
@@ -1175,25 +1224,27 @@
 .moduleSelected .capabilityIcon {
   background: var(--controls-accent);
   border-color: var(--controls-accent);
-  color: #fff;
+  color: var(--text-on-dark);
 }
 .moduleToggle > span strong,
 .moduleToggle > span small {
   display: block;
 }
 .moduleToggle > span strong {
+  display: block;
   font-size: 0.9rem;
   line-height: 1.25;
 }
 .moduleToggle > span small {
-  color: #6f8598;
+  display: block;
+  color: var(--ink-500);
   font-size: 0.72rem;
   line-height: 1.45;
   margin-top: 5px;
 }
 .moduleToggle > i {
   align-items: center;
-  border: 1px solid #c7d6e2;
+  border: 1px solid var(--line-200);
   border-radius: 50%;
   color: var(--controls-accent);
   display: flex;
@@ -1206,14 +1257,14 @@
 .moduleSelected > i {
   background: var(--controls-accent);
   border-color: var(--controls-accent);
-  color: #fff;
+  color: var(--text-on-dark);
 }
 .moduleSelected > span strong {
   color: var(--controls-accent);
 }
 .expandToggle {
   align-items: center;
-  background: #fff;
+  background: var(--surface);
   border: 0;
   color: #7890a3;
   cursor: pointer;
@@ -1242,13 +1293,13 @@
   transform: rotate(180deg);
 }
 .moduleExplanation {
-  background: #f6f9fb;
+  background: var(--surface-flow);
   border-left: 2px solid var(--controls-accent);
   margin: 0 0 14px;
   padding: 15px 16px;
 }
 .moduleExplanation p {
-  color: #4d677b;
+  color: var(--ink-610);
   font-size: 0.72rem;
   line-height: 1.65;
   margin: 0 0 12px;
@@ -1261,7 +1312,7 @@
   padding: 0;
 }
 .moduleExplanation li {
-  color: #637b8e;
+  color: var(--ink-510);
   font-size: 0.65rem;
   line-height: 1.5;
   padding-left: 13px;
@@ -1278,13 +1329,13 @@
   width: 4px;
 }
 .inventorySubOptions {
-  background: #f2f7fb;
+  background: var(--surface-flow);
   border-left: 2px solid var(--controls-accent);
   margin: 0 0 12px 12px;
   padding: 10px 10px 4px;
 }
 .inventorySubOptions > p {
-  color: #71879a;
+  color: var(--ink-500);
   font-size: 0.53rem;
   font-weight: 900;
   letter-spacing: 0.1em;
@@ -1292,13 +1343,14 @@
   text-transform: uppercase;
 }
 .subOption {
-  border-top: 1px solid #d9e5ee;
+  border-top: 1px solid var(--blue-200);
 }
 .inventorySubOptions .moduleToggle,
 .inventorySubOptions .expandToggle {
   background: transparent;
 }
 .inventorySubOptions .moduleToggle {
+  background: transparent;
   padding: 14px 2px;
 }
 .inventorySubOptions .moduleToggle > span strong {
@@ -1308,12 +1360,12 @@
   font-size: 0.66rem;
 }
 .inventorySubOptions .moduleToggle > i {
-  background: #fff;
+  background: var(--surface);
   height: 21px;
   width: 21px;
 }
 .inventorySubOptions .subCapabilityIcon {
-  background: #fff;
+  background: var(--surface);
   flex-basis: 29px;
   height: 29px;
 }
@@ -1323,29 +1375,29 @@
 }
 .inventorySubOptions .subOptionSelected .subCapabilityIcon {
   background: var(--controls-accent);
-  color: #fff;
+  color: var(--text-on-dark);
 }
 .inventorySubOptions .subOptionSelected > i {
   background: var(--controls-accent);
   border-color: var(--controls-accent);
-  color: #fff;
+  color: var(--text-on-dark);
 }
 .inventorySubOptions .subOptionSelected > span strong {
   color: var(--controls-accent);
 }
 .subExplanation {
-  background: #fff;
+  background: var(--surface);
   margin: 0 0 11px;
 }
 .customRequestPanel {
-  background: #f3f7fa;
+  background: var(--surface-flow);
   border-left: 2px solid var(--controls-accent);
   margin: 0 0 14px;
   padding: 15px 16px;
   width: 100%;
 }
 .customRequestPanel label {
-  color: #27445e;
+  color: var(--ink-730);
   display: block;
   font-size: 0.74rem;
   font-weight: 850;
@@ -1353,9 +1405,9 @@
   margin-bottom: 10px;
 }
 .customRequestPanel textarea {
-  background: #fff;
-  border: 1px solid #cbd9e4;
-  color: #000;
+  background: var(--surface);
+  border: 1px solid var(--line-200);
+  color: var(--text);
   font: inherit;
   font-size: 0.73rem;
   line-height: 1.55;
@@ -1370,14 +1422,15 @@
   box-shadow: 0 0 0 3px rgba(var(--controls-accent-rgb), 0.1);
 }
 .customRequestPanel > small {
-  color: #71879a;
+  color: var(--ink-500);
   display: block;
   font-size: 0.61rem;
   line-height: 1.5;
   margin-top: 8px;
 }
 .detailsSection {
-  background: #f4f8fd;
+  padding: 26px;
+  background: var(--blue-50);
 }
 .detailsForm {
   display: flex;
@@ -1385,7 +1438,7 @@
   gap: 14px;
 }
 .detailsForm > label > span {
-  color: #60788d;
+  color: var(--ink-510);
   display: block;
   font-size: 0.62rem;
   font-weight: 850;
@@ -1394,9 +1447,9 @@
   text-transform: uppercase;
 }
 .detailsForm > label > input {
-  background: #fff;
-  border: 1px solid #c5d5e1;
-  color: #000;
+  background: var(--surface);
+  border: 1px solid var(--line-200);
+  color: var(--text);
   font: inherit;
   font-size: 0.82rem;
   font-weight: 700;
@@ -1412,11 +1465,7 @@
   box-shadow: 0 0 0 3px rgba(var(--controls-accent-rgb), 0.1);
 }
 .honeypot {
-  height: 0;
-  left: -10000px;
-  overflow: hidden;
-  position: absolute;
-  width: 0;
+  composes: honeypot from global;
 }
 .configurationReview {
   border-top: 1px solid #d5e2ec;
@@ -1429,7 +1478,7 @@
   justify-content: space-between;
 }
 .configurationReview > div span {
-  color: #71879a;
+  color: var(--ink-500);
   font-size: 0.62rem;
   text-transform: uppercase;
 }
@@ -1437,7 +1486,7 @@
   font-size: 0.92rem;
 }
 .configurationReview > p {
-  color: #657b8e;
+  color: var(--ink-510);
   font-size: 0.67rem;
   line-height: 1.55;
   margin: 10px 0 0;
@@ -1446,7 +1495,7 @@
   align-items: center;
   background: var(--controls-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   display: flex;
   font: inherit;
@@ -1458,14 +1507,14 @@
   width: 100%;
 }
 .detailsSubmit:hover {
-  background: #196eb6;
+  background: var(--blue-700);
 }
 .detailsSubmit:disabled {
   cursor: wait;
   opacity: 0.7;
 }
 .submissionNote {
-  color: #8295a5;
+  color: var(--ink-400);
   display: block;
   font-size: 0.59rem;
   line-height: 1.55;
@@ -1485,17 +1534,16 @@
   color: #17653f;
 }
 .submissionError {
-  background: #fff0ee;
+  background: var(--danger-surface);
   color: #a33529;
 }
-
 .examplePage {
-  min-height: 590px;
-  padding: 32px 28px;
+  min-height: 550px;
+  padding: 24px 18px;
 }
 .exampleHeading {
   align-items: end;
-  border-bottom: 1px solid #dce6ee;
+  border-bottom: 1px solid var(--blue-200);
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;
@@ -1523,10 +1571,10 @@
 .catalogueGrid {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .catalogueGrid article {
-  border: 1px solid #dce6ee;
+  border: 1px solid var(--blue-200);
   min-width: 0;
   padding: 9px;
   position: relative;
@@ -1551,6 +1599,7 @@
   display: block;
 }
 .catalogueGrid article > small {
+  display: block;
   color: var(--preview-accent);
   font-size: 0.47rem;
   font-weight: 900;
@@ -1558,23 +1607,25 @@
   text-transform: uppercase;
 }
 .catalogueGrid article > strong {
+  display: block;
   font-size: 0.58rem;
   margin: 4px 0;
 }
 .catalogueGrid article > p {
-  color: #6a8092;
+  display: block;
+  color: var(--ink-520);
   font-size: 0.55rem;
   margin: 0;
 }
 .inventoryHero {
   align-items: center;
-  background: #13315c;
-  color: #fff;
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  min-height: 315px;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 465px;
   overflow: hidden;
-  padding: 38px 36px;
+  padding: 29px 25px;
 }
 .inventoryHero > div:first-child {
   position: relative;
@@ -1594,7 +1645,7 @@
   margin: 12px 0;
 }
 .inventoryHero p {
-  color: #bed0de;
+  color: var(--ink-200);
   font-size: 0.63rem;
   line-height: 1.6;
   margin: 0;
@@ -1603,7 +1654,7 @@
 .inventoryHero button {
   background: var(--preview-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   font-size: 0.53rem;
   font-weight: 900;
@@ -1611,7 +1662,7 @@
   padding: 10px 12px;
 }
 .inventoryHeroVisual {
-  height: 225px;
+  height: 175px;
   position: relative;
 }
 .inventoryHeroVisual::before {
@@ -1625,7 +1676,7 @@
     145deg,
     color-mix(in srgb, var(--preview-accent) 68%, white),
     var(--preview-accent) 55%,
-    #0c223e
+    var(--blue-990)
   );
   border-radius: 58% 40% 18% 18%;
   height: 63px;
@@ -1648,8 +1699,8 @@
   width: 37%;
 }
 .inventoryHeroVisual > i {
-  background: #fff;
-  border: 8px solid #07131f;
+  background: var(--surface);
+  border: 8px solid var(--ink-strong);
   border-radius: 50%;
   bottom: 18%;
   height: 45px;
@@ -1663,12 +1714,12 @@
   right: 6%;
 }
 .purchaseSteps {
-  background: #f0f5f8;
+  background: var(--surface-flow);
   border-bottom: 1px solid #d6e2ea;
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 18px 27px;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 16px 20px;
 }
 .purchaseSteps > div {
   display: flex;
@@ -1678,7 +1729,7 @@
   align-items: center;
   background: var(--preview-accent);
   border-radius: 50%;
-  color: #fff;
+  color: var(--text-on-dark);
   display: flex;
   flex: 0 0 26px;
   font-size: 0.48rem;
@@ -1701,7 +1752,8 @@
   display: block;
 }
 .purchaseSteps em {
-  color: #718698;
+  display: block;
+  color: var(--ink-500);
   font-size: 0.4rem;
   font-style: normal;
   font-weight: 900;
@@ -1710,24 +1762,26 @@
   text-transform: uppercase;
 }
 .purchaseSteps strong {
+  display: block;
   font-size: 0.58rem;
 }
 .purchaseSteps small {
-  color: #718698;
+  display: block;
+  color: var(--ink-500);
   font-size: 0.45rem;
   line-height: 1.45;
   margin-top: 3px;
 }
 .inventoryContent {
-  padding: 24px 27px 32px;
+  padding: 20px 18px 26px;
 }
 .stockNewsletter {
   align-items: center;
-  background: #13315c;
-  color: #fff;
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
   display: grid;
   gap: 16px;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
   margin: 16px 0 4px;
   padding: 15px 17px;
 }
@@ -1737,6 +1791,7 @@
   display: block;
 }
 .stockNewsletter small {
+  display: block;
   color: color-mix(in srgb, var(--preview-accent) 70%, white);
   font-size: 0.45rem;
   font-weight: 900;
@@ -1744,24 +1799,28 @@
   text-transform: uppercase;
 }
 .stockNewsletter strong {
+  display: block;
   font-size: 0.64rem;
   margin: 4px 0 3px;
 }
 .stockNewsletter span {
-  color: #9fb6c9;
+  display: block;
+  color: var(--ink-310);
   font-size: 0.45rem;
 }
 .stockNewsletter label {
   display: flex;
+  width: 100%;
 }
 .stockNewsletter input {
-  background: #fff;
+  background: var(--surface);
   border: 0;
-  color: #000;
+  color: var(--text);
   font-size: 0.5rem;
   min-width: 150px;
   outline: 0;
   padding: 9px;
+  width: 100%;
 }
 .stockNewsletter input:focus {
   box-shadow: inset 0 0 0 1px var(--preview-accent);
@@ -1769,7 +1828,7 @@
 .stockNewsletter button {
   background: var(--preview-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   font-size: 0.48rem;
   font-weight: 900;
@@ -1778,15 +1837,15 @@
 }
 .inventoryFilters {
   align-items: end;
-  border: 1px solid #d5e1e9;
+  border: 1px solid var(--line-210);
   display: grid;
   gap: 9px;
-  grid-template-columns: 0.85fr 0.85fr 1.2fr 1.15fr auto;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   margin: 15px 0 13px;
   padding: 12px;
 }
 .inventoryFilters label > span {
-  color: #718698;
+  color: var(--ink-500);
   display: block;
   font-size: 0.43rem;
   font-weight: 900;
@@ -1796,9 +1855,9 @@
 }
 .inventoryFilters select,
 .inventoryFilters input {
-  background: #fff;
-  border: 1px solid #cfdae3;
-  color: #000;
+  background: var(--surface);
+  border: 1px solid var(--line-200);
+  color: var(--text);
   font-size: 0.49rem;
   min-width: 0;
   outline: 0;
@@ -1812,16 +1871,17 @@
 .inventoryFilters label > div {
   display: grid;
   gap: 4px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
 .inventoryFilters > button {
   background: transparent;
-  border: 1px solid #cbd9e3;
-  color: #536b7d;
+  border: 1px solid var(--line-200);
+  color: var(--cool-600);
   cursor: pointer;
   font-size: 0.48rem;
   font-weight: 800;
   padding: 8px;
+  grid-column: 1 / -1;
 }
 .inventoryResults {
   align-items: center;
@@ -1834,7 +1894,7 @@
   text-transform: uppercase;
 }
 .inventoryResults span {
-  color: #7a8e9e;
+  color: var(--status-closed);
   font-size: 0.45rem;
 }
 .vehicleFacts {
@@ -1844,14 +1904,14 @@
   margin: 5px 0;
 }
 .vehicleFacts span {
-  background: #f0f4f7;
-  color: #607789;
+  background: var(--surface-flow);
+  color: var(--ink-510);
   font-size: 0.42rem;
   padding: 3px 4px;
 }
 .noInventoryResults {
   align-items: center;
-  border: 1px dashed #c9d7e1;
+  border: 1px dashed var(--line-200);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1864,19 +1924,19 @@
 .noInventoryResults button {
   background: var(--preview-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   font-size: 0.5rem;
   font-weight: 900;
   padding: 8px 10px;
 }
 .vehicleDetailPage {
-  padding: 20px 27px 32px;
+  padding: 18px;
 }
 .backToInventory {
   background: transparent;
   border: 0;
-  color: #647b8e;
+  color: var(--ink-510);
   cursor: pointer;
   font-size: 0.52rem;
   font-weight: 800;
@@ -1886,20 +1946,20 @@
 .vehicleGallery {
   display: grid;
   gap: 8px;
-  grid-template-columns: 1fr 84px;
+  grid-template-columns: minmax(0, 1fr);
 }
 .vehicleGalleryMain {
   align-items: center;
-  background: linear-gradient(145deg, #edf3f7, #dfeaf1);
+  background: linear-gradient(145deg, var(--blue-100), var(--blue-200));
   display: flex;
-  min-height: 295px;
+  min-height: 250px;
   overflow: hidden;
   position: relative;
   transition: background 0.25s;
 }
 .vehicleGalleryMain > span {
   bottom: 11px;
-  color: #647b8d;
+  color: var(--ink-510);
   font-size: 0.47rem;
   font-weight: 900;
   left: 13px;
@@ -1908,7 +1968,7 @@
   text-transform: uppercase;
 }
 .galleryTone2 {
-  background: linear-gradient(155deg, color-mix(in srgb, var(--preview-accent) 13%, white), #d9e5ed);
+  background: linear-gradient(155deg, color-mix(in srgb, var(--preview-accent) 13%, white), var(--blue-200));
 }
 .galleryTone3 {
   background: linear-gradient(130deg, #e4e8eb, color-mix(in srgb, var(--preview-accent) 20%, white));
@@ -1916,9 +1976,9 @@
 .detailVehicleVisual {
   height: 205px;
   margin: auto;
-  max-width: 460px;
+  max-width: 390px;
   position: relative;
-  width: 72%;
+  width: 82%;
 }
 .detailVehicleVisual::before {
   background: radial-gradient(circle, color-mix(in srgb, var(--preview-accent) 22%, transparent), transparent 67%);
@@ -1931,7 +1991,7 @@
     145deg,
     color-mix(in srgb, var(--preview-accent) 62%, white),
     var(--preview-accent) 56%,
-    #243e53
+    var(--ink-700)
   );
   border-radius: 58% 40% 18% 18%;
   height: 76px;
@@ -1954,8 +2014,8 @@
   width: 39%;
 }
 .detailVehicleVisual > i {
-  background: #fff;
-  border: 8px solid #111;
+  background: var(--surface);
+  border: 8px solid var(--line-ink);
   border-radius: 50%;
   bottom: 11%;
   height: 50px;
@@ -1971,11 +2031,12 @@
 .galleryThumbs {
   display: grid;
   gap: 7px;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: 62px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .galleryThumbs > button {
-  background: #fff;
-  border: 1px solid #d6e1e9;
+  background: var(--surface);
+  border: 1px solid var(--line-210);
   cursor: pointer;
   padding: 4px;
 }
@@ -1989,12 +2050,12 @@
   align-items: start;
   display: grid;
   gap: 24px;
-  grid-template-columns: minmax(0, 1.55fr) minmax(190px, 0.75fr);
+  grid-template-columns: minmax(0, 1fr);
   margin-top: 25px;
 }
 .vehicleTitle {
   align-items: start;
-  border-bottom: 1px solid #dbe5ed;
+  border-bottom: 1px solid var(--blue-200);
   display: flex;
   justify-content: space-between;
   padding-bottom: 18px;
@@ -2013,7 +2074,7 @@
   margin: 8px 0 0;
 }
 .vehicleTitle > span {
-  background: #edf4f8;
+  background: var(--blue-100);
   color: #557085;
   font-size: 0.44rem;
   font-weight: 900;
@@ -2034,18 +2095,18 @@
 .keyFacts > div {
   display: grid;
   gap: 7px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
 .keyFacts article {
   align-items: center;
-  background: #f2f6f9;
+  background: var(--surface-flow);
   display: grid;
   gap: 3px;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   padding: 10px;
 }
 .keyFacts article small {
-  color: #718697;
+  color: var(--ink-500);
   font-size: 0.42rem;
   grid-column: 1;
   text-transform: uppercase;
@@ -2058,7 +2119,7 @@
   align-items: center;
   background: var(--preview-accent);
   border-radius: 50%;
-  color: #fff;
+  color: var(--text-on-dark);
   display: flex;
   font-size: 0.44rem;
   font-style: normal;
@@ -2069,12 +2130,12 @@
   width: 19px;
 }
 .vehicleSpecifications {
-  border-top: 1px solid #dbe5ed;
+  border-top: 1px solid var(--blue-200);
   padding-top: 19px;
 }
 .vehicleSpecifications dl {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   margin: 0;
 }
 .vehicleSpecifications dl > div {
@@ -2084,7 +2145,7 @@
   padding: 8px 10px 8px 0;
 }
 .vehicleSpecifications dt {
-  color: #6f8596;
+  color: var(--ink-500);
   font-size: 0.48rem;
 }
 .vehicleSpecifications dd {
@@ -2093,23 +2154,24 @@
   margin: 0;
 }
 .vehicleDescription {
-  border-top: 1px solid #dbe5ed;
+  border-top: 1px solid var(--blue-200);
   margin-top: 23px;
   padding-top: 19px;
 }
 .vehicleDescription p {
-  color: #607789;
+  color: var(--ink-510);
   font-size: 0.56rem;
   line-height: 1.65;
 }
 .vehicleBuyBox {
-  border: 1px solid #d5e0e8;
+  border: 1px solid var(--line-210);
   padding: 17px;
-  position: sticky;
-  top: 10px;
+  position: relative;
+  top: 0;
+  order: -1;
 }
 .vehicleBuyBox > small {
-  color: #6f8495;
+  color: var(--ink-500);
   display: block;
   font-size: 0.44rem;
   font-weight: 900;
@@ -2121,7 +2183,7 @@
   margin: 5px 0 14px;
 }
 .vehicleBuyBox > section {
-  border-top: 1px solid #dce5ec;
+  border-top: 1px solid var(--blue-200);
   padding-top: 14px;
 }
 .reserveHeading {
@@ -2142,7 +2204,7 @@
 }
 .vehicleBuyBox section > p,
 .purchaseUnavailable {
-  color: #6a8092;
+  color: var(--ink-520);
   font-size: 0.49rem;
   line-height: 1.55;
 }
@@ -2155,29 +2217,39 @@
   width: 100%;
 }
 .reserveButton {
+  cursor: pointer;
+  font-size: 0.5rem;
+  font-weight: 900;
+  padding: 9px;
+  width: 100%;
   background: var(--preview-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
 }
 .reserveButton:disabled {
   cursor: default;
   opacity: 0.75;
 }
 .buyOutrightButton {
-  background: #fff;
+  cursor: pointer;
+  font-size: 0.5rem;
+  font-weight: 900;
+  padding: 9px;
+  width: 100%;
+  background: var(--surface);
   border: 1px solid #263b4d;
-  color: #111;
+  color: var(--line-ink);
   margin-top: 6px;
 }
 .digitalFeatures {
-  border-top: 1px solid #dce5ec;
+  border-top: 1px solid var(--blue-200);
   display: grid;
   gap: 5px;
   margin-top: 13px;
   padding-top: 11px;
 }
 .digitalFeatures span {
-  color: #4e687b;
+  color: var(--ink-610);
   font-size: 0.46rem;
   line-height: 1.4;
 }
@@ -2196,8 +2268,8 @@
   position: absolute;
 }
 .enquiryDivider span {
-  background: #fff;
-  color: #738899;
+  background: var(--surface);
+  color: var(--ink-500);
   font-size: 0.41rem;
   font-weight: 900;
   padding: 0 7px;
@@ -2209,20 +2281,20 @@
   line-height: 1.35;
 }
 .vehicleInterest p {
-  color: #6c8193;
+  color: var(--ink-520);
   font-size: 0.48rem;
   line-height: 1.5;
 }
 .vehicleInterest input {
-  border: 1px solid #cddae4;
+  border: 1px solid var(--line-200);
   font-size: 0.49rem;
   padding: 8px;
   width: 100%;
 }
 .vehicleInterest button {
-  background: #111;
+  background: var(--line-ink);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   font-size: 0.49rem;
   font-weight: 900;
@@ -2231,9 +2303,9 @@
   width: 100%;
 }
 .detailPurchaseFlow {
-  background: #f0f5f8;
-  margin: 28px -27px -32px;
-  padding: 27px;
+  background: var(--surface-flow);
+  margin: 25px -18px -18px;
+  padding: 22px 18px;
   text-align: center;
 }
 .detailPurchaseFlow > h2 {
@@ -2241,7 +2313,7 @@
   margin: 0;
 }
 .detailPurchaseFlow > p {
-  color: #657b8e;
+  color: var(--ink-510);
   font-size: 0.54rem;
   margin: 7px auto 18px;
 }
@@ -2257,7 +2329,7 @@
   margin-top: 8px;
 }
 .stockActions button {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--preview-accent);
   color: var(--preview-accent);
   cursor: pointer;
@@ -2267,7 +2339,7 @@
 }
 .stockActions button:first-child {
   background: var(--preview-accent);
-  color: #fff;
+  color: var(--text-on-dark);
 }
 .miniVehicle {
   align-items: center;
@@ -2287,7 +2359,7 @@
   width: 72%;
 }
 .miniVehicle > span::before {
-  background: #536b7d;
+  background: var(--cool-600);
   border-radius: 60% 35% 0 0;
   bottom: 70%;
   content: "";
@@ -2297,8 +2369,8 @@
   width: 35%;
 }
 .miniVehicle i {
-  background: #fff;
-  border: 4px solid #111;
+  background: var(--surface);
+  border: 4px solid var(--line-ink);
   border-radius: 50%;
   bottom: 20%;
   height: 19px;
@@ -2315,7 +2387,7 @@
   background: var(--preview-accent);
   border: 0;
   bottom: 8px;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   font-size: 0.5rem;
   font-weight: 900;
@@ -2325,7 +2397,7 @@
 }
 .accessoryVisual {
   align-items: center;
-  background: #f1f6fa;
+  background: var(--surface-flow);
   display: flex;
   height: 82px;
   justify-content: center;
@@ -2368,15 +2440,15 @@
   width: 45px !important;
 }
 .partsSelectors {
-  background: #f1f6fa;
+  background: var(--surface-flow);
   display: grid;
   gap: 8px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   margin: 18px 0 12px;
   padding: 11px;
 }
 .partsSelectors label > span {
-  color: #72889a;
+  color: var(--ink-500);
   display: block;
   font-size: 0.46rem;
   font-weight: 900;
@@ -2384,9 +2456,9 @@
   text-transform: uppercase;
 }
 .partsSelectors select {
-  background: #fff;
-  border: 1px solid #d3e0e9;
-  color: #000;
+  background: var(--surface);
+  border: 1px solid var(--line-210);
+  color: var(--text);
   font-size: 0.56rem;
   padding: 7px;
   width: 100%;
@@ -2395,30 +2467,30 @@
   align-items: start;
   display: grid;
   gap: 12px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 .partsDiagram {
-  background: #fff;
-  border: 1px solid #dbe5ed;
+  background: var(--surface);
+  border: 1px solid var(--blue-200);
   margin: 0;
-  position: sticky;
-  top: 10px;
+  position: relative;
+  top: 0;
 }
 .partsDiagram figcaption {
   align-items: center;
-  border-bottom: 1px solid #e0e8ef;
+  border-bottom: 1px solid var(--blue-200);
   display: flex;
   gap: 9px;
   padding: 10px 12px;
 }
 .partsDiagram figcaption strong {
   background: var(--preview-accent);
-  color: #fff;
+  color: var(--text-on-dark);
   font-size: 0.51rem;
   padding: 5px 6px;
 }
 .partsDiagram figcaption span {
-  color: #6d8395;
+  color: var(--ink-500);
   font-size: 0.48rem;
   line-height: 1.4;
 }
@@ -2430,13 +2502,13 @@
   width: 100%;
 }
 .partsList {
-  border: 1px solid #dbe5ed;
+  border: 1px solid var(--blue-200);
   min-width: 0;
 }
 .partsListHeader {
   align-items: center;
-  background: #f2f6f9;
-  border-bottom: 1px solid #dbe5ed;
+  background: var(--surface-flow);
+  border-bottom: 1px solid var(--blue-200);
   display: flex;
   justify-content: space-between;
   padding: 10px 11px;
@@ -2446,10 +2518,12 @@
   display: block;
 }
 .partsListHeader strong {
+  display: block;
   font-size: 0.57rem;
 }
 .partsListHeader small {
-  color: #758a9b;
+  display: block;
+  color: var(--ink-500);
   font-size: 0.45rem;
   margin-top: 2px;
 }
@@ -2479,9 +2553,9 @@
 }
 .partCallout {
   align-items: center;
-  background: #111;
+  background: var(--line-ink);
   border-radius: 50%;
-  color: #fff;
+  color: var(--text-on-dark);
   display: flex;
   font-size: 0.44rem;
   font-weight: 900;
@@ -2497,10 +2571,12 @@
   display: block;
 }
 .partsList li > div strong {
+  display: block;
   font-size: 0.53rem;
   line-height: 1.25;
 }
 .partsList li > div small {
+  display: block;
   color: #8a9aa7;
   font-size: 0.42rem;
   margin-top: 3px;
@@ -2518,7 +2594,7 @@
 .partsList li > button {
   background: var(--preview-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   font-size: 0.45rem;
   font-weight: 900;
@@ -2537,15 +2613,15 @@
 }
 .hireSearch {
   align-items: end;
-  background: #f0f6fa;
+  background: var(--surface-flow);
   display: grid;
   gap: 10px;
-  grid-template-columns: 1fr auto 1fr 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   margin: 22px 0 13px;
   padding: 14px;
 }
 .hireSearch label > span {
-  color: #71889b;
+  color: var(--ink-500);
   display: block;
   font-size: 0.45rem;
   font-weight: 900;
@@ -2554,9 +2630,9 @@
 }
 .hireSearch input,
 .hireSearch select {
-  background: #fff;
-  border: 1px solid #d0dde6;
-  color: #263e51;
+  background: var(--surface);
+  border: 1px solid var(--line-200);
+  color: var(--ink-700);
   font: inherit;
   font-size: 0.51rem;
   height: 34px;
@@ -2577,13 +2653,14 @@
 .hireSearch > button {
   background: var(--preview-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   font-size: 0.5rem;
   font-weight: 900;
   height: 34px;
   padding: 0 11px;
   white-space: nowrap;
+  grid-column: 1 / -1;
 }
 .hireResults {
   align-items: center;
@@ -2596,24 +2673,26 @@
   display: block;
 }
 .hireResults strong {
+  display: block;
   font-size: 0.58rem;
 }
 .hireResults span {
-  color: #72879a;
+  display: block;
+  color: var(--ink-500);
   font-size: 0.48rem;
   margin-top: 3px;
 }
 .hireResults > b {
-  color: #28755f;
+  color: var(--success-ink);
   font-size: 0.48rem;
 }
 .hireGrid {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
 .hireGrid article {
-  border: 1px solid #dce6ee;
+  border: 1px solid var(--blue-200);
   padding: 9px;
   transition:
     border-color 0.18s,
@@ -2639,17 +2718,17 @@
   margin-top: 8px;
 }
 .hireGrid article > span {
-  color: #72879a;
+  color: var(--ink-500);
   display: block;
   font-size: 0.45rem;
   margin-top: 4px;
 }
 .hireGrid article > p {
-  color: #71879a;
+  color: var(--ink-500);
   font-size: 0.52rem;
 }
 .hireGrid article > p b {
-  color: #000;
+  color: var(--text);
 }
 .hireGrid article > button {
   background: transparent;
@@ -2660,15 +2739,15 @@
   padding: 0;
 }
 .hireGrid .selectedHireCard > button {
-  color: #28755f;
+  color: var(--success-ink);
 }
 .hireCheckout {
-  align-items: center;
-  background: #13315c;
-  color: #fff;
+  align-items: start;
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
   display: grid;
   gap: 18px;
-  grid-template-columns: 1fr 1.15fr auto;
+  grid-template-columns: minmax(0, 1fr);
   margin-top: 14px;
   padding: 16px 18px;
 }
@@ -2678,23 +2757,26 @@
   display: block;
 }
 .hireSelection small {
+  display: block;
   color: color-mix(in srgb, var(--preview-accent) 66%, white);
   font-size: 0.42rem;
   font-weight: 900;
   text-transform: uppercase;
 }
 .hireSelection strong {
+  display: block;
   font-size: 0.65rem;
   margin: 4px 0;
 }
 .hireSelection span {
+  display: block;
   color: #98afc3;
   font-size: 0.45rem;
 }
 .hireExtras {
   display: grid;
   gap: 6px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
 .hireExtras label {
   align-items: center;
@@ -2714,54 +2796,58 @@
   display: block;
 }
 .hireExtras b {
+  display: block;
   font-size: 0.48rem;
 }
 .hireExtras small {
-  color: #8fa9bf;
+  display: block;
+  color: var(--text-on-dark-subtle);
   font-size: 0.41rem;
   margin-top: 2px;
 }
 .hireTotal {
   min-width: 105px;
-  text-align: right;
+  text-align: left;
 }
 .hireTotal > span,
 .hireTotal > strong {
   display: block;
 }
 .hireTotal > span {
-  color: #8fa9bf;
+  display: block;
+  color: var(--text-on-dark-subtle);
   font-size: 0.42rem;
   text-transform: uppercase;
 }
 .hireTotal > strong {
+  display: block;
   font-size: 1rem;
   margin: 3px 0 7px;
 }
 .hireTotal > button {
   background: var(--preview-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   font-size: 0.46rem;
   font-weight: 900;
   padding: 8px 10px;
 }
 .serviceBookingPage {
-  background: #fff;
+  background: var(--surface);
   min-height: 620px;
   padding-bottom: 30px;
 }
 .serviceBookingHero {
   align-items: start;
-  background: #13315c;
+  background: var(--surface-dark);
   display: grid;
   gap: 34px;
-  grid-template-columns: 0.83fr 1.17fr;
-  padding: 35px 28px;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 27px 18px;
 }
 .serviceHeroCopy {
-  color: #fff;
+  color: var(--text-on-dark);
   padding: 12px 0;
 }
 .serviceHeroCopy > small {
@@ -2783,11 +2869,11 @@
   font-style: normal;
 }
 .serviceHeroCopy > p {
-  color: #b6c9d9;
+  color: var(--ink-200);
   font-size: 0.57rem;
   line-height: 1.65;
   margin: 0 0 20px;
-  max-width: 290px;
+  max-width: 420px;
 }
 .serviceHeroCopy ul {
   display: grid;
@@ -2798,7 +2884,7 @@
 }
 .serviceHeroCopy li {
   align-items: center;
-  color: #d2dfeb;
+  color: var(--line-210);
   display: flex;
   font-size: 0.52rem;
   gap: 8px;
@@ -2816,13 +2902,13 @@
   justify-content: center;
 }
 .serviceBookingCard {
-  background: #fff;
+  background: var(--surface);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.25);
-  min-height: 440px;
-  padding: 23px;
+  min-height: 0;
+  padding: 19px;
 }
 .serviceBookingCard > header {
-  border-bottom: 1px solid #dbe5ec;
+  border-bottom: 1px solid var(--blue-200);
   margin-bottom: 18px;
   padding-bottom: 14px;
 }
@@ -2848,7 +2934,7 @@
   text-transform: uppercase;
 }
 .serviceBookingCard > header p {
-  color: #718698;
+  color: var(--ink-500);
   font-size: 0.49rem;
   line-height: 1.45;
   margin: 6px 0 0;
@@ -2858,7 +2944,7 @@
   gap: 15px;
 }
 .serviceBookingFields label > span {
-  color: #597185;
+  color: var(--ink-600);
   display: block;
   font-size: 0.47rem;
   font-weight: 900;
@@ -2869,9 +2955,9 @@
 .serviceBookingFields select,
 .serviceBookingFields input,
 .serviceBookingFields textarea {
-  background: #fff;
-  border: 1px solid #ccd9e3;
-  color: #000;
+  background: var(--surface);
+  border: 1px solid var(--line-200);
+  color: var(--text);
   font: inherit;
   font-size: 0.54rem;
   outline: 0;
@@ -2887,14 +2973,14 @@
 .serviceDateTimeFields {
   display: grid;
   gap: 12px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
 .bookingField {
   min-width: 0;
   position: relative;
 }
 .bookingField > label {
-  color: #597185;
+  color: var(--ink-600);
   display: block;
   font-size: 0.47rem;
   font-weight: 900;
@@ -2904,14 +2990,14 @@
 }
 .datePickerTrigger {
   align-items: center;
-  background: #fff;
-  border: 1px solid #ccd9e3;
-  color: #758899;
+  background: var(--surface);
+  border: 1px solid var(--line-200);
+  color: var(--ink-500);
   cursor: pointer;
   display: grid;
   font-size: 0.52rem;
   gap: 7px;
-  grid-template-columns: 15px 1fr auto;
+  grid-template-columns: 15px minmax(0, 1fr) auto;
   min-height: 34px;
   padding: 8px 9px;
   text-align: left;
@@ -2927,7 +3013,7 @@
   width: 14px;
 }
 .datePickerTrigger b {
-  color: #60778a;
+  color: var(--ink-510);
   font-size: 0.6rem;
 }
 .dateChosen {
@@ -2935,8 +3021,8 @@
   color: #172c3e;
 }
 .bookingCalendar {
-  background: #fff;
-  border: 1px solid #ccd9e3;
+  background: var(--surface);
+  border: 1px solid var(--line-200);
   box-shadow: 0 12px 30px rgba(18, 45, 65, 0.18);
   left: 0;
   padding: 10px;
@@ -2957,7 +3043,7 @@
 .bookingCalendar > header button {
   background: transparent;
   border: 0;
-  color: #61788b;
+  color: var(--ink-510);
   cursor: pointer;
   font-size: 0.75rem;
   padding: 2px 5px;
@@ -2965,7 +3051,7 @@
 .calendarGrid {
   display: grid;
   gap: 2px;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 .calendarGrid > span {
   color: #8a9aa7;
@@ -2979,7 +3065,7 @@
 }
 .calendarGrid > button {
   aspect-ratio: 1;
-  background: #fff;
+  background: var(--surface);
   border: 0;
   color: #334c60;
   cursor: pointer;
@@ -2998,17 +3084,17 @@
 .calendarGrid > .selectedCalendarDay {
   background: var(--preview-accent);
   border-radius: 50%;
-  color: #fff;
+  color: var(--text-on-dark);
   font-weight: 900;
 }
 .bookingCalendar > small {
-  color: #8697a4;
+  color: var(--ink-400);
   display: block;
   font-size: 0.39rem;
   margin-top: 7px;
 }
 .jobTypeField > strong {
-  color: #597185;
+  color: var(--ink-600);
   display: block;
   font-size: 0.47rem;
   letter-spacing: 0.07em;
@@ -3016,7 +3102,7 @@
 }
 .jobTypeField > p,
 .bookingFieldHelp {
-  color: #7b8e9e;
+  color: var(--status-closed);
   display: block;
   font-size: 0.45rem;
   line-height: 1.45;
@@ -3024,7 +3110,7 @@
   text-transform: none;
 }
 .jobTypeField > div {
-  border: 1px solid #d5e0e8;
+  border: 1px solid var(--line-210);
   max-height: 145px;
   overflow-y: auto;
   padding: 4px 10px;
@@ -3035,7 +3121,7 @@
   cursor: pointer;
   display: grid;
   gap: 8px;
-  grid-template-columns: 13px 1fr;
+  grid-template-columns: 13px minmax(0, 1fr);
   padding: 8px 0;
 }
 .jobTypeField label:last-child {
@@ -3054,18 +3140,20 @@
   display: block;
 }
 .jobTypeField label b {
-  color: #263e52;
+  display: block;
+  color: var(--ink-700);
   font-size: 0.5rem;
 }
 .jobTypeField label small {
-  color: #7b8e9e;
+  display: block;
+  color: var(--status-closed);
   font-size: 0.43rem;
   line-height: 1.4;
   margin-top: 3px;
 }
 .serviceBookingCard > footer {
   align-items: center;
-  border-top: 1px solid #dbe5ec;
+  border-top: 1px solid var(--blue-200);
   display: flex;
   justify-content: space-between;
   margin-top: 18px;
@@ -3074,7 +3162,7 @@
 .serviceBookingCard > footer > button {
   background: transparent;
   border: 0;
-  color: #6a8092;
+  color: var(--ink-520);
   cursor: pointer;
   font-size: 0.51rem;
   font-weight: 900;
@@ -3082,7 +3170,7 @@
 }
 .serviceBookingCard > footer > button:last-child {
   background: var(--preview-accent);
-  color: #fff;
+  color: var(--text-on-dark);
   padding: 10px 13px;
 }
 .serviceBookingCard > footer > button:disabled {
@@ -3097,7 +3185,7 @@
   text-transform: uppercase;
 }
 .bookingReview dl {
-  border: 1px solid #dbe5ec;
+  border: 1px solid var(--blue-200);
   margin: 10px 0;
 }
 .bookingReview dl > div {
@@ -3111,7 +3199,7 @@
   border-bottom: 0;
 }
 .bookingReview dt {
-  color: #73889a;
+  color: var(--ink-500);
   font-size: 0.47rem;
 }
 .bookingReview dd {
@@ -3121,30 +3209,35 @@
   text-align: right;
 }
 .bookingReview p {
-  color: #718698;
+  color: var(--ink-500);
   font-size: 0.48rem;
   line-height: 1.55;
 }
 .bookingReview > strong {
-  color: #28755f;
+  color: var(--success-ink);
   display: block;
   font-size: 0.53rem;
   margin-top: 10px;
 }
 .serviceReviews {
-  background: #f3f7fa;
+  background: var(--surface-flow);
   display: grid;
   gap: 12px;
-  grid-template-columns: 0.8fr 1.1fr 1.1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   margin: 28px 27px 0;
   padding: 18px;
+  margin-left: 18px;
+  margin-right: 18px;
 }
 .serviceReviews > div {
-  border-right: 1px solid #d4e0e8;
+  border-right: 0;
   padding-right: 15px;
+  border-bottom: 1px solid var(--line-210);
+  grid-column: 1 / -1;
+  padding: 0 0 12px;
 }
 .serviceReviews > div small {
-  color: #6d8496;
+  color: var(--ink-500);
   display: block;
   font-size: 0.46rem;
   font-weight: 800;
@@ -3161,7 +3254,7 @@
   letter-spacing: 0.05em;
 }
 .serviceReviews > div p {
-  color: #6d8496;
+  color: var(--ink-500);
   font-size: 0.48rem;
   line-height: 1.5;
   margin: 0;
@@ -3184,18 +3277,22 @@
   margin: 3px 0 8px;
 }
 .serviceReviews blockquote footer {
-  color: #708697;
+  color: var(--ink-500);
   font-size: 0.46rem;
 }
 .serviceWork {
   margin: 28px 27px 0;
+  margin-left: 18px;
+  margin-right: 18px;
 }
 .serviceWork > header {
-  align-items: end;
+  align-items: start;
   border-bottom: 1px solid #d9e4eb;
   display: flex;
   justify-content: space-between;
   padding-bottom: 13px;
+  flex-direction: column;
+  gap: 6px;
 }
 .serviceWork > header small {
   color: var(--preview-accent);
@@ -3210,12 +3307,13 @@
 }
 .serviceWork > div {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: minmax(0, 1fr);
 }
 .serviceWork article {
   border-left: 1px solid #d9e4eb;
-  min-height: 145px;
+  min-height: 0;
   padding: 17px 15px;
+  border-bottom: 1px solid #d9e4eb;
 }
 .serviceWork article i {
   color: var(--preview-accent);
@@ -3229,9 +3327,10 @@
   font-size: 0.6rem;
   line-height: 1.35;
   margin: 25px 0 7px;
+  margin-top: 12px;
 }
 .serviceWork article p {
-  color: #6d8395;
+  color: var(--ink-500);
   font-size: 0.48rem;
   line-height: 1.55;
   margin: 0;
@@ -3239,9 +3338,11 @@
 .findUsSection {
   border: 1px solid #d9e4eb;
   display: grid;
-  grid-template-columns: 0.72fr 1.28fr;
+  grid-template-columns: minmax(0, 1fr);
   margin: 12px 27px 0;
   min-height: 225px;
+  margin-left: 18px;
+  margin-right: 18px;
 }
 .findUsCopy {
   display: flex;
@@ -3264,7 +3365,7 @@
   margin: 0 0 8px;
 }
 .findUsCopy span {
-  color: #6d8496;
+  color: var(--ink-500);
   font-size: 0.5rem;
   line-height: 1.65;
 }
@@ -3272,19 +3373,19 @@
   align-self: flex-start;
   background: var(--preview-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   font-size: 0.5rem;
   font-weight: 900;
   margin-top: auto;
   padding: 9px 12px;
 }
 .serviceMap {
-  min-height: 225px;
+  min-height: 205px;
 }
 .journalFeature {
   display: grid;
   gap: 22px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
   padding: 24px 0;
 }
 .journalFeature > div {
@@ -3311,7 +3412,7 @@
   margin: 9px 0;
 }
 .journalFeature p {
-  color: #6e8395;
+  color: var(--ink-500);
   font-size: 0.57rem;
   line-height: 1.5;
 }
@@ -3320,17 +3421,17 @@
   font-size: 0.54rem;
 }
 .journalGrid {
-  border-top: 1px solid #dce6ee;
+  border-top: 1px solid var(--blue-200);
   display: grid;
   gap: 12px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   padding-top: 15px;
 }
 .journalGrid article {
   align-items: center;
   display: grid;
   gap: 10px;
-  grid-template-columns: 58px 1fr;
+  grid-template-columns: 58px minmax(0, 1fr);
 }
 .journalGrid i {
   background: color-mix(in srgb, var(--preview-accent) 14%, white);
@@ -3347,12 +3448,12 @@
 }
 .contactPageGrid {
   display: grid;
-  grid-template-columns: 0.76fr 1.24fr;
+  grid-template-columns: minmax(0, 1fr);
   margin-top: 22px;
 }
 .contactPageDetails {
-  background: #13315c;
-  color: #fff;
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
   padding: 23px;
 }
 .contactPageDetails > small {
@@ -3369,7 +3470,7 @@
   margin: 12px 0;
 }
 .contactPageDetails > p {
-  color: #b7c9d8;
+  color: var(--ink-200);
   font-size: 0.54rem;
   line-height: 1.6;
   margin: 0 0 18px;
@@ -3377,7 +3478,7 @@
 .contactPageDetails > a,
 .contactPageDetails > div {
   border-top: 1px solid rgba(255, 255, 255, 0.13);
-  color: #fff;
+  color: var(--text-on-dark);
   display: block;
   padding: 10px 0;
 }
@@ -3389,25 +3490,27 @@
 }
 .contactPageDetails > a span,
 .contactPageDetails > div span {
-  color: #86a5bd;
+  display: block;
+  color: var(--text-on-dark-subtle);
   font-size: 0.42rem;
   margin-bottom: 3px;
   text-transform: uppercase;
 }
 .contactPageDetails > a strong,
 .contactPageDetails > div strong {
+  display: block;
   font-size: 0.56rem;
   line-height: 1.45;
 }
 .contactForm {
-  background: #f3f7fa;
+  background: var(--surface-flow);
   display: grid;
   gap: 10px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
   padding: 23px;
 }
 .contactForm label > span {
-  color: #647b8e;
+  color: var(--ink-510);
   display: block;
   font-size: 0.45rem;
   font-weight: 900;
@@ -3417,9 +3520,9 @@
 .contactForm input,
 .contactForm select,
 .contactForm textarea {
-  background: #fff;
-  border: 1px solid #d1dee7;
-  color: #000;
+  background: var(--surface);
+  border: 1px solid var(--line-210);
+  color: var(--text);
   font: inherit;
   font-size: 0.54rem;
   outline: 0;
@@ -3438,16 +3541,16 @@
 .contactForm > button {
   background: var(--preview-accent);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   font-size: 0.53rem;
   font-weight: 900;
-  grid-column: 1 / -1;
+  grid-column: 1;
   justify-self: start;
   padding: 10px 14px;
 }
 .contactSuccess {
-  color: #28755f;
+  color: var(--success-ink);
   font-size: 0.52rem;
   font-weight: 800;
   grid-column: 1 / -1;
@@ -3456,7 +3559,7 @@
 .contactLocation {
   border: 1px solid #d9e4eb;
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
+  grid-template-columns: minmax(0, 1fr);
   margin-top: 12px;
   min-height: 175px;
 }
@@ -3472,27 +3575,30 @@
   display: block;
 }
 .contactLocation > div:first-child small {
+  display: block;
   color: var(--preview-accent);
   font-size: 0.46rem;
   font-weight: 900;
   text-transform: uppercase;
 }
 .contactLocation > div:first-child strong {
+  display: block;
   font-size: 0.73rem;
   margin: 7px 0;
 }
 .contactLocation > div:first-child span {
-  color: #708697;
+  display: block;
+  color: var(--ink-500);
   font-size: 0.48rem;
 }
 .contactSimpleMap {
-  min-height: 175px;
+  min-height: 180px;
 }
 .termsIntro {
   align-items: end;
   display: grid;
   gap: 24px;
-  grid-template-columns: 0.8fr 1.2fr;
+  grid-template-columns: minmax(0, 1fr);
   padding: 25px 0;
 }
 .termsIntro strong {
@@ -3501,20 +3607,20 @@
   line-height: 1.1;
 }
 .termsIntro p {
-  color: #657b8e;
+  color: var(--ink-510);
   font-size: 0.58rem;
   line-height: 1.65;
   margin: 0;
 }
 .termsGrid {
-  border-top: 1px solid #dbe5ed;
+  border-top: 1px solid var(--blue-200);
 }
 .termsGrid section {
   align-items: start;
-  border-bottom: 1px solid #dbe5ed;
+  border-bottom: 1px solid var(--blue-200);
   display: grid;
   gap: 17px;
-  grid-template-columns: 30px 1fr;
+  grid-template-columns: 30px minmax(0, 1fr);
   padding: 17px 0;
 }
 .termsGrid section > span {
@@ -3527,54 +3633,30 @@
   margin: 0 0 5px;
 }
 .termsGrid p {
-  color: #6c8193;
+  color: var(--ink-520);
   font-size: 0.55rem;
   line-height: 1.6;
   margin: 0;
 }
 .termsHelp {
-  align-items: center;
-  background: #13315c;
-  color: #fff;
+  align-items: flex-start;
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
   display: flex;
   justify-content: space-between;
   margin-top: 18px;
   padding: 16px 18px;
+  flex-direction: column;
+  gap: 6px;
 }
 .termsHelp span {
-  color: #9eb6cc;
+  color: var(--ink-310);
   font-size: 0.48rem;
   text-transform: uppercase;
 }
 .termsHelp strong {
   font-size: 0.58rem;
 }
-
-@media (max-width: 900px) {
-  .page {
-    height: auto;
-    min-height: calc(100svh - 68px);
-    overflow: visible;
-  }
-  .builder {
-    grid-template-columns: 1fr;
-    height: auto;
-    overflow: visible;
-  }
-  .previewColumn {
-    height: calc(100svh - 130px);
-    min-height: 620px;
-    position: relative;
-    top: 0;
-  }
-  .controls {
-    border-left: 0;
-    border-top: 1px solid #ccdae6;
-    height: auto;
-    overflow: visible;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .conversionSuccess,
   .successBurst > b,
@@ -3583,244 +3665,275 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (min-width: 900px) {
   .previewColumn {
-    height: 72svh;
-    min-height: 560px;
-    padding: 12px;
+    height: revert;
+    min-height: 0;
+    padding: 15px 24px 20px;
+    position: sticky;
+    top: 78px;
   }
   .previewGuide > div {
-    gap: 7px;
-    padding: 11px 8px;
+    gap: 14px;
+    padding: 16px 18px;
   }
   .previewGuide b {
-    flex-basis: 25px;
-    font-size: 0.63rem;
-    height: 25px;
+    flex-basis: revert;
+    font-size: 0.64rem;
+    height: 31px;
   }
   .previewGuide strong {
-    font-size: 0.62rem;
+    font-size: 0.72rem;
   }
   .previewGuide small {
-    display: none;
+    display: block;
   }
   .browser {
     min-height: 0;
   }
   .siteNavActions {
-    max-width: 76%;
+    max-width: revert;
   }
   .siteNavLinks button:not(.contactNav) {
-    display: none;
+    display: revert;
   }
   .previewContacts {
-    display: none;
+    display: flex;
   }
   .inventoryHero {
-    grid-template-columns: 1fr;
-    min-height: 465px;
-    padding: 29px 25px;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    min-height: 315px;
+    padding: 38px 36px;
   }
   .inventoryHeroVisual {
-    height: 175px;
+    height: 225px;
   }
   .purchaseSteps {
-    grid-template-columns: 1fr;
-    padding: 16px 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 18px 27px;
   }
   .inventoryContent {
-    padding: 20px 18px 26px;
+    padding: 24px 27px 32px;
   }
   .siteHero {
-    grid-template-columns: 1fr;
-    min-height: 470px;
-    padding: 26px;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    min-height: 310px;
+    padding: 34px;
   }
   .vehicle {
-    height: 185px;
+    height: 230px;
   }
   .browserTop > span {
-    padding: 5px 14px;
+    padding: 5px 42px;
   }
   .syncStatus {
-    display: none;
+    display: revert;
   }
   .dynamicArea {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .reviewsBlock {
-    grid-template-columns: 78px 1fr;
+    grid-template-columns: 105px minmax(0, 1fr) 100px;
   }
   .reviewAuthor {
-    display: none;
+    display: revert;
   }
   .baseDetails {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .previewFooter {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.9fr) minmax(0, 0.75fr) minmax(0, 1fr);
   }
   .footerContact {
-    display: none;
+    display: revert;
   }
   .footerMap {
-    min-height: 64px;
+    min-height: revert;
   }
   .examplePage {
-    min-height: 550px;
-    padding: 24px 18px;
+    min-height: 590px;
+    padding: 32px 28px;
   }
   .catalogueGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .stockNewsletter {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) auto;
   }
-  .stockNewsletter label,
+  .stockNewsletter label {
+    width: revert;
+  }
   .stockNewsletter input {
-    width: 100%;
+    width: revert;
   }
   .inventoryFilters {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 0.85fr) minmax(0, 1.2fr) minmax(0, 1.15fr) auto;
   }
   .inventoryFilters > button {
-    grid-column: 1 / -1;
+    grid-column: revert;
   }
-  .servicePage,
-  .serviceBookingHero,
-  .journalFeature,
-  .findUsSection,
-  .contactPageGrid,
-  .contactLocation {
-    grid-template-columns: 1fr;
+  .servicePage {
+    grid-template-columns: minmax(0, 0.83fr) minmax(0, 1.17fr);
   }
   .serviceBookingHero {
-    padding: 27px 18px;
+    grid-template-columns: minmax(0, 0.83fr) minmax(0, 1.17fr);
+    padding: 35px 28px;
   }
-  .serviceHeroCopy > p {
-    max-width: 420px;
-  }
-  .serviceBookingCard {
-    min-height: 0;
-    padding: 19px;
-  }
-  .serviceReviews,
-  .serviceWork {
-    margin-left: 18px;
-    margin-right: 18px;
-  }
-  .serviceWork > header {
-    align-items: start;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .serviceWork > div {
-    grid-template-columns: 1fr;
-  }
-  .serviceWork article {
-    border-bottom: 1px solid #d9e4eb;
-    min-height: 0;
-  }
-  .serviceWork article strong {
-    margin-top: 12px;
+  .journalFeature {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .findUsSection {
-    margin-left: 18px;
-    margin-right: 18px;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    margin-left: 27px;
+    margin-right: 27px;
+  }
+  .contactPageGrid {
+    grid-template-columns: minmax(0, 0.76fr) minmax(0, 1.24fr);
+  }
+  .contactLocation {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+  .serviceHeroCopy > p {
+    max-width: 290px;
+  }
+  .serviceBookingCard {
+    min-height: 440px;
+    padding: 23px;
   }
   .serviceReviews {
-    grid-template-columns: 1fr 1fr;
+    margin-left: 27px;
+    margin-right: 27px;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.1fr) minmax(0, 1.1fr);
+  }
+  .serviceWork {
+    margin-left: 27px;
+    margin-right: 27px;
+  }
+  .serviceWork > header {
+    align-items: end;
+    flex-direction: revert;
+    gap: revert;
+  }
+  .serviceWork > div {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .serviceWork article {
+    border-bottom: revert;
+    min-height: 145px;
+  }
+  .serviceWork article strong {
+    margin-top: 25px;
   }
   .serviceReviews > div {
-    border-bottom: 1px solid #d4e0e8;
-    border-right: 0;
-    grid-column: 1 / -1;
-    padding: 0 0 12px;
+    border-bottom: revert;
+    border-right: 1px solid var(--line-210);
+    grid-column: revert;
+    padding-right: 15px;
   }
   .serviceMap {
-    min-height: 205px;
+    min-height: 225px;
   }
   .contactForm {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
-  .contactForm label,
+  .contactForm label {
+    grid-column: 1 / -1;
+  }
   .contactForm > button {
-    grid-column: 1;
+    grid-column: 1 / -1;
   }
   .contactSimpleMap {
-    min-height: 180px;
+    min-height: 175px;
   }
   .termsIntro {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   }
   .termsHelp {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 6px;
+    align-items: center;
+    flex-direction: revert;
+    gap: revert;
   }
   .hireGrid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .hireGrid article:last-child {
-    display: none;
+    display: revert;
   }
   .hireSearch {
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) minmax(0, 1fr) auto;
   }
-  .hireSearch label:nth-of-type(3),
+  .hireSearch label:nth-of-type(3) {
+    grid-column: revert;
+  }
   .hireSearch > button {
-    grid-column: 1 / -1;
+    grid-column: revert;
   }
   .hireCheckout {
-    align-items: start;
-    grid-template-columns: 1fr;
+    align-items: center;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) auto;
   }
   .hireTotal {
-    text-align: left;
+    text-align: right;
   }
   .bookingBar {
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: revert;
   }
   .bookingBar > button {
-    grid-column: 1 / -1;
+    grid-column: revert;
   }
   .partsSelectors {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .partsWorkspace {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .partsDiagram {
-    position: relative;
-    top: 0;
+    position: sticky;
+    top: 10px;
   }
   .vehicleDetailPage {
-    padding: 18px;
+    padding: 20px 27px 32px;
   }
   .vehicleGallery {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) 84px;
   }
   .vehicleGalleryMain {
-    min-height: 250px;
+    min-height: 295px;
   }
   .detailVehicleVisual {
-    max-width: 390px;
-    width: 82%;
+    max-width: 460px;
+    width: 72%;
   }
   .galleryThumbs {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 62px;
+    grid-template-columns: revert;
+    grid-template-rows: repeat(3, 1fr);
   }
   .vehicleDetailLayout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1.55fr) minmax(190px, 0.75fr);
   }
   .vehicleBuyBox {
-    order: -1;
-    position: relative;
-    top: 0;
+    order: revert;
+    position: sticky;
+    top: 10px;
   }
   .detailPurchaseFlow {
-    margin: 25px -18px -18px;
-    padding: 22px 18px;
+    margin: 28px -27px -32px;
+    padding: 27px;
+  }
+  .page {
+    height: calc(100vh - 78px);
+    min-height: revert;
+    overflow: hidden;
+  }
+  .builder {
+    grid-template-columns: minmax(0, 1.6fr) minmax(390px, 0.7fr);
+    height: 100%;
+    overflow: hidden;
+  }
+  .controls {
+    border-left: 1px solid var(--line-200);
+    border-top: 0;
+    height: 100%;
+    overflow-y: auto;
   }
 }

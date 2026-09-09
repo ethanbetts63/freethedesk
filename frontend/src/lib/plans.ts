@@ -1,8 +1,3 @@
-   
-                                                                              
-                                                                              
-                                   
-   
 export interface Plan<Code extends string> {
   code: Code;
   name: string;

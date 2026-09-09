@@ -5,7 +5,6 @@
   padding: clamp(88px, 10vw, 142px) 0 clamp(94px, 11vw, 154px);
   position: relative;
 }
-
 .hero::before {
   background-image:
     linear-gradient(rgba(163, 214, 245, 0.055) 1px, transparent 1px),
@@ -13,10 +12,9 @@
   background-size: 64px 64px;
   content: "";
   inset: 0;
-  mask-image: linear-gradient(90deg, #000, transparent 82%);
+  mask-image: linear-gradient(90deg, var(--text), transparent 82%);
   position: absolute;
 }
-
 .hero::after {
   background: var(--accent);
   border-radius: 50%;
@@ -29,7 +27,6 @@
   top: -26%;
   width: clamp(230px, 34vw, 520px);
 }
-
 .heroInner {
   position: relative;
   z-index: 1;
@@ -52,7 +49,7 @@
   width: 7px;
 }
 .hero h1 {
-  font-size: clamp(3.6rem, 8vw, 7.7rem);
+  font-size: clamp(3.25rem, 18vw, 5rem);
   letter-spacing: -0.075em;
   line-height: 0.88;
   margin: 0;
@@ -73,7 +70,7 @@
   align-items: center;
   bottom: 34px;
   color: var(--text-on-dark-subtle);
-  display: flex;
+  display: none;
   font-size: 0.62rem;
   gap: 12px;
   letter-spacing: 0.12em;
@@ -87,17 +84,16 @@
   height: 1px;
   width: 80px;
 }
-
 .index {
   background: var(--surface);
   padding: clamp(80px, 10vw, 132px) 0;
 }
 .indexHeader {
-  align-items: end;
+  align-items: start;
   border-bottom: 1px solid var(--border);
   display: grid;
   gap: 50px;
-  grid-template-columns: 1fr 0.7fr;
+  grid-template-columns: minmax(0, 1fr);
   margin-bottom: 38px;
   padding-bottom: 42px;
 }
@@ -117,14 +113,14 @@
 .grid {
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
 }
 .card {
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  min-height: 440px;
-  padding: 28px;
+  min-height: 390px;
+  padding: 22px;
   transition:
     border-color 0.2s,
     box-shadow 0.2s,
@@ -202,14 +198,14 @@
   transform: translateX(5px);
 }
 .empty {
-  align-items: center;
+  align-items: start;
   background: var(--surface-tint);
   border: 1px solid var(--border);
   display: grid;
   gap: 30px;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
   min-height: 190px;
-  padding: 35px 40px;
+  padding: 28px 24px;
 }
 .empty > span {
   align-items: center;
@@ -239,48 +235,50 @@
   font-size: 0.78rem;
   font-weight: 800;
   padding-bottom: 7px;
+  grid-column: 1;
+  justify-self: start;
 }
 .empty a b {
   color: var(--accent-ink);
   margin-left: 8px;
 }
 
-@media (max-width: 760px) {
-  .heroMark {
-    display: none;
-  }
-  .indexHeader {
-    align-items: start;
-    grid-template-columns: 1fr;
-  }
-  .grid {
-    grid-template-columns: 1fr;
+@media (min-width: 640px) {
+  .hero h1 {
+    font-size: clamp(3.6rem, 8vw, 7.7rem);
   }
   .card {
-    min-height: 390px;
+    padding: 28px;
   }
   .empty {
-    align-items: start;
-    grid-template-columns: auto 1fr;
-    padding: 28px 24px;
+    grid-template-columns: auto minmax(0, 1fr);
   }
   .empty a {
     grid-column: 2;
-    justify-self: start;
   }
 }
 
-@media (max-width: 520px) {
-  .hero h1 {
-    font-size: clamp(3.25rem, 18vw, 5rem);
+@media (min-width: 900px) {
+  .heroMark {
+    display: flex;
+  }
+  .indexHeader {
+    align-items: end;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.7fr);
+  }
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .card {
-    padding: 22px;
+    min-height: 440px;
   }
   .empty {
-    grid-template-columns: 1fr;
+    align-items: center;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    padding: 35px 40px;
   }
   .empty a {
-    grid-column: 1;
+    grid-column: revert;
+    justify-self: revert;
   }
 }

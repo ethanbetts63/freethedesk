@@ -1,14 +1,5 @@
 import type { PublicSiteSettings } from "./api";
 
-   
-                                                                                
-                                                                        
-  
-                                                                              
-                                                                 
-  
-                                                                   
-   
 /**
  * Pricing is read fresh on every request rather than cached, so a change in the
  * admin is live immediately. This also means the pages that call it never

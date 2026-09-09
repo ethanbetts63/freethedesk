@@ -14,7 +14,6 @@ export interface NavItem {
   label: string;
 }
 
-                                                                                                           
 export function PortalShell({
   role,
   label,

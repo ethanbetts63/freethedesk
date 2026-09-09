@@ -2,15 +2,15 @@
   align-items: center;
   display: grid;
   gap: clamp(46px, 7vw, 100px);
-  grid-template-columns: 0.85fr 1.15fr;
+  grid-template-columns: minmax(0, 1fr);
   padding-bottom: 40px;
-  padding-top: 72px;
+  padding-top: var(--space-2xl);
 }
 .reportCopy {
   position: relative;
 }
 .reportCopy h2 {
-  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  font-size: var(--display-1);
   letter-spacing: -0.055em;
   line-height: 1.05;
   margin: 0;
@@ -22,11 +22,11 @@
   -webkit-background-clip: text;
 }
 .description {
-  color: #536c80;
+  color: var(--cool-600);
   font-size: 0.97rem;
   line-height: 1.74;
   margin-top: 20px;
-  max-width: 410px;
+  max-width: none;
 }
 .description p {
   margin: 0;
@@ -48,8 +48,8 @@
 }
 .reportSequence span {
   align-items: center;
-  background: #eaf3fb;
-  border: 1px solid #ccdfed;
+  background: var(--blue-100);
+  border: 1px solid var(--line-220);
   color: var(--page-accent, var(--brand-accent));
   display: flex;
   height: 27px;
@@ -57,16 +57,16 @@
   width: 27px;
 }
 .reportSequence i {
-  background: linear-gradient(90deg, #b9d3e6, #dbe8f1);
+  background: linear-gradient(90deg, #b9d3e6, var(--blue-200));
   flex: 1;
   height: 1px;
 }
 .reportCard {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid #bcd2e2;
   box-shadow:
-    9px 9px 0 #e5f0f7,
-    18px 18px 0 #f3f8fb,
+    9px 9px 0 var(--blue-100),
+    18px 18px 0 var(--surface-flow),
     0 28px 55px -35px rgba(7, 18, 28, 0.55);
   position: relative;
 }
@@ -80,18 +80,18 @@
 }
 .reportCardHead {
   align-items: center;
-  background: #f7fafd;
-  border-bottom: 1px solid #e2ebf3;
+  background: var(--surface-flow);
+  border-bottom: 1px solid var(--blue-200);
   display: flex;
   gap: 14px;
-  padding: 16px 22px;
+  padding: 16px 18px;
 }
 .reportDots {
   display: flex;
   gap: 5px;
 }
 .reportDots i {
-  background: #cbd9e5;
+  background: var(--line-200);
   border-radius: 50%;
   height: 8px;
   width: 8px;
@@ -102,13 +102,13 @@
   letter-spacing: -0.01em;
 }
 .reportCardHead small {
-  color: #7d93a6;
+  color: var(--ink-400);
   display: block;
   font-size: 0.7rem;
 }
 .reportBadge {
-  background: #e7f2fb;
-  border: 1px solid #c9deed;
+  background: var(--blue-100);
+  border: 1px solid var(--line-220);
   color: var(--page-accent, var(--brand-accent));
   font-size: 0.56rem;
   font-weight: 900;
@@ -125,23 +125,23 @@
 }
 .reportList li {
   align-items: center;
-  border-bottom: 1px solid #eaf1f7;
+  border-bottom: 1px solid var(--blue-100);
   display: flex;
   gap: 15px;
-  padding: 19px 22px;
+  padding: 16px 18px;
   position: relative;
   transition:
     background 0.2s ease,
     padding-left 0.2s ease;
 }
 .reportList li:hover {
-  background: #f8fbfd;
+  background: var(--surface-flow);
   padding-left: 27px;
 }
 .reportIndex {
   align-items: center;
-  background: #0b263b;
-  color: #fff;
+  background: var(--ink-navy);
+  color: var(--text-on-dark);
   display: flex;
   flex: 0 0 auto;
   font-size: 0.58rem;
@@ -152,8 +152,8 @@
 }
 .reportIcon {
   align-items: center;
-  background: linear-gradient(135deg, #eaf3fb, #f2edff);
-  border: 1px solid #d8e6f0;
+  background: linear-gradient(135deg, var(--blue-100), #f2edff);
+  border: 1px solid var(--blue-200);
   color: var(--page-accent, var(--brand-accent));
   display: flex;
   flex: 0 0 auto;
@@ -167,7 +167,7 @@
   margin: 0 0 3px;
 }
 .reportList p {
-  color: #7d93a6;
+  color: var(--ink-400);
   font-size: 0.81rem;
   line-height: 1.45;
   margin: 0;
@@ -176,35 +176,33 @@
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
-  padding: 18px 22px;
+  padding: 18px;
 }
 .reportCardFoot span {
-  background: #f2f7fb;
+  background: var(--surface-flow);
   color: #4e677f;
   font-size: 0.68rem;
   font-weight: 700;
   padding: 6px 10px;
 }
 
-@media (max-width: 900px) {
-  .reportSection {
-    grid-template-columns: 1fr;
-  }
-  .description {
-    max-width: none;
-  }
-}
-
-@media (max-width: 620px) {
-  .reportSection {
-    padding-top: 56px;
-  }
+@media (min-width: 640px) {
   .reportList li {
-    padding: 16px 18px;
+    padding: 19px 22px;
   }
   .reportCardHead,
   .reportCardFoot {
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}
+
+@media (min-width: 900px) {
+  .reportSection {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    padding-top: 72px;
+  }
+  .description {
+    max-width: 410px;
   }
 }

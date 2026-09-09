@@ -1,27 +1,20 @@
 .section {
   --feature-accent: var(--brand-accent);
-  background: #fff;
-  padding: 118px 0;
+  background: var(--surface);
+  padding: var(--section-space) 0;
 }
 .layout {
   align-items: center;
   display: grid;
   gap: clamp(58px, 9vw, 135px);
-  grid-template-columns: 0.84fr 1.16fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 .copy {
-  max-width: 520px;
+  max-width: 680px;
 }
 .eyebrow {
-  align-items: center;
-  color: var(--feature-accent);
-  display: flex;
-  font-size: 0.68rem;
-  font-weight: 850;
-  gap: 11px;
-  letter-spacing: 0.17em;
-  margin: 0 0 25px;
-  text-transform: uppercase;
+  composes: eyebrow from global;
+  --eyebrow-accent: var(--feature-accent);
 }
 .eyebrow span {
   background: var(--feature-accent);
@@ -31,8 +24,8 @@
   width: 7px;
 }
 .copy h2 {
-  color: #07121c;
-  font-size: clamp(2.5rem, 5.8vw, 6.2rem);
+  color: var(--ink-strong);
+  font-size: var(--display-4);
   font-weight: 800;
   letter-spacing: -0.077em;
   line-height: 0.87;
@@ -45,21 +38,21 @@
   font-weight: 350;
 }
 .lead {
-  color: #536c80;
-  font-size: 1.03rem;
+  color: var(--cool-600);
+  font-size: var(--step-1);
   line-height: 1.7;
   margin: 30px 0 26px;
   max-width: 470px;
 }
 .copy ul {
-  border-top: 1px solid #d2e0ea;
+  border-top: 1px solid var(--line-210);
   list-style: none;
   margin: 0 0 30px;
   padding: 0;
 }
 .copy li {
-  border-bottom: 1px solid #d2e0ea;
-  color: #2c475d;
+  border-bottom: 1px solid var(--line-210);
+  color: var(--ink-730);
   font-size: 0.78rem;
   font-weight: 750;
   padding: 12px 0 12px 21px;
@@ -78,7 +71,7 @@
 .copy > a {
   align-items: center;
   background: var(--feature-accent);
-  color: #fff;
+  color: var(--text-on-dark);
   display: inline-flex;
   font-size: 0.8rem;
   font-weight: 850;
@@ -89,20 +82,20 @@
     transform 0.2s;
 }
 .copy > a:hover {
-  background: #07121c;
+  background: var(--ink-strong);
   transform: translateY(-2px);
 }
 .visual {
-  background: #13315c;
-  box-shadow: 24px 24px 0 #e7f0f6;
-  min-height: 520px;
-  padding: 42px 30px 30px;
+  background: var(--surface-dark);
+  box-shadow: 12px 12px 0 var(--blue-100);
+  min-height: 450px;
+  padding: 32px 14px 20px;
   position: relative;
 }
 .browserBar {
   align-items: center;
-  background: #edf3f7;
-  color: #71889b;
+  background: var(--blue-100);
+  color: var(--ink-500);
   display: grid;
   font-size: 0.52rem;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -114,28 +107,32 @@
   gap: 5px;
 }
 .browserBar i {
-  background: #adc0cf;
+  background: var(--fill-300);
   border-radius: 50%;
   height: 6px;
   width: 6px;
 }
+/* The address pill's wide side padding used to force the bar past its box. */
 .browserBar > span {
-  background: #fff;
-  padding: 5px 42px;
+  background: var(--surface);
+  overflow: hidden;
+  padding: 5px 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .browserBar b {
-  color: #2ba46a;
+  color: var(--status-won);
   font-size: 0.5rem;
   justify-self: end;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 .websiteCanvas {
-  background: #fff;
-  color: #07121c;
-  min-height: 360px;
+  background: var(--surface);
+  color: var(--ink-strong);
+  min-height: 330px;
   overflow: hidden;
-  padding: 20px 24px 52px;
+  padding: 16px 14px 58px;
 }
 .websiteCanvas nav {
   align-items: center;
@@ -154,7 +151,7 @@
   gap: 8px;
 }
 .websiteCanvas nav i {
-  background: #dce7ef;
+  background: var(--blue-200);
   display: block;
   height: 5px;
   width: 30px;
@@ -166,22 +163,22 @@
   width: 38px;
 }
 .pageHero {
-  background: linear-gradient(135deg, #edf5fb, #f4f0ff);
+  background: linear-gradient(135deg, var(--surface-flow), var(--blue-50));
   margin-top: 18px;
-  min-height: 215px;
-  padding: 31px;
+  min-height: 210px;
+  padding: 25px 20px;
   position: relative;
 }
 .pageHero::after {
-  background: radial-gradient(circle at 35% 35%, #7bc4ee, var(--brand-accent) 60%, #13315c);
+  background: radial-gradient(circle at 35% 35%, #7bc4ee, var(--brand-accent) 60%, var(--surface-dark));
   border-radius: 50%;
   content: "";
-  height: 155px;
-  opacity: 0.92;
+  height: 110px;
+  opacity: 0.72;
   position: absolute;
-  right: 7%;
-  top: 26px;
-  width: 155px;
+  right: -16px;
+  top: 45px;
+  width: 110px;
 }
 .pageHero small {
   color: var(--feature-accent);
@@ -193,6 +190,9 @@
 }
 .pageHero strong {
   display: block;
+  /* Deliberately off the display scale: this is mock website content inside
+     an illustration, not page typography. It should size against its own
+     container, not the viewport - revisit with container queries. */
   font-size: clamp(1.9rem, 3vw, 3rem);
   letter-spacing: -0.065em;
   line-height: 0.9;
@@ -201,8 +201,8 @@
   z-index: 1;
 }
 .pageHero > span {
-  background: #07121c;
-  color: #fff;
+  background: var(--ink-strong);
+  color: var(--text-on-dark);
   display: inline-block;
   font-size: 0.5rem;
   font-weight: 800;
@@ -213,29 +213,29 @@
 .pageCards {
   display: grid;
   gap: 9px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 12px;
 }
 .pageCards i {
-  background: #eaf1f6;
+  background: var(--blue-100);
   display: block;
   height: 42px;
 }
 .systemPanel {
-  background: #fff;
-  border: 1px solid #c5d7e4;
+  background: var(--surface);
+  border: 1px solid var(--line-200);
   bottom: 0;
   box-shadow: 0 22px 55px rgba(4, 17, 29, 0.24);
   color: #173047;
   padding: 16px 18px;
   position: absolute;
-  right: 0;
-  transform: translate(18px, 18px);
-  width: min(330px, 72%);
+  right: 8px;
+  transform: translateY(15px);
+  width: 82%;
 }
 .systemPanel header {
   align-items: center;
-  border-bottom: 1px solid #e1eaf1;
+  border-bottom: 1px solid var(--blue-200);
   display: flex;
   font-size: 0.57rem;
   font-weight: 900;
@@ -246,15 +246,15 @@
   text-transform: uppercase;
 }
 .systemPanel header b {
-  color: #2ba46a;
+  color: var(--status-won);
 }
 .systemPanel > div {
   align-items: center;
-  border-bottom: 1px solid #edf2f6;
+  border-bottom: 1px solid var(--blue-100);
   display: grid;
   font-size: 0.65rem;
   gap: 10px;
-  grid-template-columns: 25px 1fr auto;
+  grid-template-columns: 25px minmax(0, 1fr) auto;
   padding: 9px 0;
 }
 .systemPanel > div:last-child {
@@ -267,56 +267,50 @@
   font-weight: 900;
 }
 .systemPanel strong {
-  color: #2ba46a;
+  color: var(--status-won);
   font-size: 0.52rem;
   text-transform: uppercase;
 }
 
-@media (max-width: 900px) {
-  .layout {
-    grid-template-columns: minmax(0, 1fr);
+@media (min-width: 640px) {
+  .visual {
+    box-shadow: 24px 24px 0 var(--blue-100);
+    min-height: 520px;
+    padding: 42px 30px 30px;
   }
-  .copy {
-    max-width: 680px;
+  .browserBar > span {
+    padding: 5px 42px;
+  }
+  .websiteCanvas {
+    min-height: 360px;
+    padding: 20px 24px 52px;
+  }
+  .pageHero {
+    min-height: 215px;
+    padding: 31px;
+  }
+  .pageHero::after {
+    height: 155px;
+    opacity: 0.92;
+    right: 7%;
+    top: 26px;
+    width: 155px;
+  }
+  .systemPanel {
+    right: 0;
+    transform: translate(18px, 18px);
+    width: min(330px, 72%);
   }
 }
 
-@media (max-width: 620px) {
+@media (min-width: 900px) {
   .section {
-    padding: var(--section-space) 0;
+    padding: 118px 0;
   }
-  /* The address pill's wide side padding was forcing the bar past its box. */
-  .browserBar > span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .layout {
+    grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
   }
-  .visual {
-    box-shadow: 12px 12px 0 #e7f0f6;
-    min-height: 450px;
-    padding: 32px 14px 20px;
-  }
-  .browserBar > span {
-    padding: 5px 16px;
-  }
-  .websiteCanvas {
-    min-height: 330px;
-    padding: 16px 14px 58px;
-  }
-  .pageHero {
-    min-height: 210px;
-    padding: 25px 20px;
-  }
-  .pageHero::after {
-    height: 110px;
-    opacity: 0.72;
-    right: -16px;
-    top: 45px;
-    width: 110px;
-  }
-  .systemPanel {
-    right: 8px;
-    transform: translateY(15px);
-    width: 82%;
+  .copy {
+    max-width: 520px;
   }
 }

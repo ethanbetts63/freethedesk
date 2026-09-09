@@ -7,7 +7,6 @@ import type { Paginated } from "@/lib/api";
 
 export const ADMIN_PAGE_SIZE = 50;
 
-                                                                 
 export interface AdminListView {
   filters: Record<string, string>;
   search: string;
@@ -17,25 +16,16 @@ export interface AdminListView {
 }
 
 interface Options<Row> {
-                                                                                   
   fetchPage: (view: AdminListView) => Promise<Paginated<Row>>;
-                                                                             
+
   filterKeys: readonly string[];
-                                                                          
+
   sortFields: readonly string[];
-                                   
+
   loadError: string;
   pageSize?: number;
 }
 
-   
-                                                            
-  
-                                                                               
-                                                                           
-                                                                          
-                                                                     
-   
 export function useAdminList<Row>({
   fetchPage,
   filterKeys,
@@ -63,8 +53,6 @@ export function useAdminList<Row>({
 
   const search = params.get("search") ?? "";
   const [searchDraft, setSearchDraft] = useState(search);
-
-
 
   const [lastSyncedSearch, setLastSyncedSearch] = useState(search);
   if (search !== lastSyncedSearch) {

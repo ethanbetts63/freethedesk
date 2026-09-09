@@ -17,7 +17,7 @@
   background: var(--moving-colour-gradient-surface);
   background-size: var(--moving-colour-size);
   border: 0;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   display: inline-flex;
   font: inherit;

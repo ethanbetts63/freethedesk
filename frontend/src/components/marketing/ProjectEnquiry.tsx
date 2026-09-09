@@ -13,7 +13,6 @@ const PROJECT_TYPES: { code: ProjectType; name: string }[] = [
   { code: "both", name: "Both" },
 ];
 
-                                                                                  
 const BUDGETS = ["$1,000", "$3,000", "$5,000", "custom"] as const;
 type Budget = (typeof BUDGETS)[number];
 
@@ -25,7 +24,7 @@ const SUMMARY: Record<ProjectType, string> = {
 
 export function ProjectEnquiry({
   eyebrow = "Start here",
-                                                                                   
+
   id = "project-enquiry",
 }: {
   eyebrow?: string;
@@ -73,9 +72,7 @@ export function ProjectEnquiry({
         <aside className={styles.chooser}>
           <SectionNumber>{eyebrow}</SectionNumber>
           <h2>Tell us your budget.</h2>
-          <p className={styles.lead}>
-            We&apos;ll tell you what we could build for it.
-          </p>
+          <p className={styles.lead}>We&apos;ll tell you what we could build for it.</p>
 
           <div className={styles.choiceGroup}>
             <p id={`${groupId}-type`}>What do you need?</p>

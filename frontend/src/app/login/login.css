@@ -1,6 +1,5 @@
 /* Sign-in page. Pairs with admin.css, which supplies .admin-kicker,
    .admin-primary-button and .admin-form-error used here. */
-
 .login-page {
   align-items: center;
   background: var(--surface-flow);
@@ -37,7 +36,7 @@
   border: 1px solid rgba(180, 199, 213, 0.85);
   box-shadow: 0 25px 70px rgba(var(--shadow-color), 0.12);
   max-width: 450px;
-  padding: 38px;
+  padding: 28px 22px;
   position: relative;
   width: 100%;
   z-index: 1;
@@ -96,8 +95,9 @@
   font-weight: 800;
   margin-top: 25px;
 }
-@media (max-width: 620px) {
+
+@media (min-width: 640px) {
   .login-card {
-    padding: 28px 22px;
+    padding: 38px;
   }
 }

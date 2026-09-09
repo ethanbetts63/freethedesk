@@ -7,11 +7,6 @@ import { renderMarkdown } from "@/lib/markdown";
 
 import styles from "./legal.module.css";
 
-   
-                                                                         
-                                                                              
-                                                       
-   
 export async function LegalDocument({ filename }: { filename: string }) {
   const source = await readFile(path.join(process.cwd(), "content", "legal", filename), "utf8");
   const html = await renderMarkdown(source);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { getMessages, type AdminMessage } from "@/lib/adminApi";
 import type { AccountBase, StaffAccountFields } from "@/lib/api";
@@ -9,25 +9,19 @@ type StaffAccount = AccountBase & StaffAccountFields;
 
 interface Options<Account extends StaffAccount> {
   id: number;
-                                  
+
   fetch: (id: number) => Promise<Account>;
-                                                                
+
   update: (id: number, changes: Partial<Pick<Account, "status" | "staff_notes">>) => Promise<Account>;
-                                                                   
+
   messageFilter: "related_dealer" | "related_seo_subscriber";
-                                                                 
+
   replySubject: string;
-                                                                  
+
   loadError: string;
   saveError: string;
 }
 
-   
-                                                                                
-                                                                               
-                                                                               
-             
-   
 export function useAccountDetail<Account extends StaffAccount>({
   id,
   fetch,
@@ -45,9 +39,18 @@ export function useAccountDetail<Account extends StaffAccount>({
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
 
+  /* Callers build the options object inline, so `fetch` and `loadError` are new
+     values on every render. Only `id` and `messageFilter` identify the request,
+     so the rest is read through a ref - that keeps the effect from re-running
+     on each render without asking every call site to memoise its callbacks. */
+  const latest = useRef({ fetch, loadError });
+  useEffect(() => {
+    latest.current = { fetch, loadError };
+  });
+
   useEffect(() => {
     let active = true;
-    Promise.all([fetch(id), getMessages({ [messageFilter]: id, page_size: 20 })])
+    Promise.all([latest.current.fetch(id), getMessages({ [messageFilter]: id, page_size: 20 })])
       .then(([result, messagePage]) => {
         if (!active) return;
         setAccount(result);
@@ -55,7 +58,7 @@ export function useAccountDetail<Account extends StaffAccount>({
         setMessages(messagePage.results);
       })
       .catch((reason) => {
-        if (active) setError(reason instanceof Error ? reason.message : loadError);
+        if (active) setError(reason instanceof Error ? reason.message : latest.current.loadError);
       })
       .finally(() => {
         if (active) setLoading(false);
@@ -63,8 +66,7 @@ export function useAccountDetail<Account extends StaffAccount>({
     return () => {
       active = false;
     };
-
-  }, [id]);
+  }, [id, messageFilter]);
 
   const replyHref = useMemo(() => {
     if (!account) return "/dashboard/messages/compose";

@@ -4,12 +4,6 @@ import { getAllArticleMeta } from "@/lib/articles";
 import { PAGES } from "@/lib/pages";
 import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
 
-   
-                                                                            
-                                                                                
-                                                                             
-                                                    
-   
 export default function sitemap(): MetadataRoute.Sitemap {
   const builtAt = new Date();
 

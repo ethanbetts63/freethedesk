@@ -2,9 +2,9 @@
   --hero-accent: var(--brand-accent);
   --hero-accent-rgb: 36, 126, 201;
   align-items: center;
-  background: #fff;
+  background: var(--surface);
   display: flex;
-  min-height: calc(100vh - 78px);
+  min-height: calc(100svh - 68px);
   overflow: hidden;
   position: relative;
   isolation: isolate;
@@ -28,7 +28,7 @@
     linear-gradient(rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px, transparent 1px),
     linear-gradient(90deg, rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px, transparent 1px);
   background-size: var(--hero-grid-size) var(--hero-grid-size);
-  mask-image: radial-gradient(circle at 65% 50%, #000, transparent 72%);
+  mask-image: radial-gradient(circle at 65% 50%, var(--text), transparent 72%);
   pointer-events: none;
   z-index: -1;
 }
@@ -43,8 +43,8 @@
   z-index: -1;
 }
 .content {
-  padding-bottom: 100px;
-  padding-top: 100px;
+  padding-bottom: var(--space-3xl);
+  padding-top: var(--space-2xl);
   pointer-events: none;
 }
 .content a {
@@ -54,19 +54,12 @@
 .withStages {
   align-items: center;
   display: grid;
-  gap: 40px;
-  grid-template-columns: minmax(0, 1fr) 130px;
+  gap: 0;
+  grid-template-columns: minmax(0, 1fr);
 }
 .eyebrow {
-  align-items: center;
-  color: var(--hero-accent);
-  display: flex;
-  font-size: 0.69rem;
-  font-weight: 800;
-  gap: 11px;
-  letter-spacing: 0.18em;
-  margin: 0 0 26px;
-  text-transform: uppercase;
+  composes: eyebrow from global;
+  --eyebrow-accent: var(--hero-accent);
 }
 .eyebrow span {
   background: var(--hero-accent);
@@ -79,13 +72,11 @@
   width: 7px;
 }
 .copy h1 {
-  color: #000;
-  /* Lower floor so the longest word ("automation") fits a 320px screen.
-     Desktop maximum is unchanged. */
-  font-size: clamp(2.5rem, 8.3vw, 8.5rem);
+  color: var(--text);
+  font-size: var(--display-6);
   font-weight: 800;
   letter-spacing: -0.085em;
-  line-height: 0.83;
+  line-height: 0.87;
   margin: 0;
   max-width: 1000px;
   overflow-wrap: break-word;
@@ -96,16 +87,19 @@
 }
 .lead {
   color: #526d89;
-  font-size: clamp(1rem, 1.4vw, 1.22rem);
+  font-size: var(--step-1);
   line-height: 1.65;
   margin: 36px 0;
-  max-width: 570px;
+  max-width: 420px;
 }
 .actions {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: var(--space-m);
+}
+.actions > * {
+  width: 100%;
 }
 /* .primary is a .primary-button now, which brings its own box styles. */
 .secondary {
@@ -117,7 +111,7 @@
 }
 .primary {
   --pb-background: var(--hero-accent);
-  --pb-background-hover: #000;
+  --pb-background-hover: var(--text);
   --pb-font-size: 0.82rem;
   --pb-gap: 42px;
   --pb-padding: 17px 20px;
@@ -129,8 +123,9 @@
   transform: translateY(-2px);
 }
 .secondary {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid var(--text);
   gap: 14px;
+  min-height: var(--tap-min);
   padding: 7px 0;
 }
 .trustLine {
@@ -142,16 +137,19 @@
   text-transform: uppercase;
 }
 .readout {
-  align-self: end;
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.72);
   border-left: 1px solid rgba(40, 127, 194, 0.18);
-  padding-left: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-m);
+  margin-top: var(--space-2xl);
+  padding: 8px 0 8px 12px;
 }
 .readout div {
   align-items: center;
   display: grid;
-  grid-template-columns: 25px 1fr;
+  grid-template-columns: 20px minmax(0, 1fr);
   padding: 8px 0;
 }
 .readout span {
@@ -160,56 +158,51 @@
   font-weight: 900;
 }
 .readout p {
-  color: #607a94;
+  color: var(--ink-510);
   font-size: 0.57rem;
   letter-spacing: 0.1em;
   margin: 0;
   text-transform: uppercase;
 }
 
-@media (max-width: 900px) {
-  .hero {
-    min-height: calc(100svh - 68px);
+@media (min-width: 640px) {
+  .actions {
+    gap: 30px;
   }
-  .content {
-    padding-bottom: var(--space-3xl);
-    padding-top: var(--space-2xl);
+  .actions > * {
+    width: auto;
   }
-  /* minmax(0, …) is required: a bare 1fr resolves to minmax(auto, 1fr),
-     whose auto floor is the heading's min-content width, which pushed the
-     column past the container and got clipped by .hero's overflow: hidden. */
-  .withStages {
-    gap: 0;
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .copy h1 {
-    line-height: 0.87;
-  }
-  .lead {
-    max-width: 420px;
-  }
-  .readout {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-m);
-    margin-top: var(--space-2xl);
-    padding: 8px 0 8px 12px;
-  }
-  .readout div {
-    grid-template-columns: 20px 1fr;
+  .secondary {
+    min-height: 0;
   }
 }
 
-@media (max-width: 620px) {
-  .actions {
-    gap: var(--space-m);
+@media (min-width: 900px) {
+  .hero {
+    min-height: calc(100vh - 78px);
   }
-  /* Full-bleed primary action - the 30px flex gap left it stranded mid-row. */
-  .actions > * {
-    width: 100%;
+  .content {
+    padding-bottom: 100px;
+    padding-top: 100px;
   }
-  .secondary {
-    justify-content: space-between;
-    min-height: var(--tap-min);
+  .withStages {
+    gap: 40px;
+    grid-template-columns: minmax(0, 1fr) 130px;
+  }
+  .copy h1 {
+    line-height: 0.83;
+  }
+  .lead {
+    max-width: 570px;
+  }
+  .readout {
+    align-self: end;
+    display: block;
+    gap: 0;
+    margin-top: 0;
+    padding: 0 0 0 18px;
+  }
+  .readout div {
+    grid-template-columns: 25px minmax(0, 1fr);
   }
 }

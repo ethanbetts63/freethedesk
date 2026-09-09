@@ -13,7 +13,6 @@ const labels: Record<string, string> = {
   denied: "Denied",
 };
 
-                                                                                                
 export function statusLabel(status: string): string {
   return labels[status] ?? status[0].toUpperCase() + status.slice(1);
 }

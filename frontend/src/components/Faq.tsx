@@ -3,7 +3,6 @@ import styles from "./Faq.module.css";
 
 export type FaqItem = { question: string; answer: string };
 
-                                                                                                                            
 export function Faq({ eyebrow, title, items, id }: { eyebrow: string; title: string; items: FaqItem[]; id?: string }) {
   const schema = {
     "@context": "https://schema.org",

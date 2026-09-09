@@ -4,9 +4,8 @@
   box-shadow: 0 12px 28px rgba(var(--shadow-color), 0.1);
   color: var(--text);
   flex: 0 0 auto;
-  width: 190px;
+  width: 168px;
 }
-
 .redirectBar {
   align-items: center;
   background: var(--surface-tint);
@@ -16,14 +15,12 @@
   min-height: 24px;
   padding: 0 8px;
 }
-
 .redirectBar > i {
   background: var(--cool-300);
   border-radius: 50%;
   height: 4px;
   width: 4px;
 }
-
 .redirectBar > span {
   color: var(--text-subtle);
   font-size: 0.46rem;
@@ -32,15 +29,15 @@
   margin-left: auto;
   text-transform: uppercase;
 }
-
 .redirectRoute {
   align-items: center;
   display: grid;
-  gap: 7px;
+  gap: 5px;
   grid-template-columns: minmax(0, 1fr) auto auto minmax(0, 1fr);
   padding: 17px 11px 12px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
-
 .redirectRoute > span:not(.routeArrow) {
   border: 1px solid var(--border);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
@@ -50,7 +47,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 .oldUrl {
   color: var(--text-subtle);
   text-decoration: line-through;
@@ -71,7 +67,6 @@
   font-size: 0.72rem;
   font-weight: 900;
 }
-
 .redirectStatus {
   align-items: center;
   border-top: 1px solid var(--border);
@@ -82,7 +77,6 @@
   gap: 6px;
   padding: 8px 11px;
 }
-
 .redirectStatus i {
   background: #34a853;
   border-radius: 50%;
@@ -90,40 +84,27 @@
   height: 5px;
   width: 5px;
 }
-
-@media (max-width: 520px) {
-  .redirectVisual {
-    width: 168px;
-  }
-  .redirectRoute {
-    gap: 5px;
-    padding-left: 8px;
-    padding-right: 8px;
-  }
-}
-
 .aiReadinessVisual {
   background: var(--surface-dark);
   border: 1px solid var(--border-on-dark);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  width: 190px;
+  width: 168px;
 }
-
 .aiReadinessVisual > div {
   display: grid;
   gap: 4px;
-  grid-template-columns: 7px 1fr;
+  grid-template-columns: 7px minmax(0, 1fr);
   padding: 11px 9px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
-
 .aiReadinessVisual > div:nth-child(even) {
   border-left: 1px solid var(--border-on-dark);
 }
 .aiReadinessVisual > div:nth-child(n + 3) {
   border-top: 1px solid var(--border-on-dark);
 }
-
 .aiReadinessVisual i {
   background: #34a853;
   border-radius: 50%;
@@ -132,14 +113,12 @@
   margin-top: 2px;
   width: 6px;
 }
-
 .aiReadinessVisual span {
   color: var(--text-on-dark);
   font-size: 0.5rem;
   font-weight: 800;
   white-space: nowrap;
 }
-
 .aiReadinessVisual b {
   color: var(--accent);
   font-size: 0.43rem;
@@ -149,12 +128,20 @@
   text-transform: uppercase;
 }
 
-@media (max-width: 520px) {
+@media (min-width: 640px) {
+  .redirectVisual {
+    width: 190px;
+  }
+  .redirectRoute {
+    gap: 7px;
+    padding-left: 11px;
+    padding-right: 11px;
+  }
   .aiReadinessVisual {
-    width: 168px;
+    width: 190px;
   }
   .aiReadinessVisual > div {
-    padding-left: 7px;
-    padding-right: 7px;
+    padding-left: 9px;
+    padding-right: 9px;
   }
 }

@@ -1,13 +1,12 @@
 .page {
-                                                        
   --page-accent: var(--brand-accent);
-  background: #fff;
-  color: #07121c;
+  background: var(--surface);
+  color: var(--ink-strong);
 }
 .enquirySection {
   padding-bottom: 20px;
-  padding-top: 70px;
-  scroll-margin-top: 24px;
+  padding-top: 50px;
+  scroll-margin-top: 28px;
 }
 .systemCopy h2,
 .closing h2 {
@@ -17,19 +16,19 @@
   margin: 0;
 }
 .systemCopy > p:not(:global(.section-number)) {
-  color: #536c80;
+  color: var(--cool-600);
   font-size: 0.98rem;
   line-height: 1.78;
   margin: 24px 0 18px;
 }
-
 .servicesSection {
-  background: #f2f7fb;
+  background: var(--surface-flow);
   padding: var(--section-space) 0;
+  padding-bottom: var(--section-space);
+  padding-top: var(--section-space);
 }
-                                                                          
 .seoSection {
-  background: #f2f7fb;
+  background: var(--surface-flow);
   margin-bottom: var(--section-space);
   margin-top: var(--section-space);
   padding-bottom: var(--section-space);
@@ -66,24 +65,22 @@
   align-items: center;
   display: grid;
   gap: clamp(65px, 10vw, 145px);
-  grid-template-columns: 1.08fr 0.92fr;
+  grid-template-columns: minmax(0, 1fr);
   padding-bottom: var(--section-space);
   padding-top: var(--section-space);
 }
 .systemVisual {
-  /* Same moving-colour border as the SEO "How a report gets made" card, with the
-     dark fill painted into the padding box so the gradient only shows as an edge. */
   animation: moving-colour-border-shift 6s linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(#13315c, #13315c), var(--moving-colour-gradient-surface);
+  background-image: linear-gradient(var(--surface-dark), var(--surface-dark)), var(--moving-colour-gradient-surface);
   background-origin: border-box;
   background-size:
     100% 100%,
     var(--moving-colour-size);
   border: 2px solid transparent;
   box-shadow: 22px 22px 0 #e2edf4;
-  color: #fff;
-  min-height: 515px;
+  color: var(--text-on-dark);
+  min-height: 440px;
   overflow: hidden;
   position: relative;
 }
@@ -98,8 +95,8 @@
 }
 .browser {
   align-items: center;
-  background: #fff;
-  color: #60778b;
+  background: var(--surface);
+  color: var(--ink-510);
   display: flex;
   font-size: 0.62rem;
   gap: 6px;
@@ -108,13 +105,13 @@
   position: relative;
 }
 .browser i {
-  background: #b8cbd9;
+  background: var(--ink-200);
   border-radius: 50%;
   height: 6px;
   width: 6px;
 }
 .browser span {
-  background: #edf3f7;
+  background: var(--blue-100);
   margin-left: 9px;
   padding: 6px 13px;
   width: 60%;
@@ -132,13 +129,12 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   display: grid;
   gap: 4px 13px;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   margin-bottom: 18px;
   padding: 0 4px 14px;
 }
 .funnelStart span,
 .funnelResult span {
-  color: #70bced;
   font-size: 0.55rem;
   font-weight: 900;
   letter-spacing: 0.13em;
@@ -149,7 +145,7 @@
   letter-spacing: -0.01em;
 }
 .funnelStart small {
-  color: #a8c0d3;
+  color: var(--fill-300);
   font-size: 0.6rem;
 }
 .funnelSteps {
@@ -167,7 +163,7 @@
   border: 1px solid rgba(255, 255, 255, 0.17);
   display: grid;
   gap: 2px 12px;
-  grid-template-columns: 27px 1fr;
+  grid-template-columns: 27px minmax(0, 1fr);
   padding: 11px 16px;
   position: relative;
 }
@@ -184,7 +180,7 @@
 .funnelSteps li > span {
   align-items: center;
   background: rgba(112, 188, 237, 0.14);
-  color: #70bced;
+  color: var(--accent-on-dark);
   display: flex;
   font-size: 0.55rem;
   font-weight: 900;
@@ -197,7 +193,7 @@
   font-size: 0.72rem;
 }
 .funnelSteps small {
-  color: #a8c0d3;
+  color: var(--fill-300);
   font-size: 0.57rem;
 }
 /* End of the funnel: the payoff step is the only filled moving-colour surface in
@@ -209,10 +205,10 @@
   background-image: var(--moving-colour-gradient-surface);
   background-size: var(--moving-colour-size);
   box-shadow: 0 12px 28px rgba(6, 22, 40, 0.34);
-  color: #fff;
+  color: var(--text-on-dark);
   display: grid;
   gap: 3px 12px;
-  grid-template-columns: auto auto 1fr;
+  grid-template-columns: auto auto minmax(0, 1fr);
   margin-top: 10px;
   min-width: min(235px, 100%);
   padding: 13px 16px;
@@ -224,7 +220,7 @@
   background: rgba(255, 255, 255, 0.22);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 50%;
-  color: #fff;
+  color: var(--text-on-dark);
   display: flex;
   font-size: 0.6rem;
   grid-row: 1 / 3;
@@ -235,6 +231,10 @@
 }
 .funnelResult span {
   color: rgba(255, 255, 255, 0.86);
+  font-size: 0.55rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
   grid-row: 1 / 3;
 }
 .funnelResult strong {
@@ -282,7 +282,7 @@
   align-items: center;
   display: grid;
   gap: clamp(55px, 8vw, 120px);
-  grid-template-columns: 0.75fr 1.25fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 .casePhone {
   position: relative;
@@ -296,15 +296,15 @@
   backdrop-filter: blur(9px);
   background: rgba(7, 18, 28, 0.88);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  bottom: 52px;
+  bottom: 34px;
   box-shadow: 0 26px 60px rgba(0, 0, 0, 0.5);
-  left: 112px;
-  padding: 17px 24px 19px;
+  left: 70px;
+  padding: 14px 18px 16px;
   position: absolute;
   z-index: 2;
 }
 .caseStatOverlay small {
-  color: #70bced;
+  color: var(--accent-on-dark);
   display: block;
   font-size: 0.6rem;
   font-weight: 900;
@@ -314,14 +314,14 @@
 }
 .caseStatOverlay strong {
   display: block;
-  font-size: 3.1rem;
+  font-size: 2.5rem;
   font-weight: 850;
   letter-spacing: -0.06em;
   line-height: 1;
   margin: 9px 0 3px;
 }
 .caseStatOverlay > span {
-  color: #b9ccdc;
+  color: var(--ink-200);
   font-size: 0.82rem;
   white-space: nowrap;
 }
@@ -331,7 +331,7 @@
   margin: 0 0 20px;
 }
 .caseCopy > p:not(:global(.section-number)) {
-  color: #b9ccdc;
+  color: var(--ink-200);
   font-size: 0.97rem;
   line-height: 1.76;
   margin: 0 0 16px;
@@ -345,7 +345,7 @@
 }
 .casePoints span {
   border: 1px solid rgba(255, 255, 255, 0.22);
-  color: #dbe7f1;
+  color: var(--blue-200);
   font-size: 0.72rem;
   font-weight: 700;
   padding: 7px 13px;
@@ -358,7 +358,7 @@
 }
 /* The primary is a .primary-button, so these only style the plain link beside it. */
 .caseActions a:not(.casePrimary) {
-  color: #fff;
+  color: var(--text-on-dark);
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.04em;
@@ -377,14 +377,14 @@
   --pb-padding: 15px 18px;
 }
 .closing {
-  background: #f2f7fb;
+  background: var(--surface-flow);
   margin-bottom: var(--section-space);
   margin-top: var(--section-space);
-  padding: 82px;
+  padding: 65px 22px;
   text-align: center;
 }
 .closing > p:not(:global(.section-number)) {
-  color: #587086;
+  color: var(--ink-600);
   font-size: 0.96rem;
   line-height: 1.7;
   margin: 27px auto 31px;
@@ -396,17 +396,10 @@
   --pb-padding: 17px 20px;
 }
 
-@media (max-width: 900px) {
-  .systemSection,
-  .caseInner {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 620px) {
+@media (min-width: 640px) {
   .enquirySection {
-    padding-top: 50px;
-    scroll-margin-top: 28px;
+    padding-top: 70px;
+    scroll-margin-top: 24px;
   }
   .systemSection {
     padding-bottom: var(--section-space);
@@ -421,20 +414,29 @@
     padding-top: var(--section-space);
   }
   .systemVisual {
-    min-height: 440px;
+    min-height: 515px;
   }
   .caseSection {
     padding: var(--section-space) 0;
   }
   .caseStatOverlay {
-    bottom: 34px;
-    left: 70px;
-    padding: 14px 18px 16px;
+    bottom: 52px;
+    left: 112px;
+    padding: 17px 24px 19px;
   }
   .caseStatOverlay strong {
-    font-size: 2.5rem;
+    font-size: 3.1rem;
   }
   .closing {
-    padding: 65px 22px;
+    padding: 82px;
+  }
+}
+
+@media (min-width: 900px) {
+  .systemSection {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  }
+  .caseInner {
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
   }
 }

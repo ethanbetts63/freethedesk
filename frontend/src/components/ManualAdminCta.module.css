@@ -1,5 +1,5 @@
 .closing {
-  background: #f2f7fb;
+  background: var(--surface-flow);
   margin-bottom: var(--section-space);
   margin-top: var(--section-space);
   padding: 82px;
@@ -14,12 +14,12 @@
   text-transform: uppercase;
 }
 .closing h2 {
-  font-size: clamp(2.4rem, 4.6vw, 3.6rem);
+  font-size: var(--display-1);
   letter-spacing: -0.05em;
   margin: 0;
 }
 .closing > p:not(.label) {
-  color: #587086;
+  color: var(--ink-600);
   font-size: 0.96rem;
   line-height: 1.7;
   margin: 27px auto 31px;
@@ -32,8 +32,8 @@
   --pb-padding: 17px 20px;
 }
 
-@media (max-width: 620px) {
+@media (min-width: 640px) {
   .closing {
-    padding: 65px 22px;
+    padding: var(--space-3xl) var(--space-xl);
   }
 }

@@ -21,7 +21,6 @@ function ComposeMessageContent() {
   async function submit(event: FormEvent) {
     event.preventDefault();
 
-
     if (!confirming) {
       setConfirming(true);
       return;
