@@ -4,13 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { FOOTER_NAVIGATION, PORTFOLIO_NAVIGATION } from "@/lib/siteConfig";
-import { SignalFlow } from "@/components/visuals/SignalFlow";
+import { DeferredSignalFlow } from "@/components/visuals/DeferredSignalFlow";
 
 export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="footer-signal-flow">
-        <SignalFlow smooth />
+        <DeferredSignalFlow smooth />
       </div>
       <div className="shell footer-grid">
         <div>

@@ -4,6 +4,8 @@ import { Analytics } from "@vercel/analytics/next";
 
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { SiteChrome } from "@/components/SiteChrome";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
 import { AuthProvider } from "@/context/AuthContext";
 import { buildOrganizationSchema, buildWebsiteSchema } from "@/lib/seo";
 import { METADATA_BASE_URL } from "@/lib/siteConfig";
@@ -41,7 +43,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         />
         <ScrollToTop />
         <AuthProvider>
-          <SiteChrome>{children}</SiteChrome>
+          {/* Chrome is passed in already rendered, so its markup stays on the
+              server and SiteChrome only decides which routes show it. */}
+          <SiteChrome header={<SiteHeader />} footer={<SiteFooter />}>
+            {children}
+          </SiteChrome>
         </AuthProvider>
         <Analytics />
         {CLARITY_PROJECT_ID && (

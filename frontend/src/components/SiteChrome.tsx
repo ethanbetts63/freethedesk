@@ -1,11 +1,23 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { AiReadinessModal } from "@/components/marketing/AiReadinessModal";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
 
-export function SiteChrome({ children }: { children: React.ReactNode }) {
+import { AiReadinessModal } from "@/components/marketing/AiReadinessModal";
+
+/**
+ * Picks which chrome a route gets. Header and footer arrive as already-rendered
+ * server elements rather than imports, so their markup never reaches the client
+ * bundle - this component only chooses whether to place them.
+ */
+export function SiteChrome({
+  header,
+  footer,
+  children,
+}: {
+  header: React.ReactNode;
+  footer: React.ReactNode;
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
   const standalone = pathname === "/login" || pathname.startsWith("/licensing/payment");
   const applicationArea =
@@ -16,9 +28,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
     pathname === "/dealership-website-builder";
   return (
     <>
-      {!standalone && <SiteHeader />}
+      {!standalone && header}
       {children}
-      {!standalone && <SiteFooter />}
+      {!standalone && footer}
       {!standalone && !applicationArea && <AiReadinessModal />}
     </>
   );

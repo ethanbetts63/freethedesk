@@ -1,19 +1,23 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-
-import { AiReadinessBanner } from "./AiReadinessBanner";
-import styles from "./AiReadinessBanner.module.css";
+import dynamic from "next/dynamic";
+import { useCallback, useEffect, useState } from "react";
 
 const MOBILE_QUERY = "(max-width: 639px)";
 const PROMPT_DELAY = 60_000;
 const PROMPT_STARTED_KEY = "freethedesk-ai-readiness-started";
 const PROMPT_SHOWN_KEY = "freethedesk-ai-readiness-shown";
 
+/* The prompt only ever opens on a narrow viewport, a minute in. Fetching it on
+   demand keeps the dialog, the banner and its form out of the initial download
+   on every page - and off desktop entirely, where the timer never fires. */
+const AiReadinessDialog = dynamic(() => import("./AiReadinessDialog").then((m) => m.AiReadinessDialog), {
+  ssr: false,
+});
+
 export function AiReadinessModal() {
   const [open, setOpen] = useState(false);
-  const closeRef = useRef<HTMLButtonElement>(null);
+  const close = useCallback(() => setOpen(false), []);
 
   useEffect(() => {
     const media = window.matchMedia(MOBILE_QUERY);
@@ -50,39 +54,5 @@ export function AiReadinessModal() {
     };
   }, []);
 
-  useEffect(() => {
-    if (!open) return;
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
-
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-    window.addEventListener("keydown", closeOnEscape);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [open]);
-
-  if (!open) return null;
-
-  return createPortal(
-    <div
-      className={styles.modalBackdrop}
-      onMouseDown={(event) => event.target === event.currentTarget && setOpen(false)}
-    >
-      <div className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="ai-readiness-modal-title">
-        <button ref={closeRef} className={styles.modalClose} type="button" onClick={() => setOpen(false)}>
-          <span aria-hidden="true">×</span>
-          <span className={styles.visuallyHidden}>Close</span>
-        </button>
-        <AiReadinessBanner className={styles.modalBanner} titleId="ai-readiness-modal-title" />
-      </div>
-    </div>,
-    document.body,
-  );
+  return open ? <AiReadinessDialog onClose={close} /> : null;
 }

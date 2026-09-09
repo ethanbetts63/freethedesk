@@ -1,132 +1,24 @@
-"use client";
-
-import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 
-import { PrimaryButton } from "@/components/PrimaryButton";
 import { SectionNumber } from "@/components/SectionNumber";
-import formStyles from "@/components/forms/SelectionForm.module.css";
-import { DEALER_STATES } from "@/lib/dealerStates";
-import { planByCode } from "@/lib/plans";
-import { useSignup } from "@/lib/useSignup";
-import { buildDealerPlans, type DealerPlanCode, type LicensingPrices } from "../_lib/plans";
+import type { LicensingPrices } from "../_lib/plans";
+import { SignupPlansPanel } from "./SignupPlansPanel";
 import styles from "../page.module.css";
 
+/* Server shell: only the plan chooser and the form need to hydrate, so the
+   section, its heading and the closing note render here. */
 export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; eyebrow: string }) {
-  const plans = useMemo(() => buildDealerPlans(settings), [settings]);
-  const [selectedCode, setSelectedCode] = useState<DealerPlanCode>("complete");
-  const { submit, status, error } = useSignup({ endpoint: "/api/dealers/signup/", nextHref: "/licensing/payment" });
-
-  const selected = planByCode(plans, selectedCode) ?? plans[0];
-
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => submit(event, { plan: selectedCode });
-
   return (
     <section className={`shell ${styles.signupSection}`} id="signup">
-      <div className={`${formStyles.panel} ${styles.signupPanel}`}>
-        <aside className={`${formStyles.chooser} ${styles.selectionPanel}`}>
-          <SectionNumber>{eyebrow}</SectionNumber>
-          <h2>Choose what you need.</h2>
-
-          <div className={formStyles.choiceGroup}>
-            <p>What do you need?</p>
-            <div
-              className={`${formStyles.choiceGrid} ${styles.planTypeGrid}`}
-              role="radiogroup"
-              aria-label="Subscription plan"
-            >
-              {plans.map((plan) => (
-                <label
-                  className={`${selectedCode === plan.code ? formStyles.choiceSelected : ""} ${
-                    plan.recommended ? formStyles.choiceRecommended : ""
-                  }`}
-                  key={plan.code}
-                >
-                  <input
-                    className={formStyles.choiceInput}
-                    type="radio"
-                    name="dealer-plan"
-                    value={plan.code}
-                    checked={selectedCode === plan.code}
-                    onChange={() => setSelectedCode(plan.code)}
-                  />
-                  <span>{plan.name}</span>
-                  {plan.recommended && <small className="moving-colour-text">Recommended</small>}
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <ul className={styles.selectionFeatures}>
-            {selected.features.map((feature) => (
-              <li key={feature}>{feature}</li>
-            ))}
-          </ul>
-
-          <div className={formStyles.total} aria-live="polite">
-            <div>
-              <strong className="moving-colour-text">{selected.price}</strong>
-              <small>{selected.cadence}</small>
-            </div>
-            <span>{selected.summary}</span>
-          </div>
-        </aside>
-
-        <form className={`${formStyles.form} ${styles.signupForm}`} onSubmit={onSubmit}>
-          <div className={`${formStyles.formTitle} ${styles.formTitle}`}>
-            <h3>Create your account.</h3>
-            <span className={formStyles.pill}>No card required yet</span>
-          </div>
-          <div className={formStyles.fieldRow}>
-            <label>
-              <span>Email</span>
-              <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
-            </label>
-            <label>
-              <span>Phone</span>
-              <input name="phone" type="tel" placeholder="e.g. 0400 000 000" autoComplete="tel" />
-            </label>
-          </div>
-          <div className={formStyles.fieldRow}>
-            <label>
-              <span>Password</span>
-              <input
-                name="password"
-                type="password"
-                placeholder="At least 8 characters"
-                autoComplete="new-password"
-                minLength={8}
-                required
-              />
-            </label>
-            <label>
-              <span>State or territory</span>
-              <select name="state" defaultValue="WA" required>
-                {DEALER_STATES.map((state) => (
-                  <option key={state} value={state}>
-                    {state}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          {error && (
-            <p className={formStyles.error} role="alert">
-              {error}
-            </p>
-          )}
-          <PrimaryButton
-            type="submit"
-            className={formStyles.submit}
-            direction="right"
-            size="large"
-            fullWidth
-            disabled={status === "submitting"}
-          >
-            {status === "submitting" ? "Creating your account…" : "Payment"}
-          </PrimaryButton>
-        </form>
-      </div>
+      <SignupPlansPanel
+        settings={settings}
+        heading={
+          <>
+            <SectionNumber>{eyebrow}</SectionNumber>
+            <h2>Choose what you need.</h2>
+          </>
+        }
+      />
 
       <p className={styles.customBuildNote}>
         Want this built into a custom dealership website instead?{" "}

@@ -249,7 +249,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
                   className="form-control"
                   value={customRequest}
                   onChange={(event) => onCustomRequestChange(event.target.value)}
-                  placeholder="For example: connect to our existing workshop system, show stock shared across two locations, or build a trade-in valuation flow..."
+                  placeholder="e.g. Connect stock, bookings or trade-ins to our existing systems."
                   rows={5}
                 />
                 <small>It can be rough—we’ll help turn the idea into a clear scope.</small>

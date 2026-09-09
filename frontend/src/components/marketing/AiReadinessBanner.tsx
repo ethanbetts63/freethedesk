@@ -1,10 +1,10 @@
-"use client";
-
-import { MovingColourButton } from "@/components/MovingColourButton";
-import { normaliseWebsiteUrl, submitAiReadinessCheck } from "@/lib/api";
+import { AiReadinessForm } from "./AiReadinessForm";
 import styles from "./AiReadinessBanner.module.css";
-import { useEnquiryForm } from "@/lib/useEnquiryForm";
 
+/* Deliberately has no "use client": rendered from a server page it stays on the
+   server, and only AiReadinessForm ships. The mobile dialog pulls it into the
+   client bundle instead, which is why the markup lives here rather than in a
+   server-only component the dialog could not import. */
 export function AiReadinessBanner({
   className = "",
   titleId = "ai-readiness-banner-title",
@@ -12,15 +12,6 @@ export function AiReadinessBanner({
   className?: string;
   titleId?: string;
 }) {
-  const { status, error, submit } = useEnquiryForm(
-    (value) =>
-      submitAiReadinessCheck({
-        website: normaliseWebsiteUrl(value("website")),
-        email: value("email"),
-      }),
-    "We could not start the check. Please try again.",
-  );
-
   return (
     <section className={`${styles.banner} ${className}`} aria-labelledby={titleId}>
       <div className={`shell ${styles.inner}`}>
@@ -29,46 +20,7 @@ export function AiReadinessBanner({
             Can AI systems <span className="moving-colour-text">read your site?</span>
           </h2>
         </div>
-
-        {status === "success" ? (
-          <p className={styles.success} role="status">
-            <span aria-hidden="true">✓</span>
-            Your free check is in the queue — we&apos;ll email you the result.
-          </p>
-        ) : (
-          <form className={styles.form} onSubmit={submit}>
-            <label>
-              <span>Website</span>
-              {/* Not type="url": it rejects a scheme-less host before submit() adds one. */}
-              <input
-                name="website"
-                type="text"
-                inputMode="url"
-                placeholder="e.g. www.yoursite.com"
-                autoComplete="url"
-                required
-              />
-            </label>
-            <label>
-              <span>Email</span>
-              <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
-            </label>
-            <MovingColourButton
-              type="submit"
-              className={styles.submit}
-              direction="right"
-              size="compact"
-              disabled={status === "submitting"}
-            >
-              {status === "submitting" ? "Starting…" : "Run free check"}
-            </MovingColourButton>
-            {error && (
-              <p className={styles.error} role="alert">
-                {error}
-              </p>
-            )}
-          </form>
-        )}
+        <AiReadinessForm />
       </div>
     </section>
   );

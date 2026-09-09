@@ -1,17 +1,17 @@
-"use client";
-
 import Image from "next/image";
 
-import { SignalFlow } from "@/components/visuals/SignalFlow";
+import { DeferredSignalFlow } from "@/components/visuals/DeferredSignalFlow";
 import styles from "../page.module.css";
 
+/* No "use client": SignalFlow carries its own boundary, so the phone markup
+   around it renders on the server. */
 export function LoginPreviewPhone() {
   return (
     <div className={styles.phoneMock} aria-hidden="true">
       <div className={styles.phoneMockNotch} />
       <div className={styles.phoneMockScreen}>
         <div className={styles.loginPhoneNetwork}>
-          <SignalFlow />
+          <DeferredSignalFlow />
         </div>
         <div className={styles.loginPhoneGrid} />
         <div className={styles.loginPhoneCard}>

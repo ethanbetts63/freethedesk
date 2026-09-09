@@ -377,10 +377,22 @@
   width: 100%;
 }
 .customRequestPanel label {
+  color: var(--text-control);
+  font-size: 0.69rem;
+  font-weight: var(--weight-control);
+  letter-spacing: 0;
   margin-bottom: 10px;
+  text-transform: none;
 }
 .customRequestPanel textarea {
+  font-size: 1rem;
+  line-height: 1.5;
   min-height: 112px;
+  padding: 13px 14px;
+}
+.customRequestPanel textarea::placeholder {
+  color: var(--text-on-dark-subtle);
+  font-size: var(--text-small);
 }
 .customRequestPanel > small {
   color: var(--slate-500);

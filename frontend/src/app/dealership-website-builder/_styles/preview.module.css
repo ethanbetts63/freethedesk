@@ -578,8 +578,14 @@
 }
 .demoMapPin {
   fill: var(--preview-accent);
+  height: 44px;
+  left: 58.75%;
+  position: absolute;
   stroke: var(--surface);
   stroke-width: 3;
+  top: 41.666%;
+  transform: translateX(-50%);
+  width: 32px;
 }
 .demoMapAction {
   background: var(--surface);
