@@ -74,10 +74,9 @@ export function FlagshipCheckout() {
             dealership.
           </p>
           <ul>
-            <li>Sales contracts</li>
-            <li>Licensing documents</li>
+            <li>Licensing & sales documents</li>
             <li>Identity verification</li>
-            <li>Optional payment and delivery handling</li>
+            <li>Optional payment & delivery handling</li>
           </ul>
           <PrimaryButton className={styles.copyCta} href="/licensing">
             Explore online licensing

@@ -45,7 +45,7 @@
   margin-top: 42px;
 }
 .login-card h1 {
-  font-size: 2.6rem;
+  font-size: var(--step-3);
   letter-spacing: -0.06em;
   margin: 0;
 }

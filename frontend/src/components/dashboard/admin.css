@@ -33,7 +33,7 @@
 }
 .admin-page-header h1,
 .admin-compose-card h1 {
-  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-size: var(--display-2);
   letter-spacing: -0.06em;
   line-height: 1;
   margin: 0;
@@ -353,10 +353,10 @@
   cursor: default;
   opacity: 0.45;
 }
-.admin-empty {
-  color: var(--text-subtle) !important;
+.admin-table td.admin-empty {
+  color: var(--text-subtle);
   height: 180px;
-  text-align: center !important;
+  text-align: center;
 }
 .admin-banner {
   border-radius: 6px;

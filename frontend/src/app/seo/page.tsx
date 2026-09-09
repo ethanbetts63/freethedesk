@@ -22,7 +22,7 @@ import { SeoSignup } from "./_components/SeoSignup";
 import { seoServices } from "./_components/seoServices";
 import styles from "./page.module.css";
 
-/* Section eyebrows, in the order they appear on the page. */
+/* Section eyebrows in page order. */
 const sections = numberSections([
   "What you're buying",
   "Proof this works",

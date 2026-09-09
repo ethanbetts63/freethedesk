@@ -82,7 +82,7 @@
     transform 0.2s;
 }
 .copyCta:hover {
-  color: var(--ink-strong);
+  color: var(--slate-950);
   transform: translateY(-2px);
 }
 /* Same card treatment as the Stripe verification panel: moving-colour border,
@@ -97,7 +97,7 @@
     var(--moving-colour-size);
   border: 2px solid transparent;
   box-shadow: 12px 12px 0 color-mix(in srgb, var(--accent-on-dark) 7%, transparent);
-  color: var(--ink-navy);
+  color: var(--slate-900);
   grid-row: 2;
   padding: 20px 14px;
   position: relative;
@@ -127,8 +127,8 @@
   padding-bottom: 17px;
   text-transform: uppercase;
 }
-/* background-clip: text paints the gradient into the label's glyphs only; the
-   status dot is a child element with its own background, so it is unaffected. */
+/* background-clip: text paints the gradient into the glyphs only; the status dot
+   is a child with its own background, so it is unaffected. */
 .visual > header b {
   align-items: center;
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
@@ -151,7 +151,7 @@
 .event {
   background: var(--surface-flow);
   border: 1px solid var(--slate-100);
-  color: var(--ink-navy);
+  color: var(--slate-900);
   margin: 25px auto 0;
   padding: 18px 20px;
   width: 92%;
@@ -277,7 +277,7 @@
 
 @media (min-width: 640px) {
   .visual {
-    box-shadow: 24px 24px 0 color-mix(in srgb, var(--ink-strong) 14%, transparent);
+    box-shadow: 24px 24px 0 color-mix(in srgb, var(--slate-950) 14%, transparent);
     padding: 26px;
   }
   .event {
@@ -316,5 +316,12 @@
   }
   .copy {
     max-width: 520px;
+  }
+}
+
+@media (min-width: 640px) {
+  .copy h2 {
+    /* Breaking mid-word is a small-screen last resort only. */
+    overflow-wrap: normal;
   }
 }

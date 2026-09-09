@@ -7,7 +7,7 @@
   max-width: 860px;
 }
 .heading h2 {
-  font-size: clamp(2.4rem, 4.3vw, 4rem);
+  font-size: var(--display-3);
   letter-spacing: -0.055em;
   line-height: 0.98;
   margin: 0;

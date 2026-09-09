@@ -7,10 +7,8 @@ import { InventoryPage } from "./previews/InventoryPage";
 import { VehicleDetailsPage } from "./previews/VehicleDetailsPage";
 import type { InventoryVehicle } from "./previews/data";
 
-/* Inventory and the vehicle detail page are the path into the demo, so they
-   ship with the configurator. The rest are only reachable by clicking through
-   the simulated navigation, so they load on demand instead of sitting in the
-   initial bundle. */
+/* Only inventory and vehicle detail are on the initial path; the rest load on
+   demand when the simulated nav reaches them. */
 const AccessoriesPage = dynamic(() => import("./previews/AccessoriesPage").then((m) => m.AccessoriesPage));
 const ArticlesPage = dynamic(() => import("./previews/ArticlesPage").then((m) => m.ArticlesPage));
 const ContactPage = dynamic(() => import("./previews/ContactPage").then((m) => m.ContactPage));

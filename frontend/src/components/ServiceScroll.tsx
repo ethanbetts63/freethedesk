@@ -35,7 +35,7 @@ export function ServiceScroll({
   ctaLabel?: string;
   showCustomService?: boolean;
 }) {
-  // The list sits above the page's form, so an on-page target is below it.
+  // The form is below this list, so in-page links scroll down.
   const ctaDirection = customHref.startsWith("#") ? "down" : "page";
 
   return (

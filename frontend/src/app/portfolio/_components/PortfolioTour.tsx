@@ -23,7 +23,7 @@ type PortfolioTourProps = {
   items: readonly PortfolioTourItem[];
 };
 
-/** Vertical tablist: Up/Down move between tabs, Home/End jump to the ends. */
+/** Arrow-key step offsets for the vertical tablist. */
 const KEY_OFFSETS: Record<string, number> = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
 
 export function PortfolioTour({ label, browserUrl, items }: PortfolioTourProps) {

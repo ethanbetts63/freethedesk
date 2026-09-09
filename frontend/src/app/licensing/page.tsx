@@ -37,7 +37,7 @@ const licensingStats: ProofStat[] = [
   },
 ];
 
-/* Section eyebrows, in the order they appear on the page. */
+/* Section eyebrows in page order. */
 const sections = numberSections([
   "A shorter path to sold",
   "Two ways to use it",

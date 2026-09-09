@@ -1,7 +1,7 @@
 .page {
   --page-accent: var(--brand-accent);
   background: var(--surface);
-  color: var(--ink-strong);
+  color: var(--slate-950);
 }
 .reportDescription {
   display: flex;
@@ -24,7 +24,7 @@
   grid-template-columns: minmax(0, 1fr);
 }
 .compareCopy h2 {
-  font-size: clamp(2.6rem, 4.3vw, 3.6rem);
+  font-size: var(--display-2);
   letter-spacing: -0.05em;
   line-height: 1.05;
   margin: 0 0 20px;
@@ -120,196 +120,17 @@
   padding-top: 56px;
 }
 .plansSection h2 {
-  font-size: clamp(2.6rem, 4.6vw, 4.2rem);
+  font-size: var(--display-3);
   letter-spacing: -0.058em;
   line-height: 1.06;
   margin: 0;
   max-width: 780px;
-}
-.planGrid {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: minmax(0, 1fr);
-}
-.standaloneChoice {
-  align-items: stretch;
-  background: var(--slate-100);
-  display: grid;
-  gap: 24px;
-  grid-template-columns: minmax(0, 1fr);
-  margin-top: 18px;
-  padding: 14px;
-  scroll-margin-top: 24px;
-}
-.standaloneCopy {
-  align-self: center;
-  padding: 14px 8px;
-}
-.standaloneCopy > span {
-  color: var(--page-accent);
-  font-size: 0.66rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.standaloneCopy h3 {
-  font-size: clamp(1.7rem, 3vw, 2.7rem);
-  letter-spacing: -0.05em;
-  margin: 8px 0 10px;
-}
-.standaloneCopy p {
-  color: var(--slate-600);
-  font-size: 0.86rem;
-  line-height: 1.65;
-  margin: 0;
-  max-width: 530px;
-}
-.standaloneCard {
-  background: var(--surface);
-  min-height: 250px;
-}
-.planCard {
-  appearance: none;
-  background: var(--surface-flow);
-  border: 1px solid var(--slate-200);
-  color: var(--ink-strong);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  font: inherit;
-  min-height: 250px;
-  padding: 23px;
-  position: relative;
-  text-align: left;
-  transition:
-    border-color 0.2s ease,
-    transform 0.2s ease,
-    background 0.2s ease;
-}
-.planCard:hover {
-  border-color: var(--page-accent);
-  transform: translateY(-3px);
-}
-.planCard:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--page-accent) 25%, transparent);
-  outline-offset: 3px;
-}
-.planCard.planSelected {
-  background: var(--surface);
-  border-color: var(--page-accent);
-  box-shadow: inset 0 4px 0 var(--page-accent);
-}
-.planTick {
-  align-items: center;
-  background: var(--page-accent);
-  border: 1px solid var(--slate-300);
-  border-radius: 50%;
-  bottom: 20px;
-  color: var(--text-on-dark);
-  display: flex;
-  font-size: 0.7rem;
-  font-style: normal;
-  height: 23px;
-  justify-content: center;
-  position: absolute;
-  right: 20px;
-  width: 23px;
-}
-.planCard:not(.planSelected) .planTick {
-  background: var(--surface);
-}
-.planCard.planRecommended {
-  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
-  background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface-flow), var(--surface-flow)), var(--moving-colour-gradient);
-  background-origin: border-box;
-  background-size:
-    100% 100%,
-    var(--moving-colour-size);
-  border: 2px solid transparent;
-}
-.planCard.planRecommended:hover {
-  border-color: transparent;
 }
 @media (prefers-reduced-motion: reduce) {
   .planCard.planRecommended,
   .pipelineCard {
     animation: none;
   }
-}
-.planTopline {
-  color: var(--page-accent);
-  font-size: 0.63rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  min-height: 34px;
-  text-transform: uppercase;
-}
-.planCard.planRecommended .planTopline {
-}
-.planCard > strong {
-  font-size: 1.18rem;
-  letter-spacing: -0.03em;
-}
-.planPrice {
-  font-size: 2.15rem;
-  font-weight: 850;
-  letter-spacing: -0.06em;
-  margin: 24px 0 15px;
-  white-space: nowrap;
-}
-.planPrice small {
-  color: var(--slate-600);
-  font-size: 0.62rem;
-  font-weight: 650;
-  letter-spacing: 0;
-  white-space: normal;
-}
-.planCard p {
-  color: var(--slate-600);
-  font-size: 0.8rem;
-  line-height: 1.58;
-  margin: 0;
-}
-.planIncluded {
-  border-top: 1px dashed var(--slate-200);
-  list-style: none;
-  margin: 16px 0 0;
-  padding: 14px 0 0;
-}
-.planIncluded li {
-  color: var(--slate-800);
-  font-size: 0.72rem;
-  font-weight: 750;
-  line-height: 1.45;
-  padding-left: 17px;
-  position: relative;
-}
-.planIncluded li + li {
-  margin-top: 7px;
-}
-.planIncluded li::before {
-  color: var(--page-accent);
-  content: "✓";
-  font-weight: 900;
-  left: 0;
-  position: absolute;
-}
-.planCta {
-  color: var(--page-accent);
-  font-size: 0.75rem;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  margin-top: auto;
-  padding-top: 18px;
-  text-transform: uppercase;
-}
-.planCta span {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-.planCard:hover .planCta span {
-  transform: translateX(4px);
 }
 .signupPanel {
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
@@ -326,15 +147,15 @@
   min-height: 590px;
 }
 .selectionPanel {
-  color: var(--ink-strong);
+  color: var(--slate-950);
   display: flex;
   flex-direction: column;
   padding: 34px 20px;
   scroll-margin-top: 24px;
 }
 .selectionPanel h2 {
-  color: var(--ink-strong);
-  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  color: var(--slate-950);
+  font-size: var(--display-3);
   margin-bottom: 42px;
 }
 .choiceGroup + .choiceGroup {
@@ -479,139 +300,6 @@
   color: var(--slate-600);
   font-size: 0.62rem;
 }
-.selectedSummary {
-  color: var(--text-on-dark);
-  display: flex;
-  flex-direction: column;
-  padding: clamp(28px, 3.5vw, 48px);
-  scroll-margin-top: 24px;
-  min-height: 420px;
-}
-.selectedSummary > span {
-  color: var(--accent-on-dark);
-  font-size: 0.66rem;
-  font-weight: 900;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-}
-.selectedSummary h3 {
-  font-size: clamp(2rem, 3vw, 3.25rem);
-  letter-spacing: -0.055em;
-  line-height: 1;
-  margin: 34px 0 18px;
-}
-.compactPlanGrid {
-  display: grid;
-  gap: 7px;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  margin-top: 18px;
-}
-.compactPlan {
-  appearance: none;
-  background: color-mix(in srgb, var(--bg) 7%, transparent);
-  border: 1px solid color-mix(in srgb, var(--bg) 20%, transparent);
-  color: var(--text-on-dark);
-  cursor: pointer;
-  display: grid;
-  font: inherit;
-  gap: 2px 8px;
-  grid-template-columns: minmax(0, 1fr) auto;
-  min-height: 70px;
-  padding: 11px 12px;
-  position: relative;
-  text-align: left;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease;
-}
-.compactPlan:last-child {
-  grid-column: 1 / -1;
-}
-.compactPlan:hover {
-  border-color: var(--accent-on-dark-soft);
-}
-.compactPlan:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--accent-on-dark-soft) 35%, transparent);
-  outline-offset: 2px;
-}
-.compactPlanSelected {
-  background: var(--surface);
-  border-color: var(--surface);
-  color: var(--ink-strong);
-}
-.compactPlan > span {
-  align-self: end;
-  font-size: 0.68rem;
-  font-weight: 850;
-  line-height: 1.2;
-}
-.compactPlan > strong {
-  align-self: end;
-  font-size: 0.92rem;
-  letter-spacing: -0.04em;
-}
-.compactPlan > small {
-  color: var(--slate-300);
-  font-size: 0.55rem;
-  grid-column: 2;
-  text-align: right;
-}
-.compactPlanSelected > small {
-  color: var(--slate-600);
-}
-.compactPlan > i {
-  color: var(--accent-on-dark-soft);
-  font-size: 0.47rem;
-  font-style: normal;
-  font-weight: 900;
-  left: 12px;
-  letter-spacing: 0.08em;
-  position: absolute;
-  text-transform: uppercase;
-  top: 7px;
-}
-.compactPlanSelected > i {
-  color: var(--brand-accent);
-}
-.selectedSummary > p {
-  color: var(--slate-300);
-  font-size: 0.91rem;
-  line-height: 1.68;
-  margin: 0;
-  max-width: 380px;
-}
-.selectedSummary ul {
-  border-top: 1px solid color-mix(in srgb, var(--bg) 18%, transparent);
-  list-style: none;
-  margin: 30px 0;
-  padding: 19px 0 0;
-}
-.selectedSummary li {
-  font-size: 0.78rem;
-  margin: 11px 0;
-  padding-left: 18px;
-  position: relative;
-}
-.selectedSummary li::before {
-  color: var(--accent-on-dark);
-  content: "↳";
-  left: 0;
-  position: absolute;
-}
-.selectedPrice {
-  align-items: baseline;
-  display: flex;
-  gap: 11px;
-  margin-top: auto;
-}
-.selectedPrice strong {
-  font-size: 2.5rem;
-  letter-spacing: -0.06em;
-}
-.selectedPrice span {
-  color: var(--slate-300);
-  font-size: 0.72rem;
-}
 .signupForm {
   background: var(--surface-flow);
   border-left: 0;
@@ -627,7 +315,7 @@
   padding-bottom: 20px;
 }
 .formTitle h3 {
-  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  font-size: var(--step-2);
   letter-spacing: -0.04em;
   margin: 8px 0 0;
 }
@@ -635,9 +323,6 @@
   display: grid;
   gap: 16px;
   grid-template-columns: minmax(0, 1fr);
-}
-.fieldFull {
-  width: 100%;
 }
 .signupForm label {
   color: var(--slate-800);
@@ -679,9 +364,6 @@
   font-size: 0.66rem;
   font-weight: 550;
   margin-top: 7px;
-}
-.honeypot {
-  composes: honeypot from global;
 }
 .signupSubmit {
   align-items: center;
@@ -737,7 +419,7 @@
 }
 .caseStatOverlay {
   backdrop-filter: blur(9px);
-  background: color-mix(in srgb, var(--ink-strong) 88%, transparent);
+  background: color-mix(in srgb, var(--slate-950) 88%, transparent);
   border: 1px solid color-mix(in srgb, var(--bg) 15%, transparent);
   bottom: 34px;
   box-shadow: 0 26px 60px color-mix(in srgb, var(--text) 50%, transparent);
@@ -769,7 +451,7 @@
   white-space: nowrap;
 }
 .caseCopy h2 {
-  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  font-size: var(--display-2);
   letter-spacing: -0.05em;
   margin: 0 0 20px;
 }
@@ -827,7 +509,7 @@
   text-align: center;
 }
 .closing h2 {
-  font-size: clamp(2.4rem, 4.6vw, 3.6rem);
+  font-size: var(--display-2);
   letter-spacing: -0.05em;
   margin: 0;
 }
@@ -856,17 +538,8 @@
     margin-top: 32px;
     padding: var(--section-space) 0;
   }
-  .planGrid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
   .planCard {
     min-height: 340px;
-  }
-  .standaloneChoice {
-    padding: 24px;
-  }
-  .standaloneCopy {
-    padding: 10px 18px;
   }
   .fieldRow {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -900,20 +573,11 @@
   .caseInner {
     grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
   }
-  .planGrid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-  .standaloneChoice {
-    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.7fr);
-  }
   .signupPanel {
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
   }
   .signupForm {
     border-left: 1px solid var(--slate-100);
     border-top: revert;
-  }
-  .selectedSummary {
-    min-height: revert;
   }
 }

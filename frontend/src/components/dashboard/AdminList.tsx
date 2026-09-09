@@ -111,10 +111,7 @@ export function AdminFilterBar({
   );
 }
 
-/**
- * The body of a list table: one loading row, one empty row, or the rows.
- * `colSpan` is taken from the header definition so it can never drift.
- */
+/** List-table body: a loading row, an empty row, or the rows. */
 export function AdminTableBody<Row>({
   rows,
   loading,
@@ -153,11 +150,7 @@ export function AdminTableBody<Row>({
   return <tbody>{rows.map(children)}</tbody>;
 }
 
-/**
- * The first cell of a clickable row. A real link, so the row is reachable by
- * keyboard and openable in a new tab — the whole-row `onClick` it replaces was
- * neither.
- */
+/** First cell of a clickable row — a real link, so it works with the keyboard and new-tab. */
 export function RowLink({ href, children }: { href: string; children: ReactNode }) {
   return (
     <Link className="admin-row-link" href={href}>

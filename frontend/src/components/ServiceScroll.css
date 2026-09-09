@@ -15,7 +15,7 @@ main:has(.service-scroll) {
   padding-top: 55px;
 }
 .service-scroll-intro h2 {
-  font-size: clamp(2.6rem, 4.6vw, 4.2rem);
+  font-size: var(--display-3);
   letter-spacing: -0.058em;
   line-height: 1.02;
   margin: 0;
@@ -46,7 +46,7 @@ main:has(.service-scroll) {
   font-weight: 800;
 }
 .service-sticky h3 {
-  font-size: clamp(2.1rem, 3.6vw, 3.1rem);
+  font-size: var(--display-2);
   letter-spacing: -0.04em;
   line-height: 1.05;
   margin: 16px 0 0;
@@ -154,7 +154,7 @@ main:has(.service-scroll) {
   padding-right: 14px;
 }
 .service-custom-copy h3 {
-  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-size: var(--display-2);
   letter-spacing: -0.05em;
   line-height: 1;
   margin: 0 0 16px;

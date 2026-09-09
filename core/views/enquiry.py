@@ -22,10 +22,6 @@ from ..utils.throttles import EnquiryRateThrottle
 @permission_classes([AllowAny])
 @throttle_classes([EnquiryRateThrottle])
 def create_enquiry(request):
-    # Quiet honeypot: bots receive the same success response without creating
-    # an enquiry or triggering paid notifications.
-    if (request.data.get("company_website") or "").strip():
-        return Response({"status": "received"}, status=status.HTTP_201_CREATED)
     serializer = EnquirySerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     enquiry = serializer.save()
@@ -37,8 +33,6 @@ def create_enquiry(request):
 @permission_classes([AllowAny])
 @throttle_classes([EnquiryRateThrottle])
 def create_ai_readiness_enquiry(request):
-    if (request.data.get("company_website") or "").strip():
-        return Response({"status": "received"}, status=status.HTTP_201_CREATED)
     serializer = AiReadinessEnquirySerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     enquiry = serializer.save()
@@ -50,8 +44,6 @@ def create_ai_readiness_enquiry(request):
 @permission_classes([AllowAny])
 @throttle_classes([EnquiryRateThrottle])
 def create_project_enquiry(request):
-    if (request.data.get("company_website") or "").strip():
-        return Response({"status": "received"}, status=status.HTTP_201_CREATED)
     serializer = ProjectEnquirySerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     enquiry = serializer.save()

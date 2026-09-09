@@ -33,7 +33,7 @@ export function buildWebsiteSchema(): object {
   };
 }
 
-/** Per-page identity: WebPage entity plus a breadcrumb trail, both tied to the sitewide Organization/WebSite via @id. */
+/** The per-page WebPage entity, linked to the sitewide Organization/WebSite via @id. */
 export function buildWebPageSchema(options: { title: string; description?: string; path: string }): object {
   const url = `${PUBLIC_SITE_URL}${options.path}`;
 
@@ -62,7 +62,7 @@ export function buildBreadcrumbSchema(items: { name: string; path: string }[]): 
   };
 }
 
-/** Home plus every crumb between it and `path`, inferred from the path segments. Give `label` a nicer name than the raw slug when needed. */
+/** Breadcrumb items from Home to `path`, inferred from the segments; `label` names the last crumb. */
 export function buildBreadcrumbItems(path: string, label: string): { name: string; path: string }[] {
   if (path === "/") return [{ name: "Home", path: "/" }];
 
@@ -83,13 +83,11 @@ function titleCaseSlug(slug: string): string {
 }
 
 /**
- * Builds a page's <head> metadata (canonical, Open Graph, Twitter Card) from one
- * title/description/path, so those three never drift out of sync on a given page.
+ * Builds a page's <head> metadata (canonical, Open Graph, Twitter Card) from a
+ * single title/description/path so the three can't drift apart.
  *
- * Pass `absoluteTitle: true` when `title` is already a complete, final <title> —
- * the root layout's "%s | Free the Desk" template would otherwise still append
- * the brand suffix on top of it, doubling up (e.g. a title that already ends
- * "| Free the Desk" or has its own distinct suffix).
+ * Set `absoluteTitle: true` when `title` is already final — otherwise the root
+ * layout's "%s | Free the Desk" template appends the brand suffix a second time.
  */
 export function pageMetadata(options: {
   title: string;

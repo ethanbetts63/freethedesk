@@ -8,9 +8,8 @@ import { SignalFlow } from "@/components/visuals/SignalFlow";
 import styles from "./checkout.module.css";
 
 /**
- * Layout and lifecycle chrome shared by every checkout (dealer subscriptions,
- * SEO reports). Each product supplies its own account loading, plan lookup and
- * copy; everything visual lives here so the two flows cannot drift apart.
+ * Layout and lifecycle chrome shared by the checkout flows (dealer
+ * subscriptions, SEO reports) so the two cannot visually drift apart.
  */
 
 export type CheckoutOrder = {
@@ -98,10 +97,7 @@ export function CheckoutState({
   );
 }
 
-/**
- * Step one: record the accepted terms before any card details are collected.
- * Owns its own checkbox and in-flight state so the pages stay declarative.
- */
+/** Step one: accept the terms before any card details are collected. */
 export function CheckoutTermsForm({
   priceNote,
   termsHref,
@@ -140,11 +136,11 @@ export function CheckoutTermsForm({
         <input type="checkbox" checked={accepted} onChange={(event) => setAccepted(event.target.checked)} />
         <span>
           I agree to the{" "}
-          <Link href={termsHref} target="_blank">
+          <Link href={termsHref} target="_blank" rel="noopener noreferrer">
             {termsLabel}
           </Link>
           , acknowledge the{" "}
-          <Link href="/legal/privacy" target="_blank">
+          <Link href="/legal/privacy" target="_blank" rel="noopener noreferrer">
             Privacy Policy
           </Link>
           , and {authorisation}

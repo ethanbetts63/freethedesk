@@ -129,23 +129,6 @@ def test_website_builder_enquiry_stores_full_configuration(api_client):
     assert enquiry.configuration == configuration
 
 
-def test_honeypot_submission_is_quietly_discarded(api_client):
-    response = api_client.post(
-        "/api/enquiries/",
-        {
-            "name": "Automated Sender",
-            "business": "Spam Company",
-            "email": "spam@example.com",
-            "help_with": "website",
-            "message": "This looks real but the honeypot was completed.",
-            "company_website": "https://spam.example.com",
-        },
-        format="json",
-    )
-    assert response.status_code == 201
-    assert Enquiry.objects.count() == 0
-
-
 def test_free_ai_readiness_check_creates_a_tagged_enquiry(api_client):
     response = api_client.post(
         "/api/ai-readiness/",
@@ -243,23 +226,6 @@ def test_project_enquiry_rejects_an_unknown_project_type(api_client):
     assert response.status_code == 400
     assert "project_type" in response.json()
     assert not Enquiry.objects.exists()
-
-
-def test_project_enquiry_honeypot_is_silently_discarded(api_client):
-    response = api_client.post(
-        "/api/project-enquiries/",
-        {
-            "project_type": "website",
-            "budget": "$1,000",
-            "website": "https://example.com.au",
-            "email": "bot@example.com",
-            "company_website": "filled in by a bot",
-        },
-        format="json",
-    )
-
-    assert response.status_code == 201
-    assert Enquiry.objects.count() == 0
 
 
 def test_enquiry_dashboard_requires_staff(api_client):

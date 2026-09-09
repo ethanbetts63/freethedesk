@@ -1,11 +1,8 @@
 import Link from "next/link";
 
 /**
- * Where the click takes you, which decides the glyph. Same-page anchors point
- * the way the page will scroll, so the arrow always matches the movement:
- * `down` for a target further down, `up` for one above. `page` is a link to
- * somewhere else entirely, `right` advances a form without scrolling, and
- * `none` omits the glyph.
+ * Which glyph the CTA shows. In-page anchors use the scroll direction (`down` /
+ * `up`); `page` links elsewhere, `right` advances a form, `none` omits it.
  */
 export type CtaDirection = "down" | "up" | "page" | "right" | "none";
 
@@ -25,14 +22,11 @@ export type CtaButtonProps = {
   className?: string;
   target?: "_blank" | "_self";
   rel?: string;
-  /** Defaults to `page`; submit buttons should pass `none` or leave it. */
+  /** Defaults to `page`; submit buttons should pass `none`. */
   direction?: CtaDirection;
 };
 
-/**
- * Shared plumbing for the site's two CTA styles. Not used directly—render
- * `PrimaryButton` or `MovingColourButton`, which supply the base class.
- */
+/** Shared plumbing for the two CTA styles; render `PrimaryButton` or `MovingColourButton`, not this. */
 export function CtaButton({
   children,
   href,

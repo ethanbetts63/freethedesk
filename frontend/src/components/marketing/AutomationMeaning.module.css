@@ -12,8 +12,8 @@
   max-width: 540px;
 }
 .copy h2 {
-  color: var(--ink-strong);
-  font-size: clamp(3rem, 5.3vw, 5.7rem);
+  color: var(--slate-950);
+  font-size: var(--display-5);
   letter-spacing: -0.072em;
   line-height: 0.93;
   margin: 0;
@@ -51,7 +51,7 @@
     var(--moving-colour-size);
   border: 2px solid transparent;
   box-shadow: 0 28px 75px color-mix(in srgb, var(--blue-950) 11%, transparent);
-  color: var(--ink-strong);
+  color: var(--slate-950);
   min-width: 0;
   padding: 28px;
   margin: 0 auto;

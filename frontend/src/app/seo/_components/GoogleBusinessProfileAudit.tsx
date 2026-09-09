@@ -37,7 +37,7 @@ export function GoogleBusinessProfileAudit({ ctaHref, ctaLabel }: { ctaHref: str
           </p>
 
           <div className={styles.actions}>
-            {/* This block sits above the signup panel, so an on-page target is below it. */}
+            {/* The signup panel is below this, so in-page links scroll down. */}
             <PrimaryButton href={ctaHref} direction={ctaHref.startsWith("#") ? "down" : "page"}>
               {ctaLabel}
             </PrimaryButton>

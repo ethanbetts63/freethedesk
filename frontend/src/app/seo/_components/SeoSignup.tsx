@@ -121,10 +121,6 @@ export function SeoSignup({ settings, eyebrow }: { settings: PublicSiteSettings;
           <div className={styles.formTitle}>
             <h3>Where should we send it?</h3>
           </div>
-          <label className={styles.honeypot} aria-hidden="true">
-            Website confirmation
-            <input name="company_website" tabIndex={-1} autoComplete="off" />
-          </label>
           <label>
             <span>Email</span>
             <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
@@ -135,8 +131,7 @@ export function SeoSignup({ settings, eyebrow }: { settings: PublicSiteSettings;
           </label>
           <label>
             <span>Website</span>
-            {/* Deliberately not type="url": that rejects a scheme-less host like the
-                placeholder's own example. useSignup normalises it before posting. */}
+            {/* Not type="url": it rejects a scheme-less host like the placeholder example. */}
             <input
               name="website"
               type="text"

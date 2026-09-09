@@ -35,7 +35,7 @@ const websiteDevStats: ProofStat[] = [
   },
 ];
 
-/* Section eyebrows, in the order they appear on the page. */
+/* Section eyebrows in page order. */
 const sections = numberSections([
   "Conversion funnels",
   "What automation means",

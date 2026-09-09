@@ -115,11 +115,3 @@ def test_signup_rejects_weak_password(client):
     assert not SeoSubscriber.objects.exists()
 
 
-def test_honeypot_is_silently_accepted(client):
-    response = client.post(
-        reverse("seo-signup"),
-        {**PAYLOAD, "company_website": "https://spam.example"},
-        content_type="application/json",
-    )
-    assert response.status_code == 201
-    assert not SeoSubscriber.objects.exists()

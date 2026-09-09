@@ -4,10 +4,9 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 /**
- * Next restores scroll position itself, but a client-side navigation into a
- * long page can land part-way down. This resets it - except when the URL
- * carries a hash, where the browser's own anchor jump is what we want and
- * scrolling to the top would fight it (/licensing#signup, /portfolio/*#tour).
+ * Resets scroll to the top on client-side navigation, which can otherwise land
+ * part-way down a long page. Skipped when the URL has a hash, so the browser's
+ * own anchor jump wins (/licensing#signup, /portfolio/*#tour).
  */
 export function ScrollToTop() {
   const pathname = usePathname();

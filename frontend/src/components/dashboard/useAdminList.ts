@@ -84,8 +84,7 @@ export function useAdminList<Row>({
     [pathname, queryString, router],
   );
 
-  // Any filter or search change resets to page 1: page 4 of the old view is
-  // rarely a sensible place to land in the new one.
+  // Any filter or search change resets to page 1.
   const setFilter = useCallback(
     (key: string, value: string) => setQuery({ [key]: value === "all" ? null : value, page: null }),
     [setQuery],

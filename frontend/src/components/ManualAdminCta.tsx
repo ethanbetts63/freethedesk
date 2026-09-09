@@ -16,7 +16,7 @@ export function ManualAdminCta({
         Tell us what gets copied, chased or checked each week. We&apos;ll help you find the simplest worthwhile place to
         begin.
       </p>
-      {/* This is always the closing section, so an on-page target is above it. */}
+      {/* Closing section, so in-page links scroll up. */}
       <PrimaryButton className={styles.closingCta} href={href} direction={href.startsWith("#") ? "up" : "page"}>
         {label}
       </PrimaryButton>

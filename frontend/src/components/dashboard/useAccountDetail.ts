@@ -39,10 +39,8 @@ export function useAccountDetail<Account extends StaffAccount>({
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
 
-  /* Callers build the options object inline, so `fetch` and `loadError` are new
-     values on every render. Only `id` and `messageFilter` identify the request,
-     so the rest is read through a ref - that keeps the effect from re-running
-     on each render without asking every call site to memoise its callbacks. */
+  /* `fetch`/`loadError` are fresh every render, so read them through a ref and
+     key the effect on `id`/`messageFilter` — the values that identify the request. */
   const latest = useRef({ fetch, loadError });
   useEffect(() => {
     latest.current = { fetch, loadError };

@@ -67,3 +67,10 @@
     grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
   }
 }
+
+@media (min-width: 640px) {
+  .faqLayout h2 {
+    /* Breaking mid-word is a small-screen last resort only. */
+    overflow-wrap: normal;
+  }
+}

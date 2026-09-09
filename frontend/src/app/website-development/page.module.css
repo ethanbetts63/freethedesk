@@ -1,16 +1,11 @@
 .page {
   --page-accent: var(--brand-accent);
   background: var(--surface);
-  color: var(--ink-strong);
-}
-.enquirySection {
-  padding-bottom: 20px;
-  padding-top: 50px;
-  scroll-margin-top: 28px;
+  color: var(--slate-950);
 }
 .systemCopy h2,
 .closing h2 {
-  font-size: clamp(3rem, 5.3vw, 5.7rem);
+  font-size: var(--display-5);
   letter-spacing: -0.072em;
   line-height: 0.93;
   margin: 0;
@@ -196,8 +191,8 @@
   color: var(--slate-300);
   font-size: 0.57rem;
 }
-/* End of the funnel: the payoff step is the only filled moving-colour surface in
-   the panel, so the eye lands on it the way it lands on the "~2 hrs" figure. */
+/* The payoff step is the only filled moving-colour surface in the panel, so the
+   eye lands on it. */
 .funnelResult {
   align-items: center;
   align-self: center;
@@ -256,8 +251,7 @@
   padding-left: 20px;
   position: relative;
 }
-/* Zero the outer li margins so the list sits on its own 18px above and below,
-   rather than the last item's margin collapsing to a smaller gap. */
+/* Zero the outer li margins so the list keeps its own 18px top and bottom. */
 .systemCopy li:first-child {
   margin-top: 0;
 }
@@ -294,7 +288,7 @@
 }
 .caseStatOverlay {
   backdrop-filter: blur(9px);
-  background: color-mix(in srgb, var(--ink-strong) 88%, transparent);
+  background: color-mix(in srgb, var(--slate-950) 88%, transparent);
   border: 1px solid color-mix(in srgb, var(--bg) 15%, transparent);
   bottom: 34px;
   box-shadow: 0 26px 60px color-mix(in srgb, var(--text) 50%, transparent);
@@ -326,7 +320,7 @@
   white-space: nowrap;
 }
 .caseCopy h2 {
-  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  font-size: var(--display-2);
   letter-spacing: -0.05em;
   margin: 0 0 20px;
 }
@@ -397,10 +391,6 @@
 }
 
 @media (min-width: 640px) {
-  .enquirySection {
-    padding-top: 70px;
-    scroll-margin-top: 24px;
-  }
   .systemSection {
     padding-bottom: var(--section-space);
     padding-top: var(--section-space);

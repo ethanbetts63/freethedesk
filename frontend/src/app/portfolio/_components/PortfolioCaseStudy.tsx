@@ -443,10 +443,7 @@ function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, "s
   );
 }
 
-/**
- * Case studies render in a fixed order, so the "01 / ..." eyebrows are derived
- * from that order rather than typed into each page's config by hand.
- */
+/** Derives the "01 / ..." eyebrow numbers from section order. */
 function withSectionNumbers(config: PortfolioCaseStudyConfig): PortfolioCaseStudyConfig {
   const mediaFeatures = config.mediaFeatures ?? [];
   const numbered = numberSections([

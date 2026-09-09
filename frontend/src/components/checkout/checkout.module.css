@@ -70,7 +70,7 @@
   text-transform: uppercase;
 }
 .summaryCopy h1 {
-  font-size: clamp(3.25rem, 18vw, 5rem);
+  font-size: var(--display-4);
   letter-spacing: -0.075em;
   line-height: 0.87;
   margin: 0 0 27px;
@@ -147,7 +147,7 @@
 }
 .paymentHeading h2,
 .checkoutState h2 {
-  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-size: var(--display-3);
   letter-spacing: -0.065em;
   line-height: 0.96;
   margin: 12px 0 13px;
@@ -297,7 +297,7 @@
   width: 50px;
 }
 .completeCard h1 {
-  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-size: var(--display-4);
   letter-spacing: -0.07em;
   line-height: 0.94;
   margin: 0 0 18px;
@@ -335,7 +335,7 @@
     margin-bottom: 50px;
   }
   .summaryCopy h1 {
-    font-size: clamp(3.4rem, 6.5vw, 7rem);
+    font-size: var(--display-6);
   }
   .orderSummary {
     padding: 23px 25px;

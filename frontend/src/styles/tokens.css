@@ -3,15 +3,13 @@
 
 :root {
   /* ---------------------------------------------------------------
-     THE PALETTE. Three ramps, one hue family each. Everything else is
-     a semantic alias pointing at a ramp step - so a colour is defined
-     exactly once, and components reference intent, not a shade.
+     THE PALETTE. Three ramps, one hue family each; everything else is a
+     semantic alias pointing at a ramp step, so a colour is defined once
+     and components reference intent, not a shade.
 
        slate-*  desaturated blue-grey : text, borders, muted surfaces
        blue-*   brand blue            : links, accents, dark surfaces
        sky-*    bright cyan-blue      : accents on the navy sections
-
-     Do not add a colour here without checking a ramp step will not do.
      --------------------------------------------------------------- */
 
   --slate-50: #f6f7f9;
@@ -54,8 +52,6 @@
   --text-on-dark: #ffffff;
   --text-on-dark-muted: var(--slate-300);
   --text-on-dark-subtle: var(--slate-400);
-  --ink-strong: var(--slate-950);
-  --ink-navy: var(--slate-900);
   --line-ink: #111111;
   --border: var(--slate-200);
   --border-strong: var(--slate-300);
@@ -73,12 +69,9 @@
   --section-number-on-dark: var(--accent-on-dark);
   --focus-ring: color-mix(in srgb, var(--sky-500) 40%, transparent);
 
-  /* One animated gradient, used for both the moving text and the
-     moving borders. The two used to differ by 10deg and a stop
-     position, which nobody could perceive as a distinct treatment. */
-  /* The animated gradient is its own vivid treatment, deliberately NOT drawn
-     from the site palette - those colours are muted by design and wash it out.
-     Values are the original brand triad. */
+  /* One animated gradient for both the moving text and moving borders.
+     Deliberately NOT from the site palette - those colours are muted by
+     design and wash it out. Values are the original brand triad. */
   --gradient-sky: #38bdf8;
   --gradient-purple: #a855f7;
   --gradient-pink: #f472b6;
@@ -90,7 +83,7 @@
     var(--gradient-sky)
   );
   /* One speed everywhere. Override per-component only with a real reason. */
-  --moving-colour-speed: 6s;
+  --moving-colour-speed: 16s;
   --moving-colour-size: 300% 100%;
 
   /* ---------------------------------------------------------------
@@ -183,12 +176,12 @@
      word in a heading ("automation", 10 characters at ~0.574em each in
      Arial 800 with -0.085em tracking) must fit 288px, the content box of
      a 320px screen. That caps the floor at 40px / 2.5rem. */
-  --display-1: clamp(2rem, 1.478rem + 2.609vw, 3.5rem);
-  --display-2: clamp(2.25rem, 1.572rem + 3.391vw, 4.2rem);
-  --display-3: clamp(2.375rem, 1.448rem + 4.635vw, 5.04rem);
-  --display-4: clamp(2.5rem, 1.265rem + 6.174vw, 6.05rem);
-  --display-5: clamp(2.5rem, 0.844rem + 8.278vw, 7.26rem);
-  --display-6: clamp(2.5rem, 0.34rem + 10.8vw, 8.71rem);
+  --display-1: clamp(1.75rem, 1.385rem + 1.826vw, 2.8rem);
+  --display-2: clamp(2rem, 1.527rem + 2.365vw, 3.36rem);
+  --display-3: clamp(2.125rem, 1.462rem + 3.313vw, 4.03rem);
+  --display-4: clamp(2.25rem, 1.349rem + 4.504vw, 4.84rem);
+  --display-5: clamp(2.25rem, 1.015rem + 6.174vw, 5.8rem);
+  --display-6: clamp(2.25rem, 0.608rem + 8.209vw, 6.97rem);
 
   /* Fluid space scale. */
   --space-2xs: 4px;

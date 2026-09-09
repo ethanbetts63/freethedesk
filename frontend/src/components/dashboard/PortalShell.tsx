@@ -34,8 +34,7 @@ export function PortalShell({
   useEffect(() => {
     if (loading) return;
     if (!user) router.replace(`/login?next=${encodeURIComponent(pathname)}`);
-    // Signed in, wrong portal: send them to their own rather than to login,
-    // which would bounce them straight back here.
+    // Wrong portal but signed in — send them to their own, not back through login.
     else if (user.role !== role) router.replace(homeFor(user));
   }, [loading, pathname, role, router, user]);
 

@@ -57,7 +57,7 @@
   font-size: 0.77rem;
 }
 .copy h3 {
-  font-size: clamp(2.25rem, 4vw, 3.75rem);
+  font-size: var(--display-3);
   letter-spacing: -0.06em;
   line-height: 0.98;
   margin: 0;

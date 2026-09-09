@@ -34,14 +34,14 @@
   }
 }
 .selectionPanel {
-  color: var(--ink-strong);
+  color: var(--slate-950);
   display: flex;
   flex-direction: column;
   padding: 34px 20px;
 }
 .selectionPanel h2 {
-  color: var(--ink-strong);
-  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  color: var(--slate-950);
+  font-size: var(--display-3);
   letter-spacing: -0.058em;
   line-height: 1.02;
   margin: 0 0 42px;
@@ -109,8 +109,8 @@
   border-color: var(--blue-950);
   color: var(--text-on-dark);
 }
-/* Must out-specify the plain :hover above, which would otherwise repaint the
-   selected tile white and leave its white text invisible. */
+/* Out-specifies the plain :hover above, which would repaint the selected tile
+   white and hide its white text. */
 .planTypeGrid .choiceSelected:hover {
   background: var(--surface-dark-hover);
   border-color: var(--surface-dark-hover);
@@ -199,7 +199,7 @@
   padding-bottom: 20px;
 }
 .formTitle h3 {
-  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  font-size: var(--step-2);
   letter-spacing: -0.04em;
   margin: 0;
 }
@@ -272,9 +272,6 @@
   font-weight: 550;
   margin-top: 7px;
 }
-.honeypot {
-  composes: honeypot from global;
-}
 .signupSubmit {
   --pb-font-size: 0.78rem;
   --pb-padding: 0 20px;
@@ -296,11 +293,10 @@
   padding: 11px 13px;
 }
 .comparisonCopy h2,
-.sectionHeading h2,
 .optionsHeading h2,
 .closing h2,
 .verifyCopy h2 {
-  font-size: clamp(2.75rem, 13vw, 4rem);
+  font-size: var(--display-3);
   letter-spacing: -0.07em;
   line-height: 0.94;
   margin: 0;
@@ -398,9 +394,6 @@
   .onlinePath header span {
     animation: none;
   }
-}
-.sectionHeading {
-  max-width: 850px;
 }
 .optionsSection {
   background: var(--surface-dark);
@@ -658,7 +651,7 @@
   background: color-mix(in srgb, var(--bg) 94%, transparent);
   border: 1px solid color-mix(in srgb, var(--slate-300) 85%, transparent);
   border-radius: 8px;
-  box-shadow: 0 14px 30px color-mix(in srgb, var(--ink-navy) 20%, transparent);
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--slate-900) 20%, transparent);
   left: 14px;
   padding: 15px 13px;
   position: absolute;
@@ -976,19 +969,16 @@
     padding-top: var(--section-space);
   }
   .comparisonCopy h2 {
-    font-size: clamp(3rem, 5.2vw, 5.6rem);
-  }
-  .sectionHeading h2 {
-    font-size: clamp(3rem, 5.2vw, 5.6rem);
+    font-size: var(--display-5);
   }
   .optionsHeading h2 {
-    font-size: clamp(3rem, 5.2vw, 5.6rem);
+    font-size: var(--display-5);
   }
   .closing h2 {
-    font-size: clamp(3rem, 5.2vw, 5.6rem);
+    font-size: var(--display-5);
   }
   .verifyCopy h2 {
-    font-size: clamp(3rem, 5.2vw, 5.6rem);
+    font-size: var(--display-5);
   }
   .paths article > div {
     align-items: center;

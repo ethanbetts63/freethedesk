@@ -33,7 +33,7 @@ function FlowColumn({
   eyebrow?: string;
   cta?: { href: string; label: string };
 }) {
-  // This block sits above the signup panel, so an on-page target is below it.
+  // The signup panel is below this, so in-page links scroll down.
   const ctaDirection = cta?.href.startsWith("#") ? "down" : "page";
 
   return (
@@ -54,8 +54,7 @@ function FlowColumn({
         ))}
       </ol>
       {cta &&
-        /* Only the recommended column gets the moving-colour treatment; the
-           hosted-portal column uses the standard accent CTA. */
+        /* Recommended column gets the moving-colour CTA; the other gets the plain accent one. */
         (highlight ? (
           <MovingColourButton className={styles.flowColumnCta} href={cta.href} direction={ctaDirection}>
             {cta.label}
@@ -69,7 +68,7 @@ function FlowColumn({
   );
 }
 
-/** What your team actually does for each setup: the hosted portal (manual entry) vs. built into your website (automatic). */
+/** Side-by-side of what your team does: hosted portal (manual entry) vs. built into your website (automatic). */
 export function FlowCompare() {
   return (
     <div className={styles.flowCompare}>

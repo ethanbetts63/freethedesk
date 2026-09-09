@@ -67,7 +67,7 @@
   box-shadow:
     9px 9px 0 var(--slate-100),
     18px 18px 0 var(--surface-flow),
-    0 28px 55px -35px color-mix(in srgb, var(--ink-strong) 55%, transparent);
+    0 28px 55px -35px color-mix(in srgb, var(--slate-950) 55%, transparent);
   position: relative;
 }
 .reportCard::before {
@@ -140,7 +140,7 @@
 }
 .reportIndex {
   align-items: center;
-  background: var(--ink-navy);
+  background: var(--slate-900);
   color: var(--text-on-dark);
   display: flex;
   flex: 0 0 auto;

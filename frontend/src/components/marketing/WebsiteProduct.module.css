@@ -384,3 +384,10 @@
     transform: perspective(1400px) rotateY(-2deg);
   }
 }
+
+@media (min-width: 640px) {
+  .copy h2 {
+    /* Breaking mid-word is a small-screen last resort only. */
+    overflow-wrap: normal;
+  }
+}

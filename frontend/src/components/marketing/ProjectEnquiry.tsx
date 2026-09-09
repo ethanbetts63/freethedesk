@@ -1,11 +1,12 @@
 "use client";
 
-import { FormEvent, useId, useState } from "react";
+import { useId, useState } from "react";
 
 import { MovingColourButton } from "@/components/MovingColourButton";
 import { SectionNumber } from "@/components/SectionNumber";
 import { normaliseWebsiteUrl, submitProjectEnquiry, type ProjectType } from "@/lib/api";
 import styles from "./ProjectEnquiry.module.css";
+import { useEnquiryForm } from "@/lib/useEnquiryForm";
 
 const PROJECT_TYPES: { code: ProjectType; name: string }[] = [
   { code: "website", name: "Website" },
@@ -34,37 +35,25 @@ export function ProjectEnquiry({
   const [projectType, setProjectType] = useState<ProjectType>("both");
   const [budget, setBudget] = useState<Budget>("$3,000");
   const [customBudget, setCustomBudget] = useState("");
-  const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
-  const [error, setError] = useState("");
 
   const budgetLabel = budget === "custom" ? customBudget.trim() || "Custom" : budget;
-
-  async function send(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-    const value = (name: string) => String(data.get(name) ?? "").trim();
-
-    setStatus("submitting");
-    setError("");
-    try {
-      await submitProjectEnquiry({
+  const {
+    status,
+    error,
+    submit: send,
+  } = useEnquiryForm(
+    (value) =>
+      submitProjectEnquiry({
         project_type: projectType,
         budget: budget === "custom" ? customBudget.trim() : budget,
         website: normaliseWebsiteUrl(value("website")),
         email: value("email"),
         phone: value("phone"),
         notes: value("notes"),
-        company_website: value("company_website"),
-      });
-      form.reset();
-      setCustomBudget("");
-      setStatus("success");
-    } catch (reason) {
-      setStatus("idle");
-      setError(reason instanceof Error ? reason.message : "We could not send that. Please try again.");
-    }
-  }
+      }),
+    "We could not send that. Please try again.",
+    () => setCustomBudget(""),
+  );
 
   return (
     <section className={`shell ${styles.section}`} id={id}>
@@ -152,10 +141,6 @@ export function ProjectEnquiry({
             </div>
           ) : (
             <>
-              <label className={styles.honeypot} aria-hidden="true">
-                Company website
-                <input name="company_website" tabIndex={-1} autoComplete="off" />
-              </label>
               <label>
                 <span>Email</span>
                 <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
@@ -166,8 +151,7 @@ export function ProjectEnquiry({
               </label>
               <label>
                 <span>Website</span>
-                {/* Deliberately not type="url": that rejects a scheme-less host like the
-                    placeholder's own example. submitProjectEnquiry normalises it. */}
+                {/* Not type="url": it rejects a scheme-less host like the placeholder example. */}
                 <input
                   name="website"
                   type="text"

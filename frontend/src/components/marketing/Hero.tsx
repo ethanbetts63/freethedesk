@@ -56,7 +56,7 @@ export function Hero({
           </h1>
           <p className={styles.lead}>{lead}</p>
           <div className={styles.actions}>
-            {/* The hero sits at the top, so an on-page target is always below. */}
+            {/* Hero is at the top, so in-page links scroll down. */}
             <PrimaryButton
               className={styles.primary}
               href={primaryHref}

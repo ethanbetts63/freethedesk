@@ -8,10 +8,7 @@ export type PortfolioImage = {
   className?: string;
 };
 
-/**
- * The chrome-less browser mockup every case-study screenshot sits in. Shared by
- * the hero, the media features and the tour so the frame only exists once.
- */
+/** Chrome-less browser mockup wrapping every case-study screenshot. */
 export function BrowserFrame({
   image,
   browserUrl,

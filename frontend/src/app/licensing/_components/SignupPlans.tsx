@@ -72,10 +72,6 @@ export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; 
             <h3>A few details to begin.</h3>
             <span className={styles.formPill}>No card required yet</span>
           </div>
-          <label className={styles.honeypot} aria-hidden="true">
-            Website confirmation
-            <input name="company_website" tabIndex={-1} autoComplete="off" />
-          </label>
           <div className={styles.fieldRow}>
             <label>
               <span>Business name</span>

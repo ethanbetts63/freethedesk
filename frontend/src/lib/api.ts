@@ -161,19 +161,15 @@ export interface PublicSiteSettings {
   updated_at: string;
 }
 
-/** Every SiteSettings key that holds a price, i.e. everything but the timestamp. */
+/** Every SiteSettings key holding a price (all but the timestamp). */
 export type PriceField = Exclude<keyof PublicSiteSettings, "updated_at">;
 
-/** Unauthenticated: powers the public licensing and SEO pricing pages, no cookies required. */
+/** Unauthenticated; powers the public licensing and SEO pricing pages. */
 export async function getSiteSettings(): Promise<PublicSiteSettings> {
   return jsonOrError(await fetch("/api/site-settings/"));
 }
 
-/**
- * The one enquiry submission path, shared by the contact form, the website
- * builder and anything else that opens a lead. `help_with` is typed against the
- * backend's choices so an option that the API would reject cannot be sent.
- */
+/** Lead type. Typed against the backend's choices so a value the API would reject can't be sent. */
 export type HelpWith =
   "website" | "website_builder" | "inventory" | "automation" | "ai_readiness" | "everything" | "unsure";
 
@@ -186,11 +182,9 @@ export interface EnquiryPayload {
   phone?: string;
   website?: string;
   configuration?: object;
-  /** Honeypot. Bots fill it in; the API quietly discards those submissions. */
-  company_website?: string;
 }
 
-/** An unauthenticated JSON POST — signup and enquiry endpoints. Throws the API's own message. */
+/** Unauthenticated JSON POST (signup, enquiry). Throws the API's own message. */
 export async function postJson<T = unknown>(url: string, payload: object): Promise<T> {
   return jsonOrError<T>(
     await fetch(url, {
@@ -208,13 +202,10 @@ export async function submitEnquiry(payload: EnquiryPayload): Promise<void> {
 const SCHEME = /^([a-z][a-z0-9+.-]*):\/\//i;
 
 /**
- * People type "www.example.com.au" far more often than they type a scheme, and
- * both the native url input and the backend's URLField reject that. Prepend
- * https:// so the common case submits instead of erroring.
- *
- * Only http and https survive as schemes. Anything else is not a website, and
- * the value is eventually rendered as a link in the admin, so the scheme is
- * dropped rather than passed through.
+ * People type "www.example.com.au" far more often than a full scheme, which the
+ * url input and the backend's URLField both reject; prepend https:// so the
+ * common case submits. Only http(s) pass through — anything else is dropped,
+ * since the value ends up rendered as a link in the admin.
  */
 export function normaliseWebsiteUrl(value: string): string {
   const trimmed = value.trim();
@@ -227,9 +218,8 @@ export function normaliseWebsiteUrl(value: string): string {
 }
 
 /**
- * Anything stored server-side is untrusted by the time it reaches an href.
- * Returns the value only when it parses as an http(s) URL, so a hostile scheme
- * renders as text instead of becoming a clickable link.
+ * Server-stored values are untrusted by the time they reach an href. Returns the
+ * value only if it parses as an http(s) URL, so a hostile scheme renders as text.
  */
 export function safeWebsiteHref(value: string | null | undefined): string | null {
   if (!value) return null;
@@ -246,7 +236,6 @@ export interface AiReadinessPayload {
 
   phone?: string;
   email: string;
-  company_website?: string;
 }
 
 export async function submitAiReadinessCheck(payload: AiReadinessPayload): Promise<void> {
@@ -263,7 +252,6 @@ export interface ProjectEnquiryPayload {
   email: string;
   phone?: string;
   notes?: string;
-  company_website?: string;
 }
 
 export async function submitProjectEnquiry(payload: ProjectEnquiryPayload): Promise<void> {

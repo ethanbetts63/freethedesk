@@ -255,7 +255,7 @@
   text-transform: uppercase;
 }
 .heroCopy h2 {
-  font-size: clamp(2.2rem, 3.2vw, 3.9rem);
+  font-size: var(--display-3);
   letter-spacing: -0.075em;
   line-height: 0.86;
   margin: 12px 0;
@@ -949,7 +949,7 @@
   background: var(--surface);
   border: 2px solid var(--preview-accent);
   border-radius: 50%;
-  box-shadow: 0 5px 16px color-mix(in srgb, var(--ink-navy) 20%, transparent);
+  box-shadow: 0 5px 16px color-mix(in srgb, var(--slate-900) 20%, transparent);
   color: var(--preview-accent);
   display: flex;
   font-size: 0.62rem;
@@ -1463,9 +1463,6 @@
   border-color: var(--controls-accent);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--controls-accent) 10%, transparent);
 }
-.honeypot {
-  composes: honeypot from global;
-}
 .configurationReview {
   border-top: 1px solid var(--slate-200);
   margin-top: 5px;
@@ -1556,7 +1553,7 @@
   text-transform: uppercase;
 }
 .exampleHeading h2 {
-  font-size: clamp(1.9rem, 3.2vw, 3.3rem);
+  font-size: var(--display-2);
   letter-spacing: -0.065em;
   line-height: 0.92;
   margin: 8px 0 0;
@@ -1638,7 +1635,7 @@
   text-transform: uppercase;
 }
 .inventoryHero h2 {
-  font-size: clamp(2.4rem, 3.6vw, 4rem);
+  font-size: var(--display-3);
   letter-spacing: -0.07em;
   line-height: 0.88;
   margin: 12px 0;
@@ -1699,7 +1696,7 @@
 }
 .inventoryHeroVisual > i {
   background: var(--surface);
-  border: 8px solid var(--ink-strong);
+  border: 8px solid var(--slate-950);
   border-radius: 50%;
   bottom: 18%;
   height: 45px;
@@ -2409,34 +2406,34 @@
   opacity: 0.78;
   width: 48px;
 }
-.accessoryShape1 {
+.accessoryVisual > i.accessoryShape1 {
   border-radius: 5px 18px 5px 5px;
   transform: rotate(-5deg);
 }
-.accessoryShape2 {
+.accessoryVisual > i.accessoryShape2 {
   border: 5px solid var(--preview-accent);
   border-radius: 45%;
-  background: transparent !important;
+  background: transparent;
 }
-.accessoryShape3 {
+.accessoryVisual > i.accessoryShape3 {
   border-radius: 50% 50% 14px 14px;
-  width: 60px !important;
+  width: 60px;
 }
-.accessoryShape4 {
+.accessoryVisual > i.accessoryShape4 {
   border-radius: 50%;
   box-shadow: 18px 8px 0 color-mix(in srgb, var(--preview-accent) 55%, white);
-  height: 42px !important;
-  width: 42px !important;
+  height: 42px;
+  width: 42px;
 }
-.accessoryShape5 {
+.accessoryVisual > i.accessoryShape5 {
   border-radius: 8px 8px 20px 20px;
-  height: 48px !important;
-  width: 37px !important;
+  height: 48px;
+  width: 37px;
 }
-.accessoryShape6 {
+.accessoryVisual > i.accessoryShape6 {
   border-radius: 50%;
-  height: 45px !important;
-  width: 45px !important;
+  height: 45px;
+  width: 45px;
 }
 .partsSelectors {
   background: var(--surface-flow);
@@ -2857,7 +2854,7 @@
   text-transform: uppercase;
 }
 .serviceHeroCopy h2 {
-  font-size: clamp(2.7rem, 4.4vw, 4.5rem);
+  font-size: var(--display-4);
   letter-spacing: -0.07em;
   line-height: 0.79;
   margin: 15px 0 18px;

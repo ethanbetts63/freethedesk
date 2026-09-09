@@ -33,7 +33,7 @@
   text-transform: uppercase;
 }
 .copy h2 {
-  font-size: clamp(1.1rem, 1.9vw, 1.6rem);
+  font-size: var(--step-2);
   letter-spacing: -0.035em;
   line-height: 1.1;
   margin: 0;
@@ -88,9 +88,6 @@
   --mcb-padding-x: 15px;
   justify-content: center;
   white-space: nowrap;
-}
-.honeypot {
-  composes: honeypot from global;
 }
 .error {
   color: var(--danger-on-dark);

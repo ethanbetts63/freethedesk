@@ -17,8 +17,7 @@ const REDIRECT_DELAY_MS = 900;
 
 /**
  * Post-Stripe return screen. Stripe redirects here before the webhook has
- * necessarily landed, so the account is polled until it activates, fails, or
- * we give up and point the customer at their portal.
+ * landed, so the account is polled until it activates, fails, or times out.
  */
 export function PaymentConfirmation({
   check,

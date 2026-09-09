@@ -29,7 +29,6 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
-  const [honeypot, setHoneypot] = useState("");
   const [submissionStatus, setSubmissionStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const {
     accent,
@@ -92,7 +91,6 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
         help_with: "website_builder",
         message,
         configuration,
-        company_website: honeypot,
       });
       setSubmissionStatus("success");
     } catch {
@@ -335,15 +333,6 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           </div>
         </div>
         <form className={styles.detailsForm} onSubmit={submitConfiguration}>
-          <label className={styles.honeypot} aria-hidden="true">
-            <span>Company website confirmation</span>
-            <input
-              value={honeypot}
-              onChange={(event) => setHoneypot(event.target.value)}
-              tabIndex={-1}
-              autoComplete="off"
-            />
-          </label>
           <label>
             <span>Name</span>
             <input

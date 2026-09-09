@@ -23,13 +23,13 @@
   }
 }
 .chooser {
-  color: var(--ink-strong);
+  color: var(--slate-950);
   display: flex;
   flex-direction: column;
   padding: 34px 20px;
 }
 .chooser h2 {
-  color: var(--ink-strong);
+  color: var(--slate-950);
   font-size: var(--display-1);
   letter-spacing: -0.058em;
   line-height: 1.02;
@@ -283,9 +283,6 @@
 .form textarea:focus {
   border-color: var(--page-accent, var(--brand-accent));
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-accent) 12%, transparent);
-}
-.honeypot {
-  composes: honeypot from global;
 }
 
 .submit {

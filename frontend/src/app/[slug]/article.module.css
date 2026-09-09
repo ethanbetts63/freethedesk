@@ -64,7 +64,7 @@
   width: 7px;
 }
 .hero h1 {
-  font-size: clamp(2.9rem, 6.5vw, 6.4rem);
+  font-size: var(--display-6);
   letter-spacing: -0.07em;
   line-height: 0.94;
   margin: 0;
@@ -72,7 +72,7 @@
 }
 .intro {
   color: var(--text-on-dark-muted);
-  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-size: var(--step-1);
   line-height: 1.65;
   margin: 34px 0 0;
   max-width: 720px;
@@ -146,14 +146,14 @@
   margin-top: 0;
 }
 .prose h1 {
-  font-size: clamp(2.3rem, 5vw, 3.9rem);
+  font-size: var(--display-3);
   letter-spacing: -0.055em;
   line-height: 1;
   margin: 0 0 36px;
 }
 .prose h2 {
   border-top: 1px solid var(--border);
-  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  font-size: var(--step-3);
   letter-spacing: -0.04em;
   line-height: 1.12;
   margin: 64px 0 22px;

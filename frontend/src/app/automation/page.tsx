@@ -15,7 +15,7 @@ import { AUTOMATION_FAQS } from "./_lib/copy";
 import { ServiceScroll } from "@/components/ServiceScroll";
 import { automationServices } from "./_components/automationServices";
 
-/* Section eyebrows, in the order they appear on the page. */
+/* Section eyebrows in page order. */
 const sections = numberSections([
   "What automation means",
   "Practical automation",
