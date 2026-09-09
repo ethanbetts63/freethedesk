@@ -54,6 +54,7 @@ export function SiteFooter() {
       </div>
       <div className="shell footer-bottom">
         <span>© {new Date().getFullYear()} freethedesk</span>
+        <span>ABN 11 493 753 896</span>
         <span>Working with dealers across Australia</span>
       </div>
     </footer>

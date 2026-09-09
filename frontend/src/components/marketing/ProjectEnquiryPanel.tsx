@@ -129,7 +129,7 @@ export function ProjectEnquiryPanel({ heading }: { heading: React.ReactNode }) {
 
       <form className={`${formStyles.form} ${styles.form}`} onSubmit={send}>
         <div className={`${formStyles.formTitle} ${styles.formTitle}`}>
-          <h3>Send your enquiry.</h3>
+          <h3>Send your free enquiry.</h3>
           <span className={formStyles.pill}>No commitment</span>
         </div>
 

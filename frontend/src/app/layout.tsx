@@ -14,10 +14,7 @@ const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "";
 
 export const metadata: Metadata = {
   metadataBase: new URL(METADATA_BASE_URL),
-  title: {
-    default: "freethedesk | Dealer Operations Systems",
-    template: "%s | freethedesk",
-  },
+  title: "Fire your admin | Websites & Digital Automation | Australia, Perth",
   description: "Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.",
   verification: {
     google: "NPT1jo_98rxtDYj63w_sk4NePShMgItyKEdFQdigwOk",

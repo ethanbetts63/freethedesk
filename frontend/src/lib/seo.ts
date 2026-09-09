@@ -86,8 +86,8 @@ function titleCaseSlug(slug: string): string {
  * Builds a page's <head> metadata (canonical, Open Graph, Twitter Card) from a
  * single title/description/path so the three can't drift apart.
  *
- * Set `absoluteTitle: true` when `title` is already final — otherwise the root
- * layout's "%s | freethedesk" template appends the brand suffix a second time.
+ * Set `absoluteTitle: true` when a title must remain immune to any title
+ * templates introduced by a parent layout in the future.
  */
 export function pageMetadata(options: {
   title: string;

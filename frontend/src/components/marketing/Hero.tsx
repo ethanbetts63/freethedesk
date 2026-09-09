@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Eyebrow } from "@/components/Eyebrow";
 import { PrimaryButton } from "@/components/PrimaryButton";
-import { DeferredNetworkField } from "@/components/visuals/DeferredNetworkField";
+import { NetworkField } from "@/components/visuals/NetworkField";
 
 import styles from "./Hero.module.css";
 
@@ -34,8 +34,12 @@ export function Hero({
   return (
     <section className={styles.hero}>
       <div className={styles.glow} />
+      {/* Eager, unlike the footer backdrop: this one is above the fold, and
+          deferring it only saves a phone 1.9kB gzipped while costing every
+          desktop visitor a visible pop-in - the chunk cannot start downloading
+          until hydration finishes. */}
       <div className={styles.network}>
-        <DeferredNetworkField />
+        <NetworkField />
       </div>
       <div className={styles.grid} />
       <div className={`shell ${styles.content}`}>
