@@ -25,7 +25,7 @@ export const PAGES = {
     sitemap: { changeFrequency: "weekly", priority: 0.95 },
   },
   "/licensing": {
-    title: "Sign, sealed, delivered | Online Vehicle Licensing Australia",
+    title: "Signed, sealed, delivered—sell more | Online Vehicle Licensing Australia",
     description:
       "Let customers verify their identity, complete vehicle licensing and sign paperwork online without an unnecessary dealership visit.",
     sitemap: { changeFrequency: "weekly", priority: 0.95 },
