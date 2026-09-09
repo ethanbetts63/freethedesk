@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { Eyebrow } from "@/components/Eyebrow";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import styles from "./WebsiteProduct.module.css";
@@ -70,9 +72,14 @@ export function WebsiteProduct() {
                 <span className={styles.previewButton}>View inventory →</span>
               </div>
               <div className={styles.previewVehicle}>
-                <span />
-                <i />
-                <i />
+                <Image
+                  className={styles.previewVehicleImage}
+                  src="/images/car.png"
+                  alt=""
+                  width={520}
+                  height={262}
+                  aria-hidden="true"
+                />
               </div>
             </div>
             <div className={styles.inventoryStrip}>

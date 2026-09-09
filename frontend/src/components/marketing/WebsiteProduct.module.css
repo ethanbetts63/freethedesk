@@ -232,43 +232,14 @@
   position: absolute;
   width: 280px;
 }
-.previewVehicle > span {
-  background: linear-gradient(150deg, var(--sky-500), var(--section-accent) 58%, var(--blue-900));
-  border-radius: 60% 45% 18% 18% / 45% 45% 28% 28%;
-  height: 76px;
+/* Contained, so the photo letterboxes inside the mock rather than stretching. */
+.previewVehicleImage {
+  height: 100%;
+  object-fit: contain;
+  padding: 6px 0;
   position: relative;
-  transform: skewX(-8deg);
-  width: 88%;
+  width: 100%;
   z-index: 1;
-}
-.previewVehicle > span::before {
-  background: var(--slate-700);
-  border: 5px solid var(--section-accent);
-  border-bottom: 0;
-  border-radius: 70% 40% 0 0;
-  bottom: 65%;
-  content: "";
-  height: 56px;
-  left: 35%;
-  position: absolute;
-  transform: skewX(-9deg);
-  width: 38%;
-}
-.previewVehicle i {
-  background: var(--surface);
-  border: 9px solid var(--line-ink);
-  border-radius: 50%;
-  bottom: 16%;
-  height: 50px;
-  position: absolute;
-  width: 50px;
-  z-index: 2;
-}
-.previewVehicle i:nth-child(2) {
-  left: 13%;
-}
-.previewVehicle i:last-child {
-  right: 10%;
 }
 .inventoryStrip {
   align-items: center;

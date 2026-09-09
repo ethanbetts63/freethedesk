@@ -30,6 +30,26 @@ type ExamplePageProps = {
   onPageChange: (page: PreviewPage) => void;
 };
 
+const PREVIEW_RENDERERS: Record<Exclude<PreviewPage, "home">, (props: ExamplePageProps) => React.ReactNode> = {
+  inventory: ({ inventoryAddons, onVehicleOpen }) => (
+    <InventoryPage inventoryAddons={inventoryAddons} onVehicleOpen={onVehicleOpen} />
+  ),
+  vehicle: ({ selectedVehicle, inventoryAddons, onPageChange }) => (
+    <VehicleDetailsPage
+      vehicle={selectedVehicle}
+      inventoryAddons={inventoryAddons}
+      onBack={() => onPageChange("inventory")}
+    />
+  ),
+  accessories: () => <AccessoriesPage />,
+  parts: () => <PartsPage />,
+  hire: () => <HirePage />,
+  service: () => <ServicePage />,
+  contact: ({ brandName }) => <ContactPage brandName={brandName} />,
+  terms: () => <TermsPage />,
+  articles: () => <ArticlesPage />,
+};
+
 export function ExamplePage({
   page,
   inventoryAddons,
@@ -38,20 +58,12 @@ export function ExamplePage({
   onVehicleOpen,
   onPageChange,
 }: ExamplePageProps) {
-  if (page === "inventory") return <InventoryPage inventoryAddons={inventoryAddons} onVehicleOpen={onVehicleOpen} />;
-  if (page === "vehicle")
-    return (
-      <VehicleDetailsPage
-        vehicle={selectedVehicle}
-        inventoryAddons={inventoryAddons}
-        onBack={() => onPageChange("inventory")}
-      />
-    );
-  if (page === "accessories") return <AccessoriesPage />;
-  if (page === "parts") return <PartsPage />;
-  if (page === "hire") return <HirePage />;
-  if (page === "service") return <ServicePage />;
-  if (page === "contact") return <ContactPage brandName={brandName} />;
-  if (page === "terms") return <TermsPage />;
-  return <ArticlesPage />;
+  return PREVIEW_RENDERERS[page]({
+    page,
+    inventoryAddons,
+    brandName,
+    selectedVehicle,
+    onVehicleOpen,
+    onPageChange,
+  });
 }

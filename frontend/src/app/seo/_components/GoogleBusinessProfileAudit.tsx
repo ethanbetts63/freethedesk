@@ -31,9 +31,11 @@ export function GoogleBusinessProfileAudit({ ctaHref, ctaLabel }: { ctaHref: str
           <SectionNumber onDark>Your local search presence</SectionNumber>
           <h3 id="gbp-audit-title">Google Business Profile audit</h3>
           <p className={styles.intro}>
-            Google says local results are shaped mainly by relevance, distance and prominence. You cannot change where
-            your business is, but you can make the profile clearer, more complete and more useful when a nearby customer
-            finds it.
+            Relevance, distance and prominence are the factors Google names first for local results, but they are not
+            the only ones, and distance is the only one you cannot change. Categories and services, the attributes and
+            details customers actually search on, reviews and how you answer them, photos, and consistent listings
+            elsewhere all feed into it. The work is not only making the profile look better&mdash;it changes what you
+            turn up for.
           </p>
 
           <div className={styles.actions}>

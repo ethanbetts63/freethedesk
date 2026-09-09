@@ -1,4 +1,13 @@
 .page {
+  --demo-text-xs: 0.625rem;
+  --demo-text-sm: 0.6875rem;
+  --demo-text-md: 0.75rem;
+  --demo-text-lg: 0.875rem;
+  --demo-text-xl: 1rem;
+  --demo-space-xs: 8px;
+  --demo-space-sm: 12px;
+  --demo-space-md: 16px;
+  --demo-space-lg: 24px;
   background: var(--slate-50);
   color: var(--text);
   height: auto;
@@ -17,15 +26,17 @@
   flex-direction: column;
   min-height: 560px;
   min-width: 0;
-  padding: 12px;
+  padding: var(--demo-space-sm);
   position: relative;
   top: 0;
   height: 72svh;
+  container-name: dealer-preview;
+  container-type: inline-size;
 }
 .previewLabel {
   color: var(--slate-500);
   display: flex;
-  font-size: 0.61rem;
+  font-size: var(--demo-text-md);
   font-weight: 800;
   justify-content: space-between;
   letter-spacing: 0.13em;
@@ -81,7 +92,7 @@
   color: var(--preview-accent);
   display: flex;
   flex: 0 0 31px;
-  font-size: 0.63rem;
+  font-size: var(--demo-text-md);
   height: 25px;
   justify-content: center;
   flex-basis: 25px;
@@ -94,14 +105,14 @@
 .previewGuide strong {
   display: block;
   min-width: 0;
-  font-size: 0.62rem;
+  font-size: var(--demo-text-md);
   letter-spacing: -0.01em;
 }
 .previewGuide small {
   display: none;
   min-width: 0;
   color: var(--slate-500);
-  font-size: 0.61rem;
+  font-size: var(--demo-text-md);
   line-height: 1.35;
   margin-top: 3px;
 }
@@ -112,11 +123,11 @@
   }
   .previewGuide b {
     flex-basis: revert;
-    font-size: 0.64rem;
+    font-size: var(--demo-text-md);
     height: 31px;
   }
   .previewGuide strong {
-    font-size: 0.72rem;
+    font-size: var(--demo-text-lg);
   }
   .previewGuide small {
     display: block;

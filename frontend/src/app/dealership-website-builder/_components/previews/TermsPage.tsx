@@ -1,12 +1,18 @@
 "use client";
 
-import { PageHeading } from "./shared";
+import { PreviewPageShell } from "./shared";
 import styles from "../../_styles/preview.module.css";
 
 export function TermsPage() {
   return (
-    <div className={`${styles.examplePage} ${styles.termsPage}`}>
-      <PageHeading eyebrow="Customer information" title="Terms & conditions." detail="Last updated September 2026" />
+    <PreviewPageShell
+      kind="information"
+      heading={{
+        eyebrow: "Customer information",
+        title: "Terms & conditions.",
+        detail: "Last updated September 2026",
+      }}
+    >
       <div className={styles.termsIntro}>
         <strong>Clear terms make every next step easier.</strong>
         <p>
@@ -60,6 +66,6 @@ export function TermsPage() {
         <span>Questions about these terms?</span>
         <strong>Contact our team for a clear answer before proceeding.</strong>
       </div>
-    </div>
+    </PreviewPageShell>
   );
 }

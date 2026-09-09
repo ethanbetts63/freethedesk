@@ -4,16 +4,22 @@
   background: var(--surface-dark);
   color: var(--text-on-dark);
 }
+/* Stacked: the articles share one value column through subgrid, so the label
+   starts at the same x whether the value reads "AI" or "36%". Each article
+   sizing its own column made the text jump left and right down the list. */
 .proof-strip-grid {
+  column-gap: 13px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr);
 }
 .proof-strip article {
   align-items: center;
   display: grid;
   gap: 13px;
-  /* auto, not a fixed width: the value sets its own column. */
+  grid-column: 1 / -1;
+  /* Fallback for no subgrid: the value still sets its own column. */
   grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: subgrid;
   min-height: auto;
   padding: 28px 0;
 }
@@ -41,11 +47,14 @@
 
 @media (min-width: 900px) {
   .proof-strip-grid {
+    column-gap: 0;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
+  /* Side by side now, so each article is its own grid again. */
   .proof-strip article {
     align-items: start;
     gap: 22px;
+    grid-column: auto;
     grid-template-columns: minmax(0, 1fr);
     min-height: 160px;
     padding: 34px 30px;

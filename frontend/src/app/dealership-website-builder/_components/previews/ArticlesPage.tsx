@@ -1,12 +1,14 @@
 "use client";
 
-import { PageHeading } from "./shared";
+import { PreviewPageShell } from "./shared";
 import styles from "../../_styles/preview.module.css";
 
 export function ArticlesPage() {
   return (
-    <div className={styles.examplePage}>
-      <PageHeading eyebrow="Advice and ownership" title="Guides for the road ahead." detail="View all guides →" />
+    <PreviewPageShell
+      kind="information"
+      heading={{ eyebrow: "Advice and ownership", title: "Guides for the road ahead.", detail: "View all guides →" }}
+    >
       <div className={styles.journalFeature}>
         <div />
         <section>
@@ -28,6 +30,6 @@ export function ArticlesPage() {
           <strong>Three perfect weekend escapes</strong>
         </article>
       </div>
-    </div>
+    </PreviewPageShell>
   );
 }

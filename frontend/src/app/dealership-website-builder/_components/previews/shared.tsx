@@ -2,10 +2,33 @@
 
 /* Building blocks reused across the individual preview pages. */
 
+import type { ReactNode } from "react";
+
 import type { InventoryVehicle } from "./data";
 import type { InventoryAddonSelection } from "../../_lib/types";
 import styles from "../../_styles/preview.module.css";
 import { VehicleArtwork } from "../PreviewArtwork";
+
+type PreviewPageKind = "catalogue" | "transaction" | "information" | "specialist";
+
+export function PreviewPageShell({
+  children,
+  className = "",
+  kind,
+  heading,
+}: {
+  children: ReactNode;
+  className?: string;
+  kind: PreviewPageKind;
+  heading: { eyebrow: string; title: string; detail: string };
+}) {
+  return (
+    <div className={`${styles.examplePage} ${className}`} data-preview-kind={kind}>
+      <PageHeading {...heading} />
+      {children}
+    </div>
+  );
+}
 
 export function PageHeading({ eyebrow, title, detail }: { eyebrow: string; title: string; detail: string }) {
   return (
@@ -63,6 +86,21 @@ export function CatalogueControls({
         <span>Filters and sorting update instantly</span>
       </div>
     </>
+  );
+}
+
+export function CatalogueGrid({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <div className={`${styles.catalogueGrid} ${className}`}>{children}</div>;
+}
+
+export function EmptyResults({ label, onClear }: { label: string; onClear: () => void }) {
+  return (
+    <div className={styles.noInventoryResults}>
+      <strong>{label}</strong>
+      <button type="button" onClick={onClear}>
+        Clear filters
+      </button>
+    </div>
   );
 }
 

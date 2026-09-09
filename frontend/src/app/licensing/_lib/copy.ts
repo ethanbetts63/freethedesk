@@ -10,7 +10,7 @@ export const LICENSING_FAQS: FaqItem[] = [
   {
     question: "How does the customer actually pay?",
     answer:
-      "Online, as part of the same flow—card payment for a plan, or the BSB details shown when licensing is built into a vehicle purchase on your website.",
+    "Licensing and signing doesn't cost the customer. If you would like for product purchasing to run through one of our sites we use Stripe for transactions."
   },
 
   {

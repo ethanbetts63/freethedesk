@@ -10,7 +10,7 @@ export const AUTOMATION_FAQS: FaqItem[] = [
   {
     question: "Will this replace the software we already use?",
     answer:
-      "Usually not. We start with the accounting, CRM, inventory or job-management systems you already run and add the missing workflow or integration, rather than replacing what already works.",
+      "We start with the accounting, CRM, inventory or job-management systems you already run and add the missing workflow or integration. Sometimes, it makes sense to replace your subscriptions whilst we are going if the cost of developing the feature is less than what you pay for the subscription.",
   },
 
   {

@@ -6,7 +6,7 @@ import { ConversionButton } from "../ConversionButton";
 import { VehicleArtwork } from "../PreviewArtwork";
 import { INVENTORY_VEHICLES } from "./data";
 import type { InventoryVehicle } from "./data";
-import { CatalogueControls, InventoryTile, OnlinePurchaseSteps } from "./shared";
+import { CatalogueControls, CatalogueGrid, EmptyResults, InventoryTile, OnlinePurchaseSteps } from "./shared";
 import type { InventoryAddonSelection } from "../../_lib/types";
 import styles from "../../_styles/preview.module.css";
 
@@ -30,7 +30,7 @@ export function InventoryPage({
   };
 
   return (
-    <div className={styles.inventoryPage}>
+    <div>
       <section className={styles.inventoryHero}>
         <div>
           <small>Ready when you are</small>
@@ -98,7 +98,7 @@ export function InventoryPage({
           resultName="vehicles"
         />
         {vehicles.length > 0 ? (
-          <div className={styles.catalogueGrid}>
+          <CatalogueGrid>
             {vehicles.map((vehicle) => (
               <InventoryTile
                 key={vehicle.name}
@@ -107,14 +107,9 @@ export function InventoryPage({
                 onOpen={() => onVehicleOpen(vehicle)}
               />
             ))}
-          </div>
+          </CatalogueGrid>
         ) : (
-          <div className={styles.noInventoryResults}>
-            <strong>No vehicles match those filters.</strong>
-            <button type="button" onClick={clearFilters}>
-              Clear filters
-            </button>
-          </div>
+          <EmptyResults label="No vehicles match those filters." onClear={clearFilters} />
         )}
       </div>
     </div>

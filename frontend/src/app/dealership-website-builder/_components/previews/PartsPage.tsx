@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 import { ConversionButton } from "../ConversionButton";
-import { PageHeading } from "./shared";
+import { PreviewPageShell } from "./shared";
 import styles from "../../_styles/preview.module.css";
 
 export function PartsPage() {
@@ -27,12 +27,14 @@ export function PartsPage() {
     setAddedParts((current) => (current.includes(number) ? current : [...current, number]));
 
   return (
-    <div className={styles.examplePage}>
-      <PageHeading
-        eyebrow="Genuine parts lookup"
-        title="Cam shaft & cyl. head L. side cover"
-        detail="CROX50 · 11 parts"
-      />
+    <PreviewPageShell
+      kind="specialist"
+      heading={{
+        eyebrow: "Genuine parts lookup",
+        title: "Cam shaft & cyl. head L. side cover",
+        detail: "CROX50 · 11 parts",
+      }}
+    >
       <div className={styles.partsSelectors}>
         <label>
           <span>Year</span>
@@ -117,6 +119,6 @@ export function PartsPage() {
           </ol>
         </aside>
       </div>
-    </div>
+    </PreviewPageShell>
   );
 }

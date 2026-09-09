@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { ConversionButton } from "../ConversionButton";
 import { ProductArtwork } from "../PreviewArtwork";
-import { CatalogueControls, PageHeading } from "./shared";
+import { CatalogueControls, CatalogueGrid, EmptyResults, PreviewPageShell } from "./shared";
 import styles from "../../_styles/preview.module.css";
 
 export function AccessoriesPage() {
@@ -27,8 +27,10 @@ export function AccessoriesPage() {
   };
 
   return (
-    <div className={styles.examplePage}>
-      <PageHeading eyebrow="Parts and accessories" title="Make it your own." detail="Shop all →" />
+    <PreviewPageShell
+      kind="catalogue"
+      heading={{ eyebrow: "Parts and accessories", title: "Make it your own.", detail: "Shop all →" }}
+    >
       <CatalogueControls
         selects={[
           {
@@ -57,7 +59,7 @@ export function AccessoriesPage() {
         resultCount={visibleProducts.length}
         resultName="products"
       />
-      <div className={`${styles.catalogueGrid} ${styles.accessoryGrid}`}>
+      <CatalogueGrid className={styles.accessoryGrid}>
         {visibleProducts.map((product) => {
           const originalIndex = products.findIndex((item) => item.name === product.name);
           return (
@@ -72,15 +74,10 @@ export function AccessoriesPage() {
             </article>
           );
         })}
-      </div>
+      </CatalogueGrid>
       {visibleProducts.length === 0 && (
-        <div className={styles.noInventoryResults}>
-          <strong>No accessories match those filters.</strong>
-          <button type="button" onClick={clearFilters}>
-            Clear filters
-          </button>
-        </div>
+        <EmptyResults label="No accessories match those filters." onClear={clearFilters} />
       )}
-    </div>
+    </PreviewPageShell>
   );
 }

@@ -1,5 +1,6 @@
 .controls {
   --controls-accent: var(--brand-accent);
+  --form-accent: var(--controls-accent);
   background: var(--surface);
   border: 0;
   border-left: 0;
@@ -28,7 +29,7 @@
 .baseProduct > div span,
 .baseProduct > div b {
   color: var(--controls-accent);
-  font-size: 0.61rem;
+  font-size: var(--demo-text-md);
   font-weight: 900;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -40,7 +41,7 @@
 }
 .baseProduct p {
   color: var(--slate-500);
-  font-size: 0.76rem;
+  font-size: var(--demo-text-lg);
   line-height: 1.55;
   margin: 0;
 }
@@ -56,7 +57,7 @@
 }
 .groupTitle > span {
   color: var(--controls-accent);
-  font-size: 0.61rem;
+  font-size: var(--demo-text-md);
   font-weight: 900;
   padding-top: 2px;
 }
@@ -66,54 +67,27 @@
 }
 .groupTitle strong {
   display: block;
-  font-size: 0.88rem;
+  font-size: var(--demo-text-xl);
 }
 .groupTitle small {
   display: block;
   color: var(--slate-500);
-  font-size: 0.77rem;
+  font-size: var(--demo-text-lg);
   line-height: 1.45;
   margin-top: 5px;
 }
 .controlGroup > label {
-  color: var(--slate-500);
-  display: block;
-  font-size: 0.6rem;
-  font-weight: 800;
   margin: 19px 0 9px;
-  text-transform: uppercase;
 }
 .brandInput {
-  background: var(--surface);
-  border: 1px solid var(--slate-200);
-  color: var(--text);
-  font: inherit;
-  font-size: 0.78rem;
   font-weight: 750;
-  outline: none;
-  padding: 13px 14px;
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
-  width: 100%;
-}
-.brandInput:focus {
-  border-color: var(--controls-accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--controls-accent) 10%, transparent);
 }
 .optionalLabel {
   color: var(--slate-400);
-  font-size: 0.52rem;
+  font-size: var(--demo-text-sm);
   font-weight: 700;
   margin-left: 5px;
   text-transform: none;
-}
-.fieldNote {
-  color: var(--slate-500);
-  display: block;
-  font-size: 0.54rem;
-  line-height: 1.45;
-  margin-top: 6px;
 }
 .swatches {
   display: flex;
@@ -153,7 +127,7 @@
 }
 .paletteNote {
   color: var(--slate-500);
-  font-size: 0.58rem;
+  font-size: var(--demo-text-sm);
   line-height: 1.55;
   margin: 14px 0 0;
   max-width: 340px;
@@ -217,13 +191,13 @@
 }
 .moduleToggle > span strong {
   display: block;
-  font-size: 0.9rem;
+  font-size: var(--demo-text-xl);
   line-height: 1.25;
 }
 .moduleToggle > span small {
   display: block;
   color: var(--slate-500);
-  font-size: 0.72rem;
+  font-size: var(--demo-text-lg);
   line-height: 1.45;
   margin-top: 5px;
 }
@@ -234,7 +208,7 @@
   color: var(--controls-accent);
   display: flex;
   flex: 0 0 24px;
-  font-size: 0.7rem;
+  font-size: var(--demo-text-lg);
   font-style: normal;
   height: 24px;
   justify-content: center;
@@ -285,7 +259,7 @@
 }
 .moduleExplanation p {
   color: var(--slate-600);
-  font-size: 0.72rem;
+  font-size: var(--demo-text-lg);
   line-height: 1.65;
   margin: 0 0 12px;
 }
@@ -298,7 +272,7 @@
 }
 .moduleExplanation li {
   color: var(--slate-600);
-  font-size: 0.65rem;
+  font-size: var(--demo-text-md);
   line-height: 1.5;
   padding-left: 13px;
   position: relative;
@@ -321,7 +295,7 @@
 }
 .inventorySubOptions > p {
   color: var(--slate-500);
-  font-size: 0.53rem;
+  font-size: var(--demo-text-sm);
   font-weight: 900;
   letter-spacing: 0.1em;
   margin: 0 0 6px;
@@ -339,10 +313,10 @@
   padding: 14px 2px;
 }
 .inventorySubOptions .moduleToggle > span strong {
-  font-size: 0.79rem;
+  font-size: var(--demo-text-lg);
 }
 .inventorySubOptions .moduleToggle > span small {
-  font-size: 0.66rem;
+  font-size: var(--demo-text-md);
 }
 .inventorySubOptions .moduleToggle > i {
   background: var(--surface);
@@ -382,34 +356,15 @@
   width: 100%;
 }
 .customRequestPanel label {
-  color: var(--slate-800);
-  display: block;
-  font-size: 0.74rem;
-  font-weight: 850;
-  line-height: 1.4;
   margin-bottom: 10px;
 }
 .customRequestPanel textarea {
-  background: var(--surface);
-  border: 1px solid var(--slate-200);
-  color: var(--text);
-  font: inherit;
-  font-size: 0.73rem;
-  line-height: 1.55;
   min-height: 112px;
-  outline: none;
-  padding: 12px;
-  resize: vertical;
-  width: 100%;
-}
-.customRequestPanel textarea:focus {
-  border-color: var(--controls-accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--controls-accent) 10%, transparent);
 }
 .customRequestPanel > small {
   color: var(--slate-500);
   display: block;
-  font-size: 0.61rem;
+  font-size: var(--demo-text-md);
   line-height: 1.5;
   margin-top: 8px;
 }
@@ -422,32 +377,8 @@
   flex-direction: column;
   gap: 14px;
 }
-.detailsForm > label > span {
-  color: var(--slate-600);
-  display: block;
-  font-size: 0.62rem;
-  font-weight: 850;
-  letter-spacing: 0.04em;
-  margin-bottom: 7px;
-  text-transform: uppercase;
-}
 .detailsForm > label > input {
-  background: var(--surface);
-  border: 1px solid var(--slate-200);
-  color: var(--text);
-  font: inherit;
-  font-size: 0.82rem;
   font-weight: 700;
-  outline: none;
-  padding: 14px;
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
-  width: 100%;
-}
-.detailsForm > label > input:focus {
-  border-color: var(--controls-accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--controls-accent) 10%, transparent);
 }
 .configurationReview {
   border-top: 1px solid var(--slate-200);
@@ -461,51 +392,37 @@
 }
 .configurationReview > div span {
   color: var(--slate-500);
-  font-size: 0.62rem;
+  font-size: var(--demo-text-md);
   text-transform: uppercase;
 }
 .configurationReview > div strong {
-  font-size: 0.92rem;
+  font-size: var(--demo-text-xl);
 }
 .configurationReview > p {
   color: var(--slate-600);
-  font-size: 0.67rem;
+  font-size: var(--demo-text-md);
   line-height: 1.55;
   margin: 10px 0 0;
 }
 .detailsSubmit {
-  align-items: center;
-  background: var(--controls-accent);
-  border: 0;
-  color: var(--text-on-dark);
-  cursor: pointer;
-  display: flex;
-  font: inherit;
-  font-size: 0.8rem;
-  font-weight: 850;
-  justify-content: space-between;
+  --pb-background: var(--controls-accent);
+  --pb-background-hover: var(--blue-700);
+  --pb-font-size: var(--demo-text-lg);
+  --pb-padding: 15px 16px;
+  --pb-width: 100%;
   margin-top: 3px;
-  padding: 15px 16px;
-  width: 100%;
-}
-.detailsSubmit:hover {
-  background: var(--blue-700);
-}
-.detailsSubmit:disabled {
-  cursor: wait;
-  opacity: 0.7;
 }
 .submissionNote {
   color: var(--slate-500);
   display: block;
-  font-size: 0.59rem;
+  font-size: var(--demo-text-sm);
   line-height: 1.55;
 }
 .submissionMessage:empty {
   display: none;
 }
 .submissionMessage p {
-  font-size: 0.67rem;
+  font-size: var(--demo-text-md);
   font-weight: 750;
   line-height: 1.55;
   margin: 0;

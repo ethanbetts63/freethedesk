@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import { ConversionButton } from "../ConversionButton";
-import { MiniVehicle, PageHeading } from "./shared";
+import { MiniVehicle, PreviewPageShell } from "./shared";
 import styles from "../../_styles/preview.module.css";
 
 export function HirePage() {
@@ -34,8 +34,10 @@ export function HirePage() {
   };
 
   return (
-    <div className={styles.examplePage}>
-      <PageHeading eyebrow="Online hire" title="Choose a date. Start exploring." detail="3 vehicles available" />
+    <PreviewPageShell
+      kind="transaction"
+      heading={{ eyebrow: "Online hire", title: "Choose a date. Start exploring.", detail: "3 vehicles available" }}
+    >
       <form
         className={styles.hireSearch}
         onSubmit={(event) => {
@@ -138,6 +140,6 @@ export function HirePage() {
           </div>
         </section>
       )}
-    </div>
+    </PreviewPageShell>
   );
 }

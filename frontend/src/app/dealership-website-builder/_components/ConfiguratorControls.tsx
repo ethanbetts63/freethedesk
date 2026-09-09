@@ -5,7 +5,6 @@ import { FormEvent, useState } from "react";
 import { submitEnquiry } from "@/lib/api";
 import { PrimaryButton } from "@/components/PrimaryButton";
 
-import { CapabilityIcon } from "./CapabilityIcon";
 import { CapabilityOption } from "./CapabilityOption";
 import { ACCENTS, INVENTORY_OPTIONS, MODULES, summariseSelection } from "../_lib/configuratorData";
 import styles from "../_styles/configurator.module.css";
@@ -270,7 +269,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
         </div>
         <form className={styles.detailsForm} onSubmit={submitConfiguration}>
           <label>
-            <span>Name</span>
+            <span className="form-label">Name</span>
             <input
               className="form-control"
               value={contactName}
@@ -283,7 +282,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             />
           </label>
           <label>
-            <span>Email</span>
+            <span className="form-label">Email</span>
             <input
               className="form-control"
               value={contactEmail}
@@ -297,7 +296,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             />
           </label>
           <label>
-            <span>Phone number</span>
+            <span className="form-label">Phone number</span>
             <input
               className="form-control"
               value={contactPhone}

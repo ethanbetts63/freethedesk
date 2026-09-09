@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ConversionButton, ConversionLink } from "../ConversionButton";
 import { DemoMap } from "../DemoMap";
 import { getDemoBrandIdentity } from "../../_lib/demoBrand";
-import { PageHeading } from "./shared";
+import { PreviewPageShell } from "./shared";
 import styles from "../../_styles/preview.module.css";
 
 export function ContactPage({ brandName }: { brandName: string }) {
@@ -13,8 +13,10 @@ export function ContactPage({ brandName }: { brandName: string }) {
   const { email } = getDemoBrandIdentity(brandName);
 
   return (
-    <div className={styles.examplePage}>
-      <PageHeading eyebrow="Contact our team" title="How can we help?" detail="Replies within one business day" />
+    <PreviewPageShell
+      kind="information"
+      heading={{ eyebrow: "Contact our team", title: "How can we help?", detail: "Replies within one business day" }}
+    >
       <div className={styles.contactPageGrid}>
         <aside className={styles.contactPageDetails}>
           <small>Speak with the dealership</small>
@@ -77,6 +79,6 @@ export function ContactPage({ brandName }: { brandName: string }) {
         </div>
         <DemoMap className={styles.contactSimpleMap} ariaLabel="Map showing the location at a road intersection" />
       </div>
-    </div>
+    </PreviewPageShell>
   );
 }

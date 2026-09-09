@@ -183,6 +183,7 @@
   color: var(--slate-300);
   font-size: 0.96rem;
   line-height: 1.7;
+  margin-top: 22px;
   max-width: 440px;
 }
 .optionPhones {
@@ -660,12 +661,12 @@
   stroke-width: 1.6;
   width: 19px;
 }
+/* Flat brand blue, not the moving gradient: the Stripe wordmark is a blue-violet
+   and vanished as the gradient swept its own colours under it. */
 .verifyFooter {
   align-items: center;
-  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
-  background: var(--moving-colour-gradient-reverse);
-  background-size: var(--moving-colour-size);
-  box-shadow: 0 12px 28px rgba(168, 85, 247, 0.22);
+  background: var(--page-accent, var(--brand-accent));
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--page-accent, var(--brand-accent)) 22%, transparent);
   display: flex;
   gap: 11px;
   justify-content: center;
@@ -683,8 +684,7 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .verifyCard,
-  .verifyCardHead b,
-  .verifyFooter {
+  .verifyCardHead b {
     animation: none;
   }
 }
