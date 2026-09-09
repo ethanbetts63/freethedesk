@@ -6,7 +6,6 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { SiteChrome } from "@/components/SiteChrome";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { AuthProvider } from "@/context/AuthContext";
 import { buildOrganizationSchema, buildWebsiteSchema } from "@/lib/seo";
 import { METADATA_BASE_URL } from "@/lib/siteConfig";
 import "./globals.css";
@@ -42,13 +41,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           dangerouslySetInnerHTML={{ __html: JSON.stringify([buildOrganizationSchema(), buildWebsiteSchema()]) }}
         />
         <ScrollToTop />
-        <AuthProvider>
-          {/* Chrome is passed in already rendered, so its markup stays on the
-              server and SiteChrome only decides which routes show it. */}
-          <SiteChrome header={<SiteHeader />} footer={<SiteFooter />}>
-            {children}
-          </SiteChrome>
-        </AuthProvider>
+        {/* Chrome is passed in already rendered, so its markup stays on the
+            server and SiteChrome only decides which routes show it. AuthProvider
+            is deliberately NOT here: it belongs to the signed-in areas, and in
+            the root layout it hydrated on every marketing page and fired a
+            profile request per view. */}
+        <SiteChrome header={<SiteHeader />} footer={<SiteFooter />}>
+          {children}
+        </SiteChrome>
         <Analytics />
         {CLARITY_PROJECT_ID && (
           <Script

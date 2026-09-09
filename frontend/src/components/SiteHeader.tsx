@@ -3,7 +3,7 @@ import "./SiteHeader.css";
 import Image from "next/image";
 import Link from "next/link";
 
-import { MobileNav } from "@/components/MobileNav";
+import { MobileNavAutoClose } from "@/components/MobileNavAutoClose";
 import { PRIMARY_NAVIGATION } from "@/lib/siteConfig";
 
 export function SiteHeader() {
@@ -26,7 +26,27 @@ export function SiteHeader() {
             Login
           </Link>
         </nav>
-        <MobileNav />
+        {/* Native <details>: the panel works with no JavaScript, so only the
+            close-on-navigate behaviour is a client component. */}
+        <details className="mobile-nav">
+          <summary aria-label="Open navigation menu">
+            <i />
+            <i />
+            <i />
+          </summary>
+          <nav aria-label="Mobile navigation">
+            {PRIMARY_NAVIGATION.map((item) => (
+              <Link key={item.href} href={item.href}>
+                {item.label}
+                <span>→</span>
+              </Link>
+            ))}
+            <Link className="mobile-nav-cta nav-cta-glow" href="/login">
+              Login<span>→</span>
+            </Link>
+          </nav>
+          <MobileNavAutoClose />
+        </details>
       </div>
     </header>
   );

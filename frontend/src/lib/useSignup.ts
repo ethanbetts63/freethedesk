@@ -3,8 +3,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { useAuth } from "@/context/AuthContext";
-import { normaliseWebsiteUrl, postJson, type Principal } from "@/lib/api";
+import { SESSION_FLAG, login, normaliseWebsiteUrl, postJson, type Principal } from "@/lib/api";
 
 export type SignupStatus = "idle" | "submitting" | "error";
 
@@ -18,7 +17,6 @@ export function useSignup({
   sessionFromSignup?: boolean;
 }) {
   const router = useRouter();
-  const { login, adoptSession } = useAuth();
   const [status, setStatus] = useState<SignupStatus>("idle");
   const [error, setError] = useState("");
 
@@ -35,9 +33,12 @@ export function useSignup({
     const password = String(values.get("password") ?? "");
 
     try {
-      const result = await postJson<Principal>(endpoint, { ...Object.fromEntries(values.entries()), ...extra });
-      if (sessionFromSignup) adoptSession(result);
-      else await login(email, password);
+      await postJson<Principal>(endpoint, { ...Object.fromEntries(values.entries()), ...extra });
+      // Signing up on a marketing page must not drag the auth context onto it.
+      // The flag is all the provider on the destination needs to pick the
+      // session up; it fetches the profile itself on mount.
+      if (!sessionFromSignup) await login(email, password);
+      localStorage.setItem(SESSION_FLAG, "1");
       router.push(nextHref);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Unable to create your account.");

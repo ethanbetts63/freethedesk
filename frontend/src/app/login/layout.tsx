@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { AuthProvider } from "@/context/AuthContext";
+
 export const metadata: Metadata = {
   title: "Login",
   description: "Sign in to the freethedesk dealer portal or staff dashboard.",
@@ -7,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function LoginLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <AuthProvider>{children}</AuthProvider>;
 }
