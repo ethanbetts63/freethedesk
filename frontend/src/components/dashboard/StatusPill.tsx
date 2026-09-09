@@ -18,7 +18,11 @@ export function statusLabel(status: string): string {
 }
 
 export function StatusPill({ status }: { status: string }) {
-  return <span className={`admin-status admin-status-${status}`}>{statusLabel(status)}</span>;
+  return (
+    <span className="admin-status" data-status={status}>
+      {statusLabel(status)}
+    </span>
+  );
 }
 
 export const enquiryStatuses = ["new", "contacted", "qualified", "won", "closed", "spam"] as const;

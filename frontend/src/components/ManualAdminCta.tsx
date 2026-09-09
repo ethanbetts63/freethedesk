@@ -1,24 +1,33 @@
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { SectionNumber } from "@/components/SectionNumber";
 import styles from "./ManualAdminCta.module.css";
 
 export function ManualAdminCta({
   href = "/contact",
-  label = "Find your first automation",
+  eyebrow = "Start with the busywork",
+  title = "What is manual admin actually costing you?",
+  children = (
+    <>
+      Tell us what gets copied, chased or checked each week. We&apos;ll help you find the simplest worthwhile place to
+      begin.
+    </>
+  ),
+  buttonLabel = "Find your first automation",
 }: {
   href?: string;
-  label?: string;
+  eyebrow?: string;
+  title?: React.ReactNode;
+  children?: React.ReactNode;
+  buttonLabel?: React.ReactNode;
 }) {
   return (
     <section className={`shell ${styles.closing}`}>
-      <p className={styles.label}>Start with the busywork</p>
-      <h2>What is manual admin actually costing you?</h2>
-      <p>
-        Tell us what gets copied, chased or checked each week. We&apos;ll help you find the simplest worthwhile place to
-        begin.
-      </p>
+      <SectionNumber>{eyebrow}</SectionNumber>
+      <h2>{title}</h2>
+      <p>{children}</p>
       {/* Closing section, so in-page links scroll up. */}
-      <PrimaryButton className={styles.closingCta} href={href} direction={href.startsWith("#") ? "up" : "page"}>
-        {label}
+      <PrimaryButton href={href} direction={href.startsWith("#") ? "up" : "page"} size="large">
+        {buttonLabel}
       </PrimaryButton>
     </section>
   );

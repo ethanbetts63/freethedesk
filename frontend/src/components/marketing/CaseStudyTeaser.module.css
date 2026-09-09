@@ -1,0 +1,120 @@
+.section {
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+  margin-top: var(--section-space);
+  padding: 82px 0;
+}
+.inner {
+  align-items: center;
+  display: grid;
+  gap: clamp(55px, 8vw, 120px);
+  grid-template-columns: minmax(0, 1fr);
+}
+.phone {
+  position: relative;
+  width: 250px;
+}
+.phoneFrame {
+  position: relative;
+  z-index: 1;
+}
+.statOverlay {
+  backdrop-filter: blur(9px);
+  background: color-mix(in srgb, var(--text-strong) 88%, transparent);
+  border: 1px solid color-mix(in srgb, var(--bg) 15%, transparent);
+  bottom: 34px;
+  box-shadow: 0 26px 60px color-mix(in srgb, var(--text) 50%, transparent);
+  left: 70px;
+  padding: 14px 18px 16px;
+  position: absolute;
+  z-index: 2;
+}
+.statOverlay small {
+  color: var(--accent-on-dark);
+  display: block;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-strong);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.statOverlay strong {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: var(--weight-strong);
+  letter-spacing: -0.06em;
+  line-height: 1;
+  margin: 9px 0 3px;
+}
+.statOverlay > span {
+  color: var(--text-on-dark-muted);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+.copy h2 {
+  font-size: var(--display-2);
+  letter-spacing: -0.05em;
+  margin: 0 0 20px;
+}
+.copy > p:not(:global(.section-number)) {
+  color: var(--text-on-dark-muted);
+  font-size: 0.97rem;
+  line-height: 1.76;
+  margin: 0 0 16px;
+  max-width: 560px;
+}
+.points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0 30px;
+}
+.points span {
+  border: 1px solid color-mix(in srgb, var(--bg) 22%, transparent);
+  color: var(--border-subtle);
+  font-size: var(--text-ui);
+  font-weight: var(--weight-strong);
+  padding: 7px 13px;
+}
+.actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+.actions > a:not(:global(.cta-button)) {
+  color: var(--text-on-dark);
+  font-size: var(--text-small);
+  font-weight: var(--weight-strong);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.actions > a:not(:global(.cta-button)) span {
+  display: inline-block;
+  margin-left: 6px;
+  transition: transform 0.2s ease;
+}
+.actions > a:not(:global(.cta-button)):hover span {
+  transform: translateX(4px);
+}
+
+@media (min-width: 640px) {
+  .section {
+    margin-top: 32px;
+    padding: var(--section-space) 0;
+  }
+  .statOverlay {
+    bottom: 52px;
+    left: 112px;
+    padding: 17px 24px 19px;
+  }
+  .statOverlay strong {
+    font-size: 3.1rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .inner {
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  }
+}

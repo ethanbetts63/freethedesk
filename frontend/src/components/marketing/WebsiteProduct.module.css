@@ -9,7 +9,6 @@
   padding: var(--section-space) 0;
 }
 .layout {
-  align-items: center;
   display: grid;
   align-items: start;
   gap: var(--space-2xl);
@@ -20,7 +19,6 @@
   max-width: 680px;
 }
 .eyebrow {
-  composes: eyebrow from global;
   --eyebrow-accent: var(--accent-on-dark);
 }
 .eyebrow span {
@@ -58,11 +56,6 @@
   gap: 25px;
 }
 .primary {
-  --pb-background: var(--section-accent);
-  --pb-background-hover: var(--surface);
-  --pb-font-size: 0.8rem;
-  --pb-gap: 44px;
-  --pb-padding: 17px 19px;
   transition:
     background 0.2s,
     color 0.2s,
@@ -319,6 +312,9 @@
 }
 
 @media (min-width: 640px) {
+  .copy h2 {
+    overflow-wrap: normal;
+  }
   .actions {
     align-items: center;
     flex-direction: row;
@@ -382,12 +378,5 @@
   }
   .browser {
     transform: perspective(1400px) rotateY(-2deg);
-  }
-}
-
-@media (min-width: 640px) {
-  .copy h2 {
-    /* Breaking mid-word is a small-screen last resort only. */
-    overflow-wrap: normal;
   }
 }

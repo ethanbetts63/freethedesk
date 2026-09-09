@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 
 import { SectionNumber } from "@/components/SectionNumber";
 import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
@@ -9,6 +7,8 @@ import { Hero } from "@/components/marketing/Hero";
 import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { SubscriptionSwap } from "@/components/marketing/SubscriptionSwap";
 import { Faq } from "@/components/Faq";
+import { ManualAdminCta } from "@/components/ManualAdminCta";
+import { CaseStudyTeaser } from "@/components/marketing/CaseStudyTeaser";
 import { PageSchema } from "@/components/PageSchema";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
@@ -173,10 +173,10 @@ export default function WebsiteDevelopmentPage() {
               We build SEO in from day one. Then, on your schedule, we report on the next opportunities for growth.
             </span>
             <div className={styles.seoReportActions}>
-              <PrimaryButton className={styles.seoReportCta} href="#enquiry" direction="down">
+              <PrimaryButton className={styles.seoReportCta} href="#enquiry" direction="down" size="compact">
                 Discuss your website
               </PrimaryButton>
-              <PrimaryButton className={`${styles.seoReportCta} ${styles.seoSecondary}`} href="/seo">
+              <PrimaryButton className={styles.seoReportCta} href="/seo" appearance="ghost" size="compact">
                 Explore SEO reports
               </PrimaryButton>
             </div>
@@ -184,72 +184,34 @@ export default function WebsiteDevelopmentPage() {
         }
       />
 
-      <section className={styles.caseSection}>
-        <div className={`shell ${styles.caseInner}`}>
-          <div className={styles.casePhone}>
-            <div className={styles.caseStatOverlay}>
-              <small>Google Search Console</small>
-              <strong>+200%</strong>
-              <span>organic clicks</span>
-            </div>
-            <div className={styles.casePhoneFrame}>
-              <div className="case-mobile-phone">
-                <span />
-                <div className="case-phone-menu" aria-hidden="true">
-                  <i />
-                  <i />
-                  <i />
-                </div>
-                <Image
-                  src="/case-studies/scooter-shop/inventory-mobile.png"
-                  alt="Scooter Shop inventory page on mobile"
-                  width={390}
-                  height={844}
-                />
-              </div>
-            </div>
-          </div>
-          <div className={styles.caseCopy}>
-            <SectionNumber onDark>{sections["Proof this works"]}</SectionNumber>
-            <h2>Scooter Shop, Perth.</h2>
-            <p>
-              Scooter Shop&apos;s website combines inventory, parts, purchasing and service journeys in one connected
-              experience. Fast structured pages and focused search content helped organic clicks grow by 200% in six
-              months.
-            </p>
-            <p>
-              It is a practical example of what happens when the public website and the work behind it are designed as
-              one system.
-            </p>
-            <div className={styles.casePoints}>
-              {casePoints.map((point) => (
-                <span key={point}>{point}</span>
-              ))}
-            </div>
-            <div className={styles.caseActions}>
-              <PrimaryButton className={styles.casePrimary} href="#enquiry" direction="down">
-                Discuss your website
-              </PrimaryButton>
-              <Link href="/portfolio/scooter-shop">
-                Read the full case study <span>↗</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CaseStudyTeaser
+        eyebrow={sections["Proof this works"]}
+        points={casePoints}
+        primaryHref="#enquiry"
+        primaryLabel="Discuss your website"
+      >
+        <p>
+          Scooter Shop&apos;s website combines inventory, parts, purchasing and service journeys in one connected
+          experience. Fast structured pages and focused search content helped organic clicks grow by 200% in six months.
+        </p>
+        <p>
+          It is a practical example of what happens when the public website and the work behind it are designed as one
+          system.
+        </p>
+      </CaseStudyTeaser>
 
       <ProjectEnquiry id="enquiry" />
 
       <Faq eyebrow={sections["Common questions"]} title="Before we begin." items={WEBSITE_DEV_FAQS} />
 
-      <section className={`shell ${styles.closing}`}>
-        <SectionNumber>Start with the useful part</SectionNumber>
-        <h2>What should your website make easier?</h2>
-        <p>Tell us what you sell, who the site is for and where the current process gets in the way.</p>
-        <PrimaryButton className={styles.closingCta} href="#enquiry" direction="up">
-          Talk about your project
-        </PrimaryButton>
-      </section>
+      <ManualAdminCta
+        eyebrow="Start with the useful part"
+        title="What should your website make easier?"
+        href="#enquiry"
+        buttonLabel="Talk about your project"
+      >
+        Tell us what you sell, who the site is for and where the current process gets in the way.
+      </ManualAdminCta>
     </main>
   );
 }

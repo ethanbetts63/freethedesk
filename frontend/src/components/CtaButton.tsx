@@ -5,6 +5,8 @@ import Link from "next/link";
  * `up`); `page` links elsewhere, `right` advances a form, `none` omits it.
  */
 export type CtaDirection = "down" | "up" | "page" | "right" | "none";
+export type CtaAppearance = "brand" | "dark" | "light" | "ghost";
+export type CtaSize = "compact" | "default" | "large";
 
 const ARROWS: Record<Exclude<CtaDirection, "none">, string> = {
   down: "↓",
@@ -24,6 +26,9 @@ export type CtaButtonProps = {
   rel?: string;
   /** Defaults to `page`; submit buttons should pass `none`. */
   direction?: CtaDirection;
+  appearance?: CtaAppearance;
+  size?: CtaSize;
+  fullWidth?: boolean;
 };
 
 /** Shared plumbing for the two CTA styles; render `PrimaryButton` or `MovingColourButton`, not this. */
@@ -36,6 +41,9 @@ export function CtaButton({
   target,
   rel,
   direction = "page",
+  appearance = "brand",
+  size = "default",
+  fullWidth = false,
   baseClass,
 }: CtaButtonProps & { baseClass: string }) {
   const content = (
@@ -44,7 +52,16 @@ export function CtaButton({
       {direction !== "none" && <span aria-hidden="true">{ARROWS[direction]}</span>}
     </>
   );
-  const classes = `${baseClass} ${className}`.trim();
+  const classes = [
+    "cta-button",
+    baseClass,
+    `cta-${appearance}`,
+    `cta-${size}`,
+    fullWidth ? "cta-full-width" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   if (href) {
     return (

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Fragment } from "react";
 
+import { Eyebrow } from "@/components/Eyebrow";
 import { Faq, type FaqItem } from "@/components/Faq";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
@@ -145,10 +146,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig["hero"] })
       <div className="case-hero-grid" aria-hidden="true" />
       <div className="shell case-hero-layout">
         <div className="case-hero-copy">
-          <p className="eyebrow">
-            <span />
-            {config.eyebrow}
-          </p>
+          <Eyebrow>{config.eyebrow}</Eyebrow>
           <h1>
             <HeadingLines heading={config.title} />
           </h1>
@@ -438,7 +436,7 @@ function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, "s
       />
       <ProjectEnquiry id="enquiry" />
       <Faq eyebrow={config.faq.eyebrow} title="Before we start." items={config.faq.items} />
-      <ManualAdminCta href="#enquiry" label="See our options" />
+      <ManualAdminCta href="#enquiry" buttonLabel="See our options" />
     </>
   );
 }

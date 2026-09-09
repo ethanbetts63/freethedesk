@@ -47,21 +47,11 @@
   color: var(--accent);
 }
 .eyebrow {
-  align-items: center;
   color: var(--accent);
-  display: flex;
   font-size: 0.69rem;
-  font-weight: 800;
   gap: 9px;
   letter-spacing: 0.14em;
   margin: 0 0 26px;
-  text-transform: uppercase;
-}
-.eyebrow span {
-  background: currentColor;
-  border-radius: 50%;
-  height: 7px;
-  width: 7px;
 }
 .hero h1 {
   font-size: var(--display-6);

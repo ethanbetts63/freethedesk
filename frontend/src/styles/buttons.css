@@ -1,38 +1,83 @@
-/* Button primitives shared across marketing, portfolio and the admin app.
-
-   .primary-button is the themeable one - callers override the --pb-* custom
-   properties rather than writing new rules.
-   .button + .button-* are the flat marketing variants. */
-.primary-button {
+/* Predefined CTA variants. Components select an appearance and size through
+   CtaButton props; route styles should only position the resulting button. */
+.cta-button {
   align-items: center;
-  background: var(--pb-background, var(--page-accent, var(--brand-accent)));
   border: 0;
-  color: var(--pb-color, var(--text-on-dark));
   cursor: pointer;
   display: inline-flex;
   font: inherit;
-  font-size: var(--pb-font-size, 0.76rem);
-  font-weight: 900;
-  gap: var(--pb-gap, 28px);
+  font-weight: var(--weight-strong);
   justify-content: space-between;
   letter-spacing: 0.05em;
-  padding: var(--pb-padding, 16px 19px);
   text-transform: uppercase;
-  transition: background 0.2s ease;
-  width: var(--pb-width, auto);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
-.primary-button:hover {
-  background: var(--pb-background-hover, var(--blue-500));
+.cta-brand {
+  background: var(--page-accent, var(--brand-accent));
+  color: var(--text-on-dark);
 }
-.primary-button:disabled {
+.cta-brand:hover {
+  background: var(--surface-dark-hover);
+}
+.cta-dark {
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+}
+.cta-dark:hover {
+  background: var(--surface-dark-hover);
+}
+.cta-light {
+  background: var(--surface);
+  color: var(--text-strong);
+}
+.cta-light:hover {
+  background: var(--surface-tint-2);
+}
+.cta-ghost {
+  background: transparent;
+  color: var(--page-accent, var(--brand-accent));
+}
+.cta-ghost:hover {
+  background: transparent;
+  color: var(--text-strong);
+}
+.cta-compact {
+  font-size: var(--text-ui);
+  gap: 20px;
+  padding: 15px 18px;
+}
+.cta-default {
+  font-size: 0.76rem;
+  gap: 28px;
+  padding: 16px 19px;
+}
+.cta-large {
+  font-size: 0.8rem;
+  gap: 38px;
+  padding: 17px 20px;
+}
+.cta-ghost {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 8px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 8px;
+}
+.cta-full-width {
+  width: 100%;
+}
+.cta-button:disabled {
   cursor: wait;
   opacity: 0.7;
 }
-.primary-button > span {
+.cta-button > span {
   display: inline-block;
   transition: transform 0.2s ease;
 }
-.primary-button:hover > span {
+.cta-button:hover > span {
   transform: translateX(4px);
 }
 .button-row {
@@ -46,6 +91,6 @@
 @media (min-width: 640px) {
   .button-row {
     align-items: center;
-    flex-direction: revert;
+    flex-direction: row;
   }
 }

@@ -4,16 +4,13 @@ import { useState } from "react";
 
 import { ConversionButton, ConversionLink } from "../ConversionButton";
 import { DemoMap } from "../DemoMap";
+import { getDemoBrandIdentity } from "../../_lib/demoBrand";
 import { PageHeading } from "./shared";
 import styles from "../../page.module.css";
 
 export function ContactPage({ brandName }: { brandName: string }) {
   const [sent, setSent] = useState(false);
-  const emailName =
-    brandName
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "")
-      .slice(0, 18) || "yourdealership";
+  const { email } = getDemoBrandIdentity(brandName);
 
   return (
     <div className={styles.examplePage}>
@@ -27,9 +24,9 @@ export function ContactPage({ brandName }: { brandName: string }) {
             <span>Phone</span>
             <strong>(08) 6123 4567</strong>
           </ConversionLink>
-          <ConversionLink href={`mailto:hello@${emailName}.com.au`}>
+          <ConversionLink href={`mailto:${email}`}>
             <span>Email</span>
-            <strong>hello@{emailName}.com.au</strong>
+            <strong>{email}</strong>
           </ConversionLink>
           <div>
             <span>Visit</span>

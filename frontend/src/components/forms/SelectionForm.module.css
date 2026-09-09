@@ -1,0 +1,258 @@
+.panel {
+  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
+  background-clip: padding-box, border-box;
+  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
+  background-origin: border-box;
+  background-size:
+    100% 100%,
+    var(--moving-colour-size);
+  border: 2px solid transparent;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: var(--selection-panel-min-height, 590px);
+}
+
+.chooser {
+  color: var(--text-strong);
+  display: flex;
+  flex-direction: column;
+  padding: 34px 20px;
+}
+
+.choiceGroup + .choiceGroup {
+  margin-top: 28px;
+}
+.choiceGroup > p {
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--page-accent, var(--brand-accent));
+  font-size: var(--text-micro);
+  font-weight: var(--weight-strong);
+  letter-spacing: 0.12em;
+  margin: 0 0 12px;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.choiceGrid {
+  display: grid;
+  gap: 8px;
+}
+.choiceInput {
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 0;
+}
+.choiceGrid label {
+  align-items: center;
+  background: var(--surface-flow);
+  border: 1px solid var(--border);
+  color: var(--text-control);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: var(--text-ui);
+  font-weight: var(--weight-control);
+  justify-content: center;
+  min-height: var(--selection-choice-min-height, 56px);
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+.choiceGrid label small {
+  color: var(--text-muted);
+  font-size: 0.45rem;
+  font-weight: var(--weight-strong);
+  letter-spacing: 0.1em;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+.choiceGrid label:hover {
+  background: var(--surface);
+  border-color: var(--page-accent, var(--brand-accent));
+}
+.choiceGrid label:has(.choiceInput:focus-visible) {
+  outline: 3px solid color-mix(in srgb, var(--page-accent, var(--brand-accent)) 25%, transparent);
+  outline-offset: 2px;
+}
+.choiceGrid .choiceSelected {
+  background: var(--surface-dark);
+  border-color: var(--surface-dark);
+  color: var(--text-on-dark);
+}
+.choiceGrid .choiceSelected:hover {
+  background: var(--surface-dark-hover);
+  border-color: var(--surface-dark-hover);
+}
+.choiceGrid .choiceSelected small {
+  color: var(--accent-on-dark-soft);
+}
+.choiceGrid .choiceRecommended {
+  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
+  background-clip: padding-box, border-box;
+  background-image: linear-gradient(var(--surface-flow), var(--surface-flow)), var(--moving-colour-gradient);
+  background-origin: border-box;
+  background-size:
+    100% 100%,
+    var(--moving-colour-size);
+  border: 2px solid transparent;
+}
+.choiceGrid .choiceRecommended.choiceSelected {
+  background-image: linear-gradient(var(--surface-dark), var(--surface-dark)), var(--moving-colour-gradient);
+}
+
+.total {
+  align-items: center;
+  border-top: 1px dashed var(--border);
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: auto;
+  padding-top: 24px;
+}
+.total > div {
+  display: grid;
+  gap: 2px;
+}
+.total strong {
+  font-size: var(--selection-total-size, 2.8rem);
+  letter-spacing: -0.06em;
+  line-height: 1;
+  padding-right: 0.06em;
+}
+.total small {
+  color: var(--text-muted);
+  font-size: var(--text-meta);
+}
+.total > span {
+  color: var(--text-control);
+  font-size: var(--text-small);
+  font-weight: var(--weight-strong);
+  line-height: 1.45;
+}
+
+.form {
+  --selection-input-font-size: 0.9rem;
+  background: var(--surface-flow);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(30px, 3.5vw, 48px);
+}
+.formTitle {
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 26px;
+  padding-bottom: 20px;
+}
+.formTitle h3 {
+  font-size: var(--step-2);
+  letter-spacing: -0.04em;
+}
+.pill {
+  background: var(--surface-tint-2);
+  color: var(--accent-ink);
+  flex: 0 0 auto;
+  font-size: var(--text-label);
+  font-weight: var(--weight-strong);
+  letter-spacing: 0.09em;
+  padding: 6px 10px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.fieldRow {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr);
+}
+.form label {
+  color: var(--text-control);
+  display: block;
+  font-size: 0.69rem;
+  font-weight: var(--weight-control);
+  margin-bottom: 16px;
+}
+.form label > span {
+  display: block;
+  margin-bottom: 8px;
+}
+.form input,
+.form select,
+.form textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--selection-input-font-size);
+  min-height: 50px;
+  outline: none;
+  padding: 0 14px;
+  width: 100%;
+}
+.form textarea {
+  min-height: 82px;
+  padding: 14px;
+  resize: vertical;
+}
+.form input::placeholder,
+.form textarea::placeholder {
+  color: var(--text-on-dark-subtle);
+  font-size: var(--text-small);
+  font-weight: var(--weight-normal);
+}
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  border-color: var(--page-accent, var(--brand-accent));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--page-accent, var(--brand-accent)) 12%, transparent);
+}
+.form label small {
+  color: var(--text-subtle);
+  display: block;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-normal);
+  margin-top: 7px;
+}
+.submit {
+  margin-top: 8px;
+  min-height: 58px;
+  text-align: left;
+}
+.submit span {
+  font-size: 1.1rem;
+}
+.error {
+  background: var(--danger-surface);
+  border-left: 3px solid var(--danger-line);
+  color: var(--danger-ink);
+  font-size: var(--text-caption);
+  line-height: 1.5;
+  margin: 0 0 12px;
+  padding: 11px 13px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .choiceRecommended {
+    animation: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .chooser {
+    padding: clamp(34px, 4.5vw, 64px);
+  }
+  .total {
+    gap: 22px;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .fieldRow {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}

@@ -5,33 +5,18 @@
   padding: 82px;
   text-align: center;
 }
-.label {
-  color: var(--page-accent, var(--blue-700));
-  font-size: 0.68rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  margin: 0 0 23px;
-  text-transform: uppercase;
-}
 .closing h2 {
   font-size: var(--display-1);
   letter-spacing: -0.05em;
   margin: 0;
 }
-.closing > p:not(.label) {
+.closing > p:not(:global(.section-number)) {
   color: var(--slate-600);
   font-size: 0.96rem;
   line-height: 1.7;
   margin: 27px auto 31px;
   max-width: 570px;
 }
-.closingCta {
-  --pb-background: var(--page-accent, var(--blue-700));
-  --pb-font-size: 0.8rem;
-  --pb-gap: 35px;
-  --pb-padding: 17px 20px;
-}
-
 @media (min-width: 640px) {
   .closing {
     padding: var(--space-3xl) var(--space-xl);

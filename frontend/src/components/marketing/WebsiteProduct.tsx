@@ -1,3 +1,4 @@
+import { Eyebrow } from "@/components/Eyebrow";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import styles from "./WebsiteProduct.module.css";
 
@@ -6,9 +7,7 @@ export function WebsiteProduct() {
     <section className={styles.section} id="dealer-websites">
       <div className={`shell ${styles.layout}`}>
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>
-            <span /> Interactive website builder
-          </p>
+          <Eyebrow className={styles.eyebrow}>Interactive website builder</Eyebrow>
           <h2>
             Digital Dealer
             <br />
@@ -20,7 +19,7 @@ export function WebsiteProduct() {
           </p>
 
           <div className={styles.actions}>
-            <PrimaryButton className={styles.primary} href="/dealership-website-builder">
+            <PrimaryButton className={styles.primary} href="/dealership-website-builder" size="large">
               Configure now
             </PrimaryButton>
             <a className={styles.dealerExample} href="https://www.scootershop.com.au" target="_blank" rel="noreferrer">

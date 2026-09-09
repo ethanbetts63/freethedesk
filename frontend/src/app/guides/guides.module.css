@@ -32,21 +32,11 @@
   z-index: 1;
 }
 .eyebrow {
-  align-items: center;
   color: var(--accent);
-  display: flex;
   font-size: 0.72rem;
-  font-weight: 800;
   gap: 10px;
   letter-spacing: 0.15em;
   margin: 0 0 30px;
-  text-transform: uppercase;
-}
-.eyebrow span {
-  background: currentColor;
-  border-radius: 50%;
-  height: 7px;
-  width: 7px;
 }
 .hero h1 {
   font-size: var(--display-4);
@@ -278,7 +268,7 @@
     padding: 35px 40px;
   }
   .empty a {
-    grid-column: revert;
-    justify-self: revert;
+    grid-column: auto;
+    justify-self: auto;
   }
 }

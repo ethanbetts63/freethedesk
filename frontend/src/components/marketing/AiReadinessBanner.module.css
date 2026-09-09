@@ -82,10 +82,6 @@
 }
 
 .submit {
-  --mcb-font-size: 0.64rem;
-  --mcb-gap: 12px;
-  --mcb-height: var(--tap-min);
-  --mcb-padding-x: 15px;
   justify-content: center;
   white-space: nowrap;
 }
@@ -129,7 +125,6 @@
     min-height: 40px;
   }
   .submit {
-    --mcb-height: 40px;
     justify-content: flex-start;
   }
 }

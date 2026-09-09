@@ -87,7 +87,7 @@ function DealersContent() {
               emptyLabel="No dealers match these filters."
             >
               {(dealer) => (
-                <tr key={dealer.id} className={`admin-row-${dealer.status}`}>
+                <tr key={dealer.id} className="admin-row" data-status={dealer.status}>
                   <td>
                     <RowLink href={`/dashboard/dealers/${dealer.id}`}>{formatDateTime(dealer.created_at)}</RowLink>
                   </td>

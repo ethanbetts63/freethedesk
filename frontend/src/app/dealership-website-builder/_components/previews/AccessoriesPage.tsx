@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { ConversionButton } from "../ConversionButton";
+import { ProductArtwork } from "../PreviewArtwork";
 import { CatalogueControls, PageHeading } from "./shared";
 import styles from "../../page.module.css";
 
@@ -92,7 +93,7 @@ export function AccessoriesPage() {
           return (
             <article key={product.name}>
               <div className={styles.accessoryVisual}>
-                <i className={styles[`accessoryShape${originalIndex + 1}`]} />
+                <ProductArtwork variant={originalIndex + 1} />
               </div>
               <small>
                 {addedProducts.includes(product.name)

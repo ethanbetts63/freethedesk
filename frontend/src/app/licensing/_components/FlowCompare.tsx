@@ -56,11 +56,23 @@ function FlowColumn({
       {cta &&
         /* Recommended column gets the moving-colour CTA; the other gets the plain accent one. */
         (highlight ? (
-          <MovingColourButton className={styles.flowColumnCta} href={cta.href} direction={ctaDirection}>
+          <MovingColourButton
+            className={styles.flowColumnCta}
+            href={cta.href}
+            direction={ctaDirection}
+            size="compact"
+            fullWidth
+          >
             {cta.label}
           </MovingColourButton>
         ) : (
-          <PrimaryButton className={styles.flowColumnCtaPlain} href={cta.href} direction={ctaDirection}>
+          <PrimaryButton
+            className={styles.flowColumnCtaPlain}
+            href={cta.href}
+            direction={ctaDirection}
+            size="compact"
+            fullWidth
+          >
             {cta.label}
           </PrimaryButton>
         ))}

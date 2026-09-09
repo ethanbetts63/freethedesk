@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { SectionNumber } from "@/components/SectionNumber";
+import formStyles from "@/components/forms/SelectionForm.module.css";
 import { DEALER_STATES } from "@/lib/dealerStates";
 import { planByCode } from "@/lib/plans";
 import { useSignup } from "@/lib/useSignup";
@@ -22,23 +23,27 @@ export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; 
 
   return (
     <section className={`shell ${styles.signupSection}`} id="signup">
-      <div className={styles.signupPanel}>
-        <aside className={styles.selectionPanel}>
+      <div className={`${formStyles.panel} ${styles.signupPanel}`}>
+        <aside className={`${formStyles.chooser} ${styles.selectionPanel}`}>
           <SectionNumber>{eyebrow}</SectionNumber>
           <h2>Choose what you need.</h2>
 
-          <div className={styles.choiceGroup}>
+          <div className={formStyles.choiceGroup}>
             <p>What do you need?</p>
-            <div className={styles.planTypeGrid} role="radiogroup" aria-label="Subscription plan">
+            <div
+              className={`${formStyles.choiceGrid} ${styles.planTypeGrid}`}
+              role="radiogroup"
+              aria-label="Subscription plan"
+            >
               {plans.map((plan) => (
                 <label
-                  className={`${selectedCode === plan.code ? styles.choiceSelected : ""} ${
-                    plan.recommended ? styles.choiceRecommended : ""
+                  className={`${selectedCode === plan.code ? formStyles.choiceSelected : ""} ${
+                    plan.recommended ? formStyles.choiceRecommended : ""
                   }`}
                   key={plan.code}
                 >
                   <input
-                    className={styles.choiceInput}
+                    className={formStyles.choiceInput}
                     type="radio"
                     name="dealer-plan"
                     value={plan.code}
@@ -58,7 +63,7 @@ export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; 
             ))}
           </ul>
 
-          <div className={styles.selectionTotal} aria-live="polite">
+          <div className={formStyles.total} aria-live="polite">
             <div>
               <strong className="moving-colour-text">{selected.price}</strong>
               <small>{selected.cadence}</small>
@@ -67,22 +72,12 @@ export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; 
           </div>
         </aside>
 
-        <form className={styles.signupForm} onSubmit={onSubmit}>
-          <div className={styles.formTitle}>
-            <h3>A few details to begin.</h3>
-            <span className={styles.formPill}>No card required yet</span>
+        <form className={`${formStyles.form} ${styles.signupForm}`} onSubmit={onSubmit}>
+          <div className={`${formStyles.formTitle} ${styles.formTitle}`}>
+            <h3>Create your account.</h3>
+            <span className={formStyles.pill}>No card required yet</span>
           </div>
-          <div className={styles.fieldRow}>
-            <label>
-              <span>Business name</span>
-              <input name="business_name" placeholder="e.g. Example Motors" autoComplete="organization" required />
-            </label>
-            <label>
-              <span>Your name</span>
-              <input name="contact_name" placeholder="e.g. Alex Smith" autoComplete="name" required />
-            </label>
-          </div>
-          <div className={styles.fieldRow}>
+          <div className={formStyles.fieldRow}>
             <label>
               <span>Email</span>
               <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
@@ -92,7 +87,7 @@ export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; 
               <input name="phone" type="tel" placeholder="e.g. 0400 000 000" autoComplete="tel" />
             </label>
           </div>
-          <div className={styles.fieldRow}>
+          <div className={formStyles.fieldRow}>
             <label>
               <span>Password</span>
               <input
@@ -116,14 +111,16 @@ export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; 
             </label>
           </div>
           {error && (
-            <p className={styles.signupError} role="alert">
+            <p className={formStyles.error} role="alert">
               {error}
             </p>
           )}
           <PrimaryButton
             type="submit"
-            className={styles.signupSubmit}
+            className={formStyles.submit}
             direction="right"
+            size="large"
+            fullWidth
             disabled={status === "submitting"}
           >
             {status === "submitting" ? "Creating your account…" : "Continue to secure payment"}

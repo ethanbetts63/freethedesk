@@ -86,7 +86,7 @@ function SeoSubscribersContent() {
               emptyLabel="No SEO customers match these filters."
             >
               {(subscriber) => (
-                <tr key={subscriber.id} className={`admin-row-${subscriber.status}`}>
+                <tr key={subscriber.id} className="admin-row" data-status={subscriber.status}>
                   <td>
                     <RowLink href={`/dashboard/seo/${subscriber.id}`}>{formatDateTime(subscriber.created_at)}</RowLink>
                   </td>

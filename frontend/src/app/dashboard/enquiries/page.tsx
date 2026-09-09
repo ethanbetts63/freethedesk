@@ -106,7 +106,7 @@ function EnquiriesContent() {
               emptyLabel="No enquiries match these filters."
             >
               {(enquiry) => (
-                <tr key={enquiry.id} className={`admin-row-${enquiry.status}`}>
+                <tr key={enquiry.id} className="admin-row" data-status={enquiry.status}>
                   <td>
                     <RowLink href={`/dashboard/enquiries/${enquiry.id}`}>{formatDateTime(enquiry.created_at)}</RowLink>
                   </td>

@@ -49,7 +49,7 @@
 .brand span {
   color: var(--slate-500);
   font-size: 0.73em;
-  font-weight: 650;
+  font-weight: var(--weight-strong);
   margin: 0 2px;
 }
 .brand i {

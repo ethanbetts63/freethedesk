@@ -101,7 +101,7 @@ export function AdminFilterBar({
           <b>Row colour:</b>
           {legend.map((value) => (
             <span key={value}>
-              <i className={`admin-swatch admin-swatch-${value}`} />
+              <i className="admin-swatch" data-status={value} />
               {value}
             </span>
           ))}

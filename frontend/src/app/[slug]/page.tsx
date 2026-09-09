@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { Eyebrow } from "@/components/Eyebrow";
 import { getAllArticleSlugs, getArticleBySlug, type Article } from "@/lib/articles";
 import { buildArticleSchema, buildBreadcrumbSchema, buildWebPageSchema, pageMetadata } from "@/lib/seo";
 
@@ -70,9 +71,7 @@ function ArticleView({ article }: { article: Article }) {
             <span>/</span>
             <Link href="/guides">Guides</Link>
           </nav>
-          <p className={styles.eyebrow}>
-            <span /> Dealer field notes
-          </p>
+          <Eyebrow className={styles.eyebrow}>Dealer field notes</Eyebrow>
           <h1>{article.title}</h1>
           <p className={styles.intro}>{article.excerpt}</p>
           <p className={styles.byline}>

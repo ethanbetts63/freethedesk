@@ -38,6 +38,16 @@ def test_signup_creates_pending_dealer_and_user(client):
     assert dealer.user.check_password("Sturdy-Passphrase-42")
 
 
+def test_signup_allows_business_and_contact_names_to_be_completed_later(client):
+    payload = {key: value for key, value in PAYLOAD.items() if key not in {"business_name", "contact_name"}}
+    response = client.post(reverse("dealer-signup"), payload, content_type="application/json")
+    assert response.status_code == 201
+
+    dealer = Dealer.objects.get()
+    assert dealer.business_name == "perthmotorcycles.com.au"
+    assert dealer.contact_name == "Account owner"
+
+
 def test_paid_plan_starts_payment_pending(client):
     response = client.post(
         reverse("dealer-signup"),

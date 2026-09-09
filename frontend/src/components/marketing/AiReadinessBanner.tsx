@@ -51,6 +51,7 @@ export function AiReadinessBanner({ className = "" }: { className?: string }) {
               type="submit"
               className={styles.submit}
               direction="right"
+              size="compact"
               disabled={status === "submitting"}
             >
               {status === "submitting" ? "Starting…" : "Run free check"}

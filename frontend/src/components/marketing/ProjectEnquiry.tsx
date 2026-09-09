@@ -4,6 +4,7 @@ import { useId, useState } from "react";
 
 import { MovingColourButton } from "@/components/MovingColourButton";
 import { SectionNumber } from "@/components/SectionNumber";
+import formStyles from "@/components/forms/SelectionForm.module.css";
 import { normaliseWebsiteUrl, submitProjectEnquiry, type ProjectType } from "@/lib/api";
 import styles from "./ProjectEnquiry.module.css";
 import { useEnquiryForm } from "@/lib/useEnquiryForm";
@@ -57,24 +58,28 @@ export function ProjectEnquiry({
 
   return (
     <section className={`shell ${styles.section}`} id={id}>
-      <div className={styles.panel}>
-        <aside className={styles.chooser}>
+      <div className={`${formStyles.panel} ${styles.panel}`}>
+        <aside className={`${formStyles.chooser} ${styles.chooser}`}>
           <SectionNumber>{eyebrow}</SectionNumber>
           <h2>Tell us your budget.</h2>
           <p className={styles.lead}>We&apos;ll tell you what we could build for it.</p>
 
-          <div className={styles.choiceGroup}>
+          <div className={formStyles.choiceGroup}>
             <p id={`${groupId}-type`}>What do you need?</p>
-            <div className={styles.typeGrid} role="radiogroup" aria-labelledby={`${groupId}-type`}>
+            <div
+              className={`${formStyles.choiceGrid} ${styles.typeGrid}`}
+              role="radiogroup"
+              aria-labelledby={`${groupId}-type`}
+            >
               {PROJECT_TYPES.map((option) => (
                 <label
-                  className={`${projectType === option.code ? styles.choiceSelected : ""} ${
-                    option.code === "both" ? styles.choiceRecommended : ""
+                  className={`${projectType === option.code ? formStyles.choiceSelected : ""} ${
+                    option.code === "both" ? formStyles.choiceRecommended : ""
                   }`}
                   key={option.code}
                 >
                   <input
-                    className={styles.choiceInput}
+                    className={formStyles.choiceInput}
                     type="radio"
                     name={`${groupId}-project-type`}
                     value={option.code}
@@ -88,13 +93,17 @@ export function ProjectEnquiry({
             </div>
           </div>
 
-          <div className={styles.choiceGroup}>
+          <div className={formStyles.choiceGroup}>
             <p id={`${groupId}-budget`}>What&apos;s your budget?</p>
-            <div className={styles.budgetGrid} role="radiogroup" aria-labelledby={`${groupId}-budget`}>
+            <div
+              className={`${formStyles.choiceGrid} ${styles.budgetGrid}`}
+              role="radiogroup"
+              aria-labelledby={`${groupId}-budget`}
+            >
               {BUDGETS.map((option) => (
-                <label className={budget === option ? styles.choiceSelected : ""} key={option}>
+                <label className={budget === option ? formStyles.choiceSelected : ""} key={option}>
                   <input
-                    className={styles.choiceInput}
+                    className={formStyles.choiceInput}
                     type="radio"
                     name={`${groupId}-budget-choice`}
                     value={option}
@@ -119,7 +128,7 @@ export function ProjectEnquiry({
             )}
           </div>
 
-          <div className={styles.total} aria-live="polite">
+          <div className={`${formStyles.total} ${styles.total}`} aria-live="polite">
             <div>
               <strong className="moving-colour-text">{budgetLabel}</strong>
             </div>
@@ -127,9 +136,9 @@ export function ProjectEnquiry({
           </div>
         </aside>
 
-        <form className={styles.form} onSubmit={send}>
-          <div className={styles.formTitle}>
-            <span className={styles.pill}>No commitment</span>
+        <form className={`${formStyles.form} ${styles.form}`} onSubmit={send}>
+          <div className={`${formStyles.formTitle} ${styles.formTitle}`}>
+            <span className={formStyles.pill}>No commitment</span>
             <h3>Send your enquiry.</h3>
           </div>
 
@@ -171,14 +180,16 @@ export function ProjectEnquiry({
                 />
               </label>
               {error && (
-                <p className={styles.error} role="alert">
+                <p className={formStyles.error} role="alert">
                   {error}
                 </p>
               )}
               <MovingColourButton
                 type="submit"
-                className={styles.submit}
+                className={formStyles.submit}
                 direction="right"
+                size="large"
+                fullWidth
                 disabled={status === "submitting"}
               >
                 {status === "submitting" ? "Sending…" : "Send enquiry"}

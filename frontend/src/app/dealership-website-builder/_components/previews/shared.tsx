@@ -5,6 +5,7 @@
 import type { InventoryVehicle } from "./data";
 import type { InventoryAddonSelection } from "../../_lib/types";
 import styles from "../../page.module.css";
+import { VehicleArtwork } from "../PreviewArtwork";
 
 export function PageHeading({ eyebrow, title, detail }: { eyebrow: string; title: string; detail: string }) {
   return (
@@ -94,10 +95,8 @@ export function CatalogueControls({
 
 export function MiniVehicle() {
   return (
-    <div className={styles.miniVehicle} aria-hidden="true">
-      <span />
-      <i />
-      <i />
+    <div className={styles.miniVehicle}>
+      <VehicleArtwork compact />
     </div>
   );
 }

@@ -64,7 +64,7 @@ export default function Home() {
               Human-written reports that turn your search data into ranked next steps. Every subscription includes a
               Choose website SEO, a Google Business Profile report, or combine both. The AI readiness check is free.
             </span>
-            <PrimaryButton className={styles.seoSummaryCta} href="/seo">
+            <PrimaryButton className={styles.seoSummaryCta} href="/seo" size="compact">
               Explore SEO reports
             </PrimaryButton>
           </div>
@@ -74,7 +74,7 @@ export default function Home() {
       <WebsiteProduct />
       <ProjectEnquiry />
       <Faq eyebrow="Common questions" title="A useful place to start." items={HOME_FAQS} />
-      <ManualAdminCta label="Get in contact" />
+      <ManualAdminCta buttonLabel="Get in contact" />
     </main>
   );
 }

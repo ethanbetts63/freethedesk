@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 
 import { Hero } from "@/components/marketing/Hero";
+import { CaseStudyTeaser } from "@/components/marketing/CaseStudyTeaser";
+import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { Faq } from "@/components/Faq";
 import { PageSchema } from "@/components/PageSchema";
 import { PrimaryButton } from "@/components/PrimaryButton";
@@ -117,67 +117,30 @@ export default async function SeoPage() {
         description={
           <div className={styles.reportDescription}>
             <p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>
-            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down">
+            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down" size="compact">
               Choose a Report
             </PrimaryButton>
           </div>
         }
       />
 
-      <section className={styles.caseSection}>
-        <div className={`shell ${styles.caseInner}`}>
-          <div className={styles.casePhone}>
-            <div className={styles.caseStatOverlay}>
-              <small>Google Search Console</small>
-              <strong>+200%</strong>
-              <span>organic clicks</span>
-            </div>
-            <div className={styles.casePhoneFrame}>
-              <div className="case-mobile-phone">
-                <span />
-                <div className="case-phone-menu" aria-hidden="true">
-                  <i />
-                  <i />
-                  <i />
-                </div>
-                <Image
-                  src="/case-studies/scooter-shop/inventory-mobile.png"
-                  alt="Scooter Shop inventory page on mobile"
-                  width={390}
-                  height={844}
-                />
-              </div>
-            </div>
-          </div>
-          <div className={styles.caseCopy}>
-            <SectionNumber onDark>{sections["Proof this works"]}</SectionNumber>
-            <h2>Scooter Shop, Perth.</h2>
-            <p>
-              Scooter Shop&apos;s website was built the way our reports recommend: fast structured pages, indexable
-              stock, and focused pages for the searches customers actually make—&ldquo;Vespa service Perth&rdquo;,
-              &ldquo;50cc scooters Perth&rdquo;, &ldquo;SYM parts&rdquo;. Google Search Console recorded organic clicks
-              up 200% in 6 months.
-            </p>
-            <p>
-              That&apos;s the loop this service runs on your site: find the gap in the data, build the thing that fills
-              it, then measure whether it earned its place.
-            </p>
-            <div className={styles.casePoints}>
-              {casePoints.map((point) => (
-                <span key={point}>{point}</span>
-              ))}
-            </div>
-            <div className={styles.caseActions}>
-              <PrimaryButton className={styles.casePrimary} href="#signup" direction="down">
-                Choose a Report
-              </PrimaryButton>
-              <Link href="/portfolio/scooter-shop">
-                Read the full case study <span>↗</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CaseStudyTeaser
+        eyebrow={sections["Proof this works"]}
+        points={casePoints}
+        primaryHref="#signup"
+        primaryLabel="Choose a Report"
+      >
+        <p>
+          Scooter Shop&apos;s website was built the way our reports recommend: fast structured pages, indexable stock,
+          and focused pages for the searches customers actually make—&ldquo;Vespa service Perth&rdquo;, &ldquo;50cc
+          scooters Perth&rdquo;, &ldquo;SYM parts&rdquo;. Google Search Console recorded organic clicks up 200% in 6
+          months.
+        </p>
+        <p>
+          That&apos;s the loop this service runs on your site: find the gap in the data, build the thing that fills it,
+          then measure whether it earned its place.
+        </p>
+      </CaseStudyTeaser>
 
       <section className={styles.compareSection}>
         <div className={`shell ${styles.compareInner}`}>
@@ -193,7 +156,7 @@ export default async function SeoPage() {
               Still sounds too cheap? It is. We&apos;re betting some subscribers will eventually want a site built by
               us.
             </p>
-            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down">
+            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down" size="compact">
               Choose a Report
             </PrimaryButton>
           </div>
@@ -237,17 +200,15 @@ export default async function SeoPage() {
 
       <Faq eyebrow={sections["Common questions"]} title="Before you connect your data." items={SEO_FAQS} />
 
-      <section className={`shell ${styles.closing}`}>
-        <SectionNumber>Start with your own data</SectionNumber>
-        <h2>What is search actually costing you right now?</h2>
-        <p>
-          Connect Google Search Console and your first report arrives within the week—ranked, plain-English, and honest
-          about whether you should keep paying us.
-        </p>
-        <PrimaryButton className={styles.closingCta} href="#signup" direction="up">
-          Choose a Report
-        </PrimaryButton>
-      </section>
+      <ManualAdminCta
+        eyebrow="Start with your own data"
+        title="What is search actually costing you right now?"
+        href="#signup"
+        buttonLabel="Choose a Report"
+      >
+        Connect Google Search Console and your first report arrives within the week—ranked, plain-English, and honest
+        about whether you should keep paying us.
+      </ManualAdminCta>
     </main>
   );
 }

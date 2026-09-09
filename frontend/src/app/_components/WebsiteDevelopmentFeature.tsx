@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Eyebrow } from "@/components/Eyebrow";
 import styles from "./WebsiteDevelopmentFeature.module.css";
 
 export function WebsiteDevelopmentFeature() {
@@ -7,9 +8,7 @@ export function WebsiteDevelopmentFeature() {
     <section className={styles.section}>
       <div className={`shell ${styles.layout}`}>
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>
-            <span /> Website development
-          </p>
+          <Eyebrow className={styles.eyebrow}>Website development</Eyebrow>
           <h2>
             Websites should
             <br />

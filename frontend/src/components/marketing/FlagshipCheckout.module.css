@@ -30,7 +30,7 @@
   display: flex;
   flex-direction: column;
   font-size: 0.66rem;
-  font-weight: 850;
+  font-weight: var(--weight-control);
   gap: 6px;
   justify-content: space-between;
   letter-spacing: 0.11em;
@@ -129,7 +129,7 @@
   color: color-mix(in srgb, var(--bg) 82%, transparent);
   display: flex;
   font-size: 0.68rem;
-  font-weight: 650;
+  font-weight: var(--weight-strong);
   gap: 8px;
   justify-content: center;
   padding: 15px 17px;
@@ -142,17 +142,6 @@
 .copy {
   grid-row: 1;
   max-width: 650px;
-}
-.eyebrow {
-  composes: eyebrow from global;
-  --eyebrow-accent: var(--section-accent);
-}
-.eyebrow span {
-  background: var(--section-accent);
-  border-radius: 50%;
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--section-accent) 10%, transparent);
-  height: 7px;
-  width: 7px;
 }
 .copy h2 {
   color: var(--text);
@@ -187,7 +176,7 @@
   border-bottom: 1px solid var(--slate-200);
   color: var(--slate-800);
   font-size: 0.78rem;
-  font-weight: 750;
+  font-weight: var(--weight-strong);
   padding: 12px 0 12px 21px;
   position: relative;
 }
@@ -202,11 +191,6 @@
   width: 5px;
 }
 .copyCta {
-  --pb-background: var(--section-accent);
-  --pb-background-hover: var(--text);
-  --pb-font-size: 0.8rem;
-  --pb-gap: 38px;
-  --pb-padding: 16px 18px;
   transition:
     background 0.2s,
     transform 0.2s;
@@ -224,6 +208,9 @@
 }
 
 @media (min-width: 640px) {
+  .copy h2 {
+    overflow-wrap: normal;
+  }
   .visual {
     padding: 28px;
   }
@@ -279,12 +266,5 @@
   }
   .copy {
     max-width: 520px;
-  }
-}
-
-@media (min-width: 640px) {
-  .copy h2 {
-    /* Breaking mid-word is a small-screen last resort only. */
-    overflow-wrap: normal;
   }
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { ConversionButton } from "../ConversionButton";
+import { VehicleArtwork } from "../PreviewArtwork";
 import type { InventoryVehicle } from "./data";
 import { MiniVehicle, OnlinePurchaseSteps } from "./shared";
 import type { InventoryAddonSelection } from "../../_lib/types";
@@ -29,10 +30,8 @@ export function VehicleDetailsPage({
       </button>
       <section className={styles.vehicleGallery}>
         <div className={`${styles.vehicleGalleryMain} ${styles[`galleryTone${galleryImage + 1}`]}`}>
-          <div className={styles.detailVehicleVisual} aria-hidden="true">
-            <span />
-            <i />
-            <i />
+          <div className={styles.detailVehicleVisual}>
+            <VehicleArtwork />
           </div>
           <span>
             {vehicle.year} · {vehicle.brand}

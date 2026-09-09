@@ -16,7 +16,6 @@
   max-width: 680px;
 }
 .eyebrow {
-  composes: eyebrow from global;
   --eyebrow-accent: var(--feature-accent);
 }
 .eyebrow span {
@@ -56,7 +55,7 @@
   border-bottom: 1px solid color-mix(in srgb, var(--bg) 15%, transparent);
   color: var(--slate-200);
   font-size: 0.78rem;
-  font-weight: 750;
+  font-weight: var(--weight-strong);
   padding: 12px 0 12px 21px;
   position: relative;
 }
@@ -71,11 +70,6 @@
   width: 5px;
 }
 .copyCta {
-  --pb-background: var(--brand-accent);
-  --pb-background-hover: var(--surface);
-  --pb-font-size: 0.8rem;
-  --pb-gap: 38px;
-  --pb-padding: 16px 18px;
   transition:
     background 0.2s,
     color 0.2s,
@@ -263,7 +257,7 @@
 .visual footer small {
   color: var(--text-on-dark);
   font-size: 0.64rem;
-  font-weight: 650;
+  font-weight: var(--weight-strong);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -276,6 +270,9 @@
 }
 
 @media (min-width: 640px) {
+  .copy h2 {
+    overflow-wrap: normal;
+  }
   .visual {
     box-shadow: 24px 24px 0 color-mix(in srgb, var(--slate-950) 14%, transparent);
     padding: 26px;
@@ -316,12 +313,5 @@
   }
   .copy {
     max-width: 520px;
-  }
-}
-
-@media (min-width: 640px) {
-  .copy h2 {
-    /* Breaking mid-word is a small-screen last resort only. */
-    overflow-wrap: normal;
   }
 }

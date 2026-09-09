@@ -1,3 +1,4 @@
+import { Eyebrow } from "@/components/Eyebrow";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import styles from "./AutomationFeature.module.css";
 
@@ -47,9 +48,7 @@ export function AutomationFeature() {
         </div>
 
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>
-            <span /> Business automation
-          </p>
+          <Eyebrow className={styles.eyebrow}>Business automation</Eyebrow>
           <h2>
             Automation built
             <br />
@@ -60,7 +59,7 @@ export function AutomationFeature() {
             moving it by hand.
           </p>
 
-          <PrimaryButton className={styles.copyCta} href="/automation">
+          <PrimaryButton className={styles.copyCta} href="/automation" size="large">
             Explore business automation
           </PrimaryButton>
         </div>

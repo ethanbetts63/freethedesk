@@ -33,7 +33,7 @@
 .document h1 + p {
   color: var(--legal-accent);
   font-size: 0.7rem;
-  font-weight: 850;
+  font-weight: var(--weight-control);
   letter-spacing: 0.1em;
   margin-bottom: 30px;
   text-transform: uppercase;
@@ -91,7 +91,7 @@
 }
 .document li::marker {
   color: var(--legal-accent);
-  font-weight: 850;
+  font-weight: var(--weight-control);
 }
 .document a {
   color: var(--legal-accent);

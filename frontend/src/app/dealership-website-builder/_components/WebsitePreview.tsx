@@ -3,8 +3,10 @@
 import { useState, type CSSProperties } from "react";
 
 import { ACCENTS } from "../_lib/configuratorData";
+import { getDemoBrandIdentity } from "../_lib/demoBrand";
 import { ConversionLink } from "./ConversionButton";
 import { DemoMap } from "./DemoMap";
+import { BrandArtwork, LandscapeArtwork, VehicleArtwork } from "./PreviewArtwork";
 import { ExamplePage, INVENTORY_VEHICLES, InventoryTile, type InventoryVehicle } from "./PreviewPages";
 import styles from "../page.module.css";
 import type { Accent, InventoryAddonSelection, ModuleSelection, PreviewPage } from "../_lib/types";
@@ -46,11 +48,7 @@ function PreviewNavigation({
     { key: "service", label: "Service" },
     { key: "articles", label: "Guides" },
   ];
-  const emailName =
-    brandName
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "")
-      .slice(0, 18) || "yourdealership";
+  const { email } = getDemoBrandIdentity(brandName);
 
   return (
     <div className={styles.siteNav}>
@@ -86,11 +84,11 @@ function PreviewNavigation({
           </button>
         </div>
         <div className={styles.previewContacts}>
-          <ConversionLink href={`mailto:hello@${emailName}.com.au`}>
+          <ConversionLink href={`mailto:${email}`}>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 5h16v14H4zM4 7l8 6 8-6" />
             </svg>
-            <small>hello@{emailName}.com.au</small>
+            <small>{email}</small>
           </ConversionLink>
           <ConversionLink href="tel:+61861234567">
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -128,10 +126,8 @@ function HomePreview({
             {selected.inventory ? "Explore inventory →" : "Talk to our team →"}
           </button>
         </div>
-        <div className={styles.vehicle} aria-hidden="true">
-          <span />
-          <i />
-          <i />
+        <div className={styles.vehicle}>
+          <VehicleArtwork />
         </div>
       </div>
 
@@ -181,10 +177,8 @@ function HomePreview({
         )}
         {selected.articles && (
           <div className={styles.articleCard}>
-            <div className={styles.guideImage} aria-hidden="true">
-              <span />
-              <i />
-              <b />
+            <div className={styles.guideImage}>
+              <LandscapeArtwork />
             </div>
             <div>
               <small>From the guides</small>
@@ -217,28 +211,28 @@ function HomePreview({
           <small>Brands we work with</small>
           <div className={styles.brandGrid}>
             <article>
-              <i className={styles.brandHorizon} />
+              <BrandArtwork label="Horizon" />
               <span>
                 <strong>Horizon</strong>
                 <small>Road &amp; touring</small>
               </span>
             </article>
             <article>
-              <i className={styles.brandNorth} />
+              <BrandArtwork label="North / Co" />
               <span>
                 <strong>North / Co</strong>
                 <small>Urban mobility</small>
               </span>
             </article>
             <article>
-              <i className={styles.brandAxis} />
+              <BrandArtwork label="Axis" />
               <span>
                 <strong>Axis</strong>
                 <small>Performance</small>
               </span>
             </article>
             <article>
-              <i className={styles.brandTrailworks} />
+              <BrandArtwork label="Trailworks" />
               <span>
                 <strong>Trailworks</strong>
                 <small>Adventure</small>
@@ -266,11 +260,7 @@ function PreviewFooter({
   selected,
   onPageChange,
 }: Pick<WebsitePreviewProps, "brandName" | "selected" | "onPageChange">) {
-  const emailName =
-    brandName
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "")
-      .slice(0, 18) || "yourdealership";
+  const { email } = getDemoBrandIdentity(brandName);
 
   return (
     <footer className={styles.previewFooter}>
@@ -319,11 +309,11 @@ function PreviewFooter({
           </svg>
           <span>(08) 6123 4567</span>
         </ConversionLink>
-        <ConversionLink href={`mailto:hello@${emailName}.com.au`}>
+        <ConversionLink href={`mailto:${email}`}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 5h16v14H4zM4 7l8 6 8-6" />
           </svg>
-          <span>hello@{emailName}.com.au</span>
+          <span>{email}</span>
         </ConversionLink>
         <p>Your dealership address</p>
       </div>
@@ -347,18 +337,7 @@ export function WebsitePreview(props: WebsitePreviewProps) {
   const [selectedVehicle, setSelectedVehicle] = useState<InventoryVehicle>(INVENTORY_VEHICLES[0]);
   const { accent, brandName, currentUrl, selected, inventoryAddons, previewPage, additionCount, onPageChange } = props;
   const previewStyle = { "--preview-accent": ACCENTS[accent] } as CSSProperties;
-  const enteredAddress = currentUrl
-    .trim()
-    .replace(/^https?:\/\//i, "")
-    .replace(/\/+$/, "");
-  const websiteAddress =
-    enteredAddress ||
-    `www.${
-      brandName
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "")
-        .slice(0, 22) || "yourdealership"
-    }.com.au`;
+  const { websiteAddress } = getDemoBrandIdentity(brandName, currentUrl);
   const openVehicle = (vehicle: InventoryVehicle) => {
     setSelectedVehicle(vehicle);
     onPageChange("vehicle");

@@ -1,6 +1,5 @@
-/* Page-level layout primitives: the centred content rail and standard section
-   padding. Horizontal padding comes from --gutter, so .shell needs no
-   breakpoint. */
+/* Page-level layout primitive: the centred content rail. Horizontal padding
+   comes from --gutter, so .shell needs no breakpoint. */
 
 .shell {
   margin: 0 auto;
@@ -8,8 +7,4 @@
   padding-left: var(--gutter);
   padding-right: var(--gutter);
   width: 100%;
-}
-.section {
-  padding-bottom: var(--section-space);
-  padding-top: var(--section-space);
 }

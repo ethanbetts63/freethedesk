@@ -161,36 +161,11 @@
   gap: 5px;
 }
 .admin-swatch {
+  background: var(--admin-status-color);
   border-radius: 2px;
   display: inline-block;
   height: 10px;
   width: 10px;
-}
-.admin-swatch-new,
-.admin-swatch-pending {
-  background: var(--status-new);
-}
-.admin-swatch-contacted {
-  background: var(--status-contacted);
-}
-.admin-swatch-qualified {
-  background: var(--status-qualified);
-}
-.admin-swatch-won,
-.admin-swatch-sent,
-.admin-swatch-active {
-  background: var(--status-won);
-}
-.admin-swatch-closed {
-  background: var(--status-closed);
-}
-.admin-swatch-spam,
-.admin-swatch-failed,
-.admin-swatch-denied {
-  background: var(--status-spam);
-}
-.admin-swatch-suspended {
-  background: var(--status-suspended);
 }
 .admin-table-wrap {
   overflow-x: auto;
@@ -268,71 +243,43 @@
 .admin-row-link:focus-visible {
   outline: 0;
 }
-.admin-row-new,
-.admin-row-pending {
-  background: color-mix(in srgb, var(--status-new) 12%, var(--surface));
-}
-.admin-row-contacted {
-  background: color-mix(in srgb, var(--status-contacted) 12%, var(--surface));
-}
-.admin-row-qualified {
-  background: color-mix(in srgb, var(--status-qualified) 12%, var(--surface));
-}
-.admin-row-won,
-.admin-row-sent,
-.admin-row-active {
-  background: color-mix(in srgb, var(--status-won) 12%, var(--surface));
-}
-.admin-row-closed {
-  background: color-mix(in srgb, var(--status-closed) 12%, var(--surface));
-}
-.admin-row-spam,
-.admin-row-failed,
-.admin-row-denied {
-  background: color-mix(in srgb, var(--status-spam) 12%, var(--surface));
-}
-.admin-row-suspended {
-  background: color-mix(in srgb, var(--status-suspended) 12%, var(--surface));
+.admin-row {
+  background: color-mix(in srgb, var(--admin-status-color) 12%, var(--surface));
 }
 .admin-status {
+  background: color-mix(in srgb, var(--admin-status-color) 26%, var(--surface));
   border-radius: 999px;
+  color: color-mix(in srgb, var(--admin-status-color) 45%, var(--text));
   display: inline-flex;
   font-size: 0.61rem;
   font-weight: 800;
   padding: 4px 8px;
 }
-.admin-status-new,
-.admin-status-pending {
-  background: color-mix(in srgb, var(--status-new) 26%, var(--surface));
-  color: color-mix(in srgb, var(--status-new) 45%, var(--text));
+[data-status="new"],
+[data-status="pending"] {
+  --admin-status-color: var(--status-new);
 }
-.admin-status-contacted {
-  background: color-mix(in srgb, var(--status-contacted) 26%, var(--surface));
-  color: color-mix(in srgb, var(--status-contacted) 45%, var(--text));
+[data-status="contacted"] {
+  --admin-status-color: var(--status-contacted);
 }
-.admin-status-qualified {
-  background: color-mix(in srgb, var(--status-qualified) 26%, var(--surface));
-  color: color-mix(in srgb, var(--status-qualified) 45%, var(--text));
+[data-status="qualified"] {
+  --admin-status-color: var(--status-qualified);
 }
-.admin-status-won,
-.admin-status-sent,
-.admin-status-active {
-  background: color-mix(in srgb, var(--status-won) 26%, var(--surface));
-  color: color-mix(in srgb, var(--status-won) 45%, var(--text));
+[data-status="won"],
+[data-status="sent"],
+[data-status="active"] {
+  --admin-status-color: var(--status-won);
 }
-.admin-status-closed {
-  background: color-mix(in srgb, var(--status-closed) 26%, var(--surface));
-  color: color-mix(in srgb, var(--status-closed) 48%, var(--text));
+[data-status="closed"] {
+  --admin-status-color: var(--status-closed);
 }
-.admin-status-spam,
-.admin-status-failed,
-.admin-status-denied {
-  background: color-mix(in srgb, var(--status-spam) 26%, var(--surface));
-  color: color-mix(in srgb, var(--status-spam) 45%, var(--text));
+[data-status="spam"],
+[data-status="failed"],
+[data-status="denied"] {
+  --admin-status-color: var(--status-spam);
 }
-.admin-status-suspended {
-  background: color-mix(in srgb, var(--status-suspended) 26%, var(--surface));
-  color: color-mix(in srgb, var(--status-suspended) 45%, var(--text));
+[data-status="suspended"] {
+  --admin-status-color: var(--status-suspended);
 }
 .admin-pagination {
   align-items: flex-start;
@@ -527,7 +474,7 @@
   border-radius: 999px;
   color: var(--text-muted);
   font-size: 0.62rem;
-  font-weight: 850;
+  font-weight: var(--weight-control);
   padding: 7px 10px;
 }
 .admin-config-basics {
@@ -571,7 +518,7 @@
   border: 1px solid var(--border);
   border-radius: 999px;
   font-size: 0.7rem;
-  font-weight: 750;
+  font-weight: var(--weight-strong);
   padding: 7px 10px;
 }
 .admin-config-group em {

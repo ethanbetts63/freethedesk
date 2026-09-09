@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Eyebrow } from "@/components/Eyebrow";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { NetworkField } from "@/components/visuals/NetworkField";
 
@@ -42,9 +43,7 @@ export function Hero({
       <div className={styles.grid} />
       <div className={`shell ${styles.content}${stages ? ` ${styles.withStages}` : ""}`}>
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>
-            <span /> {eyebrow}
-          </p>
+          <Eyebrow className={styles.eyebrow}>{eyebrow}</Eyebrow>
           <h1>
             {titleLines.map((line, index) => (
               <span key={index}>
@@ -61,6 +60,7 @@ export function Hero({
               className={styles.primary}
               href={primaryHref}
               direction={primaryHref.startsWith("#") ? "down" : "page"}
+              size="large"
             >
               {primaryLabel}
             </PrimaryButton>

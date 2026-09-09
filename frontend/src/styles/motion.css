@@ -12,37 +12,16 @@
 }
 
 .moving-colour-button {
-  align-items: center;
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
-  border: 0;
   color: var(--text-on-dark);
-  cursor: pointer;
-  display: inline-flex;
-  font: inherit;
-  font-size: var(--mcb-font-size, 0.72rem);
-  font-weight: 900;
-  gap: var(--mcb-gap, 20px);
-  justify-content: space-between;
-  letter-spacing: 0.05em;
-  min-height: var(--mcb-height, 52px);
-  padding: 0 var(--mcb-padding-x, 18px);
-  text-transform: uppercase;
+  min-height: var(--tap-min);
   /* Keeps the label readable across the full gradient sweep. */
   text-shadow: 0 1px 2px color-mix(in srgb, var(--surface-ink) 32%, transparent);
-  width: var(--mcb-width, auto);
 }
-.moving-colour-button:disabled {
-  cursor: wait;
-  opacity: 0.7;
-}
-.moving-colour-button > span {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-.moving-colour-button:hover > span {
-  transform: translateX(4px);
+.moving-colour-button:hover {
+  background: var(--moving-colour-gradient);
 }
 
 @keyframes moving-colour-shift {

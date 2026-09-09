@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
+import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
@@ -78,7 +79,7 @@ export default async function LicensingPage() {
             <SectionNumber>{sections["A shorter path to sold"]}</SectionNumber>
             <h2>Keep the momentum.</h2>
             <p>Remove the steps that add effort without adding value to the customer or the dealership.</p>
-            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down">
+            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down" size="compact">
               Choose your plan
             </PrimaryButton>
           </div>
@@ -122,7 +123,7 @@ export default async function LicensingPage() {
               Use the hosted product with the website you already have, or make it a seamless part of a dealership site
               we build.
             </p>
-            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down">
+            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down" size="compact">
               Choose your plan
             </PrimaryButton>
           </div>
@@ -154,14 +155,14 @@ export default async function LicensingPage() {
 
       <Faq eyebrow={sections["Common questions"]} title="Before you sign up." items={LICENSING_FAQS} />
 
-      <section className={`shell ${styles.closing}`}>
-        <SectionNumber>{sections["Remove the barrier"]}</SectionNumber>
-        <h2>A signature shouldn&apos;t require an appointment.</h2>
-        <p>Let customers verify, sign and pay from wherever they are. The paperwork travels—not the customer.</p>
-        <PrimaryButton className={styles.closingCta} href="#signup" direction="up">
-          Choose your plan
-        </PrimaryButton>
-      </section>
+      <ManualAdminCta
+        eyebrow={sections["Remove the barrier"]}
+        title="A signature shouldn't require an appointment."
+        href="#signup"
+        buttonLabel="Choose your plan"
+      >
+        Let customers verify, sign and pay from wherever they are. The paperwork travels—not the customer.
+      </ManualAdminCta>
     </main>
   );
 }

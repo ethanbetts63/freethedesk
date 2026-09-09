@@ -19,8 +19,6 @@
   display: block;
 }
 .seoSummaryCta {
-  --pb-font-size: 0.72rem;
-  --pb-padding: 15px 18px;
   align-self: flex-start;
   letter-spacing: 0.06em;
 }

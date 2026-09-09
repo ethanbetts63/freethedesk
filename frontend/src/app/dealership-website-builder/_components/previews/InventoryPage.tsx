@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { ConversionButton } from "../ConversionButton";
+import { VehicleArtwork } from "../PreviewArtwork";
 import { INVENTORY_VEHICLES } from "./data";
 import type { InventoryVehicle } from "./data";
 import { CatalogueControls, InventoryTile, OnlinePurchaseSteps } from "./shared";
@@ -62,10 +63,8 @@ export function InventoryPage({
             Browse available stock ↓
           </button>
         </div>
-        <div className={styles.inventoryHeroVisual} aria-hidden="true">
-          <span />
-          <i />
-          <i />
+        <div className={styles.inventoryHeroVisual}>
+          <VehicleArtwork />
         </div>
       </section>
       {showOnlineSteps && <OnlinePurchaseSteps />}

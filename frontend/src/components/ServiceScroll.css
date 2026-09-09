@@ -202,7 +202,7 @@ main:has(.service-scroll) {
     grid-template-columns: auto minmax(0, 1fr) auto;
   }
   .service-custom-cta {
-    grid-column: revert;
-    justify-self: revert;
+    grid-column: auto;
+    justify-self: auto;
   }
 }

@@ -2,7 +2,9 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 
+import { PrimaryButton } from "@/components/PrimaryButton";
 import { SectionNumber } from "@/components/SectionNumber";
+import formStyles from "@/components/forms/SelectionForm.module.css";
 import { type PublicSiteSettings } from "@/lib/api";
 import { planByCode } from "@/lib/plans";
 import { useSignup } from "@/lib/useSignup";
@@ -51,23 +53,27 @@ export function SeoSignup({ settings, eyebrow }: { settings: PublicSiteSettings;
 
   return (
     <section className={`shell ${styles.plansSection}`} id="signup">
-      <div className={styles.signupPanel}>
-        <aside className={styles.selectionPanel} id="google-business-profile-audit">
+      <div className={`${formStyles.panel} ${styles.signupPanel}`}>
+        <aside className={`${formStyles.chooser} ${styles.selectionPanel}`} id="google-business-profile-audit">
           <SectionNumber>{eyebrow}</SectionNumber>
           <h2>Choose your report.</h2>
 
-          <div className={styles.choiceGroup}>
+          <div className={formStyles.choiceGroup}>
             <p>What do you want?</p>
-            <div className={styles.reportTypeGrid} role="radiogroup" aria-label="Report type">
+            <div
+              className={`${formStyles.choiceGrid} ${styles.reportTypeGrid}`}
+              role="radiogroup"
+              aria-label="Report type"
+            >
               {REPORT_TYPES.map((option) => (
                 <label
-                  className={`${reportType === option.code ? styles.choiceSelected : ""} ${
-                    option.code === "both" ? styles.choiceRecommended : ""
+                  className={`${reportType === option.code ? formStyles.choiceSelected : ""} ${
+                    option.code === "both" ? formStyles.choiceRecommended : ""
                   }`}
                   key={option.code}
                 >
                   <input
-                    className={styles.choiceInput}
+                    className={formStyles.choiceInput}
                     type="radio"
                     name="seo-report-type"
                     value={option.code}
@@ -81,18 +87,22 @@ export function SeoSignup({ settings, eyebrow }: { settings: PublicSiteSettings;
             </div>
           </div>
 
-          <div className={styles.choiceGroup}>
+          <div className={formStyles.choiceGroup}>
             <p>How often?</p>
-            <div className={styles.frequencyGrid} role="radiogroup" aria-label="Report frequency">
+            <div
+              className={`${formStyles.choiceGrid} ${styles.frequencyGrid}`}
+              role="radiogroup"
+              aria-label="Report frequency"
+            >
               {FREQUENCIES.map((frequency) => (
                 <label
-                  className={`${selectedCode === frequency.code ? styles.choiceSelected : ""} ${
+                  className={`${selectedCode === frequency.code ? formStyles.choiceSelected : ""} ${
                     recommendedFrequency === frequency.code ? styles.frequencyRecommended : ""
                   }`}
                   key={frequency.code}
                 >
                   <input
-                    className={styles.choiceInput}
+                    className={formStyles.choiceInput}
                     type="radio"
                     name="seo-report-frequency"
                     value={frequency.code}
@@ -106,7 +116,7 @@ export function SeoSignup({ settings, eyebrow }: { settings: PublicSiteSettings;
             </div>
           </div>
 
-          <div className={styles.selectionTotal} aria-live="polite">
+          <div className={formStyles.total} aria-live="polite">
             <div>
               <strong className="moving-colour-text">{selected.price}</strong>
               <small>{selected.cadence}</small>
@@ -117,8 +127,8 @@ export function SeoSignup({ settings, eyebrow }: { settings: PublicSiteSettings;
           </div>
         </aside>
 
-        <form className={styles.signupForm} onSubmit={onSubmit}>
-          <div className={styles.formTitle}>
+        <form className={formStyles.form} onSubmit={onSubmit}>
+          <div className={formStyles.formTitle}>
             <h3>Where should we send it?</h3>
           </div>
           <label>
@@ -142,14 +152,20 @@ export function SeoSignup({ settings, eyebrow }: { settings: PublicSiteSettings;
             />
           </label>
           {error && (
-            <p className={styles.signupError} role="alert">
+            <p className={formStyles.error} role="alert">
               {error}
             </p>
           )}
-          <button type="submit" className={styles.signupSubmit} disabled={status === "submitting"}>
+          <PrimaryButton
+            type="submit"
+            className={formStyles.submit}
+            direction="right"
+            size="large"
+            fullWidth
+            disabled={status === "submitting"}
+          >
             {status === "submitting" ? "Creating your checkout…" : "Continue to secure payment"}
-            <span>→</span>
-          </button>
+          </PrimaryButton>
         </form>
       </div>
     </section>

@@ -3,8 +3,7 @@
   background: var(--surface);
   color: var(--slate-950);
 }
-.systemCopy h2,
-.closing h2 {
+.systemCopy h2 {
   font-size: var(--display-5);
   letter-spacing: -0.072em;
   line-height: 0.93;
@@ -19,8 +18,6 @@
 .servicesSection {
   background: var(--surface-flow);
   padding: var(--section-space) 0;
-  padding-bottom: var(--section-space);
-  padding-top: var(--section-space);
 }
 .seoSection {
   background: var(--surface-flow);
@@ -44,17 +41,8 @@
   gap: 22px;
 }
 .seoReportCta {
-  --pb-font-size: 0.72rem;
-  --pb-padding: 15px 18px;
   align-self: flex-start;
   letter-spacing: 0.06em;
-}
-.seoReportSummary .seoSecondary {
-  --pb-background: transparent;
-  --pb-background-hover: transparent;
-  --pb-color: var(--page-accent);
-  --pb-padding: 8px 0;
-  border-bottom: 1px solid var(--page-accent);
 }
 .systemSection {
   align-items: center;
@@ -246,7 +234,7 @@
 }
 .systemCopy li {
   font-size: 0.78rem;
-  font-weight: 750;
+  font-weight: var(--weight-strong);
   margin: 13px 0;
   padding-left: 20px;
   position: relative;
@@ -267,166 +255,14 @@
 .systemCopy .sectionCta {
   margin-top: 22px;
 }
-.caseSection {
-  background: var(--surface-dark);
-  color: var(--text-on-dark);
-  padding: var(--section-space) 0;
-}
-.caseInner {
-  align-items: center;
-  display: grid;
-  gap: clamp(55px, 8vw, 120px);
-  grid-template-columns: minmax(0, 1fr);
-}
-.casePhone {
-  position: relative;
-  width: 250px;
-}
-.casePhoneFrame {
-  position: relative;
-  z-index: 1;
-}
-.caseStatOverlay {
-  backdrop-filter: blur(9px);
-  background: color-mix(in srgb, var(--slate-950) 88%, transparent);
-  border: 1px solid color-mix(in srgb, var(--bg) 15%, transparent);
-  bottom: 34px;
-  box-shadow: 0 26px 60px color-mix(in srgb, var(--text) 50%, transparent);
-  left: 70px;
-  padding: 14px 18px 16px;
-  position: absolute;
-  z-index: 2;
-}
-.caseStatOverlay small {
-  color: var(--accent-on-dark);
-  display: block;
-  font-size: 0.6rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.caseStatOverlay strong {
-  display: block;
-  font-size: 2.5rem;
-  font-weight: 850;
-  letter-spacing: -0.06em;
-  line-height: 1;
-  margin: 9px 0 3px;
-}
-.caseStatOverlay > span {
-  color: var(--slate-300);
-  font-size: 0.82rem;
-  white-space: nowrap;
-}
-.caseCopy h2 {
-  font-size: var(--display-2);
-  letter-spacing: -0.05em;
-  margin: 0 0 20px;
-}
-.caseCopy > p:not(:global(.section-number)) {
-  color: var(--slate-300);
-  font-size: 0.97rem;
-  line-height: 1.76;
-  margin: 0 0 16px;
-  max-width: 560px;
-}
-.casePoints {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 24px 0 30px;
-}
-.casePoints span {
-  border: 1px solid color-mix(in srgb, var(--bg) 22%, transparent);
-  color: var(--slate-100);
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 7px 13px;
-}
-.caseActions {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
-}
-/* The primary is a .primary-button, so these only style the plain link beside it. */
-.caseActions a:not(.casePrimary) {
-  color: var(--text-on-dark);
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.caseActions a:not(.casePrimary) span {
-  display: inline-block;
-  margin-left: 6px;
-  transition: transform 0.2s ease;
-}
-.caseActions a:not(.casePrimary):hover span {
-  transform: translateX(4px);
-}
-.caseActions .casePrimary {
-  --pb-font-size: 0.78rem;
-  --pb-padding: 15px 18px;
-}
-.closing {
-  background: var(--surface-flow);
-  margin-bottom: var(--section-space);
-  margin-top: var(--section-space);
-  padding: 65px 22px;
-  text-align: center;
-}
-.closing > p:not(:global(.section-number)) {
-  color: var(--slate-600);
-  font-size: 0.96rem;
-  line-height: 1.7;
-  margin: 27px auto 31px;
-  max-width: 570px;
-}
-.closingCta {
-  --pb-font-size: 0.8rem;
-  --pb-gap: 35px;
-  --pb-padding: 17px 20px;
-}
-
 @media (min-width: 640px) {
-  .systemSection {
-    padding-bottom: var(--section-space);
-    padding-top: var(--section-space);
-  }
-  .servicesSection {
-    padding-bottom: var(--section-space);
-    padding-top: var(--section-space);
-  }
-  .seoSection {
-    padding-bottom: var(--section-space);
-    padding-top: var(--section-space);
-  }
   .systemVisual {
     min-height: 515px;
-  }
-  .caseSection {
-    padding: var(--section-space) 0;
-  }
-  .caseStatOverlay {
-    bottom: 52px;
-    left: 112px;
-    padding: 17px 24px 19px;
-  }
-  .caseStatOverlay strong {
-    font-size: 3.1rem;
-  }
-  .closing {
-    padding: 82px;
   }
 }
 
 @media (min-width: 900px) {
   .systemSection {
     grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-  }
-  .caseInner {
-    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
   }
 }

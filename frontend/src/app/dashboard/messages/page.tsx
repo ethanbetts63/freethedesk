@@ -100,7 +100,7 @@ function MessagesContent() {
               emptyLabel="No messages match these filters."
             >
               {(message) => (
-                <tr key={message.id} className={`admin-row-${message.status}`}>
+                <tr key={message.id} className="admin-row" data-status={message.status}>
                   <td>
                     <RowLink href={`/dashboard/messages/${message.id}`}>{formatDateTime(message.created_at)}</RowLink>
                   </td>

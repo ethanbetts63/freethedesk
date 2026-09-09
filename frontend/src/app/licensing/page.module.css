@@ -9,127 +9,24 @@
 .signupSection {
   padding: var(--section-space) 0;
   scroll-margin-top: 24px;
-  padding-bottom: var(--section-space);
-  padding-top: var(--section-space);
 }
 /* Signup panel — the same shape as the SEO report builder: chooser on the left,
    short form on the right, inside one moving-colour bordered card. */
 .signupPanel {
-  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
-  background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
-  background-origin: border-box;
-  background-size:
-    100% 100%,
-    var(--moving-colour-size);
-  border: 2px solid transparent;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  min-height: 590px;
-}
-@media (prefers-reduced-motion: reduce) {
-  .signupPanel,
-  .choiceRecommended {
-    animation: none;
-  }
+  --selection-choice-min-height: 62px;
 }
 .selectionPanel {
-  color: var(--slate-950);
-  display: flex;
-  flex-direction: column;
-  padding: 34px 20px;
+  color: var(--text-strong);
 }
 .selectionPanel h2 {
-  color: var(--slate-950);
+  color: var(--text-strong);
   font-size: var(--display-3);
   letter-spacing: -0.058em;
   line-height: 1.02;
   margin: 0 0 42px;
 }
-.choiceGroup > p {
-  border-bottom: 1px solid var(--slate-100);
-  color: var(--page-accent);
-  font-size: 0.6rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  margin: 0 0 12px;
-  padding-bottom: 10px;
-  text-transform: uppercase;
-}
 .planTypeGrid {
-  display: grid;
-  gap: 8px;
   grid-template-columns: minmax(0, 1fr);
-}
-.choiceInput {
-  height: 0;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  width: 0;
-}
-.planTypeGrid label {
-  align-items: center;
-  background: var(--surface-flow);
-  border: 1px solid var(--slate-200);
-  color: var(--slate-800);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  font-size: 0.72rem;
-  font-weight: 850;
-  justify-content: center;
-  min-height: 62px;
-  padding: 10px;
-  position: relative;
-  text-align: center;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-}
-.planTypeGrid label small {
-  color: var(--slate-600);
-  font-size: 0.45rem;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  margin-top: 5px;
-  text-transform: uppercase;
-}
-.planTypeGrid label:hover {
-  background: var(--surface);
-  border-color: var(--page-accent);
-}
-.planTypeGrid label:has(.choiceInput:focus-visible) {
-  outline: 3px solid color-mix(in srgb, var(--page-accent) 25%, transparent);
-  outline-offset: 2px;
-}
-.planTypeGrid .choiceSelected {
-  background: var(--surface-dark);
-  border-color: var(--blue-950);
-  color: var(--text-on-dark);
-}
-/* Out-specifies the plain :hover above, which would repaint the selected tile
-   white and hide its white text. */
-.planTypeGrid .choiceSelected:hover {
-  background: var(--surface-dark-hover);
-  border-color: var(--surface-dark-hover);
-}
-.planTypeGrid .choiceSelected small {
-  color: var(--accent-on-dark-soft);
-}
-.planTypeGrid .choiceRecommended {
-  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
-  background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface-flow), var(--surface-flow)), var(--moving-colour-gradient);
-  background-origin: border-box;
-  background-size:
-    100% 100%,
-    var(--moving-colour-size);
-  border: 2px solid transparent;
-}
-.planTypeGrid .choiceRecommended.choiceSelected {
-  background-image: linear-gradient(var(--surface-dark), var(--surface-dark)), var(--moving-colour-gradient);
 }
 .selectionFeatures {
   list-style: none;
@@ -151,68 +48,14 @@
   left: 0;
   position: absolute;
 }
-.selectionTotal {
-  align-items: center;
-  border-top: 1px dashed var(--slate-200);
-  display: grid;
-  gap: 12px;
-  grid-template-columns: minmax(0, 1fr);
-  margin-top: auto;
-  padding-top: 24px;
-}
-.selectionTotal > div {
-  display: grid;
-  gap: 2px;
-}
-.selectionTotal strong {
-  font-size: 2.8rem;
-  letter-spacing: -0.06em;
-  line-height: 1;
-  padding-right: 0.06em;
-}
-.selectionTotal small {
-  color: var(--slate-600);
-  font-size: 0.62rem;
-}
-.selectionTotal > span {
-  color: var(--slate-800);
-  font-size: 0.76rem;
-  font-weight: 800;
-  line-height: 1.45;
-}
-.signupForm {
-  background: var(--surface-flow);
-  border-left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(30px, 3.5vw, 48px);
-  border-top: 1px solid var(--slate-100);
-}
 .formTitle {
   align-items: baseline;
-  border-bottom: 1px solid var(--slate-100);
   display: flex;
   gap: 16px;
   justify-content: space-between;
-  margin-bottom: 26px;
-  padding-bottom: 20px;
 }
 .formTitle h3 {
-  font-size: var(--step-2);
-  letter-spacing: -0.04em;
   margin: 0;
-}
-.formPill {
-  background: var(--slate-100);
-  color: var(--blue-800);
-  flex: 0 0 auto;
-  font-size: 0.58rem;
-  font-weight: 900;
-  letter-spacing: 0.09em;
-  padding: 6px 10px;
-  text-transform: uppercase;
-  white-space: nowrap;
 }
 .customBuildNote {
   color: var(--slate-600);
@@ -225,76 +68,8 @@
   color: var(--page-accent);
   font-weight: 800;
 }
-.fieldRow {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: minmax(0, 1fr);
-}
-.signupForm label {
-  color: var(--slate-800);
-  display: block;
-  font-size: 0.69rem;
-  font-weight: 850;
-  margin-bottom: 16px;
-}
-.signupForm label > span {
-  display: block;
-  margin-bottom: 8px;
-}
-.signupForm input,
-.signupForm select {
-  background: var(--surface);
-  border: 1px solid var(--slate-200);
-  border-radius: 0;
-  color: var(--text);
-  font: inherit;
-  font-size: 0.9rem;
-  min-height: 50px;
-  outline: none;
-  padding: 0 14px;
-  width: 100%;
-}
-/* `font: inherit` above pulls the label's 850 weight into the placeholder. */
-.signupForm input::placeholder {
-  color: var(--text-on-dark-subtle);
-  font-size: 0.78rem;
-  font-weight: 400;
-}
-.signupForm input:focus,
-.signupForm select:focus {
-  border-color: var(--page-accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--page-accent) 12%, transparent);
-}
-.signupForm label small {
-  color: var(--slate-500);
-  display: block;
-  font-size: 0.66rem;
-  font-weight: 550;
-  margin-top: 7px;
-}
-.signupSubmit {
-  --pb-font-size: 0.78rem;
-  --pb-padding: 0 20px;
-  --pb-width: 100%;
-  margin-top: 8px;
-  min-height: 58px;
-  text-align: left;
-}
-.signupSubmit span {
-  font-size: 1.1rem;
-}
-.signupError {
-  background: var(--danger-surface);
-  border-left: 3px solid var(--danger-line);
-  color: var(--danger-ink);
-  font-size: 0.75rem;
-  line-height: 1.5;
-  margin: 0 0 12px;
-  padding: 11px 13px;
-}
 .comparisonCopy h2,
 .optionsHeading h2,
-.closing h2,
 .verifyCopy h2 {
   font-size: var(--display-3);
   letter-spacing: -0.07em;
@@ -304,8 +79,6 @@
 .comparisonSection {
   background: var(--surface-flow);
   padding: var(--section-space) 0;
-  padding-bottom: var(--section-space);
-  padding-top: var(--section-space);
 }
 .comparison {
   align-items: center;
@@ -350,7 +123,7 @@
   display: flex;
   flex-wrap: wrap;
   font-size: 0.69rem;
-  font-weight: 750;
+  font-weight: var(--weight-strong);
   gap: 8px;
   flex-direction: column;
 }
@@ -399,8 +172,6 @@
   background: var(--surface-dark);
   color: var(--text-on-dark);
   padding: var(--section-space) 0;
-  padding-bottom: var(--section-space);
-  padding-top: var(--section-space);
 }
 .optionsLayout {
   align-items: start;
@@ -429,7 +200,7 @@
 .optionPhoneCaption {
   color: var(--text-on-dark);
   font-size: 0.8rem;
-  font-weight: 850;
+  font-weight: var(--weight-control);
   margin: 18px 0 0;
 }
 .optionPhoneTile > a {
@@ -449,7 +220,7 @@
 .flowCompareLabel {
   color: var(--accent-on-dark);
   font-size: 0.68rem;
-  font-weight: 850;
+  font-weight: var(--weight-control);
   letter-spacing: 0.14em;
   margin: 0 0 28px;
   text-transform: uppercase;
@@ -501,7 +272,7 @@
 .flowColumnHead b {
   color: var(--slate-100);
   font-size: 0.64rem;
-  font-weight: 750;
+  font-weight: var(--weight-strong);
   text-align: right;
 }
 .flowColumnHighlight .flowColumnHead b {
@@ -531,7 +302,7 @@
   content: counter(flow-step);
   display: flex;
   font-size: 0.66rem;
-  font-weight: 850;
+  font-weight: var(--weight-control);
   height: 22px;
   justify-content: center;
   left: 0;
@@ -564,19 +335,12 @@
   color: var(--sky-300);
 }
 .flowColumnCta {
-  --mcb-font-size: 0.74rem;
-  --mcb-height: 48px;
-  --mcb-padding-x: 16px;
-  --mcb-width: 100%;
   margin: 22px 0 4px;
 }
 .flowColumnCta span {
   font-size: 1rem;
 }
 .flowColumnCtaPlain {
-  --pb-font-size: 0.74rem;
-  --pb-padding: 14px 16px;
-  --pb-width: 100%;
   margin: 22px 0 4px;
 }
 .flowColumnCtaPlain span {
@@ -753,7 +517,7 @@
 .successPhoneBody h4 {
   color: var(--surface-ink);
   font-size: 0.92rem;
-  font-weight: 850;
+  font-weight: var(--weight-control);
   letter-spacing: -0.03em;
   margin: 0 0 5px;
 }
@@ -784,30 +548,8 @@
   color: var(--surface-ink);
   display: flex;
   font-size: 0.78rem;
-  font-weight: 850;
+  font-weight: var(--weight-control);
   justify-content: space-between;
-}
-.closing {
-  background: var(--surface-flow);
-  margin-bottom: var(--section-space);
-  margin-top: var(--section-space);
-  padding: 65px 22px;
-  text-align: center;
-}
-.closing > p:not(:global(.section-number)) {
-  color: var(--slate-600);
-  font-size: 0.96rem;
-  line-height: 1.7;
-  margin: 27px auto 31px;
-  max-width: 570px;
-}
-.closingCta {
-  --pb-font-size: 0.8rem;
-  --pb-gap: 35px;
-  --pb-padding: 17px 20px;
-}
-.closing .closingCta:hover > span {
-  transform: translateY(-3px);
 }
 .verify {
   align-items: center;
@@ -846,7 +588,7 @@
   color: var(--slate-500);
   display: flex;
   font-size: 0.66rem;
-  font-weight: 850;
+  font-weight: var(--weight-control);
   justify-content: space-between;
   letter-spacing: 0.11em;
   padding-bottom: 18px;
@@ -932,7 +674,7 @@
 .verifyFooter span {
   color: color-mix(in srgb, var(--bg) 82%, transparent);
   font-size: 0.76rem;
-  font-weight: 650;
+  font-weight: var(--weight-strong);
 }
 .verifyLogo {
   flex: 0 0 auto;
@@ -948,14 +690,6 @@
 }
 
 @media (min-width: 640px) {
-  .outcomesSection {
-    padding-bottom: var(--section-space);
-    padding-top: var(--section-space);
-  }
-  .signupSection {
-    padding-bottom: var(--section-space);
-    padding-top: var(--section-space);
-  }
   .verify {
     padding-bottom: 0;
     padding-top: var(--section-space);
@@ -982,37 +716,18 @@
   }
   .paths article > div {
     align-items: center;
-    flex-direction: revert;
+    flex-direction: row;
   }
   .paths article i {
     height: 1px;
-    margin-left: revert;
+    margin-left: 0;
     width: 14px;
-  }
-  .outcomeGrid {
-    grid-template-columns: revert;
-  }
-  .fieldRow {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .planTypeGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .selectionPanel {
-    padding: clamp(34px, 4.5vw, 64px);
-  }
-  .selectionTotal {
-    gap: 22px;
-    grid-template-columns: auto minmax(0, 1fr);
-  }
-  .outcomeGrid article {
-    min-height: revert;
-  }
-  .closing {
-    padding: 82px;
-  }
   .optionPhones {
-    flex-wrap: revert;
+    flex-wrap: nowrap;
     gap: 46px;
   }
 }
@@ -1032,7 +747,7 @@
   }
   .signupForm {
     border-left: 1px solid var(--slate-100);
-    border-top: revert;
+    border-top: 0;
   }
   .flowGrid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

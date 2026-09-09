@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { Eyebrow } from "@/components/Eyebrow";
 import { PageSchema } from "@/components/PageSchema";
 import { SectionNumber } from "@/components/SectionNumber";
 import { getAllArticleMeta } from "@/lib/articles";
@@ -26,9 +27,7 @@ export default function GuidesPage() {
 
       <section className={styles.hero}>
         <div className={`shell ${styles.heroInner}`}>
-          <p className={styles.eyebrow}>
-            <span /> Field notes for dealers
-          </p>
+          <Eyebrow className={styles.eyebrow}>Field notes for dealers</Eyebrow>
           <h1>
             Useful systems.
             <br />

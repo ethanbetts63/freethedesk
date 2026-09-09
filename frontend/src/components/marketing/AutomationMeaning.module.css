@@ -35,7 +35,7 @@
   border-bottom: 1px solid var(--slate-300);
   color: var(--slate-600);
   font-size: 0.74rem;
-  font-weight: 750;
+  font-weight: var(--weight-strong);
   padding-bottom: 5px;
 }
 .actions > a:last-child:not(:first-child):hover {

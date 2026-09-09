@@ -26,7 +26,7 @@
   cursor: pointer;
   display: flex;
   font-size: 0.94rem;
-  font-weight: 850;
+  font-weight: var(--weight-control);
   justify-content: space-between;
   list-style: none;
   padding: 24px 0;
@@ -57,6 +57,9 @@
 }
 
 @media (min-width: 640px) {
+  .faqLayout h2 {
+    overflow-wrap: normal;
+  }
   .faqList details p {
     margin-right: 45px;
   }
@@ -65,12 +68,5 @@
 @media (min-width: 900px) {
   .faqLayout {
     grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
-  }
-}
-
-@media (min-width: 640px) {
-  .faqLayout h2 {
-    /* Breaking mid-word is a small-screen last resort only. */
-    overflow-wrap: normal;
   }
 }
