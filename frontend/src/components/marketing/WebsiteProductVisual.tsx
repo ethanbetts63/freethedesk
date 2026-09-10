@@ -32,7 +32,7 @@ export function WebsiteProductVisual() {
             <h3>
               Find your
               <br />
-              next machine.
+              next car.
             </h3>
             <p>Explore the latest vehicles, buy online or speak with the team.</p>
             <span className={styles.previewButton}>View inventory →</span>
