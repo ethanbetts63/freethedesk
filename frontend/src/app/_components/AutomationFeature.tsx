@@ -1,69 +1,23 @@
-import { Eyebrow } from "@/components/Eyebrow";
 import { PrimaryButton } from "@/components/PrimaryButton";
-import styles from "./AutomationFeature.module.css";
+import { SplitFeatureSection } from "@/components/SplitFeatureSection";
+
+import { AutomationFeatureVisual } from "./AutomationFeatureVisual";
 
 export function AutomationFeature() {
   return (
-    <section className={styles.section}>
-      <div className={`shell ${styles.layout}`}>
-        <div className={styles.visual} aria-hidden="true">
-          <header>
-            <span>Workflow / 01</span>
-            <b>
-              <i /> Running
-            </b>
-          </header>
-          <div className={styles.event}>
-            <small>Trigger</small>
-            <strong>New enquiry received</strong>
-            <span>Customer + product context attached</span>
-          </div>
-          <div className={styles.route}>
-            <i />
-            <i />
-            <i />
-          </div>
-          <div className={styles.actions}>
-            <article>
-              <span>01</span>
-              <strong>CRM updated</strong>
-              <small>No re-keying</small>
-            </article>
-            <article>
-              <span>02</span>
-              <strong>Team notified</strong>
-              <small>Right person, instantly</small>
-            </article>
-            <article>
-              <span>03</span>
-              <strong>Follow-up queued</strong>
-              <small>Nothing forgotten</small>
-            </article>
-          </div>
-          <footer>
-            <span>Manual touches</span>
-            <strong>0</strong>
-            <small>Workflow complete</small>
-          </footer>
-        </div>
-
-        <div className={styles.copy}>
-          <Eyebrow className={styles.eyebrow}>Business automation</Eyebrow>
-          <h2>
-            Automation built
-            <br />
-            <em>around your business.</em>
-          </h2>
-          <p className={styles.lead}>
-            We connect the systems you already use and build the missing pieces, so information moves without your team
-            moving it by hand.
-          </p>
-
-          <PrimaryButton className={styles.copyCta} href="/automation" size="large">
-            Explore business automation
-          </PrimaryButton>
-        </div>
-      </div>
-    </section>
+    <SplitFeatureSection
+      id="automation"
+      eyebrow="Business automation"
+      title="Automation built"
+      accentTitle="around your business."
+      description="We connect the systems you already use and build the missing pieces, so information moves without your team moving it by hand."
+      action={
+        <PrimaryButton href="/automation" size="compact">
+          Explore business automation
+        </PrimaryButton>
+      }
+      visual={<AutomationFeatureVisual />}
+      textSide="right"
+    />
   );
 }

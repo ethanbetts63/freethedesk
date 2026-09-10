@@ -1,15 +1,5 @@
-.section {
-  --section-accent: var(--brand-accent);
-  background: var(--slate-50);
-  padding: var(--section-space) 0;
-}
-.layout {
-  align-items: center;
-  display: grid;
-  gap: 45px;
-  grid-template-columns: minmax(0, 1fr);
-}
 .visual {
+  --section-accent: var(--page-accent, var(--brand-accent));
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
   background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
@@ -19,7 +9,6 @@
     var(--moving-colour-size);
   border: 2px solid transparent;
   box-shadow: 0 28px 75px color-mix(in srgb, var(--blue-950) 11%, transparent);
-  grid-row: 2;
   min-width: 0;
   padding: 20px;
 }
@@ -140,66 +129,6 @@
   height: 28px;
   width: auto;
 }
-.copy {
-  grid-row: 1;
-  max-width: 650px;
-}
-.copy h2 {
-  color: var(--text);
-  font-size: var(--display-4);
-  font-weight: 800;
-  letter-spacing: -0.075em;
-  line-height: 0.88;
-  margin: 0;
-  overflow-wrap: break-word;
-}
-.copy h2 em {
-  color: var(--section-accent);
-  font-style: normal;
-  font-weight: 350;
-}
-.lead {
-  color: var(--slate-600);
-  font-size: var(--step-1);
-  line-height: 1.7;
-  margin: 25px 0 24px;
-  max-width: 470px;
-}
-.copy ul {
-  border-top: 1px solid var(--slate-200);
-  display: grid;
-  gap: 0;
-  list-style: none;
-  margin: 0 0 29px;
-  padding: 0;
-}
-.copy li {
-  border-bottom: 1px solid var(--slate-200);
-  color: var(--slate-800);
-  font-size: 0.78rem;
-  font-weight: var(--weight-strong);
-  padding: 12px 0 12px 21px;
-  position: relative;
-}
-.copy li::before {
-  background: var(--section-accent);
-  border-radius: 50%;
-  content: "";
-  height: 5px;
-  left: 1px;
-  position: absolute;
-  top: 17px;
-  width: 5px;
-}
-.copyCta {
-  transition:
-    background 0.2s,
-    transform 0.2s;
-}
-.copyCta:hover {
-  transform: translateY(-2px);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .visual,
   .visualHeader b {
@@ -208,9 +137,6 @@
 }
 
 @media (min-width: 640px) {
-  .copy h2 {
-    overflow-wrap: normal;
-  }
   .visual {
     padding: 28px;
   }
@@ -246,24 +172,5 @@
   }
   .status {
     font-size: 0.76rem;
-  }
-}
-
-@media (min-width: 900px) {
-  .section {
-    padding: 108px 0;
-  }
-  /* Release the mobile row-ordering so the two columns sit side by side.
-     .visual precedes .copy in the DOM, so natural placement is correct here. */
-  .copy,
-  .visual {
-    grid-row: auto;
-  }
-  .layout {
-    gap: clamp(55px, 8vw, 120px);
-    grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
-  }
-  .copy {
-    max-width: 520px;
   }
 }

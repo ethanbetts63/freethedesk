@@ -1,7 +1,6 @@
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { SplitFeatureSection } from "@/components/SplitFeatureSection";
 
-import styles from "./DealerWebsiteBuilderSection.module.css";
 import { WebsiteProductVisual } from "./WebsiteProductVisual";
 
 const bullets = [
@@ -19,12 +18,10 @@ export function DealerWebsiteBuilderSection({ eyebrow, id = "customer-journeys" 
       accentTitle="website live."
       description="Shape a complete dealership website around your brand. Choose the capabilities you need, then explore every page as the demo changes in real time."
       bullets={bullets}
-      supportingContent={
-        <div className={styles.action}>
-          <PrimaryButton href="/dealership-website-builder" size="compact">
-            Try the free demo
-          </PrimaryButton>
-        </div>
+      action={
+        <PrimaryButton href="/dealership-website-builder" size="compact">
+          Try the free demo
+        </PrimaryButton>
       }
       visual={<WebsiteProductVisual />}
       textSide="right"

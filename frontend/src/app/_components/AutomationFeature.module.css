@@ -1,87 +1,7 @@
-.section {
-  --feature-accent: var(--accent-on-dark);
-  background: var(--surface-dark);
-  color: var(--text-on-dark);
-  overflow: hidden;
-  padding: var(--section-space) 0;
-}
-.layout {
-  align-items: center;
-  display: grid;
-  gap: clamp(58px, 9vw, 135px);
-  grid-template-columns: minmax(0, 1fr);
-}
-.copy {
-  grid-row: 1;
-  max-width: 680px;
-}
-.eyebrow {
-  --eyebrow-accent: var(--feature-accent);
-}
-.eyebrow span {
-  background: var(--feature-accent);
-  border-radius: 50%;
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-on-dark) 12%, transparent);
-  height: 7px;
-  width: 7px;
-}
-.copy h2 {
-  font-size: var(--display-4);
-  font-weight: 800;
-  letter-spacing: -0.077em;
-  line-height: 0.87;
-  margin: 0;
-  overflow-wrap: break-word;
-}
-.copy h2 em {
-  color: var(--feature-accent);
-  font-style: normal;
-  font-weight: 350;
-}
-.lead {
-  color: var(--slate-300);
-  font-size: var(--step-1);
-  line-height: 1.7;
-  margin: 30px 0 26px;
-  max-width: 480px;
-}
-.copy ul {
-  border-top: 1px solid color-mix(in srgb, var(--bg) 15%, transparent);
-  list-style: none;
-  margin: 0 0 30px;
-  padding: 0;
-}
-.copy li {
-  border-bottom: 1px solid color-mix(in srgb, var(--bg) 15%, transparent);
-  color: var(--slate-200);
-  font-size: 0.78rem;
-  font-weight: var(--weight-strong);
-  padding: 12px 0 12px 21px;
-  position: relative;
-}
-.copy li::before {
-  background: var(--feature-accent);
-  border-radius: 50%;
-  content: "";
-  height: 5px;
-  left: 1px;
-  position: absolute;
-  top: 17px;
-  width: 5px;
-}
-.copyCta {
-  transition:
-    background 0.2s,
-    color 0.2s,
-    transform 0.2s;
-}
-.copyCta:hover {
-  color: var(--slate-950);
-  transform: translateY(-2px);
-}
 /* Same card treatment as the Stripe verification panel: moving-colour border,
    animated status in the header, gradient bar along the bottom. */
 .visual {
+  --feature-accent: var(--page-accent, var(--brand-accent));
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
   background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
@@ -92,7 +12,6 @@
   border: 2px solid transparent;
   box-shadow: 12px 12px 0 color-mix(in srgb, var(--accent-on-dark) 7%, transparent);
   color: var(--slate-900);
-  grid-row: 2;
   padding: 20px 14px;
   position: relative;
 }
@@ -179,8 +98,8 @@
   width: 83%;
 }
 .route i {
-  border-left: 1px solid color-mix(in srgb, var(--accent-on-dark) 55%, transparent);
-  border-top: 1px solid color-mix(in srgb, var(--accent-on-dark) 55%, transparent);
+  border-left: 1px solid color-mix(in srgb, var(--feature-accent) 55%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--feature-accent) 55%, transparent);
   height: 38px;
   width: 33%;
 }
@@ -193,7 +112,7 @@
 /* Mirror of :first-child - a straight riser, no elbow across the top. */
 .route i:last-child {
   border-left: 0;
-  border-right: 1px solid color-mix(in srgb, var(--accent-on-dark) 55%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--feature-accent) 55%, transparent);
   border-top: 0;
 }
 .actions {
@@ -272,9 +191,6 @@
 }
 
 @media (min-width: 640px) {
-  .copy h2 {
-    overflow-wrap: normal;
-  }
   .visual {
     box-shadow: 24px 24px 0 color-mix(in srgb, var(--slate-950) 14%, transparent);
     padding: 26px;
@@ -297,23 +213,5 @@
   }
   .actions strong {
     margin: 12px 0 5px;
-  }
-}
-
-@media (min-width: 900px) {
-  .section {
-    padding: 118px 0;
-  }
-  /* Release the mobile row-ordering so the two columns sit side by side.
-     .visual precedes .copy in the DOM, so natural placement is correct here. */
-  .copy,
-  .visual {
-    grid-row: auto;
-  }
-  .layout {
-    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-  }
-  .copy {
-    max-width: 520px;
   }
 }

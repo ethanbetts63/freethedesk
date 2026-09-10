@@ -1,90 +1,5 @@
-.section {
-  --feature-accent: var(--brand-accent);
-  background: var(--surface);
-  padding: var(--section-space) 0;
-}
-.layout {
-  align-items: center;
-  display: grid;
-  gap: clamp(58px, 9vw, 135px);
-  grid-template-columns: minmax(0, 1fr);
-}
-.copy {
-  max-width: 680px;
-}
-.eyebrow {
-  --eyebrow-accent: var(--feature-accent);
-}
-.eyebrow span {
-  background: var(--feature-accent);
-  border-radius: 50%;
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--brand-accent) 10%, transparent);
-  height: 7px;
-  width: 7px;
-}
-.copy h2 {
-  color: var(--slate-950);
-  font-size: var(--display-4);
-  font-weight: 800;
-  letter-spacing: -0.077em;
-  line-height: 0.87;
-  margin: 0;
-  overflow-wrap: break-word;
-}
-.copy h2 em {
-  color: var(--feature-accent);
-  font-style: normal;
-  font-weight: 350;
-}
-.lead {
-  color: var(--slate-600);
-  font-size: var(--step-1);
-  line-height: 1.7;
-  margin: 30px 0 26px;
-  max-width: 470px;
-}
-.copy ul {
-  border-top: 1px solid var(--slate-200);
-  list-style: none;
-  margin: 0 0 30px;
-  padding: 0;
-}
-.copy li {
-  border-bottom: 1px solid var(--slate-200);
-  color: var(--slate-800);
-  font-size: 0.78rem;
-  font-weight: var(--weight-strong);
-  padding: 12px 0 12px 21px;
-  position: relative;
-}
-.copy li::before {
-  background: var(--feature-accent);
-  border-radius: 50%;
-  content: "";
-  height: 5px;
-  left: 1px;
-  position: absolute;
-  top: 17px;
-  width: 5px;
-}
-.copy > a {
-  align-items: center;
-  background: var(--feature-accent);
-  color: var(--text-on-dark);
-  display: inline-flex;
-  font-size: 0.8rem;
-  font-weight: var(--weight-control);
-  gap: 38px;
-  padding: 16px 18px;
-  transition:
-    background 0.2s,
-    transform 0.2s;
-}
-.copy > a:hover {
-  background: var(--slate-950);
-  transform: translateY(-2px);
-}
 .visual {
+  --feature-accent: var(--page-accent, var(--brand-accent));
   background: var(--surface-dark);
   box-shadow: 12px 12px 0 var(--slate-100);
   min-height: 450px;
@@ -271,9 +186,6 @@
 }
 
 @media (min-width: 640px) {
-  .copy h2 {
-    overflow-wrap: normal;
-  }
   .visual {
     box-shadow: 24px 24px 0 var(--slate-100);
     min-height: 520px;
@@ -301,17 +213,5 @@
     right: 0;
     transform: translate(18px, 18px);
     width: min(330px, 72%);
-  }
-}
-
-@media (min-width: 900px) {
-  .section {
-    padding: 118px 0;
-  }
-  .layout {
-    grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
-  }
-  .copy {
-    max-width: 520px;
   }
 }
