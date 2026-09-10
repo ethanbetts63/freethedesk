@@ -70,9 +70,6 @@
   margin: 28px 0 16px;
   max-width: 680px;
 }
-.actions {
-  margin-top: 26px;
-}
 /* Same card treatment as the Stripe verification panel: moving-colour border,
    animated value in the header, gradient bar along the bottom. */
 .preview {

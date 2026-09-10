@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
-import { AutomationMeaning } from "@/components/marketing/AutomationMeaning";
+import { AdminAutomationSection } from "@/components/marketing/AdminAutomationSection";
 import { Hero } from "@/components/marketing/Hero";
 import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { SubscriptionSwap } from "@/components/marketing/SubscriptionSwap";
@@ -79,30 +79,7 @@ export default function WebsiteDevelopmentPage() {
 
       <ConversionFunnel eyebrow={sections["Website Design"]} />
 
-      <AutomationMeaning
-        id="website-automation"
-        eyebrow={sections["Admin Automation"]}
-        title={
-          <>
-            Let your website
-            <br />
-            <span className="moving-colour-text">automate the admin.</span>
-          </>
-        }
-        description="Automation means your website handles the repetitive work around each customer—capturing details, moving them between systems, sending follow-ups and keeping the next step moving without someone doing it by hand."
-        primaryHref="#enquiry"
-        primaryLabel="Discuss your website"
-        panelTitle="Your website"
-        showPrimaryAction={false}
-        compactTitle
-        jobs={[
-          "Lead capture & routing",
-          "Customer onboarding",
-          "Booking & reminders",
-          "CRM & system sync",
-          "Invoicing & payments",
-        ]}
-      />
+      <AdminAutomationSection id="website-automation" eyebrow={sections["Admin Automation"]} spacing="joined" />
 
       <SubscriptionSwap eyebrow={sections["What you're paying for"]} showCta={false} />
 
@@ -110,7 +87,7 @@ export default function WebsiteDevelopmentPage() {
 
       <CaseStudyTeaser
         eyebrow={sections["Proof this works"]}
-        title="A website that grew organic clicks 200%."
+        title="A website that grew organic clicks 300%."
         points={casePoints}
         primaryHref="#enquiry"
         primaryLabel="Discuss your website"
@@ -118,7 +95,7 @@ export default function WebsiteDevelopmentPage() {
       >
         <p>
           Scooter Shop&apos;s website combines inventory, parts, purchasing and service journeys in one connected
-          experience. Fast structured pages and focused search content helped organic clicks grow by 200% in six months.
+          experience. Fast structured pages and focused search content helped organic clicks grow by 300% in six months.
         </p>
         <p>
           It is a practical example of what happens when the public website and the work behind it are designed as one
@@ -126,7 +103,7 @@ export default function WebsiteDevelopmentPage() {
         </p>
       </CaseStudyTeaser>
 
-      <ProjectEnquiry id="enquiry" />
+      <ProjectEnquiry id="enquiry" eyebrow={null} showProjectType={false} />
 
       <FloatingPageCta label="Discuss your website" href="#enquiry" showAfterId="website-hero-end" hideAtId="enquiry" />
 

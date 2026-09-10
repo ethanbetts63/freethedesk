@@ -4,7 +4,7 @@ import { Eyebrow } from "@/components/Eyebrow";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import styles from "./WebsiteProduct.module.css";
 
-export function WebsiteProduct() {
+export function WebsiteProduct({ showPrimaryAction = true }: { showPrimaryAction?: boolean }) {
   return (
     <section className={styles.section} id="dealer-websites">
       <div className={`shell ${styles.layout}`}>
@@ -21,9 +21,11 @@ export function WebsiteProduct() {
           </p>
 
           <div className={styles.actions}>
-            <PrimaryButton className={styles.primary} href="/dealership-website-builder" size="large">
-              Try the free demo
-            </PrimaryButton>
+            {showPrimaryAction && (
+              <PrimaryButton className={styles.primary} href="/dealership-website-builder" size="large">
+                Try the free demo
+              </PrimaryButton>
+            )}
             <a className={styles.dealerExample} href="https://www.scootershop.com.au" target="_blank" rel="noreferrer">
               <small>See a complete dealer example</small>
               <strong>

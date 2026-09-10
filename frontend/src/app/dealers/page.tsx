@@ -1,41 +1,22 @@
 import type { Metadata } from "next";
 
 import { Faq } from "@/components/Faq";
+import { FloatingPageCta } from "@/components/FloatingPageCta";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
-import { PageSchema } from "@/components/PageSchema";
-import { PageOverview } from "@/components/PageOverview";
-import { ProcessBar } from "@/components/ProcessBar";
-import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
-import { metadataFor } from "@/lib/pages";
-
-import { DEALER_FAQS } from "./_lib/copy";
-
-import { DealershipAutomation } from "./_components/DealershipAutomation";
 import { FlagshipCheckout } from "@/components/marketing/FlagshipCheckout";
 import { Hero } from "@/components/marketing/Hero";
 import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { WebsiteProduct } from "@/components/marketing/WebsiteProduct";
 import styles from "@/components/marketing/marketingPage.module.css";
+import { PageOverview } from "@/components/PageOverview";
+import { PageSchema } from "@/components/PageSchema";
+import { ProcessBar } from "@/components/ProcessBar";
+import { metadataFor } from "@/lib/pages";
+
+import { DealershipAutomation } from "./_components/DealershipAutomation";
+import { DEALER_FAQS } from "./_lib/copy";
 
 export const metadata: Metadata = metadataFor("/dealers");
-
-const dealerStats: ProofStat[] = [
-  {
-    value: "+200%",
-    label: "Organic clicks",
-    description: "Recorded for Scooter Shop in Google Search Console over six months.",
-  },
-  {
-    value: "08",
-    label: "Connected capabilities",
-    description: "Sales, licensing, parts, service, hire and search working together.",
-  },
-  {
-    value: "01",
-    label: "Dealership system",
-    description: "Customer journeys and daily operations designed as one product.",
-  },
-];
 
 export default function Dealers() {
   return (
@@ -53,6 +34,7 @@ export default function Dealers() {
       />
 
       <ProcessBar
+        id="dealers-hero-end"
         label="The connected dealership journey"
         steps={[
           { label: "Attract buyers", description: "Useful pages built to be found", href: "#dealer-websites" },
@@ -91,16 +73,23 @@ export default function Dealers() {
           {
             title: "A working example",
             description: "See the connected Scooter Shop build.",
-            href: "#dealer-proof",
+            href: "/portfolio/scooter-shop",
           },
         ]}
       />
 
-      <ProofStrip id="dealer-proof" stats={dealerStats} />
-      <WebsiteProduct />
-      <FlagshipCheckout />
+      <WebsiteProduct showPrimaryAction={false} />
+      <FlagshipCheckout showPrimaryAction={false} />
       <DealershipAutomation />
       <ProjectEnquiry />
+
+      <FloatingPageCta
+        label="Discuss your dealership"
+        href="#project-enquiry"
+        showAfterId="dealers-hero-end"
+        hideAtId="project-enquiry"
+      />
+
       <Faq eyebrow="Common questions" title="Dealership website and automation questions." items={DEALER_FAQS} />
       <ManualAdminCta href="#project-enquiry" buttonLabel="Discuss your dealership" />
     </main>

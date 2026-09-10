@@ -3,9 +3,6 @@
   background: var(--surface);
   color: var(--text);
 }
-.sectionCta {
-  margin-top: 25px;
-}
 .signupSection {
   padding: var(--section-space) 0;
   scroll-margin-top: 24px;
@@ -242,7 +239,7 @@
   background: linear-gradient(160deg, var(--blue-900), var(--blue-950));
   border: 1px solid var(--blue-500);
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--bg) 12%, transparent);
-  padding: 26px 26px 8px;
+  padding: 26px;
 }
 .flowColumn.flowColumnHighlight {
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
@@ -341,18 +338,6 @@
 }
 .flowColumnHighlight .flowStepText small {
   color: var(--sky-300);
-}
-.flowColumnCta {
-  margin: 22px 0 4px;
-}
-.flowColumnCta span {
-  font-size: 1rem;
-}
-.flowColumnCtaPlain {
-  margin: 22px 0 4px;
-}
-.flowColumnCtaPlain span {
-  font-size: 1rem;
 }
 @media (prefers-reduced-motion: reduce) {
   .flowColumn.flowColumnHighlight,

@@ -19,9 +19,19 @@ type ApproachSectionProps = {
   ctaHref: string;
   ctaLabel: string;
   id?: string;
+  showCta?: boolean;
 };
 
-export function ApproachSection({ eyebrow, title, accentTitle, steps, ctaHref, ctaLabel, id }: ApproachSectionProps) {
+export function ApproachSection({
+  eyebrow,
+  title,
+  accentTitle,
+  steps,
+  ctaHref,
+  ctaLabel,
+  id,
+  showCta = true,
+}: ApproachSectionProps) {
   return (
     <section className="approach-section" id={id}>
       <div className="shell approach-inner">
@@ -48,9 +58,11 @@ export function ApproachSection({ eyebrow, title, accentTitle, steps, ctaHref, c
             </li>
           ))}
         </ol>
-        <PrimaryButton className="approach-cta" href={ctaHref} direction="down">
-          {ctaLabel}
-        </PrimaryButton>
+        {showCta && (
+          <PrimaryButton className="approach-cta" href={ctaHref} direction="down">
+            {ctaLabel}
+          </PrimaryButton>
+        )}
       </div>
     </section>
   );

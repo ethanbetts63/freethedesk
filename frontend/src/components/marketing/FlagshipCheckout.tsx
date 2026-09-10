@@ -36,7 +36,7 @@ const journey = [
   },
 ];
 
-export function FlagshipCheckout() {
+export function FlagshipCheckout({ showPrimaryAction = true }: { showPrimaryAction?: boolean }) {
   return (
     <section className={styles.section} id="online-purchasing">
       <div className={`shell ${styles.layout}`}>
@@ -78,9 +78,11 @@ export function FlagshipCheckout() {
             <li>Identity verification</li>
             <li>Optional payment & delivery handling</li>
           </ul>
-          <PrimaryButton className={styles.copyCta} href="/licensing" size="large">
-            Explore online licensing
-          </PrimaryButton>
+          {showPrimaryAction && (
+            <PrimaryButton className={styles.copyCta} href="/licensing" size="large">
+              Explore online licensing
+            </PrimaryButton>
+          )}
         </div>
       </div>
     </section>

@@ -14,8 +14,25 @@ const PROJECT_TYPES: { code: ProjectType; name: string }[] = [
   { code: "both", name: "Both" },
 ];
 
-const BUDGETS = ["$1,000", "$3,000", "$5,000", "custom"] as const;
+const BUDGETS = ["$3,000", "$5,000", "$10,000", "custom"] as const;
 type Budget = (typeof BUDGETS)[number];
+
+function formatCustomBudget(value: string) {
+  const trimmed = value.trim();
+  if (!trimmed) return "Custom";
+  if (trimmed.includes("$")) return trimmed;
+
+  const numericValue = trimmed.replaceAll(",", "");
+  if (/^\d+(?:\.\d{1,2})?$/.test(numericValue)) {
+    return new Intl.NumberFormat("en-AU", {
+      style: "currency",
+      currency: "AUD",
+      maximumFractionDigits: 2,
+    }).format(Number(numericValue));
+  }
+
+  return `$${trimmed}`;
+}
 
 const SUMMARY: Record<ProjectType, string> = {
   website: "A website built around what your business actually needs to do.",
@@ -25,13 +42,21 @@ const SUMMARY: Record<ProjectType, string> = {
 
 /** The stateful half of the enquiry section. `heading` arrives already rendered
     from the server so its markup stays out of the client bundle. */
-export function ProjectEnquiryPanel({ heading }: { heading: React.ReactNode }) {
+export function ProjectEnquiryPanel({
+  heading,
+  showProjectType = true,
+  defaultProjectType = "both",
+}: {
+  heading: React.ReactNode;
+  showProjectType?: boolean;
+  defaultProjectType?: ProjectType;
+}) {
   const groupId = useId().replaceAll(":", "");
-  const [projectType, setProjectType] = useState<ProjectType>("both");
-  const [budget, setBudget] = useState<Budget>("$3,000");
+  const [projectType, setProjectType] = useState<ProjectType>(defaultProjectType);
+  const [budget, setBudget] = useState<Budget>("$5,000");
   const [customBudget, setCustomBudget] = useState("");
 
-  const budgetLabel = budget === "custom" ? customBudget.trim() || "Custom" : budget;
+  const budgetLabel = budget === "custom" ? formatCustomBudget(customBudget) : budget;
   const {
     status,
     error,
@@ -52,37 +77,39 @@ export function ProjectEnquiryPanel({ heading }: { heading: React.ReactNode }) {
 
   return (
     <div className={`${formStyles.panel} ${styles.panel}`}>
-      <aside className={`${formStyles.chooser} ${styles.chooser}`}>
+      <aside className={`${formStyles.chooser} ${styles.chooser} ${!showProjectType ? styles.compactChooser : ""}`}>
         {heading}
 
-        <div className={formStyles.choiceGroup}>
-          <p id={`${groupId}-type`}>What do you need?</p>
-          <div
-            className={`${formStyles.choiceGrid} ${styles.typeGrid}`}
-            role="radiogroup"
-            aria-labelledby={`${groupId}-type`}
-          >
-            {PROJECT_TYPES.map((option) => (
-              <label
-                className={`${projectType === option.code ? formStyles.choiceSelected : ""} ${
-                  option.code === "both" ? formStyles.choiceRecommended : ""
-                }`}
-                key={option.code}
-              >
-                <input
-                  className={formStyles.choiceInput}
-                  type="radio"
-                  name={`${groupId}-project-type`}
-                  value={option.code}
-                  checked={projectType === option.code}
-                  onChange={() => setProjectType(option.code)}
-                />
-                <span>{option.name}</span>
-                {option.code === "both" && <small className="moving-colour-text">recommended</small>}
-              </label>
-            ))}
+        {showProjectType && (
+          <div className={formStyles.choiceGroup}>
+            <p id={`${groupId}-type`}>What do you need?</p>
+            <div
+              className={`${formStyles.choiceGrid} ${styles.typeGrid}`}
+              role="radiogroup"
+              aria-labelledby={`${groupId}-type`}
+            >
+              {PROJECT_TYPES.map((option) => (
+                <label
+                  className={`${projectType === option.code ? formStyles.choiceSelected : ""} ${
+                    option.code === "both" ? formStyles.choiceRecommended : ""
+                  }`}
+                  key={option.code}
+                >
+                  <input
+                    className={formStyles.choiceInput}
+                    type="radio"
+                    name={`${groupId}-project-type`}
+                    value={option.code}
+                    checked={projectType === option.code}
+                    onChange={() => setProjectType(option.code)}
+                  />
+                  <span>{option.name}</span>
+                  {option.code === "both" && <small className="moving-colour-text">recommended</small>}
+                </label>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className={formStyles.choiceGroup}>
           <p id={`${groupId}-budget`}>What&apos;s your budget?</p>
@@ -110,9 +137,11 @@ export function ProjectEnquiryPanel({ heading }: { heading: React.ReactNode }) {
               <span>Your budget</span>
               <input
                 value={customBudget}
-                onChange={(event) => setCustomBudget(event.target.value)}
+                onChange={(event) => setCustomBudget(event.target.value.replace(/\D/g, ""))}
+                inputMode="numeric"
+                pattern="[0-9]*"
                 maxLength={60}
-                placeholder="e.g. around $12,000"
+                placeholder="e.g. 12000"
                 required
               />
             </label>
@@ -129,8 +158,9 @@ export function ProjectEnquiryPanel({ heading }: { heading: React.ReactNode }) {
 
       <form className={`${formStyles.form} ${styles.form}`} onSubmit={send}>
         <div className={`${formStyles.formTitle} ${styles.formTitle}`}>
-          <h3>Send your free enquiry.</h3>
-          <span className={formStyles.pill}>No commitment</span>
+          <h3>
+            Send your <span className="moving-colour-text">free enquiry.</span>
+          </h3>
         </div>
 
         {status === "success" ? (
@@ -167,7 +197,7 @@ export function ProjectEnquiryPanel({ heading }: { heading: React.ReactNode }) {
                 name="notes"
                 rows={3}
                 maxLength={2000}
-                placeholder="Anything else we should know about the project?"
+                placeholder="e.g. It takes our team a lot of manual copy and paste to write and send a quote."
               />
             </label>
             {error && (
@@ -183,7 +213,7 @@ export function ProjectEnquiryPanel({ heading }: { heading: React.ReactNode }) {
               fullWidth
               disabled={status === "submitting"}
             >
-              {status === "submitting" ? "Sending…" : "Send enquiry"}
+              {status === "submitting" ? "Sending…" : "Show me what you’d build"}
             </MovingColourButton>
           </>
         )}

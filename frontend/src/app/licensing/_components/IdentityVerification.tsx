@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-import { PrimaryButton } from "@/components/PrimaryButton";
 import { SectionNumber } from "@/components/SectionNumber";
 import styles from "../page.module.css";
 
@@ -52,9 +51,6 @@ export function IdentityVerification({ eyebrow, id }: { eyebrow: string; id?: st
           Verification runs on Stripe Identity, part of Stripe — one of the world&apos;s largest and most trusted
           payment platforms, used by millions of businesses globally.
         </p>
-        <PrimaryButton className={styles.sectionCta} href="#signup" direction="down" size="compact">
-          Choose your plan
-        </PrimaryButton>
       </div>
 
       <div className={styles.verifyCard}>

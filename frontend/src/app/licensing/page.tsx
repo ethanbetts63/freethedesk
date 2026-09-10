@@ -1,47 +1,23 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
-import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
+import { FloatingPageCta } from "@/components/FloatingPageCta";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
+import { Hero } from "@/components/marketing/Hero";
 import { PageOverview } from "@/components/PageOverview";
 import { PageSchema } from "@/components/PageSchema";
-import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProcessBar } from "@/components/ProcessBar";
-import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
-import { ScrollCtaButton } from "@/components/ScrollCtaButton";
-import { SectionNumber } from "@/components/SectionNumber";
 import { metadataFor } from "@/lib/pages";
 import { numberSections } from "@/lib/sectionNumbers";
 import { getSiteSettingsServer } from "@/lib/serverApi";
 
-import { LICENSING_FAQS } from "./_lib/copy";
-import { FlowCompare } from "./_components/FlowCompare";
 import { IdentityVerification } from "./_components/IdentityVerification";
-import { LicensingNextStepPhone } from "./_components/LicensingNextStepPhone";
-import { LoginPreviewPhone } from "./_components/LoginPreviewPhone";
+import { LicensingConfigurationOptions } from "./_components/LicensingConfigurationOptions";
+import { LicensingJourneyComparison } from "./_components/LicensingJourneyComparison";
 import { SignupPlans } from "./_components/SignupPlans";
+import { LICENSING_FAQS } from "./_lib/copy";
 import styles from "./page.module.css";
 
-const licensingStats: ProofStat[] = [
-  {
-    value: "72%",
-    label: "Want licensing online",
-    description: "Of car buyers say they'd rather complete paperwork online, per Cox Automotive research.",
-  },
-  {
-    value: "45 min",
-    label: "Saved per customer",
-    description: "Average time saved at the dealership when paperwork starts online.",
-  },
-  {
-    value: "24 / 7",
-    label: "Always available",
-    description: "Customers can verify, sign and pay at any time, without booking a dealership appointment.",
-  },
-];
-
-/* Section eyebrows in page order. */
 const sections = numberSections([
   "What you get",
   "A shorter path to sold",
@@ -75,6 +51,7 @@ export default async function LicensingPage() {
       />
 
       <ProcessBar
+        id="licensing-hero-end"
         label="The online licensing journey"
         steps={[
           { label: "Choose", description: "Start from the vehicle or sale", href: "#shorter-path" },
@@ -110,86 +87,12 @@ export default async function LicensingPage() {
         ]}
       />
 
-      <section className={styles.comparisonSection} id="shorter-path">
-        <div className={`shell ${styles.comparison}`}>
-          <div className={styles.comparisonCopy}>
-            <SectionNumber>{sections["A shorter path to sold"]}</SectionNumber>
-            <h2>Cut six steps down to four.</h2>
-            <p>Remove the steps that add effort without adding value to the customer or the dealership.</p>
-            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down" size="compact">
-              Choose your plan
-            </PrimaryButton>
-          </div>
-          <div className={styles.paths}>
-            <article>
-              <header>
-                <span>Traditional</span>
-                <b>6 steps</b>
-              </header>
-              <div>
-                <span>Ready to buy</span>
-                <i /> <span>Arrange visit</span>
-                <i /> <span>Travel</span>
-                <i /> <span>Wait</span>
-                <i /> <span>Sign</span>
-                <i /> <strong>Handover</strong>
-              </div>
-            </article>
-            <article className={styles.onlinePath}>
-              <header>
-                <span>Online</span>
-                <b>4 steps</b>
-              </header>
-              <div>
-                <span>Choose</span>
-                <i /> <span>Sign</span>
-                <i /> <span>Pay</span>
-                <i /> <strong>Delivery / pickup</strong>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <ProofStrip stats={licensingStats} />
-
-      <section className={styles.optionsSection} id="configuration-options">
-        <div className={`shell ${styles.optionsLayout}`}>
-          <div className={styles.optionsHeading}>
-            <SectionNumber>{sections["Two ways to use it"]}</SectionNumber>
-            <h2>
-              Our portal or <span className="moving-colour-text">your website.</span>
-            </h2>
-            <p>
-              Use the hosted product with the website you already have, or make it a seamless part of a dealership site
-              we build.
-            </p>
-          </div>
-          <div className={styles.optionPhones}>
-            <div className={styles.optionPhoneTile}>
-              <LoginPreviewPhone />
-              <p className={styles.optionPhoneCaption}>Hosted portal</p>
-              <ScrollCtaButton targetId="signup">
-                Choose your plan <b>↓</b>
-              </ScrollCtaButton>
-            </div>
-            <div className={styles.optionPhoneTile}>
-              <LicensingNextStepPhone />
-              <p className={styles.optionPhoneCaption}>Built into your website</p>
-              <Link href="/portfolio/scooter-shop">
-                See the Scooter Shop approach <b>→</b>
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="shell">
-          <FlowCompare />
-        </div>
-      </section>
-
+      <LicensingJourneyComparison eyebrow={sections["A shorter path to sold"]} />
+      <LicensingConfigurationOptions eyebrow={sections["Two ways to use it"]} />
       <IdentityVerification id="identity-verification" eyebrow={sections["Know who's signing"]} />
-
       <SignupPlans settings={settings} eyebrow={sections["Choose your plan"]} />
+
+      <FloatingPageCta label="Choose your plan" href="#signup" showAfterId="licensing-hero-end" hideAtId="signup" />
 
       <Faq eyebrow={sections["Common questions"]} title="Online licensing questions." items={LICENSING_FAQS} />
 

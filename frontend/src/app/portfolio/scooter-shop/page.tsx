@@ -216,7 +216,7 @@ const config = {
     title: "200% growth.",
     accentTitle: "6 months.",
     description:
-      "Organic clicks grew 200% in six months. Indexable stock, focused landing pages and useful guides created more ways for ready-to-buy customers to find the dealership.",
+      "Organic clicks grew 300% in six months. Indexable stock, focused landing pages and useful guides created more ways for ready-to-buy customers to find the dealership.",
   },
   faq: { eyebrow: "Common questions", items: PORTFOLIO_FAQS },
 } satisfies PortfolioCaseStudyConfig;

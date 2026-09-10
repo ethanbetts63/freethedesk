@@ -11,6 +11,7 @@ export function DealershipAutomation() {
         ctaLabel="Discuss your dealership"
         eyebrow="Dealership automation"
         title="What we can automate across your dealership."
+        showCustomCta={false}
       />
     </section>
   );

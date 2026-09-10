@@ -3,115 +3,6 @@
   background: var(--surface);
   color: var(--text-strong);
 }
-.reportDescription {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-.sectionCta {
-  align-self: flex-start;
-}
-.compareSection {
-  background: var(--surface-flow);
-  padding: 82px 0;
-}
-.compareInner {
-  align-items: center;
-  display: grid;
-  gap: clamp(55px, 9vw, 130px);
-  grid-template-columns: minmax(0, 1fr);
-}
-.compareCopy h2 {
-  font-size: var(--display-2);
-  letter-spacing: -0.05em;
-  line-height: 1.05;
-  margin: 0 0 20px;
-}
-.compareCopy p:not(:global(.section-number)):not(.priceHonesty) {
-  color: var(--text-muted);
-  font-size: 1rem;
-  line-height: 1.78;
-  margin: 0 0 16px;
-  max-width: 480px;
-}
-.priceHonesty {
-  background: var(--surface-tint-2);
-  border-left: 3px solid var(--page-accent);
-  color: var(--text-control);
-  font-size: 0.82rem;
-  line-height: 1.65;
-  margin: 0;
-  padding: 12px 15px;
-}
-.compareCopy .sectionCta {
-  margin-top: 24px;
-}
-.pipelineCard {
-  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
-  background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
-  background-origin: border-box;
-  background-size:
-    100% 100%,
-    var(--moving-colour-size);
-  border: 2px solid transparent;
-  padding: 30px;
-}
-.pipelineHead {
-  border-bottom: 1px solid var(--border-subtle);
-  margin-bottom: 24px;
-  padding-bottom: 18px;
-}
-.pipelineHead span {
-  font-size: 0.77rem;
-  font-weight: var(--weight-strong);
-  text-transform: uppercase;
-}
-.pipelineSteps {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.pipelineSteps li {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 22px;
-}
-.pipelineSteps li > span {
-  color: var(--page-accent);
-  font-size: 0.65rem;
-  font-weight: var(--weight-strong);
-  padding-top: 3px;
-}
-.pipelineSteps h3 {
-  font-size: 0.98rem;
-  letter-spacing: -0.02em;
-  margin: 0 0 6px;
-}
-.pipelineSteps p {
-  color: var(--text-muted);
-  font-size: 0.82rem;
-  line-height: 1.62;
-  margin: 0;
-}
-.pipelineFoot {
-  align-items: center;
-  border-top: 1px dashed var(--border);
-  display: flex;
-  gap: 16px;
-  padding-top: 20px;
-}
-.pipelineFoot strong {
-  font-size: 1.9rem;
-  font-weight: var(--weight-strong);
-  letter-spacing: -0.05em;
-  white-space: nowrap;
-}
-.pipelineFoot span {
-  color: var(--text-control);
-  font-size: 0.8rem;
-  line-height: 1.55;
-}
 .plansSection {
   padding: 56px 0 var(--section-space);
   scroll-margin-top: 28px;
@@ -144,19 +35,10 @@
   box-shadow: inset 0 -3px 0 var(--page-accent);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .pipelineCard {
-    animation: none;
-  }
-}
-
 @media (min-width: 640px) {
   .plansSection {
     padding-top: var(--section-space);
     scroll-margin-top: 24px;
-  }
-  .compareSection {
-    padding: 120px 0;
   }
   .reportTypeGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -167,9 +49,6 @@
 }
 
 @media (min-width: 900px) {
-  .compareInner {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  }
   .signupPanel {
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
   }

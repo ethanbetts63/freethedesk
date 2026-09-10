@@ -87,7 +87,7 @@ export const PAGES = {
   "/portfolio/scooter-shop": {
     updated: "2026-09-08",
     label: "Scooter Shop",
-    title: "How one dealership grew organic clicks 200% | Dealer Website Case Study",
+    title: "How one dealership grew organic clicks 300% | Dealer Website Case Study",
     description:
       "A connected dealership website for sales, online purchasing, licensing, parts, service, hire and long-term organic growth.",
     ogImage: "/case-studies/scooter-shop/home-desktop.png",

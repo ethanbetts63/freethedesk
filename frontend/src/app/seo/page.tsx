@@ -1,37 +1,36 @@
 import type { Metadata } from "next";
 
-import { Hero } from "@/components/marketing/Hero";
-import { CaseStudyTeaser } from "@/components/marketing/CaseStudyTeaser";
-import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { ExpandableServiceList } from "@/components/ExpandableServiceList";
 import { Faq } from "@/components/Faq";
-import { PageOverview } from "@/components/PageOverview";
+import { FloatingPageCta } from "@/components/FloatingPageCta";
+import { ManualAdminCta } from "@/components/ManualAdminCta";
+import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
+import { CaseStudyTeaser } from "@/components/marketing/CaseStudyTeaser";
+import { Hero } from "@/components/marketing/Hero";
 import { PageSchema } from "@/components/PageSchema";
-import { PrimaryButton } from "@/components/PrimaryButton";
-import { ProcessBar } from "@/components/ProcessBar";
-import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
-import { SectionNumber } from "@/components/SectionNumber";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { metadataFor } from "@/lib/pages";
 import { numberSections } from "@/lib/sectionNumbers";
+import { getSiteSettingsServer } from "@/lib/serverApi";
 import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
 
-import { SEO_FAQS } from "./_lib/copy";
-import { formatPrice, getSiteSettingsServer } from "@/lib/serverApi";
-import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
 import { GoogleBusinessProfileAudit } from "./_components/GoogleBusinessProfileAudit";
+import { SeoAnalysis } from "./_components/SeoAnalysis";
+import { SeoImprovement } from "./_components/SeoImprovement";
+import { SeoIntroduction } from "./_components/SeoIntroduction";
 import { SeoSignup } from "./_components/SeoSignup";
+import { SeoStepsBar } from "./_components/SeoStepsBar";
 import { seoServices } from "./_components/seoServices";
+import { SEO_FAQS } from "./_lib/copy";
 import styles from "./page.module.css";
 
-/* Section eyebrows in page order. */
 const sections = numberSections([
-  "Choose the right report",
-  "What you're buying",
+  "Analyze",
+  "Report",
+  "Improve",
   "Google Business Profile audit",
-  "Proof this works",
-  "Why it's cheap",
   "What we inspect",
+  "Proof this works",
   "Choose your plan",
   "Common questions",
 ] as const);
@@ -41,40 +40,10 @@ export const metadata: Metadata = metadataFor("/seo");
 /* Pricing comes from the admin, so this page renders per request. */
 export const dynamic = "force-dynamic";
 
-const pipelineSteps = [
-  [
-    "Machine sweep",
-    "Pre-written crawl code, benchmark data from past projects and pre-planned AI search routines run over your site and your Search Console data.",
-  ],
-  [
-    "Human judgement",
-    "The machines produce a long list of maybes. We cut what doesn't hold up, and add what only experience catches.",
-  ],
-  ["Your report", "What survives becomes a ranked, plain-English list of issues and opportunities."],
-];
-
 const casePoints = ["Indexable stock", "Intent-focused pages", "Structured data", "Measured in Search Console"];
 
 export default async function SeoPage() {
   const settings = await getSiteSettingsServer();
-
-  const seoStats: ProofStat[] = [
-    {
-      value: formatPrice(settings.gbp_audit_price),
-      label: "One-time GBP audit",
-      description: "A single review and prioritised action list for your Google Business Profile.",
-    },
-    {
-      value: formatPrice(settings.seo_monthly_price),
-      label: "Recurring SEO report",
-      description: `From ${formatPrice(settings.seo_monthly_price)} per report, with no lock-in contract.`,
-    },
-    {
-      value: "~2 hrs",
-      label: "Human judgement",
-      description: "A real, experienced person reviews the findings and ranks what matters.",
-    },
-  ];
 
   const schema = {
     "@context": "https://schema.org",
@@ -111,124 +80,24 @@ export default async function SeoPage() {
         secondaryLabel="See what you get"
       />
 
-      <ProcessBar
-        label="How recurring SEO compounds"
-        steps={[
-          { label: "Measure", description: "Read the latest search data", href: "#report" },
-          { label: "Prioritise", description: "Find the highest-value gap", href: "#issues-we-check" },
-          { label: "Improve", description: "Fix, build or test the next thing", href: "#issues-we-check" },
-          { label: "Repeat", description: "Use fresh data to choose again", href: "#signup" },
-        ]}
-      />
+      <SeoStepsBar />
+      <SeoIntroduction />
 
-      <PageOverview
-        id="seo-overview"
-        eyebrow={sections["Choose the right report"]}
-        title="One-off local audit or ongoing SEO."
-        description={
-          <p>
-            These are two different services. Fix your Google Business Profile with a one-time audit, or use recurring
-            SEO reports to find, test and compound improvements across your website.
-          </p>
-        }
-        items={[
-          {
-            meta: "Recurring",
-            title: "Website SEO reports",
-            description: "A fresh, ranked action plan every cycle.",
-            href: "#report",
-          },
-          {
-            meta: "One-time",
-            title: "Google Business Profile audit",
-            description: "Fix the profile customers see in local search.",
-            href: "#gbp-audit",
-          },
-        ]}
-      />
-
-      <ProofStrip stats={seoStats} />
+      <SeoAnalysis eyebrow={sections["Analyze"]} />
 
       <SeoReportOverview
         id="report"
-        eyebrow={sections["What you're buying"]}
-        title="A clear SEO action plan."
-        accentTitle="Delivered every cycle."
-        description={
-          <div className={styles.reportDescription}>
-            <p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>
-            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down" size="compact">
-              Choose a Report
-            </PrimaryButton>
-          </div>
-        }
+        eyebrow={sections["Report"]}
+        title="See what changed."
+        accentTitle="Know what to do next."
+        description="Each report turns fresh search data into a ranked, plain-English action plan: what improved, what is holding you back and where the next opportunity sits."
+        spacing="joined"
+        textSide="right"
       />
 
-      <GoogleBusinessProfileAudit
-        eyebrow={sections["Google Business Profile audit"]}
-        ctaHref="#google-business-profile-audit"
-        ctaLabel="Choose a Report"
-      />
+      <SeoImprovement eyebrow={sections["Improve"]} />
 
-      <CaseStudyTeaser
-        eyebrow={sections["Proof this works"]}
-        title="The result: 200% more organic clicks."
-        points={casePoints}
-        primaryHref="#signup"
-        primaryLabel="Choose a Report"
-      >
-        <p>
-          Scooter Shop&apos;s website was built the way our reports recommend: fast structured pages, indexable stock,
-          and focused pages for the searches customers actually make—&ldquo;Vespa service Perth&rdquo;, &ldquo;50cc
-          scooters Perth&rdquo;, &ldquo;SYM parts&rdquo;. Google Search Console recorded organic clicks up 200% in 6
-          months.
-        </p>
-        <p>
-          That&apos;s the loop this service runs on your site: find the gap in the data, build the thing that fills it,
-          then measure whether it earned its place.
-        </p>
-      </CaseStudyTeaser>
-
-      <section className={styles.compareSection}>
-        <div className={`shell ${styles.compareInner}`}>
-          <div className={styles.compareCopy}>
-            <SectionNumber>{sections["Why it's cheap"]}</SectionNumber>
-            <h2>Two hours of human judgement. That&apos;s what you&apos;re paying for.</h2>
-            <p>
-              Most of an SEO audit is collection work—crawling pages, pulling data, checking the same hundred things.
-              We&apos;ve automated that, so you don&apos;t pay agency prices for it.
-            </p>
-            <p>It&apos;s the same process we run internally on every website we build.</p>
-            <p className={styles.priceHonesty}>
-              Still sounds too cheap? It is. We&apos;re betting some subscribers will eventually want a site built by
-              us.
-            </p>
-            <PrimaryButton className={styles.sectionCta} href="#signup" direction="down" size="compact">
-              Choose a Report
-            </PrimaryButton>
-          </div>
-          <div className={styles.pipelineCard}>
-            <header className={styles.pipelineHead}>
-              <span className="moving-colour-text">How a report gets made</span>
-            </header>
-            <ol className={styles.pipelineSteps}>
-              {pipelineSteps.map(([title, body], index) => (
-                <li key={title}>
-                  <span>0{index + 1}</span>
-                  <div>
-                    <h3>{title}</h3>
-                    <p>{body}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-            <footer className={styles.pipelineFoot}>
-              <strong className="moving-colour-text">~2 hrs</strong>
-              <span>of experienced human labour per report.</span>
-            </footer>
-          </div>
-        </div>
-      </section>
+      <GoogleBusinessProfileAudit eyebrow={sections["Google Business Profile audit"]} />
 
       <ExpandableServiceList
         id="issues-we-check"
@@ -238,9 +107,28 @@ export default async function SeoPage() {
         description="These are examples of the issues and opportunities we look for. Open a category to see the kinds of checks that can appear in your report."
       />
 
-      <AiReadinessBanner id="ai-readiness" />
+      <CaseStudyTeaser
+        eyebrow={sections["Proof this works"]}
+        title="A website that grew organic clicks 300%."
+        points={casePoints}
+        primaryHref="#signup"
+        primaryLabel="Choose a Report"
+        showPrimaryAction={false}
+      >
+        <p>
+          Scooter Shop&apos;s website combines inventory, parts, purchasing and service journeys in one connected
+          experience. Fast structured pages and focused search content helped organic clicks grow by 300% in six months.
+        </p>
+        <p>
+          It is a practical example of what happens when the public website and the work behind it are designed as one
+          system.
+        </p>
+      </CaseStudyTeaser>
 
+      <AiReadinessBanner id="ai-readiness" />
       <SeoSignup settings={settings} eyebrow={sections["Choose your plan"]} />
+
+      <FloatingPageCta label="Choose a Report" href="#signup" showAfterId="seo-hero-end" hideAtId="signup" />
 
       <Faq eyebrow={sections["Common questions"]} title="SEO report and audit questions." items={SEO_FAQS} />
 

@@ -122,4 +122,10 @@
     border-left: 1px solid var(--border-subtle);
     border-top: 0;
   }
+  .compactChooser {
+    justify-content: center;
+  }
+  .compactChooser .total {
+    margin-top: 28px;
+  }
 }

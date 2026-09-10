@@ -9,9 +9,9 @@ export type ProcessBarStep = {
   href?: string;
 };
 
-export function ProcessBar({ label, steps }: { label: string; steps: readonly ProcessBarStep[] }) {
+export function ProcessBar({ label, steps, id }: { label: string; steps: readonly ProcessBarStep[]; id?: string }) {
   return (
-    <section className="process-bar" aria-label={label}>
+    <section className="process-bar" aria-label={label} id={id}>
       <div className="shell process-bar-inner">
         <p className="process-bar-label">{label}</p>
         <ol className="process-bar-steps" style={{ "--process-columns": steps.length } as CSSProperties}>

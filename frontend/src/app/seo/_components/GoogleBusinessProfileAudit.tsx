@@ -1,5 +1,4 @@
 import { GoogleLogo } from "@/components/GoogleLogo";
-import { PrimaryButton } from "@/components/PrimaryButton";
 import { SectionNumber } from "@/components/SectionNumber";
 
 import styles from "./GoogleBusinessProfileAudit.module.css";
@@ -13,15 +12,7 @@ const AUDIT_AREAS = [
   ["Customer actions", "Website, booking and social links"],
 ] as const;
 
-export function GoogleBusinessProfileAudit({
-  ctaHref,
-  ctaLabel,
-  eyebrow = "Your local search presence",
-}: {
-  ctaHref: string;
-  ctaLabel: string;
-  eyebrow?: string;
-}) {
+export function GoogleBusinessProfileAudit({ eyebrow = "Your local search presence" }: { eyebrow?: string }) {
   return (
     <section className={styles.audit} aria-labelledby="gbp-audit-title" id="gbp-audit">
       <div className={`shell ${styles.auditInner}`}>
@@ -37,21 +28,11 @@ export function GoogleBusinessProfileAudit({
           </div>
 
           <SectionNumber onDark>{eyebrow}</SectionNumber>
-          <h3 id="gbp-audit-title">Google Business Profile audit</h3>
+          <h3 id="gbp-audit-title">A one-time Google Business Profile audit.</h3>
           <p className={styles.intro}>
-            Relevance, distance and prominence are the factors Google names first for local results, but they are not
-            the only ones, and distance is the only one you cannot change. Categories and services, the attributes and
-            details customers actually search on, reviews and how you answer them, photos, and consistent listings
-            elsewhere all feed into it. The work is not only making the profile look better&mdash;it changes what you
-            turn up for.
+            We review the parts of your profile that influence local visibility, then send you a prioritised list of
+            what to correct or improve. One audit, one action list, no recurring subscription.
           </p>
-
-          <div className={styles.actions}>
-            {/* The signup panel is below this, so in-page links scroll down. */}
-            <PrimaryButton href={ctaHref} direction={ctaHref.startsWith("#") ? "down" : "page"}>
-              {ctaLabel}
-            </PrimaryButton>
-          </div>
         </div>
 
         <div className={styles.preview} aria-label="Example Google Business Profile audit coverage">

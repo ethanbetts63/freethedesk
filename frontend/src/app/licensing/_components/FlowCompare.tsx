@@ -1,5 +1,3 @@
-import { MovingColourButton } from "@/components/MovingColourButton";
-import { PrimaryButton } from "@/components/PrimaryButton";
 import styles from "../page.module.css";
 
 type Step = { title: string; caption?: string };
@@ -24,18 +22,13 @@ function FlowColumn({
   steps,
   highlight,
   eyebrow,
-  cta,
 }: {
   label: string;
   badge: string;
   steps: Step[];
   highlight?: boolean;
   eyebrow?: string;
-  cta?: { href: string; label: string };
 }) {
-  // The signup panel is below this, so in-page links scroll down.
-  const ctaDirection = cta?.href.startsWith("#") ? "down" : "page";
-
   return (
     <div className={`${styles.flowColumn} ${highlight ? styles.flowColumnHighlight : ""}`}>
       {eyebrow && <p className={`${styles.flowEyebrow} moving-colour-text`}>{eyebrow}</p>}
@@ -53,29 +46,6 @@ function FlowColumn({
           </li>
         ))}
       </ol>
-      {cta &&
-        /* Recommended column gets the moving-colour CTA; the other gets the plain accent one. */
-        (highlight ? (
-          <MovingColourButton
-            className={styles.flowColumnCta}
-            href={cta.href}
-            direction={ctaDirection}
-            size="compact"
-            fullWidth
-          >
-            {cta.label}
-          </MovingColourButton>
-        ) : (
-          <PrimaryButton
-            className={styles.flowColumnCtaPlain}
-            href={cta.href}
-            direction={ctaDirection}
-            size="compact"
-            fullWidth
-          >
-            {cta.label}
-          </PrimaryButton>
-        ))}
     </div>
   );
 }
@@ -86,19 +56,13 @@ export function FlowCompare() {
     <div className={styles.flowCompare}>
       <p className={styles.flowCompareLabel}>What your team does</p>
       <div className={styles.flowGrid}>
-        <FlowColumn
-          label="Hosted portal"
-          badge="5 steps, you enter each sale"
-          steps={hostedSteps}
-          cta={{ href: "#signup", label: "Choose your plan" }}
-        />
+        <FlowColumn label="Hosted portal" badge="5 steps, you enter each sale" steps={hostedSteps} />
         <FlowColumn
           label="Built into your website"
           badge="4 steps, nothing to re-key"
           steps={builtInSteps}
           highlight
           eyebrow="Recommended"
-          cta={{ href: "/dealership-website-builder", label: "Try the free demo" }}
         />
       </div>
     </div>
