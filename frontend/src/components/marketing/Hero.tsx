@@ -1,12 +1,16 @@
 import Link from "next/link";
 
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Eyebrow } from "@/components/Eyebrow";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { NetworkField } from "@/components/visuals/NetworkField";
+import type { PagePath } from "@/lib/pages";
 
 import styles from "./Hero.module.css";
 
 type HeroProps = {
+  /** Set to float the breadcrumb trail over the top-right of the hero. */
+  path?: PagePath;
   eyebrow: string;
 
   titleLines: readonly string[];
@@ -21,6 +25,7 @@ type HeroProps = {
 };
 
 export function Hero({
+  path,
   eyebrow,
   titleLines,
   accentTitle,
@@ -42,6 +47,7 @@ export function Hero({
         <NetworkField />
       </div>
       <div className={styles.grid} />
+      {path && <Breadcrumbs path={path} variant="overlay" />}
       <div className={`shell ${styles.content}`}>
         <div className={styles.copy}>
           <Eyebrow className={styles.eyebrow}>{eyebrow}</Eyebrow>

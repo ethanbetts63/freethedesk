@@ -2,9 +2,9 @@ import styles from "./WebsiteJobsBar.module.css";
 
 const jobs = ["Get found", "Get customers", "Get time back"] as const;
 
-export function WebsiteJobsBar() {
+export function WebsiteJobsBar({ id = "website-hero-end" }: { id?: string }) {
   return (
-    <section className={styles.section} id="website-hero-end" aria-label="Three jobs your website should do">
+    <section className={styles.section} id={id} aria-label="Three jobs your website should do">
       <div className="shell">
         <ol className={styles.steps}>
           {jobs.map((job) => (

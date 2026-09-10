@@ -1,0 +1,65 @@
+.breadcrumbs {
+  background: var(--surface);
+  border-bottom: 1px solid var(--slate-100);
+}
+
+.breadcrumbs-list {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  min-height: 46px;
+  padding-bottom: 12px;
+  padding-top: 12px;
+}
+
+.breadcrumbs-list li {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  min-width: 0;
+}
+
+.breadcrumbs-list a {
+  color: var(--slate-600);
+  text-decoration: none;
+}
+
+.breadcrumbs-list a:hover {
+  color: var(--brand-accent);
+  text-decoration: underline;
+}
+
+.breadcrumbs-current {
+  color: var(--slate-800);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.breadcrumbs-sep {
+  color: var(--slate-300);
+}
+
+/* Floated over the top-right of a hero instead of sitting in a band of its own.
+   The hero is the positioned ancestor; .shell keeps it on the page gutter. */
+.breadcrumbs-overlay {
+  background: transparent;
+  border-bottom: none;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.breadcrumbs-overlay .breadcrumbs-list {
+  justify-content: flex-end;
+  min-height: 0;
+  padding-bottom: 0;
+  padding-top: 22px;
+}

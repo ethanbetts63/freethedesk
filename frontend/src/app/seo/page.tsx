@@ -70,6 +70,7 @@ export default async function SeoPage() {
       <PageSchema path="/seo" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <Hero
+        path="/seo"
         eyebrow="Practical SEO reporting"
         titleLines={["Data Driven,"]}
         accentTitle="SEO."
@@ -81,6 +82,7 @@ export default async function SeoPage() {
       />
 
       <SeoStepsBar />
+
       <SeoIntroduction />
 
       <SeoAnalysis eyebrow={sections["Analyze"]} />

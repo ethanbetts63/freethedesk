@@ -2,11 +2,13 @@
 
 import { useId, useState } from "react";
 
-import { MovingColourButton } from "@/components/MovingColourButton";
 import formStyles from "@/components/forms/SelectionForm.module.css";
+import { SelectionFormPanel } from "@/components/forms/SelectionFormPanel";
+import { MovingColourButton } from "@/components/MovingColourButton";
 import { normaliseWebsiteUrl, submitProjectEnquiry, type ProjectType } from "@/lib/api";
-import styles from "./ProjectEnquiry.module.css";
 import { useEnquiryForm } from "@/lib/useEnquiryForm";
+
+import styles from "./ProjectEnquiry.module.css";
 
 const PROJECT_TYPES: { code: ProjectType; name: string }[] = [
   { code: "website", name: "Website" },
@@ -76,148 +78,149 @@ export function ProjectEnquiryPanel({
   );
 
   return (
-    <div className={`${formStyles.panel} ${styles.panel}`}>
-      <aside className={`${formStyles.chooser} ${styles.chooser} ${!showProjectType ? styles.compactChooser : ""}`}>
-        {heading}
+    <SelectionFormPanel
+      onSubmit={send}
+      chooserClassName={!showProjectType ? styles.compactChooser : undefined}
+      chooser={
+        <>
+          {heading}
 
-        {showProjectType && (
+          {showProjectType && (
+            <div className={formStyles.choiceGroup}>
+              <p id={`${groupId}-type`}>What do you need?</p>
+              <div
+                className={`${formStyles.choiceGrid} ${styles.typeGrid}`}
+                role="radiogroup"
+                aria-labelledby={`${groupId}-type`}
+              >
+                {PROJECT_TYPES.map((option) => (
+                  <label
+                    className={`${projectType === option.code ? formStyles.choiceSelected : ""} ${
+                      option.code === "both" ? formStyles.choiceRecommended : ""
+                    }`}
+                    key={option.code}
+                  >
+                    <input
+                      className={formStyles.choiceInput}
+                      type="radio"
+                      name={`${groupId}-project-type`}
+                      value={option.code}
+                      checked={projectType === option.code}
+                      onChange={() => setProjectType(option.code)}
+                    />
+                    <span>{option.name}</span>
+                    {option.code === "both" && <small className="moving-colour-text">recommended</small>}
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className={formStyles.choiceGroup}>
-            <p id={`${groupId}-type`}>What do you need?</p>
+            <p id={`${groupId}-budget`}>What&apos;s your budget?</p>
             <div
-              className={`${formStyles.choiceGrid} ${styles.typeGrid}`}
+              className={`${formStyles.choiceGrid} ${styles.budgetGrid}`}
               role="radiogroup"
-              aria-labelledby={`${groupId}-type`}
+              aria-labelledby={`${groupId}-budget`}
             >
-              {PROJECT_TYPES.map((option) => (
-                <label
-                  className={`${projectType === option.code ? formStyles.choiceSelected : ""} ${
-                    option.code === "both" ? formStyles.choiceRecommended : ""
-                  }`}
-                  key={option.code}
-                >
+              {BUDGETS.map((option) => (
+                <label className={budget === option ? formStyles.choiceSelected : ""} key={option}>
                   <input
                     className={formStyles.choiceInput}
                     type="radio"
-                    name={`${groupId}-project-type`}
-                    value={option.code}
-                    checked={projectType === option.code}
-                    onChange={() => setProjectType(option.code)}
+                    name={`${groupId}-budget-choice`}
+                    value={option}
+                    checked={budget === option}
+                    onChange={() => setBudget(option)}
                   />
-                  <span>{option.name}</span>
-                  {option.code === "both" && <small className="moving-colour-text">recommended</small>}
+                  <span>{option === "custom" ? "Custom" : option}</span>
                 </label>
               ))}
             </div>
-          </div>
-        )}
-
-        <div className={formStyles.choiceGroup}>
-          <p id={`${groupId}-budget`}>What&apos;s your budget?</p>
-          <div
-            className={`${formStyles.choiceGrid} ${styles.budgetGrid}`}
-            role="radiogroup"
-            aria-labelledby={`${groupId}-budget`}
-          >
-            {BUDGETS.map((option) => (
-              <label className={budget === option ? formStyles.choiceSelected : ""} key={option}>
+            {budget === "custom" && (
+              <label className={styles.customBudget}>
+                <span>Your budget</span>
                 <input
-                  className={formStyles.choiceInput}
-                  type="radio"
-                  name={`${groupId}-budget-choice`}
-                  value={option}
-                  checked={budget === option}
-                  onChange={() => setBudget(option)}
+                  value={customBudget}
+                  onChange={(event) => setCustomBudget(event.target.value.replace(/\D/g, ""))}
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength={60}
+                  placeholder="e.g. 12000"
+                  required
                 />
-                <span>{option === "custom" ? "Custom" : option}</span>
               </label>
-            ))}
-          </div>
-          {budget === "custom" && (
-            <label className={styles.customBudget}>
-              <span>Your budget</span>
-              <input
-                value={customBudget}
-                onChange={(event) => setCustomBudget(event.target.value.replace(/\D/g, ""))}
-                inputMode="numeric"
-                pattern="[0-9]*"
-                maxLength={60}
-                placeholder="e.g. 12000"
-                required
-              />
-            </label>
-          )}
-        </div>
-
-        <div className={`${formStyles.total} ${styles.total}`} aria-live="polite">
-          <div>
-            <strong className="moving-colour-text">{budgetLabel}</strong>
-          </div>
-          <span>{SUMMARY[projectType]}</span>
-        </div>
-      </aside>
-
-      <form className={`${formStyles.form} ${styles.form}`} onSubmit={send}>
-        <div className={`${formStyles.formTitle} ${styles.formTitle}`}>
-          <h3>
-            Send your <span className="moving-colour-text">free enquiry.</span>
-          </h3>
-        </div>
-
-        {status === "success" ? (
-          <div className={styles.success} role="status">
-            <span aria-hidden="true">✓</span>
-            <strong>Thanks — that&apos;s with us.</strong>
-            <p>We&apos;ll come back with what we&apos;d suggest building for that budget, and what it would take.</p>
-          </div>
-        ) : (
-          <>
-            <label>
-              <span>Email</span>
-              <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
-            </label>
-            <label>
-              <span>Phone</span>
-              <input name="phone" type="tel" placeholder="e.g. 0400 000 000" autoComplete="tel" />
-            </label>
-            <label>
-              <span>Website</span>
-              {/* Not type="url": it rejects a scheme-less host like the placeholder example. */}
-              <input
-                name="website"
-                type="text"
-                inputMode="url"
-                placeholder="e.g. www.yoursite.com"
-                autoComplete="url"
-                required
-              />
-            </label>
-            <label>
-              <span>Notes (optional)</span>
-              <textarea
-                name="notes"
-                rows={3}
-                maxLength={2000}
-                placeholder="e.g. It takes our team a lot of manual copy and paste to write and send a quote."
-              />
-            </label>
-            {error && (
-              <p className={formStyles.error} role="alert">
-                {error}
-              </p>
             )}
-            <MovingColourButton
-              type="submit"
-              className={formStyles.submit}
-              direction="right"
-              size="large"
-              fullWidth
-              disabled={status === "submitting"}
-            >
-              {status === "submitting" ? "Sending…" : "Show me what you’d build"}
-            </MovingColourButton>
-          </>
-        )}
-      </form>
-    </div>
+          </div>
+
+          <div className={formStyles.total} aria-live="polite">
+            <div>
+              <strong className="moving-colour-text">{budgetLabel}</strong>
+            </div>
+            <span>{SUMMARY[projectType]}</span>
+          </div>
+        </>
+      }
+    >
+      <div className={formStyles.formTitle}>
+        <h3>
+          Send your <span className="moving-colour-text">free enquiry.</span>
+        </h3>
+      </div>
+
+      {status === "success" ? (
+        <div className={styles.success} role="status">
+          <span aria-hidden="true">✓</span>
+          <strong>Thanks — that&apos;s with us.</strong>
+          <p>We&apos;ll come back with what we&apos;d suggest building for that budget, and what it would take.</p>
+        </div>
+      ) : (
+        <>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
+          </label>
+          <label>
+            <span>Phone</span>
+            <input name="phone" type="tel" placeholder="e.g. 0400 000 000" autoComplete="tel" />
+          </label>
+          <label>
+            <span>Website</span>
+            <input
+              name="website"
+              type="text"
+              inputMode="url"
+              placeholder="e.g. www.yoursite.com"
+              autoComplete="url"
+              required
+            />
+          </label>
+          <label>
+            <span>Notes (optional)</span>
+            <textarea
+              name="notes"
+              rows={3}
+              maxLength={2000}
+              placeholder="e.g. It takes our team a lot of manual copy and paste to write and send a quote."
+            />
+          </label>
+          {error && (
+            <p className={formStyles.error} role="alert">
+              {error}
+            </p>
+          )}
+          <MovingColourButton
+            type="submit"
+            className={formStyles.submit}
+            direction="right"
+            size="large"
+            fullWidth
+            disabled={status === "submitting"}
+          >
+            {status === "submitting" ? "Sending…" : "Show me what you’d build"}
+          </MovingColourButton>
+        </>
+      )}
+    </SelectionFormPanel>
   );
 }

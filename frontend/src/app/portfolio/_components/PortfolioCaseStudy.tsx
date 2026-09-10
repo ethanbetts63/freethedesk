@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Fragment } from "react";
 
 import { Eyebrow } from "@/components/Eyebrow";
@@ -483,6 +484,8 @@ export function PortfolioCaseStudy({ config: rawConfig }: { config: PortfolioCas
       <PageSchema path={config.path} />
       <PortfolioHero config={config.hero} />
       <ProcessBar label={config.process.label} steps={config.process.steps} />
+
+      <Breadcrumbs path={config.path} />
       <PortfolioIntro config={config.intro} />
       <ProofStrip id={config.proof.id} stats={config.proof.stats} />
       <PortfolioTourSection config={config.tour} />

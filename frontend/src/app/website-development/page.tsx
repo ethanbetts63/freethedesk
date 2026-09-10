@@ -53,6 +53,7 @@ export default function WebsiteDevelopmentPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <AiReadinessBanner />
       <Hero
+        path="/website-development"
         eyebrow="Website development Perth"
         titleLines={["Websites should"]}
         accentTitle="work harder."

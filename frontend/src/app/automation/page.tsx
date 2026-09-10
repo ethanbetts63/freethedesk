@@ -26,6 +26,7 @@ export default function AutomationPage() {
     <main>
       <PageSchema path="/automation" />
       <Hero
+        path="/automation"
         eyebrow="Automate Boring Away"
         titleLines={["Less repetition."]}
         accentTitle="More progress."
@@ -37,6 +38,7 @@ export default function AutomationPage() {
       />
 
       <AutomationStepsBar />
+
       <AutomationIntroduction />
 
       <AutomationIdentify eyebrow={sections["Identify"]} />

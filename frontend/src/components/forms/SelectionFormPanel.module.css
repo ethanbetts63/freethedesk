@@ -1,0 +1,31 @@
+.panel {
+  --selection-input-font-size: 1rem;
+  --selection-panel-min-height: 560px;
+  --selection-total-size: 2.4rem;
+  margin-inline: calc(var(--gutter) * -1);
+}
+
+.chooser h2 {
+  color: var(--text-strong);
+  font-size: var(--display-1);
+  letter-spacing: -0.058em;
+  line-height: 1.02;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .panel {
+    margin-inline: 0;
+  }
+}
+
+@media (min-width: 1080px) {
+  .panel {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  }
+
+  .form {
+    border-left: 1px solid var(--border-subtle);
+    border-top: 0;
+  }
+}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 import { LegalDocument } from "@/components/legal/LegalDocument";
 import { PageSchema } from "@/components/PageSchema";
@@ -10,6 +11,8 @@ export default function SeoSubscriptionTermsPage() {
   return (
     <>
       <PageSchema path="/legal/seo-subscription-terms" />
+
+      <Breadcrumbs path="/legal/seo-subscription-terms" />
       <LegalDocument filename="seo-subscription-terms.md" />
     </>
   );

@@ -114,7 +114,7 @@ function HomePreview({
           <h2>
             Find your
             <br />
-            next machine.
+            next car.
           </h2>
           <p>Vehicles, service and experienced advice—all in one clear place.</p>
           <button type="button" onClick={() => onPageChange(selected.inventory ? "inventory" : "contact")}>

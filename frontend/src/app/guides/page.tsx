@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import Link from "next/link";
 
 import { Eyebrow } from "@/components/Eyebrow";
@@ -40,6 +41,8 @@ export default function GuidesPage() {
           <i />
         </div>
       </section>
+
+      <Breadcrumbs path="/guides" />
 
       <section className={styles.index} aria-labelledby="latest-guides">
         <div className="shell">

@@ -1,0 +1,19 @@
+.alternative {
+  align-items: center;
+  display: flex;
+  font-size: 0.76rem;
+  gap: 10px;
+  justify-content: center;
+  margin: 22px 0 0;
+}
+
+.alternative span {
+  color: var(--text-muted);
+}
+
+.alternative a {
+  border-bottom: 1px solid var(--page-accent, var(--brand-accent));
+  color: var(--page-accent, var(--brand-accent));
+  font-weight: 800;
+  padding-bottom: 2px;
+}

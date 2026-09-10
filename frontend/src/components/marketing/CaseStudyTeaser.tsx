@@ -7,7 +7,7 @@ import styles from "./CaseStudyTeaser.module.css";
 
 type CaseStudyTeaserProps = {
   eyebrow: string;
-  title?: string;
+  title?: React.ReactNode;
   children: React.ReactNode;
   points: readonly string[];
   primaryHref: string;
@@ -30,7 +30,7 @@ export function CaseStudyTeaser({
         <div className={styles.phone}>
           <div className={styles.statOverlay}>
             <small>Google Search Console</small>
-            <strong>+200%</strong>
+            <strong>+300%</strong>
             <span>organic clicks</span>
           </div>
           <div className={styles.phoneFrame}>

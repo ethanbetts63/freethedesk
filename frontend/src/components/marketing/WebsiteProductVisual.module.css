@@ -1,119 +1,17 @@
-.section {
-  --section-accent: var(--brand-accent);
-  align-items: center;
-  background: var(--surface-dark);
-  color: var(--text-on-dark);
-  display: flex;
-  min-height: auto;
-  overflow: hidden;
-  padding: var(--section-space) 0;
-}
-.layout {
-  display: grid;
-  align-items: start;
-  gap: var(--space-2xl);
-  grid-template-columns: minmax(0, 1fr);
-  width: 100%;
-}
-.copy {
-  max-width: 680px;
-}
-.eyebrow {
-  --eyebrow-accent: var(--accent-on-dark);
-}
-.eyebrow span {
-  background: var(--accent-on-dark);
-  border-radius: 50%;
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-on-dark) 12%, transparent);
-  height: 7px;
-  width: 7px;
-}
-.copy h2 {
-  font-size: var(--display-5);
-  font-weight: 800;
-  letter-spacing: -0.075em;
-  line-height: 0.84;
-  margin: 0;
-  overflow-wrap: break-word;
-}
-.copy h2 em {
-  color: var(--accent-on-dark);
-  font-style: normal;
-  font-weight: 350;
-}
-.lead {
-  color: var(--slate-200);
-  font-size: var(--step-1);
-  line-height: 1.72;
-  margin: 36px 0 32px;
-  max-width: 500px;
-}
-.actions {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 25px;
-}
-.primary {
-  transition:
-    background 0.2s,
-    color 0.2s,
-    transform 0.2s;
-}
-.primary:hover {
-  color: var(--text);
-  transform: translateY(-2px);
-}
-.dealerExample {
-  border-top: 1px solid color-mix(in srgb, var(--bg) 22%, transparent);
-  padding-top: 18px;
-}
-.dealerExample small,
-.dealerExample strong {
-  display: block;
-}
-.dealerExample small {
-  color: var(--slate-400);
-  font-size: 0.57rem;
-  margin-bottom: 6px;
-}
-.dealerExample strong {
-  font-size: 0.7rem;
-}
-.dealerExample strong span {
-  color: var(--accent-on-dark);
-  margin-left: 5px;
-}
-.dealerExample:hover strong {
-  color: var(--accent-on-dark);
-}
 .visual {
+  --section-accent: var(--brand-accent);
   min-width: 0;
   width: 100%;
 }
-.visualLabel {
-  align-items: center;
-  color: var(--slate-400);
-  display: flex;
-  font-size: 0.54rem;
-  font-weight: 800;
-  justify-content: space-between;
-  letter-spacing: 0.13em;
-  margin-bottom: 13px;
-  text-transform: uppercase;
-}
-.visualLabel b {
-  color: var(--accent-on-dark);
-}
+
 .browser {
   background: var(--surface);
-  box-shadow: 0 36px 90px color-mix(in srgb, var(--text) 28%, transparent);
+  box-shadow: 0 30px 75px color-mix(in srgb, var(--text) 20%, transparent);
   color: var(--text);
   min-width: 0;
-  transform: none;
   transform-origin: center right;
 }
+
 .browserTop {
   align-items: center;
   background: var(--slate-100);
@@ -125,21 +23,25 @@
   height: 38px;
   padding: 0 13px;
 }
+
 .browserTop > div {
   display: flex;
   gap: 5px;
 }
+
 .browserTop i {
   background: var(--slate-300);
   border-radius: 50%;
   height: 6px;
   width: 6px;
 }
+
 .browserTop > span {
   background: var(--surface);
   border-radius: 3px;
   padding: 5px 18px;
 }
+
 .browserTop b {
   color: var(--section-accent);
   display: none;
@@ -148,19 +50,23 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
 .siteNav {
   align-items: center;
   display: flex;
   justify-content: space-between;
   padding: 23px 30px;
 }
+
 .siteNav > strong {
   font-size: 1.05rem;
   letter-spacing: -0.06em;
 }
+
 .siteNav > strong span {
   color: var(--section-accent);
 }
+
 .siteNav > div {
   align-items: center;
   display: flex;
@@ -168,24 +74,28 @@
   font-weight: 800;
   gap: 22px;
 }
+
 .siteNav > div span {
   display: none;
 }
+
 .siteNav > div b {
   background: var(--section-accent);
   color: var(--text-on-dark);
   padding: 8px 10px;
 }
+
 .siteHero {
   align-items: center;
   background: var(--surface-flow);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   margin: 0 11px;
-  min-height: 490px;
+  min-height: 330px;
   overflow: hidden;
   padding: 28px;
 }
+
 .siteHero small {
   color: var(--section-accent);
   font-size: 0.48rem;
@@ -193,18 +103,21 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
+
 .siteHero h3 {
   font-size: var(--display-3);
   letter-spacing: -0.075em;
   line-height: 0.86;
   margin: 15px 0;
 }
+
 .siteHero p {
   color: var(--slate-600);
   font-size: 0.62rem;
   line-height: 1.6;
   max-width: 250px;
 }
+
 .previewButton {
   background: var(--section-accent);
   color: var(--text-on-dark);
@@ -214,16 +127,16 @@
   margin-top: 10px;
   padding: 11px 13px;
 }
-/* Clips its own decorative glow so a fixed-width ::before can never push
-   the grid track wider than the card. */
+
 .previewVehicle {
   align-items: center;
   display: flex;
-  height: 180px;
+  height: 190px;
   justify-content: center;
   overflow: hidden;
   position: relative;
 }
+
 .previewVehicle::before {
   background: radial-gradient(circle, rgba(77, 165, 219, 0.3), transparent 68%);
   content: "";
@@ -232,7 +145,7 @@
   position: absolute;
   width: 280px;
 }
-/* Contained, so the photo letterboxes inside the mock rather than stretching. */
+
 .previewVehicleImage {
   height: 100%;
   object-fit: contain;
@@ -241,6 +154,7 @@
   width: 100%;
   z-index: 1;
 }
+
 .inventoryStrip {
   align-items: center;
   display: grid;
@@ -248,105 +162,74 @@
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   padding: 18px;
 }
+
 .inventoryStrip > span {
   font-weight: 900;
   text-transform: uppercase;
 }
+
 .inventoryStrip > div {
   display: none;
   gap: 7px;
 }
+
 .inventoryStrip i {
   background: var(--slate-100);
   height: 8px;
   width: 34px;
 }
+
 .inventoryStrip i:first-child {
   background: var(--section-accent);
 }
+
 .inventoryStrip b {
   color: var(--section-accent);
   justify-self: end;
 }
-.visualSteps {
-  color: var(--slate-400);
-  display: flex;
-  font-size: 0.45rem;
-  justify-content: space-between;
-  letter-spacing: 0.1em;
-  padding: 16px 2px 0;
-  text-transform: uppercase;
-}
-.visualSteps b {
-  color: var(--accent-on-dark);
-  margin-right: 7px;
-}
 
 @media (min-width: 640px) {
-  .copy h2 {
-    overflow-wrap: normal;
-  }
-  .actions {
-    align-items: center;
-    flex-direction: row;
-  }
-  .dealerExample {
-    border-left: 1px solid color-mix(in srgb, var(--bg) 22%, transparent);
-    border-top: 0;
-    padding-left: 20px;
-    padding-top: 0;
-  }
   .siteNav > div span {
     display: inline;
   }
+
   .browserTop > span {
     padding: 5px 52px;
   }
+
   .browserTop b {
     display: block;
   }
+
   .siteHero {
     margin: 0 21px;
-    min-height: clamp(340px, 46vh, 480px);
+    min-height: 330px;
     padding: clamp(30px, 4vw, 52px);
   }
+
   .previewVehicle {
-    height: 270px;
+    height: 220px;
   }
+
   .previewVehicle::before {
     height: 330px;
     width: 390px;
   }
-  .previewVehicle i {
-    bottom: 24%;
-  }
+
   .inventoryStrip {
     padding: 22px 31px;
   }
+
   .inventoryStrip > div {
     display: flex;
-  }
-  .visualSteps {
-    font-size: 0.52rem;
   }
 }
 
 @media (min-width: 1080px) {
-  .section {
-    min-height: calc(100vh - 78px);
-    padding: 80px 0;
-  }
-  .layout {
-    align-items: center;
-    gap: clamp(54px, 7vw, 120px);
-    grid-template-columns: minmax(320px, 0.76fr) minmax(560px, 1.24fr);
-  }
-  .copy {
-    max-width: 540px;
-  }
   .siteHero {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
+
   .browser {
     transform: perspective(1400px) rotateY(-2deg);
   }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { pageMetadata } from "./seo";
+import { buildBreadcrumbItems, pageMetadata } from "./seo";
 
 export interface PageDefinition {
   title: string;
@@ -138,4 +138,18 @@ export type PagePath = keyof typeof PAGES;
 export function metadataFor(path: PagePath): Metadata {
   const page: PageDefinition = PAGES[path];
   return pageMetadata({ ...page, path });
+}
+
+/**
+ * Breadcrumb trail for a page, with the short `label` as the final crumb.
+ *
+ * Segments that are not real pages are dropped: `/portfolio` and `/legal` are
+ * directories with no route of their own, and both 404. Linking or publishing a
+ * crumb that 404s is worse than a shorter trail, and running the visible
+ * breadcrumbs and the BreadcrumbList schema off this one function is what keeps
+ * the two from drifting apart.
+ */
+export function breadcrumbItemsFor(path: PagePath): { name: string; path: string }[] {
+  const { title, label } = PAGES[path];
+  return buildBreadcrumbItems(path, label ?? title).filter((item) => item.path in PAGES);
 }

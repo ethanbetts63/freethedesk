@@ -14,18 +14,18 @@ import { HOME_FAQS } from "./_lib/copy";
 
 import { AiReadinessBanner } from "@/components/marketing/AiReadinessBanner";
 import { AutomationFeature } from "./_components/AutomationFeature";
+import { DealerWebsiteBuilderSection } from "@/components/marketing/DealerWebsiteBuilderSection";
 import { FlagshipCheckout } from "@/components/marketing/FlagshipCheckout";
 import { Hero } from "@/components/marketing/Hero";
 import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { WebsiteDevelopmentFeature } from "./_components/WebsiteDevelopmentFeature";
-import { WebsiteProduct } from "@/components/marketing/WebsiteProduct";
 import styles from "@/components/marketing/marketingPage.module.css";
 
 export const metadata: Metadata = metadataFor("/");
 
 const homeStats: ProofStat[] = [
   {
-    value: "+200%",
+    value: "+300%",
     label: "Organic clicks",
     description: "Recorded for Scooter Shop in Google Search Console over six months.",
   },
@@ -45,6 +45,7 @@ export default function Home() {
   return (
     <main className={styles.page}>
       <PageSchema path="/" />
+      <AiReadinessBanner />
       <Hero
         eyebrow="Online Automation Services Australia"
         titleLines={["Digital", "automation"]}
@@ -110,8 +111,7 @@ export default function Home() {
           </div>
         }
       />
-      <AiReadinessBanner />
-      <WebsiteProduct />
+      <DealerWebsiteBuilderSection eyebrow="Interactive dealership builder" id="dealership-builder" />
       <ProjectEnquiry />
       <Faq eyebrow="Common questions" title="Questions about working with us." items={HOME_FAQS} />
       <ManualAdminCta buttonLabel="Get in touch" />

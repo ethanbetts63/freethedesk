@@ -42,7 +42,7 @@ const config = {
   proof: {
     id: "results",
     stats: [
-      { value: "+200%", label: "Organic clicks", description: "Recorded in Google Search Console over 6 months." },
+      { value: "+300%", label: "Organic clicks", description: "Recorded in Google Search Console over 6 months." },
       { value: "08", label: "Connected capabilities", description: "From first search to service after the sale." },
       {
         value: "01",

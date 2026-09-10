@@ -2,7 +2,9 @@ import { PrimaryButton } from "@/components/PrimaryButton";
 import { SectionNumber } from "@/components/SectionNumber";
 import styles from "./SubscriptionSwap.module.css";
 
-const steps: [string, string][] = [
+type SubscriptionStep = readonly [string, string];
+
+const defaultSteps: readonly SubscriptionStep[] = [
   [
     "Add up the bill",
     "Every tool you pay for monthly or annually, including the ones nobody remembers signing up for.",
@@ -14,7 +16,20 @@ const steps: [string, string][] = [
   ],
 ];
 
-export function SubscriptionSwap({ eyebrow, showCta = true }: { eyebrow: string; showCta?: boolean }) {
+const defaultLead =
+  "Most businesses pay for four or five tools every month and use one feature from each. We add up what that costs, work out which parts you actually touch, and price a build against the bill. Stop renting. Own the tools you use.";
+
+export function SubscriptionSwap({
+  eyebrow,
+  showCta = true,
+  lead = defaultLead,
+  steps = defaultSteps,
+}: {
+  eyebrow: string;
+  showCta?: boolean;
+  lead?: string;
+  steps?: readonly SubscriptionStep[];
+}) {
   return (
     <section className={styles.section} id="subscriptions">
       <div className="shell">
@@ -23,11 +38,7 @@ export function SubscriptionSwap({ eyebrow, showCta = true }: { eyebrow: string;
           <h2>
             Not another <span className="moving-colour-text">****ing subscription.</span>
           </h2>
-          <p className={styles.lead}>
-            Most businesses pay for four or five tools every month and use one feature from each. We add up what that
-            costs, work out which parts you actually touch, and price a build against the bill. Stop renting. Own the
-            tools you use.
-          </p>
+          <p className={styles.lead}>{lead}</p>
         </div>
 
         <ol className={styles.steps}>

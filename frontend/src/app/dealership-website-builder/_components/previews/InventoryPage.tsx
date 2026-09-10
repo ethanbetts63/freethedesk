@@ -34,7 +34,7 @@ export function InventoryPage({
       <section className={styles.inventoryHero}>
         <div>
           <small>Ready when you are</small>
-          <h2>Find your next machine.</h2>
+          <h2>Find your next car.</h2>
           <p>
             Browse new and pre-owned vehicles, compare the details and take the next step online or in the dealership.
           </p>
