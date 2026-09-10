@@ -153,7 +153,7 @@ export function ProjectEnquiryPanel({
             )}
           </div>
 
-          <div className={formStyles.total} aria-live="polite">
+          <div className={`${formStyles.total} ${styles.total}`} aria-live="polite">
             <div>
               <strong className="moving-colour-text">{budgetLabel}</strong>
             </div>

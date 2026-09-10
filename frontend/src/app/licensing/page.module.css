@@ -7,21 +7,6 @@
   padding: var(--section-space) 0;
   scroll-margin-top: 24px;
 }
-/* Signup panel — the same shape as the SEO report builder: chooser on the left,
-   short form on the right, inside one moving-colour bordered card. */
-.signupPanel {
-  --selection-choice-min-height: 62px;
-}
-.selectionPanel {
-  color: var(--text-strong);
-}
-.selectionPanel h2 {
-  color: var(--text-strong);
-  font-size: var(--display-3);
-  letter-spacing: -0.058em;
-  line-height: 1.02;
-  margin: 0 0 42px;
-}
 .planTypeGrid {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -44,15 +29,6 @@
   font-weight: 900;
   left: 0;
   position: absolute;
-}
-.formTitle {
-  align-items: baseline;
-  display: flex;
-  gap: 16px;
-  justify-content: space-between;
-}
-.formTitle h3 {
-  margin: 0;
 }
 .customBuildNote {
   color: var(--slate-600);
@@ -734,13 +710,6 @@
   }
   .verify {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  }
-  .signupPanel {
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
-  }
-  .signupForm {
-    border-left: 1px solid var(--slate-100);
-    border-top: 0;
   }
   .flowGrid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

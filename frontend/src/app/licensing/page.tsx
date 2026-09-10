@@ -9,10 +9,11 @@ import { metadataFor } from "@/lib/pages";
 import { numberSections } from "@/lib/sectionNumbers";
 import { getSiteSettingsServer } from "@/lib/serverApi";
 
-import { LicensingChoose } from "./_components/LicensingChoose";
-import { LicensingComplete } from "./_components/LicensingComplete";
+import { LicensingAdditionalFeatures } from "./_components/LicensingAdditionalFeatures";
 import { LicensingConfigurationOptions } from "./_components/LicensingConfigurationOptions";
+import { LicensingFill } from "./_components/LicensingFill";
 import { LicensingIntroduction } from "./_components/LicensingIntroduction";
+import { LicensingSign } from "./_components/LicensingSign";
 import { LicensingStepsBar } from "./_components/LicensingStepsBar";
 import { LicensingVerify } from "./_components/LicensingVerify";
 import { SignupPlans } from "./_components/SignupPlans";
@@ -20,9 +21,10 @@ import { LICENSING_FAQS } from "./_lib/copy";
 import styles from "./page.module.css";
 
 const sections = numberSections([
-  "Choose",
+  "Fill",
   "Verify",
-  "Complete",
+  "Sign",
+  "Additional features",
   "Two ways to use it",
   "Choose your plan",
   "Common questions",
@@ -45,7 +47,7 @@ export default async function LicensingPage() {
         eyebrow="Online vehicle licensing"
         titleLines={["License online."]}
         accentTitle="Lose the visit."
-        lead="Use our portal or build it into your website. Customers verify and sign online—no dealership visit required."
+        lead="Use our portal or build it into your website. Customers fill in their details, verify their identity and sign online—no dealership visit required."
         primaryHref="#signup"
         primaryLabel="Choose your plan"
         secondaryHref="/contact"
@@ -56,9 +58,10 @@ export default async function LicensingPage() {
 
       <LicensingIntroduction />
 
-      <LicensingChoose eyebrow={sections["Choose"]} />
+      <LicensingFill eyebrow={sections["Fill"]} />
       <LicensingVerify eyebrow={sections["Verify"]} />
-      <LicensingComplete eyebrow={sections["Complete"]} />
+      <LicensingSign eyebrow={sections["Sign"]} />
+      <LicensingAdditionalFeatures eyebrow={sections["Additional features"]} />
 
       <LicensingConfigurationOptions eyebrow={sections["Two ways to use it"]} />
       <SignupPlans settings={settings} eyebrow={sections["Choose your plan"]} />
@@ -73,7 +76,7 @@ export default async function LicensingPage() {
         href="#signup"
         buttonLabel="Choose your plan"
       >
-        Let customers verify, sign and pay from wherever they are. The paperwork travels—not the customer.
+        Let customers fill, verify and sign from wherever they are. The paperwork travels—not the customer.
       </ManualAdminCta>
     </main>
   );

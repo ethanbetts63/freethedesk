@@ -11,8 +11,9 @@ const hostedSteps: Step[] = [
 ];
 
 const builtInSteps: Step[] = [
-  { title: "Customer checks out on your website" },
-  { title: "Customer signs and pays online" },
+  { title: "Customer enters their details" },
+  { title: "Customer verifies their identity" },
+  { title: "Customer signs online" },
   { title: "Paperwork lands in your queue" },
 ];
 

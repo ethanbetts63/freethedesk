@@ -1,10 +1,8 @@
 import { PrimaryButton } from "@/components/PrimaryButton";
-import { SectionNumber } from "@/components/SectionNumber";
+import { IndexedFeatureSection, type IndexedFeature } from "./IndexedFeatureSection";
 import styles from "./SubscriptionSwap.module.css";
 
-type SubscriptionStep = readonly [string, string];
-
-const defaultSteps: readonly SubscriptionStep[] = [
+const defaultSteps: readonly IndexedFeature[] = [
   [
     "Add up the bill",
     "Every tool you pay for monthly or annually, including the ones nobody remembers signing up for.",
@@ -28,35 +26,23 @@ export function SubscriptionSwap({
   eyebrow: string;
   showCta?: boolean;
   lead?: string;
-  steps?: readonly SubscriptionStep[];
+  steps?: readonly IndexedFeature[];
 }) {
   return (
-    <section className={styles.section} id="subscriptions">
-      <div className="shell">
-        <div className={styles.heading}>
-          <SectionNumber>{eyebrow}</SectionNumber>
-          <h2>
-            Not another <span className="moving-colour-text">****ing subscription.</span>
-          </h2>
-          <p className={styles.lead}>{lead}</p>
-        </div>
-
-        <ol className={styles.steps}>
-          {steps.map(([title, body], index) => (
-            <li key={title}>
-              <span className={styles.stepIndex}>{String(index + 1).padStart(2, "0")}</span>
-              <strong>{title}</strong>
-              <p>{body}</p>
-            </li>
-          ))}
-        </ol>
-
-        {showCta && (
+    <IndexedFeatureSection
+      id="subscriptions"
+      eyebrow={eyebrow}
+      title="Not another"
+      accentTitle="****ing subscription."
+      lead={lead}
+      items={steps}
+      footer={
+        showCta ? (
           <PrimaryButton className={styles.cta} href="#enquiry" direction="down">
             Discuss your website
           </PrimaryButton>
-        )}
-      </div>
-    </section>
+        ) : undefined
+      }
+    />
   );
 }

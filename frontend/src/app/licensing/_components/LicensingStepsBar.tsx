@@ -5,7 +5,7 @@ export function LicensingStepsBar() {
     <ProcessStepsBar
       id="licensing-hero-end"
       ariaLabel="The three-step online licensing journey"
-      steps={["Choose", "Verify", "Complete"]}
+      steps={["Fill", "Verify", "Sign"]}
     />
   );
 }

@@ -124,7 +124,7 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
         fullWidth
         disabled={status === "submitting"}
       >
-        {status === "submitting" ? "Creating your account…" : "Continue to payment"}
+        {status === "submitting" ? "Creating your account…" : "Continue"}
       </MovingColourButton>
     </SelectionFormPanel>
   );

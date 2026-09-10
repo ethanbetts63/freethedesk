@@ -1,6 +1,6 @@
 import { FlowCardVisual } from "@/components/visuals/FlowCardVisual";
 
-export function LicensingCompleteVisual() {
+export function LicensingSignVisual() {
   return (
     <FlowCardVisual
       browserLabel="online licensing"
@@ -8,10 +8,10 @@ export function LicensingCompleteVisual() {
       steps={[
         { title: "Review", description: "Confirm the sale and vehicle details" },
         { title: "Sign", description: "Complete the required documents" },
-        { title: "Pay", description: "Make the agreed online payment" },
+        { title: "Confirm", description: "Send the completed file to the dealership" },
       ]}
-      result={{ label: "Point B", title: "Ready for handover", description: "Dealership notified" }}
-      ariaLabel="The online vehicle licensing completion journey"
+      result={{ label: "Point B", title: "Contract signed", description: "Dealership notified" }}
+      ariaLabel="The online vehicle licensing signing journey"
     />
   );
 }

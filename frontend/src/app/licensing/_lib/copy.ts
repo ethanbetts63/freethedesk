@@ -8,9 +8,8 @@ export const LICENSING_FAQS: FaqItem[] = [
   },
 
   {
-    question: "How does the customer actually pay?",
-    answer:
-      "Licensing and signing doesn't cost the customer. If you would like for product purchasing to run through one of our sites we use Stripe for transactions.",
+    question: "Does the customer need to create an account?",
+    answer: "No. They open the secure link you send them, complete their details, verify their identity and sign.",
   },
 
   {

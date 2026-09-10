@@ -13,8 +13,8 @@ export function LicensingNextStepPhone() {
         </div>
         <div className={styles.successPhoneBody}>
           <div className={styles.successPhoneCheck}>✓</div>
-          <h4>Payment successful</h4>
-          <p>Order #4821 is confirmed.</p>
+          <h4>Vehicle selected</h4>
+          <p>Your details have been saved.</p>
           <div className={styles.successPhoneNext}>
             <span>Next step</span>
             <strong>

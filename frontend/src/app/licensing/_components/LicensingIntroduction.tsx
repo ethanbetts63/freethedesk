@@ -1,9 +1,12 @@
 import { ProcessIntroduction } from "@/components/ProcessIntroduction";
 
 const items = [
-  { title: "Choose", description: "Start with the vehicle, purchaser and transaction details." },
-  { title: "Verify", description: "Confirm the person completing the paperwork is who they say they are." },
-  { title: "Complete", description: "Sign, pay and arrange the handover without another dealership visit." },
+  {
+    title: "Fill",
+    description: "The dealer enters the vehicle details. The customer opens a secure link and fills in their own.",
+  },
+  { title: "Verify", description: "User uploads license and verifies identity through Stripe Identity." },
+  { title: "Sign", description: "User signs the licensing and contract documents online." },
 ] as const;
 
 export function LicensingIntroduction() {
