@@ -106,15 +106,18 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           <span>Base product</span>
           <b>Included</b>
         </div>
-        <h2>Digital Dealer Demo</h2>
-        <p>Custom design, core pages, mobile experience, conversion essentials, analytics and technical SEO.</p>
+        <h2>Build your dealership website.</h2>
+        <p>
+          Add your brand and the capabilities you need, explore the live preview, then send the complete configuration
+          to our team. No payment is required.
+        </p>
       </section>
 
       <section className={styles.controlGroup}>
         <div className={styles.groupTitle}>
           <span>01</span>
           <div>
-            <strong>Basic Appearance</strong>
+            <strong>Brand the website</strong>
             <small>Make the foundation feel like yours.</small>
           </div>
         </div>
@@ -164,7 +167,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
         <div className={styles.groupTitle}>
           <span>02</span>
           <div>
-            <strong>Add capability</strong>
+            <strong>Add capabilities</strong>
             <small>Every choice changes the live preview.</small>
           </div>
         </div>

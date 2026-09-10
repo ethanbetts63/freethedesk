@@ -167,5 +167,5 @@ STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 DEALER_TERMS_VERSION = "2026-09-05"
 DEALER_TERMS_FILE = BASE_DIR / "frontend" / "content" / "legal" / "dealer-subscription-terms.md"
-SEO_TERMS_VERSION = "2026-09-07"
+SEO_TERMS_VERSION = "2026-09-09"
 SEO_TERMS_FILE = BASE_DIR / "frontend" / "content" / "legal" / "seo-subscription-terms.md"

@@ -7,9 +7,9 @@ export type SeoPlan = Plan<SeoPlanCode>;
 export { formatPrice, planByCode };
 
 export const REPORT_TYPES: { code: SeoReportType; name: string }[] = [
-  { code: "gbp", name: "GBP report" },
-  { code: "seo", name: "SEO report" },
-  { code: "both", name: "GBP + SEO" },
+  { code: "gbp", name: "One-time GBP audit" },
+  { code: "seo", name: "Recurring SEO reports" },
+  { code: "both", name: "GBP audit + recurring SEO" },
 ];
 
 export function reportTypeLabel(reportType: SeoReportType): string {
@@ -19,31 +19,45 @@ export function reportTypeLabel(reportType: SeoReportType): string {
 export function buildSeoPlans(settings: PublicSiteSettings, reportType: SeoReportType = "both"): SeoPlan[] {
   const gbpPrice = Number(settings.gbp_audit_price);
   const reportSummary = {
-    gbp: "A focused Google Business Profile and local-search report.",
-    seo: "A focused website SEO report and prioritised action list.",
-    both: "Your website SEO report and Google Business Profile report together.",
+    gbp: "A one-time Google Business Profile audit and local-search action list.",
+    seo: "Recurring website SEO reports with a fresh prioritised action list each cycle.",
+    both: "A one-time Google Business Profile audit followed by recurring website SEO reports.",
   }[reportType];
   const features = {
     gbp: ["Google Business Profile review", "Local-search action list"],
     seo: ["Website SEO review", "Human-written action plan"],
-    both: ["Website SEO review", "Google Business Profile review", "One prioritised action plan"],
+    both: ["Recurring website SEO review", "One-time Google Business Profile audit", "Prioritised action plans"],
   }[reportType];
 
-  const frequencies = [
+  const recurringFrequencies = [
     ["monthly", "Monthly", settings.seo_monthly_price, "/ report, billed monthly"],
     ["quarterly", "Quarterly", settings.seo_quarterly_price, "/ report, billed quarterly"],
     ["biannual", "Bi-annual", settings.seo_biannual_price, "/ report, billed every 6 months"],
-    ["oneoff", "One-off", settings.seo_oneoff_price, "once, no subscription"],
   ] as const;
 
-  return frequencies.map(([code, name, seoPrice, cadence]) => {
+  if (reportType === "gbp") {
+    return [
+      {
+        code: "oneoff",
+        name: "One-time audit",
+        price: formatPrice(String(gbpPrice)),
+        cadence: "once, no subscription",
+        summary: reportSummary,
+        features,
+        recommended: true,
+      },
+    ];
+  }
+
+  return recurringFrequencies.map(([code, name, seoPrice, cadence]) => {
     const numericSeoPrice = Number(seoPrice);
-    const price = reportType === "gbp" ? gbpPrice : reportType === "seo" ? numericSeoPrice : numericSeoPrice + gbpPrice;
+    const price = reportType === "seo" ? numericSeoPrice : numericSeoPrice + gbpPrice;
     return {
       code,
       name,
       price: formatPrice(String(price)),
-      cadence,
+      cadence:
+        reportType === "both" ? `first payment, then ${formatPrice(String(numericSeoPrice))} ${cadence}` : cadence,
       summary: reportSummary,
       features,
       recommended: code === "quarterly",

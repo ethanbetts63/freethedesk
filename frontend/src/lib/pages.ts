@@ -9,6 +9,13 @@ export interface PageDefinition {
   /** ISO date of the last material content change; emitted as `dateModified`. */
   updated?: string;
 
+  /**
+   * Short name for the final breadcrumb crumb. Breadcrumbs are rendered by
+   * Google, so they need a plain label - the SEO `title` carries a tagline and
+   * a keyword tail that read as noise in a trail.
+   */
+  label?: string;
+
   absoluteTitle?: boolean;
   ogImage?: string;
 
@@ -18,6 +25,7 @@ export interface PageDefinition {
 export const PAGES = {
   "/": {
     updated: "2026-09-09",
+    label: "Home",
     title: "Fire your admin | Websites & Digital Automation | Australia, Perth",
     description: "Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.",
     absoluteTitle: true,
@@ -25,12 +33,14 @@ export const PAGES = {
   },
   "/dealers": {
     updated: "2026-09-09",
+    label: "Dealer websites",
     title: "Fire your admin | Online Licensing & Digital Dealerships Australia, Perth",
     description: "Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.",
     sitemap: { changeFrequency: "weekly", priority: 0.95 },
   },
   "/licensing": {
     updated: "2026-09-09",
+    label: "Online licensing",
     title: "Signed, sealed, delivered—sell more | Online Vehicle Licensing Australia",
     description:
       "Let customers verify their identity, complete vehicle licensing and sign paperwork online without an unnecessary dealership visit.",
@@ -38,6 +48,7 @@ export const PAGES = {
   },
   "/website-development": {
     updated: "2026-09-09",
+    label: "Website development",
     title: "Make your website work harder | Website Development & Automation Perth",
     description:
       "Website Development for businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.",
@@ -46,24 +57,28 @@ export const PAGES = {
   },
   "/dealership-website-builder": {
     updated: "2026-09-08",
+    label: "Website builder",
     title: "Interactive Digital Dealership Builder | Custom Dealer Websites & Automation",
     description: "Configure a dealership website around the way your business sells, books and grows.",
     sitemap: { changeFrequency: "monthly", priority: 0.85 },
   },
   "/automation": {
     updated: "2026-09-09",
+    label: "Automation",
     title: "Stop paying for copy-paste | Business Automation Australia, Perth",
     description: "Practical workflow automation and custom integrations for Australian small and medium businesses.",
     sitemap: { changeFrequency: "monthly", priority: 0.75 },
   },
   "/seo": {
     updated: "2026-09-09",
+    label: "SEO reports",
     title: "Find your missing clicks | SEO Reports & Audits Australia",
     description: "See what is working, what is holding your website back and where the best search opportunities are.",
     sitemap: { changeFrequency: "monthly", priority: 0.75 },
   },
   "/guides": {
     updated: "2026-09-09",
+    label: "Guides",
     title: "Steal our playbook | Dealership Website & Automation Guides",
     description:
       "Practical guides for Australian dealerships on websites, search visibility, online sales, licensing and better operational systems.",
@@ -71,6 +86,7 @@ export const PAGES = {
   },
   "/portfolio/scooter-shop": {
     updated: "2026-09-08",
+    label: "Scooter Shop",
     title: "How one dealership grew organic clicks 200% | Dealer Website Case Study",
     description:
       "A connected dealership website for sales, online purchasing, licensing, parts, service, hire and long-term organic growth.",
@@ -79,6 +95,7 @@ export const PAGES = {
   },
   "/portfolio/bloomprint": {
     updated: "2026-09-08",
+    label: "Bloomprint",
     title: "Sell flowers without showing the flowers? | Marketplace Website Case Study",
     description:
       "A two-sided flower delivery marketplace: brief-led ordering for customers, paid local orders for independent florists, and a landing page system built to be found.",
@@ -87,6 +104,7 @@ export const PAGES = {
   },
   "/contact": {
     updated: "2026-09-08",
+    label: "Contact",
     title: "Bring us the bottleneck | Website & Automation Developers Australia, Perth",
     description:
       "Talk to freethedesk about a custom website, online licensing product, web application or business automation project.",
@@ -94,18 +112,21 @@ export const PAGES = {
   },
   "/legal/privacy": {
     updated: "2026-09-08",
+    label: "Privacy policy",
     title: "Privacy Policy",
     description: "How freethedesk collects, uses, stores and discloses personal information.",
     sitemap: { changeFrequency: "yearly", priority: 0.3 },
   },
   "/legal/dealer-subscription-terms": {
     updated: "2026-09-08",
+    label: "Dealer subscription terms",
     title: "Dealer Subscription Terms",
     description: "Terms for freethedesk dealer licensing and contract subscriptions.",
     sitemap: { changeFrequency: "yearly", priority: 0.3 },
   },
   "/legal/seo-subscription-terms": {
     updated: "2026-09-08",
+    label: "SEO reporting terms",
     title: "SEO Reporting & Audit Terms",
     description: "Terms for freethedesk SEO reporting and audit services.",
     sitemap: { changeFrequency: "yearly", priority: 0.3 },

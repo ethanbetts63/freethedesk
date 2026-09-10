@@ -32,6 +32,8 @@ class SeoQuote:
     name: str
     price: Decimal
     recurring: dict | None
+    one_off_addon: Decimal = Decimal("0")
+    recurring_name: str | None = None
     currency: str = "aud"
 
     @property
@@ -41,6 +43,12 @@ class SeoQuote:
     @property
     def mode(self) -> str:
         return "payment" if self.recurring is None else "subscription"
+
+    @property
+    def recurring_price(self) -> Decimal | None:
+        if self.recurring is None:
+            return None
+        return self.price - self.one_off_addon
 
 
 # field on SiteSettings, customer-facing name, Stripe recurring config (None = one-off)
@@ -67,17 +75,38 @@ def seo_quote_for_plan(plan, report_type) -> SeoQuote:
         SeoSubscriber.Plan.ONEOFF: "One-off",
     }[plan]
     if report_type == SeoSubscriber.ReportType.GBP:
-        name = f"{cadence} Google Business Profile report"
+        if plan != SeoSubscriber.Plan.ONEOFF:
+            raise PaymentConfigurationError(
+                "The Google Business Profile audit is a one-time product.", code="invalid_plan"
+            )
+        name = "One-time Google Business Profile audit"
         price = gbp_price
+        one_off_addon = Decimal("0")
+        recurring_name = None
     elif report_type == SeoSubscriber.ReportType.SEO:
         name = seo_name
         price = seo_price
+        one_off_addon = Decimal("0")
+        recurring_name = seo_name if recurring else None
     elif report_type == SeoSubscriber.ReportType.BOTH:
-        name = f"{cadence} Google Business Profile + SEO report"
+        name = (
+            f"{cadence} SEO report + one-time Google Business Profile audit"
+            if recurring
+            else "One-off SEO report + Google Business Profile audit"
+        )
         price = seo_price + gbp_price
+        one_off_addon = gbp_price if recurring else Decimal("0")
+        recurring_name = seo_name if recurring else None
     else:
         raise PaymentConfigurationError("This report type is unavailable.", code="invalid_report_type")
-    return SeoQuote(plan=plan, name=name, price=price, recurring=recurring)
+    return SeoQuote(
+        plan=plan,
+        name=name,
+        price=price,
+        recurring=recurring,
+        one_off_addon=one_off_addon,
+        recurring_name=recurring_name,
+    )
 
 
 def current_seo_terms_sha256() -> str:
@@ -156,11 +185,16 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
         "currency": quote.currency,
     }
     return_url = f"{settings.SITE_URL.rstrip('/')}/seo/payment/complete"
+    recurring_unit_amount = (
+        int((quote.recurring_price * Decimal("100")).quantize(Decimal("1")))
+        if quote.recurring_price is not None
+        else None
+    )
     price_data = {
         "currency": quote.currency,
-        "unit_amount": quote.unit_amount,
+        "unit_amount": recurring_unit_amount if recurring_unit_amount is not None else quote.unit_amount,
         "tax_behavior": "inclusive",
-        "product_data": {"name": quote.name},
+        "product_data": {"name": quote.recurring_name or quote.name},
     }
     session_args = {
         "ui_mode": "elements",
@@ -183,6 +217,16 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
     else:
         price_data["recurring"] = quote.recurring
         session_args["subscription_data"] = {"metadata": metadata}
+        if quote.one_off_addon:
+            session_args["line_items"].append({
+                "price_data": {
+                    "currency": quote.currency,
+                    "unit_amount": int((quote.one_off_addon * Decimal("100")).quantize(Decimal("1"))),
+                    "tax_behavior": "inclusive",
+                    "product_data": {"name": "One-time Google Business Profile audit"},
+                },
+                "quantity": 1,
+            })
 
     session = stripe.checkout.Session.create(**session_args)
     if not session.client_secret:

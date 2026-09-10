@@ -60,6 +60,24 @@ const reportSections = [
   },
 ];
 
+const improvementSections = [
+  {
+    title: "What the data says",
+    note: "A service page appears often in search but earns few clicks.",
+    icon: reportSections[0].icon,
+  },
+  {
+    title: "What it means",
+    note: "Its search title is not matching what people want.",
+    icon: reportSections[2].icon,
+  },
+  {
+    title: "What to improve next",
+    note: "Rewrite the title and compare the result in the next report.",
+    icon: reportSections[3].icon,
+  },
+];
+
 type SeoReportOverviewProps = {
   eyebrow: string;
   description: ReactNode;
@@ -68,6 +86,7 @@ type SeoReportOverviewProps = {
   id?: string;
   className?: string;
   showSequence?: boolean;
+  mode?: "report" | "improvement";
 };
 
 export function SeoReportOverview({
@@ -78,7 +97,10 @@ export function SeoReportOverview({
   id,
   className = "",
   showSequence = true,
+  mode = "report",
 }: SeoReportOverviewProps) {
+  const sections = mode === "improvement" ? improvementSections : reportSections;
+
   return (
     <section className={`shell ${styles.reportSection} ${className}`} id={id}>
       <div className={styles.reportCopy}>
@@ -110,13 +132,13 @@ export function SeoReportOverview({
             <i />
           </span>
           <div>
-            <strong>Quarterly SEO report</strong>
-            <small>Your business · this quarter</small>
+            <strong>{mode === "improvement" ? "SEO improvement report" : "Quarterly SEO report"}</strong>
+            <small>{mode === "improvement" ? "Real search data · this quarter" : "Your business · this quarter"}</small>
           </div>
-          <span className={styles.reportBadge}>Action plan</span>
+          <span className={styles.reportBadge}>{mode === "improvement" ? "Next actions" : "Action plan"}</span>
         </header>
         <ol className={styles.reportList}>
-          {reportSections.map((section, index) => (
+          {sections.map((section, index) => (
             <li key={section.title}>
               <span className={styles.reportIndex}>0{index + 1}</span>
               <span className={styles.reportIcon} aria-hidden="true">
@@ -130,9 +152,19 @@ export function SeoReportOverview({
           ))}
         </ol>
         <footer className={styles.reportCardFoot}>
-          <span>Plain English</span>
-          <span>Ranked by impact</span>
-          <span>Effort estimate on every item</span>
+          {mode === "improvement" ? (
+            <>
+              <span>Evidence first</span>
+              <span>Plain English</span>
+              <span>Tracked over time</span>
+            </>
+          ) : (
+            <>
+              <span>Plain English</span>
+              <span>Ranked by impact</span>
+              <span>Effort estimate on every item</span>
+            </>
+          )}
         </footer>
       </div>
     </section>

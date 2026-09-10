@@ -1,0 +1,4 @@
+.section {
+  background: var(--surface-flow);
+  padding: var(--section-space) 0;
+}

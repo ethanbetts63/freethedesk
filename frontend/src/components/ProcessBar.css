@@ -1,0 +1,123 @@
+.process-bar {
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+}
+
+.process-bar-inner {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.process-bar-label {
+  color: var(--accent-on-dark-soft);
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  margin: 0;
+  padding: 18px 0 12px;
+  text-transform: uppercase;
+}
+
+.process-bar-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.process-bar-steps li {
+  border-top: 1px solid var(--border-on-dark);
+  min-width: 0;
+}
+
+.process-bar-steps li:nth-child(even) {
+  border-left: 1px solid var(--border-on-dark);
+}
+
+.process-bar-steps a,
+.process-bar-steps li > div {
+  align-items: center;
+  color: inherit;
+  display: grid;
+  gap: 9px;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 76px;
+  padding: 14px 10px;
+  text-decoration: none;
+}
+
+.process-bar-index {
+  color: var(--accent-on-dark-soft);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.process-bar-copy strong,
+.process-bar-copy small {
+  display: block;
+}
+
+.process-bar-copy strong {
+  font-size: 0.94rem;
+  letter-spacing: -0.02em;
+}
+
+.process-bar-copy small {
+  color: var(--text-on-dark-muted);
+  font-size: 0.72rem;
+  line-height: 1.4;
+  margin-top: 4px;
+  display: none;
+}
+
+.process-bar-arrow {
+  color: var(--accent-on-dark-soft);
+  font-size: 1rem;
+  display: none;
+  transition: transform 160ms ease;
+}
+
+.process-bar-steps a:hover .process-bar-arrow {
+  transform: translateY(3px);
+}
+
+.process-bar-steps a:focus-visible {
+  outline: 2px solid var(--accent-on-dark-soft);
+  outline-offset: -2px;
+}
+
+@media (min-width: 680px) {
+  .process-bar-steps a,
+  .process-bar-steps li > div {
+    gap: 13px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    padding: 18px 20px;
+  }
+
+  .process-bar-copy small,
+  .process-bar-arrow {
+    display: block;
+  }
+}
+
+@media (min-width: 980px) {
+  .process-bar-label {
+    padding-top: 20px;
+  }
+
+  .process-bar-steps {
+    grid-template-columns: repeat(var(--process-columns, 4), minmax(0, 1fr));
+  }
+
+  .process-bar-steps li + li {
+    border-left: 1px solid var(--border-on-dark);
+  }
+
+  .process-bar-steps a,
+  .process-bar-steps li > div {
+    min-height: 104px;
+    padding: 22px 24px;
+  }
+}

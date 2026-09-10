@@ -3,13 +3,15 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/marketing/Hero";
 import { CaseStudyTeaser } from "@/components/marketing/CaseStudyTeaser";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
+import { ExpandableServiceList } from "@/components/ExpandableServiceList";
 import { Faq } from "@/components/Faq";
+import { PageOverview } from "@/components/PageOverview";
 import { PageSchema } from "@/components/PageSchema";
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { ProcessBar } from "@/components/ProcessBar";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { SectionNumber } from "@/components/SectionNumber";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
-import { ServiceScroll } from "@/components/ServiceScroll";
 import { metadataFor } from "@/lib/pages";
 import { numberSections } from "@/lib/sectionNumbers";
 import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
@@ -24,10 +26,12 @@ import styles from "./page.module.css";
 
 /* Section eyebrows in page order. */
 const sections = numberSections([
+  "Choose the right report",
   "What you're buying",
+  "Google Business Profile audit",
   "Proof this works",
   "Why it's cheap",
-  "What recommendations look like",
+  "What we inspect",
   "Choose your plan",
   "Common questions",
 ] as const);
@@ -56,19 +60,19 @@ export default async function SeoPage() {
 
   const seoStats: ProofStat[] = [
     {
+      value: formatPrice(settings.gbp_audit_price),
+      label: "One-time GBP audit",
+      description: "A single review and prioritised action list for your Google Business Profile.",
+    },
+    {
       value: formatPrice(settings.seo_monthly_price),
-      label: "SEO Report",
-      description: `From ${formatPrice(settings.seo_monthly_price)}. No setup fee, no lock-in contracts.`,
+      label: "Recurring SEO report",
+      description: `From ${formatPrice(settings.seo_monthly_price)} per report, with no lock-in contract.`,
     },
     {
       value: "~2 hrs",
-      label: "Human Labour",
-      description: "Not AI generated. A real experienced human crafts your report.",
-    },
-    {
-      value: "AI",
-      label: "Are you AI ready?",
-      description: "Run our four-point AI readiness check free, with no plan required.",
+      label: "Human judgement",
+      description: "A real, experienced person reviews the findings and ranks what matters.",
     },
   ];
 
@@ -96,7 +100,6 @@ export default async function SeoPage() {
     <main className={styles.page}>
       <PageSchema path="/seo" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      <AiReadinessBanner />
       <Hero
         eyebrow="Practical SEO reporting"
         titleLines={["Data Driven,"]}
@@ -108,11 +111,49 @@ export default async function SeoPage() {
         secondaryLabel="See what you get"
       />
 
+      <ProcessBar
+        label="How recurring SEO compounds"
+        steps={[
+          { label: "Measure", description: "Read the latest search data", href: "#report" },
+          { label: "Prioritise", description: "Find the highest-value gap", href: "#issues-we-check" },
+          { label: "Improve", description: "Fix, build or test the next thing", href: "#issues-we-check" },
+          { label: "Repeat", description: "Use fresh data to choose again", href: "#signup" },
+        ]}
+      />
+
+      <PageOverview
+        id="seo-overview"
+        eyebrow={sections["Choose the right report"]}
+        title="One-off local audit or ongoing SEO."
+        description={
+          <p>
+            These are two different services. Fix your Google Business Profile with a one-time audit, or use recurring
+            SEO reports to find, test and compound improvements across your website.
+          </p>
+        }
+        items={[
+          {
+            meta: "Recurring",
+            title: "Website SEO reports",
+            description: "A fresh, ranked action plan every cycle.",
+            href: "#report",
+          },
+          {
+            meta: "One-time",
+            title: "Google Business Profile audit",
+            description: "Fix the profile customers see in local search.",
+            href: "#gbp-audit",
+          },
+        ]}
+      />
+
       <ProofStrip stats={seoStats} />
 
       <SeoReportOverview
         id="report"
         eyebrow={sections["What you're buying"]}
+        title="A clear SEO action plan."
+        accentTitle="Delivered every cycle."
         description={
           <div className={styles.reportDescription}>
             <p>Not a dashboard. An emailed report you can read in ten minutes and act on immediately.</p>
@@ -123,8 +164,15 @@ export default async function SeoPage() {
         }
       />
 
+      <GoogleBusinessProfileAudit
+        eyebrow={sections["Google Business Profile audit"]}
+        ctaHref="#google-business-profile-audit"
+        ctaLabel="Choose a Report"
+      />
+
       <CaseStudyTeaser
         eyebrow={sections["Proof this works"]}
+        title="The result: 200% more organic clicks."
         points={casePoints}
         primaryHref="#signup"
         primaryLabel="Choose a Report"
@@ -182,21 +230,19 @@ export default async function SeoPage() {
         </div>
       </section>
 
-      <section className="shell">
-        <ServiceScroll
-          services={seoServices}
-          customHref="#signup"
-          eyebrow={sections["What recommendations look like"]}
-          title="The thinking that shows up in every report."
-          showCustomService={false}
-        />
-      </section>
+      <ExpandableServiceList
+        id="issues-we-check"
+        services={seoServices}
+        eyebrow={sections["What we inspect"]}
+        title="What we inspect in every SEO report."
+        description="These are examples of the issues and opportunities we look for. Open a category to see the kinds of checks that can appear in your report."
+      />
 
-      <GoogleBusinessProfileAudit ctaHref="#google-business-profile-audit" ctaLabel="Choose a Report" />
+      <AiReadinessBanner id="ai-readiness" />
 
       <SeoSignup settings={settings} eyebrow={sections["Choose your plan"]} />
 
-      <Faq eyebrow={sections["Common questions"]} title="Before you connect your data." items={SEO_FAQS} />
+      <Faq eyebrow={sections["Common questions"]} title="SEO report and audit questions." items={SEO_FAQS} />
 
       <ManualAdminCta
         eyebrow="Start with your own data"

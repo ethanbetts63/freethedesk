@@ -14,7 +14,7 @@ const steps: [string, string][] = [
   ],
 ];
 
-export function SubscriptionSwap({ eyebrow }: { eyebrow: string }) {
+export function SubscriptionSwap({ eyebrow, showCta = true }: { eyebrow: string; showCta?: boolean }) {
   return (
     <section className={styles.section} id="subscriptions">
       <div className="shell">
@@ -40,9 +40,11 @@ export function SubscriptionSwap({ eyebrow }: { eyebrow: string }) {
           ))}
         </ol>
 
-        <PrimaryButton className={styles.cta} href="#enquiry" direction="down">
-          Discuss your website
-        </PrimaryButton>
+        {showCta && (
+          <PrimaryButton className={styles.cta} href="#enquiry" direction="down">
+            Discuss your website
+          </PrimaryButton>
+        )}
       </div>
     </section>
   );

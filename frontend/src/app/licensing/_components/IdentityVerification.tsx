@@ -34,9 +34,9 @@ const steps = [
   },
 ];
 
-export function IdentityVerification({ eyebrow }: { eyebrow: string }) {
+export function IdentityVerification({ eyebrow, id }: { eyebrow: string; id?: string }) {
   return (
-    <section className={`shell ${styles.verify}`}>
+    <section className={`shell ${styles.verify}`} id={id}>
       <div className={styles.verifyCopy}>
         <SectionNumber>{eyebrow}</SectionNumber>
         <h2>

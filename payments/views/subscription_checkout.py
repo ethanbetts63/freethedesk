@@ -89,6 +89,7 @@ class SeoSubscriptionCheckoutView(APIView):
         return Response({
             "client_secret": client_secret,
             "price": str(quote.price),
+            "recurring_price": str(quote.recurring_price) if quote.recurring_price is not None else None,
             "currency": quote.currency.upper(),
             "cadence_label": quote.name,
             "mode": quote.mode,

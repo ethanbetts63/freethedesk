@@ -33,6 +33,7 @@ export function SeoPaymentPage() {
   const [plans, setPlans] = useState<SeoPlan[]>([]);
   const [clientSecret, setClientSecret] = useState("");
   const [quotedPrice, setQuotedPrice] = useState("");
+  const [recurringPrice, setRecurringPrice] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -64,12 +65,16 @@ export function SeoPaymentPage() {
   const displayedPrice = quotedPrice
     ? `$${Number(quotedPrice).toLocaleString("en-AU", { maximumFractionDigits: 2 })}`
     : plan?.price;
+  const displayedRecurringPrice = recurringPrice
+    ? `$${Number(recurringPrice).toLocaleString("en-AU", { maximumFractionDigits: 2 })}`
+    : "";
 
   async function prepareCheckout() {
     setError("");
     try {
       const checkout = await createSeoCheckout();
       setQuotedPrice(checkout.price);
+      setRecurringPrice(checkout.recurring_price ?? "");
       setClientSecret(checkout.client_secret);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Unable to prepare payment.");
@@ -86,7 +91,10 @@ export function SeoPaymentPage() {
           ? {
               lineLabel: productName,
               price: displayedPrice,
-              dueLabel: DUE_LABELS[account?.plan ?? "quarterly"] ?? "Due on checkout",
+              dueLabel:
+                account?.report_type === "both" && displayedRecurringPrice
+                  ? `First payment; then ${displayedRecurringPrice} ${(DUE_LABELS[account.plan] ?? "recurring").toLowerCase()}`
+                  : (DUE_LABELS[account?.plan ?? "quarterly"] ?? "Due on checkout"),
             }
           : undefined
       }

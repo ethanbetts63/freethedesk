@@ -28,6 +28,17 @@ class SeoRegistrationSerializer(BaseAccountRegistrationSerializer):
     )
     plan = serializers.ChoiceField(choices=SeoSubscriber.Plan.choices, default=SeoSubscriber.Plan.QUARTERLY)
 
+    def validate(self, attrs):
+        attrs = super().validate(attrs)
+        report_type = attrs.get("report_type", SeoSubscriber.ReportType.BOTH)
+        plan = attrs.get("plan", SeoSubscriber.Plan.QUARTERLY)
+        if report_type == SeoSubscriber.ReportType.GBP and plan != SeoSubscriber.Plan.ONEOFF:
+            raise serializers.ValidationError({"plan": "The Google Business Profile audit is a one-time product."})
+        recurring_report_types = {SeoSubscriber.ReportType.SEO, SeoSubscriber.ReportType.BOTH}
+        if report_type in recurring_report_types and plan == SeoSubscriber.Plan.ONEOFF:
+            raise serializers.ValidationError({"plan": "Website SEO reporting is a recurring service."})
+        return attrs
+
     def create(self, validated_data):
         email = validated_data["email"]
         hostname = urlsplit(validated_data.get("website", "")).hostname or email.partition("@")[2]

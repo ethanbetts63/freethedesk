@@ -16,6 +16,7 @@ export interface SeoAccount extends AccountBase {
 export interface SeoCheckout {
   client_secret: string;
   price: string;
+  recurring_price: string | null;
   currency: string;
   cadence_label: string;
   mode: "subscription" | "payment";

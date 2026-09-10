@@ -46,7 +46,7 @@ export default function GuidesPage() {
           <header className={styles.indexHeader}>
             <div>
               <SectionNumber>The guide library</SectionNumber>
-              <h2 id="latest-guides">Built from the work.</h2>
+              <h2 id="latest-guides">Dealership guides you can use.</h2>
             </div>
             <p>Clear, practical thinking drawn from building and running dealership software in the real world.</p>
           </header>

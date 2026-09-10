@@ -13,9 +13,17 @@ const AUDIT_AREAS = [
   ["Customer actions", "Website, booking and social links"],
 ] as const;
 
-export function GoogleBusinessProfileAudit({ ctaHref, ctaLabel }: { ctaHref: string; ctaLabel: string }) {
+export function GoogleBusinessProfileAudit({
+  ctaHref,
+  ctaLabel,
+  eyebrow = "Your local search presence",
+}: {
+  ctaHref: string;
+  ctaLabel: string;
+  eyebrow?: string;
+}) {
   return (
-    <section className={styles.audit} aria-labelledby="gbp-audit-title">
+    <section className={styles.audit} aria-labelledby="gbp-audit-title" id="gbp-audit">
       <div className={`shell ${styles.auditInner}`}>
         <div className={styles.copy}>
           <div className={styles.googleLockup}>
@@ -23,12 +31,12 @@ export function GoogleBusinessProfileAudit({ ctaHref, ctaLabel }: { ctaHref: str
               <GoogleLogo size={31} />
             </span>
             <span>
-              <small>Available alone or with SEO</small>
+              <small>One-time audit · available alone or with SEO</small>
               <strong>Google Business Profile</strong>
             </span>
           </div>
 
-          <SectionNumber onDark>Your local search presence</SectionNumber>
+          <SectionNumber onDark>{eyebrow}</SectionNumber>
           <h3 id="gbp-audit-title">Google Business Profile audit</h3>
           <p className={styles.intro}>
             Relevance, distance and prominence are the factors Google names first for local results, but they are not

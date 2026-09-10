@@ -6,6 +6,7 @@ import { Faq, type FaqItem } from "@/components/Faq";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
 import { PageSchema } from "@/components/PageSchema";
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { ProcessBar, type ProcessBarStep } from "@/components/ProcessBar";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { ScrollCtaButton } from "@/components/ScrollCtaButton";
 import { SectionNumber } from "@/components/SectionNumber";
@@ -83,6 +84,10 @@ type IntentSection = SectionHeading & {
 
 export type PortfolioCaseStudyConfig = {
   path: PagePath;
+  process: {
+    label: string;
+    steps: readonly ProcessBarStep[];
+  };
   hero: {
     eyebrow: string;
     title: LineHeading;
@@ -196,7 +201,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig["hero"] })
 
 function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig["intro"] }) {
   return (
-    <section className="section shell case-story-intro">
+    <section className="section shell case-story-intro" id="overview">
       <SectionNumber>{config.eyebrow}</SectionNumber>
       <div>
         <h2>
@@ -339,7 +344,7 @@ function DualSteps({ columns }: { columns: DualStepsFeature["columns"] }) {
 
 function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig["feature"] }) {
   return (
-    <section className="case-operations-section">
+    <section className="case-operations-section" id="operations">
       <div className="shell">
         <div className="case-operations-heading">
           <div>
@@ -385,7 +390,7 @@ function PortfolioMediaFeature({ config }: { config: MediaFeature }) {
 
 function PortfolioIntent({ config }: { config: IntentSection }) {
   return (
-    <section className="case-intent-section">
+    <section className="case-intent-section" id="search-structure">
       <div className="shell">
         <div className="case-intent-heading">
           <div>
@@ -424,6 +429,7 @@ function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, "s
   return (
     <>
       <SeoReportOverview
+        id="seo-growth"
         eyebrow={config.seo.eyebrow}
         title={config.seo.title}
         accentTitle={config.seo.accentTitle}
@@ -436,7 +442,7 @@ function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, "s
         }
       />
       <ProjectEnquiry id="enquiry" />
-      <Faq eyebrow={config.faq.eyebrow} title="Before we start." items={config.faq.items} />
+      <Faq eyebrow={config.faq.eyebrow} title="Website project questions." items={config.faq.items} />
       <ManualAdminCta href="#enquiry" buttonLabel="See our options" />
     </>
   );
@@ -476,8 +482,9 @@ export function PortfolioCaseStudy({ config: rawConfig }: { config: PortfolioCas
     <main className="case-page">
       <PageSchema path={config.path} />
       <PortfolioHero config={config.hero} />
-      <ProofStrip id={config.proof.id} stats={config.proof.stats} />
+      <ProcessBar label={config.process.label} steps={config.process.steps} />
       <PortfolioIntro config={config.intro} />
+      <ProofStrip id={config.proof.id} stats={config.proof.stats} />
       <PortfolioTourSection config={config.tour} />
       <PortfolioMobileStory config={config.mobile} />
       <PortfolioFeature config={config.feature} />

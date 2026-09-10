@@ -1,18 +1,18 @@
 # SEO Reporting & Audit Terms
 
-Effective date: 7 September 2026
+Effective date: 9 September 2026
 
-> Draft for launch preparation. Free the Desk's legal entity name, ABN and service address must be added and these terms should receive Australian legal review before paid subscriptions are enabled.
+> Draft for launch preparation. Free the Desk's legal entity name and service address must be added and these terms should receive Australian legal review before paid subscriptions are enabled.
 
 ## 1. These terms
 
-These terms govern a customer's purchase of a Free the Desk SEO report, Google Business Profile report, or combined report plan. They form an agreement between Free the Desk (we, us or our) and the business identified during signup (Customer, you or your).
+These terms govern a customer's purchase of recurring Free the Desk website SEO reports, a one-time Google Business Profile audit, or the combined option. They form an agreement between Free the Desk (we, us or our) and the business identified during signup (Customer, you or your).
 
 The person accepting these terms confirms that they are authorised to enter the agreement for the Customer. These are business service terms.
 
 ## 2. The service
 
-The reporting service is a periodic or one-off report covering the Customer's website SEO, Google Business Profile, or both, according to the selections shown before payment. Each report is a human-written, plain-English document that reviews the relevant period, identifies issues and opportunities, and gives a prioritised list of recommended next steps. The free AI readiness check is available separately and does not require a purchase.
+The reporting service is a recurring website SEO report, a one-time Google Business Profile audit, or both, according to the selections shown before payment. Each delivered report or audit is a human-written, plain-English document that identifies issues and opportunities and gives a prioritised list of recommended next steps. The free AI readiness check is available separately and does not require a purchase.
 
 A Google Business Profile report is a focused review of the Customer's profile and local-search signals. It does not include a website SEO report unless the combined option is selected.
 
@@ -20,12 +20,12 @@ The service is analysis and recommendations. Implementing the recommendations, w
 
 ## 3. Plans
 
-- Monthly report: one report each month.
-- Quarterly report: one report every three months.
-- Bi-annual report: one report every six months.
-- One-off report: a single report with no ongoing subscription.
+- Monthly SEO report: one website SEO report each month.
+- Quarterly SEO report: one website SEO report every three months.
+- Bi-annual SEO report: one website SEO report every six months.
+- Google Business Profile audit: one audit with no ongoing subscription.
 
-The Customer also selects the report content: Google Business Profile, website SEO, or both. The price displayed before payment reflects both the report content and frequency selected.
+The combined option adds one Google Business Profile audit to the first payment of a recurring website SEO plan. The audit does not recur. The checkout shows the first payment and the lower recurring SEO price separately.
 
 The selected plan, current GST-inclusive price and billing frequency are displayed before payment. If there is a conflict between these terms and a signed custom proposal, the custom proposal prevails to the extent of the conflict.
 
@@ -33,7 +33,7 @@ The selected plan, current GST-inclusive price and billing frequency are display
 
 A paid service begins when Stripe confirms payment. You authorise Stripe to charge the payment method supplied for the displayed GST-inclusive fee at the billing frequency shown for the selected product.
 
-Recurring plans renew automatically at their billing frequency until cancelled. A one-off report or standalone audit is charged once and does not renew. There is no fixed minimum term unless a separate written proposal says otherwise. Invoices and payment records may be issued electronically.
+Recurring website SEO plans renew automatically at their billing frequency until cancelled. A standalone Google Business Profile audit is charged once and does not renew. When the combined option is selected, the Google Business Profile audit is charged only on the first invoice and later renewals contain only the recurring website SEO report. There is no fixed minimum term unless a separate written proposal says otherwise. Invoices and payment records may be issued electronically.
 
 If payment fails, we may retry the payment and may pause report delivery until the account is brought up to date. We will not charge a new or increased recurring fee without giving at least 30 days' notice and an opportunity to cancel before the new fee applies.
 
@@ -118,6 +118,7 @@ Neither party may transfer this agreement without the other's consent, which mus
 ## 20. Contact and provider details
 
 - Service: Free the Desk
+- ABN: 11 493 753 896
 - Email: hello@freethedesk.com.au
 - Location: Perth, Western Australia
-- Legal entity, ABN and service address: to be confirmed before production launch
+- Legal entity and service address: to be confirmed before production launch

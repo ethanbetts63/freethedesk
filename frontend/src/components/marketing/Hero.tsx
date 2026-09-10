@@ -47,9 +47,11 @@ export function Hero({
           <Eyebrow className={styles.eyebrow}>{eyebrow}</Eyebrow>
           <h1>
             {titleLines.map((line, index) => (
+              /* The trailing space collapses to nothing on screen, but it keeps
+                 the lines separate words for anything that flattens the heading
+                 inline - without it extractors read "Digitalautomationsolutions". */
               <span key={index}>
-                {line}
-                <br />
+                {line} <br />
               </span>
             ))}
             <em>{accentTitle}</em>

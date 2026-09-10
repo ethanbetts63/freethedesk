@@ -7,13 +7,23 @@ import styles from "./CaseStudyTeaser.module.css";
 
 type CaseStudyTeaserProps = {
   eyebrow: string;
+  title?: string;
   children: React.ReactNode;
   points: readonly string[];
   primaryHref: string;
   primaryLabel: string;
+  showPrimaryAction?: boolean;
 };
 
-export function CaseStudyTeaser({ eyebrow, children, points, primaryHref, primaryLabel }: CaseStudyTeaserProps) {
+export function CaseStudyTeaser({
+  eyebrow,
+  title = "Scooter Shop, Perth.",
+  children,
+  points,
+  primaryHref,
+  primaryLabel,
+  showPrimaryAction = true,
+}: CaseStudyTeaserProps) {
   return (
     <section className={styles.section}>
       <div className={`shell ${styles.inner}`}>
@@ -42,7 +52,7 @@ export function CaseStudyTeaser({ eyebrow, children, points, primaryHref, primar
         </div>
         <div className={styles.copy}>
           <SectionNumber onDark>{eyebrow}</SectionNumber>
-          <h2>Scooter Shop, Perth.</h2>
+          <h2>{title}</h2>
           {children}
           <div className={styles.points}>
             {points.map((point) => (
@@ -50,9 +60,11 @@ export function CaseStudyTeaser({ eyebrow, children, points, primaryHref, primar
             ))}
           </div>
           <div className={styles.actions}>
-            <PrimaryButton href={primaryHref} direction="down" size="compact">
-              {primaryLabel}
-            </PrimaryButton>
+            {showPrimaryAction && (
+              <PrimaryButton href={primaryHref} direction="down" size="compact">
+                {primaryLabel}
+              </PrimaryButton>
+            )}
             <Link href="/portfolio/scooter-shop">
               Read the full case study <span>↗</span>
             </Link>

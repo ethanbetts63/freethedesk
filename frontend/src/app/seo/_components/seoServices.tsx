@@ -5,7 +5,7 @@ const iconProps = { viewBox: "0 0 64 64", width: 56, height: 56, fill: "none" as
 
 export const seoServices: Service[] = [
   {
-    title: "Crawl and redirect architecture",
+    title: "Can search engines find the right pages?",
     body: "Search engines only spend so much attention on a site. What gets crawled, what gets indexed, and what old links point to all decide how much of that attention goes to waste.",
     examples: [
       "Old URLs redirected to their nearest modern equivalent, not just the homepage—so a page already ranking doesn't lose that position for good",
@@ -35,7 +35,7 @@ export const seoServices: Service[] = [
     ),
   },
   {
-    title: "Content worth linking to",
+    title: "Does the content deserve to rank?",
     body: "One of the strongest signals a search engine weighs is whether other pages—and people—link to yours. That has to be earned with something worth linking to, not requested.",
     examples: [
       "Long-form guides with a named author and a real publish date, not anonymous filler",
@@ -70,7 +70,7 @@ export const seoServices: Service[] = [
     ),
   },
   {
-    title: "High-intent page testing",
+    title: "Are high-intent pages missing?",
     body: "The highest-leverage move is also the easiest to get wrong: splitting a page off to chase a specific search intent, without it reading as a duplicate of the page it came from.",
     examples: [
       "Built from a real gap in the data—a search term or local variant already earning clicks elsewhere with nothing built for it",
@@ -94,7 +94,7 @@ export const seoServices: Service[] = [
     ),
   },
   {
-    title: "AI search preparedness",
+    title: "Can AI search understand your public website?",
     body: "AI answer engines need to understand the page, move through it reliably, and be allowed to read it. We check the practical foundations before anyone promises visibility in AI answers.",
     examples: [
       "A clean accessibility tree that exposes headings, controls, links and page meaning without relying on the visual design",

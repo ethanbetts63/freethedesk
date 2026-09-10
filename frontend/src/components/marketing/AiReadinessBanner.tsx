@@ -8,16 +8,18 @@ import styles from "./AiReadinessBanner.module.css";
 export function AiReadinessBanner({
   className = "",
   titleId = "ai-readiness-banner-title",
+  id,
 }: {
   className?: string;
   titleId?: string;
+  id?: string;
 }) {
   return (
-    <section className={`${styles.banner} ${className}`} aria-labelledby={titleId}>
+    <section className={`${styles.banner} ${className}`} aria-labelledby={titleId} id={id}>
       <div className={`shell ${styles.inner}`}>
         <div className={styles.copy}>
           <h2 id={titleId}>
-            Can AI systems <span className="moving-colour-text">read your site?</span>
+            Can customers find you <span className="moving-colour-text">in AI answers?</span>
           </h2>
         </div>
         <AiReadinessForm />

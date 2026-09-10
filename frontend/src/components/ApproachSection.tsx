@@ -18,11 +18,12 @@ type ApproachSectionProps = {
   steps: readonly ApproachStep[];
   ctaHref: string;
   ctaLabel: string;
+  id?: string;
 };
 
-export function ApproachSection({ eyebrow, title, accentTitle, steps, ctaHref, ctaLabel }: ApproachSectionProps) {
+export function ApproachSection({ eyebrow, title, accentTitle, steps, ctaHref, ctaLabel, id }: ApproachSectionProps) {
   return (
-    <section className="approach-section">
+    <section className="approach-section" id={id}>
       <div className="shell approach-inner">
         <SectionNumber onDark>{eyebrow}</SectionNumber>
         <h2>

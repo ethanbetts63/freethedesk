@@ -47,12 +47,12 @@ def test_signup_defaults_plan_to_quarterly(client):
     assert SeoSubscriber.objects.get().plan == SeoSubscriber.Plan.QUARTERLY
 
 
-def test_signup_accepts_one_off_plan(client):
+def test_signup_rejects_one_off_website_seo(client):
     response = client.post(
         reverse("seo-signup"), {**PAYLOAD, "plan": "oneoff"}, content_type="application/json"
     )
-    assert response.status_code == 201
-    assert SeoSubscriber.objects.get().plan == SeoSubscriber.Plan.ONEOFF
+    assert response.status_code == 400
+    assert not SeoSubscriber.objects.exists()
 
 
 def test_signup_accepts_standalone_google_business_profile_audit(client):
@@ -66,6 +66,16 @@ def test_signup_accepts_standalone_google_business_profile_audit(client):
     assert subscriber.plan == SeoSubscriber.Plan.ONEOFF
     assert subscriber.report_type == SeoSubscriber.ReportType.GBP
     assert subscriber.is_one_off
+
+
+def test_signup_rejects_recurring_google_business_profile_audit(client):
+    response = client.post(
+        reverse("seo-signup"),
+        {**PAYLOAD, "plan": "quarterly", "report_type": "gbp"},
+        content_type="application/json",
+    )
+    assert response.status_code == 400
+    assert not SeoSubscriber.objects.exists()
 
 
 def test_signup_rejects_unknown_plan(client):

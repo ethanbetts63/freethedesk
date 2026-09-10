@@ -27,6 +27,7 @@ export function ServiceScroll({
   title,
   ctaLabel = "Tell us about it",
   showCustomService = true,
+  showCustomCta = true,
 }: {
   services: Service[];
   customHref: string;
@@ -34,6 +35,7 @@ export function ServiceScroll({
   title: string;
   ctaLabel?: string;
   showCustomService?: boolean;
+  showCustomCta?: boolean;
 }) {
   // The form is below this list, so in-page links scroll down.
   const ctaDirection = customHref.startsWith("#") ? "down" : "page";
@@ -82,9 +84,11 @@ export function ServiceScroll({
             <h3>{customService.title}</h3>
             <p>{customService.body}</p>
           </div>
-          <PrimaryButton className="service-custom-cta" href={customHref} direction={ctaDirection}>
-            {ctaLabel}
-          </PrimaryButton>
+          {showCustomCta && (
+            <PrimaryButton className="service-custom-cta" href={customHref} direction={ctaDirection}>
+              {ctaLabel}
+            </PrimaryButton>
+          )}
         </div>
       )}
     </div>

@@ -11,9 +11,9 @@ export function WebsiteProduct() {
         <div className={styles.copy}>
           <Eyebrow className={styles.eyebrow}>Interactive website builder</Eyebrow>
           <h2>
-            Digital Dealer
+            Build your dealership
             <br />
-            <em>Demo.</em>
+            <em>website live.</em>
           </h2>
           <p className={styles.lead}>
             Shape a complete dealership website around your brand. Choose the capabilities you need, then explore every

@@ -10,13 +10,6 @@ import { useSignup } from "@/lib/useSignup";
 import { buildSeoPlans, REPORT_TYPES, reportTypeLabel, type SeoPlanCode, type SeoReportType } from "../_lib/plans";
 import styles from "../page.module.css";
 
-const FREQUENCIES: { code: SeoPlanCode; name: string }[] = [
-  { code: "monthly", name: "Monthly" },
-  { code: "quarterly", name: "Quarterly" },
-  { code: "biannual", name: "Bi-annual" },
-  { code: "oneoff", name: "One-off" },
-];
-
 /** The stateful half of the signup section. `heading` arrives already rendered
     from the server so its markup stays out of the client bundle. */
 export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSettings; heading: React.ReactNode }) {
@@ -87,13 +80,13 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
         </div>
 
         <div className={formStyles.choiceGroup}>
-          <p>How often?</p>
+          <p>{reportType === "gbp" ? "Payment schedule" : "How often?"}</p>
           <div
             className={`${formStyles.choiceGrid} ${styles.frequencyGrid}`}
             role="radiogroup"
             aria-label="Report frequency"
           >
-            {FREQUENCIES.map((frequency) => (
+            {plans.map((frequency) => (
               <label
                 className={`${selectedCode === frequency.code ? formStyles.choiceSelected : ""} ${
                   recommendedFrequency === frequency.code ? styles.frequencyRecommended : ""

@@ -334,21 +334,21 @@ export function WebsitePreview(props: WebsitePreviewProps) {
           <b>01</b>
           <span>
             <strong>Customize</strong>
-            <small>Choose your capabilities</small>
+            <small>Add your brand and capabilities</small>
           </span>
         </div>
         <div>
           <b>02</b>
           <span>
-            <strong>Interact</strong>
-            <small>Click through the preview</small>
+            <strong>Explore</strong>
+            <small>Use the live website preview</small>
           </span>
         </div>
         <div>
           <b>03</b>
           <span>
-            <strong>Checkout</strong>
-            <small>Review your build</small>
+            <strong>Send it</strong>
+            <small>Give the configuration to our team</small>
           </span>
         </div>
       </div>

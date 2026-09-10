@@ -6,7 +6,9 @@ import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
+import { PageOverview } from "@/components/PageOverview";
 import { PageSchema } from "@/components/PageSchema";
+import { ProcessBar } from "@/components/ProcessBar";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { metadataFor } from "@/lib/pages";
 import { numberSections } from "@/lib/sectionNumbers";
@@ -17,6 +19,7 @@ import { automationServices } from "./_components/automationServices";
 
 /* Section eyebrows in page order. */
 const sections = numberSections([
+  "What automation covers",
   "What automation means",
   "Practical automation",
   "Our approach",
@@ -92,15 +95,49 @@ export default function AutomationPage() {
         secondaryLabel="Explore workflows"
       />
 
-      <ProofStrip stats={automationStats} />
+      <ProcessBar
+        label="How automation earns its place"
+        steps={[
+          { label: "Find the repetition", description: "Start with work that happens every week", href: "#overview" },
+          {
+            label: "Connect the tools",
+            description: "Use the systems you already rely on",
+            href: "#automation-meaning",
+          },
+          { label: "Automate the handoff", description: "Move information without copy-paste", href: "#workflows" },
+          { label: "Monitor and expand", description: "Prove it works before building more", href: "#approach" },
+        ]}
+      />
+
+      <PageOverview
+        id="overview"
+        eyebrow={sections["What automation covers"]}
+        title="What business automation actually covers."
+        description={
+          <p>
+            If a computer-based task repeats, follows rules or moves the same information between people and systems, it
+            may be worth automating. We find the simplest useful place to begin.
+          </p>
+        }
+        items={[
+          { title: "What it means", description: "The work your systems can handle.", href: "#automation-meaning" },
+          { title: "Common workflows", description: "Practical examples across the business.", href: "#workflows" },
+          { title: "How we start", description: "Small, useful and low-risk first.", href: "#approach" },
+          { title: "Your bottleneck", description: "A custom build around your process.", href: "#enquiry" },
+        ]}
+      />
 
       <AutomationMeaning
+        id="automation-meaning"
         eyebrow={sections["What automation means"]}
+        title="The admin your systems can handle."
         description="Automation means the systems you already use handle repetitive work—capturing details, moving information, sending follow-ups and keeping work moving without someone doing it by hand."
         primaryHref="#enquiry"
         primaryLabel="Find your first automation"
         panelTitle="Your business"
       />
+
+      <ProofStrip stats={automationStats} />
 
       <section className="shell" id="workflows">
         <ServiceScroll
@@ -113,9 +150,10 @@ export default function AutomationPage() {
       </section>
 
       <ApproachSection
+        id="approach"
         eyebrow={sections["Our approach"]}
-        title="Start small."
-        accentTitle="Dream big."
+        title="Start small. Prove it."
+        accentTitle="Then expand."
         steps={approachSteps}
         ctaHref="#enquiry"
         ctaLabel="Find your first automation"
@@ -123,7 +161,7 @@ export default function AutomationPage() {
 
       <ProjectEnquiry id="enquiry" />
 
-      <Faq eyebrow={sections["Common questions"]} title="Before we start." items={AUTOMATION_FAQS} />
+      <Faq eyebrow={sections["Common questions"]} title="Business automation questions." items={AUTOMATION_FAQS} />
 
       <ManualAdminCta href="#enquiry" />
     </main>

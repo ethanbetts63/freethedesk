@@ -8,6 +8,15 @@ export const metadata: Metadata = metadataFor("/portfolio/scooter-shop");
 
 const config = {
   path: "/portfolio/scooter-shop",
+  process: {
+    label: "What this case study covers",
+    steps: [
+      { label: "The brief", description: "The dealership problem to solve", href: "#overview" },
+      { label: "Customer journeys", description: "Sales, service, parts and hire", href: "#tour" },
+      { label: "Dealership operations", description: "The system behind the website", href: "#operations" },
+      { label: "Search growth", description: "How more customers found it", href: "#seo-growth" },
+    ],
+  },
   hero: {
     eyebrow: "Scooter Shop case study",
     title: { lines: ["One dealership.", "One connected system."], accentLine: 1 },
@@ -109,7 +118,7 @@ const config = {
   },
   mobile: {
     eyebrow: "Every screen",
-    title: "Mobile First.",
+    title: "Designed for the screen customers use.",
     description:
       "For Scooter Shop we found that an average of 66% of users are browsing on mobile. That is why every journey starts with the smallest screen in our process—not as a reduced version of desktop.",
     stat: {
@@ -128,7 +137,7 @@ const config = {
   feature: {
     variant: "operations",
     eyebrow: "Behind the website",
-    title: { lines: ["The part customers", "never have to see."] },
+    title: { lines: ["Dealership operations", "behind the website."] },
     description:
       "The public website is only half the system. The management experience is organised around what dealership staff need to action next, so better customer service does not create more administration.",
     console: {
@@ -161,7 +170,7 @@ const config = {
   },
   intent: {
     eyebrow: "High-intent pages",
-    title: { lines: ["One website.", "Many useful ways in."] },
+    title: { lines: ["Search pages built", "around customer intent."] },
     description:
       "Different customers reveal different intent in the way they search: a Vespa service, a used motorcycle or a specific SYM part. We build focused pages around those searches to capture more high-intent organic traffic—then give each visitor a more relevant next step.",
     groups: [

@@ -8,6 +8,15 @@ export const metadata: Metadata = metadataFor("/portfolio/bloomprint");
 
 const config = {
   path: "/portfolio/bloomprint",
+  process: {
+    label: "What this case study covers",
+    steps: [
+      { label: "The brief", description: "A different way to order flowers", href: "#overview" },
+      { label: "Customer journey", description: "From description to paid order", href: "#tour" },
+      { label: "Two-sided marketplace", description: "Customers and florists working together", href: "#operations" },
+      { label: "Search growth", description: "How a new brand gets found", href: "#seo-growth" },
+    ],
+  },
   hero: {
     eyebrow: "Bloomprint case study",
     title: { lines: ["Not a catalogue.", "A brief."], accentLine: 1 },
@@ -127,7 +136,7 @@ const config = {
   },
   mobile: {
     eyebrow: "Every screen",
-    title: "Mobile First.",
+    title: "The whole order works on mobile.",
     description:
       "Flower orders often begin on a phone, so the brief, budget, delivery details and payment path were designed for the smallest screen first. The mobile journey is the product—not a compressed desktop checkout.",
     stat: {
@@ -147,7 +156,7 @@ const config = {
   feature: {
     variant: "dual-steps",
     eyebrow: "Both sides",
-    title: { lines: ["A marketplace only", "works twice."] },
+    title: { lines: ["One marketplace.", "Two customers."] },
     description:
       "A customer journey that ends in a beautiful order is worthless if no florist wants to make it. Both sides were designed together, so what the customer is asked for is exactly what the florist needs to start work.",
     columns: [

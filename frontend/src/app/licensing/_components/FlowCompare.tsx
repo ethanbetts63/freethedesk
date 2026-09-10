@@ -98,7 +98,7 @@ export function FlowCompare() {
           steps={builtInSteps}
           highlight
           eyebrow="Recommended"
-          cta={{ href: "/dealership-website-builder", label: "Dealer Web Demo" }}
+          cta={{ href: "/dealership-website-builder", label: "Try the free demo" }}
         />
       </div>
     </div>

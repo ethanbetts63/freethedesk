@@ -4,8 +4,10 @@ import Link from "next/link";
 import { Hero } from "@/components/marketing/Hero";
 import { Faq } from "@/components/Faq";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
+import { PageOverview } from "@/components/PageOverview";
 import { PageSchema } from "@/components/PageSchema";
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { ProcessBar } from "@/components/ProcessBar";
 import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
 import { ScrollCtaButton } from "@/components/ScrollCtaButton";
 import { SectionNumber } from "@/components/SectionNumber";
@@ -41,6 +43,7 @@ const licensingStats: ProofStat[] = [
 
 /* Section eyebrows in page order. */
 const sections = numberSections([
+  "What you get",
   "A shorter path to sold",
   "Two ways to use it",
   "Know who's signing",
@@ -71,13 +74,47 @@ export default async function LicensingPage() {
         secondaryLabel="Talk to us"
       />
 
-      <ProofStrip stats={licensingStats} />
+      <ProcessBar
+        label="The online licensing journey"
+        steps={[
+          { label: "Choose", description: "Start from the vehicle or sale", href: "#shorter-path" },
+          { label: "Verify", description: "Confirm the customer's identity", href: "#identity-verification" },
+          { label: "Sign and pay", description: "Complete paperwork from anywhere", href: "#configuration-options" },
+          { label: "Finish the handover", description: "Arrange delivery or pickup", href: "#signup" },
+        ]}
+      />
 
-      <section className={styles.comparisonSection}>
+      <PageOverview
+        id="licensing-overview"
+        eyebrow={sections["What you get"]}
+        title="Put the whole licensing journey online."
+        description={
+          <p>
+            Use our hosted portal with your current website, or build the flow directly into a dealership site. Either
+            way, customers verify, sign and complete the paperwork remotely.
+          </p>
+        }
+        items={[
+          { title: "The shorter journey", description: "See which customer steps disappear.", href: "#shorter-path" },
+          {
+            title: "Two setup options",
+            description: "Hosted portal or built into your website.",
+            href: "#configuration-options",
+          },
+          {
+            title: "Identity verification",
+            description: "Stripe checks the document and the person.",
+            href: "#identity-verification",
+          },
+          { title: "Plans and pricing", description: "Choose the setup that fits.", href: "#signup" },
+        ]}
+      />
+
+      <section className={styles.comparisonSection} id="shorter-path">
         <div className={`shell ${styles.comparison}`}>
           <div className={styles.comparisonCopy}>
             <SectionNumber>{sections["A shorter path to sold"]}</SectionNumber>
-            <h2>Keep the momentum.</h2>
+            <h2>Cut six steps down to four.</h2>
             <p>Remove the steps that add effort without adding value to the customer or the dealership.</p>
             <PrimaryButton className={styles.sectionCta} href="#signup" direction="down" size="compact">
               Choose your plan
@@ -114,6 +151,8 @@ export default async function LicensingPage() {
         </div>
       </section>
 
+      <ProofStrip stats={licensingStats} />
+
       <section className={styles.optionsSection} id="configuration-options">
         <div className={`shell ${styles.optionsLayout}`}>
           <div className={styles.optionsHeading}>
@@ -148,11 +187,11 @@ export default async function LicensingPage() {
         </div>
       </section>
 
-      <IdentityVerification eyebrow={sections["Know who's signing"]} />
+      <IdentityVerification id="identity-verification" eyebrow={sections["Know who's signing"]} />
 
       <SignupPlans settings={settings} eyebrow={sections["Choose your plan"]} />
 
-      <Faq eyebrow={sections["Common questions"]} title="Before you sign up." items={LICENSING_FAQS} />
+      <Faq eyebrow={sections["Common questions"]} title="Online licensing questions." items={LICENSING_FAQS} />
 
       <ManualAdminCta
         eyebrow={sections["Remove the barrier"]}

@@ -40,6 +40,6 @@ export const SEO_FAQS: FaqItem[] = [
   {
     question: "What's the Google Business Profile audit?",
     answer:
-      "A focused review of your Google Business Profile: every issue, every field we'd change, and the exact value we'd change it to. Choose it by itself or combine it with an SEO report, then select monthly, quarterly, bi-annual or one-off delivery.",
+      "A one-time review of your Google Business Profile: every issue, every field we'd change, and the exact value we'd change it to. Choose it by itself, or add it once when you begin a recurring SEO reporting plan.",
   },
 ];
