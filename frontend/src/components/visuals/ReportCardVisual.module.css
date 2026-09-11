@@ -47,14 +47,14 @@
 }
 
 .head small {
-  color: var(--slate-500);
+  color: var(--text-muted);
   font-size: 0.7rem;
 }
 
 .badge {
   background: var(--slate-100);
   border: 1px solid var(--slate-200);
-  color: var(--page-accent, var(--brand-accent));
+  color: var(--accent-ink);
   font-size: 0.56rem;
   font-weight: 900;
   letter-spacing: 0.1em;
@@ -103,7 +103,7 @@
   align-items: center;
   background: linear-gradient(135deg, var(--slate-100), var(--purple-surface));
   border: 1px solid var(--slate-100);
-  color: var(--page-accent, var(--brand-accent));
+  color: var(--accent-ink);
   display: flex;
   flex: 0 0 auto;
   font-size: 0.8rem;
@@ -120,7 +120,7 @@
 }
 
 .list p {
-  color: var(--slate-500);
+  color: var(--text-muted);
   font-size: 0.81rem;
   line-height: 1.45;
   margin: 0;

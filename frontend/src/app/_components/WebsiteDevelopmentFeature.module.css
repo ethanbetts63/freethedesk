@@ -9,7 +9,7 @@
 .browserBar {
   align-items: center;
   background: var(--slate-100);
-  color: var(--slate-500);
+  color: var(--text-muted);
   display: grid;
   font-size: 0.52rem;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -35,7 +35,7 @@
   white-space: nowrap;
 }
 .browserBar b {
-  color: var(--status-won);
+  color: var(--success-ink);
   font-size: 0.5rem;
   justify-self: end;
   letter-spacing: 0.1em;
@@ -159,7 +159,7 @@
   text-transform: uppercase;
 }
 .systemPanel header b {
-  color: var(--status-won);
+  color: var(--success-ink);
 }
 .systemPanel > div {
   align-items: center;
@@ -180,7 +180,7 @@
   font-weight: 900;
 }
 .systemPanel strong {
-  color: var(--status-won);
+  color: var(--success-ink);
   font-size: 0.52rem;
   text-transform: uppercase;
 }

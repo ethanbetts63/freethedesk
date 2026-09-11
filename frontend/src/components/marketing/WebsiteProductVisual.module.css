@@ -16,7 +16,7 @@
   align-items: center;
   background: var(--slate-100);
   border-bottom: 1px solid var(--slate-200);
-  color: var(--slate-500);
+  color: var(--text-muted);
   display: grid;
   font-size: 0.48rem;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -43,7 +43,7 @@
 }
 
 .browserTop b {
-  color: var(--section-accent);
+  color: var(--accent-ink);
   display: none;
   font-size: 0.46rem;
   justify-self: end;
