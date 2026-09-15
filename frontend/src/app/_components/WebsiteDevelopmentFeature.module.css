@@ -3,7 +3,7 @@
   background: var(--surface-dark);
   box-shadow: 12px 12px 0 var(--slate-100);
   min-height: 450px;
-  padding: 32px var(--space-s) var(--space-ml);
+  padding: var(--space-xl) var(--space-s) var(--space-ml);
   position: relative;
 }
 .browserBar {
@@ -46,7 +46,7 @@
   color: var(--slate-950);
   min-height: 330px;
   overflow: hidden;
-  padding: var(--space-m) var(--space-s) 58px;
+  padding: var(--space-m) var(--space-s) var(--space-2xl);
 }
 .websiteCanvas nav {
   align-items: center;
@@ -192,11 +192,11 @@
     padding: var(--space-xl) var(--space-xl) var(--space-xl);
   }
   .browserBar > span {
-    padding: var(--space-3xs) 42px;
+    padding: var(--space-3xs) var(--space-xl);
   }
   .websiteCanvas {
     min-height: 360px;
-    padding: var(--space-ml) var(--space-l) 52px;
+    padding: var(--space-ml) var(--space-l) var(--space-2xl);
   }
   .pageHero {
     min-height: 215px;

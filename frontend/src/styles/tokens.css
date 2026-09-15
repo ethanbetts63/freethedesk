@@ -237,6 +237,8 @@
   --text-body: 0.84rem;
   --text-lead: 0.92rem;
   --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
   --weight-control: 700;
   --weight-strong: 700;
   --weight-heavy: 800;

@@ -174,7 +174,7 @@
 .flowStepsList li {
   border-top: 1px dashed color-mix(in srgb, var(--bg) 20%, transparent);
   counter-increment: flow-step;
-  padding: var(--space-m) 0 var(--space-m) 34px;
+  padding: var(--space-m) 0 var(--space-m) var(--space-xl);
   position: relative;
 }
 .flowStepsList li:first-child {
@@ -374,7 +374,7 @@
 .successPhoneBody {
   background: var(--surface-flow);
   height: 100%;
-  padding: 30px var(--space-m);
+  padding: var(--space-xl) var(--space-m);
   text-align: center;
 }
 .successPhoneCheck {

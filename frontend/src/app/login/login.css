@@ -36,7 +36,7 @@
   border: 1px solid color-mix(in srgb, var(--slate-300) 85%, transparent);
   box-shadow: 0 25px 70px color-mix(in srgb, var(--blue-950) 12%, transparent);
   max-width: 450px;
-  padding: 28px var(--space-ml);
+  padding: var(--space-xl) var(--space-ml);
   position: relative;
   width: 100%;
   z-index: 1;
@@ -53,7 +53,7 @@
   color: var(--text-muted);
   font-size: var(--text-small);
   line-height: 1.5;
-  margin: var(--space-s) 0 28px;
+  margin: var(--space-s) 0 var(--space-xl);
 }
 .login-card form {
   display: flex;

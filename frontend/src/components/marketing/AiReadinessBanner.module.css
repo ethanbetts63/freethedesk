@@ -124,7 +124,7 @@
 }
 .modalBanner .inner {
   align-items: stretch;
-  padding: 58px var(--space-l) 28px;
+  padding: var(--space-2xl) var(--space-l) var(--space-xl);
 }
 .modalBanner .copy h2 {
   font-size: var(--display-1);

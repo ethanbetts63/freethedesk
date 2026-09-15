@@ -35,7 +35,7 @@
   display: flex;
   flex-direction: column;
   min-height: 540px;
-  padding: 28px var(--space-ml);
+  padding: var(--space-xl) var(--space-ml);
   position: relative;
   z-index: 2;
 }
@@ -123,9 +123,7 @@
   justify-content: center;
   min-height: auto;
   overflow-y: auto;
-  padding: 60px var(--space-ml);
-  padding-bottom: 80px;
-  padding-top: 80px;
+  padding: var(--space-3xl) var(--space-ml);
 }
 .paymentForm,
 .checkoutState {

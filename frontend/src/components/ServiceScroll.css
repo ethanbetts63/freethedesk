@@ -64,7 +64,7 @@ main:has(.service-scroll) {
 .service-lead > p {
   color: var(--text-muted);
   font-size: var(--text-lead);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   line-height: 1.65;
   margin: 0;
 }

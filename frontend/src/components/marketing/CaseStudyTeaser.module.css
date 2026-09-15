@@ -73,7 +73,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-xs);
-  margin: var(--space-l) 0 30px;
+  margin: var(--space-l) 0 var(--space-xl);
 }
 .points span {
   border: 1px solid color-mix(in srgb, var(--bg) 22%, transparent);

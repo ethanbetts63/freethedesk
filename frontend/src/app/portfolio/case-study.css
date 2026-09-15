@@ -66,7 +66,7 @@
   text-transform: uppercase;
 }
 .case-hero-media {
-  padding: var(--space-l) 0 44px 28px;
+  padding: var(--space-l) 0 var(--space-2xl) var(--space-xl);
   position: relative;
   padding-left: var(--space-s);
   margin: 0;
@@ -104,7 +104,7 @@
   color: var(--text-subtle);
   font-size: var(--text-nano);
   margin: 0 auto;
-  padding: var(--space-3xs) 56px;
+  padding: var(--space-3xs) var(--space-2xl);
   padding-left: var(--space-l);
   padding-right: var(--space-l);
 }
@@ -446,7 +446,7 @@
   width: 20px;
 }
 .case-ops-main {
-  padding: 28px var(--space-ml);
+  padding: var(--space-xl) var(--space-ml);
 }
 .case-ops-topline {
   align-items: start;
@@ -544,7 +544,7 @@
   display: flex;
   flex-direction: column;
   min-height: auto;
-  padding: 27px var(--space-l);
+  padding: var(--space-xl) var(--space-l);
 }
 .case-intent-grid header {
   min-height: auto;
@@ -597,7 +597,7 @@
   color: var(--text);
   display: flex;
   flex-direction: column;
-  padding: 32px 28px var(--space-l);
+  padding: var(--space-xl) var(--space-xl) var(--space-l);
 }
 .case-steps-column-alt {
   background: var(--accent);
@@ -808,7 +808,7 @@
     border-right: 1px solid var(--border-strong);
     flex-direction: column;
     overflow-x: revert;
-    padding: 29px var(--space-ml);
+    padding: var(--space-xl) var(--space-ml);
   }
   .case-ops-console aside strong {
     border-bottom: 1px solid var(--border-strong);

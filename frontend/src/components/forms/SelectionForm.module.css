@@ -16,7 +16,7 @@
   color: var(--text-strong);
   display: flex;
   flex-direction: column;
-  padding: 34px var(--space-ml);
+  padding: var(--space-xl) var(--space-ml);
 }
 
 .choiceGroup + .choiceGroup {

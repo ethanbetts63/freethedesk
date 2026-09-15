@@ -3,7 +3,7 @@
   background: var(--surface-flow);
   color: var(--surface-ink);
   min-height: 100vh;
-  padding: 60px var(--space-s);
+  padding: var(--space-2xl) var(--space-s);
   position: relative;
 }
 .grid {
@@ -21,7 +21,7 @@
   box-shadow: 0 24px 75px color-mix(in srgb, var(--blue-950) 7%, transparent);
   margin: 0 auto;
   max-width: 900px;
-  padding: 34px var(--space-ml);
+  padding: var(--space-xl) var(--space-ml);
   position: relative;
 }
 .document h1 {
@@ -58,12 +58,12 @@
   font-size: var(--step-2);
   letter-spacing: -0.04em;
   line-height: 1.15;
-  margin: 52px 0 var(--space-m);
+  margin: var(--space-2xl) 0 var(--space-m);
   padding-top: var(--space-l);
 }
 .document h3 {
   font-size: 1.1rem;
-  margin: 34px 0 var(--space-s);
+  margin: var(--space-xl) 0 var(--space-s);
 }
 .document p,
 .document li {
@@ -101,7 +101,7 @@
 
 @media (min-width: 640px) {
   .page {
-    padding: clamp(80px, 10vw, 145px) 24px;
+    padding: clamp(80px, 10vw, 145px) var(--space-l);
   }
   .document {
     padding: clamp(35px, 7vw, 90px);

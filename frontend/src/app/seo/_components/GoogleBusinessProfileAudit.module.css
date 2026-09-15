@@ -67,7 +67,7 @@
   color: var(--text-on-dark-muted);
   font-size: var(--text-lead);
   line-height: 1.72;
-  margin: 28px 0 var(--space-m);
+  margin: var(--space-xl) 0 var(--space-m);
   max-width: 680px;
 }
 /* Same card treatment as the Stripe verification panel: moving-colour border,

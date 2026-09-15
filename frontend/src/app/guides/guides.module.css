@@ -195,7 +195,7 @@
   gap: var(--space-xl);
   grid-template-columns: minmax(0, 1fr);
   min-height: 190px;
-  padding: 28px var(--space-l);
+  padding: var(--space-xl) var(--space-l);
 }
 .empty > span {
   align-items: center;

@@ -107,7 +107,7 @@
 }
 
 .expandable-services-body {
-  padding: 0 var(--space-3xs) 28px 78px;
+  padding: 0 var(--space-3xs) var(--space-xl) 78px;
 }
 
 .expandable-services-body > p {

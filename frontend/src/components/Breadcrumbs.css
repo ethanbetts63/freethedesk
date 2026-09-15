@@ -35,7 +35,7 @@
 
 .breadcrumbs-current {
   color: var(--slate-800);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
