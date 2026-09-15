@@ -46,12 +46,12 @@
   align-items: center;
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
-  background-clip: text;
+  -webkit-background-clip: text;
   background-size: var(--moving-colour-size);
   color: transparent;
   display: flex;
   gap: var(--space-xs);
-  -webkit-background-clip: text;
+  background-clip: text;
 }
 .visual > header i {
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;

@@ -36,8 +36,8 @@
   --sky-500: #6fbcec;
 
   /* Semantic aliases - use these in components, not the ramp steps. */
-  --bg: #ffffff;
-  --surface: #ffffff;
+  --bg: #fff;
+  --surface: #fff;
   --surface-tint: var(--slate-50);
   --surface-tint-2: var(--slate-100);
   --surface-flow: var(--slate-50);
@@ -46,15 +46,15 @@
   --surface-dark-hover: var(--blue-900);
   --surface-ink: var(--slate-950);
   --surface-navy: var(--slate-900);
-  --text: #000000;
+  --text: #000;
   --text-strong: var(--slate-950);
   --text-control: var(--slate-800);
   --text-muted: var(--slate-600);
   --text-subtle: var(--slate-500);
-  --text-on-dark: #ffffff;
+  --text-on-dark: #fff;
   --text-on-dark-muted: var(--slate-300);
   --text-on-dark-subtle: var(--slate-400);
-  --line-ink: #111111;
+  --line-ink: #111;
   --border: var(--slate-200);
   --border-strong: var(--slate-300);
   --border-subtle: var(--slate-100);

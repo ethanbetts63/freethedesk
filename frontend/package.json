@@ -8,9 +8,10 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src",
+    "lint:css": "stylelint \"src/**/*.css\"",
     "format": "prettier --write src",
     "format:check": "prettier --check src",
-    "check": "npm run format:check && npm run lint && npm run typecheck"
+    "check": "npm run format:check && npm run lint && npm run lint:css && npm run typecheck"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^6.9.0",
@@ -29,6 +30,9 @@
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.2.6",
     "prettier": "^3.9.6",
+    "stylelint": "^17.15.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-declaration-strict-value": "^1.12.1",
     "typescript": "~5.9.3"
   }
 }

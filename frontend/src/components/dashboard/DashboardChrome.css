@@ -44,7 +44,6 @@
   flex: 1;
   flex-direction: row;
   gap: var(--space-3xs);
-  padding-top: var(--space-l);
   justify-content: flex-start;
   padding: 0;
   grid-column: 1 / -1;
@@ -68,7 +67,6 @@
   display: block;
   flex-direction: column;
   gap: var(--space-s);
-  padding-top: var(--space-m);
   border: 0;
   padding: 0;
 }

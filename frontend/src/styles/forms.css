@@ -12,7 +12,7 @@
 .form-label {
   color: var(--text-muted);
   display: block;
-  font-size: var(--step--2);
+  font-size: var(--text-ui);
   font-weight: var(--weight-heavy);
   letter-spacing: 0.06em;
   margin-bottom: var(--space-xs);
@@ -24,7 +24,7 @@
   border: 1px solid var(--border);
   color: var(--text);
   font: inherit;
-  font-size: var(--step--1);
+  font-size: var(--step-0);
   outline: 0;
   padding: var(--space-s) var(--space-m);
   transition:

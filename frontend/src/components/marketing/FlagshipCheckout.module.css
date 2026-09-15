@@ -29,10 +29,10 @@
 .visualHeader b {
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
-  background-clip: text;
+  -webkit-background-clip: text;
   background-size: var(--moving-colour-size);
   color: transparent;
-  -webkit-background-clip: text;
+  background-clip: text;
 }
 .journey {
   display: grid;

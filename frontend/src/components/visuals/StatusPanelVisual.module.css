@@ -62,13 +62,13 @@
 .count {
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
-  background-clip: text;
+  -webkit-background-clip: text;
   background-size: var(--moving-colour-size);
   color: transparent;
   font-size: var(--text-label);
   font-weight: var(--weight-black);
   text-transform: uppercase;
-  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .list {
