@@ -5,7 +5,7 @@
   background: var(--surface);
   color: var(--text);
   overflow: hidden;
-  padding: 80px 0 var(--space-l);
+  padding: var(--section-space) 0 var(--space-l);
   position: relative;
 }
 .site-footer::before {

@@ -78,7 +78,6 @@ export default {
       TOKENISED,
       {
         ignoreValues: NOT_A_DESIGN_DECISION,
-        severity: "warning",
         // Must be a string. Passing a function here silently swallows most of
         // the rule's own findings -- it reported 1 of 3 on a three-line probe.
         message:

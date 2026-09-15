@@ -5,7 +5,7 @@
 .case-hero {
   min-height: auto;
   overflow: hidden;
-  padding: var(--space-2xl) 0 85px;
+  padding: var(--space-3xl) 0;
   position: relative;
 }
 .case-hero-grid {
@@ -730,7 +730,6 @@
 @media (min-width: 900px) {
   .case-hero {
     min-height: 720px;
-    padding: 88px 0 96px;
   }
   .case-hero-layout {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
@@ -755,7 +754,7 @@
     padding-right: var(--space-2xl);
   }
   .case-story-intro {
-    gap: 105px;
+    gap: var(--section-space);
     grid-template-columns: minmax(0, 0.42fr) minmax(0, 1.58fr);
     padding-block: 112px;
   }
@@ -765,7 +764,7 @@
   .case-section-heading {
     gap: var(--space-xl) var(--space-3xl);
     grid-template-columns: minmax(0, 0.4fr) minmax(0, 1.2fr);
-    margin-bottom: 76px;
+    margin-bottom: var(--space-3xl);
   }
   .case-section-heading h2 {
     grid-column: 2;
@@ -800,7 +799,7 @@
   .case-operations-heading {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
     gap: var(--space-2xl);
-    margin-bottom: 75px;
+    margin-bottom: var(--space-3xl);
   }
   .case-ops-console {
     grid-template-columns: 190px minmax(0, 1fr);
@@ -878,7 +877,7 @@
 
 @media (min-width: 1080px) {
   .case-hero-layout {
-    gap: 76px;
+    gap: var(--space-3xl);
     grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
   }
   .case-hero-media {
@@ -897,13 +896,13 @@
     grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
   }
   .case-mobile-story-grid {
-    gap: 110px;
+    gap: var(--section-space);
   }
   .case-operations-heading {
-    gap: 105px;
+    gap: var(--section-space);
   }
   .case-intent-heading {
-    gap: 110px;
+    gap: var(--section-space);
   }
   .case-intent-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -912,7 +911,7 @@
     min-height: 460px;
   }
   .case-split {
-    gap: 90px;
+    gap: var(--space-3xl);
   }
   .case-steps-column {
     padding: var(--space-xl) var(--space-xl) var(--space-xl);

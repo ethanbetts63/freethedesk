@@ -1,4 +1,9 @@
 .expandable-services {
+  /* The body copy hangs under the summary's icon column, so its indent is a
+     function of that grid (34px icon + 70px number), not of the space scale. */
+  --services-indent: 78px;
+  --services-inset: var(--space-3xs);
+
   padding-bottom: var(--section-space);
   padding-top: var(--section-space);
 }
@@ -108,7 +113,7 @@
 }
 
 .expandable-services-body {
-  padding: 0 var(--space-3xs) var(--space-xl) 78px;
+  padding: 0 var(--services-inset) var(--space-xl) var(--services-indent);
 }
 
 .expandable-services-body > p {
@@ -176,8 +181,9 @@
     display: block;
   }
 
-  .expandable-services-body {
-    padding: 0 76px var(--space-xl) 144px;
+  .expandable-services {
+    --services-indent: 144px;
+    --services-inset: 76px;
   }
 
   .expandable-services-body ul {

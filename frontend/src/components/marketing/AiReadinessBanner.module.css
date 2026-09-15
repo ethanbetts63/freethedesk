@@ -138,6 +138,7 @@
   cursor: pointer;
   display: flex;
   font: inherit;
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- the close glyph, not text */
   font-size: 1.8rem;
   height: var(--tap-min);
   justify-content: center;

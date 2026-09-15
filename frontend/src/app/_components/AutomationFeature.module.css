@@ -172,6 +172,7 @@
 }
 .visual footer strong {
   color: var(--text-on-dark);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- stat drawn inside an illustration */
   font-size: 2rem;
   grid-row: 1 / 3;
 }

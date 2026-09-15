@@ -49,10 +49,7 @@ export function useAccountDetail<Account extends StaffAccount>({
 
   useEffect(() => {
     let active = true;
-    Promise.all([
-      latest.current.fetch(id),
-      getMessages({ related_type: relatedType, related_id: id, page_size: 20 }),
-    ])
+    Promise.all([latest.current.fetch(id), getMessages({ related_type: relatedType, related_id: id, page_size: 20 })])
       .then(([result, messagePage]) => {
         if (!active) return;
         setAccount(result);
