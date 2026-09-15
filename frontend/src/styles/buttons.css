@@ -46,25 +46,25 @@
 }
 .cta-compact {
   font-size: var(--text-ui);
-  gap: 20px;
-  padding: 15px 18px;
+  gap: var(--space-ml);
+  padding: var(--space-m) var(--space-m);
 }
 .cta-default {
-  font-size: 0.76rem;
+  font-size: var(--text-small);
   gap: 28px;
-  padding: 16px 19px;
+  padding: var(--space-m) var(--space-ml);
 }
 .cta-large {
-  font-size: 0.8rem;
+  font-size: var(--text-small);
   gap: 38px;
-  padding: 17px 20px;
+  padding: var(--space-m) var(--space-ml);
 }
 .cta-ghost {
   border-bottom: 1px solid currentColor;
-  padding-bottom: 8px;
+  padding-bottom: var(--space-xs);
   padding-left: 0;
   padding-right: 0;
-  padding-top: 8px;
+  padding-top: var(--space-xs);
 }
 .cta-full-width {
   width: 100%;
@@ -84,7 +84,7 @@
   align-items: flex-start;
   display: flex;
   flex-wrap: wrap;
-  gap: 26px;
+  gap: var(--space-l);
   flex-direction: column;
 }
 

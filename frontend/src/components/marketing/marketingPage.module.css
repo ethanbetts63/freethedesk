@@ -13,7 +13,7 @@
 .seoSummary {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--space-l);
 }
 .seoSummary > span {
   display: block;

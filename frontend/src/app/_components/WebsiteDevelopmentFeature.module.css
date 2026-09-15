@@ -3,7 +3,7 @@
   background: var(--surface-dark);
   box-shadow: 12px 12px 0 var(--slate-100);
   min-height: 450px;
-  padding: 32px 14px 20px;
+  padding: 32px var(--space-s) var(--space-ml);
   position: relative;
 }
 .browserBar {
@@ -11,18 +11,18 @@
   background: var(--slate-100);
   color: var(--text-muted);
   display: grid;
-  font-size: 0.52rem;
+  font-size: var(--text-nano);
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   height: 38px;
-  padding: 0 13px;
+  padding: 0 var(--space-s);
 }
 .browserBar > div {
   display: flex;
-  gap: 5px;
+  gap: var(--space-3xs);
 }
 .browserBar i {
   background: var(--slate-300);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   height: 6px;
   width: 6px;
 }
@@ -30,13 +30,13 @@
 .browserBar > span {
   background: var(--surface);
   overflow: hidden;
-  padding: 5px 16px;
+  padding: var(--space-3xs) var(--space-m);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .browserBar b {
   color: var(--success-ink);
-  font-size: 0.5rem;
+  font-size: var(--text-nano);
   justify-self: end;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -46,7 +46,7 @@
   color: var(--slate-950);
   min-height: 330px;
   overflow: hidden;
-  padding: 16px 14px 58px;
+  padding: var(--space-m) var(--space-s) 58px;
 }
 .websiteCanvas nav {
   align-items: center;
@@ -54,7 +54,7 @@
   justify-content: space-between;
 }
 .websiteCanvas nav > strong {
-  font-size: 0.82rem;
+  font-size: var(--text-body);
   letter-spacing: -0.06em;
 }
 .websiteCanvas nav > strong span {
@@ -62,7 +62,7 @@
 }
 .websiteCanvas nav > div {
   display: flex;
-  gap: 8px;
+  gap: var(--space-xs);
 }
 .websiteCanvas nav i {
   background: var(--slate-100);
@@ -78,14 +78,14 @@
 }
 .pageHero {
   background: linear-gradient(135deg, var(--surface-flow), var(--slate-50));
-  margin-top: 18px;
+  margin-top: var(--space-m);
   min-height: 210px;
-  padding: 25px 20px;
+  padding: var(--space-l) var(--space-ml);
   position: relative;
 }
 .pageHero::after {
   background: radial-gradient(circle at 35% 35%, var(--sky-500), var(--brand-accent) 60%, var(--surface-dark));
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   content: "";
   height: 110px;
   opacity: 0.72;
@@ -97,8 +97,8 @@
 .pageHero small {
   color: var(--feature-accent);
   display: block;
-  font-size: 0.48rem;
-  font-weight: 900;
+  font-size: var(--text-nano);
+  font-weight: var(--weight-black);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -109,7 +109,7 @@
   font-size: var(--display-1);
   letter-spacing: -0.065em;
   line-height: 0.9;
-  margin: 16px 0 19px;
+  margin: var(--space-m) 0 var(--space-ml);
   position: relative;
   z-index: 1;
 }
@@ -117,17 +117,17 @@
   background: var(--slate-950);
   color: var(--text-on-dark);
   display: inline-block;
-  font-size: 0.5rem;
-  font-weight: 800;
-  padding: 9px 11px;
+  font-size: var(--text-nano);
+  font-weight: var(--weight-heavy);
+  padding: var(--space-xs) var(--space-s);
   position: relative;
   z-index: 1;
 }
 .pageCards {
   display: grid;
-  gap: 9px;
+  gap: var(--space-xs);
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: 12px;
+  margin-top: var(--space-s);
 }
 .pageCards i {
   background: var(--slate-100);
@@ -140,7 +140,7 @@
   bottom: 0;
   box-shadow: 0 22px 55px color-mix(in srgb, var(--slate-950) 24%, transparent);
   color: var(--blue-950);
-  padding: 16px 18px;
+  padding: var(--space-m) var(--space-m);
   position: absolute;
   right: 8px;
   transform: translateY(15px);
@@ -150,12 +150,12 @@
   align-items: center;
   border-bottom: 1px solid var(--slate-100);
   display: flex;
-  font-size: 0.57rem;
-  font-weight: 900;
+  font-size: var(--text-label);
+  font-weight: var(--weight-black);
   justify-content: space-between;
   letter-spacing: 0.09em;
-  margin-bottom: 6px;
-  padding-bottom: 11px;
+  margin-bottom: var(--space-2xs);
+  padding-bottom: var(--space-s);
   text-transform: uppercase;
 }
 .systemPanel header b {
@@ -165,23 +165,23 @@
   align-items: center;
   border-bottom: 1px solid var(--slate-100);
   display: grid;
-  font-size: 0.65rem;
-  gap: 10px;
+  font-size: var(--text-caption);
+  gap: var(--space-xs);
   grid-template-columns: 25px minmax(0, 1fr) auto;
-  padding: 9px 0;
+  padding: var(--space-xs) 0;
 }
 .systemPanel > div:last-child {
   border-bottom: 0;
 }
 .systemPanel i {
   color: var(--feature-accent);
-  font-size: 0.52rem;
+  font-size: var(--text-nano);
   font-style: normal;
-  font-weight: 900;
+  font-weight: var(--weight-black);
 }
 .systemPanel strong {
   color: var(--success-ink);
-  font-size: 0.52rem;
+  font-size: var(--text-nano);
   text-transform: uppercase;
 }
 
@@ -192,11 +192,11 @@
     padding: 42px 30px 30px;
   }
   .browserBar > span {
-    padding: 5px 42px;
+    padding: var(--space-3xs) 42px;
   }
   .websiteCanvas {
     min-height: 360px;
-    padding: 20px 24px 52px;
+    padding: var(--space-ml) var(--space-l) 52px;
   }
   .pageHero {
     min-height: 215px;

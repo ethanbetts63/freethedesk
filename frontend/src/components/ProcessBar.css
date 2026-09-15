@@ -10,11 +10,11 @@
 
 .process-bar-label {
   color: var(--accent-on-dark-soft);
-  font-size: 0.62rem;
-  font-weight: 900;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-black);
   letter-spacing: 0.14em;
   margin: 0;
-  padding: 18px 0 12px;
+  padding: var(--space-m) 0 var(--space-s);
   text-transform: uppercase;
 }
 
@@ -40,17 +40,17 @@
   align-items: center;
   color: inherit;
   display: grid;
-  gap: 9px;
+  gap: var(--space-xs);
   grid-template-columns: auto minmax(0, 1fr);
   min-height: 76px;
-  padding: 14px 10px;
+  padding: var(--space-s) var(--space-xs);
   text-decoration: none;
 }
 
 .process-bar-index {
   color: var(--accent-on-dark-soft);
-  font-size: 0.68rem;
-  font-weight: 900;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
 }
 
@@ -60,15 +60,15 @@
 }
 
 .process-bar-copy strong {
-  font-size: 0.94rem;
+  font-size: var(--text-lead);
   letter-spacing: -0.02em;
 }
 
 .process-bar-copy small {
   color: var(--text-on-dark-muted);
-  font-size: 0.72rem;
+  font-size: var(--text-ui);
   line-height: 1.4;
-  margin-top: 4px;
+  margin-top: var(--space-3xs);
   display: none;
 }
 
@@ -91,9 +91,9 @@
 @media (min-width: 680px) {
   .process-bar-steps a,
   .process-bar-steps li > div {
-    gap: 13px;
+    gap: var(--space-s);
     grid-template-columns: auto minmax(0, 1fr) auto;
-    padding: 18px 20px;
+    padding: var(--space-m) var(--space-ml);
   }
 
   .process-bar-copy small,
@@ -104,7 +104,7 @@
 
 @media (min-width: 980px) {
   .process-bar-label {
-    padding-top: 20px;
+    padding-top: var(--space-ml);
   }
 
   .process-bar-steps {
@@ -118,6 +118,6 @@
   .process-bar-steps a,
   .process-bar-steps li > div {
     min-height: 104px;
-    padding: 22px 24px;
+    padding: var(--space-ml) var(--space-l);
   }
 }

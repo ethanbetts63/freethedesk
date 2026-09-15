@@ -9,7 +9,7 @@
    sizing its own column made the text jump left and right down the list. Both
    tracks size to content and the pair is centred in whatever room is left. */
 .proof-strip-grid {
-  column-gap: 13px;
+  column-gap: var(--space-s);
   display: grid;
   grid-template-columns: auto minmax(0, max-content);
   justify-content: center;
@@ -17,7 +17,7 @@
 .proof-strip article {
   align-items: center;
   display: grid;
-  gap: 13px;
+  gap: var(--space-s);
   grid-column: 1 / -1;
   /* Fallback for no subgrid: the value still sets its own column. */
   grid-template-columns: auto minmax(0, 1fr);
@@ -41,11 +41,11 @@
 }
 .proof-strip h2 {
   font-size: 1.05rem;
-  margin: 0 0 7px;
+  margin: 0 0 var(--space-2xs);
 }
 .proof-strip p {
   color: var(--text-on-dark-muted);
-  font-size: 0.85rem;
+  font-size: var(--text-body);
   line-height: 1.5;
   margin: 0;
 }
@@ -59,7 +59,7 @@
   /* Side by side now, so each article is its own grid again. */
   .proof-strip article {
     align-items: start;
-    gap: 22px;
+    gap: var(--space-ml);
     grid-column: auto;
     grid-template-columns: minmax(0, 1fr);
     min-height: 160px;

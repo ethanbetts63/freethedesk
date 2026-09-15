@@ -39,31 +39,31 @@ main:has(.service-scroll) {
 }
 .service-sticky span {
   color: var(--accent-ink);
-  font-size: 0.68rem;
-  font-weight: 800;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-heavy);
 }
 .service-sticky h3 {
   font-size: var(--display-2);
   letter-spacing: -0.04em;
   line-height: 1.05;
-  margin: 16px 0 0;
+  margin: var(--space-m) 0 0;
 }
 .service-content {
   max-width: 560px;
-  padding-top: 6px;
+  padding-top: var(--space-2xs);
 }
 .service-lead {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: var(--space-l);
 }
 .service-icon {
   flex: 0 0 auto;
 }
 .service-lead > p {
   color: var(--text-muted);
-  font-size: 0.96rem;
+  font-size: var(--text-lead);
   font-weight: 500;
   line-height: 1.65;
   margin: 0;
@@ -77,9 +77,9 @@ main:has(.service-scroll) {
 .service-examples li {
   border-bottom: 1px solid var(--border);
   color: var(--text);
-  font-size: 0.88rem;
+  font-size: var(--text-body);
   line-height: 1.6;
-  padding: 16px 0 16px 26px;
+  padding: var(--space-m) 0 var(--space-m) var(--space-l);
   position: relative;
 }
 .service-examples li::before {
@@ -120,26 +120,26 @@ main:has(.service-scroll) {
   align-items: center;
   color: var(--accent-ink);
   display: flex;
-  font-size: 0.64rem;
-  font-weight: 900;
-  gap: 14px;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-black);
+  gap: var(--space-s);
   letter-spacing: 0.13em;
-  margin: 0 0 13px;
+  margin: 0 0 var(--space-s);
   text-transform: uppercase;
 }
 .service-custom-label span {
   border-right: 1px solid color-mix(in srgb, var(--accent-ink) 30%, transparent);
-  padding-right: 14px;
+  padding-right: var(--space-s);
 }
 .service-custom-copy h3 {
   font-size: var(--display-2);
   letter-spacing: -0.05em;
   line-height: 1;
-  margin: 0 0 16px;
+  margin: 0 0 var(--space-m);
 }
 .service-custom-copy > p:last-child {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: var(--text-lead);
   line-height: 1.65;
   margin: 0;
   max-width: 520px;

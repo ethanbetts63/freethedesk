@@ -5,7 +5,7 @@
   background: var(--surface);
   color: var(--text);
   overflow: hidden;
-  padding: 80px 0 25px;
+  padding: 80px 0 var(--space-l);
   position: relative;
 }
 .site-footer::before {
@@ -48,19 +48,19 @@
 .footer-logo {
   align-items: center;
   display: flex;
-  gap: 10px;
+  gap: var(--space-xs);
 }
 .footer-summary {
   color: color-mix(in srgb, var(--text-subtle) 55%, var(--accent-ink) 45%);
-  font-size: 0.85rem;
+  font-size: var(--text-body);
   line-height: 1.6;
-  margin: 23px 0 0;
+  margin: var(--space-l) 0 0;
   max-width: 360px;
 }
 .footer-links {
   display: flex;
   flex-direction: column;
-  font-size: 0.78rem;
+  font-size: var(--text-small);
   gap: 0;
 }
 /* Footer links render as 19px-tall rows - too small to tap reliably.
@@ -83,10 +83,10 @@
 }
 .footer-label {
   color: color-mix(in srgb, var(--text-subtle) 55%, var(--accent-ink) 45%);
-  font-size: 0.61rem;
-  font-weight: 800;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-heavy);
   letter-spacing: 0.12em;
-  margin: 0 0 8px;
+  margin: 0 0 var(--space-xs);
   text-transform: uppercase;
 }
 .footer-bottom {
@@ -95,11 +95,11 @@
   color: color-mix(in srgb, var(--text-subtle) 55%, var(--accent-ink) 45%);
   display: flex;
   flex-direction: column;
-  font-size: 0.62rem;
-  gap: 8px;
+  font-size: var(--text-meta);
+  gap: var(--space-xs);
   justify-content: space-between;
   margin-top: 70px;
-  padding-top: 22px;
+  padding-top: var(--space-ml);
   position: relative;
   z-index: 1;
 }
@@ -123,7 +123,7 @@
     grid-column: auto;
   }
   .footer-links {
-    gap: 13px;
+    gap: var(--space-s);
   }
   .footer-links a,
   .footer-links span {

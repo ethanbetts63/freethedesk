@@ -36,7 +36,7 @@
   border: 1px solid color-mix(in srgb, var(--slate-300) 85%, transparent);
   box-shadow: 0 25px 70px color-mix(in srgb, var(--blue-950) 12%, transparent);
   max-width: 450px;
-  padding: 28px 22px;
+  padding: 28px var(--space-ml);
   position: relative;
   width: 100%;
   z-index: 1;
@@ -51,26 +51,26 @@
 }
 .login-intro {
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: var(--text-small);
   line-height: 1.5;
-  margin: 12px 0 28px;
+  margin: var(--space-s) 0 28px;
 }
 .login-card form {
   display: flex;
   flex-direction: column;
-  gap: 17px;
+  gap: var(--space-m);
 }
 .login-card form label {
-  font-size: 0.7rem;
-  font-weight: 800;
+  font-size: var(--text-ui);
+  font-weight: var(--weight-heavy);
 }
 .login-card form input {
   background: var(--surface-tint);
   border: 1px solid var(--border-strong);
   display: block;
-  margin-top: 7px;
+  margin-top: var(--space-2xs);
   outline: none;
-  padding: 12px;
+  padding: var(--space-s);
   width: 100%;
 }
 .login-card form input:focus {
@@ -79,21 +79,21 @@
 }
 .login-alt {
   color: var(--text-muted);
-  font-size: 0.74rem;
-  margin: 22px 0 0;
+  font-size: var(--text-ui);
+  margin: var(--space-ml) 0 0;
 }
 .login-alt a {
   color: var(--link);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 .login-back {
   color: var(--text-muted);
   display: inline-block;
-  font-size: 0.68rem;
-  font-weight: 800;
-  margin-top: 25px;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-heavy);
+  margin-top: var(--space-l);
 }
 
 @media (min-width: 640px) {

@@ -29,13 +29,13 @@
 .googleLockup {
   align-items: center;
   display: flex;
-  gap: 13px;
+  gap: var(--space-s);
   margin-bottom: 46px;
 }
 .googleMark {
   align-items: center;
   background: var(--surface);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   display: flex;
   height: 46px;
   justify-content: center;
@@ -47,14 +47,14 @@
 }
 .googleLockup small {
   color: var(--accent);
-  font-size: 0.58rem;
-  font-weight: 900;
+  font-size: var(--text-label);
+  font-weight: var(--weight-black);
   letter-spacing: 0.09em;
-  margin-bottom: 4px;
+  margin-bottom: var(--space-3xs);
   text-transform: uppercase;
 }
 .googleLockup strong {
-  font-size: 0.77rem;
+  font-size: var(--text-small);
 }
 .copy h3 {
   font-size: var(--display-3);
@@ -65,9 +65,9 @@
 }
 .intro {
   color: var(--text-on-dark-muted);
-  font-size: 0.91rem;
+  font-size: var(--text-lead);
   line-height: 1.72;
-  margin: 28px 0 16px;
+  margin: 28px 0 var(--space-m);
   max-width: 680px;
 }
 /* Same card treatment as the Stripe verification panel: moving-colour border,
@@ -94,13 +94,13 @@
   border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
-  padding: 17px 19px;
-  gap: 12px;
+  padding: var(--space-m) var(--space-ml);
+  gap: var(--space-s);
 }
 .previewHeader > div {
   align-items: center;
   display: flex;
-  gap: 10px;
+  gap: var(--space-xs);
 }
 .previewHeader small,
 .previewHeader strong {
@@ -109,15 +109,15 @@
 .previewHeader small {
   display: block;
   color: var(--text-subtle);
-  font-size: 0.5rem;
-  font-weight: 900;
+  font-size: var(--text-nano);
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
-  margin-bottom: 2px;
+  margin-bottom: var(--space-4xs);
   text-transform: uppercase;
 }
 .previewHeader strong {
   display: block;
-  font-size: 0.75rem;
+  font-size: var(--text-ui);
 }
 .areaCount {
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
@@ -125,37 +125,37 @@
   background-clip: text;
   background-size: var(--moving-colour-size);
   color: transparent;
-  font-size: 0.57rem;
-  font-weight: 900;
+  font-size: var(--text-label);
+  font-weight: var(--weight-black);
   text-transform: uppercase;
   -webkit-background-clip: text;
 }
 .auditList {
   list-style: none;
   margin: 0;
-  padding: 0 19px;
+  padding: 0 var(--space-ml);
 }
 .auditList li {
   align-items: center;
   border-bottom: 1px solid var(--border-subtle);
   display: grid;
-  gap: 11px;
+  gap: var(--space-s);
   grid-template-columns: 22px 27px minmax(0, 1fr);
-  padding: 15px 0;
+  padding: var(--space-m) 0;
 }
 .index {
   color: var(--slate-400);
-  font-size: 0.57rem;
-  font-weight: 900;
+  font-size: var(--text-label);
+  font-weight: var(--weight-black);
 }
 .check {
   align-items: center;
   background: var(--slate-100);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   color: var(--accent-ink);
   display: flex;
-  font-size: 0.62rem;
-  font-weight: 900;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-black);
   height: 27px;
   justify-content: center;
   width: 27px;
@@ -166,19 +166,19 @@
 }
 .auditCopy strong {
   display: block;
-  font-size: 0.75rem;
-  margin-bottom: 3px;
+  font-size: var(--text-ui);
+  margin-bottom: var(--space-4xs);
 }
 .auditCopy small {
   display: block;
   color: var(--slate-500);
-  font-size: 0.58rem;
+  font-size: var(--text-label);
   line-height: 1.4;
 }
 .reviewed {
   color: var(--slate-600);
-  font-size: 0.53rem;
-  font-weight: 900;
+  font-size: var(--text-tiny);
+  font-weight: var(--weight-black);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   display: none;
@@ -190,28 +190,28 @@
   background-size: var(--moving-colour-size);
   display: flex;
   justify-content: space-between;
-  padding: 16px 19px;
+  padding: var(--space-m) var(--space-ml);
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-xs);
 }
 .previewFooter > span {
   align-items: center;
   color: color-mix(in srgb, var(--bg) 82%, transparent);
   display: flex;
-  font-size: 0.56rem;
-  font-weight: 800;
-  gap: 7px;
+  font-size: var(--text-label);
+  font-weight: var(--weight-heavy);
+  gap: var(--space-2xs);
   text-transform: uppercase;
 }
 .previewFooter i {
   background: var(--surface);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   height: 6px;
   width: 6px;
 }
 .previewFooter strong {
   color: var(--text-on-dark);
-  font-size: 0.67rem;
+  font-size: var(--text-caption);
 }
 @media (prefers-reduced-motion: reduce) {
   .preview,

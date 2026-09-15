@@ -33,7 +33,7 @@
   color: var(--text-muted);
   font-size: var(--step-0);
   line-height: 1.6;
-  margin: 14px 0 0;
+  margin: var(--space-s) 0 0;
   max-width: 42ch;
 }
 

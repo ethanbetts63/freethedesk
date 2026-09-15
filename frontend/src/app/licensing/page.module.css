@@ -12,34 +12,34 @@
 }
 .selectionFeatures {
   list-style: none;
-  margin: 26px 0 0;
+  margin: var(--space-l) 0 0;
   padding: 0;
 }
 .selectionFeatures li {
   color: var(--slate-800);
-  font-size: 0.8rem;
-  font-weight: 700;
-  margin: 10px 0;
-  padding-left: 20px;
+  font-size: var(--text-small);
+  font-weight: var(--weight-strong);
+  margin: var(--space-xs) 0;
+  padding-left: var(--space-ml);
   position: relative;
 }
 .selectionFeatures li::before {
   color: var(--page-accent);
   content: "↳";
-  font-weight: 900;
+  font-weight: var(--weight-black);
   left: 0;
   position: absolute;
 }
 .customBuildNote {
   color: var(--slate-600);
-  font-size: 0.82rem;
-  margin: 22px 0 0;
+  font-size: var(--text-body);
+  margin: var(--space-ml) 0 0;
   text-align: center;
 }
 .customBuildNote a {
   border-bottom: 1px solid var(--page-accent);
   color: var(--page-accent);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
 }
 .optionsHeading h2 {
   font-size: var(--display-3);
@@ -48,7 +48,7 @@
   margin: 0;
 }
 .optionsHeading > p:last-of-type {
-  font-size: 0.96rem;
+  font-size: var(--text-lead);
   line-height: 1.7;
   max-width: 440px;
 }
@@ -65,9 +65,9 @@
 }
 .optionsHeading > p:last-of-type {
   color: var(--slate-300);
-  font-size: 0.96rem;
+  font-size: var(--text-lead);
   line-height: 1.7;
-  margin-top: 22px;
+  margin-top: var(--space-ml);
   max-width: 440px;
 }
 .optionPhones {
@@ -84,9 +84,9 @@
 }
 .optionPhoneCaption {
   color: var(--text-on-dark);
-  font-size: 0.8rem;
+  font-size: var(--text-small);
   font-weight: var(--weight-control);
-  margin: 18px 0 0;
+  margin: var(--space-m) 0 0;
 }
 /* The "choose your plan" tile is a scroll button, the other a real link. */
 .optionPhoneTile > a,
@@ -100,18 +100,18 @@
   cursor: pointer;
   display: inline-flex;
   font: inherit;
-  font-size: 0.68rem;
-  font-weight: 800;
-  gap: 10px;
-  margin-top: 10px;
-  padding-bottom: 4px;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-heavy);
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+  padding-bottom: var(--space-3xs);
 }
 .flowCompare {
   margin-top: 48px;
 }
 .flowCompareLabel {
   color: var(--accent-on-dark);
-  font-size: 0.68rem;
+  font-size: var(--text-caption);
   font-weight: var(--weight-control);
   letter-spacing: 0.14em;
   margin: 0 0 28px;
@@ -119,14 +119,14 @@
 }
 .flowGrid {
   display: grid;
-  gap: 20px;
+  gap: var(--space-ml);
   grid-template-columns: minmax(0, 1fr);
 }
 .flowColumn {
   background: linear-gradient(160deg, var(--blue-900), var(--blue-950));
   border: 1px solid var(--blue-500);
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--bg) 12%, transparent);
-  padding: 26px;
+  padding: var(--space-l);
 }
 .flowColumn.flowColumnHighlight {
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
@@ -138,13 +138,13 @@
     var(--moving-colour-size);
   border: 2px solid transparent;
   box-shadow: none;
-  padding-bottom: 26px;
+  padding-bottom: var(--space-l);
 }
 .flowEyebrow {
-  font-size: 0.64rem;
-  font-weight: 900;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-black);
   letter-spacing: 0.12em;
-  margin: 0 0 14px;
+  margin: 0 0 var(--space-s);
   text-transform: uppercase;
 }
 .flowColumnHead {
@@ -152,18 +152,18 @@
   border-bottom: 1px solid color-mix(in srgb, var(--bg) 18%, transparent);
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 6px;
-  padding-bottom: 18px;
+  gap: var(--space-s);
+  margin-bottom: var(--space-2xs);
+  padding-bottom: var(--space-m);
 }
 .flowColumnHead span {
   color: var(--text-on-dark);
-  font-size: 0.85rem;
-  font-weight: 900;
+  font-size: var(--text-body);
+  font-weight: var(--weight-black);
 }
 .flowColumnHead b {
   color: var(--slate-100);
-  font-size: 0.64rem;
+  font-size: var(--text-meta);
   font-weight: var(--weight-strong);
   text-align: right;
 }
@@ -179,7 +179,7 @@
 .flowStepsList li {
   border-top: 1px dashed color-mix(in srgb, var(--bg) 20%, transparent);
   counter-increment: flow-step;
-  padding: 18px 0 18px 34px;
+  padding: var(--space-m) 0 var(--space-m) 34px;
   position: relative;
 }
 .flowStepsList li:first-child {
@@ -189,11 +189,11 @@
   align-items: center;
   background: var(--surface);
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   color: var(--page-accent);
   content: counter(flow-step);
   display: flex;
-  font-size: 0.66rem;
+  font-size: var(--text-caption);
   font-weight: var(--weight-control);
   height: 22px;
   justify-content: center;
@@ -211,17 +211,17 @@
 .flowStepText {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--space-3xs);
 }
 .flowStepText strong {
   color: var(--text-on-dark);
-  font-size: 0.84rem;
-  font-weight: 800;
+  font-size: var(--text-body);
+  font-weight: var(--weight-heavy);
   letter-spacing: -0.01em;
 }
 .flowStepText small {
   color: var(--slate-200);
-  font-size: 0.7rem;
+  font-size: var(--text-ui);
 }
 .flowColumnHighlight .flowStepText small {
   color: var(--sky-300);
@@ -245,7 +245,7 @@
 }
 .phoneMockNotch {
   background: var(--surface-ink);
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 var(--radius-m) var(--radius-m);
   height: 8px;
   left: 50%;
   position: absolute;
@@ -256,7 +256,7 @@
 }
 .phoneMockHomebar {
   background: var(--surface);
-  border-radius: 3px;
+  border-radius: var(--radius-2xs);
   bottom: 8px;
   height: 3px;
   left: 50%;
@@ -294,10 +294,10 @@
 .loginPhoneCard {
   background: color-mix(in srgb, var(--bg) 94%, transparent);
   border: 1px solid color-mix(in srgb, var(--slate-300) 85%, transparent);
-  border-radius: 8px;
+  border-radius: var(--radius-m);
   box-shadow: 0 14px 30px color-mix(in srgb, var(--slate-900) 20%, transparent);
   left: 14px;
-  padding: 15px 13px;
+  padding: var(--space-m) var(--space-s);
   position: absolute;
   right: 14px;
   top: 68px;
@@ -305,8 +305,8 @@
 .loginPhoneBrand {
   align-items: center;
   display: flex;
-  gap: 6px;
-  margin: 0 0 14px;
+  gap: var(--space-2xs);
+  margin: 0 0 var(--space-s);
 }
 .loginPhoneBrandImage {
   display: block;
@@ -315,8 +315,8 @@
 }
 .loginPhoneBrandText {
   color: var(--text);
-  font-size: 0.66rem;
-  font-weight: 900;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-black);
   letter-spacing: -0.06em;
 }
 .loginPhoneBrandText span {
@@ -324,110 +324,110 @@
 }
 .loginPhoneBrandText b {
   color: var(--accent-strong);
-  font-weight: 900;
+  font-weight: var(--weight-black);
 }
 .loginPhoneHeading {
   color: var(--surface-ink);
   font-size: 1rem;
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   letter-spacing: -0.04em;
-  margin: 0 0 12px;
+  margin: 0 0 var(--space-s);
 }
 .loginPhoneField {
   background: var(--slate-50);
   border: 1px solid var(--slate-200);
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   height: 20px;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-xs);
 }
 .loginPhoneButton {
   align-items: center;
   background: var(--page-accent);
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   color: var(--text-on-dark);
   display: flex;
-  font-size: 0.6rem;
-  font-weight: 800;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-heavy);
   height: 25px;
   justify-content: center;
-  margin-top: 6px;
+  margin-top: var(--space-2xs);
 }
 .successPhoneHeader {
   align-items: center;
   background: var(--surface);
   border-bottom: 1px solid var(--slate-100);
   display: flex;
-  gap: 6px;
+  gap: var(--space-2xs);
   height: 30px;
-  padding: 0 12px;
+  padding: 0 var(--space-s);
   position: relative;
   z-index: 2;
 }
 .successPhoneHeader i {
   background: var(--slate-200);
-  border-radius: 2px;
+  border-radius: var(--radius-2xs);
   display: block;
   height: 8px;
   width: 8px;
 }
 .successPhoneHeader span {
   color: var(--slate-700);
-  font-size: 0.58rem;
-  font-weight: 800;
+  font-size: var(--text-label);
+  font-weight: var(--weight-heavy);
   letter-spacing: -0.02em;
 }
 .successPhoneBody {
   background: var(--surface-flow);
   height: 100%;
-  padding: 30px 16px;
+  padding: 30px var(--space-m);
   text-align: center;
 }
 .successPhoneCheck {
   align-items: center;
   background: var(--success-accent);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   color: var(--text-on-dark);
   display: flex;
-  font-size: 0.85rem;
+  font-size: var(--text-body);
   height: 34px;
   justify-content: center;
-  margin: 0 auto 12px;
+  margin: 0 auto var(--space-s);
   width: 34px;
 }
 .successPhoneBody h4 {
   color: var(--surface-ink);
-  font-size: 0.92rem;
+  font-size: var(--text-lead);
   font-weight: var(--weight-control);
   letter-spacing: -0.03em;
-  margin: 0 0 5px;
+  margin: 0 0 var(--space-3xs);
 }
 .successPhoneBody p {
   color: var(--slate-600);
-  font-size: 0.62rem;
+  font-size: var(--text-meta);
   line-height: 1.4;
-  margin: 0 0 20px;
+  margin: 0 0 var(--space-ml);
 }
 .successPhoneNext {
   background: var(--surface);
   border: 1px solid var(--page-accent);
-  border-radius: 8px;
-  padding: 12px;
+  border-radius: var(--radius-m);
+  padding: var(--space-s);
   text-align: left;
 }
 .successPhoneNext span {
   color: var(--page-accent);
   display: block;
-  font-size: 0.56rem;
-  font-weight: 900;
+  font-size: var(--text-label);
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
-  margin-bottom: 5px;
+  margin-bottom: var(--space-3xs);
   text-transform: uppercase;
 }
 .successPhoneNext strong {
   align-items: center;
   color: var(--surface-ink);
   display: flex;
-  font-size: 0.78rem;
+  font-size: var(--text-small);
   font-weight: var(--weight-control);
   justify-content: space-between;
 }

@@ -58,7 +58,7 @@
 }
 .eyebrow span {
   background: var(--hero-accent);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   box-shadow:
     0 0 0 5px color-mix(in srgb, var(--hero-accent) 12%, transparent),
     0 0 10px 2px color-mix(in srgb, var(--hero-accent) 70%, transparent);
@@ -69,7 +69,7 @@
 .copy h1 {
   color: var(--text);
   font-size: var(--display-6);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   letter-spacing: -0.085em;
   line-height: 0.87;
   margin: 0;
@@ -100,8 +100,8 @@
 .secondary {
   align-items: center;
   display: inline-flex;
-  font-size: 0.82rem;
-  font-weight: 800;
+  font-size: var(--text-body);
+  font-weight: var(--weight-heavy);
   justify-content: space-between;
 }
 .primary {
@@ -114,14 +114,14 @@
 }
 .secondary {
   border-bottom: 1px solid var(--text);
-  gap: 14px;
+  gap: var(--space-s);
   min-height: var(--tap-min);
-  padding: 7px 0;
+  padding: var(--space-2xs) 0;
 }
 .trustLine {
   color: var(--text-muted);
-  font-size: 0.68rem;
-  font-weight: 700;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-strong);
   letter-spacing: 0.09em;
   margin: 30px 0 0;
   text-transform: uppercase;

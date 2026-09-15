@@ -51,7 +51,7 @@
   color: var(--text-muted);
   font-size: 0.97rem;
   line-height: 1.74;
-  margin-top: 20px;
+  margin-top: var(--space-ml);
   max-width: 440px;
 }
 
@@ -65,15 +65,15 @@
 
 .bullets {
   list-style: none;
-  margin: 18px 0 0;
+  margin: var(--space-m) 0 0;
   padding: 0;
 }
 
 .bullets li {
-  font-size: 0.78rem;
+  font-size: var(--text-small);
   font-weight: var(--weight-strong);
-  margin: 13px 0;
-  padding-left: 20px;
+  margin: var(--space-s) 0;
+  padding-left: var(--space-ml);
   position: relative;
 }
 
@@ -85,7 +85,7 @@
 }
 
 .action {
-  margin-top: 26px;
+  margin-top: var(--space-l);
 }
 
 .visual {

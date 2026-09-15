@@ -35,7 +35,7 @@
 }
 .case-hero-copy h1 {
   font-size: var(--display-3);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   letter-spacing: -0.078em;
   line-height: 0.91;
   margin: 0;
@@ -54,28 +54,28 @@
   border-top: 1px solid var(--border);
   display: flex;
   flex-wrap: wrap;
-  gap: 11px 24px;
+  gap: var(--space-s) var(--space-l);
   margin-top: 38px;
-  padding-top: 17px;
+  padding-top: var(--space-m);
 }
 .case-hero-meta span {
   color: var(--text-subtle);
-  font-size: 0.65rem;
-  font-weight: 800;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-heavy);
   letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 .case-hero-media {
   margin-right: -190px;
-  padding: 25px 0 44px 28px;
+  padding: var(--space-l) 0 44px 28px;
   position: relative;
-  padding-left: 14px;
+  padding-left: var(--space-s);
   margin: 0;
 }
 .case-browser {
   background: var(--surface);
   border: 1px solid var(--border-strong);
-  border-radius: 9px;
+  border-radius: var(--radius-m);
   box-shadow: 0 28px 75px color-mix(in srgb, var(--blue-950) 16%, transparent);
   overflow: hidden;
 }
@@ -89,25 +89,25 @@
   background: var(--surface-tint-2);
   border-bottom: 1px solid var(--border);
   display: flex;
-  gap: 6px;
+  gap: var(--space-2xs);
   height: 32px;
-  padding: 0 12px;
+  padding: 0 var(--space-s);
 }
 .case-browser-bar i {
   background: var(--slate-300);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   height: 6px;
   width: 6px;
 }
 .case-browser-bar span {
   background: var(--surface);
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   color: var(--text-subtle);
-  font-size: 0.52rem;
+  font-size: var(--text-nano);
   margin: 0 auto;
-  padding: 5px 56px;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding: var(--space-3xs) 56px;
+  padding-left: var(--space-l);
+  padding-right: var(--space-l);
 }
 .case-browser-hero {
   transform: rotate(0.5deg);
@@ -151,14 +151,14 @@
 .case-capability-list span {
   border-bottom: 1px solid var(--border);
   color: var(--text-muted);
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 16px 8px 16px 20px;
+  font-size: var(--text-small);
+  font-weight: var(--weight-strong);
+  padding: var(--space-m) var(--space-xs) var(--space-m) var(--space-ml);
   position: relative;
 }
 .case-capability-list span::before {
   background: var(--accent-strong);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   content: "";
   height: 5px;
   left: 2px;
@@ -172,7 +172,7 @@
 }
 .case-section-heading {
   display: grid;
-  gap: 22px;
+  gap: var(--space-ml);
   grid-template-columns: minmax(0, 1fr);
   margin-bottom: 48px;
 }
@@ -186,7 +186,7 @@
 .case-section-heading > p:last-child {
   align-self: end;
   color: var(--text-muted);
-  font-size: 0.86rem;
+  font-size: var(--text-body);
   line-height: 1.65;
   margin: 0;
   max-width: 280px;
@@ -210,9 +210,9 @@
   border-top: 1px solid var(--border-strong);
   cursor: pointer;
   display: grid;
-  gap: 16px;
+  gap: var(--space-m);
   grid-template-columns: 28px minmax(0, 1fr) 20px;
-  padding: 22px 4px 22px 0;
+  padding: var(--space-ml) var(--space-3xs) var(--space-ml) 0;
   text-align: left;
   transition:
     background 0.2s,
@@ -221,21 +221,21 @@
 }
 .case-tour-controls button.active {
   background: var(--surface);
-  padding: 26px 18px;
+  padding: var(--space-l) var(--space-m);
 }
 .case-tour-controls button > span {
   color: var(--accent-ink);
-  font-size: 0.63rem;
-  font-weight: 900;
-  padding-top: 2px;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-black);
+  padding-top: var(--space-4xs);
 }
 .case-tour-controls small {
   color: var(--text-subtle);
   display: block;
-  font-size: 0.61rem;
-  font-weight: 800;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-heavy);
   letter-spacing: 0.1em;
-  margin-bottom: 7px;
+  margin-bottom: var(--space-2xs);
   text-transform: uppercase;
 }
 .case-tour-controls strong {
@@ -246,9 +246,9 @@
 }
 .case-tour-controls p {
   color: var(--text-muted);
-  font-size: 0.79rem;
+  font-size: var(--text-small);
   line-height: 1.58;
-  margin: 13px 0 0;
+  margin: var(--space-s) 0 0;
 }
 .case-tour-controls i {
   font-size: 1rem;
@@ -270,11 +270,11 @@
   border-bottom: 1px solid var(--text);
   display: inline-flex;
   float: none;
-  font-size: 0.7rem;
-  font-weight: 800;
-  gap: 18px;
-  margin-top: 16px;
-  padding-bottom: 5px;
+  font-size: var(--text-ui);
+  font-weight: var(--weight-heavy);
+  gap: var(--space-m);
+  margin-top: var(--space-m);
+  padding-bottom: var(--space-3xs);
 }
 @keyframes case-image-in {
   from {
@@ -308,11 +308,11 @@
   border-bottom: 1px solid var(--border);
   border-top: 1px solid var(--border);
   display: grid;
-  gap: 24px;
+  gap: var(--space-l);
   grid-template-columns: auto minmax(0, 1fr);
   margin-top: 38px;
   max-width: 540px;
-  padding: 22px 0;
+  padding: var(--space-ml) 0;
 }
 .case-mobile-stat > strong {
   font-size: var(--display-5);
@@ -327,15 +327,15 @@
 }
 .case-mobile-stat b {
   display: block;
-  font-size: 0.83rem;
+  font-size: var(--text-body);
   line-height: 1.35;
 }
 .case-mobile-stat small {
   display: block;
   color: var(--text-subtle);
-  font-size: 0.66rem;
+  font-size: var(--text-caption);
   line-height: 1.45;
-  margin-top: 6px;
+  margin-top: var(--space-2xs);
 }
 .case-mobile-stage {
   align-items: center;
@@ -355,16 +355,16 @@
   background: var(--surface);
   box-shadow: 0 14px 35px color-mix(in srgb, var(--text) 20%, transparent);
   display: flex;
-  font-size: 0.58rem;
-  font-weight: 800;
-  gap: 10px;
-  padding: 10px;
+  font-size: var(--text-label);
+  font-weight: var(--weight-heavy);
+  gap: var(--space-xs);
+  padding: var(--space-xs);
   position: absolute;
   z-index: 3;
 }
 .case-mobile-callout b {
   color: var(--accent-ink);
-  font-size: 0.59rem;
+  font-size: var(--text-label);
 }
 .case-mobile-callout-one {
   right: 1%;
@@ -395,7 +395,7 @@
 .case-ops-console {
   background: var(--surface-tint);
   border: 1px solid var(--border-on-dark-strong);
-  border-radius: 11px;
+  border-radius: var(--radius-l);
   color: var(--text);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -407,107 +407,107 @@
   border-right: 0;
   display: flex;
   flex-direction: row;
-  gap: 7px;
-  padding: 14px;
+  gap: var(--space-2xs);
+  padding: var(--space-s);
   border-bottom: 1px solid var(--border-strong);
   overflow-x: auto;
 }
 .case-ops-console aside strong {
   border-bottom: 1px solid var(--border-strong);
-  font-size: 0.86rem;
-  margin-bottom: 16px;
-  padding: 11px 5px;
+  font-size: var(--text-body);
+  margin-bottom: var(--space-m);
+  padding: var(--space-s) var(--space-3xs);
   border: 0;
-  margin: 0 10px 0 0;
+  margin: 0 var(--space-xs) 0 0;
   min-width: 115px;
 }
 .case-ops-console aside span {
   align-items: center;
   color: var(--text-muted);
   display: flex;
-  font-size: 0.73rem;
-  font-weight: 700;
+  font-size: var(--text-ui);
+  font-weight: var(--weight-strong);
   justify-content: space-between;
-  padding: 11px 10px;
+  padding: var(--space-s) var(--space-xs);
   min-width: max-content;
 }
 .case-ops-console aside span.active {
   background: var(--surface-dark);
-  border-radius: 5px;
+  border-radius: var(--radius-xs);
   color: var(--text-on-dark);
 }
 .case-ops-console aside b {
   align-items: center;
   background: var(--accent);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   color: var(--text);
   display: flex;
-  font-size: 0.55rem;
+  font-size: var(--text-tiny);
   height: 20px;
   justify-content: center;
   width: 20px;
 }
 .case-ops-main {
-  padding: 28px 20px;
+  padding: 28px var(--space-ml);
 }
 .case-ops-topline {
   align-items: start;
   border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
-  padding-bottom: 26px;
+  padding-bottom: var(--space-l);
   flex-direction: column;
-  gap: 15px;
+  gap: var(--space-m);
 }
 .case-ops-topline small {
   color: var(--accent-ink);
-  font-size: 0.58rem;
-  font-weight: 800;
+  font-size: var(--text-label);
+  font-weight: var(--weight-heavy);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 .case-ops-topline h3 {
   font-size: var(--display-2);
   letter-spacing: -0.06em;
-  margin: 9px 0 0;
+  margin: var(--space-xs) 0 0;
 }
 .case-ops-topline > span {
   color: var(--text-muted);
-  font-size: 0.65rem;
+  font-size: var(--text-caption);
 }
 .case-ops-topline > span i {
   background: var(--status-won);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   display: inline-block;
   height: 7px;
-  margin-left: 7px;
+  margin-left: var(--space-2xs);
   width: 7px;
 }
 .case-ops-list article {
   align-items: center;
   border-bottom: 1px solid var(--border);
   display: grid;
-  gap: 12px;
+  gap: var(--space-s);
   grid-template-columns: 25px minmax(0, 1fr);
-  padding: 22px 4px;
+  padding: var(--space-ml) var(--space-3xs);
 }
 .case-ops-list article > span {
   color: var(--accent-ink);
-  font-size: 0.62rem;
-  font-weight: 900;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-black);
 }
 .case-ops-list h4 {
-  font-size: 0.91rem;
-  margin: 0 0 5px;
+  font-size: var(--text-lead);
+  margin: 0 0 var(--space-3xs);
 }
 .case-ops-list p {
   color: var(--text-muted);
-  font-size: 0.73rem;
+  font-size: var(--text-ui);
   line-height: 1.5;
   margin: 0;
 }
 .case-ops-list article > b {
-  font-size: 0.66rem;
+  font-size: var(--text-caption);
   grid-column: 2;
 }
 .case-intent-section {
@@ -546,7 +546,7 @@
   display: flex;
   flex-direction: column;
   min-height: auto;
-  padding: 27px 24px;
+  padding: 27px var(--space-l);
 }
 .case-intent-grid header {
   min-height: auto;
@@ -554,9 +554,9 @@
 .case-intent-grid header span {
   color: var(--accent-ink);
   display: block;
-  font-size: 0.62rem;
-  font-weight: 900;
-  margin-bottom: 22px;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-black);
+  margin-bottom: var(--space-ml);
 }
 .case-intent-grid h3 {
   font-size: 1.22rem;
@@ -574,47 +574,47 @@
   border-top: 1px solid var(--border);
   color: var(--text-muted);
   display: flex;
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: var(--text-ui);
+  font-weight: var(--weight-strong);
   justify-content: space-between;
   line-height: 1.35;
-  padding: 11px 0;
+  padding: var(--space-s) 0;
 }
 .case-intent-grid li span {
   color: var(--accent-ink);
-  font-size: 0.6rem;
-  margin-left: 10px;
+  font-size: var(--text-micro);
+  margin-left: var(--space-xs);
 }
 /* Optional section variants. Case studies opt into these through their
    config - `feature.variant: "dual-steps"` renders the paired step columns,
    and `mediaFeatures` renders the split copy/screenshot bands. */
 .case-steps-pair {
   display: grid;
-  gap: 26px;
+  gap: var(--space-l);
   grid-template-columns: minmax(0, 1fr);
 }
 .case-steps-column {
   background: var(--surface);
-  border-radius: 11px;
+  border-radius: var(--radius-l);
   color: var(--text);
   display: flex;
   flex-direction: column;
-  padding: 32px 28px 26px;
+  padding: 32px 28px var(--space-l);
 }
 .case-steps-column-alt {
   background: var(--accent);
 }
 .case-steps-column header {
   border-bottom: 1px solid var(--border);
-  padding-bottom: 26px;
+  padding-bottom: var(--space-l);
 }
 .case-steps-column small {
   color: var(--accent-ink);
   display: block;
-  font-size: 0.6rem;
-  font-weight: 900;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-black);
   letter-spacing: 0.12em;
-  margin-bottom: 14px;
+  margin-bottom: var(--space-s);
   text-transform: uppercase;
 }
 .case-steps-column-alt small {
@@ -627,9 +627,9 @@
 }
 .case-steps-column header p {
   color: var(--text-muted);
-  font-size: 0.86rem;
+  font-size: var(--text-body);
   line-height: 1.6;
-  margin: 14px 0 0;
+  margin: var(--space-s) 0 0;
   max-width: 380px;
 }
 .case-steps-column-alt header p {
@@ -644,9 +644,9 @@
   align-items: start;
   border-bottom: 1px solid var(--border);
   display: grid;
-  gap: 20px;
+  gap: var(--space-ml);
   grid-template-columns: 26px minmax(0, 1fr);
-  padding: 17px 0;
+  padding: var(--space-m) 0;
 }
 .case-steps-column-alt li {
   border-bottom-color: color-mix(in srgb, var(--blue-950) 18%, transparent);
@@ -656,15 +656,15 @@
 }
 .case-steps-column b {
   color: var(--accent-ink);
-  font-size: 0.62rem;
-  font-weight: 900;
-  padding-top: 3px;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-black);
+  padding-top: var(--space-4xs);
 }
 .case-steps-column-alt b {
   color: var(--blue-950);
 }
 .case-steps-column li span {
-  font-size: 0.84rem;
+  font-size: var(--text-body);
   line-height: 1.5;
 }
 .case-split {
@@ -697,9 +697,9 @@
 .case-split-points span {
   border-bottom: 1px solid var(--border);
   color: var(--text-muted);
-  font-size: 0.72rem;
-  font-weight: 800;
-  padding: 14px 0;
+  font-size: var(--text-ui);
+  font-weight: var(--weight-heavy);
+  padding: var(--space-s) 0;
 }
 .case-split-media .case-browser {
   box-shadow: 0 28px 70px color-mix(in srgb, var(--blue-950) 13%, transparent);
@@ -720,8 +720,8 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .case-mobile-callout {
-    font-size: 0.69rem;
-    padding: 13px 16px;
+    font-size: var(--text-caption);
+    padding: var(--space-s) var(--space-m);
   }
   .case-split-points {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -819,13 +819,13 @@
     border-right: 1px solid var(--border-strong);
     flex-direction: column;
     overflow-x: revert;
-    padding: 29px 20px;
+    padding: 29px var(--space-ml);
   }
   .case-ops-console aside strong {
     border-bottom: 1px solid var(--border-strong);
-    margin-bottom: 16px;
+    margin-bottom: var(--space-m);
     min-width: revert;
-    padding: 0 8px 24px;
+    padding: 0 var(--space-xs) var(--space-l);
   }
   .case-ops-console aside span {
     min-width: revert;
@@ -842,7 +842,7 @@
     gap: revert;
   }
   .case-ops-list article {
-    gap: 22px;
+    gap: var(--space-ml);
     grid-template-columns: 35px minmax(0, 1fr) auto;
   }
   .case-ops-list article > b {

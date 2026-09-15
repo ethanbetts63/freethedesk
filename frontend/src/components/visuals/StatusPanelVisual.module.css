@@ -21,13 +21,13 @@
   border-bottom: 1px solid var(--slate-100);
   display: flex;
   justify-content: space-between;
-  padding-bottom: 18px;
+  padding-bottom: var(--space-m);
 }
 
 .head > div {
   align-items: center;
   display: flex;
-  gap: 11px;
+  gap: var(--space-s);
 }
 
 .head small,
@@ -39,20 +39,20 @@
 
 .head small {
   color: var(--text-muted);
-  font-size: 0.5rem;
-  font-weight: 900;
+  font-size: var(--text-nano);
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
-  margin-bottom: 2px;
+  margin-bottom: var(--space-4xs);
   text-transform: uppercase;
 }
 
 .head strong {
-  font-size: 0.78rem;
+  font-size: var(--text-small);
 }
 
 .dot {
   background: var(--success-accent);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   box-shadow: 0 0 0 4px rgba(79, 208, 138, 0.18);
   flex: none;
   height: 9px;
@@ -65,15 +65,15 @@
   background-clip: text;
   background-size: var(--moving-colour-size);
   color: transparent;
-  font-size: 0.57rem;
-  font-weight: 900;
+  font-size: var(--text-label);
+  font-weight: var(--weight-black);
   text-transform: uppercase;
   -webkit-background-clip: text;
 }
 
 .list {
   display: grid;
-  gap: 12px;
+  gap: var(--space-s);
   list-style: none;
   margin: 0;
   padding: 28px 0 0;
@@ -84,46 +84,46 @@
   background: var(--surface-flow);
   border: 1px solid var(--slate-100);
   display: grid;
-  gap: 12px;
+  gap: var(--space-s);
   grid-template-columns: 20px 24px minmax(0, 1fr);
-  padding: 16px 14px;
+  padding: var(--space-m) var(--space-s);
 }
 
 .index {
   color: var(--text-muted);
-  font-size: 0.57rem;
-  font-weight: 900;
+  font-size: var(--text-label);
+  font-weight: var(--weight-black);
 }
 
 .check {
   align-items: center;
   background: var(--slate-100);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   color: var(--page-accent, var(--brand-accent));
   display: flex;
-  font-size: 0.62rem;
-  font-weight: 900;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-black);
   height: 26px;
   justify-content: center;
   width: 26px;
 }
 
 .copy strong {
-  font-size: 0.78rem;
+  font-size: var(--text-small);
 }
 
 .copy small {
   color: var(--text-muted);
-  font-size: 0.6rem;
+  font-size: var(--text-micro);
   line-height: 1.4;
-  margin-top: 3px;
+  margin-top: var(--space-4xs);
 }
 
 .tag {
   color: var(--slate-600);
   display: none;
-  font-size: 0.53rem;
-  font-weight: 900;
+  font-size: var(--text-tiny);
+  font-weight: var(--weight-black);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }

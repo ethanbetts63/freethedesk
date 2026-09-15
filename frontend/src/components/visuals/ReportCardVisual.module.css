@@ -20,18 +20,18 @@
   background: var(--surface-flow);
   border-bottom: 1px solid var(--slate-100);
   display: flex;
-  gap: 14px;
-  padding: 16px 18px;
+  gap: var(--space-s);
+  padding: var(--space-m) var(--space-m);
 }
 
 .dots {
   display: flex;
-  gap: 5px;
+  gap: var(--space-3xs);
 }
 
 .dots i {
   background: var(--slate-200);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   height: 8px;
   width: 8px;
 }
@@ -42,24 +42,24 @@
 }
 
 .head strong {
-  font-size: 0.84rem;
+  font-size: var(--text-body);
   letter-spacing: -0.01em;
 }
 
 .head small {
   color: var(--text-muted);
-  font-size: 0.7rem;
+  font-size: var(--text-ui);
 }
 
 .badge {
   background: var(--slate-100);
   border: 1px solid var(--slate-200);
   color: var(--accent-ink);
-  font-size: 0.56rem;
-  font-weight: 900;
+  font-size: var(--text-label);
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
   margin-left: auto;
-  padding: 6px 9px;
+  padding: var(--space-2xs) var(--space-xs);
   text-transform: uppercase;
 }
 
@@ -73,9 +73,9 @@
   align-items: center;
   border-bottom: 1px solid var(--slate-100);
   display: grid;
-  gap: 14px;
+  gap: var(--space-s);
   grid-template-columns: auto auto minmax(0, 1fr) auto;
-  padding: 16px 18px;
+  padding: var(--space-m) var(--space-m);
   transition:
     background 0.2s ease,
     padding-left 0.2s ease;
@@ -92,8 +92,8 @@
   color: var(--text-on-dark);
   display: flex;
   flex: 0 0 auto;
-  font-size: 0.58rem;
-  font-weight: 900;
+  font-size: var(--text-label);
+  font-weight: var(--weight-black);
   height: 25px;
   justify-content: center;
   width: 25px;
@@ -106,8 +106,8 @@
   color: var(--accent-ink);
   display: flex;
   flex: 0 0 auto;
-  font-size: 0.8rem;
-  font-weight: 900;
+  font-size: var(--text-small);
+  font-weight: var(--weight-black);
   height: 40px;
   justify-content: center;
   width: 40px;
@@ -116,20 +116,20 @@
 .list h3 {
   font-size: 1rem;
   letter-spacing: -0.025em;
-  margin: 0 0 3px;
+  margin: 0 0 var(--space-4xs);
 }
 
 .list p {
   color: var(--text-muted);
-  font-size: 0.81rem;
+  font-size: var(--text-body);
   line-height: 1.45;
   margin: 0;
 }
 
 .tag {
   color: var(--page-accent, var(--brand-accent));
-  font-size: 0.58rem;
-  font-weight: 900;
+  font-size: var(--text-label);
+  font-weight: var(--weight-black);
   letter-spacing: 0.07em;
   text-transform: uppercase;
 }
@@ -137,24 +137,24 @@
 .foot {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
-  padding: 18px;
+  gap: var(--space-2xs);
+  padding: var(--space-m);
 }
 
 .foot span {
   background: var(--surface-flow);
   color: var(--slate-600);
-  font-size: 0.68rem;
-  font-weight: 700;
-  padding: 6px 10px;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-strong);
+  padding: var(--space-2xs) var(--space-xs);
 }
 
 @media (min-width: 640px) {
   .list li,
   .head,
   .foot {
-    padding-left: 22px;
-    padding-right: 22px;
+    padding-left: var(--space-ml);
+    padding-right: var(--space-ml);
   }
 }
 

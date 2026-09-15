@@ -5,7 +5,7 @@
 
 .expandable-services-heading {
   display: grid;
-  gap: 20px;
+  gap: var(--space-ml);
   margin-bottom: clamp(38px, 6vw, 72px);
 }
 
@@ -36,11 +36,11 @@
   align-items: center;
   cursor: pointer;
   display: grid;
-  gap: 14px;
+  gap: var(--space-s);
   grid-template-columns: auto 46px minmax(0, 1fr) auto;
   list-style: none;
   min-height: 112px;
-  padding: 20px 4px;
+  padding: var(--space-ml) var(--space-3xs);
 }
 
 .expandable-services-list summary::-webkit-details-marker {
@@ -54,8 +54,8 @@
 
 .expandable-services-index {
   color: var(--page-accent, var(--brand-accent));
-  font-size: 0.65rem;
-  font-weight: 900;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
 }
 
@@ -83,16 +83,16 @@
 .expandable-services-summary small {
   color: var(--text-muted);
   display: none;
-  font-size: 0.78rem;
+  font-size: var(--text-small);
   line-height: 1.55;
-  margin-top: 7px;
+  margin-top: var(--space-2xs);
   max-width: 760px;
 }
 
 .expandable-services-toggle {
   align-items: center;
   border: 1px solid var(--border);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   color: var(--page-accent, var(--brand-accent));
   display: flex;
   font-size: 1.2rem;
@@ -107,15 +107,15 @@
 }
 
 .expandable-services-body {
-  padding: 0 4px 28px 78px;
+  padding: 0 var(--space-3xs) 28px 78px;
 }
 
 .expandable-services-body > p {
   color: var(--page-accent, var(--brand-accent));
-  font-size: 0.62rem;
-  font-weight: 900;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-black);
   letter-spacing: 0.12em;
-  margin: 0 0 14px;
+  margin: 0 0 var(--space-s);
   text-transform: uppercase;
 }
 
@@ -131,14 +131,14 @@
   border-top: 1px solid var(--border);
   color: var(--text-muted);
   line-height: 1.55;
-  padding: 14px 0 14px 24px;
+  padding: var(--space-s) 0 var(--space-s) var(--space-l);
   position: relative;
 }
 
 .expandable-services-body li::before {
   color: var(--page-accent, var(--brand-accent));
   content: "✓";
-  font-weight: 900;
+  font-weight: var(--weight-black);
   left: 0;
   position: absolute;
 }
@@ -160,10 +160,10 @@
   }
 
   .expandable-services-list summary {
-    gap: 22px;
+    gap: var(--space-ml);
     grid-template-columns: 34px 70px minmax(0, 1fr) auto;
     min-height: 142px;
-    padding: 24px 18px;
+    padding: var(--space-l) var(--space-m);
   }
 
   .expandable-services-icon > svg {

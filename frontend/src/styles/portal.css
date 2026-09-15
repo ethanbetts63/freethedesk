@@ -2,23 +2,23 @@
    Imported by app/portal/layout.tsx and app/seo-portal/layout.tsx. */
 .portal-steps {
   display: grid;
-  gap: 18px;
+  gap: var(--space-m);
   list-style: none;
-  margin: 0 0 18px;
+  margin: 0 0 var(--space-m);
   padding: 0;
   counter-reset: portal-step;
 }
 .portal-steps li {
   border-left: 2px solid var(--border);
   counter-increment: portal-step;
-  padding-left: 16px;
+  padding-left: var(--space-m);
   position: relative;
 }
 .portal-steps li::before {
   color: var(--text-subtle);
   content: "0" counter(portal-step);
-  font-size: 0.61rem;
-  font-weight: 800;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-heavy);
   left: 16px;
   letter-spacing: 0.08em;
   position: absolute;
@@ -26,60 +26,60 @@
 }
 .portal-steps li strong {
   display: block;
-  font-size: 0.82rem;
-  padding-top: 16px;
+  font-size: var(--text-body);
+  padding-top: var(--space-m);
 }
 .portal-steps li span {
   color: var(--text-muted);
   display: block;
-  font-size: 0.76rem;
+  font-size: var(--text-small);
   line-height: 1.55;
-  margin-top: 5px;
+  margin-top: var(--space-3xs);
 }
 .portal-setup-form {
   display: grid;
-  gap: 20px;
+  gap: var(--space-ml);
 }
 .portal-setup-form fieldset {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-l);
   margin: 0;
-  padding: 22px 18px;
+  padding: var(--space-ml) var(--space-m);
 }
 .portal-setup-form legend {
   background: var(--surface);
   font-size: 1rem;
   font-weight: var(--weight-control);
-  padding: 0 9px;
+  padding: 0 var(--space-xs);
 }
 .portal-setup-form fieldset > p {
   color: var(--text-muted);
-  font-size: 0.75rem;
+  font-size: var(--text-ui);
   line-height: 1.55;
-  margin: 0 0 24px;
+  margin: 0 0 var(--space-l);
 }
 .portal-field-grid {
   display: grid;
-  gap: 19px;
+  gap: var(--space-ml);
   grid-template-columns: minmax(0, 1fr);
 }
 .portal-field-grid label {
-  font-size: 0.71rem;
-  font-weight: 800;
+  font-size: var(--text-ui);
+  font-weight: var(--weight-heavy);
 }
 .portal-field-grid label > span {
   display: block;
-  margin-bottom: 7px;
+  margin-bottom: var(--space-2xs);
 }
 .portal-field-grid input {
   background: var(--surface);
   border: 1px solid var(--border-strong);
-  border-radius: 5px;
+  border-radius: var(--radius-xs);
   color: var(--text);
   min-height: 42px;
   outline: none;
-  padding: 10px 11px;
+  padding: var(--space-xs) var(--space-s);
   width: 100%;
 }
 .portal-field-grid input:focus {
@@ -89,22 +89,22 @@
 .portal-field-grid small {
   color: var(--text-subtle);
   display: block;
-  font-size: 0.63rem;
+  font-size: var(--text-meta);
   font-weight: var(--weight-normal);
   line-height: 1.4;
-  margin-top: 6px;
+  margin-top: var(--space-2xs);
 }
 .portal-file-grid input {
   background: var(--surface-tint);
-  font-size: 0.68rem;
-  padding: 8px;
+  font-size: var(--text-caption);
+  padding: var(--space-xs);
 }
 .portal-form-actions {
   align-items: stretch;
   display: flex;
-  gap: 12px;
+  gap: var(--space-s);
   justify-content: flex-end;
-  padding: 8px 0;
+  padding: var(--space-xs) 0;
   flex-direction: column;
 }
 

@@ -17,7 +17,7 @@
 }
 .hero::after {
   background: var(--accent);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   content: "";
   filter: blur(24px);
   height: 380px;
@@ -35,9 +35,9 @@
   align-items: center;
   color: var(--text-on-dark-subtle);
   display: flex;
-  font-size: 0.7rem;
-  font-weight: 700;
-  gap: 10px;
+  font-size: var(--text-ui);
+  font-weight: var(--weight-strong);
+  gap: var(--space-xs);
   margin-bottom: 62px;
 }
 .breadcrumbs a {
@@ -48,10 +48,10 @@
 }
 .eyebrow {
   color: var(--accent);
-  font-size: 0.69rem;
-  gap: 9px;
+  font-size: var(--text-caption);
+  gap: var(--space-xs);
   letter-spacing: 0.14em;
-  margin: 0 0 26px;
+  margin: 0 0 var(--space-l);
 }
 .hero h1 {
   font-size: var(--display-6);
@@ -72,9 +72,9 @@
   color: var(--text-on-dark-subtle);
   display: flex;
   flex-wrap: wrap;
-  font-size: 0.65rem;
-  font-weight: 800;
-  gap: 10px;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-heavy);
+  gap: var(--space-xs);
   letter-spacing: 0.07em;
   margin: 38px 0 0;
   text-transform: uppercase;
@@ -101,13 +101,13 @@
   top: 120px;
   border-bottom: 1px solid var(--border);
   display: flex;
-  gap: 16px;
-  padding-bottom: 22px;
+  gap: var(--space-m);
+  padding-bottom: var(--space-ml);
 }
 .rail > span {
   color: var(--accent-ink);
-  font-size: 0.65rem;
-  font-weight: 800;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-heavy);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -115,12 +115,12 @@
   background: var(--border);
   display: none;
   height: 1px;
-  margin: 20px 0;
+  margin: var(--space-ml) 0;
   width: 72px;
 }
 .rail p {
   color: var(--text-subtle);
-  font-size: 0.72rem;
+  font-size: var(--text-ui);
   line-height: 1.6;
   margin: 0;
   max-width: 180px;
@@ -146,30 +146,30 @@
   font-size: var(--step-3);
   letter-spacing: -0.04em;
   line-height: 1.12;
-  margin: 64px 0 22px;
+  margin: 64px 0 var(--space-ml);
   padding-top: 34px;
 }
 .prose h3 {
   font-size: 1.28rem;
   letter-spacing: -0.025em;
   line-height: 1.25;
-  margin: 42px 0 16px;
+  margin: 42px 0 var(--space-m);
 }
 .prose p {
-  margin: 0 0 24px;
+  margin: 0 0 var(--space-l);
 }
 .prose ul,
 .prose ol {
   margin: 0 0 28px;
-  padding-left: 24px;
+  padding-left: var(--space-l);
 }
 .prose li {
-  margin-bottom: 9px;
-  padding-left: 5px;
+  margin-bottom: var(--space-xs);
+  padding-left: var(--space-3xs);
 }
 .prose a {
   color: var(--link);
-  font-weight: 700;
+  font-weight: var(--weight-strong);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
@@ -178,13 +178,13 @@
   color: var(--blue-600);
 }
 .prose strong {
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
 }
 .prose blockquote {
   background: var(--surface-tint);
   border-left: 4px solid var(--accent-ink);
   margin: 36px 0;
-  padding: 24px 28px;
+  padding: var(--space-l) 28px;
 }
 .prose blockquote p:last-child {
   margin-bottom: 0;
@@ -196,15 +196,15 @@
 }
 .prose code {
   background: var(--surface-tint-2);
-  border-radius: 3px;
+  border-radius: var(--radius-2xs);
   font-size: 0.88em;
-  padding: 2px 6px;
+  padding: var(--space-4xs) var(--space-2xs);
 }
 .prose pre {
   background: var(--surface-dark);
   color: var(--text-on-dark);
   overflow-x: auto;
-  padding: 22px;
+  padding: var(--space-ml);
 }
 .prose pre code {
   background: transparent;
@@ -213,7 +213,7 @@
 .prose table {
   border-collapse: collapse;
   display: block;
-  font-size: 0.86rem;
+  font-size: var(--text-body);
   margin: 34px 0;
   overflow-x: auto;
   width: 100%;
@@ -221,15 +221,15 @@
 .prose th {
   background: var(--surface-dark);
   color: var(--text-on-dark);
-  font-size: 0.68rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.06em;
-  padding: 13px 15px;
+  padding: var(--space-s) var(--space-m);
   text-align: left;
   text-transform: uppercase;
 }
 .prose td {
   border-bottom: 1px solid var(--border);
-  padding: 13px 15px;
+  padding: var(--space-s) var(--space-m);
 }
 .prose img {
   height: auto;
@@ -245,12 +245,12 @@
   justify-content: center;
   min-height: 148px;
   flex-direction: column;
-  gap: 18px;
+  gap: var(--space-m);
 }
 .returnInner p {
   color: var(--text-subtle);
-  font-size: 0.66rem;
-  font-weight: 800;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-heavy);
   letter-spacing: 0.12em;
   margin: 0;
   text-transform: uppercase;
@@ -258,8 +258,8 @@
 .returnInner a {
   align-items: center;
   display: flex;
-  font-size: 0.88rem;
-  font-weight: 800;
+  font-size: var(--text-body);
+  font-weight: var(--weight-heavy);
   gap: 36px;
 }
 .returnInner a span {

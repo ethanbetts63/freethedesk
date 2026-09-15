@@ -12,7 +12,7 @@
 }
 .closing > p:not(:global(.section-number)) {
   color: var(--slate-600);
-  font-size: 0.96rem;
+  font-size: var(--text-lead);
   line-height: 1.7;
   margin: 27px auto 31px;
   max-width: 570px;

@@ -17,7 +17,7 @@
 }
 .hero::after {
   background: var(--accent);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   content: "";
   filter: blur(1px);
   height: clamp(230px, 34vw, 520px);
@@ -33,8 +33,8 @@
 }
 .eyebrow {
   color: var(--accent);
-  font-size: 0.72rem;
-  gap: 10px;
+  font-size: var(--text-ui);
+  gap: var(--space-xs);
   letter-spacing: 0.15em;
   margin: 0 0 30px;
 }
@@ -61,8 +61,8 @@
   bottom: 34px;
   color: var(--text-on-dark-subtle);
   display: none;
-  font-size: 0.62rem;
-  gap: 12px;
+  font-size: var(--text-meta);
+  gap: var(--space-s);
   letter-spacing: 0.12em;
   position: absolute;
   right: max(32px, calc((100vw - 1176px) / 2));
@@ -95,14 +95,14 @@
 }
 .indexHeader > p {
   color: var(--text-muted);
-  font-size: 0.94rem;
+  font-size: var(--text-lead);
   line-height: 1.7;
-  margin: 0 0 4px;
+  margin: 0 0 var(--space-3xs);
   max-width: 440px;
 }
 .grid {
   display: grid;
-  gap: 16px;
+  gap: var(--space-m);
   grid-template-columns: minmax(0, 1fr);
 }
 .card {
@@ -110,7 +110,7 @@
   display: flex;
   flex-direction: column;
   min-height: 390px;
-  padding: 22px;
+  padding: var(--space-ml);
   transition:
     border-color 0.2s,
     box-shadow 0.2s,
@@ -125,8 +125,8 @@
   align-items: center;
   color: var(--text-subtle);
   display: flex;
-  font-size: 0.62rem;
-  font-weight: 800;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-heavy);
   justify-content: space-between;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -134,7 +134,7 @@
 .cardTop span:first-child {
   align-items: center;
   border: 1px solid var(--border);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   display: flex;
   height: 38px;
   justify-content: center;
@@ -147,10 +147,10 @@
 }
 .byline {
   color: var(--accent-ink);
-  font-size: 0.65rem;
-  font-weight: 800;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-heavy);
   letter-spacing: 0.08em;
-  margin-bottom: 17px;
+  margin-bottom: var(--space-m);
   text-transform: uppercase;
 }
 .cardBody h3 {
@@ -165,19 +165,19 @@
 }
 .cardBody > p:last-child {
   color: var(--text-muted);
-  font-size: 0.86rem;
+  font-size: var(--text-body);
   line-height: 1.65;
-  margin: 22px 0 0;
+  margin: var(--space-ml) 0 0;
   max-width: 560px;
 }
 .readLink {
   align-items: center;
   border-top: 1px solid var(--border);
   display: flex;
-  font-size: 0.76rem;
-  font-weight: 800;
+  font-size: var(--text-small);
+  font-weight: var(--weight-heavy);
   justify-content: space-between;
-  padding-top: 19px;
+  padding-top: var(--space-ml);
 }
 .readLink b {
   color: var(--accent-ink);
@@ -195,16 +195,16 @@
   gap: 30px;
   grid-template-columns: minmax(0, 1fr);
   min-height: 190px;
-  padding: 28px 24px;
+  padding: 28px var(--space-l);
 }
 .empty > span {
   align-items: center;
   background: var(--surface-dark);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   color: var(--accent);
   display: flex;
-  font-size: 0.7rem;
-  font-weight: 800;
+  font-size: var(--text-ui);
+  font-weight: var(--weight-heavy);
   height: 52px;
   justify-content: center;
   width: 52px;
@@ -212,25 +212,25 @@
 .empty h3 {
   font-size: 1.35rem;
   letter-spacing: -0.03em;
-  margin: 0 0 8px;
+  margin: 0 0 var(--space-xs);
 }
 .empty p {
   color: var(--text-muted);
-  font-size: 0.84rem;
+  font-size: var(--text-body);
   line-height: 1.6;
   margin: 0;
 }
 .empty a {
   border-bottom: 1px solid var(--text);
-  font-size: 0.78rem;
-  font-weight: 800;
-  padding-bottom: 7px;
+  font-size: var(--text-small);
+  font-weight: var(--weight-heavy);
+  padding-bottom: var(--space-2xs);
   grid-column: 1;
   justify-self: start;
 }
 .empty a b {
   color: var(--accent-ink);
-  margin-left: 8px;
+  margin-left: var(--space-xs);
 }
 
 @media (min-width: 640px) {

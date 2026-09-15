@@ -18,34 +18,34 @@
   border-bottom: 1px solid var(--slate-200);
   color: var(--text-muted);
   display: grid;
-  font-size: 0.48rem;
+  font-size: var(--text-nano);
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   height: 38px;
-  padding: 0 13px;
+  padding: 0 var(--space-s);
 }
 
 .browserTop > div {
   display: flex;
-  gap: 5px;
+  gap: var(--space-3xs);
 }
 
 .browserTop i {
   background: var(--slate-300);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   height: 6px;
   width: 6px;
 }
 
 .browserTop > span {
   background: var(--surface);
-  border-radius: 3px;
-  padding: 5px 18px;
+  border-radius: var(--radius-2xs);
+  padding: var(--space-3xs) var(--space-m);
 }
 
 .browserTop b {
   color: var(--accent-ink);
   display: none;
-  font-size: 0.46rem;
+  font-size: var(--text-nano);
   justify-self: end;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -55,7 +55,7 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 23px 30px;
+  padding: var(--space-l) 30px;
 }
 
 .siteNav > strong {
@@ -70,9 +70,9 @@
 .siteNav > div {
   align-items: center;
   display: flex;
-  font-size: 0.52rem;
-  font-weight: 800;
-  gap: 22px;
+  font-size: var(--text-nano);
+  font-weight: var(--weight-heavy);
+  gap: var(--space-ml);
 }
 
 .siteNav > div span {
@@ -82,7 +82,7 @@
 .siteNav > div b {
   background: var(--section-accent);
   color: var(--text-on-dark);
-  padding: 8px 10px;
+  padding: var(--space-xs) var(--space-xs);
 }
 
 .siteHero {
@@ -90,7 +90,7 @@
   background: var(--surface-flow);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  margin: 0 11px;
+  margin: 0 var(--space-s);
   min-height: 330px;
   overflow: hidden;
   padding: 28px;
@@ -98,8 +98,8 @@
 
 .siteHero small {
   color: var(--section-accent);
-  font-size: 0.48rem;
-  font-weight: 900;
+  font-size: var(--text-nano);
+  font-weight: var(--weight-black);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -108,12 +108,12 @@
   font-size: var(--display-3);
   letter-spacing: -0.075em;
   line-height: 0.86;
-  margin: 15px 0;
+  margin: var(--space-m) 0;
 }
 
 .siteHero p {
   color: var(--slate-600);
-  font-size: 0.62rem;
+  font-size: var(--text-meta);
   line-height: 1.6;
   max-width: 250px;
 }
@@ -122,10 +122,10 @@
   background: var(--section-accent);
   color: var(--text-on-dark);
   display: inline-block;
-  font-size: 0.52rem;
-  font-weight: 800;
-  margin-top: 10px;
-  padding: 11px 13px;
+  font-size: var(--text-nano);
+  font-weight: var(--weight-heavy);
+  margin-top: var(--space-xs);
+  padding: var(--space-s) var(--space-s);
 }
 
 .previewVehicle {
@@ -149,7 +149,7 @@
 .previewVehicleImage {
   height: 100%;
   object-fit: contain;
-  padding: 6px 0;
+  padding: var(--space-2xs) 0;
   position: relative;
   width: 100%;
   z-index: 1;
@@ -158,19 +158,19 @@
 .inventoryStrip {
   align-items: center;
   display: grid;
-  font-size: 0.54rem;
+  font-size: var(--text-tiny);
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  padding: 18px;
+  padding: var(--space-m);
 }
 
 .inventoryStrip > span {
-  font-weight: 900;
+  font-weight: var(--weight-black);
   text-transform: uppercase;
 }
 
 .inventoryStrip > div {
   display: none;
-  gap: 7px;
+  gap: var(--space-2xs);
 }
 
 .inventoryStrip i {
@@ -194,7 +194,7 @@
   }
 
   .browserTop > span {
-    padding: 5px 52px;
+    padding: var(--space-3xs) 52px;
   }
 
   .browserTop b {
@@ -202,7 +202,7 @@
   }
 
   .siteHero {
-    margin: 0 21px;
+    margin: 0 var(--space-ml);
     min-height: 330px;
     padding: clamp(30px, 4vw, 52px);
   }
@@ -217,7 +217,7 @@
   }
 
   .inventoryStrip {
-    padding: 22px 31px;
+    padding: var(--space-ml) 31px;
   }
 
   .inventoryStrip > div {

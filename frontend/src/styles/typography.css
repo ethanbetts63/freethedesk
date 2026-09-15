@@ -7,16 +7,16 @@
   /* Each section sets --eyebrow-accent to its own accent colour. */
   color: var(--eyebrow-accent, var(--accent-ink));
   display: flex;
-  font-size: 0.68rem;
-  font-weight: 800;
-  gap: 11px;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-heavy);
+  gap: var(--space-s);
   letter-spacing: 0.17em;
-  margin: 0 0 25px;
+  margin: 0 0 var(--space-l);
   text-transform: uppercase;
 }
 .eyebrow > span {
   background: currentColor;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   height: 7px;
   width: 7px;
 }
@@ -25,10 +25,10 @@
    tint it automatically; --section-number-light is the dark-surface variant. */
 .section-number {
   color: var(--page-accent, var(--section-number));
-  font-size: 0.68rem;
-  font-weight: 900;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-black);
   letter-spacing: 0.14em;
-  margin: 0 0 24px;
+  margin: 0 0 var(--space-l);
   text-transform: uppercase;
 }
 .section-number-light {
@@ -44,10 +44,10 @@
   color: inherit;
   cursor: pointer;
   font: inherit;
-  font-size: 0.88rem;
-  font-weight: 800;
-  padding: 4px 0 7px;
+  font-size: var(--text-body);
+  font-weight: var(--weight-heavy);
+  padding: var(--space-3xs) 0 var(--space-2xs);
 }
 .text-link span {
-  margin-left: 8px;
+  margin-left: var(--space-xs);
 }

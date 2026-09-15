@@ -25,11 +25,11 @@
   align-items: center;
   cursor: pointer;
   display: flex;
-  font-size: 0.94rem;
+  font-size: var(--text-lead);
   font-weight: var(--weight-control);
   justify-content: space-between;
   list-style: none;
-  padding: 24px 0;
+  padding: var(--space-l) 0;
 }
 .faqList summary::-webkit-details-marker {
   display: none;
@@ -42,7 +42,7 @@
   border-top: 7px solid var(--faq-accent);
   flex: 0 0 auto;
   height: 0;
-  margin-left: 20px;
+  margin-left: var(--space-ml);
   transition: transform 0.2s ease;
   width: 0;
 }
@@ -51,9 +51,9 @@
 }
 .faqList details p {
   color: var(--slate-600);
-  font-size: 0.84rem;
+  font-size: var(--text-body);
   line-height: 1.72;
-  margin: -4px 0 25px;
+  margin: -4px 0 var(--space-l);
 }
 
 @media (min-width: 640px) {

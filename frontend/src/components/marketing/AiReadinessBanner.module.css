@@ -18,7 +18,7 @@
 .inner {
   align-items: center;
   display: grid;
-  gap: 16px;
+  gap: var(--space-m);
   grid-template-columns: minmax(0, 1fr);
   justify-content: space-between;
   min-height: 0;
@@ -35,7 +35,7 @@
 .form {
   align-items: center;
   display: grid;
-  gap: 8px;
+  gap: var(--space-xs);
   grid-template-columns: minmax(0, 1fr);
   min-width: 0;
 }
@@ -62,7 +62,7 @@
   font-size: 1rem;
   min-height: var(--tap-min);
   outline: none;
-  padding: 0 11px;
+  padding: 0 var(--space-s);
   width: 100%;
 }
 .form input::placeholder {
@@ -80,7 +80,7 @@
 }
 .error {
   color: var(--danger-on-dark);
-  font-size: 0.66rem;
+  font-size: var(--text-caption);
   grid-column: 1 / -1;
   margin: 0;
 }
@@ -88,14 +88,14 @@
   align-items: center;
   color: var(--slate-100);
   display: flex;
-  font-size: 0.82rem;
-  gap: 12px;
+  font-size: var(--text-body);
+  gap: var(--space-s);
   margin: 0;
 }
 .success > span {
   align-items: center;
   background: var(--brand-accent);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   color: var(--text-on-dark);
   display: flex;
   flex: 0 0 28px;
@@ -124,7 +124,7 @@
 }
 .modalBanner .inner {
   align-items: stretch;
-  padding: 58px 24px 28px;
+  padding: 58px var(--space-l) 28px;
 }
 .modalBanner .copy h2 {
   font-size: var(--display-1);
@@ -181,7 +181,7 @@
     grid-template-columns: minmax(170px, 1fr) minmax(170px, 1fr) auto;
   }
   .form input {
-    font-size: 0.75rem;
+    font-size: var(--text-ui);
     min-height: 40px;
   }
   .submit {
@@ -194,8 +194,8 @@
     display: flex;
     gap: clamp(24px, 4vw, 56px);
     min-height: 92px;
-    padding-bottom: 16px;
-    padding-top: 16px;
+    padding-bottom: var(--space-m);
+    padding-top: var(--space-m);
   }
   .copy h2 {
     max-width: 480px;
