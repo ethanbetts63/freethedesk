@@ -49,7 +49,7 @@
 }
 .portal-setup-form legend {
   background: var(--surface);
-  font-size: 1rem;
+  font-size: var(--step-0);
   font-weight: var(--weight-control);
   padding: 0 var(--space-xs);
 }

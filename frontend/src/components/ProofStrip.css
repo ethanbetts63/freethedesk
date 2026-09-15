@@ -40,7 +40,7 @@
   white-space: nowrap;
 }
 .proof-strip h2 {
-  font-size: 1.05rem;
+  font-size: var(--step-0);
   margin: 0 0 var(--space-2xs);
 }
 .proof-strip p {

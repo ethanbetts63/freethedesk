@@ -128,7 +128,7 @@
 }
 .prose {
   color: var(--text);
-  font-size: 1rem;
+  font-size: var(--step-0);
   line-height: 1.78;
   min-width: 0;
 }
@@ -264,7 +264,7 @@
 }
 .returnInner a span {
   color: var(--accent-ink);
-  font-size: 1.1rem;
+  font-size: var(--step-0);
   transition: transform 0.2s;
 }
 .returnInner a:hover span {

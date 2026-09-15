@@ -231,7 +231,7 @@
   text-align: left;
 }
 .submit span {
-  font-size: 1.1rem;
+  font-size: var(--step-0);
 }
 .error {
   background: var(--danger-surface);

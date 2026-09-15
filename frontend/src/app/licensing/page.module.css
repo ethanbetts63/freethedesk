@@ -323,7 +323,7 @@
 }
 .loginPhoneHeading {
   color: var(--surface-ink);
-  font-size: 1rem;
+  font-size: var(--step-0);
   font-weight: var(--weight-heavy);
   letter-spacing: -0.04em;
   margin: 0 0 var(--space-s);

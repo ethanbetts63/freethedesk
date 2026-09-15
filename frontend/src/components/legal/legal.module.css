@@ -62,7 +62,7 @@
   padding-top: var(--space-l);
 }
 .document h3 {
-  font-size: 1.1rem;
+  font-size: var(--step-0);
   margin: var(--space-xl) 0 var(--space-s);
 }
 .document p,

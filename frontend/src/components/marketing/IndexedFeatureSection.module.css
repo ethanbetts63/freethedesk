@@ -14,7 +14,7 @@
 }
 .lead {
   color: var(--slate-600);
-  font-size: 1.02rem;
+  font-size: var(--step-0);
   line-height: 1.75;
   margin: var(--space-l) 0 0;
   max-width: 720px;
@@ -42,7 +42,7 @@
 .items strong {
   color: var(--blue-950);
   display: block;
-  font-size: 1.08rem;
+  font-size: var(--step-0);
   letter-spacing: -0.025em;
   margin-bottom: var(--space-xs);
 }

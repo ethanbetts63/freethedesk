@@ -45,7 +45,7 @@
 }
 .case-hero-copy > p:not(.eyebrow) {
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: var(--step-0);
   line-height: 1.65;
   margin: var(--space-xl) 0 var(--space-xl);
   max-width: 555px;
@@ -137,7 +137,7 @@
 }
 .case-story-intro > div > p {
   color: var(--text-muted);
-  font-size: 1.07rem;
+  font-size: var(--step-0);
   line-height: 1.72;
   margin: var(--space-xl) 0 var(--space-xl);
   max-width: 720px;
@@ -239,7 +239,7 @@
 }
 .case-tour-controls strong {
   display: block;
-  font-size: 1.06rem;
+  font-size: var(--step-0);
   letter-spacing: -0.025em;
   line-height: 1.2;
 }
@@ -250,7 +250,7 @@
   margin: var(--space-s) 0 0;
 }
 .case-tour-controls i {
-  font-size: 1rem;
+  font-size: var(--step-0);
   font-style: normal;
   text-align: right;
 }
@@ -297,7 +297,7 @@
 }
 .case-mobile-copy > p:not(.section-number) {
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: var(--step-0);
   line-height: 1.72;
   margin: var(--space-xl) 0 0;
   max-width: 540px;
@@ -383,7 +383,7 @@
 .case-operations-heading > p {
   align-self: end;
   color: color-mix(in srgb, var(--bg) 78%, transparent);
-  font-size: 0.98rem;
+  font-size: var(--step-0);
   line-height: 1.72;
   margin: 0;
   max-width: 540px;
@@ -527,7 +527,7 @@
 }
 .case-intent-heading > p {
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: var(--step-0);
   line-height: 1.72;
   margin: 0;
   max-width: 530px;
@@ -682,7 +682,7 @@
 }
 .case-split-copy > p:not(.section-number) {
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: var(--step-0);
   line-height: 1.72;
   margin: var(--space-xl) 0;
   max-width: 560px;
@@ -709,7 +709,7 @@
 
 @media (min-width: 640px) {
   .case-hero-copy > p:not(.eyebrow) {
-    font-size: 1.08rem;
+    font-size: var(--step-0);
   }
   .case-hero-media {
     padding-left: var(--space-xl);

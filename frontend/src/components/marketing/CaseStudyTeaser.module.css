@@ -64,7 +64,7 @@
 }
 .copy > p:not(:global(.section-number)) {
   color: var(--text-on-dark-muted);
-  font-size: 0.97rem;
+  font-size: var(--text-lead);
   line-height: 1.76;
   margin: 0 0 var(--space-m);
   max-width: 560px;

@@ -181,7 +181,7 @@
 }
 .readLink b {
   color: var(--accent-ink);
-  font-size: 1rem;
+  font-size: var(--step-0);
   transition: transform 0.2s;
 }
 .card:hover .readLink b {
