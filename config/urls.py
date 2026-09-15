@@ -8,5 +8,7 @@ urlpatterns = [
     path("api/", include("dealers.urls")),
     path("api/", include("seo.urls")),
     path("api/payments/", include("payments.urls")),
+    # Public, verified by provider signature rather than by authentication.
+    path("api/webhooks/messaging/", include("freetheplatform.messaging.api.webhook_urls")),
 ]
 

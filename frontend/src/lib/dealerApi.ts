@@ -16,7 +16,6 @@ export interface SubscriptionCheckout {
   client_secret: string;
   monthly_price: string;
   currency: string;
-  terms_version: string;
 }
 
 export interface DealerOnboardingProfile {

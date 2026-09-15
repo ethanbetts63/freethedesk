@@ -54,12 +54,42 @@ export interface StaffAccountFields {
   status_changed_at: string | null;
 }
 
+const API_TIMEOUT_MS = 15_000;
+const SAFE_METHOD = /^(GET|HEAD|OPTIONS|TRACE)$/i;
+
 function csrfToken(): string | null {
+  if (typeof document === "undefined") return null;
   const value = document.cookie
     .split("; ")
     .find((row) => row.startsWith("csrftoken="))
     ?.split("=")[1];
   return value ? decodeURIComponent(value) : null;
+}
+
+/** Shared browser request policy for the same-origin Django API. */
+async function apiFetch(url: string, options: RequestInit = {}): Promise<Response> {
+  const headers = new Headers(options.headers);
+  if (options.body && !(options.body instanceof FormData) && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
+  if (!SAFE_METHOD.test(options.method ?? "GET")) {
+    const token = csrfToken();
+    if (token) headers.set("X-CSRFToken", token);
+  }
+
+  try {
+    return await fetch(url, {
+      ...options,
+      credentials: "include",
+      headers,
+      signal: options.signal ?? AbortSignal.timeout(API_TIMEOUT_MS),
+    });
+  } catch (reason) {
+    if (reason instanceof DOMException && (reason.name === "TimeoutError" || reason.name === "AbortError")) {
+      throw new Error("The request timed out. Please try again.");
+    }
+    throw reason;
+  }
 }
 
 function endSession(): void {
@@ -70,7 +100,7 @@ function endSession(): void {
 let refreshInFlight: Promise<boolean> | null = null;
 
 function refreshSession(): Promise<boolean> {
-  refreshInFlight ??= fetch("/api/token/refresh/", { method: "POST", credentials: "include" })
+  refreshInFlight ??= apiFetch("/api/token/refresh/", { method: "POST" })
     .then((response) => response.ok)
     .catch(() => false)
     .finally(() => {
@@ -80,16 +110,7 @@ function refreshSession(): Promise<boolean> {
 }
 
 export async function authedFetch(url: string, options: RequestInit = {}): Promise<Response> {
-  const request = { ...options, credentials: "include" as RequestCredentials };
-  const headers = new Headers(options.headers);
-  if (options.body && !(options.body instanceof FormData)) headers.set("Content-Type", "application/json");
-  if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(options.method ?? "GET")) {
-    const token = csrfToken();
-    if (token) headers.set("X-CSRFToken", token);
-  }
-  request.headers = headers;
-
-  const response = await fetch(url, request);
+  const response = await apiFetch(url, options);
   if (response.status !== 401) return response;
 
   if (!(await refreshSession())) {
@@ -97,7 +118,7 @@ export async function authedFetch(url: string, options: RequestInit = {}): Promi
     return response;
   }
 
-  const retried = await fetch(url, request);
+  const retried = await apiFetch(url, options);
   if (retried.status === 401) endSession();
   return retried;
 }
@@ -125,17 +146,15 @@ export function queryString(values: Record<string, string | number | undefined>)
 }
 
 export async function login(identifier: string, password: string): Promise<Principal> {
-  const response = await fetch("/api/token/", {
+  const response = await apiFetch("/api/token/", {
     method: "POST",
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username: identifier, password }),
   });
   return jsonOrError<Principal>(response);
 }
 
 export async function logout(): Promise<void> {
-  await fetch("/api/token/logout/", { method: "POST", credentials: "include" });
+  await jsonOrError<void>(await apiFetch("/api/token/logout/", { method: "POST" }));
 }
 
 export async function getProfile(): Promise<Principal> {
@@ -166,7 +185,7 @@ export type PriceField = Exclude<keyof PublicSiteSettings, "updated_at">;
 
 /** Unauthenticated; powers the public licensing and SEO pricing pages. */
 export async function getSiteSettings(): Promise<PublicSiteSettings> {
-  return jsonOrError(await fetch("/api/site-settings/"));
+  return jsonOrError(await apiFetch("/api/site-settings/"));
 }
 
 /** Lead type. Typed against the backend's choices so a value the API would reject can't be sent. */
@@ -187,9 +206,8 @@ export interface EnquiryPayload {
 /** Unauthenticated JSON POST (signup, enquiry). Throws the API's own message. */
 export async function postJson<T = unknown>(url: string, payload: object): Promise<T> {
   return jsonOrError<T>(
-    await fetch(url, {
+    await apiFetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     }),
   );

@@ -201,6 +201,6 @@ materials, unless the Client opts out in writing.
    talking point.
 3. Get Section 6 and 7 specifically reviewed by a lawyer — they're the two
    clauses doing the most unusual work relative to a standard template.
-4. Decide where this lives operationally: likely referenced from the
-   `DealerSubscriptionTermsAcceptance` flow in `payments/`, as a linked
-   document rather than inline text dealers click through.
+4. Decide where this lives operationally: likely as its own published
+   `freetheplatform.agreements` key and version, linked rather than inline text
+   dealers click through.

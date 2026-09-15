@@ -25,27 +25,12 @@
   padding-bottom: var(--space-l);
   padding-top: var(--space-l);
 }
-.eyebrow {
-  color: var(--accent-on-dark-soft);
-  font-size: 0.58rem;
-  font-weight: 900;
-  letter-spacing: 0.13em;
-  margin: 0 0 6px;
-  text-transform: uppercase;
-}
 .copy h2 {
   font-size: var(--step-2);
   letter-spacing: -0.035em;
   line-height: 1.1;
   margin: 0;
   white-space: normal;
-}
-.copy p {
-  color: var(--text-on-dark-muted);
-  font-size: 0.72rem;
-  line-height: 1.5;
-  margin: 7px 0 0;
-  max-width: 560px;
 }
 .form {
   align-items: center;
@@ -215,8 +200,5 @@
   .copy h2 {
     max-width: 480px;
     white-space: normal;
-  }
-  .copy p {
-    max-width: 520px;
   }
 }

@@ -1,7 +1,6 @@
 from django.conf import settings
 
-from core.models import Notification
-from core.utils.notifications import notify_admin_via_channels, resolve_recipient, send_notification
+from freetheplatform.messaging import send, send_many
 
 from ..models import SeoSubscriber
 
@@ -10,17 +9,11 @@ def _subscriber_url(subscriber: SeoSubscriber) -> str:
     return f"{settings.SITE_URL.rstrip('/')}/dashboard/seo/{subscriber.pk}"
 
 
-def notify_staff_of_seo_signup(subscriber: SeoSubscriber) -> list[Notification]:
-    """Tell us an SEO customer has signed up, by email and SMS.
-
-    Mirrors ``dealers.utils.notifications.notify_staff_of_dealer_signup``.
-    """
+def notify_staff_of_seo_signup(subscriber: SeoSubscriber):
+    """Tell us an SEO customer has signed up, by email and SMS."""
     subscriber_url = _subscriber_url(subscriber)
-    product_label = (
-        "Google Business Profile audit customer"
-        if subscriber.report_type == SeoSubscriber.ReportType.GBP
-        else "SEO customer"
-    )
+    is_gbp_audit = subscriber.report_type == SeoSubscriber.ReportType.GBP
+    product_label = "Google Business Profile audit customer" if is_gbp_audit else "SEO customer"
     email_body = (
         f"A new {product_label} has signed up.\n\n"
         f"Business: {subscriber.business_name}\n"
@@ -37,31 +30,29 @@ def notify_staff_of_seo_signup(subscriber: SeoSubscriber) -> list[Notification]:
         f"New freethedesk {subscriber.get_plan_display()} signup: {subscriber.business_name} — "
         f"{subscriber.contact_name}. {subscriber_url}"
     )
-
-    email, phone = resolve_recipient(Notification.RecipientType.ADMIN)
-    return notify_admin_via_channels(
+    return send_many(
         [
-            (
-                Notification.Channel.EMAIL,
-                email,
-                f"New {subscriber.get_plan_display()} signup — {subscriber.business_name}",
-                email_body,
-            ),
-            (Notification.Channel.SMS, phone, "", sms_body),
+            {
+                "channel": "email",
+                "to": settings.ADMIN_EMAIL,
+                "subject": f"New {subscriber.get_plan_display()} signup — {subscriber.business_name}",
+                "body": email_body,
+                "template": "emails/staff_seo_signup",
+            },
+            {"channel": "sms", "to": settings.ADMIN_NUMBER, "body": sms_body},
         ],
-        related_seo_subscriber=subscriber,
-        template="emails/staff_seo_signup",
+        message_type="seo.staff_signup",
         context={
             "subscriber": subscriber,
             "subscriber_url": subscriber_url,
-            "is_gbp_audit": subscriber.report_type == SeoSubscriber.ReportType.GBP,
+            "is_gbp_audit": is_gbp_audit,
         },
+        related=subscriber,
     )
 
 
-def send_seo_welcome(subscriber: SeoSubscriber) -> Notification:
+def send_seo_welcome(subscriber: SeoSubscriber):
     """Confirm the lightweight account and point the customer to payment."""
-    email, _ = resolve_recipient(Notification.RecipientType.SEO, subscriber=subscriber)
     payment_url = f"{settings.SITE_URL.rstrip('/')}/seo/payment"
     is_gbp_audit = subscriber.report_type == SeoSubscriber.ReportType.GBP
     next_step = (
@@ -75,16 +66,13 @@ def send_seo_welcome(subscriber: SeoSubscriber) -> Notification:
         f"Payment: {payment_url}\n\n"
         f"{next_step}"
     )
-    notification = Notification.objects.create(
-        recipient_type=Notification.RecipientType.SEO,
-        recipient=email,
-        channel=Notification.Channel.EMAIL,
+    return send(
+        to=subscriber.user.email,
+        channel="email",
+        message_type="seo.welcome",
         subject=f"Your freethedesk {'audit' if is_gbp_audit else 'SEO'} account is ready",
         body=body,
-        related_seo_subscriber=subscriber,
-    )
-    return send_notification(
-        notification,
         template="emails/seo_welcome",
         context={"subscriber": subscriber, "payment_url": payment_url, "is_gbp_audit": is_gbp_audit},
+        related=subscriber,
     )

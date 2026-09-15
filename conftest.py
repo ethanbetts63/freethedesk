@@ -1,5 +1,33 @@
 import pytest
+from freetheplatform.messaging.backends import locmem, reset_backend_cache
 from rest_framework.test import APIClient, APIRequestFactory, force_authenticate
+
+
+@pytest.fixture(autouse=True)
+def outbox(settings):
+    """Messages handed to a provider during a test, emptied between tests.
+
+    Both channels are pointed at the in-memory provider, so tests exercise the
+    real sending path without reaching Mailgun or Twilio and without patching
+    either of them. Assert on this rather than on rows in the table: a row proves
+    only that the caller ran.
+    """
+    # Staff addresses are env-driven and unset under test, which would make every
+    # admin alert fail with "no recipient" before it reached a provider.
+    settings.ADMIN_EMAIL = settings.ADMIN_EMAIL or "staff@example.com"
+    settings.ADMIN_NUMBER = settings.ADMIN_NUMBER or "+61400000000"
+    settings.FTP_MESSAGING = {
+        **settings.FTP_MESSAGING,
+        "BACKENDS": {
+            "email": "freetheplatform.messaging.backends.locmem.send",
+            "sms": "freetheplatform.messaging.backends.locmem.send",
+        },
+    }
+    locmem.outbox.clear()
+    reset_backend_cache()
+    yield locmem.outbox
+    locmem.outbox.clear()
+    reset_backend_cache()
 
 
 @pytest.fixture

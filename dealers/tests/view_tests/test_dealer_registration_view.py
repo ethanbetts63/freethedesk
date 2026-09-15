@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.urls import reverse
 
-from core.models import Notification
 from dealers.models import Dealer
 
 pytestmark = pytest.mark.django_db
@@ -77,13 +76,18 @@ def test_signup_requires_state(client):
     assert not Dealer.objects.exists()
 
 
-def test_signup_records_staff_and_dealer_notifications(client):
+def test_signup_records_staff_and_dealer_notifications(client, outbox):
     client.post(reverse("dealer-signup"), PAYLOAD, content_type="application/json")
 
     dealer = Dealer.objects.get()
-    assert dealer.notifications.count() == 3
-    assert dealer.notifications.filter(recipient_type=Notification.RecipientType.DEALER).exists()
-    assert dealer.notifications.filter(recipient_type=Notification.RecipientType.ADMIN).count() == 2
+    assert len(outbox) == 3
+    sent = {(message.message_type, message.channel) for message in outbox}
+    assert sent == {
+        ("dealer.welcome", "email"),
+        ("dealer.staff_signup", "email"),
+        ("dealer.staff_signup", "sms"),
+    }
+    assert all(message.content_object == dealer for message in outbox)
 
 
 def test_signup_rejects_duplicate_email(client):

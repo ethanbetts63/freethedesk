@@ -14,7 +14,8 @@ interface Options<Account extends StaffAccount> {
 
   update: (id: number, changes: Partial<Pick<Account, "status" | "staff_notes">>) => Promise<Account>;
 
-  messageFilter: "related_dealer" | "related_seo_subscriber";
+  /** Content type of the account, e.g. "dealers.dealer", used to scope its messages. */
+  relatedType: string;
 
   replySubject: string;
 
@@ -26,7 +27,7 @@ export function useAccountDetail<Account extends StaffAccount>({
   id,
   fetch,
   update,
-  messageFilter,
+  relatedType,
   replySubject,
   loadError,
   saveError,
@@ -40,7 +41,7 @@ export function useAccountDetail<Account extends StaffAccount>({
   const [error, setError] = useState("");
 
   /* `fetch`/`loadError` are fresh every render, so read them through a ref and
-     key the effect on `id`/`messageFilter` — the values that identify the request. */
+     key the effect on `id`/`relatedType` — the values that identify the request. */
   const latest = useRef({ fetch, loadError });
   useEffect(() => {
     latest.current = { fetch, loadError };
@@ -48,7 +49,10 @@ export function useAccountDetail<Account extends StaffAccount>({
 
   useEffect(() => {
     let active = true;
-    Promise.all([latest.current.fetch(id), getMessages({ [messageFilter]: id, page_size: 20 })])
+    Promise.all([
+      latest.current.fetch(id),
+      getMessages({ related_type: relatedType, related_id: id, page_size: 20 }),
+    ])
       .then(([result, messagePage]) => {
         if (!active) return;
         setAccount(result);
@@ -64,7 +68,7 @@ export function useAccountDetail<Account extends StaffAccount>({
     return () => {
       active = false;
     };
-  }, [id, messageFilter]);
+  }, [id, relatedType]);
 
   const replyHref = useMemo(() => {
     if (!account) return "/dashboard/messages/compose";

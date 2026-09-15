@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     "dealers",
     "seo",
     "payments",
+    "freetheplatform.agreements",
+    # Last, so a template of ours overrides the package's default of the same name.
+    "freetheplatform.messaging",
 ]
 
 MIDDLEWARE = [
@@ -152,20 +155,45 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 SITE_URL = os.getenv("SITE_URL", "http://localhost:3000")
+# Where staff alerts go. Read directly by the senders in core, dealers and seo.
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "")
 ADMIN_NUMBER = os.getenv("ADMIN_NUMBER", "")
-NOTIFICATIONS_ENABLED = os.getenv("NOTIFICATIONS_ENABLED", "False").lower() == "true"
-MAILGUN_API_KEY = os.getenv("MAILGUN_API_KEY", "")
-MAILGUN_DOMAIN = os.getenv("MAILGUN_DOMAIN", "")
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "freethedesk <hello@freethedesk.com.au>")
-TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID", "")
-TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN", "")
-TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER", "")
-TWILIO_MESSAGING_SERVICE_SID = os.getenv("TWILIO_MESSAGING_SERVICE_SID", "")
+
+# Shared messaging app. There is no on/off switch: with no provider credentials
+# nothing is sent, and each attempt is recorded as failed with the missing
+# setting named on the row.
+FTP_MESSAGING = {
+    "FROM_EMAIL": os.getenv("DEFAULT_FROM_EMAIL", "freethedesk <hello@freethedesk.com.au>"),
+    "SITE_URL": SITE_URL,
+    "MAILGUN": {
+        "API_KEY": os.getenv("MAILGUN_API_KEY", ""),
+        "DOMAIN": os.getenv("MAILGUN_DOMAIN", ""),
+        "WEBHOOK_SIGNING_KEY": os.getenv("MAILGUN_WEBHOOK_SIGNING_KEY", ""),
+    },
+    "TWILIO": {
+        "ACCOUNT_SID": os.getenv("TWILIO_ACCOUNT_SID", ""),
+        "AUTH_TOKEN": os.getenv("TWILIO_AUTH_TOKEN", ""),
+        "MESSAGING_SERVICE_SID": os.getenv("TWILIO_MESSAGING_SERVICE_SID", ""),
+        "FROM_NUMBER": os.getenv("TWILIO_PHONE_NUMBER", ""),
+    },
+    "PAGINATION_CLASS": "core.utils.pagination.DashboardPagination",
+}
 
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
-DEALER_TERMS_VERSION = "2026-09-05"
-DEALER_TERMS_FILE = BASE_DIR / "frontend" / "content" / "legal" / "dealer-subscription-terms.md"
-SEO_TERMS_VERSION = "2026-09-09"
-SEO_TERMS_FILE = BASE_DIR / "frontend" / "content" / "legal" / "seo-subscription-terms.md"
+FTP_AGREEMENTS = {
+    "DOCUMENTS": {
+        "dealer.subscription": {
+            "TITLE": "Dealer Subscription Terms",
+            "VERSION": "2026-09-05",
+            "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "dealer-subscription-terms.md",
+            "FORMAT": "markdown",
+        },
+        "seo.reporting": {
+            "TITLE": "SEO Reporting & Audit Terms",
+            "VERSION": "2026-09-09",
+            "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "seo-subscription-terms.md",
+            "FORMAT": "markdown",
+        },
+    },
+}

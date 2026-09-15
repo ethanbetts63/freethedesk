@@ -52,24 +52,40 @@ export type SeoSubscriber = SeoAccount & StaffAccountFields;
 
 export type SiteSettings = PublicSiteSettings;
 
+/** What a message is about. One field for any model, rather than a pair per relation. */
+export interface RelatedObject {
+  type: string;
+  id: number;
+  label: string;
+}
+
+export type MessageStatus = "queued" | "sent" | "delivered" | "failed" | "bounced" | "cancelled";
+
 export interface AdminMessage {
   id: number;
-  recipient_type: "admin" | "dealer" | "seo" | "manual";
-  recipient: string;
+  to: string;
   channel: "email" | "sms";
+  message_type: string;
+  type_label: string;
   subject: string;
-  body: string;
-  status: "pending" | "sent" | "failed";
+  body_text: string;
+  body_html: string;
+  related: RelatedObject | null;
+  status: MessageStatus;
+  needs_attention: boolean;
+  scheduled_for: string | null;
   sent_at: string | null;
   error_message: string;
-  related_enquiry: number | null;
-  related_enquiry_business: string | null;
-  related_dealer: number | null;
-  related_dealer_business: string | null;
-  related_seo_subscriber: number | null;
-  related_seo_subscriber_business: string | null;
+  provider_message_id: string;
+  acknowledged_at: string | null;
+  acknowledged_by_name: string;
   created_at: string;
 }
+
+/** Content type for an enquiry, qualified so it cannot collide with another app's model. */
+export const ENQUIRY_TYPE = "core.enquiry";
+export const DEALER_TYPE = "dealers.dealer";
+export const SEO_SUBSCRIBER_TYPE = "seo.seosubscriber";
 
 export async function getEnquiries(params: Record<string, string | number | undefined>): Promise<Paginated<Enquiry>> {
   return jsonOrError(await authedFetch(`/api/admin/enquiries/${queryString(params)}`));
@@ -159,12 +175,16 @@ export async function sendMessage(payload: {
   body: string;
   relatedEnquiry?: number;
   attachments: File[];
-}): Promise<void> {
+}): Promise<AdminMessage> {
   const form = new FormData();
   form.set("to", payload.to);
   form.set("subject", payload.subject);
   form.set("body", payload.body);
-  if (payload.relatedEnquiry) form.set("related_enquiry", String(payload.relatedEnquiry));
+  if (payload.relatedEnquiry) {
+    form.set("related_type", ENQUIRY_TYPE);
+    form.set("related_id", String(payload.relatedEnquiry));
+  }
   payload.attachments.forEach((file) => form.append("attachments", file));
-  await jsonOrError(await authedFetch("/api/admin/messages/compose/", { method: "POST", body: form }));
+  // A send failure answers 502 with the recorded message, which jsonOrError raises.
+  return jsonOrError(await authedFetch("/api/admin/messages/compose/", { method: "POST", body: form }));
 }

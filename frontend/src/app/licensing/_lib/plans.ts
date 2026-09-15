@@ -4,7 +4,7 @@ import type { DealerPlanCode } from "@/lib/dealerApi";
 
 export type { DealerPlanCode };
 export type DealerPlan = Plan<DealerPlanCode>;
-export { formatPrice, planByCode };
+export { planByCode };
 
 export type LicensingPrices = Pick<PublicSiteSettings, "licensing_price" | "contracts_price" | "complete_price">;
 

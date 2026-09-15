@@ -43,5 +43,3 @@ export async function getSiteSettingsServer(): Promise<PublicSiteSettings> {
   }
   return settings;
 }
-
-export { formatPrice } from "./api";

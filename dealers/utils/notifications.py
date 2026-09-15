@@ -1,7 +1,6 @@
 from django.conf import settings
 
-from core.models import Notification
-from core.utils.notifications import notify_admin_via_channels, resolve_recipient, send_notification
+from freetheplatform.messaging import send, send_many
 
 from ..models import Dealer
 
@@ -10,12 +9,8 @@ def _dealer_url(dealer: Dealer) -> str:
     return f"{settings.SITE_URL.rstrip('/')}/dashboard/dealers/{dealer.pk}"
 
 
-def notify_staff_of_dealer_signup(dealer: Dealer) -> list[Notification]:
-    """Tell us a dealership has signed up, by email and SMS.
-
-    Mirrors ``core.notifications.notify_admin_of_enquiry``: build the body once,
-    persist a Notification per channel, send, record the outcome.
-    """
+def notify_staff_of_dealer_signup(dealer: Dealer):
+    """Tell us a dealership has signed up, by email and SMS."""
     dealer_url = _dealer_url(dealer)
     email_body = (
         f"A new dealer has signed up.\n\n"
@@ -28,23 +23,28 @@ def notify_staff_of_dealer_signup(dealer: Dealer) -> list[Notification]:
         f"Payment: {dealer.get_payment_status_display()}\n\n"
         f"Open this dealer: {dealer_url}"
     )
-    sms_body = f"New freethedesk dealer signup: {dealer.business_name} — {dealer.contact_name}. {dealer_url}"
-
-    email, phone = resolve_recipient(Notification.RecipientType.ADMIN)
-    return notify_admin_via_channels(
+    sms_body = (
+        f"New freethedesk dealer signup: {dealer.business_name} — {dealer.contact_name}. {dealer_url}"
+    )
+    return send_many(
         [
-            (Notification.Channel.EMAIL, email, f"New dealer signup — {dealer.business_name}", email_body),
-            (Notification.Channel.SMS, phone, "", sms_body),
+            {
+                "channel": "email",
+                "to": settings.ADMIN_EMAIL,
+                "subject": f"New dealer signup — {dealer.business_name}",
+                "body": email_body,
+                "template": "emails/staff_dealer_signup",
+            },
+            {"channel": "sms", "to": settings.ADMIN_NUMBER, "body": sms_body},
         ],
-        related_dealer=dealer,
-        template="emails/staff_dealer_signup",
+        message_type="dealer.staff_signup",
         context={"dealer": dealer, "dealer_url": dealer_url},
+        related=dealer,
     )
 
 
-def send_dealer_welcome(dealer: Dealer) -> Notification:
+def send_dealer_welcome(dealer: Dealer):
     """Confirm the lightweight account and point the dealer to its next step."""
-    email, _ = resolve_recipient(Notification.RecipientType.DEALER, dealer=dealer)
     payment_url = f"{settings.SITE_URL.rstrip('/')}/licensing/payment"
     body = (
         f"Thanks, {dealer.contact_name}. Your account for {dealer.business_name} is saved.\n\n"
@@ -53,16 +53,13 @@ def send_dealer_welcome(dealer: Dealer) -> Notification:
         "Once Stripe confirms payment, you can enter your licence and dealership details immediately. "
         "We verify those details before enabling live customer transactions."
     )
-    notification = Notification.objects.create(
-        recipient_type=Notification.RecipientType.DEALER,
-        recipient=email,
-        channel=Notification.Channel.EMAIL,
+    return send(
+        to=dealer.user.email,
+        channel="email",
+        message_type="dealer.welcome",
         subject="Your freethedesk account is ready",
         body=body,
-        related_dealer=dealer,
-    )
-    return send_notification(
-        notification,
         template="emails/dealer_welcome",
         context={"dealer": dealer, "payment_url": payment_url},
+        related=dealer,
     )

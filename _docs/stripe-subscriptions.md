@@ -9,6 +9,13 @@ sets `tax_behavior` to `inclusive`. Existing subscriptions retain the price that
 was accepted when they were created; changing Licensing settings affects only
 future subscriptions.
 
+Before creating the session, FTD publishes the configured legal document through
+`freetheplatform.agreements` and records an immutable acceptance against the
+dealer or SEO subscriber. The acceptance ID and document hash are copied into
+Stripe metadata. A version label cannot be reused after its document content
+changes; update the document's `VERSION` in `FTP_AGREEMENTS` whenever its
+Markdown changes.
+
 Enable Stripe Tax and configure the appropriate default product tax code in the
 Stripe account. Checkout collects the dealership billing address, calculates
 the included tax, saves that address to the Stripe Customer for renewals, and

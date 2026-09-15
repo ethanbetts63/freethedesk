@@ -3,10 +3,11 @@ from unittest.mock import Mock, patch
 
 import pytest
 from django.urls import reverse
+from freetheplatform.agreements import Acceptance
 
 from core.models import SiteSettings
-from payments.models import SeoSubscriptionTermsAcceptance
 from payments.tests.conftest import stripe_settings
+from payments.utils.agreements import SEO_AGREEMENT_KEY
 from seo.models import SeoSubscriber
 
 pytestmark = pytest.mark.django_db
@@ -33,14 +34,17 @@ def test_quarterly_checkout_is_a_three_month_subscription(customer_create, sessi
     body = response.json()
     assert body["price"] == "150.00"
     assert body["mode"] == "subscription"
+    assert "terms_version" not in body
     create_kwargs = session_create.call_args.kwargs
     assert create_kwargs["mode"] == "subscription"
     price_data = create_kwargs["line_items"][0]["price_data"]
     assert price_data["unit_amount"] == 15000
     assert price_data["recurring"] == {"interval": "month", "interval_count": 3}
     assert "subscription_data" in create_kwargs
-    acceptance = SeoSubscriptionTermsAcceptance.objects.get()
-    assert acceptance.price == Decimal("150.00")
+    acceptance = Acceptance.objects.get(
+        agreement_version__agreement__key=SEO_AGREEMENT_KEY
+    )
+    assert acceptance.context["price"] == "150.00"
     assert str(acceptance.accepted_ip) == "198.51.100.24"
     assert create_kwargs["metadata"]["subscriber_id"] == str(logged_in_seo_subscriber.pk)
     assert create_kwargs["metadata"]["terms_acceptance_id"] == str(acceptance.pk)
@@ -146,7 +150,9 @@ def test_combined_report_charges_gbp_once_and_only_recurs_the_seo_price(
 def test_checkout_requires_terms_acceptance(client, logged_in_seo_subscriber):
     response = client.post(reverse("seo-subscription-checkout"), {}, content_type="application/json")
     assert response.status_code == 400
-    assert not SeoSubscriptionTermsAcceptance.objects.exists()
+    assert not Acceptance.objects.filter(
+        agreement_version__agreement__key=SEO_AGREEMENT_KEY
+    ).exists()
 
 
 @stripe_settings

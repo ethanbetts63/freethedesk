@@ -12,3 +12,7 @@ pytest==9.1.1
 pytest-django==4.14.0
 factory-boy==3.3.3
 Faker==40.38.0
+
+# Shared platform packages. Installed editable for local work:
+#   pip install -e ../freetheplatform
+freetheplatform @ git+https://github.com/ethanbetts63/freetheplatform@v0.3.0

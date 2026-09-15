@@ -63,3 +63,10 @@ E.164 format, for example `+61400111222`.
 The licensing page creates a minimal dealer account and paid plans continue to
 an embedded Stripe subscription checkout. Configuration and webhook events are
 documented in `_docs/stripe-subscriptions.md`.
+
+Dealer and SEO checkout terms are published and recorded through
+`freetheplatform.agreements`. Each acceptance retains the immutable document
+version, canonical content hash, exact offer snapshot, actor, related account,
+server timestamp, IP address, user agent, and the statement shown at checkout.
+The legal pages remain site-owned Markdown; changing their content requires a
+new `VERSION` for the matching document in `FTP_AGREEMENTS`.

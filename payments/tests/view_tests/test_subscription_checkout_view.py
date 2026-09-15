@@ -3,10 +3,11 @@ from unittest.mock import Mock, patch
 
 import pytest
 from django.urls import reverse
+from freetheplatform.agreements import Acceptance
 
 from core.models import SiteSettings
-from payments.models import DealerSubscriptionTermsAcceptance
 from payments.tests.conftest import stripe_settings
+from payments.utils.agreements import DEALER_AGREEMENT_KEY
 
 pytestmark = pytest.mark.django_db
 
@@ -27,10 +28,12 @@ def test_checkout_uses_backend_price_and_records_terms(customer_create, session_
         {"accepted_terms": True},
         content_type="application/json",
         HTTP_X_FORWARDED_FOR="203.0.113.99, 198.51.100.24",
+        HTTP_USER_AGENT="Test Browser/1.0",
     )
 
     assert response.status_code == 200
     assert response.json()["monthly_price"] == "219.50"
+    assert "terms_version" not in response.json()
     create_kwargs = session_create.call_args.kwargs
     price_data = create_kwargs["line_items"][0]["price_data"]
     assert price_data["unit_amount"] == 21950
@@ -38,10 +41,16 @@ def test_checkout_uses_backend_price_and_records_terms(customer_create, session_
     assert price_data["tax_behavior"] == "inclusive"
     assert price_data["recurring"] == {"interval": "month"}
     assert create_kwargs["customer_update"] == {"address": "auto"}
-    acceptance = DealerSubscriptionTermsAcceptance.objects.get()
-    assert acceptance.monthly_price == Decimal("219.50")
+    acceptance = Acceptance.objects.get(
+        agreement_version__agreement__key=DEALER_AGREEMENT_KEY
+    )
+    assert acceptance.context["price"] == "219.50"
     assert str(acceptance.accepted_ip) == "198.51.100.24"
-    assert acceptance.stripe_checkout_session_id == "cs_test"
+    assert acceptance.user_agent == "Test Browser/1.0"
+    assert acceptance.actor_snapshot["email"] == logged_in_dealer.user.email
+    assert acceptance.statement.startswith("I agree to the Dealer Subscription Terms")
+    assert acceptance.agreement_version.content_archived is True
+    assert acceptance.agreement_version.content
     assert create_kwargs["metadata"]["terms_acceptance_id"] == str(acceptance.pk)
 
 
@@ -49,7 +58,9 @@ def test_checkout_uses_backend_price_and_records_terms(customer_create, session_
 def test_checkout_requires_terms_acceptance(client, logged_in_dealer):
     response = client.post(reverse("subscription-checkout"), {}, content_type="application/json")
     assert response.status_code == 400
-    assert not DealerSubscriptionTermsAcceptance.objects.exists()
+    assert not Acceptance.objects.filter(
+        agreement_version__agreement__key=DEALER_AGREEMENT_KEY
+    ).exists()
 
 
 @stripe_settings
@@ -66,8 +77,16 @@ def test_repeated_checkout_reuses_same_offer_acceptance(customer_create, session
             "id": "cs_test",
             "status": "open",
             "client_secret": "cs_test_secret",
-            "metadata": {"terms_acceptance_id": str(DealerSubscriptionTermsAcceptance.objects.get().pk)},
+            "metadata": {
+                "terms_acceptance_id": str(
+                    Acceptance.objects.get(
+                        agreement_version__agreement__key=DEALER_AGREEMENT_KEY
+                    ).pk
+                )
+            },
         }
         response = client.post(reverse("subscription-checkout"), payload, content_type="application/json")
     assert response.status_code == 200
-    assert DealerSubscriptionTermsAcceptance.objects.count() == 1
+    assert Acceptance.objects.filter(
+        agreement_version__agreement__key=DEALER_AGREEMENT_KEY
+    ).count() == 1

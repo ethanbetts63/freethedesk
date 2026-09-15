@@ -1,138 +1,16 @@
-import logging
-from pathlib import Path
-
-import requests
 from django.conf import settings
-from django.template.loader import render_to_string
-from django.utils import timezone
 
-from ..models import Enquiry, Notification
+from freetheplatform.messaging import send_many
 
-
-logger = logging.getLogger(__name__)
+from ..models import Enquiry
 
 
-DEFAULT_EMAIL_TEMPLATE = "notifications/admin_notification"
+def notify_admin_of_enquiry(enquiry: Enquiry):
+    """Tell staff about a new enquiry, by email and SMS.
 
-
-def resolve_recipient(
-    recipient_type: str, *, dealer=None, subscriber=None, email: str = "", phone: str = ""
-) -> tuple[str, str]:
-    """Map a recipient type to an (email, phone) pair.
-
-    Keeps callers from hardcoding addresses, which matters now that the same
-    delivery path serves staff, dealers and SEO customers.
+    The email carries the whole submission so nobody has to open the dashboard to
+    triage it; the SMS is the short version with a link.
     """
-    if recipient_type == Notification.RecipientType.ADMIN:
-        return settings.ADMIN_EMAIL or "", settings.ADMIN_NUMBER or ""
-    if recipient_type == Notification.RecipientType.DEALER:
-        if dealer is None:
-            return "", ""
-        return dealer.user.email or "", dealer.phone or ""
-    if recipient_type == Notification.RecipientType.SEO:
-        if subscriber is None:
-            return "", ""
-        return subscriber.user.email or "", subscriber.phone or ""
-    return email or "", phone or ""
-
-
-def send_notification(notification: Notification, attachments=None, template=None, context=None) -> Notification:
-    """Deliver one persisted notification and retain the result for the admin log.
-
-    ``template`` names a pair of templates without their extension — for example
-    ``"emails/dealer_welcome"`` renders both ``.txt`` and ``.html``. Callers that
-    pass nothing keep the generic subject/body rendering, so existing senders are
-    unaffected. Context is not persisted: a resend rebuilds it or falls back to
-    the plain body, which is why ``body`` always carries the full message.
-    """
-    if not settings.NOTIFICATIONS_ENABLED:
-        notification.error_message = "Delivery is disabled until notification credentials are enabled."
-        notification.save(update_fields=["error_message"])
-        return notification
-
-    try:
-        if notification.channel == Notification.Channel.EMAIL:
-            if not all([settings.MAILGUN_API_KEY, settings.MAILGUN_DOMAIN, notification.recipient]):
-                raise ValueError("Mailgun or recipient email is not configured.")
-            template_context = {
-                "subject": notification.subject,
-                "body": notification.body,
-                "site_url": settings.SITE_URL.rstrip("/"),
-                **(context or {}),
-            }
-            template_name = template or DEFAULT_EMAIL_TEMPLATE
-            files = [
-                ("attachment", (Path(filename).name, content, mimetype))
-                for filename, content, mimetype in (attachments or [])
-            ]
-            response = requests.post(
-                f"https://api.mailgun.net/v3/{settings.MAILGUN_DOMAIN}/messages",
-                auth=("api", settings.MAILGUN_API_KEY),
-                data={
-                    "from": settings.DEFAULT_FROM_EMAIL,
-                    "to": [notification.recipient],
-                    "subject": notification.subject or "freethedesk notification",
-                    "text": render_to_string(f"{template_name}.txt", template_context),
-                    "html": render_to_string(f"{template_name}.html", template_context),
-                },
-                files=files or None,
-                timeout=30 if files else 10,
-            )
-            response.raise_for_status()
-        elif notification.channel == Notification.Channel.SMS:
-            if not all([settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN, notification.recipient]):
-                raise ValueError("Twilio or recipient phone number is not configured.")
-            from twilio.rest import Client
-
-            message_args = {"body": notification.body, "to": notification.recipient}
-            if settings.TWILIO_MESSAGING_SERVICE_SID:
-                message_args["messaging_service_sid"] = settings.TWILIO_MESSAGING_SERVICE_SID
-            elif settings.TWILIO_PHONE_NUMBER:
-                message_args["from_"] = settings.TWILIO_PHONE_NUMBER
-            else:
-                raise ValueError("A Twilio messaging service or sending number is required.")
-            Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN).messages.create(**message_args)
-        else:
-            raise ValueError(f"Unknown notification channel: {notification.channel}")
-
-        notification.status = Notification.Status.SENT
-        notification.sent_at = timezone.now()
-        notification.error_message = ""
-    except Exception as error:
-        logger.exception("Notification %s could not be delivered", notification.pk)
-        notification.status = Notification.Status.FAILED
-        notification.error_message = str(error)
-
-    notification.save(update_fields=["status", "sent_at", "error_message"])
-    return notification
-
-
-def notify_admin_via_channels(
-    channel_messages, *, related_enquiry=None, related_dealer=None,
-    related_seo_subscriber=None, template=None, context=None,
-) -> list[Notification]:
-    """Create and send one ``Notification`` per ``(channel, recipient, subject, body)`` tuple.
-
-    Shared by the "tell staff by email and SMS" pattern used for new enquiries,
-    dealer signups and SEO signups.
-    """
-    notifications = []
-    for channel, recipient, subject, body in channel_messages:
-        notification = Notification.objects.create(
-            recipient_type=Notification.RecipientType.ADMIN,
-            recipient=recipient or "",
-            channel=channel,
-            subject=subject,
-            body=body,
-            related_enquiry=related_enquiry,
-            related_dealer=related_dealer,
-            related_seo_subscriber=related_seo_subscriber,
-        )
-        notifications.append(send_notification(notification, template=template, context=context))
-    return notifications
-
-
-def notify_admin_of_enquiry(enquiry: Enquiry) -> list[Notification]:
     dashboard_url = f"{settings.SITE_URL.rstrip('/')}/dashboard/enquiries/{enquiry.pk}"
     enquiry_label = enquiry.business or enquiry.name
     contact_label = f"{enquiry.business} — {enquiry.name}" if enquiry.business else enquiry.name
@@ -151,22 +29,16 @@ def notify_admin_of_enquiry(enquiry: Enquiry) -> list[Notification]:
         f"New freethedesk enquiry: {contact_label}, "
         f"{enquiry.get_help_with_display()}. {dashboard_url}"
     )
-    return notify_admin_via_channels(
+    return send_many(
         [
-            (Notification.Channel.EMAIL, settings.ADMIN_EMAIL, f"New enquiry — {enquiry_label}", email_body),
-            (Notification.Channel.SMS, settings.ADMIN_NUMBER, "", sms_body),
+            {
+                "channel": "email",
+                "to": settings.ADMIN_EMAIL,
+                "subject": f"New enquiry — {enquiry_label}",
+                "body": email_body,
+            },
+            {"channel": "sms", "to": settings.ADMIN_NUMBER, "body": sms_body},
         ],
-        related_enquiry=enquiry,
+        message_type="enquiry.admin_new",
+        related=enquiry,
     )
-
-
-def send_manual_email(*, to: str, subject: str, body: str, related_enquiry=None, attachments=None) -> Notification:
-    notification = Notification.objects.create(
-        recipient_type=Notification.RecipientType.MANUAL,
-        recipient=to,
-        channel=Notification.Channel.EMAIL,
-        subject=subject,
-        body=body,
-        related_enquiry=related_enquiry,
-    )
-    return send_notification(notification, attachments=attachments)

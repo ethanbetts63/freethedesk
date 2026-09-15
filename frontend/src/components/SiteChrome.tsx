@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 
 import { AiReadinessModal } from "@/components/marketing/AiReadinessModal";
+import { isApplicationRoute, usesStandaloneChrome } from "@/lib/routePolicy";
 
 /**
  * Picks which chrome a route gets. Header and footer arrive as already-rendered
@@ -19,13 +20,8 @@ export function SiteChrome({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const standalone = pathname === "/login" || pathname.startsWith("/licensing/payment");
-  const applicationArea =
-    pathname.startsWith("/dashboard") ||
-    pathname.startsWith("/portal") ||
-    pathname.startsWith("/seo-portal") ||
-    pathname.startsWith("/seo/payment") ||
-    pathname === "/dealership-website-builder";
+  const standalone = usesStandaloneChrome(pathname);
+  const applicationArea = isApplicationRoute(pathname);
   return (
     <>
       {!standalone && header}

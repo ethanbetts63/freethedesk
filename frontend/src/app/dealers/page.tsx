@@ -9,14 +9,14 @@ import { DealerWebsiteBuilderSection } from "@/components/marketing/DealerWebsit
 import { Hero } from "@/components/marketing/Hero";
 import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { SubscriptionSwap } from "@/components/marketing/SubscriptionSwap";
+import { WebsiteIntroduction } from "@/components/marketing/WebsiteIntroduction";
+import { WebsiteJobsBar } from "@/components/marketing/WebsiteJobsBar";
 import styles from "@/components/marketing/marketingPage.module.css";
 import { PageSchema } from "@/components/PageSchema";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { metadataFor } from "@/lib/pages";
 import { numberSections } from "@/lib/sectionNumbers";
 
-import { WebsiteIntroduction } from "../website-development/_components/WebsiteIntroduction";
-import { WebsiteJobsBar } from "../website-development/_components/WebsiteJobsBar";
 import { DealerDemoAlternative } from "./_components/DealerDemoAlternative";
 import { DealershipAutomation } from "./_components/DealershipAutomation";
 import { DEALER_FAQS } from "./_lib/copy";

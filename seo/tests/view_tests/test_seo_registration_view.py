@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.urls import reverse
 
-from core.models import Notification
 from seo.models import SeoSubscriber
 
 pytestmark = pytest.mark.django_db
@@ -92,13 +91,18 @@ def test_signup_allows_missing_website(client):
     assert response.status_code == 201
 
 
-def test_signup_records_staff_and_customer_notifications(client):
+def test_signup_records_staff_and_customer_notifications(client, outbox):
     client.post(reverse("seo-signup"), PAYLOAD, content_type="application/json")
 
     subscriber = SeoSubscriber.objects.get()
-    assert subscriber.notifications.count() == 3
-    assert subscriber.notifications.filter(recipient_type=Notification.RecipientType.SEO).exists()
-    assert subscriber.notifications.filter(recipient_type=Notification.RecipientType.ADMIN).count() == 2
+    assert len(outbox) == 3
+    sent = {(message.message_type, message.channel) for message in outbox}
+    assert sent == {
+        ("seo.welcome", "email"),
+        ("seo.staff_signup", "email"),
+        ("seo.staff_signup", "sms"),
+    }
+    assert all(message.content_object == subscriber for message in outbox)
 
 
 def test_signup_rejects_duplicate_email(client):

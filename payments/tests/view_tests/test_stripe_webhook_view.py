@@ -8,7 +8,7 @@ from django.urls import reverse
 from dealers.models import Dealer, DealerProfile
 from payments.models import StripeEvent
 from payments.tests.conftest import stripe_settings
-from payments.tests.factories import DealerSubscriptionTermsAcceptanceFactory
+from payments.tests.factories import DealerAgreementAcceptanceFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -16,7 +16,7 @@ pytestmark = pytest.mark.django_db
 @stripe_settings
 @patch("payments.views.stripe_webhook.stripe.Webhook.construct_event")
 def test_subscription_webhook_is_idempotent_and_activates_dealer(construct_event, client, dealer):
-    acceptance = DealerSubscriptionTermsAcceptanceFactory(
+    acceptance = DealerAgreementAcceptanceFactory(
         dealer=dealer, accepted_by=dealer.user, stripe_checkout_session_id="cs_test",
     )
     construct_event.return_value = {
@@ -55,7 +55,7 @@ def test_subscription_webhook_is_idempotent_and_activates_dealer(construct_event
 @stripe_settings
 @patch("payments.views.stripe_webhook.stripe.Webhook.construct_event")
 def test_stale_subscription_event_cannot_regress_status(construct_event, client, dealer):
-    acceptance = DealerSubscriptionTermsAcceptanceFactory(
+    acceptance = DealerAgreementAcceptanceFactory(
         dealer=dealer, accepted_by=dealer.user, stripe_checkout_session_id="cs_test",
     )
     dealer.stripe_subscription_id = "sub_test"

@@ -23,13 +23,6 @@ const CHANNEL_OPTIONS = [
   { value: "sms", label: "SMS" },
 ];
 
-const RECIPIENT_LABELS: Record<AdminMessage["recipient_type"], string> = {
-  admin: "Admin alert",
-  dealer: "Dealer",
-  seo: "SEO customer",
-  manual: "Manual email",
-};
-
 function MessagesContent() {
   const fetchPage = useCallback((view: AdminListView) => getMessages(adminListParams(view)), []);
   const list = useAdminList<AdminMessage>({
@@ -104,10 +97,10 @@ function MessagesContent() {
                   <td>
                     <RowLink href={`/dashboard/messages/${message.id}`}>{formatDateTime(message.created_at)}</RowLink>
                   </td>
-                  <td>{RECIPIENT_LABELS[message.recipient_type] ?? message.recipient_type}</td>
+                  <td>{message.type_label}</td>
                   <td>
-                    <strong>{message.recipient}</strong>
-                    {message.related_enquiry_business && <small>{message.related_enquiry_business}</small>}
+                    <strong>{message.to}</strong>
+                    {message.related && <small>{message.related.label}</small>}
                   </td>
                   <td>{message.subject || "—"}</td>
                   <td>{message.channel.toUpperCase()}</td>

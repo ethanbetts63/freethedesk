@@ -4,7 +4,7 @@ import type { SeoPlanCode, SeoReportType } from "@/lib/seoApi";
 
 export type { SeoPlanCode, SeoReportType };
 export type SeoPlan = Plan<SeoPlanCode>;
-export { formatPrice, planByCode };
+export { planByCode };
 
 export const REPORT_TYPES: { code: SeoReportType; name: string }[] = [
   { code: "gbp", name: "One-time GBP audit" },

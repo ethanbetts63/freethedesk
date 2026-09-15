@@ -1,5 +1,5 @@
-import { SectionNumber } from "@/components/SectionNumber";
 import { ScrollCtaButton } from "@/components/ScrollCtaButton";
+import { SectionNumber } from "@/components/SectionNumber";
 
 import styles from "./WebsiteIntroduction.module.css";
 

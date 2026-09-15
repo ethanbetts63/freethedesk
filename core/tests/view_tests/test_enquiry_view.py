@@ -1,7 +1,7 @@
 import pytest
 from django.core.cache import cache
 
-from core.models import Enquiry, Notification
+from core.models import Enquiry
 from core.tests.factories import EnquiryFactory
 
 pytestmark = pytest.mark.django_db
@@ -15,7 +15,7 @@ def _clear_throttle_cache():
     cache.clear()
 
 
-def test_enquiry_can_be_created(api_client):
+def test_enquiry_can_be_created(api_client, outbox):
     response = api_client.post(
         "/api/enquiries/",
         {
@@ -33,11 +33,13 @@ def test_enquiry_can_be_created(api_client):
     assert response.status_code == 201
     assert Enquiry.objects.count() == 1
     assert Enquiry.objects.get().business == "Example Equipment"
-    assert Notification.objects.count() == 2
-    assert set(Notification.objects.values_list("channel", flat=True)) == {"email", "sms"}
+    assert [message.channel for message in outbox] == ["email", "sms"]
+    assert "Example Equipment" in outbox[0].subject
+    assert "Our inventory and parts enquiries need a better system." in outbox[0].body_text
+    assert outbox[0].content_object == Enquiry.objects.get()
 
 
-def test_enquiry_can_be_created_without_business_or_phone(api_client):
+def test_enquiry_can_be_created_without_business_or_phone(api_client, outbox):
     response = api_client.post(
         "/api/enquiries/",
         {
@@ -53,7 +55,7 @@ def test_enquiry_can_be_created_without_business_or_phone(api_client):
     enquiry = Enquiry.objects.get()
     assert enquiry.business == ""
     assert enquiry.phone == ""
-    assert Notification.objects.count() == 2
+    assert [message.channel for message in outbox] == ["email", "sms"]
 
 
 def test_short_enquiry_message_is_rejected(api_client):
@@ -129,7 +131,7 @@ def test_website_builder_enquiry_stores_full_configuration(api_client):
     assert enquiry.configuration == configuration
 
 
-def test_free_ai_readiness_check_creates_a_tagged_enquiry(api_client):
+def test_free_ai_readiness_check_creates_a_tagged_enquiry(api_client, outbox):
     response = api_client.post(
         "/api/ai-readiness/",
         {
@@ -145,7 +147,7 @@ def test_free_ai_readiness_check_creates_a_tagged_enquiry(api_client):
     assert enquiry.help_with == Enquiry.HelpWith.AI_READINESS
     assert enquiry.business == "example.com.au"
     assert enquiry.website == "https://www.example.com.au"
-    assert Notification.objects.count() == 2
+    assert [message.channel for message in outbox] == ["email", "sms"]
 
 
 def test_free_ai_readiness_check_accepts_a_submission_without_a_phone_number(api_client):
@@ -167,7 +169,7 @@ def test_free_ai_readiness_check_requires_a_website_and_email(api_client):
     assert not Enquiry.objects.exists()
 
 
-def test_project_enquiry_records_the_scope_and_budget(api_client):
+def test_project_enquiry_records_the_scope_and_budget(api_client, outbox):
     response = api_client.post(
         "/api/project-enquiries/",
         {
@@ -188,7 +190,7 @@ def test_project_enquiry_records_the_scope_and_budget(api_client):
     assert enquiry.configuration == {"project_type": "both", "budget": "$3,000"}
     assert "Budget: $3,000." in enquiry.message
     assert "Notes:\nWe want enquiries routed to different teams by location." in enquiry.message
-    assert Notification.objects.count() == 2
+    assert [message.channel for message in outbox] == ["email", "sms"]
 
 
 def test_project_enquiry_accepts_a_custom_budget_without_a_phone_number(api_client):

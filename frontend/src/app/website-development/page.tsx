@@ -5,6 +5,8 @@ import { AdminAutomationSection } from "@/components/marketing/AdminAutomationSe
 import { Hero } from "@/components/marketing/Hero";
 import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { SubscriptionSwap } from "@/components/marketing/SubscriptionSwap";
+import { WebsiteIntroduction } from "@/components/marketing/WebsiteIntroduction";
+import { WebsiteJobsBar } from "@/components/marketing/WebsiteJobsBar";
 import { Faq } from "@/components/Faq";
 import { FloatingPageCta } from "@/components/FloatingPageCta";
 import { ManualAdminCta } from "@/components/ManualAdminCta";
@@ -17,8 +19,6 @@ import { numberSections } from "@/lib/sectionNumbers";
 import { WEBSITE_DEV_FAQS } from "./_lib/copy";
 import { ConversionFunnel } from "./_components/ConversionFunnel";
 import { WebsiteFeatures } from "./_components/WebsiteFeatures";
-import { WebsiteIntroduction } from "./_components/WebsiteIntroduction";
-import { WebsiteJobsBar } from "./_components/WebsiteJobsBar";
 import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
 import styles from "./page.module.css";
 

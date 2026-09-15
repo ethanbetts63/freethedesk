@@ -41,105 +41,16 @@
   color: var(--page-accent);
   font-weight: 800;
 }
-.comparisonCopy h2,
-.optionsHeading h2,
-.verifyCopy h2 {
+.optionsHeading h2 {
   font-size: var(--display-3);
   letter-spacing: -0.07em;
   line-height: 0.94;
   margin: 0;
 }
-.comparisonSection {
-  background: var(--surface-flow);
-  padding: var(--section-space) 0;
-}
-.comparison {
-  align-items: center;
-  display: grid;
-  gap: clamp(55px, 8vw, 110px);
-  grid-template-columns: minmax(0, 1fr);
-}
-.comparisonCopy > p:last-of-type,
 .optionsHeading > p:last-of-type {
   font-size: 0.96rem;
   line-height: 1.7;
   max-width: 440px;
-}
-.paths {
-  display: grid;
-  gap: 14px;
-}
-.paths article {
-  background: var(--surface);
-  border: 1px solid var(--slate-200);
-  padding: 20px;
-}
-.paths header {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 17px;
-}
-.paths header span {
-  font-size: 0.77rem;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-.paths header b {
-  color: var(--slate-500);
-  font-size: 0.63rem;
-  text-transform: uppercase;
-}
-.paths article > div {
-  align-items: flex-start;
-  color: var(--slate-600);
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 0.69rem;
-  font-weight: var(--weight-strong);
-  gap: 8px;
-  flex-direction: column;
-}
-.paths article i {
-  background: var(--slate-300);
-  height: 11px;
-  width: 1px;
-  margin-left: 4px;
-}
-.paths article strong {
-  color: var(--text);
-}
-/* The online path is the one we're selling, so it carries the moving-colour
-   border and heading rather than the flat accent the other card uses. */
-.paths .onlinePath {
-  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
-  background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
-  background-origin: border-box;
-  background-size:
-    100% 100%,
-    var(--moving-colour-size);
-  border: 2px solid transparent;
-}
-.onlinePath header span {
-  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
-  background: var(--moving-colour-gradient);
-  background-clip: text;
-  background-size: var(--moving-colour-size);
-  color: transparent;
-  -webkit-background-clip: text;
-}
-.onlinePath header b {
-  color: var(--page-accent);
-}
-.onlinePath i {
-  background: var(--page-accent);
-}
-@media (prefers-reduced-motion: reduce) {
-  .paths .onlinePath,
-  .onlinePath header span {
-    animation: none;
-  }
 }
 .optionsSection {
   background: var(--surface-dark);
@@ -520,177 +431,13 @@
   font-weight: var(--weight-control);
   justify-content: space-between;
 }
-.verify {
-  align-items: center;
-  display: grid;
-  gap: clamp(55px, 9vw, 130px);
-  grid-template-columns: minmax(0, 1fr);
-  padding-top: var(--section-space);
-  padding-bottom: var(--section-space);
-}
-.verifyCopy p:not(:global(.section-number)) {
-  color: var(--slate-600);
-  font-size: 1rem;
-  line-height: 1.78;
-  margin: 24px 0 0;
-  max-width: 480px;
-}
-.verifyCopy p + p {
-  margin-top: 16px;
-}
-.verifyCard {
-  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
-  background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
-  background-origin: border-box;
-  background-size:
-    100% 100%,
-    var(--moving-colour-size);
-  border: 2px solid transparent;
-  box-shadow: 0 28px 75px color-mix(in srgb, var(--blue-950) 11%, transparent);
-  min-width: 0;
-  padding: 28px;
-}
-.verifyCardHead {
-  align-items: center;
-  border-bottom: 1px solid var(--slate-100);
-  color: var(--slate-500);
-  display: flex;
-  font-size: 0.66rem;
-  font-weight: var(--weight-control);
-  justify-content: space-between;
-  letter-spacing: 0.11em;
-  padding-bottom: 18px;
-  text-transform: uppercase;
-}
-.verifyCardHead b {
-  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
-  background: var(--moving-colour-gradient);
-  background-clip: text;
-  background-size: var(--moving-colour-size);
-  color: transparent;
-  -webkit-background-clip: text;
-}
-.verifySteps {
-  display: grid;
-  gap: 12px;
-  list-style: none;
-  margin: 0;
-  padding: 28px 0;
-}
-.verifySteps li {
-  align-items: flex-start;
-  background: var(--surface-flow);
-  border: 1px solid var(--slate-100);
-  display: flex;
-  gap: 16px;
-  min-width: 0;
-  padding: 16px 14px;
-}
-.verifySteps span {
-  color: var(--page-accent);
-  display: block;
-  font-size: 0.58rem;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  margin-bottom: 6px;
-}
-.verifySteps strong {
-  color: var(--text);
-  display: block;
-  font-size: 0.87rem;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-}
-.verifySteps small {
-  color: var(--slate-600);
-  display: block;
-  font-size: 0.74rem;
-  line-height: 1.5;
-  margin-top: 4px;
-}
-.verifyIcon {
-  align-items: center;
-  background: var(--slate-100);
-  border: 1px solid var(--slate-200);
-  color: var(--page-accent);
-  display: flex;
-  flex: 0 0 auto;
-  height: 38px;
-  justify-content: center;
-  width: 38px;
-}
-.verifyIcon svg {
-  fill: none;
-  height: 19px;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.6;
-  width: 19px;
-}
-/* Pale blue, not the moving gradient: the Stripe wordmark is a blue-violet and
-   vanished as the gradient swept its own colours under it. Label goes dark to
-   stay readable on the light ground. */
-.verifyFooter {
-  align-items: center;
-  background: var(--blue-400);
-  box-shadow: 0 12px 28px color-mix(in srgb, var(--blue-900) 18%, transparent);
-  display: flex;
-  gap: 0;
-  justify-content: center;
-  padding: 15px 17px;
-}
-.verifyFooter span {
-  color: var(--blue-950);
-  font-size: 0.76rem;
-  font-weight: var(--weight-strong);
-}
-.verifyLogo {
-  flex: 0 0 auto;
-  height: 28px;
-  width: auto;
-}
-@media (prefers-reduced-motion: reduce) {
-  .verifyCard,
-  .verifyCardHead b {
-    animation: none;
-  }
-}
-
 @media (min-width: 640px) {
-  .verify {
-    padding-bottom: 0;
-    padding-top: var(--section-space);
-  }
-  .comparisonSection {
-    padding-bottom: var(--section-space);
-    padding-top: var(--section-space);
-  }
   .optionsSection {
     padding-bottom: var(--section-space);
     padding-top: var(--section-space);
   }
-  .comparisonCopy h2 {
-    font-size: var(--display-5);
-  }
   .optionsHeading h2 {
     font-size: var(--display-5);
-  }
-  .closing h2 {
-    font-size: var(--display-5);
-  }
-  .verifyCopy h2 {
-    font-size: var(--display-5);
-  }
-  .paths article > div {
-    align-items: center;
-    flex-direction: row;
-  }
-  .paths article i {
-    height: 1px;
-    margin-left: 0;
-    width: 14px;
   }
   .planTypeGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -702,14 +449,8 @@
 }
 
 @media (min-width: 900px) {
-  .comparison {
-    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
-  }
   .optionsLayout {
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  }
-  .verify {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   }
   .flowGrid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

@@ -13,7 +13,13 @@ import {
   StaffNotesCard,
 } from "@/components/dashboard/AccountDetail";
 import { useAccountDetail } from "@/components/dashboard/useAccountDetail";
-import { formatDateTime, getSeoSubscriber, updateSeoSubscriber, type SeoSubscriber } from "@/lib/adminApi";
+import {
+  formatDateTime,
+  getSeoSubscriber,
+  SEO_SUBSCRIBER_TYPE,
+  updateSeoSubscriber,
+  type SeoSubscriber,
+} from "@/lib/adminApi";
 
 export default function SeoSubscriberDetailPage() {
   const id = Number(useParams<{ subscriberId: string }>().subscriberId);
@@ -22,7 +28,7 @@ export default function SeoSubscriberDetailPage() {
       id,
       fetch: getSeoSubscriber,
       update: updateSeoSubscriber,
-      messageFilter: "related_seo_subscriber",
+      relatedType: SEO_SUBSCRIBER_TYPE,
       replySubject: "Your freethedesk SEO account",
       loadError: "SEO customer could not be loaded.",
       saveError: "The SEO customer could not be updated.",

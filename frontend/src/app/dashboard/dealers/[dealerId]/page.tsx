@@ -13,7 +13,7 @@ import {
   StaffNotesCard,
 } from "@/components/dashboard/AccountDetail";
 import { useAccountDetail } from "@/components/dashboard/useAccountDetail";
-import { formatDateTime, getDealer, updateDealer, type Dealer } from "@/lib/adminApi";
+import { DEALER_TYPE, formatDateTime, getDealer, updateDealer, type Dealer } from "@/lib/adminApi";
 
 export default function DealerDetailPage() {
   const id = Number(useParams<{ dealerId: string }>().dealerId);
@@ -22,7 +22,7 @@ export default function DealerDetailPage() {
       id,
       fetch: getDealer,
       update: updateDealer,
-      messageFilter: "related_dealer",
+      relatedType: DEALER_TYPE,
       replySubject: "Your freethedesk dealer account",
       loadError: "Dealer could not be loaded.",
       saveError: "The dealer could not be updated.",

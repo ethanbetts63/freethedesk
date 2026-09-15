@@ -6,6 +6,13 @@ import { useEffect, useState } from "react";
 import { StatusPill } from "@/components/dashboard/StatusPill";
 import { formatDateTime, getMessage, type AdminMessage } from "@/lib/adminApi";
 
+/** Related objects we have a dashboard page for. Anything else shows as plain text. */
+const RELATED_LINKS: Record<string, string> = {
+  enquiry: "/dashboard/enquiries/",
+  dealer: "/dashboard/dealers/",
+  seosubscriber: "/dashboard/seo/",
+};
+
 export default function MessageDetailPage() {
   const id = Number(useParams<{ messageId: string }>().messageId);
   const [message, setMessage] = useState<AdminMessage | null>(null);
@@ -41,7 +48,7 @@ export default function MessageDetailPage() {
             {message.channel.toUpperCase()} message #{message.id}
           </p>
           <h1>{message.subject || "SMS notification"}</h1>
-          <p>To {message.recipient}</p>
+          <p>To {message.to}</p>
         </div>
         <StatusPill status={message.status} />
       </header>
@@ -50,7 +57,12 @@ export default function MessageDetailPage() {
           <strong>This message did not send.</strong> {message.error_message}
         </p>
       )}
-      {message.status === "pending" && message.error_message && (
+      {message.status === "bounced" && (
+        <p className="admin-banner admin-banner-error">
+          <strong>This message was accepted but never arrived.</strong> {message.error_message}
+        </p>
+      )}
+      {message.status === "queued" && message.error_message && (
         <p className="admin-banner admin-banner-warning">{message.error_message}</p>
       )}
       <div className="admin-detail-grid">
@@ -75,13 +87,17 @@ export default function MessageDetailPage() {
               <dt>Sent</dt>
               <dd>{formatDateTime(message.sent_at)}</dd>
             </div>
-            {message.related_enquiry && (
+            {message.related && (
               <div>
-                <dt>Enquiry</dt>
+                <dt>About</dt>
                 <dd>
-                  <Link href={`/dashboard/enquiries/${message.related_enquiry}`}>
-                    {message.related_enquiry_business || `#${message.related_enquiry}`}
-                  </Link>
+                  {RELATED_LINKS[message.related.type] ? (
+                    <Link href={`${RELATED_LINKS[message.related.type]}${message.related.id}`}>
+                      {message.related.label || `#${message.related.id}`}
+                    </Link>
+                  ) : (
+                    message.related.label || `#${message.related.id}`
+                  )}
                 </dd>
               </div>
             )}
@@ -89,7 +105,7 @@ export default function MessageDetailPage() {
         </section>
         <section className="admin-detail-card admin-detail-wide">
           <h2>What was sent</h2>
-          <pre className="admin-message-pre">{message.body}</pre>
+          <pre className="admin-message-pre">{message.body_text}</pre>
         </section>
       </div>
     </div>

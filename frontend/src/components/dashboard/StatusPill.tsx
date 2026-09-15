@@ -6,8 +6,12 @@ const labels: Record<string, string> = {
   closed: "Closed",
   spam: "Spam",
   pending: "Pending",
+  queued: "Queued",
   sent: "Sent",
+  delivered: "Delivered",
   failed: "Failed",
+  bounced: "Bounced",
+  cancelled: "Cancelled",
   active: "Active",
   suspended: "Suspended",
   denied: "Denied",
@@ -27,4 +31,11 @@ export function StatusPill({ status }: { status: string }) {
 
 export const enquiryStatuses = ["new", "contacted", "qualified", "won", "closed", "spam"] as const;
 export const dealerStatuses = ["pending", "active", "suspended", "denied"] as const;
-export const messageStatuses = ["sent", "pending", "failed"] as const;
+export const messageStatuses = [
+  "queued",
+  "sent",
+  "delivered",
+  "failed",
+  "bounced",
+  "cancelled",
+] as const;

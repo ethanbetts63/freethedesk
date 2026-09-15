@@ -5,13 +5,11 @@ from .enquiry import (
     EnquirySerializer,
     ProjectEnquirySerializer,
 )
-from .notification import AdminNotificationSerializer
 from .site_settings import SiteSettingsSerializer
 
 __all__ = [
     "AdminEnquirySerializer",
     "AiReadinessEnquirySerializer",
-    "AdminNotificationSerializer",
     "BaseAccountRegistrationSerializer",
     "EnquirySerializer",
     "ProjectEnquirySerializer",

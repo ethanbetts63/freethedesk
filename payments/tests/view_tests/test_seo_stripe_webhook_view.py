@@ -7,8 +7,8 @@ from dealers.models import Dealer
 from payments.models import StripeEvent
 from payments.tests.conftest import stripe_settings
 from payments.tests.factories import (
-    DealerSubscriptionTermsAcceptanceFactory,
-    SeoSubscriptionTermsAcceptanceFactory,
+    DealerAgreementAcceptanceFactory,
+    SeoAgreementAcceptanceFactory,
 )
 from seo.models import SeoProfile, SeoSubscriber
 
@@ -18,7 +18,7 @@ pytestmark = pytest.mark.django_db
 @stripe_settings
 @patch("payments.views.stripe_webhook.stripe.Webhook.construct_event")
 def test_subscription_webhook_activates_seo_subscriber(construct_event, client, seo_subscriber):
-    acceptance = SeoSubscriptionTermsAcceptanceFactory(
+    acceptance = SeoAgreementAcceptanceFactory(
         subscriber=seo_subscriber, accepted_by=seo_subscriber.user,
         stripe_checkout_session_id="cs_test",
     )
@@ -61,7 +61,7 @@ def test_one_off_checkout_completed_marks_paid(construct_event, client, seo_subs
     seo_subscriber.plan = SeoSubscriber.Plan.ONEOFF
     seo_subscriber.stripe_checkout_session_id = "cs_oneoff"
     seo_subscriber.save(update_fields=["plan", "stripe_checkout_session_id"])
-    acceptance = SeoSubscriptionTermsAcceptanceFactory(
+    acceptance = SeoAgreementAcceptanceFactory(
         subscriber=seo_subscriber, accepted_by=seo_subscriber.user,
         plan=SeoSubscriber.Plan.ONEOFF, stripe_checkout_session_id="cs_oneoff",
     )
@@ -95,7 +95,7 @@ def test_one_off_checkout_completed_marks_paid(construct_event, client, seo_subs
 @stripe_settings
 @patch("payments.views.stripe_webhook.stripe.Webhook.construct_event")
 def test_dealer_subscription_event_still_routes_to_dealer_handler(construct_event, client, dealer):
-    acceptance = DealerSubscriptionTermsAcceptanceFactory(
+    acceptance = DealerAgreementAcceptanceFactory(
         dealer=dealer, accepted_by=dealer.user, stripe_checkout_session_id="cs_test",
     )
     construct_event.return_value = {

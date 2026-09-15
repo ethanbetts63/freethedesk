@@ -1,7 +1,7 @@
-from .dealer_subscription_terms_acceptance_factory import DealerSubscriptionTermsAcceptanceFactory
-from .seo_subscription_terms_acceptance_factory import SeoSubscriptionTermsAcceptanceFactory
+from .dealer_agreement_acceptance_factory import DealerAgreementAcceptanceFactory
+from .seo_agreement_acceptance_factory import SeoAgreementAcceptanceFactory
 
 __all__ = [
-    "DealerSubscriptionTermsAcceptanceFactory",
-    "SeoSubscriptionTermsAcceptanceFactory",
+    "DealerAgreementAcceptanceFactory",
+    "SeoAgreementAcceptanceFactory",
 ]

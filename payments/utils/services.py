@@ -1,17 +1,25 @@
 from dataclasses import dataclass
 from datetime import datetime, timezone as datetime_timezone
 from decimal import Decimal
-from hashlib import sha256
 
 import stripe
 from django.conf import settings
 from django.db import transaction
+from freetheplatform.agreements import Acceptance
 
 from core.models import SiteSettings
 from dealers.models import Dealer
 from dealers.utils.services import ensure_dealer_profile
 
-from ..models import DealerSubscriptionTermsAcceptance, StripeEvent
+from ..models import StripeEvent
+from .agreements import (
+    AgreementConfigurationError,
+    DEALER_ACCEPTANCE_STATEMENT,
+    DEALER_AGREEMENT_KEY,
+    dealer_offer_context,
+    publish_configured_agreement,
+    record_checkout_acceptance,
+)
 
 
 class PaymentConfigurationError(Exception):
@@ -50,27 +58,22 @@ def quote_for_plan(plan):
     return SubscriptionQuote(plan=plan, name=name, monthly_price=price)
 
 
-def current_terms_sha256():
-    try:
-        return sha256(settings.DEALER_TERMS_FILE.read_bytes()).hexdigest()
-    except OSError as error:
-        raise PaymentConfigurationError("Dealer subscription terms are not configured.") from error
-
-
-def accept_current_offer(*, dealer, user, accepted_ip):
+def accept_current_offer(*, dealer, user, accepted_ip, user_agent=""):
     quote = quote_for_plan(dealer.plan)
-    terms_hash = current_terms_sha256()
-    acceptance, _ = DealerSubscriptionTermsAcceptance.objects.get_or_create(
-        dealer=dealer,
-        plan=dealer.plan,
-        monthly_price=quote.monthly_price,
-        currency=quote.currency.upper(),
-        terms_version=settings.DEALER_TERMS_VERSION,
-        terms_sha256=terms_hash,
-        defaults={
-            "accepted_by": user,
-            "accepted_ip": accepted_ip,
-        },
+    try:
+        agreement_version = publish_configured_agreement(
+            DEALER_AGREEMENT_KEY
+        )
+    except AgreementConfigurationError as error:
+        raise PaymentConfigurationError(str(error)) from error
+    acceptance = record_checkout_acceptance(
+        agreement_version=agreement_version,
+        accepted_by=user,
+        related=dealer,
+        accepted_ip=accepted_ip,
+        user_agent=user_agent,
+        statement=DEALER_ACCEPTANCE_STATEMENT,
+        context=dealer_offer_context(quote),
     )
     return acceptance, quote
 
@@ -130,7 +133,7 @@ def create_or_reuse_checkout_session(dealer, acceptance, quote):
         "dealer_id": str(dealer.pk),
         "plan": dealer.plan,
         "terms_acceptance_id": str(acceptance.pk),
-        "terms_sha256": acceptance.terms_sha256,
+        "terms_sha256": acceptance.agreement_version.content_sha256,
         "price_cents": str(quote.unit_amount),
         "currency": quote.currency,
     }
@@ -166,8 +169,6 @@ def create_or_reuse_checkout_session(dealer, acceptance, quote):
 
     dealer.stripe_checkout_session_id = session.id
     dealer.save(update_fields=["stripe_checkout_session_id", "updated_at"])
-    acceptance.stripe_checkout_session_id = session.id
-    acceptance.save(update_fields=["stripe_checkout_session_id"])
     return session.client_secret
 
 
@@ -197,7 +198,10 @@ def _acceptance_for_object(obj, dealer):
     acceptance_id = _value(metadata, "terms_acceptance_id")
     if not acceptance_id:
         return None
-    return DealerSubscriptionTermsAcceptance.objects.filter(pk=acceptance_id, dealer=dealer).first()
+    return Acceptance.objects.for_related(dealer).filter(
+        pk=acceptance_id,
+        agreement_version__agreement__key=DEALER_AGREEMENT_KEY,
+    ).first()
 
 
 def _period_end(subscription):

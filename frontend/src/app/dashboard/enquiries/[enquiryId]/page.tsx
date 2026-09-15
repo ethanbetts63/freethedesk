@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { enquiryStatuses, StatusPill } from "@/components/dashboard/StatusPill";
 import { safeWebsiteHref } from "@/lib/api";
 import {
+  ENQUIRY_TYPE,
   formatDateTime,
   getEnquiry,
   getMessages,
@@ -23,7 +24,7 @@ export default function EnquiryDetailPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    Promise.all([getEnquiry(id), getMessages({ related_enquiry: id, page_size: 20 })])
+    Promise.all([getEnquiry(id), getMessages({ related_type: ENQUIRY_TYPE, related_id: id, page_size: 20 })])
       .then(([result, messagePage]) => {
         setEnquiry(result);
         setMessages(messagePage.results);

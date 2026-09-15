@@ -1,11 +1,8 @@
-from django.urls import path
+from django.urls import include, path
 
 from .views import (
-    AdminComposeMessageView,
     AdminEnquiryDetailView,
     AdminEnquiryListView,
-    AdminNotificationDetailView,
-    AdminNotificationListView,
     AdminSiteSettingsView,
     CookieTokenObtainPairView,
     CookieTokenRefreshView,
@@ -32,7 +29,7 @@ urlpatterns = [
     path("auth/me/", ProfileView.as_view(), name="profile"),
     path("admin/enquiries/", AdminEnquiryListView.as_view(), name="admin-enquiry-list"),
     path("admin/enquiries/<int:pk>/", AdminEnquiryDetailView.as_view(), name="admin-enquiry-detail"),
-    path("admin/messages/", AdminNotificationListView.as_view(), name="admin-message-list"),
-    path("admin/messages/compose/", AdminComposeMessageView.as_view(), name="admin-message-compose"),
-    path("admin/messages/<int:pk>/", AdminNotificationDetailView.as_view(), name="admin-message-detail"),
+    # The message log, its compose endpoint and its per-message actions all come
+    # from the shared package; the path is unchanged so the dashboard URLs hold.
+    path("admin/messages/", include("freetheplatform.messaging.api.urls")),
 ]

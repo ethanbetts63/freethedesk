@@ -7,16 +7,23 @@ deferred import of the handlers here and dispatches by Stripe metadata.
 
 from dataclasses import dataclass
 from decimal import Decimal
-from hashlib import sha256
 
 import stripe
 from django.conf import settings
+from freetheplatform.agreements import Acceptance
 
 from core.models import SiteSettings
 from seo.models import SeoSubscriber
 from seo.utils.services import ensure_seo_profile
 
-from ..models import SeoSubscriptionTermsAcceptance
+from .agreements import (
+    AgreementConfigurationError,
+    SEO_AGREEMENT_KEY,
+    publish_configured_agreement,
+    record_checkout_acceptance,
+    seo_acceptance_statement,
+    seo_offer_context,
+)
 from .services import (
     PaymentConfigurationError,
     _period_end,
@@ -109,28 +116,22 @@ def seo_quote_for_plan(plan, report_type) -> SeoQuote:
     )
 
 
-def current_seo_terms_sha256() -> str:
-    try:
-        return sha256(settings.SEO_TERMS_FILE.read_bytes()).hexdigest()
-    except OSError as error:
-        raise PaymentConfigurationError("SEO reporting and audit terms are not configured.") from error
-
-
-def accept_current_seo_offer(*, subscriber, user, accepted_ip):
+def accept_current_seo_offer(*, subscriber, user, accepted_ip, user_agent=""):
     quote = seo_quote_for_plan(subscriber.plan, subscriber.report_type)
-    terms_hash = current_seo_terms_sha256()
-    acceptance, _ = SeoSubscriptionTermsAcceptance.objects.get_or_create(
-        subscriber=subscriber,
-        plan=subscriber.plan,
-        report_type=subscriber.report_type,
-        price=quote.price,
-        currency=quote.currency.upper(),
-        terms_version=settings.SEO_TERMS_VERSION,
-        terms_sha256=terms_hash,
-        defaults={
-            "accepted_by": user,
-            "accepted_ip": accepted_ip,
-        },
+    try:
+        agreement_version = publish_configured_agreement(
+            SEO_AGREEMENT_KEY
+        )
+    except AgreementConfigurationError as error:
+        raise PaymentConfigurationError(str(error)) from error
+    acceptance = record_checkout_acceptance(
+        agreement_version=agreement_version,
+        accepted_by=user,
+        related=subscriber,
+        accepted_ip=accepted_ip,
+        user_agent=user_agent,
+        statement=seo_acceptance_statement(quote),
+        context=seo_offer_context(subscriber, quote),
     )
     return acceptance, quote
 
@@ -180,7 +181,7 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
         "plan": subscriber.plan,
         "report_type": subscriber.report_type,
         "terms_acceptance_id": str(acceptance.pk),
-        "terms_sha256": acceptance.terms_sha256,
+        "terms_sha256": acceptance.agreement_version.content_sha256,
         "price_cents": str(quote.unit_amount),
         "currency": quote.currency,
     }
@@ -234,8 +235,6 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
 
     subscriber.stripe_checkout_session_id = session.id
     subscriber.save(update_fields=["stripe_checkout_session_id", "updated_at"])
-    acceptance.stripe_checkout_session_id = session.id
-    acceptance.save(update_fields=["stripe_checkout_session_id"])
     return session.client_secret
 
 
@@ -268,7 +267,10 @@ def _acceptance_for_seo_object(obj, subscriber):
     acceptance_id = _value(metadata, "terms_acceptance_id")
     if not acceptance_id:
         return None
-    return SeoSubscriptionTermsAcceptance.objects.filter(pk=acceptance_id, subscriber=subscriber).first()
+    return Acceptance.objects.for_related(subscriber).filter(
+        pk=acceptance_id,
+        agreement_version__agreement__key=SEO_AGREEMENT_KEY,
+    ).first()
 
 
 def _payment_status_for_seo_subscription(stripe_status):

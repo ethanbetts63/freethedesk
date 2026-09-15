@@ -55,6 +55,7 @@ class SubscriptionCheckoutView(APIView):
                 dealer=dealer,
                 user=request.user,
                 accepted_ip=client_ip(request),
+                user_agent=request.META.get("HTTP_USER_AGENT", ""),
             )
             client_secret = create_or_reuse_checkout_session(dealer, acceptance, quote)
         except (PaymentConfigurationError, stripe.StripeError) as error:
@@ -63,7 +64,6 @@ class SubscriptionCheckoutView(APIView):
             "client_secret": client_secret,
             "monthly_price": str(quote.monthly_price),
             "currency": quote.currency.upper(),
-            "terms_version": acceptance.terms_version,
         })
 
 
@@ -82,6 +82,7 @@ class SeoSubscriptionCheckoutView(APIView):
                 subscriber=subscriber,
                 user=request.user,
                 accepted_ip=client_ip(request),
+                user_agent=request.META.get("HTTP_USER_AGENT", ""),
             )
             client_secret = create_or_reuse_seo_checkout_session(subscriber, acceptance, quote)
         except (PaymentConfigurationError, stripe.StripeError) as error:
@@ -93,5 +94,4 @@ class SeoSubscriptionCheckoutView(APIView):
             "currency": quote.currency.upper(),
             "cadence_label": quote.name,
             "mode": quote.mode,
-            "terms_version": acceptance.terms_version,
         })

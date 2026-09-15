@@ -20,7 +20,6 @@ export interface SeoCheckout {
   currency: string;
   cadence_label: string;
   mode: "subscription" | "payment";
-  terms_version: string;
 }
 
 export interface SeoOnboardingProfile {
