@@ -94,13 +94,10 @@ export default {
        and 980 as well, plus one max-width that inverts the mobile-first
        direction the whole file is built on.
        ------------------------------------------------------------------ */
-    "media-feature-name-value-allowed-list": [
-      { "min-width": ["640px", "900px", "1080px"] },
-      // Warning, not error: three strays (680, 720, 980) predate this rule and
-      // snapping them moves a real layout. Flip to error once they are gone.
-      { severity: "warning" },
-    ],
-    "media-feature-name-disallowed-list": [["max-width", "max-height"], { severity: "warning" }],
+    "media-feature-name-value-allowed-list": {
+      "min-width": ["640px", "900px", "1080px"],
+    },
+    "media-feature-name-disallowed-list": ["max-width", "max-height"],
 
     /* ------------------------------------------------------------------
        3. The two rules tokens.css states in prose and nothing enforced.

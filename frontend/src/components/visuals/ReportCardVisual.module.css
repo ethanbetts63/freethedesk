@@ -126,8 +126,11 @@
   margin: 0;
 }
 
+/* Hidden by default and restored at 640px: the row is too narrow for a tag on
+   a phone. Written this way round so the base rule describes the phone. */
 .tag {
   color: var(--page-accent, var(--brand-accent));
+  display: none;
   font-size: var(--text-label);
   font-weight: var(--weight-black);
   letter-spacing: 0.07em;
@@ -158,8 +161,8 @@
   }
 }
 
-@media (max-width: 520px) {
+@media (min-width: 640px) {
   .tag {
-    display: none;
+    display: inline;
   }
 }

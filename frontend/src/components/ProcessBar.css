@@ -88,7 +88,7 @@
   outline-offset: -2px;
 }
 
-@media (min-width: 680px) {
+@media (min-width: 640px) {
   .process-bar-steps a,
   .process-bar-steps li > div {
     gap: var(--space-s);
@@ -102,7 +102,7 @@
   }
 }
 
-@media (min-width: 980px) {
+@media (min-width: 900px) {
   .process-bar-label {
     padding-top: var(--space-ml);
   }
