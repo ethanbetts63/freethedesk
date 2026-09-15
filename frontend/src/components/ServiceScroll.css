@@ -174,14 +174,12 @@ main:has(.service-scroll) {
 @media (min-width: 900px) {
   .service-row {
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    padding: 110px 0;
   }
   .service-sticky {
     position: sticky;
   }
   .service-custom {
     grid-template-columns: auto minmax(0, 1fr) auto;
-    padding: 110px 0;
   }
   .service-custom-cta {
     grid-column: auto;

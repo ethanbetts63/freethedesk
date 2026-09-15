@@ -2,7 +2,7 @@
   background: var(--surface-dark);
   color: var(--text-on-dark);
   margin-top: var(--section-space);
-  padding: 82px 0;
+  padding: var(--section-space) 0;
 }
 .inner {
   align-items: center;

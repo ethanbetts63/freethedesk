@@ -167,7 +167,7 @@
 }
 .case-tour-section {
   background: var(--surface-tint);
-  padding: 78px 0 90px;
+  padding: var(--section-space) 0;
 }
 .case-section-heading {
   display: grid;
@@ -287,7 +287,7 @@
 }
 .case-mobile-story {
   background: var(--surface);
-  padding: 78px 0;
+  padding: var(--section-space) 0;
 }
 .case-mobile-story-grid {
   align-items: center;
@@ -372,7 +372,7 @@
 .case-operations-section {
   background: var(--surface-dark);
   color: var(--text-on-dark);
-  padding: 80px 0 88px;
+  padding: var(--section-space) 0;
 }
 .case-operations-heading {
   display: grid;
@@ -510,7 +510,7 @@
 }
 .case-intent-section {
   background: var(--surface-tint);
-  padding: 80px 0;
+  padding: var(--section-space) 0;
 }
 .case-intent-heading {
   align-items: start;
@@ -704,7 +704,7 @@
 }
 .case-tinted-section {
   background: var(--surface-tint);
-  padding: 78px 0;
+  padding: var(--section-space) 0;
 }
 
 @media (min-width: 640px) {
@@ -760,9 +760,6 @@
   .case-capability-list {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-  .case-tour-section {
-    padding: 112px 0 125px;
-  }
   .case-section-heading {
     gap: var(--space-xl) var(--space-3xl);
     grid-template-columns: minmax(0, 0.4fr) minmax(0, 1.2fr);
@@ -788,9 +785,6 @@
   .case-tour-controls {
     width: revert;
   }
-  .case-mobile-story {
-    padding: 120px 0;
-  }
   .case-mobile-story-grid {
     gap: var(--space-2xl);
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
@@ -800,9 +794,6 @@
   }
   .case-mobile-callout-one {
     right: 7%;
-  }
-  .case-operations-section {
-    padding: 120px 0 130px;
   }
   .case-operations-heading {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
@@ -846,9 +837,6 @@
   .case-ops-list article > b {
     grid-column: revert;
   }
-  .case-intent-section {
-    padding: 120px 0;
-  }
   .case-intent-heading {
     align-items: end;
     gap: var(--space-2xl);
@@ -883,9 +871,6 @@
   }
   .case-split-reverse .case-split-copy {
     order: 2;
-  }
-  .case-tinted-section {
-    padding: 112px 0;
   }
 }
 

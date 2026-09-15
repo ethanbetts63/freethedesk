@@ -46,7 +46,7 @@
 }
 .content {
   padding-bottom: var(--space-3xl);
-  padding-top: var(--space-2xl);
+  padding-top: var(--space-3xl);
   pointer-events: none;
 }
 .content a {
@@ -146,10 +146,6 @@
   }
   .network {
     display: block;
-  }
-  .content {
-    padding-bottom: 100px;
-    padding-top: 100px;
   }
   .copy h1 {
     line-height: 0.83;
