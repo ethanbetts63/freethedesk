@@ -230,6 +230,7 @@
 .phoneMock {
   background: var(--surface-ink);
   border: 6px solid var(--surface-ink);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- phone bezel, a drawn object's dimension */
   border-radius: 26px;
   box-shadow: 0 30px 60px color-mix(in srgb, var(--text) 40%, transparent);
   flex: 0 0 auto;

@@ -105,6 +105,7 @@
 .inputs > b {
   align-self: center;
   color: var(--accent-on-dark);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- miniature label inside an illustration */
   font-size: 1.2rem;
   justify-self: center;
 }

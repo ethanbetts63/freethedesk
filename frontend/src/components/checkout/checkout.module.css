@@ -48,6 +48,7 @@
 }
 .brand span {
   color: var(--slate-500);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- deliberately relative to the parent, not the scale */
   font-size: 0.73em;
   font-weight: var(--weight-strong);
   margin: 0 var(--space-4xs);
@@ -109,7 +110,7 @@
 }
 .orderSummary .orderTotal strong {
   color: var(--checkout-accent);
-  font-size: 1.35rem;
+  font-size: var(--step-2);
   letter-spacing: -0.04em;
 }
 .orderTotal small {
@@ -288,6 +289,7 @@
   border-radius: var(--radius-circle);
   color: var(--text-on-dark);
   display: inline-flex;
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- glyph sized to fit a fixed 50px circle */
   font-size: 1.3rem;
   height: 50px;
   justify-content: center;

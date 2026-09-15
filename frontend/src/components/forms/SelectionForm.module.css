@@ -66,6 +66,7 @@
 }
 .choiceGrid label small {
   color: var(--text-muted);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- miniature label inside an illustration */
   font-size: 0.45rem;
   font-weight: var(--weight-strong);
   letter-spacing: 0.1em;
@@ -123,6 +124,7 @@
   font-size: var(--selection-total-size, 2.8rem);
   letter-spacing: -0.06em;
   line-height: 1;
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- optical kerning after a glyph; em-relative to its own font, not spacing */
   padding-right: 0.06em;
 }
 .total small {

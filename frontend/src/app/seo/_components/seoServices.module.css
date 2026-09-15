@@ -121,6 +121,7 @@
 }
 .aiReadinessVisual b {
   color: var(--accent);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- miniature label inside an illustration */
   font-size: 0.43rem;
   font-weight: var(--weight-heavy);
   grid-column: 2;

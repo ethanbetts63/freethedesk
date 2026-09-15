@@ -3,6 +3,7 @@
    so it is imported by each shell rather than scoped to one route. */
 .dashboard-brand,
 .login-brand {
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- logotype, not body type */
   font-size: 1.45rem;
   font-style: normal;
   font-weight: var(--weight-black);

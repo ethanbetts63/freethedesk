@@ -150,7 +150,7 @@
   padding-top: var(--space-xl);
 }
 .prose h3 {
-  font-size: 1.28rem;
+  font-size: var(--step-2);
   letter-spacing: -0.025em;
   line-height: 1.25;
   margin: var(--space-xl) 0 var(--space-m);
@@ -197,6 +197,7 @@
 .prose code {
   background: var(--surface-tint-2);
   border-radius: var(--radius-2xs);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- deliberately relative to the parent, not the scale */
   font-size: 0.88em;
   padding: var(--space-4xs) var(--space-2xs);
 }

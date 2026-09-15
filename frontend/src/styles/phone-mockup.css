@@ -8,6 +8,7 @@
 .case-phone {
   background: var(--surface-dark);
   border: 4px solid var(--surface-dark);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- phone bezel, a drawn object's dimension */
   border-radius: 20px;
   bottom: 10px;
   box-shadow: 0 20px 55px color-mix(in srgb, var(--blue-950) 25%, transparent);
@@ -67,6 +68,7 @@
 .case-mobile-phone {
   background: var(--surface-ink);
   border: 7px solid var(--surface-ink);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- phone bezel, a drawn object's dimension */
   border-radius: 29px;
   box-shadow: 0 35px 70px color-mix(in srgb, var(--text) 32%, transparent);
   height: 410px;

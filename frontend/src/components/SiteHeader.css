@@ -16,6 +16,7 @@
   min-height: 68px;
 }
 .wordmark {
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- logotype, optically sized against the 68px header */
   font-size: 1.35rem;
   font-weight: var(--weight-black);
   letter-spacing: -0.085em;

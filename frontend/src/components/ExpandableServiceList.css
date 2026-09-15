@@ -95,6 +95,7 @@
   border-radius: var(--radius-circle);
   color: var(--page-accent, var(--brand-accent));
   display: flex;
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- the + icon, not text */
   font-size: 1.2rem;
   height: 34px;
   justify-content: center;
