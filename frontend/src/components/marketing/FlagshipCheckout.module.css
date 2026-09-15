@@ -138,7 +138,7 @@
 
 @media (min-width: 640px) {
   .visual {
-    padding: 28px;
+    padding: var(--space-xl);
   }
   .visualHeader {
     align-items: center;
@@ -147,7 +147,7 @@
   }
   .journey {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    padding: 28px 0;
+    padding: var(--space-xl) 0;
   }
   .journey::before {
     bottom: auto;

@@ -83,7 +83,7 @@
 
 .list li:hover {
   background: var(--surface-flow);
-  padding-left: 27px;
+  padding-left: var(--space-xl);
 }
 
 .index {

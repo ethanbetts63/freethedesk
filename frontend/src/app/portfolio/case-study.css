@@ -5,7 +5,7 @@
 .case-hero {
   min-height: auto;
   overflow: hidden;
-  padding: 65px 0 85px;
+  padding: var(--space-2xl) 0 85px;
   position: relative;
 }
 .case-hero-grid {
@@ -25,7 +25,7 @@
 .case-hero-layout {
   align-items: center;
   display: grid;
-  gap: 48px;
+  gap: var(--space-2xl);
   grid-template-columns: minmax(0, 1fr);
   position: relative;
 }
@@ -47,7 +47,7 @@
   color: var(--text-muted);
   font-size: 1rem;
   line-height: 1.65;
-  margin: 28px 0 32px;
+  margin: var(--space-xl) 0 var(--space-xl);
   max-width: 555px;
 }
 .case-hero-meta {
@@ -55,7 +55,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-s) var(--space-l);
-  margin-top: 38px;
+  margin-top: var(--space-xl);
   padding-top: var(--space-m);
 }
 .case-hero-meta span {
@@ -112,14 +112,14 @@
   transform: rotate(0.5deg);
 }
 .case-section-cta {
-  margin-top: 36px;
+  margin-top: var(--space-xl);
 }
 .case-hero .case-section-cta {
   margin-top: 0;
 }
 .case-story-intro {
   display: grid;
-  gap: 30px;
+  gap: var(--space-xl);
   grid-template-columns: minmax(0, 1fr);
   padding-block: 78px;
 }
@@ -139,7 +139,7 @@
   color: var(--text-muted);
   font-size: 1.07rem;
   line-height: 1.72;
-  margin: 30px 0 40px;
+  margin: var(--space-xl) 0 var(--space-xl);
   max-width: 720px;
 }
 .case-capability-list {
@@ -173,7 +173,7 @@
   display: grid;
   gap: var(--space-ml);
   grid-template-columns: minmax(0, 1fr);
-  margin-bottom: 48px;
+  margin-bottom: var(--space-2xl);
 }
 .case-section-heading h2 {
   font-size: var(--display-4);
@@ -194,7 +194,7 @@
 .case-tour {
   align-items: start;
   display: flex;
-  gap: 36px;
+  gap: var(--space-xl);
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   flex-direction: column-reverse;
 }
@@ -292,14 +292,14 @@
 .case-mobile-story-grid {
   align-items: center;
   display: grid;
-  gap: 50px;
+  gap: var(--space-2xl);
   grid-template-columns: minmax(0, 1fr);
 }
 .case-mobile-copy > p:not(.section-number) {
   color: var(--text-muted);
   font-size: 1rem;
   line-height: 1.72;
-  margin: 30px 0 0;
+  margin: var(--space-xl) 0 0;
   max-width: 540px;
 }
 .case-mobile-stat {
@@ -309,7 +309,7 @@
   display: grid;
   gap: var(--space-l);
   grid-template-columns: auto minmax(0, 1fr);
-  margin-top: 38px;
+  margin-top: var(--space-xl);
   max-width: 540px;
   padding: var(--space-ml) 0;
 }
@@ -376,9 +376,9 @@
 }
 .case-operations-heading {
   display: grid;
-  gap: 32px;
+  gap: var(--space-xl);
   grid-template-columns: minmax(0, 1fr);
-  margin-bottom: 50px;
+  margin-bottom: var(--space-2xl);
 }
 .case-operations-heading > p {
   align-self: end;
@@ -515,9 +515,9 @@
 .case-intent-heading {
   align-items: start;
   display: grid;
-  gap: 30px;
+  gap: var(--space-xl);
   grid-template-columns: minmax(0, 1fr);
-  margin-bottom: 50px;
+  margin-bottom: var(--space-2xl);
 }
 .case-intent-heading h2 {
   font-size: var(--display-5);
@@ -565,7 +565,7 @@
   list-style: none;
   margin: auto 0 0;
   padding: 0;
-  margin-top: 40px;
+  margin-top: var(--space-xl);
 }
 .case-intent-grid li {
   align-items: center;
@@ -668,7 +668,7 @@
 .case-split {
   align-items: center;
   display: grid;
-  gap: 44px;
+  gap: var(--space-2xl);
   grid-template-columns: minmax(0, 1fr);
 }
 .case-split-reverse .case-split-copy {
@@ -684,7 +684,7 @@
   color: var(--text-muted);
   font-size: 1rem;
   line-height: 1.72;
-  margin: 28px 0;
+  margin: var(--space-xl) 0;
   max-width: 560px;
 }
 .case-split-points {
@@ -712,7 +712,7 @@
     font-size: 1.08rem;
   }
   .case-hero-media {
-    padding-left: 28px;
+    padding-left: var(--space-xl);
   }
   .case-capability-list {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -742,15 +742,15 @@
     flex-direction: revert;
   }
   .case-hero-meta {
-    margin-top: 52px;
+    margin-top: var(--space-2xl);
   }
   .case-hero-media {
     margin-right: -190px;
-    padding: 34px 0 64px 52px;
+    padding: var(--space-xl) 0 var(--space-2xl) var(--space-2xl);
   }
   .case-browser-bar span {
-    padding-left: 56px;
-    padding-right: 56px;
+    padding-left: var(--space-2xl);
+    padding-right: var(--space-2xl);
   }
   .case-story-intro {
     gap: 105px;
@@ -764,7 +764,7 @@
     padding: 112px 0 125px;
   }
   .case-section-heading {
-    gap: 30px 70px;
+    gap: var(--space-xl) var(--space-3xl);
     grid-template-columns: minmax(0, 0.4fr) minmax(0, 1.2fr);
     margin-bottom: 76px;
   }
@@ -792,7 +792,7 @@
     padding: 120px 0;
   }
   .case-mobile-story-grid {
-    gap: 65px;
+    gap: var(--space-2xl);
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
   .case-mobile-stage {
@@ -806,7 +806,7 @@
   }
   .case-operations-heading {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: 65px;
+    gap: var(--space-2xl);
     margin-bottom: 75px;
   }
   .case-ops-console {
@@ -832,7 +832,7 @@
     display: revert;
   }
   .case-ops-main {
-    padding: 38px 42px;
+    padding: var(--space-xl) var(--space-xl);
   }
   .case-ops-topline {
     align-items: end;
@@ -851,9 +851,9 @@
   }
   .case-intent-heading {
     align-items: end;
-    gap: 65px;
+    gap: var(--space-2xl);
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-    margin-bottom: 72px;
+    margin-bottom: var(--space-3xl);
   }
   .case-intent-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -865,7 +865,7 @@
     min-height: 118px;
   }
   .case-intent-grid header span {
-    margin-bottom: 32px;
+    margin-bottom: var(--space-xl);
   }
   .case-intent-grid ul {
     margin-top: auto;
@@ -874,11 +874,11 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .case-split {
-    gap: 55px;
+    gap: var(--space-2xl);
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   }
   .case-split-reverse {
-    gap: 55px;
+    gap: var(--space-2xl);
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   }
   .case-split-reverse .case-split-copy {
@@ -896,7 +896,7 @@
   }
   .case-hero-media {
     margin-right: -105px;
-    padding-left: 52px;
+    padding-left: var(--space-2xl);
   }
   .case-section-heading {
     grid-template-columns: minmax(0, 0.5fr) minmax(0, 1.2fr) minmax(0, 0.7fr);
@@ -905,7 +905,7 @@
     grid-column: 2;
   }
   .case-tour {
-    gap: 58px;
+    gap: var(--space-2xl);
     grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
   }
   .case-mobile-story-grid {
@@ -927,6 +927,6 @@
     gap: 90px;
   }
   .case-steps-column {
-    padding: 38px 36px 30px;
+    padding: var(--space-xl) var(--space-xl) var(--space-xl);
   }
 }

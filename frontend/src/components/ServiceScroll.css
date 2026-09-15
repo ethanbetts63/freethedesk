@@ -10,9 +10,9 @@ main:has(.service-scroll) {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: var(--space-xl);
   justify-content: space-between;
-  padding-top: 55px;
+  padding-top: var(--space-2xl);
 }
 .service-scroll-intro h2 {
   font-size: var(--display-3);
@@ -24,13 +24,13 @@ main:has(.service-scroll) {
 .service-row {
   border-top: 1px solid var(--border);
   display: grid;
-  gap: 60px;
+  gap: var(--space-2xl);
   grid-template-columns: minmax(0, 1fr);
-  padding: 70px 0;
+  padding: var(--space-3xl) 0;
 }
 .service-scroll-intro + .service-row {
   border-top: 0;
-  padding-top: 60px;
+  padding-top: var(--space-2xl);
 }
 .service-sticky {
   align-self: start;
@@ -71,7 +71,7 @@ main:has(.service-scroll) {
 .service-examples {
   border-top: 1px solid var(--border);
   list-style: none;
-  margin: 34px 0 0;
+  margin: var(--space-xl) 0 0;
   padding: 0;
 }
 .service-examples li {
@@ -95,7 +95,7 @@ main:has(.service-scroll) {
   display: grid;
   gap: clamp(30px, 5vw, 64px);
   grid-template-columns: minmax(0, 1fr);
-  padding: 70px 0;
+  padding: var(--space-3xl) 0;
   position: relative;
 }
 .service-custom > * {

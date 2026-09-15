@@ -189,7 +189,7 @@
   .visual {
     box-shadow: 24px 24px 0 var(--slate-100);
     min-height: 520px;
-    padding: 42px 30px 30px;
+    padding: var(--space-xl) var(--space-xl) var(--space-xl);
   }
   .browserBar > span {
     padding: var(--space-3xs) 42px;
@@ -200,7 +200,7 @@
   }
   .pageHero {
     min-height: 215px;
-    padding: 31px;
+    padding: var(--space-xl);
   }
   .pageHero::after {
     height: 155px;

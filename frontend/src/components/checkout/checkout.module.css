@@ -57,9 +57,9 @@
   font-style: normal;
 }
 .summaryCopy {
-  margin: auto 0 50px;
+  margin: auto 0 var(--space-2xl);
   max-width: 610px;
-  margin-bottom: 30px;
+  margin-bottom: var(--space-xl);
 }
 .summaryCopy > p {
   color: var(--checkout-accent);
@@ -73,7 +73,7 @@
   font-size: var(--display-4);
   letter-spacing: -0.075em;
   line-height: 0.87;
-  margin: 0 0 27px;
+  margin: 0 0 var(--space-xl);
   max-width: 690px;
 }
 .summaryCopy > span {
@@ -134,8 +134,8 @@
 }
 .paymentHeading {
   border-bottom: 1px solid var(--slate-200);
-  margin-bottom: 32px;
-  padding-bottom: 31px;
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-xl);
 }
 .paymentHeading > span,
 .checkoutState > span {
@@ -240,7 +240,7 @@
   min-height: 60px;
   padding: 0 var(--space-ml);
   width: 100%;
-  margin-top: 28px;
+  margin-top: var(--space-xl);
   max-width: 190px;
 }
 .completePage {
@@ -251,7 +251,7 @@
   justify-content: center;
   min-height: 100vh;
   overflow: hidden;
-  padding: 28px;
+  padding: var(--space-xl);
   position: relative;
 }
 .completePage::after {
@@ -293,7 +293,7 @@
   font-size: 1.3rem;
   height: 50px;
   justify-content: center;
-  margin-bottom: 27px;
+  margin-bottom: var(--space-xl);
   width: 50px;
 }
 .completeCard h1 {
@@ -319,7 +319,7 @@
   font: inherit;
   font-size: var(--text-small);
   font-weight: var(--weight-black);
-  margin-top: 28px;
+  margin-top: var(--space-xl);
   padding: var(--space-m) var(--space-l);
 }
 
@@ -332,7 +332,7 @@
     padding: clamp(30px, 5vw, 72px);
   }
   .summaryCopy {
-    margin-bottom: 50px;
+    margin-bottom: var(--space-2xl);
   }
   .summaryCopy h1 {
     font-size: var(--display-6);

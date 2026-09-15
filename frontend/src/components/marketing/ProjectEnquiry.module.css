@@ -90,6 +90,6 @@
     justify-content: center;
   }
   .compactChooser .total {
-    margin-top: 28px;
+    margin-top: var(--space-xl);
   }
 }

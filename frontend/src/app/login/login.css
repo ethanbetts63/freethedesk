@@ -7,7 +7,7 @@
   justify-content: center;
   min-height: 100vh;
   overflow: hidden;
-  padding: 30px;
+  padding: var(--space-xl);
   position: relative;
 }
 .login-page::before {
@@ -42,7 +42,7 @@
   z-index: 1;
 }
 .login-card .admin-kicker {
-  margin-top: 42px;
+  margin-top: var(--space-xl);
 }
 .login-card h1 {
   font-size: var(--step-3);
@@ -98,6 +98,6 @@
 
 @media (min-width: 640px) {
   .login-card {
-    padding: 38px;
+    padding: var(--space-xl);
   }
 }

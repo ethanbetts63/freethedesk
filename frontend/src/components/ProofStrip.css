@@ -23,7 +23,7 @@
   grid-template-columns: auto minmax(0, 1fr);
   grid-template-columns: subgrid;
   min-height: auto;
-  padding: 28px 0;
+  padding: var(--space-xl) 0;
 }
 .proof-strip article + article {
   border-top: 1px solid var(--border-on-dark);
@@ -63,7 +63,7 @@
     grid-column: auto;
     grid-template-columns: minmax(0, 1fr);
     min-height: 160px;
-    padding: 34px 30px;
+    padding: var(--space-xl) var(--space-xl);
   }
   .proof-strip strong {
     justify-self: start;

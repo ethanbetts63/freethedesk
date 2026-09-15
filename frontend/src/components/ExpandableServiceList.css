@@ -176,7 +176,7 @@
   }
 
   .expandable-services-body {
-    padding: 0 76px 42px 144px;
+    padding: 0 76px var(--space-xl) 144px;
   }
 
   .expandable-services-body ul {
@@ -185,7 +185,7 @@
 
   .expandable-services-body li:nth-child(even) {
     border-left: 1px solid var(--border);
-    padding-left: 42px;
+    padding-left: var(--space-xl);
   }
 
   .expandable-services-body li:nth-child(even)::before {

@@ -61,7 +61,7 @@
     overflow-wrap: normal;
   }
   .faqList details p {
-    margin-right: 45px;
+    margin-right: var(--space-2xl);
   }
 }
 

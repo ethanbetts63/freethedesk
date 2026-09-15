@@ -26,7 +26,7 @@
 .admin-page-header {
   align-items: flex-start;
   display: flex;
-  gap: 30px;
+  gap: var(--space-xl);
   justify-content: space-between;
   margin-bottom: var(--space-l);
   flex-direction: column;
@@ -745,7 +745,7 @@
     text-align: right;
   }
   .admin-compose-card {
-    padding: 28px;
+    padding: var(--space-xl);
   }
   .admin-compose-card header {
     flex-direction: revert;
@@ -755,7 +755,7 @@
 
 @media (min-width: 900px) {
   .admin-page {
-    padding: 34px;
+    padding: var(--space-xl);
   }
   .admin-filters {
     grid-template-columns: minmax(155px, 0.55fr) minmax(190px, 0.8fr) minmax(300px, 1.5fr);

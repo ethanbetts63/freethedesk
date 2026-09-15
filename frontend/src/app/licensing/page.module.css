@@ -68,7 +68,7 @@
 .optionPhones {
   align-items: flex-start;
   display: flex;
-  gap: 34px;
+  gap: var(--space-xl);
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -102,14 +102,14 @@
   padding-bottom: var(--space-3xs);
 }
 .flowCompare {
-  margin-top: 48px;
+  margin-top: var(--space-2xl);
 }
 .flowCompareLabel {
   color: var(--accent-on-dark);
   font-size: var(--text-caption);
   font-weight: var(--weight-control);
   letter-spacing: 0.14em;
-  margin: 0 0 28px;
+  margin: 0 0 var(--space-xl);
   text-transform: uppercase;
 }
 .flowGrid {
@@ -439,7 +439,7 @@
   }
   .optionPhones {
     flex-wrap: nowrap;
-    gap: 46px;
+    gap: var(--space-2xl);
   }
 }
 

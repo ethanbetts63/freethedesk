@@ -20,7 +20,7 @@
 }
 
 .choiceGroup + .choiceGroup {
-  margin-top: 28px;
+  margin-top: var(--space-xl);
 }
 .choiceGroup > p {
   border-bottom: 1px solid var(--border-subtle);

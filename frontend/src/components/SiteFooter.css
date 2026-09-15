@@ -40,7 +40,7 @@
 }
 .footer-grid {
   display: grid;
-  gap: 44px;
+  gap: var(--space-2xl);
   grid-template-columns: minmax(0, 1fr);
   position: relative;
   z-index: 1;
@@ -95,7 +95,7 @@
   font-size: var(--text-meta);
   gap: var(--space-xs);
   justify-content: space-between;
-  margin-top: 70px;
+  margin-top: var(--space-3xl);
   padding-top: var(--space-ml);
   position: relative;
   z-index: 1;

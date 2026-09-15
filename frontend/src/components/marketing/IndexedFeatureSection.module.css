@@ -24,12 +24,12 @@
   gap: var(--space-4xs);
   grid-template-columns: minmax(0, 1fr);
   list-style: none;
-  margin: 56px 0 0;
+  margin: var(--space-2xl) 0 0;
   padding: 0;
 }
 .items li {
   background: var(--surface-flow);
-  padding: 30px 28px 32px;
+  padding: var(--space-xl) var(--space-xl) var(--space-xl);
 }
 .itemIndex {
   color: var(--page-accent, var(--brand-accent));

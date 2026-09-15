@@ -84,7 +84,7 @@
   color: var(--slate-600);
   font-size: var(--step-1);
   line-height: 1.65;
-  margin: 36px 0;
+  margin: var(--space-xl) 0;
   max-width: 420px;
 }
 .actions {
@@ -121,7 +121,7 @@
   font-size: var(--text-caption);
   font-weight: var(--weight-strong);
   letter-spacing: 0.09em;
-  margin: 30px 0 0;
+  margin: var(--space-xl) 0 0;
   text-transform: uppercase;
 }
 
@@ -130,7 +130,7 @@
     overflow-wrap: normal;
   }
   .actions {
-    gap: 30px;
+    gap: var(--space-xl);
   }
   .actions > * {
     width: auto;

@@ -30,7 +30,7 @@
   align-items: center;
   display: flex;
   gap: var(--space-s);
-  margin-bottom: 46px;
+  margin-bottom: var(--space-2xl);
 }
 .googleMark {
   align-items: center;

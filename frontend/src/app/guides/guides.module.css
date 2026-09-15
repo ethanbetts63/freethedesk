@@ -36,7 +36,7 @@
   font-size: var(--text-ui);
   gap: var(--space-xs);
   letter-spacing: 0.15em;
-  margin: 0 0 30px;
+  margin: 0 0 var(--space-xl);
 }
 .hero h1 {
   font-size: var(--display-4);
@@ -53,7 +53,7 @@
   color: var(--text-on-dark-muted);
   font-size: var(--step-1);
   line-height: 1.65;
-  margin: 38px 0 0;
+  margin: var(--space-xl) 0 0;
   max-width: 660px;
 }
 .heroMark {
@@ -82,10 +82,10 @@
   align-items: start;
   border-bottom: 1px solid var(--border);
   display: grid;
-  gap: 50px;
+  gap: var(--space-2xl);
   grid-template-columns: minmax(0, 1fr);
-  margin-bottom: 38px;
-  padding-bottom: 42px;
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-xl);
 }
 .indexHeader h2 {
   font-size: var(--display-4);
@@ -143,7 +143,7 @@
 }
 .cardBody {
   margin: auto 0;
-  padding: 50px 0;
+  padding: var(--space-2xl) 0;
 }
 .byline {
   color: var(--accent-ink);
@@ -192,7 +192,7 @@
   background: var(--surface-tint);
   border: 1px solid var(--border);
   display: grid;
-  gap: 30px;
+  gap: var(--space-xl);
   grid-template-columns: minmax(0, 1fr);
   min-height: 190px;
   padding: 28px var(--space-l);
@@ -238,7 +238,7 @@
     font-size: var(--display-6);
   }
   .card {
-    padding: 28px;
+    padding: var(--space-xl);
   }
   .empty {
     grid-template-columns: auto minmax(0, 1fr);
@@ -265,7 +265,7 @@
   .empty {
     align-items: center;
     grid-template-columns: auto minmax(0, 1fr) auto;
-    padding: 35px 40px;
+    padding: var(--space-xl) var(--space-xl);
   }
   .empty a {
     grid-column: auto;

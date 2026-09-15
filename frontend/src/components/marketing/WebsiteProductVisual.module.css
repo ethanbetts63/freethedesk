@@ -93,7 +93,7 @@
   margin: 0 var(--space-s);
   min-height: 330px;
   overflow: hidden;
-  padding: 28px;
+  padding: var(--space-xl);
 }
 
 .siteHero small {

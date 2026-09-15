@@ -113,7 +113,7 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .portal-setup-form fieldset {
-    padding: 28px;
+    padding: var(--space-xl);
   }
   .portal-form-actions {
     align-items: center;

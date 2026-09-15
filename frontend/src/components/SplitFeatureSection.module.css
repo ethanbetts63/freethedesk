@@ -27,7 +27,7 @@
 }
 
 .compact .layout {
-  padding-bottom: 40px;
+  padding-bottom: var(--space-xl);
   padding-top: var(--space-2xl);
 }
 
@@ -116,7 +116,7 @@
   }
 
   .compact .layout {
-    padding-top: 72px;
+    padding-top: var(--space-3xl);
   }
 
   .desktopBreak {

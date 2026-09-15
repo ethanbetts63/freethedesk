@@ -35,7 +35,7 @@
   font-size: var(--text-ui);
   font-weight: var(--weight-control);
   letter-spacing: 0.1em;
-  margin-bottom: 30px;
+  margin-bottom: var(--space-xl);
   text-transform: uppercase;
 }
 .document aside,
@@ -45,7 +45,7 @@
   color: var(--warning-ink);
   font-size: var(--text-small);
   line-height: 1.65;
-  margin: 28px 0 55px;
+  margin: var(--space-xl) 0 var(--space-2xl);
   padding: var(--space-m) var(--space-ml);
 }
 .document blockquote p {

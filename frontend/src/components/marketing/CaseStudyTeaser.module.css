@@ -106,7 +106,7 @@
 
 @media (min-width: 640px) {
   .section {
-    margin-top: 32px;
+    margin-top: var(--space-xl);
     padding: var(--section-space) 0;
   }
   .statOverlay {

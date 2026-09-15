@@ -22,7 +22,7 @@
 }
 .selectionPanel h2 {
   font-size: var(--display-3);
-  margin-bottom: 42px;
+  margin-bottom: var(--space-xl);
 }
 .reportTypeGrid {
   grid-template-columns: minmax(0, 1fr);
