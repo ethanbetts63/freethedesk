@@ -434,7 +434,6 @@ function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, "s
         eyebrow={config.seo.eyebrow}
         title={config.seo.title}
         accentTitle={config.seo.accentTitle}
-        showSequence={false}
         description={
           <>
             <p>{config.seo.description}</p>

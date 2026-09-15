@@ -73,7 +73,6 @@ export default function WebsiteDevelopmentPage() {
         eyebrow={sections["SEO"]}
         title="Launch SEO Strong."
         accentTitle="Improve with data."
-        showSequence={false}
         mode="improvement"
         description="Every website launches with strong SEO foundations but optimization requires iteration. We analyze live data as it arrives and present you with ranked, plain-english oppurtunities and implementation costs."
       />

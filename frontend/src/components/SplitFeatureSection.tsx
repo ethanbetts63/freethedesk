@@ -15,7 +15,6 @@ type SplitFeatureSectionProps = {
   background?: "white" | "tint" | "transparent";
   spacing?: "standard" | "compact" | "joined";
   bullets?: readonly string[];
-  supportingContent?: ReactNode;
   action?: ReactNode;
   className?: string;
 };
@@ -32,7 +31,6 @@ export function SplitFeatureSection({
   background = "transparent",
   spacing = "standard",
   bullets,
-  supportingContent,
   action,
   className = "",
 }: SplitFeatureSectionProps) {
@@ -57,7 +55,6 @@ export function SplitFeatureSection({
               ))}
             </ul>
           ) : null}
-          {supportingContent}
           {action ? <div className={styles.action}>{action}</div> : null}
         </div>
         <div className={styles.visual}>{visual}</div>

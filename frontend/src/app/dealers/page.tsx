@@ -88,7 +88,6 @@ export default function Dealers() {
         eyebrow={sections["SEO"]}
         title="Launch SEO Strong."
         accentTitle="Improve with data."
-        showSequence={false}
         mode="improvement"
         description="Every dealership website launches with strong SEO foundations. As search data arrives, we rank the best opportunities across stock, service and local search."
       />

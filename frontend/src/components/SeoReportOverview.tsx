@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 
 import { SeoReportVisual } from "./SeoReportVisual";
 import { SplitFeatureSection } from "./SplitFeatureSection";
-import styles from "./SeoReportOverview.module.css";
 
 type SeoReportOverviewProps = {
   eyebrow: string;
@@ -11,7 +10,6 @@ type SeoReportOverviewProps = {
   accentTitle?: string;
   id?: string;
   className?: string;
-  showSequence?: boolean;
   mode?: "report" | "improvement";
   spacing?: "standard" | "compact" | "joined";
   textSide?: "left" | "right";
@@ -24,7 +22,6 @@ export function SeoReportOverview({
   accentTitle = "Four sections.",
   id,
   className = "",
-  showSequence = true,
   mode = "report",
   spacing = "compact",
   textSide = "left",
@@ -40,19 +37,6 @@ export function SeoReportOverview({
       textSide={textSide}
       spacing={spacing}
       className={className}
-      supportingContent={
-        showSequence ? (
-          <div className={styles.reportSequence} aria-hidden="true">
-            <span>01</span>
-            <i />
-            <span>02</span>
-            <i />
-            <span>03</span>
-            <i />
-            <span>04</span>
-          </div>
-        ) : undefined
-      }
     />
   );
 }
