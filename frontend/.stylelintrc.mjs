@@ -109,11 +109,17 @@ export default {
       {
         // "Never write a bare `1fr` grid track." A bare 1fr is minmax(auto, 1fr)
         // and cannot shrink below its content, which overflows and gets clipped.
-        "grid-template-columns": [/(^|[\s(,])1fr/],
-        "grid-template-rows": [/(^|[\s(,])1fr/],
+        //
+        // The lookbehind is the whole rule. Without it the pattern also matches
+        // the 1fr INSIDE minmax(0, 1fr) -- the correct form -- and reports every
+        // well-written track in the repo as a defect. It flagged 119 of them
+        // before this was fixed; the real count is zero.
+        "grid-template-columns": [/(?<!minmax\([^()]*)(?<![\w.-])1fr\b/],
+        "grid-template-rows": [/(?<!minmax\([^()]*)(?<![\w.-])1fr\b/],
+        "grid-auto-columns": [/(?<!minmax\([^()]*)(?<![\w.-])1fr\b/],
+        "grid-auto-rows": [/(?<!minmax\([^()]*)(?<![\w.-])1fr\b/],
       },
       {
-        severity: "warning",
         message: "Bare `1fr` cannot shrink below its content. Use `minmax(0, 1fr)`.",
       },
     ],
