@@ -31,11 +31,4 @@ export function StatusPill({ status }: { status: string }) {
 
 export const enquiryStatuses = ["new", "contacted", "qualified", "won", "closed", "spam"] as const;
 export const dealerStatuses = ["pending", "active", "suspended", "denied"] as const;
-export const messageStatuses = [
-  "queued",
-  "sent",
-  "delivered",
-  "failed",
-  "bounced",
-  "cancelled",
-] as const;
+export const messageStatuses = ["queued", "sent", "delivered", "failed", "bounced", "cancelled"] as const;
