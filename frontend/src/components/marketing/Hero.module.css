@@ -99,10 +99,14 @@
 /* .primary is a .primary-button now, which brings its own box styles. */
 .secondary {
   align-items: center;
+  border-bottom: 1px solid var(--text);
   display: inline-flex;
   font-size: var(--text-body);
   font-weight: var(--weight-heavy);
+  gap: var(--space-s);
   justify-content: space-between;
+  min-height: var(--tap-min);
+  padding: var(--space-2xs) 0;
 }
 .primary {
   transition:
@@ -111,12 +115,6 @@
 }
 .primary:hover {
   transform: translateY(-2px);
-}
-.secondary {
-  border-bottom: 1px solid var(--text);
-  gap: var(--space-s);
-  min-height: var(--tap-min);
-  padding: var(--space-2xs) 0;
 }
 .trustLine {
   color: var(--text-muted);

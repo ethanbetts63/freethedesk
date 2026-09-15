@@ -36,10 +36,6 @@
 .cta-light:hover {
   background: var(--surface-tint-2);
 }
-.cta-ghost {
-  background: transparent;
-  color: var(--page-accent, var(--brand-accent));
-}
 .cta-ghost:hover {
   background: transparent;
   color: var(--text-strong);
@@ -59,8 +55,13 @@
   gap: 38px;
   padding: var(--space-m) var(--space-ml);
 }
+/* Must stay BELOW the size variants: a ghost button is a rule, not a box, so
+   it replaces whatever padding .cta-compact/.cta-default/.cta-large applied.
+   Equal specificity, so source order is what makes that work. */
 .cta-ghost {
+  background: transparent;
   border-bottom: 1px solid currentColor;
+  color: var(--page-accent, var(--brand-accent));
   padding-bottom: var(--space-xs);
   padding-left: 0;
   padding-right: 0;

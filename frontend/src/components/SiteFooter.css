@@ -68,15 +68,12 @@
 .footer-links a,
 .footer-links span {
   align-items: center;
+  color: color-mix(in srgb, var(--text-muted) 50%, var(--accent-ink) 50%);
   display: flex;
   min-height: var(--tap-min);
   /* The email address is a single unbreakable token wider than the narrow
      footer column, so it needs an explicit break opportunity. */
   overflow-wrap: anywhere;
-}
-.footer-links a,
-.footer-links span {
-  color: color-mix(in srgb, var(--text-muted) 50%, var(--accent-ink) 50%);
 }
 .footer-links a:hover {
   color: var(--accent-ink);

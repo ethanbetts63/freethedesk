@@ -47,11 +47,6 @@
   line-height: 0.94;
   margin: 0;
 }
-.optionsHeading > p:last-of-type {
-  font-size: var(--text-lead);
-  line-height: 1.7;
-  max-width: 440px;
-}
 .optionsSection {
   background: var(--surface-dark);
   color: var(--text-on-dark);
