@@ -162,7 +162,10 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
             <PrimaryButton href={config.liveHref} target="_blank" rel="noreferrer">
               Visit the live website
             </PrimaryButton>
-            <ScrollCtaButton targetId="tour" className="text-link">
+            <ScrollCtaButton
+              targetId="tour"
+              className="cursor-pointer appearance-none border-0 border-b border-b-text-primary bg-transparent pt-3xs pb-2xs font-[inherit] text-body font-heavy text-inherit [&>span]:ml-xs"
+            >
               Explore the build <span>↓</span>
             </ScrollCtaButton>
           </div>

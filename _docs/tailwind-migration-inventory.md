@@ -16,8 +16,8 @@ Deliverable for `tailwind-migration.md` Phase 0. Captured 2026-09-16.
 | `styles/tokens.css` | 378 | foundation | `@theme inline` bridge, token scales |
 | `app/globals.css` | 29 | foundation | imports only |
 | `styles/base.css` | 40 | foundation | reset/base layer |
-| `styles/layout.css` | 10 | foundation | shared layout primitives |
-| `styles/typography.css` | 53 | foundation | base type rules |
+| `styles/layout.css` | 10 | foundation | shared layout primitives — **Phase 3.1**: `.shell` renamed `.site-shell`, now declares its own `@layer components` |
+| `styles/typography.css` | 53 | foundation | base type rules — **deleted in Phase 3.2**; rules moved into `Eyebrow`/`SectionNumber`, `.text-link` inlined at its one consumer |
 | `styles/motion.css` | 45 | foundation | reduced-motion, base transitions |
 | `styles/forms.css` | 39 | foundation | base form element resets |
 | `styles/portal.css` | 122 | migrate | portal shell layout, no visual-effect properties — ordinary Phase 4.5 conversion |

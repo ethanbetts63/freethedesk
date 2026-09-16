@@ -28,7 +28,6 @@
 @import '../styles/tokens.css';
 @import '../styles/base.css' layer(legacy);
 @import '../styles/layout.css';
-@import '../styles/typography.css' layer(legacy);
 @import '../styles/motion.css' layer(legacy);
 @import '../styles/forms.css' layer(legacy);
 @import '../styles/phone-mockup.css' layer(legacy);

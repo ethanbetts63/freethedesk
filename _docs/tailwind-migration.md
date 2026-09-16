@@ -192,7 +192,20 @@ Convert the foundations that produce the most downstream reuse first:
    `py-section`/`my-section` from `--space-section`. allbikes'
    `.site-shell-narrow` and `.mobile-bleed*` were deliberately not ported:
    freethedesk has no consumer for either;
-2. typography primitives and headings;
+2. typography primitives and headings. Done: `styles/typography.css` is
+   deleted. `Eyebrow` and `SectionNumber` now carry their own Tailwind
+   utilities and compose caller overrides through `cn()`; `.text-link` had a
+   single consumer and was inlined there. The bare `eyebrow`, `section-number`
+   and `section-number-light` class names stay on the elements as structural
+   hooks — `app/portfolio/case-study.css` selects *around* them
+   (`.case-hero-copy > p:not(.eyebrow)`, `.case-split-copy > p:not(.section-number)`)
+   and overrides one of them (`.case-operations-section .section-number-light`).
+   That stylesheet is imported unlayered, so its override still beats the new
+   utilities exactly as it beat the deleted rule. Both hooks are removed when
+   case-study.css migrates in Phase 4; dropping them now would silently
+   restyle the case-study hero and split copy. Headings needed no primitive:
+   routes size them directly from the fluid scale, whose semantic rename is
+   still the open Phase 2 item;
 3. buttons and CTA variants;
 4. form controls, labels, help text, and validation messages;
 5. cards, notices, badges, status indicators, and tables;
