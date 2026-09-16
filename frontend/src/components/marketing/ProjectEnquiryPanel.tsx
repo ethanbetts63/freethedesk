@@ -4,6 +4,21 @@ import { FormEvent, useActionState, useId, useState } from "react";
 
 import formStyles from "@/components/forms/SelectionForm.module.css";
 import { SelectionFormPanel } from "@/components/forms/SelectionFormPanel";
+import {
+  choiceGroupHeadingClassName,
+  fieldInputClassName,
+  fieldLabelClassName,
+  fieldLabelSpanClassName,
+  fieldTextareaClassName,
+  formErrorClassName,
+  formTitleClassName,
+  formTitleHeadingClassName,
+  submitClassName,
+  totalClassName,
+  totalFigureClassName,
+  totalPriceClassName,
+  totalSummaryClassName,
+} from "@/components/forms/selectionFormClassNames";
 import { MovingColourButton } from "@/components/MovingColourButton";
 import { type ProjectType } from "@/lib/api";
 import { submitProjectEnquiry, type ProjectEnquiryState } from "./ProjectEnquiryPanel.actions";
@@ -80,8 +95,10 @@ export function ProjectEnquiryPanel({
           {heading}
 
           {showProjectType && (
-            <div className={formStyles.choiceGroup}>
-              <p id={`${groupId}-type`}>What do you need?</p>
+            <div>
+              <p id={`${groupId}-type`} className={choiceGroupHeadingClassName}>
+                What do you need?
+              </p>
               <div
                 className={`${formStyles.choiceGrid} grid-cols-1 sm:grid-cols-3`}
                 role="radiogroup"
@@ -110,8 +127,10 @@ export function ProjectEnquiryPanel({
             </div>
           )}
 
-          <div className={formStyles.choiceGroup}>
-            <p id={`${groupId}-budget`}>What&apos;s your budget?</p>
+          <div className={showProjectType ? "mt-xl" : undefined}>
+            <p id={`${groupId}-budget`} className={choiceGroupHeadingClassName}>
+              What&apos;s your budget?
+            </p>
             <div
               className={`${formStyles.choiceGrid} grid-cols-2 sm:grid-cols-4`}
               role="radiogroup"
@@ -151,19 +170,19 @@ export function ProjectEnquiryPanel({
           </div>
 
           <div
-            className={`${formStyles.total} [--selection-total-size:2.4rem] ${!showProjectType ? "min-[1080px]:mt-xl" : ""}`}
+            className={`${totalClassName} [--selection-total-size:2.4rem] ${!showProjectType ? "min-[1080px]:mt-xl" : ""}`}
             aria-live="polite"
           >
-            <div>
-              <strong className="moving-colour-text">{budgetLabel}</strong>
+            <div className={totalFigureClassName}>
+              <strong className={`${totalPriceClassName} moving-colour-text`}>{budgetLabel}</strong>
             </div>
-            <span>{SUMMARY[projectType]}</span>
+            <span className={totalSummaryClassName}>{SUMMARY[projectType]}</span>
           </div>
         </>
       }
     >
-      <div className={formStyles.formTitle}>
-        <h3>
+      <div className={formTitleClassName}>
+        <h3 className={formTitleHeadingClassName}>
           Send your <span className="moving-colour-text">free enquiry.</span>
         </h3>
       </div>
@@ -183,17 +202,31 @@ export function ProjectEnquiryPanel({
         </div>
       ) : (
         <>
-          <label>
-            <span>Email</span>
-            <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
-          </label>
-          <label>
-            <span>Phone</span>
-            <input name="phone" type="tel" placeholder="e.g. 0400 000 000" autoComplete="tel" />
-          </label>
-          <label>
-            <span>Website</span>
+          <label className={fieldLabelClassName}>
+            <span className={fieldLabelSpanClassName}>Email</span>
             <input
+              className={fieldInputClassName}
+              name="email"
+              type="email"
+              placeholder="e.g. email@example.com"
+              autoComplete="email"
+              required
+            />
+          </label>
+          <label className={fieldLabelClassName}>
+            <span className={fieldLabelSpanClassName}>Phone</span>
+            <input
+              className={fieldInputClassName}
+              name="phone"
+              type="tel"
+              placeholder="e.g. 0400 000 000"
+              autoComplete="tel"
+            />
+          </label>
+          <label className={fieldLabelClassName}>
+            <span className={fieldLabelSpanClassName}>Website</span>
+            <input
+              className={fieldInputClassName}
               name="website"
               type="text"
               inputMode="url"
@@ -202,9 +235,10 @@ export function ProjectEnquiryPanel({
               required
             />
           </label>
-          <label>
-            <span>Notes (optional)</span>
+          <label className={fieldLabelClassName}>
+            <span className={fieldLabelSpanClassName}>Notes (optional)</span>
             <textarea
+              className={fieldTextareaClassName}
               name="notes"
               rows={3}
               maxLength={2000}
@@ -212,13 +246,13 @@ export function ProjectEnquiryPanel({
             />
           </label>
           {state.status === "error" && (
-            <p className={formStyles.error} role="alert">
+            <p className={formErrorClassName} role="alert">
               {state.error}
             </p>
           )}
           <MovingColourButton
             type="submit"
-            className={formStyles.submit}
+            className={submitClassName}
             direction="right"
             size="large"
             fullWidth

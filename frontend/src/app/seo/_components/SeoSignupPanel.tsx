@@ -5,6 +5,23 @@ import { useRouter } from "next/navigation";
 
 import { PrimaryButton } from "@/components/PrimaryButton";
 import formStyles from "@/components/forms/SelectionForm.module.css";
+import {
+  choiceGroupHeadingClassName,
+  chooserClassName,
+  fieldInputClassName,
+  fieldLabelClassName,
+  fieldLabelSpanClassName,
+  formClassName,
+  formErrorClassName,
+  formTitleClassName,
+  formTitleHeadingClassName,
+  submitClassName,
+  totalCadenceClassName,
+  totalClassName,
+  totalFigureClassName,
+  totalPriceClassName,
+  totalSummaryClassName,
+} from "@/components/forms/selectionFormClassNames";
 import { SESSION_FLAG, type PublicSiteSettings } from "@/lib/api";
 import { planByCode } from "@/lib/plans";
 import { submitSignup, type SignupState } from "@/lib/signup.actions";
@@ -58,11 +75,11 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
 
   return (
     <div className={`${formStyles.panel} mt-0`}>
-      <aside className={`${formStyles.chooser} [scroll-margin-top:24px]`} id="google-business-profile-audit">
+      <aside className={`${chooserClassName} [scroll-margin-top:24px]`} id="google-business-profile-audit">
         {heading}
 
-        <div className={formStyles.choiceGroup}>
-          <p>What do you want?</p>
+        <div>
+          <p className={choiceGroupHeadingClassName}>What do you want?</p>
           <div
             className={`${formStyles.choiceGrid} grid-cols-1 sm:grid-cols-3`}
             role="radiogroup"
@@ -90,8 +107,8 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
           </div>
         </div>
 
-        <div className={formStyles.choiceGroup}>
-          <p>{reportType === "gbp" ? "Payment schedule" : "How often?"}</p>
+        <div className="mt-xl">
+          <p className={choiceGroupHeadingClassName}>{reportType === "gbp" ? "Payment schedule" : "How often?"}</p>
           <div
             className={`${formStyles.choiceGrid} grid-cols-2 sm:grid-cols-4`}
             role="radiogroup"
@@ -121,33 +138,47 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
           </div>
         </div>
 
-        <div className={formStyles.total} aria-live="polite">
-          <div>
-            <strong className="moving-colour-text">{selected.price}</strong>
-            <small>{selected.cadence}</small>
+        <div className={totalClassName} aria-live="polite">
+          <div className={totalFigureClassName}>
+            <strong className={`${totalPriceClassName} moving-colour-text`}>{selected.price}</strong>
+            <small className={totalCadenceClassName}>{selected.cadence}</small>
           </div>
-          <span>
+          <span className={totalSummaryClassName}>
             {reportTypeLabel(reportType)} · {selected.name}
           </span>
         </div>
       </aside>
 
-      <form className={formStyles.form} onSubmit={onSubmit}>
-        <div className={formStyles.formTitle}>
-          <h3>Where should we send it?</h3>
+      <form className={formClassName} onSubmit={onSubmit}>
+        <div className={formTitleClassName}>
+          <h3 className={formTitleHeadingClassName}>Where should we send it?</h3>
         </div>
-        <label>
-          <span>Email</span>
-          <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
+        <label className={fieldLabelClassName}>
+          <span className={fieldLabelSpanClassName}>Email</span>
+          <input
+            className={fieldInputClassName}
+            name="email"
+            type="email"
+            placeholder="e.g. email@example.com"
+            autoComplete="email"
+            required
+          />
         </label>
-        <label>
-          <span>Phone</span>
-          <input name="phone" type="tel" placeholder="e.g. 0400 000 000" autoComplete="tel" />
+        <label className={fieldLabelClassName}>
+          <span className={fieldLabelSpanClassName}>Phone</span>
+          <input
+            className={fieldInputClassName}
+            name="phone"
+            type="tel"
+            placeholder="e.g. 0400 000 000"
+            autoComplete="tel"
+          />
         </label>
-        <label>
-          <span>Website</span>
+        <label className={fieldLabelClassName}>
+          <span className={fieldLabelSpanClassName}>Website</span>
           {/* Not type="url": it rejects a scheme-less host like the placeholder example. */}
           <input
+            className={fieldInputClassName}
             name="website"
             type="text"
             inputMode="url"
@@ -157,13 +188,13 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
           />
         </label>
         {state.status === "error" && (
-          <p className={formStyles.error} role="alert">
+          <p className={formErrorClassName} role="alert">
             {state.error}
           </p>
         )}
         <PrimaryButton
           type="submit"
-          className={formStyles.submit}
+          className={submitClassName}
           direction="right"
           size="large"
           fullWidth

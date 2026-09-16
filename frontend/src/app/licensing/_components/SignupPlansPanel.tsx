@@ -5,6 +5,23 @@ import { useRouter } from "next/navigation";
 
 import formStyles from "@/components/forms/SelectionForm.module.css";
 import { SelectionFormPanel } from "@/components/forms/SelectionFormPanel";
+import {
+  choiceGroupHeadingClassName,
+  fieldInputClassName,
+  fieldLabelClassName,
+  fieldLabelSpanClassName,
+  fieldRowClassName,
+  formErrorClassName,
+  formTitleClassName,
+  formTitleHeadingClassName,
+  pillClassName,
+  submitClassName,
+  totalCadenceClassName,
+  totalClassName,
+  totalFigureClassName,
+  totalPriceClassName,
+  totalSummaryClassName,
+} from "@/components/forms/selectionFormClassNames";
 import { MovingColourButton } from "@/components/MovingColourButton";
 import { DEALER_STATES } from "@/lib/dealerStates";
 import { planByCode } from "@/lib/plans";
@@ -45,8 +62,8 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
         <>
           {heading}
 
-          <div className={formStyles.choiceGroup}>
-            <p>What do you need?</p>
+          <div>
+            <p className={choiceGroupHeadingClassName}>What do you need?</p>
             <div
               className={`${formStyles.choiceGrid} grid-cols-1 sm:grid-cols-3`}
               role="radiogroup"
@@ -85,34 +102,48 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
             ))}
           </ul>
 
-          <div className={formStyles.total} aria-live="polite">
-            <div>
-              <strong className="moving-colour-text">{selected.price}</strong>
-              <small>{selected.cadence}</small>
+          <div className={totalClassName} aria-live="polite">
+            <div className={totalFigureClassName}>
+              <strong className={`${totalPriceClassName} moving-colour-text`}>{selected.price}</strong>
+              <small className={totalCadenceClassName}>{selected.cadence}</small>
             </div>
-            <span>{selected.summary}</span>
+            <span className={totalSummaryClassName}>{selected.summary}</span>
           </div>
         </>
       }
     >
-      <div className={formStyles.formTitle}>
-        <h3>Create your account.</h3>
-        <span className={formStyles.pill}>No card required yet</span>
+      <div className={formTitleClassName}>
+        <h3 className={formTitleHeadingClassName}>Create your account.</h3>
+        <span className={pillClassName}>No card required yet</span>
       </div>
-      <div className={formStyles.fieldRow}>
-        <label>
-          <span>Email</span>
-          <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
-        </label>
-        <label>
-          <span>Phone</span>
-          <input name="phone" type="tel" placeholder="e.g. 0400 000 000" autoComplete="tel" />
-        </label>
-      </div>
-      <div className={formStyles.fieldRow}>
-        <label>
-          <span>Password</span>
+      <div className={fieldRowClassName}>
+        <label className={fieldLabelClassName}>
+          <span className={fieldLabelSpanClassName}>Email</span>
           <input
+            className={fieldInputClassName}
+            name="email"
+            type="email"
+            placeholder="e.g. email@example.com"
+            autoComplete="email"
+            required
+          />
+        </label>
+        <label className={fieldLabelClassName}>
+          <span className={fieldLabelSpanClassName}>Phone</span>
+          <input
+            className={fieldInputClassName}
+            name="phone"
+            type="tel"
+            placeholder="e.g. 0400 000 000"
+            autoComplete="tel"
+          />
+        </label>
+      </div>
+      <div className={fieldRowClassName}>
+        <label className={fieldLabelClassName}>
+          <span className={fieldLabelSpanClassName}>Password</span>
+          <input
+            className={fieldInputClassName}
             name="password"
             type="password"
             placeholder="At least 8 characters"
@@ -121,9 +152,9 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
             required
           />
         </label>
-        <label>
-          <span>State or territory</span>
-          <select name="state" defaultValue="WA" required>
+        <label className={fieldLabelClassName}>
+          <span className={fieldLabelSpanClassName}>State or territory</span>
+          <select className={fieldInputClassName} name="state" defaultValue="WA" required>
             {DEALER_STATES.map((state) => (
               <option key={state} value={state}>
                 {state}
@@ -133,13 +164,13 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
         </label>
       </div>
       {state.status === "error" && (
-        <p className={formStyles.error} role="alert">
+        <p className={formErrorClassName} role="alert">
           {state.error}
         </p>
       )}
       <MovingColourButton
         type="submit"
-        className={formStyles.submit}
+        className={submitClassName}
         direction="right"
         size="large"
         fullWidth
