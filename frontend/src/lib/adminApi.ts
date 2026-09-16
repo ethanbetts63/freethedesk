@@ -148,14 +148,6 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   return jsonOrError(await authedFetch("/api/admin/site-settings/"));
 }
 
-export async function updateSiteSettings(changes: Partial<Omit<SiteSettings, "updated_at">>): Promise<SiteSettings> {
-  return jsonOrError(
-    await authedFetch("/api/admin/site-settings/", {
-      method: "PATCH",
-      body: JSON.stringify(changes),
-    }),
-  );
-}
 
 export async function getMessages(
   params: Record<string, string | number | undefined>,

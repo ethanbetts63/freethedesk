@@ -1,11 +1,14 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
-import { getDealerAccount, updateDealerAccount, type DealerAccount } from "@/lib/dealerApi";
+import { useActionState, useEffect, useState } from "react";
+import { getDealerAccount, type DealerAccount } from "@/lib/dealerApi";
 import { DEALER_STATES } from "@/lib/dealerStates";
+import { submitPortalAccount, type PortalAccountState } from "./PortalAccount.actions";
+
+const initialState: PortalAccountState = { status: "idle" };
 
 export default function PortalAccountPage() {
-  const [account, setAccount] = useState<DealerAccount | null>(null);
+  const [loadedAccount, setLoadedAccount] = useState<DealerAccount | null>(null);
   const [form, setForm] = useState({
     business_name: "",
     contact_name: "",
@@ -13,14 +16,13 @@ export default function PortalAccountPage() {
     state: "WA" as DealerAccount["state"],
   });
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [notice, setNotice] = useState("");
-  const [error, setError] = useState("");
+  const [loadError, setLoadError] = useState("");
+  const [state, dispatch, saving] = useActionState(submitPortalAccount, initialState);
 
   useEffect(() => {
     getDealerAccount()
       .then((result) => {
-        setAccount(result);
+        setLoadedAccount(result);
         setForm({
           business_name: result.business_name,
           contact_name: result.contact_name,
@@ -28,9 +30,15 @@ export default function PortalAccountPage() {
           state: result.state,
         });
       })
-      .catch((reason) => setError(reason instanceof Error ? reason.message : "Your account could not be loaded."))
+      .catch((reason) => setLoadError(reason instanceof Error ? reason.message : "Your account could not be loaded."))
       .finally(() => setLoading(false));
   }, []);
+
+  // `form` already holds exactly what was just submitted, and `account` (below)
+  // picks up the saved snapshot from `state` — nothing needs resyncing here.
+  const account = state.status === "success" && state.account ? state.account : loadedAccount;
+  const error = state.status === "error" ? state.error : loadError;
+  const notice = state.status === "success" && !saving ? "Your details have been saved." : "";
 
   const dirty =
     account !== null &&
@@ -39,27 +47,10 @@ export default function PortalAccountPage() {
       form.phone !== account.phone ||
       form.state !== account.state);
 
-  async function submit(event: FormEvent) {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSaving(true);
-    setError("");
-    setNotice("");
-    try {
-      const updated = await updateDealerAccount(form);
-      setAccount(updated);
-      setForm({
-        business_name: updated.business_name,
-        contact_name: updated.contact_name,
-        phone: updated.phone,
-        state: updated.state,
-      });
-      setNotice("Your details have been saved.");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Your details could not be saved.");
-    } finally {
-      setSaving(false);
-    }
-  }
+    dispatch(new FormData(event.currentTarget));
+  };
 
   if (loading)
     return (
@@ -90,10 +81,11 @@ export default function PortalAccountPage() {
       <div className="admin-detail-grid">
         <section className="admin-detail-card admin-detail-wide">
           <h2>Your dealership</h2>
-          <form className="admin-compose-form" onSubmit={submit}>
+          <form className="admin-compose-form" onSubmit={onSubmit}>
             <label>
               Business name
               <input
+                name="business_name"
                 value={form.business_name}
                 onChange={(event) => setForm({ ...form, business_name: event.target.value })}
                 required
@@ -102,6 +94,7 @@ export default function PortalAccountPage() {
             <label>
               Contact name
               <input
+                name="contact_name"
                 value={form.contact_name}
                 onChange={(event) => setForm({ ...form, contact_name: event.target.value })}
                 required
@@ -110,6 +103,7 @@ export default function PortalAccountPage() {
             <label>
               Phone
               <input
+                name="phone"
                 type="tel"
                 value={form.phone}
                 onChange={(event) => setForm({ ...form, phone: event.target.value })}
@@ -118,6 +112,7 @@ export default function PortalAccountPage() {
             <label>
               State or territory
               <select
+                name="state"
                 value={form.state}
                 onChange={(event) => setForm({ ...form, state: event.target.value as DealerAccount["state"] })}
               >

@@ -1,15 +1,11 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 
-import {
-  getSeoOnboarding,
-  getSeoAccount,
-  submitSeoOnboarding,
-  updateSeoOnboarding,
-  type SeoOnboardingChanges,
-  type SeoOnboardingProfile,
-} from "@/lib/seoApi";
+import { getSeoOnboarding, getSeoAccount, type SeoOnboardingChanges, type SeoOnboardingProfile } from "@/lib/seoApi";
+import { submitSeoConnect, type SeoConnectState } from "./SeoConnect.actions";
+
+const initialState: SeoConnectState = { status: "idle" };
 
 const fields: [keyof SeoOnboardingChanges, string, string, "input" | "textarea"][] = [
   ["website_url", "Website URL", "The site the reporting covers.", "input"],
@@ -22,19 +18,18 @@ const fields: [keyof SeoOnboardingChanges, string, string, "input" | "textarea"]
 ];
 
 export default function SeoPortalConnectPage() {
-  const [profile, setProfile] = useState<SeoOnboardingProfile | null>(null);
+  const [loadedProfile, setLoadedProfile] = useState<SeoOnboardingProfile | null>(null);
   const [form, setForm] = useState<SeoOnboardingChanges>({});
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState("");
-  const [notice, setNotice] = useState("");
+  const [loadError, setLoadError] = useState("");
   const [isGbpAudit, setIsGbpAudit] = useState(false);
+  const [state, dispatch, saving] = useActionState(submitSeoConnect, initialState);
 
   useEffect(() => {
     Promise.all([getSeoOnboarding(), getSeoAccount()])
       .then(([result, account]) => {
         setIsGbpAudit(account.report_type === "gbp");
-        setProfile(result);
+        setLoadedProfile(result);
         setForm({
           website_url: result.website_url,
           search_console_property: result.search_console_property,
@@ -45,29 +40,23 @@ export default function SeoPortalConnectPage() {
           notes: result.notes,
         });
       })
-      .catch((reason) => setError(reason instanceof Error ? reason.message : "Setup could not be loaded."))
+      .catch((reason) => setLoadError(reason instanceof Error ? reason.message : "Setup could not be loaded."))
       .finally(() => setLoading(false));
   }, []);
 
-  async function save(submitForReview: boolean) {
-    setSaving(true);
-    setError("");
-    setNotice("");
-    try {
-      const updated = await updateSeoOnboarding(form);
-      const finalProfile = submitForReview ? await submitSeoOnboarding() : updated;
-      setProfile(finalProfile);
-      setNotice(
-        submitForReview
-          ? `Thanks — your ${isGbpAudit ? "audit details have" : "reporting brief has"} been submitted.`
-          : "Draft saved.",
-      );
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Your setup could not be saved.");
-    } finally {
-      setSaving(false);
-    }
-  }
+  const profile = state.status === "success" && state.profile ? state.profile : loadedProfile;
+  const error = state.status === "error" ? state.error : loadError;
+  const notice =
+    state.status === "success" && !saving
+      ? state.intent === "submit"
+        ? `Thanks — your ${isGbpAudit ? "audit details have" : "reporting brief has"} been submitted.`
+        : "Draft saved."
+      : "";
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(new FormData(event.currentTarget));
+  };
 
   if (loading)
     return (
@@ -102,49 +91,48 @@ export default function SeoPortalConnectPage() {
       {error && <p className="admin-banner admin-banner-error">{error}</p>}
       {notice && <p className="admin-banner">{notice}</p>}
 
-      <form
-        className="portal-setup-form"
-        onSubmit={(event: FormEvent<HTMLFormElement>) => {
-          event.preventDefault();
-          save(false);
-        }}
-      >
+      <form className="portal-setup-form" onSubmit={onSubmit}>
         <fieldset disabled={locked || saving}>
           <legend>{isGbpAudit ? "Audit brief" : "Reporting brief"}</legend>
           <div className="portal-field-grid">
-            {fields
-              .filter(
-                ([name]) =>
-                  !isGbpAudit ||
-                  ["website_url", "google_business_profile_url", "primary_location", "notes"].includes(name),
-              )
-              .map(([name, label, hint, kind]) => (
+            {fields.map(([name, label, hint, kind]) => {
+              const shown =
+                !isGbpAudit ||
+                ["website_url", "google_business_profile_url", "primary_location", "notes"].includes(name);
+              // Fields hidden for this account type still round-trip their
+              // last-saved value via a hidden input, so saving doesn't blank
+              // them out just because they aren't shown right now.
+              if (!shown) return <input key={name} type="hidden" name={name} value={form[name] ?? ""} />;
+              return (
                 <label key={name}>
                   <span>{label}</span>
                   {kind === "textarea" ? (
                     <textarea
+                      name={name}
                       rows={4}
                       value={form[name] ?? ""}
                       onChange={(event) => setForm({ ...form, [name]: event.target.value })}
                     />
                   ) : (
                     <input
+                      name={name}
                       value={form[name] ?? ""}
                       onChange={(event) => setForm({ ...form, [name]: event.target.value })}
                     />
                   )}
                   <small>{hint}</small>
                 </label>
-              ))}
+              );
+            })}
           </div>
         </fieldset>
 
         {!locked && (
           <div className="portal-form-actions">
-            <button type="submit" className="admin-secondary-button" disabled={saving}>
+            <button type="submit" name="intent" value="draft" className="admin-secondary-button" disabled={saving}>
               {saving ? "Saving…" : "Save draft"}
             </button>
-            <button type="button" className="admin-primary-button" disabled={saving} onClick={() => save(true)}>
+            <button type="submit" name="intent" value="submit" className="admin-primary-button" disabled={saving}>
               Save and submit
             </button>
           </div>

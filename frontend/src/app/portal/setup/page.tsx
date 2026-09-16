@@ -1,13 +1,11 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 
-import {
-  getDealerOnboarding,
-  submitDealerOnboarding,
-  updateDealerOnboarding,
-  type DealerOnboardingProfile,
-} from "@/lib/dealerApi";
+import { getDealerOnboarding, type DealerOnboardingProfile } from "@/lib/dealerApi";
+import { submitDealerSetup, type DealerSetupState } from "./DealerSetup.actions";
+
+const initialState: DealerSetupState = { status: "idle" };
 
 const textFields = [
   ["legal_name", "Legal business name", "Exactly as registered."],
@@ -30,43 +28,22 @@ const officerFields = [
   ["declared_at", "Declared at", "The suburb declarations are signed in."],
 ] as const;
 
-function cleanForm(form: HTMLFormElement) {
-  const data = new FormData(form);
-  for (const [key, value] of data.entries()) {
-    if (value instanceof File && !value.name) data.delete(key);
-  }
-  return data;
-}
-
 export default function DealerSetupPage() {
-  const [profile, setProfile] = useState<DealerOnboardingProfile | null>(null);
+  const [loadedProfile, setLoadedProfile] = useState<DealerOnboardingProfile | null>(null);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState("");
-  const [notice, setNotice] = useState("");
+  const [loadError, setLoadError] = useState("");
+  const [state, dispatch, saving] = useActionState(submitDealerSetup, initialState);
 
   useEffect(() => {
     getDealerOnboarding()
-      .then(setProfile)
-      .catch((reason) => setError(reason instanceof Error ? reason.message : "Setup could not be loaded."))
+      .then(setLoadedProfile)
+      .catch((reason) => setLoadError(reason instanceof Error ? reason.message : "Setup could not be loaded."))
       .finally(() => setLoading(false));
   }, []);
 
-  async function save(form: HTMLFormElement, submitForReview = false) {
-    setSaving(true);
-    setError("");
-    setNotice("");
-    try {
-      const updated = await updateDealerOnboarding(cleanForm(form));
-      const finalProfile = submitForReview ? await submitDealerOnboarding() : updated;
-      setProfile(finalProfile);
-      setNotice(submitForReview ? "Your dealership details have been submitted for verification." : "Draft saved.");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Your setup could not be saved.");
-    } finally {
-      setSaving(false);
-    }
-  }
+  const profileToShow = state.status === "success" && state.profile ? state.profile : loadedProfile;
+  const error = state.status === "error" ? state.error : loadError;
+  const notice = state.status === "success" ? state.notice : undefined;
 
   if (loading)
     return (
@@ -74,12 +51,13 @@ export default function DealerSetupPage() {
         <p className="admin-empty">Loading dealership setup…</p>
       </div>
     );
-  if (!profile)
+  if (!profileToShow)
     return (
       <div className="admin-page">
         <p className="admin-banner admin-banner-error">{error}</p>
       </div>
     );
+  const profile = profileToShow;
   const locked = profile.onboarding_status === "submitted";
 
   return (
@@ -97,13 +75,7 @@ export default function DealerSetupPage() {
       {error && <p className="admin-banner admin-banner-error">{error}</p>}
       {notice && <p className="admin-banner">{notice}</p>}
 
-      <form
-        className="portal-setup-form"
-        onSubmit={(event: FormEvent<HTMLFormElement>) => {
-          event.preventDefault();
-          save(event.currentTarget, false);
-        }}
-      >
+      <form className="portal-setup-form" action={dispatch}>
         <fieldset disabled={locked || saving}>
           <legend>Business and licence details</legend>
           <p>These details identify the licensed dealership and prefill supplier and licensing forms.</p>
@@ -193,19 +165,10 @@ export default function DealerSetupPage() {
 
         {!locked && (
           <div className="portal-form-actions">
-            <button type="submit" className="admin-secondary-button" disabled={saving}>
+            <button type="submit" name="intent" value="draft" className="admin-secondary-button" disabled={saving}>
               {saving ? "Saving…" : "Save draft"}
             </button>
-            {}
-            <button
-              type="button"
-              className="admin-primary-button"
-              disabled={saving}
-              onClick={(event) => {
-                const form = event.currentTarget.form;
-                if (form) save(form, true);
-              }}
-            >
+            <button type="submit" name="intent" value="submit" className="admin-primary-button" disabled={saving}>
               Save and submit for verification
             </button>
           </div>

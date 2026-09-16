@@ -45,19 +45,8 @@ export interface DealerOnboardingProfile {
   updated_at: string;
 }
 
-export type DealerAccountChanges = Partial<Pick<DealerAccount, "business_name" | "contact_name" | "phone" | "state">>;
-
 export async function getDealerAccount(): Promise<DealerAccount> {
   return jsonOrError(await authedFetch("/api/dealers/me/"));
-}
-
-export async function updateDealerAccount(changes: DealerAccountChanges): Promise<DealerAccount> {
-  return jsonOrError(
-    await authedFetch("/api/dealers/me/", {
-      method: "PATCH",
-      body: JSON.stringify(changes),
-    }),
-  );
 }
 
 export async function createSubscriptionCheckout(): Promise<SubscriptionCheckout> {
@@ -71,12 +60,4 @@ export async function createSubscriptionCheckout(): Promise<SubscriptionCheckout
 
 export async function getDealerOnboarding(): Promise<DealerOnboardingProfile> {
   return jsonOrError(await authedFetch("/api/dealers/onboarding/"));
-}
-
-export async function updateDealerOnboarding(form: FormData): Promise<DealerOnboardingProfile> {
-  return jsonOrError(await authedFetch("/api/dealers/onboarding/", { method: "PATCH", body: form }));
-}
-
-export async function submitDealerOnboarding(): Promise<DealerOnboardingProfile> {
-  return jsonOrError(await authedFetch("/api/dealers/onboarding/submit/", { method: "POST" }));
 }

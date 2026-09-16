@@ -1,8 +1,11 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useActionState, useEffect, useState } from "react";
 import type { PriceField } from "@/lib/api";
-import { formatDateTime, getSiteSettings, updateSiteSettings, type SiteSettings } from "@/lib/adminApi";
+import { formatDateTime, getSiteSettings, type SiteSettings } from "@/lib/adminApi";
+import { submitSiteSettings, type SiteSettingsState } from "./SiteSettings.actions";
+
+const initialState: SiteSettingsState = { status: "idle" };
 
 type FormState = Record<PriceField, string>;
 
@@ -27,42 +30,33 @@ function toForm(settings: SiteSettings): FormState {
 }
 
 export default function SiteSettingsPage() {
-  const [settings, setSettings] = useState<SiteSettings | null>(null);
+  const [loadedSettings, setLoadedSettings] = useState<SiteSettings | null>(null);
   const [form, setForm] = useState<FormState | null>(null);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [notice, setNotice] = useState("");
-  const [error, setError] = useState("");
+  const [loadError, setLoadError] = useState("");
+  const [state, dispatch, saving] = useActionState(submitSiteSettings, initialState);
 
   useEffect(() => {
     getSiteSettings()
       .then((result) => {
-        setSettings(result);
+        setLoadedSettings(result);
         setForm(toForm(result));
       })
-      .catch((reason) => setError(reason instanceof Error ? reason.message : "Site settings could not be loaded."))
+      .catch((reason) => setLoadError(reason instanceof Error ? reason.message : "Site settings could not be loaded."))
       .finally(() => setLoading(false));
   }, []);
 
+  // `form` already holds exactly what was just submitted, and `settings`
+  // (below) picks up the saved snapshot from `state` — nothing to resync.
+  const settings = state.status === "success" && state.settings ? state.settings : loadedSettings;
+  const error = state.status === "error" ? state.error : loadError;
+  const notice = state.status === "success" && !saving ? "Site settings have been saved." : "";
   const dirty = settings !== null && form !== null && ALL_FIELDS.some(({ field }) => form[field] !== settings[field]);
 
-  async function submit(event: FormEvent) {
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!form) return;
-    setSaving(true);
-    setError("");
-    setNotice("");
-    try {
-      const updated = await updateSiteSettings(form);
-      setSettings(updated);
-      setForm(toForm(updated));
-      setNotice("Site settings have been saved.");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Site settings could not be saved.");
-    } finally {
-      setSaving(false);
-    }
-  }
+    dispatch(new FormData(event.currentTarget));
+  };
 
   if (loading)
     return (
@@ -82,6 +76,7 @@ export default function SiteSettingsPage() {
     <label key={field}>
       {label}
       <input
+        name={field}
         type="number"
         min="0"
         step="0.01"
@@ -104,7 +99,7 @@ export default function SiteSettingsPage() {
       {error && <p className="admin-banner admin-banner-error">{error}</p>}
       {notice && <p className="admin-banner">{notice}</p>}
 
-      <form className="admin-detail-grid" onSubmit={submit}>
+      <form className="admin-detail-grid" onSubmit={onSubmit}>
         <section className="admin-detail-card admin-detail-wide">
           <h2>Licensing subscription prices</h2>
           <p className="admin-muted">

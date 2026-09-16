@@ -1,24 +1,24 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { getSeoAccount, setSeoPassword, updateSeoAccount, type SeoAccount } from "@/lib/seoApi";
+import { useActionState, useEffect, useState } from "react";
+import { getSeoAccount, type SeoAccount } from "@/lib/seoApi";
+import { submitSeoAccount, type SeoAccountState } from "./SeoAccount.actions";
+
+const initialState: SeoAccountState = { status: "idle" };
 
 export default function SeoPortalAccountPage() {
-  const router = useRouter();
-  const [account, setAccount] = useState<SeoAccount | null>(null);
+  const [loadedAccount, setLoadedAccount] = useState<SeoAccount | null>(null);
   const [form, setForm] = useState({ business_name: "", contact_name: "", phone: "", website: "" });
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [notice, setNotice] = useState("");
-  const [error, setError] = useState("");
+  const [loadError, setLoadError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [state, dispatch, saving] = useActionState(submitSeoAccount, initialState);
 
   useEffect(() => {
     getSeoAccount()
       .then((result) => {
-        setAccount(result);
+        setLoadedAccount(result);
         setForm({
           business_name: result.business_name,
           contact_name: result.contact_name,
@@ -26,9 +26,19 @@ export default function SeoPortalAccountPage() {
           website: result.website,
         });
       })
-      .catch((reason) => setError(reason instanceof Error ? reason.message : "Your account could not be loaded."))
+      .catch((reason) => setLoadError(reason instanceof Error ? reason.message : "Your account could not be loaded."))
       .finally(() => setLoading(false));
   }, []);
+
+  // `form` already holds exactly what was just submitted, and `account`
+  // (below) picks up the saved snapshot from `state`. Once
+  // `has_usable_password` flips true the password fields stop rendering
+  // entirely, so nothing needs to explicitly clear them on success — and
+  // leaving them alone on a mismatch error means the user isn't forced to
+  // retype both.
+  const account = state.status === "success" && state.account ? state.account : loadedAccount;
+  const error = state.status === "error" ? state.error : loadError;
+  const notice = state.status === "success" && !saving ? "Your details have been saved." : "";
 
   const dirty =
     account !== null &&
@@ -38,38 +48,10 @@ export default function SeoPortalAccountPage() {
       form.website !== account.website ||
       (!account.has_usable_password && password.length > 0));
 
-  async function submit(event: FormEvent) {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!account) return;
-    setSaving(true);
-    setError("");
-    setNotice("");
-    if (!account?.has_usable_password && password !== passwordConfirmation) {
-      setError("The passwords do not match.");
-      setSaving(false);
-      return;
-    }
-    try {
-      const updated = await updateSeoAccount(form);
-      if (!account.has_usable_password) await setSeoPassword(password);
-      const completed = { ...updated, has_usable_password: true };
-      setAccount(completed);
-      setForm({
-        business_name: updated.business_name,
-        contact_name: updated.contact_name,
-        phone: updated.phone,
-        website: updated.website,
-      });
-      setPassword("");
-      setPasswordConfirmation("");
-      setNotice("Your details have been saved.");
-      if (!account.has_usable_password) router.push("/seo-portal/overview");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Your details could not be saved.");
-    } finally {
-      setSaving(false);
-    }
-  }
+    dispatch(new FormData(event.currentTarget));
+  };
 
   if (loading)
     return (
@@ -101,10 +83,11 @@ export default function SeoPortalAccountPage() {
       <div className="admin-detail-grid">
         <section className="admin-detail-card admin-detail-wide">
           <h2>Your business</h2>
-          <form className="admin-compose-form" onSubmit={submit}>
+          <form className="admin-compose-form" onSubmit={onSubmit}>
             <label>
               Business name
               <input
+                name="business_name"
                 value={form.business_name}
                 onChange={(event) => setForm({ ...form, business_name: event.target.value })}
                 required
@@ -113,6 +96,7 @@ export default function SeoPortalAccountPage() {
             <label>
               Contact name
               <input
+                name="contact_name"
                 value={form.contact_name}
                 onChange={(event) => setForm({ ...form, contact_name: event.target.value })}
                 required
@@ -121,6 +105,7 @@ export default function SeoPortalAccountPage() {
             <label>
               Phone
               <input
+                name="phone"
                 type="tel"
                 value={form.phone}
                 onChange={(event) => setForm({ ...form, phone: event.target.value })}
@@ -129,6 +114,7 @@ export default function SeoPortalAccountPage() {
             <label>
               Website
               <input
+                name="website"
                 type="url"
                 placeholder="https://"
                 value={form.website}
@@ -147,6 +133,7 @@ export default function SeoPortalAccountPage() {
                 <label>
                   Choose a password
                   <input
+                    name="password"
                     type="password"
                     autoComplete="new-password"
                     minLength={8}
@@ -158,6 +145,7 @@ export default function SeoPortalAccountPage() {
                 <label>
                   Confirm password
                   <input
+                    name="password_confirmation"
                     type="password"
                     autoComplete="new-password"
                     minLength={8}

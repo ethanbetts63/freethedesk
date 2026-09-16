@@ -39,8 +39,6 @@ export interface SeoOnboardingProfile {
   updated_at: string;
 }
 
-export type SeoAccountChanges = Partial<Pick<SeoAccount, "business_name" | "contact_name" | "phone" | "website">>;
-
 export type SeoOnboardingChanges = Partial<
   Pick<
     SeoOnboardingProfile,
@@ -58,15 +56,6 @@ export async function getSeoAccount(): Promise<SeoAccount> {
   return jsonOrError(await authedFetch("/api/seo/me/"));
 }
 
-export async function updateSeoAccount(changes: SeoAccountChanges): Promise<SeoAccount> {
-  return jsonOrError(
-    await authedFetch("/api/seo/me/", {
-      method: "PATCH",
-      body: JSON.stringify(changes),
-    }),
-  );
-}
-
 export async function createSeoCheckout(): Promise<SeoCheckout> {
   return jsonOrError(
     await authedFetch("/api/payments/seo-subscription/", {
@@ -80,24 +69,3 @@ export async function getSeoOnboarding(): Promise<SeoOnboardingProfile> {
   return jsonOrError(await authedFetch("/api/seo/onboarding/"));
 }
 
-export async function updateSeoOnboarding(changes: SeoOnboardingChanges): Promise<SeoOnboardingProfile> {
-  return jsonOrError(
-    await authedFetch("/api/seo/onboarding/", {
-      method: "PATCH",
-      body: JSON.stringify(changes),
-    }),
-  );
-}
-
-export async function submitSeoOnboarding(): Promise<SeoOnboardingProfile> {
-  return jsonOrError(await authedFetch("/api/seo/onboarding/submit/", { method: "POST" }));
-}
-
-export async function setSeoPassword(password: string): Promise<void> {
-  await jsonOrError(
-    await authedFetch("/api/seo/set-password/", {
-      method: "POST",
-      body: JSON.stringify({ password }),
-    }),
-  );
-}
