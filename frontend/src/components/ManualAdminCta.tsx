@@ -20,9 +20,9 @@ export function ManualAdminCta({
   buttonLabel?: React.ReactNode;
 }) {
   return (
-    // .shell already supplies the base left/right gutter padding; only the
+    // .site-shell already supplies the base left/right gutter padding; only the
     // >=640px override needs to be stated here.
-    <section className="shell my-section bg-surface-tint py-section text-center sm:px-xl sm:py-3xl">
+    <section className="site-shell my-section bg-surface-tint py-section text-center sm:px-xl sm:py-3xl">
       <SectionNumber>{eyebrow}</SectionNumber>
       <h2 className="m-0 text-display-1 tracking-[-0.05em]">{title}</h2>
       <p className="mx-auto my-xl max-w-[570px] text-lead leading-[1.7] text-text-muted">

@@ -19,7 +19,7 @@ export function ProcessIntroduction({
   id: string;
 }) {
   return (
-    <section className="shell pb-xl pt-section" id={id} aria-labelledby={`${id}-title`}>
+    <section className="site-shell pb-xl pt-section" id={id} aria-labelledby={`${id}-title`}>
       <SectionNumber>{eyebrow}</SectionNumber>
       <h2
         id={`${id}-title`}

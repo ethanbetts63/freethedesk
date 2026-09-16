@@ -10,7 +10,7 @@ const navLinkClassName =
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--blue-950)_10%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] backdrop-blur-[14px]">
-      <div className="shell flex min-h-[68px] items-center justify-between min-[900px]:min-h-[78px]">
+      <div className="site-shell flex min-h-[68px] items-center justify-between min-[900px]:min-h-[78px]">
         <Link
           className="flex flex-none items-center gap-xs text-[1.35rem] leading-none font-black tracking-[-0.085em]"
           href="/"

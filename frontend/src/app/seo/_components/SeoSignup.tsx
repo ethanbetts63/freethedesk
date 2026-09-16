@@ -12,7 +12,7 @@ export function SeoSignup({
 }) {
   return (
     <section
-      className="shell pt-2xl pb-section [scroll-margin-top:28px] sm:pt-section sm:[scroll-margin-top:24px]"
+      className="site-shell pt-2xl pb-section [scroll-margin-top:28px] sm:pt-section sm:[scroll-margin-top:24px]"
       id="signup"
     >
       <SeoSignupPanel

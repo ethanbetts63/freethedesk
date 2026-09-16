@@ -21,7 +21,7 @@ export function IndexedFeatureSection({
 }) {
   return (
     <section className="pt-0 pb-section [scroll-margin-top:24px]" id={id}>
-      <div className="shell">
+      <div className="site-shell">
         <div className="max-w-[860px]">
           <SectionNumber>{eyebrow}</SectionNumber>
           <h2 className="m-0 text-display-3 leading-[0.98] tracking-[-0.055em]">

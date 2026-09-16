@@ -20,7 +20,7 @@ export function ProjectEnquiry({
   lead?: string;
 }) {
   return (
-    <section className="shell py-section [scroll-margin-top:24px]" id={id}>
+    <section className="site-shell py-section [scroll-margin-top:24px]" id={id}>
       <ProjectEnquiryPanel
         heading={
           <>

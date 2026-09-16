@@ -23,7 +23,7 @@ export function GoogleBusinessProfileAudit({
       aria-labelledby="gbp-audit-title"
       id="gbp-audit"
     >
-      <div className="shell relative z-1 grid grid-cols-1 gap-[clamp(45px,7vw,90px)] min-[900px]:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+      <div className="site-shell relative z-1 grid grid-cols-1 gap-[clamp(45px,7vw,90px)] min-[900px]:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
         <div>
           <div className="mb-2xl flex items-center gap-s sm:mb-[clamp(48px,6vw,78px)]">
             <span className="flex h-[46px] w-[46px] items-center justify-center rounded-circle bg-surface-page">

@@ -16,7 +16,7 @@ export function AiReadinessBanner({
 }) {
   return (
     <section className={`${styles.banner} ${className}`} aria-labelledby={titleId} id={id}>
-      <div className={`shell ${styles.inner}`}>
+      <div className={`site-shell ${styles.inner}`}>
         <div className={styles.copy}>
           <h2 id={titleId}>
             Can customers find you <span className="moving-colour-text">in AI answers?</span>

@@ -16,7 +16,7 @@ export function ExpandableServiceList({
   id?: string;
 }) {
   return (
-    <section className="expandable-services shell" id={id}>
+    <section className="expandable-services site-shell" id={id}>
       <header className="expandable-services-heading">
         <SectionNumber>{eyebrow}</SectionNumber>
         <h2>{title}</h2>

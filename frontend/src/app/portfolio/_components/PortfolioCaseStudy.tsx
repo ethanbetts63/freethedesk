@@ -151,7 +151,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
   return (
     <section className="case-hero">
       <div className="case-hero-grid" aria-hidden="true" />
-      <div className="shell case-hero-layout">
+      <div className="site-shell case-hero-layout">
         <div className="case-hero-copy">
           <Eyebrow>{config.eyebrow}</Eyebrow>
           <h1>
@@ -202,7 +202,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
 
 function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig['intro'] }) {
   return (
-    <section className="section shell case-story-intro" id="overview">
+    <section className="section site-shell case-story-intro" id="overview">
       <SectionNumber>{config.eyebrow}</SectionNumber>
       <div>
         <h2>
@@ -225,7 +225,7 @@ function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig['intro'] 
 function PortfolioTourSection({ config }: { config: PortfolioCaseStudyConfig['tour'] }) {
   return (
     <section className="case-tour-section" id="tour">
-      <div className="shell">
+      <div className="site-shell">
         <div className="case-section-heading">
           <SectionNumber>{config.eyebrow}</SectionNumber>
           <h2>
@@ -241,7 +241,7 @@ function PortfolioTourSection({ config }: { config: PortfolioCaseStudyConfig['to
 function PortfolioMobileStory({ config }: { config: MobileStory }) {
   return (
     <section className="case-mobile-story">
-      <div className="shell case-mobile-story-grid">
+      <div className="site-shell case-mobile-story-grid">
         <div className="case-mobile-copy">
           <SectionNumber>{config.eyebrow}</SectionNumber>
           <h2>{config.title}</h2>
@@ -349,7 +349,7 @@ function DualSteps({ columns }: { columns: DualStepsFeature['columns'] }) {
 function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig['feature'] }) {
   return (
     <section className="case-operations-section" id="operations">
-      <div className="shell">
+      <div className="site-shell">
         <div className="case-operations-heading">
           <div>
             <SectionNumber onDark>{config.eyebrow}</SectionNumber>
@@ -372,7 +372,7 @@ function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig['featur
 function PortfolioMediaFeature({ config }: { config: MediaFeature }) {
   return (
     <section className={config.tinted ? 'case-tinted-section' : 'section'}>
-      <div className={`shell case-split${config.reverse ? ' case-split-reverse' : ''}`}>
+      <div className={`site-shell case-split${config.reverse ? ' case-split-reverse' : ''}`}>
         <div className="case-split-copy">
           <SectionNumber>{config.eyebrow}</SectionNumber>
           <h2>{config.title}</h2>
@@ -395,7 +395,7 @@ function PortfolioMediaFeature({ config }: { config: MediaFeature }) {
 function PortfolioIntent({ config }: { config: IntentSection }) {
   return (
     <section className="case-intent-section" id="search-structure">
-      <div className="shell">
+      <div className="site-shell">
         <div className="case-intent-heading">
           <div>
             <SectionNumber>{config.eyebrow}</SectionNumber>

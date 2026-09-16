@@ -25,7 +25,7 @@ export function CaseStudyTeaser({
 }: CaseStudyTeaserProps) {
   return (
     <section className="mt-section bg-surface-dark py-section text-text-on-dark sm:mt-xl">
-      <div className="shell grid grid-cols-1 items-center gap-[clamp(55px,8vw,120px)] min-[900px]:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
+      <div className="site-shell grid grid-cols-1 items-center gap-[clamp(55px,8vw,120px)] min-[900px]:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
         <div className="relative row-start-2 mx-auto w-[250px] min-[900px]:row-auto min-[900px]:mx-0">
           <div className="absolute bottom-[34px] left-[70px] z-2 px-m pt-s pb-m [backdrop-filter:blur(9px)] [background:color-mix(in_srgb,var(--text-secondary)_88%,transparent)] [border:1px_solid_color-mix(in_srgb,var(--surface-page)_15%,transparent)] [box-shadow:0_26px_60px_color-mix(in_srgb,var(--text-primary)_50%,transparent)] sm:bottom-[52px] sm:left-[112px] sm:px-l sm:pt-m sm:pb-ml">
             <small className="block whitespace-nowrap text-micro font-strong tracking-[0.12em] text-[var(--accent-on-dark)] uppercase">

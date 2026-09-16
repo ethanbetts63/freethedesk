@@ -12,7 +12,7 @@ export function SiteFooter() {
       <div className="footer-signal-flow">
         <DeferredSignalFlow smooth />
       </div>
-      <div className="shell footer-grid">
+      <div className="site-shell footer-grid">
         <div>
           <Link className="wordmark footer-logo" href="/" aria-label="freethedesk home">
             <Image
@@ -58,7 +58,7 @@ export function SiteFooter() {
           <Link href="/legal/dealer-subscription-terms">Dealer subscription terms</Link>
         </div>
       </div>
-      <div className="shell footer-bottom">
+      <div className="site-shell footer-bottom">
         <span>© {new Date().getFullYear()} freethedesk</span>
         <span>ABN 11 493 753 896</span>
         <span>Working with dealers across Australia</span>

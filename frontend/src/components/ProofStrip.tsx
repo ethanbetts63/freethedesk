@@ -7,7 +7,7 @@ export type ProofStat = {
 export function ProofStrip({ stats, id }: { stats: readonly ProofStat[]; id?: string }) {
   return (
     <section className="bg-surface-dark text-text-on-dark" id={id}>
-      <div className="shell grid grid-cols-[auto_minmax(0,max-content)] justify-center gap-x-s min-[900px]:grid-cols-[repeat(auto-fit,minmax(240px,1fr))] min-[900px]:justify-normal min-[900px]:gap-x-0">
+      <div className="site-shell grid grid-cols-[auto_minmax(0,max-content)] justify-center gap-x-s min-[900px]:grid-cols-[repeat(auto-fit,minmax(240px,1fr))] min-[900px]:justify-normal min-[900px]:gap-x-0">
         {stats.map((stat) => (
           <article
             key={stat.label}

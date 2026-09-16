@@ -4,7 +4,7 @@ import { dealerServices } from './dealerServices';
 
 export function DealershipAutomation({ eyebrow }: { eyebrow: string }) {
   return (
-    <section className="shell" id="services">
+    <section className="site-shell" id="services">
       <ServiceScroll
         services={dealerServices}
         customHref="#project-enquiry"

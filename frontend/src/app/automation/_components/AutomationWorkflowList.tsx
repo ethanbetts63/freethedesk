@@ -4,7 +4,7 @@ import { automationServices } from './automationServices';
 
 export function AutomationWorkflowList({ eyebrow }: { eyebrow: string }) {
   return (
-    <section className="shell" id="workflows">
+    <section className="site-shell" id="workflows">
       <ServiceScroll
         services={automationServices}
         customHref="#enquiry"

@@ -46,7 +46,7 @@ export function Hero({
       </div>
       <div className="absolute inset-0 z-[-1] pointer-events-none [background-image:linear-gradient(rgba(var(--hero-grid-color),var(--hero-grid-opacity))_1px,transparent_1px),linear-gradient(90deg,rgba(var(--hero-grid-color),var(--hero-grid-opacity))_1px,transparent_1px)] [background-size:var(--hero-grid-size)_var(--hero-grid-size)] [mask-image:radial-gradient(circle_at_65%_50%,var(--text-primary),transparent_72%)]" />
       {path && <Breadcrumbs path={path} variant="overlay" />}
-      <div className="shell pointer-events-none py-3xl [&_a]:pointer-events-auto">
+      <div className="site-shell pointer-events-none py-3xl [&_a]:pointer-events-auto">
         <div>
           <Eyebrow className="[--eyebrow-accent:var(--action-primary)] [&>span]:shadow-[0_0_0_5px_color-mix(in_srgb,var(--action-primary)_12%,transparent),0_0_10px_2px_color-mix(in_srgb,var(--action-primary)_70%,transparent)]">
             {eyebrow}

@@ -32,7 +32,7 @@ export function Breadcrumbs({
       aria-label="Breadcrumb"
     >
       <ol
-        className={`shell m-0 flex list-none flex-wrap items-center gap-xs text-body ${
+        className={`site-shell m-0 flex list-none flex-wrap items-center gap-xs text-body ${
           isOverlay ? 'min-h-0 pt-ml pb-0 justify-end' : 'min-h-[46px] py-s'
         }`}
       >

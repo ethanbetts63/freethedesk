@@ -16,7 +16,7 @@ export function WebsiteIntroduction({
   automationDescription?: string;
 }) {
   return (
-    <section className="shell pt-section pb-xl" id={id} aria-labelledby={`${id}-title`}>
+    <section className="site-shell pt-section pb-xl" id={id} aria-labelledby={`${id}-title`}>
       <SectionNumber>What we build</SectionNumber>
       <h2
         id={`${id}-title`}

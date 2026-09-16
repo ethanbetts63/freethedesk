@@ -5,7 +5,7 @@ import { websiteServices } from './websiteServices';
 export function WebsiteFeatures({ eyebrow }: { eyebrow: string }) {
   return (
     <section className="bg-surface-tint py-section" id="services">
-      <div className="shell">
+      <div className="site-shell">
         <ServiceScroll
           services={websiteServices}
           customHref="#enquiry"

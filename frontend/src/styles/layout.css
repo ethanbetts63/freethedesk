@@ -1,10 +1,16 @@
-/* Page-level layout primitive: the centred content rail. Horizontal padding
-   comes from --gutter, so .shell needs no breakpoint. */
+/* Shared page rails and vertical rhythm. Components decide their internal
+   layout; pages should not redefine gutters and content widths.
 
-.shell {
-  margin: 0 auto;
-  max-width: 1240px;
-  padding-left: var(--gutter);
-  padding-right: var(--gutter);
-  width: 100%;
+   Lives in the `components` layer (not `legacy`) because this file is a
+   permanent foundation, not a migration casualty: it is the one definition of
+   the rail, so a Tailwind utility on the same element is meant to win over it.
+   Vertical rhythm is tokens, not classes - sections space themselves with
+   py-section / my-section from --space-section. */
+@layer components {
+  .site-shell {
+    margin-inline: auto;
+    max-width: var(--content-max);
+    padding-inline: var(--gutter);
+    width: 100%;
+  }
 }

@@ -21,7 +21,7 @@ export function ProcessBar({
 }) {
   return (
     <section className="bg-surface-dark text-text-on-dark" aria-label={label} id={id}>
-      <div className="shell py-0">
+      <div className="site-shell py-0">
         <p className="pt-m pr-0 pb-s pl-0 text-meta font-black tracking-[0.14em] text-[var(--accent-on-dark-soft)] uppercase min-[900px]:pt-ml">
           {label}
         </p>

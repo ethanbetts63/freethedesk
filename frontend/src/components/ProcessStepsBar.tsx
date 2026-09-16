@@ -11,7 +11,7 @@ export function ProcessStepsBar({
 }) {
   return (
     <section className="bg-surface-dark text-text-on-dark" id={id} aria-label={ariaLabel}>
-      <div className="shell">
+      <div className="site-shell">
         <ol className="m-0 flex min-h-[80px] list-none items-center gap-s py-l sm:min-h-[108px] sm:gap-xl">
           {steps.map((step) => (
             <li

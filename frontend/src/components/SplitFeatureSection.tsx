@@ -18,7 +18,7 @@ const sectionVariants = cva('text-text-secondary', {
 
 const layoutVariants = cva(
   [
-    'group shell grid grid-cols-1 items-center gap-[clamp(46px,7vw,100px)]',
+    'group site-shell grid grid-cols-1 items-center gap-[clamp(46px,7vw,100px)]',
     'min-[900px]:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]',
     'min-[900px]:group-data-[text-side=right]:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]',
   ],

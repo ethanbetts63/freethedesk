@@ -8,7 +8,7 @@ import { SignupPlansPanel } from './SignupPlansPanel';
    section, its heading and the closing note render here. */
 export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; eyebrow: string }) {
   return (
-    <section className="shell scroll-mt-[24px] py-section" id="signup">
+    <section className="site-shell scroll-mt-[24px] py-section" id="signup">
       <SignupPlansPanel
         settings={settings}
         heading={

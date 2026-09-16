@@ -15,14 +15,19 @@
    that: Tailwind's own utilities layer still wins, only the reverse.
    Route-scoped CSS Modules aren't part of this - each one is deleted the same
    slice it's converted, so there is no lingering same-element conflict to
-   guard against; see tailwind-migration.md. */
+   guard against; see tailwind-migration.md.
+
+   layout.css is imported without layer(legacy) because it declares its own
+   `components` layer: it is a permanent foundation rather than CSS awaiting
+   migration, and the rail it defines is meant to lose to a utility on the
+   same element. */
 
 @layer base, legacy, components, utilities;
 
 @import 'tailwindcss';
 @import '../styles/tokens.css';
 @import '../styles/base.css' layer(legacy);
-@import '../styles/layout.css' layer(legacy);
+@import '../styles/layout.css';
 @import '../styles/typography.css' layer(legacy);
 @import '../styles/motion.css' layer(legacy);
 @import '../styles/forms.css' layer(legacy);

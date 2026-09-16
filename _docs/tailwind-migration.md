@@ -180,7 +180,18 @@ Exit criteria:
 
 Convert the foundations that produce the most downstream reuse first:
 
-1. page rails and vertical section rhythm;
+1. page rails and vertical section rhythm. Done: `.shell` is now `.site-shell`,
+   matching allbikes' name, and its hardcoded 1240px is now the `--content-max`
+   token beside `--gutter` (37 call sites across 26 files). `layout.css`
+   declares its own `@layer components` and is imported without
+   `layer(legacy)`, because it is a permanent foundation rather than CSS
+   awaiting migration: the served cascade is now `base` → `legacy` →
+   `components` (the rail) → `utilities`, so the rail beats unmigrated global
+   CSS and still loses to a Tailwind utility on the same element. Vertical
+   rhythm needed no work — sections already space themselves with
+   `py-section`/`my-section` from `--space-section`. allbikes'
+   `.site-shell-narrow` and `.mobile-bleed*` were deliberately not ported:
+   freethedesk has no consumer for either;
 2. typography primitives and headings;
 3. buttons and CTA variants;
 4. form controls, labels, help text, and validation messages;
