@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { PreviewPageShell } from "./shared";
-import styles from "../../_styles/preview.module.css";
+import { PreviewPageShell } from './shared';
+import styles from '../../_styles/preview.module.css';
 
 export function TermsPage() {
   return (
     <PreviewPageShell
       kind="information"
       heading={{
-        eyebrow: "Customer information",
-        title: "Terms & conditions.",
-        detail: "Last updated September 2026",
+        eyebrow: 'Customer information',
+        title: 'Terms & conditions.',
+        detail: 'Last updated September 2026',
       }}
     >
       <div className={styles.termsIntro}>
         <strong>Clear terms make every next step easier.</strong>
         <p>
-          This demonstration shows how dealership policies can be presented in a readable, well-structured format. Final
-          terms would be reviewed and supplied by the dealership.
+          This demonstration shows how dealership policies can be presented in a readable,
+          well-structured format. Final terms would be reviewed and supplied by the dealership.
         </p>
       </div>
       <div className={styles.termsGrid}>
@@ -26,8 +26,8 @@ export function TermsPage() {
           <div>
             <h3>Vehicle enquiries and availability</h3>
             <p>
-              Vehicle listings are subject to availability. Submitting an enquiry does not reserve a vehicle unless a
-              deposit has been accepted and confirmed.
+              Vehicle listings are subject to availability. Submitting an enquiry does not reserve a
+              vehicle unless a deposit has been accepted and confirmed.
             </p>
           </div>
         </section>
@@ -36,8 +36,8 @@ export function TermsPage() {
           <div>
             <h3>Deposits and online purchases</h3>
             <p>
-              Any applicable deposit, balance and cancellation conditions are shown clearly before the customer confirms
-              an online transaction.
+              Any applicable deposit, balance and cancellation conditions are shown clearly before
+              the customer confirms an online transaction.
             </p>
           </div>
         </section>
@@ -46,8 +46,8 @@ export function TermsPage() {
           <div>
             <h3>Service and hire bookings</h3>
             <p>
-              Booking times remain provisional until confirmed. Hire eligibility, identification and licence
-              requirements may apply.
+              Booking times remain provisional until confirmed. Hire eligibility, identification and
+              licence requirements may apply.
             </p>
           </div>
         </section>
@@ -56,8 +56,8 @@ export function TermsPage() {
           <div>
             <h3>Privacy and customer information</h3>
             <p>
-              Customer information is collected only where required to respond, process a transaction or provide the
-              requested dealership service.
+              Customer information is collected only where required to respond, process a
+              transaction or provide the requested dealership service.
             </p>
           </div>
         </section>

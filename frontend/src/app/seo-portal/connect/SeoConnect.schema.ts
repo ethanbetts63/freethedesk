@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-const text = z.string().optional().default("");
+const text = z.string().optional().default('');
 
 export const seoConnectSchema = z.object({
   website_url: text,
@@ -10,7 +10,7 @@ export const seoConnectSchema = z.object({
   target_keywords: text,
   competitors: text,
   notes: text,
-  intent: z.enum(["draft", "submit"]).default("draft"),
+  intent: z.enum(['draft', 'submit']).default('draft'),
 });
 
 export type SeoConnectValues = z.infer<typeof seoConnectSchema>;

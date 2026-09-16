@@ -143,7 +143,7 @@
 
 .expandable-services-body li::before {
   color: var(--page-accent, var(--action-primary));
-  content: "✓";
+  content: '✓';
   font-weight: var(--weight-black);
   left: 0;
   position: absolute;

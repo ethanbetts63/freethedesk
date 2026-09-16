@@ -7,8 +7,12 @@
 }
 
 .card::before {
-  background: linear-gradient(180deg, var(--page-accent, var(--action-primary)), var(--purple-accent));
-  content: "";
+  background: linear-gradient(
+    180deg,
+    var(--page-accent, var(--action-primary)),
+    var(--purple-accent)
+  );
+  content: '';
   inset: -1px auto -1px -1px;
   position: absolute;
   width: 3px;

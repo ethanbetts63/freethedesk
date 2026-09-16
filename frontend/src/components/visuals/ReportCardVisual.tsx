@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
-import styles from "./ReportCardVisual.module.css";
+import styles from './ReportCardVisual.module.css';
 
 export type ReportCardItem = {
   title: string;
@@ -18,7 +18,14 @@ type ReportCardVisualProps = {
   ariaLabel?: string;
 };
 
-export function ReportCardVisual({ title, subtitle, badge, items, footerItems, ariaLabel }: ReportCardVisualProps) {
+export function ReportCardVisual({
+  title,
+  subtitle,
+  badge,
+  items,
+  footerItems,
+  ariaLabel,
+}: ReportCardVisualProps) {
   return (
     <div className={styles.card} aria-label={ariaLabel}>
       <header className={styles.head}>
@@ -37,9 +44,9 @@ export function ReportCardVisual({ title, subtitle, badge, items, footerItems, a
       <ol className={styles.list}>
         {items.map((item, index) => (
           <li key={item.title}>
-            <span className={styles.index}>{String(index + 1).padStart(2, "0")}</span>
+            <span className={styles.index}>{String(index + 1).padStart(2, '0')}</span>
             <span className={styles.icon} aria-hidden="true">
-              {item.icon ?? "✓"}
+              {item.icon ?? '✓'}
             </span>
             <div>
               <h3>{item.title}</h3>

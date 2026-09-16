@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useActionState, useEffect, useState } from "react";
-import { getDealerAccount, type DealerAccount } from "@/lib/dealerApi";
-import { DEALER_STATES } from "@/lib/dealerStates";
-import { submitPortalAccount, type PortalAccountState } from "./PortalAccount.actions";
+import { useActionState, useEffect, useState } from 'react';
+import { getDealerAccount, type DealerAccount } from '@/lib/dealerApi';
+import { DEALER_STATES } from '@/lib/dealerStates';
+import { submitPortalAccount, type PortalAccountState } from './PortalAccount.actions';
 
-const initialState: PortalAccountState = { status: "idle" };
+const initialState: PortalAccountState = { status: 'idle' };
 
 export default function PortalAccountPage() {
   const [loadedAccount, setLoadedAccount] = useState<DealerAccount | null>(null);
   const [form, setForm] = useState({
-    business_name: "",
-    contact_name: "",
-    phone: "",
-    state: "WA" as DealerAccount["state"],
+    business_name: '',
+    contact_name: '',
+    phone: '',
+    state: 'WA' as DealerAccount['state'],
   });
   const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState("");
+  const [loadError, setLoadError] = useState('');
   const [state, dispatch, saving] = useActionState(submitPortalAccount, initialState);
 
   useEffect(() => {
@@ -30,15 +30,19 @@ export default function PortalAccountPage() {
           state: result.state,
         });
       })
-      .catch((reason) => setLoadError(reason instanceof Error ? reason.message : "Your account could not be loaded."))
+      .catch((reason) =>
+        setLoadError(
+          reason instanceof Error ? reason.message : 'Your account could not be loaded.',
+        ),
+      )
       .finally(() => setLoading(false));
   }, []);
 
   // `form` already holds exactly what was just submitted, and `account` (below)
   // picks up the saved snapshot from `state` — nothing needs resyncing here.
-  const account = state.status === "success" && state.account ? state.account : loadedAccount;
-  const error = state.status === "error" ? state.error : loadError;
-  const notice = state.status === "success" && !saving ? "Your details have been saved." : "";
+  const account = state.status === 'success' && state.account ? state.account : loadedAccount;
+  const error = state.status === 'error' ? state.error : loadError;
+  const notice = state.status === 'success' && !saving ? 'Your details have been saved.' : '';
 
   const dirty =
     account !== null &&
@@ -114,7 +118,9 @@ export default function PortalAccountPage() {
               <select
                 name="state"
                 value={form.state}
-                onChange={(event) => setForm({ ...form, state: event.target.value as DealerAccount["state"] })}
+                onChange={(event) =>
+                  setForm({ ...form, state: event.target.value as DealerAccount['state'] })
+                }
               >
                 {DEALER_STATES.map((state) => (
                   <option key={state} value={state}>
@@ -127,11 +133,12 @@ export default function PortalAccountPage() {
               Email
               <input value={account.email} disabled />
               <small className="mt-2xs block text-ui leading-[1.45] font-normal text-text-subtle">
-                This is your sign-in address. To change it, email hello@freethedesk.com.au and we will move it across.
+                This is your sign-in address. To change it, email hello@freethedesk.com.au and we
+                will move it across.
               </small>
             </label>
             <button type="submit" className="admin-primary-button" disabled={saving || !dirty}>
-              {saving ? "Saving…" : "Save changes"}
+              {saving ? 'Saving…' : 'Save changes'}
             </button>
           </form>
         </section>

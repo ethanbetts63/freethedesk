@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import "./DashboardChrome.css";
-import "./admin.css";
+import './DashboardChrome.css';
+import './admin.css';
 
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useAuth } from "@/context/AuthContext";
-import { homeFor, type Role } from "@/lib/api";
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useAuth } from '@/context/AuthContext';
+import { homeFor, type Role } from '@/lib/api';
 
 export interface NavItem {
   href: string;
@@ -49,18 +49,24 @@ export function PortalShell({
         <div className="dashboard-sidebar-label">{label}</div>
         <nav className="dashboard-nav">
           {nav.map((item) => (
-            <Link key={item.href} href={item.href} className={pathname.startsWith(item.href) ? "active" : ""}>
+            <Link
+              key={item.href}
+              href={item.href}
+              className={pathname.startsWith(item.href) ? 'active' : ''}
+            >
               {item.label}
             </Link>
           ))}
         </nav>
         <div className="dashboard-account">
-          <span>{user.dealer?.business_name || user.seo?.business_name || user.email || user.username}</span>
+          <span>
+            {user.dealer?.business_name || user.seo?.business_name || user.email || user.username}
+          </span>
           <button
             type="button"
             onClick={async () => {
               await logout();
-              router.replace("/login");
+              router.replace('/login');
             }}
           >
             Log out

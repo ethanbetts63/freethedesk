@@ -1,7 +1,7 @@
-import Image from "next/image";
+import Image from 'next/image';
 
-import { DeferredSignalFlow } from "@/components/visuals/DeferredSignalFlow";
-import styles from "../page.module.css";
+import { DeferredSignalFlow } from '@/components/visuals/DeferredSignalFlow';
+import styles from '../page.module.css';
 
 /* No "use client": SignalFlow carries its own boundary, so the phone markup
    around it renders on the server. */
@@ -16,7 +16,13 @@ export function LoginPreviewPhone() {
         <div className={styles.loginPhoneGrid} />
         <div className={styles.loginPhoneCard}>
           <p className={styles.loginPhoneBrand}>
-            <Image className={styles.loginPhoneBrandImage} src="/logo-192x192.png" alt="" width={16} height={16} />
+            <Image
+              className={styles.loginPhoneBrandImage}
+              src="/logo-192x192.png"
+              alt=""
+              width={16}
+              height={16}
+            />
             <span className={styles.loginPhoneBrandText}>
               free<span>the</span>desk<b>.</b>
             </span>

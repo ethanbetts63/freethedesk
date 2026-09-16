@@ -1,4 +1,4 @@
-import styles from "./StatusPanelVisual.module.css";
+import styles from './StatusPanelVisual.module.css';
 
 export type StatusPanelItem = {
   title: string;
@@ -14,7 +14,13 @@ type StatusPanelVisualProps = {
   ariaLabel?: string;
 };
 
-export function StatusPanelVisual({ eyebrow, title, countLabel, items, ariaLabel }: StatusPanelVisualProps) {
+export function StatusPanelVisual({
+  eyebrow,
+  title,
+  countLabel,
+  items,
+  ariaLabel,
+}: StatusPanelVisualProps) {
   return (
     <div className={styles.panel} aria-label={ariaLabel}>
       <header className={styles.head}>
@@ -30,7 +36,7 @@ export function StatusPanelVisual({ eyebrow, title, countLabel, items, ariaLabel
       <ol className={styles.list}>
         {items.map((item, index) => (
           <li key={item.title}>
-            <span className={styles.index}>{String(index + 1).padStart(2, "0")}</span>
+            <span className={styles.index}>{String(index + 1).padStart(2, '0')}</span>
             <span className={styles.check} aria-hidden="true">
               ✓
             </span>

@@ -19,11 +19,11 @@
 
 @layer base, legacy, components, utilities;
 
-@import "tailwindcss";
-@import "../styles/tokens.css";
-@import "../styles/base.css" layer(legacy);
-@import "../styles/layout.css" layer(legacy);
-@import "../styles/typography.css" layer(legacy);
-@import "../styles/motion.css" layer(legacy);
-@import "../styles/forms.css" layer(legacy);
-@import "../styles/phone-mockup.css" layer(legacy);
+@import 'tailwindcss';
+@import '../styles/tokens.css';
+@import '../styles/base.css' layer(legacy);
+@import '../styles/layout.css' layer(legacy);
+@import '../styles/typography.css' layer(legacy);
+@import '../styles/motion.css' layer(legacy);
+@import '../styles/forms.css' layer(legacy);
+@import '../styles/phone-mockup.css' layer(legacy);

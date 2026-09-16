@@ -1,12 +1,12 @@
-import Image from "next/image";
+import Image from 'next/image';
 
-import styles from "./FlagshipCheckout.module.css";
+import styles from './FlagshipCheckout.module.css';
 
 const journey = [
   {
-    number: "01",
-    title: "Choose",
-    detail: "Select the vehicle online",
+    number: '01',
+    title: 'Choose',
+    detail: 'Select the vehicle online',
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M4 5h6v6H4zM14 5h6v6h-6zM4 13h6v6H4zM14 13h6v6h-6z" />
@@ -14,9 +14,9 @@ const journey = [
     ),
   },
   {
-    number: "02",
-    title: "Sign",
-    detail: "Identity, forms and signatures",
+    number: '02',
+    title: 'Sign',
+    detail: 'Identity, forms and signatures',
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M6 3h9l3 3v15H6zM15 3v4h4M9 12h6m-6 4h4" />
@@ -24,9 +24,9 @@ const journey = [
     ),
   },
   {
-    number: "03",
-    title: "Pay",
-    detail: "Optional deposit or full payment",
+    number: '03',
+    title: 'Pay',
+    detail: 'Optional deposit or full payment',
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M3 6h18v12H3zM3 10h18M7 15h4" />
@@ -56,7 +56,13 @@ export function FlagshipCheckoutVisual() {
 
       <div className={styles.status}>
         <span>Identity Verification by</span>
-        <Image className={styles.stripeLogo} src="/stripe-ar21.svg" alt="Stripe" width={120} height={60} />
+        <Image
+          className={styles.stripeLogo}
+          src="/stripe-ar21.svg"
+          alt="Stripe"
+          width={120}
+          height={60}
+        />
       </div>
     </div>
   );

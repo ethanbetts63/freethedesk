@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 export interface CanvasFrame {
   context: CanvasRenderingContext2D;
@@ -30,14 +30,14 @@ export function useCanvasAnimation({ draw, onResize, resizeDelay = 150 }: Option
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d");
+    const context = canvas?.getContext('2d');
     if (!canvas || !context) return;
 
     let width = 0;
     let height = 0;
     let frame = 0;
     let visible = true;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -74,13 +74,13 @@ export function useCanvasAnimation({ draw, onResize, resizeDelay = 150 }: Option
 
     resize();
     render(0);
-    window.addEventListener("resize", onWindowResize);
+    window.addEventListener('resize', onWindowResize);
     observer.observe(canvas);
 
     return () => {
       window.cancelAnimationFrame(frame);
       window.clearTimeout(resizeTimeout);
-      window.removeEventListener("resize", onWindowResize);
+      window.removeEventListener('resize', onWindowResize);
       observer.disconnect();
     };
   }, [resizeDelay]);

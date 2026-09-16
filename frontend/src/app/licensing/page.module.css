@@ -15,7 +15,8 @@
 .flowColumn.flowColumnHighlight {
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface-navy), var(--surface-navy)), var(--moving-colour-gradient);
+  background-image:
+    linear-gradient(var(--surface-navy), var(--surface-navy)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,

@@ -1,18 +1,22 @@
-import { GoogleLogo } from "@/components/GoogleLogo";
-import { SectionNumber } from "@/components/SectionNumber";
+import { GoogleLogo } from '@/components/GoogleLogo';
+import { SectionNumber } from '@/components/SectionNumber';
 
-import styles from "./GoogleBusinessProfileAudit.module.css";
+import styles from './GoogleBusinessProfileAudit.module.css';
 
 const AUDIT_AREAS = [
-  ["Business details", "Contact information, opening hours and attributes"],
-  ["Categories", "Primary and supporting category fit"],
-  ["Services", "Service groups, products and descriptions"],
-  ["Reviews", "Request process and response quality"],
-  ["Photos", "Logo, cover, premises, team and product imagery"],
-  ["Customer actions", "Website, booking and social links"],
+  ['Business details', 'Contact information, opening hours and attributes'],
+  ['Categories', 'Primary and supporting category fit'],
+  ['Services', 'Service groups, products and descriptions'],
+  ['Reviews', 'Request process and response quality'],
+  ['Photos', 'Logo, cover, premises, team and product imagery'],
+  ['Customer actions', 'Website, booking and social links'],
 ] as const;
 
-export function GoogleBusinessProfileAudit({ eyebrow = "Your local search presence" }: { eyebrow?: string }) {
+export function GoogleBusinessProfileAudit({
+  eyebrow = 'Your local search presence',
+}: {
+  eyebrow?: string;
+}) {
   return (
     <section
       className="relative mt-section overflow-hidden bg-surface-dark py-section text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_4.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_4.5%,transparent)_1px,transparent_1px)] before:[background-size:42px_42px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_82%)]"
@@ -41,8 +45,9 @@ export function GoogleBusinessProfileAudit({ eyebrow = "Your local search presen
             A one-time Google Business Profile audit.
           </h3>
           <p className="mt-xl mb-m max-w-[680px] text-lead leading-[1.72] text-text-on-dark-muted min-[900px]:max-w-[570px]">
-            We review the parts of your profile that influence local visibility, then send you a prioritised list of
-            what to correct or improve. One audit, one action list, no recurring subscription.
+            We review the parts of your profile that influence local visibility, then send you a
+            prioritised list of what to correct or improve. One audit, one action list, no recurring
+            subscription.
           </p>
         </div>
 
@@ -61,7 +66,7 @@ export function GoogleBusinessProfileAudit({ eyebrow = "Your local search presen
           <ol className={styles.auditList}>
             {AUDIT_AREAS.map(([title, description], index) => (
               <li key={title}>
-                <span className={styles.index}>{String(index + 1).padStart(2, "0")}</span>
+                <span className={styles.index}>{String(index + 1).padStart(2, '0')}</span>
                 <span className={styles.check} aria-hidden="true">
                   ✓
                 </span>

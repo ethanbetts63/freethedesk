@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
 /* Building blocks reused across the individual preview pages. */
 
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
-import type { InventoryVehicle } from "./data";
-import type { InventoryAddonSelection } from "../../_lib/types";
-import styles from "../../_styles/preview.module.css";
-import { VehicleArtwork } from "../PreviewArtwork";
+import type { InventoryVehicle } from './data';
+import type { InventoryAddonSelection } from '../../_lib/types';
+import styles from '../../_styles/preview.module.css';
+import { VehicleArtwork } from '../PreviewArtwork';
 
-type PreviewPageKind = "catalogue" | "transaction" | "information" | "specialist";
+type PreviewPageKind = 'catalogue' | 'transaction' | 'information' | 'specialist';
 
 export function PreviewPageShell({
   children,
-  className = "",
+  className = '',
   kind,
   heading,
 }: {
@@ -30,7 +30,15 @@ export function PreviewPageShell({
   );
 }
 
-export function PageHeading({ eyebrow, title, detail }: { eyebrow: string; title: string; detail: string }) {
+export function PageHeading({
+  eyebrow,
+  title,
+  detail,
+}: {
+  eyebrow: string;
+  title: string;
+  detail: string;
+}) {
   return (
     <header className={styles.exampleHeading}>
       <div>
@@ -89,7 +97,13 @@ export function CatalogueControls({
   );
 }
 
-export function CatalogueGrid({ children, className = "" }: { children: ReactNode; className?: string }) {
+export function CatalogueGrid({
+  children,
+  className = '',
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return <div className={`${styles.catalogueGrid} ${className}`}>{children}</div>;
 }
 
@@ -121,23 +135,24 @@ export function InventoryTile({
   inventoryAddons: InventoryAddonSelection;
   onOpen?: () => void;
 }) {
-  const hasOnlineActions = inventoryAddons.purchase || inventoryAddons.contract || inventoryAddons.licensing;
+  const hasOnlineActions =
+    inventoryAddons.purchase || inventoryAddons.contract || inventoryAddons.licensing;
 
   return (
     <article
       className={styles.inventoryTile}
-      role={onOpen ? "button" : undefined}
+      role={onOpen ? 'button' : undefined}
       tabIndex={onOpen ? 0 : undefined}
       onClick={onOpen}
       onKeyDown={(event) => {
-        if (onOpen && (event.key === "Enter" || event.key === " ")) {
+        if (onOpen && (event.key === 'Enter' || event.key === ' ')) {
           event.preventDefault();
           onOpen();
         }
       }}
     >
       <MiniVehicle />
-      <small>{vehicle.condition === "New" ? "New arrival" : "Pre-owned"}</small>
+      <small>{vehicle.condition === 'New' ? 'New arrival' : 'Pre-owned'}</small>
       <strong>
         {vehicle.brand} {vehicle.name}
       </strong>
@@ -193,7 +208,9 @@ export function OnlinePurchaseSteps() {
         <span>
           <em>Step 3</em>
           <strong>Delivered, or collect</strong>
-          <small>To your door across Perth metro, or collect the motorcycle from the dealership.</small>
+          <small>
+            To your door across Perth metro, or collect the motorcycle from the dealership.
+          </small>
         </span>
       </div>
     </section>

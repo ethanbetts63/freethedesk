@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 /**
  * Resets scroll to the top on client-side navigation, which can otherwise land
@@ -13,9 +13,9 @@ export function ScrollToTop() {
 
   useEffect(() => {
     if (window.location.hash) return;
-    document.documentElement.style.scrollBehavior = "auto";
+    document.documentElement.style.scrollBehavior = 'auto';
     window.scrollTo(0, 0);
-    document.documentElement.style.scrollBehavior = "";
+    document.documentElement.style.scrollBehavior = '';
   }, [pathname]);
 
   return null;

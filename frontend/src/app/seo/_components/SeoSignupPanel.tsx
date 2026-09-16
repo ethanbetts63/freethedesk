@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { FormEvent, useActionState, useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { FormEvent, useActionState, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-import { PrimaryButton } from "@/components/PrimaryButton";
-import formStyles from "@/components/forms/SelectionForm.module.css";
+import { PrimaryButton } from '@/components/PrimaryButton';
+import formStyles from '@/components/forms/SelectionForm.module.css';
 import {
   choiceGroupHeadingClassName,
   chooserClassName,
@@ -21,61 +21,79 @@ import {
   totalFigureClassName,
   totalPriceClassName,
   totalSummaryClassName,
-} from "@/components/forms/selectionFormClassNames";
-import { SESSION_FLAG, type PublicSiteSettings } from "@/lib/api";
-import { planByCode } from "@/lib/plans";
-import { submitSignup, type SignupState } from "@/lib/signup.actions";
-import { buildSeoPlans, REPORT_TYPES, reportTypeLabel, type SeoPlanCode, type SeoReportType } from "../_lib/plans";
+} from '@/components/forms/selectionFormClassNames';
+import { SESSION_FLAG, type PublicSiteSettings } from '@/lib/api';
+import { planByCode } from '@/lib/plans';
+import { submitSignup, type SignupState } from '@/lib/signup.actions';
+import {
+  buildSeoPlans,
+  REPORT_TYPES,
+  reportTypeLabel,
+  type SeoPlanCode,
+  type SeoReportType,
+} from '../_lib/plans';
 
-const initialState: SignupState = { status: "idle" };
-const boundSubmitSignup = submitSignup.bind(null, { endpoint: "/api/seo/signup/", sessionFromSignup: true });
+const initialState: SignupState = { status: 'idle' };
+const boundSubmitSignup = submitSignup.bind(null, {
+  endpoint: '/api/seo/signup/',
+  sessionFromSignup: true,
+});
 
 /** The stateful half of the signup section. `heading` arrives already rendered
     from the server so its markup stays out of the client bundle. */
-export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSettings; heading: React.ReactNode }) {
+export function SeoSignupPanel({
+  settings,
+  heading,
+}: {
+  settings: PublicSiteSettings;
+  heading: React.ReactNode;
+}) {
   const router = useRouter();
-  const [reportType, setReportType] = useState<SeoReportType>("both");
-  const [selectedCode, setSelectedCode] = useState<SeoPlanCode>("quarterly");
+  const [reportType, setReportType] = useState<SeoReportType>('both');
+  const [selectedCode, setSelectedCode] = useState<SeoPlanCode>('quarterly');
   const plans = useMemo(() => buildSeoPlans(settings, reportType), [settings, reportType]);
   const selected = planByCode(plans, selectedCode) ?? plans[0];
   const [state, dispatch, isPending] = useActionState(boundSubmitSignup, initialState);
 
   useEffect(() => {
-    if (state.status !== "success") return;
-    localStorage.setItem(SESSION_FLAG, "1");
-    router.push("/seo/payment");
+    if (state.status !== 'success') return;
+    localStorage.setItem(SESSION_FLAG, '1');
+    router.push('/seo/payment');
   }, [state, router]);
 
   useEffect(() => {
     const selectLinkedProduct = () => {
-      if (window.location.hash === "#google-business-profile-audit") {
-        setReportType("gbp");
-        setSelectedCode("oneoff");
+      if (window.location.hash === '#google-business-profile-audit') {
+        setReportType('gbp');
+        setSelectedCode('oneoff');
       }
     };
     selectLinkedProduct();
-    window.addEventListener("hashchange", selectLinkedProduct);
-    return () => window.removeEventListener("hashchange", selectLinkedProduct);
+    window.addEventListener('hashchange', selectLinkedProduct);
+    return () => window.removeEventListener('hashchange', selectLinkedProduct);
   }, []);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    formData.set("plan", selectedCode);
-    formData.set("report_type", reportType);
+    formData.set('plan', selectedCode);
+    formData.set('report_type', reportType);
     dispatch(formData);
   };
 
   function selectReportType(nextReportType: SeoReportType) {
     setReportType(nextReportType);
-    setSelectedCode(nextReportType === "gbp" ? "oneoff" : "quarterly");
+    setSelectedCode(nextReportType === 'gbp' ? 'oneoff' : 'quarterly');
   }
 
-  const recommendedFrequency: SeoPlanCode = reportType === "gbp" ? "oneoff" : "quarterly";
+  const recommendedFrequency: SeoPlanCode = reportType === 'gbp' ? 'oneoff' : 'quarterly';
 
   return (
     <div className={`${formStyles.panel} mt-0`}>
-      <aside className={`${chooserClassName} [scroll-margin-top:24px]`} id="google-business-profile-audit">
+      <aside
+        className={`${chooserClassName} [scroll-margin-top:24px]`}
+        id="google-business-profile-audit"
+      >
         {heading}
 
         <div>
@@ -87,8 +105,8 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
           >
             {REPORT_TYPES.map((option) => (
               <label
-                className={`${reportType === option.code ? formStyles.choiceSelected : ""} ${
-                  option.code === "both" ? formStyles.choiceRecommended : ""
+                className={`${reportType === option.code ? formStyles.choiceSelected : ''} ${
+                  option.code === 'both' ? formStyles.choiceRecommended : ''
                 }`}
                 key={option.code}
               >
@@ -101,14 +119,18 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
                   onChange={() => selectReportType(option.code)}
                 />
                 <span>{option.name}</span>
-                {option.code === "both" && <small className="moving-colour-text">Recommended</small>}
+                {option.code === 'both' && (
+                  <small className="moving-colour-text">Recommended</small>
+                )}
               </label>
             ))}
           </div>
         </div>
 
         <div className="mt-xl">
-          <p className={choiceGroupHeadingClassName}>{reportType === "gbp" ? "Payment schedule" : "How often?"}</p>
+          <p className={choiceGroupHeadingClassName}>
+            {reportType === 'gbp' ? 'Payment schedule' : 'How often?'}
+          </p>
           <div
             className={`${formStyles.choiceGrid} grid-cols-2 sm:grid-cols-4`}
             role="radiogroup"
@@ -116,10 +138,10 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
           >
             {plans.map((frequency) => (
               <label
-                className={`${selectedCode === frequency.code ? formStyles.choiceSelected : ""} ${
+                className={`${selectedCode === frequency.code ? formStyles.choiceSelected : ''} ${
                   recommendedFrequency === frequency.code
-                    ? "border-[var(--page-accent)] shadow-[inset_0_-3px_0_var(--page-accent)]"
-                    : ""
+                    ? 'border-[var(--page-accent)] shadow-[inset_0_-3px_0_var(--page-accent)]'
+                    : ''
                 }`}
                 key={frequency.code}
               >
@@ -140,7 +162,9 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
 
         <div className={totalClassName} aria-live="polite">
           <div className={totalFigureClassName}>
-            <strong className={`${totalPriceClassName} moving-colour-text`}>{selected.price}</strong>
+            <strong className={`${totalPriceClassName} moving-colour-text`}>
+              {selected.price}
+            </strong>
             <small className={totalCadenceClassName}>{selected.cadence}</small>
           </div>
           <span className={totalSummaryClassName}>
@@ -187,7 +211,7 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
             required
           />
         </label>
-        {state.status === "error" && (
+        {state.status === 'error' && (
           <p className={formErrorClassName} role="alert">
             {state.error}
           </p>
@@ -200,7 +224,7 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
           fullWidth
           disabled={isPending}
         >
-          {isPending ? "Creating your checkout…" : "Payment"}
+          {isPending ? 'Creating your checkout…' : 'Payment'}
         </PrimaryButton>
       </form>
     </div>

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-import { enquiryStatuses, StatusPill } from "@/components/dashboard/StatusPill";
-import { safeWebsiteHref } from "@/lib/api";
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
+import { enquiryStatuses, StatusPill } from '@/components/dashboard/StatusPill';
+import { safeWebsiteHref } from '@/lib/api';
 import {
   ENQUIRY_TYPE,
   formatDateTime,
@@ -13,7 +13,7 @@ import {
   updateEnquiryStatus,
   type AdminMessage,
   type Enquiry,
-} from "@/lib/adminApi";
+} from '@/lib/adminApi';
 
 export default function EnquiryDetailPage() {
   const id = Number(useParams<{ enquiryId: string }>().enquiryId);
@@ -21,20 +21,25 @@ export default function EnquiryDetailPage() {
   const [messages, setMessages] = useState<AdminMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    Promise.all([getEnquiry(id), getMessages({ related_type: ENQUIRY_TYPE, related_id: id, page_size: 20 })])
+    Promise.all([
+      getEnquiry(id),
+      getMessages({ related_type: ENQUIRY_TYPE, related_id: id, page_size: 20 }),
+    ])
       .then(([result, messagePage]) => {
         setEnquiry(result);
         setMessages(messagePage.results);
       })
-      .catch((reason) => setError(reason instanceof Error ? reason.message : "Enquiry could not be loaded."))
+      .catch((reason) =>
+        setError(reason instanceof Error ? reason.message : 'Enquiry could not be loaded.'),
+      )
       .finally(() => setLoading(false));
   }, [id]);
 
   const replyHref = useMemo(() => {
-    if (!enquiry) return "/dashboard/messages/compose";
+    if (!enquiry) return '/dashboard/messages/compose';
     const firstName = enquiry.name.trim().split(/\s+/)[0] || enquiry.name;
     const params = new URLSearchParams({
       to: enquiry.email,
@@ -48,11 +53,11 @@ export default function EnquiryDetailPage() {
   async function changeStatus(status: string) {
     if (!enquiry) return;
     setSaving(true);
-    setError("");
+    setError('');
     try {
       setEnquiry(await updateEnquiryStatus(enquiry.id, status));
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Status could not be updated.");
+      setError(reason instanceof Error ? reason.message : 'Status could not be updated.');
     } finally {
       setSaving(false);
     }
@@ -78,7 +83,8 @@ export default function EnquiryDetailPage() {
   const configuration = enquiry.configuration ?? {};
   const websiteHref = safeWebsiteHref(enquiry.website);
   const chosenCapabilities = configuration.capabilities?.filter((item) => item.selected) ?? [];
-  const chosenInventoryOptions = configuration.inventory_options?.filter((item) => item.selected) ?? [];
+  const chosenInventoryOptions =
+    configuration.inventory_options?.filter((item) => item.selected) ?? [];
 
   return (
     <div className="admin-page">
@@ -104,7 +110,11 @@ export default function EnquiryDetailPage() {
             <p className="admin-card-label">Workflow status</p>
             <StatusPill status={enquiry.status} />
           </div>
-          <select value={enquiry.status} disabled={saving} onChange={(event) => changeStatus(event.target.value)}>
+          <select
+            value={enquiry.status}
+            disabled={saving}
+            onChange={(event) => changeStatus(event.target.value)}
+          >
             {enquiryStatuses.map((status) => (
               <option key={status} value={status}>
                 {status[0].toUpperCase() + status.slice(1)}
@@ -131,7 +141,13 @@ export default function EnquiryDetailPage() {
             </div>
             <div>
               <dt>Phone</dt>
-              <dd>{enquiry.phone ? <a href={`tel:${enquiry.phone}`}>{enquiry.phone}</a> : "Not supplied"}</dd>
+              <dd>
+                {enquiry.phone ? (
+                  <a href={`tel:${enquiry.phone}`}>{enquiry.phone}</a>
+                ) : (
+                  'Not supplied'
+                )}
+              </dd>
             </div>
             <div>
               <dt>Website</dt>
@@ -141,7 +157,7 @@ export default function EnquiryDetailPage() {
                     {enquiry.website} ↗
                   </a>
                 ) : (
-                  enquiry.website || "Not supplied"
+                  enquiry.website || 'Not supplied'
                 )}
               </dd>
             </div>
@@ -157,7 +173,7 @@ export default function EnquiryDetailPage() {
             )}
           </dl>
         </section>
-        {enquiry.help_with === "website_builder" && (
+        {enquiry.help_with === 'website_builder' && (
           <section className="admin-detail-card admin-detail-wide">
             <div className="admin-card-heading">
               <h2>Website configuration</h2>
@@ -170,11 +186,11 @@ export default function EnquiryDetailPage() {
               </div>
               <div>
                 <dt>Current URL</dt>
-                <dd>{configuration.appearance?.current_url || "Not supplied"}</dd>
+                <dd>{configuration.appearance?.current_url || 'Not supplied'}</dd>
               </div>
               <div>
                 <dt>Build version</dt>
-                <dd>{configuration.version ?? "—"}</dd>
+                <dd>{configuration.version ?? '—'}</dd>
               </div>
             </dl>
             <div className="admin-config-group">
@@ -221,7 +237,7 @@ export default function EnquiryDetailPage() {
                   <span>
                     {message.channel.toUpperCase()} · {message.status}
                   </span>
-                  <strong>{message.subject || "SMS notification"}</strong>
+                  <strong>{message.subject || 'SMS notification'}</strong>
                   <small>{formatDateTime(message.sent_at || message.created_at)}</small>
                 </Link>
               ))}

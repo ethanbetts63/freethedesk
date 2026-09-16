@@ -1,6 +1,6 @@
-import { ServiceScroll } from "@/components/ServiceScroll";
+import { ServiceScroll } from '@/components/ServiceScroll';
 
-import { websiteServices } from "./websiteServices";
+import { websiteServices } from './websiteServices';
 
 export function WebsiteFeatures({ eyebrow }: { eyebrow: string }) {
   return (

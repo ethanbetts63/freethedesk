@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { getMessages, type AdminMessage } from "@/lib/adminApi";
-import type { AccountBase, StaffAccountFields } from "@/lib/api";
+import { getMessages, type AdminMessage } from '@/lib/adminApi';
+import type { AccountBase, StaffAccountFields } from '@/lib/api';
 
 type StaffAccount = AccountBase & StaffAccountFields;
 
@@ -12,7 +12,10 @@ interface Options<Account extends StaffAccount> {
 
   fetch: (id: number) => Promise<Account>;
 
-  update: (id: number, changes: Partial<Pick<Account, "status" | "staff_notes">>) => Promise<Account>;
+  update: (
+    id: number,
+    changes: Partial<Pick<Account, 'status' | 'staff_notes'>>,
+  ) => Promise<Account>;
 
   /** Content type of the account, e.g. "dealers.dealer", used to scope its messages. */
   relatedType: string;
@@ -34,11 +37,11 @@ export function useAccountDetail<Account extends StaffAccount>({
 }: Options<Account>) {
   const [account, setAccount] = useState<Account | null>(null);
   const [messages, setMessages] = useState<AdminMessage[]>([]);
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [notice, setNotice] = useState("");
-  const [error, setError] = useState("");
+  const [notice, setNotice] = useState('');
+  const [error, setError] = useState('');
 
   /* `fetch`/`loadError` are fresh every render, so read them through a ref and
      key the effect on `id`/`relatedType` — the values that identify the request. */
@@ -49,7 +52,10 @@ export function useAccountDetail<Account extends StaffAccount>({
 
   useEffect(() => {
     let active = true;
-    Promise.all([latest.current.fetch(id), getMessages({ related_type: relatedType, related_id: id, page_size: 20 })])
+    Promise.all([
+      latest.current.fetch(id),
+      getMessages({ related_type: relatedType, related_id: id, page_size: 20 }),
+    ])
       .then(([result, messagePage]) => {
         if (!active) return;
         setAccount(result);
@@ -68,7 +74,7 @@ export function useAccountDetail<Account extends StaffAccount>({
   }, [id, relatedType]);
 
   const replyHref = useMemo(() => {
-    if (!account) return "/dashboard/messages/compose";
+    if (!account) return '/dashboard/messages/compose';
     const firstName = account.contact_name.trim().split(/\s+/)[0] || account.contact_name;
     const params = new URLSearchParams({
       to: account.email,
@@ -78,11 +84,11 @@ export function useAccountDetail<Account extends StaffAccount>({
     return `/dashboard/messages/compose?${params}`;
   }, [account, replySubject]);
 
-  async function save(changes: Partial<Pick<Account, "status" | "staff_notes">>, message: string) {
+  async function save(changes: Partial<Pick<Account, 'status' | 'staff_notes'>>, message: string) {
     if (!account) return;
     setSaving(true);
-    setError("");
-    setNotice("");
+    setError('');
+    setNotice('');
     try {
       setAccount(await update(account.id, changes));
       setNotice(message);

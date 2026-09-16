@@ -1,8 +1,8 @@
-import type { MetadataRoute } from "next";
+import type { MetadataRoute } from 'next';
 
-import { getAllArticleMeta } from "@/lib/articles";
-import { PAGES } from "@/lib/pages";
-import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
+import { getAllArticleMeta } from '@/lib/articles';
+import { PAGES } from '@/lib/pages';
+import { PUBLIC_SITE_URL } from '@/lib/siteConfig';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const builtAt = new Date();
@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = Object.entries(PAGES)
     .filter(([, page]) => page.sitemap)
     .map(([path, page]) => ({
-      url: `${PUBLIC_SITE_URL}${path === "/" ? "" : path}`,
+      url: `${PUBLIC_SITE_URL}${path === '/' ? '' : path}`,
       lastModified: builtAt,
       changeFrequency: page.sitemap!.changeFrequency,
       priority: page.sitemap!.priority,
@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const articlePages = getAllArticleMeta().map((article) => ({
     url: `${PUBLIC_SITE_URL}/${article.slug}`,
     lastModified: new Date(`${article.lastModified}T00:00:00+08:00`),
-    changeFrequency: "monthly" as const,
+    changeFrequency: 'monthly' as const,
     priority: 0.65,
   }));
 

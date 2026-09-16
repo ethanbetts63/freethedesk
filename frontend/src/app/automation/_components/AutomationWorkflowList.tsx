@@ -1,6 +1,6 @@
-import { ServiceScroll } from "@/components/ServiceScroll";
+import { ServiceScroll } from '@/components/ServiceScroll';
 
-import { automationServices } from "./automationServices";
+import { automationServices } from './automationServices';
 
 export function AutomationWorkflowList({ eyebrow }: { eyebrow: string }) {
   return (

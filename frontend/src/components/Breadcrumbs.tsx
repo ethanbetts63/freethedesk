@@ -1,6 +1,6 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import { breadcrumbItemsFor, type PagePath } from "@/lib/pages";
+import { breadcrumbItemsFor, type PagePath } from '@/lib/pages';
 
 /**
  * The visible trail. Shares `breadcrumbItemsFor` with the BreadcrumbList in
@@ -10,22 +10,30 @@ import { breadcrumbItemsFor, type PagePath } from "@/lib/pages";
  * `overlay` floats it in the top-right of a hero and needs a positioned
  * ancestor; `band` is the standalone strip for pages that have no hero.
  */
-export function Breadcrumbs({ path, variant = "band" }: { path: PagePath; variant?: "band" | "overlay" }) {
+export function Breadcrumbs({
+  path,
+  variant = 'band',
+}: {
+  path: PagePath;
+  variant?: 'band' | 'overlay';
+}) {
   const items = breadcrumbItemsFor(path);
   if (items.length < 2) return null;
 
-  const isOverlay = variant === "overlay";
+  const isOverlay = variant === 'overlay';
 
   return (
     <nav
       className={
-        isOverlay ? "absolute inset-x-0 top-0 z-2 bg-transparent" : "border-b border-[var(--slate-100)] bg-surface-page"
+        isOverlay
+          ? 'absolute inset-x-0 top-0 z-2 bg-transparent'
+          : 'border-b border-[var(--slate-100)] bg-surface-page'
       }
       aria-label="Breadcrumb"
     >
       <ol
         className={`shell m-0 flex list-none flex-wrap items-center gap-xs text-body ${
-          isOverlay ? "min-h-0 pt-ml pb-0 justify-end" : "min-h-[46px] py-s"
+          isOverlay ? 'min-h-0 pt-ml pb-0 justify-end' : 'min-h-[46px] py-s'
         }`}
       >
         {items.map((item, index) => {

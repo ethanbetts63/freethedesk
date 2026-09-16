@@ -1,6 +1,6 @@
-import Image from "next/image";
+import Image from 'next/image';
 
-import styles from "./WebsiteProductVisual.module.css";
+import styles from './WebsiteProductVisual.module.css';
 
 export function WebsiteProductVisual() {
   return (

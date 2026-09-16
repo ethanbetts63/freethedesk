@@ -1,6 +1,6 @@
-import { SplitFeatureSection } from "@/components/SplitFeatureSection";
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
-import { AutomationBudgetVisual } from "./AutomationBudgetVisual";
+import { AutomationBudgetVisual } from './AutomationBudgetVisual';
 
 export function AutomationBudgetSplit({ eyebrow }: { eyebrow: string }) {
   return (

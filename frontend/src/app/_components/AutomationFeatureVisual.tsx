@@ -1,4 +1,4 @@
-import styles from "./AutomationFeature.module.css";
+import styles from './AutomationFeature.module.css';
 
 export function AutomationFeatureVisual() {
   return (

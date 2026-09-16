@@ -1,26 +1,28 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { StatusPill } from "@/components/dashboard/StatusPill";
-import { formatDateTime, getMessage, type AdminMessage } from "@/lib/adminApi";
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { StatusPill } from '@/components/dashboard/StatusPill';
+import { formatDateTime, getMessage, type AdminMessage } from '@/lib/adminApi';
 
 /** Related objects we have a dashboard page for. Anything else shows as plain text. */
 const RELATED_LINKS: Record<string, string> = {
-  enquiry: "/dashboard/enquiries/",
-  dealer: "/dashboard/dealers/",
-  seosubscriber: "/dashboard/seo/",
+  enquiry: '/dashboard/enquiries/',
+  dealer: '/dashboard/dealers/',
+  seosubscriber: '/dashboard/seo/',
 };
 
 export default function MessageDetailPage() {
   const id = Number(useParams<{ messageId: string }>().messageId);
   const [message, setMessage] = useState<AdminMessage | null>(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   useEffect(() => {
     getMessage(id)
       .then(setMessage)
-      .catch((reason) => setError(reason instanceof Error ? reason.message : "Message could not be loaded."));
+      .catch((reason) =>
+        setError(reason instanceof Error ? reason.message : 'Message could not be loaded.'),
+      );
   }, [id]);
   if (error)
     return (
@@ -47,22 +49,22 @@ export default function MessageDetailPage() {
           <p className="admin-kicker">
             {message.channel.toUpperCase()} message #{message.id}
           </p>
-          <h1>{message.subject || "SMS notification"}</h1>
+          <h1>{message.subject || 'SMS notification'}</h1>
           <p>To {message.to}</p>
         </div>
         <StatusPill status={message.status} />
       </header>
-      {message.status === "failed" && (
+      {message.status === 'failed' && (
         <p className="admin-banner admin-banner-error">
           <strong>This message did not send.</strong> {message.error_message}
         </p>
       )}
-      {message.status === "bounced" && (
+      {message.status === 'bounced' && (
         <p className="admin-banner admin-banner-error">
           <strong>This message was accepted but never arrived.</strong> {message.error_message}
         </p>
       )}
-      {message.status === "queued" && message.error_message && (
+      {message.status === 'queued' && message.error_message && (
         <p className="admin-banner admin-banner-warning">{message.error_message}</p>
       )}
       <div className="admin-detail-grid">

@@ -1,9 +1,9 @@
-import "@/styles/portal.css";
+import '@/styles/portal.css';
 
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
-import { DealerShell } from "@/components/dashboard/DealerShell";
-import { AuthProvider } from "@/context/AuthContext";
+import { DealerShell } from '@/components/dashboard/DealerShell';
+import { AuthProvider } from '@/context/AuthContext';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },

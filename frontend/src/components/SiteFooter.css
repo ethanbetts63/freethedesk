@@ -14,7 +14,11 @@
     linear-gradient(to right, var(--surface-page) 0%, transparent 14%),
     linear-gradient(to left, var(--surface-page) 0%, transparent 14%),
     linear-gradient(rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px, transparent 1px);
+    linear-gradient(
+      90deg,
+      rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px,
+      transparent 1px
+    );
   background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat;
   background-size:
     100% 100%,
@@ -22,7 +26,7 @@
     100% 100%,
     var(--hero-grid-size) var(--hero-grid-size),
     var(--hero-grid-size) var(--hero-grid-size);
-  content: "";
+  content: '';
   inset: 0;
   pointer-events: none;
   position: absolute;
@@ -114,7 +118,9 @@
 
 @media (min-width: 900px) {
   .footer-grid {
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr) minmax(0, 0.55fr) minmax(0, 0.75fr) minmax(0, 0.85fr);
+    grid-template-columns:
+      minmax(0, 1.4fr) minmax(0, 0.6fr) minmax(0, 0.55fr) minmax(0, 0.75fr)
+      minmax(0, 0.85fr);
   }
   .footer-grid > div:first-child {
     grid-column: auto;

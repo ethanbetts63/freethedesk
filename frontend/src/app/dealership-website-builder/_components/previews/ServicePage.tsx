@@ -1,27 +1,33 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import { ConversionButton } from "../ConversionButton";
-import { DemoMap } from "../DemoMap";
-import styles from "../../_styles/preview.module.css";
+import { ConversionButton } from '../ConversionButton';
+import { DemoMap } from '../DemoMap';
+import styles from '../../_styles/preview.module.css';
 
 export function ServicePage() {
   const [step, setStep] = useState(1);
   const [serviceTypes, setServiceTypes] = useState<string[]>([]);
-  const [selectedDate, setSelectedDate] = useState("2026-09-18");
-  const [time, setTime] = useState("");
-  const [notes, setNotes] = useState("");
-  const [vehicle, setVehicle] = useState("");
-  const [customer, setCustomer] = useState("");
+  const [selectedDate, setSelectedDate] = useState('2026-09-18');
+  const [time, setTime] = useState('');
+  const [notes, setNotes] = useState('');
+  const [vehicle, setVehicle] = useState('');
+  const [customer, setCustomer] = useState('');
   const [booked, setBooked] = useState(false);
   const serviceOptions = [
     {
-      name: "Scheduled service & maintenance",
-      description: "Routine servicing, inspections and manufacturer maintenance.",
+      name: 'Scheduled service & maintenance',
+      description: 'Routine servicing, inspections and manufacturer maintenance.',
     },
-    { name: "Diagnosis or repair", description: "For a vehicle that will not start, feels different or needs repair." },
-    { name: "Tyre fitting", description: "Supply and fit, fit-only replacement or wheel balancing." },
+    {
+      name: 'Diagnosis or repair',
+      description: 'For a vehicle that will not start, feels different or needs repair.',
+    },
+    {
+      name: 'Tyre fitting',
+      description: 'Supply and fit, fit-only replacement or wheel balancing.',
+    },
   ];
   const canProceed = Boolean(selectedDate && time && serviceTypes.length);
   const toggleServiceType = (name: string) =>
@@ -42,8 +48,8 @@ export function ServicePage() {
             <em>sorted.</em>
           </h2>
           <p>
-            Experienced servicing and repairs with free online booking. We&apos;ll provide a clear estimate before work
-            begins.
+            Experienced servicing and repairs with free online booking. We&apos;ll provide a clear
+            estimate before work begins.
           </p>
           <ul>
             <li>
@@ -68,12 +74,12 @@ export function ServicePage() {
               <span>✓ Free to book</span>
             </div>
             <p>
-              Step {step} of 3 —{" "}
+              Step {step} of 3 —{' '}
               {step === 1
-                ? "pick a drop-off time and tell us what your vehicle needs."
+                ? 'pick a drop-off time and tell us what your vehicle needs.'
                 : step === 2
-                  ? "tell us about your bike."
-                  : "check the booking details."}
+                  ? 'tell us about your bike.'
+                  : 'check the booking details.'}
             </p>
           </header>
 
@@ -89,7 +95,7 @@ export function ServicePage() {
                     value={selectedDate}
                     onChange={(event) => {
                       setSelectedDate(event.target.value);
-                      setTime("");
+                      setTime('');
                     }}
                     required
                   />
@@ -104,22 +110,22 @@ export function ServicePage() {
                   >
                     <option value="">Select a time</option>
                     {[
-                      "08:00",
-                      "08:30",
-                      "09:00",
-                      "09:30",
-                      "10:00",
-                      "10:30",
-                      "11:00",
-                      "11:30",
-                      "12:00",
-                      "12:30",
-                      "13:00",
-                      "13:30",
-                      "14:00",
-                      "14:30",
-                      "15:00",
-                      "15:30",
+                      '08:00',
+                      '08:30',
+                      '09:00',
+                      '09:30',
+                      '10:00',
+                      '10:30',
+                      '11:00',
+                      '11:30',
+                      '12:00',
+                      '12:30',
+                      '13:00',
+                      '13:30',
+                      '14:00',
+                      '14:30',
+                      '15:00',
+                      '15:30',
                     ].map((slot) => (
                       <option key={slot}>{slot}</option>
                     ))}
@@ -172,11 +178,18 @@ export function ServicePage() {
               </label>
               <label>
                 <span>Your name</span>
-                <input value={customer} onChange={(event) => setCustomer(event.target.value)} placeholder="Full name" />
+                <input
+                  value={customer}
+                  onChange={(event) => setCustomer(event.target.value)}
+                  placeholder="Full name"
+                />
               </label>
               <label>
                 <span>Anything we should know?</span>
-                <textarea rows={4} placeholder="Describe a noise, issue or anything you would like checked..." />
+                <textarea
+                  rows={4}
+                  placeholder="Describe a noise, issue or anything you would like checked..."
+                />
               </label>
             </div>
           )}
@@ -187,7 +200,7 @@ export function ServicePage() {
               <dl>
                 <div>
                   <dt>Service</dt>
-                  <dd>{serviceTypes.join(", ")}</dd>
+                  <dd>{serviceTypes.join(', ')}</dd>
                 </div>
                 <div>
                   <dt>Drop-off</dt>
@@ -197,11 +210,11 @@ export function ServicePage() {
                 </div>
                 <div>
                   <dt>Vehicle</dt>
-                  <dd>{vehicle || "Vehicle details at drop-off"}</dd>
+                  <dd>{vehicle || 'Vehicle details at drop-off'}</dd>
                 </div>
                 <div>
                   <dt>Name</dt>
-                  <dd>{customer || "To be confirmed"}</dd>
+                  <dd>{customer || 'To be confirmed'}</dd>
                 </div>
               </dl>
               {notes && (
@@ -209,7 +222,10 @@ export function ServicePage() {
                   <strong>Notes:</strong> {notes}
                 </p>
               )}
-              <p>No payment is required. The workshop will confirm the booking and provide an estimate.</p>
+              <p>
+                No payment is required. The workshop will confirm the booking and provide an
+                estimate.
+              </p>
               {booked && <strong>Thanks—your booking request has been sent.</strong>}
             </div>
           )}
@@ -253,7 +269,9 @@ export function ServicePage() {
         </div>
         <blockquote>
           <span>“</span>
-          <p>Easy to book, excellent communication and my vehicle was ready exactly when promised.</p>
+          <p>
+            Easy to book, excellent communication and my vehicle was ready exactly when promised.
+          </p>
           <footer>— Matt R. · Annual service</footer>
         </blockquote>
       </section>
@@ -266,12 +284,18 @@ export function ServicePage() {
           <article>
             <i>01</i>
             <strong>No-start diagnosis &amp; service</strong>
-            <p>We trace electrical, fuel or mechanical faults and explain the work before getting started.</p>
+            <p>
+              We trace electrical, fuel or mechanical faults and explain the work before getting
+              started.
+            </p>
           </article>
           <article>
             <i>02</i>
             <strong>Running vehicle diagnosis &amp; service</strong>
-            <p>Scheduled maintenance, inspections and repairs to keep your vehicle performing at its best.</p>
+            <p>
+              Scheduled maintenance, inspections and repairs to keep your vehicle performing at its
+              best.
+            </p>
           </article>
           <article>
             <i>03</i>
@@ -292,7 +316,10 @@ export function ServicePage() {
           </span>
           <ConversionButton>Get directions ↗</ConversionButton>
         </div>
-        <DemoMap className={styles.serviceMap} ariaLabel="Map showing the service centre at a road intersection" />
+        <DemoMap
+          className={styles.serviceMap}
+          ariaLabel="Map showing the service centre at a road intersection"
+        />
       </section>
     </div>
   );

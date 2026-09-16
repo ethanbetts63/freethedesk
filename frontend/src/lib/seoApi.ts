@@ -1,8 +1,8 @@
-import { authedFetch, jsonOrError, type AccountBase, type OnboardingStatus } from "./api";
+import { authedFetch, jsonOrError, type AccountBase, type OnboardingStatus } from './api';
 
-export type SeoPlanCode = "monthly" | "quarterly" | "biannual" | "oneoff";
-export type SeoReportType = "gbp" | "seo" | "both";
-export type SeoPaymentStatus = "payment_pending" | "active" | "past_due" | "cancelled" | "paid";
+export type SeoPlanCode = 'monthly' | 'quarterly' | 'biannual' | 'oneoff';
+export type SeoReportType = 'gbp' | 'seo' | 'both';
+export type SeoPaymentStatus = 'payment_pending' | 'active' | 'past_due' | 'cancelled' | 'paid';
 
 export interface SeoAccount extends AccountBase {
   website: string;
@@ -19,7 +19,7 @@ export interface SeoCheckout {
   recurring_price: string | null;
   currency: string;
   cadence_label: string;
-  mode: "subscription" | "payment";
+  mode: 'subscription' | 'payment';
 }
 
 export interface SeoOnboardingProfile {
@@ -42,30 +42,29 @@ export interface SeoOnboardingProfile {
 export type SeoOnboardingChanges = Partial<
   Pick<
     SeoOnboardingProfile,
-    | "website_url"
-    | "search_console_property"
-    | "primary_location"
-    | "target_keywords"
-    | "competitors"
-    | "google_business_profile_url"
-    | "notes"
+    | 'website_url'
+    | 'search_console_property'
+    | 'primary_location'
+    | 'target_keywords'
+    | 'competitors'
+    | 'google_business_profile_url'
+    | 'notes'
   >
 >;
 
 export async function getSeoAccount(): Promise<SeoAccount> {
-  return jsonOrError(await authedFetch("/api/seo/me/"));
+  return jsonOrError(await authedFetch('/api/seo/me/'));
 }
 
 export async function createSeoCheckout(): Promise<SeoCheckout> {
   return jsonOrError(
-    await authedFetch("/api/payments/seo-subscription/", {
-      method: "POST",
+    await authedFetch('/api/payments/seo-subscription/', {
+      method: 'POST',
       body: JSON.stringify({ accepted_terms: true }),
     }),
   );
 }
 
 export async function getSeoOnboarding(): Promise<SeoOnboardingProfile> {
-  return jsonOrError(await authedFetch("/api/seo/onboarding/"));
+  return jsonOrError(await authedFetch('/api/seo/onboarding/'));
 }
-

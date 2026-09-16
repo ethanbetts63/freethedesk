@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 import {
   AccountApprovalCard,
@@ -11,15 +11,15 @@ import {
   AccountStatusCard,
   RelatedMessagesCard,
   StaffNotesCard,
-} from "@/components/dashboard/AccountDetail";
-import { useAccountDetail } from "@/components/dashboard/useAccountDetail";
+} from '@/components/dashboard/AccountDetail';
+import { useAccountDetail } from '@/components/dashboard/useAccountDetail';
 import {
   formatDateTime,
   getSeoSubscriber,
   SEO_SUBSCRIBER_TYPE,
   updateSeoSubscriber,
   type SeoSubscriber,
-} from "@/lib/adminApi";
+} from '@/lib/adminApi';
 
 export default function SeoSubscriberDetailPage() {
   const id = Number(useParams<{ subscriberId: string }>().subscriberId);
@@ -29,9 +29,9 @@ export default function SeoSubscriberDetailPage() {
       fetch: getSeoSubscriber,
       update: updateSeoSubscriber,
       relatedType: SEO_SUBSCRIBER_TYPE,
-      replySubject: "Your freethedesk SEO account",
-      loadError: "SEO customer could not be loaded.",
-      saveError: "The SEO customer could not be updated.",
+      replySubject: 'Your freethedesk SEO account',
+      loadError: 'SEO customer could not be loaded.',
+      saveError: 'The SEO customer could not be updated.',
     });
 
   if (loading)
@@ -73,21 +73,21 @@ export default function SeoSubscriberDetailPage() {
           onChange={(status) => save({ status }, `Status set to ${status}.`)}
         />
 
-        {account.status === "pending" && (
+        {account.status === 'pending' && (
           <AccountApprovalCard
             heading="Approve this customer"
             explanation="Approving switches the account on so reporting can begin once they have connected their data."
             saving={saving}
-            onApprove={() => save({ status: "active" }, "Customer approved.")}
-            onDeny={() => save({ status: "denied" }, "Customer denied.")}
+            onApprove={() => save({ status: 'active' }, 'Customer approved.')}
+            onDeny={() => save({ status: 'denied' }, 'Customer denied.')}
           />
         )}
 
         <AccountContactCard
           account={account}
           extra={[
-            ["Website", account.website || "Not supplied"],
-            ["Report", account.report_type_label],
+            ['Website', account.website || 'Not supplied'],
+            ['Report', account.report_type_label],
           ]}
         />
         <AccountBillingCard account={account} statusChangedAt={account.status_changed_at} />
@@ -97,10 +97,14 @@ export default function SeoSubscriberDetailPage() {
           saved={account.staff_notes}
           saving={saving}
           onChange={setNotes}
-          onSave={() => save({ staff_notes: notes }, "Notes saved.")}
+          onSave={() => save({ staff_notes: notes }, 'Notes saved.')}
         />
 
-        <RelatedMessagesCard messages={messages} replyHref={replyHref} emptyLabel="No messages yet." />
+        <RelatedMessagesCard
+          messages={messages}
+          replyHref={replyHref}
+          emptyLabel="No messages yet."
+        />
       </div>
     </div>
   );

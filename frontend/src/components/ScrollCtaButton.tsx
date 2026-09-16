@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { scrollToId } from "@/lib/scrollToId";
+import { scrollToId } from '@/lib/scrollToId';
 
 /**
  * The in-page ("scroll down to the form") variant of a CTA. Rendered by
@@ -9,7 +9,7 @@ import { scrollToId } from "@/lib/scrollToId";
  */
 export function ScrollCtaButton({
   targetId,
-  className = "",
+  className = '',
   children,
 }: {
   targetId: string;

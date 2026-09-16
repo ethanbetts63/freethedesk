@@ -84,9 +84,14 @@
   position: relative;
 }
 .pageHero::after {
-  background: radial-gradient(circle at 35% 35%, var(--sky-500), var(--action-primary) 60%, var(--surface-dark));
+  background: radial-gradient(
+    circle at 35% 35%,
+    var(--sky-500),
+    var(--action-primary) 60%,
+    var(--surface-dark)
+  );
   border-radius: var(--radius-circle);
-  content: "";
+  content: '';
   height: 110px;
   opacity: 0.72;
   position: absolute;

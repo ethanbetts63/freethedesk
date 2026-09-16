@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import { ConversionButton } from "../ConversionButton";
-import { VehicleArtwork } from "../PreviewArtwork";
-import type { InventoryVehicle } from "./data";
-import { OnlinePurchaseSteps } from "./shared";
-import type { InventoryAddonSelection } from "../../_lib/types";
-import styles from "../../_styles/preview.module.css";
+import { ConversionButton } from '../ConversionButton';
+import { VehicleArtwork } from '../PreviewArtwork';
+import type { InventoryVehicle } from './data';
+import { OnlinePurchaseSteps } from './shared';
+import type { InventoryAddonSelection } from '../../_lib/types';
+import styles from '../../_styles/preview.module.css';
 
 export function VehicleDetailsPage({
   vehicle,
@@ -18,7 +18,7 @@ export function VehicleDetailsPage({
   inventoryAddons: InventoryAddonSelection;
   onBack: () => void;
 }) {
-  const [interestEmail, setInterestEmail] = useState("");
+  const [interestEmail, setInterestEmail] = useState('');
   const [interestSent, setInterestSent] = useState(false);
   const showOnlineSteps = inventoryAddons.contract && inventoryAddons.licensing;
 
@@ -57,15 +57,19 @@ export function VehicleDetailsPage({
                 <i>✓</i>
               </article>
               <article>
-                <small>{vehicle.condition === "Used" ? "Odometer" : "Engine"}</small>
+                <small>{vehicle.condition === 'Used' ? 'Odometer' : 'Engine'}</small>
                 <strong>
-                  {vehicle.condition === "Used" ? `${vehicle.odometer.toLocaleString()} km` : `${vehicle.engine}cc`}
+                  {vehicle.condition === 'Used'
+                    ? `${vehicle.odometer.toLocaleString()} km`
+                    : `${vehicle.engine}cc`}
                 </strong>
                 <i>✓</i>
               </article>
               <article>
                 <small>Warranty</small>
-                <strong>{vehicle.condition === "New" ? "Manufacturer warranty" : "Details available"}</strong>
+                <strong>
+                  {vehicle.condition === 'New' ? 'Manufacturer warranty' : 'Details available'}
+                </strong>
                 <i>✓</i>
               </article>
               <article>
@@ -107,11 +111,13 @@ export function VehicleDetailsPage({
           <section className={styles.vehicleDescription}>
             <h3>Description</h3>
             <p>
-              A beautifully prepared {vehicle.brand} {vehicle.name}, combining everyday usability with confident
-              performance. Every detail has been checked by our workshop team and the vehicle is ready for its next
-              owner.
+              A beautifully prepared {vehicle.brand} {vehicle.name}, combining everyday usability
+              with confident performance. Every detail has been checked by our workshop team and the
+              vehicle is ready for its next owner.
             </p>
-            <p>Contact us to arrange a viewing, ask a question or complete the next steps online.</p>
+            <p>
+              Contact us to arrange a viewing, ask a question or complete the next steps online.
+            </p>
           </section>
         </main>
         <aside className={styles.vehicleBuyBox}>
@@ -124,14 +130,17 @@ export function VehicleDetailsPage({
                 <span>Refundable deposit</span>
               </div>
               <p>Your $250 deposit secures the vehicle while we arrange the remaining steps.</p>
-              <ConversionButton className={styles.reserveButton}>Reserve now — $250</ConversionButton>
+              <ConversionButton className={styles.reserveButton}>
+                Reserve now — $250
+              </ConversionButton>
               <ConversionButton className={styles.buyOutrightButton}>
                 Or buy outright — ${vehicle.price.toLocaleString()}
               </ConversionButton>
             </section>
           ) : (
             <p className={styles.purchaseUnavailable}>
-              Online purchasing can be added to let customers reserve or purchase directly from this page.
+              Online purchasing can be added to let customers reserve or purchase directly from this
+              page.
             </p>
           )}
           {(inventoryAddons.contract || inventoryAddons.licensing) && (
@@ -174,7 +183,9 @@ export function VehicleDetailsPage({
       {showOnlineSteps && (
         <div className={styles.detailPurchaseFlow}>
           <h2>Ready to buy? Here&apos;s how it works.</h2>
-          <p>Reserve it online, complete the paperwork from home and choose delivery or collection.</p>
+          <p>
+            Reserve it online, complete the paperwork from home and choose delivery or collection.
+          </p>
           <OnlinePurchaseSteps />
         </div>
       )}

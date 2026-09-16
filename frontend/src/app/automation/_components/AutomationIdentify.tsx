@@ -1,6 +1,6 @@
-import { SplitFeatureSection } from "@/components/SplitFeatureSection";
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
-import { AutomationIdentifyVisual } from "./AutomationIdentifyVisual";
+import { AutomationIdentifyVisual } from './AutomationIdentifyVisual';
 
 export function AutomationIdentify({ eyebrow }: { eyebrow: string }) {
   return (

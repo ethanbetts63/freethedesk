@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   useEffect,
@@ -7,20 +7,20 @@ import {
   type AnchorHTMLAttributes,
   type ButtonHTMLAttributes,
   type CSSProperties,
-} from "react";
+} from 'react';
 
-import styles from "../_styles/preview.module.css";
+import styles from '../_styles/preview.module.css';
 
 const PARTICLES = [
-  ["-35px", "-28px", "-38deg"],
-  ["-14px", "-40px", "22deg"],
-  ["12px", "-42px", "70deg"],
-  ["34px", "-26px", "120deg"],
-  ["41px", "2px", "168deg"],
-  ["28px", "25px", "215deg"],
-  ["2px", "35px", "260deg"],
-  ["-28px", "27px", "310deg"],
-  ["-42px", "3px", "350deg"],
+  ['-35px', '-28px', '-38deg'],
+  ['-14px', '-40px', '22deg'],
+  ['12px', '-42px', '70deg'],
+  ['34px', '-26px', '120deg'],
+  ['41px', '2px', '168deg'],
+  ['28px', '25px', '215deg'],
+  ['2px', '35px', '260deg'],
+  ['-28px', '27px', '310deg'],
+  ['-42px', '3px', '350deg'],
 ] as const;
 
 function useConfettiBurst() {
@@ -45,7 +45,7 @@ function useConfettiBurst() {
 
 // Three colours so adjacent particles read as separate pieces, all drawn from
 // the palette rather than picked by eye.
-const BURST_COLOURS = ["var(--action-primary)", "var(--purple-accent)", "var(--sky-500)"];
+const BURST_COLOURS = ['var(--action-primary)', 'var(--purple-accent)', 'var(--sky-500)'];
 
 function ConfettiBurst({ burst }: { burst: number }) {
   if (!burst) return null;
@@ -57,10 +57,10 @@ function ConfettiBurst({ burst }: { burst: number }) {
           key={index}
           style={
             {
-              "--burst-x": x,
-              "--burst-y": y,
-              "--burst-rotation": rotation,
-              "--burst-colour": BURST_COLOURS[index % BURST_COLOURS.length],
+              '--burst-x': x,
+              '--burst-y': y,
+              '--burst-rotation': rotation,
+              '--burst-colour': BURST_COLOURS[index % BURST_COLOURS.length],
             } as CSSProperties
           }
         />
@@ -70,22 +70,28 @@ function ConfettiBurst({ burst }: { burst: number }) {
 }
 
 export function ConversionButton({
-  className = "",
+  className = '',
   onClick,
-  type = "button",
+  type = 'button',
   children,
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement>) {
   const { burst, trigger: triggerBurst } = useConfettiBurst();
 
-  const trigger: ButtonHTMLAttributes<HTMLButtonElement>["onClick"] = (event) => {
-    if (type === "submit" && event.currentTarget.form && !event.currentTarget.form.checkValidity()) return;
+  const trigger: ButtonHTMLAttributes<HTMLButtonElement>['onClick'] = (event) => {
+    if (type === 'submit' && event.currentTarget.form && !event.currentTarget.form.checkValidity())
+      return;
     onClick?.(event);
     if (!event.defaultPrevented) triggerBurst();
   };
 
   return (
-    <button {...props} type={type} className={`${styles.conversionButton} ${className}`} onClick={trigger}>
+    <button
+      {...props}
+      type={type}
+      className={`${styles.conversionButton} ${className}`}
+      onClick={trigger}
+    >
       {children}
       <ConfettiBurst burst={burst} />
     </button>
@@ -93,7 +99,7 @@ export function ConversionButton({
 }
 
 export function ConversionLink({
-  className = "",
+  className = '',
   onClick,
   children,
   ...props

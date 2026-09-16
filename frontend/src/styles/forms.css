@@ -29,7 +29,8 @@
 
 .form-control:focus {
   border-color: var(--form-accent, var(--action-primary));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--form-accent, var(--action-primary)) 12%, transparent);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--form-accent, var(--action-primary)) 12%, transparent);
 }
 
 textarea.form-control {

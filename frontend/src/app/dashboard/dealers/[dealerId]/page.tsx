@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 import {
   AccountApprovalCard,
@@ -11,9 +11,9 @@ import {
   AccountStatusCard,
   RelatedMessagesCard,
   StaffNotesCard,
-} from "@/components/dashboard/AccountDetail";
-import { useAccountDetail } from "@/components/dashboard/useAccountDetail";
-import { DEALER_TYPE, formatDateTime, getDealer, updateDealer, type Dealer } from "@/lib/adminApi";
+} from '@/components/dashboard/AccountDetail';
+import { useAccountDetail } from '@/components/dashboard/useAccountDetail';
+import { DEALER_TYPE, formatDateTime, getDealer, updateDealer, type Dealer } from '@/lib/adminApi';
 
 export default function DealerDetailPage() {
   const id = Number(useParams<{ dealerId: string }>().dealerId);
@@ -23,9 +23,9 @@ export default function DealerDetailPage() {
       fetch: getDealer,
       update: updateDealer,
       relatedType: DEALER_TYPE,
-      replySubject: "Your freethedesk dealer account",
-      loadError: "Dealer could not be loaded.",
-      saveError: "The dealer could not be updated.",
+      replySubject: 'Your freethedesk dealer account',
+      loadError: 'Dealer could not be loaded.',
+      saveError: 'The dealer could not be updated.',
     });
 
   if (loading)
@@ -67,17 +67,17 @@ export default function DealerDetailPage() {
           onChange={(status) => save({ status }, `Status set to ${status}.`)}
         />
 
-        {account.status === "pending" && (
+        {account.status === 'pending' && (
           <AccountApprovalCard
             heading="Approve this dealer"
             explanation="Approving only switches the account on. The dealer still has to complete onboarding — licence details, prefill data and their sale conditions — before they can run a sale."
             saving={saving}
-            onApprove={() => save({ status: "active" }, "Dealer approved.")}
-            onDeny={() => save({ status: "denied" }, "Dealer denied.")}
+            onApprove={() => save({ status: 'active' }, 'Dealer approved.')}
+            onDeny={() => save({ status: 'denied' }, 'Dealer denied.')}
           />
         )}
 
-        <AccountContactCard account={account} extra={[["State", account.state_label]]} />
+        <AccountContactCard account={account} extra={[['State', account.state_label]]} />
         <AccountBillingCard account={account} statusChangedAt={account.status_changed_at} />
 
         <StaffNotesCard
@@ -85,10 +85,14 @@ export default function DealerDetailPage() {
           saved={account.staff_notes}
           saving={saving}
           onChange={setNotes}
-          onSave={() => save({ staff_notes: notes }, "Notes saved.")}
+          onSave={() => save({ staff_notes: notes }, 'Notes saved.')}
         />
 
-        <RelatedMessagesCard messages={messages} replyHref={replyHref} emptyLabel="No messages yet." />
+        <RelatedMessagesCard
+          messages={messages}
+          replyHref={replyHref}
+          emptyLabel="No messages yet."
+        />
       </div>
     </div>
   );

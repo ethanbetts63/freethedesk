@@ -1,9 +1,9 @@
-import { authedFetch, jsonOrError, type AccountBase, type OnboardingStatus } from "./api";
+import { authedFetch, jsonOrError, type AccountBase, type OnboardingStatus } from './api';
 
-import type { DealerState } from "./dealerStates";
+import type { DealerState } from './dealerStates';
 
-export type DealerPlanCode = "licensing" | "contracts" | "complete";
-export type DealerPaymentStatus = "payment_pending" | "active" | "past_due" | "cancelled";
+export type DealerPlanCode = 'licensing' | 'contracts' | 'complete';
+export type DealerPaymentStatus = 'payment_pending' | 'active' | 'past_due' | 'cancelled';
 
 export interface DealerAccount extends AccountBase {
   state: DealerState;
@@ -46,18 +46,18 @@ export interface DealerOnboardingProfile {
 }
 
 export async function getDealerAccount(): Promise<DealerAccount> {
-  return jsonOrError(await authedFetch("/api/dealers/me/"));
+  return jsonOrError(await authedFetch('/api/dealers/me/'));
 }
 
 export async function createSubscriptionCheckout(): Promise<SubscriptionCheckout> {
   return jsonOrError(
-    await authedFetch("/api/payments/subscription/", {
-      method: "POST",
+    await authedFetch('/api/payments/subscription/', {
+      method: 'POST',
       body: JSON.stringify({ accepted_terms: true }),
     }),
   );
 }
 
 export async function getDealerOnboarding(): Promise<DealerOnboardingProfile> {
-  return jsonOrError(await authedFetch("/api/dealers/onboarding/"));
+  return jsonOrError(await authedFetch('/api/dealers/onboarding/'));
 }

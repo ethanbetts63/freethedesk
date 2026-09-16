@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { Suspense, useCallback } from "react";
+import Link from 'next/link';
+import { Suspense, useCallback } from 'react';
 
 import {
   AdminFilterBar,
@@ -9,18 +9,22 @@ import {
   AdminTableBody,
   FilterSelect,
   RowLink,
-} from "@/components/dashboard/AdminList";
-import { adminListParams, useAdminList, type AdminListView } from "@/components/dashboard/useAdminList";
-import { messageStatuses, StatusPill, statusLabel } from "@/components/dashboard/StatusPill";
-import { formatDateTime, getMessages, type AdminMessage } from "@/lib/adminApi";
+} from '@/components/dashboard/AdminList';
+import {
+  adminListParams,
+  useAdminList,
+  type AdminListView,
+} from '@/components/dashboard/useAdminList';
+import { messageStatuses, StatusPill, statusLabel } from '@/components/dashboard/StatusPill';
+import { formatDateTime, getMessages, type AdminMessage } from '@/lib/adminApi';
 
-const SORT_FIELDS = ["created_at"] as const;
-const FILTER_KEYS = ["status", "channel"] as const;
+const SORT_FIELDS = ['created_at'] as const;
+const FILTER_KEYS = ['status', 'channel'] as const;
 const COLUMNS = 7;
 
 const CHANNEL_OPTIONS = [
-  { value: "email", label: "Email" },
-  { value: "sms", label: "SMS" },
+  { value: 'email', label: 'Email' },
+  { value: 'sms', label: 'SMS' },
 ];
 
 function MessagesContent() {
@@ -29,7 +33,7 @@ function MessagesContent() {
     fetchPage,
     filterKeys: FILTER_KEYS,
     sortFields: SORT_FIELDS,
-    loadError: "Messages could not be loaded.",
+    loadError: 'Messages could not be loaded.',
   });
 
   return (
@@ -58,14 +62,14 @@ function MessagesContent() {
           <FilterSelect
             label="Filter messages by status"
             value={list.filters.status}
-            onChange={(value) => list.setFilter("status", value)}
+            onChange={(value) => list.setFilter('status', value)}
             allLabel="All statuses"
             options={messageStatuses.map((value) => ({ value, label: statusLabel(value) }))}
           />
           <FilterSelect
             label="Filter messages by channel"
             value={list.filters.channel}
-            onChange={(value) => list.setFilter("channel", value)}
+            onChange={(value) => list.setFilter('channel', value)}
             allLabel="Email and SMS"
             options={CHANNEL_OPTIONS}
           />
@@ -95,14 +99,16 @@ function MessagesContent() {
               {(message) => (
                 <tr key={message.id} className="admin-row" data-status={message.status}>
                   <td>
-                    <RowLink href={`/dashboard/messages/${message.id}`}>{formatDateTime(message.created_at)}</RowLink>
+                    <RowLink href={`/dashboard/messages/${message.id}`}>
+                      {formatDateTime(message.created_at)}
+                    </RowLink>
                   </td>
                   <td>{message.type_label}</td>
                   <td>
                     <strong>{message.to}</strong>
                     {message.related && <small>{message.related.label}</small>}
                   </td>
-                  <td>{message.subject || "—"}</td>
+                  <td>{message.subject || '—'}</td>
                   <td>{message.channel.toUpperCase()}</td>
                   <td>
                     <StatusPill status={message.status} />

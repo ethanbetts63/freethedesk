@@ -1,14 +1,14 @@
-import { SplitFeatureSection } from "@/components/SplitFeatureSection";
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
-import { AdminAutomationVisual } from "./AdminAutomationVisual";
+import { AdminAutomationVisual } from './AdminAutomationVisual';
 
 const defaultDescription =
-  "Automation means your website handles the repetitive work around each customer—capturing details, moving them between systems, sending follow-ups and keeping the next step moving without someone doing it by hand.";
+  'Automation means your website handles the repetitive work around each customer—capturing details, moving them between systems, sending follow-ups and keeping the next step moving without someone doing it by hand.';
 
 export function AdminAutomationSection({
   eyebrow,
   id,
-  spacing = "standard",
+  spacing = 'standard',
   description = defaultDescription,
   jobs,
   panelEyebrow,
@@ -16,7 +16,7 @@ export function AdminAutomationSection({
 }: {
   eyebrow: string;
   id?: string;
-  spacing?: "standard" | "joined";
+  spacing?: 'standard' | 'joined';
   description?: string;
   jobs?: readonly string[];
   panelEyebrow?: string;

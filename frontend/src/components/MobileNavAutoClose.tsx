@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 /**
  * Closes the hamburger panel once a link inside it is followed. Next navigates
@@ -16,14 +16,14 @@ export function MobileNavAutoClose() {
   const anchor = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const menu = anchor.current?.closest("details");
+    const menu = anchor.current?.closest('details');
     if (!menu) return;
 
     const close = (event: MouseEvent) => {
-      if ((event.target as HTMLElement | null)?.closest("a")) menu.open = false;
+      if ((event.target as HTMLElement | null)?.closest('a')) menu.open = false;
     };
-    menu.addEventListener("click", close);
-    return () => menu.removeEventListener("click", close);
+    menu.addEventListener('click', close);
+    return () => menu.removeEventListener('click', close);
   }, []);
 
   return <span ref={anchor} hidden />;

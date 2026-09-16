@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useCallback, useRef } from "react";
+import { useCallback, useRef } from 'react';
 
-import { useCanvasAnimation, type CanvasFrame } from "./useCanvasAnimation";
+import { useCanvasAnimation, type CanvasFrame } from './useCanvasAnimation';
 
 type Node = {
   x: number;
@@ -10,7 +10,7 @@ type Node = {
   vx: number;
   vy: number;
   radius: number;
-  tone: "light" | "dark";
+  tone: 'light' | 'dark';
   phase: number;
 };
 
@@ -27,11 +27,11 @@ export type NetworkFieldColors = {
 };
 
 export const DEFAULT_NETWORK_COLORS: NetworkFieldColors = {
-  nodeLight: "#5aaee9",
-  nodeDark: "#13315c",
-  linkStart: "36, 126, 201",
-  linkEnd: "19, 49, 92",
-  ring: "61, 146, 211",
+  nodeLight: '#5aaee9',
+  nodeDark: '#13315c',
+  linkStart: '36, 126, 201',
+  linkEnd: '19, 49, 92',
+  ring: '61, 146, 211',
 };
 
 const POINTER_RADIUS = 260;
@@ -43,7 +43,7 @@ const MAX_SPEED = 2.4;
 const OPACITY_BANDS = 5;
 
 function blend(start: string, end: string): string {
-  const parse = (value: string) => value.split(",").map((part) => parseFloat(part));
+  const parse = (value: string) => value.split(',').map((part) => parseFloat(part));
   const [r1, g1, b1] = parse(start);
   const [r2, g2, b2] = parse(end);
   return `${Math.round((r1 + r2) / 2)}, ${Math.round((g1 + g2) / 2)}, ${Math.round((b1 + b2) / 2)}`;
@@ -61,7 +61,7 @@ export function NetworkField({ colors = DEFAULT_NETWORK_COLORS }: { colors?: Net
       vx: (Math.random() - 0.5) * 0.28,
       vy: (Math.random() - 0.5) * 0.28,
       radius: index % 11 === 0 ? 4.2 : index % 4 === 0 ? 2.8 : 1.8,
-      tone: index % 5 === 0 ? "dark" : "light",
+      tone: index % 5 === 0 ? 'dark' : 'light',
       phase: Math.random() * Math.PI * 2,
     }));
   }, []);
@@ -150,7 +150,7 @@ export function NetworkField({ colors = DEFAULT_NETWORK_COLORS }: { colors?: Net
         }
 
         const pulse = reduceMotion ? 1 : 1 + Math.sin(time * 0.0015 + node.phase) * 0.16;
-        context.fillStyle = node.tone === "dark" ? colors.nodeDark : colors.nodeLight;
+        context.fillStyle = node.tone === 'dark' ? colors.nodeDark : colors.nodeLight;
         context.beginPath();
         context.arc(node.x, node.y, node.radius * pulse, 0, Math.PI * 2);
         context.fill();

@@ -1,5 +1,5 @@
-import { PAGES, breadcrumbItemsFor, type PagePath } from "@/lib/pages";
-import { buildBreadcrumbSchema, buildWebPageSchema } from "@/lib/seo";
+import { PAGES, breadcrumbItemsFor, type PagePath } from '@/lib/pages';
+import { buildBreadcrumbSchema, buildWebPageSchema } from '@/lib/seo';
 
 export function PageSchema({ path }: { path: PagePath }) {
   const { title, description, updated } = PAGES[path];
@@ -9,5 +9,10 @@ export function PageSchema({ path }: { path: PagePath }) {
   const crumbs = breadcrumbItemsFor(path);
   if (crumbs.length > 1) schemas.push(buildBreadcrumbSchema(crumbs));
 
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }} />;
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }}
+    />
+  );
 }

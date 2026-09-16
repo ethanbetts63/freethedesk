@@ -265,7 +265,7 @@
 .moduleExplanation li::before {
   background: var(--controls-accent);
   border-radius: 50%;
-  content: "";
+  content: '';
   height: 4px;
   left: 0;
   position: absolute;

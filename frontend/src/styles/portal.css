@@ -16,7 +16,7 @@
 }
 .portal-steps li::before {
   color: var(--text-subtle);
-  content: "0" counter(portal-step);
+  content: '0' counter(portal-step);
   font-size: var(--text-micro);
   font-weight: var(--weight-heavy);
   left: 16px;

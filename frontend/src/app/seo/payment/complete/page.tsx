@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
-import { PaymentComplete } from "./PaymentComplete";
+import { PaymentComplete } from './PaymentComplete';
 
 export const metadata: Metadata = {
-  title: "Confirming SEO Subscription",
+  title: 'Confirming SEO Subscription',
   robots: { index: false, follow: false },
 };
 

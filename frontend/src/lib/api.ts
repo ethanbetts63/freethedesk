@@ -1,8 +1,8 @@
-export const SESSION_FLAG = "hasSession";
-export const AUTH_FAILURE_EVENT = "auth-failure";
+export const SESSION_FLAG = 'hasSession';
+export const AUTH_FAILURE_EVENT = 'auth-failure';
 
-export type Role = "staff" | "dealer" | "seo" | "none";
-export type DealerStatus = "pending" | "active" | "suspended" | "denied";
+export type Role = 'staff' | 'dealer' | 'seo' | 'none';
+export type DealerStatus = 'pending' | 'active' | 'suspended' | 'denied';
 
 export interface PrincipalDealer {
   id: number;
@@ -47,7 +47,7 @@ export interface AccountBase {
   updated_at: string;
 }
 
-export type OnboardingStatus = "not_started" | "in_progress" | "submitted";
+export type OnboardingStatus = 'not_started' | 'in_progress' | 'submitted';
 
 export interface StaffAccountFields {
   staff_notes: string;
@@ -58,35 +58,38 @@ const API_TIMEOUT_MS = 15_000;
 const SAFE_METHOD = /^(GET|HEAD|OPTIONS|TRACE)$/i;
 
 function csrfToken(): string | null {
-  if (typeof document === "undefined") return null;
+  if (typeof document === 'undefined') return null;
   const value = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("csrftoken="))
-    ?.split("=")[1];
+    .split('; ')
+    .find((row) => row.startsWith('csrftoken='))
+    ?.split('=')[1];
   return value ? decodeURIComponent(value) : null;
 }
 
 /** Shared browser request policy for the same-origin Django API. */
 async function apiFetch(url: string, options: RequestInit = {}): Promise<Response> {
   const headers = new Headers(options.headers);
-  if (options.body && !(options.body instanceof FormData) && !headers.has("Content-Type")) {
-    headers.set("Content-Type", "application/json");
+  if (options.body && !(options.body instanceof FormData) && !headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
   }
-  if (!SAFE_METHOD.test(options.method ?? "GET")) {
+  if (!SAFE_METHOD.test(options.method ?? 'GET')) {
     const token = csrfToken();
-    if (token) headers.set("X-CSRFToken", token);
+    if (token) headers.set('X-CSRFToken', token);
   }
 
   try {
     return await fetch(url, {
       ...options,
-      credentials: "include",
+      credentials: 'include',
       headers,
       signal: options.signal ?? AbortSignal.timeout(API_TIMEOUT_MS),
     });
   } catch (reason) {
-    if (reason instanceof DOMException && (reason.name === "TimeoutError" || reason.name === "AbortError")) {
-      throw new Error("The request timed out. Please try again.");
+    if (
+      reason instanceof DOMException &&
+      (reason.name === 'TimeoutError' || reason.name === 'AbortError')
+    ) {
+      throw new Error('The request timed out. Please try again.');
     }
     throw reason;
   }
@@ -100,7 +103,7 @@ function endSession(): void {
 let refreshInFlight: Promise<boolean> | null = null;
 
 function refreshSession(): Promise<boolean> {
-  refreshInFlight ??= apiFetch("/api/token/refresh/", { method: "POST" })
+  refreshInFlight ??= apiFetch('/api/token/refresh/', { method: 'POST' })
     .then((response) => response.ok)
     .catch(() => false)
     .finally(() => {
@@ -123,12 +126,12 @@ export async function authedFetch(url: string, options: RequestInit = {}): Promi
   return retried;
 }
 
-export function firstError(data: unknown, fallback = "Request failed"): string {
-  if (typeof data !== "object" || data === null) return fallback;
+export function firstError(data: unknown, fallback = 'Request failed'): string {
+  if (typeof data !== 'object' || data === null) return fallback;
   const body = data as Record<string, unknown>;
-  if (typeof body.detail === "string") return body.detail;
+  if (typeof body.detail === 'string') return body.detail;
   const value = Object.values(body).flat()[0];
-  return typeof value === "string" ? value : fallback;
+  return typeof value === 'string' ? value : fallback;
 }
 
 export async function jsonOrError<T>(response: Response): Promise<T> {
@@ -140,32 +143,32 @@ export async function jsonOrError<T>(response: Response): Promise<T> {
 export function queryString(values: Record<string, string | number | undefined>): string {
   const query = new URLSearchParams();
   Object.entries(values).forEach(([key, value]) => {
-    if (value !== undefined && value !== "" && value !== "all") query.set(key, String(value));
+    if (value !== undefined && value !== '' && value !== 'all') query.set(key, String(value));
   });
-  return query.size ? `?${query}` : "";
+  return query.size ? `?${query}` : '';
 }
 
 export async function login(identifier: string, password: string): Promise<Principal> {
-  const response = await apiFetch("/api/token/", {
-    method: "POST",
+  const response = await apiFetch('/api/token/', {
+    method: 'POST',
     body: JSON.stringify({ username: identifier, password }),
   });
   return jsonOrError<Principal>(response);
 }
 
 export async function logout(): Promise<void> {
-  await jsonOrError<void>(await apiFetch("/api/token/logout/", { method: "POST" }));
+  await jsonOrError<void>(await apiFetch('/api/token/logout/', { method: 'POST' }));
 }
 
 export async function getProfile(): Promise<Principal> {
-  return jsonOrError(await authedFetch("/api/auth/me/"));
+  return jsonOrError(await authedFetch('/api/auth/me/'));
 }
 
 /** The portal home for a signed-in principal. */
 export function homeFor(user: Principal): string {
-  if (user.role === "staff") return "/dashboard/enquiries";
-  if (user.role === "seo") return "/seo-portal";
-  return "/portal";
+  if (user.role === 'staff') return '/dashboard/enquiries';
+  if (user.role === 'seo') return '/seo-portal';
+  return '/portal';
 }
 
 export interface PublicSiteSettings {
@@ -181,18 +184,18 @@ export interface PublicSiteSettings {
 }
 
 /** Every SiteSettings key holding a price (all but the timestamp). */
-export type PriceField = Exclude<keyof PublicSiteSettings, "updated_at">;
+export type PriceField = Exclude<keyof PublicSiteSettings, 'updated_at'>;
 
 /** Unauthenticated; powers the public licensing and SEO pricing pages. */
 export async function getSiteSettings(): Promise<PublicSiteSettings> {
-  return jsonOrError(await apiFetch("/api/site-settings/"));
+  return jsonOrError(await apiFetch('/api/site-settings/'));
 }
 
 /** Unauthenticated JSON POST (signup, enquiry). Throws the API's own message. */
 export async function postJson<T = unknown>(url: string, payload: object): Promise<T> {
   return jsonOrError<T>(
     await apiFetch(url, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(payload),
     }),
   );
@@ -210,10 +213,10 @@ export function normaliseWebsiteUrl(value: string): string {
   const trimmed = value.trim();
   if (!trimmed) return trimmed;
   const match = SCHEME.exec(trimmed);
-  if (!match) return `https://${trimmed.replace(/^\/+/, "")}`;
+  if (!match) return `https://${trimmed.replace(/^\/+/, '')}`;
   const protocol = match[1].toLowerCase();
-  if (protocol === "http" || protocol === "https") return trimmed;
-  return `https://${trimmed.slice(match[0].length).replace(/^\/+/, "")}`;
+  if (protocol === 'http' || protocol === 'https') return trimmed;
+  return `https://${trimmed.slice(match[0].length).replace(/^\/+/, '')}`;
 }
 
 /**
@@ -224,28 +227,28 @@ export function safeWebsiteHref(value: string | null | undefined): string | null
   if (!value) return null;
   try {
     const url = new URL(value.trim());
-    return url.protocol === "http:" || url.protocol === "https:" ? url.href : null;
+    return url.protocol === 'http:' || url.protocol === 'https:' ? url.href : null;
   } catch {
     return null;
   }
 }
 
-export type ProjectType = "website" | "automation" | "both";
+export type ProjectType = 'website' | 'automation' | 'both';
 
 export function formatPrice(value: string): string {
   const amount = Number(value);
-  if (!value?.trim() || !Number.isFinite(amount)) return "—";
-  return `$${amount.toLocaleString("en-AU", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+  if (!value?.trim() || !Number.isFinite(amount)) return '—';
+  return `$${amount.toLocaleString('en-AU', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
 }
 
 export function formatDateTime(value: string | null): string {
-  if (!value) return "—";
-  return new Date(value).toLocaleString("en-AU", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    timeZone: "Australia/Perth",
+  if (!value) return '—';
+  return new Date(value).toLocaleString('en-AU', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZone: 'Australia/Perth',
   });
 }

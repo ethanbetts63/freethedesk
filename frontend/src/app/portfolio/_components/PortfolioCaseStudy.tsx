@@ -1,24 +1,24 @@
-import Image from "next/image";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Fragment } from "react";
+import Image from 'next/image';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { Fragment } from 'react';
 
-import { Eyebrow } from "@/components/Eyebrow";
-import { Faq, type FaqItem } from "@/components/Faq";
-import { ManualAdminCta } from "@/components/ManualAdminCta";
-import { PageSchema } from "@/components/PageSchema";
-import { PrimaryButton } from "@/components/PrimaryButton";
-import { ProcessBar, type ProcessBarStep } from "@/components/ProcessBar";
-import { ProofStrip, type ProofStat } from "@/components/ProofStrip";
-import { ScrollCtaButton } from "@/components/ScrollCtaButton";
-import { SectionNumber } from "@/components/SectionNumber";
-import { SeoReportOverview } from "@/components/SeoReportOverview";
-import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
-import type { PagePath } from "@/lib/pages";
-import { numberSections } from "@/lib/sectionNumbers";
+import { Eyebrow } from '@/components/Eyebrow';
+import { Faq, type FaqItem } from '@/components/Faq';
+import { ManualAdminCta } from '@/components/ManualAdminCta';
+import { PageSchema } from '@/components/PageSchema';
+import { PrimaryButton } from '@/components/PrimaryButton';
+import { ProcessBar, type ProcessBarStep } from '@/components/ProcessBar';
+import { ProofStrip, type ProofStat } from '@/components/ProofStrip';
+import { ScrollCtaButton } from '@/components/ScrollCtaButton';
+import { SectionNumber } from '@/components/SectionNumber';
+import { SeoReportOverview } from '@/components/SeoReportOverview';
+import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
+import type { PagePath } from '@/lib/pages';
+import { numberSections } from '@/lib/sectionNumbers';
 
-import { BrowserFrame, type PortfolioImage } from "./BrowserFrame";
-import { PortfolioEnquiryCta } from "./PortfolioEnquiryCta";
-import { PortfolioTour, type PortfolioTourItem } from "./PortfolioTour";
+import { BrowserFrame, type PortfolioImage } from './BrowserFrame';
+import { PortfolioEnquiryCta } from './PortfolioEnquiryCta';
+import { PortfolioTour, type PortfolioTourItem } from './PortfolioTour';
 
 type LineHeading = {
   lines: readonly string[];
@@ -41,7 +41,7 @@ type SectionHeading = {
 };
 
 type OperationsFeature = SectionHeading & {
-  variant: "operations";
+  variant: 'operations';
   console: {
     workspace: string;
     navigation: readonly string[];
@@ -55,7 +55,7 @@ type OperationsFeature = SectionHeading & {
 };
 
 type DualStepsFeature = SectionHeading & {
-  variant: "dual-steps";
+  variant: 'dual-steps';
   columns: readonly {
     label: string;
     title: string;
@@ -147,7 +147,7 @@ function HeadingLines({ heading }: { heading: LineHeading }) {
   );
 }
 
-function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig["hero"] }) {
+function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] }) {
   return (
     <section className="case-hero">
       <div className="case-hero-grid" aria-hidden="true" />
@@ -175,7 +175,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig["hero"] })
 
         <div className="case-hero-media">
           <BrowserFrame image={config.desktopImage} browserUrl={config.browserUrl} hero />
-          <div className={`case-phone${config.mobileImage.className ? " case-phone-crop" : ""}`}>
+          <div className={`case-phone${config.mobileImage.className ? ' case-phone-crop' : ''}`}>
             <div className="case-phone-speaker" />
             <div className="case-phone-menu" aria-hidden="true">
               <i />
@@ -200,7 +200,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig["hero"] })
   );
 }
 
-function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig["intro"] }) {
+function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig['intro'] }) {
   return (
     <section className="section shell case-story-intro" id="overview">
       <SectionNumber>{config.eyebrow}</SectionNumber>
@@ -222,7 +222,7 @@ function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig["intro"] 
   );
 }
 
-function PortfolioTourSection({ config }: { config: PortfolioCaseStudyConfig["tour"] }) {
+function PortfolioTourSection({ config }: { config: PortfolioCaseStudyConfig['tour'] }) {
   return (
     <section className="case-tour-section" id="tour">
       <div className="shell">
@@ -281,13 +281,13 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
   );
 }
 
-function OperationsConsole({ config }: { config: OperationsFeature["console"] }) {
+function OperationsConsole({ config }: { config: OperationsFeature['console'] }) {
   return (
     <div className="case-ops-console">
       <aside>
         <strong>{config.workspace}</strong>
         {config.navigation.map((item) => (
-          <span className={item === config.activeNavigation ? "active" : undefined} key={item}>
+          <span className={item === config.activeNavigation ? 'active' : undefined} key={item}>
             {item} {item === config.activeNavigation && <b>{config.activeCount}</b>}
           </span>
         ))}
@@ -319,11 +319,14 @@ function OperationsConsole({ config }: { config: OperationsFeature["console"] })
   );
 }
 
-function DualSteps({ columns }: { columns: DualStepsFeature["columns"] }) {
+function DualSteps({ columns }: { columns: DualStepsFeature['columns'] }) {
   return (
     <div className="case-steps-pair">
       {columns.map((column, index) => (
-        <article className={`case-steps-column${index % 2 ? " case-steps-column-alt" : ""}`} key={column.label}>
+        <article
+          className={`case-steps-column${index % 2 ? ' case-steps-column-alt' : ''}`}
+          key={column.label}
+        >
           <header>
             <small>{column.label}</small>
             <h3>{column.title}</h3>
@@ -343,7 +346,7 @@ function DualSteps({ columns }: { columns: DualStepsFeature["columns"] }) {
   );
 }
 
-function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig["feature"] }) {
+function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig['feature'] }) {
   return (
     <section className="case-operations-section" id="operations">
       <div className="shell">
@@ -356,7 +359,7 @@ function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig["featur
           </div>
           <p>{config.description}</p>
         </div>
-        {config.variant === "operations" ? (
+        {config.variant === 'operations' ? (
           <OperationsConsole config={config.console} />
         ) : (
           <DualSteps columns={config.columns} />
@@ -368,8 +371,8 @@ function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig["featur
 
 function PortfolioMediaFeature({ config }: { config: MediaFeature }) {
   return (
-    <section className={config.tinted ? "case-tinted-section" : "section"}>
-      <div className={`shell case-split${config.reverse ? " case-split-reverse" : ""}`}>
+    <section className={config.tinted ? 'case-tinted-section' : 'section'}>
+      <div className={`shell case-split${config.reverse ? ' case-split-reverse' : ''}`}>
         <div className="case-split-copy">
           <SectionNumber>{config.eyebrow}</SectionNumber>
           <h2>{config.title}</h2>
@@ -426,7 +429,7 @@ function PortfolioIntent({ config }: { config: IntentSection }) {
   );
 }
 
-function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, "seo" | "faq"> }) {
+function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, 'seo' | 'faq'> }) {
   return (
     <>
       <SeoReportOverview
@@ -442,7 +445,11 @@ function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, "s
         }
       />
       <ProjectEnquiry id="enquiry" />
-      <Faq eyebrow={config.faq.eyebrow} title="Website project questions." items={config.faq.items} />
+      <Faq
+        eyebrow={config.faq.eyebrow}
+        title="Website project questions."
+        items={config.faq.items}
+      />
       <ManualAdminCta href="#enquiry" buttonLabel="See our options" />
     </>
   );
@@ -468,7 +475,10 @@ function withSectionNumbers(config: PortfolioCaseStudyConfig): PortfolioCaseStud
     tour: { ...config.tour, eyebrow: numbered[config.tour.eyebrow] },
     mobile: { ...config.mobile, eyebrow: numbered[config.mobile.eyebrow] },
     feature: { ...config.feature, eyebrow: numbered[config.feature.eyebrow] },
-    mediaFeatures: mediaFeatures.map((feature) => ({ ...feature, eyebrow: numbered[feature.eyebrow] })),
+    mediaFeatures: mediaFeatures.map((feature) => ({
+      ...feature,
+      eyebrow: numbered[feature.eyebrow],
+    })),
     intent: { ...config.intent, eyebrow: numbered[config.intent.eyebrow] },
     seo: { ...config.seo, eyebrow: numbered[config.seo.eyebrow] },
     faq: { ...config.faq, eyebrow: numbered[config.faq.eyebrow] },

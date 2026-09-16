@@ -5,13 +5,13 @@ import {
   type Paginated,
   type PublicSiteSettings,
   type StaffAccountFields,
-} from "./api";
+} from './api';
 
-import type { DealerAccount } from "./dealerApi";
-import type { SeoAccount } from "./seoApi";
+import type { DealerAccount } from './dealerApi';
+import type { SeoAccount } from './seoApi';
 
-export type { Paginated, Principal as StaffUser } from "./api";
-export { authedFetch, formatDateTime, login, logout, getProfile } from "./api";
+export type { Paginated, Principal as StaffUser } from './api';
+export { authedFetch, formatDateTime, login, logout, getProfile } from './api';
 
 export interface WebsiteEnquiryConfiguration {
   version?: number;
@@ -23,7 +23,7 @@ export interface WebsiteEnquiryConfiguration {
   inventory_options?: Array<{ key: string; name: string; selected: boolean }>;
   custom_capability?: string;
 
-  project_type?: "website" | "automation" | "both";
+  project_type?: 'website' | 'automation' | 'both';
   budget?: string;
 }
 
@@ -57,12 +57,12 @@ export interface RelatedObject {
   label: string;
 }
 
-export type MessageStatus = "queued" | "sent" | "delivered" | "failed" | "bounced" | "cancelled";
+export type MessageStatus = 'queued' | 'sent' | 'delivered' | 'failed' | 'bounced' | 'cancelled';
 
 export interface AdminMessage {
   id: number;
   to: string;
-  channel: "email" | "sms";
+  channel: 'email' | 'sms';
   message_type: string;
   type_label: string;
   subject: string;
@@ -81,11 +81,13 @@ export interface AdminMessage {
 }
 
 /** Content type for an enquiry, qualified so it cannot collide with another app's model. */
-export const ENQUIRY_TYPE = "core.enquiry";
-export const DEALER_TYPE = "dealers.dealer";
-export const SEO_SUBSCRIBER_TYPE = "seo.seosubscriber";
+export const ENQUIRY_TYPE = 'core.enquiry';
+export const DEALER_TYPE = 'dealers.dealer';
+export const SEO_SUBSCRIBER_TYPE = 'seo.seosubscriber';
 
-export async function getEnquiries(params: Record<string, string | number | undefined>): Promise<Paginated<Enquiry>> {
+export async function getEnquiries(
+  params: Record<string, string | number | undefined>,
+): Promise<Paginated<Enquiry>> {
   return jsonOrError(await authedFetch(`/api/admin/enquiries/${queryString(params)}`));
 }
 
@@ -96,13 +98,15 @@ export async function getEnquiry(id: number): Promise<Enquiry> {
 export async function updateEnquiryStatus(id: number, status: string): Promise<Enquiry> {
   return jsonOrError(
     await authedFetch(`/api/admin/enquiries/${id}/`, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify({ status }),
     }),
   );
 }
 
-export async function getDealers(params: Record<string, string | number | undefined>): Promise<Paginated<Dealer>> {
+export async function getDealers(
+  params: Record<string, string | number | undefined>,
+): Promise<Paginated<Dealer>> {
   return jsonOrError(await authedFetch(`/api/admin/dealers/${queryString(params)}`));
 }
 
@@ -112,11 +116,11 @@ export async function getDealer(id: number): Promise<Dealer> {
 
 export async function updateDealer(
   id: number,
-  changes: Partial<Pick<Dealer, "status" | "staff_notes">>,
+  changes: Partial<Pick<Dealer, 'status' | 'staff_notes'>>,
 ): Promise<Dealer> {
   return jsonOrError(
     await authedFetch(`/api/admin/dealers/${id}/`, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(changes),
     }),
   );
@@ -134,20 +138,19 @@ export async function getSeoSubscriber(id: number): Promise<SeoSubscriber> {
 
 export async function updateSeoSubscriber(
   id: number,
-  changes: Partial<Pick<SeoSubscriber, "status" | "staff_notes">>,
+  changes: Partial<Pick<SeoSubscriber, 'status' | 'staff_notes'>>,
 ): Promise<SeoSubscriber> {
   return jsonOrError(
     await authedFetch(`/api/admin/seo/${id}/`, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(changes),
     }),
   );
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
-  return jsonOrError(await authedFetch("/api/admin/site-settings/"));
+  return jsonOrError(await authedFetch('/api/admin/site-settings/'));
 }
-
 
 export async function getMessages(
   params: Record<string, string | number | undefined>,
@@ -158,4 +161,3 @@ export async function getMessages(
 export async function getMessage(id: number): Promise<AdminMessage> {
   return jsonOrError(await authedFetch(`/api/admin/messages/${id}/`));
 }
-

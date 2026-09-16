@@ -1,12 +1,12 @@
-import { PrimaryButton } from "@/components/PrimaryButton";
-import { SplitFeatureSection } from "@/components/SplitFeatureSection";
+import { PrimaryButton } from '@/components/PrimaryButton';
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
-import { WebsiteDevelopmentFeatureVisual } from "./WebsiteDevelopmentFeatureVisual";
+import { WebsiteDevelopmentFeatureVisual } from './WebsiteDevelopmentFeatureVisual';
 
 const bullets = [
-  "Conversion-first customer journeys",
-  "Useful tools for customers and staff",
-  "Integrations that remove repeated admin",
+  'Conversion-first customer journeys',
+  'Useful tools for customers and staff',
+  'Integrations that remove repeated admin',
 ] as const;
 
 export function WebsiteDevelopmentFeature() {

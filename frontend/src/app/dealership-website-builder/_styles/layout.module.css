@@ -75,7 +75,7 @@
   background: var(--surface-page);
   border-right: 1px solid var(--slate-100);
   border-top: 1px solid var(--slate-100);
-  content: "";
+  content: '';
   height: 8px;
   position: absolute;
   right: -5px;

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { FormEvent, useActionState, useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { FormEvent, useActionState, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-import formStyles from "@/components/forms/SelectionForm.module.css";
-import { SelectionFormPanel } from "@/components/forms/SelectionFormPanel";
+import formStyles from '@/components/forms/SelectionForm.module.css';
+import { SelectionFormPanel } from '@/components/forms/SelectionFormPanel';
 import {
   choiceGroupHeadingClassName,
   fieldInputClassName,
@@ -21,37 +21,43 @@ import {
   totalFigureClassName,
   totalPriceClassName,
   totalSummaryClassName,
-} from "@/components/forms/selectionFormClassNames";
-import { MovingColourButton } from "@/components/MovingColourButton";
-import { DEALER_STATES } from "@/lib/dealerStates";
-import { planByCode } from "@/lib/plans";
-import { SESSION_FLAG } from "@/lib/api";
-import { submitSignup, type SignupState } from "@/lib/signup.actions";
+} from '@/components/forms/selectionFormClassNames';
+import { MovingColourButton } from '@/components/MovingColourButton';
+import { DEALER_STATES } from '@/lib/dealerStates';
+import { planByCode } from '@/lib/plans';
+import { SESSION_FLAG } from '@/lib/api';
+import { submitSignup, type SignupState } from '@/lib/signup.actions';
 
-import { buildDealerPlans, type DealerPlanCode, type LicensingPrices } from "../_lib/plans";
+import { buildDealerPlans, type DealerPlanCode, type LicensingPrices } from '../_lib/plans';
 
-const initialState: SignupState = { status: "idle" };
-const boundSubmitSignup = submitSignup.bind(null, { endpoint: "/api/dealers/signup/" });
+const initialState: SignupState = { status: 'idle' };
+const boundSubmitSignup = submitSignup.bind(null, { endpoint: '/api/dealers/signup/' });
 
 /** The stateful half of the signup section. `heading` arrives already rendered
     from the server so its markup stays out of the client bundle. */
-export function SignupPlansPanel({ settings, heading }: { settings: LicensingPrices; heading: React.ReactNode }) {
+export function SignupPlansPanel({
+  settings,
+  heading,
+}: {
+  settings: LicensingPrices;
+  heading: React.ReactNode;
+}) {
   const router = useRouter();
   const plans = useMemo(() => buildDealerPlans(settings), [settings]);
-  const [selectedCode, setSelectedCode] = useState<DealerPlanCode>("complete");
+  const [selectedCode, setSelectedCode] = useState<DealerPlanCode>('complete');
   const [state, dispatch, isPending] = useActionState(boundSubmitSignup, initialState);
 
   useEffect(() => {
-    if (state.status !== "success") return;
-    localStorage.setItem(SESSION_FLAG, "1");
-    router.push("/licensing/payment");
+    if (state.status !== 'success') return;
+    localStorage.setItem(SESSION_FLAG, '1');
+    router.push('/licensing/payment');
   }, [state, router]);
 
   const selected = planByCode(plans, selectedCode) ?? plans[0];
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    formData.set("plan", selectedCode);
+    formData.set('plan', selectedCode);
     dispatch(formData);
   };
 
@@ -71,8 +77,8 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
             >
               {plans.map((plan) => (
                 <label
-                  className={`${selectedCode === plan.code ? formStyles.choiceSelected : ""} ${
-                    plan.recommended ? formStyles.choiceRecommended : ""
+                  className={`${selectedCode === plan.code ? formStyles.choiceSelected : ''} ${
+                    plan.recommended ? formStyles.choiceRecommended : ''
                   }`}
                   key={plan.code}
                 >
@@ -104,7 +110,9 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
 
           <div className={totalClassName} aria-live="polite">
             <div className={totalFigureClassName}>
-              <strong className={`${totalPriceClassName} moving-colour-text`}>{selected.price}</strong>
+              <strong className={`${totalPriceClassName} moving-colour-text`}>
+                {selected.price}
+              </strong>
               <small className={totalCadenceClassName}>{selected.cadence}</small>
             </div>
             <span className={totalSummaryClassName}>{selected.summary}</span>
@@ -163,7 +171,7 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
           </select>
         </label>
       </div>
-      {state.status === "error" && (
+      {state.status === 'error' && (
         <p className={formErrorClassName} role="alert">
           {state.error}
         </p>
@@ -176,7 +184,7 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
         fullWidth
         disabled={isPending}
       >
-        {isPending ? "Creating your account…" : "Continue"}
+        {isPending ? 'Creating your account…' : 'Continue'}
       </MovingColourButton>
     </SelectionFormPanel>
   );

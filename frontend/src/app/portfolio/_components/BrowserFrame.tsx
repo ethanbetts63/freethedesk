@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 export type PortfolioImage = {
   src: string;
@@ -19,7 +19,7 @@ export function BrowserFrame({
   hero?: boolean;
 }) {
   return (
-    <div className={`case-browser${hero ? " case-browser-hero" : ""}`}>
+    <div className={`case-browser${hero ? ' case-browser-hero' : ''}`}>
       <div className="case-browser-bar">
         <i />
         <i />

@@ -1,26 +1,27 @@
-"use client";
+'use client';
 
-import "@/components/dashboard/admin.css";
+import '@/components/dashboard/admin.css';
 
-import { FormEvent, Suspense, useEffect, useState } from "react";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
-import { homeFor } from "@/lib/api";
-import { SignalFlow } from "@/components/visuals/SignalFlow";
+import { FormEvent, Suspense, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import { homeFor } from '@/lib/api';
+import { SignalFlow } from '@/components/visuals/SignalFlow';
 
 function LoginContent() {
   const { user, loading, login } = useAuth();
   const router = useRouter();
   const search = useSearchParams();
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (loading || !user) return;
-    const next = search.get("next");
+    const next = search.get('next');
     const home = homeFor(user);
-    const prefix = user.role === "staff" ? "/dashboard" : user.role === "seo" ? "/seo-portal" : "/portal";
+    const prefix =
+      user.role === 'staff' ? '/dashboard' : user.role === 'seo' ? '/seo-portal' : '/portal';
     router.replace(next && next.startsWith(prefix) ? next : home);
   }, [loading, router, search, user]);
 
@@ -28,11 +29,11 @@ function LoginContent() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     setSubmitting(true);
-    setError("");
+    setError('');
     try {
-      await login(String(data.get("identifier")), String(data.get("password")));
+      await login(String(data.get('identifier')), String(data.get('password')));
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Login failed.");
+      setError(reason instanceof Error ? reason.message : 'Login failed.');
     } finally {
       setSubmitting(false);
     }
@@ -74,18 +75,24 @@ function LoginContent() {
           </label>
           {error && <p className="admin-form-error">{error}</p>}
           <button type="submit" className="admin-primary-button" disabled={submitting || loading}>
-            {submitting ? "Signing in…" : "Sign in"}
+            {submitting ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
         <p className="mt-ml text-ui text-text-muted">
-          No dealer account yet?{" "}
-          <Link className="font-heavy text-text-action underline underline-offset-[3px]" href="/licensing#signup">
+          No dealer account yet?{' '}
+          <Link
+            className="font-heavy text-text-action underline underline-offset-[3px]"
+            href="/licensing#signup"
+          >
             Create one
           </Link>
         </p>
         <p className="mt-ml text-ui text-text-muted">
-          Looking for SEO reports?{" "}
-          <Link className="font-heavy text-text-action underline underline-offset-[3px]" href="/seo#signup">
+          Looking for SEO reports?{' '}
+          <Link
+            className="font-heavy text-text-action underline underline-offset-[3px]"
+            href="/seo#signup"
+          >
             Choose a plan
           </Link>
         </p>

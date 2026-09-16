@@ -1,8 +1,8 @@
-import Link from "next/link";
-import type { CSSProperties } from "react";
+import Link from 'next/link';
+import type { CSSProperties } from 'react';
 
 const contentClassName =
-  "group grid min-h-[76px] grid-cols-[auto_minmax(0,1fr)] items-center gap-xs px-xs py-s text-inherit no-underline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--accent-on-dark-soft)] sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:gap-s sm:px-ml sm:py-m min-[900px]:min-h-[104px] min-[900px]:px-l min-[900px]:py-ml";
+  'group grid min-h-[76px] grid-cols-[auto_minmax(0,1fr)] items-center gap-xs px-xs py-s text-inherit no-underline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--accent-on-dark-soft)] sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:gap-s sm:px-ml sm:py-m min-[900px]:min-h-[104px] min-[900px]:px-l min-[900px]:py-ml';
 
 export type ProcessBarStep = {
   label: string;
@@ -10,7 +10,15 @@ export type ProcessBarStep = {
   href?: string;
 };
 
-export function ProcessBar({ label, steps, id }: { label: string; steps: readonly ProcessBarStep[]; id?: string }) {
+export function ProcessBar({
+  label,
+  steps,
+  id,
+}: {
+  label: string;
+  steps: readonly ProcessBarStep[];
+  id?: string;
+}) {
   return (
     <section className="bg-surface-dark text-text-on-dark" aria-label={label} id={id}>
       <div className="shell py-0">
@@ -19,13 +27,13 @@ export function ProcessBar({ label, steps, id }: { label: string; steps: readonl
         </p>
         <ol
           className="m-0 grid grid-cols-2 list-none p-0 min-[900px]:grid-cols-[repeat(var(--process-columns,4),minmax(0,1fr))]"
-          style={{ "--process-columns": steps.length } as CSSProperties}
+          style={{ '--process-columns': steps.length } as CSSProperties}
         >
           {steps.map((step, index) => {
             const content = (
               <>
                 <span className="text-caption font-black tracking-[0.1em] text-[var(--accent-on-dark-soft)]">
-                  {String(index + 1).padStart(2, "0")}
+                  {String(index + 1).padStart(2, '0')}
                 </span>
                 <span>
                   <strong className="block text-lead tracking-[-0.02em]">{step.label}</strong>

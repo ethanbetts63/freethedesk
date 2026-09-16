@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { CheckoutElementsProvider } from "@stripe/react-stripe-js/checkout";
+import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { CheckoutElementsProvider } from '@stripe/react-stripe-js/checkout';
 
 import {
   CheckoutPaymentForm,
   CheckoutShell,
   CheckoutState,
   CheckoutTermsForm,
-} from "@/components/checkout/CheckoutShell";
-import { useAuth } from "@/context/AuthContext";
-import { createSubscriptionCheckout, getDealerAccount, type DealerAccount } from "@/lib/dealerApi";
-import { getSiteSettings } from "@/lib/api";
-import { stripeConfigured, stripePromise, STRIPE_ELEMENTS_OPTIONS } from "@/lib/stripe";
-import { buildDealerPlans, planByCode, type DealerPlan } from "../_lib/plans";
+} from '@/components/checkout/CheckoutShell';
+import { useAuth } from '@/context/AuthContext';
+import { createSubscriptionCheckout, getDealerAccount, type DealerAccount } from '@/lib/dealerApi';
+import { getSiteSettings } from '@/lib/api';
+import { stripeConfigured, stripePromise, STRIPE_ELEMENTS_OPTIONS } from '@/lib/stripe';
+import { buildDealerPlans, planByCode, type DealerPlan } from '../_lib/plans';
 
-const RETURN_PATH = "/licensing/payment/complete";
+const RETURN_PATH = '/licensing/payment/complete';
 
 export function SubscriptionPaymentPage() {
   const router = useRouter();
@@ -24,14 +24,14 @@ export function SubscriptionPaymentPage() {
   const started = useRef(false);
   const [dealer, setDealer] = useState<DealerAccount | null>(null);
   const [plans, setPlans] = useState<DealerPlan[]>([]);
-  const [clientSecret, setClientSecret] = useState("");
-  const [quotedMonthlyPrice, setQuotedMonthlyPrice] = useState("");
-  const [error, setError] = useState("");
+  const [clientSecret, setClientSecret] = useState('');
+  const [quotedMonthlyPrice, setQuotedMonthlyPrice] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (authLoading) return;
-    if (!user || user.role !== "dealer") {
-      router.replace(`/login?next=${encodeURIComponent("/licensing/payment")}`);
+    if (!user || user.role !== 'dealer') {
+      router.replace(`/login?next=${encodeURIComponent('/licensing/payment')}`);
       return;
     }
     if (started.current) return;
@@ -41,39 +41,42 @@ export function SubscriptionPaymentPage() {
       .then(([account, settings]) => {
         setDealer(account);
         setPlans(buildDealerPlans(settings));
-        if (account.payment_status === "active") {
-          router.replace("/portal/overview");
+        if (account.payment_status === 'active') {
+          router.replace('/portal/overview');
           return;
         }
-        if (!stripeConfigured) throw new Error("Stripe is not configured yet. Add the publishable key to continue.");
+        if (!stripeConfigured)
+          throw new Error('Stripe is not configured yet. Add the publishable key to continue.');
       })
-      .catch((reason) => setError(reason instanceof Error ? reason.message : "Unable to prepare payment."));
+      .catch((reason) =>
+        setError(reason instanceof Error ? reason.message : 'Unable to prepare payment.'),
+      );
   }, [authLoading, router, user]);
 
   const plan = dealer ? planByCode(plans, dealer.plan) : undefined;
   const displayedPrice = quotedMonthlyPrice
-    ? `$${Number(quotedMonthlyPrice).toLocaleString("en-AU", { maximumFractionDigits: 2 })}`
+    ? `$${Number(quotedMonthlyPrice).toLocaleString('en-AU', { maximumFractionDigits: 2 })}`
     : plan?.price;
 
   async function prepareCheckout() {
-    setError("");
+    setError('');
     try {
       const checkout = await createSubscriptionCheckout();
       setQuotedMonthlyPrice(checkout.monthly_price);
       setClientSecret(checkout.client_secret);
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Unable to prepare payment.");
+      setError(reason instanceof Error ? reason.message : 'Unable to prepare payment.');
     }
   }
 
   return (
     <CheckoutShell
       productLabel="Selected product"
-      productName={plan?.name ?? "Your subscription"}
-      productSummary={plan?.summary ?? "Preparing your secure checkout."}
+      productName={plan?.name ?? 'Your subscription'}
+      productSummary={plan?.summary ?? 'Preparing your secure checkout.'}
       order={
         plan && displayedPrice
-          ? { lineLabel: "Monthly subscription", price: displayedPrice, dueLabel: "Due monthly" }
+          ? { lineLabel: 'Monthly subscription', price: displayedPrice, dueLabel: 'Due monthly' }
           : undefined
       }
     >

@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useState } from "react";
+import Image from 'next/image';
+import { useState } from 'react';
 
-import { ConversionButton } from "../ConversionButton";
-import { PreviewPageShell } from "./shared";
-import styles from "../../_styles/preview.module.css";
+import { ConversionButton } from '../ConversionButton';
+import { PreviewPageShell } from './shared';
+import styles from '../../_styles/preview.module.css';
 
 export function PartsPage() {
   const [addedParts, setAddedParts] = useState<string[]>([]);
   const diagramParts = [
-    { number: "01", name: "Cam shaft COMP", status: "Not available" },
-    { number: "02", name: "Cam sprocket", status: "Not available" },
-    { number: "03", name: "Cam chain", status: "Backorder", price: "$89.42" },
-    { number: "04", name: "Cam chain tensioner", status: "In stock", price: "$30.00" },
-    { number: "05", name: "Cam chain guide COMP", status: "Not available" },
-    { number: "06", name: "O-ring 67X2.5", status: "Low stock", price: "$6.00" },
-    { number: "07", name: "Flange bolt 8X16", status: "Not available" },
-    { number: "08", name: "Flange bolt 6X20", status: "Not available" },
-    { number: "09", name: "CYL. head L. side cover ASS'Y", status: "Not available" },
-    { number: "10", name: "CYL. head L. side cover COMP.", status: "Not available" },
-    { number: "11", name: "Breather tube", status: "Not available" },
+    { number: '01', name: 'Cam shaft COMP', status: 'Not available' },
+    { number: '02', name: 'Cam sprocket', status: 'Not available' },
+    { number: '03', name: 'Cam chain', status: 'Backorder', price: '$89.42' },
+    { number: '04', name: 'Cam chain tensioner', status: 'In stock', price: '$30.00' },
+    { number: '05', name: 'Cam chain guide COMP', status: 'Not available' },
+    { number: '06', name: 'O-ring 67X2.5', status: 'Low stock', price: '$6.00' },
+    { number: '07', name: 'Flange bolt 8X16', status: 'Not available' },
+    { number: '08', name: 'Flange bolt 6X20', status: 'Not available' },
+    { number: '09', name: "CYL. head L. side cover ASS'Y", status: 'Not available' },
+    { number: '10', name: 'CYL. head L. side cover COMP.', status: 'Not available' },
+    { number: '11', name: 'Breather tube', status: 'Not available' },
   ];
 
   const addPart = (number: string) =>
@@ -30,9 +30,9 @@ export function PartsPage() {
     <PreviewPageShell
       kind="specialist"
       heading={{
-        eyebrow: "Genuine parts lookup",
-        title: "Cam shaft & cyl. head L. side cover",
-        detail: "CROX50 · 11 parts",
+        eyebrow: 'Genuine parts lookup',
+        title: 'Cam shaft & cyl. head L. side cover',
+        detail: 'CROX50 · 11 parts',
       }}
     >
       <div className={styles.partsSelectors}>
@@ -93,25 +93,28 @@ export function PartsPage() {
               const isAvailable = Boolean(part.price);
 
               return (
-                <li key={part.number} className={isAdded ? styles.partAdded : ""}>
+                <li key={part.number} className={isAdded ? styles.partAdded : ''}>
                   <span className={styles.partCallout}>{part.number}</span>
                   <div>
                     <strong>{part.name}</strong>
                     <small
                       className={
-                        part.status === "In stock"
+                        part.status === 'In stock'
                           ? styles.inStock
-                          : part.status === "Low stock" || part.status === "Backorder"
+                          : part.status === 'Low stock' || part.status === 'Backorder'
                             ? styles.limitedStock
-                            : ""
+                            : ''
                       }
                     >
                       {part.status}
                     </small>
                   </div>
-                  <b>{part.price || "—"}</b>
-                  <ConversionButton disabled={!isAvailable || isAdded} onClick={() => addPart(part.number)}>
-                    {isAdded ? "Added" : "Add"}
+                  <b>{part.price || '—'}</b>
+                  <ConversionButton
+                    disabled={!isAvailable || isAdded}
+                    onClick={() => addPart(part.number)}
+                  >
+                    {isAdded ? 'Added' : 'Add'}
                   </ConversionButton>
                 </li>
               );

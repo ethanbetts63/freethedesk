@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import type { ReactNode } from "react";
+import Link from 'next/link';
+import type { ReactNode } from 'react';
 
-import { formatDateTime, type AdminMessage } from "@/lib/adminApi";
-import type { AccountBase, DealerStatus } from "@/lib/api";
+import { formatDateTime, type AdminMessage } from '@/lib/adminApi';
+import type { AccountBase, DealerStatus } from '@/lib/api';
 
-import { dealerStatuses, StatusPill, statusLabel } from "./StatusPill";
+import { dealerStatuses, StatusPill, statusLabel } from './StatusPill';
 
 export function AccountStatusCard({
   status,
@@ -57,7 +57,12 @@ export function AccountApprovalCard({
       <h2>{heading}</h2>
       <p className="admin-muted">{explanation}</p>
       <div className="flex flex-col flex-wrap items-start gap-l sm:flex-row sm:items-center">
-        <button type="button" className="admin-primary-button" disabled={saving} onClick={onApprove}>
+        <button
+          type="button"
+          className="admin-primary-button"
+          disabled={saving}
+          onClick={onApprove}
+        >
           Approve
         </button>
         <button type="button" className="admin-secondary-button" disabled={saving} onClick={onDeny}>
@@ -84,27 +89,33 @@ export function DetailCard({ title, rows }: { title: string; rows: [string, Reac
   );
 }
 
-export function AccountContactCard({ account, extra = [] }: { account: AccountBase; extra?: [string, ReactNode][] }) {
+export function AccountContactCard({
+  account,
+  extra = [],
+}: {
+  account: AccountBase;
+  extra?: [string, ReactNode][];
+}) {
   return (
     <DetailCard
       title="Contact"
       rows={[
-        ["Business", account.business_name],
-        ["Contact", account.contact_name],
+        ['Business', account.business_name],
+        ['Contact', account.contact_name],
         [
-          "Email",
+          'Email',
           <a key="email" href={`mailto:${account.email}`}>
             {account.email}
           </a>,
         ],
         [
-          "Phone",
+          'Phone',
           account.phone ? (
             <a key="phone" href={`tel:${account.phone}`}>
               {account.phone}
             </a>
           ) : (
-            "Not supplied"
+            'Not supplied'
           ),
         ],
         ...extra,
@@ -127,14 +138,14 @@ export function AccountBillingCard({
     <DetailCard
       title="Account"
       rows={[
-        ["Plan", account.plan_label],
-        ["Payment", account.payment_status_label],
-        ["Current period ends", formatDateTime(account.subscription_current_period_end)],
-        ["Cancels at period end", account.cancel_at_period_end ? "Yes" : "No"],
-        ["Status", account.status_label],
-        ["Status changed", formatDateTime(statusChangedAt)],
-        ["Signed up", formatDateTime(account.created_at)],
-        ["Last updated", formatDateTime(account.updated_at)],
+        ['Plan', account.plan_label],
+        ['Payment', account.payment_status_label],
+        ['Current period ends', formatDateTime(account.subscription_current_period_end)],
+        ['Cancels at period end', account.cancel_at_period_end ? 'Yes' : 'No'],
+        ['Status', account.status_label],
+        ['Status changed', formatDateTime(statusChangedAt)],
+        ['Signed up', formatDateTime(account.created_at)],
+        ['Last updated', formatDateTime(account.updated_at)],
         ...extra,
       ]}
     />
@@ -167,8 +178,13 @@ export function StaffNotesCard({
         onChange={(event) => onChange(event.target.value)}
         placeholder="Anything worth recording about this account — checks, phone calls, why they were denied."
       />
-      <button type="button" className="admin-secondary-button" disabled={saving || notes === saved} onClick={onSave}>
-        {saving ? "Saving…" : "Save notes"}
+      <button
+        type="button"
+        className="admin-secondary-button"
+        disabled={saving || notes === saved}
+        onClick={onSave}
+      >
+        {saving ? 'Saving…' : 'Save notes'}
       </button>
     </section>
   );
@@ -197,7 +213,7 @@ export function RelatedMessagesCard({
               <span>
                 {message.channel.toUpperCase()} · {message.status}
               </span>
-              <strong>{message.subject || "SMS notification"}</strong>
+              <strong>{message.subject || 'SMS notification'}</strong>
               <small>{formatDateTime(message.sent_at || message.created_at)}</small>
             </Link>
           ))}

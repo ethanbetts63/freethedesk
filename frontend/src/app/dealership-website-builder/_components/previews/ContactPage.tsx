@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import { ConversionButton, ConversionLink } from "../ConversionButton";
-import { DemoMap } from "../DemoMap";
-import { getDemoBrandIdentity } from "../../_lib/demoBrand";
-import { PreviewPageShell } from "./shared";
-import styles from "../../_styles/preview.module.css";
+import { ConversionButton, ConversionLink } from '../ConversionButton';
+import { DemoMap } from '../DemoMap';
+import { getDemoBrandIdentity } from '../../_lib/demoBrand';
+import { PreviewPageShell } from './shared';
+import styles from '../../_styles/preview.module.css';
 
 export function ContactPage({ brandName }: { brandName: string }) {
   const [sent, setSent] = useState(false);
@@ -15,7 +15,11 @@ export function ContactPage({ brandName }: { brandName: string }) {
   return (
     <PreviewPageShell
       kind="information"
-      heading={{ eyebrow: "Contact our team", title: "How can we help?", detail: "Replies within one business day" }}
+      heading={{
+        eyebrow: 'Contact our team',
+        title: 'How can we help?',
+        detail: 'Replies within one business day',
+      }}
     >
       <div className={styles.contactPageGrid}>
         <aside className={styles.contactPageDetails}>
@@ -68,7 +72,9 @@ export function ContactPage({ brandName }: { brandName: string }) {
             <textarea placeholder="Tell us a little more..." rows={4} />
           </label>
           <ConversionButton type="submit">Send enquiry →</ConversionButton>
-          {sent && <p className={styles.contactSuccess}>Thanks—your enquiry has been sent to the team.</p>}
+          {sent && (
+            <p className={styles.contactSuccess}>Thanks—your enquiry has been sent to the team.</p>
+          )}
         </form>
       </div>
       <div className={styles.contactLocation}>
@@ -77,7 +83,10 @@ export function ContactPage({ brandName }: { brandName: string }) {
           <strong>Easy to reach. Easy to park.</strong>
           <span>Mon–Fri 8:00–5:30 · Saturday 8:00–1:00</span>
         </div>
-        <DemoMap className={styles.contactSimpleMap} ariaLabel="Map showing the location at a road intersection" />
+        <DemoMap
+          className={styles.contactSimpleMap}
+          ariaLabel="Map showing the location at a road intersection"
+        />
       </div>
     </PreviewPageShell>
   );

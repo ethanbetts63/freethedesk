@@ -1,6 +1,6 @@
-import { SectionNumber } from "./SectionNumber";
-import type { Service } from "./ServiceScroll";
-import "./ExpandableServiceList.css";
+import { SectionNumber } from './SectionNumber';
+import type { Service } from './ServiceScroll';
+import './ExpandableServiceList.css';
 
 export function ExpandableServiceList({
   services,
@@ -26,8 +26,14 @@ export function ExpandableServiceList({
         {services.map((service, index) => (
           <details key={service.title} open={index === 0}>
             <summary>
-              <span className="expandable-services-index">{String(index + 1).padStart(2, "0")}</span>
-              <span className="expandable-services-icon" style={{ color: service.color }} aria-hidden="true">
+              <span className="expandable-services-index">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span
+                className="expandable-services-icon"
+                style={{ color: service.color }}
+                aria-hidden="true"
+              >
                 {service.icon}
               </span>
               <span className="expandable-services-summary">

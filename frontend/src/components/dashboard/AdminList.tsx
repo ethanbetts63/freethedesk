@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import type { ReactNode } from "react";
+import Link from 'next/link';
+import type { ReactNode } from 'react';
 
 export function SortHeader({
   field,
@@ -14,10 +14,10 @@ export function SortHeader({
   onSort: (field: string) => void;
   children: ReactNode;
 }) {
-  const active = ordering.replace(/^-/, "") === field;
-  const arrow = !active ? "↕" : ordering.startsWith("-") ? "↓" : "↑";
+  const active = ordering.replace(/^-/, '') === field;
+  const arrow = !active ? '↕' : ordering.startsWith('-') ? '↓' : '↑';
   return (
-    <th aria-sort={!active ? "none" : ordering.startsWith("-") ? "descending" : "ascending"}>
+    <th aria-sort={!active ? 'none' : ordering.startsWith('-') ? 'descending' : 'ascending'}>
       <button type="button" onClick={() => onSort(field)}>
         {children} {arrow}
       </button>

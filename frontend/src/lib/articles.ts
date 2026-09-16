@@ -1,10 +1,10 @@
-import fs from "node:fs";
-import path from "node:path";
-import { renderMarkdown } from "./markdown";
+import fs from 'node:fs';
+import path from 'node:path';
+import { renderMarkdown } from './markdown';
 
-const ARTICLES_DIR = path.join(process.cwd(), "content", "articles");
-const EXCLUDED_FILES = new Set(["overview.md"]);
-const AUTHOR_NAME = "Ethan Betts-Ingram";
+const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles');
+const EXCLUDED_FILES = new Set(['overview.md']);
+const AUTHOR_NAME = 'Ethan Betts-Ingram';
 
 export interface ArticleMeta {
   slug: string;
@@ -35,14 +35,14 @@ function parseFrontMatter(source: string): { data: FrontMatter; body: string } {
 
   const data: FrontMatter = {};
   for (const line of match[1].split(/\r?\n/)) {
-    const separator = line.indexOf(":");
+    const separator = line.indexOf(':');
     if (separator === -1) continue;
     const key = line.slice(0, separator).trim();
     const value = line
       .slice(separator + 1)
       .trim()
-      .replace(/^["']|["']$/g, "");
-    if (key === "published" || key === "updated" || key === "title" || key === "description") {
+      .replace(/^["']|["']$/g, '');
+    if (key === 'published' || key === 'updated' || key === 'title' || key === 'description') {
       data[key] = value;
     }
   }
@@ -50,22 +50,25 @@ function parseFrontMatter(source: string): { data: FrontMatter; body: string } {
 }
 
 function slugFromFilename(filename: string): string {
-  return filename.replace(/\.md$/, "");
+  return filename.replace(/\.md$/, '');
 }
 
 function extractTitle(markdown: string): string {
-  return markdown.match(/^#\s+(.+)$/m)?.[1].trim() ?? "Untitled guide";
+  return markdown.match(/^#\s+(.+)$/m)?.[1].trim() ?? 'Untitled guide';
 }
 
 function extractExcerpt(markdown: string): string {
   const line = markdown
-    .split("\n")
+    .split('\n')
     .map((entry) => entry.trim())
-    .find((entry) => entry && !entry.startsWith("#") && !entry.startsWith("---") && !entry.startsWith("|"));
+    .find(
+      (entry) =>
+        entry && !entry.startsWith('#') && !entry.startsWith('---') && !entry.startsWith('|'),
+    );
 
-  return (line ?? "")
-    .replace(/\*\*/g, "")
-    .replace(/\[([^\]]+)]\([^)]+\)/g, "$1")
+  return (line ?? '')
+    .replace(/\*\*/g, '')
+    .replace(/\[([^\]]+)]\([^)]+\)/g, '$1')
     .slice(0, 180);
 }
 
@@ -74,13 +77,13 @@ function articleFilenames(): string[] {
 
   return fs
     .readdirSync(ARTICLES_DIR)
-    .filter((filename) => filename.endsWith(".md") && !EXCLUDED_FILES.has(filename))
+    .filter((filename) => filename.endsWith('.md') && !EXCLUDED_FILES.has(filename))
     .sort();
 }
 
 function readArticle(filename: string): { meta: ArticleMeta; body: string } {
   const filepath = path.join(ARTICLES_DIR, filename);
-  const { data, body } = parseFrontMatter(fs.readFileSync(filepath, "utf8"));
+  const { data, body } = parseFrontMatter(fs.readFileSync(filepath, 'utf8'));
 
   if (!data.published || !ISO_DATE.test(data.published)) {
     throw new Error(`${filename}: front matter needs a "published: YYYY-MM-DD" date.`);
@@ -120,7 +123,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
   if (!fs.existsSync(path.join(ARTICLES_DIR, filename))) return null;
 
   const { meta, body } = readArticle(filename);
-  const articleBody = body.replace(/^#\s+.+(?:\r?\n)+/, "");
+  const articleBody = body.replace(/^#\s+.+(?:\r?\n)+/, '');
 
   return { ...meta, html: await renderMarkdown(articleBody) };
 }

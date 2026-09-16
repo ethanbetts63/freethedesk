@@ -1,12 +1,12 @@
-import { PrimaryButton } from "@/components/PrimaryButton";
-import { SplitFeatureSection } from "@/components/SplitFeatureSection";
+import { PrimaryButton } from '@/components/PrimaryButton';
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
-import { FlagshipCheckoutVisual } from "./FlagshipCheckoutVisual";
+import { FlagshipCheckoutVisual } from './FlagshipCheckoutVisual';
 
 const bullets = [
-  "Licensing & sales documents",
-  "Identity verification",
-  "Optional payment & delivery handling",
+  'Licensing & sales documents',
+  'Identity verification',
+  'Optional payment & delivery handling',
 ] as const;
 
 export function FlagshipCheckout() {

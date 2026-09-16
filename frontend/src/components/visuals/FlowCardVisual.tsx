@@ -1,6 +1,6 @@
-import { Fragment } from "react";
+import { Fragment } from 'react';
 
-import styles from "./FlowCardVisual.module.css";
+import styles from './FlowCardVisual.module.css';
 
 export type FlowCardNode = {
   label: string;
@@ -12,12 +12,18 @@ type FlowCardVisualProps = {
   browserLabel: string;
   inputs: readonly FlowCardNode[];
   result: FlowCardNode;
-  steps?: readonly Omit<FlowCardNode, "label">[];
+  steps?: readonly Omit<FlowCardNode, 'label'>[];
   ariaLabel?: string;
 };
 
-export function FlowCardVisual({ browserLabel, inputs, result, steps = [], ariaLabel }: FlowCardVisualProps) {
-  const mode = steps.length ? "steps" : "combine";
+export function FlowCardVisual({
+  browserLabel,
+  inputs,
+  result,
+  steps = [],
+  ariaLabel,
+}: FlowCardVisualProps) {
+  const mode = steps.length ? 'steps' : 'combine';
 
   return (
     <div className={styles.visual} aria-label={ariaLabel}>
@@ -46,7 +52,7 @@ export function FlowCardVisual({ browserLabel, inputs, result, steps = [], ariaL
           <ol className={styles.steps}>
             {steps.map((step, index) => (
               <li key={step.title}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>{String(index + 1).padStart(2, '0')}</span>
                 <strong>{step.title}</strong>
                 <small>{step.description}</small>
               </li>

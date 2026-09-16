@@ -1,6 +1,6 @@
-import { SplitFeatureSection } from "@/components/SplitFeatureSection";
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
-import { LicensingFillVisual } from "./LicensingFillVisual";
+import { LicensingFillVisual } from './LicensingFillVisual';
 
 export function LicensingFill({ eyebrow }: { eyebrow: string }) {
   return (

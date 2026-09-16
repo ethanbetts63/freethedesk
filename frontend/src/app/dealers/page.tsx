@@ -1,61 +1,66 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
-import { Faq } from "@/components/Faq";
-import { FloatingPageCta } from "@/components/FloatingPageCta";
-import { ManualAdminCta } from "@/components/ManualAdminCta";
-import { AdminAutomationSection } from "@/components/marketing/AdminAutomationSection";
-import { CaseStudyTeaser } from "@/components/marketing/CaseStudyTeaser";
-import { DealerWebsiteBuilderSection } from "@/components/marketing/DealerWebsiteBuilderSection";
-import { Hero } from "@/components/marketing/Hero";
-import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
-import { SubscriptionSwap } from "@/components/marketing/SubscriptionSwap";
-import { WebsiteIntroduction } from "@/components/marketing/WebsiteIntroduction";
-import { WebsiteJobsBar } from "@/components/marketing/WebsiteJobsBar";
-import { PageSchema } from "@/components/PageSchema";
-import { SeoReportOverview } from "@/components/SeoReportOverview";
-import { metadataFor } from "@/lib/pages";
-import { numberSections } from "@/lib/sectionNumbers";
+import { Faq } from '@/components/Faq';
+import { FloatingPageCta } from '@/components/FloatingPageCta';
+import { ManualAdminCta } from '@/components/ManualAdminCta';
+import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSection';
+import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
+import { DealerWebsiteBuilderSection } from '@/components/marketing/DealerWebsiteBuilderSection';
+import { Hero } from '@/components/marketing/Hero';
+import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
+import { SubscriptionSwap } from '@/components/marketing/SubscriptionSwap';
+import { WebsiteIntroduction } from '@/components/marketing/WebsiteIntroduction';
+import { WebsiteJobsBar } from '@/components/marketing/WebsiteJobsBar';
+import { PageSchema } from '@/components/PageSchema';
+import { SeoReportOverview } from '@/components/SeoReportOverview';
+import { metadataFor } from '@/lib/pages';
+import { numberSections } from '@/lib/sectionNumbers';
 
-import { DealerDemoAlternative } from "./_components/DealerDemoAlternative";
-import { DealershipAutomation } from "./_components/DealershipAutomation";
-import { DEALER_FAQS } from "./_lib/copy";
+import { DealerDemoAlternative } from './_components/DealerDemoAlternative';
+import { DealershipAutomation } from './_components/DealershipAutomation';
+import { DEALER_FAQS } from './_lib/copy';
 
 const sections = numberSections([
-  "SEO",
-  "Website Design",
-  "Admin Automation",
+  'SEO',
+  'Website Design',
+  'Admin Automation',
   "What you're paying for",
-  "Features and integrations",
-  "Proof this works",
-  "Common questions",
+  'Features and integrations',
+  'Proof this works',
+  'Common questions',
 ] as const);
 
 const dealerAdminJobs = [
-  "Lead capture & routing",
-  "Online contract signing",
-  "Vehicle licensing",
-  "Payments & handover",
-  "CRM & system sync",
+  'Lead capture & routing',
+  'Online contract signing',
+  'Vehicle licensing',
+  'Payments & handover',
+  'CRM & system sync',
 ] as const;
 
 const dealerSubscriptionSteps = [
   [
-    "Add up the bill",
-    "Every dealership platform you pay for monthly or annually, including the ones nobody remembers signing up for.",
+    'Add up the bill',
+    'Every dealership platform you pay for monthly or annually, including the ones nobody remembers signing up for.',
   ],
   [
-    "Find what you actually use",
-    "Every dealer system comes with features. We only have to rebuild the ones your team uses.",
+    'Find what you actually use',
+    'Every dealer system comes with features. We only have to rebuild the ones your team uses.',
   ],
   [
-    "Price a build against it",
-    "If a dealership build will not be cheaper to run, or genuinely better to use, we tell you that instead.",
+    'Price a build against it',
+    'If a dealership build will not be cheaper to run, or genuinely better to use, we tell you that instead.',
   ],
 ] as const;
 
-const casePoints = ["Indexable stock", "Online purchasing", "Connected admin", "Measured in Search Console"];
+const casePoints = [
+  'Indexable stock',
+  'Online purchasing',
+  'Connected admin',
+  'Measured in Search Console',
+];
 
-export const metadata: Metadata = metadataFor("/dealers");
+export const metadata: Metadata = metadataFor('/dealers');
 
 export default function Dealers() {
   return (
@@ -64,7 +69,7 @@ export default function Dealers() {
       <Hero
         path="/dealers"
         eyebrow="Efficiency First Solutions"
-        titleLines={["Digital"]}
+        titleLines={['Digital']}
         accentTitle="dealerships."
         lead="Connected websites and operational systems built for the way modern dealerships sell, service and work."
         primaryHref="/dealership-website-builder"
@@ -84,18 +89,18 @@ export default function Dealers() {
 
       <SeoReportOverview
         id="seo"
-        eyebrow={sections["SEO"]}
+        eyebrow={sections['SEO']}
         title="Launch SEO Strong."
         accentTitle="Improve with data."
         mode="improvement"
         description="Every dealership website launches with strong SEO foundations. As search data arrives, we rank the best opportunities across stock, service and local search."
       />
 
-      <DealerWebsiteBuilderSection eyebrow={sections["Website Design"]} />
+      <DealerWebsiteBuilderSection eyebrow={sections['Website Design']} />
 
       <AdminAutomationSection
         id="website-automation"
-        eyebrow={sections["Admin Automation"]}
+        eyebrow={sections['Admin Automation']}
         spacing="joined"
         description="Your dealership website can move the admin behind each sale—routing leads, preparing contracts, starting online licensing and keeping payment and handover steps moving."
         jobs={dealerAdminJobs}
@@ -110,10 +115,10 @@ export default function Dealers() {
         steps={dealerSubscriptionSteps}
       />
 
-      <DealershipAutomation eyebrow={sections["Features and integrations"]} />
+      <DealershipAutomation eyebrow={sections['Features and integrations']} />
 
       <CaseStudyTeaser
-        eyebrow={sections["Proof this works"]}
+        eyebrow={sections['Proof this works']}
         title={
           <>
             Organic clicks grew <span className="moving-colour-text">300%.</span>
@@ -125,8 +130,9 @@ export default function Dealers() {
         showPrimaryAction={false}
       >
         <p>
-          Scooter Shop connects dealership inventory, parts, purchasing and service journeys in one website. Fast
-          structured pages and focused search content helped organic clicks grow by 300% in six months.
+          Scooter Shop connects dealership inventory, parts, purchasing and service journeys in one
+          website. Fast structured pages and focused search content helped organic clicks grow by
+          300% in six months.
         </p>
         <p>The same dealership system keeps customer actions and admin moving together.</p>
       </CaseStudyTeaser>
@@ -145,7 +151,7 @@ export default function Dealers() {
       />
 
       <Faq
-        eyebrow={sections["Common questions"]}
+        eyebrow={sections['Common questions']}
         title="Dealership website and automation questions."
         items={DEALER_FAQS}
       />
@@ -155,8 +161,8 @@ export default function Dealers() {
         href="#project-enquiry"
         buttonLabel="Discuss your dealership"
       >
-        Tell us where leads, contracts, licensing or handovers slow down. We&apos;ll find the simplest worthwhile place
-        to begin.
+        Tell us where leads, contracts, licensing or handovers slow down. We&apos;ll find the
+        simplest worthwhile place to begin.
       </ManualAdminCta>
     </main>
   );

@@ -1,5 +1,5 @@
-import { PrimaryButton } from "@/components/PrimaryButton";
-import { SeoReportOverview } from "@/components/SeoReportOverview";
+import { PrimaryButton } from '@/components/PrimaryButton';
+import { SeoReportOverview } from '@/components/SeoReportOverview';
 
 export function HomeSeoFeature() {
   return (
@@ -12,8 +12,9 @@ export function HomeSeoFeature() {
       description={
         <div className="flex flex-col gap-l [&>span]:block">
           <span>
-            Human-written reports that turn your search data into ranked next steps. Choose an ongoing website SEO
-            report, a one-time Google Business Profile audit, or use both. The AI readiness check is free.
+            Human-written reports that turn your search data into ranked next steps. Choose an
+            ongoing website SEO report, a one-time Google Business Profile audit, or use both. The
+            AI readiness check is free.
           </span>
           <PrimaryButton className="self-start tracking-[0.06em]" href="/seo" size="compact">
             Explore SEO reports

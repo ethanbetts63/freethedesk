@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import type { Paginated } from "@/lib/api";
+import type { Paginated } from '@/lib/api';
 
 export const ADMIN_PAGE_SIZE = 50;
 
@@ -43,15 +43,15 @@ export function useAdminList<Row>({
   const [total, setTotal] = useState(0);
   const [hasNext, setHasNext] = useState(false);
   const [loadedKey, setLoadedKey] = useState<string | null>(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const filters = useMemo(() => {
     const out: Record<string, string> = {};
-    for (const key of filterKeys) out[key] = params.get(key) ?? "all";
+    for (const key of filterKeys) out[key] = params.get(key) ?? 'all';
     return out;
   }, [params, filterKeys]);
 
-  const search = params.get("search") ?? "";
+  const search = params.get('search') ?? '';
   const [searchDraft, setSearchDraft] = useState(search);
 
   const [lastSyncedSearch, setLastSyncedSearch] = useState(search);
@@ -61,11 +61,11 @@ export function useAdminList<Row>({
   }
 
   const ordering = useMemo(() => {
-    const value = params.get("ordering") ?? "";
-    return sortFields.includes(value.replace(/^-/, "")) ? value : `-${sortFields[0]}`;
+    const value = params.get('ordering') ?? '';
+    return sortFields.includes(value.replace(/^-/, '')) ? value : `-${sortFields[0]}`;
   }, [params, sortFields]);
 
-  const page = Math.max(1, Number.parseInt(params.get("page") ?? "1", 10) || 1);
+  const page = Math.max(1, Number.parseInt(params.get('page') ?? '1', 10) || 1);
 
   const view: AdminListView = useMemo(
     () => ({ filters, search, ordering, page, pageSize }),
@@ -77,7 +77,9 @@ export function useAdminList<Row>({
   const setQuery = useCallback(
     (changes: Record<string, string | null>) => {
       const next = new URLSearchParams(queryString);
-      Object.entries(changes).forEach(([key, value]) => (value ? next.set(key, value) : next.delete(key)));
+      Object.entries(changes).forEach(([key, value]) =>
+        value ? next.set(key, value) : next.delete(key),
+      );
       const text = next.toString();
       router.replace(text ? `${pathname}?${text}` : pathname, { scroll: false });
     },
@@ -86,7 +88,7 @@ export function useAdminList<Row>({
 
   // Any filter or search change resets to page 1.
   const setFilter = useCallback(
-    (key: string, value: string) => setQuery({ [key]: value === "all" ? null : value, page: null }),
+    (key: string, value: string) => setQuery({ [key]: value === 'all' ? null : value, page: null }),
     [setQuery],
   );
 
@@ -97,13 +99,16 @@ export function useAdminList<Row>({
 
   const toggleSort = useCallback(
     (field: string) => {
-      const active = ordering.replace(/^-/, "") === field;
-      setQuery({ ordering: active && !ordering.startsWith("-") ? `-${field}` : field, page: null });
+      const active = ordering.replace(/^-/, '') === field;
+      setQuery({ ordering: active && !ordering.startsWith('-') ? `-${field}` : field, page: null });
     },
     [ordering, setQuery],
   );
 
-  const setPage = useCallback((next: number) => setQuery({ page: next > 1 ? String(next) : null }), [setQuery]);
+  const setPage = useCallback(
+    (next: number) => setQuery({ page: next > 1 ? String(next) : null }),
+    [setQuery],
+  );
 
   useEffect(() => {
     let active = true;
@@ -113,7 +118,7 @@ export function useAdminList<Row>({
         setRows(result.results);
         setTotal(result.count);
         setHasNext(Boolean(result.next));
-        setError("");
+        setError('');
       })
       .catch((reason) => {
         if (active) setError(reason instanceof Error ? reason.message : loadError);
@@ -150,5 +155,11 @@ export function useAdminList<Row>({
 
 /** Turns the hook's view into the query params the admin API expects. */
 export function adminListParams(view: AdminListView): Record<string, string | number | undefined> {
-  return { ...view.filters, search: view.search, ordering: view.ordering, page: view.page, page_size: view.pageSize };
+  return {
+    ...view.filters,
+    search: view.search,
+    ordering: view.ordering,
+    page: view.page,
+    page_size: view.pageSize,
+  };
 }

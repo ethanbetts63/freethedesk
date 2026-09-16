@@ -1,5 +1,5 @@
-import { permanentRedirect } from "next/navigation";
+import { permanentRedirect } from 'next/navigation';
 
 export default function LegacyBlogPage() {
-  permanentRedirect("/guides");
+  permanentRedirect('/guides');
 }

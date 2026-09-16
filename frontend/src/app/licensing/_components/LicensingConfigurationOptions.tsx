@@ -1,10 +1,10 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import { SectionNumber } from "@/components/SectionNumber";
+import { SectionNumber } from '@/components/SectionNumber';
 
-import { FlowCompare } from "./FlowCompare";
-import { LicensingNextStepPhone } from "./LicensingNextStepPhone";
-import { LoginPreviewPhone } from "./LoginPreviewPhone";
+import { FlowCompare } from './FlowCompare';
+import { LicensingNextStepPhone } from './LicensingNextStepPhone';
+import { LoginPreviewPhone } from './LoginPreviewPhone';
 
 export function LicensingConfigurationOptions({ eyebrow }: { eyebrow: string }) {
   return (
@@ -16,18 +16,22 @@ export function LicensingConfigurationOptions({ eyebrow }: { eyebrow: string }) 
             Our portal or <span className="moving-colour-text">your website.</span>
           </h2>
           <p className="mt-ml max-w-[440px] text-lead leading-[1.7] text-[var(--slate-300)]">
-            Use the hosted product with the website you already have, or make it a seamless part of a dealership site we
-            build.
+            Use the hosted product with the website you already have, or make it a seamless part of
+            a dealership site we build.
           </p>
         </div>
         <div className="flex flex-wrap items-start justify-center gap-xl sm:flex-nowrap sm:gap-2xl">
           <div className="flex flex-col items-center">
             <LoginPreviewPhone />
-            <p className="mx-0 mt-m mb-0 text-small font-control text-text-on-dark">Hosted portal</p>
+            <p className="mx-0 mt-m mb-0 text-small font-control text-text-on-dark">
+              Hosted portal
+            </p>
           </div>
           <div className="flex flex-col items-center">
             <LicensingNextStepPhone />
-            <p className="mx-0 mt-m mb-0 text-small font-control text-text-on-dark">Built into your website</p>
+            <p className="mx-0 mt-m mb-0 text-small font-control text-text-on-dark">
+              Built into your website
+            </p>
             <Link
               className="mt-xs inline-flex cursor-pointer items-center gap-xs border-0 border-b border-[color-mix(in_srgb,var(--surface-page)_50%,transparent)] bg-none pb-3xs font-[inherit] text-caption font-heavy text-[var(--slate-200)]"
               href="/portfolio/scooter-shop"

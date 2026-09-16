@@ -1,4 +1,4 @@
-import styles from "./WebsiteDevelopmentFeature.module.css";
+import styles from './WebsiteDevelopmentFeature.module.css';
 
 export function WebsiteDevelopmentFeatureVisual() {
   return (

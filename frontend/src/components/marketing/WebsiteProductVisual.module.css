@@ -139,7 +139,7 @@
 
 .previewVehicle::before {
   background: radial-gradient(circle, rgba(77, 165, 219, 0.3), transparent 68%);
-  content: "";
+  content: '';
   height: 240px;
   max-width: 100%;
   position: absolute;

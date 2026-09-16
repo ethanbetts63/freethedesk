@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-const text = z.string().optional().default("");
+const text = z.string().optional().default('');
 
 // A file input always appears in FormData, even when nothing was chosen —
 // browsers submit an empty File (name "", size 0) rather than omitting it.
@@ -26,7 +26,7 @@ export const dealerSetupSchema = z.object({
   dealer_licence_document: optionalFile,
   authorised_officer_identity_document: optionalFile,
   business_evidence_document: optionalFile,
-  intent: z.enum(["draft", "submit"]).default("draft"),
+  intent: z.enum(['draft', 'submit']).default('draft'),
 });
 
 export type DealerSetupValues = z.infer<typeof dealerSetupSchema>;

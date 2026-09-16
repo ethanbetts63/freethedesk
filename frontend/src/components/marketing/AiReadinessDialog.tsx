@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
-import { AiReadinessBanner } from "./AiReadinessBanner";
-import styles from "./AiReadinessBanner.module.css";
+import { AiReadinessBanner } from './AiReadinessBanner';
+import styles from './AiReadinessBanner.module.css';
 
 const FOCUSABLE_SELECTOR = [
-  "a[href]",
-  "button:not([disabled])",
-  "input:not([disabled])",
-  "select:not([disabled])",
-  "textarea:not([disabled])",
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
   '[tabindex]:not([tabindex="-1"])',
-].join(",");
+].join(',');
 
 /**
  * The prompt itself, loaded on demand. Mounted only while open, so the effect
@@ -24,22 +24,23 @@ export function AiReadinessDialog({ onClose }: { onClose: () => void }) {
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previouslyFocused =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
     closeRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         event.preventDefault();
         onClose();
         return;
       }
-      if (event.key !== "Tab") return;
+      if (event.key !== 'Tab') return;
 
-      const focusable = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR) ?? []).filter(
-        (element) => !element.hidden && element.getAttribute("aria-hidden") !== "true",
-      );
+      const focusable = Array.from(
+        dialogRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR) ?? [],
+      ).filter((element) => !element.hidden && element.getAttribute('aria-hidden') !== 'true');
       if (!focusable.length) {
         event.preventDefault();
         return;
@@ -55,17 +56,20 @@ export function AiReadinessDialog({ onClose }: { onClose: () => void }) {
         first.focus();
       }
     };
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
       if (previouslyFocused?.isConnected) previouslyFocused.focus();
     };
   }, [onClose]);
 
   return createPortal(
-    <div className={styles.modalBackdrop} onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+    <div
+      className={styles.modalBackdrop}
+      onMouseDown={(event) => event.target === event.currentTarget && onClose()}
+    >
       <div
         ref={dialogRef}
         className={styles.modal}

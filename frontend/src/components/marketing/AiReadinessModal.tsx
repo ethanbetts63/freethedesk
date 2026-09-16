@@ -1,19 +1,22 @@
-"use client";
+'use client';
 
-import dynamic from "next/dynamic";
-import { useCallback, useEffect, useState } from "react";
+import dynamic from 'next/dynamic';
+import { useCallback, useEffect, useState } from 'react';
 
-const MOBILE_QUERY = "(max-width: 639px)";
+const MOBILE_QUERY = '(max-width: 639px)';
 const PROMPT_DELAY = 60_000;
-const PROMPT_STARTED_KEY = "freethedesk-ai-readiness-started";
-const PROMPT_SHOWN_KEY = "freethedesk-ai-readiness-shown";
+const PROMPT_STARTED_KEY = 'freethedesk-ai-readiness-started';
+const PROMPT_SHOWN_KEY = 'freethedesk-ai-readiness-shown';
 
 /* The prompt only ever opens on a narrow viewport, a minute in. Fetching it on
    demand keeps the dialog, the banner and its form out of the initial download
    on every page - and off desktop entirely, where the timer never fires. */
-const AiReadinessDialog = dynamic(() => import("./AiReadinessDialog").then((m) => m.AiReadinessDialog), {
-  ssr: false,
-});
+const AiReadinessDialog = dynamic(
+  () => import('./AiReadinessDialog').then((m) => m.AiReadinessDialog),
+  {
+    ssr: false,
+  },
+);
 
 export function AiReadinessModal() {
   const [open, setOpen] = useState(false);
@@ -38,7 +41,7 @@ export function AiReadinessModal() {
       timer = window.setTimeout(
         () => {
           if (!media.matches) return;
-          sessionStorage.setItem(PROMPT_SHOWN_KEY, "true");
+          sessionStorage.setItem(PROMPT_SHOWN_KEY, 'true');
           setOpen(true);
         },
         Math.max(0, PROMPT_DELAY - (Date.now() - startedAt)),
@@ -46,11 +49,11 @@ export function AiReadinessModal() {
     };
 
     schedule();
-    media.addEventListener("change", schedule);
+    media.addEventListener('change', schedule);
 
     return () => {
       window.clearTimeout(timer);
-      media.removeEventListener("change", schedule);
+      media.removeEventListener('change', schedule);
     };
   }, []);
 

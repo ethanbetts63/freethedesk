@@ -1,5 +1,5 @@
-import { PrimaryButton } from "@/components/PrimaryButton";
-import { SectionNumber } from "@/components/SectionNumber";
+import { PrimaryButton } from '@/components/PrimaryButton';
+import { SectionNumber } from '@/components/SectionNumber';
 
 export type Service = {
   title: string;
@@ -10,11 +10,16 @@ export type Service = {
 };
 
 const customService = {
-  title: "Custom automation",
-  body: "The repetitive, computer-based task too specific for any off-the-shelf tool. Tell us what eats your week.",
+  title: 'Custom automation',
+  body: 'The repetitive, computer-based task too specific for any off-the-shelf tool. Tell us what eats your week.',
   icon: (
     <svg viewBox="0 0 64 64" width={96} height={96} fill="none" aria-hidden="true">
-      <path d="M32 2V62M6 12L58 52M58 12L6 52" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path
+        d="M32 2V62M6 12L58 52M58 12L6 52"
+        stroke="currentColor"
+        strokeWidth="5"
+        strokeLinecap="round"
+      />
     </svg>
   ),
 };
@@ -24,7 +29,7 @@ export function ServiceScroll({
   customHref,
   eyebrow,
   title,
-  ctaLabel = "Tell us about it",
+  ctaLabel = 'Tell us about it',
   showCustomService = true,
   showCustomCta = true,
 }: {
@@ -37,7 +42,7 @@ export function ServiceScroll({
   showCustomCta?: boolean;
 }) {
   // The form is below this list, so in-page links scroll down.
-  const ctaDirection = customHref.startsWith("#") ? "down" : "page";
+  const ctaDirection = customHref.startsWith('#') ? 'down' : 'page';
 
   return (
     // "service-scroll" carries no styling of its own - it's a marker class so
@@ -47,13 +52,15 @@ export function ServiceScroll({
       <div className="flex flex-wrap items-center justify-between gap-xl pt-2xl">
         <div>
           <SectionNumber>{eyebrow}</SectionNumber>
-          <h2 className="m-0 max-w-[780px] text-display-3 leading-[1.02] tracking-[-0.058em]">{title}</h2>
+          <h2 className="m-0 max-w-[780px] text-display-3 leading-[1.02] tracking-[-0.058em]">
+            {title}
+          </h2>
         </div>
       </div>
       {services.map((service, index) => (
         <div
           className={`grid grid-cols-[minmax(0,1fr)] gap-2xl border-t border-border-default px-0 pb-3xl min-[900px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] ${
-            index === 0 ? "border-t-0 pt-2xl" : "pt-3xl"
+            index === 0 ? 'border-t-0 pt-2xl' : 'pt-3xl'
           }`}
           key={service.title}
         >
@@ -61,14 +68,18 @@ export function ServiceScroll({
             {/* Number colour comes from the stylesheet (--accent-ink) so it always
                 clears contrast; service.color only tints the decorative icon. */}
             <span className="text-caption font-heavy text-text-action">0{index + 1}</span>
-            <h3 className="mt-m mb-0 text-display-2 leading-[1.05] tracking-[-0.04em]">{service.title}</h3>
+            <h3 className="mt-m mb-0 text-display-2 leading-[1.05] tracking-[-0.04em]">
+              {service.title}
+            </h3>
           </div>
           <div className="max-w-[560px] pt-2xs">
             <div className="flex flex-col items-start gap-l sm:flex-row sm:items-center">
               <div className="flex-none" style={{ color: service.color }}>
                 {service.icon}
               </div>
-              <p className="m-0 text-lead leading-[1.65] font-medium text-text-muted">{service.body}</p>
+              <p className="m-0 text-lead leading-[1.65] font-medium text-text-muted">
+                {service.body}
+              </p>
             </div>
             <ul className="m-0 mt-xl list-none border-t border-border-default p-0">
               {service.examples.map((example) => (
@@ -98,8 +109,12 @@ export function ServiceScroll({
               </span>
               Built around your business
             </p>
-            <h3 className="m-0 mb-m text-display-2 leading-none tracking-[-0.05em]">{customService.title}</h3>
-            <p className="m-0 max-w-[520px] text-lead leading-[1.65] text-text-muted">{customService.body}</p>
+            <h3 className="m-0 mb-m text-display-2 leading-none tracking-[-0.05em]">
+              {customService.title}
+            </h3>
+            <p className="m-0 max-w-[520px] text-lead leading-[1.65] text-text-muted">
+              {customService.body}
+            </p>
           </div>
           {showCustomCta && (
             <PrimaryButton

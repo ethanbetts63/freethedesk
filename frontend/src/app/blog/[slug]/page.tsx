@@ -1,6 +1,6 @@
-import { permanentRedirect } from "next/navigation";
+import { permanentRedirect } from 'next/navigation';
 
-import { getAllArticleSlugs } from "@/lib/articles";
+import { getAllArticleSlugs } from '@/lib/articles';
 
 export const dynamicParams = false;
 

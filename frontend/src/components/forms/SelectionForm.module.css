@@ -12,7 +12,8 @@
 .panel {
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   -webkit-background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface-page), var(--surface-page)), var(--moving-colour-gradient);
+  background-image:
+    linear-gradient(var(--surface-page), var(--surface-page)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -86,7 +87,8 @@
 .choiceGrid .choiceRecommended {
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface-tint), var(--surface-tint)), var(--moving-colour-gradient);
+  background-image:
+    linear-gradient(var(--surface-tint), var(--surface-tint)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -94,7 +96,8 @@
   border: 2px solid transparent;
 }
 .choiceGrid .choiceRecommended.choiceSelected {
-  background-image: linear-gradient(var(--surface-dark), var(--surface-dark)), var(--moving-colour-gradient);
+  background-image:
+    linear-gradient(var(--surface-dark), var(--surface-dark)), var(--moving-colour-gradient);
 }
 
 @media (prefers-reduced-motion: reduce) {

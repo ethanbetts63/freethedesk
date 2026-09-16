@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
-import type { InventoryOptionDefinition, ModuleDefinition } from "../_lib/types";
-import { CapabilityIcon } from "./CapabilityIcon";
-import styles from "../_styles/configurator.module.css";
+import type { InventoryOptionDefinition, ModuleDefinition } from '../_lib/types';
+import { CapabilityIcon } from './CapabilityIcon';
+import styles from '../_styles/configurator.module.css';
 
 type CapabilityOptionProps = {
   option: ModuleDefinition | InventoryOptionDefinition;
@@ -23,8 +23,12 @@ export function CapabilityOption({
   onExpandedChange,
   children,
 }: CapabilityOptionProps) {
-  const explanationId = `${compact ? "inventory" : "module"}-${option.key}`;
-  const selectedClass = selected ? (compact ? styles.subOptionSelected : styles.moduleSelected) : "";
+  const explanationId = `${compact ? 'inventory' : 'module'}-${option.key}`;
+  const selectedClass = selected
+    ? compact
+      ? styles.subOptionSelected
+      : styles.moduleSelected
+    : '';
 
   return (
     <div className={compact ? styles.subOption : styles.moduleChoice}>
@@ -36,7 +40,7 @@ export function CapabilityOption({
           aria-pressed={selected}
         >
           <span className={styles.capabilityLabel}>
-            <span className={`${styles.capabilityIcon} ${compact ? styles.subCapabilityIcon : ""}`}>
+            <span className={`${styles.capabilityIcon} ${compact ? styles.subCapabilityIcon : ''}`}>
               <CapabilityIcon type={option.key} />
             </span>
             <span>
@@ -44,15 +48,15 @@ export function CapabilityOption({
               <small>{option.description}</small>
             </span>
           </span>
-          <i>{selected ? "✓" : "+"}</i>
+          <i>{selected ? '✓' : '+'}</i>
         </button>
         <button
           type="button"
-          className={`${styles.expandToggle} ${expanded ? styles.expandToggleOpen : ""}`}
+          className={`${styles.expandToggle} ${expanded ? styles.expandToggleOpen : ''}`}
           onClick={onExpandedChange}
           aria-expanded={expanded}
           aria-controls={`${explanationId}-details`}
-          aria-label={`${expanded ? "Hide" : "Learn more about"} ${option.name}`}
+          aria-label={`${expanded ? 'Hide' : 'Learn more about'} ${option.name}`}
         >
           <svg viewBox="0 0 20 20" aria-hidden="true">
             <path d="m5 7.5 5 5 5-5" />
@@ -61,7 +65,7 @@ export function CapabilityOption({
       </div>
       {expanded && (
         <div
-          className={`${styles.moduleExplanation} ${compact ? styles.subExplanation : ""}`}
+          className={`${styles.moduleExplanation} ${compact ? styles.subExplanation : ''}`}
           id={`${explanationId}-details`}
         >
           <p>{option.detail}</p>

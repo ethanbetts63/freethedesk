@@ -1,15 +1,21 @@
-import { PrimaryButton } from "@/components/PrimaryButton";
-import { SplitFeatureSection } from "@/components/SplitFeatureSection";
+import { PrimaryButton } from '@/components/PrimaryButton';
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
-import { WebsiteProductVisual } from "./WebsiteProductVisual";
+import { WebsiteProductVisual } from './WebsiteProductVisual';
 
 const bullets = [
-  "Inventory, vehicle, parts and service pages",
-  "Online purchasing, licensing and contract signing",
-  "A live builder you can explore before we talk",
+  'Inventory, vehicle, parts and service pages',
+  'Online purchasing, licensing and contract signing',
+  'A live builder you can explore before we talk',
 ] as const;
 
-export function DealerWebsiteBuilderSection({ eyebrow, id = "customer-journeys" }: { eyebrow: string; id?: string }) {
+export function DealerWebsiteBuilderSection({
+  eyebrow,
+  id = 'customer-journeys',
+}: {
+  eyebrow: string;
+  id?: string;
+}) {
   return (
     <SplitFeatureSection
       id={id}

@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useActionState, useEffect, useState } from "react";
-import { getSeoAccount, type SeoAccount } from "@/lib/seoApi";
-import { submitSeoAccount, type SeoAccountState } from "./SeoAccount.actions";
+import { useActionState, useEffect, useState } from 'react';
+import { getSeoAccount, type SeoAccount } from '@/lib/seoApi';
+import { submitSeoAccount, type SeoAccountState } from './SeoAccount.actions';
 
-const initialState: SeoAccountState = { status: "idle" };
+const initialState: SeoAccountState = { status: 'idle' };
 
 export default function SeoPortalAccountPage() {
   const [loadedAccount, setLoadedAccount] = useState<SeoAccount | null>(null);
-  const [form, setForm] = useState({ business_name: "", contact_name: "", phone: "", website: "" });
+  const [form, setForm] = useState({ business_name: '', contact_name: '', phone: '', website: '' });
   const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [loadError, setLoadError] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [state, dispatch, saving] = useActionState(submitSeoAccount, initialState);
 
   useEffect(() => {
@@ -26,7 +26,11 @@ export default function SeoPortalAccountPage() {
           website: result.website,
         });
       })
-      .catch((reason) => setLoadError(reason instanceof Error ? reason.message : "Your account could not be loaded."))
+      .catch((reason) =>
+        setLoadError(
+          reason instanceof Error ? reason.message : 'Your account could not be loaded.',
+        ),
+      )
       .finally(() => setLoading(false));
   }, []);
 
@@ -36,9 +40,9 @@ export default function SeoPortalAccountPage() {
   // entirely, so nothing needs to explicitly clear them on success — and
   // leaving them alone on a mismatch error means the user isn't forced to
   // retype both.
-  const account = state.status === "success" && state.account ? state.account : loadedAccount;
-  const error = state.status === "error" ? state.error : loadError;
-  const notice = state.status === "success" && !saving ? "Your details have been saved." : "";
+  const account = state.status === 'success' && state.account ? state.account : loadedAccount;
+  const error = state.status === 'error' ? state.error : loadError;
+  const notice = state.status === 'success' && !saving ? 'Your details have been saved.' : '';
 
   const dirty =
     account !== null &&
@@ -72,8 +76,10 @@ export default function SeoPortalAccountPage() {
       <header className="admin-page-header">
         <div>
           <p className="admin-kicker">SEO portal</p>
-          <h1>{account.has_usable_password ? "Account details" : "Complete your account"}</h1>
-          {!account.has_usable_password && <p>Add your details and choose the password you&apos;ll use next time.</p>}
+          <h1>{account.has_usable_password ? 'Account details' : 'Complete your account'}</h1>
+          {!account.has_usable_password && (
+            <p>Add your details and choose the password you&apos;ll use next time.</p>
+          )}
         </div>
       </header>
 
@@ -125,7 +131,8 @@ export default function SeoPortalAccountPage() {
               Email
               <input value={account.email} disabled />
               <small className="mt-2xs block text-ui leading-[1.45] font-normal text-text-subtle">
-                This is your sign-in address. To change it, email hello@freethedesk.com.au and we will move it across.
+                This is your sign-in address. To change it, email hello@freethedesk.com.au and we
+                will move it across.
               </small>
             </label>
             {!account.has_usable_password && (
@@ -157,7 +164,11 @@ export default function SeoPortalAccountPage() {
               </>
             )}
             <button type="submit" className="admin-primary-button" disabled={saving || !dirty}>
-              {saving ? "Saving…" : account.has_usable_password ? "Save changes" : "Complete account setup"}
+              {saving
+                ? 'Saving…'
+                : account.has_usable_password
+                  ? 'Save changes'
+                  : 'Complete account setup'}
             </button>
           </form>
         </section>

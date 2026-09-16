@@ -1,7 +1,7 @@
-import { cookies } from "next/headers";
-import type { PublicSiteSettings } from "./api";
+import { cookies } from 'next/headers';
+import type { PublicSiteSettings } from './api';
 
-export const SERVER_API_BASE_URL = process.env.DJANGO_API_URL ?? "http://127.0.0.1:8000";
+export const SERVER_API_BASE_URL = process.env.DJANGO_API_URL ?? 'http://127.0.0.1:8000';
 
 const SAFE_METHODS = /^(GET|HEAD|OPTIONS|TRACE)$/i;
 
@@ -20,14 +20,14 @@ const SAFE_METHODS = /^(GET|HEAD|OPTIONS|TRACE)$/i;
  */
 export async function serverApiFetch(path: string, init: RequestInit = {}): Promise<Response> {
   const cookieStore = await cookies();
-  const method = init.method ?? "GET";
+  const method = init.method ?? 'GET';
 
   const headers: Record<string, string> = { ...(init.headers as Record<string, string>) };
-  headers["Cookie"] = cookieStore.toString();
+  headers['Cookie'] = cookieStore.toString();
 
   if (!SAFE_METHODS.test(method)) {
-    const csrfToken = cookieStore.get("csrftoken")?.value;
-    if (csrfToken) headers["X-CSRFToken"] = csrfToken;
+    const csrfToken = cookieStore.get('csrftoken')?.value;
+    if (csrfToken) headers['X-CSRFToken'] = csrfToken;
   }
 
   return fetch(`${SERVER_API_BASE_URL}${path}`, {
@@ -38,14 +38,14 @@ export async function serverApiFetch(path: string, init: RequestInit = {}): Prom
 }
 
 const PRICE_FIELDS = [
-  "licensing_price",
-  "contracts_price",
-  "complete_price",
-  "seo_monthly_price",
-  "seo_quarterly_price",
-  "seo_biannual_price",
-  "seo_oneoff_price",
-  "gbp_audit_price",
+  'licensing_price',
+  'contracts_price',
+  'complete_price',
+  'seo_monthly_price',
+  'seo_quarterly_price',
+  'seo_biannual_price',
+  'seo_oneoff_price',
+  'gbp_audit_price',
 ] as const satisfies readonly (keyof PublicSiteSettings)[];
 
 /**
@@ -63,7 +63,7 @@ const PRICE_FIELDS = [
  */
 export async function getSiteSettingsServer(): Promise<PublicSiteSettings> {
   const response = await fetch(`${SERVER_API_BASE_URL}/api/site-settings/`, {
-    cache: "no-store",
+    cache: 'no-store',
     signal: AbortSignal.timeout(5000),
   });
   if (!response.ok) {
@@ -75,7 +75,7 @@ export async function getSiteSettingsServer(): Promise<PublicSiteSettings> {
   // silently-wrong price the fallback used to cause.
   const missing = PRICE_FIELDS.filter((field) => !settings[field]);
   if (missing.length) {
-    throw new Error(`Site settings response is missing pricing: ${missing.join(", ")}.`);
+    throw new Error(`Site settings response is missing pricing: ${missing.join(', ')}.`);
   }
   return settings;
 }

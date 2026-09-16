@@ -1,24 +1,25 @@
-"use client";
+'use client';
 
-import { FormEvent, ReactNode, useState } from "react";
-import Link from "next/link";
-import { PaymentElement, useCheckoutElements } from "@stripe/react-stripe-js/checkout";
+import { FormEvent, ReactNode, useState } from 'react';
+import Link from 'next/link';
+import { PaymentElement, useCheckoutElements } from '@stripe/react-stripe-js/checkout';
 
-import { SignalFlow } from "@/components/visuals/SignalFlow";
+import { SignalFlow } from '@/components/visuals/SignalFlow';
 
 /**
  * Layout and lifecycle chrome shared by the checkout flows (dealer
  * subscriptions, SEO reports) so the two cannot visually drift apart.
  */
 
-const eyebrowClassName = "text-caption font-black tracking-[0.14em] text-action-primary uppercase";
-const headingClassName = "my-s text-display-3 leading-[0.96] tracking-[-0.065em]";
-const bodyClassName = "m-0 text-body leading-[1.6] text-[var(--slate-600)]";
+const eyebrowClassName = 'text-caption font-black tracking-[0.14em] text-action-primary uppercase';
+const headingClassName = 'my-s text-display-3 leading-[0.96] tracking-[-0.065em]';
+const bodyClassName = 'm-0 text-body leading-[1.6] text-[var(--slate-600)]';
 const payButtonClassName =
-  "flex min-h-[60px] w-full cursor-pointer items-center border-0 bg-action-primary px-ml font-[inherit] text-small font-black text-text-on-dark disabled:cursor-not-allowed disabled:opacity-45 [&>b]:text-step-0";
-const fineprintClassName = "mx-auto mt-s max-w-[430px] text-center text-meta leading-[1.5] text-[var(--slate-500)]";
+  'flex min-h-[60px] w-full cursor-pointer items-center border-0 bg-action-primary px-ml font-[inherit] text-small font-black text-text-on-dark disabled:cursor-not-allowed disabled:opacity-45 [&>b]:text-step-0';
+const fineprintClassName =
+  'mx-auto mt-s max-w-[430px] text-center text-meta leading-[1.5] text-[var(--slate-500)]';
 const paymentErrorClassName =
-  "my-m border-l-[3px] border-border-danger bg-surface-danger p-s text-ui leading-[1.55] text-text-danger";
+  'my-m border-l-[3px] border-border-danger bg-surface-danger p-s text-ui leading-[1.55] text-text-danger';
 
 export type CheckoutOrder = {
   lineLabel: string;
@@ -46,8 +47,13 @@ export function CheckoutShell({
           <SignalFlow />
         </div>
         <div className="relative z-2 flex min-h-[540px] flex-col px-ml py-xl sm:min-h-[620px] sm:p-[clamp(30px,5vw,72px)] min-[900px]:min-h-screen">
-          <Link className="w-fit text-step-1 font-black tracking-[-0.07em] text-surface-inverse" href="/">
-            free<span className="mx-4xs text-[0.73em] font-strong text-[var(--slate-500)]">the</span>desk
+          <Link
+            className="w-fit text-step-1 font-black tracking-[-0.07em] text-surface-inverse"
+            href="/"
+          >
+            free
+            <span className="mx-4xs text-[0.73em] font-strong text-[var(--slate-500)]">the</span>
+            desk
             <i className="text-action-primary not-italic">.</i>
           </Link>
           <div className="mx-0 mt-auto mb-xl max-w-[610px] sm:mb-2xl">
@@ -74,7 +80,10 @@ export function CheckoutShell({
               <div className="mt-xs flex items-center justify-between border-t border-[var(--slate-200)] pt-m pb-2xs text-ui">
                 <span className="text-[var(--slate-600)]">{order.dueLabel}</span>
                 <strong className="text-step-2 tracking-[-0.04em] text-action-primary">
-                  {order.price} <small className="text-label tracking-normal text-[var(--slate-500)]">GST inc.</small>
+                  {order.price}{' '}
+                  <small className="text-label tracking-normal text-[var(--slate-500)]">
+                    GST inc.
+                  </small>
                 </strong>
               </div>
             </div>
@@ -161,7 +170,7 @@ export function CheckoutTermsForm({
           className="mt-4xs mr-0 mb-0 ml-0 h-[17px] w-[17px] flex-none accent-action-primary"
         />
         <span>
-          I agree to the{" "}
+          I agree to the{' '}
           <Link
             className="font-heavy text-action-primary underline underline-offset-2"
             href={termsHref}
@@ -170,7 +179,7 @@ export function CheckoutTermsForm({
           >
             {termsLabel}
           </Link>
-          , acknowledge the{" "}
+          , acknowledge the{' '}
           <Link
             className="font-heavy text-action-primary underline underline-offset-2"
             href="/legal/privacy"
@@ -183,7 +192,7 @@ export function CheckoutTermsForm({
         </span>
       </label>
       <button type="submit" className={payButtonClassName} disabled={!accepted || preparing}>
-        <span>{preparing ? "Preparing secure payment…" : "Payment"}</span>
+        <span>{preparing ? 'Preparing secure payment…' : 'Payment'}</span>
         <b>→</b>
       </button>
     </form>
@@ -202,45 +211,57 @@ export function CheckoutPaymentForm({
 }) {
   const result = useCheckoutElements();
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (result.type !== "success" || !result.checkout.canConfirm) return;
+    if (result.type !== 'success' || !result.checkout.canConfirm) return;
     setSubmitting(true);
-    setError("");
+    setError('');
     try {
       const confirmed = await result.checkout.confirm({
         returnUrl: `${window.location.origin}${returnPath}`,
       });
-      if (confirmed.type === "error") setError(confirmed.error.message || "Payment could not be confirmed.");
+      if (confirmed.type === 'error')
+        setError(confirmed.error.message || 'Payment could not be confirmed.');
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Payment could not be confirmed.");
+      setError(reason instanceof Error ? reason.message : 'Payment could not be confirmed.');
     } finally {
       setSubmitting(false);
     }
   }
 
-  if (result.type === "loading")
-    return <div className="py-l text-small text-[var(--slate-600)]">Loading secure card entry…</div>;
-  if (result.type === "error") return <p className={paymentErrorClassName}>{result.error.message}</p>;
+  if (result.type === 'loading')
+    return (
+      <div className="py-l text-small text-[var(--slate-600)]">Loading secure card entry…</div>
+    );
+  if (result.type === 'error')
+    return <p className={paymentErrorClassName}>{result.error.message}</p>;
 
   return (
     <form className="w-full max-w-[560px]" onSubmit={submit}>
       <div className="mb-xl border-b border-[var(--slate-200)] pb-xl">
         <span className={eyebrowClassName}>Secure payment</span>
         <h2 className={headingClassName}>{heading}</h2>
-        <p className={bodyClassName}>Your card details are encrypted and handled directly by Stripe.</p>
+        <p className={bodyClassName}>
+          Your card details are encrypted and handled directly by Stripe.
+        </p>
       </div>
       <PaymentElement />
-      <p className={fineprintClassName}>The selected offer and accepted terms are recorded with this checkout.</p>
+      <p className={fineprintClassName}>
+        The selected offer and accepted terms are recorded with this checkout.
+      </p>
       {error && (
         <p className={paymentErrorClassName} role="alert">
           {error}
         </p>
       )}
-      <button type="submit" className={payButtonClassName} disabled={!result.checkout.canConfirm || submitting}>
-        <span>{submitting ? "Confirming…" : submitLabel}</span>
+      <button
+        type="submit"
+        className={payButtonClassName}
+        disabled={!result.checkout.canConfirm || submitting}
+      >
+        <span>{submitting ? 'Confirming…' : submitLabel}</span>
         <b>→</b>
       </button>
       <p className={fineprintClassName}>

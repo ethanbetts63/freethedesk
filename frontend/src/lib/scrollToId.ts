@@ -15,15 +15,15 @@ export function scrollToId(id: string): boolean {
   const target = document.getElementById(id);
   if (!target) return false;
 
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  target.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
 
   // The section isn't natively focusable, so keyboard and screen-reader users
   // would stay on the CTA while the page scrolled away from them. Make it
   // focusable just for this interaction and drop the attribute again on blur.
-  target.setAttribute("tabindex", "-1");
+  target.setAttribute('tabindex', '-1');
   target.focus({ preventScroll: true });
-  target.addEventListener("blur", () => target.removeAttribute("tabindex"), { once: true });
+  target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
 
   return true;
 }

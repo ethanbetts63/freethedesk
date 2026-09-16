@@ -1,16 +1,21 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import { PREVIEW_NAVIGATION } from "../_lib/configuratorData";
-import { getDemoBrandIdentity } from "../_lib/demoBrand";
-import { ConversionLink } from "./ConversionButton";
-import { DemoMap } from "./DemoMap";
-import { BrandArtwork, LandscapeArtwork, VehicleArtwork } from "./PreviewArtwork";
-import { ExamplePage, INVENTORY_VEHICLES, InventoryTile, type InventoryVehicle } from "./PreviewPages";
-import layoutStyles from "../_styles/layout.module.css";
-import previewStyles from "../_styles/preview.module.css";
-import type { InventoryAddonSelection, ModuleSelection, PreviewPage } from "../_lib/types";
+import { PREVIEW_NAVIGATION } from '../_lib/configuratorData';
+import { getDemoBrandIdentity } from '../_lib/demoBrand';
+import { ConversionLink } from './ConversionButton';
+import { DemoMap } from './DemoMap';
+import { BrandArtwork, LandscapeArtwork, VehicleArtwork } from './PreviewArtwork';
+import {
+  ExamplePage,
+  INVENTORY_VEHICLES,
+  InventoryTile,
+  type InventoryVehicle,
+} from './PreviewPages';
+import layoutStyles from '../_styles/layout.module.css';
+import previewStyles from '../_styles/preview.module.css';
+import type { InventoryAddonSelection, ModuleSelection, PreviewPage } from '../_lib/types';
 
 type WebsitePreviewProps = {
   brandName: string;
@@ -25,7 +30,7 @@ type WebsitePreviewProps = {
 const styles = { ...layoutStyles, ...previewStyles };
 
 function BrandWordmark({ name }: { name: string }) {
-  const displayName = name.trim() || "Your brand";
+  const displayName = name.trim() || 'Your brand';
   const splitAt = Math.max(1, Math.ceil(displayName.length * 0.55));
 
   return (
@@ -41,7 +46,7 @@ function PreviewNavigation({
   selected,
   previewPage,
   onPageChange,
-}: Pick<WebsitePreviewProps, "brandName" | "selected" | "previewPage" | "onPageChange">) {
+}: Pick<WebsitePreviewProps, 'brandName' | 'selected' | 'previewPage' | 'onPageChange'>) {
   const { email } = getDemoBrandIdentity(brandName);
 
   return (
@@ -49,7 +54,7 @@ function PreviewNavigation({
       <button
         type="button"
         className={styles.previewBrand}
-        onClick={() => onPageChange("home")}
+        onClick={() => onPageChange('home')}
         aria-label="View example home page"
       >
         <BrandWordmark name={brandName} />
@@ -62,7 +67,7 @@ function PreviewNavigation({
                 <button
                   type="button"
                   key={item.page}
-                  className={previewPage === item.page ? styles.activeNav : ""}
+                  className={previewPage === item.page ? styles.activeNav : ''}
                   onClick={() => onPageChange(item.page)}
                 >
                   {item.label}
@@ -71,8 +76,8 @@ function PreviewNavigation({
           )}
           <button
             type="button"
-            className={`${styles.contactNav} ${previewPage === "contact" ? styles.activeNav : ""}`}
-            onClick={() => onPageChange("contact")}
+            className={`${styles.contactNav} ${previewPage === 'contact' ? styles.activeNav : ''}`}
+            onClick={() => onPageChange('contact')}
           >
             Contact
           </button>
@@ -102,7 +107,7 @@ function HomePreview({
   inventoryAddons,
   onPageChange,
   onVehicleOpen,
-}: Pick<WebsitePreviewProps, "brandName" | "selected" | "inventoryAddons" | "onPageChange"> & {
+}: Pick<WebsitePreviewProps, 'brandName' | 'selected' | 'inventoryAddons' | 'onPageChange'> & {
   onVehicleOpen: (vehicle: InventoryVehicle) => void;
 }) {
   return (
@@ -116,8 +121,11 @@ function HomePreview({
             next car.
           </h2>
           <p>Vehicles, service and experienced advice—all in one clear place.</p>
-          <button type="button" onClick={() => onPageChange(selected.inventory ? "inventory" : "contact")}>
-            {selected.inventory ? "Explore inventory →" : "Talk to our team →"}
+          <button
+            type="button"
+            onClick={() => onPageChange(selected.inventory ? 'inventory' : 'contact')}
+          >
+            {selected.inventory ? 'Explore inventory →' : 'Talk to our team →'}
           </button>
         </div>
         <div className={styles.vehicle}>
@@ -132,7 +140,8 @@ function HomePreview({
           <small>Customer rating</small>
         </div>
         <blockquote>
-          “Straightforward advice, a great range and genuinely excellent service from the first conversation.”
+          “Straightforward advice, a great range and genuinely excellent service from the first
+          conversation.”
         </blockquote>
         <div className={styles.reviewAuthor}>
           <strong>Michael R.</strong>
@@ -144,7 +153,7 @@ function HomePreview({
         <div className={styles.inventoryBlock}>
           <div>
             <strong>Featured inventory</strong>
-            <button type="button" onClick={() => onPageChange("inventory")}>
+            <button type="button" onClick={() => onPageChange('inventory')}>
               View all stock →
             </button>
           </div>
@@ -192,7 +201,7 @@ function HomePreview({
 
       <section className={styles.baseDetails}>
         <div className={styles.aboutBlock}>
-          <small>About {brandName.trim() || "your dealership"}</small>
+          <small>About {brandName.trim() || 'your dealership'}</small>
           <h3>
             Good machines.
             <br />
@@ -241,7 +250,7 @@ function HomePreview({
           <small>Have a question?</small>
           <strong>Talk with someone who knows the stock.</strong>
         </div>
-        <button type="button" onClick={() => onPageChange("contact")}>
+        <button type="button" onClick={() => onPageChange('contact')}>
           Contact the team →
         </button>
       </section>
@@ -253,13 +262,13 @@ function PreviewFooter({
   brandName,
   selected,
   onPageChange,
-}: Pick<WebsitePreviewProps, "brandName" | "selected" | "onPageChange">) {
+}: Pick<WebsitePreviewProps, 'brandName' | 'selected' | 'onPageChange'>) {
   const { email } = getDemoBrandIdentity(brandName);
 
   return (
     <footer className={styles.previewFooter}>
       <div className={styles.footerBrand}>
-        <button type="button" onClick={() => onPageChange("home")}>
+        <button type="button" onClick={() => onPageChange('home')}>
           <BrandWordmark name={brandName} />
         </button>
         <small>Vehicles · Service · Advice</small>
@@ -267,15 +276,17 @@ function PreviewFooter({
       <div className={styles.footerLinks}>
         <strong>Explore</strong>
         <nav aria-label="Example website footer">
-          <button type="button" onClick={() => onPageChange("home")}>
+          <button type="button" onClick={() => onPageChange('home')}>
             Home <span>→</span>
           </button>
-          {PREVIEW_NAVIGATION.filter((item) => item.footer && selected[item.moduleKey]).map((item) => (
-            <button type="button" key={item.page} onClick={() => onPageChange(item.page)}>
-              {item.label} <span>→</span>
-            </button>
-          ))}
-          <button type="button" onClick={() => onPageChange("contact")}>
+          {PREVIEW_NAVIGATION.filter((item) => item.footer && selected[item.moduleKey]).map(
+            (item) => (
+              <button type="button" key={item.page} onClick={() => onPageChange(item.page)}>
+                {item.label} <span>→</span>
+              </button>
+            ),
+          )}
+          <button type="button" onClick={() => onPageChange('contact')}>
             Contact <span>→</span>
           </button>
         </nav>
@@ -298,13 +309,13 @@ function PreviewFooter({
       </div>
       <DemoMap
         className={styles.footerMap}
-        onClick={() => onPageChange("contact")}
+        onClick={() => onPageChange('contact')}
         ariaLabel="View location on the contact page"
         actionLabel="Find us →"
       />
       <div className={styles.footerLegal}>
-        <span>© 2026 {brandName.trim() || "Your dealership"}</span>
-        <button type="button" onClick={() => onPageChange("terms")}>
+        <span>© 2026 {brandName.trim() || 'Your dealership'}</span>
+        <button type="button" onClick={() => onPageChange('terms')}>
           Terms &amp; conditions
         </button>
       </div>
@@ -314,11 +325,19 @@ function PreviewFooter({
 
 export function WebsitePreview(props: WebsitePreviewProps) {
   const [selectedVehicle, setSelectedVehicle] = useState<InventoryVehicle>(INVENTORY_VEHICLES[0]);
-  const { brandName, currentUrl, selected, inventoryAddons, previewPage, additionCount, onPageChange } = props;
+  const {
+    brandName,
+    currentUrl,
+    selected,
+    inventoryAddons,
+    previewPage,
+    additionCount,
+    onPageChange,
+  } = props;
   const { websiteAddress } = getDemoBrandIdentity(brandName, currentUrl);
   const openVehicle = (vehicle: InventoryVehicle) => {
     setSelectedVehicle(vehicle);
-    onPageChange("vehicle");
+    onPageChange('vehicle');
   };
 
   return (
@@ -366,7 +385,7 @@ export function WebsitePreview(props: WebsitePreviewProps) {
           previewPage={previewPage}
           onPageChange={onPageChange}
         />
-        {previewPage === "home" ? (
+        {previewPage === 'home' ? (
           <HomePreview
             brandName={brandName}
             selected={selected}

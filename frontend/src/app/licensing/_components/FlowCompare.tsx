@@ -1,20 +1,20 @@
-import styles from "../page.module.css";
+import styles from '../page.module.css';
 
 type Step = { title: string; caption?: string };
 
 const hostedSteps: Step[] = [
-  { title: "Log in to our portal" },
-  { title: "Enter the vehicle details" },
-  { title: "Send the customer their secure link" },
-  { title: "Customer signs online" },
-  { title: "Paperwork lands back in your queue" },
+  { title: 'Log in to our portal' },
+  { title: 'Enter the vehicle details' },
+  { title: 'Send the customer their secure link' },
+  { title: 'Customer signs online' },
+  { title: 'Paperwork lands back in your queue' },
 ];
 
 const builtInSteps: Step[] = [
-  { title: "Customer enters their details" },
-  { title: "Customer verifies their identity" },
-  { title: "Customer signs online" },
-  { title: "Paperwork lands in your queue" },
+  { title: 'Customer enters their details' },
+  { title: 'Customer verifies their identity' },
+  { title: 'Customer signs online' },
+  { title: 'Paperwork lands in your queue' },
 ];
 
 function FlowColumn({
@@ -31,9 +31,11 @@ function FlowColumn({
   eyebrow?: string;
 }) {
   return (
-    <div className={`${styles.flowColumn} ${highlight ? styles.flowColumnHighlight : ""}`}>
+    <div className={`${styles.flowColumn} ${highlight ? styles.flowColumnHighlight : ''}`}>
       {eyebrow && (
-        <p className="m-0 mb-s text-meta font-black tracking-[0.12em] uppercase moving-colour-text">{eyebrow}</p>
+        <p className="m-0 mb-s text-meta font-black tracking-[0.12em] uppercase moving-colour-text">
+          {eyebrow}
+        </p>
       )}
       <header className={styles.flowColumnHead}>
         <span>{label}</span>
@@ -61,7 +63,11 @@ export function FlowCompare() {
         What your team does
       </p>
       <div className="grid grid-cols-1 gap-ml min-[900px]:grid-cols-2">
-        <FlowColumn label="Hosted portal" badge="5 steps, you enter each sale" steps={hostedSteps} />
+        <FlowColumn
+          label="Hosted portal"
+          badge="5 steps, you enter each sale"
+          steps={hostedSteps}
+        />
         <FlowColumn
           label="Built into your website"
           badge="4 steps, nothing to re-key"

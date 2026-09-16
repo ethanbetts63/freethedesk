@@ -1,10 +1,10 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Eyebrow } from "@/components/Eyebrow";
-import { PrimaryButton } from "@/components/PrimaryButton";
-import { NetworkField } from "@/components/visuals/NetworkField";
-import type { PagePath } from "@/lib/pages";
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { Eyebrow } from '@/components/Eyebrow';
+import { PrimaryButton } from '@/components/PrimaryButton';
+import { NetworkField } from '@/components/visuals/NetworkField';
+import type { PagePath } from '@/lib/pages';
 
 type HeroProps = {
   /** Set to float the breadcrumb trail over the top-right of the hero. */
@@ -32,7 +32,7 @@ export function Hero({
   primaryLabel,
   secondaryHref,
   secondaryLabel,
-  trustLine = "Perth-based · working with businesses across Australia",
+  trustLine = 'Perth-based · working with businesses across Australia',
 }: HeroProps) {
   return (
     <section className="relative isolate flex min-h-[calc(100svh-68px)] items-center overflow-hidden bg-surface-page min-[900px]:min-h-[calc(100vh-78px)]">
@@ -70,7 +70,7 @@ export function Hero({
             <PrimaryButton
               className="transition-[background,transform] duration-200 hover:-translate-y-0.5"
               href={primaryHref}
-              direction={primaryHref.startsWith("#") ? "down" : "page"}
+              direction={primaryHref.startsWith('#') ? 'down' : 'page'}
               size="large"
             >
               {primaryLabel}
@@ -79,7 +79,7 @@ export function Hero({
               className="inline-flex min-h-[var(--tap-min)] items-center justify-between gap-s border-b border-text-primary py-2xs text-body font-heavy sm:min-h-0"
               href={secondaryHref}
             >
-              {secondaryLabel} <span>{secondaryHref.startsWith("#") ? "↓" : "↗"}</span>
+              {secondaryLabel} <span>{secondaryHref.startsWith('#') ? '↓' : '↗'}</span>
             </Link>
           </div>
           {trustLine ? (

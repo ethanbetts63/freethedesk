@@ -232,7 +232,7 @@
   display: block;
 }
 .admin-row-link::after {
-  content: "";
+  content: '';
   inset: 0;
   position: absolute;
 }
@@ -256,30 +256,30 @@
   font-weight: var(--weight-heavy);
   padding: var(--space-3xs) var(--space-xs);
 }
-[data-status="new"],
-[data-status="pending"] {
+[data-status='new'],
+[data-status='pending'] {
   --admin-status-color: var(--status-new);
 }
-[data-status="contacted"] {
+[data-status='contacted'] {
   --admin-status-color: var(--status-contacted);
 }
-[data-status="qualified"] {
+[data-status='qualified'] {
   --admin-status-color: var(--status-qualified);
 }
-[data-status="won"],
-[data-status="sent"],
-[data-status="active"] {
+[data-status='won'],
+[data-status='sent'],
+[data-status='active'] {
   --admin-status-color: var(--status-won);
 }
-[data-status="closed"] {
+[data-status='closed'] {
   --admin-status-color: var(--status-closed);
 }
-[data-status="spam"],
-[data-status="failed"],
-[data-status="denied"] {
+[data-status='spam'],
+[data-status='failed'],
+[data-status='denied'] {
   --admin-status-color: var(--status-spam);
 }
-[data-status="suspended"] {
+[data-status='suspended'] {
   --admin-status-color: var(--status-suspended);
 }
 .admin-pagination {

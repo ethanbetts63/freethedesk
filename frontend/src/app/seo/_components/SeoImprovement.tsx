@@ -1,6 +1,6 @@
-import { SplitFeatureSection } from "@/components/SplitFeatureSection";
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
-import { SeoImprovementVisual } from "./SeoImprovementVisual";
+import { SeoImprovementVisual } from './SeoImprovementVisual';
 
 export function SeoImprovement({ eyebrow }: { eyebrow: string }) {
   return (

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Suspense, useCallback } from "react";
+import { Suspense, useCallback } from 'react';
 
 import {
   AdminFilterBar,
@@ -9,22 +9,29 @@ import {
   FilterSelect,
   RowLink,
   SortHeader,
-} from "@/components/dashboard/AdminList";
-import { adminListParams, useAdminList, type AdminListView } from "@/components/dashboard/useAdminList";
-import { dealerStatuses, StatusPill, statusLabel } from "@/components/dashboard/StatusPill";
-import { formatDateTime, getSeoSubscribers, type SeoSubscriber } from "@/lib/adminApi";
+} from '@/components/dashboard/AdminList';
+import {
+  adminListParams,
+  useAdminList,
+  type AdminListView,
+} from '@/components/dashboard/useAdminList';
+import { dealerStatuses, StatusPill, statusLabel } from '@/components/dashboard/StatusPill';
+import { formatDateTime, getSeoSubscribers, type SeoSubscriber } from '@/lib/adminApi';
 
-const SORT_FIELDS = ["created_at", "business_name", "contact_name", "status"] as const;
-const FILTER_KEYS = ["status"] as const;
+const SORT_FIELDS = ['created_at', 'business_name', 'contact_name', 'status'] as const;
+const FILTER_KEYS = ['status'] as const;
 const COLUMNS = 7;
 
 function SeoSubscribersContent() {
-  const fetchPage = useCallback((view: AdminListView) => getSeoSubscribers(adminListParams(view)), []);
+  const fetchPage = useCallback(
+    (view: AdminListView) => getSeoSubscribers(adminListParams(view)),
+    [],
+  );
   const list = useAdminList<SeoSubscriber>({
     fetchPage,
     filterKeys: FILTER_KEYS,
     sortFields: SORT_FIELDS,
-    loadError: "SEO customers could not be loaded.",
+    loadError: 'SEO customers could not be loaded.',
   });
 
   return (
@@ -50,7 +57,7 @@ function SeoSubscribersContent() {
           <FilterSelect
             label="Filter SEO customers by status"
             value={list.filters.status}
-            onChange={(value) => list.setFilter("status", value)}
+            onChange={(value) => list.setFilter('status', value)}
             allLabel="All statuses"
             options={dealerStatuses.map((value) => ({ value, label: statusLabel(value) }))}
           />
@@ -88,7 +95,9 @@ function SeoSubscribersContent() {
               {(subscriber) => (
                 <tr key={subscriber.id} className="admin-row" data-status={subscriber.status}>
                   <td>
-                    <RowLink href={`/dashboard/seo/${subscriber.id}`}>{formatDateTime(subscriber.created_at)}</RowLink>
+                    <RowLink href={`/dashboard/seo/${subscriber.id}`}>
+                      {formatDateTime(subscriber.created_at)}
+                    </RowLink>
                   </td>
                   <td>
                     <strong>{subscriber.business_name}</strong>
@@ -102,7 +111,7 @@ function SeoSubscribersContent() {
                     <small>{subscriber.plan_label}</small>
                   </td>
                   <td>{subscriber.payment_status_label}</td>
-                  <td>{subscriber.phone || "—"}</td>
+                  <td>{subscriber.phone || '—'}</td>
                   <td>
                     <StatusPill status={subscriber.status} />
                   </td>

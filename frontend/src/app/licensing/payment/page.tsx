@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
-import { SubscriptionPaymentPage } from "./SubscriptionPaymentPage";
+import { SubscriptionPaymentPage } from './SubscriptionPaymentPage';
 
 export const metadata: Metadata = {
-  title: "Secure Subscription Checkout",
+  title: 'Secure Subscription Checkout',
   robots: { index: false, follow: false },
 };
 

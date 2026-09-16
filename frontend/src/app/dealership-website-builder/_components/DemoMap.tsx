@@ -1,4 +1,4 @@
-import styles from "../_styles/preview.module.css";
+import styles from '../_styles/preview.module.css';
 
 type DemoMapProps = {
   ariaLabel: string;
@@ -7,10 +7,15 @@ type DemoMapProps = {
   onClick?: () => void;
 };
 
-export function DemoMap({ ariaLabel, className = "", actionLabel, onClick }: DemoMapProps) {
+export function DemoMap({ ariaLabel, className = '', actionLabel, onClick }: DemoMapProps) {
   const drawing = (
     <>
-      <svg className={styles.demoMapArtwork} viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
+      <svg
+        className={styles.demoMapArtwork}
+        viewBox="0 0 320 180"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
         <path d="M-80 164 400 4" />
         <path d="M146-80 238 260" />
       </svg>
@@ -24,7 +29,12 @@ export function DemoMap({ ariaLabel, className = "", actionLabel, onClick }: Dem
 
   if (onClick)
     return (
-      <button type="button" className={`${styles.demoMap} ${className}`} onClick={onClick} aria-label={ariaLabel}>
+      <button
+        type="button"
+        className={`${styles.demoMap} ${className}`}
+        onClick={onClick}
+        aria-label={ariaLabel}
+      >
         {drawing}
       </button>
     );

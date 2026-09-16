@@ -2,7 +2,8 @@
   --section-accent: var(--page-accent, var(--action-primary));
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface-page), var(--surface-page)), var(--moving-colour-gradient);
+  background-image:
+    linear-gradient(var(--surface-page), var(--surface-page)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -44,7 +45,7 @@
 .journey::before {
   background: var(--slate-200);
   bottom: 20%;
-  content: "";
+  content: '';
   height: auto;
   left: 19px;
   position: absolute;

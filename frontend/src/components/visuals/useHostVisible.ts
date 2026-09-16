@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * Watches the parent of a sentinel element and reports when it nears the
@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
  * normally: the chunk cannot start downloading until hydration finishes, so
  * deferring something already on screen just delays it.
  */
-export function useHostVisible(rootMargin = "300px") {
+export function useHostVisible(rootMargin = '300px') {
   const sentinel = useRef<HTMLSpanElement>(null);
   const [visible, setVisible] = useState(false);
 

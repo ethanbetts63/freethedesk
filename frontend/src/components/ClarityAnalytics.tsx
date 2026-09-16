@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useLayoutEffect } from "react";
-import { usePathname } from "next/navigation";
+import { useLayoutEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
-import { shouldRunClarity } from "@/lib/routePolicy";
+import { shouldRunClarity } from '@/lib/routePolicy';
 
-const CLARITY_SCRIPT_ID = "clarity-analytics";
+const CLARITY_SCRIPT_ID = 'clarity-analytics';
 
 type ClarityFunction = {
   (...args: unknown[]): void;
@@ -20,7 +20,7 @@ declare global {
 
 function installClarity(projectId: string) {
   if (window.clarity) {
-    window.clarity("start");
+    window.clarity('start');
     return;
   }
 
@@ -30,7 +30,7 @@ function installClarity(projectId: string) {
 
   window.clarity = clarity;
 
-  const script = document.createElement("script");
+  const script = document.createElement('script');
   script.id = CLARITY_SCRIPT_ID;
   script.async = true;
   script.src = `https://www.clarity.ms/tag/${encodeURIComponent(projectId)}`;
@@ -42,7 +42,7 @@ export function ClarityAnalytics({ projectId }: { projectId: string }) {
 
   useLayoutEffect(() => {
     if (!shouldRunClarity(pathname)) {
-      window.clarity?.("stop");
+      window.clarity?.('stop');
       return;
     }
 

@@ -1,41 +1,43 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { StatusPill } from "@/components/dashboard/StatusPill";
-import { useAuth } from "@/context/AuthContext";
-import { formatDateTime } from "@/lib/api";
-import { getDealerAccount, type DealerAccount } from "@/lib/dealerApi";
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { StatusPill } from '@/components/dashboard/StatusPill';
+import { useAuth } from '@/context/AuthContext';
+import { formatDateTime } from '@/lib/api';
+import { getDealerAccount, type DealerAccount } from '@/lib/dealerApi';
 
-const statusCopy: Record<DealerAccount["status"], { heading: string; body: string }> = {
+const statusCopy: Record<DealerAccount['status'], { heading: string; body: string }> = {
   pending: {
-    heading: "We are reviewing your account.",
-    body: "Every dealership is checked by hand before we switch an account on — usually within a business day. There is nothing for you to do in the meantime, and we will email you the moment it is done.",
+    heading: 'We are reviewing your account.',
+    body: 'Every dealership is checked by hand before we switch an account on — usually within a business day. There is nothing for you to do in the meantime, and we will email you the moment it is done.',
   },
   active: {
-    heading: "Your account is active.",
-    body: "Setup is the next step: your dealership details, the paperwork we prefill on your behalf and the sale conditions you want to use. We will open that up as each part is ready.",
+    heading: 'Your account is active.',
+    body: 'Setup is the next step: your dealership details, the paperwork we prefill on your behalf and the sale conditions you want to use. We will open that up as each part is ready.',
   },
   suspended: {
-    heading: "This account is suspended.",
-    body: "You can still sign in, but sales are paused. Get in touch and we will sort out what happened.",
+    heading: 'This account is suspended.',
+    body: 'You can still sign in, but sales are paused. Get in touch and we will sort out what happened.',
   },
   denied: {
-    heading: "We could not approve this account.",
-    body: "That is usually something specific and fixable. Reply to our email or contact us and we will explain where it stands.",
+    heading: 'We could not approve this account.',
+    body: 'That is usually something specific and fixable. Reply to our email or contact us and we will explain where it stands.',
   },
 };
 
 export default function PortalOverviewPage() {
   const { user } = useAuth();
   const [account, setAccount] = useState<DealerAccount | null>(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getDealerAccount()
       .then(setAccount)
-      .catch((reason) => setError(reason instanceof Error ? reason.message : "Your account could not be loaded."))
+      .catch((reason) =>
+        setError(reason instanceof Error ? reason.message : 'Your account could not be loaded.'),
+      )
       .finally(() => setLoading(false));
   }, []);
 
@@ -54,15 +56,15 @@ export default function PortalOverviewPage() {
   if (!account) return null;
 
   const copy =
-    account.payment_status === "active" && account.status === "pending"
+    account.payment_status === 'active' && account.status === 'pending'
       ? {
-          heading: "Payment confirmed. Set up your dealership.",
-          body: "Add the licence, business and authorised-officer details we need to verify the dealership. Your account can be used for live transactions once that review is complete.",
+          heading: 'Payment confirmed. Set up your dealership.',
+          body: 'Add the licence, business and authorised-officer details we need to verify the dealership. Your account can be used for live transactions once that review is complete.',
         }
-      : account.payment_status === "payment_pending"
+      : account.payment_status === 'payment_pending'
         ? {
-            heading: "Your account is saved.",
-            body: "Your selected subscription has not been paid yet. Continue when you are ready; you will not need to enter these signup details again.",
+            heading: 'Your account is saved.',
+            body: 'Your selected subscription has not been paid yet. Continue when you are ready; you will not need to enter these signup details again.',
           }
         : statusCopy[account.status];
   const firstName = account.contact_name.trim().split(/\s+/)[0] || account.contact_name;
@@ -85,7 +87,7 @@ export default function PortalOverviewPage() {
           </div>
         </section>
 
-        {account.payment_status === "payment_pending" && (
+        {account.payment_status === 'payment_pending' && (
           <section className="admin-detail-card admin-detail-wide">
             <h2>Finish secure payment</h2>
             <p className="admin-message-body">
@@ -105,26 +107,30 @@ export default function PortalOverviewPage() {
           <p className="admin-message-body">{copy.body}</p>
         </section>
 
-        {account.payment_status === "active" && (
+        {account.payment_status === 'active' && (
           <section className="admin-detail-card admin-detail-wide">
             <h2>What happens next</h2>
             <ol className="portal-steps">
               <li>
                 <strong>Dealership setup</strong>
                 <span>
-                  Your licence details and the information that fills the dealer side of every form, entered once.
+                  Your licence details and the information that fills the dealer side of every form,
+                  entered once.
                 </span>
               </li>
               <li>
                 <strong>Your sale conditions</strong>
                 <span>
-                  Read and approve each of our default special conditions, remove any that do not fit your dealership
-                  and add your own.
+                  Read and approve each of our default special conditions, remove any that do not
+                  fit your dealership and add your own.
                 </span>
               </li>
               <li>
                 <strong>Your first sale</strong>
-                <span>Enter the vehicle, send the buyer a link, and get back a signed pack ready to lodge.</span>
+                <span>
+                  Enter the vehicle, send the buyer a link, and get back a signed pack ready to
+                  lodge.
+                </span>
               </li>
             </ol>
             <Link className="admin-primary-button" href="/portal/setup">
@@ -150,7 +156,7 @@ export default function PortalOverviewPage() {
             </div>
             <div>
               <dt>Phone</dt>
-              <dd>{account.phone || "Not supplied"}</dd>
+              <dd>{account.phone || 'Not supplied'}</dd>
             </div>
             <div>
               <dt>State</dt>

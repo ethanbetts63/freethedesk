@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useCallback, useRef } from "react";
+import { useCallback, useRef } from 'react';
 
-import { useCanvasAnimation, type CanvasFrame } from "./useCanvasAnimation";
+import { useCanvasAnimation, type CanvasFrame } from './useCanvasAnimation';
 
 type Stream = {
   y: number;
@@ -24,20 +24,60 @@ type SignalFlowProps = {
 };
 
 const STREAMS: Stream[] = [
-  { y: 0.2, amplitude: 52, frequency: 1.45, phase: 0.2, speed: 0.000072, color: "rgba(35, 131, 207, .22)", width: 1 },
-  { y: 0.28, amplitude: 84, frequency: 1.05, phase: 2.2, speed: -0.00006, color: "rgba(19, 49, 92, .28)", width: 1.2 },
-  { y: 0.39, amplitude: 58, frequency: 1.75, phase: 4.1, speed: 0.00009, color: "rgba(91, 174, 232, .34)", width: 1 },
+  {
+    y: 0.2,
+    amplitude: 52,
+    frequency: 1.45,
+    phase: 0.2,
+    speed: 0.000072,
+    color: 'rgba(35, 131, 207, .22)',
+    width: 1,
+  },
+  {
+    y: 0.28,
+    amplitude: 84,
+    frequency: 1.05,
+    phase: 2.2,
+    speed: -0.00006,
+    color: 'rgba(19, 49, 92, .28)',
+    width: 1.2,
+  },
+  {
+    y: 0.39,
+    amplitude: 58,
+    frequency: 1.75,
+    phase: 4.1,
+    speed: 0.00009,
+    color: 'rgba(91, 174, 232, .34)',
+    width: 1,
+  },
   {
     y: 0.52,
     amplitude: 100,
     frequency: 0.85,
     phase: 1.4,
     speed: -0.000048,
-    color: "rgba(14, 77, 139, .2)",
+    color: 'rgba(14, 77, 139, .2)',
     width: 1.4,
   },
-  { y: 0.64, amplitude: 62, frequency: 1.3, phase: 3.3, speed: 0.000066, color: "rgba(63, 151, 218, .27)", width: 1 },
-  { y: 0.76, amplitude: 74, frequency: 1.6, phase: 5.4, speed: -0.000078, color: "rgba(19, 49, 92, .2)", width: 1.2 },
+  {
+    y: 0.64,
+    amplitude: 62,
+    frequency: 1.3,
+    phase: 3.3,
+    speed: 0.000066,
+    color: 'rgba(63, 151, 218, .27)',
+    width: 1,
+  },
+  {
+    y: 0.76,
+    amplitude: 74,
+    frequency: 1.6,
+    phase: 5.4,
+    speed: -0.000078,
+    color: 'rgba(19, 49, 92, .2)',
+    width: 1.2,
+  },
 ];
 
 const DOT_BLUR = 12;
@@ -45,10 +85,10 @@ const DOT_RADIUS = { dark: 3.8, light: 2.5 };
 
 function createDotSprite(fillColor: string, shadowColor: string, radius: number, ratio: number) {
   const size = (radius + DOT_BLUR) * 2;
-  const sprite = document.createElement("canvas");
+  const sprite = document.createElement('canvas');
   sprite.width = Math.ceil(size * ratio);
   sprite.height = Math.ceil(size * ratio);
-  const context = sprite.getContext("2d");
+  const context = sprite.getContext('2d');
   if (context) {
     context.scale(ratio, ratio);
     context.fillStyle = fillColor;
@@ -90,8 +130,8 @@ export function SignalFlow({ smooth = false }: SignalFlowProps) {
 
   const onResize = useCallback(({ ratio }: { ratio: number }) => {
     sprites.current = {
-      dark: createDotSprite("#13315c", "rgba(19, 49, 92, .28)", DOT_RADIUS.dark, ratio),
-      light: createDotSprite("#3f97da", "rgba(63, 151, 218, .4)", DOT_RADIUS.light, ratio),
+      dark: createDotSprite('#13315c', 'rgba(19, 49, 92, .28)', DOT_RADIUS.dark, ratio),
+      light: createDotSprite('#3f97da', 'rgba(63, 151, 218, .4)', DOT_RADIUS.light, ratio),
     };
   }, []);
 
@@ -101,14 +141,18 @@ export function SignalFlow({ smooth = false }: SignalFlowProps) {
 
       const point = (stream: Stream, progress: number) => {
         const x = progress * (width + 240) - 120;
-        const wave = Math.sin(progress * Math.PI * 2 * stream.frequency + stream.phase + time * stream.speed);
+        const wave = Math.sin(
+          progress * Math.PI * 2 * stream.frequency + stream.phase + time * stream.speed,
+        );
         const fineWave = Math.sin(progress * Math.PI * 6 + stream.phase) * 9;
         return { x, y: height * stream.y + wave * stream.amplitude + fineWave };
       };
 
       STREAMS.forEach((stream, streamIndex) => {
         const stepCount = smooth ? 32 : 100;
-        const points = Array.from({ length: stepCount + 1 }, (_, step) => point(stream, step / stepCount));
+        const points = Array.from({ length: stepCount + 1 }, (_, step) =>
+          point(stream, step / stepCount),
+        );
 
         context.beginPath();
         if (smooth) {
@@ -121,8 +165,8 @@ export function SignalFlow({ smooth = false }: SignalFlowProps) {
         }
         context.strokeStyle = stream.color;
         context.lineWidth = stream.width;
-        context.lineCap = "round";
-        context.lineJoin = "round";
+        context.lineCap = 'round';
+        context.lineJoin = 'round';
         context.stroke();
 
         const pulseCount = streamIndex % 2 === 0 ? 3 : 2;
@@ -131,10 +175,16 @@ export function SignalFlow({ smooth = false }: SignalFlowProps) {
             ? (pulse + 1) / (pulseCount + 1)
             : time * (0.000021 + streamIndex * 0.0000012) + pulse / pulseCount + streamIndex * 0.13;
           const position = point(stream, raw % 1);
-          const sprite = sprites.current?.[(pulse + streamIndex) % 3 === 0 ? "dark" : "light"];
+          const sprite = sprites.current?.[(pulse + streamIndex) % 3 === 0 ? 'dark' : 'light'];
           if (!sprite) continue;
           const { size } = sprite;
-          context.drawImage(sprite.canvas, position.x - size / 2, position.y - size / 2, size, size);
+          context.drawImage(
+            sprite.canvas,
+            position.x - size / 2,
+            position.y - size / 2,
+            size,
+            size,
+          );
         }
       });
     },

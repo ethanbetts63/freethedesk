@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
-import { MovingColourButton } from "@/components/MovingColourButton";
-import styles from "./AiReadinessBanner.module.css";
-import { submitAiReadiness, type AiReadinessState } from "./AiReadinessForm.actions";
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
+import { MovingColourButton } from '@/components/MovingColourButton';
+import styles from './AiReadinessBanner.module.css';
+import { submitAiReadiness, type AiReadinessState } from './AiReadinessForm.actions';
 
-const initialState: AiReadinessState = { status: "idle" };
+const initialState: AiReadinessState = { status: 'idle' };
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -18,7 +18,7 @@ function SubmitButton() {
       size="compact"
       disabled={pending}
     >
-      {pending ? "Starting…" : "Run free check"}
+      {pending ? 'Starting…' : 'Run free check'}
     </MovingColourButton>
   );
 }
@@ -28,7 +28,7 @@ function SubmitButton() {
 export function AiReadinessForm() {
   const [state, formAction] = useActionState(submitAiReadiness, initialState);
 
-  if (state.status === "success") {
+  if (state.status === 'success') {
     return (
       <p className={styles.success} role="status">
         <span aria-hidden="true">✓</span>
@@ -53,10 +53,16 @@ export function AiReadinessForm() {
       </label>
       <label>
         <span>Email</span>
-        <input name="email" type="email" placeholder="e.g. email@example.com" autoComplete="email" required />
+        <input
+          name="email"
+          type="email"
+          placeholder="e.g. email@example.com"
+          autoComplete="email"
+          required
+        />
       </label>
       <SubmitButton />
-      {state.status === "error" && (
+      {state.status === 'error' && (
         <p className={styles.error} role="alert">
           {state.error}
         </p>

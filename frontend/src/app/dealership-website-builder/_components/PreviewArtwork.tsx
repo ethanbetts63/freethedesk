@@ -1,6 +1,6 @@
-import Image from "next/image";
+import Image from 'next/image';
 
-import styles from "../_styles/preview.module.css";
+import styles from '../_styles/preview.module.css';
 
 /** The demo vehicle. object-fit: contain, so it letterboxes rather than stretching. */
 export function VehicleArtwork({ compact = false }: { compact?: boolean }) {
@@ -46,7 +46,12 @@ export function ProductArtwork({ variant }: { variant: number }) {
 
 export function BrandArtwork({ label }: { label: string }) {
   return (
-    <svg className={styles.brandArtwork} viewBox="0 0 36 36" role="img" aria-label={`${label} logo`}>
+    <svg
+      className={styles.brandArtwork}
+      viewBox="0 0 36 36"
+      role="img"
+      aria-label={`${label} logo`}
+    >
       <circle cx="18" cy="18" r="15" />
       <path d="M9 22 18 9l9 13M13 18h10" />
     </svg>

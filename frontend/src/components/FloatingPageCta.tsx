@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { MovingColourButton } from "./MovingColourButton";
+import { MovingColourButton } from './MovingColourButton';
 
 export function FloatingPageCta({
   label,
@@ -33,12 +33,12 @@ export function FloatingPageCta({
     };
 
     updateVisibility();
-    window.addEventListener("scroll", updateVisibility, { passive: true });
-    window.addEventListener("resize", updateVisibility);
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    window.addEventListener('resize', updateVisibility);
 
     return () => {
-      window.removeEventListener("scroll", updateVisibility);
-      window.removeEventListener("resize", updateVisibility);
+      window.removeEventListener('scroll', updateVisibility);
+      window.removeEventListener('resize', updateVisibility);
     };
   }, [hideAtId, showAfterId]);
 
@@ -46,8 +46,8 @@ export function FloatingPageCta({
     <div
       className={`fixed right-[var(--gutter)] bottom-[calc(12px+env(safe-area-inset-bottom))] left-[var(--gutter)] z-40 transition-[opacity,transform] duration-[180ms] ease-in-out motion-reduce:transition-none sm:right-[28px] sm:left-auto sm:bottom-[28px] ${
         visible
-          ? "pointer-events-auto visible translate-y-0 opacity-100"
-          : "pointer-events-none invisible translate-y-[18px] opacity-0"
+          ? 'pointer-events-auto visible translate-y-0 opacity-100'
+          : 'pointer-events-none invisible translate-y-[18px] opacity-0'
       }`}
       aria-hidden={!visible}
     >

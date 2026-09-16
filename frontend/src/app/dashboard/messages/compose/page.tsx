@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { FormEvent, Suspense, useActionState, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { submitComposeMessage, type ComposeMessageState } from "./ComposeMessage.actions";
+import Link from 'next/link';
+import { FormEvent, Suspense, useActionState, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { submitComposeMessage, type ComposeMessageState } from './ComposeMessage.actions';
 
-const initialState: ComposeMessageState = { status: "idle" };
+const initialState: ComposeMessageState = { status: 'idle' };
 
 function ComposeMessageContent() {
   const params = useSearchParams();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [to, setTo] = useState(params.get("to") || "");
-  const [subject, setSubject] = useState(params.get("subject") || "");
-  const [body, setBody] = useState(params.get("body") || "");
+  const [to, setTo] = useState(params.get('to') || '');
+  const [subject, setSubject] = useState(params.get('subject') || '');
+  const [body, setBody] = useState(params.get('body') || '');
   const [attachments, setAttachments] = useState<File[]>([]);
   const [confirming, setConfirming] = useState(false);
-  const relatedEnquiry = Number(params.get("enquiry")) || undefined;
+  const relatedEnquiry = Number(params.get('enquiry')) || undefined;
 
   const [state, dispatch, isPending] = useActionState(submitComposeMessage, initialState);
 
@@ -35,11 +35,11 @@ function ComposeMessageContent() {
     setConfirming(false);
 
     const formData = new FormData();
-    formData.set("to", to);
-    formData.set("subject", subject);
-    formData.set("body", body);
-    if (relatedEnquiry) formData.set("relatedEnquiry", String(relatedEnquiry));
-    attachments.forEach((file) => formData.append("attachments", file));
+    formData.set('to', to);
+    formData.set('subject', subject);
+    formData.set('body', body);
+    if (relatedEnquiry) formData.set('relatedEnquiry', String(relatedEnquiry));
+    attachments.forEach((file) => formData.append('attachments', file));
     dispatch(formData);
   }
 
@@ -47,7 +47,7 @@ function ComposeMessageContent() {
     <div className="admin-page admin-compose-page">
       <Link
         className="admin-back"
-        href={relatedEnquiry ? `/dashboard/enquiries/${relatedEnquiry}` : "/dashboard/messages"}
+        href={relatedEnquiry ? `/dashboard/enquiries/${relatedEnquiry}` : '/dashboard/messages'}
       >
         ← Back
       </Link>
@@ -59,11 +59,18 @@ function ComposeMessageContent() {
           </div>
           {relatedEnquiry && <span>Linked to enquiry #{relatedEnquiry}</span>}
         </header>
-        {state.status === "error" && <p className="admin-banner admin-banner-error">{state.error}</p>}
+        {state.status === 'error' && (
+          <p className="admin-banner admin-banner-error">{state.error}</p>
+        )}
         <form className="admin-compose-form" onSubmit={submit}>
           <label>
             To
-            <input type="email" value={to} onChange={(event) => setTo(event.target.value)} required />
+            <input
+              type="email"
+              value={to}
+              onChange={(event) => setTo(event.target.value)}
+              required
+            />
           </label>
           <label>
             Subject
@@ -71,7 +78,12 @@ function ComposeMessageContent() {
           </label>
           <label>
             Email body
-            <textarea rows={18} value={body} onChange={(event) => setBody(event.target.value)} required />
+            <textarea
+              rows={18}
+              value={body}
+              onChange={(event) => setBody(event.target.value)}
+              required
+            />
           </label>
           <section className="admin-attachments">
             <div>
@@ -88,7 +100,7 @@ function ComposeMessageContent() {
               hidden
               onChange={(event) => {
                 setAttachments((current) => [...current, ...Array.from(event.target.files ?? [])]);
-                event.target.value = "";
+                event.target.value = '';
               }}
             />
             {attachments.length > 0 && (
@@ -101,7 +113,9 @@ function ComposeMessageContent() {
                     <button
                       type="button"
                       onClick={() =>
-                        setAttachments((current) => current.filter((_, currentIndex) => currentIndex !== index))
+                        setAttachments((current) =>
+                          current.filter((_, currentIndex) => currentIndex !== index),
+                        )
                       }
                     >
                       Remove
@@ -113,15 +127,23 @@ function ComposeMessageContent() {
           </section>
           {confirming && (
             <p className="admin-banner admin-banner-warning" role="alert">
-              Send this email to <strong>{to}</strong>? Press send again to confirm, or{" "}
-              <button type="button" className="admin-inline-button" onClick={() => setConfirming(false)}>
+              Send this email to <strong>{to}</strong>? Press send again to confirm, or{' '}
+              <button
+                type="button"
+                className="admin-inline-button"
+                onClick={() => setConfirming(false)}
+              >
                 cancel
               </button>
               .
             </p>
           )}
-          <button type="submit" className="admin-primary-button admin-send-button" disabled={isPending}>
-            {isPending ? "Sending…" : confirming ? "Confirm and send" : "Send email"}
+          <button
+            type="submit"
+            className="admin-primary-button admin-send-button"
+            disabled={isPending}
+          >
+            {isPending ? 'Sending…' : confirming ? 'Confirm and send' : 'Send email'}
           </button>
         </form>
       </section>

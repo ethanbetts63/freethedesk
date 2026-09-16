@@ -1,11 +1,11 @@
-import { SplitFeatureSection } from "@/components/SplitFeatureSection";
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
-import { ConversionFunnelVisual } from "./ConversionFunnelVisual";
+import { ConversionFunnelVisual } from './ConversionFunnelVisual';
 
 const bullets = [
-  "One clear action at every stage",
-  "Fewer fields, choices and dead ends",
-  "A clear confirmation and handoff at the end",
+  'One clear action at every stage',
+  'Fewer fields, choices and dead ends',
+  'A clear confirmation and handoff at the end',
 ] as const;
 
 export function ConversionFunnel({ eyebrow }: { eyebrow: string }) {

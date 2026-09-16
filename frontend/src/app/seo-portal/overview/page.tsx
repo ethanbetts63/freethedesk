@@ -1,41 +1,43 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { StatusPill } from "@/components/dashboard/StatusPill";
-import { useAuth } from "@/context/AuthContext";
-import { formatDateTime } from "@/lib/api";
-import { getSeoAccount, type SeoAccount } from "@/lib/seoApi";
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { StatusPill } from '@/components/dashboard/StatusPill';
+import { useAuth } from '@/context/AuthContext';
+import { formatDateTime } from '@/lib/api';
+import { getSeoAccount, type SeoAccount } from '@/lib/seoApi';
 
-const statusCopy: Record<SeoAccount["status"], { heading: string; body: string }> = {
+const statusCopy: Record<SeoAccount['status'], { heading: string; body: string }> = {
   pending: {
-    heading: "We are getting your account ready.",
-    body: "We check every new account by hand before switching it on — usually within a business day. There is nothing for you to do in the meantime, and we will email you the moment it is done.",
+    heading: 'We are getting your account ready.',
+    body: 'We check every new account by hand before switching it on — usually within a business day. There is nothing for you to do in the meantime, and we will email you the moment it is done.',
   },
   active: {
-    heading: "Your account is active.",
-    body: "Connect your Search Console data and tell us what to focus the reporting on. Your first report follows once that is in.",
+    heading: 'Your account is active.',
+    body: 'Connect your Search Console data and tell us what to focus the reporting on. Your first report follows once that is in.',
   },
   suspended: {
-    heading: "This account is suspended.",
-    body: "You can still sign in, but reporting is paused. Get in touch and we will sort out what happened.",
+    heading: 'This account is suspended.',
+    body: 'You can still sign in, but reporting is paused. Get in touch and we will sort out what happened.',
   },
   denied: {
-    heading: "We could not approve this account.",
-    body: "That is usually something specific and fixable. Reply to our email or contact us and we will explain where it stands.",
+    heading: 'We could not approve this account.',
+    body: 'That is usually something specific and fixable. Reply to our email or contact us and we will explain where it stands.',
   },
 };
 
 export default function SeoPortalOverviewPage() {
   const { user } = useAuth();
   const [account, setAccount] = useState<SeoAccount | null>(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getSeoAccount()
       .then(setAccount)
-      .catch((reason) => setError(reason instanceof Error ? reason.message : "Your account could not be loaded."))
+      .catch((reason) =>
+        setError(reason instanceof Error ? reason.message : 'Your account could not be loaded.'),
+      )
       .finally(() => setLoading(false));
   }, []);
 
@@ -53,20 +55,20 @@ export default function SeoPortalOverviewPage() {
     );
   if (!account) return null;
 
-  const hasPaid = account.payment_status === "active" || account.payment_status === "paid";
-  const isGbpAudit = account.report_type === "gbp";
+  const hasPaid = account.payment_status === 'active' || account.payment_status === 'paid';
+  const isGbpAudit = account.report_type === 'gbp';
   const copy =
-    account.payment_status === "payment_pending"
+    account.payment_status === 'payment_pending'
       ? {
-          heading: "Your account is saved.",
-          body: `Your selected ${isGbpAudit ? "audit" : "plan"} has not been paid yet. Continue when you are ready; you will not need to enter these signup details again.`,
+          heading: 'Your account is saved.',
+          body: `Your selected ${isGbpAudit ? 'audit' : 'plan'} has not been paid yet. Continue when you are ready; you will not need to enter these signup details again.`,
         }
-      : hasPaid && account.status === "pending"
+      : hasPaid && account.status === 'pending'
         ? {
-            heading: `Payment confirmed. ${isGbpAudit ? "Send us your profile." : "Connect your data."}`,
+            heading: `Payment confirmed. ${isGbpAudit ? 'Send us your profile.' : 'Connect your data.'}`,
             body: isGbpAudit
-              ? "Add your Google Business Profile link and any local-search context we should know. We can then begin the audit."
-              : "Add your Search Console property and tell us what to focus on. Your first report follows once we have reviewed the account.",
+              ? 'Add your Google Business Profile link and any local-search context we should know. We can then begin the audit.'
+              : 'Add your Search Console property and tell us what to focus on. Your first report follows once we have reviewed the account.',
           }
         : statusCopy[account.status];
   const firstName = account.contact_name.trim().split(/\s+/)[0] || account.contact_name;
@@ -89,11 +91,12 @@ export default function SeoPortalOverviewPage() {
           </div>
         </section>
 
-        {account.payment_status === "payment_pending" && (
+        {account.payment_status === 'payment_pending' && (
           <section className="admin-detail-card admin-detail-wide">
             <h2>Finish secure payment</h2>
             <p className="admin-message-body">
-              Your account is saved. Complete payment to unlock your {isGbpAudit ? "audit" : "reporting setup"}.
+              Your account is saved. Complete payment to unlock your{' '}
+              {isGbpAudit ? 'audit' : 'reporting setup'}.
             </p>
             <Link className="admin-primary-button" href="/seo/payment">
               Continue to payment →
@@ -126,28 +129,28 @@ export default function SeoPortalOverviewPage() {
             <h2>What happens next</h2>
             <ol className="portal-steps">
               <li>
-                <strong>{isGbpAudit ? "Send your profile" : "Connect your data"}</strong>
+                <strong>{isGbpAudit ? 'Send your profile' : 'Connect your data'}</strong>
                 <span>
                   {isGbpAudit
-                    ? "Add your Google Business Profile link and primary service location."
-                    : "Grant access to Search Console and, if relevant, Analytics and your Google Business Profile."}
+                    ? 'Add your Google Business Profile link and primary service location.'
+                    : 'Grant access to Search Console and, if relevant, Analytics and your Google Business Profile.'}
                 </span>
               </li>
               <li>
-                <strong>{isGbpAudit ? "We review it" : "Tell us the focus"}</strong>
+                <strong>{isGbpAudit ? 'We review it' : 'Tell us the focus'}</strong>
                 <span>
                   {isGbpAudit
-                    ? "We check visibility, completeness, categories, content, reviews and local-search signals."
-                    : "Target locations, the searches you care about and who you compete with."}
+                    ? 'We check visibility, completeness, categories, content, reviews and local-search signals.'
+                    : 'Target locations, the searches you care about and who you compete with.'}
                 </span>
               </li>
               <li>
-                <strong>{isGbpAudit ? "Your audit arrives" : "Your first report"}</strong>
+                <strong>{isGbpAudit ? 'Your audit arrives' : 'Your first report'}</strong>
                 <span>A plain-English, ranked action list lands in your inbox.</span>
               </li>
             </ol>
             <Link className="admin-primary-button" href="/seo-portal/connect">
-              {isGbpAudit ? "Add profile details" : "Connect your data"} →
+              {isGbpAudit ? 'Add profile details' : 'Connect your data'} →
             </Link>
           </section>
         )}
@@ -169,11 +172,11 @@ export default function SeoPortalOverviewPage() {
             </div>
             <div>
               <dt>Phone</dt>
-              <dd>{account.phone || "Not supplied"}</dd>
+              <dd>{account.phone || 'Not supplied'}</dd>
             </div>
             <div>
               <dt>Website</dt>
-              <dd>{account.website || "Not supplied"}</dd>
+              <dd>{account.website || 'Not supplied'}</dd>
             </div>
           </dl>
           <Link className="admin-secondary-button" href="/seo-portal/account">

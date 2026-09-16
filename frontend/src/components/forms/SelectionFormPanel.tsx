@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import type { FormEventHandler, ReactNode } from "react";
+import type { FormEventHandler, ReactNode } from 'react';
 
-import formStyles from "./SelectionForm.module.css";
-import { chooserClassName, formClassName as sharedFormClassName } from "./selectionFormClassNames";
+import formStyles from './SelectionForm.module.css';
+import { chooserClassName, formClassName as sharedFormClassName } from './selectionFormClassNames';
 
 function classes(...names: Array<string | undefined>) {
-  return names.filter(Boolean).join(" ");
+  return names.filter(Boolean).join(' ');
 }
 
 export function SelectionFormPanel({
@@ -30,7 +30,7 @@ export function SelectionFormPanel({
       <form
         className={classes(
           sharedFormClassName,
-          "min-[1080px]:border-t-0 min-[1080px]:border-l min-[1080px]:border-l-border-subtle",
+          'min-[1080px]:border-t-0 min-[1080px]:border-l min-[1080px]:border-l-border-subtle',
           formClassNameProp,
         )}
         onSubmit={onSubmit}

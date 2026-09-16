@@ -93,7 +93,7 @@
 .siteNavLinks .activeNav::after {
   background: var(--action-primary);
   bottom: 0;
-  content: "";
+  content: '';
   height: 1px;
   left: 0;
   position: absolute;
@@ -179,8 +179,12 @@
   transition: transform 0.35s;
 }
 .vehicle::before {
-  background: radial-gradient(circle, color-mix(in srgb, var(--action-primary) 24%, transparent), transparent 68%);
-  content: "";
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--action-primary) 24%, transparent),
+    transparent 68%
+  );
+  content: '';
   height: 290px;
   position: absolute;
   width: 330px;
@@ -337,7 +341,7 @@
 }
 .reviewsBlock blockquote {
   color: var(--slate-700);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: var(--demo-text-md);
   line-height: 1.5;
   margin: 0;
@@ -804,8 +808,12 @@
   position: relative;
 }
 .inventoryHeroVisual::before {
-  background: radial-gradient(circle, color-mix(in srgb, var(--action-primary) 35%, transparent), transparent 65%);
-  content: "";
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--action-primary) 35%, transparent),
+    transparent 65%
+  );
+  content: '';
   inset: -35px;
   position: absolute;
 }
@@ -1071,8 +1079,12 @@
   width: 82%;
 }
 .detailVehicleVisual::before {
-  background: radial-gradient(circle, color-mix(in srgb, var(--action-primary) 22%, transparent), transparent 67%);
-  content: "";
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--action-primary) 22%, transparent),
+    transparent 67%
+  );
+  content: '';
   inset: -45px;
   position: absolute;
 }
@@ -1292,7 +1304,7 @@
 }
 .enquiryDivider::before {
   background: var(--slate-200);
-  content: "";
+  content: '';
   height: 1px;
   inset-inline: 0;
   position: absolute;

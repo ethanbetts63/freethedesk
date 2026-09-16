@@ -1,10 +1,10 @@
-import "./SiteFooter.css";
+import './SiteFooter.css';
 
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { FOOTER_NAVIGATION, PORTFOLIO_NAVIGATION } from "@/lib/siteConfig";
-import { DeferredSignalFlow } from "@/components/visuals/DeferredSignalFlow";
+import { FOOTER_NAVIGATION, PORTFOLIO_NAVIGATION } from '@/lib/siteConfig';
+import { DeferredSignalFlow } from '@/components/visuals/DeferredSignalFlow';
 
 export function SiteFooter() {
   return (
@@ -15,14 +15,20 @@ export function SiteFooter() {
       <div className="shell footer-grid">
         <div>
           <Link className="wordmark footer-logo" href="/" aria-label="freethedesk home">
-            <Image className="nav-logo-image" src="/logo-192x192.png" alt="" width={40} height={40} />
+            <Image
+              className="nav-logo-image"
+              src="/logo-192x192.png"
+              alt=""
+              width={40}
+              height={40}
+            />
             <span className="nav-logo-text">
               free<span>the</span>desk<span className="wordmark-dot">.</span>
             </span>
           </Link>
           <p className="footer-summary">
-            Dealer websites and operational systems built by a development team with hands-on experience across
-            dealerships and automotive suppliers.
+            Dealer websites and operational systems built by a development team with hands-on
+            experience across dealerships and automotive suppliers.
           </p>
         </div>
         <div className="footer-links">

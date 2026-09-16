@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { PrimaryButton } from "@/components/PrimaryButton";
-import { SectionNumber } from "@/components/SectionNumber";
+import { PrimaryButton } from '@/components/PrimaryButton';
+import { SectionNumber } from '@/components/SectionNumber';
 
 type CaseStudyTeaserProps = {
   eyebrow: string;
@@ -16,7 +16,7 @@ type CaseStudyTeaserProps = {
 
 export function CaseStudyTeaser({
   eyebrow,
-  title = "Scooter Shop, Perth.",
+  title = 'Scooter Shop, Perth.',
   children,
   points,
   primaryHref,
@@ -34,7 +34,9 @@ export function CaseStudyTeaser({
             <strong className="mt-xs mb-4xs block text-display-2 leading-none font-strong tracking-[-0.06em]">
               +300%
             </strong>
-            <span className="whitespace-nowrap text-body text-[var(--text-on-dark-muted)]">organic clicks</span>
+            <span className="whitespace-nowrap text-body text-[var(--text-on-dark-muted)]">
+              organic clicks
+            </span>
           </div>
           <div className="relative z-1">
             <div className="case-mobile-phone">

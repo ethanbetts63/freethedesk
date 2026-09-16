@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import {
   AUTH_FAILURE_EVENT,
   SESSION_FLAG,
@@ -8,7 +8,7 @@ import {
   login as loginRequest,
   logout as logoutRequest,
   type Principal,
-} from "@/lib/api";
+} from '@/lib/api';
 
 interface AuthValue {
   user: Principal | null;
@@ -55,7 +55,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function login(identifier: string, password: string) {
     const principal = await loginRequest(identifier, password);
-    localStorage.setItem(SESSION_FLAG, "1");
+    localStorage.setItem(SESSION_FLAG, '1');
     setUser(principal);
     setLoading(false);
     return principal;
@@ -67,11 +67,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null);
   }
 
-  return <AuthContext.Provider value={{ user, loading, login, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, loading, login, logout }}>{children}</AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
   const value = useContext(AuthContext);
-  if (!value) throw new Error("useAuth must be used inside AuthProvider");
+  if (!value) throw new Error('useAuth must be used inside AuthProvider');
   return value;
 }

@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
-import { DashboardShell } from "@/components/dashboard/DashboardShell";
-import { AuthProvider } from "@/context/AuthContext";
+import { DashboardShell } from '@/components/dashboard/DashboardShell';
+import { AuthProvider } from '@/context/AuthContext';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },

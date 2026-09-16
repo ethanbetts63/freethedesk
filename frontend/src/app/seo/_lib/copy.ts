@@ -1,8 +1,8 @@
-import type { FaqItem } from "@/components/Faq";
+import type { FaqItem } from '@/components/Faq';
 
 export const SEO_FAQS: FaqItem[] = [
   {
-    question: "What access do you actually need?",
+    question: 'What access do you actually need?',
     answer:
       "A full SEO report uses read-only Google Search Console access. The standalone Google Business Profile audit only needs your profile link and business location. We can't edit your site or profile, and we don't install anything.",
   },
@@ -14,19 +14,19 @@ export const SEO_FAQS: FaqItem[] = [
   },
 
   {
-    question: "Do you make the changes for us?",
+    question: 'Do you make the changes for us?',
     answer:
-      "If we built your site, yes—every recommendation comes with a fixed, discounted implementation price, and you tick what you want done. Otherwise the report is written so you, your web person, or whatever platform you already use (GoDaddy, Wix, Squarespace and the rest) can implement it yourselves.",
+      'If we built your site, yes—every recommendation comes with a fixed, discounted implementation price, and you tick what you want done. Otherwise the report is written so you, your web person, or whatever platform you already use (GoDaddy, Wix, Squarespace and the rest) can implement it yourselves.',
   },
 
   {
-    question: "Why quarterly instead of monthly?",
+    question: 'Why quarterly instead of monthly?',
     answer:
       "Because a change takes roughly 8–12 weeks to show its full effect in Google's data. Monthly reporting mostly charges you to hear 'still waiting'. We do offer monthly for genuinely active phases—a new site, a migration, a competitive push—but we'll tell you when to drop back to quarterly.",
   },
 
   {
-    question: "What about AI search—ChatGPT, AI Overviews?",
+    question: 'What about AI search—ChatGPT, AI Overviews?',
     answer:
       "Search increasingly answers the question directly and cites its sources. The work that earns those citations is the same work that ranks: structured data, fast pages, and clear answers to real questions. Our four-point AI readiness check is free for anyone—enter your website, phone and email and we'll send the result. Every paid report is then written with both search and AI answers in mind.",
   },

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Suspense, useCallback } from "react";
+import { Suspense, useCallback } from 'react';
 
 import {
   AdminFilterBar,
@@ -9,13 +9,17 @@ import {
   FilterSelect,
   RowLink,
   SortHeader,
-} from "@/components/dashboard/AdminList";
-import { adminListParams, useAdminList, type AdminListView } from "@/components/dashboard/useAdminList";
-import { dealerStatuses, StatusPill, statusLabel } from "@/components/dashboard/StatusPill";
-import { formatDateTime, getDealers, type Dealer } from "@/lib/adminApi";
+} from '@/components/dashboard/AdminList';
+import {
+  adminListParams,
+  useAdminList,
+  type AdminListView,
+} from '@/components/dashboard/useAdminList';
+import { dealerStatuses, StatusPill, statusLabel } from '@/components/dashboard/StatusPill';
+import { formatDateTime, getDealers, type Dealer } from '@/lib/adminApi';
 
-const SORT_FIELDS = ["created_at", "business_name", "contact_name", "status"] as const;
-const FILTER_KEYS = ["status"] as const;
+const SORT_FIELDS = ['created_at', 'business_name', 'contact_name', 'status'] as const;
+const FILTER_KEYS = ['status'] as const;
 const COLUMNS = 8;
 
 function DealersContent() {
@@ -24,7 +28,7 @@ function DealersContent() {
     fetchPage,
     filterKeys: FILTER_KEYS,
     sortFields: SORT_FIELDS,
-    loadError: "Dealers could not be loaded.",
+    loadError: 'Dealers could not be loaded.',
   });
 
   return (
@@ -50,7 +54,7 @@ function DealersContent() {
           <FilterSelect
             label="Filter dealers by status"
             value={list.filters.status}
-            onChange={(value) => list.setFilter("status", value)}
+            onChange={(value) => list.setFilter('status', value)}
             allLabel="All statuses"
             options={dealerStatuses.map((value) => ({ value, label: statusLabel(value) }))}
           />
@@ -89,7 +93,9 @@ function DealersContent() {
               {(dealer) => (
                 <tr key={dealer.id} className="admin-row" data-status={dealer.status}>
                   <td>
-                    <RowLink href={`/dashboard/dealers/${dealer.id}`}>{formatDateTime(dealer.created_at)}</RowLink>
+                    <RowLink href={`/dashboard/dealers/${dealer.id}`}>
+                      {formatDateTime(dealer.created_at)}
+                    </RowLink>
                   </td>
                   <td>
                     <strong>{dealer.business_name}</strong>
@@ -101,7 +107,7 @@ function DealersContent() {
                   <td>{dealer.plan_label}</td>
                   <td>{dealer.state}</td>
                   <td>{dealer.payment_status_label}</td>
-                  <td>{dealer.phone || "—"}</td>
+                  <td>{dealer.phone || '—'}</td>
                   <td>
                     <StatusPill status={dealer.status} />
                   </td>

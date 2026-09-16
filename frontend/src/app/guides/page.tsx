@@ -1,20 +1,20 @@
-import type { Metadata } from "next";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
-import Link from "next/link";
+import type { Metadata } from 'next';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import Link from 'next/link';
 
-import { Eyebrow } from "@/components/Eyebrow";
-import { PageSchema } from "@/components/PageSchema";
-import { SectionNumber } from "@/components/SectionNumber";
-import { getAllArticleMeta } from "@/lib/articles";
-import { metadataFor, PAGES } from "@/lib/pages";
+import { Eyebrow } from '@/components/Eyebrow';
+import { PageSchema } from '@/components/PageSchema';
+import { SectionNumber } from '@/components/SectionNumber';
+import { getAllArticleMeta } from '@/lib/articles';
+import { metadataFor, PAGES } from '@/lib/pages';
 
-export const metadata: Metadata = metadataFor("/guides");
+export const metadata: Metadata = metadataFor('/guides');
 
-const dateFormatter = new Intl.DateTimeFormat("en-AU", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-  timeZone: "Australia/Perth",
+const dateFormatter = new Intl.DateTimeFormat('en-AU', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'Australia/Perth',
 });
 
 export default function GuidesPage() {
@@ -26,14 +26,16 @@ export default function GuidesPage() {
 
       <section className="relative overflow-hidden bg-surface-dark pt-[clamp(88px,10vw,142px)] pb-[clamp(94px,11vw,154px)] text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_5.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_5.5%,transparent)_1px,transparent_1px)] before:[background-size:64px_64px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_82%)] after:absolute after:top-[-26%] after:right-[-8%] after:h-[clamp(230px,34vw,520px)] after:w-[clamp(230px,34vw,520px)] after:rounded-full after:bg-accent after:opacity-[0.12] after:content-[''] after:[filter:blur(1px)]">
         <div className="shell relative z-1">
-          <Eyebrow className="mb-xl gap-xs text-ui tracking-[0.15em] text-accent">Field notes for dealers</Eyebrow>
+          <Eyebrow className="mb-xl gap-xs text-ui tracking-[0.15em] text-accent">
+            Field notes for dealers
+          </Eyebrow>
           <h1 className="m-0 max-w-[930px] text-display-4 leading-[0.88] tracking-[-0.075em] sm:text-display-6">
             Useful systems.
             <br />
             <em className="not-italic text-accent">Plain English.</em>
           </h1>
           <p className="mt-xl max-w-[660px] text-step-1 leading-[1.65] text-[var(--text-on-dark-muted)]">
-            {PAGES["/guides"].description}
+            {PAGES['/guides'].description}
           </p>
         </div>
         <div
@@ -47,17 +49,24 @@ export default function GuidesPage() {
 
       <Breadcrumbs path="/guides" />
 
-      <section className="bg-surface-page py-[clamp(80px,10vw,132px)]" aria-labelledby="latest-guides">
+      <section
+        className="bg-surface-page py-[clamp(80px,10vw,132px)]"
+        aria-labelledby="latest-guides"
+      >
         <div className="shell">
           <header className="mb-xl grid grid-cols-1 items-start gap-2xl border-b border-border-default pb-xl min-[900px]:grid-cols-[minmax(0,1fr)_minmax(0,0.7fr)] min-[900px]:items-end">
             <div>
               <SectionNumber>The guide library</SectionNumber>
-              <h2 id="latest-guides" className="m-0 text-display-4 leading-[0.95] tracking-[-0.065em]">
+              <h2
+                id="latest-guides"
+                className="m-0 text-display-4 leading-[0.95] tracking-[-0.065em]"
+              >
                 Dealership guides you can use.
               </h2>
             </div>
             <p className="mt-0 mb-3xs max-w-[440px] text-lead leading-[1.7] text-text-muted">
-              Clear, practical thinking drawn from building and running dealership software in the real world.
+              Clear, practical thinking drawn from building and running dealership software in the
+              real world.
             </p>
           </header>
 
@@ -71,13 +80,13 @@ export default function GuidesPage() {
                 >
                   <div className="flex items-center justify-between text-meta font-heavy tracking-[0.12em] text-text-subtle uppercase">
                     <span className="flex h-[38px] w-[38px] items-center justify-center rounded-full border border-border-default tracking-normal">
-                      {String(index + 1).padStart(2, "0")}
+                      {String(index + 1).padStart(2, '0')}
                     </span>
                     <span>Guide</span>
                   </div>
                   <div className="my-auto py-2xl">
                     <p className="mb-m text-caption font-heavy tracking-[0.08em] text-text-action uppercase">
-                      By {article.authorName} ·{" "}
+                      By {article.authorName} ·{' '}
                       <time dateTime={article.publishedDate}>
                         {dateFormatter.format(new Date(`${article.publishedDate}T00:00:00+08:00`))}
                       </time>
@@ -85,10 +94,12 @@ export default function GuidesPage() {
                     <h3 className="m-0 text-step-3 leading-[1.06] tracking-[-0.045em] transition-colors duration-200 group-hover:text-[var(--blue-800)]">
                       {article.title}
                     </h3>
-                    <p className="mt-ml max-w-[560px] text-body leading-[1.65] text-text-muted">{article.excerpt}</p>
+                    <p className="mt-ml max-w-[560px] text-body leading-[1.65] text-text-muted">
+                      {article.excerpt}
+                    </p>
                   </div>
                   <span className="flex items-center justify-between border-t border-border-default pt-ml text-small font-heavy">
-                    Read guide{" "}
+                    Read guide{' '}
                     <b
                       aria-hidden="true"
                       className="text-step-0 text-text-action transition-transform duration-200 group-hover:translate-x-[5px]"
@@ -105,16 +116,19 @@ export default function GuidesPage() {
                 01
               </span>
               <div>
-                <h3 className="m-0 mb-xs text-step-1 tracking-[-0.03em]">The first field note is on the way.</h3>
+                <h3 className="m-0 mb-xs text-step-1 tracking-[-0.03em]">
+                  The first field note is on the way.
+                </h3>
                 <p className="m-0 text-body leading-[1.6] text-text-muted">
-                  We are assembling practical guides for dealers who want clearer websites and less administration.
+                  We are assembling practical guides for dealers who want clearer websites and less
+                  administration.
                 </p>
               </div>
               <Link
                 href="/contact"
                 className="col-start-1 justify-self-start border-b border-text-primary pb-2xs text-small font-heavy sm:col-start-2 min-[900px]:col-auto min-[900px]:justify-self-auto"
               >
-                Ask us a question{" "}
+                Ask us a question{' '}
                 <b aria-hidden="true" className="ml-xs text-text-action">
                   →
                 </b>

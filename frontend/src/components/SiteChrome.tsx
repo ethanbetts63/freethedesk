@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { usePathname } from "next/navigation";
+import { usePathname } from 'next/navigation';
 
-import { AiReadinessModal } from "@/components/marketing/AiReadinessModal";
-import { isApplicationRoute, usesStandaloneChrome } from "@/lib/routePolicy";
+import { AiReadinessModal } from '@/components/marketing/AiReadinessModal';
+import { isApplicationRoute, usesStandaloneChrome } from '@/lib/routePolicy';
 
 /**
  * Picks which chrome a route gets. Header and footer arrive as already-rendered

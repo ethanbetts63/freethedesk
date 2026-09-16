@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { cookies } from 'next/headers';
 
 interface ParsedCookie {
   name: string;
@@ -7,34 +7,34 @@ interface ParsedCookie {
     maxAge?: number;
     httpOnly?: boolean;
     secure?: boolean;
-    sameSite?: "strict" | "lax" | "none";
+    sameSite?: 'strict' | 'lax' | 'none';
     path?: string;
   };
 }
 
 function parseSetCookie(header: string): ParsedCookie | null {
-  const [pair, ...attributes] = header.split(";").map((part) => part.trim());
-  const separator = pair.indexOf("=");
+  const [pair, ...attributes] = header.split(';').map((part) => part.trim());
+  const separator = pair.indexOf('=');
   if (separator === -1) return null;
 
-  const options: ParsedCookie["options"] = {};
+  const options: ParsedCookie['options'] = {};
   for (const attribute of attributes) {
-    const [rawKey, rawValue] = attribute.split("=");
+    const [rawKey, rawValue] = attribute.split('=');
     switch (rawKey.trim().toLowerCase()) {
-      case "max-age":
+      case 'max-age':
         options.maxAge = Number(rawValue);
         break;
-      case "path":
+      case 'path':
         options.path = rawValue;
         break;
-      case "httponly":
+      case 'httponly':
         options.httpOnly = true;
         break;
-      case "secure":
+      case 'secure':
         options.secure = true;
         break;
-      case "samesite":
-        options.sameSite = rawValue?.trim().toLowerCase() as "strict" | "lax" | "none";
+      case 'samesite':
+        options.sameSite = rawValue?.trim().toLowerCase() as 'strict' | 'lax' | 'none';
         break;
     }
   }

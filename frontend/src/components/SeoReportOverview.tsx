@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
-import { SeoReportVisual } from "./SeoReportVisual";
-import { SplitFeatureSection } from "./SplitFeatureSection";
+import { SeoReportVisual } from './SeoReportVisual';
+import { SplitFeatureSection } from './SplitFeatureSection';
 
 type SeoReportOverviewProps = {
   eyebrow: string;
@@ -10,21 +10,21 @@ type SeoReportOverviewProps = {
   accentTitle?: string;
   id?: string;
   className?: string;
-  mode?: "report" | "improvement";
-  spacing?: "standard" | "compact" | "joined";
-  textSide?: "left" | "right";
+  mode?: 'report' | 'improvement';
+  spacing?: 'standard' | 'compact' | 'joined';
+  textSide?: 'left' | 'right';
 };
 
 export function SeoReportOverview({
   eyebrow,
   description,
-  title = "One document.",
-  accentTitle = "Four sections.",
+  title = 'One document.',
+  accentTitle = 'Four sections.',
   id,
-  className = "",
-  mode = "report",
-  spacing = "compact",
-  textSide = "left",
+  className = '',
+  mode = 'report',
+  spacing = 'compact',
+  textSide = 'left',
 }: SeoReportOverviewProps) {
   return (
     <SplitFeatureSection

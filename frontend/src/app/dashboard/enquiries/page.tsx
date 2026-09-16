@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { Suspense, useCallback } from "react";
+import Link from 'next/link';
+import { Suspense, useCallback } from 'react';
 
 import {
   AdminFilterBar,
@@ -10,22 +10,26 @@ import {
   FilterSelect,
   RowLink,
   SortHeader,
-} from "@/components/dashboard/AdminList";
-import { adminListParams, useAdminList, type AdminListView } from "@/components/dashboard/useAdminList";
-import { enquiryStatuses, StatusPill, statusLabel } from "@/components/dashboard/StatusPill";
-import { formatDateTime, getEnquiries, type Enquiry } from "@/lib/adminApi";
+} from '@/components/dashboard/AdminList';
+import {
+  adminListParams,
+  useAdminList,
+  type AdminListView,
+} from '@/components/dashboard/useAdminList';
+import { enquiryStatuses, StatusPill, statusLabel } from '@/components/dashboard/StatusPill';
+import { formatDateTime, getEnquiries, type Enquiry } from '@/lib/adminApi';
 
-const SORT_FIELDS = ["created_at", "business", "help_with", "status"] as const;
-const FILTER_KEYS = ["status", "help_with"] as const;
+const SORT_FIELDS = ['created_at', 'business', 'help_with', 'status'] as const;
+const FILTER_KEYS = ['status', 'help_with'] as const;
 
 const HELP_WITH_OPTIONS = [
-  { value: "website", label: "Dealer website" },
-  { value: "website_builder", label: "Dealer web enquiry" },
-  { value: "inventory", label: "Inventory, parts, service or hire" },
-  { value: "automation", label: "Business automation" },
-  { value: "ai_readiness", label: "AI readiness check" },
-  { value: "everything", label: "All of the above" },
-  { value: "unsure", label: "Not sure yet" },
+  { value: 'website', label: 'Dealer website' },
+  { value: 'website_builder', label: 'Dealer web enquiry' },
+  { value: 'inventory', label: 'Inventory, parts, service or hire' },
+  { value: 'automation', label: 'Business automation' },
+  { value: 'ai_readiness', label: 'AI readiness check' },
+  { value: 'everything', label: 'All of the above' },
+  { value: 'unsure', label: 'Not sure yet' },
 ];
 
 const COLUMNS = 5;
@@ -36,7 +40,7 @@ function EnquiriesContent() {
     fetchPage,
     filterKeys: FILTER_KEYS,
     sortFields: SORT_FIELDS,
-    loadError: "Enquiries could not be loaded.",
+    loadError: 'Enquiries could not be loaded.',
   });
 
   return (
@@ -65,14 +69,14 @@ function EnquiriesContent() {
           <FilterSelect
             label="Filter enquiries by status"
             value={list.filters.status}
-            onChange={(value) => list.setFilter("status", value)}
+            onChange={(value) => list.setFilter('status', value)}
             allLabel="All statuses"
             options={enquiryStatuses.map((value) => ({ value, label: statusLabel(value) }))}
           />
           <FilterSelect
             label="Filter enquiries by type"
             value={list.filters.help_with}
-            onChange={(value) => list.setFilter("help_with", value)}
+            onChange={(value) => list.setFilter('help_with', value)}
             allLabel="All enquiry types"
             options={HELP_WITH_OPTIONS}
           />
@@ -108,11 +112,15 @@ function EnquiriesContent() {
               {(enquiry) => (
                 <tr key={enquiry.id} className="admin-row" data-status={enquiry.status}>
                   <td>
-                    <RowLink href={`/dashboard/enquiries/${enquiry.id}`}>{formatDateTime(enquiry.created_at)}</RowLink>
+                    <RowLink href={`/dashboard/enquiries/${enquiry.id}`}>
+                      {formatDateTime(enquiry.created_at)}
+                    </RowLink>
                   </td>
                   <td>
-                    <strong>{enquiry.business || "—"}</strong>
-                    {enquiry.website && <small>{enquiry.website.replace(/^https?:\/\//, "")}</small>}
+                    <strong>{enquiry.business || '—'}</strong>
+                    {enquiry.website && (
+                      <small>{enquiry.website.replace(/^https?:\/\//, '')}</small>
+                    )}
                   </td>
                   <td>
                     <strong>{enquiry.name}</strong>
@@ -120,7 +128,9 @@ function EnquiriesContent() {
                   </td>
                   <td>
                     <strong>{enquiry.help_with_label}</strong>
-                    {enquiry.configuration?.budget && <small>Budget: {enquiry.configuration.budget}</small>}
+                    {enquiry.configuration?.budget && (
+                      <small>Budget: {enquiry.configuration.budget}</small>
+                    )}
                   </td>
                   <td>
                     <StatusPill status={enquiry.status} />

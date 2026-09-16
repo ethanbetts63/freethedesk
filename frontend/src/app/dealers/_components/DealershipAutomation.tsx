@@ -1,6 +1,6 @@
-import { ServiceScroll } from "@/components/ServiceScroll";
+import { ServiceScroll } from '@/components/ServiceScroll';
 
-import { dealerServices } from "./dealerServices";
+import { dealerServices } from './dealerServices';
 
 export function DealershipAutomation({ eyebrow }: { eyebrow: string }) {
   return (

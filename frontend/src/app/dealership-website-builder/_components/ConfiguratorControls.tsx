@@ -1,17 +1,25 @@
-"use client";
+'use client';
 
-import { useActionState, useState } from "react";
-import { useFormStatus } from "react-dom";
+import { useActionState, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 
-import { MovingColourButton } from "@/components/MovingColourButton";
+import { MovingColourButton } from '@/components/MovingColourButton';
 
-import { CapabilityOption } from "./CapabilityOption";
-import { submitConfiguratorEnquiry, type ConfiguratorEnquiryState } from "./ConfiguratorControls.actions";
-import { INVENTORY_OPTIONS, MODULES, summariseSelection } from "../_lib/configuratorData";
-import styles from "../_styles/configurator.module.css";
-import type { InventoryAddonSelection, InventoryOption, ModuleKey, ModuleSelection } from "../_lib/types";
+import { CapabilityOption } from './CapabilityOption';
+import {
+  submitConfiguratorEnquiry,
+  type ConfiguratorEnquiryState,
+} from './ConfiguratorControls.actions';
+import { INVENTORY_OPTIONS, MODULES, summariseSelection } from '../_lib/configuratorData';
+import styles from '../_styles/configurator.module.css';
+import type {
+  InventoryAddonSelection,
+  InventoryOption,
+  ModuleKey,
+  ModuleSelection,
+} from '../_lib/types';
 
-const initialState: ConfiguratorEnquiryState = { status: "idle" };
+const initialState: ConfiguratorEnquiryState = { status: 'idle' };
 
 function SubmitButton({ hasSucceeded }: { hasSucceeded: boolean }) {
   const { pending } = useFormStatus();
@@ -24,7 +32,7 @@ function SubmitButton({ hasSucceeded }: { hasSucceeded: boolean }) {
       size="large"
       fullWidth
     >
-      {pending ? "Sending…" : hasSucceeded ? "Send updated configuration" : "Send my configuration"}
+      {pending ? 'Sending…' : hasSucceeded ? 'Send updated configuration' : 'Send my configuration'}
     </MovingColourButton>
   );
 }
@@ -62,14 +70,16 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
     additionCount,
     names: summaryItems,
   } = summariseSelection(selected, inventoryAddons, customRequest);
-  const toggleExpanded = (key: string) => setExpanded((current) => ({ ...current, [key]: !current[key] }));
+  const toggleExpanded = (key: string) =>
+    setExpanded((current) => ({ ...current, [key]: !current[key] }));
 
   // The configurator's own selections aren't native form fields (they're
   // rendered — and changed — outside this <form>, via the props above), so
   // they're carried to the Server Action as hidden fields computed fresh on
   // every render rather than read from the DOM.
   const suppliedUrl = currentUrl.trim();
-  const website = suppliedUrl && !/^https?:\/\//i.test(suppliedUrl) ? `https://${suppliedUrl}` : suppliedUrl;
+  const website =
+    suppliedUrl && !/^https?:\/\//i.test(suppliedUrl) ? `https://${suppliedUrl}` : suppliedUrl;
   const configuration = {
     version: 1,
     appearance: {
@@ -90,7 +100,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
   };
   const message = hasCustomRequest
     ? `Website builder configuration. Custom request: ${customRequest.trim()}`
-    : "Interactive dealership website configuration submitted.";
+    : 'Interactive dealership website configuration submitted.';
 
   return (
     <aside className={styles.controls} aria-label="Website configuration options">
@@ -101,8 +111,8 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
         </div>
         <h2>Build your dealership website.</h2>
         <p>
-          Add your brand and the capabilities you need, explore the live preview, then send the complete configuration
-          to our team. No payment is required.
+          Add your brand and the capabilities you need, explore the live preview, then send the
+          complete configuration to our team. No payment is required.
         </p>
       </section>
 
@@ -138,7 +148,9 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           placeholder="e.g. www.example.com.au"
         />
         <small className="field-hint">Helps us understand your current content and setup.</small>
-        <p className={styles.paletteNote}>Demo palette — production design and colours are tailored to your brand.</p>
+        <p className={styles.paletteNote}>
+          Demo palette — production design and colours are tailored to your brand.
+        </p>
       </section>
 
       <section className={styles.controlGroup}>
@@ -162,7 +174,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
                 onToggle={() => onModuleToggle(module.key)}
                 onExpandedChange={() => toggleExpanded(explanationId)}
               >
-                {module.key === "inventory" && selected.inventory ? (
+                {module.key === 'inventory' && selected.inventory ? (
                   <div className={styles.inventorySubOptions}>
                     <p>Optional online actions</p>
                     {INVENTORY_OPTIONS.map((option) => {
@@ -189,7 +201,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             <div className={styles.moduleRow}>
               <button
                 type="button"
-                className={`${styles.moduleToggle} ${hasCustomRequest ? styles.moduleSelected : ""}`}
+                className={`${styles.moduleToggle} ${hasCustomRequest ? styles.moduleSelected : ''}`}
                 onClick={() => setExpanded((current) => ({ ...current, custom: !current.custom }))}
                 aria-expanded={Boolean(expanded.custom)}
                 aria-controls="custom-capability-details"
@@ -205,15 +217,15 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
                     <small>Tell us what would make this work for you.</small>
                   </span>
                 </span>
-                <i>{hasCustomRequest ? "✓" : "+"}</i>
+                <i>{hasCustomRequest ? '✓' : '+'}</i>
               </button>
               <button
                 type="button"
-                className={`${styles.expandToggle} ${expanded.custom ? styles.expandToggleOpen : ""}`}
-                onClick={() => toggleExpanded("custom")}
+                className={`${styles.expandToggle} ${expanded.custom ? styles.expandToggleOpen : ''}`}
+                onClick={() => toggleExpanded('custom')}
                 aria-expanded={Boolean(expanded.custom)}
                 aria-controls="custom-capability-details"
-                aria-label={`${expanded.custom ? "Hide" : "Open"} custom capability request`}
+                aria-label={`${expanded.custom ? 'Hide' : 'Open'} custom capability request`}
               >
                 <svg viewBox="0 0 20 20" aria-hidden="true">
                   <path d="m5 7.5 5 5 5-5" />
@@ -249,13 +261,23 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           </div>
         </div>
         <form className={styles.detailsForm} action={formAction}>
-          <input type="hidden" name="business" value={brandName.trim() || "Dealership website enquiry"} />
+          <input
+            type="hidden"
+            name="business"
+            value={brandName.trim() || 'Dealership website enquiry'}
+          />
           <input type="hidden" name="website" value={website} />
           <input type="hidden" name="message" value={message} />
           <input type="hidden" name="configuration" value={JSON.stringify(configuration)} />
           <label>
             <span className="form-label">Name</span>
-            <input className="form-control" name="name" autoComplete="name" placeholder="e.g. Alex Smith" required />
+            <input
+              className="form-control"
+              name="name"
+              autoComplete="name"
+              placeholder="e.g. Alex Smith"
+              required
+            />
           </label>
           <label>
             <span className="form-label">Email</span>
@@ -282,19 +304,21 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           <div className={styles.configurationReview}>
             <div>
               <span>Your configuration</span>
-              <strong>{additionCount === 0 ? "Base website" : `Base + ${additionCount}`}</strong>
+              <strong>{additionCount === 0 ? 'Base website' : `Base + ${additionCount}`}</strong>
             </div>
-            {summaryItems.length > 0 && <p>{summaryItems.join(" · ")}</p>}
+            {summaryItems.length > 0 && <p>{summaryItems.join(' · ')}</p>}
           </div>
-          <SubmitButton hasSucceeded={state.status === "success"} />
+          <SubmitButton hasSucceeded={state.status === 'success'} />
           <small className={styles.submissionNote}>
             No payment today. We’ll confirm integrations, scope and timing with you first.
           </small>
           <div className={styles.submissionMessage} aria-live="polite">
-            {state.status === "success" && (
-              <p className={styles.submissionSuccess}>Thanks — your complete configuration is now with our team.</p>
+            {state.status === 'success' && (
+              <p className={styles.submissionSuccess}>
+                Thanks — your complete configuration is now with our team.
+              </p>
             )}
-            {state.status === "error" && (
+            {state.status === 'error' && (
               <p className={styles.submissionError}>
                 Something went wrong. Please try again or email hello@freethedesk.com.au.
               </p>

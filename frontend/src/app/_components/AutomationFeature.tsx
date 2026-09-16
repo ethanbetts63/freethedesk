@@ -1,7 +1,7 @@
-import { PrimaryButton } from "@/components/PrimaryButton";
-import { SplitFeatureSection } from "@/components/SplitFeatureSection";
+import { PrimaryButton } from '@/components/PrimaryButton';
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
-import { AutomationFeatureVisual } from "./AutomationFeatureVisual";
+import { AutomationFeatureVisual } from './AutomationFeatureVisual';
 
 export function AutomationFeature() {
   return (
