@@ -155,6 +155,19 @@ before mass conversion. Known examples include:
 Do not mechanically rename a token based only on equal colour values. Roles are
 defined by meaning, and two roles may currently resolve to the same value.
 
+Done: [`tailwind-token-mapping.md`](tailwind-token-mapping.md) — full
+token-by-token comparison. `--section-space`/`--space-section` was already
+reconciled; `--text-on-dark`/`--text-on-brand` is a confirmed synonym
+(173 combined call sites, deferred to a later cleanup rather than renamed
+here); status enum colours are already correctly split between feedback and
+categorical meaning, just not yet in allbikes' `--category-N` naming
+pattern; direct `--slate-*`/`--blue-*` consumers resolve per-file during
+Phase 4. One open item carried into Phase 3: the fluid heading scale
+(`text-step-*`/`text-display-*`) still needs its per-usage semantic rename,
+and freethedesk's fixed `--text-body` would collide with allbikes' fluid
+`--text-body` if renamed carelessly — see the mapping doc's "needs a
+decision" section.
+
 Exit criteria:
 
 - both token files expose the same cross-site semantic and scale vocabulary;
