@@ -1,6 +1,6 @@
 .faqSection {
-  --faq-accent: var(--brand-accent);
-  background: var(--surface-flow);
+  --faq-accent: var(--action-primary);
+  background: var(--surface-tint);
   padding: var(--section-space) 0;
 }
 .faqLayout {

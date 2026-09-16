@@ -7,9 +7,8 @@
  * either, but which is harder to fudge -- sat at 96%. The rules below are the
  * ones that would have stopped that drift as it happened.
  *
- * Severities are deliberately mixed. A rule with a clean slate is an error; a
- * rule with a real backlog is a warning, so `npm run check` stays green and the
- * count can be driven down rather than disabled on day one.
+ * The original migration backlogs are now clear, so every active rule blocks a
+ * regression as an error and `npm run check` remains warning-free.
  */
 
 /** Properties whose values must come from the scales in tokens.css. */
@@ -165,7 +164,7 @@ export default {
     // six files and broke gradient text in Safari. The rule cannot be trusted
     // here while the autofix is that eager.
     "property-no-vendor-prefix": null,
-    // A genuine smell, but 5 pre-existing cases -- warn rather than block.
+    // The five pre-existing cases were resolved; duplicates now block regressions.
     "no-duplicate-selectors": true,
   },
 };

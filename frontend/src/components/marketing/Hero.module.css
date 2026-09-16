@@ -1,7 +1,7 @@
 .hero {
-  --hero-accent: var(--brand-accent);
+  --hero-accent: var(--action-primary);
   align-items: center;
-  background: var(--surface);
+  background: var(--surface-page);
   display: flex;
   min-height: calc(100svh - 68px);
   overflow: hidden;
@@ -30,15 +30,15 @@
     linear-gradient(rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px, transparent 1px),
     linear-gradient(90deg, rgba(var(--hero-grid-color), var(--hero-grid-opacity)) 1px, transparent 1px);
   background-size: var(--hero-grid-size) var(--hero-grid-size);
-  mask-image: radial-gradient(circle at 65% 50%, var(--text), transparent 72%);
+  mask-image: radial-gradient(circle at 65% 50%, var(--text-primary), transparent 72%);
   pointer-events: none;
   z-index: -1;
 }
 .glow {
   background: radial-gradient(
     circle at 34% 48%,
-    color-mix(in srgb, var(--bg) 98%, transparent) 0 18%,
-    color-mix(in srgb, var(--bg) 78%, transparent) 36%,
+    color-mix(in srgb, var(--surface-page) 98%, transparent) 0 18%,
+    color-mix(in srgb, var(--surface-page) 78%, transparent) 36%,
     transparent 62%
   );
   pointer-events: none;
@@ -67,7 +67,7 @@
   width: 7px;
 }
 .copy h1 {
-  color: var(--text);
+  color: var(--text-primary);
   font-size: var(--display-6);
   font-weight: var(--weight-heavy);
   letter-spacing: -0.085em;
@@ -99,7 +99,7 @@
 /* .primary is a .primary-button now, which brings its own box styles. */
 .secondary {
   align-items: center;
-  border-bottom: 1px solid var(--text);
+  border-bottom: 1px solid var(--text-primary);
   display: inline-flex;
   font-size: var(--text-body);
   font-weight: var(--weight-heavy);

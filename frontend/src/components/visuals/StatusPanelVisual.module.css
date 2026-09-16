@@ -1,7 +1,7 @@
 .panel {
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
+  background-image: linear-gradient(var(--surface-page), var(--surface-page)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -51,7 +51,7 @@
 }
 
 .dot {
-  background: var(--success-accent);
+  background: var(--fill-success);
   border-radius: var(--radius-circle);
   box-shadow: 0 0 0 4px rgba(79, 208, 138, 0.18);
   flex: none;
@@ -81,7 +81,7 @@
 
 .list li {
   align-items: center;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border: 1px solid var(--slate-100);
   display: grid;
   gap: var(--space-s);
@@ -99,7 +99,7 @@
   align-items: center;
   background: var(--slate-100);
   border-radius: var(--radius-circle);
-  color: var(--page-accent, var(--brand-accent));
+  color: var(--page-accent, var(--action-primary));
   display: flex;
   font-size: var(--text-meta);
   font-weight: var(--weight-black);

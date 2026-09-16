@@ -1,15 +1,15 @@
 .redirectVisual {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--border-strong);
   box-shadow: 0 12px 28px color-mix(in srgb, var(--blue-950) 10%, transparent);
-  color: var(--text);
+  color: var(--text-primary);
   flex: 0 0 auto;
   width: 168px;
 }
 .redirectBar {
   align-items: center;
   background: var(--surface-tint);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   display: flex;
   gap: var(--space-3xs);
   min-height: 24px;
@@ -39,7 +39,7 @@
   padding-right: var(--space-xs);
 }
 .redirectRoute > span:not(.routeArrow) {
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-default);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: var(--text-nano);
   overflow: hidden;
@@ -69,7 +69,7 @@
 }
 .redirectStatus {
   align-items: center;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   color: var(--text-muted);
   display: flex;
   font-size: var(--text-nano);
@@ -78,7 +78,7 @@
   padding: var(--space-xs) var(--space-s);
 }
 .redirectStatus i {
-  background: var(--success-accent);
+  background: var(--fill-success);
   border-radius: var(--radius-circle);
   box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.12);
   height: 5px;
@@ -106,7 +106,7 @@
   border-top: 1px solid var(--border-on-dark);
 }
 .aiReadinessVisual i {
-  background: var(--success-accent);
+  background: var(--fill-success);
   border-radius: var(--radius-circle);
   box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.12);
   height: 6px;

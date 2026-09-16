@@ -1,5 +1,5 @@
 .page {
-  --page-accent: var(--brand-accent);
-  background: var(--surface);
+  --page-accent: var(--action-primary);
+  background: var(--surface-page);
   color: var(--slate-950);
 }

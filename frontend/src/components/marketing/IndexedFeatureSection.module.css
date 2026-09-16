@@ -28,11 +28,11 @@
   padding: 0;
 }
 .items li {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   padding: var(--space-xl) var(--space-xl) var(--space-xl);
 }
 .itemIndex {
-  color: var(--page-accent, var(--brand-accent));
+  color: var(--page-accent, var(--action-primary));
   display: block;
   font-size: var(--text-ui);
   font-weight: var(--weight-black);

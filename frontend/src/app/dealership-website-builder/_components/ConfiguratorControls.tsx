@@ -1,23 +1,40 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useActionState, useState } from "react";
+import { useFormStatus } from "react-dom";
 
-import { submitEnquiry } from "@/lib/api";
 import { MovingColourButton } from "@/components/MovingColourButton";
 
 import { CapabilityOption } from "./CapabilityOption";
-import { ACCENTS, INVENTORY_OPTIONS, MODULES, summariseSelection } from "../_lib/configuratorData";
+import { submitConfiguratorEnquiry, type ConfiguratorEnquiryState } from "./ConfiguratorControls.actions";
+import { INVENTORY_OPTIONS, MODULES, summariseSelection } from "../_lib/configuratorData";
 import styles from "../_styles/configurator.module.css";
-import type { Accent, InventoryAddonSelection, InventoryOption, ModuleKey, ModuleSelection } from "../_lib/types";
+import type { InventoryAddonSelection, InventoryOption, ModuleKey, ModuleSelection } from "../_lib/types";
+
+const initialState: ConfiguratorEnquiryState = { status: "idle" };
+
+function SubmitButton({ hasSucceeded }: { hasSucceeded: boolean }) {
+  const { pending } = useFormStatus();
+  return (
+    <MovingColourButton
+      className={styles.detailsSubmit}
+      type="submit"
+      disabled={pending}
+      direction="right"
+      size="large"
+      fullWidth
+    >
+      {pending ? "Sending…" : hasSucceeded ? "Send updated configuration" : "Send my configuration"}
+    </MovingColourButton>
+  );
+}
 
 type ConfiguratorControlsProps = {
-  accent: Accent;
   brandName: string;
   currentUrl: string;
   customRequest: string;
   selected: ModuleSelection;
   inventoryAddons: InventoryAddonSelection;
-  onAccentChange: (accent: Accent) => void;
   onBrandNameChange: (name: string) => void;
   onCurrentUrlChange: (url: string) => void;
   onCustomRequestChange: (request: string) => void;
@@ -27,18 +44,13 @@ type ConfiguratorControlsProps = {
 
 export function ConfiguratorControls(props: ConfiguratorControlsProps) {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
-  const [contactName, setContactName] = useState("");
-  const [contactEmail, setContactEmail] = useState("");
-  const [contactPhone, setContactPhone] = useState("");
-  const [submissionStatus, setSubmissionStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [state, formAction] = useActionState(submitConfiguratorEnquiry, initialState);
   const {
-    accent,
     brandName,
     currentUrl,
     customRequest,
     selected,
     inventoryAddons,
-    onAccentChange,
     onBrandNameChange,
     onCurrentUrlChange,
     onCustomRequestChange,
@@ -52,52 +64,33 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
   } = summariseSelection(selected, inventoryAddons, customRequest);
   const toggleExpanded = (key: string) => setExpanded((current) => ({ ...current, [key]: !current[key] }));
 
-  async function submitConfiguration(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmissionStatus("submitting");
-
-    const suppliedUrl = currentUrl.trim();
-    const website = suppliedUrl && !/^https?:\/\//i.test(suppliedUrl) ? `https://${suppliedUrl}` : suppliedUrl;
-    const configuration = {
-      version: 1,
-      appearance: {
-        brand_name: brandName.trim(),
-        current_url: suppliedUrl,
-        accent,
-        accent_hex: ACCENTS[accent],
-      },
-      capabilities: MODULES.map((module) => ({
-        key: module.key,
-        name: module.name,
-        selected: selected[module.key],
-      })),
-      inventory_options: INVENTORY_OPTIONS.map((option) => ({
-        key: option.key,
-        name: option.name,
-        selected: selected.inventory && inventoryAddons[option.key],
-      })),
-      custom_capability: customRequest.trim(),
-    };
-    const message = hasCustomRequest
-      ? `Website builder configuration. Custom request: ${customRequest.trim()}`
-      : "Interactive dealership website configuration submitted.";
-
-    try {
-      await submitEnquiry({
-        name: contactName.trim(),
-        business: brandName.trim() || "Dealership website enquiry",
-        email: contactEmail.trim(),
-        phone: contactPhone.trim(),
-        website,
-        help_with: "website_builder",
-        message,
-        configuration,
-      });
-      setSubmissionStatus("success");
-    } catch {
-      setSubmissionStatus("error");
-    }
-  }
+  // The configurator's own selections aren't native form fields (they're
+  // rendered — and changed — outside this <form>, via the props above), so
+  // they're carried to the Server Action as hidden fields computed fresh on
+  // every render rather than read from the DOM.
+  const suppliedUrl = currentUrl.trim();
+  const website = suppliedUrl && !/^https?:\/\//i.test(suppliedUrl) ? `https://${suppliedUrl}` : suppliedUrl;
+  const configuration = {
+    version: 1,
+    appearance: {
+      brand_name: brandName.trim(),
+      current_url: suppliedUrl,
+    },
+    capabilities: MODULES.map((module) => ({
+      key: module.key,
+      name: module.name,
+      selected: selected[module.key],
+    })),
+    inventory_options: INVENTORY_OPTIONS.map((option) => ({
+      key: option.key,
+      name: option.name,
+      selected: selected.inventory && inventoryAddons[option.key],
+    })),
+    custom_capability: customRequest.trim(),
+  };
+  const message = hasCustomRequest
+    ? `Website builder configuration. Custom request: ${customRequest.trim()}`
+    : "Interactive dealership website configuration submitted.";
 
   return (
     <aside className={styles.controls} aria-label="Website configuration options">
@@ -145,21 +138,6 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           placeholder="e.g. www.example.com.au"
         />
         <small className="field-hint">Helps us understand your current content and setup.</small>
-        <label className="form-label">Brand accent</label>
-        <div className={styles.swatches}>
-          {(Object.keys(ACCENTS) as Accent[]).map((option) => (
-            <button
-              type="button"
-              key={option}
-              className={accent === option ? styles.activeSwatch : ""}
-              onClick={() => onAccentChange(option)}
-              aria-label={`${option} brand accent`}
-              aria-pressed={accent === option}
-            >
-              <i style={{ background: ACCENTS[option] }} />
-            </button>
-          ))}
-        </div>
         <p className={styles.paletteNote}>Demo palette — production design and colours are tailored to your brand.</p>
       </section>
 
@@ -270,30 +248,20 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             <small>Send this configuration to our team.</small>
           </div>
         </div>
-        <form className={styles.detailsForm} onSubmit={submitConfiguration}>
+        <form className={styles.detailsForm} action={formAction}>
+          <input type="hidden" name="business" value={brandName.trim() || "Dealership website enquiry"} />
+          <input type="hidden" name="website" value={website} />
+          <input type="hidden" name="message" value={message} />
+          <input type="hidden" name="configuration" value={JSON.stringify(configuration)} />
           <label>
             <span className="form-label">Name</span>
-            <input
-              className="form-control"
-              value={contactName}
-              onChange={(event) => {
-                setContactName(event.target.value);
-                setSubmissionStatus("idle");
-              }}
-              autoComplete="name"
-              placeholder="e.g. Alex Smith"
-              required
-            />
+            <input className="form-control" name="name" autoComplete="name" placeholder="e.g. Alex Smith" required />
           </label>
           <label>
             <span className="form-label">Email</span>
             <input
               className="form-control"
-              value={contactEmail}
-              onChange={(event) => {
-                setContactEmail(event.target.value);
-                setSubmissionStatus("idle");
-              }}
+              name="email"
               type="email"
               autoComplete="email"
               placeholder="e.g. email@example.com"
@@ -304,11 +272,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             <span className="form-label">Phone number</span>
             <input
               className="form-control"
-              value={contactPhone}
-              onChange={(event) => {
-                setContactPhone(event.target.value);
-                setSubmissionStatus("idle");
-              }}
+              name="phone"
               type="tel"
               autoComplete="tel"
               placeholder="e.g. 0400 000 000"
@@ -322,28 +286,15 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             </div>
             {summaryItems.length > 0 && <p>{summaryItems.join(" · ")}</p>}
           </div>
-          <MovingColourButton
-            className={styles.detailsSubmit}
-            type="submit"
-            disabled={submissionStatus === "submitting"}
-            direction="right"
-            size="large"
-            fullWidth
-          >
-            {submissionStatus === "submitting"
-              ? "Sending…"
-              : submissionStatus === "success"
-                ? "Send updated configuration"
-                : "Send my configuration"}
-          </MovingColourButton>
+          <SubmitButton hasSucceeded={state.status === "success"} />
           <small className={styles.submissionNote}>
             No payment today. We’ll confirm integrations, scope and timing with you first.
           </small>
           <div className={styles.submissionMessage} aria-live="polite">
-            {submissionStatus === "success" && (
+            {state.status === "success" && (
               <p className={styles.submissionSuccess}>Thanks — your complete configuration is now with our team.</p>
             )}
-            {submissionStatus === "error" && (
+            {state.status === "error" && (
               <p className={styles.submissionError}>
                 Something went wrong. Please try again or email hello@freethedesk.com.au.
               </p>

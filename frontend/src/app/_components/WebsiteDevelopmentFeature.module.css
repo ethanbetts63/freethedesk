@@ -1,5 +1,5 @@
 .visual {
-  --feature-accent: var(--page-accent, var(--brand-accent));
+  --feature-accent: var(--page-accent, var(--action-primary));
   background: var(--surface-dark);
   box-shadow: 12px 12px 0 var(--slate-100);
   min-height: 450px;
@@ -28,21 +28,21 @@
 }
 /* The address pill's wide side padding used to force the bar past its box. */
 .browserBar > span {
-  background: var(--surface);
+  background: var(--surface-page);
   overflow: hidden;
   padding: var(--space-3xs) var(--space-m);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .browserBar b {
-  color: var(--success-ink);
+  color: var(--text-success);
   font-size: var(--text-nano);
   justify-self: end;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 .websiteCanvas {
-  background: var(--surface);
+  background: var(--surface-page);
   color: var(--slate-950);
   min-height: 330px;
   overflow: hidden;
@@ -77,14 +77,14 @@
   width: 38px;
 }
 .pageHero {
-  background: linear-gradient(135deg, var(--surface-flow), var(--slate-50));
+  background: linear-gradient(135deg, var(--surface-tint), var(--slate-50));
   margin-top: var(--space-m);
   min-height: 210px;
   padding: var(--space-l) var(--space-ml);
   position: relative;
 }
 .pageHero::after {
-  background: radial-gradient(circle at 35% 35%, var(--sky-500), var(--brand-accent) 60%, var(--surface-dark));
+  background: radial-gradient(circle at 35% 35%, var(--sky-500), var(--action-primary) 60%, var(--surface-dark));
   border-radius: var(--radius-circle);
   content: "";
   height: 110px;
@@ -135,7 +135,7 @@
   height: 42px;
 }
 .systemPanel {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--slate-200);
   bottom: 0;
   box-shadow: 0 22px 55px color-mix(in srgb, var(--slate-950) 24%, transparent);
@@ -159,7 +159,7 @@
   text-transform: uppercase;
 }
 .systemPanel header b {
-  color: var(--success-ink);
+  color: var(--text-success);
 }
 .systemPanel > div {
   align-items: center;
@@ -180,7 +180,7 @@
   font-weight: var(--weight-black);
 }
 .systemPanel strong {
-  color: var(--success-ink);
+  color: var(--text-success);
   font-size: var(--text-nano);
   text-transform: uppercase;
 }

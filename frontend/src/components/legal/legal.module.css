@@ -1,7 +1,7 @@
 .page {
-  --legal-accent: var(--brand-accent);
-  background: var(--surface-flow);
-  color: var(--surface-ink);
+  --legal-accent: var(--action-primary);
+  background: var(--surface-tint);
+  color: var(--surface-inverse);
   min-height: 100vh;
   padding: var(--space-2xl) var(--space-s);
   position: relative;
@@ -16,7 +16,7 @@
   position: absolute;
 }
 .document {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--slate-200);
   box-shadow: 0 24px 75px color-mix(in srgb, var(--blue-950) 7%, transparent);
   margin: 0 auto;
@@ -40,9 +40,9 @@
 }
 .document aside,
 .document blockquote {
-  background: var(--warning-surface);
-  border-left: 4px solid var(--warning-accent);
-  color: var(--warning-ink);
+  background: var(--surface-warning);
+  border-left: 4px solid var(--fill-warning);
+  color: var(--text-warning);
   font-size: var(--text-small);
   line-height: 1.65;
   margin: var(--space-xl) 0 var(--space-2xl);

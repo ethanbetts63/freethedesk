@@ -1,72 +1,68 @@
-# Free the Desk
+# FreeTheDesk
 
-Free the Desk is a dealer and operations-systems studio. This repository uses the
-same core split as Bloomprint: a Django REST API and a Next.js frontend.
+FreeTheDesk is a dealer and operations-systems product. This repository contains
+a Django API and Next.js frontend for enquiries, dealer accounts, licensing,
+subscription checkout, SEO/web services, staff workflows, and the public site.
 
-## Local setup
+Shared agreement and messaging capabilities come from the sibling
+`../freetheplatform` package. FreeTheDesk owns its product workflows, wording,
+offers, presentation, and legal source documents.
 
-### Backend
+## Run locally
+
+Backend:
 
 ```powershell
-python -m venv .venv
+py -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-Copy-Item .env.example .env
 .\.venv\Scripts\python.exe manage.py migrate
 .\.venv\Scripts\python.exe manage.py runserver
 ```
 
-The backend runs at `http://127.0.0.1:8000`; its health endpoint is
-`http://127.0.0.1:8000/api/health/`.
-
-### Frontend
+Frontend, in another terminal:
 
 ```powershell
 Set-Location frontend
-npm.cmd install
-npm.cmd run dev
+npm install
+npm run dev
 ```
 
-The homepage runs at `http://localhost:3000`. Requests to `/api/*` are proxied to
-the Django server through `DJANGO_API_URL` (which defaults to the local backend).
+The API runs at `http://127.0.0.1:8000`; its health endpoint is `/api/health/`.
+The frontend runs at `http://localhost:3000` and proxies `/api/*` through
+`DJANGO_API_URL`.
 
-## Admin dashboard
-
-Apply the migrations and create the staff account used to sign in:
+## Verify
 
 ```powershell
-.\.venv\Scripts\python.exe manage.py migrate
-.\.venv\Scripts\python.exe manage.py createsuperuser
+py -m pytest
+Set-Location frontend
+npm run check
+npm run build
 ```
 
-With both development servers running, open `http://localhost:3000/login`.
-The dashboard contains the colour-coded enquiry queue, enquiry detail and status
-editing, outbound message history, and an email composer with attachments.
+## Main areas
 
-## Enquiry notifications
+| Path        | Responsibility                                                         |
+| ----------- | ---------------------------------------------------------------------- |
+| `core/`     | Enquiries, dashboard APIs, notifications, and shared product behaviour |
+| `dealers/`  | Dealer accounts and dealer-facing domain behaviour                     |
+| `payments/` | Stripe subscriptions, checkout, and agreement capture                  |
+| `seo/`      | SEO product behaviour and supporting APIs                              |
+| `frontend/` | Public site, checkout, generated-site builder, and staff portal        |
 
-The public form always saves the enquiry before attempting either notification.
-Email and SMS attempts are retained in the dashboard, including failures.
+## Documentation
 
-Copy the notification settings from `.env.example` into `.env`, configure the
-Mailgun and Twilio credentials, set `ADMIN_EMAIL` and `ADMIN_NUMBER`, then change:
+| Topic                                       | Source                                                           |
+| ------------------------------------------- | ---------------------------------------------------------------- |
+| Agent instructions                          | [`AGENTS.md`](AGENTS.md)                                         |
+| All product documentation                   | [`_docs/README.md`](_docs/README.md)                             |
+| Tests and local fixtures                    | [`../freetheplatform/_docs/TESTING.md`](../freetheplatform/_docs/TESTING.md) |
+| Notifications                               | [`_docs/notifications.md`](_docs/notifications.md)               |
+| Stripe subscriptions and agreement evidence | [`_docs/stripe-subscriptions.md`](_docs/stripe-subscriptions.md) |
+| Licensing                                   | [`_docs/licensing/README.md`](_docs/licensing/README.md)         |
+| Security                                    | [`_docs/security.md`](_docs/security.md)                         |
+| Tailwind migration                          | [`_docs/tailwind-migration.md`](_docs/tailwind-migration.md)     |
+| Shared strategy, testing, lint, and tokens  | `../freetheplatform/_docs/README.md`                             |
 
-```dotenv
-NOTIFICATIONS_ENABLED=True
-```
-
-Leave delivery disabled until the Mailgun sending domain is verified and the
-Twilio messaging service or sending number is ready. `ADMIN_NUMBER` should use
-E.164 format, for example `+61400111222`.
-
-## Stripe subscriptions
-
-The licensing page creates a minimal dealer account and paid plans continue to
-an embedded Stripe subscription checkout. Configuration and webhook events are
-documented in `_docs/stripe-subscriptions.md`.
-
-Dealer and SEO checkout terms are published and recorded through
-`freetheplatform.agreements`. Each acceptance retains the immutable document
-version, canonical content hash, exact offer snapshot, actor, related account,
-server timestamp, IP address, user agent, and the statement shown at checkout.
-The legal pages remain site-owned Markdown; changing their content requires a
-new `VERSION` for the matching document in `FTP_AGREEMENTS`.
+Apply migrations and run `py manage.py createsuperuser` to access the local staff
+dashboard at `/login`.

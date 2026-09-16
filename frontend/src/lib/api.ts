@@ -188,21 +188,6 @@ export async function getSiteSettings(): Promise<PublicSiteSettings> {
   return jsonOrError(await apiFetch("/api/site-settings/"));
 }
 
-/** Lead type. Typed against the backend's choices so a value the API would reject can't be sent. */
-export type HelpWith =
-  "website" | "website_builder" | "inventory" | "automation" | "ai_readiness" | "everything" | "unsure";
-
-export interface EnquiryPayload {
-  name: string;
-  email: string;
-  message: string;
-  help_with: HelpWith;
-  business?: string;
-  phone?: string;
-  website?: string;
-  configuration?: object;
-}
-
 /** Unauthenticated JSON POST (signup, enquiry). Throws the API's own message. */
 export async function postJson<T = unknown>(url: string, payload: object): Promise<T> {
   return jsonOrError<T>(
@@ -211,10 +196,6 @@ export async function postJson<T = unknown>(url: string, payload: object): Promi
       body: JSON.stringify(payload),
     }),
   );
-}
-
-export async function submitEnquiry(payload: EnquiryPayload): Promise<void> {
-  await postJson("/api/enquiries/", payload);
 }
 
 const SCHEME = /^([a-z][a-z0-9+.-]*):\/\//i;
@@ -249,32 +230,7 @@ export function safeWebsiteHref(value: string | null | undefined): string | null
   }
 }
 
-export interface AiReadinessPayload {
-  website: string;
-
-  phone?: string;
-  email: string;
-}
-
-export async function submitAiReadinessCheck(payload: AiReadinessPayload): Promise<void> {
-  await postJson("/api/ai-readiness/", payload);
-}
-
 export type ProjectType = "website" | "automation" | "both";
-
-export interface ProjectEnquiryPayload {
-  project_type: ProjectType;
-
-  budget: string;
-  website: string;
-  email: string;
-  phone?: string;
-  notes?: string;
-}
-
-export async function submitProjectEnquiry(payload: ProjectEnquiryPayload): Promise<void> {
-  await postJson("/api/project-enquiries/", payload);
-}
 
 export function formatPrice(value: string): string {
   const amount = Number(value);

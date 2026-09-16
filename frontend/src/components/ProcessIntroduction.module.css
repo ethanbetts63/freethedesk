@@ -16,7 +16,7 @@
 }
 
 .columns > div {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   display: flex;
   flex-direction: column;
   padding-top: var(--space-l);
@@ -57,6 +57,6 @@
   }
 
   .columns > div + div {
-    border-left: 1px solid var(--border);
+    border-left: 1px solid var(--border-default);
   }
 }

@@ -12,7 +12,7 @@
   background-size: 64px 64px;
   content: "";
   inset: 0;
-  mask-image: linear-gradient(90deg, var(--text), transparent 88%);
+  mask-image: linear-gradient(90deg, var(--text-primary), transparent 88%);
   position: absolute;
 }
 .hero::after {
@@ -86,7 +86,7 @@
   display: none;
 }
 .articleSection {
-  background: var(--surface);
+  background: var(--surface-page);
   padding: clamp(78px, 10vw, 132px) 0;
 }
 .articleLayout {
@@ -99,20 +99,20 @@
 .rail {
   position: static;
   top: 120px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   display: flex;
   gap: var(--space-m);
   padding-bottom: var(--space-ml);
 }
 .rail > span {
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--text-caption);
   font-weight: var(--weight-heavy);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 .rail > i {
-  background: var(--border);
+  background: var(--border-default);
   display: none;
   height: 1px;
   margin: var(--space-ml) 0;
@@ -127,7 +127,7 @@
   display: none;
 }
 .prose {
-  color: var(--text);
+  color: var(--text-primary);
   font-size: var(--step-0);
   line-height: 1.78;
   min-width: 0;
@@ -142,7 +142,7 @@
   margin: 0 0 var(--space-xl);
 }
 .prose h2 {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   font-size: var(--step-3);
   letter-spacing: -0.04em;
   line-height: 1.12;
@@ -168,7 +168,7 @@
   padding-left: var(--space-3xs);
 }
 .prose a {
-  color: var(--link);
+  color: var(--text-action);
   font-weight: var(--weight-strong);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -182,7 +182,7 @@
 }
 .prose blockquote {
   background: var(--surface-tint);
-  border-left: 4px solid var(--accent-ink);
+  border-left: 4px solid var(--text-action);
   margin: var(--space-xl) 0;
   padding: var(--space-l) var(--space-xl);
 }
@@ -191,11 +191,11 @@
 }
 .prose hr {
   border: 0;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   margin: var(--space-2xl) 0;
 }
 .prose code {
-  background: var(--surface-tint-2);
+  background: var(--surface-tint-strong);
   border-radius: var(--radius-2xs);
   /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- deliberately relative to the parent, not the scale */
   font-size: 0.88em;
@@ -229,7 +229,7 @@
   text-transform: uppercase;
 }
 .prose td {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   padding: var(--space-s) var(--space-m);
 }
 .prose img {
@@ -238,7 +238,7 @@
 }
 .returnSection {
   background: var(--surface-tint);
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
 }
 .returnInner {
   align-items: flex-start;
@@ -264,7 +264,7 @@
   gap: var(--space-xl);
 }
 .returnInner a span {
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--step-0);
   transition: transform 0.2s;
 }

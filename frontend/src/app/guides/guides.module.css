@@ -12,7 +12,7 @@
   background-size: 64px 64px;
   content: "";
   inset: 0;
-  mask-image: linear-gradient(90deg, var(--text), transparent 82%);
+  mask-image: linear-gradient(90deg, var(--text-primary), transparent 82%);
   position: absolute;
 }
 .hero::after {
@@ -75,12 +75,12 @@
   width: 80px;
 }
 .index {
-  background: var(--surface);
+  background: var(--surface-page);
   padding: clamp(80px, 10vw, 132px) 0;
 }
 .indexHeader {
   align-items: start;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   display: grid;
   gap: var(--space-2xl);
   grid-template-columns: minmax(0, 1fr);
@@ -106,7 +106,7 @@
   grid-template-columns: minmax(0, 1fr);
 }
 .card {
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-default);
   display: flex;
   flex-direction: column;
   min-height: 390px;
@@ -133,7 +133,7 @@
 }
 .cardTop span:first-child {
   align-items: center;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-circle);
   display: flex;
   height: 38px;
@@ -146,7 +146,7 @@
   padding: var(--space-2xl) 0;
 }
 .byline {
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--text-caption);
   font-weight: var(--weight-heavy);
   letter-spacing: 0.08em;
@@ -172,7 +172,7 @@
 }
 .readLink {
   align-items: center;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   display: flex;
   font-size: var(--text-small);
   font-weight: var(--weight-heavy);
@@ -180,7 +180,7 @@
   padding-top: var(--space-ml);
 }
 .readLink b {
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--step-0);
   transition: transform 0.2s;
 }
@@ -190,7 +190,7 @@
 .empty {
   align-items: start;
   background: var(--surface-tint);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-default);
   display: grid;
   gap: var(--space-xl);
   grid-template-columns: minmax(0, 1fr);
@@ -221,7 +221,7 @@
   margin: 0;
 }
 .empty a {
-  border-bottom: 1px solid var(--text);
+  border-bottom: 1px solid var(--text-primary);
   font-size: var(--text-small);
   font-weight: var(--weight-heavy);
   padding-bottom: var(--space-2xs);
@@ -229,7 +229,7 @@
   justify-self: start;
 }
 .empty a b {
-  color: var(--accent-ink);
+  color: var(--text-action);
   margin-left: var(--space-xs);
 }
 

@@ -1,13 +1,13 @@
 .visual {
-  --section-accent: var(--brand-accent);
+  --section-accent: var(--action-primary);
   min-width: 0;
   width: 100%;
 }
 
 .browser {
-  background: var(--surface);
-  box-shadow: 0 30px 75px color-mix(in srgb, var(--text) 20%, transparent);
-  color: var(--text);
+  background: var(--surface-page);
+  box-shadow: 0 30px 75px color-mix(in srgb, var(--text-primary) 20%, transparent);
+  color: var(--text-primary);
   min-width: 0;
   transform-origin: center right;
 }
@@ -37,13 +37,13 @@
 }
 
 .browserTop > span {
-  background: var(--surface);
+  background: var(--surface-page);
   border-radius: var(--radius-2xs);
   padding: var(--space-3xs) var(--space-m);
 }
 
 .browserTop b {
-  color: var(--accent-ink);
+  color: var(--text-action);
   display: none;
   font-size: var(--text-nano);
   justify-self: end;
@@ -87,7 +87,7 @@
 
 .siteHero {
   align-items: center;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   margin: 0 var(--space-s);

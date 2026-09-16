@@ -16,7 +16,7 @@
 }
 
 .columns > div {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   display: flex;
   flex-direction: column;
   padding-top: var(--space-l);
@@ -42,7 +42,7 @@
   align-self: flex-start;
   background: transparent;
   border: 0;
-  color: var(--text-strong);
+  color: var(--text-secondary);
   cursor: pointer;
   display: inline-flex;
   font-family: inherit;
@@ -89,6 +89,6 @@
   }
 
   .columns > div + div {
-    border-left: 1px solid var(--border);
+    border-left: 1px solid var(--border-default);
   }
 }

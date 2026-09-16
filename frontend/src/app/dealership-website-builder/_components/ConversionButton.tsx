@@ -43,6 +43,10 @@ function useConfettiBurst() {
   return { burst, trigger };
 }
 
+// Three colours so adjacent particles read as separate pieces, all drawn from
+// the palette rather than picked by eye.
+const BURST_COLOURS = ["var(--action-primary)", "var(--purple-accent)", "var(--sky-500)"];
+
 function ConfettiBurst({ burst }: { burst: number }) {
   if (!burst) return null;
 
@@ -56,7 +60,7 @@ function ConfettiBurst({ burst }: { burst: number }) {
               "--burst-x": x,
               "--burst-y": y,
               "--burst-rotation": rotation,
-              "--burst-colour": index % 3 === 0 ? "var(--preview-accent)" : index % 3 === 1 ? "#a855f7" : "#38bdf8",
+              "--burst-colour": BURST_COLOURS[index % BURST_COLOURS.length],
             } as CSSProperties
           }
         />

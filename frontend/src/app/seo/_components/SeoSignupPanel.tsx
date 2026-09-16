@@ -1,27 +1,34 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useActionState, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { PrimaryButton } from "@/components/PrimaryButton";
 import formStyles from "@/components/forms/SelectionForm.module.css";
-import { type PublicSiteSettings } from "@/lib/api";
+import { SESSION_FLAG, type PublicSiteSettings } from "@/lib/api";
 import { planByCode } from "@/lib/plans";
-import { useSignup } from "@/lib/useSignup";
+import { submitSignup, type SignupState } from "@/lib/signup.actions";
 import { buildSeoPlans, REPORT_TYPES, reportTypeLabel, type SeoPlanCode, type SeoReportType } from "../_lib/plans";
 import styles from "../page.module.css";
+
+const initialState: SignupState = { status: "idle" };
+const boundSubmitSignup = submitSignup.bind(null, { endpoint: "/api/seo/signup/", sessionFromSignup: true });
 
 /** The stateful half of the signup section. `heading` arrives already rendered
     from the server so its markup stays out of the client bundle. */
 export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSettings; heading: React.ReactNode }) {
+  const router = useRouter();
   const [reportType, setReportType] = useState<SeoReportType>("both");
   const [selectedCode, setSelectedCode] = useState<SeoPlanCode>("quarterly");
   const plans = useMemo(() => buildSeoPlans(settings, reportType), [settings, reportType]);
   const selected = planByCode(plans, selectedCode) ?? plans[0];
-  const { submit, status, error } = useSignup({
-    endpoint: "/api/seo/signup/",
-    nextHref: "/seo/payment",
-    sessionFromSignup: true,
-  });
+  const [state, dispatch, isPending] = useActionState(boundSubmitSignup, initialState);
+
+  useEffect(() => {
+    if (state.status !== "success") return;
+    localStorage.setItem(SESSION_FLAG, "1");
+    router.push("/seo/payment");
+  }, [state, router]);
 
   useEffect(() => {
     const selectLinkedProduct = () => {
@@ -35,8 +42,13 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
     return () => window.removeEventListener("hashchange", selectLinkedProduct);
   }, []);
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) =>
-    submit(event, { plan: selectedCode, report_type: reportType });
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    formData.set("plan", selectedCode);
+    formData.set("report_type", reportType);
+    dispatch(formData);
+  };
 
   function selectReportType(nextReportType: SeoReportType) {
     setReportType(nextReportType);
@@ -143,9 +155,9 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
             required
           />
         </label>
-        {error && (
+        {state.status === "error" && (
           <p className={formStyles.error} role="alert">
-            {error}
+            {state.error}
           </p>
         )}
         <PrimaryButton
@@ -154,9 +166,9 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
           direction="right"
           size="large"
           fullWidth
-          disabled={status === "submitting"}
+          disabled={isPending}
         >
-          {status === "submitting" ? "Creating your checkout…" : "Payment"}
+          {isPending ? "Creating your checkout…" : "Payment"}
         </PrimaryButton>
       </form>
     </div>

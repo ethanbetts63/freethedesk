@@ -173,15 +173,6 @@ export default function EnquiryDetailPage() {
                 <dd>{configuration.appearance?.current_url || "Not supplied"}</dd>
               </div>
               <div>
-                <dt>Accent</dt>
-                <dd className="admin-config-accent">
-                  {configuration.appearance?.accent_hex && (
-                    <i style={{ background: configuration.appearance.accent_hex }} />
-                  )}
-                  {configuration.appearance?.accent || "Not supplied"}
-                </dd>
-              </div>
-              <div>
                 <dt>Build version</dt>
                 <dd>{configuration.version ?? "—"}</dd>
               </div>

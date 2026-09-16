@@ -30,11 +30,11 @@
 }
 
 .expandable-services-list {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
 }
 
 .expandable-services-list details {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
 }
 
 .expandable-services-list summary {
@@ -53,12 +53,12 @@
 }
 
 .expandable-services-list summary:focus-visible {
-  outline: 2px solid var(--page-accent, var(--brand-accent));
+  outline: 2px solid var(--page-accent, var(--action-primary));
   outline-offset: 2px;
 }
 
 .expandable-services-index {
-  color: var(--page-accent, var(--brand-accent));
+  color: var(--page-accent, var(--action-primary));
   font-size: var(--text-caption);
   font-weight: var(--weight-black);
   letter-spacing: 0.1em;
@@ -96,9 +96,9 @@
 
 .expandable-services-toggle {
   align-items: center;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-circle);
-  color: var(--page-accent, var(--brand-accent));
+  color: var(--page-accent, var(--action-primary));
   display: flex;
   /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- the + icon, not text */
   font-size: 1.2rem;
@@ -117,7 +117,7 @@
 }
 
 .expandable-services-body > p {
-  color: var(--page-accent, var(--brand-accent));
+  color: var(--page-accent, var(--action-primary));
   font-size: var(--text-meta);
   font-weight: var(--weight-black);
   letter-spacing: 0.12em;
@@ -134,7 +134,7 @@
 }
 
 .expandable-services-body li {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   color: var(--text-muted);
   line-height: 1.55;
   padding: var(--space-s) 0 var(--space-s) var(--space-l);
@@ -142,7 +142,7 @@
 }
 
 .expandable-services-body li::before {
-  color: var(--page-accent, var(--brand-accent));
+  color: var(--page-accent, var(--action-primary));
   content: "✓";
   font-weight: var(--weight-black);
   left: 0;
@@ -191,7 +191,7 @@
   }
 
   .expandable-services-body li:nth-child(even) {
-    border-left: 1px solid var(--border);
+    border-left: 1px solid var(--border-default);
     padding-left: var(--space-xl);
   }
 

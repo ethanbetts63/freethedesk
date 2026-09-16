@@ -1,5 +1,5 @@
 .breadcrumbs {
-  background: var(--surface);
+  background: var(--surface-page);
   border-bottom: 1px solid var(--slate-100);
 }
 
@@ -29,7 +29,7 @@
 }
 
 .breadcrumbs-list a:hover {
-  color: var(--brand-accent);
+  color: var(--action-primary);
   text-decoration: underline;
 }
 

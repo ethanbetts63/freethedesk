@@ -18,8 +18,6 @@ export interface WebsiteEnquiryConfiguration {
   appearance?: {
     brand_name?: string;
     current_url?: string;
-    accent?: string;
-    accent_hex?: string;
   };
   capabilities?: Array<{ key: string; name: string; selected: boolean }>;
   inventory_options?: Array<{ key: string; name: string; selected: boolean }>;
@@ -169,22 +167,3 @@ export async function getMessage(id: number): Promise<AdminMessage> {
   return jsonOrError(await authedFetch(`/api/admin/messages/${id}/`));
 }
 
-export async function sendMessage(payload: {
-  to: string;
-  subject: string;
-  body: string;
-  relatedEnquiry?: number;
-  attachments: File[];
-}): Promise<AdminMessage> {
-  const form = new FormData();
-  form.set("to", payload.to);
-  form.set("subject", payload.subject);
-  form.set("body", payload.body);
-  if (payload.relatedEnquiry) {
-    form.set("related_type", ENQUIRY_TYPE);
-    form.set("related_id", String(payload.relatedEnquiry));
-  }
-  payload.attachments.forEach((file) => form.append("attachments", file));
-  // A send failure answers 502 with the recorded message, which jsonOrError raises.
-  return jsonOrError(await authedFetch("/api/admin/messages/compose/", { method: "POST", body: form }));
-}

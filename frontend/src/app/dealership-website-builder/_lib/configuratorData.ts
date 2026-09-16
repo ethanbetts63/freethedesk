@@ -1,21 +1,4 @@
-import type {
-  Accent,
-  InventoryAddonSelection,
-  InventoryOptionDefinition,
-  ModuleDefinition,
-  ModuleSelection,
-} from "./types";
-
-export const ACCENTS: Record<Accent, string> = {
-  blue: "#247ec9",
-  navy: "#1d4778",
-  teal: "#16858f",
-  green: "#27836a",
-  orange: "#d56f2a",
-  red: "#c94b3c",
-  purple: "#7657b7",
-  charcoal: "#333d47",
-};
+import type { InventoryAddonSelection, InventoryOptionDefinition, ModuleDefinition, ModuleSelection } from "./types";
 
 export const MODULES: ModuleDefinition[] = [
   {

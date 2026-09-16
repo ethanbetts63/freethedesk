@@ -1,13 +1,13 @@
 .section {
-  color: var(--text-strong);
+  color: var(--text-secondary);
 }
 
 .white {
-  background: var(--surface);
+  background: var(--surface-page);
 }
 
 .tint {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
 }
 
 .transparent {

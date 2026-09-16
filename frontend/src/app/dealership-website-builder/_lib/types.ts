@@ -1,4 +1,3 @@
-export type Accent = "blue" | "navy" | "teal" | "green" | "orange" | "red" | "purple" | "charcoal";
 export type PreviewPage =
   "home" | "inventory" | "vehicle" | "accessories" | "parts" | "service" | "hire" | "articles" | "contact" | "terms";
 export type ModuleKey = Exclude<PreviewPage, "home" | "vehicle" | "contact" | "terms"> | "seo" | "integrations";

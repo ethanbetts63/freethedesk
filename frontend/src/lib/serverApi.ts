@@ -1,4 +1,41 @@
+import { cookies } from "next/headers";
 import type { PublicSiteSettings } from "./api";
+
+export const SERVER_API_BASE_URL = process.env.DJANGO_API_URL ?? "http://127.0.0.1:8000";
+
+const SAFE_METHODS = /^(GET|HEAD|OPTIONS|TRACE)$/i;
+
+/**
+ * The authenticated equivalent of api.ts's client-side fetch wrapper, for use
+ * inside a Server Action. A Server Action runs on the Next server, not the
+ * browser, so it can't ride the browser's automatic same-origin cookie/CSRF
+ * forwarding - it has to read the incoming request's cookies itself and
+ * attach them to a direct call to Django, the same way `getSiteSettingsServer`
+ * below already calls Django directly rather than through a browser rewrite.
+ *
+ * Deliberately does not retry on 401 with a refreshed token - that would mean
+ * writing a refreshed cookie back out from inside a Server Action, a
+ * meaningfully bigger piece of plumbing. An expired access token here
+ * surfaces as a failed submission, not a silent retry.
+ */
+export async function serverApiFetch(path: string, init: RequestInit = {}): Promise<Response> {
+  const cookieStore = await cookies();
+  const method = init.method ?? "GET";
+
+  const headers: Record<string, string> = { ...(init.headers as Record<string, string>) };
+  headers["Cookie"] = cookieStore.toString();
+
+  if (!SAFE_METHODS.test(method)) {
+    const csrfToken = cookieStore.get("csrftoken")?.value;
+    if (csrfToken) headers["X-CSRFToken"] = csrfToken;
+  }
+
+  return fetch(`${SERVER_API_BASE_URL}${path}`, {
+    ...init,
+    headers,
+    signal: init.signal ?? AbortSignal.timeout(15000),
+  });
+}
 
 const PRICE_FIELDS = [
   "licensing_price",
@@ -25,8 +62,7 @@ const PRICE_FIELDS = [
  * quoted to a customer is neither.
  */
 export async function getSiteSettingsServer(): Promise<PublicSiteSettings> {
-  const base = process.env.DJANGO_API_URL ?? "http://127.0.0.1:8000";
-  const response = await fetch(`${base}/api/site-settings/`, {
+  const response = await fetch(`${SERVER_API_BASE_URL}/api/site-settings/`, {
     cache: "no-store",
     signal: AbortSignal.timeout(5000),
   });

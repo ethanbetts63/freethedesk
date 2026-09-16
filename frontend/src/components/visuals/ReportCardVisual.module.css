@@ -1,5 +1,5 @@
 .card {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--slate-300);
   box-shadow: 12px 12px 0 var(--slate-100);
   min-width: 0;
@@ -7,7 +7,7 @@
 }
 
 .card::before {
-  background: linear-gradient(180deg, var(--page-accent, var(--brand-accent)), var(--purple-accent));
+  background: linear-gradient(180deg, var(--page-accent, var(--action-primary)), var(--purple-accent));
   content: "";
   inset: -1px auto -1px -1px;
   position: absolute;
@@ -17,7 +17,7 @@
 
 .head {
   align-items: center;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border-bottom: 1px solid var(--slate-100);
   display: flex;
   gap: var(--space-s);
@@ -54,7 +54,7 @@
 .badge {
   background: var(--slate-100);
   border: 1px solid var(--slate-200);
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--text-label);
   font-weight: var(--weight-black);
   letter-spacing: 0.1em;
@@ -82,7 +82,7 @@
 }
 
 .list li:hover {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   padding-left: var(--space-xl);
 }
 
@@ -103,7 +103,7 @@
   align-items: center;
   background: linear-gradient(135deg, var(--slate-100), var(--purple-surface));
   border: 1px solid var(--slate-100);
-  color: var(--accent-ink);
+  color: var(--text-action);
   display: flex;
   flex: 0 0 auto;
   font-size: var(--text-small);
@@ -129,7 +129,7 @@
 /* Hidden by default and restored at 640px: the row is too narrow for a tag on
    a phone. Written this way round so the base rule describes the phone. */
 .tag {
-  color: var(--page-accent, var(--brand-accent));
+  color: var(--page-accent, var(--action-primary));
   display: none;
   font-size: var(--text-label);
   font-weight: var(--weight-black);
@@ -145,7 +145,7 @@
 }
 
 .foot span {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   color: var(--slate-600);
   font-size: var(--text-caption);
   font-weight: var(--weight-strong);

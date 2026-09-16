@@ -22,7 +22,7 @@
   background-size: 42px 42px;
   content: "";
   inset: 0;
-  mask-image: linear-gradient(90deg, var(--text), transparent 82%);
+  mask-image: linear-gradient(90deg, var(--text-primary), transparent 82%);
   pointer-events: none;
   position: absolute;
 }
@@ -34,7 +34,7 @@
 }
 .googleMark {
   align-items: center;
-  background: var(--surface);
+  background: var(--surface-page);
   border-radius: var(--radius-circle);
   display: flex;
   height: 46px;
@@ -76,22 +76,22 @@
   align-self: center;
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
+  background-image: linear-gradient(var(--surface-page), var(--surface-page)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
     var(--moving-colour-size);
   border: 2px solid transparent;
-  box-shadow: 0 30px 70px color-mix(in srgb, var(--text) 30%, transparent);
-  color: var(--text);
+  box-shadow: 0 30px 70px color-mix(in srgb, var(--text-primary) 30%, transparent);
+  color: var(--text-primary);
   margin: 0 auto;
   max-width: 660px;
   width: 100%;
 }
 .previewHeader {
   align-items: flex-start;
-  background: var(--surface-flow);
-  border-bottom: 1px solid var(--border);
+  background: var(--surface-tint);
+  border-bottom: 1px solid var(--border-default);
   display: flex;
   justify-content: space-between;
   padding: var(--space-m) var(--space-ml);
@@ -152,7 +152,7 @@
   align-items: center;
   background: var(--slate-100);
   border-radius: var(--radius-circle);
-  color: var(--accent-ink);
+  color: var(--text-action);
   display: flex;
   font-size: var(--text-meta);
   font-weight: var(--weight-black);
@@ -196,7 +196,7 @@
 }
 .previewFooter > span {
   align-items: center;
-  color: color-mix(in srgb, var(--bg) 82%, transparent);
+  color: color-mix(in srgb, var(--surface-page) 82%, transparent);
   display: flex;
   font-size: var(--text-label);
   font-weight: var(--weight-heavy);
@@ -204,7 +204,7 @@
   text-transform: uppercase;
 }
 .previewFooter i {
-  background: var(--surface);
+  background: var(--surface-page);
   border-radius: var(--radius-circle);
   height: 6px;
   width: 6px;

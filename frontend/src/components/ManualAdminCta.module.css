@@ -1,5 +1,5 @@
 .closing {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   margin-bottom: var(--section-space);
   margin-top: var(--section-space);
   padding: var(--section-space) var(--gutter);

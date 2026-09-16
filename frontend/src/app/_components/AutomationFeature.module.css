@@ -1,10 +1,10 @@
 /* Same card treatment as the Stripe verification panel: moving-colour border,
    animated status in the header, gradient bar along the bottom. */
 .visual {
-  --feature-accent: var(--page-accent, var(--brand-accent));
+  --feature-accent: var(--page-accent, var(--action-primary));
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
+  background-image: linear-gradient(var(--surface-page), var(--surface-page)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -17,8 +17,8 @@
 }
 .visual::before {
   background-image:
-    linear-gradient(color-mix(in srgb, var(--brand-accent) 4.5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--brand-accent) 4.5%, transparent) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--action-primary) 4.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--action-primary) 4.5%, transparent) 1px, transparent 1px);
   background-size: 32px 32px;
   content: "";
   inset: 0;
@@ -62,7 +62,7 @@
   width: 6px;
 }
 .event {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border: 1px solid var(--slate-100);
   color: var(--slate-900);
   margin: var(--space-l) auto 0;
@@ -75,7 +75,7 @@
   display: block;
 }
 .event small {
-  color: var(--brand-accent);
+  color: var(--action-primary);
   font-size: var(--text-tiny);
   font-weight: var(--weight-black);
   letter-spacing: 0.12em;
@@ -121,7 +121,7 @@
   grid-template-columns: minmax(0, 1fr);
 }
 .actions article {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border: 1px solid var(--slate-100);
   display: grid;
   gap: var(--space-4xs) var(--space-xs);
@@ -162,7 +162,7 @@
   padding: var(--space-s) var(--space-m);
 }
 .visual footer span {
-  color: color-mix(in srgb, var(--bg) 82%, transparent);
+  color: color-mix(in srgb, var(--surface-page) 82%, transparent);
   font-size: var(--text-label);
   font-weight: var(--weight-heavy);
   letter-spacing: 0.09em;

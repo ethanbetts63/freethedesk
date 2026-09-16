@@ -21,7 +21,7 @@
 }
 
 .button {
-  box-shadow: 0 12px 32px color-mix(in srgb, var(--surface-ink) 24%, transparent);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--surface-inverse) 24%, transparent);
   width: 100%;
 }
 

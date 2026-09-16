@@ -47,7 +47,7 @@
 }
 .case-phone-menu {
   align-items: stretch;
-  background: var(--surface-ink);
+  background: var(--surface-inverse);
   display: flex;
   flex-direction: column;
   gap: var(--space-4xs);
@@ -60,17 +60,17 @@
   z-index: 4;
 }
 .case-phone-menu i {
-  background: var(--surface);
+  background: var(--surface-page);
   display: block;
   height: 1px;
   width: 100%;
 }
 .case-mobile-phone {
-  background: var(--surface-ink);
-  border: 7px solid var(--surface-ink);
+  background: var(--surface-inverse);
+  border: 7px solid var(--surface-inverse);
   /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- phone bezel, a drawn object's dimension */
   border-radius: 29px;
-  box-shadow: 0 35px 70px color-mix(in srgb, var(--text) 32%, transparent);
+  box-shadow: 0 35px 70px color-mix(in srgb, var(--text-primary) 32%, transparent);
   height: 410px;
   overflow: hidden;
   position: relative;
@@ -78,7 +78,7 @@
   z-index: 2;
 }
 .case-mobile-phone > span {
-  background: var(--surface-ink);
+  background: var(--surface-inverse);
   border-radius: 0 0 var(--radius-l) var(--radius-l);
   height: 16px;
   left: 50%;
@@ -94,7 +94,7 @@
 }
 .case-live-note {
   align-items: center;
-  background: var(--surface);
+  background: var(--surface-page);
   box-shadow: 0 12px 35px color-mix(in srgb, var(--blue-950) 16%, transparent);
   display: flex;
   font-size: var(--text-label);

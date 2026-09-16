@@ -5,7 +5,7 @@
 .eyebrow {
   align-items: center;
   /* Each section sets --eyebrow-accent to its own accent colour. */
-  color: var(--eyebrow-accent, var(--accent-ink));
+  color: var(--eyebrow-accent, var(--text-action));
   display: flex;
   font-size: var(--text-caption);
   font-weight: var(--weight-heavy);
@@ -40,7 +40,7 @@
   appearance: none;
   background: none;
   border: 0;
-  border-bottom: 1px solid var(--text);
+  border-bottom: 1px solid var(--text-primary);
   color: inherit;
   cursor: pointer;
   font: inherit;

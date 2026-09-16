@@ -1,26 +1,43 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useActionState, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import formStyles from "@/components/forms/SelectionForm.module.css";
 import { SelectionFormPanel } from "@/components/forms/SelectionFormPanel";
 import { MovingColourButton } from "@/components/MovingColourButton";
 import { DEALER_STATES } from "@/lib/dealerStates";
 import { planByCode } from "@/lib/plans";
-import { useSignup } from "@/lib/useSignup";
+import { SESSION_FLAG } from "@/lib/api";
+import { submitSignup, type SignupState } from "@/lib/signup.actions";
 
 import { buildDealerPlans, type DealerPlanCode, type LicensingPrices } from "../_lib/plans";
 import styles from "../page.module.css";
 
+const initialState: SignupState = { status: "idle" };
+const boundSubmitSignup = submitSignup.bind(null, { endpoint: "/api/dealers/signup/" });
+
 /** The stateful half of the signup section. `heading` arrives already rendered
     from the server so its markup stays out of the client bundle. */
 export function SignupPlansPanel({ settings, heading }: { settings: LicensingPrices; heading: React.ReactNode }) {
+  const router = useRouter();
   const plans = useMemo(() => buildDealerPlans(settings), [settings]);
   const [selectedCode, setSelectedCode] = useState<DealerPlanCode>("complete");
-  const { submit, status, error } = useSignup({ endpoint: "/api/dealers/signup/", nextHref: "/licensing/payment" });
+  const [state, dispatch, isPending] = useActionState(boundSubmitSignup, initialState);
+
+  useEffect(() => {
+    if (state.status !== "success") return;
+    localStorage.setItem(SESSION_FLAG, "1");
+    router.push("/licensing/payment");
+  }, [state, router]);
 
   const selected = planByCode(plans, selectedCode) ?? plans[0];
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => submit(event, { plan: selectedCode });
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    formData.set("plan", selectedCode);
+    dispatch(formData);
+  };
 
   return (
     <SelectionFormPanel
@@ -111,9 +128,9 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
           </select>
         </label>
       </div>
-      {error && (
+      {state.status === "error" && (
         <p className={formStyles.error} role="alert">
-          {error}
+          {state.error}
         </p>
       )}
       <MovingColourButton
@@ -122,9 +139,9 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
         direction="right"
         size="large"
         fullWidth
-        disabled={status === "submitting"}
+        disabled={isPending}
       >
-        {status === "submitting" ? "Creating your account…" : "Continue"}
+        {isPending ? "Creating your account…" : "Continue"}
       </MovingColourButton>
     </SelectionFormPanel>
   );

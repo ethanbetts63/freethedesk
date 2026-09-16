@@ -16,7 +16,7 @@
     transform 0.2s ease;
 }
 .cta-brand {
-  background: var(--page-accent, var(--brand-accent));
+  background: var(--page-accent, var(--action-primary));
   color: var(--text-on-dark);
 }
 .cta-brand:hover {
@@ -30,15 +30,15 @@
   background: var(--surface-dark-hover);
 }
 .cta-light {
-  background: var(--surface);
-  color: var(--text-strong);
+  background: var(--surface-page);
+  color: var(--text-secondary);
 }
 .cta-light:hover {
-  background: var(--surface-tint-2);
+  background: var(--surface-tint-strong);
 }
 .cta-ghost:hover {
   background: transparent;
-  color: var(--text-strong);
+  color: var(--text-secondary);
 }
 .cta-compact {
   font-size: var(--text-ui);
@@ -61,7 +61,7 @@
 .cta-ghost {
   background: transparent;
   border-bottom: 1px solid currentColor;
-  color: var(--page-accent, var(--brand-accent));
+  color: var(--page-accent, var(--action-primary));
   padding-bottom: var(--space-xs);
   padding-left: 0;
   padding-right: 0;

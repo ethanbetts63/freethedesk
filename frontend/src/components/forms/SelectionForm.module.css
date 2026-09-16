@@ -1,7 +1,7 @@
 .panel {
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   -webkit-background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
+  background-image: linear-gradient(var(--surface-page), var(--surface-page)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -13,7 +13,7 @@
 }
 
 .chooser {
-  color: var(--text-strong);
+  color: var(--text-secondary);
   display: flex;
   flex-direction: column;
   padding: var(--space-xl) var(--space-ml);
@@ -24,7 +24,7 @@
 }
 .choiceGroup > p {
   border-bottom: 1px solid var(--border-subtle);
-  color: var(--page-accent, var(--brand-accent));
+  color: var(--page-accent, var(--action-primary));
   font-size: var(--text-micro);
   font-weight: var(--weight-strong);
   letter-spacing: 0.12em;
@@ -46,8 +46,8 @@
 }
 .choiceGrid label {
   align-items: center;
-  background: var(--surface-flow);
-  border: 1px solid var(--border);
+  background: var(--surface-tint);
+  border: 1px solid var(--border-default);
   color: var(--text-control);
   cursor: pointer;
   display: flex;
@@ -74,11 +74,11 @@
   text-transform: uppercase;
 }
 .choiceGrid label:hover {
-  background: var(--surface);
-  border-color: var(--page-accent, var(--brand-accent));
+  background: var(--surface-page);
+  border-color: var(--page-accent, var(--action-primary));
 }
 .choiceGrid label:has(.choiceInput:focus-visible) {
-  outline: 3px solid color-mix(in srgb, var(--page-accent, var(--brand-accent)) 25%, transparent);
+  outline: 3px solid color-mix(in srgb, var(--page-accent, var(--action-primary)) 25%, transparent);
   outline-offset: 2px;
 }
 .choiceGrid .choiceSelected {
@@ -96,7 +96,7 @@
 .choiceGrid .choiceRecommended {
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface-flow), var(--surface-flow)), var(--moving-colour-gradient);
+  background-image: linear-gradient(var(--surface-tint), var(--surface-tint)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -109,7 +109,7 @@
 
 .total {
   align-items: center;
-  border-top: 1px dashed var(--border);
+  border-top: 1px dashed var(--border-default);
   display: grid;
   gap: var(--space-s);
   grid-template-columns: minmax(0, 1fr);
@@ -140,7 +140,7 @@
 
 .form {
   --selection-input-font-size: 0.9rem;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border-top: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
@@ -163,8 +163,8 @@
   margin: 0;
 }
 .pill {
-  background: var(--surface-tint-2);
-  color: var(--accent-ink);
+  background: var(--surface-tint-strong);
+  color: var(--text-action);
   flex: 0 0 auto;
   font-size: var(--text-label);
   font-weight: var(--weight-strong);
@@ -192,10 +192,10 @@
 .form input,
 .form select,
 .form textarea {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--surface-page);
+  border: 1px solid var(--border-default);
   border-radius: 0;
-  color: var(--text);
+  color: var(--text-primary);
   font: inherit;
   font-size: var(--selection-input-font-size);
   min-height: 50px;
@@ -217,8 +217,8 @@
 .form input:focus,
 .form select:focus,
 .form textarea:focus {
-  border-color: var(--page-accent, var(--brand-accent));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--page-accent, var(--brand-accent)) 12%, transparent);
+  border-color: var(--page-accent, var(--action-primary));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--page-accent, var(--action-primary)) 12%, transparent);
 }
 .form label small {
   color: var(--text-subtle);
@@ -236,9 +236,9 @@
   font-size: var(--step-0);
 }
 .error {
-  background: var(--danger-surface);
-  border-left: 3px solid var(--danger-line);
-  color: var(--danger-ink);
+  background: var(--surface-danger);
+  border-left: 3px solid var(--border-danger);
+  color: var(--text-danger);
   font-size: var(--text-caption);
   line-height: 1.5;
   margin: 0 0 var(--space-s);

@@ -1,8 +1,8 @@
 .visual {
-  --section-accent: var(--page-accent, var(--brand-accent));
+  --section-accent: var(--page-accent, var(--action-primary));
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
   background-clip: padding-box, border-box;
-  background-image: linear-gradient(var(--surface), var(--surface)), var(--moving-colour-gradient);
+  background-image: linear-gradient(var(--surface-page), var(--surface-page)), var(--moving-colour-gradient);
   background-origin: border-box;
   background-size:
     100% 100%,
@@ -53,7 +53,7 @@
 }
 .journey article {
   align-items: center;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border: 1px solid var(--slate-100);
   display: grid;
   gap: var(--space-3xs) var(--space-s);

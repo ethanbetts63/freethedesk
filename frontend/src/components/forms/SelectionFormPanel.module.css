@@ -6,7 +6,7 @@
 }
 
 .chooser h2 {
-  color: var(--text-strong);
+  color: var(--text-secondary);
   font-size: var(--display-1);
   letter-spacing: -0.058em;
   line-height: 1.02;

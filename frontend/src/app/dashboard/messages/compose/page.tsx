@@ -1,24 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, Suspense, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { sendMessage } from "@/lib/adminApi";
+import { FormEvent, Suspense, useActionState, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { submitComposeMessage, type ComposeMessageState } from "./ComposeMessage.actions";
+
+const initialState: ComposeMessageState = { status: "idle" };
 
 function ComposeMessageContent() {
   const params = useSearchParams();
-  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [to, setTo] = useState(params.get("to") || "");
   const [subject, setSubject] = useState(params.get("subject") || "");
   const [body, setBody] = useState(params.get("body") || "");
   const [attachments, setAttachments] = useState<File[]>([]);
-  const [sending, setSending] = useState(false);
   const [confirming, setConfirming] = useState(false);
-  const [error, setError] = useState("");
   const relatedEnquiry = Number(params.get("enquiry")) || undefined;
 
-  async function submit(event: FormEvent) {
+  const [state, dispatch, isPending] = useActionState(submitComposeMessage, initialState);
+
+  // Not wired through <form action>: the attachment list lives in React state
+  // (the file input is cleared after every pick so the same picker can be
+  // reused to add more), and the first submit only arms the confirm step
+  // rather than sending. Both mean the FormData has to be built by hand and
+  // handed to the action dispatcher directly, which useActionState supports
+  // the same as native form-action submission.
+  function submit(event: FormEvent) {
     event.preventDefault();
 
     if (!confirming) {
@@ -26,16 +33,14 @@ function ComposeMessageContent() {
       return;
     }
     setConfirming(false);
-    setSending(true);
-    setError("");
-    try {
-      await sendMessage({ to, subject, body, relatedEnquiry, attachments });
-      router.push(relatedEnquiry ? `/dashboard/enquiries/${relatedEnquiry}` : "/dashboard/messages");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Email could not be sent.");
-    } finally {
-      setSending(false);
-    }
+
+    const formData = new FormData();
+    formData.set("to", to);
+    formData.set("subject", subject);
+    formData.set("body", body);
+    if (relatedEnquiry) formData.set("relatedEnquiry", String(relatedEnquiry));
+    attachments.forEach((file) => formData.append("attachments", file));
+    dispatch(formData);
   }
 
   return (
@@ -54,7 +59,7 @@ function ComposeMessageContent() {
           </div>
           {relatedEnquiry && <span>Linked to enquiry #{relatedEnquiry}</span>}
         </header>
-        {error && <p className="admin-banner admin-banner-error">{error}</p>}
+        {state.status === "error" && <p className="admin-banner admin-banner-error">{state.error}</p>}
         <form className="admin-compose-form" onSubmit={submit}>
           <label>
             To
@@ -115,8 +120,8 @@ function ComposeMessageContent() {
               .
             </p>
           )}
-          <button type="submit" className="admin-primary-button admin-send-button" disabled={sending}>
-            {sending ? "Sending…" : confirming ? "Confirm and send" : "Send email"}
+          <button type="submit" className="admin-primary-button admin-send-button" disabled={isPending}>
+            {isPending ? "Sending…" : confirming ? "Confirm and send" : "Send email"}
           </button>
         </form>
       </section>

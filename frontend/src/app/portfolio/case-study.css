@@ -16,8 +16,8 @@
   inset: 0;
   mask-image: linear-gradient(
     to right,
-    var(--text) 15%,
-    color-mix(in srgb, var(--text) 48%, transparent) 64%,
+    var(--text-primary) 15%,
+    color-mix(in srgb, var(--text-primary) 48%, transparent) 64%,
     transparent
   );
   position: absolute;
@@ -41,7 +41,7 @@
   margin: 0;
 }
 .case-hero-copy h1 span {
-  color: var(--accent-ink);
+  color: var(--text-action);
 }
 .case-hero-copy > p:not(.eyebrow) {
   color: var(--text-muted);
@@ -51,7 +51,7 @@
   max-width: 555px;
 }
 .case-hero-meta {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-s) var(--space-l);
@@ -72,7 +72,7 @@
   margin: 0;
 }
 .case-browser {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-m);
   box-shadow: 0 28px 75px color-mix(in srgb, var(--blue-950) 16%, transparent);
@@ -85,8 +85,8 @@
 }
 .case-browser-bar {
   align-items: center;
-  background: var(--surface-tint-2);
-  border-bottom: 1px solid var(--border);
+  background: var(--surface-tint-strong);
+  border-bottom: 1px solid var(--border-default);
   display: flex;
   gap: var(--space-2xs);
   height: 32px;
@@ -99,7 +99,7 @@
   width: 6px;
 }
 .case-browser-bar span {
-  background: var(--surface);
+  background: var(--surface-page);
   border-radius: var(--radius-xs);
   color: var(--text-subtle);
   font-size: var(--text-nano);
@@ -143,12 +143,12 @@
   max-width: 720px;
 }
 .case-capability-list {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
 }
 .case-capability-list span {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   color: var(--text-muted);
   font-size: var(--text-small);
   font-weight: var(--weight-strong);
@@ -156,7 +156,7 @@
   position: relative;
 }
 .case-capability-list span::before {
-  background: var(--accent-strong);
+  background: var(--action-primary);
   border-radius: var(--radius-circle);
   content: "";
   height: 5px;
@@ -219,11 +219,11 @@
   width: 100%;
 }
 .case-tour-controls button.active {
-  background: var(--surface);
+  background: var(--surface-page);
   padding: var(--space-l) var(--space-m);
 }
 .case-tour-controls button > span {
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--text-meta);
   font-weight: var(--weight-black);
   padding-top: var(--space-4xs);
@@ -266,7 +266,7 @@
   animation: case-image-in 0.35s ease both;
 }
 .case-tour-preview > a {
-  border-bottom: 1px solid var(--text);
+  border-bottom: 1px solid var(--text-primary);
   display: inline-flex;
   float: none;
   font-size: var(--text-ui);
@@ -286,7 +286,7 @@
   }
 }
 .case-mobile-story {
-  background: var(--surface);
+  background: var(--surface-page);
   padding: var(--section-space) 0;
 }
 .case-mobile-story-grid {
@@ -304,8 +304,8 @@
 }
 .case-mobile-stat {
   align-items: center;
-  border-bottom: 1px solid var(--border);
-  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
+  border-top: 1px solid var(--border-default);
   display: grid;
   gap: var(--space-l);
   grid-template-columns: auto minmax(0, 1fr);
@@ -352,8 +352,8 @@
 }
 .case-mobile-callout {
   align-items: center;
-  background: var(--surface);
-  box-shadow: 0 14px 35px color-mix(in srgb, var(--text) 20%, transparent);
+  background: var(--surface-page);
+  box-shadow: 0 14px 35px color-mix(in srgb, var(--text-primary) 20%, transparent);
   display: flex;
   font-size: var(--text-label);
   font-weight: var(--weight-heavy);
@@ -363,7 +363,7 @@
   z-index: 3;
 }
 .case-mobile-callout b {
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--text-label);
 }
 .case-mobile-callout-one {
@@ -383,27 +383,27 @@
 }
 .case-operations-heading > p {
   align-self: end;
-  color: color-mix(in srgb, var(--bg) 78%, transparent);
+  color: color-mix(in srgb, var(--surface-page) 78%, transparent);
   font-size: var(--step-0);
   line-height: 1.72;
   margin: 0;
   max-width: 540px;
 }
 .case-operations-section .section-number-light {
-  color: color-mix(in srgb, var(--bg) 72%, transparent);
+  color: color-mix(in srgb, var(--surface-page) 72%, transparent);
 }
 .case-ops-console {
   background: var(--surface-tint);
   border: 1px solid var(--border-on-dark-strong);
   border-radius: var(--radius-l);
-  color: var(--text);
+  color: var(--text-primary);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   min-height: 530px;
   overflow: hidden;
 }
 .case-ops-console aside {
-  background: var(--surface-tint-2);
+  background: var(--surface-tint-strong);
   border-right: 0;
   display: flex;
   flex-direction: row;
@@ -439,7 +439,7 @@
   align-items: center;
   background: var(--accent);
   border-radius: var(--radius-circle);
-  color: var(--text);
+  color: var(--text-primary);
   display: flex;
   font-size: var(--text-tiny);
   height: 20px;
@@ -451,7 +451,7 @@
 }
 .case-ops-topline {
   align-items: start;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   display: flex;
   justify-content: space-between;
   padding-bottom: var(--space-l);
@@ -459,7 +459,7 @@
   gap: var(--space-m);
 }
 .case-ops-topline small {
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--text-label);
   font-weight: var(--weight-heavy);
   letter-spacing: 0.1em;
@@ -484,14 +484,14 @@
 }
 .case-ops-list article {
   align-items: center;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   display: grid;
   gap: var(--space-s);
   grid-template-columns: 25px minmax(0, 1fr);
   padding: var(--space-ml) var(--space-3xs);
 }
 .case-ops-list article > span {
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--text-meta);
   font-weight: var(--weight-black);
 }
@@ -551,7 +551,7 @@
   min-height: auto;
 }
 .case-intent-grid header span {
-  color: var(--accent-ink);
+  color: var(--text-action);
   display: block;
   font-size: var(--text-meta);
   font-weight: var(--weight-black);
@@ -570,7 +570,7 @@
 }
 .case-intent-grid li {
   align-items: center;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   color: var(--text-muted);
   display: flex;
   font-size: var(--text-ui);
@@ -580,7 +580,7 @@
   padding: var(--space-s) 0;
 }
 .case-intent-grid li span {
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--text-micro);
   margin-left: var(--space-xs);
 }
@@ -593,9 +593,9 @@
   grid-template-columns: minmax(0, 1fr);
 }
 .case-steps-column {
-  background: var(--surface);
+  background: var(--surface-page);
   border-radius: var(--radius-l);
-  color: var(--text);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   padding: var(--space-xl) var(--space-xl) var(--space-l);
@@ -604,11 +604,11 @@
   background: var(--accent);
 }
 .case-steps-column header {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   padding-bottom: var(--space-l);
 }
 .case-steps-column small {
-  color: var(--accent-ink);
+  color: var(--text-action);
   display: block;
   font-size: var(--text-micro);
   font-weight: var(--weight-black);
@@ -617,7 +617,7 @@
   text-transform: uppercase;
 }
 .case-steps-column-alt small {
-  color: var(--text);
+  color: var(--text-primary);
 }
 .case-steps-column h3 {
   font-size: var(--display-1);
@@ -641,7 +641,7 @@
 }
 .case-steps-column li {
   align-items: start;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   display: grid;
   gap: var(--space-ml);
   grid-template-columns: 26px minmax(0, 1fr);
@@ -654,7 +654,7 @@
   border-bottom: 0;
 }
 .case-steps-column b {
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--text-meta);
   font-weight: var(--weight-black);
   padding-top: var(--space-4xs);
@@ -689,12 +689,12 @@
   max-width: 560px;
 }
 .case-split-points {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
 }
 .case-split-points span {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   color: var(--text-muted);
   font-size: var(--text-ui);
   font-weight: var(--weight-heavy);

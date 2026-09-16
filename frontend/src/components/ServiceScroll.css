@@ -22,7 +22,7 @@ main:has(.service-scroll) {
   max-width: 780px;
 }
 .service-row {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   display: grid;
   gap: var(--space-2xl);
   grid-template-columns: minmax(0, 1fr);
@@ -38,7 +38,7 @@ main:has(.service-scroll) {
   top: 130px;
 }
 .service-sticky span {
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--text-caption);
   font-weight: var(--weight-heavy);
 }
@@ -69,29 +69,29 @@ main:has(.service-scroll) {
   margin: 0;
 }
 .service-examples {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   list-style: none;
   margin: var(--space-xl) 0 0;
   padding: 0;
 }
 .service-examples li {
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
+  border-bottom: 1px solid var(--border-default);
+  color: var(--text-primary);
   font-size: var(--text-body);
   line-height: 1.6;
   padding: var(--space-m) 0 var(--space-m) var(--space-l);
   position: relative;
 }
 .service-examples li::before {
-  color: var(--accent-ink);
+  color: var(--text-action);
   content: "→";
   left: 0;
   position: absolute;
 }
 .service-custom {
   align-items: center;
-  border-top: 1px solid var(--border);
-  color: var(--text);
+  border-top: 1px solid var(--border-default);
+  color: var(--text-primary);
   display: grid;
   gap: clamp(30px, 5vw, 64px);
   grid-template-columns: minmax(0, 1fr);
@@ -104,9 +104,9 @@ main:has(.service-scroll) {
 }
 .service-custom-icon {
   align-items: center;
-  background: color-mix(in srgb, var(--accent-ink) 8%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent-ink) 30%, transparent);
-  color: var(--accent-ink);
+  background: color-mix(in srgb, var(--text-action) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text-action) 30%, transparent);
+  color: var(--text-action);
   display: flex;
   height: 82px;
   justify-content: center;
@@ -118,7 +118,7 @@ main:has(.service-scroll) {
 }
 .service-custom-label {
   align-items: center;
-  color: var(--accent-ink);
+  color: var(--text-action);
   display: flex;
   font-size: var(--text-meta);
   font-weight: var(--weight-black);
@@ -128,7 +128,7 @@ main:has(.service-scroll) {
   text-transform: uppercase;
 }
 .service-custom-label span {
-  border-right: 1px solid color-mix(in srgb, var(--accent-ink) 30%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--text-action) 30%, transparent);
   padding-right: var(--space-s);
 }
 .service-custom-copy h3 {

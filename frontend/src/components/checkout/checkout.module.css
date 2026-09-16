@@ -1,13 +1,13 @@
 .checkoutPage {
-  --checkout-accent: var(--brand-accent);
-  background: var(--surface);
-  color: var(--surface-ink);
+  --checkout-accent: var(--action-primary);
+  background: var(--surface-page);
+  color: var(--surface-inverse);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   min-height: 100vh;
 }
 .summarySide {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   min-height: 540px;
   overflow: hidden;
   position: relative;
@@ -40,7 +40,7 @@
   z-index: 2;
 }
 .brand {
-  color: var(--surface-ink);
+  color: var(--surface-inverse);
   font-size: var(--step-1);
   font-weight: var(--weight-black);
   letter-spacing: -0.07em;
@@ -86,7 +86,7 @@
 }
 .orderSummary {
   backdrop-filter: blur(12px);
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  background: color-mix(in srgb, var(--surface-page) 82%, transparent);
   border: 1px solid color-mix(in srgb, var(--slate-300) 68%, transparent);
   padding: var(--space-m);
 }
@@ -212,9 +212,9 @@
   text-align: center;
 }
 .paymentError {
-  background: var(--danger-surface);
-  border-left: 3px solid var(--danger-line);
-  color: var(--danger-ink);
+  background: var(--surface-danger);
+  border-left: 3px solid var(--border-danger);
+  color: var(--text-danger);
   font-size: var(--text-ui);
   line-height: 1.55;
   margin: var(--space-m) 0;
@@ -243,9 +243,9 @@
   max-width: 190px;
 }
 .completePage {
-  --complete-accent: var(--brand-accent);
+  --complete-accent: var(--action-primary);
   align-items: center;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   display: flex;
   justify-content: center;
   min-height: 100vh;
@@ -273,7 +273,7 @@
 }
 .completeCard {
   backdrop-filter: blur(14px);
-  background: color-mix(in srgb, var(--bg) 91%, transparent);
+  background: color-mix(in srgb, var(--surface-page) 91%, transparent);
   border: 1px solid var(--slate-200);
   box-shadow: 0 30px 90px color-mix(in srgb, var(--blue-950) 12%, transparent);
   max-width: 650px;

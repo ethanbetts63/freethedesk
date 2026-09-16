@@ -5,18 +5,10 @@ import { useState } from "react";
 import { ConfiguratorControls } from "./ConfiguratorControls";
 import { DEFAULT_INVENTORY_ADDONS, DEFAULT_MODULES, summariseSelection } from "../_lib/configuratorData";
 import styles from "../_styles/layout.module.css";
-import type {
-  Accent,
-  InventoryAddonSelection,
-  InventoryOption,
-  ModuleKey,
-  ModuleSelection,
-  PreviewPage,
-} from "../_lib/types";
+import type { InventoryAddonSelection, InventoryOption, ModuleKey, ModuleSelection, PreviewPage } from "../_lib/types";
 import { WebsitePreview } from "./WebsitePreview";
 
 export function WebsiteConfigurator() {
-  const [accent, setAccent] = useState<Accent>("blue");
   const [brandName, setBrandName] = useState("Northline");
   const [currentUrl, setCurrentUrl] = useState("");
   const [customRequest, setCustomRequest] = useState("");
@@ -47,7 +39,6 @@ export function WebsiteConfigurator() {
     <main className={styles.page}>
       <div className={styles.builder}>
         <WebsitePreview
-          accent={accent}
           brandName={brandName}
           currentUrl={currentUrl}
           selected={selected}
@@ -57,13 +48,11 @@ export function WebsiteConfigurator() {
           onPageChange={setPreviewPage}
         />
         <ConfiguratorControls
-          accent={accent}
           brandName={brandName}
           currentUrl={currentUrl}
           customRequest={customRequest}
           selected={selected}
           inventoryAddons={inventoryAddons}
-          onAccentChange={setAccent}
           onBrandNameChange={setBrandName}
           onCurrentUrlChange={setCurrentUrl}
           onCustomRequestChange={setCustomRequest}

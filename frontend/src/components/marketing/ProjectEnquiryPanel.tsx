@@ -1,14 +1,16 @@
 "use client";
 
-import { useId, useState } from "react";
+import { FormEvent, useActionState, useId, useState } from "react";
 
 import formStyles from "@/components/forms/SelectionForm.module.css";
 import { SelectionFormPanel } from "@/components/forms/SelectionFormPanel";
 import { MovingColourButton } from "@/components/MovingColourButton";
-import { normaliseWebsiteUrl, submitProjectEnquiry, type ProjectType } from "@/lib/api";
-import { useEnquiryForm } from "@/lib/useEnquiryForm";
+import { type ProjectType } from "@/lib/api";
+import { submitProjectEnquiry, type ProjectEnquiryState } from "./ProjectEnquiryPanel.actions";
 
 import styles from "./ProjectEnquiry.module.css";
+
+const initialState: ProjectEnquiryState = { status: "idle" };
 
 const PROJECT_TYPES: { code: ProjectType; name: string }[] = [
   { code: "website", name: "Website" },
@@ -59,27 +61,21 @@ export function ProjectEnquiryPanel({
   const [customBudget, setCustomBudget] = useState("");
 
   const budgetLabel = budget === "custom" ? formatCustomBudget(customBudget) : budget;
-  const {
-    status,
-    error,
-    submit: send,
-  } = useEnquiryForm(
-    (value) =>
-      submitProjectEnquiry({
-        project_type: projectType,
-        budget: budget === "custom" ? customBudget.trim() : budget,
-        website: normaliseWebsiteUrl(value("website")),
-        email: value("email"),
-        phone: value("phone"),
-        notes: value("notes"),
-      }),
-    "We could not send that. Please try again.",
-    () => setCustomBudget(""),
-  );
+  // Once a submission succeeds the form fields are replaced by a thank-you
+  // message (below), so there's no need to separately reset `customBudget`.
+  const [state, dispatch, isPending] = useActionState(submitProjectEnquiry, initialState);
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    formData.set("project_type", projectType);
+    formData.set("budget", budget === "custom" ? customBudget.trim() : budget);
+    dispatch(formData);
+  };
 
   return (
     <SelectionFormPanel
-      onSubmit={send}
+      onSubmit={onSubmit}
       chooserClassName={!showProjectType ? styles.compactChooser : undefined}
       chooser={
         <>
@@ -168,7 +164,7 @@ export function ProjectEnquiryPanel({
         </h3>
       </div>
 
-      {status === "success" ? (
+      {state.status === "success" ? (
         <div className={styles.success} role="status">
           <span aria-hidden="true">✓</span>
           <strong>Thanks — that&apos;s with us.</strong>
@@ -204,9 +200,9 @@ export function ProjectEnquiryPanel({
               placeholder="e.g. It takes our team a lot of manual copy and paste to write and send a quote."
             />
           </label>
-          {error && (
+          {state.status === "error" && (
             <p className={formStyles.error} role="alert">
-              {error}
+              {state.error}
             </p>
           )}
           <MovingColourButton
@@ -215,9 +211,9 @@ export function ProjectEnquiryPanel({
             direction="right"
             size="large"
             fullWidth
-            disabled={status === "submitting"}
+            disabled={isPending}
           >
-            {status === "submitting" ? "Sending…" : "Show me what you’d build"}
+            {isPending ? "Sending…" : "Show me what you’d build"}
           </MovingColourButton>
         </>
       )}

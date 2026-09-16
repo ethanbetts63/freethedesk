@@ -53,7 +53,7 @@
   min-width: 0;
 }
 .form input {
-  background: color-mix(in srgb, var(--bg) 7%, transparent);
+  background: color-mix(in srgb, var(--surface-page) 7%, transparent);
   border: 1px solid color-mix(in srgb, var(--accent-on-dark-soft) 32%, transparent);
   border-radius: 0;
   color: var(--text-on-dark);
@@ -69,7 +69,7 @@
   color: var(--text-on-dark-subtle);
 }
 .form input:focus {
-  background: color-mix(in srgb, var(--bg) 12%, transparent);
+  background: color-mix(in srgb, var(--surface-page) 12%, transparent);
   border-color: var(--accent-on-dark-soft);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-on-dark-soft) 16%, transparent);
 }
@@ -79,7 +79,7 @@
   white-space: nowrap;
 }
 .error {
-  color: var(--danger-on-dark);
+  color: var(--text-danger-on-dark);
   font-size: var(--text-caption);
   grid-column: 1 / -1;
   margin: 0;
@@ -94,7 +94,7 @@
 }
 .success > span {
   align-items: center;
-  background: var(--brand-accent);
+  background: var(--action-primary);
   border-radius: var(--radius-circle);
   color: var(--text-on-dark);
   display: flex;

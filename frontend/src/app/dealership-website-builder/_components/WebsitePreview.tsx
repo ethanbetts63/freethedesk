@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 
-import { ACCENTS, PREVIEW_NAVIGATION } from "../_lib/configuratorData";
+import { PREVIEW_NAVIGATION } from "../_lib/configuratorData";
 import { getDemoBrandIdentity } from "../_lib/demoBrand";
 import { ConversionLink } from "./ConversionButton";
 import { DemoMap } from "./DemoMap";
@@ -10,10 +10,9 @@ import { BrandArtwork, LandscapeArtwork, VehicleArtwork } from "./PreviewArtwork
 import { ExamplePage, INVENTORY_VEHICLES, InventoryTile, type InventoryVehicle } from "./PreviewPages";
 import layoutStyles from "../_styles/layout.module.css";
 import previewStyles from "../_styles/preview.module.css";
-import type { Accent, InventoryAddonSelection, ModuleSelection, PreviewPage } from "../_lib/types";
+import type { InventoryAddonSelection, ModuleSelection, PreviewPage } from "../_lib/types";
 
 type WebsitePreviewProps = {
-  accent: Accent;
   brandName: string;
   currentUrl: string;
   selected: ModuleSelection;
@@ -315,8 +314,7 @@ function PreviewFooter({
 
 export function WebsitePreview(props: WebsitePreviewProps) {
   const [selectedVehicle, setSelectedVehicle] = useState<InventoryVehicle>(INVENTORY_VEHICLES[0]);
-  const { accent, brandName, currentUrl, selected, inventoryAddons, previewPage, additionCount, onPageChange } = props;
-  const previewStyle = { "--preview-accent": ACCENTS[accent] } as CSSProperties;
+  const { brandName, currentUrl, selected, inventoryAddons, previewPage, additionCount, onPageChange } = props;
   const { websiteAddress } = getDemoBrandIdentity(brandName, currentUrl);
   const openVehicle = (vehicle: InventoryVehicle) => {
     setSelectedVehicle(vehicle);
@@ -324,7 +322,7 @@ export function WebsitePreview(props: WebsitePreviewProps) {
   };
 
   return (
-    <section className={styles.previewColumn} aria-label="Live website preview" style={previewStyle}>
+    <section className={styles.previewColumn} aria-label="Live website preview">
       <div className={styles.previewLabel}>
         <span>Live website preview</span>
         <b>{additionCount} additions active</b>

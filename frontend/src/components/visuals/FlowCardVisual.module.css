@@ -16,8 +16,8 @@
 
 .visual::before {
   background-image:
-    linear-gradient(color-mix(in srgb, var(--bg) 5.5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--bg) 5.5%, transparent) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--surface-page) 5.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--surface-page) 5.5%, transparent) 1px, transparent 1px);
   background-size: 35px 35px;
   content: "";
   inset: 42px 0 0;
@@ -26,7 +26,7 @@
 
 .browser {
   align-items: center;
-  background: var(--surface);
+  background: var(--surface-page);
   color: var(--slate-600);
   display: flex;
   font-size: var(--text-meta);
@@ -69,7 +69,7 @@
 
 .inputs article {
   background: color-mix(in srgb, var(--accent-on-dark) 14%, transparent);
-  border: 1px solid color-mix(in srgb, var(--bg) 17%, transparent);
+  border: 1px solid color-mix(in srgb, var(--surface-page) 17%, transparent);
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -123,7 +123,7 @@
 .steps li {
   align-items: center;
   background: color-mix(in srgb, var(--accent-on-dark) 14%, transparent);
-  border: 1px solid color-mix(in srgb, var(--bg) 17%, transparent);
+  border: 1px solid color-mix(in srgb, var(--surface-page) 17%, transparent);
   display: grid;
   gap: var(--space-4xs) var(--space-s);
   grid-template-columns: 27px minmax(0, 1fr);
@@ -147,7 +147,7 @@
 
 .steps li > span {
   align-items: center;
-  background: color-mix(in srgb, var(--bg) 8%, transparent);
+  background: color-mix(in srgb, var(--surface-page) 8%, transparent);
   color: var(--accent-on-dark);
   display: flex;
   font-size: var(--text-tiny);
@@ -180,7 +180,7 @@
 }
 
 .connector i {
-  background: color-mix(in srgb, var(--bg) 25%, transparent);
+  background: color-mix(in srgb, var(--surface-page) 25%, transparent);
   height: 15px;
   width: 1px;
 }
@@ -196,14 +196,14 @@
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background-image: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
-  box-shadow: 0 12px 28px color-mix(in srgb, var(--surface-ink) 34%, transparent);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--surface-inverse) 34%, transparent);
   color: var(--text-on-dark);
   display: grid;
   gap: var(--space-4xs) var(--space-s);
   grid-template-columns: auto minmax(0, 1fr);
   max-width: 360px;
   padding: var(--space-s) var(--space-m);
-  text-shadow: 0 1px 2px color-mix(in srgb, var(--surface-ink) 32%, transparent);
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--surface-inverse) 32%, transparent);
   width: calc(100% - 24px);
 }
 

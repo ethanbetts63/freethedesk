@@ -26,10 +26,10 @@
 }
 .statOverlay {
   backdrop-filter: blur(9px);
-  background: color-mix(in srgb, var(--text-strong) 88%, transparent);
-  border: 1px solid color-mix(in srgb, var(--bg) 15%, transparent);
+  background: color-mix(in srgb, var(--text-secondary) 88%, transparent);
+  border: 1px solid color-mix(in srgb, var(--surface-page) 15%, transparent);
   bottom: 34px;
-  box-shadow: 0 26px 60px color-mix(in srgb, var(--text) 50%, transparent);
+  box-shadow: 0 26px 60px color-mix(in srgb, var(--text-primary) 50%, transparent);
   left: 70px;
   padding: var(--space-s) var(--space-m) var(--space-m);
   position: absolute;
@@ -76,7 +76,7 @@
   margin: var(--space-l) 0 var(--space-xl);
 }
 .points span {
-  border: 1px solid color-mix(in srgb, var(--bg) 22%, transparent);
+  border: 1px solid color-mix(in srgb, var(--surface-page) 22%, transparent);
   color: var(--border-subtle);
   font-size: var(--text-ui);
   font-weight: var(--weight-strong);

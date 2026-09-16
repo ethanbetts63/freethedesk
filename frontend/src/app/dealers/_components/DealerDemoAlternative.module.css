@@ -12,8 +12,8 @@
 }
 
 .alternative a {
-  border-bottom: 1px solid var(--page-accent, var(--brand-accent));
-  color: var(--page-accent, var(--brand-accent));
+  border-bottom: 1px solid var(--page-accent, var(--action-primary));
+  color: var(--page-accent, var(--action-primary));
   font-weight: var(--weight-heavy);
   padding-bottom: var(--space-4xs);
 }

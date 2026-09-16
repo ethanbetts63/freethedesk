@@ -11,11 +11,11 @@
 }
 .dashboard-brand span,
 .login-brand span {
-  color: var(--accent-ink);
+  color: var(--text-action);
 }
 .dashboard-brand i,
 .login-brand i {
-  color: var(--accent-strong);
+  color: var(--action-primary);
   font-style: normal;
 }
 .admin-page {
@@ -46,7 +46,7 @@
   margin: var(--space-xs) 0 0;
 }
 .admin-kicker {
-  color: var(--accent-ink);
+  color: var(--text-action);
   font-size: var(--text-meta);
   font-weight: var(--weight-black);
   letter-spacing: 0.14em;
@@ -76,15 +76,15 @@
 .admin-panel,
 .admin-detail-card,
 .admin-compose-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--surface-page);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-l);
   box-shadow: 0 8px 30px color-mix(in srgb, var(--blue-950) 5%, transparent);
   overflow: hidden;
 }
 .admin-filter-bar {
   background: var(--surface-tint);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   padding: var(--space-ml) var(--space-ml);
 }
 .admin-filter-bar > div:first-child strong {
@@ -107,10 +107,10 @@
 .admin-compose-form input,
 .admin-compose-form select,
 .admin-compose-form textarea {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xs);
-  color: var(--text);
+  color: var(--text-primary);
   outline: none;
   padding: var(--space-xs) var(--space-s);
   width: 100%;
@@ -132,7 +132,7 @@
 .admin-search button,
 .admin-attachments > button,
 .admin-pagination button {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xs);
   cursor: pointer;
@@ -178,7 +178,7 @@
 }
 .admin-table th {
   background: var(--surface-tint);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   color: var(--text-muted);
   font-size: var(--text-caption);
   letter-spacing: 0.04em;
@@ -206,7 +206,7 @@
   vertical-align: middle;
 }
 .admin-table td strong {
-  color: var(--text);
+  color: var(--text-primary);
   display: block;
   font-size: var(--text-small);
 }
@@ -245,12 +245,12 @@
   outline: 0;
 }
 .admin-row {
-  background: color-mix(in srgb, var(--admin-status-color) 12%, var(--surface));
+  background: color-mix(in srgb, var(--admin-status-color) 12%, var(--surface-page));
 }
 .admin-status {
-  background: color-mix(in srgb, var(--admin-status-color) 26%, var(--surface));
+  background: color-mix(in srgb, var(--admin-status-color) 26%, var(--surface-page));
   border-radius: var(--radius-pill);
-  color: color-mix(in srgb, var(--admin-status-color) 45%, var(--text));
+  color: color-mix(in srgb, var(--admin-status-color) 45%, var(--text-primary));
   display: inline-flex;
   font-size: var(--text-micro);
   font-weight: var(--weight-heavy);
@@ -312,20 +312,20 @@
   line-height: 1.5;
   margin: var(--space-m) 0;
   padding: var(--space-s) var(--space-s);
-  background: var(--success-surface);
-  border: 1px solid var(--success-line);
-  color: var(--success-ink);
+  background: var(--surface-success);
+  border: 1px solid var(--border-success);
+  color: var(--text-success);
 }
 .admin-banner-error,
 .admin-form-error {
-  background: var(--danger-surface);
-  border: 1px solid var(--danger-line);
-  color: var(--danger-ink);
+  background: var(--surface-danger);
+  border: 1px solid var(--border-danger);
+  color: var(--text-danger);
 }
 .admin-banner-warning {
-  background: var(--warning-surface);
-  border: 1px solid var(--warning-line);
-  color: var(--warning-ink);
+  background: var(--surface-warning);
+  border: 1px solid var(--border-warning);
+  color: var(--text-warning);
 }
 .admin-inline-button {
   background: none;
@@ -338,10 +338,10 @@
 }
 .admin-secondary-button {
   align-items: center;
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xs);
-  color: var(--text);
+  color: var(--text-primary);
   cursor: pointer;
   display: inline-flex;
   font-size: var(--text-small);
@@ -357,10 +357,10 @@
   opacity: 0.45;
 }
 .admin-notes {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xs);
-  color: var(--text);
+  color: var(--text-primary);
   font: inherit;
   margin-bottom: var(--space-s);
   outline: none;
@@ -388,8 +388,8 @@
   grid-template-columns: minmax(0, 1fr);
 }
 .admin-detail-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--surface-page);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-l);
   box-shadow: 0 8px 30px color-mix(in srgb, var(--blue-950) 5%, transparent);
   overflow: hidden;
@@ -415,10 +415,10 @@
   gap: var(--space-s);
 }
 .admin-status-card select {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xs);
-  color: var(--text);
+  color: var(--text-primary);
   outline: none;
   padding: var(--space-xs) var(--space-s);
   width: 100%;
@@ -454,7 +454,7 @@
 }
 .admin-detail-list a,
 .admin-card-heading a {
-  color: var(--link);
+  color: var(--text-action);
   font-weight: var(--weight-heavy);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -471,7 +471,7 @@
   justify-content: space-between;
 }
 .admin-config-label {
-  background: var(--surface-tint-2);
+  background: var(--surface-tint-strong);
   border-radius: var(--radius-pill);
   color: var(--text-muted);
   font-size: var(--text-meta);
@@ -479,22 +479,9 @@
   padding: var(--space-2xs) var(--space-xs);
 }
 .admin-config-basics {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   margin-bottom: var(--space-ml);
   padding-bottom: var(--space-ml);
-}
-.admin-config-accent {
-  align-items: center;
-  display: flex;
-  gap: var(--space-xs);
-  text-transform: capitalize;
-}
-.admin-config-accent i {
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-circle);
-  display: inline-block;
-  height: 17px;
-  width: 17px;
 }
 .admin-config-group + .admin-config-group,
 .admin-config-request {
@@ -515,8 +502,8 @@
   gap: var(--space-2xs);
 }
 .admin-config-group span {
-  background: var(--surface-tint-2);
-  border: 1px solid var(--border);
+  background: var(--surface-tint-strong);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-pill);
   font-size: var(--text-ui);
   font-weight: var(--weight-strong);
@@ -540,11 +527,11 @@
   white-space: pre-wrap;
 }
 .admin-related-messages {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
 }
 .admin-related-messages a {
   align-items: flex-start;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   display: grid;
   gap: var(--space-m);
   grid-template-columns: minmax(0, 1fr);
@@ -569,7 +556,7 @@
 }
 .admin-message-pre {
   background: var(--surface-tint);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-xs);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: var(--text-ui);
@@ -583,8 +570,8 @@
   max-width: 1020px;
 }
 .admin-compose-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--surface-page);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-l);
   box-shadow: 0 8px 30px color-mix(in srgb, var(--blue-950) 5%, transparent);
   overflow: hidden;
@@ -592,7 +579,7 @@
 }
 .admin-compose-card header {
   align-items: flex-start;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
   display: flex;
   justify-content: space-between;
   margin-bottom: var(--space-l);
@@ -601,7 +588,7 @@
   gap: var(--space-s);
 }
 .admin-compose-card header > span {
-  background: var(--surface-tint-2);
+  background: var(--surface-tint-strong);
   border-radius: var(--radius-xs);
   color: var(--text-muted);
   font-size: var(--text-caption);
@@ -620,10 +607,10 @@
 .admin-compose-form input,
 .admin-compose-form select,
 .admin-compose-form textarea {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xs);
-  color: var(--text);
+  color: var(--text-primary);
   outline: none;
   padding: var(--space-xs) var(--space-s);
   width: 100%;
@@ -631,10 +618,10 @@
   margin-top: var(--space-2xs);
 }
 .admin-compose-form textarea {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xs);
-  color: var(--text);
+  color: var(--text-primary);
   outline: none;
   padding: var(--space-xs) var(--space-s);
   width: 100%;
@@ -647,7 +634,7 @@
 .admin-attachments {
   align-items: center;
   background: var(--surface-tint);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-s);
   display: grid;
   gap: var(--space-s);
@@ -672,7 +659,7 @@
 }
 .admin-attachments li {
   align-items: center;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-default);
   display: flex;
   font-size: var(--text-caption);
   justify-content: space-between;
@@ -681,7 +668,7 @@
 .admin-attachments li button {
   background: transparent;
   border: 0;
-  color: var(--danger-ink);
+  color: var(--text-danger);
   cursor: pointer;
   font-size: var(--text-caption);
   font-weight: var(--weight-heavy);
@@ -690,9 +677,9 @@
   align-self: flex-start;
 }
 .admin-form-error {
-  background: var(--danger-surface);
-  border: 1px solid var(--danger-line);
-  color: var(--danger-ink);
+  background: var(--surface-danger);
+  border: 1px solid var(--border-danger);
+  color: var(--text-danger);
   border-radius: var(--radius-xs);
   font-size: var(--text-caption);
   margin: 0;

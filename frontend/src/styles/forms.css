@@ -20,9 +20,9 @@
 }
 
 .form-control {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text);
+  background: var(--surface-page);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
   font: inherit;
   font-size: var(--step-0);
   outline: 0;
@@ -34,8 +34,8 @@
 }
 
 .form-control:focus {
-  border-color: var(--form-accent, var(--brand-accent));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--form-accent, var(--brand-accent)) 12%, transparent);
+  border-color: var(--form-accent, var(--action-primary));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--form-accent, var(--action-primary)) 12%, transparent);
 }
 
 textarea.form-control {

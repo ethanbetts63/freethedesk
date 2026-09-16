@@ -1,7 +1,7 @@
 .controls {
-  --controls-accent: var(--brand-accent);
+  --controls-accent: var(--action-primary);
   --form-accent: var(--controls-accent);
-  background: var(--surface);
+  background: var(--surface-page);
   border: 0;
   border-left: 0;
   height: auto;
@@ -19,7 +19,7 @@
 }
 .baseProduct {
   padding: 26px;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border-bottom: 1px solid var(--slate-200);
 }
 .baseProduct > div {
@@ -30,7 +30,7 @@
 .baseProduct > div b {
   color: var(--controls-accent);
   font-size: var(--demo-text-md);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -58,7 +58,7 @@
 .groupTitle > span {
   color: var(--controls-accent);
   font-size: var(--demo-text-md);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding-top: 2px;
 }
 .groupTitle strong,
@@ -90,9 +90,9 @@
 }
 .controlGroup > :global(.form-control),
 .detailsForm :global(.form-control) {
-  background: var(--surface);
-  border-color: var(--border);
-  color: var(--text);
+  background: var(--surface-page);
+  border-color: var(--border-default);
+  color: var(--text-primary);
   font-size: 1rem;
   font-weight: var(--weight-normal);
   min-height: 50px;
@@ -106,45 +106,9 @@
 .optionalLabel {
   color: var(--slate-400);
   font-size: var(--demo-text-sm);
-  font-weight: 700;
+  font-weight: var(--weight-strong);
   margin-left: 5px;
   text-transform: none;
-}
-.swatches {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-}
-.swatches button {
-  align-items: center;
-  background: var(--surface);
-  border: 1px solid var(--slate-200);
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  height: 31px;
-  justify-content: center;
-  padding: 4px;
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s,
-    transform 0.15s;
-  width: 31px;
-}
-.swatches button i {
-  border-radius: 50%;
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-.swatches button:hover {
-  transform: translateY(-1px);
-}
-.swatches .activeSwatch {
-  border-color: var(--controls-accent);
-  box-shadow:
-    0 0 0 2px var(--surface),
-    0 0 0 4px var(--controls-accent);
 }
 .paletteNote {
   color: var(--slate-500);
@@ -166,7 +130,7 @@
 }
 .moduleToggle {
   align-items: center;
-  background: var(--surface);
+  background: var(--surface-page);
   border: 0;
   cursor: pointer;
   display: flex;
@@ -184,7 +148,7 @@
 }
 .capabilityIcon {
   align-items: center;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border: 1px solid var(--slate-100);
   color: var(--controls-accent);
   display: flex;
@@ -244,7 +208,7 @@
 }
 .expandToggle {
   align-items: center;
-  background: var(--surface);
+  background: var(--surface-page);
   border: 0;
   color: var(--slate-500);
   cursor: pointer;
@@ -273,7 +237,7 @@
   transform: rotate(180deg);
 }
 .moduleExplanation {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border-left: 2px solid var(--controls-accent);
   margin: 0 0 14px;
   padding: 15px 16px;
@@ -309,7 +273,7 @@
   width: 4px;
 }
 .inventorySubOptions {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border-left: 2px solid var(--controls-accent);
   margin: 0 0 12px 12px;
   padding: 10px 10px 4px;
@@ -317,7 +281,7 @@
 .inventorySubOptions > p {
   color: var(--slate-500);
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
   margin: 0 0 6px;
   text-transform: uppercase;
@@ -340,12 +304,12 @@
   font-size: var(--demo-text-md);
 }
 .inventorySubOptions .moduleToggle > i {
-  background: var(--surface);
+  background: var(--surface-page);
   height: 21px;
   width: 21px;
 }
 .inventorySubOptions .subCapabilityIcon {
-  background: var(--surface);
+  background: var(--surface-page);
   flex-basis: 29px;
   height: 29px;
 }
@@ -366,11 +330,11 @@
   color: var(--controls-accent);
 }
 .subExplanation {
-  background: var(--surface);
+  background: var(--surface-page);
   margin: 0 0 11px;
 }
 .customRequestPanel {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border-left: 2px solid var(--controls-accent);
   margin: 0 0 14px;
   padding: 15px 16px;
@@ -448,18 +412,18 @@
 }
 .submissionMessage p {
   font-size: var(--demo-text-md);
-  font-weight: 750;
+  font-weight: var(--weight-strong);
   line-height: 1.55;
   margin: 0;
   padding: 11px 12px;
 }
 .submissionSuccess {
-  background: var(--success-surface);
-  color: var(--success-ink);
+  background: var(--surface-success);
+  color: var(--text-success);
 }
 .submissionError {
-  background: var(--danger-surface);
-  color: var(--danger-ink);
+  background: var(--surface-danger);
+  color: var(--text-danger);
 }
 @media (min-width: 900px) {
   .controls {

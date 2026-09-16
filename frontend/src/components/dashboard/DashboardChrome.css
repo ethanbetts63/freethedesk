@@ -15,7 +15,7 @@
   min-height: 100vh;
 }
 .dashboard-sidebar {
-  background: var(--surface-tint-2);
+  background: var(--surface-tint-strong);
   border-right: 0;
   display: grid;
   flex: 0 0 244px;
@@ -60,7 +60,7 @@
 .dashboard-nav a:hover,
 .dashboard-nav a.active {
   background: color-mix(in srgb, var(--blue-950) 8%, transparent);
-  color: var(--text);
+  color: var(--text-primary);
 }
 .dashboard-account {
   border-top: 1px solid color-mix(in srgb, var(--blue-950) 12%, transparent);

@@ -1,5 +1,5 @@
 .browser {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--slate-200);
   box-shadow: 0 20px 55px color-mix(in srgb, var(--blue-950) 11%, transparent);
   flex: 1;
@@ -32,12 +32,12 @@
   width: 6px;
 }
 .browserTop > span {
-  background: var(--surface);
+  background: var(--surface-page);
   border-radius: 3px;
   padding: 5px 14px;
 }
 .syncStatus {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-sm);
   justify-self: end;
   letter-spacing: 0.08em;
@@ -53,15 +53,15 @@
 .previewBrand {
   background: transparent;
   border: 0;
-  color: var(--text);
+  color: var(--text-primary);
   cursor: pointer;
   font-size: 1rem;
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: -0.06em;
   padding: 0;
 }
 .previewBrand span {
-  color: var(--preview-accent);
+  color: var(--action-primary);
 }
 .siteNavActions {
   align-items: center;
@@ -74,13 +74,13 @@
   align-items: center;
   display: flex;
   font-size: var(--demo-text-sm);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   gap: 11px;
 }
 .siteNavLinks button {
   background: transparent;
   border: 0;
-  color: var(--text);
+  color: var(--text-primary);
   cursor: pointer;
   font-size: inherit;
   font-weight: inherit;
@@ -88,10 +88,10 @@
   position: relative;
 }
 .siteNavLinks .activeNav {
-  color: var(--preview-accent);
+  color: var(--action-primary);
 }
 .siteNavLinks .activeNav::after {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   bottom: 0;
   content: "";
   height: 1px;
@@ -116,7 +116,7 @@
 .previewContacts svg {
   fill: none;
   height: 11px;
-  stroke: var(--preview-accent);
+  stroke: var(--action-primary);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.7;
@@ -127,7 +127,7 @@
 }
 .siteHero {
   align-items: center;
-  background: color-mix(in srgb, var(--preview-accent) 9%, white);
+  background: color-mix(in srgb, var(--action-primary) 9%, var(--surface-page));
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   margin: 0 16px;
@@ -141,9 +141,9 @@
   z-index: 2;
 }
 .heroCopy small {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -160,13 +160,13 @@
   max-width: 220px;
 }
 .heroCopy > button {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border: 0;
   color: var(--text-on-dark);
   cursor: pointer;
   display: inline-block;
   font-size: var(--demo-text-sm);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   margin-top: 7px;
   padding: 9px 11px;
 }
@@ -179,7 +179,7 @@
   transition: transform 0.35s;
 }
 .vehicle::before {
-  background: radial-gradient(circle, color-mix(in srgb, var(--preview-accent) 24%, transparent), transparent 68%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--action-primary) 24%, transparent), transparent 68%);
   content: "";
   height: 290px;
   position: absolute;
@@ -198,10 +198,10 @@
 .inventoryBlock > div:first-child button {
   background: transparent;
   border: 0;
-  color: var(--preview-accent);
+  color: var(--action-primary);
   cursor: pointer;
   font-size: inherit;
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 0;
   text-transform: uppercase;
 }
@@ -222,7 +222,7 @@
   padding: 13px;
 }
 .hireCard {
-  background: color-mix(in srgb, var(--preview-accent) 8%, white);
+  background: color-mix(in srgb, var(--action-primary) 8%, var(--surface-page));
 }
 .hireCard small,
 .hireCard strong,
@@ -232,9 +232,9 @@
 .hireCard small,
 .articleCard small,
 .serviceCard > span {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-sm);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   text-transform: uppercase;
 }
 .hireCard strong {
@@ -245,7 +245,7 @@
 .hireCard span {
   display: block;
   font-size: var(--demo-text-sm);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
 }
 .articleCard {
   border: 1px solid var(--slate-100);
@@ -256,20 +256,24 @@
   gap: 11px;
 }
 .guideImage {
-  background: linear-gradient(145deg, color-mix(in srgb, var(--preview-accent) 20%, white), var(--surface-flow));
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--action-primary) 20%, var(--surface-page)),
+    var(--surface-tint)
+  );
   flex: 0 0 76px;
   height: 67px;
   overflow: hidden;
   position: relative;
 }
 .landscapeArtwork {
-  fill: var(--preview-accent);
+  fill: var(--action-primary);
   height: 100%;
   width: 100%;
 }
 .landscapeRoad {
   fill: none;
-  stroke: var(--surface);
+  stroke: var(--surface-page);
   stroke-width: 2;
 }
 .articleCard strong,
@@ -297,7 +301,7 @@
 }
 .serviceCard b {
   display: block;
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-sm);
 }
 .reviewsBlock {
@@ -320,7 +324,7 @@
 }
 .reviewsBlock > div:first-child span {
   display: block;
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-sm);
   letter-spacing: 0.08em;
   margin: 2px 0;
@@ -358,14 +362,14 @@
   margin: 10px 16px 0;
 }
 .aboutBlock {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   padding: 25px;
 }
 .aboutBlock > small,
 .brandsBlock > small {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-md);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -384,9 +388,9 @@
 .aboutBlock button {
   background: transparent;
   border: 0;
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 5px 0;
 }
 .brandsBlock {
@@ -401,7 +405,7 @@
 }
 .brandGrid article {
   align-items: center;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border: 1px solid var(--slate-100);
   display: grid;
   gap: 9px;
@@ -413,14 +417,14 @@
     transform 0.18s;
 }
 .brandGrid article:hover {
-  border-color: var(--preview-accent);
+  border-color: var(--action-primary);
   transform: translateY(-1px);
 }
 .brandArtwork {
-  background: color-mix(in srgb, var(--preview-accent) 11%, white);
+  background: color-mix(in srgb, var(--action-primary) 11%, var(--surface-page));
   fill: none;
   height: 34px;
-  stroke: var(--preview-accent);
+  stroke: var(--action-primary);
   stroke-width: 1.8;
   width: 34px;
 }
@@ -445,7 +449,7 @@
 }
 .contactBand {
   align-items: center;
-  background: var(--preview-accent);
+  background: var(--action-primary);
   color: var(--text-on-dark);
   display: flex;
   justify-content: space-between;
@@ -469,12 +473,12 @@
   font-size: var(--demo-text-md);
 }
 .contactBand button {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 0;
-  color: var(--text);
+  color: var(--text-primary);
   cursor: pointer;
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 9px 10px;
 }
 .previewFooter {
@@ -491,12 +495,12 @@
   border: 0;
   color: var(--text-on-dark);
   font-size: var(--demo-text-xl);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: -0.06em;
   padding: 0;
 }
 .footerBrand > button span {
-  color: var(--preview-accent);
+  color: var(--action-primary);
 }
 .footerBrand > small {
   color: var(--slate-400);
@@ -522,7 +526,7 @@
   align-items: center;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--bg) 10%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--surface-page) 10%, transparent);
   color: var(--slate-300);
   cursor: pointer;
   display: flex;
@@ -532,7 +536,7 @@
   text-align: left;
 }
 .footerLinks nav button span {
-  color: var(--preview-accent);
+  color: var(--action-primary);
 }
 .footerContact > a {
   align-items: center;
@@ -545,7 +549,7 @@
 .footerContact svg {
   fill: none;
   height: 10px;
-  stroke: var(--preview-accent);
+  stroke: var(--action-primary);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.7;
@@ -572,27 +576,27 @@
   height: 100%;
   inset: 0;
   position: absolute;
-  stroke: var(--surface);
+  stroke: var(--surface-page);
   stroke-width: 14;
   width: 100%;
 }
 .demoMapPin {
-  fill: var(--preview-accent);
+  fill: var(--action-primary);
   height: 44px;
   left: 58.75%;
   position: absolute;
-  stroke: var(--surface);
+  stroke: var(--surface-page);
   stroke-width: 3;
   top: 41.666%;
   transform: translateX(-50%);
   width: 32px;
 }
 .demoMapAction {
-  background: var(--surface);
+  background: var(--surface-page);
   bottom: 4px;
-  color: var(--text);
+  color: var(--text-primary);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   left: 4px;
   padding: 3px 5px;
   position: absolute;
@@ -604,7 +608,7 @@
 }
 .footerLegal {
   align-items: center;
-  border-top: 1px solid color-mix(in srgb, var(--bg) 13%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--surface-page) 13%, transparent);
   color: var(--slate-500);
   display: flex;
   font-size: var(--demo-text-xs);
@@ -680,10 +684,10 @@
   padding-bottom: 20px;
 }
 .exampleHeading small {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   display: block;
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -694,9 +698,9 @@
   margin: 8px 0 0;
 }
 .exampleHeading > span {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-sm);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   text-transform: uppercase;
 }
 .catalogueGrid {
@@ -719,8 +723,8 @@
 }
 .inventoryTile:hover,
 .inventoryTile:focus-visible {
-  border-color: var(--preview-accent);
-  box-shadow: 0 8px 20px rgba(20, 49, 72, 0.1);
+  border-color: var(--action-primary);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--blue-950) 10%, transparent);
   outline: 0;
   transform: translateY(-2px);
 }
@@ -731,9 +735,9 @@
 }
 .catalogueGrid article > small {
   display: block;
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   margin-top: 7px;
   text-transform: uppercase;
 }
@@ -763,9 +767,9 @@
   z-index: 2;
 }
 .inventoryHero small {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -783,12 +787,12 @@
   max-width: 270px;
 }
 .inventoryHero button {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border: 0;
   color: var(--text-on-dark);
   cursor: pointer;
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   margin-top: 15px;
   padding: 10px 12px;
 }
@@ -800,13 +804,13 @@
   position: relative;
 }
 .inventoryHeroVisual::before {
-  background: radial-gradient(circle, color-mix(in srgb, var(--preview-accent) 35%, transparent), transparent 65%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--action-primary) 35%, transparent), transparent 65%);
   content: "";
   inset: -35px;
   position: absolute;
 }
 .purchaseSteps {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border-bottom: 1px solid var(--slate-200);
   display: grid;
   gap: 20px;
@@ -819,7 +823,7 @@
 }
 .purchaseSteps b {
   align-items: center;
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border-radius: 50%;
   color: var(--text-on-dark);
   display: flex;
@@ -848,7 +852,7 @@
   color: var(--slate-500);
   font-size: var(--demo-text-xs);
   font-style: normal;
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
   margin-bottom: 2px;
   text-transform: uppercase;
@@ -884,9 +888,9 @@
 }
 .stockNewsletter small {
   display: block;
-  color: color-mix(in srgb, var(--preview-accent) 70%, white);
+  color: color-mix(in srgb, var(--action-primary) 70%, var(--surface-page));
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.09em;
   text-transform: uppercase;
 }
@@ -905,9 +909,9 @@
   width: 100%;
 }
 .stockNewsletter input {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 0;
-  color: var(--text);
+  color: var(--text-primary);
   font-size: var(--demo-text-sm);
   min-width: 150px;
   outline: 0;
@@ -915,15 +919,15 @@
   width: 100%;
 }
 .stockNewsletter input:focus {
-  box-shadow: inset 0 0 0 1px var(--preview-accent);
+  box-shadow: inset 0 0 0 1px var(--action-primary);
 }
 .stockNewsletter button {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border: 0;
   color: var(--text-on-dark);
   cursor: pointer;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 9px 10px;
   white-space: nowrap;
 }
@@ -940,16 +944,16 @@
   color: var(--slate-500);
   display: block;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.07em;
   margin-bottom: 5px;
   text-transform: uppercase;
 }
 .inventoryFilters select,
 .inventoryFilters input {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--slate-200);
-  color: var(--text);
+  color: var(--text-primary);
   font-size: var(--demo-text-xs);
   min-width: 0;
   outline: 0;
@@ -958,7 +962,7 @@
 }
 .inventoryFilters select:focus,
 .inventoryFilters input:focus {
-  border-color: var(--preview-accent);
+  border-color: var(--action-primary);
 }
 .inventoryFilters label > div {
   display: grid;
@@ -971,7 +975,7 @@
   color: var(--slate-600);
   cursor: pointer;
   font-size: var(--demo-text-xs);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   padding: var(--demo-space-xs);
   grid-column: 1 / -1;
 }
@@ -996,7 +1000,7 @@
   margin: 5px 0;
 }
 .vehicleFacts span {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   color: var(--slate-600);
   font-size: var(--demo-text-xs);
   padding: 3px 4px;
@@ -1014,12 +1018,12 @@
   font-size: var(--demo-text-md);
 }
 .noInventoryResults button {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border: 0;
   color: var(--text-on-dark);
   cursor: pointer;
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 8px 10px;
 }
 .vehicleDetailPage {
@@ -1031,7 +1035,7 @@
   color: var(--slate-600);
   cursor: pointer;
   font-size: var(--demo-text-sm);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   margin-bottom: 13px;
   padding: 0;
 }
@@ -1050,7 +1054,7 @@
   bottom: 11px;
   color: var(--slate-600);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   left: 13px;
   letter-spacing: 0.08em;
   position: absolute;
@@ -1067,7 +1071,7 @@
   width: 82%;
 }
 .detailVehicleVisual::before {
-  background: radial-gradient(circle, color-mix(in srgb, var(--preview-accent) 22%, transparent), transparent 67%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--action-primary) 22%, transparent), transparent 67%);
   content: "";
   inset: -45px;
   position: absolute;
@@ -1087,9 +1091,9 @@
   padding-bottom: 18px;
 }
 .vehicleTitle small {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -1103,7 +1107,7 @@
   background: var(--slate-100);
   color: var(--slate-600);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 6px 7px;
   text-transform: uppercase;
 }
@@ -1125,7 +1129,7 @@
 }
 .keyFacts article {
   align-items: center;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   display: grid;
   gap: 3px;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1143,7 +1147,7 @@
 }
 .keyFacts article i {
   align-items: center;
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border-radius: 50%;
   color: var(--text-on-dark);
   display: flex;
@@ -1176,7 +1180,7 @@
 }
 .vehicleSpecifications dd {
   font-size: var(--demo-text-sm);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   margin: 0;
 }
 .vehicleDescription {
@@ -1200,7 +1204,7 @@
   color: var(--slate-500);
   display: block;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   text-transform: uppercase;
 }
 .detailPrice {
@@ -1222,10 +1226,10 @@
 }
 .reserveHeading > span {
   align-self: flex-start;
-  background: color-mix(in srgb, var(--preview-accent) 15%, white);
+  background: color-mix(in srgb, var(--action-primary) 15%, var(--surface-page));
   color: var(--slate-700);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 4px 6px;
 }
 .vehicleBuyBox section > p,
@@ -1238,17 +1242,17 @@
 .buyOutrightButton {
   cursor: pointer;
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 9px;
   width: 100%;
 }
 .reserveButton {
   cursor: pointer;
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 9px;
   width: 100%;
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border: 0;
   color: var(--text-on-dark);
 }
@@ -1259,12 +1263,12 @@
 .buyOutrightButton {
   cursor: pointer;
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 9px;
   width: 100%;
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--slate-800);
-  color: var(--line-ink);
+  color: var(--line-strong);
   margin-top: 6px;
 }
 .digitalFeatures {
@@ -1294,10 +1298,10 @@
   position: absolute;
 }
 .enquiryDivider span {
-  background: var(--surface);
+  background: var(--surface-page);
   color: var(--slate-500);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 0 7px;
   position: relative;
 }
@@ -1318,18 +1322,18 @@
   width: 100%;
 }
 .vehicleInterest button {
-  background: var(--line-ink);
+  background: var(--line-strong);
   border: 0;
   color: var(--text-on-dark);
   cursor: pointer;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   margin-top: 5px;
   padding: var(--demo-space-xs);
   width: 100%;
 }
 .detailPurchaseFlow {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   margin: 25px -18px -18px;
   padding: 22px 18px;
   text-align: center;
@@ -1355,21 +1359,21 @@
   margin-top: 8px;
 }
 .stockActions button {
-  background: var(--surface);
-  border: 1px solid var(--preview-accent);
-  color: var(--preview-accent);
+  background: var(--surface-page);
+  border: 1px solid var(--action-primary);
+  color: var(--action-primary);
   cursor: pointer;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 5px 6px;
 }
 .stockActions button:first-child {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   color: var(--text-on-dark);
 }
 .miniVehicle {
   align-items: center;
-  background: color-mix(in srgb, var(--preview-accent) 9%, white);
+  background: color-mix(in srgb, var(--action-primary) 9%, var(--surface-page));
   display: flex;
   height: 78px;
   justify-content: center;
@@ -1377,20 +1381,20 @@
   position: relative;
 }
 .accessoryGrid article > button {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border: 0;
   bottom: 8px;
   color: var(--text-on-dark);
   cursor: pointer;
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 6px 8px;
   position: absolute;
   right: 8px;
 }
 .accessoryVisual {
   align-items: center;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   display: flex;
   height: 82px;
   justify-content: center;
@@ -1399,13 +1403,13 @@
 .productArtwork {
   fill: none;
   height: 68px;
-  stroke: var(--preview-accent);
+  stroke: var(--action-primary);
   stroke-linejoin: round;
   stroke-width: 4;
   width: 76px;
 }
 .partsSelectors {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   display: grid;
   gap: var(--demo-space-xs);
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -1416,14 +1420,14 @@
   color: var(--slate-500);
   display: block;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   margin-bottom: 4px;
   text-transform: uppercase;
 }
 .partsSelectors select {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--slate-200);
-  color: var(--text);
+  color: var(--text-primary);
   font-size: var(--demo-text-sm);
   padding: 7px;
   width: 100%;
@@ -1435,7 +1439,7 @@
   grid-template-columns: minmax(0, 1fr);
 }
 .partsDiagram {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--slate-100);
   margin: 0;
   position: relative;
@@ -1449,7 +1453,7 @@
   padding: 10px 12px;
 }
 .partsDiagram figcaption strong {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   color: var(--text-on-dark);
   font-size: var(--demo-text-sm);
   padding: 5px 6px;
@@ -1472,7 +1476,7 @@
 }
 .partsListHeader {
   align-items: center;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   border-bottom: 1px solid var(--slate-100);
   display: flex;
   justify-content: space-between;
@@ -1493,9 +1497,9 @@
   margin-top: 2px;
 }
 .partsListHeader > span {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   text-transform: uppercase;
 }
 .partsList ol {
@@ -1518,12 +1522,12 @@
 }
 .partCallout {
   align-items: center;
-  background: var(--line-ink);
+  background: var(--line-strong);
   border-radius: 50%;
   color: var(--text-on-dark);
   display: flex;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   height: 21px;
   justify-content: center;
   width: 21px;
@@ -1547,22 +1551,22 @@
   margin-top: 3px;
 }
 .partsList li > div .inStock {
-  color: var(--success-ink);
+  color: var(--text-success);
 }
 .partsList li > div .limitedStock {
-  color: var(--warning-ink);
+  color: var(--text-warning);
 }
 .partsList li > b {
   font-size: var(--demo-text-sm);
   white-space: nowrap;
 }
 .partsList li > button {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border: 0;
   color: var(--text-on-dark);
   cursor: pointer;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 6px 5px;
 }
 .partsList li > button:disabled {
@@ -1571,14 +1575,14 @@
   cursor: not-allowed;
 }
 .partsList .partAdded {
-  background: color-mix(in srgb, var(--preview-accent) 7%, white);
+  background: color-mix(in srgb, var(--action-primary) 7%, var(--surface-page));
 }
 .partsList .partAdded .partCallout {
-  background: var(--preview-accent);
+  background: var(--action-primary);
 }
 .hireSearch {
   align-items: end;
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   display: grid;
   gap: 10px;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -1589,13 +1593,13 @@
   color: var(--slate-500);
   display: block;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   margin-bottom: 5px;
   text-transform: uppercase;
 }
 .hireSearch input,
 .hireSearch select {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--slate-200);
   color: var(--slate-800);
   font: inherit;
@@ -1607,21 +1611,21 @@
 }
 .hireSearch input:focus,
 .hireSearch select:focus {
-  border-color: var(--preview-accent);
+  border-color: var(--action-primary);
 }
 .hireSearch > i {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-md);
   font-style: normal;
   padding-bottom: 10px;
 }
 .hireSearch > button {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border: 0;
   color: var(--text-on-dark);
   cursor: pointer;
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   height: 34px;
   padding: 0 11px;
   white-space: nowrap;
@@ -1648,7 +1652,7 @@
   margin-top: 3px;
 }
 .hireResults > b {
-  color: var(--success-ink);
+  color: var(--text-success);
   font-size: var(--demo-text-xs);
 }
 .hireGrid {
@@ -1665,15 +1669,15 @@
     transform 0.18s;
 }
 .hireGrid .selectedHireCard {
-  border-color: var(--preview-accent);
-  box-shadow: 0 8px 18px rgba(22, 52, 74, 0.1);
+  border-color: var(--action-primary);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--blue-950) 10%, transparent);
   transform: translateY(-2px);
 }
 .hireGrid article > small {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   display: block;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   margin-top: 8px;
   text-transform: uppercase;
 }
@@ -1693,18 +1697,18 @@
   font-size: var(--demo-text-sm);
 }
 .hireGrid article > p b {
-  color: var(--text);
+  color: var(--text-primary);
 }
 .hireGrid article > button {
   background: transparent;
   border: 0;
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 0;
 }
 .hireGrid .selectedHireCard > button {
-  color: var(--success-ink);
+  color: var(--text-success);
 }
 .hireCheckout {
   align-items: start;
@@ -1723,9 +1727,9 @@
 }
 .hireSelection small {
   display: block;
-  color: color-mix(in srgb, var(--preview-accent) 66%, white);
+  color: color-mix(in srgb, var(--action-primary) 66%, var(--surface-page));
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   text-transform: uppercase;
 }
 .hireSelection strong {
@@ -1745,14 +1749,14 @@
 }
 .hireExtras label {
   align-items: center;
-  border: 1px solid color-mix(in srgb, var(--bg) 17%, transparent);
+  border: 1px solid color-mix(in srgb, var(--surface-page) 17%, transparent);
   cursor: pointer;
   display: flex;
   gap: 7px;
   padding: var(--demo-space-xs);
 }
 .hireExtras input {
-  accent-color: var(--preview-accent);
+  accent-color: var(--action-primary);
   height: 12px;
   width: 12px;
 }
@@ -1790,16 +1794,16 @@
   margin: 3px 0 7px;
 }
 .hireTotal > button {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border: 0;
   color: var(--text-on-dark);
   cursor: pointer;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 8px 10px;
 }
 .serviceBookingPage {
-  background: var(--surface);
+  background: var(--surface-page);
   min-height: 620px;
   padding-bottom: 30px;
 }
@@ -1816,9 +1820,9 @@
   padding: 12px 0;
 }
 .serviceHeroCopy > small {
-  color: color-mix(in srgb, var(--preview-accent) 72%, white);
+  color: color-mix(in srgb, var(--action-primary) 72%, var(--surface-page));
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -1830,7 +1834,7 @@
   text-transform: uppercase;
 }
 .serviceHeroCopy h2 em {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-style: normal;
 }
 .serviceHeroCopy > p {
@@ -1856,9 +1860,9 @@
 }
 .serviceHeroCopy li i {
   align-items: center;
-  border: 1px solid color-mix(in srgb, var(--preview-accent) 68%, white);
+  border: 1px solid color-mix(in srgb, var(--action-primary) 68%, var(--surface-page));
   border-radius: 50%;
-  color: color-mix(in srgb, var(--preview-accent) 68%, white);
+  color: color-mix(in srgb, var(--action-primary) 68%, var(--surface-page));
   display: flex;
   flex: 0 0 16px;
   font-size: var(--demo-text-xs);
@@ -1867,8 +1871,8 @@
   justify-content: center;
 }
 .serviceBookingCard {
-  background: var(--surface);
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 25%, transparent);
+  background: var(--surface-page);
+  box-shadow: 0 18px 48px color-mix(in srgb, var(--text-primary) 25%, transparent);
   min-height: 0;
   padding: 19px;
 }
@@ -1890,11 +1894,11 @@
   text-transform: uppercase;
 }
 .serviceBookingCard > header span {
-  background: color-mix(in srgb, var(--preview-accent) 12%, white);
+  background: color-mix(in srgb, var(--action-primary) 12%, var(--surface-page));
   border-radius: 20px;
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 5px 7px;
   text-transform: uppercase;
 }
@@ -1912,7 +1916,7 @@
   color: var(--slate-600);
   display: block;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.07em;
   margin-bottom: 6px;
   text-transform: uppercase;
@@ -1920,9 +1924,9 @@
 .serviceBookingFields select,
 .serviceBookingFields input,
 .serviceBookingFields textarea {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--slate-200);
-  color: var(--text);
+  color: var(--text-primary);
   font: inherit;
   font-size: var(--demo-text-sm);
   outline: 0;
@@ -1933,7 +1937,7 @@
 .serviceBookingFields select:focus,
 .serviceBookingFields input:focus,
 .serviceBookingFields textarea:focus {
-  border-color: var(--preview-accent);
+  border-color: var(--action-primary);
 }
 .serviceDateTimeFields {
   display: grid;
@@ -1948,7 +1952,7 @@
   color: var(--slate-600);
   display: block;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.07em;
   margin-bottom: 6px;
   text-transform: uppercase;
@@ -1988,7 +1992,7 @@
   border-bottom: 0;
 }
 .jobTypeField input {
-  accent-color: var(--preview-accent);
+  accent-color: var(--action-primary);
   height: 13px;
   margin: 1px 0 0;
   padding: 0;
@@ -2025,11 +2029,11 @@
   color: var(--slate-500);
   cursor: pointer;
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   padding: 8px 0;
 }
 .serviceBookingCard > footer > button:last-child {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   color: var(--text-on-dark);
   padding: 10px 13px;
 }
@@ -2038,9 +2042,9 @@
   opacity: 0.38;
 }
 .bookingReview > small {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -2064,7 +2068,7 @@
 }
 .bookingReview dd {
   font-size: var(--demo-text-sm);
-  font-weight: 850;
+  font-weight: var(--weight-heavy);
   margin: 0;
   text-align: right;
 }
@@ -2074,13 +2078,13 @@
   line-height: 1.55;
 }
 .bookingReview > strong {
-  color: var(--success-ink);
+  color: var(--text-success);
   display: block;
   font-size: var(--demo-text-sm);
   margin-top: 10px;
 }
 .serviceReviews {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   display: grid;
   gap: var(--demo-space-sm);
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -2100,7 +2104,7 @@
   color: var(--slate-500);
   display: block;
   font-size: var(--demo-text-xs);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   text-transform: uppercase;
 }
 .serviceReviews > div strong {
@@ -2109,7 +2113,7 @@
   margin: 8px 0 4px;
 }
 .serviceReviews > div strong span {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-md);
   letter-spacing: 0.05em;
 }
@@ -2124,7 +2128,7 @@
   padding: 0 4px;
 }
 .serviceReviews blockquote > span {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   display: block;
   font-family: Georgia, serif;
   font-size: 1.2rem;
@@ -2155,9 +2159,9 @@
   gap: 6px;
 }
 .serviceWork > header small {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -2176,11 +2180,11 @@
   border-bottom: 1px solid var(--slate-200);
 }
 .serviceWork article i {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   display: block;
   font-size: var(--demo-text-xs);
   font-style: normal;
-  font-weight: 900;
+  font-weight: var(--weight-black);
 }
 .serviceWork article strong {
   display: block;
@@ -2210,9 +2214,9 @@
   padding: 20px;
 }
 .findUsCopy > small {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   text-transform: uppercase;
 }
 .findUsCopy h3 {
@@ -2221,7 +2225,7 @@
 }
 .findUsCopy p {
   font-size: var(--demo-text-sm);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   margin: 0 0 8px;
 }
 .findUsCopy span {
@@ -2231,11 +2235,11 @@
 }
 .findUsCopy button {
   align-self: flex-start;
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border: 0;
   color: var(--text-on-dark);
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   margin-top: auto;
   padding: 9px 12px;
 }
@@ -2251,8 +2255,8 @@
 .journalFeature > div {
   background: linear-gradient(
     145deg,
-    color-mix(in srgb, var(--preview-accent) 32%, white),
-    color-mix(in srgb, var(--preview-accent) 70%, black)
+    color-mix(in srgb, var(--action-primary) 32%, var(--surface-page)),
+    color-mix(in srgb, var(--action-primary) 70%, black)
   );
   min-height: 190px;
 }
@@ -2260,9 +2264,9 @@
   align-self: center;
 }
 .journalFeature small {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   text-transform: uppercase;
 }
 .journalFeature h3 {
@@ -2277,7 +2281,7 @@
   line-height: 1.5;
 }
 .journalFeature b {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-sm);
 }
 .journalGrid {
@@ -2294,12 +2298,12 @@
   grid-template-columns: 58px minmax(0, 1fr);
 }
 .journalGrid i {
-  background: color-mix(in srgb, var(--preview-accent) 14%, white);
+  background: color-mix(in srgb, var(--action-primary) 14%, var(--surface-page));
   grid-row: 1 / 3;
   height: 52px;
 }
 .journalGrid small {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-xs);
   text-transform: uppercase;
 }
@@ -2317,9 +2321,9 @@
   padding: 23px;
 }
 .contactPageDetails > small {
-  color: color-mix(in srgb, var(--preview-accent) 68%, white);
+  color: color-mix(in srgb, var(--action-primary) 68%, var(--surface-page));
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -2337,7 +2341,7 @@
 }
 .contactPageDetails > a,
 .contactPageDetails > div {
-  border-top: 1px solid color-mix(in srgb, var(--bg) 13%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--surface-page) 13%, transparent);
   color: var(--text-on-dark);
   display: block;
   padding: 10px 0;
@@ -2363,7 +2367,7 @@
   line-height: 1.45;
 }
 .contactForm {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   display: grid;
   gap: 10px;
   grid-template-columns: minmax(0, 1fr);
@@ -2373,16 +2377,16 @@
   color: var(--slate-600);
   display: block;
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   margin-bottom: 5px;
   text-transform: uppercase;
 }
 .contactForm input,
 .contactForm select,
 .contactForm textarea {
-  background: var(--surface);
+  background: var(--surface-page);
   border: 1px solid var(--slate-200);
-  color: var(--text);
+  color: var(--text-primary);
   font: inherit;
   font-size: var(--demo-text-sm);
   outline: 0;
@@ -2393,26 +2397,26 @@
 .contactForm input:focus,
 .contactForm select:focus,
 .contactForm textarea:focus {
-  border-color: var(--preview-accent);
+  border-color: var(--action-primary);
 }
 .contactMessage {
   grid-column: 1 / -1;
 }
 .contactForm > button {
-  background: var(--preview-accent);
+  background: var(--action-primary);
   border: 0;
   color: var(--text-on-dark);
   cursor: pointer;
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   grid-column: 1;
   justify-self: start;
   padding: 10px 14px;
 }
 .contactSuccess {
-  color: var(--success-ink);
+  color: var(--text-success);
   font-size: var(--demo-text-sm);
-  font-weight: 800;
+  font-weight: var(--weight-heavy);
   grid-column: 1 / -1;
   margin: 0;
 }
@@ -2436,9 +2440,9 @@
 }
 .contactLocation > div:first-child small {
   display: block;
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-xs);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   text-transform: uppercase;
 }
 .contactLocation > div:first-child strong {
@@ -2484,9 +2488,9 @@
   padding: 17px 0;
 }
 .termsGrid section > span {
-  color: var(--preview-accent);
+  color: var(--action-primary);
   font-size: var(--demo-text-sm);
-  font-weight: 900;
+  font-weight: var(--weight-black);
 }
 .termsGrid h3 {
   font-size: var(--demo-text-md);

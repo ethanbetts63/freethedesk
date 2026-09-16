@@ -1,10 +1,10 @@
 .page {
-  --page-accent: var(--brand-accent);
-  background: var(--surface);
-  color: var(--text);
+  --page-accent: var(--action-primary);
+  background: var(--surface-page);
+  color: var(--text-primary);
 }
 .seoSection {
-  background: var(--surface-flow);
+  background: var(--surface-tint);
   margin-bottom: var(--space-2xl);
   margin-top: var(--space-3xl);
   padding-bottom: var(--section-space);

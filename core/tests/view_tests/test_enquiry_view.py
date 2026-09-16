@@ -98,8 +98,6 @@ def test_website_builder_enquiry_stores_full_configuration(api_client):
         "appearance": {
             "brand_name": "Northline",
             "current_url": "www.example.com.au",
-            "accent": "blue",
-            "accent_hex": "#247ec9",
         },
         "capabilities": [
             {"key": "inventory", "name": "Inventory catalogue", "selected": True},
