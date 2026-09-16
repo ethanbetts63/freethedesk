@@ -12,7 +12,6 @@ import { SESSION_FLAG } from "@/lib/api";
 import { submitSignup, type SignupState } from "@/lib/signup.actions";
 
 import { buildDealerPlans, type DealerPlanCode, type LicensingPrices } from "../_lib/plans";
-import styles from "../page.module.css";
 
 const initialState: SignupState = { status: "idle" };
 const boundSubmitSignup = submitSignup.bind(null, { endpoint: "/api/dealers/signup/" });
@@ -49,7 +48,7 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
           <div className={formStyles.choiceGroup}>
             <p>What do you need?</p>
             <div
-              className={`${formStyles.choiceGrid} ${styles.planTypeGrid}`}
+              className={`${formStyles.choiceGrid} grid-cols-1 sm:grid-cols-3`}
               role="radiogroup"
               aria-label="Subscription plan"
             >
@@ -75,9 +74,14 @@ export function SignupPlansPanel({ settings, heading }: { settings: LicensingPri
             </div>
           </div>
 
-          <ul className={styles.selectionFeatures}>
+          <ul className="m-0 mt-l list-none p-0">
             {selected.features.map((feature) => (
-              <li key={feature}>{feature}</li>
+              <li
+                key={feature}
+                className="relative mx-0 my-xs pl-ml text-small font-strong text-[var(--slate-800)] before:absolute before:left-0 before:font-black before:text-[var(--page-accent)] before:content-['↳']"
+              >
+                {feature}
+              </li>
             ))}
           </ul>
 

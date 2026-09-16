@@ -32,7 +32,9 @@ function FlowColumn({
 }) {
   return (
     <div className={`${styles.flowColumn} ${highlight ? styles.flowColumnHighlight : ""}`}>
-      {eyebrow && <p className={`${styles.flowEyebrow} moving-colour-text`}>{eyebrow}</p>}
+      {eyebrow && (
+        <p className="m-0 mb-s text-meta font-black tracking-[0.12em] uppercase moving-colour-text">{eyebrow}</p>
+      )}
       <header className={styles.flowColumnHead}>
         <span>{label}</span>
         <b>{badge}</b>
@@ -54,9 +56,11 @@ function FlowColumn({
 /** Side-by-side of what your team does: hosted portal (manual entry) vs. built into your website (automatic). */
 export function FlowCompare() {
   return (
-    <div className={styles.flowCompare}>
-      <p className={styles.flowCompareLabel}>What your team does</p>
-      <div className={styles.flowGrid}>
+    <div className="mt-2xl">
+      <p className="m-0 mb-xl text-caption font-control tracking-[0.14em] text-accent-on-dark uppercase">
+        What your team does
+      </p>
+      <div className="grid grid-cols-1 gap-ml min-[900px]:grid-cols-2">
         <FlowColumn label="Hosted portal" badge="5 steps, you enter each sale" steps={hostedSteps} />
         <FlowColumn
           label="Built into your website"

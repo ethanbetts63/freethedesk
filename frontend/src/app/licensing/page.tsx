@@ -18,7 +18,6 @@ import { LicensingStepsBar } from "./_components/LicensingStepsBar";
 import { LicensingVerify } from "./_components/LicensingVerify";
 import { SignupPlans } from "./_components/SignupPlans";
 import { LICENSING_FAQS } from "./_lib/copy";
-import styles from "./page.module.css";
 
 const sections = numberSections([
   "Fill",
@@ -40,7 +39,7 @@ export default async function LicensingPage() {
   const settings = await getSiteSettingsServer();
 
   return (
-    <main className={styles.page}>
+    <main className="bg-surface-page text-text-primary [--page-accent:var(--action-primary)]">
       <PageSchema path="/licensing" />
       <Hero
         path="/licensing"
