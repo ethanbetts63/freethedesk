@@ -1,26 +1,29 @@
 # Security
 
-This project follows the established Allbikes security boundary: Next.js serves
-the browser application, browser API calls stay on the same origin through the
-Next rewrite, and Django remains authoritative for identity, permissions,
-validation, pricing and payment state.
+Next.js serves the browser application, browser API calls stay on the same
+origin through the Next rewrite, and Django remains authoritative for
+identity, permissions, validation, pricing and payment state.
+
+Shared baseline — CSP/HSTS/transport headers, the JWT-cookie/CSRF pattern,
+the role/portal contract, and edge route protection — is documented once in
+[`../freetheplatform/_docs/security-standard.md`](../../freetheplatform/_docs/security-standard.md).
+This file covers only what's specific to freethedesk.
 
 ## Browser and transport
 
-Next.js sends `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, a
-strict-origin referrer policy and a restrictive permissions policy. Production
-Django trusts one configured HTTPS proxy, enables secure session and CSRF
-cookies, and sends two-year HSTS including subdomains. The hosting layer is
-responsible for redirecting HTTP to HTTPS.
+Production Django trusts one configured HTTPS proxy and sends its own HSTS
+header including subdomains; Next's own HSTS header is documented centrally.
+The hosting layer is responsible for redirecting HTTP to HTTPS.
 
 All `/api/` responses receive `Cache-Control: no-store, private`.
 
 ## Authentication and CSRF
 
-JWT access and rotating refresh tokens live in HttpOnly cookies. Authenticated
-unsafe requests must pass Django's CSRF check. APIs default to authenticated;
-public APIs explicitly opt into `AllowAny`. Anonymous and authenticated requests
-are globally throttled, with a separate five-per-minute login limit.
+JWT-in-HttpOnly-cookie and the CSRF pattern are shared (`security-standard.md`);
+freethedesk's cookie names are `freethedesk_access` / `freethedesk_refresh`
+(`config/settings.py`). APIs default to authenticated; public APIs explicitly
+opt into `AllowAny`. Anonymous and authenticated requests are globally
+throttled, with a separate five-per-minute login limit.
 
 `NUM_PROXIES=1` means the deployed proxy chain must contain exactly one trusted
 proxy. Client IP recording uses that same rule instead of trusting the first
