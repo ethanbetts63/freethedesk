@@ -33,3 +33,8 @@ main {
   min-height: 70vh;
   overflow: hidden;
 }
+/* ServiceScroll's sticky columns need to escape this clip - see the
+   "service-scroll" marker class in ServiceScroll.tsx. */
+main:has(.service-scroll) {
+  overflow: visible;
+}
