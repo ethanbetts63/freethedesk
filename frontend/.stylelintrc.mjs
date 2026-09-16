@@ -166,6 +166,6 @@ export default {
     // here while the autofix is that eager.
     "property-no-vendor-prefix": null,
     // A genuine smell, but 5 pre-existing cases -- warn rather than block.
-    "no-duplicate-selectors": [true, { severity: "warning" }],
+    "no-duplicate-selectors": true,
   },
 };
