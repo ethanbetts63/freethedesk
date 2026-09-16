@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { homeFor } from '@/lib/api';
 import { SignalFlow } from '@/components/visuals/SignalFlow';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 
 function LoginContent() {
   const { user, loading, login } = useAuth();
@@ -74,9 +75,9 @@ function LoginContent() {
             />
           </label>
           {error && <p className="admin-form-error">{error}</p>}
-          <button type="submit" className="admin-primary-button" disabled={submitting || loading}>
+          <AdminButton type="submit" disabled={submitting || loading}>
             {submitting ? 'Signing in…' : 'Sign in'}
-          </button>
+          </AdminButton>
         </form>
         <p className="mt-ml text-ui text-text-muted">
           No dealer account yet?{' '}

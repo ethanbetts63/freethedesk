@@ -1,0 +1,75 @@
+import { cva, type VariantProps } from 'class-variance-authority';
+import Link from 'next/link';
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
+
+import { cn } from '@/lib/utils';
+
+/**
+ * The button family shared by the dashboard, both portals and the login page.
+ *
+ * Replaces the `.admin-primary-button` / `.admin-secondary-button` /
+ * `.admin-inline-button` classes that lived in `admin.css`. Callers pick a
+ * typed variant rather than restyling a control: there is no palette in the
+ * prop names, and the disabled treatment travels with the variant that owns it
+ * (primary reads as "working", secondary as "unavailable" - the two states the
+ * original CSS distinguished with `cursor: wait` and `cursor: default`).
+ */
+const adminButtonVariants = cva('', {
+  variants: {
+    variant: {
+      primary: [
+        'inline-flex cursor-pointer items-center justify-center rounded-[var(--radius-xs)] border-0',
+        'bg-surface-dark px-m py-s text-small font-heavy text-text-on-dark',
+        'hover:bg-surface-dark-soft',
+        'disabled:cursor-wait disabled:opacity-55',
+      ],
+      secondary: [
+        'inline-flex cursor-pointer items-center justify-center rounded-[var(--radius-xs)]',
+        'border border-border-strong bg-surface-page px-m py-s text-small font-heavy text-text-primary',
+        'hover:border-border-strong-hover',
+        'disabled:cursor-default disabled:opacity-45',
+      ],
+      // A word in a sentence, not a box: no padding, no box, inherits its type.
+      inline: 'cursor-pointer border-0 bg-transparent p-0 font-[inherit] text-inherit underline',
+    },
+  },
+  defaultVariants: { variant: 'primary' },
+});
+
+export type AdminButtonVariant = NonNullable<VariantProps<typeof adminButtonVariants>['variant']>;
+
+type SharedProps = {
+  children: ReactNode;
+  variant?: AdminButtonVariant;
+  className?: string;
+};
+
+type AsButton = SharedProps &
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & { href?: never };
+
+type AsLink = SharedProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'href'> & { href: string };
+
+/** Renders a Link when `href` is set, a <button> otherwise. */
+export function AdminButton(props: AsButton | AsLink) {
+  const { children, variant, className, ...rest } = props;
+  const classes = cn(adminButtonVariants({ variant }), className);
+
+  if ('href' in rest && rest.href !== undefined) {
+    const { href, ...anchorProps } = rest as AnchorHTMLAttributes<HTMLAnchorElement> & {
+      href: string;
+    };
+    return (
+      <Link className={classes} href={href} {...anchorProps}>
+        {children}
+      </Link>
+    );
+  }
+
+  const { type = 'button', ...buttonProps } = rest as ButtonHTMLAttributes<HTMLButtonElement>;
+  return (
+    <button className={classes} type={type} {...buttonProps}>
+      {children}
+    </button>
+  );
+}

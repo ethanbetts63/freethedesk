@@ -4,6 +4,7 @@ import { useActionState, useEffect, useState } from 'react';
 import { getDealerAccount, type DealerAccount } from '@/lib/dealerApi';
 import { DEALER_STATES } from '@/lib/dealerStates';
 import { submitPortalAccount, type PortalAccountState } from './PortalAccount.actions';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 
 const initialState: PortalAccountState = { status: 'idle' };
 
@@ -137,9 +138,9 @@ export default function PortalAccountPage() {
                 will move it across.
               </small>
             </label>
-            <button type="submit" className="admin-primary-button" disabled={saving || !dirty}>
+            <AdminButton type="submit" disabled={saving || !dirty}>
               {saving ? 'Saving…' : 'Save changes'}
-            </button>
+            </AdminButton>
           </form>
         </section>
       </div>

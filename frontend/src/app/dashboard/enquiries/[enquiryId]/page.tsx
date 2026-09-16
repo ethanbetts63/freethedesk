@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { enquiryStatuses, StatusPill } from '@/components/dashboard/StatusPill';
 import { safeWebsiteHref } from '@/lib/api';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 import {
   ENQUIRY_TYPE,
   formatDateTime,
@@ -99,9 +100,7 @@ export default function EnquiryDetailPage() {
             {enquiry.name} · received {formatDateTime(enquiry.created_at)}
           </p>
         </div>
-        <Link className="admin-primary-button" href={replyHref}>
-          Reply by email →
-        </Link>
+        <AdminButton href={replyHref}>Reply by email →</AdminButton>
       </header>
       {error && <p className="admin-banner admin-banner-error">{error}</p>}
       <div className="admin-detail-grid">

@@ -7,6 +7,7 @@ import { formatDateTime, type AdminMessage } from '@/lib/adminApi';
 import type { AccountBase, DealerStatus } from '@/lib/api';
 
 import { dealerStatuses, StatusPill, statusLabel } from './StatusPill';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 
 export function AccountStatusCard({
   status,
@@ -57,17 +58,12 @@ export function AccountApprovalCard({
       <h2>{heading}</h2>
       <p className="admin-muted">{explanation}</p>
       <div className="flex flex-col flex-wrap items-start gap-l sm:flex-row sm:items-center">
-        <button
-          type="button"
-          className="admin-primary-button"
-          disabled={saving}
-          onClick={onApprove}
-        >
+        <AdminButton type="button" disabled={saving} onClick={onApprove}>
           Approve
-        </button>
-        <button type="button" className="admin-secondary-button" disabled={saving} onClick={onDeny}>
+        </AdminButton>
+        <AdminButton variant="secondary" type="button" disabled={saving} onClick={onDeny}>
           Deny
-        </button>
+        </AdminButton>
       </div>
     </section>
   );
@@ -178,14 +174,14 @@ export function StaffNotesCard({
         onChange={(event) => onChange(event.target.value)}
         placeholder="Anything worth recording about this account — checks, phone calls, why they were denied."
       />
-      <button
+      <AdminButton
+        variant="secondary"
         type="button"
-        className="admin-secondary-button"
         disabled={saving || notes === saved}
         onClick={onSave}
       >
         {saving ? 'Saving…' : 'Save notes'}
-      </button>
+      </AdminButton>
     </section>
   );
 }
@@ -254,9 +250,7 @@ export function AccountDetailHeader({
           <h1>{title}</h1>
           <p>{subtitle}</p>
         </div>
-        <Link className="admin-primary-button" href={actionHref}>
-          {actionLabel}
-        </Link>
+        <AdminButton href={actionHref}>{actionLabel}</AdminButton>
       </header>
     </>
   );

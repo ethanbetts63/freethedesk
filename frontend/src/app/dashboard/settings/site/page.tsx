@@ -4,6 +4,7 @@ import { FormEvent, useActionState, useEffect, useState } from 'react';
 import type { PriceField } from '@/lib/api';
 import { formatDateTime, getSiteSettings, type SiteSettings } from '@/lib/adminApi';
 import { submitSiteSettings, type SiteSettingsState } from './SiteSettings.actions';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 
 const initialState: SiteSettingsState = { status: 'idle' };
 
@@ -126,9 +127,9 @@ export default function SiteSettingsPage() {
           </p>
           <div className="admin-compose-form">
             {SEO_FIELDS.map(renderField)}
-            <button type="submit" className="admin-primary-button" disabled={saving || !dirty}>
+            <AdminButton type="submit" disabled={saving || !dirty}>
               {saving ? 'Saving…' : 'Save changes'}
-            </button>
+            </AdminButton>
             <p className="mt-2xs block text-ui leading-[1.45] font-normal text-text-subtle">
               Last updated {formatDateTime(settings.updated_at)}.
             </p>

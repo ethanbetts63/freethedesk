@@ -9,6 +9,7 @@ import {
   type SeoOnboardingProfile,
 } from '@/lib/seoApi';
 import { submitSeoConnect, type SeoConnectState } from './SeoConnect.actions';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 
 const initialState: SeoConnectState = { status: 'idle' };
 
@@ -157,24 +158,18 @@ export default function SeoPortalConnectPage() {
 
         {!locked && (
           <div className="portal-form-actions">
-            <button
+            <AdminButton
+              variant="secondary"
               type="submit"
               name="intent"
               value="draft"
-              className="admin-secondary-button"
               disabled={saving}
             >
               {saving ? 'Saving…' : 'Save draft'}
-            </button>
-            <button
-              type="submit"
-              name="intent"
-              value="submit"
-              className="admin-primary-button"
-              disabled={saving}
-            >
+            </AdminButton>
+            <AdminButton type="submit" name="intent" value="submit" disabled={saving}>
               Save and submit
-            </button>
+            </AdminButton>
           </div>
         )}
         {locked && (

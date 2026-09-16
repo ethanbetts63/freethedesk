@@ -4,6 +4,7 @@ import { useActionState, useEffect, useState } from 'react';
 
 import { getDealerOnboarding, type DealerOnboardingProfile } from '@/lib/dealerApi';
 import { submitDealerSetup, type DealerSetupState } from './DealerSetup.actions';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 
 const initialState: DealerSetupState = { status: 'idle' };
 
@@ -188,24 +189,18 @@ export default function DealerSetupPage() {
 
         {!locked && (
           <div className="portal-form-actions">
-            <button
+            <AdminButton
+              variant="secondary"
               type="submit"
               name="intent"
               value="draft"
-              className="admin-secondary-button"
               disabled={saving}
             >
               {saving ? 'Saving…' : 'Save draft'}
-            </button>
-            <button
-              type="submit"
-              name="intent"
-              value="submit"
-              className="admin-primary-button"
-              disabled={saving}
-            >
+            </AdminButton>
+            <AdminButton type="submit" name="intent" value="submit" disabled={saving}>
               Save and submit for verification
-            </button>
+            </AdminButton>
           </div>
         )}
         {locked && (

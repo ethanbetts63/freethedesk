@@ -206,7 +206,22 @@ Convert the foundations that produce the most downstream reuse first:
    restyle the case-study hero and split copy. Headings needed no primitive:
    routes size them directly from the fluid scale, whose semantic rename is
    still the open Phase 2 item;
-3. buttons and CTA variants;
+3. buttons and CTA variants. Done. Marketing CTAs already had `CtaButton`
+   (CVA + `cn()`); this pass converted the other family, the dashboard/portal
+   buttons. `.admin-primary-button`, `.admin-secondary-button`,
+   `.admin-inline-button` and `.admin-send-button` are deleted from
+   `admin.css` and replaced by `components/dashboard/AdminButton.tsx` — one
+   CVA component with `primary`/`secondary`/`inline` variants, rendering a
+   `Link` when given `href` and a `<button>` otherwise, across 24 call sites
+   in 13 files. No hook classes were needed: nothing else selected them.
+   `admin.css`'s `@media` rule setting `width: revert` on the primary button
+   went with them — no author rule ever set a width on it, so it computed to
+   the `auto` it already had. Two details worth recording: the secondary
+   button's hover reached into the raw ramp (`var(--slate-400)`), now the
+   named `--border-strong-hover` role; and the radius is written
+   `rounded-[var(--radius-xs)]` rather than `rounded-xs`, because Tailwind's
+   stock `xs` is 2px while freethedesk's `--radius-xs` is 4px and the scale
+   has no `@theme` mapping for it;
 4. form controls, labels, help text, and validation messages;
 5. cards, notices, badges, status indicators, and tables;
 6. dialogs, checkout controls, and dashboard controls;

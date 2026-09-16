@@ -1,11 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { StatusPill } from '@/components/dashboard/StatusPill';
 import { useAuth } from '@/context/AuthContext';
 import { formatDateTime } from '@/lib/api';
 import { getDealerAccount, type DealerAccount } from '@/lib/dealerApi';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 
 const statusCopy: Record<DealerAccount['status'], { heading: string; body: string }> = {
   pending: {
@@ -93,9 +93,7 @@ export default function PortalOverviewPage() {
             <p className="admin-message-body">
               Your account is saved. Complete payment to unlock dealership setup and verification.
             </p>
-            <Link className="admin-primary-button" href="/licensing/payment">
-              Continue to payment →
-            </Link>
+            <AdminButton href="/licensing/payment">Continue to payment →</AdminButton>
           </section>
         )}
 
@@ -133,9 +131,7 @@ export default function PortalOverviewPage() {
                 </span>
               </li>
             </ol>
-            <Link className="admin-primary-button" href="/portal/setup">
-              Start dealership setup →
-            </Link>
+            <AdminButton href="/portal/setup">Start dealership setup →</AdminButton>
           </section>
         )}
 
@@ -163,9 +159,9 @@ export default function PortalOverviewPage() {
               <dd>{account.state_label}</dd>
             </div>
           </dl>
-          <Link className="admin-secondary-button" href="/portal/account">
+          <AdminButton variant="secondary" href="/portal/account">
             Edit details
-          </Link>
+          </AdminButton>
         </section>
 
         <section className="admin-detail-card">

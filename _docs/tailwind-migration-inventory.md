@@ -24,7 +24,7 @@ Deliverable for `tailwind-migration.md` Phase 0. Captured 2026-09-16.
 | `components/SiteFooter.css` | 141 | migrate | shared component (Phase 4.2) |
 | `components/ExpandableServiceList.css` | 201 | migrate | shared component |
 | `components/dashboard/DashboardChrome.css` | 145 | migrate | dashboard chrome (Phase 4.5) |
-| `components/dashboard/admin.css` | 754 | migrate | dashboard workflows (Phase 4.5); largest single file, budget extra time |
+| `components/dashboard/admin.css` | 754 | migrate | dashboard workflows (Phase 4.5); largest single file, budget extra time — **Phase 3.3** removed the four button rules (now `AdminButton.tsx`) |
 | `components/forms/SelectionForm.module.css` | 108 | migrate | form control |
 | `app/[slug]/article.module.css` | 114 | rich-content | article body typography |
 | `components/legal/legal.module.css` | 122 | rich-content | legal page prose, low visual-effect density |

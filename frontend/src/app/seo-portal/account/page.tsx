@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useState } from 'react';
 import { getSeoAccount, type SeoAccount } from '@/lib/seoApi';
 import { submitSeoAccount, type SeoAccountState } from './SeoAccount.actions';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 
 const initialState: SeoAccountState = { status: 'idle' };
 
@@ -163,13 +164,13 @@ export default function SeoPortalAccountPage() {
                 </label>
               </>
             )}
-            <button type="submit" className="admin-primary-button" disabled={saving || !dirty}>
+            <AdminButton type="submit" disabled={saving || !dirty}>
               {saving
                 ? 'Saving…'
                 : account.has_usable_password
                   ? 'Save changes'
                   : 'Complete account setup'}
-            </button>
+            </AdminButton>
           </form>
         </section>
       </div>

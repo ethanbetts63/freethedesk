@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FormEvent, Suspense, useActionState, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { submitComposeMessage, type ComposeMessageState } from './ComposeMessage.actions';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 
 const initialState: ComposeMessageState = { status: 'idle' };
 
@@ -128,23 +129,15 @@ function ComposeMessageContent() {
           {confirming && (
             <p className="admin-banner admin-banner-warning" role="alert">
               Send this email to <strong>{to}</strong>? Press send again to confirm, or{' '}
-              <button
-                type="button"
-                className="admin-inline-button"
-                onClick={() => setConfirming(false)}
-              >
+              <AdminButton variant="inline" type="button" onClick={() => setConfirming(false)}>
                 cancel
-              </button>
+              </AdminButton>
               .
             </p>
           )}
-          <button
-            type="submit"
-            className="admin-primary-button admin-send-button"
-            disabled={isPending}
-          >
+          <AdminButton className="self-start" type="submit" disabled={isPending}>
             {isPending ? 'Sending…' : confirming ? 'Confirm and send' : 'Send email'}
-          </button>
+          </AdminButton>
         </form>
       </section>
     </div>

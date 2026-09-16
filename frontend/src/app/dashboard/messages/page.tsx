@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { Suspense, useCallback } from 'react';
 
 import {
@@ -17,6 +16,7 @@ import {
 } from '@/components/dashboard/useAdminList';
 import { messageStatuses, StatusPill, statusLabel } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getMessages, type AdminMessage } from '@/lib/adminApi';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 
 const SORT_FIELDS = ['created_at'] as const;
 const FILTER_KEYS = ['status', 'channel'] as const;
@@ -43,9 +43,7 @@ function MessagesContent() {
           <p className="admin-kicker">Delivery audit</p>
           <h1>Messages</h1>
         </div>
-        <Link className="admin-primary-button" href="/dashboard/messages/compose">
-          ＋ Compose
-        </Link>
+        <AdminButton href="/dashboard/messages/compose">＋ Compose</AdminButton>
       </header>
 
       <section className="admin-panel">

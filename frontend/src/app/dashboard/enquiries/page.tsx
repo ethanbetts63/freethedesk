@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { Suspense, useCallback } from 'react';
 
 import {
@@ -18,6 +17,7 @@ import {
 } from '@/components/dashboard/useAdminList';
 import { enquiryStatuses, StatusPill, statusLabel } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getEnquiries, type Enquiry } from '@/lib/adminApi';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 
 const SORT_FIELDS = ['created_at', 'business', 'help_with', 'status'] as const;
 const FILTER_KEYS = ['status', 'help_with'] as const;
@@ -50,9 +50,7 @@ function EnquiriesContent() {
           <p className="admin-kicker">Lead management</p>
           <h1>Enquiries</h1>
         </div>
-        <Link className="admin-primary-button" href="/dashboard/messages/compose">
-          ＋ Compose
-        </Link>
+        <AdminButton href="/dashboard/messages/compose">＋ Compose</AdminButton>
       </header>
 
       <section className="admin-panel">

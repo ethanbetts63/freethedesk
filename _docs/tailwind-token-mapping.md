@@ -99,6 +99,14 @@ converts to Tailwind utilities in Phase 4 (a converted component reaches for
 `bg-surface-tint`, not `var(--slate-50)`) — no separate remediation pass
 needed.
 
+One was resolved earlier than that, in Phase 3.3: the dashboard secondary
+button's hover border was `var(--slate-400)`, one step darker than its
+`--border-strong` resting state. Converting that button to Tailwind would
+have carried the raw ramp into a new component, so the step became a named
+role, `--border-strong-hover`, following the existing `--surface-dark` /
+`--surface-dark-hover` pattern. The remaining 20 files still resolve during
+Phase 4.
+
 ## Phase 2 exit criteria
 
 | Criterion | Status |

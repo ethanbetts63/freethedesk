@@ -1,11 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { StatusPill } from '@/components/dashboard/StatusPill';
 import { useAuth } from '@/context/AuthContext';
 import { formatDateTime } from '@/lib/api';
 import { getSeoAccount, type SeoAccount } from '@/lib/seoApi';
+import { AdminButton } from '@/components/dashboard/AdminButton';
 
 const statusCopy: Record<SeoAccount['status'], { heading: string; body: string }> = {
   pending: {
@@ -98,9 +98,7 @@ export default function SeoPortalOverviewPage() {
               Your account is saved. Complete payment to unlock your{' '}
               {isGbpAudit ? 'audit' : 'reporting setup'}.
             </p>
-            <Link className="admin-primary-button" href="/seo/payment">
-              Continue to payment →
-            </Link>
+            <AdminButton href="/seo/payment">Continue to payment →</AdminButton>
           </section>
         )}
 
@@ -110,9 +108,7 @@ export default function SeoPortalOverviewPage() {
             <p className="admin-message-body">
               Add your business and contact names, then choose your sign-in password.
             </p>
-            <Link className="admin-primary-button" href="/seo-portal/account">
-              Complete account setup →
-            </Link>
+            <AdminButton href="/seo-portal/account">Complete account setup →</AdminButton>
           </section>
         )}
 
@@ -149,9 +145,9 @@ export default function SeoPortalOverviewPage() {
                 <span>A plain-English, ranked action list lands in your inbox.</span>
               </li>
             </ol>
-            <Link className="admin-primary-button" href="/seo-portal/connect">
+            <AdminButton href="/seo-portal/connect">
               {isGbpAudit ? 'Add profile details' : 'Connect your data'} →
-            </Link>
+            </AdminButton>
           </section>
         )}
 
@@ -179,9 +175,9 @@ export default function SeoPortalOverviewPage() {
               <dd>{account.website || 'Not supplied'}</dd>
             </div>
           </dl>
-          <Link className="admin-secondary-button" href="/seo-portal/account">
+          <AdminButton variant="secondary" href="/seo-portal/account">
             Edit details
-          </Link>
+          </AdminButton>
         </section>
 
         <section className="admin-detail-card">
