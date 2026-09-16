@@ -92,24 +92,45 @@ Before changing styling infrastructure:
   behaviour.
 
 Deliverable: a checked-in migration inventory with an owner and disposition for
-every stylesheet.
+every stylesheet. Done: [`tailwind-migration-inventory.md`](tailwind-migration-inventory.md)
+(stylesheet classification and clean `check`/`build` baseline; screenshot
+capture still pending a dev server).
 
 ## Phase 1: install the shared foundation
 
 1. Add `tailwindcss` and `@tailwindcss/postcss` at versions compatible with the
-   repository's Next.js version.
-2. Add the PostCSS configuration and import Tailwind from `globals.css`.
-3. Add `clsx`, `tailwind-merge`, and `class-variance-authority`.
+   repository's Next.js version. Done.
+2. Add the PostCSS configuration and import Tailwind from `globals.css`. Done.
+3. Add `clsx`, `tailwind-merge`, and `class-variance-authority`. Done.
 4. Copy the structural pattern of allbikes' `cn()` helper, including its custom
    font-size groups, then make the shared configuration live in one obvious
-   location.
-5. Add `@theme inline` mappings for semantic colours and named scales.
+   location. Done: `src/lib/utils.ts`. Its `FLUID_TEXT_SIZES` list was
+   missing the ten fixed interface sizes (`text-nano` … `text-lead`) — only
+   the fluid heading scale was covered — which reproduces the exact
+   colour-drop bug allbikes' own comment documents; fixed.
+5. Add `@theme inline` mappings for semantic colours and named scales. Done:
+   `styles/tokens.css`.
 6. Establish the canonical Tailwind breakpoints: `sm` 640px, `md` 768px, `lg`
    1024px, `xl` 1280px, and `2xl` 1536px. Add a named content-driven breakpoint
-   only when a component proves it needs one.
+   only when a component proves it needs one. Done: `tokens.css` documents the
+   canonical scale and Stylelint allows it; freethedesk's legacy 900px/1080px
+   values stay allowed only for their existing consumers (nine files, listed
+   in `tailwind-migration-inventory.md`) and convert to their canonical
+   neighbour as each file migrates in Phase 4. Tailwind's own utility
+   variants (`sm:`/`md:`/etc.) already read the canonical scale by default —
+   `tokens.css` doesn't override `--breakpoint-*`, matching allbikes.
 7. Verify that Tailwind Preflight and the existing reset do not both own the
    same behaviour. Remove the redundant layer rather than depending on import
-   order indefinitely.
+   order indefinitely. Done: `globals.css` declares an explicit
+   `@layer base, legacy, components, utilities` order and imports
+   not-yet-migrated global CSS into `layer(legacy)`, so Preflight (Tailwind's
+   own `base` layer) always loses to nothing and always wins over legacy —
+   no redundant reset exists. Fixed a stale comment in `base.css` that still
+   pointed at a `reset.css` file that no longer exists.
+
+**Phase 1 exit criteria:** met. `npm run check` and `npm run build` are clean
+after the above; existing pages show no reset regressions (import-order/layer
+structure was already correct, not newly built here).
 
 Exit criteria:
 

@@ -91,14 +91,20 @@ export default {
     ],
 
     /* ------------------------------------------------------------------
-       2. Three breakpoints, min-width only.
+       2. Canonical breakpoints, min-width only.
 
-       tokens.css names 640 / 900 / 1080 and the codebase had grown 680, 720
-       and 980 as well, plus one max-width that inverts the mobile-first
-       direction the whole file is built on.
+       640 / 768 / 1024 / 1280 / 1536 match Tailwind's stock sm/md/lg/xl/2xl
+       scale (and allbikes, which hand-writes no breakpoints at all and
+       reads those utilities directly) -- see tailwind-migration.md Phase 1.
+       900px and 1080px are freethedesk's pre-migration values, kept allowed
+       only until Phase 4 converts their remaining consumers (admin.css,
+       DashboardChrome.css, case-study.css, phone-mockup.css, SiteFooter.css,
+       and three .module.css files); do not add new 900px/1080px uses.
+       The codebase had also grown 680 and 980 as well, plus one max-width
+       that inverts the mobile-first direction the whole file is built on.
        ------------------------------------------------------------------ */
     "media-feature-name-value-allowed-list": {
-      "min-width": ["640px", "900px", "1080px"],
+      "min-width": ["640px", "768px", "900px", "1024px", "1080px", "1280px", "1536px"],
     },
     "media-feature-name-disallowed-list": ["max-width", "max-height"],
 

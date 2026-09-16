@@ -1,4 +1,5 @@
-/* Project-level document defaults. The cross-browser reset lives in reset.css. */
+/* Project-level document defaults. The cross-browser reset is Tailwind's own
+   Preflight (via `@import 'tailwindcss'` in globals.css), not a local file. */
 
 html {
   scroll-behavior: smooth;

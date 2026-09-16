@@ -280,12 +280,21 @@
      Every media query is `min-width` and only ever ADDS capability
      as the screen grows - never undoes a desktop assumption.
 
-     Preferred breakpoints - reuse these values unless a component has a
-     documented content-driven reason to switch later:
+     Canonical breakpoints - matches Tailwind's stock sm/md/lg/xl/2xl scale,
+     converging with allbikes (freetheplatform/_docs/tailwind-migration.md
+     Phase 1). Reuse these for any new media query:
 
-       @media (min-width: 640px)   large phone / small tablet
-       @media (min-width: 900px)   tablet / small laptop
-       @media (min-width: 1080px)  desktop
+       @media (min-width: 640px)    sm - large phone / small tablet
+       @media (min-width: 768px)    md - tablet
+       @media (min-width: 1024px)   lg - small laptop / desktop
+       @media (min-width: 1280px)   xl - desktop
+       @media (min-width: 1536px)   2xl - wide desktop
+
+     900px and 1080px are freethedesk's pre-migration values. They're still
+     allowed by Stylelint but only for existing consumers - do not add new
+     uses. Each is converted to its canonical neighbour (900 -> 1024,
+     1080 -> 1024 or 1280 depending on content) as its file migrates in
+     Phase 4; see tailwind-migration-inventory.md for the file list.
 
      Prefer fluid scales for type and spacing. Media queries may still adjust
      fixed-size illustrations or layout-dependent type when the content needs
@@ -298,8 +307,8 @@
        - Never hand-roll a clamp(). Pick a step. If no step fits,
          the scale is wrong - fix it here, not in the component.
 
-     CSS cannot use custom properties inside @media, so the three
-     breakpoints are written literally. Keep them to these three.
+     CSS cannot use custom properties inside @media, so breakpoints are
+     written literally. Keep new media queries to the five canonical values.
      --------------------------------------------------------------- */
 
   /* Text scale. Fluid between a 320px and a 1240px viewport.
