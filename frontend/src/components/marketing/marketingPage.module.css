@@ -7,8 +7,8 @@
   background: var(--surface-tint);
   margin-bottom: var(--space-2xl);
   margin-top: var(--space-3xl);
-  padding-bottom: var(--section-space);
-  padding-top: var(--section-space);
+  padding-bottom: var(--space-section);
+  padding-top: var(--space-section);
 }
 .seoSummary {
   display: flex;

@@ -1,5 +1,5 @@
 .section {
-  padding-bottom: var(--section-space);
+  padding-bottom: var(--space-section);
   padding-top: 0;
   scroll-margin-top: 24px;
 }

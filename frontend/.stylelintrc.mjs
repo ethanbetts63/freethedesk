@@ -61,8 +61,6 @@ export default {
   ignoreFiles: [
     "**/node_modules/**",
     ".next/**",
-    // Vendored from Tailwind's Preflight. Not ours to restyle.
-    "src/styles/reset.css",
     // A live preview of a *generated customer website* -- a different design
     // system that happens to live in this repo. Holding it to freethedesk's
     // tokens would be wrong, not just noisy. 27% of all CSS here.
@@ -70,6 +68,13 @@ export default {
   ],
 
   rules: {
+    // Tailwind v4's CSS-first config at-rules. stylelint-config-standard
+    // doesn't know them yet. allbikes is consolidating this rule set (and the
+    // matching ESLint design-system rules) into freetheplatform/frontend/lint/
+    // as a shared module both sites import; once that lands here too, this
+    // local override goes away in favour of importing stylelintBaseConfig.
+    "at-rule-no-unknown": [true, { ignoreAtRules: ["theme", "custom-variant", "apply"] }],
+
     /* ------------------------------------------------------------------
        1. Values come from the scale.
        ------------------------------------------------------------------ */

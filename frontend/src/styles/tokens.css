@@ -1,5 +1,129 @@
-/* Design tokens. Loaded first by globals.css so every other stylesheet -
-   global, colocated or route-scoped - can rely on these being defined. */
+/* Design tokens. Loaded first by globals.css (after Tailwind itself) so every
+   other stylesheet - global, colocated or route-scoped - can rely on these
+   being defined, and so every semantic alias below is also available as a
+   Tailwind utility (bg-surface-page, text-text-primary, gap-m, rounded-md...).
+   See freetheplatform/_docs/token-contract.md for the shared vocabulary and
+   freetheplatform/_docs/tailwind-migration.md for migration status: palette
+   ramps and raw --slate-* and --blue-* consumers are not yet fully aliased
+   away in every component - that reconciliation continues per Phase 2/4. */
+
+@theme inline {
+  --radius-sm: var(--radius-s);
+  --radius-md: var(--radius-m);
+  --radius-lg: var(--radius-l);
+
+  --color-surface-page: var(--surface-page);
+  --color-surface-tint: var(--surface-tint);
+  --color-surface-tint-strong: var(--surface-tint-strong);
+  --color-surface-dark: var(--surface-dark);
+  --color-surface-dark-soft: var(--surface-dark-soft);
+  --color-surface-dark-hover: var(--surface-dark-hover);
+  --color-surface-inverse: var(--surface-inverse);
+  --color-surface-navy: var(--surface-navy);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-control: var(--text-control);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-text-on-dark: var(--text-on-dark);
+  --color-text-on-dark-muted: var(--text-on-dark-muted);
+  --color-text-on-dark-subtle: var(--text-on-dark-subtle);
+  --color-text-action: var(--text-action);
+  --color-line-strong: var(--line-strong);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-on-dark: var(--border-on-dark);
+  --color-border-on-dark-strong: var(--border-on-dark-strong);
+  --color-action-primary: var(--action-primary);
+  --color-accent: var(--accent);
+  --color-accent-on-dark: var(--accent-on-dark);
+  --color-accent-on-dark-soft: var(--accent-on-dark-soft);
+  --color-section-number: var(--section-number);
+  --color-section-number-on-dark: var(--section-number-on-dark);
+  --color-focus-ring: var(--focus-ring);
+
+  --color-surface-success: var(--surface-success);
+  --color-border-success: var(--border-success);
+  --color-fill-success: var(--fill-success);
+  --color-text-success: var(--text-success);
+  --color-surface-warning: var(--surface-warning);
+  --color-border-warning: var(--border-warning);
+  --color-fill-warning: var(--fill-warning);
+  --color-text-warning: var(--text-warning);
+  --color-surface-danger: var(--surface-danger);
+  --color-border-danger: var(--border-danger);
+  --color-fill-danger: var(--fill-danger);
+  --color-text-danger: var(--text-danger);
+  --color-text-danger-on-dark: var(--text-danger-on-dark);
+
+  --color-purple-surface: var(--purple-surface);
+  --color-purple-accent: var(--purple-accent);
+
+  /* Admin CRM lead status. Categorical, not feedback - see status-* below. */
+  --color-status-new: var(--status-new);
+  --color-status-contacted: var(--status-contacted);
+  --color-status-qualified: var(--status-qualified);
+  --color-status-won: var(--status-won);
+  --color-status-closed: var(--status-closed);
+  --color-status-spam: var(--status-spam);
+  --color-status-suspended: var(--status-suspended);
+
+  /* Page-level vertical rhythm. Named --space-section in the token file to
+     match allbikes; freethedesk previously called this --section-space. */
+  --spacing-section: var(--space-section);
+
+  /* Named rungs of the shared space scale, so `gap-xs` and `p-m` work the
+     same way here as `var(--space-xs)` does in allbikes. */
+  --spacing-4xs: var(--space-4xs);
+  --spacing-3xs: var(--space-3xs);
+  --spacing-2xs: var(--space-2xs);
+  --spacing-xs: var(--space-xs);
+  --spacing-s: var(--space-s);
+  --spacing-m: var(--space-m);
+  --spacing-ml: var(--space-ml);
+  --spacing-l: var(--space-l);
+  --spacing-xl: var(--space-xl);
+  --spacing-2xl: var(--space-2xl);
+  --spacing-3xl: var(--space-3xl);
+
+  --font-weight-normal: var(--weight-normal);
+  --font-weight-medium: var(--weight-medium);
+  --font-weight-semibold: var(--weight-semibold);
+  --font-weight-control: var(--weight-control);
+  --font-weight-strong: var(--weight-strong);
+  --font-weight-heavy: var(--weight-heavy);
+  --font-weight-black: var(--weight-black);
+
+  /* Fixed interface sizes. Duplicated as literals (not var()) because the
+     :root declarations below use the same names for direct `var(--text-*)`
+     consumption in hand-written CSS - matching allbikes' tokens.css pattern. */
+  --text-nano: 0.5rem;
+  --text-tiny: 0.54rem;
+  --text-label: 0.58rem;
+  --text-micro: 0.6rem;
+  --text-meta: 0.62rem;
+  --text-caption: 0.66rem;
+  --text-ui: 0.72rem;
+  --text-small: 0.78rem;
+  --text-body: 0.84rem;
+  --text-lead: 0.92rem;
+
+  /* Fluid heading scale. Exposed under its existing step/display names rather
+     than renamed to allbikes' title/display-sm/hero vocabulary - that mapping
+     needs a per-usage check this pass didn't do; see tailwind-migration.md
+     Phase 2. */
+  --text-step-0: var(--step-0);
+  --text-step-1: var(--step-1);
+  --text-step-2: var(--step-2);
+  --text-step-3: var(--step-3);
+  --text-display-1: var(--display-1);
+  --text-display-2: var(--display-2);
+  --text-display-3: var(--display-3);
+  --text-display-4: var(--display-4);
+  --text-display-5: var(--display-5);
+  --text-display-6: var(--display-6);
+}
 
 :root {
   /* ---------------------------------------------------------------
@@ -147,7 +271,7 @@
   --hero-grid-size: 64px;
 
   /* Vertical rhythm */
-  --section-space: clamp(56px, 9vw, 115px);
+  --space-section: clamp(56px, 9vw, 115px);
 
   /* ---------------------------------------------------------------
      RESPONSIVE FOUNDATION

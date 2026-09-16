@@ -1,4 +1,4 @@
 .section {
   background: var(--surface-tint);
-  padding: var(--section-space) 0;
+  padding: var(--space-section) 0;
 }

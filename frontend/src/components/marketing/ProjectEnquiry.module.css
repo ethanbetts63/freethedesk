@@ -1,6 +1,6 @@
 .section {
-  padding-bottom: var(--section-space);
-  padding-top: var(--section-space);
+  padding-bottom: var(--space-section);
+  padding-top: var(--space-section);
   scroll-margin-top: 24px;
 }
 .lead {

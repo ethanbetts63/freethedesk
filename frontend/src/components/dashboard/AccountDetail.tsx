@@ -56,7 +56,7 @@ export function AccountApprovalCard({
     <section className="admin-detail-card admin-detail-wide">
       <h2>{heading}</h2>
       <p className="admin-muted">{explanation}</p>
-      <div className="button-row">
+      <div className="flex flex-col flex-wrap items-start gap-l sm:flex-row sm:items-center">
         <button type="button" className="admin-primary-button" disabled={saving} onClick={onApprove}>
           Approve
         </button>

@@ -4,7 +4,7 @@
   color: var(--text-secondary);
 }
 .plansSection {
-  padding: var(--space-2xl) 0 var(--section-space);
+  padding: var(--space-2xl) 0 var(--space-section);
   scroll-margin-top: 28px;
 }
 .plansSection h2 {
@@ -37,7 +37,7 @@
 
 @media (min-width: 640px) {
   .plansSection {
-    padding-top: var(--section-space);
+    padding-top: var(--space-section);
     scroll-margin-top: 24px;
   }
   .reportTypeGrid {

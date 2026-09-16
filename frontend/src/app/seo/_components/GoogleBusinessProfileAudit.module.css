@@ -3,9 +3,9 @@
 .audit {
   background: var(--surface-dark);
   color: var(--text-on-dark);
-  margin-top: var(--section-space);
+  margin-top: var(--space-section);
   overflow: hidden;
-  padding: var(--section-space) 0;
+  padding: var(--space-section) 0;
   position: relative;
 }
 .auditInner {
@@ -223,7 +223,7 @@
 
 @media (min-width: 640px) {
   .audit {
-    padding: var(--section-space) 0;
+    padding: var(--space-section) 0;
   }
   .googleLockup {
     margin-bottom: clamp(48px, 6vw, 78px);

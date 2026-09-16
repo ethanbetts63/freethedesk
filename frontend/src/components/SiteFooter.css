@@ -5,7 +5,7 @@
   background: var(--surface-page);
   color: var(--text-primary);
   overflow: hidden;
-  padding: var(--section-space) 0 var(--space-l);
+  padding: var(--space-section) 0 var(--space-l);
   position: relative;
 }
 .site-footer::before {

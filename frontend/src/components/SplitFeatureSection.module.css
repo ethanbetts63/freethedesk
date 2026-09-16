@@ -22,8 +22,8 @@
 }
 
 .standard .layout {
-  padding-bottom: var(--section-space);
-  padding-top: var(--section-space);
+  padding-bottom: var(--space-section);
+  padding-top: var(--space-section);
 }
 
 .compact .layout {
@@ -32,8 +32,8 @@
 }
 
 .joined .layout {
-  padding-bottom: calc(var(--section-space) / 2);
-  padding-top: calc(var(--section-space) / 2);
+  padding-bottom: calc(var(--space-section) / 2);
+  padding-top: calc(var(--space-section) / 2);
 }
 
 .copy {

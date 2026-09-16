@@ -4,8 +4,8 @@
   --services-indent: 78px;
   --services-inset: var(--space-3xs);
 
-  padding-bottom: var(--section-space);
-  padding-top: var(--section-space);
+  padding-bottom: var(--space-section);
+  padding-top: var(--space-section);
 }
 
 .expandable-services-heading {

@@ -2,6 +2,26 @@
    mobile story, operations console and intent grid.
    Device mockups live in src/styles/phone-mockup.css (also used by
    /seo and /website-development). Imported by app/portfolio/layout.tsx. */
+
+/* Formerly the shared global .button-row (src/styles/buttons.css), removed
+   when CtaButton/PrimaryButton moved to Tailwind + CVA. Its only other
+   consumer (AccountDetail.tsx) took inline utility classes instead; this is
+   the one caller that needed the .case-hero-scoped 900px override below, so
+   it gets a local, self-contained copy rather than a new shared primitive. */
+.button-row {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: var(--space-l);
+}
+@media (min-width: 640px) {
+  .button-row {
+    align-items: center;
+    flex-direction: row;
+  }
+}
+
 .case-hero {
   min-height: auto;
   overflow: hidden;
@@ -167,7 +187,7 @@
 }
 .case-tour-section {
   background: var(--surface-tint);
-  padding: var(--section-space) 0;
+  padding: var(--space-section) 0;
 }
 .case-section-heading {
   display: grid;
@@ -287,7 +307,7 @@
 }
 .case-mobile-story {
   background: var(--surface-page);
-  padding: var(--section-space) 0;
+  padding: var(--space-section) 0;
 }
 .case-mobile-story-grid {
   align-items: center;
@@ -373,7 +393,7 @@
 .case-operations-section {
   background: var(--surface-dark);
   color: var(--text-on-dark);
-  padding: var(--section-space) 0;
+  padding: var(--space-section) 0;
 }
 .case-operations-heading {
   display: grid;
@@ -511,7 +531,7 @@
 }
 .case-intent-section {
   background: var(--surface-tint);
-  padding: var(--section-space) 0;
+  padding: var(--space-section) 0;
 }
 .case-intent-heading {
   align-items: start;
@@ -705,7 +725,7 @@
 }
 .case-tinted-section {
   background: var(--surface-tint);
-  padding: var(--section-space) 0;
+  padding: var(--space-section) 0;
 }
 
 @media (min-width: 640px) {
@@ -754,7 +774,7 @@
     padding-right: var(--space-2xl);
   }
   .case-story-intro {
-    gap: var(--section-space);
+    gap: var(--space-section);
     grid-template-columns: minmax(0, 0.42fr) minmax(0, 1.58fr);
     padding-block: 112px;
   }
@@ -896,13 +916,13 @@
     grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
   }
   .case-mobile-story-grid {
-    gap: var(--section-space);
+    gap: var(--space-section);
   }
   .case-operations-heading {
-    gap: var(--section-space);
+    gap: var(--space-section);
   }
   .case-intent-heading {
-    gap: var(--section-space);
+    gap: var(--space-section);
   }
   .case-intent-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));

@@ -1,6 +1,6 @@
 .section {
   padding-bottom: var(--space-xl);
-  padding-top: var(--section-space);
+  padding-top: var(--space-section);
 }
 
 .section h2 {

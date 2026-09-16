@@ -1,8 +1,8 @@
 .closing {
   background: var(--surface-tint);
-  margin-bottom: var(--section-space);
-  margin-top: var(--section-space);
-  padding: var(--section-space) var(--gutter);
+  margin-bottom: var(--space-section);
+  margin-top: var(--space-section);
+  padding: var(--space-section) var(--gutter);
   text-align: center;
 }
 .closing h2 {

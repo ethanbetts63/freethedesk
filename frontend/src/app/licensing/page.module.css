@@ -4,7 +4,7 @@
   color: var(--text-primary);
 }
 .signupSection {
-  padding: var(--section-space) 0;
+  padding: var(--space-section) 0;
   scroll-margin-top: 24px;
 }
 .planTypeGrid {
@@ -50,7 +50,7 @@
 .optionsSection {
   background: var(--surface-dark);
   color: var(--text-on-dark);
-  padding: var(--section-space) 0;
+  padding: var(--space-section) 0;
 }
 .optionsLayout {
   align-items: start;
@@ -429,8 +429,8 @@
 }
 @media (min-width: 640px) {
   .optionsSection {
-    padding-bottom: var(--section-space);
-    padding-top: var(--section-space);
+    padding-bottom: var(--space-section);
+    padding-top: var(--space-section);
   }
   .optionsHeading h2 {
     font-size: var(--display-5);
