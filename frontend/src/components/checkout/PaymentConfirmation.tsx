@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { SignalFlow } from "@/components/visuals/SignalFlow";
-import styles from "./checkout.module.css";
 
 type ConfirmationState = "checking" | "active" | "failed" | "delayed";
 
@@ -74,17 +73,30 @@ export function PaymentConfirmation({
 
   const [title, body] = copy[state];
 
+  const actionLinkClassName =
+    "mt-xl inline-block cursor-pointer border-0 bg-action-primary px-l py-m font-[inherit] text-small font-black text-text-on-dark";
+
   return (
-    <main className={styles.completePage}>
-      <div className={styles.completeSignal}>
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-surface-tint p-xl after:absolute after:inset-0 after:content-[''] after:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-950)_5.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-950)_5.5%,transparent)_1px,transparent_1px)] after:[background-size:42px_42px]">
+      <div className="absolute inset-0 opacity-[0.72] [&>canvas]:h-full [&>canvas]:w-full">
         <SignalFlow />
       </div>
-      <section className={styles.completeCard}>
-        <span>{state === "active" ? "✓" : "···"}</span>
-        <h1>{title}</h1>
-        <p>{body}</p>
-        {state === "failed" && <Link href={retryHref}>Return to payment</Link>}
-        {state === "delayed" && <Link href={portalHref}>{portalLabel}</Link>}
+      <section className="relative z-2 w-full max-w-[650px] border border-[var(--slate-200)] bg-[color-mix(in_srgb,var(--surface-page)_91%,transparent)] p-[clamp(38px,6vw,74px)] text-center shadow-[0_30px_90px_color-mix(in_srgb,var(--blue-950)_12%,transparent)] backdrop-blur-[14px]">
+        <span className="mb-xl inline-flex h-[50px] w-[50px] items-center justify-center rounded-circle bg-action-primary text-[1.3rem] text-text-on-dark">
+          {state === "active" ? "✓" : "···"}
+        </span>
+        <h1 className="m-0 mb-m text-display-4 leading-[0.94] tracking-[-0.07em]">{title}</h1>
+        <p className="mx-auto my-0 max-w-[480px] text-lead leading-[1.7] text-[var(--slate-600)]">{body}</p>
+        {state === "failed" && (
+          <Link className={actionLinkClassName} href={retryHref}>
+            Return to payment
+          </Link>
+        )}
+        {state === "delayed" && (
+          <Link className={actionLinkClassName} href={portalHref}>
+            {portalLabel}
+          </Link>
+        )}
       </section>
     </main>
   );

@@ -1,77 +1,8 @@
-/* Full-bleed dark band, matching the case-study section: the colour runs edge to
-   edge and the content is held to the page width by the shared .shell inside. */
-.audit {
-  background: var(--surface-dark);
-  color: var(--text-on-dark);
-  margin-top: var(--space-section);
-  overflow: hidden;
-  padding: var(--space-section) 0;
-  position: relative;
-}
-.auditInner {
-  display: grid;
-  gap: clamp(45px, 7vw, 90px);
-  grid-template-columns: minmax(0, 1fr);
-  position: relative;
-  z-index: 1;
-}
-.audit::before {
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--blue-400) 4.5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--blue-400) 4.5%, transparent) 1px, transparent 1px);
-  background-size: 42px 42px;
-  content: "";
-  inset: 0;
-  mask-image: linear-gradient(90deg, var(--text-primary), transparent 82%);
-  pointer-events: none;
-  position: absolute;
-}
-.googleLockup {
-  align-items: center;
-  display: flex;
-  gap: var(--space-s);
-  margin-bottom: var(--space-2xl);
-}
-.googleMark {
-  align-items: center;
-  background: var(--surface-page);
-  border-radius: var(--radius-circle);
-  display: flex;
-  height: 46px;
-  justify-content: center;
-  width: 46px;
-}
-.googleLockup > span:last-child small,
-.googleLockup > span:last-child strong {
-  display: block;
-}
-.googleLockup small {
-  color: var(--accent);
-  font-size: var(--text-label);
-  font-weight: var(--weight-black);
-  letter-spacing: 0.09em;
-  margin-bottom: var(--space-3xs);
-  text-transform: uppercase;
-}
-.googleLockup strong {
-  font-size: var(--text-small);
-}
-.copy h3 {
-  font-size: var(--display-3);
-  letter-spacing: -0.06em;
-  line-height: 0.98;
-  margin: 0;
-  max-width: 680px;
-}
-.intro {
-  color: var(--text-on-dark-muted);
-  font-size: var(--text-lead);
-  line-height: 1.72;
-  margin: var(--space-xl) 0 var(--space-m);
-  max-width: 680px;
-}
-/* Same card treatment as the Stripe verification panel: moving-colour border,
-   animated value in the header, gradient bar along the bottom. */
+/* Decorative Google Business Profile mockup card only - same moving-colour
+   border/gradient-text treatment as FlagshipCheckoutVisual, deferred for the
+   same reason (complex animated illustration, low value-to-risk to convert).
+   The section shell and copy around it are authored Tailwind utilities in
+   GoogleBusinessProfileAudit.tsx. */
 .preview {
   align-self: center;
   animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
@@ -222,12 +153,6 @@
 }
 
 @media (min-width: 640px) {
-  .audit {
-    padding: var(--space-section) 0;
-  }
-  .googleLockup {
-    margin-bottom: clamp(48px, 6vw, 78px);
-  }
   .previewHeader {
     align-items: center;
     gap: revert;
@@ -246,15 +171,6 @@
 }
 
 @media (min-width: 900px) {
-  .auditInner {
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  }
-  .copy h3 {
-    max-width: 520px;
-  }
-  .intro {
-    max-width: 570px;
-  }
   .preview {
     margin: revert;
     max-width: revert;

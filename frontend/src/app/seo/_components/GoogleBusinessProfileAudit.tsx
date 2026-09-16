@@ -14,22 +14,33 @@ const AUDIT_AREAS = [
 
 export function GoogleBusinessProfileAudit({ eyebrow = "Your local search presence" }: { eyebrow?: string }) {
   return (
-    <section className={styles.audit} aria-labelledby="gbp-audit-title" id="gbp-audit">
-      <div className={`shell ${styles.auditInner}`}>
-        <div className={styles.copy}>
-          <div className={styles.googleLockup}>
-            <span className={styles.googleMark}>
+    <section
+      className="relative mt-section overflow-hidden bg-surface-dark py-section text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_4.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_4.5%,transparent)_1px,transparent_1px)] before:[background-size:42px_42px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_82%)]"
+      aria-labelledby="gbp-audit-title"
+      id="gbp-audit"
+    >
+      <div className="shell relative z-1 grid grid-cols-1 gap-[clamp(45px,7vw,90px)] min-[900px]:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+        <div>
+          <div className="mb-2xl flex items-center gap-s sm:mb-[clamp(48px,6vw,78px)]">
+            <span className="flex h-[46px] w-[46px] items-center justify-center rounded-circle bg-surface-page">
               <GoogleLogo size={31} />
             </span>
             <span>
-              <small>One-time audit · available alone or with SEO</small>
-              <strong>Google Business Profile</strong>
+              <small className="mb-3xs block text-label font-black tracking-[0.09em] text-accent uppercase">
+                One-time audit · available alone or with SEO
+              </small>
+              <strong className="block text-small">Google Business Profile</strong>
             </span>
           </div>
 
           <SectionNumber onDark>{eyebrow}</SectionNumber>
-          <h3 id="gbp-audit-title">A one-time Google Business Profile audit.</h3>
-          <p className={styles.intro}>
+          <h3
+            id="gbp-audit-title"
+            className="m-0 max-w-[680px] text-display-3 leading-[0.98] tracking-[-0.06em] min-[900px]:max-w-[520px]"
+          >
+            A one-time Google Business Profile audit.
+          </h3>
+          <p className="mt-xl mb-m max-w-[680px] text-lead leading-[1.72] text-text-on-dark-muted min-[900px]:max-w-[570px]">
             We review the parts of your profile that influence local visibility, then send you a prioritised list of
             what to correct or improve. One audit, one action list, no recurring subscription.
           </p>
