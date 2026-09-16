@@ -17,9 +17,10 @@ logger = logging.getLogger(__name__)
 def principal_payload(user):
     """Describe whoever is signed in, for both portals.
 
-    One shape rather than a staff endpoint and a near-identical dealer one. The
-    frontend routes on ``role``; ``dealer`` is null for staff. ``is_staff`` is
-    kept because the dashboard already reads it.
+    One shape rather than a staff endpoint and a near-identical dealer one.
+    The frontend routes on ``role`` alone; ``dealer`` is null for staff.
+    ``is_staff`` stays a Django-internal flag (admin site access, the
+    ``role`` computation below) and is not part of this contract.
     """
     dealer = getattr(user, "dealer", None)
     seo = getattr(user, "seo_subscriber", None)
@@ -27,7 +28,6 @@ def principal_payload(user):
         "id": user.pk,
         "username": user.get_username(),
         "email": user.email,
-        "is_staff": user.is_staff,
         "role": (
             "staff" if user.is_staff
             else "dealer" if dealer is not None

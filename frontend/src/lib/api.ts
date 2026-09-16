@@ -18,7 +18,6 @@ export interface Principal {
   id: number;
   username: string;
   email: string;
-  is_staff: boolean;
   role: Role;
   dealer: PrincipalDealer | null;
   seo: PrincipalSeo | null;

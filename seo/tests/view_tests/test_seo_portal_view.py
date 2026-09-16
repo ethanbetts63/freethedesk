@@ -16,7 +16,6 @@ def test_login_returns_seo_principal(client, seo_subscriber):
     assert response.status_code == 200
     payload = response.json()
     assert payload["role"] == "seo"
-    assert not payload["is_staff"]
     assert payload["seo"]["business_name"] == "Peak Digital"
     assert payload["seo"]["status"] == "pending"
     assert payload["dealer"] is None

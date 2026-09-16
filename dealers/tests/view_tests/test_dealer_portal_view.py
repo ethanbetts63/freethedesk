@@ -17,7 +17,6 @@ def test_login_returns_dealer_principal(client, dealer):
     assert response.status_code == 200
     payload = response.json()
     assert payload["role"] == "dealer"
-    assert not payload["is_staff"]
     assert payload["dealer"]["business_name"] == "Bikes WA"
     assert payload["dealer"]["status"] == "pending"
 
