@@ -11,7 +11,6 @@ import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { SubscriptionSwap } from "@/components/marketing/SubscriptionSwap";
 import { WebsiteIntroduction } from "@/components/marketing/WebsiteIntroduction";
 import { WebsiteJobsBar } from "@/components/marketing/WebsiteJobsBar";
-import styles from "@/components/marketing/marketingPage.module.css";
 import { PageSchema } from "@/components/PageSchema";
 import { SeoReportOverview } from "@/components/SeoReportOverview";
 import { metadataFor } from "@/lib/pages";
@@ -60,7 +59,7 @@ export const metadata: Metadata = metadataFor("/dealers");
 
 export default function Dealers() {
   return (
-    <main className={styles.page}>
+    <main className="bg-surface-page text-text-primary [--page-accent:var(--action-primary)]">
       <PageSchema path="/dealers" />
       <Hero
         path="/dealers"

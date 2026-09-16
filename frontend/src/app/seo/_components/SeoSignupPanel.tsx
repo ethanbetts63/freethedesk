@@ -9,7 +9,6 @@ import { SESSION_FLAG, type PublicSiteSettings } from "@/lib/api";
 import { planByCode } from "@/lib/plans";
 import { submitSignup, type SignupState } from "@/lib/signup.actions";
 import { buildSeoPlans, REPORT_TYPES, reportTypeLabel, type SeoPlanCode, type SeoReportType } from "../_lib/plans";
-import styles from "../page.module.css";
 
 const initialState: SignupState = { status: "idle" };
 const boundSubmitSignup = submitSignup.bind(null, { endpoint: "/api/seo/signup/", sessionFromSignup: true });
@@ -58,14 +57,14 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
   const recommendedFrequency: SeoPlanCode = reportType === "gbp" ? "oneoff" : "quarterly";
 
   return (
-    <div className={`${formStyles.panel} ${styles.signupPanel}`}>
-      <aside className={`${formStyles.chooser} ${styles.selectionPanel}`} id="google-business-profile-audit">
+    <div className={`${formStyles.panel} mt-0`}>
+      <aside className={`${formStyles.chooser} [scroll-margin-top:24px]`} id="google-business-profile-audit">
         {heading}
 
         <div className={formStyles.choiceGroup}>
           <p>What do you want?</p>
           <div
-            className={`${formStyles.choiceGrid} ${styles.reportTypeGrid}`}
+            className={`${formStyles.choiceGrid} grid-cols-1 sm:grid-cols-3`}
             role="radiogroup"
             aria-label="Report type"
           >
@@ -94,14 +93,16 @@ export function SeoSignupPanel({ settings, heading }: { settings: PublicSiteSett
         <div className={formStyles.choiceGroup}>
           <p>{reportType === "gbp" ? "Payment schedule" : "How often?"}</p>
           <div
-            className={`${formStyles.choiceGrid} ${styles.frequencyGrid}`}
+            className={`${formStyles.choiceGrid} grid-cols-2 sm:grid-cols-4`}
             role="radiogroup"
             aria-label="Report frequency"
           >
             {plans.map((frequency) => (
               <label
                 className={`${selectedCode === frequency.code ? formStyles.choiceSelected : ""} ${
-                  recommendedFrequency === frequency.code ? styles.frequencyRecommended : ""
+                  recommendedFrequency === frequency.code
+                    ? "border-[var(--page-accent)] shadow-[inset_0_-3px_0_var(--page-accent)]"
+                    : ""
                 }`}
                 key={frequency.code}
               >

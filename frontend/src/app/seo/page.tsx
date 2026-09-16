@@ -22,7 +22,6 @@ import { SeoSignup } from "./_components/SeoSignup";
 import { SeoStepsBar } from "./_components/SeoStepsBar";
 import { seoServices } from "./_components/seoServices";
 import { SEO_FAQS } from "./_lib/copy";
-import styles from "./page.module.css";
 
 const sections = numberSections([
   "Analyze",
@@ -66,7 +65,7 @@ export default async function SeoPage() {
   };
 
   return (
-    <main className={styles.page}>
+    <main className="bg-surface-page text-text-secondary [--page-accent:var(--action-primary)]">
       <PageSchema path="/seo" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <Hero

@@ -16,13 +16,12 @@ import { FlagshipCheckout } from "@/components/marketing/FlagshipCheckout";
 import { Hero } from "@/components/marketing/Hero";
 import { ProjectEnquiry } from "@/components/marketing/ProjectEnquiry";
 import { WebsiteDevelopmentFeature } from "./_components/WebsiteDevelopmentFeature";
-import styles from "@/components/marketing/marketingPage.module.css";
 
 export const metadata: Metadata = metadataFor("/");
 
 export default function Home() {
   return (
-    <main className={styles.page}>
+    <main className="bg-surface-page text-text-primary [--page-accent:var(--action-primary)]">
       <PageSchema path="/" />
       <AiReadinessBanner />
       <Hero

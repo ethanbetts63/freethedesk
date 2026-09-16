@@ -20,7 +20,6 @@ import { WEBSITE_DEV_FAQS } from "./_lib/copy";
 import { ConversionFunnel } from "./_components/ConversionFunnel";
 import { WebsiteFeatures } from "./_components/WebsiteFeatures";
 import { PUBLIC_SITE_URL } from "@/lib/siteConfig";
-import styles from "./page.module.css";
 
 /* Section eyebrows in page order. */
 const sections = numberSections([
@@ -48,7 +47,7 @@ export default function WebsiteDevelopmentPage() {
   };
 
   return (
-    <main className={styles.page}>
+    <main className="bg-surface-page text-text-secondary [--page-accent:var(--action-primary)]">
       <PageSchema path="/website-development" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <AiReadinessBanner />

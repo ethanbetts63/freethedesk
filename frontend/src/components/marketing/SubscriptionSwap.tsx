@@ -1,6 +1,5 @@
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { IndexedFeatureSection, type IndexedFeature } from "./IndexedFeatureSection";
-import styles from "./SubscriptionSwap.module.css";
 
 const defaultSteps: readonly IndexedFeature[] = [
   [
@@ -38,7 +37,7 @@ export function SubscriptionSwap({
       items={steps}
       footer={
         showCta ? (
-          <PrimaryButton className={styles.cta} href="#enquiry" direction="down">
+          <PrimaryButton className="mt-2xl" href="#enquiry" direction="down">
             Discuss your website
           </PrimaryButton>
         ) : undefined
