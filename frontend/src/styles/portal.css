@@ -1,5 +1,9 @@
-/* Customer portal setup/overview screens.
-   Imported by app/portal/layout.tsx and app/seo-portal/layout.tsx. */
+/* The numbered steps list on the portal and SEO-portal overview screens.
+   Imported by app/portal/layout.tsx and app/seo-portal/layout.tsx, and so
+   unlayered: it beats every Tailwind utility, which is why the setup-form
+   rules that used to live here were deleted as their markup converted rather
+   than left to compete. See components/dashboard/PortalField.tsx. Migrates
+   with the other list/card surfaces in Phase 3 item 5. */
 .portal-steps {
   display: grid;
   gap: var(--space-m);
@@ -35,88 +39,4 @@
   font-size: var(--text-small);
   line-height: 1.55;
   margin-top: var(--space-3xs);
-}
-.portal-setup-form {
-  display: grid;
-  gap: var(--space-ml);
-}
-.portal-setup-form fieldset {
-  background: var(--surface-page);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-l);
-  margin: 0;
-  padding: var(--space-ml) var(--space-m);
-}
-.portal-setup-form legend {
-  background: var(--surface-page);
-  font-size: var(--step-0);
-  font-weight: var(--weight-control);
-  padding: 0 var(--space-xs);
-}
-.portal-setup-form fieldset > p {
-  color: var(--text-muted);
-  font-size: var(--text-ui);
-  line-height: 1.55;
-  margin: 0 0 var(--space-l);
-}
-.portal-field-grid {
-  display: grid;
-  gap: var(--space-ml);
-  grid-template-columns: minmax(0, 1fr);
-}
-.portal-field-grid label {
-  font-size: var(--text-ui);
-  font-weight: var(--weight-heavy);
-}
-.portal-field-grid label > span {
-  display: block;
-  margin-bottom: var(--space-2xs);
-}
-.portal-field-grid input {
-  background: var(--surface-page);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-xs);
-  color: var(--text-primary);
-  min-height: 42px;
-  outline: none;
-  padding: var(--space-xs) var(--space-s);
-  width: 100%;
-}
-.portal-field-grid input:focus {
-  border-color: var(--blue-600);
-  box-shadow: 0 0 0 2px var(--focus-ring);
-}
-.portal-field-grid small {
-  color: var(--text-subtle);
-  display: block;
-  font-size: var(--text-meta);
-  font-weight: var(--weight-normal);
-  line-height: 1.4;
-  margin-top: var(--space-2xs);
-}
-.portal-file-grid input {
-  background: var(--surface-tint);
-  font-size: var(--text-caption);
-  padding: var(--space-xs);
-}
-.portal-form-actions {
-  align-items: stretch;
-  display: flex;
-  gap: var(--space-s);
-  justify-content: flex-end;
-  padding: var(--space-xs) 0;
-  flex-direction: column;
-}
-
-@media (min-width: 640px) {
-  .portal-field-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-  .portal-setup-form fieldset {
-    padding: var(--space-xl);
-  }
-  .portal-form-actions {
-    align-items: center;
-    flex-direction: row;
-  }
 }

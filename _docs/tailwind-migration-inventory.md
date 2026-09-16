@@ -20,7 +20,7 @@ Deliverable for `tailwind-migration.md` Phase 0. Captured 2026-09-16.
 | `styles/typography.css` | 53 | foundation | base type rules — **deleted in Phase 3.2**; rules moved into `Eyebrow`/`SectionNumber`, `.text-link` inlined at its one consumer |
 | `styles/motion.css` | 45 | foundation | reduced-motion, base transitions |
 | `styles/forms.css` | 39 | foundation | base form element resets |
-| `styles/portal.css` | 122 | migrate | portal shell layout, no visual-effect properties — ordinary Phase 4.5 conversion |
+| `styles/portal.css` | 42 | migrate | was 122 lines. Phase 3.4 converted the setup-form layer (fieldset/legend/field grid/controls/hints/action row) to `components/dashboard/PortalField.tsx`; only the `.portal-steps` numbered list remains, migrating with the other list/card surfaces in Phase 3 item 5. Imported straight from the portal layouts, so it is **unlayered** and beats every Tailwind utility — its rules must be deleted as markup converts, never left to compete |
 | `components/SiteFooter.css` | 141 | migrate | shared component (Phase 4.2) |
 | `components/ExpandableServiceList.css` | 201 | migrate | shared component |
 | `components/dashboard/DashboardChrome.css` | 145 | migrate | dashboard chrome (Phase 4.5) |

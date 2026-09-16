@@ -33,6 +33,7 @@
   --color-border-default: var(--border-default);
   --color-border-strong: var(--border-strong);
   --color-border-strong-hover: var(--border-strong-hover);
+  --color-border-focus: var(--border-focus);
   --color-border-subtle: var(--border-subtle);
   --color-border-on-dark: var(--border-on-dark);
   --color-border-on-dark-strong: var(--border-on-dark-strong);
@@ -191,6 +192,10 @@
   /* The hover step for --border-strong, named after the role rather than
      consumed as a raw ramp value at the call site. */
   --border-strong-hover: var(--slate-400);
+  /* The border of a focused control. Not a new colour: it is the interactive
+     colour named for the role, so call sites stop reaching for the ramp.
+     Pairs with --focus-ring, which is the halo drawn outside that border. */
+  --border-focus: var(--action-primary);
   --border-subtle: var(--slate-100);
   --border-on-dark: var(--blue-900);
   --border-on-dark-strong: var(--slate-600);

@@ -104,8 +104,15 @@ button's hover border was `var(--slate-400)`, one step darker than its
 `--border-strong` resting state. Converting that button to Tailwind would
 have carried the raw ramp into a new component, so the step became a named
 role, `--border-strong-hover`, following the existing `--surface-dark` /
-`--surface-dark-hover` pattern. The remaining 20 files still resolve during
-Phase 4.
+`--surface-dark-hover` pattern.
+
+Phase 3.4 resolved a second one the same way. The portal form controls drew
+their focus border from `var(--blue-600)`, and so did both inputs on the login
+page. That value is not a new colour — it is exactly `--action-primary`, the
+interactive colour — so it became `--border-focus: var(--action-primary)`: a
+role naming what the border *means*, sitting beside `--focus-ring`, which is
+the halo drawn outside it. Three raw-ramp call sites went with it. The
+remaining 18 files still resolve during Phase 4.
 
 ## Phase 2 exit criteria
 

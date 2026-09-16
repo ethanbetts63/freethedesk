@@ -5,6 +5,13 @@ import { useActionState, useEffect, useState } from 'react';
 import { getDealerOnboarding, type DealerOnboardingProfile } from '@/lib/dealerApi';
 import { submitDealerSetup, type DealerSetupState } from './DealerSetup.actions';
 import { AdminButton } from '@/components/dashboard/AdminButton';
+import {
+  PortalField,
+  PortalFieldset,
+  portalFieldGridClassName,
+  portalFormActionsClassName,
+  portalFormClassName,
+} from '@/components/dashboard/PortalField';
 
 const initialState: DealerSetupState = { status: 'idle' };
 
@@ -82,113 +89,115 @@ export default function DealerSetupPage() {
       {error && <p className="admin-banner admin-banner-error">{error}</p>}
       {notice && <p className="admin-banner">{notice}</p>}
 
-      <form className="portal-setup-form" action={dispatch}>
-        <fieldset disabled={locked || saving}>
-          <legend>Business and licence details</legend>
-          <p>
-            These details identify the licensed dealership and prefill supplier and licensing forms.
-          </p>
-          <div className="portal-field-grid">
+      <form className={portalFormClassName} action={dispatch}>
+        <PortalFieldset
+          disabled={locked || saving}
+          legend="Business and licence details"
+          description="These details identify the licensed dealership and prefill supplier and licensing forms."
+        >
+          <div className={portalFieldGridClassName}>
             {textFields.map(([name, label, hint]) => (
-              <label key={name}>
-                <span>{label}</span>
-                <input name={name} defaultValue={profile[name] ?? ''} />
-                <small>{hint}</small>
-              </label>
+              <PortalField
+                key={name}
+                label={label}
+                hint={hint}
+                name={name}
+                defaultValue={profile[name] ?? ''}
+              />
             ))}
           </div>
-        </fieldset>
+        </PortalFieldset>
 
-        <fieldset disabled={locked || saving}>
-          <legend>Dealership contact</legend>
-          <p>
-            Trading name, state, phone and email come from your account so they are maintained in
-            one place.
-          </p>
+        <PortalFieldset
+          disabled={locked || saving}
+          legend="Dealership contact"
+          description="Trading name, state, phone and email come from your account so they are maintained in one place."
+        >
           <p className="admin-muted">
             {profile.trading_name} · {profile.state} ·{' '}
             {profile.phone || 'Phone required before submission'} · {profile.email}
           </p>
-          <div className="portal-field-grid">
+          <div className={portalFieldGridClassName}>
             {addressFields.map(([name, label]) => (
-              <label key={name}>
-                <span>{label}</span>
-                <input name={name} type="text" defaultValue={profile[name] ?? ''} />
-              </label>
+              <PortalField
+                key={name}
+                label={label}
+                name={name}
+                type="text"
+                defaultValue={profile[name] ?? ''}
+              />
             ))}
           </div>
-        </fieldset>
+        </PortalFieldset>
 
-        <fieldset disabled={locked || saving}>
-          <legend>Authorised officer</legend>
-          <p>The authorised person responsible for the Dealer&apos;s declarations.</p>
-          <div className="portal-field-grid">
+        <PortalFieldset
+          disabled={locked || saving}
+          legend="Authorised officer"
+          description="The authorised person responsible for the Dealer's declarations."
+        >
+          <div className={portalFieldGridClassName}>
             {officerFields.map(([name, label, hint]) => (
-              <label key={name}>
-                <span>{label}</span>
-                <input name={name} defaultValue={profile[name] ?? ''} />
-                <small>{hint}</small>
-              </label>
+              <PortalField
+                key={name}
+                label={label}
+                hint={hint}
+                name={name}
+                defaultValue={profile[name] ?? ''}
+              />
             ))}
-            <label>
-              <span>Officer date of birth</span>
-              <input
-                name="authorised_officer_date_of_birth"
-                type="date"
-                defaultValue={profile.authorised_officer_date_of_birth ?? ''}
-              />
-            </label>
+            <PortalField
+              label="Officer date of birth"
+              name="authorised_officer_date_of_birth"
+              type="date"
+              defaultValue={profile.authorised_officer_date_of_birth ?? ''}
+            />
           </div>
-        </fieldset>
+        </PortalFieldset>
 
-        <fieldset disabled={locked || saving}>
-          <legend>Verification documents</legend>
-          <p>PDF, JPG, PNG or WebP. Maximum 10 MB per file.</p>
-          <div className="portal-field-grid portal-file-grid">
-            <label>
-              <span>Dealer licence</span>
-              <input
-                name="dealer_licence_document"
-                type="file"
-                accept=".pdf,.jpg,.jpeg,.png,.webp"
-              />
-              <small>
-                {profile.dealer_licence_document_uploaded
+        <PortalFieldset
+          disabled={locked || saving}
+          legend="Verification documents"
+          description="PDF, JPG, PNG or WebP. Maximum 10 MB per file."
+        >
+          <div className={portalFieldGridClassName}>
+            <PortalField
+              label="Dealer licence"
+              name="dealer_licence_document"
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png,.webp"
+              hint={
+                profile.dealer_licence_document_uploaded
                   ? 'Already uploaded — choose a file only to replace it.'
-                  : 'Required before submission.'}
-              </small>
-            </label>
-            <label>
-              <span>Authorised officer ID</span>
-              <input
-                name="authorised_officer_identity_document"
-                type="file"
-                accept=".pdf,.jpg,.jpeg,.png,.webp"
-              />
-              <small>
-                {profile.authorised_officer_identity_document_uploaded
+                  : 'Required before submission.'
+              }
+            />
+            <PortalField
+              label="Authorised officer ID"
+              name="authorised_officer_identity_document"
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png,.webp"
+              hint={
+                profile.authorised_officer_identity_document_uploaded
                   ? 'Already uploaded — choose a file only to replace it.'
-                  : 'Required before submission.'}
-              </small>
-            </label>
-            <label>
-              <span>Business evidence</span>
-              <input
-                name="business_evidence_document"
-                type="file"
-                accept=".pdf,.jpg,.jpeg,.png,.webp"
-              />
-              <small>
-                {profile.business_evidence_document_uploaded
+                  : 'Required before submission.'
+              }
+            />
+            <PortalField
+              label="Business evidence"
+              name="business_evidence_document"
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png,.webp"
+              hint={
+                profile.business_evidence_document_uploaded
                   ? 'Already uploaded — choose a file only to replace it.'
-                  : 'Required before submission.'}
-              </small>
-            </label>
+                  : 'Required before submission.'
+              }
+            />
           </div>
-        </fieldset>
+        </PortalFieldset>
 
         {!locked && (
-          <div className="portal-form-actions">
+          <div className={portalFormActionsClassName}>
             <AdminButton
               variant="secondary"
               type="submit"

@@ -10,6 +10,13 @@ import {
 } from '@/lib/seoApi';
 import { submitSeoConnect, type SeoConnectState } from './SeoConnect.actions';
 import { AdminButton } from '@/components/dashboard/AdminButton';
+import {
+  PortalField,
+  PortalFieldset,
+  portalFieldGridClassName,
+  portalFormActionsClassName,
+  portalFormClassName,
+} from '@/components/dashboard/PortalField';
 
 const initialState: SeoConnectState = { status: 'idle' };
 
@@ -114,10 +121,12 @@ export default function SeoPortalConnectPage() {
       {error && <p className="admin-banner admin-banner-error">{error}</p>}
       {notice && <p className="admin-banner">{notice}</p>}
 
-      <form className="portal-setup-form" onSubmit={onSubmit}>
-        <fieldset disabled={locked || saving}>
-          <legend>{isGbpAudit ? 'Audit brief' : 'Reporting brief'}</legend>
-          <div className="portal-field-grid">
+      <form className={portalFormClassName} onSubmit={onSubmit}>
+        <PortalFieldset
+          disabled={locked || saving}
+          legend={isGbpAudit ? 'Audit brief' : 'Reporting brief'}
+        >
+          <div className={portalFieldGridClassName}>
             {fields.map(([name, label, hint, kind]) => {
               const shown =
                 !isGbpAudit ||
@@ -132,32 +141,33 @@ export default function SeoPortalConnectPage() {
               // them out just because they aren't shown right now.
               if (!shown)
                 return <input key={name} type="hidden" name={name} value={form[name] ?? ''} />;
-              return (
-                <label key={name}>
-                  <span>{label}</span>
-                  {kind === 'textarea' ? (
-                    <textarea
-                      name={name}
-                      rows={4}
-                      value={form[name] ?? ''}
-                      onChange={(event) => setForm({ ...form, [name]: event.target.value })}
-                    />
-                  ) : (
-                    <input
-                      name={name}
-                      value={form[name] ?? ''}
-                      onChange={(event) => setForm({ ...form, [name]: event.target.value })}
-                    />
-                  )}
-                  <small>{hint}</small>
-                </label>
+              return kind === 'textarea' ? (
+                <PortalField
+                  key={name}
+                  multiline
+                  label={label}
+                  hint={hint}
+                  name={name}
+                  rows={4}
+                  value={form[name] ?? ''}
+                  onChange={(event) => setForm({ ...form, [name]: event.target.value })}
+                />
+              ) : (
+                <PortalField
+                  key={name}
+                  label={label}
+                  hint={hint}
+                  name={name}
+                  value={form[name] ?? ''}
+                  onChange={(event) => setForm({ ...form, [name]: event.target.value })}
+                />
               );
             })}
           </div>
-        </fieldset>
+        </PortalFieldset>
 
         {!locked && (
-          <div className="portal-form-actions">
+          <div className={portalFormActionsClassName}>
             <AdminButton
               variant="secondary"
               type="submit"

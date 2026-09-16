@@ -222,7 +222,32 @@ Convert the foundations that produce the most downstream reuse first:
    `rounded-[var(--radius-xs)]` rather than `rounded-xs`, because Tailwind's
    stock `xs` is 2px while freethedesk's `--radius-xs` is 4px and the scale
    has no `@theme` mapping for it;
-4. form controls, labels, help text, and validation messages;
+4. form controls, labels, help text, and validation messages. Done for the
+   portal form layer: `styles/portal.css`'s `.portal-setup-form`,
+   `.portal-field-grid`, `.portal-file-grid` and `.portal-form-actions` rules
+   are deleted (122 lines down to 42) and replaced by
+   `components/dashboard/PortalField.tsx` — `PortalFieldset` (the card, its
+   legend and its description), `PortalField` (label, control and hint, with
+   a `multiline` variant for textareas and a file-input variant), and the
+   grid/form/action-row class constants, across the two pages that render the
+   identical shape (dealership setup and the SEO reporting brief).
+   `styles/forms.css` needed no work — it is already scoped to the dealership
+   website builder, the excluded second design system — and
+   `components/forms/SelectionForm.module.css` was already migrated with a
+   documented complex-visual exception. Four things worth recording:
+   `portal.css` is imported straight from the portal layouts rather than
+   through `globals.css`, so it is unlayered and beats every Tailwind utility
+   — the old rules had to be deleted in the same change, not left to compete;
+   the focus border was the raw `var(--blue-600)`, now the named
+   `--border-focus` role (see the token mapping doc), which also cleaned up
+   the two login inputs; padding is deliberately kept out of the shared
+   control class, because Tailwind emits `padding` before `padding-inline`
+   and a `p-xs` on the file variant would otherwise lose to a base `px-s`
+   whatever order the classes merge in; and one **defect was fixed, not
+   preserved** — `portal.css` styled `input` but never `textarea`, so the
+   three textareas on the SEO reporting brief rendered with no border,
+   background or padding at all. That is an intentional, separately
+   identified change under principle 4, not a migration side effect;
 5. cards, notices, badges, status indicators, and tables;
 6. dialogs, checkout controls, and dashboard controls;
 7. focus, disabled, loading, and reduced-motion states.

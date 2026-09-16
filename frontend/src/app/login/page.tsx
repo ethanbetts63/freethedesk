@@ -58,7 +58,7 @@ function LoginContent() {
           <label className="text-ui font-heavy">
             Email
             <input
-              className="mt-2xs block w-full border border-border-strong bg-surface-tint p-s outline-none focus:border-[var(--blue-600)] focus:shadow-[0_0_0_2px_var(--focus-ring)]"
+              className="mt-2xs block w-full border border-border-strong bg-surface-tint p-s outline-none focus:border-border-focus focus:shadow-[0_0_0_2px_var(--focus-ring)]"
               name="identifier"
               autoComplete="username"
               required
@@ -67,7 +67,7 @@ function LoginContent() {
           <label className="text-ui font-heavy">
             Password
             <input
-              className="mt-2xs block w-full border border-border-strong bg-surface-tint p-s outline-none focus:border-[var(--blue-600)] focus:shadow-[0_0_0_2px_var(--focus-ring)]"
+              className="mt-2xs block w-full border border-border-strong bg-surface-tint p-s outline-none focus:border-border-focus focus:shadow-[0_0_0_2px_var(--focus-ring)]"
               name="password"
               type="password"
               autoComplete="current-password"
