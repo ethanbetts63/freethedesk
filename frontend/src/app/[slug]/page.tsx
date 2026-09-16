@@ -64,38 +64,52 @@ function ArticleView({ article }: { article: Article }) {
 
   return (
     <>
-      <header className={styles.hero}>
-        <div className={`shell ${styles.heroInner}`}>
-          <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
+      <header className="relative overflow-hidden bg-surface-dark pt-2xl pb-[clamp(84px,10vw,138px)] text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_5%,transparent)_1px,transparent_1px)] before:[background-size:64px_64px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_88%)] after:absolute after:top-[-180px] after:right-[-100px] after:h-[380px] after:w-[380px] after:rounded-full after:bg-accent after:opacity-10 after:content-[''] after:[filter:blur(24px)]">
+        <div className="shell relative z-1">
+          <nav
+            className="mb-2xl flex items-center gap-xs text-ui font-strong text-[var(--text-on-dark-subtle)] [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-accent sm:mb-[clamp(70px,9vw,112px)]"
+            aria-label="Breadcrumb"
+          >
             <Link href="/">Home</Link>
             <span>/</span>
             <Link href="/guides">Guides</Link>
           </nav>
-          <Eyebrow className={styles.eyebrow}>Dealer field notes</Eyebrow>
-          <h1>{article.title}</h1>
-          <p className={styles.intro}>{article.excerpt}</p>
-          <p className={styles.byline}>
-            By {article.authorName} <i /> Published <time dateTime={article.publishedDate}>{publishedDate}</time>
+          <Eyebrow className="mb-l gap-xs text-caption tracking-[0.14em] text-accent">Dealer field notes</Eyebrow>
+          <h1 className="m-0 max-w-[1040px] text-display-6 leading-[0.94] tracking-[-0.07em]">{article.title}</h1>
+          <p className="mt-xl max-w-[720px] text-step-1 leading-[1.65] text-[var(--text-on-dark-muted)]">
+            {article.excerpt}
+          </p>
+          <p className="mt-xl flex flex-wrap items-center gap-xs text-caption font-heavy tracking-[0.07em] text-[var(--text-on-dark-subtle)] uppercase">
+            By {article.authorName} <i className="hidden h-px w-[28px] bg-[var(--border-on-dark-strong)] sm:block" />{" "}
+            Published <time dateTime={article.publishedDate}>{publishedDate}</time>
           </p>
         </div>
       </header>
 
-      <section className={styles.articleSection}>
-        <div className={`shell ${styles.articleLayout}`}>
-          <aside className={styles.rail}>
-            <span>Guide</span>
-            <i />
-            <p>Practical thinking for dealerships that want better systems and less administration.</p>
+      <section className="bg-surface-page py-[clamp(78px,10vw,132px)]">
+        <div className="shell grid grid-cols-1 items-start justify-center gap-[clamp(52px,8vw,120px)] min-[900px]:grid-cols-[210px_minmax(0,760px)]">
+          <aside className="static flex gap-m border-b border-border-default pb-ml min-[900px]:sticky min-[900px]:top-[120px] min-[900px]:gap-0 min-[900px]:border-b-0 min-[900px]:pb-0">
+            <span className="text-caption font-heavy tracking-[0.14em] text-text-action uppercase">Guide</span>
+            <i className="my-ml hidden h-px w-[72px] bg-border-default min-[900px]:block" />
+            <p className="hidden max-w-[180px] text-ui leading-[1.6] text-text-subtle min-[900px]:block">
+              Practical thinking for dealerships that want better systems and less administration.
+            </p>
           </aside>
           <article className={styles.prose} dangerouslySetInnerHTML={{ __html: article.html }} />
         </div>
       </section>
 
-      <section className={styles.returnSection}>
-        <div className={`shell ${styles.returnInner}`}>
-          <p>Keep exploring</p>
-          <Link href="/guides">
-            Back to all guides <span aria-hidden="true">→</span>
+      <section className="border-t border-border-default bg-surface-tint">
+        <div className="shell flex min-h-[148px] flex-col items-start justify-center gap-m sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+          <p className="m-0 text-caption font-heavy tracking-[0.12em] text-text-subtle uppercase">Keep exploring</p>
+          <Link className="group flex items-center gap-xl text-body font-heavy" href="/guides">
+            Back to all guides{" "}
+            <span
+              aria-hidden="true"
+              className="text-step-0 text-text-action transition-transform duration-200 group-hover:translate-x-[5px]"
+            >
+              →
+            </span>
           </Link>
         </div>
       </section>
