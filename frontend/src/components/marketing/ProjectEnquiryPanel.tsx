@@ -8,8 +8,6 @@ import { MovingColourButton } from "@/components/MovingColourButton";
 import { type ProjectType } from "@/lib/api";
 import { submitProjectEnquiry, type ProjectEnquiryState } from "./ProjectEnquiryPanel.actions";
 
-import styles from "./ProjectEnquiry.module.css";
-
 const initialState: ProjectEnquiryState = { status: "idle" };
 
 const PROJECT_TYPES: { code: ProjectType; name: string }[] = [
@@ -76,7 +74,7 @@ export function ProjectEnquiryPanel({
   return (
     <SelectionFormPanel
       onSubmit={onSubmit}
-      chooserClassName={!showProjectType ? styles.compactChooser : undefined}
+      chooserClassName={!showProjectType ? "min-[1080px]:justify-center" : undefined}
       chooser={
         <>
           {heading}
@@ -85,7 +83,7 @@ export function ProjectEnquiryPanel({
             <div className={formStyles.choiceGroup}>
               <p id={`${groupId}-type`}>What do you need?</p>
               <div
-                className={`${formStyles.choiceGrid} ${styles.typeGrid}`}
+                className={`${formStyles.choiceGrid} grid-cols-1 sm:grid-cols-3`}
                 role="radiogroup"
                 aria-labelledby={`${groupId}-type`}
               >
@@ -115,7 +113,7 @@ export function ProjectEnquiryPanel({
           <div className={formStyles.choiceGroup}>
             <p id={`${groupId}-budget`}>What&apos;s your budget?</p>
             <div
-              className={`${formStyles.choiceGrid} ${styles.budgetGrid}`}
+              className={`${formStyles.choiceGrid} grid-cols-2 sm:grid-cols-4`}
               role="radiogroup"
               aria-labelledby={`${groupId}-budget`}
             >
@@ -134,9 +132,12 @@ export function ProjectEnquiryPanel({
               ))}
             </div>
             {budget === "custom" && (
-              <label className={styles.customBudget}>
-                <span>Your budget</span>
+              <label className="mt-xs block">
+                <span className="mb-2xs block text-micro font-strong tracking-[0.1em] text-[var(--text-control)] uppercase">
+                  Your budget
+                </span>
                 <input
+                  className="min-h-[48px] w-full border border-border-default bg-surface-page px-s text-step-0 text-text-primary outline-none [font:inherit] placeholder:text-small placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-[var(--page-accent,var(--action-primary))] focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--page-accent,var(--action-primary))_12%,transparent)]"
                   value={customBudget}
                   onChange={(event) => setCustomBudget(event.target.value.replace(/\D/g, ""))}
                   inputMode="numeric"
@@ -149,7 +150,10 @@ export function ProjectEnquiryPanel({
             )}
           </div>
 
-          <div className={`${formStyles.total} ${styles.total}`} aria-live="polite">
+          <div
+            className={`${formStyles.total} [--selection-total-size:2.4rem] ${!showProjectType ? "min-[1080px]:mt-xl" : ""}`}
+            aria-live="polite"
+          >
             <div>
               <strong className="moving-colour-text">{budgetLabel}</strong>
             </div>
@@ -165,10 +169,17 @@ export function ProjectEnquiryPanel({
       </div>
 
       {state.status === "success" ? (
-        <div className={styles.success} role="status">
-          <span aria-hidden="true">✓</span>
-          <strong>Thanks — that&apos;s with us.</strong>
-          <p>We&apos;ll come back with what we&apos;d suggest building for that budget, and what it would take.</p>
+        <div role="status">
+          <span
+            aria-hidden="true"
+            className="mb-m flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[var(--page-accent,var(--action-primary))] text-text-on-dark"
+          >
+            ✓
+          </span>
+          <strong className="block text-step-0 tracking-[-0.03em]">Thanks — that&apos;s with us.</strong>
+          <p className="mt-xs text-body leading-[1.65] text-text-muted">
+            We&apos;ll come back with what we&apos;d suggest building for that budget, and what it would take.
+          </p>
         </div>
       ) : (
         <>

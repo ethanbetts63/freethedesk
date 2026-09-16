@@ -20,10 +20,6 @@ const ARROWS: Record<Exclude<CtaDirection, "none">, string> = {
 
 const ctaButtonVariants = cva(
   [
-    // `cta-button` carries no styles of its own - CaseStudyTeaser.module.css
-    // uses it as a :not(:global(.cta-button)) marker to tell an already-styled
-    // CTA link apart from a plain one sharing its container.
-    "cta-button",
     "inline-flex items-center justify-between border-0 font-[inherit] font-strong",
     "cursor-pointer uppercase tracking-[0.05em]",
     "transition-[background,color,transform] duration-200 ease-out",
