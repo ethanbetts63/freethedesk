@@ -1,7 +1,6 @@
 "use client";
 
 import "@/components/dashboard/admin.css";
-import "./login.css";
 
 import { FormEvent, Suspense, useEffect, useState } from "react";
 import Link from "next/link";
@@ -40,38 +39,57 @@ function LoginContent() {
   }
 
   return (
-    <main className="login-page">
-      <div className="login-signal-flow">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-surface-tint p-xl before:pointer-events-none before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-950)_5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-950)_5%,transparent)_1px,transparent_1px)] before:[background-size:42px_42px]">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.78] [&>canvas]:h-full [&>canvas]:w-full">
         <SignalFlow />
       </div>
-      <section className="login-card">
+      <section className="relative z-1 w-full max-w-[450px] border border-[color-mix(in_srgb,var(--slate-300)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] px-ml py-xl shadow-[0_25px_70px_color-mix(in_srgb,var(--blue-950)_12%,transparent)] backdrop-blur-[13px] sm:p-xl">
         <Link className="login-brand" href="/">
           free<span>the</span>desk<i>.</i>
         </Link>
-        <p className="admin-kicker">Sign in</p>
-        <h1>Welcome back</h1>
-        <p className="login-intro">Dealers and staff sign in here — we will take you to the right place.</p>
-        <form onSubmit={submit}>
-          <label>
+        <p className="admin-kicker mt-xl">Sign in</p>
+        <h1 className="m-0 text-step-3 tracking-[-0.06em]">Welcome back</h1>
+        <p className="mt-s mb-xl text-small leading-[1.5] text-text-muted">
+          Dealers and staff sign in here — we will take you to the right place.
+        </p>
+        <form className="flex flex-col gap-m" onSubmit={submit}>
+          <label className="text-ui font-heavy">
             Email
-            <input name="identifier" autoComplete="username" required />
+            <input
+              className="mt-2xs block w-full border border-border-strong bg-surface-tint p-s outline-none focus:border-[var(--blue-600)] focus:shadow-[0_0_0_2px_var(--focus-ring)]"
+              name="identifier"
+              autoComplete="username"
+              required
+            />
           </label>
-          <label>
+          <label className="text-ui font-heavy">
             Password
-            <input name="password" type="password" autoComplete="current-password" required />
+            <input
+              className="mt-2xs block w-full border border-border-strong bg-surface-tint p-s outline-none focus:border-[var(--blue-600)] focus:shadow-[0_0_0_2px_var(--focus-ring)]"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              required
+            />
           </label>
           {error && <p className="admin-form-error">{error}</p>}
           <button type="submit" className="admin-primary-button" disabled={submitting || loading}>
             {submitting ? "Signing in…" : "Sign in"}
           </button>
         </form>
-        <p className="login-alt">
-          No dealer account yet? <Link href="/licensing#signup">Create one</Link>
+        <p className="mt-ml text-ui text-text-muted">
+          No dealer account yet?{" "}
+          <Link className="font-heavy text-text-action underline underline-offset-[3px]" href="/licensing#signup">
+            Create one
+          </Link>
         </p>
-        <p className="login-alt">
-          Looking for SEO reports? <Link href="/seo#signup">Choose a plan</Link>
+        <p className="mt-ml text-ui text-text-muted">
+          Looking for SEO reports?{" "}
+          <Link className="font-heavy text-text-action underline underline-offset-[3px]" href="/seo#signup">
+            Choose a plan
+          </Link>
         </p>
-        <Link className="login-back" href="/">
+        <Link className="mt-l inline-block text-caption font-heavy text-text-muted" href="/">
           ← Back to website
         </Link>
       </section>

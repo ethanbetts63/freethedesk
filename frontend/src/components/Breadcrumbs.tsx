@@ -2,8 +2,6 @@ import Link from "next/link";
 
 import { breadcrumbItemsFor, type PagePath } from "@/lib/pages";
 
-import "./Breadcrumbs.css";
-
 /**
  * The visible trail. Shares `breadcrumbItemsFor` with the BreadcrumbList in
  * PageSchema, so what a reader sees and what Google is told are the same list.
@@ -16,22 +14,41 @@ export function Breadcrumbs({ path, variant = "band" }: { path: PagePath; varian
   const items = breadcrumbItemsFor(path);
   if (items.length < 2) return null;
 
+  const isOverlay = variant === "overlay";
+
   return (
-    <nav className={variant === "overlay" ? "breadcrumbs breadcrumbs-overlay" : "breadcrumbs"} aria-label="Breadcrumb">
-      <ol className="shell breadcrumbs-list">
+    <nav
+      className={
+        isOverlay ? "absolute inset-x-0 top-0 z-2 bg-transparent" : "border-b border-[var(--slate-100)] bg-surface-page"
+      }
+      aria-label="Breadcrumb"
+    >
+      <ol
+        className={`shell m-0 flex list-none flex-wrap items-center gap-xs text-body ${
+          isOverlay ? "min-h-0 pt-ml pb-0 justify-end" : "min-h-[46px] py-s"
+        }`}
+      >
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
-            <li key={item.path}>
+            <li key={item.path} className="flex min-w-0 items-center gap-xs">
               {isLast ? (
-                <span className="breadcrumbs-current" aria-current="page">
+                <span
+                  className="overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-[var(--slate-800)]"
+                  aria-current="page"
+                >
                   {item.name}
                 </span>
               ) : (
-                <Link href={item.path}>{item.name}</Link>
+                <Link
+                  className="text-[var(--slate-600)] no-underline hover:text-action-primary hover:underline"
+                  href={item.path}
+                >
+                  {item.name}
+                </Link>
               )}
               {!isLast && (
-                <span className="breadcrumbs-sep" aria-hidden="true">
+                <span className="text-[var(--slate-300)]" aria-hidden="true">
                   /
                 </span>
               )}
