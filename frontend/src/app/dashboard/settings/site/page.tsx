@@ -121,7 +121,9 @@ export default function SiteSettingsPage() {
             <button type="submit" className="admin-primary-button" disabled={saving || !dirty}>
               {saving ? "Saving…" : "Save changes"}
             </button>
-            <p className="field-hint">Last updated {formatDateTime(settings.updated_at)}.</p>
+            <p className="mt-2xs block text-ui leading-[1.45] font-normal text-text-subtle">
+              Last updated {formatDateTime(settings.updated_at)}.
+            </p>
           </div>
         </section>
       </form>

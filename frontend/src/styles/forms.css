@@ -1,13 +1,7 @@
-/* Form primitives shared between the admin app and the customer portals. */
-
-.field-hint {
-  color: var(--text-subtle);
-  display: block;
-  font-size: var(--text-ui);
-  font-weight: var(--weight-normal);
-  line-height: 1.45;
-  margin-top: var(--space-2xs);
-}
+/* Form primitives for the dealership website builder only - a scoped second
+   design system (see tailwind-migration.md), not part of the Tailwind
+   migration. Every other consumer of this file has converted to Tailwind
+   utilities directly. */
 
 .form-label {
   color: var(--text-muted);

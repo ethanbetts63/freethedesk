@@ -126,7 +126,7 @@ export default function PortalAccountPage() {
             <label>
               Email
               <input value={account.email} disabled />
-              <small className="field-hint">
+              <small className="mt-2xs block text-ui leading-[1.45] font-normal text-text-subtle">
                 This is your sign-in address. To change it, email hello@freethedesk.com.au and we will move it across.
               </small>
             </label>
