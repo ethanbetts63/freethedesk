@@ -12,6 +12,8 @@ import {
   adminDetailGridClassName,
 } from '@/components/dashboard/AdminCard';
 import { cn } from '@/lib/utils';
+import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { adminPageClassName } from '@/components/dashboard/adminLayout';
 import {
   adminFormClassName,
   adminFormControlClassName,
@@ -73,29 +75,29 @@ export default function SeoPortalAccountPage() {
 
   if (loading)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <p className="text-text-subtle">Loading your account…</p>
       </div>
     );
   if (error && !account)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
   if (!account) return null;
 
   return (
-    <div className="admin-page">
-      <header className="admin-page-header">
-        <div>
-          <p className="admin-kicker">SEO portal</p>
-          <h1>{account.has_usable_password ? 'Account details' : 'Complete your account'}</h1>
-          {!account.has_usable_password && (
-            <p>Add your details and choose the password you&apos;ll use next time.</p>
-          )}
-        </div>
-      </header>
+    <div className={adminPageClassName}>
+      <AdminPageHeader
+        kicker="SEO portal"
+        title={account.has_usable_password ? 'Account details' : 'Complete your account'}
+        subtitle={
+          account.has_usable_password
+            ? undefined
+            : "Add your details and choose the password you'll use next time."
+        }
+      />
 
       {error && <AdminNotice tone="danger">{error}</AdminNotice>}
       {notice && <AdminNotice tone="success">{notice}</AdminNotice>}

@@ -23,6 +23,8 @@ import {
   adminStatusCardSelectClassName,
 } from '@/components/dashboard/AdminCard';
 import { cn } from '@/lib/utils';
+import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { adminBackClassName, adminRelatedMessagesClassName } from './adminLayout';
 
 export function AccountStatusCard({
   status,
@@ -220,7 +222,7 @@ export function RelatedMessagesCard({
         </Link>
       </div>
       {messages.length ? (
-        <div className="admin-related-messages">
+        <div className={adminRelatedMessagesClassName}>
           {messages.map((message) => (
             <Link key={message.id} href={`/dashboard/messages/${message.id}`}>
               <span>
@@ -258,17 +260,12 @@ export function AccountDetailHeader({
 }) {
   return (
     <>
-      <Link className="admin-back" href={backHref}>
+      <Link className={adminBackClassName} href={backHref}>
         ← {backLabel}
       </Link>
-      <header className="admin-page-header admin-detail-heading">
-        <div>
-          <p className="admin-kicker">{kicker}</p>
-          <h1>{title}</h1>
-          <p>{subtitle}</p>
-        </div>
+      <AdminPageHeader align="center" kicker={kicker} title={title} subtitle={subtitle}>
         <AdminButton href={actionHref}>{actionLabel}</AdminButton>
-      </header>
+      </AdminPageHeader>
     </>
   );
 }

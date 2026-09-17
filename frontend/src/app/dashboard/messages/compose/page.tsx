@@ -13,6 +13,14 @@ import {
   adminFormTextareaClassName,
 } from '@/components/dashboard/formControl';
 import { cn } from '@/lib/utils';
+import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import {
+  adminBackClassName,
+  adminComposeBadgeClassName,
+  adminComposeCardClassName,
+  adminComposePageClassName,
+  adminPageClassName,
+} from '@/components/dashboard/adminLayout';
 
 const initialState: ComposeMessageState = { status: 'idle' };
 
@@ -53,21 +61,23 @@ function ComposeMessageContent() {
   }
 
   return (
-    <div className="admin-page admin-compose-page">
+    <div className={cn(adminPageClassName, adminComposePageClassName)}>
       <Link
-        className="admin-back"
+        className={adminBackClassName}
         href={relatedEnquiry ? `/dashboard/enquiries/${relatedEnquiry}` : '/dashboard/messages'}
       >
         ← Back
       </Link>
-      <section className="admin-compose-card">
-        <header>
-          <div>
-            <p className="admin-kicker">Outbound message</p>
-            <h1>Compose email</h1>
-          </div>
-          {relatedEnquiry && <span>Linked to enquiry #{relatedEnquiry}</span>}
-        </header>
+      <section className={adminComposeCardClassName}>
+        <AdminPageHeader
+          className="mb-l border-b border-border-default pb-ml"
+          kicker="Outbound message"
+          title="Compose email"
+        >
+          {relatedEnquiry && (
+            <span className={adminComposeBadgeClassName}>Linked to enquiry #{relatedEnquiry}</span>
+          )}
+        </AdminPageHeader>
         {state.status === 'error' && <AdminNotice tone="danger">{state.error}</AdminNotice>}
         <form className={adminFormClassName} onSubmit={submit}>
           <label className={adminFormLabelClassName}>
@@ -167,7 +177,7 @@ export default function ComposeMessagePage() {
   return (
     <Suspense
       fallback={
-        <div className="admin-page">
+        <div className={adminPageClassName}>
           <p className="text-text-subtle">Loading composer…</p>
         </div>
       }

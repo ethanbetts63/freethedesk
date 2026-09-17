@@ -32,6 +32,8 @@ import { formatDateTime, getSeoSubscribers, type SeoSubscriber } from '@/lib/adm
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
 import { cn } from '@/lib/utils';
 import { adminPanelClassName } from '@/components/dashboard/AdminCard';
+import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { adminPageClassName } from '@/components/dashboard/adminLayout';
 
 const SORT_FIELDS = ['created_at', 'business_name', 'contact_name', 'status'] as const;
 const FILTER_KEYS = ['status'] as const;
@@ -50,13 +52,8 @@ function SeoSubscribersContent() {
   });
 
   return (
-    <div className="admin-page">
-      <header className="admin-page-header">
-        <div>
-          <p className="admin-kicker">SEO accounts</p>
-          <h1>SEO customers</h1>
-        </div>
-      </header>
+    <div className={adminPageClassName}>
+      <AdminPageHeader kicker="SEO accounts" title="SEO customers" />
 
       <section className={adminPanelClassName}>
         <AdminFilterBar
@@ -157,7 +154,7 @@ export default function SeoSubscribersPage() {
   return (
     <Suspense
       fallback={
-        <div className="admin-page">
+        <div className={adminPageClassName}>
           <p className="text-text-subtle">Loading SEO customers…</p>
         </div>
       }

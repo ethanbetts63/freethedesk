@@ -16,6 +16,12 @@ import {
   adminDetailListClassName,
 } from '@/components/dashboard/AdminCard';
 import { cn } from '@/lib/utils';
+import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import {
+  adminBackClassName,
+  adminMessagePreClassName,
+  adminPageClassName,
+} from '@/components/dashboard/adminLayout';
 
 /** Related objects we have a dashboard page for. Anything else shows as plain text. */
 const RELATED_LINKS: Record<string, string> = {
@@ -37,8 +43,8 @@ export default function MessageDetailPage() {
   }, [id]);
   if (error)
     return (
-      <div className="admin-page">
-        <Link className="admin-back" href="/dashboard/messages">
+      <div className={adminPageClassName}>
+        <Link className={adminBackClassName} href="/dashboard/messages">
           ← Messages
         </Link>
         <AdminNotice tone="danger">{error}</AdminNotice>
@@ -46,25 +52,23 @@ export default function MessageDetailPage() {
     );
   if (!message)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <p className="text-text-subtle">Loading message…</p>
       </div>
     );
   return (
-    <div className="admin-page">
-      <Link className="admin-back" href="/dashboard/messages">
+    <div className={adminPageClassName}>
+      <Link className={adminBackClassName} href="/dashboard/messages">
         ← Back to messages
       </Link>
-      <header className="admin-page-header admin-detail-heading">
-        <div>
-          <p className="admin-kicker">
-            {message.channel.toUpperCase()} message #{message.id}
-          </p>
-          <h1>{message.subject || 'SMS notification'}</h1>
-          <p>To {message.to}</p>
-        </div>
+      <AdminPageHeader
+        align="center"
+        kicker={`${message.channel.toUpperCase()} message #${message.id}`}
+        title={message.subject || 'SMS notification'}
+        subtitle={`To ${message.to}`}
+      >
         <StatusPill status={message.status} />
-      </header>
+      </AdminPageHeader>
       {message.status === 'failed' && (
         <AdminNotice tone="danger">
           <strong>This message did not send.</strong> {message.error_message}
@@ -106,7 +110,7 @@ export default function MessageDetailPage() {
         </section>
         <section className={cn(adminCardClassName, adminCardWideClassName)}>
           <h2 className={adminCardTitleClassName}>What was sent</h2>
-          <pre className="admin-message-pre">{message.body_text}</pre>
+          <pre className={adminMessagePreClassName}>{message.body_text}</pre>
         </section>
       </div>
     </div>

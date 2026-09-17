@@ -16,6 +16,7 @@ import { useAccountDetail } from '@/components/dashboard/useAccountDetail';
 import { DEALER_TYPE, formatDateTime, getDealer, updateDealer, type Dealer } from '@/lib/adminApi';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
 import { adminDetailGridClassName } from '@/components/dashboard/AdminCard';
+import { adminBackClassName, adminPageClassName } from '@/components/dashboard/adminLayout';
 
 export default function DealerDetailPage() {
   const id = Number(useParams<{ dealerId: string }>().dealerId);
@@ -32,14 +33,14 @@ export default function DealerDetailPage() {
 
   if (loading)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <p className="text-text-subtle">Loading dealer…</p>
       </div>
     );
   if (error && !account)
     return (
-      <div className="admin-page">
-        <Link className="admin-back" href="/dashboard/dealers">
+      <div className={adminPageClassName}>
+        <Link className={adminBackClassName} href="/dashboard/dealers">
           ← Dealers
         </Link>
         <AdminNotice tone="danger">{error}</AdminNotice>
@@ -48,7 +49,7 @@ export default function DealerDetailPage() {
   if (!account) return null;
 
   return (
-    <div className="admin-page">
+    <div className={adminPageClassName}>
       <AccountDetailHeader
         backHref="/dashboard/dealers"
         backLabel="Back to dealers"

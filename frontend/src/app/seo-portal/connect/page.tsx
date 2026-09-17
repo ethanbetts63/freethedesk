@@ -18,6 +18,8 @@ import {
   portalFormClassName,
 } from '@/components/dashboard/PortalField';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { adminPageClassName } from '@/components/dashboard/adminLayout';
 
 const initialState: SeoConnectState = { status: 'idle' };
 
@@ -91,31 +93,29 @@ export default function SeoPortalConnectPage() {
 
   if (loading)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <p className="text-text-subtle">Loading your setup…</p>
       </div>
     );
   if (!profile)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
   const locked = profile.onboarding_status === 'submitted';
 
   return (
-    <div className="admin-page">
-      <header className="admin-page-header">
-        <div>
-          <p className="admin-kicker">Onboarding</p>
-          <h1>{isGbpAudit ? 'Add your profile details' : 'Connect your data'}</h1>
-          <p>
-            {isGbpAudit
-              ? 'Send us the profile and location we should review.'
-              : 'Tell us where to look and what matters. We use this to focus every report.'}
-          </p>
-        </div>
-      </header>
+    <div className={adminPageClassName}>
+      <AdminPageHeader
+        kicker="Onboarding"
+        title={isGbpAudit ? 'Add your profile details' : 'Connect your data'}
+        subtitle={
+          isGbpAudit
+            ? 'Send us the profile and location we should review.'
+            : 'Tell us where to look and what matters. We use this to focus every report.'
+        }
+      />
       <AdminNotice tone="success">
         Status: <strong>{profile.onboarding_status_label}</strong>
       </AdminNotice>

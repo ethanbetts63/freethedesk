@@ -13,6 +13,8 @@ import {
   adminDetailGridClassName,
 } from '@/components/dashboard/AdminCard';
 import { cn } from '@/lib/utils';
+import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { adminPageClassName } from '@/components/dashboard/adminLayout';
 import {
   adminFormClassName,
   adminFormControlClassName,
@@ -81,13 +83,13 @@ export default function SiteSettingsPage() {
 
   if (loading)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <p className="text-text-subtle">Loading site settings…</p>
       </div>
     );
   if (error && !settings)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
@@ -110,13 +112,8 @@ export default function SiteSettingsPage() {
   );
 
   return (
-    <div className="admin-page">
-      <header className="admin-page-header">
-        <div>
-          <p className="admin-kicker">Site settings</p>
-          <h1>Site settings</h1>
-        </div>
-      </header>
+    <div className={adminPageClassName}>
+      <AdminPageHeader kicker="Site settings" title="Site settings" />
 
       {error && <AdminNotice tone="danger">{error}</AdminNotice>}
       {notice && <AdminNotice tone="success">{notice}</AdminNotice>}

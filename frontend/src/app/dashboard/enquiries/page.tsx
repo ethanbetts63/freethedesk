@@ -33,6 +33,8 @@ import { AdminButton } from '@/components/dashboard/AdminButton';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
 import { cn } from '@/lib/utils';
 import { adminPanelClassName } from '@/components/dashboard/AdminCard';
+import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { adminPageClassName } from '@/components/dashboard/adminLayout';
 
 const SORT_FIELDS = ['created_at', 'business', 'help_with', 'status'] as const;
 const FILTER_KEYS = ['status', 'help_with'] as const;
@@ -59,14 +61,10 @@ function EnquiriesContent() {
   });
 
   return (
-    <div className="admin-page">
-      <header className="admin-page-header">
-        <div>
-          <p className="admin-kicker">Lead management</p>
-          <h1>Enquiries</h1>
-        </div>
+    <div className={adminPageClassName}>
+      <AdminPageHeader kicker="Lead management" title="Enquiries">
         <AdminButton href="/dashboard/messages/compose">＋ Compose</AdminButton>
-      </header>
+      </AdminPageHeader>
 
       <section className={adminPanelClassName}>
         <AdminFilterBar
@@ -175,7 +173,7 @@ export default function EnquiriesPage() {
   return (
     <Suspense
       fallback={
-        <div className="admin-page">
+        <div className={adminPageClassName}>
           <p className="text-text-subtle">Loading enquiries…</p>
         </div>
       }

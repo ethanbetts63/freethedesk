@@ -13,6 +13,8 @@ import {
   portalFormClassName,
 } from '@/components/dashboard/PortalField';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { adminPageClassName } from '@/components/dashboard/adminLayout';
 
 const initialState: DealerSetupState = { status: 'idle' };
 
@@ -62,13 +64,13 @@ export default function DealerSetupPage() {
 
   if (loading)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <p className="text-text-subtle">Loading dealership setup…</p>
       </div>
     );
   if (!profileToShow)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
@@ -76,14 +78,12 @@ export default function DealerSetupPage() {
   const locked = profile.onboarding_status === 'submitted';
 
   return (
-    <div className="admin-page">
-      <header className="admin-page-header">
-        <div>
-          <p className="admin-kicker">Onboarding</p>
-          <h1>Dealership setup</h1>
-          <p>Enter this once. We use it to prefill the dealer side of each workflow.</p>
-        </div>
-      </header>
+    <div className={adminPageClassName}>
+      <AdminPageHeader
+        kicker="Onboarding"
+        title="Dealership setup"
+        subtitle="Enter this once. We use it to prefill the dealer side of each workflow."
+      />
       <AdminNotice tone="success">
         Setup status: <strong>{profile.onboarding_status_label}</strong>
       </AdminNotice>

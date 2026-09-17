@@ -32,6 +32,16 @@ import {
   adminStatusCardSelectClassName,
 } from '@/components/dashboard/AdminCard';
 import { cn } from '@/lib/utils';
+import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import {
+  adminBackClassName,
+  adminConfigBasicsClassName,
+  adminConfigGroupClassName,
+  adminConfigLabelClassName,
+  adminConfigRequestClassName,
+  adminPageClassName,
+  adminRelatedMessagesClassName,
+} from '@/components/dashboard/adminLayout';
 
 export default function EnquiryDetailPage() {
   const id = Number(useParams<{ enquiryId: string }>().enquiryId);
@@ -83,14 +93,14 @@ export default function EnquiryDetailPage() {
 
   if (loading)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <p className="text-text-subtle">Loading enquiry…</p>
       </div>
     );
   if (error && !enquiry)
     return (
-      <div className="admin-page">
-        <Link className="admin-back" href="/dashboard/enquiries">
+      <div className={adminPageClassName}>
+        <Link className={adminBackClassName} href="/dashboard/enquiries">
           ← Enquiries
         </Link>
         <AdminNotice tone="danger">{error}</AdminNotice>
@@ -105,20 +115,18 @@ export default function EnquiryDetailPage() {
     configuration.inventory_options?.filter((item) => item.selected) ?? [];
 
   return (
-    <div className="admin-page">
-      <Link className="admin-back" href="/dashboard/enquiries">
+    <div className={adminPageClassName}>
+      <Link className={adminBackClassName} href="/dashboard/enquiries">
         ← Back to enquiries
       </Link>
-      <header className="admin-page-header admin-detail-heading">
-        <div>
-          <p className="admin-kicker">Enquiry #{enquiry.id}</p>
-          <h1>{enquiry.business}</h1>
-          <p>
-            {enquiry.name} · received {formatDateTime(enquiry.created_at)}
-          </p>
-        </div>
+      <AdminPageHeader
+        align="center"
+        kicker={`Enquiry #${enquiry.id}`}
+        title={enquiry.business}
+        subtitle={`${enquiry.name} · received ${formatDateTime(enquiry.created_at)}`}
+      >
         <AdminButton href={replyHref}>Reply by email →</AdminButton>
-      </header>
+      </AdminPageHeader>
       {error && <AdminNotice tone="danger">{error}</AdminNotice>}
       <div className={adminDetailGridClassName}>
         <section className={adminStatusCardClassName}>
@@ -182,9 +190,9 @@ export default function EnquiryDetailPage() {
           <section className={cn(adminCardClassName, adminCardWideClassName)}>
             <div className={adminCardHeadingClassName}>
               <h2 className={adminCardTitleClassName}>Website configuration</h2>
-              <span className="admin-config-label">Interactive builder</span>
+              <span className={adminConfigLabelClassName}>Interactive builder</span>
             </div>
-            <dl className={cn(adminDetailListClassName, 'admin-config-basics')}>
+            <dl className={cn(adminDetailListClassName, adminConfigBasicsClassName)}>
               <AdminDetailItem term="Brand name">
                 {configuration.appearance?.brand_name || enquiry.business}
               </AdminDetailItem>
@@ -193,7 +201,7 @@ export default function EnquiryDetailPage() {
               </AdminDetailItem>
               <AdminDetailItem term="Build version">{configuration.version ?? '—'}</AdminDetailItem>
             </dl>
-            <div className="admin-config-group">
+            <div className={adminConfigGroupClassName}>
               <strong>Selected capabilities</strong>
               <div>
                 {chosenCapabilities.length ? (
@@ -204,7 +212,7 @@ export default function EnquiryDetailPage() {
               </div>
             </div>
             {chosenInventoryOptions.length > 0 && (
-              <div className="admin-config-group">
+              <div className={adminConfigGroupClassName}>
                 <strong>Inventory options</strong>
                 <div>
                   {chosenInventoryOptions.map((item) => (
@@ -214,7 +222,7 @@ export default function EnquiryDetailPage() {
               </div>
             )}
             {configuration.custom_capability && (
-              <div className="admin-config-request">
+              <div className={adminConfigRequestClassName}>
                 <strong>Custom capability</strong>
                 <p>{configuration.custom_capability}</p>
               </div>
@@ -233,7 +241,7 @@ export default function EnquiryDetailPage() {
             </Link>
           </div>
           {messages.length ? (
-            <div className="admin-related-messages">
+            <div className={adminRelatedMessagesClassName}>
               {messages.map((message) => (
                 <Link key={message.id} href={`/dashboard/messages/${message.id}`}>
                   <span>

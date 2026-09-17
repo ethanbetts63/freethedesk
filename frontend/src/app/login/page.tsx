@@ -1,7 +1,5 @@
 'use client';
 
-import '@/components/dashboard/admin.css';
-
 import { FormEvent, Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -13,6 +11,7 @@ import { AdminNotice } from '@/components/dashboard/AdminNotice';
 import { formControlClassName } from '@/components/dashboard/formControl';
 import { adminLoadingClassName } from '@/components/dashboard/dashboardChrome';
 import { cn } from '@/lib/utils';
+import { adminBrandClassName, adminKickerClassName } from '@/components/dashboard/adminLayout';
 
 function LoginContent() {
   const { user, loading, login } = useAuth();
@@ -50,10 +49,10 @@ function LoginContent() {
         <SignalFlow />
       </div>
       <section className="relative z-1 w-full max-w-[450px] border border-[color-mix(in_srgb,var(--slate-300)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] px-ml py-xl shadow-[0_25px_70px_color-mix(in_srgb,var(--blue-950)_12%,transparent)] backdrop-blur-[13px] sm:p-xl">
-        <Link className="login-brand" href="/">
+        <Link className={adminBrandClassName} href="/">
           free<span>the</span>desk<i>.</i>
         </Link>
-        <p className="admin-kicker mt-xl">Sign in</p>
+        <p className={cn(adminKickerClassName, 'mt-xl')}>Sign in</p>
         <h1 className="m-0 text-step-3 tracking-[-0.06em]">Welcome back</h1>
         <p className="mt-s mb-xl text-small leading-[1.5] text-text-muted">
           Dealers and staff sign in here — we will take you to the right place.

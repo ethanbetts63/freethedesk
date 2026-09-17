@@ -32,6 +32,8 @@ import { formatDateTime, getDealers, type Dealer } from '@/lib/adminApi';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
 import { cn } from '@/lib/utils';
 import { adminPanelClassName } from '@/components/dashboard/AdminCard';
+import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { adminPageClassName } from '@/components/dashboard/adminLayout';
 
 const SORT_FIELDS = ['created_at', 'business_name', 'contact_name', 'status'] as const;
 const FILTER_KEYS = ['status'] as const;
@@ -47,13 +49,8 @@ function DealersContent() {
   });
 
   return (
-    <div className="admin-page">
-      <header className="admin-page-header">
-        <div>
-          <p className="admin-kicker">Licensing accounts</p>
-          <h1>Dealers</h1>
-        </div>
-      </header>
+    <div className={adminPageClassName}>
+      <AdminPageHeader kicker="Licensing accounts" title="Dealers" />
 
       <section className={adminPanelClassName}>
         <AdminFilterBar
@@ -149,7 +146,7 @@ export default function DealersPage() {
   return (
     <Suspense
       fallback={
-        <div className="admin-page">
+        <div className={adminPageClassName}>
           <p className="text-text-subtle">Loading dealers…</p>
         </div>
       }

@@ -21,6 +21,8 @@ import {
 } from '@/components/dashboard/AdminCard';
 import { cn } from '@/lib/utils';
 import { PortalStep, PortalSteps } from '@/components/dashboard/PortalSteps';
+import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { adminPageClassName } from '@/components/dashboard/adminLayout';
 
 const statusCopy: Record<SeoAccount['status'], { heading: string; body: string }> = {
   pending: {
@@ -58,13 +60,13 @@ export default function SeoPortalOverviewPage() {
 
   if (loading)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <p className="text-text-subtle">Loading your account…</p>
       </div>
     );
   if (error && !account)
     return (
-      <div className="admin-page">
+      <div className={adminPageClassName}>
         <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
@@ -89,14 +91,12 @@ export default function SeoPortalOverviewPage() {
   const firstName = account.contact_name.trim().split(/\s+/)[0] || account.contact_name;
 
   return (
-    <div className="admin-page">
-      <header className="admin-page-header">
-        <div>
-          <p className="admin-kicker">SEO portal</p>
-          <h1>{account.business_name}</h1>
-          <p>Signed in as {user?.email}</p>
-        </div>
-      </header>
+    <div className={adminPageClassName}>
+      <AdminPageHeader
+        kicker="SEO portal"
+        title={account.business_name}
+        subtitle={`Signed in as ${user?.email}`}
+      />
 
       <div className={adminDetailGridClassName}>
         <section className={adminStatusCardClassName}>

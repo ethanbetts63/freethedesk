@@ -1,7 +1,5 @@
 'use client';
 
-import './admin.css';
-
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -9,6 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { homeFor, type Role } from '@/lib/api';
 import { adminLoadingClassName, chromeHairlineClassName } from './dashboardChrome';
 import { cn } from '@/lib/utils';
+import { adminBrandClassName } from './adminLayout';
 
 export interface NavItem {
   href: string;
@@ -69,7 +68,7 @@ export function PortalShell({
   return (
     <div className="block min-h-screen bg-surface-tint lg:flex">
       <aside className={sidebarClassName}>
-        <Link className="dashboard-brand" href={homeHref}>
+        <Link className={adminBrandClassName} href={homeHref}>
           free<span>the</span>desk<i>.</i>
         </Link>
         {/* The section name only earns its line once the rail is vertical. */}
