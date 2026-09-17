@@ -197,7 +197,7 @@ Convert the foundations that produce the most downstream reuse first:
    utilities and compose caller overrides through `cn()`; `.text-link` had a
    single consumer and was inlined there. The bare `eyebrow`, `section-number`
    and `section-number-light` class names stay on the elements as structural
-   hooks — `app/portfolio/case-study.css` selects *around* them
+   hooks — `app/portfolio/case-study.css` selects _around_ them
    (`.case-hero-copy > p:not(.eyebrow)`, `.case-split-copy > p:not(.section-number)`)
    and overrides one of them (`.case-operations-section .section-number-light`).
    That stylesheet is imported unlayered, so its override still beats the new
@@ -251,12 +251,11 @@ Convert the foundations that produce the most downstream reuse first:
 5. cards, notices, badges, status indicators, and tables. In progress, one
    surface family at a time. **Notices are done:** `admin.css`'s
    `.admin-banner` / `.admin-banner-error` / `.admin-banner-warning` /
-   `.admin-form-error` and `.admin-muted` rules are deleted (699 lines down to
-   665) and replaced by `components/dashboard/AdminNotice.tsx`, a CVA with a
+   `.admin-form-error` and `.admin-muted` rules are deleted (699 lines down to 665) and replaced by `components/dashboard/AdminNotice.tsx`, a CVA with a
    `tone` (success/warning/danger) and a `size` (`banner`, which carries its
    own vertical rhythm, and `field`, the flush in-form error), across the 17
    files that rendered them. Three things worth recording: the old base class
-   quietly *was* the success palette, so a neutral-looking
+   quietly _was_ the success palette, so a neutral-looking
    `<p className="admin-banner">` was in fact a green banner and every error
    had to repeat the palette as a second class (`tone` is now always explicit);
    `.admin-form-error` was declared twice in `admin.css`, the second copy
@@ -332,8 +331,7 @@ Convert the foundations that produce the most downstream reuse first:
    1440px and 480px: zero differences beyond Tailwind's transparent
    ring-placeholder chain in `box-shadow` and `border-color` on zero-width
    sides;
-6. dialogs, checkout controls, and dashboard controls. **Dialogs and dashboard
-   controls are done; checkout controls remain.**
+6. dialogs, checkout controls, and dashboard controls. Done.
 
    **Dialogs (3.6b).** `components/marketing/AiReadinessBanner.module.css` is
    deleted — 205 lines, the whole AI-readiness banner, its form and the mobile
@@ -377,7 +375,7 @@ Convert the foundations that produce the most downstream reuse first:
    **Dashboard controls (3.6a) are done:** `admin.css` is 378 lines down to 213. The text control that
    four stylesheets had each grown their own copy of — `portal.css`'s field
    input, `.admin-filters select/input`, `.admin-compose-form
-   input/select/textarea`, `.admin-notes` and `.admin-status-card select` — is
+input/select/textarea`, `.admin-notes` and `.admin-status-card select` — is
    now one definition, `formControlClassName` in
    `components/dashboard/formControl.ts`, which `PortalField` and `AdminCard`
    also read. They had already drifted: only some set `width`, the composer's
@@ -395,7 +393,7 @@ Convert the foundations that produce the most downstream reuse first:
    **One real bug surfaced, and it is not in this slice.** Tailwind sorts
    breakpoint variants by value, and it cannot compare an arbitrary
    `min-[900px]` against the named `sm` (`40rem`) — so it emits the arbitrary
-   one *first*, and `sm:` silently wins at every width above 640px. Confirmed
+   one _first_, and `sm:` silently wins at every width above 640px. Confirmed
    on the built CSS (`min-[900px]` block at byte 67566, `sm:` at 71554) and in
    the browser: `/guides`'s feature row declares
    `sm:grid-cols-[auto_minmax(0,1fr)] min-[900px]:grid-cols-[auto_minmax(0,1fr)_auto]`
@@ -412,7 +410,81 @@ Convert the foundations that produce the most downstream reuse first:
    `components/checkout/CheckoutShell.tsx` lines 45 and 49 declare
    `sm:min-h-*` beside `min-[900px]:min-h-screen` and are the same shape).
    Those files belong to Phase 4 and are not touched here, but they should not
-   wait for it;
+   wait for it.
+
+   **Checkout controls (3.6c).** No stylesheet to delete: the checkout flows
+   were written in Tailwind from the start. What they had instead was four
+   hand-rolled class-string constants and one inline copy of a fifth, spread
+   across `CheckoutShell.tsx` and `PaymentConfirmation.tsx`, plus fourteen raw
+   ramp values. Three of those constants were the same button in three shapes,
+   so they became `components/checkout/CheckoutButton.tsx` — a CVA with
+   `submit` (the full-width 60px pay bar), `retry` (the same bar capped at
+   190px and centred) and `link` (the two post-payment action links), rendering
+   a `Link` when given `href` and a `<button>` otherwise, across five call
+   sites.
+
+   **It is deliberately not a `CtaButton` variant.** The marketing CTA is a
+   `justify-between` box with an uppercase tracked label, a hover fill and a
+   sliding arrow; the checkout button is a flush-left bar with a sentence-case
+   label and an oversized arrow beside it. Converging them is a redesign of the
+   checkout, not a migration of it, so this follows the precedent 3.3 set with
+   `AdminButton`: one CVA per real family, no family forced into another. The
+   disabled treatment moved into the CVA's base rather than onto `submit`, the
+   only variant that had one — inert until a caller disables a button, and one
+   family should not hold two answers to the same state. The arrow picked up
+   `aria-hidden`, which the marketing CTA's already had.
+
+   The 42px graph-paper grid over `SignalFlow` was written out in both files;
+   it is now `checkoutGridClassName` in `components/checkout/checkoutSurface.ts`
+   (the `formControl.ts` pattern). Its `--blue-950` stays a raw ramp value on
+   purpose, and the file says why: the role is "a barely-visible rule on a
+   tinted surface", `--line-strong` is the near-black for real dividers and
+   `--surface-dark` is the same ramp step named for a background, so every
+   available name would misdescribe it. Everything else converted cleanly —
+   `--slate-600` to `text-text-muted`, `--slate-500` to `text-text-subtle`,
+   `--slate-200` to `border-border-default`, and the order card's
+   `color-mix(… var(--slate-300) 68% …)` to the same mix over
+   `--border-strong`. The one copy of the grid that lacked `pointer-events-none`
+   gained it; the card above it already sits in its own stacking context, so
+   nothing moved.
+
+   **The predicted bug was real, and worse than predicted.** The lines this
+   document named — `CheckoutShell.tsx` 45 and 49 — declare `sm:min-h-[620px]`
+   beside `min-[900px]:min-h-screen`, and Tailwind emits the arbitrary
+   breakpoint first, so `sm:` won at every width above 640px. The consequence
+   was not a layout that started late: **the checkout's left panel and its
+   inner column have never been full height at any width.** Measured old
+   against new, both panels compute 620px before and 900px after at 1024,
+   1080, 1280 and 1440. The panel is a grid item and stretched to the row
+   regardless, so the visible symptom was subtler than a short panel — the
+   inner column ended at 620px, which is where `mt-auto` was anchoring the
+   product copy, leaving it floating mid-panel instead of sitting on the
+   viewport's bottom edge. Third confirmed instance of this defect.
+
+   `min-[900px]:` became `lg:` throughout the file, per the rule in
+   `tokens.css`. That moves the two-column split from 900px to 1024px, so the
+   900–1023 band now stacks: at 960 the old split gave a 390px rail beside a
+   520px form, and the stacked layout reads better than either. Intentional and
+   documented, the same call 3.6a made for the filter bar.
+
+   The payment error message stays a local constant rather than joining
+   `AdminNotice`. It has one consumer and a different shape (a 3px left rule,
+   no radius), and `AdminNotice` is named for the dashboard family it came
+   from. If Phase 4 brings a second public-side notice in, that is when a
+   shared primitive is worth naming.
+
+   Verified by A/B at 1440, 1280, 1080, 1024, 960, 900, 640 and 480: every
+   changed element rendered with its old class string beside its new one, all
+   computed properties and `::after` compared. Clean everywhere except the
+   three intended changes above. **A method note for later slices:** Tailwind
+   only compiles classes it finds in the source, so once a class string is
+   edited out, the old one stops existing and an A/B against it silently
+   compares nothing to something and reports no difference. The old strings had
+   to be put back into a temporary file in `src/` and the build re-run before
+   the comparison meant anything. Earlier slices compared against re-injected
+   legacy CSS, which does not have this failure mode; a Tailwind-to-Tailwind
+   slice does;
+
 7. focus, disabled, loading, and reduced-motion states.
 
 Replace global appearance classes such as `.primary-button` with React

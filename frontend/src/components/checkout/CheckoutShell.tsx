@@ -5,6 +5,10 @@ import Link from 'next/link';
 import { PaymentElement, useCheckoutElements } from '@stripe/react-stripe-js/checkout';
 
 import { SignalFlow } from '@/components/visuals/SignalFlow';
+import { cn } from '@/lib/utils';
+
+import { CheckoutButton } from './CheckoutButton';
+import { checkoutGridClassName } from './checkoutSurface';
 
 /**
  * Layout and lifecycle chrome shared by the checkout flows (dealer
@@ -13,11 +17,9 @@ import { SignalFlow } from '@/components/visuals/SignalFlow';
 
 const eyebrowClassName = 'text-caption font-black tracking-[0.14em] text-action-primary uppercase';
 const headingClassName = 'my-s text-display-3 leading-[0.96] tracking-[-0.065em]';
-const bodyClassName = 'm-0 text-body leading-[1.6] text-[var(--slate-600)]';
-const payButtonClassName =
-  'flex min-h-[60px] w-full cursor-pointer items-center border-0 bg-action-primary px-ml font-[inherit] text-small font-black text-text-on-dark disabled:cursor-not-allowed disabled:opacity-45 [&>b]:text-step-0';
+const bodyClassName = 'm-0 text-body leading-[1.6] text-text-muted';
 const fineprintClassName =
-  'mx-auto mt-s max-w-[430px] text-center text-meta leading-[1.5] text-[var(--slate-500)]';
+  'mx-auto mt-s max-w-[430px] text-center text-meta leading-[1.5] text-text-subtle';
 const paymentErrorClassName =
   'my-m border-l-[3px] border-border-danger bg-surface-danger p-s text-ui leading-[1.55] text-text-danger';
 
@@ -41,18 +43,23 @@ export function CheckoutShell({
   children: ReactNode;
 }) {
   return (
-    <main className="grid min-h-screen grid-cols-[minmax(0,1fr)] bg-surface-page text-surface-inverse min-[900px]:grid-cols-[minmax(390px,0.92fr)_minmax(520px,1.08fr)]">
-      <section className="relative min-h-[540px] overflow-hidden bg-surface-tint after:absolute after:inset-0 after:pointer-events-none after:content-[''] after:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-950)_5.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-950)_5.5%,transparent)_1px,transparent_1px)] after:[background-size:42px_42px] sm:min-h-[620px] min-[900px]:min-h-screen">
+    <main className="grid min-h-screen grid-cols-[minmax(0,1fr)] bg-surface-page text-surface-inverse lg:grid-cols-[minmax(390px,0.92fr)_minmax(520px,1.08fr)]">
+      <section
+        className={cn(
+          'relative min-h-[540px] overflow-hidden bg-surface-tint sm:min-h-[620px] lg:min-h-screen',
+          checkoutGridClassName,
+        )}
+      >
         <div className="absolute inset-0 opacity-85 [&>canvas]:h-full [&>canvas]:w-full">
           <SignalFlow />
         </div>
-        <div className="relative z-2 flex min-h-[540px] flex-col px-ml py-xl sm:min-h-[620px] sm:p-[clamp(30px,5vw,72px)] min-[900px]:min-h-screen">
+        <div className="relative z-2 flex min-h-[540px] flex-col px-ml py-xl sm:min-h-[620px] sm:p-[clamp(30px,5vw,72px)] lg:min-h-screen">
           <Link
             className="w-fit text-step-1 font-black tracking-[-0.07em] text-surface-inverse"
             href="/"
           >
             free
-            <span className="mx-4xs text-[0.73em] font-strong text-[var(--slate-500)]">the</span>
+            <span className="mx-4xs text-[0.73em] font-strong text-text-subtle">the</span>
             desk
             <i className="text-action-primary not-italic">.</i>
           </Link>
@@ -63,27 +70,25 @@ export function CheckoutShell({
             <h1 className="m-0 mb-xl max-w-[690px] text-display-4 leading-[0.87] tracking-[-0.075em] sm:text-display-6">
               {productName}
             </h1>
-            <span className="block max-w-[430px] text-lead leading-[1.65] text-[var(--slate-600)]">
+            <span className="block max-w-[430px] text-lead leading-[1.65] text-text-muted">
               {productSummary}
             </span>
           </div>
           {order && (
-            <div className="border border-[color-mix(in_srgb,var(--slate-300)_68%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] p-m backdrop-blur-[12px] sm:p-l">
+            <div className="border border-[color-mix(in_srgb,var(--border-strong)_68%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] p-m backdrop-blur-[12px] sm:p-l">
               <div className="flex items-center justify-between py-2xs text-ui">
-                <span className="text-[var(--slate-600)]">{order.lineLabel}</span>
+                <span className="text-text-muted">{order.lineLabel}</span>
                 <strong className="text-small">{order.price}</strong>
               </div>
               <div className="flex items-center justify-between py-2xs text-ui">
-                <span className="text-[var(--slate-600)]">GST</span>
+                <span className="text-text-muted">GST</span>
                 <strong className="text-small">Included</strong>
               </div>
-              <div className="mt-xs flex items-center justify-between border-t border-[var(--slate-200)] pt-m pb-2xs text-ui">
-                <span className="text-[var(--slate-600)]">{order.dueLabel}</span>
+              <div className="mt-xs flex items-center justify-between border-t border-border-default pt-m pb-2xs text-ui">
+                <span className="text-text-muted">{order.dueLabel}</span>
                 <strong className="text-step-2 tracking-[-0.04em] text-action-primary">
                   {order.price}{' '}
-                  <small className="text-label tracking-normal text-[var(--slate-500)]">
-                    GST inc.
-                  </small>
+                  <small className="text-label tracking-normal text-text-subtle">GST inc.</small>
                 </strong>
               </div>
             </div>
@@ -91,7 +96,7 @@ export function CheckoutShell({
         </div>
       </section>
 
-      <section className="flex min-h-auto items-center justify-center overflow-y-auto px-ml py-3xl sm:p-[clamp(44px,7vw,100px)] min-[900px]:min-h-screen min-[900px]:py-[clamp(44px,7vw,100px)]">
+      <section className="flex min-h-auto items-center justify-center overflow-y-auto px-ml py-3xl sm:p-[clamp(44px,7vw,100px)] lg:min-h-screen lg:py-[clamp(44px,7vw,100px)]">
         {children}
       </section>
     </main>
@@ -115,13 +120,9 @@ export function CheckoutState({
       <h2 className={headingClassName}>{title}</h2>
       <p className={bodyClassName}>{body}</p>
       {onRetry && (
-        <button
-          type="button"
-          onClick={onRetry}
-          className="mt-xl flex min-h-[60px] w-full max-w-[190px] cursor-pointer items-center justify-center border-0 bg-action-primary px-ml font-[inherit] text-small font-black text-text-on-dark"
-        >
+        <CheckoutButton variant="retry" className="mt-xl" onClick={onRetry}>
           Try again
-        </button>
+        </CheckoutButton>
       )}
     </div>
   );
@@ -157,12 +158,12 @@ export function CheckoutTermsForm({
 
   return (
     <form className="w-full max-w-[560px]" onSubmit={submit}>
-      <div className="mb-xl border-b border-[var(--slate-200)] pb-xl">
+      <div className="mb-xl border-b border-border-default pb-xl">
         <span className={eyebrowClassName}>Before payment</span>
         <h2 className={headingClassName}>Confirm the offer.</h2>
         <p className={bodyClassName}>{priceNote}</p>
       </div>
-      <label className="mt-l mr-0 mb-m ml-0 flex cursor-pointer items-start gap-s text-ui leading-[1.5] text-[var(--slate-600)]">
+      <label className="mt-l mr-0 mb-m ml-0 flex cursor-pointer items-start gap-s text-ui leading-[1.5] text-text-muted">
         <input
           type="checkbox"
           checked={accepted}
@@ -191,10 +192,10 @@ export function CheckoutTermsForm({
           , and {authorisation}
         </span>
       </label>
-      <button type="submit" className={payButtonClassName} disabled={!accepted || preparing}>
+      <CheckoutButton type="submit" disabled={!accepted || preparing}>
         <span>{preparing ? 'Preparing secure payment…' : 'Payment'}</span>
-        <b>→</b>
-      </button>
+        <b aria-hidden="true">→</b>
+      </CheckoutButton>
     </form>
   );
 }
@@ -232,15 +233,13 @@ export function CheckoutPaymentForm({
   }
 
   if (result.type === 'loading')
-    return (
-      <div className="py-l text-small text-[var(--slate-600)]">Loading secure card entry…</div>
-    );
+    return <div className="py-l text-small text-text-muted">Loading secure card entry…</div>;
   if (result.type === 'error')
     return <p className={paymentErrorClassName}>{result.error.message}</p>;
 
   return (
     <form className="w-full max-w-[560px]" onSubmit={submit}>
-      <div className="mb-xl border-b border-[var(--slate-200)] pb-xl">
+      <div className="mb-xl border-b border-border-default pb-xl">
         <span className={eyebrowClassName}>Secure payment</span>
         <h2 className={headingClassName}>{heading}</h2>
         <p className={bodyClassName}>
@@ -256,14 +255,10 @@ export function CheckoutPaymentForm({
           {error}
         </p>
       )}
-      <button
-        type="submit"
-        className={payButtonClassName}
-        disabled={!result.checkout.canConfirm || submitting}
-      >
+      <CheckoutButton type="submit" disabled={!result.checkout.canConfirm || submitting}>
         <span>{submitting ? 'Confirming…' : submitLabel}</span>
-        <b>→</b>
-      </button>
+        <b aria-hidden="true">→</b>
+      </CheckoutButton>
       <p className={fineprintClassName}>
         Prices include GST. Your account opens immediately after Stripe confirms payment.
       </p>
