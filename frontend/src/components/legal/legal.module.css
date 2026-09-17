@@ -1,40 +1,24 @@
-.page {
+/* Legal document body (dangerouslySetInnerHTML): plain element selectors on
+   purpose - the markdown renderer emits raw HTML, so there is nowhere to
+   attach a utility class. The document's own chrome - the page, the grid
+   backdrop and the card - is authored JSX and lives in Tailwind utilities in
+   LegalDocument.tsx.
+
+   Deliberately separate from the article prose in app/[slug]/article.module.css.
+   They look similar but are not the same surface: an article is read for its
+   argument and leads with a display heading, a legal document is scanned for a
+   clause and leads with a reference line. */
+.prose {
   --legal-accent: var(--action-primary);
-  background: var(--surface-tint);
-  color: var(--surface-inverse);
-  min-height: 100vh;
-  padding: var(--space-2xl) var(--space-s);
-  position: relative;
 }
-.grid {
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--blue-950) 4.5%, transparent) 1px, transparent 1px),
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--blue-950) 4.5%, transparent) 1px,
-      transparent 1px
-    );
-  background-size: 42px 42px;
-  inset: 0;
-  pointer-events: none;
-  position: absolute;
-}
-.document {
-  background: var(--surface-page);
-  border: 1px solid var(--slate-200);
-  box-shadow: 0 24px 75px color-mix(in srgb, var(--blue-950) 7%, transparent);
-  margin: 0 auto;
-  max-width: 900px;
-  padding: var(--space-xl) var(--space-ml);
-  position: relative;
-}
-.document h1 {
+.prose h1 {
   font-size: var(--display-2);
   letter-spacing: -0.075em;
   line-height: 0.9;
   margin: 0 0 var(--space-l);
 }
-.document h1 + p {
+/* The reference line under the title: effective date, version, jurisdiction. */
+.prose h1 + p {
   color: var(--legal-accent);
   font-size: var(--text-ui);
   font-weight: var(--weight-control);
@@ -42,8 +26,8 @@
   margin-bottom: var(--space-xl);
   text-transform: uppercase;
 }
-.document aside,
-.document blockquote {
+.prose aside,
+.prose blockquote {
   background: var(--surface-warning);
   border-left: 4px solid var(--fill-warning);
   color: var(--text-warning);
@@ -52,71 +36,57 @@
   margin: var(--space-xl) 0 var(--space-2xl);
   padding: var(--space-m) var(--space-ml);
 }
-.document blockquote p {
+.prose blockquote p {
   color: inherit;
   font-size: inherit;
   margin: 0;
 }
-.document h2 {
-  border-top: 1px solid var(--slate-200);
+.prose h2 {
+  border-top: 1px solid var(--border-default);
   font-size: var(--step-2);
   letter-spacing: -0.04em;
   line-height: 1.15;
   margin: var(--space-2xl) 0 var(--space-m);
   padding-top: var(--space-l);
 }
-.document h3 {
+.prose h3 {
   font-size: var(--step-0);
   margin: var(--space-xl) 0 var(--space-s);
 }
-.document p,
-.document li {
-  color: var(--slate-600);
+.prose p,
+.prose li {
+  color: var(--text-muted);
   font-size: var(--text-body);
   line-height: 1.78;
 }
-.document p {
-  color: var(--slate-600);
-  font-size: var(--text-body);
-  line-height: 1.78;
+.prose p {
   margin: 0 0 var(--space-m);
 }
-.document ul,
-.document ol {
+.prose ul,
+.prose ol {
   margin: var(--space-m) 0 var(--space-l);
   padding-left: var(--space-l);
 }
-.document li {
-  color: var(--slate-600);
-  font-size: var(--text-body);
-  line-height: 1.78;
+.prose li {
   margin: var(--space-xs) 0;
   padding-left: var(--space-3xs);
 }
-.document li::marker {
+.prose li::marker {
   color: var(--legal-accent);
   font-weight: var(--weight-control);
 }
-.document a {
+.prose a {
   color: var(--legal-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 @media (min-width: 640px) {
-  .page {
-    padding: clamp(80px, 10vw, 145px) var(--space-l);
-  }
-  .document {
-    padding: clamp(35px, 7vw, 90px);
-  }
-  .document h1 {
+  .prose h1 {
     font-size: var(--display-6);
   }
-  .document p {
-    font-size: var(--text-lead);
-  }
-  .document li {
+  .prose p,
+  .prose li {
     font-size: var(--text-lead);
   }
 }

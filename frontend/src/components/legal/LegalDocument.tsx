@@ -4,6 +4,8 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { renderMarkdown } from '@/lib/markdown';
+import { gridPaperClassName } from '@/lib/gridSurface';
+import { cn } from '@/lib/utils';
 
 import styles from './legal.module.css';
 
@@ -12,9 +14,18 @@ export async function LegalDocument({ filename }: { filename: string }) {
   const html = await renderMarkdown(source);
 
   return (
-    <main className={styles.page}>
-      <div className={styles.grid} aria-hidden="true" />
-      <article className={styles.document} dangerouslySetInnerHTML={{ __html: html }} />
+    <main className="relative min-h-screen bg-surface-tint px-s py-2xl text-surface-inverse sm:px-l sm:py-[clamp(80px,10vw,145px)]">
+      <div className={gridPaperClassName} aria-hidden="true" />
+      {/* The card's padding is one fluid value rather than a step: it has to
+          hold a 900px measure comfortably from a phone to a desktop, which no
+          single step on the space scale does. */}
+      <article
+        className={cn(
+          'relative mx-auto max-w-[900px] border border-border-default bg-surface-page px-ml py-xl shadow-[0_24px_75px_color-mix(in_srgb,var(--blue-950)_7%,transparent)] sm:p-[clamp(35px,7vw,90px)]',
+          styles.prose,
+        )}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </main>
   );
 }

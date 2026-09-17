@@ -51,7 +51,7 @@
   text-underline-offset: 4px;
 }
 .prose a:hover {
-  color: var(--blue-600);
+  color: var(--action-primary);
 }
 .prose strong {
   font-weight: var(--weight-heavy);

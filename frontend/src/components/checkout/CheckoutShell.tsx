@@ -8,7 +8,7 @@ import { SignalFlow } from '@/components/visuals/SignalFlow';
 import { cn } from '@/lib/utils';
 
 import { CheckoutButton } from './CheckoutButton';
-import { checkoutGridClassName } from './checkoutSurface';
+import { gridPaperAfterClassName } from '@/lib/gridSurface';
 
 /**
  * Layout and lifecycle chrome shared by the checkout flows (dealer
@@ -47,7 +47,7 @@ export function CheckoutShell({
       <section
         className={cn(
           'relative min-h-[540px] overflow-hidden bg-surface-tint sm:min-h-[620px] lg:min-h-screen',
-          checkoutGridClassName,
+          gridPaperAfterClassName,
         )}
       >
         <div className="absolute inset-0 opacity-85 [&>canvas]:h-full [&>canvas]:w-full">

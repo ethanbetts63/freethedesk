@@ -7,7 +7,7 @@ import { SignalFlow } from '@/components/visuals/SignalFlow';
 import { cn } from '@/lib/utils';
 
 import { CheckoutButton } from './CheckoutButton';
-import { checkoutGridClassName } from './checkoutSurface';
+import { gridPaperAfterClassName } from '@/lib/gridSurface';
 
 type ConfirmationState = 'checking' | 'active' | 'failed' | 'delayed';
 
@@ -81,7 +81,7 @@ export function PaymentConfirmation({
     <main
       className={cn(
         'relative flex min-h-screen items-center justify-center overflow-hidden bg-surface-tint p-xl',
-        checkoutGridClassName,
+        gridPaperAfterClassName,
       )}
     >
       <div className="absolute inset-0 opacity-[0.72] [&>canvas]:h-full [&>canvas]:w-full">
