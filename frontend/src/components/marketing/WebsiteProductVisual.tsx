@@ -27,7 +27,7 @@ export function WebsiteProductVisual() {
       >
         <div className="grid h-[38px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center border-b border-border-default bg-surface-tint-strong px-s text-nano text-text-muted">
           <TrafficLights />
-          <span className="rounded-[var(--radius-2xs)] bg-surface-page px-m py-3xs sm:px-2xl">
+          <span className="rounded-2xs bg-surface-page px-m py-3xs sm:px-2xl">
             yourdealership.com.au
           </span>
           <b className="hidden justify-self-end text-nano tracking-label-tight text-text-action uppercase sm:block">

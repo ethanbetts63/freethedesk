@@ -32,7 +32,7 @@ export function TrafficLights({
     <span
       aria-hidden="true"
       className={cn(
-        'flex flex-none gap-3xs [&>i]:rounded-[var(--radius-circle)]',
+        'flex flex-none gap-3xs [&>i]:rounded-circle',
         DOT_SIZES[size],
         tone,
         className,
@@ -50,8 +50,7 @@ export function TrafficLights({
  * sizes from 26px to 52px; the size and the colours stay with the caller
  * because they are what each drawing is choosing.
  */
-export const stepBadgeClassName =
-  'flex flex-none items-center justify-center rounded-[var(--radius-circle)]';
+export const stepBadgeClassName = 'flex flex-none items-center justify-center rounded-circle';
 
 /**
  * Supplementary text dropped on a phone, where the row it sits in is already

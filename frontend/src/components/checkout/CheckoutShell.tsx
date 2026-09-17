@@ -60,6 +60,8 @@ export function CheckoutShell({
             href="/"
           >
             free
+            {/* eslint-disable-next-line no-restricted-syntax -- em, not rem: "the" is set
+          relative to the wordmark it sits inside, at whatever size that is. */}
             <span className="mx-4xs text-[0.73em] font-strong text-text-subtle">the</span>
             desk
             <i className="text-action-primary not-italic">.</i>

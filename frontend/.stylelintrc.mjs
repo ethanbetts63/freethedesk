@@ -1,181 +1,144 @@
+import { stylelintBaseConfig } from '../../freetheplatform/frontend/lint/stylelint-base.mjs';
+
 /**
  * CSS is the half of this codebase ESLint cannot see.
  *
- * That blind spot is how tokens.css came to hold a type ramp and a space scale
- * that almost nothing used: font-size was 19% tokenised across 96 distinct
- * values and padding 5% across 174, while colour -- which no rule guarded
- * either, but which is harder to fudge -- sat at 96%. The rules below are the
- * ones that would have stopped that drift as it happened.
+ * The rule set itself is now imported rather than kept here: the canonical
+ * source is freetheplatform/frontend/lint/stylelint-base.mjs, which allbikes
+ * reads too, so the two sites cannot drift into disagreeing about what a token
+ * is for. What stays local is what is genuinely site-specific - which files are
+ * exceptions, and the four rules below that guard freethedesk's own foundation.
  *
- * The original migration backlogs are now clear, so every active rule blocks a
- * regression as an error and `npm run check` remains warning-free.
+ * The migration backlogs are clear: every rule is an error and `npm run check`
+ * is warning-free. The breakpoint list now comes straight from the shared base,
+ * which has no 900px or 1080px in it - Phase 4 converted the last consumers.
  */
 
-/** Properties whose values must come from the scales in tokens.css. */
-const TOKENISED = [
-  "/^--/",
-  "color",
-  "background-color",
-  "border-color",
-  "font-size",
-  "font-weight",
-  "padding",
-  "padding-top",
-  "padding-right",
-  "padding-bottom",
-  "padding-left",
-  "margin",
-  "margin-top",
-  "margin-right",
-  "margin-bottom",
-  "margin-left",
-  "gap",
-  "row-gap",
-  "column-gap",
-  "border-radius",
+/** Stylesheets that survive Phase 4 as approved artwork exceptions. */
+const ARTWORK_EXCEPTIONS = [
+  'src/components/visuals/FlowCardVisual.module.css',
+  'src/app/licensing/_components/flowCompare.module.css',
 ];
 
+const [GRID_TRACKS] = stylelintBaseConfig.rules['declaration-property-value-disallowed-list'];
+
 /**
- * Values that are not design decisions and so need no token: layout identities,
- * CSS-wide keywords, and the two self-describing extremes of a radius.
+ * --tint-grid/wash/edge/rule already name the four washes drawn as a percentage
+ * of --blue-950. Re-mixing one at the call site produces a fifth opacity nobody
+ * chose, and makes the token unfindable by anyone looking for the idea.
  */
-const NOT_A_DESIGN_DECISION = [
-  "0",
-  "auto",
-  "none",
-  "inherit",
-  "initial",
-  "revert",
-  "unset",
-  "transparent",
-  "currentColor",
-  "50%",
-  "100%",
-  "/^var\\(/",
+const REMIXED_TINT = /color-mix\(\s*in srgb,\s*var\(--blue-950\)/;
+
+/**
+ * A component stylesheet reading --slate-200 instead of --border-default is how
+ * a palette change stops propagating. Lifted inside styles/, which is where the
+ * semantic tokens are defined in terms of the ramps and so the one place naming
+ * a rung is the right thing to do.
+ */
+const PALETTE_RUNG = /var\(--(slate|blue|sky|green|amber|red|purple)-\d{2,3}\)/;
+
+/** One rule key, so a narrower scope has to restate what it keeps. */
+const disallowedValues = (extra) => [
+  extra.length > 0 ? { ...GRID_TRACKS, '/.*/': extra } : GRID_TRACKS,
+  {
+    message:
+      'Bare `1fr` cannot shrink below its content - use `minmax(0, 1fr)`. Use a --tint-* ' +
+      'token rather than re-mixing --blue-950, and a semantic token (surface-*, text-*, ' +
+      'border-*, action-*, accent) rather than a palette rung.',
+  },
 ];
 
 export default {
-  extends: ["stylelint-config-standard"],
-  plugins: ["stylelint-declaration-strict-value"],
+  ...stylelintBaseConfig,
 
   ignoreFiles: [
-    "**/node_modules/**",
-    ".next/**",
-    // A live preview of a *generated customer website* -- a different design
-    // system that happens to live in this repo. Holding it to freethedesk's
-    // tokens would be wrong, not just noisy. 27% of all CSS here.
-    "src/app/dealership-website-builder/_styles/**",
+    '**/node_modules/**',
+    '.next/**',
+    // A live preview of a *generated customer website* - a different design
+    // system that happens to live in this repo, drawn inside `.browser` and
+    // sized by its own --demo-text-* scale. Holding it to freethedesk's tokens
+    // would be wrong, not just noisy. Still two thirds of all the CSS here.
+    'src/app/dealership-website-builder/_styles/**',
   ],
 
   rules: {
-    // Tailwind v4's CSS-first config at-rules. stylelint-config-standard
-    // doesn't know them yet. allbikes is consolidating this rule set (and the
-    // matching ESLint design-system rules) into freetheplatform/frontend/lint/
-    // as a shared module both sites import; once that lands here too, this
-    // local override goes away in favour of importing stylelintBaseConfig.
-    "at-rule-no-unknown": [true, { ignoreAtRules: ["theme", "custom-variant", "apply"] }],
+    ...stylelintBaseConfig.rules,
 
     /* ------------------------------------------------------------------
-       1. Values come from the scale.
+       5. Shadows come from the elevation and ring scales.
+
+       The CSS-side half of the ESLint rule against arbitrary `shadow-[...]`.
+       There is one elevation vocabulary (--elevation-*) and one flat-ring
+       vocabulary (--ring-focus, --ring-halo); a hand-written offset/blur/
+       colour triple is a third scale nobody agreed to. Phase 4.13 collapsed
+       six such shadows into two tokens - this is what stops a seventh.
        ------------------------------------------------------------------ */
-    "scale-unlimited/declaration-strict-value": [
-      TOKENISED,
+    'declaration-property-value-allowed-list': [
       {
-        ignoreValues: NOT_A_DESIGN_DECISION,
-        // Must be a string. Passing a function here silently swallows most of
-        // the rule's own findings -- it reported 1 of 3 on a three-line probe.
+        'box-shadow': [/^(none|inherit|initial|revert|unset|var\(--(elevation|ring)[\w-]*\))$/],
+      },
+      {
         message:
-          "Use a token, not a literal. Pick the nearest step in styles/tokens.css; " +
-          "if none fits, the scale is wrong -- add the step there, not a literal here.",
+          'Shadows come from --elevation-* (depth) or --ring-focus/--ring-halo (a flat ring). ' +
+          'If neither fits, add the step to tokens.css rather than a literal here.',
       },
     ],
 
     /* ------------------------------------------------------------------
-       2. Canonical breakpoints, min-width only.
-
-       640 / 768 / 1024 / 1280 / 1536 match Tailwind's stock sm/md/lg/xl/2xl
-       scale (and allbikes, which hand-writes no breakpoints at all and
-       reads those utilities directly) -- see tailwind-migration.md Phase 1.
-       900px and 1080px are freethedesk's pre-migration values, kept allowed
-       only until Phase 4 converts their remaining consumers (admin.css,
-       DashboardChrome.css, case-study.css, phone-mockup.css, SiteFooter.css,
-       and three .module.css files); do not add new 900px/1080px uses.
-       The codebase had also grown 680 and 980 as well, plus one max-width
-       that inverts the mobile-first direction the whole file is built on.
+       6 and 7. Tints are named rather than re-mixed, and the palette is the
+       foundation's vocabulary rather than a route's.
        ------------------------------------------------------------------ */
-    "media-feature-name-value-allowed-list": {
-      "min-width": ["640px", "768px", "900px", "1024px", "1080px", "1280px", "1536px"],
-    },
-    "media-feature-name-disallowed-list": ["max-width", "max-height"],
-
-    /* ------------------------------------------------------------------
-       3. The two rules tokens.css states in prose and nothing enforced.
-       ------------------------------------------------------------------ */
-    "declaration-property-value-disallowed-list": [
-      {
-        // "Never write a bare `1fr` grid track." A bare 1fr is minmax(auto, 1fr)
-        // and cannot shrink below its content, which overflows and gets clipped.
-        //
-        // The lookbehind is the whole rule. Without it the pattern also matches
-        // the 1fr INSIDE minmax(0, 1fr) -- the correct form -- and reports every
-        // well-written track in the repo as a defect. It flagged 119 of them
-        // before this was fixed; the real count is zero.
-        "grid-template-columns": [/(?<!minmax\([^()]*)(?<![\w.-])1fr\b/],
-        "grid-template-rows": [/(?<!minmax\([^()]*)(?<![\w.-])1fr\b/],
-        "grid-auto-columns": [/(?<!minmax\([^()]*)(?<![\w.-])1fr\b/],
-        "grid-auto-rows": [/(?<!minmax\([^()]*)(?<![\w.-])1fr\b/],
-      },
-      {
-        message: "Bare `1fr` cannot shrink below its content. Use `minmax(0, 1fr)`.",
-      },
-    ],
-
-    /* ------------------------------------------------------------------
-       4. Naming. A new token joins a family; it does not start a private one.
-       ------------------------------------------------------------------ */
-    "custom-property-pattern": [
-      "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
-      { message: "Custom properties are kebab-case: --space-2xs, not --spaceXS." },
-    ],
-
-    /* ------------------------------------------------------------------
-       CSS Modules vocabulary that stylelint-config-standard does not know.
-       ------------------------------------------------------------------ */
-    "selector-pseudo-class-no-unknown": [true, { ignorePseudoClasses: ["global", "local"] }],
-    "property-no-unknown": [true, { ignoreProperties: ["composes"] }],
-    // Modules name classes in camelCase (they are read as JS properties);
-    // global sheets use kebab-case. Both are house style, so allow either.
-    "selector-class-pattern": [
-      "^[a-z][a-zA-Z0-9]*(-[a-z0-9]+)*$",
-      { message: "Class selectors are camelCase in modules, kebab-case in global sheets." },
-    ],
-
-    /* ------------------------------------------------------------------
-       Cosmetic rules from the standard config, off because Prettier already
-       owns formatting and the two disagree.
-       ------------------------------------------------------------------ */
-    "declaration-empty-line-before": null,
-    "comment-empty-line-before": null,
-    "rule-empty-line-before": null,
-    "custom-property-empty-line-before": null,
-    "no-descending-specificity": null,
-    "alpha-value-notation": null,
-    "color-function-notation": null,
-    "value-keyword-case": null,
-    // Wants `(width >= 640px)`. tokens.css mandates min-width prefix notation
-    // and the mobile-first rule is written in terms of it, so keep the prefix.
-    "media-feature-range-notation": "prefix",
-    "color-function-alias-notation": null,
-    // Wants url("..."). A bare string is valid CSS and is what this repo uses.
-    "import-notation": null,
-    "at-rule-empty-line-before": null,
-    "declaration-block-no-redundant-longhand-properties": null,
-    // Off entirely, not merely ignored. `ignoreProperties: ["background-clip"]`
-    // does NOT match "-webkit-background-clip", so --fix stripped the prefix in
-    // six files and broke gradient text in Safari. The rule cannot be trusted
-    // here while the autofix is that eager.
-    "property-no-vendor-prefix": null,
-    // The five pre-existing cases were resolved; duplicates now block regressions.
-    "no-duplicate-selectors": true,
+    'declaration-property-value-disallowed-list': disallowedValues([REMIXED_TINT, PALETTE_RUNG]),
   },
+
+  overrides: [
+    {
+      // styles/ defines the semantic tokens in terms of the ramps and mixes the
+      // tints in the first place, so both of those rules are lifted here - but
+      // the grid-track rule is restated, because an override REPLACES a rule's
+      // options rather than merging them.
+      files: ['src/styles/*.css'],
+      rules: { 'declaration-property-value-disallowed-list': disallowedValues([]) },
+    },
+    {
+      /* --------------------------------------------------------------
+         8. A global foundation file styles elements and tokens.
+
+         base.css and tokens.css are the document's defaults. A selector
+         that *leads* with a class is a component, and a component's rules
+         belong beside it. `main:has(.service-scroll)` stays legal: it
+         styles an element and only names the class as a condition.
+
+         layout.css, forms.css, motion.css and prose.css are exempt on
+         purpose - defining .site-shell, .form-control, .moving-colour-*
+         and .prose is precisely their job.
+         -------------------------------------------------------------- */
+      files: ['src/styles/base.css', 'src/styles/tokens.css'],
+      rules: {
+        'selector-disallowed-list': [
+          [/^\./],
+          {
+            message:
+              'A component selector belongs beside its component, not in a global foundation ' +
+              'file. base.css and tokens.css style elements and define tokens.',
+          },
+        ],
+      },
+    },
+    {
+      /* --------------------------------------------------------------
+         Artwork exceptions (lint-rules.md, "Allowed handwritten CSS"):
+         FlowCardVisual's connectors and FlowCompare's gradient border are
+         drawn, not laid out. Both sit on a dark surface the semantic
+         tokens do not describe, and both carry their reasoning in the
+         stylesheet header. The scale rules still apply to them; only the
+         palette and the shadow shape are excused.
+         -------------------------------------------------------------- */
+      files: ARTWORK_EXCEPTIONS,
+      rules: {
+        'declaration-property-value-allowed-list': null,
+        'declaration-property-value-disallowed-list': disallowedValues([]),
+      },
+    },
+  ],
 };

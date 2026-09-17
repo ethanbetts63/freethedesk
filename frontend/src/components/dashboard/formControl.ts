@@ -17,7 +17,7 @@
  * states its own.
  */
 export const formControlClassName = [
-  'w-full rounded-[var(--radius-xs)] border border-border-strong bg-surface-page',
+  'w-full rounded-xs border border-border-strong bg-surface-page',
   'text-text-primary outline-none',
   'focus:border-border-focus focus:shadow-[0_0_0_2px_var(--focus-ring)]',
 ];

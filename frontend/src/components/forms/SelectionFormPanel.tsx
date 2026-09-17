@@ -27,6 +27,9 @@ export function SelectionFormPanel({
     <div
       className={cn(
         selectionPanelClassName,
+        // A negative page gutter, derived from --gutter itself: the panel bleeds to
+        // the screen edge below sm.
+        // eslint-disable-next-line no-restricted-syntax -- token read, not a literal
         'mx-[calc(var(--gutter)*-1)] [--selection-input-font-size:1rem] [--selection-panel-min-height:560px] [--selection-total-size:2.4rem] sm:mx-0 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)]',
       )}
     >

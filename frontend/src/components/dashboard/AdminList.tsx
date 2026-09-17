@@ -171,7 +171,7 @@ export function AdminFilterBar({
           {legend.map((value) => (
             <span className="inline-flex items-center gap-3xs" key={value}>
               <i
-                className="inline-block h-[10px] w-[10px] rounded-[var(--radius-2xs)] bg-[var(--status-tone)]"
+                className="inline-block h-[10px] w-[10px] rounded-2xs bg-[var(--status-tone)]"
                 style={statusTone(value)}
               />
               {value}

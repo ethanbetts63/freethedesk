@@ -95,12 +95,15 @@ export const totalClassName =
   'mt-auto grid grid-cols-[minmax(0,1fr)] items-center gap-s border-t border-dashed border-border-default pt-l sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-ml';
 export const totalFigureClassName = 'grid gap-4xs';
 export const totalPriceClassName =
+  // Optical kerning after the final glyph, and a size read from the panel's own
+  // --selection-total-size - em-relative and token-derived, not literals.
+  // eslint-disable-next-line no-restricted-syntax -- see above
   'pr-[0.06em] text-[length:var(--selection-total-size,2.8rem)] leading-none tracking-[-0.06em]';
 export const totalCadenceClassName = 'text-meta text-text-muted';
 export const totalSummaryClassName = 'text-small leading-[1.45] font-strong text-text-control';
 
 export const formClassName =
-  'flex flex-col justify-center border-t border-border-subtle bg-surface-tint p-[clamp(30px,3.5vw,48px)] [--selection-input-font-size:0.9rem]';
+  'flex flex-col justify-center border-t border-border-subtle bg-surface-tint p-xl [--selection-input-font-size:0.9rem]';
 export const formTitleClassName =
   'mb-l flex flex-wrap items-baseline justify-between gap-s gap-x-m border-b border-border-subtle pb-ml';
 export const formTitleHeadingClassName = 'm-0 text-step-2 tracking-[-0.04em]';

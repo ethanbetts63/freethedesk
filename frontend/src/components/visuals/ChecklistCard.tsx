@@ -137,7 +137,7 @@ export function ChecklistCard({
 export function LiveDot() {
   return (
     <span
-      className="h-[9px] w-[9px] flex-none rounded-[var(--radius-circle)] bg-fill-success shadow-halo [--ring-halo-colour:var(--fill-success)]"
+      className="h-[9px] w-[9px] flex-none rounded-circle bg-fill-success shadow-halo [--ring-halo-colour:var(--fill-success)]"
       aria-hidden="true"
     />
   );

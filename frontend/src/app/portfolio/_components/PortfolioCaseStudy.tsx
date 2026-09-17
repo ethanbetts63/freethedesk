@@ -243,7 +243,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
 function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig['intro'] }) {
   return (
     <section
-      className="section site-shell grid grid-cols-[minmax(0,1fr)] gap-xl py-[78px] lg:grid-cols-[minmax(0,0.42fr)_minmax(0,1.58fr)] lg:gap-section lg:py-[112px]"
+      className="section site-shell grid grid-cols-[minmax(0,1fr)] gap-xl py-section lg:grid-cols-[minmax(0,0.42fr)_minmax(0,1.58fr)] lg:gap-section"
       id="overview"
     >
       <SectionNumber>{config.eyebrow}</SectionNumber>
@@ -261,7 +261,7 @@ function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig['intro'] 
         ))}
         {/* One row per capability on a phone, two from sm, four from lg. The
             dot is a ::before so the text can wrap under itself. */}
-        <div className="grid grid-cols-[minmax(0,1fr)] border-t border-border-default sm:grid-cols-2 lg:grid-cols-4 [&>span]:relative [&>span]:border-b [&>span]:border-border-default [&>span]:py-m [&>span]:pr-xs [&>span]:pl-ml [&>span]:text-small [&>span]:font-strong [&>span]:text-text-muted [&>span]:before:absolute [&>span]:before:top-[21px] [&>span]:before:left-[2px] [&>span]:before:h-[5px] [&>span]:before:w-[5px] [&>span]:before:rounded-[var(--radius-circle)] [&>span]:before:bg-action-primary [&>span]:before:content-['']">
+        <div className="grid grid-cols-[minmax(0,1fr)] border-t border-border-default sm:grid-cols-2 lg:grid-cols-4 [&>span]:relative [&>span]:border-b [&>span]:border-border-default [&>span]:py-m [&>span]:pr-xs [&>span]:pl-ml [&>span]:text-small [&>span]:font-strong [&>span]:text-text-muted [&>span]:before:absolute [&>span]:before:top-[21px] [&>span]:before:left-[2px] [&>span]:before:h-[5px] [&>span]:before:w-[5px] [&>span]:before:rounded-circle [&>span]:before:bg-action-primary [&>span]:before:content-['']">
           {config.capabilities.map((capability) => (
             <span key={capability}>{capability}</span>
           ))}
@@ -299,6 +299,7 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
           <div className="mt-xl grid max-w-[540px] grid-cols-[auto_minmax(0,1fr)] items-center gap-l border-y border-border-default py-ml">
             {/* The trailing padding is optical kerning after the last glyph:
                 em-relative to the number's own size, not interface spacing. */}
+            {/* eslint-disable-next-line no-restricted-syntax -- Optical kerning after the final glyph: em-relative to the numeral's own size, not interface spacing. */}
             <strong className="moving-colour-text pr-[0.08em] text-display-5 leading-[0.85] tracking-[-0.08em]">
               {config.stat.value}
             </strong>
@@ -351,7 +352,7 @@ function OperationsConsole({ config }: { config: OperationsFeature['console'] })
           >
             {item}{' '}
             {item === config.activeNavigation && (
-              <b className="flex h-[20px] w-[20px] items-center justify-center rounded-[var(--radius-circle)] bg-accent text-tiny text-text-primary">
+              <b className="flex h-[20px] w-[20px] items-center justify-center rounded-circle bg-accent text-tiny text-text-primary">
                 {config.activeCount}
               </b>
             )}
@@ -368,7 +369,7 @@ function OperationsConsole({ config }: { config: OperationsFeature['console'] })
           </div>
           <span className="text-caption text-text-muted">
             {config.status}{' '}
-            <i className="ml-2xs inline-block h-[7px] w-[7px] rounded-[var(--radius-circle)] bg-[var(--status-won)]" />
+            <i className="ml-2xs inline-block h-[7px] w-[7px] rounded-circle bg-[var(--status-won)]" />
           </span>
         </div>
         <div>

@@ -31,9 +31,9 @@ export function LoginPreviewPhone() {
         <p className="m-0 mb-s text-step-0 font-heavy tracking-[-0.04em] text-surface-inverse">
           Welcome back
         </p>
-        <div className="mb-xs h-[20px] rounded-[var(--radius-xs)] border border-border-default bg-surface-tint" />
-        <div className="mb-xs h-[20px] rounded-[var(--radius-xs)] border border-border-default bg-surface-tint" />
-        <div className="mt-2xs flex h-[25px] items-center justify-center rounded-[var(--radius-xs)] bg-[var(--page-accent)] text-micro font-heavy text-text-on-dark">
+        <div className="mb-xs h-[20px] rounded-xs border border-border-default bg-surface-tint" />
+        <div className="mb-xs h-[20px] rounded-xs border border-border-default bg-surface-tint" />
+        <div className="mt-2xs flex h-[25px] items-center justify-center rounded-xs bg-[var(--page-accent)] text-micro font-heavy text-text-on-dark">
           Sign in
         </div>
       </div>

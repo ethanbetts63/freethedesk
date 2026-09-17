@@ -30,16 +30,16 @@ export const adminBackClassName = 'mb-l inline-block text-ui font-heavy text-tex
  * size, deliberately off the type scale.
  */
 export const adminBrandClassName =
-  'text-[1.45rem] font-black not-italic tracking-[-0.085em] [&>span]:text-text-action [&>i]:not-italic [&>i]:text-action-primary';
+  'text-wordmark font-black not-italic tracking-[-0.085em] [&>span]:text-text-action [&>i]:not-italic [&>i]:text-action-primary';
 
 export const adminComposeCardClassName =
   'overflow-hidden rounded-lg border border-border-default bg-surface-page p-ml shadow-xs sm:p-xl';
 
 export const adminComposeBadgeClassName =
-  'rounded-[var(--radius-xs)] bg-surface-tint-strong px-xs py-2xs text-caption font-heavy text-text-muted';
+  'rounded-xs bg-surface-tint-strong px-xs py-2xs text-caption font-heavy text-text-muted';
 
 export const adminConfigLabelClassName =
-  'rounded-[var(--radius-pill)] bg-surface-tint-strong px-xs py-2xs text-meta font-control text-text-muted';
+  'rounded-pill bg-surface-tint-strong px-xs py-2xs text-meta font-control text-text-muted';
 
 /** The dl of brand/URL/version above the capability groups. */
 export const adminConfigBasicsClassName = 'mb-ml border-b border-border-default pb-ml';
@@ -54,7 +54,7 @@ export const adminConfigGroupClassName = [
   'mt-ml',
   '[&>strong]:mb-xs [&>strong]:block [&>strong]:text-micro [&>strong]:tracking-label-tight [&>strong]:text-text-subtle [&>strong]:uppercase',
   '[&>div]:flex [&>div]:flex-wrap [&>div]:gap-2xs',
-  '[&_span]:rounded-[var(--radius-pill)] [&_span]:border [&_span]:border-border-default [&_span]:bg-surface-tint-strong [&_span]:px-xs [&_span]:py-2xs [&_span]:text-ui [&_span]:font-strong',
+  '[&_span]:rounded-pill [&_span]:border [&_span]:border-border-default [&_span]:bg-surface-tint-strong [&_span]:px-xs [&_span]:py-2xs [&_span]:text-ui [&_span]:font-strong',
   '[&_em]:text-ui [&_em]:not-italic [&_em]:text-text-subtle',
 ].join(' ');
 
@@ -81,4 +81,4 @@ export const adminRelatedMessagesClassName = [
 
 /** A delivered message body, shown verbatim. */
 export const adminMessagePreClassName =
-  'm-0 overflow-x-auto rounded-[var(--radius-xs)] border border-border-default bg-surface-tint p-m font-mono text-ui leading-[1.65] whitespace-pre-wrap';
+  'm-0 overflow-x-auto rounded-xs border border-border-default bg-surface-tint p-m font-mono text-ui leading-[1.65] whitespace-pre-wrap';

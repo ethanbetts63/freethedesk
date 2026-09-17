@@ -47,8 +47,7 @@ export function AutomationFeatureVisual() {
         {/* background-clip: text paints the gradient into the glyphs only; the
             status dot is a child with its own background, so it is unaffected. */}
         <b className="moving-colour-text flex items-center gap-xs">
-          <i className="moving-colour-fill h-[6px] w-[6px] rounded-[var(--radius-circle)]" />{' '}
-          Running
+          <i className="moving-colour-fill h-[6px] w-[6px] rounded-circle" /> Running
         </b>
       </header>
       <div className={cn(cardClassName, 'mx-auto mt-l w-[92%] px-ml py-m sm:w-[78%]')}>
@@ -92,7 +91,7 @@ export function AutomationFeatureVisual() {
         <span className="text-label font-heavy tracking-label-tight text-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] uppercase">
           Manual touches
         </span>
-        <strong className="row-span-2 text-[2rem] text-text-on-dark">0</strong>
+        <strong className="row-span-2 text-step-3 text-text-on-dark">0</strong>
         <small className="text-meta font-strong text-text-on-dark">Workflow complete</small>
       </footer>
     </div>

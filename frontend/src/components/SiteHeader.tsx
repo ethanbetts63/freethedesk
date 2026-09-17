@@ -14,7 +14,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-tint-edge bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] backdrop-blur-[14px]">
       <div className="site-shell flex min-h-[68px] items-center justify-between lg:min-h-[78px]">
         <Link
-          className="flex flex-none items-center gap-xs text-[1.35rem] leading-none font-black tracking-[-0.085em]"
+          className="flex flex-none items-center gap-xs text-wordmark leading-none font-black tracking-[-0.085em]"
           href="/"
           aria-label="freethedesk home"
         >
@@ -32,7 +32,7 @@ export function SiteHeader() {
           </span>
         </Link>
         <nav
-          className="hidden items-center gap-[clamp(14px,2vw,36px)] self-stretch text-body font-strong lg:flex"
+          className="hidden items-center gap-l self-stretch text-body font-strong lg:flex"
           aria-label="Primary navigation"
         >
           {PRIMARY_NAVIGATION.map((item) => (

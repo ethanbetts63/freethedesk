@@ -69,6 +69,8 @@ export function AiReadinessDialog({ onClose }: { onClose: () => void }) {
       // AiReadinessModal only ever mounts this below `sm`, where the inline
       // banner is suppressed; `sm:hidden` is the belt to that braces, so a
       // viewport widened while the dialog is open cannot show both at once.
+      // The backdrop insets its dialog by the page gutter.
+      // eslint-disable-next-line no-restricted-syntax -- p-[var(--gutter)] is a token read
       className="fixed inset-0 z-[1000] grid items-center justify-items-center bg-[color-mix(in_srgb,var(--surface-navy)_72%,transparent)] p-[var(--gutter)] sm:hidden"
       onMouseDown={(event) => event.target === event.currentTarget && onClose()}
     >
@@ -81,7 +83,7 @@ export function AiReadinessDialog({ onClose }: { onClose: () => void }) {
       >
         <button
           ref={closeRef}
-          className="absolute top-[8px] right-[10px] z-1 flex h-[var(--tap-min)] w-[var(--tap-min)] cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-[1.8rem] text-text-on-dark-muted hover:text-text-on-dark focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-accent-on-dark-soft"
+          className="absolute top-[8px] right-[10px] z-1 flex h-[var(--tap-min)] w-[var(--tap-min)] cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-step-3 text-text-on-dark-muted hover:text-text-on-dark focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-accent-on-dark-soft"
           type="button"
           onClick={onClose}
         >

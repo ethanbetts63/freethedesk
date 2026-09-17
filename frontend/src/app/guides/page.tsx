@@ -24,7 +24,7 @@ export default function GuidesPage() {
     <main>
       <PageSchema path="/guides" />
 
-      <section className="relative overflow-hidden bg-surface-dark pt-[clamp(88px,10vw,142px)] pb-[clamp(94px,11vw,154px)] text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_5.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_5.5%,transparent)_1px,transparent_1px)] before:[background-size:64px_64px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_82%)] after:absolute after:top-[-26%] after:right-[-8%] after:h-[clamp(230px,34vw,520px)] after:w-[clamp(230px,34vw,520px)] after:rounded-full after:bg-accent after:opacity-[0.12] after:content-[''] after:[filter:blur(1px)]">
+      <section className="relative overflow-hidden bg-surface-dark py-section-tall text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_5.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_5.5%,transparent)_1px,transparent_1px)] before:[background-size:64px_64px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_82%)] after:absolute after:top-[-26%] after:right-[-8%] after:h-[clamp(230px,34vw,520px)] after:w-[clamp(230px,34vw,520px)] after:rounded-full after:bg-accent after:opacity-[0.12] after:content-[''] after:[filter:blur(1px)]">
         <div className="site-shell relative z-1">
           <Eyebrow className="mb-xl gap-xs text-ui tracking-label-wide text-accent">
             Field notes for dealers
@@ -49,10 +49,7 @@ export default function GuidesPage() {
 
       <Breadcrumbs path="/guides" />
 
-      <section
-        className="bg-surface-page py-[clamp(80px,10vw,132px)]"
-        aria-labelledby="latest-guides"
-      >
+      <section className="bg-surface-page py-section-tall" aria-labelledby="latest-guides">
         <div className="site-shell">
           <header className="mb-xl grid grid-cols-1 items-start gap-2xl border-b border-border-default pb-xl lg:grid-cols-[minmax(0,1fr)_minmax(0,0.7fr)] lg:items-end">
             <div>

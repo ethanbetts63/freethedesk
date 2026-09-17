@@ -8,9 +8,18 @@
    away in every component - that reconciliation continues per Phase 2/4. */
 
 @theme inline {
+  /* The whole radius ramp, not three of its seven steps. `rounded-[var(--radius-circle)]`
+     appeared thirteen times and `rounded-[var(--radius-xs)]` eleven because those
+     rungs had no utility name - a bracket around a token reads as an escape from
+     the scale when it is the opposite. Like the shadows below, these deliberately
+     shadow Tailwind's stock `rounded-*` values. */
+  --radius-2xs: var(--radius-2xs);
+  --radius-xs: var(--radius-xs);
   --radius-sm: var(--radius-s);
   --radius-md: var(--radius-m);
   --radius-lg: var(--radius-l);
+  --radius-pill: var(--radius-pill);
+  --radius-circle: var(--radius-circle);
 
   /* Elevation, as `shadow-xs` ... `shadow-block-l`. These deliberately shadow
      Tailwind's stock shadow scale: there is one elevation vocabulary here and
@@ -102,6 +111,9 @@
   /* Page-level vertical rhythm. Named --space-section in the token file to
      match allbikes; freethedesk previously called this --section-space. */
   --spacing-section: var(--space-section);
+  --spacing-section-tall: var(--space-section-tall);
+  --spacing-section-half: var(--space-section-half);
+  --spacing-split: var(--space-split);
 
   /* Named rungs of the shared space scale, so `gap-xs` and `p-m` work the
      same way here as `var(--space-xs)` does in allbikes. */
@@ -138,6 +150,8 @@
   --text-small: 0.78rem;
   --text-body: 0.84rem;
   --text-lead: 0.92rem;
+  --text-glyph: 1.25rem;
+  --text-wordmark: 1.4rem;
 
   /* Fluid heading scale. Exposed under its existing step/display names rather
      than renamed to allbikes' title/display-sm/hero vocabulary - that mapping
@@ -328,6 +342,18 @@
 
   /* Vertical rhythm */
   --space-section: clamp(56px, 9vw, 115px);
+  /* The taller band a hero or an article header wants. Five routes had written
+     this by hand as five different clamps - 78/132, 80/132, 84/138, 88/142 and
+     94/154 - none of which anybody had chosen relative to the others. */
+  --space-section-tall: clamp(84px, 10vw, 140px);
+  /* Two sections that read as one block share a single section's worth of air
+     between them rather than stacking two. */
+  --space-section-half: calc(var(--space-section) / 2);
+  /* The gap between the two halves of a split section. This was seven
+     hand-written clamps between 45/90 and 55/130, which is one decision spelled
+     seven ways. Wider than --space-3xl on purpose: it separates columns, not
+     stacked content. */
+  --space-split: clamp(46px, 7vw, 110px);
 
   /* ---------------------------------------------------------------
      RESPONSIVE FOUNDATION
@@ -436,6 +462,12 @@
   --text-small: 0.78rem;
   --text-body: 0.84rem;
   --text-lead: 0.92rem;
+  /* A character used as an icon - a tick, a chevron, a plus. Sized by eye
+     against the control around it, not by the text scale. */
+  --text-glyph: 1.25rem;
+  /* The brand wordmark at interface size, in the site header and the dashboard
+     header. */
+  --text-wordmark: 1.4rem;
   --weight-normal: 400;
   --weight-medium: 500;
   --weight-semibold: 600;

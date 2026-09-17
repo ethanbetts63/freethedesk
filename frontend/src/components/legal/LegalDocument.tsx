@@ -7,6 +7,9 @@ import { renderMarkdown } from '@/lib/markdown';
 import { gridPaperClassName } from '@/lib/gridSurface';
 import { cn } from '@/lib/utils';
 
+// Uncontrolled rich content: the markup comes from the legal source document,
+// not from this component.
+// eslint-disable-next-line no-restricted-imports -- approved exception
 import styles from './legal.module.css';
 
 export async function LegalDocument({ filename }: { filename: string }) {

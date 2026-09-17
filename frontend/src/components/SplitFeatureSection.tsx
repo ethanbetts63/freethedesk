@@ -18,7 +18,7 @@ const sectionVariants = cva('text-text-secondary', {
 
 const layoutVariants = cva(
   [
-    'group site-shell grid grid-cols-1 items-center gap-[clamp(46px,7vw,100px)]',
+    'group site-shell grid grid-cols-1 items-center gap-split',
     'lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]',
     'lg:group-data-[text-side=right]:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]',
   ],
@@ -27,7 +27,7 @@ const layoutVariants = cva(
       spacing: {
         standard: 'py-section',
         compact: 'pt-2xl pb-xl lg:pt-3xl',
-        joined: 'py-[calc(var(--space-section)/2)]',
+        joined: 'py-section-half',
       },
     },
     defaultVariants: { spacing: 'standard' },

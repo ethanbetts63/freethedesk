@@ -29,7 +29,7 @@ const adminNoticeVariants = cva('border', {
     },
     size: {
       banner: 'my-m rounded-sm p-s text-ui leading-[1.5]',
-      field: 'm-0 rounded-[var(--radius-xs)] p-xs text-caption',
+      field: 'm-0 rounded-xs p-xs text-caption',
     },
   },
   defaultVariants: { tone: 'success', size: 'banner' },

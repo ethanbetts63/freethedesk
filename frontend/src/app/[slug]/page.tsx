@@ -11,6 +11,9 @@ import {
   pageMetadata,
 } from '@/lib/seo';
 
+// Uncontrolled rich content: the markup comes from the article body, so the
+// rules cannot be put on elements by hand.
+// eslint-disable-next-line no-restricted-imports -- approved exception
 import styles from './article.module.css';
 import { cn } from '@/lib/utils';
 
@@ -77,7 +80,7 @@ function ArticleView({ article }: { article: Article }) {
 
   return (
     <>
-      <header className="relative overflow-hidden bg-surface-dark pt-2xl pb-[clamp(84px,10vw,138px)] text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_5%,transparent)_1px,transparent_1px)] before:[background-size:64px_64px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_88%)] after:absolute after:top-[-180px] after:right-[-100px] after:h-[380px] after:w-[380px] after:rounded-full after:bg-accent after:opacity-10 after:content-[''] after:[filter:blur(24px)]">
+      <header className="relative overflow-hidden bg-surface-dark pt-2xl pb-section-tall text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_5%,transparent)_1px,transparent_1px)] before:[background-size:64px_64px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_88%)] after:absolute after:top-[-180px] after:right-[-100px] after:h-[380px] after:w-[380px] after:rounded-full after:bg-accent after:opacity-10 after:content-[''] after:[filter:blur(24px)]">
         <div className="site-shell relative z-1">
           <nav
             className="mb-2xl flex items-center gap-xs text-ui font-strong text-[var(--text-on-dark-subtle)] [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-accent sm:mb-[clamp(70px,9vw,112px)]"
@@ -104,8 +107,8 @@ function ArticleView({ article }: { article: Article }) {
         </div>
       </header>
 
-      <section className="bg-surface-page py-[clamp(78px,10vw,132px)]">
-        <div className="site-shell grid grid-cols-1 items-start justify-center gap-[clamp(52px,8vw,120px)] lg:grid-cols-[210px_minmax(0,760px)]">
+      <section className="bg-surface-page py-section-tall">
+        <div className="site-shell grid grid-cols-1 items-start justify-center gap-split lg:grid-cols-[210px_minmax(0,760px)]">
           <aside className="static flex gap-m border-b border-border-default pb-ml lg:sticky lg:top-[120px] lg:gap-0 lg:border-b-0 lg:pb-0">
             <span className="text-caption font-heavy tracking-label-wide text-text-action uppercase">
               Guide

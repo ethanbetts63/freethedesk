@@ -3,7 +3,7 @@ import { PhoneFrame } from '@/components/visuals/PhoneFrame';
 export function LicensingNextStepPhone() {
   return (
     <PhoneFrame>
-      <div className="relative z-2 flex h-[30px] items-center gap-2xs border-b border-border-subtle bg-surface-page px-s [&>i]:block [&>i]:h-[8px] [&>i]:w-[8px] [&>i]:rounded-[var(--radius-2xs)] [&>i]:bg-border-default">
+      <div className="relative z-2 flex h-[30px] items-center gap-2xs border-b border-border-subtle bg-surface-page px-s [&>i]:block [&>i]:h-[8px] [&>i]:w-[8px] [&>i]:rounded-2xs [&>i]:bg-border-default">
         <i />
         <i />
         <i />
@@ -12,7 +12,7 @@ export function LicensingNextStepPhone() {
         </span>
       </div>
       <div className="h-full bg-surface-tint px-m py-xl text-center">
-        <div className="mx-auto mb-s flex h-[34px] w-[34px] items-center justify-center rounded-[var(--radius-circle)] bg-fill-success text-body text-text-on-dark">
+        <div className="mx-auto mb-s flex h-[34px] w-[34px] items-center justify-center rounded-circle bg-fill-success text-body text-text-on-dark">
           ✓
         </div>
         <h4 className="m-0 mb-3xs text-lead font-control tracking-[-0.03em] text-surface-inverse">

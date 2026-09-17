@@ -53,7 +53,7 @@ export function ExpandableServiceList({
     <section className={cn('site-shell py-section', indentVarsClassName)} id={id}>
       {/* At `sm` the description moves into a second column and sits on the
           heading's baseline, so it spans both of the left column's rows. */}
-      <header className="mb-[clamp(38px,6vw,72px)] grid gap-ml sm:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
+      <header className="mb-2xl grid gap-ml sm:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
         <SectionNumber>{eyebrow}</SectionNumber>
         <h2 className="m-0 max-w-[850px] text-[clamp(2rem,4.8vw,4.8rem)] leading-[0.98] tracking-[-0.06em] sm:col-start-1">
           {title}
@@ -92,7 +92,7 @@ export function ExpandableServiceList({
               </span>
               <span
                 className={cn(
-                  'flex h-[34px] w-[34px] items-center justify-center rounded-[var(--radius-circle)] border border-border-default text-[1.2rem] transition-[rotate] duration-[180ms] ease-[ease] group-open:rotate-45',
+                  'flex h-[34px] w-[34px] items-center justify-center rounded-circle border border-border-default text-glyph transition-[rotate] duration-[180ms] ease-[ease] group-open:rotate-45',
                   accentClassName,
                 )}
                 aria-hidden="true"
@@ -100,6 +100,8 @@ export function ExpandableServiceList({
                 +
               </span>
             </summary>
+            {/* eslint-disable-next-line no-restricted-syntax -- Both values are the list's
+          own local properties, set on the row above; this is a token read. */}
             <div className="pt-0 pr-[var(--services-inset)] pb-xl pl-[var(--services-indent)]">
               <p
                 className={cn(

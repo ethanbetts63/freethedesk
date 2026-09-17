@@ -26,13 +26,13 @@ const adminButtonVariants = cva(focusRingClassName, {
   variants: {
     variant: {
       primary: [
-        'inline-flex cursor-pointer items-center justify-center rounded-[var(--radius-xs)] border-0',
+        'inline-flex cursor-pointer items-center justify-center rounded-xs border-0',
         'bg-surface-dark px-m py-s text-small font-heavy text-text-on-dark',
         'hover:bg-surface-dark-soft',
         disabledBusyClassName,
       ],
       secondary: [
-        'inline-flex cursor-pointer items-center justify-center rounded-[var(--radius-xs)]',
+        'inline-flex cursor-pointer items-center justify-center rounded-xs',
         'border border-border-strong bg-surface-page px-m py-s text-small font-heavy text-text-primary',
         'hover:border-border-strong-hover',
         disabledUnavailableClassName,
@@ -44,7 +44,7 @@ const adminButtonVariants = cva(focusRingClassName, {
        * border change reads as noise.
        */
       quiet: [
-        'inline-flex cursor-pointer items-center justify-center rounded-[var(--radius-xs)]',
+        'inline-flex cursor-pointer items-center justify-center rounded-xs',
         // No colour of its own: the original inherited from whatever panel it sat
         // in (the pagination footer's muted grey, the filter bar's body text),
         // and that is the behaviour worth keeping.

@@ -29,7 +29,7 @@ export function Faq({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <div className="site-shell grid grid-cols-1 gap-[clamp(55px,9vw,130px)] lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
+      <div className="site-shell grid grid-cols-1 gap-split lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
         <div>
           <SectionNumber>{eyebrow}</SectionNumber>
           <h2 className="m-0 text-display-4 leading-[0.93] tracking-[-0.072em] [overflow-wrap:break-word] sm:[overflow-wrap:normal]">

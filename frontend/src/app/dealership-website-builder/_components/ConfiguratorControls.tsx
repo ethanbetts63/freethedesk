@@ -35,21 +35,21 @@ const initialState: ConfiguratorEnquiryState = { status: 'idle' };
 /* The panel is denser than a marketing page: 26px is its own step, and the
    site's form controls are re-set here at interface size rather than the
    generous size a landing form wants. */
-const sectionClassName = 'p-[26px]';
+const sectionClassName = 'p-l';
 
 const labelClassName =
-  'form-label mb-xs text-[0.69rem] font-control tracking-normal text-text-control normal-case';
+  'form-label mb-xs text-ui font-control tracking-normal text-text-control normal-case';
 const controlClassName =
-  'form-control min-h-[50px] border-border-default bg-surface-page px-[14px] py-0 text-[1rem] font-normal text-text-primary placeholder:text-small placeholder:text-text-on-dark-subtle';
+  'form-control min-h-[50px] border-border-default bg-surface-page px-m py-0 font-normal text-text-primary placeholder:text-small placeholder:text-text-on-dark-subtle';
 
 /** The numbered "01 / 02 / 03" heading that opens each step of the panel. */
 function GroupTitle({ number, title, hint }: { number: string; title: string; hint: string }) {
   return (
-    <div className="mb-[19px] flex items-start gap-[11px]">
-      <span className="pt-[2px] text-small font-black text-[var(--page-accent)]">{number}</span>
+    <div className="mb-ml flex items-start gap-s">
+      <span className="pt-4xs text-small font-black text-[var(--page-accent)]">{number}</span>
       <div>
         <strong className="block text-step-0">{title}</strong>
-        <small className="mt-[5px] block text-lead leading-[1.45] text-text-subtle">{hint}</small>
+        <small className="mt-2xs block text-lead leading-[1.45] text-text-subtle">{hint}</small>
       </div>
     </div>
   );
@@ -59,7 +59,7 @@ function SubmitButton({ hasSucceeded }: { hasSucceeded: boolean }) {
   const { pending } = useFormStatus();
   return (
     <MovingColourButton
-      className="mt-[3px]"
+      className="mt-3xs"
       type="submit"
       disabled={pending}
       direction="right"
@@ -146,7 +146,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           <span>Base product</span>
           <b>Included</b>
         </div>
-        <h2 className="mt-[15px] mb-xs text-[1.5rem] tracking-[-0.04em]">
+        <h2 className="mt-m mb-xs text-step-2 tracking-[-0.04em]">
           Build your dealership website.
         </h2>
         <p className="m-0 text-lead leading-[1.55] text-text-subtle">
@@ -161,7 +161,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           title="Brand the website"
           hint="Make the foundation feel like yours."
         />
-        <label className={cn(labelClassName, 'mt-[19px] block')} htmlFor="brand-name">
+        <label className={cn(labelClassName, 'mt-ml block')} htmlFor="brand-name">
           Brand name
         </label>
         <input
@@ -172,9 +172,9 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           maxLength={28}
           placeholder="Your dealership"
         />
-        <label className={cn(labelClassName, 'mt-[19px] block')} htmlFor="current-url">
+        <label className={cn(labelClassName, 'mt-ml block')} htmlFor="current-url">
           Current website{' '}
-          <span className="ml-[5px] text-ui font-strong text-[var(--slate-400)] normal-case">
+          <span className="ml-2xs text-ui font-strong text-[var(--slate-400)] normal-case">
             Optional
           </span>
         </label>
@@ -188,7 +188,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           placeholder="e.g. www.example.com.au"
         />
         <small className="field-hint">Helps us understand your current content and setup.</small>
-        <p className="mt-[14px] mb-0 max-w-[340px] text-ui leading-[1.55] text-text-subtle">
+        <p className="mt-m mb-0 max-w-[340px] text-ui leading-[1.55] text-text-subtle">
           Demo palette — production design and colours are tailored to your brand.
         </p>
       </section>
@@ -213,8 +213,8 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
                 onExpandedChange={() => toggleExpanded(explanationId)}
               >
                 {module.key === 'inventory' && selected.inventory ? (
-                  <div className="mb-s ml-s border-l-2 border-[var(--page-accent)] bg-surface-tint p-[10px] pb-[4px]">
-                    <p className="mt-0 mb-[6px] text-ui font-black tracking-label text-text-subtle uppercase">
+                  <div className="mb-s ml-s border-l-2 border-[var(--page-accent)] bg-surface-tint p-s pb-3xs">
+                    <p className="mt-0 mb-2xs text-ui font-black tracking-label text-text-subtle uppercase">
                       Optional online actions
                     </p>
                     {INVENTORY_OPTIONS.map((option) => {
@@ -243,12 +243,12 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             <div className="flex items-stretch">
               <button
                 type="button"
-                className={cn(capabilityToggleClassName, 'py-[19px]')}
+                className={cn(capabilityToggleClassName, 'py-ml')}
                 onClick={() => setExpanded((current) => ({ ...current, custom: !current.custom }))}
                 aria-expanded={Boolean(expanded.custom)}
                 aria-controls="custom-capability-details"
               >
-                <span className="flex min-w-0 items-center gap-[11px]">
+                <span className="flex min-w-0 items-center gap-s">
                   <span
                     className={cn(
                       capabilityIconClassName,
@@ -269,7 +269,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
                     >
                       Custom capability
                     </strong>
-                    <small className="mt-[5px] block text-lead leading-[1.45] text-text-subtle">
+                    <small className="mt-2xs block text-lead leading-[1.45] text-text-subtle">
                       Tell us what would make this work for you.
                     </small>
                   </span>
@@ -302,18 +302,15 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             </div>
             {expanded.custom && (
               <div
-                className={cn(capabilityPanelClassName, 'mb-[14px] w-full bg-surface-tint')}
+                className={cn(capabilityPanelClassName, 'mb-m w-full bg-surface-tint')}
                 id="custom-capability-details"
               >
-                <label className={cn(labelClassName, 'mb-[10px] block')} htmlFor="custom-request">
+                <label className={cn(labelClassName, 'mb-s block')} htmlFor="custom-request">
                   What would you like your website to do?
                 </label>
                 <textarea
                   id="custom-request"
-                  className={cn(
-                    controlClassName,
-                    'min-h-[112px] px-[14px] py-[13px] leading-[1.5]',
-                  )}
+                  className={cn(controlClassName, 'min-h-[112px] px-m py-s leading-[1.5]')}
                   value={customRequest}
                   onChange={(event) => onCustomRequestChange(event.target.value)}
                   placeholder="e.g. Connect stock, bookings or trade-ins to our existing systems."
@@ -330,7 +327,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
 
       <section className={cn(sectionClassName, 'bg-surface-tint')}>
         <GroupTitle number="03" title="Your details" hint="Send this configuration to our team." />
-        <form className="flex flex-col gap-[14px]" action={formAction}>
+        <form className="flex flex-col gap-m" action={formAction}>
           <input
             type="hidden"
             name="business"
@@ -371,7 +368,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
               required
             />
           </label>
-          <div className="mt-[5px] border-t border-border-default pt-[17px]">
+          <div className="mt-2xs border-t border-border-default pt-m">
             <div className="flex items-center justify-between">
               <span className="text-small text-text-subtle uppercase">Your configuration</span>
               <strong className="text-step-0">
@@ -379,7 +376,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
               </strong>
             </div>
             {summaryItems.length > 0 && (
-              <p className="mt-[10px] mb-0 text-small leading-[1.55] text-text-muted">
+              <p className="mt-s mb-0 text-small leading-[1.55] text-text-muted">
                 {summaryItems.join(' · ')}
               </p>
             )}
@@ -389,7 +386,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             No payment today. We’ll confirm integrations, scope and timing with you first.
           </small>
           <div
-            className="empty:hidden [&_p]:m-0 [&_p]:px-s [&_p]:py-[11px] [&_p]:text-small [&_p]:font-strong [&_p]:leading-[1.55]"
+            className="empty:hidden [&_p]:m-0 [&_p]:px-s [&_p]:py-s [&_p]:text-small [&_p]:font-strong [&_p]:leading-[1.55]"
             aria-live="polite"
           >
             {state.status === 'success' && (

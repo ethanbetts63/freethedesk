@@ -17,7 +17,7 @@ const badgeClassName = 'bg-[var(--slate-100)] text-[var(--blue-800)]';
 
 /** The tick light: a small dot with a soft halo of its own colour. */
 const successDotClassName =
-  'rounded-[var(--radius-circle)] bg-fill-success shadow-halo [--ring-halo-colour:var(--fill-success)]';
+  'rounded-circle bg-fill-success shadow-halo [--ring-halo-colour:var(--fill-success)]';
 
 /** One of the four cells of the 2x2 readiness panel: hairlines only between
  * them, never around the outside, which the border already draws. */
@@ -155,7 +155,7 @@ export const seoServices: Service[] = [
           <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">
             Accessibility
           </span>
-          <b className="col-start-2 text-[0.43rem] font-heavy tracking-label-tight text-accent uppercase">
+          <b className="col-start-2 text-nano font-heavy tracking-label-tight text-accent uppercase">
             Ready
           </b>
         </div>
@@ -164,14 +164,14 @@ export const seoServices: Service[] = [
           <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">
             Stable layout
           </span>
-          <b className="col-start-2 text-[0.43rem] font-heavy tracking-label-tight text-accent uppercase">
+          <b className="col-start-2 text-nano font-heavy tracking-label-tight text-accent uppercase">
             Ready
           </b>
         </div>
         <div className={aiCellClassName}>
           <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
           <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">llms.txt</span>
-          <b className="col-start-2 text-[0.43rem] font-heavy tracking-label-tight text-accent uppercase">
+          <b className="col-start-2 text-nano font-heavy tracking-label-tight text-accent uppercase">
             Found
           </b>
         </div>
@@ -180,7 +180,7 @@ export const seoServices: Service[] = [
           <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">
             robots.txt
           </span>
-          <b className="col-start-2 text-[0.43rem] font-heavy tracking-label-tight text-accent uppercase">
+          <b className="col-start-2 text-nano font-heavy tracking-label-tight text-accent uppercase">
             Open
           </b>
         </div>

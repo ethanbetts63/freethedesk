@@ -880,6 +880,54 @@ impractical. Every warning category needs an issue or migration phase, a known
 count, and a planned date or phase for promotion to error. The final state has
 no warnings.
 
+**Phase 5 is complete.** Both rule sets are now imported rather than copied:
+`freetheplatform/frontend/lint/design-system-eslint.mjs` and
+`stylelint-base.mjs` are the canonical definitions, and allbikes reads the same
+two files, so the sites cannot drift into disagreeing about what a token is for.
+What stays local is what is genuinely site-specific: which files are exceptions,
+and the four Stylelint rules guarding freethedesk's own foundation (the shadow
+allow-list, the re-mixed-tint and palette-rung bans, and the
+no-component-selectors rule on `base.css` and `tokens.css`).
+
+Every rule is an error. `npx eslint src --max-warnings=0`, `npx stylelint
+"src/**/*.css"`, `tsc --noEmit`, Prettier and `npm run build` are all clean, so
+there is no warning backlog to promote later — the "warnings first" escape
+hatch above went unused.
+
+Turning the rules on produced 127 findings. Almost none of them wanted a
+suppression:
+
+- **24 were already tokens**, written as `rounded-[var(--radius-circle)]` (13
+  sites) and `rounded-[var(--radius-xs)]` (11) because those rungs had no
+  utility name. The whole radius ramp is now mapped into `@theme inline`
+  (`--radius-2xs` through `--radius-circle`), and 21 files lost their brackets.
+  A bracket around a token reads as an escape from the scale when it is the
+  opposite; the fix was the theme mapping, not the carve-out.
+- **Four new tokens named decisions that had been made repeatedly by hand.**
+  `--space-split` replaced seven hand-written clamps between 45/90 and 55/130
+  for the gap between the halves of a split section. `--space-section-tall`
+  replaced five different hero-band clamps (78/132, 80/132, 84/138, 88/142,
+  94/154) that nobody had chosen relative to one another.
+  `--space-section-half` names the case where two sections read as one block.
+  `--text-glyph` and `--text-wordmark` fill the two real gaps in the type scale
+  — a character used as an icon, and the brand wordmark at interface size —
+  which six sites had been spelling as literals.
+- **The builder's chrome was snapped onto the scale.** It had been written at
+  2/3/5/6/7/10/11/13/14/15/17/19/26px, none of which is a step. Every value
+  moves by at most 2px.
+- **15 suppressions remain**, in 13 files, each naming the exception it claims:
+  optical kerning after a final glyph (em-relative, not interface spacing);
+  canvas colour strings, which a 2D context cannot read from a CSS variable;
+  the web manifest and theme-colour meta tag, which are JSON and HTML
+  attributes; `PhoneFrame`'s corner radii, measured off a device rather than
+  taken from the ramp; and the two uncontrolled-rich-content stylesheets (the
+  article body and the legal source documents), whose markup does not come from
+  the component, so the rules cannot be put on elements by hand.
+
+The generated preview is excluded from both tools by path
+(`_styles/**` and `_components/previews/**`), which is the boundary 4.15
+established rather than a new concession.
+
 ## Phase 6: remove the old system
 
 After the last consumer migrates:

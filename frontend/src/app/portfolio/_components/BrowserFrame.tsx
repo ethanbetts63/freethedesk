@@ -39,7 +39,7 @@ export function BrowserFrame({
     <div className={cn(caseBrowserClassName, hero && 'rotate-[0.5deg]')}>
       <div className="flex h-[32px] items-center gap-2xs border-b border-border-default bg-surface-tint-strong px-s">
         <TrafficLights />
-        <span className="mx-auto rounded-[var(--radius-xs)] bg-surface-page px-l py-3xs text-nano text-text-subtle lg:px-2xl">
+        <span className="mx-auto rounded-xs bg-surface-page px-l py-3xs text-nano text-text-subtle lg:px-2xl">
           {browserUrl}
         </span>
       </div>

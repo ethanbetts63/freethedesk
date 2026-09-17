@@ -9,7 +9,7 @@ import { LoginPreviewPhone } from './LoginPreviewPhone';
 export function LicensingConfigurationOptions({ eyebrow }: { eyebrow: string }) {
   return (
     <section className="bg-surface-dark py-section text-text-on-dark" id="configuration-options">
-      <div className="site-shell grid grid-cols-[minmax(0,1fr)] items-start gap-[clamp(55px,8vw,110px)] lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+      <div className="site-shell grid grid-cols-[minmax(0,1fr)] items-start gap-split lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
         <div>
           <SectionNumber>{eyebrow}</SectionNumber>
           <h2 className="m-0 text-display-3 leading-[0.94] tracking-[-0.07em] sm:text-display-5">

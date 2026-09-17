@@ -13,20 +13,20 @@ import { CapabilityIcon } from './CapabilityIcon';
  */
 const SIZES = {
   full: {
-    toggle: 'py-[19px]',
+    toggle: 'py-ml',
     icon: 'flex-[0_0_44px] bg-surface-tint [&_svg]:h-[21px] [&_svg]:w-[21px]',
     name: 'text-step-0',
     description: 'text-lead',
     mark: 'h-[24px] w-[24px] flex-[0_0_24px]',
-    explanation: 'bg-surface-tint mb-[14px]',
+    explanation: 'bg-surface-tint mb-m',
   },
   compact: {
-    toggle: 'bg-transparent py-[14px]',
+    toggle: 'bg-transparent py-m',
     icon: 'flex-[0_0_29px] bg-surface-page [&_svg]:h-[16px] [&_svg]:w-[16px]',
     name: 'text-lead',
     description: 'text-small',
     mark: 'h-[21px] w-[21px] flex-[0_0_21px] bg-surface-page',
-    explanation: 'bg-surface-page mb-[11px]',
+    explanation: 'bg-surface-page mb-s',
   },
 } as const;
 
@@ -34,7 +34,7 @@ const SIZES = {
 export const capabilityRowClassName = 'border-t border-border-subtle';
 
 export const capabilityToggleClassName =
-  'flex min-w-0 flex-1 cursor-pointer items-center justify-between bg-surface-page px-[2px] text-left';
+  'flex min-w-0 flex-1 cursor-pointer items-center justify-between bg-surface-page px-4xs text-left';
 
 /** The square icon tile. Inverts onto the accent once its row is selected. */
 export const capabilityIconClassName =
@@ -45,7 +45,7 @@ export const capabilitySelectedIconClassName =
 
 /** The round +/✓ at the end of the row. */
 export const capabilityMarkClassName =
-  'flex items-center justify-center rounded-[var(--radius-circle)] border border-border-default text-[var(--page-accent)] text-lead not-italic';
+  'flex items-center justify-center rounded-circle border border-border-default text-[var(--page-accent)] text-lead not-italic';
 
 export const capabilitySelectedMarkClassName =
   'border-[var(--page-accent)] bg-[var(--page-accent)] text-text-on-dark';
@@ -56,7 +56,7 @@ export const capabilityChevronClassName =
 export const capabilityChevronOpenClassName = 'text-[var(--page-accent)] [&_svg]:rotate-180';
 
 /** The panel that unfolds under a row. Also used by the custom-request panel. */
-export const capabilityPanelClassName = 'border-l-2 border-[var(--page-accent)] px-m py-[15px]';
+export const capabilityPanelClassName = 'border-l-2 border-[var(--page-accent)] px-m py-m';
 
 type CapabilityOptionProps = {
   option: ModuleDefinition | InventoryOptionDefinition;
@@ -89,7 +89,7 @@ export function CapabilityOption({
           onClick={onToggle}
           aria-pressed={selected}
         >
-          <span className="flex min-w-0 items-center gap-[11px]">
+          <span className="flex min-w-0 items-center gap-s">
             <span
               className={cn(
                 capabilityIconClassName,
@@ -110,7 +110,7 @@ export function CapabilityOption({
                 {option.name}
               </strong>
               <small
-                className={cn('mt-[5px] block leading-[1.45] text-text-subtle', size.description)}
+                className={cn('mt-2xs block leading-[1.45] text-text-subtle', size.description)}
               >
                 {option.description}
               </small>
@@ -149,10 +149,10 @@ export function CapabilityOption({
           id={`${explanationId}-details`}
         >
           <p className="mb-s text-lead leading-[1.65] text-text-muted">{option.detail}</p>
-          <ul className="m-0 grid list-none gap-[5px] p-0">
+          <ul className="m-0 grid list-none gap-2xs p-0">
             {option.includes.map((item) => (
               <li
-                className="relative pl-[13px] text-small leading-[1.5] text-text-muted before:absolute before:top-[0.4em] before:left-0 before:h-[4px] before:w-[4px] before:rounded-[var(--radius-circle)] before:bg-[var(--page-accent)] before:content-['']"
+                className="relative pl-s text-small leading-[1.5] text-text-muted before:absolute before:top-[0.4em] before:left-0 before:h-[4px] before:w-[4px] before:rounded-circle before:bg-[var(--page-accent)] before:content-['']"
                 key={item}
               >
                 {item}

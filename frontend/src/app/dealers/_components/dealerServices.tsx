@@ -31,7 +31,7 @@ export const dealerServices: Service[] = [
         <circle cx="46" cy="46" r="12" fill="currentColor" />
         <path
           d="M41 46L45 50L52 42"
-          stroke="#fff"
+          stroke="var(--surface-page)"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"

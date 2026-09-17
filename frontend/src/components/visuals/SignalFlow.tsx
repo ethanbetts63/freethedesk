@@ -130,7 +130,9 @@ export function SignalFlow({ smooth = false }: SignalFlowProps) {
 
   const onResize = useCallback(({ ratio }: { ratio: number }) => {
     sprites.current = {
+      // eslint-disable-next-line no-restricted-syntax -- Canvas: the 2D context takes a colour string and cannot read a CSS variable.
       dark: createDotSprite('#13315c', 'rgba(19, 49, 92, .28)', DOT_RADIUS.dark, ratio),
+      // eslint-disable-next-line no-restricted-syntax -- Canvas: the 2D context takes a colour string and cannot read a CSS variable.
       light: createDotSprite('#3f97da', 'rgba(63, 151, 218, .4)', DOT_RADIUS.light, ratio),
     };
   }, []);

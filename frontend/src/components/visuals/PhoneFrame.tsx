@@ -18,6 +18,9 @@ import { cn } from '@/lib/utils';
  * Every dimension here is literal. These are the proportions of a drawn
  * object, not interface spacing, so no token applies.
  */
+/* eslint-disable no-restricted-syntax -- A drawn object, not an interface element:
+   these are a phone's corner radii, measured off the device, and there is no rung
+   in the radius ramp that means "the corner of a phone". */
 const SIZES = {
   diagram: {
     frame:
@@ -38,6 +41,7 @@ const SIZES = {
     homeBar: false,
   },
 } as const;
+/* eslint-enable no-restricted-syntax */
 
 export function PhoneFrame({
   children,
@@ -75,7 +79,7 @@ export function PhoneFrame({
         children
       )}
       {preset.homeBar ? (
-        <div className="absolute bottom-[8px] left-1/2 z-3 h-[3px] w-[46px] -translate-x-1/2 rounded-[var(--radius-2xs)] bg-surface-page opacity-50" />
+        <div className="absolute bottom-[8px] left-1/2 z-3 h-[3px] w-[46px] -translate-x-1/2 rounded-2xs bg-surface-page opacity-50" />
       ) : null}
     </div>
   );
@@ -102,6 +106,6 @@ export function FloatingPill({ children, className }: { children: ReactNode; cla
 /** The green dot that opens the hero's "live" pill. */
 export function LiveMark() {
   return (
-    <i className="h-[7px] w-[7px] rounded-[var(--radius-circle)] bg-[var(--status-won)] shadow-halo [--ring-halo-colour:var(--status-won)]" />
+    <i className="h-[7px] w-[7px] rounded-circle bg-[var(--status-won)] shadow-halo [--ring-halo-colour:var(--status-won)]" />
   );
 }

@@ -22,7 +22,7 @@ export function GoogleBusinessProfileAudit({
       aria-labelledby="gbp-audit-title"
       id="gbp-audit"
     >
-      <div className="site-shell relative z-1 grid grid-cols-1 gap-[clamp(45px,7vw,90px)] lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+      <div className="site-shell relative z-1 grid grid-cols-1 gap-split lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
         <div>
           <div className="mb-2xl flex items-center gap-s sm:mb-[clamp(48px,6vw,78px)]">
             <span className="flex h-[46px] w-[46px] items-center justify-center rounded-circle bg-surface-page">
@@ -66,10 +66,7 @@ export function GoogleBusinessProfileAudit({
           footer={
             <footer className="moving-colour-fill flex flex-col items-start justify-between gap-xs px-ml py-m sm:flex-row sm:items-center sm:gap-0">
               <span className="flex items-center gap-2xs text-label font-heavy text-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] uppercase">
-                <i
-                  aria-hidden="true"
-                  className="h-[6px] w-[6px] rounded-[var(--radius-circle)] bg-surface-page"
-                />{' '}
+                <i aria-hidden="true" className="h-[6px] w-[6px] rounded-circle bg-surface-page" />{' '}
                 Delivered as
               </span>
               <strong className="text-caption text-text-on-dark">Prioritised action list</strong>

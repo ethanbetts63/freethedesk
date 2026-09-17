@@ -27,7 +27,9 @@ export type NetworkFieldColors = {
 };
 
 export const DEFAULT_NETWORK_COLORS: NetworkFieldColors = {
+  // eslint-disable-next-line no-restricted-syntax -- Canvas: the 2D context takes a colour string and cannot read a CSS variable.
   nodeLight: '#5aaee9',
+  // eslint-disable-next-line no-restricted-syntax -- Canvas: the 2D context takes a colour string and cannot read a CSS variable.
   nodeDark: '#13315c',
   linkStart: '36, 126, 201',
   linkEnd: '19, 49, 92',

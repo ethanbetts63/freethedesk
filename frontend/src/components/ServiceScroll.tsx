@@ -95,7 +95,7 @@ export function ServiceScroll({
         </div>
       ))}
       {showCustomService && (
-        <div className="relative grid grid-cols-[minmax(0,1fr)] items-center gap-[clamp(30px,5vw,64px)] border-t border-border-default px-0 py-3xl text-text-primary sm:grid-cols-[auto_minmax(0,1fr)] lg:grid-cols-[auto_minmax(0,1fr)_auto]">
+        <div className="relative grid grid-cols-[minmax(0,1fr)] items-center gap-2xl border-t border-border-default px-0 py-3xl text-text-primary sm:grid-cols-[auto_minmax(0,1fr)] lg:grid-cols-[auto_minmax(0,1fr)_auto]">
           <div
             className="relative z-1 flex h-[82px] w-[82px] items-center justify-center border border-[color-mix(in_srgb,var(--text-action)_30%,transparent)] bg-[color-mix(in_srgb,var(--text-action)_8%,transparent)] text-text-action sm:h-[112px] sm:w-[112px] [&>svg]:h-[44px] [&>svg]:w-[44px] sm:[&>svg]:h-[58px] sm:[&>svg]:w-[58px]"
             aria-hidden="true"
