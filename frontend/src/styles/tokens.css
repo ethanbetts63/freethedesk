@@ -498,7 +498,9 @@
   --elevation-contrast-m: 0 22px 55px color-mix(in srgb, var(--text-primary) 26%, transparent);
   --elevation-contrast-l: 0 30px 75px color-mix(in srgb, var(--text-primary) 32%, transparent);
 
-  --elevation-block-s: 12px 12px 0 var(--slate-100);
-  --elevation-block-m: 22px 22px 0 var(--slate-100);
-  --elevation-block-l: 24px 24px 0 var(--slate-100);
+  /* The slab's colour is a variable so a section can tint it without restating
+     the offset, the same way --moving-colour-inset works. */
+  --elevation-block-s: 12px 12px 0 var(--elevation-block-colour, var(--slate-100));
+  --elevation-block-m: 22px 22px 0 var(--elevation-block-colour, var(--slate-100));
+  --elevation-block-l: 24px 24px 0 var(--elevation-block-colour, var(--slate-100));
 }
