@@ -24,7 +24,7 @@ export function SectionNumber({
   return (
     <p
       className={cn(
-        'section-number m-0 mb-l text-caption font-black uppercase tracking-[0.14em]',
+        'section-number m-0 mb-l text-caption font-black uppercase tracking-label-wide',
         onDark
           ? 'section-number-light text-section-number-on-dark'
           : 'text-[var(--page-accent,var(--section-number))]',

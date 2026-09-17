@@ -611,8 +611,15 @@ was a rule written to take effect and silently not taking effect, which is why
 Phase 5 lists arbitrary breakpoint variants as an ESLint error rather than a
 style preference.
 
-**Slices landed so far.** Running total: eight stylesheets deleted, 8,226 lines
-of CSS down to 7,348.
+**Slices landed so far.** Running total: eight stylesheets deleted and one
+added (`styles/prose.css`); 8,226 lines of CSS down to 7,450.
+
+Line count is a poor scoreboard for this phase and 4.6 is where that becomes
+obvious: it removed real duplication and the total went *up* by a hundred
+lines, because the token definitions and the paragraphs explaining which step
+to pick cost more than the values they replaced. That is the trade being made
+on purpose. What matters is that a new card now has one shadow to choose from
+a scale of five rather than fifty precedents to copy from.
 
 - **4.1 — `SiteFooter.css` (141) and `ExpandableServiceList.css` (201).** The
   footer's three repeated `color-mix` tints become two local constants named
@@ -686,6 +693,76 @@ of CSS down to 7,348.
   CSS left in the tree is `styles/` — tokens, base, forms, motion, layout,
   globals and the phone mockup — which is foundation and stays.
 
+- **4.6 — the DRY pass: three token families, one prose surface, two grids.**
+  Not a stylesheet deletion. Phase 4 was shrinking the CSS without making the
+  system any tighter, because the duplication had stopped living in the
+  stylesheets and moved into the token contract: the contract is rigorous about
+  colour roles, spacing and type, and silent about elevation, tint strength and
+  label typography. Everywhere it was silent, each call site invented a value.
+
+  **Tints.** Washes and hairlines were written at the call site as a percentage
+  of `--blue-950` over transparent, at 4.5, 5, 5.5, 8, 10 and 12 per cent —
+  six answers to four questions. Four named tokens now: `--tint-grid` (the
+  graph paper), `--tint-wash` (a hover or selected row), `--tint-edge` (the
+  bottom of a translucent sticky surface) and `--tint-rule` (a hairline inside
+  tinted chrome). Available as `bg-tint-wash`, `border-tint-rule` and so on.
+
+  **Elevation.** Roughly fifty hand-written `box-shadow`s, no two alike and no
+  relationship between them. They turned out to be three ideas: *ambient*, a
+  card lifted off a light surface and tinted with the same near-navy as
+  everything else; *contrast*, something floating over a dark section or a
+  photograph, where a blue tint disappears and only a neutral reads; and
+  *block*, the flat offset slab the marketing illustrations use, which is a
+  drawing style rather than a depth cue and has no blur. Five ambient steps,
+  three contrast, three block — `shadow-xs` through `shadow-xl`,
+  `shadow-contrast-*`, `shadow-block-*`. Thirty-five call sites converted to
+  their nearest step. Rings and glows (`0 0 0 Npx`) are deliberately not in
+  this scale: they are a focus treatment, which `lib/controlState.ts` already
+  owns.
+
+  **Label tracking.** The small uppercase label — eyebrow, kicker, column
+  heading, status caption — is the most repeated typographic idea on the site,
+  and it was spelled with twelve different `letter-spacing` values that nobody
+  had chosen relative to each other (0.05 through 0.17em). Three steps now,
+  graded the way tracking actually works rather than by surface: the smaller
+  the type, the more air it wants. `tracking-label-tight` (0.08em) from
+  `--text-ui` up, `tracking-label` (0.12em) for most labels,
+  `tracking-label-wide` (0.15em) for `--text-micro` and below. Ninety-one call
+  sites. Some moved by up to 0.03em, which is the point of having a scale;
+  genuine outliers below `--text-nano` keep their own value.
+
+  **One prose surface.** `article.module.css` and `legal.module.css` were 206
+  lines between them describing the same set of markdown elements, and had
+  already drifted apart on the parts that are genuinely shared — list indents,
+  underline offsets, the rule above an `h2`. `styles/prose.css` is the
+  agreement; each module keeps only what its surface really changes, which is
+  the heading scale, the body colour, and the blockquote (a pull quote in an
+  article, a warning in a legal document). 206 lines down to 108 across three
+  files. It is imported in the `components` layer, not `legacy`: markdown
+  rendered through `dangerouslySetInnerHTML` has no class attributes to hang
+  utilities on, so element selectors are the permanent answer here rather than
+  something awaiting migration. The CSS Modules are unlayered and therefore
+  override it, which is the direction that was wanted.
+
+  **Two grids, not five.** The 42px transactional grid had a fourth copy on the
+  sign-in screen that 4.2 missed. The 64px marketing grid was written out three
+  times — the hero, the footer and the portfolio case study — and the case study
+  drew its line in `--blue-600` at 5.5% while the other two used
+  `--hero-grid-color`. Both line colours are tokens now (`--tint-grid`,
+  `--tint-hero-grid`) and `lib/gridSurface.ts` carries the geometry. What is
+  *not* shared is each surface's fade — a radial mask on the hero, a horizontal
+  one on the case study, three edge gradients on the footer. Those live in the
+  same `background-image` declaration as the grid and cannot be layered on
+  afterwards, so each surface still spells its own out. The colour and the
+  geometry are shared; the fade is not.
+
+  **What this pass deliberately did not do.** The token swaps reach every file,
+  migrated or not, because a token swap is safe in CSS as well as in TSX. But
+  the shadows still written as `box-shadow` in unmigrated modules — the
+  builder preview, the licensing page, the marketing visuals — now reference an
+  elevation token rather than a literal, and that is all. They convert to
+  utilities when their file migrates.
+
 Migrate coherent areas in this order:
 
 1. small shared components and static public sections;
@@ -720,6 +797,12 @@ FreeTheDesk currently gets from Stylelint.
 ESLint must reject:
 
 - raw Tailwind neutral and colour ramps;
+- raw `color-mix()` percentages over a palette ramp where a `--tint-*` token
+  already names that role (added in 4.6, which created the tokens);
+- arbitrary `shadow-[…]` outside the `--elevation-*` scale, except the focus
+  rings and glows in `lib/controlState.ts`, which are not elevation (4.6);
+- arbitrary positive `tracking-[…]` outside the three `--label-tracking-*`
+  steps (4.6);
 - solid `black` or `white` where a semantic role exists;
 - raw brand variables and hexadecimal colours in class strings;
 - raw feedback hues in place of semantic status tokens;
@@ -732,6 +815,8 @@ ESLint must reject:
 Stylelint remains responsible for allowed handwritten CSS and must reject:
 
 - literal design values where a token is required;
+- literal `box-shadow` values and raw `color-mix()` percentages, the CSS-side
+  halves of the two ESLint rules above (4.6);
 - raw palette consumption outside a documented exception;
 - noncanonical breakpoints or desktop-first media queries;
 - invalid token naming and unsafe grid tracks;

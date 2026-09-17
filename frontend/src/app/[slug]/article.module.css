@@ -1,114 +1,16 @@
-/* Markdown-rendered article body (dangerouslySetInnerHTML): these are plain
-   element selectors on purpose - the markdown renderer emits raw HTML, so
-   there's nowhere to attach Tailwind utility classes. Everything else on this
-   page is authored JSX and lives in Tailwind utilities instead. */
-.prose {
-  color: var(--text-primary);
-  font-size: var(--step-0);
-  line-height: 1.78;
-  min-width: 0;
-}
-.prose > :first-child {
-  margin-top: 0;
-}
-.prose h1 {
+/* What an article changes about the shared prose surface in styles/prose.css:
+   it opens with a display heading, and it quotes as a pull quote. Everything
+   else - the type scale, the rule above an h2, lists, links, code, tables - is
+   the agreement, not this file's business. */
+.article h1 {
   font-size: var(--display-3);
   letter-spacing: -0.055em;
   line-height: 1;
   margin: 0 0 var(--space-xl);
 }
-.prose h2 {
-  border-top: 1px solid var(--border-default);
-  font-size: var(--step-3);
-  letter-spacing: -0.04em;
-  line-height: 1.12;
-  margin: var(--space-2xl) 0 var(--space-ml);
-  padding-top: var(--space-xl);
-}
-.prose h3 {
-  font-size: var(--step-2);
-  letter-spacing: -0.025em;
-  line-height: 1.25;
-  margin: var(--space-xl) 0 var(--space-m);
-}
-.prose p {
-  margin: 0 0 var(--space-l);
-}
-.prose ul,
-.prose ol {
-  margin: 0 0 var(--space-xl);
-  padding-left: var(--space-l);
-}
-.prose li {
-  margin-bottom: var(--space-xs);
-  padding-left: var(--space-3xs);
-}
-.prose a {
-  color: var(--text-action);
-  font-weight: var(--weight-strong);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-}
-.prose a:hover {
-  color: var(--action-primary);
-}
-.prose strong {
-  font-weight: var(--weight-heavy);
-}
-.prose blockquote {
+.article blockquote {
   background: var(--surface-tint);
   border-left: 4px solid var(--text-action);
   margin: var(--space-xl) 0;
   padding: var(--space-l) var(--space-xl);
-}
-.prose blockquote p:last-child {
-  margin-bottom: 0;
-}
-.prose hr {
-  border: 0;
-  border-top: 1px solid var(--border-default);
-  margin: var(--space-2xl) 0;
-}
-.prose code {
-  background: var(--surface-tint-strong);
-  border-radius: var(--radius-2xs);
-  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- deliberately relative to the parent, not the scale */
-  font-size: 0.88em;
-  padding: var(--space-4xs) var(--space-2xs);
-}
-.prose pre {
-  background: var(--surface-dark);
-  color: var(--text-on-dark);
-  overflow-x: auto;
-  padding: var(--space-ml);
-}
-.prose pre code {
-  background: transparent;
-  padding: 0;
-}
-.prose table {
-  border-collapse: collapse;
-  display: block;
-  font-size: var(--text-body);
-  margin: var(--space-xl) 0;
-  overflow-x: auto;
-  width: 100%;
-}
-.prose th {
-  background: var(--surface-dark);
-  color: var(--text-on-dark);
-  font-size: var(--text-caption);
-  letter-spacing: 0.06em;
-  padding: var(--space-s) var(--space-m);
-  text-align: left;
-  text-transform: uppercase;
-}
-.prose td {
-  border-bottom: 1px solid var(--border-default);
-  padding: var(--space-s) var(--space-m);
-}
-.prose img {
-  height: auto;
-  max-width: 100%;
 }

@@ -1,33 +1,53 @@
-/* Legal document body (dangerouslySetInnerHTML): plain element selectors on
-   purpose - the markdown renderer emits raw HTML, so there is nowhere to
-   attach a utility class. The document's own chrome - the page, the grid
-   backdrop and the card - is authored JSX and lives in Tailwind utilities in
-   LegalDocument.tsx.
-
-   Deliberately separate from the article prose in app/[slug]/article.module.css.
-   They look similar but are not the same surface: an article is read for its
-   argument and leads with a display heading, a legal document is scanned for a
-   clause and leads with a reference line. */
-.prose {
+/* What a legal document changes about the shared prose surface in
+   styles/prose.css. The two look alike but are read differently: an article is
+   read for its argument and opens with a display heading, a legal document is
+   scanned for a clause and opens with a reference line. Its body is set larger
+   and greyer, its headings smaller, and what an article uses for a pull quote
+   it uses for a warning. */
+.legal {
   --legal-accent: var(--action-primary);
 }
-.prose h1 {
+.legal h1 {
   font-size: var(--display-2);
   letter-spacing: -0.075em;
   line-height: 0.9;
   margin: 0 0 var(--space-l);
 }
 /* The reference line under the title: effective date, version, jurisdiction. */
-.prose h1 + p {
+.legal h1 + p {
   color: var(--legal-accent);
   font-size: var(--text-ui);
   font-weight: var(--weight-control);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   margin-bottom: var(--space-xl);
   text-transform: uppercase;
 }
-.prose aside,
-.prose blockquote {
+.legal h3 {
+  font-size: var(--step-0);
+  margin: var(--space-xl) 0 var(--space-s);
+}
+.legal p,
+.legal li {
+  color: var(--text-muted);
+  font-size: var(--text-body);
+  line-height: 1.78;
+}
+.legal p {
+  margin: 0 0 var(--space-m);
+}
+.legal li {
+  margin: var(--space-xs) 0;
+}
+.legal li::marker {
+  color: var(--legal-accent);
+  font-weight: var(--weight-control);
+}
+.legal a {
+  color: var(--legal-accent);
+  text-underline-offset: 3px;
+}
+.legal aside,
+.legal blockquote {
   background: var(--surface-warning);
   border-left: 4px solid var(--fill-warning);
   color: var(--text-warning);
@@ -36,57 +56,18 @@
   margin: var(--space-xl) 0 var(--space-2xl);
   padding: var(--space-m) var(--space-ml);
 }
-.prose blockquote p {
+.legal blockquote p {
   color: inherit;
   font-size: inherit;
   margin: 0;
 }
-.prose h2 {
-  border-top: 1px solid var(--border-default);
-  font-size: var(--step-2);
-  letter-spacing: -0.04em;
-  line-height: 1.15;
-  margin: var(--space-2xl) 0 var(--space-m);
-  padding-top: var(--space-l);
-}
-.prose h3 {
-  font-size: var(--step-0);
-  margin: var(--space-xl) 0 var(--space-s);
-}
-.prose p,
-.prose li {
-  color: var(--text-muted);
-  font-size: var(--text-body);
-  line-height: 1.78;
-}
-.prose p {
-  margin: 0 0 var(--space-m);
-}
-.prose ul,
-.prose ol {
-  margin: var(--space-m) 0 var(--space-l);
-  padding-left: var(--space-l);
-}
-.prose li {
-  margin: var(--space-xs) 0;
-  padding-left: var(--space-3xs);
-}
-.prose li::marker {
-  color: var(--legal-accent);
-  font-weight: var(--weight-control);
-}
-.prose a {
-  color: var(--legal-accent);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
 
 @media (min-width: 640px) {
-  .prose h1 {
+  .legal h1 {
     font-size: var(--display-6);
   }
-  .prose p,
-  .prose li {
+  .legal p,
+  .legal li {
     font-size: var(--text-lead);
   }
 }

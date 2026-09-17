@@ -87,7 +87,7 @@ export function PaymentConfirmation({
       <div className="absolute inset-0 opacity-[0.72] [&>canvas]:h-full [&>canvas]:w-full">
         <SignalFlow />
       </div>
-      <section className="relative z-2 w-full max-w-[650px] border border-border-default bg-[color-mix(in_srgb,var(--surface-page)_91%,transparent)] p-[clamp(38px,6vw,74px)] text-center shadow-[0_30px_90px_color-mix(in_srgb,var(--blue-950)_12%,transparent)] backdrop-blur-[14px]">
+      <section className="relative z-2 w-full max-w-[650px] border border-border-default bg-[color-mix(in_srgb,var(--surface-page)_91%,transparent)] p-[clamp(38px,6vw,74px)] text-center shadow-xl backdrop-blur-[14px]">
         <span className="mb-xl inline-flex h-[50px] w-[50px] items-center justify-center rounded-circle bg-action-primary text-[1.3rem] text-text-on-dark">
           {state === 'active' ? '✓' : '···'}
         </span>

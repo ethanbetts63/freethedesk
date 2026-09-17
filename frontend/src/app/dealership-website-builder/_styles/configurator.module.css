@@ -31,7 +31,7 @@
   color: var(--controls-accent);
   font-size: var(--demo-text-md);
   font-weight: var(--weight-black);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
 }
 .baseProduct h2 {
@@ -282,7 +282,7 @@
   color: var(--slate-500);
   font-size: var(--demo-text-sm);
   font-weight: var(--weight-black);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   margin: 0 0 6px;
   text-transform: uppercase;
 }

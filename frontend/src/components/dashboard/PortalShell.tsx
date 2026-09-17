@@ -33,10 +33,8 @@ const navClassName = cn(
 );
 
 const navLinkClassName = 'rounded-sm px-s py-xs text-body font-strong lg:p-s';
-const navLinkRestClassName =
-  'text-text-muted hover:bg-[color-mix(in_srgb,var(--blue-950)_8%,transparent)] hover:text-text-primary';
-const navLinkActiveClassName =
-  'bg-[color-mix(in_srgb,var(--blue-950)_8%,transparent)] text-text-primary';
+const navLinkRestClassName = 'text-text-muted hover:bg-tint-wash hover:text-text-primary';
+const navLinkActiveClassName = 'bg-tint-wash text-text-primary';
 
 export function PortalShell({
   role,
@@ -74,7 +72,7 @@ export function PortalShell({
         {/* The section name only earns its line once the rail is vertical. */}
         <div
           className={cn(
-            'mt-xs hidden border-b pb-l text-caption font-heavy tracking-[0.12em] text-text-subtle uppercase lg:block',
+            'mt-xs hidden border-b pb-l text-caption font-heavy tracking-label text-text-subtle uppercase lg:block',
             chromeHairlineClassName,
           )}
         >

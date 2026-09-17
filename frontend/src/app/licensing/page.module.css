@@ -115,7 +115,7 @@
   border: 6px solid var(--surface-inverse);
   /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- phone bezel, a drawn object's dimension */
   border-radius: 26px;
-  box-shadow: 0 30px 60px color-mix(in srgb, var(--text-primary) 40%, transparent);
+  box-shadow: var(--elevation-contrast-l);
   flex: 0 0 auto;
   height: 340px;
   overflow: hidden;
@@ -174,7 +174,7 @@
   background: color-mix(in srgb, var(--surface-page) 94%, transparent);
   border: 1px solid color-mix(in srgb, var(--slate-300) 85%, transparent);
   border-radius: var(--radius-m);
-  box-shadow: 0 14px 30px color-mix(in srgb, var(--slate-900) 20%, transparent);
+  box-shadow: var(--elevation-contrast-s);
   left: 14px;
   padding: var(--space-m) var(--space-s);
   position: absolute;
@@ -298,7 +298,7 @@
   display: block;
   font-size: var(--text-label);
   font-weight: var(--weight-black);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   margin-bottom: var(--space-3xs);
   text-transform: uppercase;
 }

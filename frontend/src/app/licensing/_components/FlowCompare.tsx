@@ -33,7 +33,7 @@ function FlowColumn({
   return (
     <div className={`${styles.flowColumn} ${highlight ? styles.flowColumnHighlight : ''}`}>
       {eyebrow && (
-        <p className="m-0 mb-s text-meta font-black tracking-[0.12em] uppercase moving-colour-text">
+        <p className="m-0 mb-s text-meta font-black tracking-label uppercase moving-colour-text">
           {eyebrow}
         </p>
       )}
@@ -59,7 +59,7 @@ function FlowColumn({
 export function FlowCompare() {
   return (
     <div className="mt-2xl">
-      <p className="m-0 mb-xl text-caption font-control tracking-[0.14em] text-accent-on-dark uppercase">
+      <p className="m-0 mb-xl text-caption font-control tracking-label-wide text-accent-on-dark uppercase">
         What your team does
       </p>
       <div className="grid grid-cols-1 gap-ml lg:grid-cols-2">

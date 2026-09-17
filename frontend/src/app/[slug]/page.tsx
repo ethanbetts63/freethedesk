@@ -12,6 +12,7 @@ import {
 } from '@/lib/seo';
 
 import styles from './article.module.css';
+import { cn } from '@/lib/utils';
 
 export const dynamicParams = false;
 
@@ -86,7 +87,7 @@ function ArticleView({ article }: { article: Article }) {
             <span>/</span>
             <Link href="/guides">Guides</Link>
           </nav>
-          <Eyebrow className="mb-l gap-xs text-caption tracking-[0.14em] text-accent">
+          <Eyebrow className="mb-l gap-xs text-caption tracking-label-wide text-accent">
             Dealer field notes
           </Eyebrow>
           <h1 className="m-0 max-w-[1040px] text-display-6 leading-[0.94] tracking-[-0.07em]">
@@ -95,7 +96,7 @@ function ArticleView({ article }: { article: Article }) {
           <p className="mt-xl max-w-[720px] text-step-1 leading-[1.65] text-[var(--text-on-dark-muted)]">
             {article.excerpt}
           </p>
-          <p className="mt-xl flex flex-wrap items-center gap-xs text-caption font-heavy tracking-[0.07em] text-[var(--text-on-dark-subtle)] uppercase">
+          <p className="mt-xl flex flex-wrap items-center gap-xs text-caption font-heavy tracking-label-tight text-[var(--text-on-dark-subtle)] uppercase">
             By {article.authorName}{' '}
             <i className="hidden h-px w-[28px] bg-[var(--border-on-dark-strong)] sm:block" />{' '}
             Published <time dateTime={article.publishedDate}>{publishedDate}</time>
@@ -106,7 +107,7 @@ function ArticleView({ article }: { article: Article }) {
       <section className="bg-surface-page py-[clamp(78px,10vw,132px)]">
         <div className="site-shell grid grid-cols-1 items-start justify-center gap-[clamp(52px,8vw,120px)] lg:grid-cols-[210px_minmax(0,760px)]">
           <aside className="static flex gap-m border-b border-border-default pb-ml lg:sticky lg:top-[120px] lg:gap-0 lg:border-b-0 lg:pb-0">
-            <span className="text-caption font-heavy tracking-[0.14em] text-text-action uppercase">
+            <span className="text-caption font-heavy tracking-label-wide text-text-action uppercase">
               Guide
             </span>
             <i className="my-ml hidden h-px w-[72px] bg-border-default lg:block" />
@@ -114,13 +115,16 @@ function ArticleView({ article }: { article: Article }) {
               Practical thinking for dealerships that want better systems and less administration.
             </p>
           </aside>
-          <article className={styles.prose} dangerouslySetInnerHTML={{ __html: article.html }} />
+          <article
+            className={cn('prose', styles.article)}
+            dangerouslySetInnerHTML={{ __html: article.html }}
+          />
         </div>
       </section>
 
       <section className="border-t border-border-default bg-surface-tint">
         <div className="site-shell flex min-h-[148px] flex-col items-start justify-center gap-m sm:flex-row sm:items-center sm:justify-between sm:gap-0">
-          <p className="m-0 text-caption font-heavy tracking-[0.12em] text-text-subtle uppercase">
+          <p className="m-0 text-caption font-heavy tracking-label text-text-subtle uppercase">
             Keep exploring
           </p>
           <Link className="group flex items-center gap-xl text-body font-heavy" href="/guides">

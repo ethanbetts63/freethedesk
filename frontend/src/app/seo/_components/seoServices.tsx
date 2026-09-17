@@ -48,7 +48,7 @@ export const seoServices: Service[] = [
     color: 'var(--blue-500)',
     icon: (
       <div
-        className="w-[168px] flex-none border border-border-strong bg-surface-page text-text-primary shadow-[0_12px_28px_color-mix(in_srgb,var(--blue-950)_10%,transparent)] sm:w-[190px]"
+        className="w-[168px] flex-none border border-border-strong bg-surface-page text-text-primary shadow-s sm:w-[190px]"
         aria-hidden="true"
       >
         <div className="flex min-h-[24px] items-center gap-3xs border-b border-border-default bg-surface-tint px-xs">
@@ -57,7 +57,7 @@ export const seoServices: Service[] = [
           <i className={cn('h-[4px] w-[4px] rounded-[var(--radius-circle)]', chromeDotClassName)} />
           <span
             className={cn(
-              'ml-auto text-nano font-heavy tracking-[0.07em] uppercase',
+              'ml-auto text-nano font-heavy tracking-label-tight uppercase',
               chromeLabelClassName,
             )}
           >
@@ -157,7 +157,7 @@ export const seoServices: Service[] = [
           <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">
             Accessibility
           </span>
-          <b className="col-start-2 text-[0.43rem] font-heavy tracking-[0.07em] text-accent uppercase">
+          <b className="col-start-2 text-[0.43rem] font-heavy tracking-label-tight text-accent uppercase">
             Ready
           </b>
         </div>
@@ -166,14 +166,14 @@ export const seoServices: Service[] = [
           <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">
             Stable layout
           </span>
-          <b className="col-start-2 text-[0.43rem] font-heavy tracking-[0.07em] text-accent uppercase">
+          <b className="col-start-2 text-[0.43rem] font-heavy tracking-label-tight text-accent uppercase">
             Ready
           </b>
         </div>
         <div className={aiCellClassName}>
           <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
           <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">llms.txt</span>
-          <b className="col-start-2 text-[0.43rem] font-heavy tracking-[0.07em] text-accent uppercase">
+          <b className="col-start-2 text-[0.43rem] font-heavy tracking-label-tight text-accent uppercase">
             Found
           </b>
         </div>
@@ -182,7 +182,7 @@ export const seoServices: Service[] = [
           <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">
             robots.txt
           </span>
-          <b className="col-start-2 text-[0.43rem] font-heavy tracking-[0.07em] text-accent uppercase">
+          <b className="col-start-2 text-[0.43rem] font-heavy tracking-label-tight text-accent uppercase">
             Open
           </b>
         </div>

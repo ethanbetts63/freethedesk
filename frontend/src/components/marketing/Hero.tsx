@@ -5,6 +5,8 @@ import { Eyebrow } from '@/components/Eyebrow';
 import { PrimaryButton } from '@/components/PrimaryButton';
 import { NetworkField } from '@/components/visuals/NetworkField';
 import type { PagePath } from '@/lib/pages';
+import { heroGridClassName } from '@/lib/gridSurface';
+import { cn } from '@/lib/utils';
 
 type HeroProps = {
   /** Set to float the breadcrumb trail over the top-right of the hero. */
@@ -44,7 +46,12 @@ export function Hero({
       <div className="absolute inset-0 z-[-2] hidden [&>canvas]:h-full [&>canvas]:w-full lg:block">
         <NetworkField />
       </div>
-      <div className="absolute inset-0 z-[-1] pointer-events-none [background-image:linear-gradient(rgba(var(--hero-grid-color),var(--hero-grid-opacity))_1px,transparent_1px),linear-gradient(90deg,rgba(var(--hero-grid-color),var(--hero-grid-opacity))_1px,transparent_1px)] [background-size:var(--hero-grid-size)_var(--hero-grid-size)] [mask-image:radial-gradient(circle_at_65%_50%,var(--text-primary),transparent_72%)]" />
+      <div
+        className={cn(
+          heroGridClassName,
+          'z-[-1] [mask-image:radial-gradient(circle_at_65%_50%,var(--text-primary),transparent_72%)]',
+        )}
+      />
       {path && <Breadcrumbs path={path} variant="overlay" />}
       <div className="site-shell pointer-events-none py-3xl [&_a]:pointer-events-auto">
         <div>
@@ -83,7 +90,7 @@ export function Hero({
             </Link>
           </div>
           {trustLine ? (
-            <p className="m-0 mt-xl text-caption font-strong tracking-[0.09em] text-text-muted uppercase">
+            <p className="m-0 mt-xl text-caption font-strong tracking-label-tight text-text-muted uppercase">
               {trustLine}
             </p>
           ) : null}

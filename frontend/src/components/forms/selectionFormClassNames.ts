@@ -17,7 +17,7 @@ export const chooserHeadingClassName =
   'm-0 text-display-1 leading-[1.02] tracking-[-0.058em] text-text-secondary';
 
 export const choiceGroupHeadingClassName =
-  'm-0 mb-s border-b border-border-subtle pb-xs text-micro font-strong tracking-[0.12em] text-[var(--page-accent,var(--action-primary))] uppercase';
+  'm-0 mb-s border-b border-border-subtle pb-xs text-micro font-strong tracking-label text-[var(--page-accent,var(--action-primary))] uppercase';
 
 export const totalClassName =
   'mt-auto grid grid-cols-[minmax(0,1fr)] items-center gap-s border-t border-dashed border-border-default pt-l sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-ml';
@@ -33,7 +33,7 @@ export const formTitleClassName =
   'mb-l flex flex-wrap items-baseline justify-between gap-s gap-x-m border-b border-border-subtle pb-ml';
 export const formTitleHeadingClassName = 'm-0 text-step-2 tracking-[-0.04em]';
 export const pillClassName =
-  'flex-none bg-surface-tint-strong px-xs py-2xs text-label font-strong tracking-[0.09em] text-text-action uppercase whitespace-nowrap';
+  'flex-none bg-surface-tint-strong px-xs py-2xs text-label font-strong tracking-label-tight text-text-action uppercase whitespace-nowrap';
 export const fieldRowClassName = 'grid grid-cols-[minmax(0,1fr)] gap-m sm:grid-cols-2';
 export const fieldLabelClassName = 'mb-m block text-caption font-control text-text-control';
 export const fieldLabelSpanClassName = 'mb-xs block';

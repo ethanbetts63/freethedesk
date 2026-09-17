@@ -6,7 +6,7 @@
 
 .browser {
   background: var(--surface-page);
-  box-shadow: 0 30px 75px color-mix(in srgb, var(--text-primary) 20%, transparent);
+  box-shadow: var(--elevation-contrast-l);
   color: var(--text-primary);
   min-width: 0;
   transform-origin: center right;
@@ -47,7 +47,7 @@
   display: none;
   font-size: var(--text-nano);
   justify-self: end;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--label-tracking-tight);
   text-transform: uppercase;
 }
 
@@ -100,7 +100,7 @@
   color: var(--section-accent);
   font-size: var(--text-nano);
   font-weight: var(--weight-black);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
 }
 

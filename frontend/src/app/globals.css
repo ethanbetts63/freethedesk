@@ -31,3 +31,10 @@
 @import '../styles/motion.css' layer(legacy);
 @import '../styles/forms.css' layer(legacy);
 @import '../styles/phone-mockup.css' layer(legacy);
+
+/* The shared prose surface. In `components` rather than `legacy` because it is
+   not awaiting migration: markdown-rendered HTML has no class attributes to
+   hang utilities on, so element selectors are the permanent answer here. Each
+   consumer's CSS Module is unlayered and therefore overrides it, which is the
+   intended direction. */
+@import '../styles/prose.css' layer(components);

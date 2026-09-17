@@ -52,7 +52,7 @@ export function FloatingPageCta({
       aria-hidden={!visible}
     >
       <MovingColourButton
-        className="w-full shadow-[0_12px_32px_color-mix(in_srgb,var(--surface-inverse)_24%,transparent)] sm:w-auto"
+        className="w-full shadow-contrast-s sm:w-auto"
         href={href}
         direction="down"
       >

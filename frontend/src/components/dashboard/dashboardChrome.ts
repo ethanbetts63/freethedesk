@@ -10,8 +10,7 @@
  * rule, and these are meant to be felt rather than seen. A tint of the same
  * near-black the chrome is built from.
  */
-export const chromeHairlineClassName =
-  'border-[color-mix(in_srgb,var(--blue-950)_12%,transparent)]';
+export const chromeHairlineClassName = 'border-tint-rule';
 
 /** The full-screen "Loading…" placeholder shown before auth resolves. */
 export const adminLoadingClassName =

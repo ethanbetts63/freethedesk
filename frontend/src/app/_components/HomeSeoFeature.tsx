@@ -16,7 +16,7 @@ export function HomeSeoFeature() {
             ongoing website SEO report, a one-time Google Business Profile audit, or use both. The
             AI readiness check is free.
           </span>
-          <PrimaryButton className="self-start tracking-[0.06em]" href="/seo" size="compact">
+          <PrimaryButton className="self-start tracking-label-tight" href="/seo" size="compact">
             Explore SEO reports
           </PrimaryButton>
         </div>

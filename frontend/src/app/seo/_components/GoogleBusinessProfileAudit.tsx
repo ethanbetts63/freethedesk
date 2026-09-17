@@ -30,7 +30,7 @@ export function GoogleBusinessProfileAudit({
               <GoogleLogo size={31} />
             </span>
             <span>
-              <small className="mb-3xs block text-label font-black tracking-[0.09em] text-accent uppercase">
+              <small className="mb-3xs block text-label font-black tracking-label-tight text-accent uppercase">
                 One-time audit · available alone or with SEO
               </small>
               <strong className="block text-small">Google Business Profile</strong>

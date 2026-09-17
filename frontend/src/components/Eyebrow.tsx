@@ -23,7 +23,7 @@ export function Eyebrow({
     <p
       className={cn(
         'eyebrow m-0 mb-l flex items-center gap-s',
-        'text-caption font-heavy uppercase tracking-[0.17em]',
+        'text-caption font-heavy uppercase tracking-label-wide',
         'text-[var(--eyebrow-accent,var(--text-action))]',
         className,
       )}

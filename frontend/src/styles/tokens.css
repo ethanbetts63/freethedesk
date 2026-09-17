@@ -12,6 +12,33 @@
   --radius-md: var(--radius-m);
   --radius-lg: var(--radius-l);
 
+  /* Elevation, as `shadow-xs` ... `shadow-block-l`. These deliberately shadow
+     Tailwind's stock shadow scale: there is one elevation vocabulary here and
+     `shadow-md` is not part of it. */
+  --shadow-xs: var(--elevation-xs);
+  --shadow-s: var(--elevation-s);
+  --shadow-m: var(--elevation-m);
+  --shadow-l: var(--elevation-l);
+  --shadow-xl: var(--elevation-xl);
+  --shadow-contrast-s: var(--elevation-contrast-s);
+  --shadow-contrast-m: var(--elevation-contrast-m);
+  --shadow-contrast-l: var(--elevation-contrast-l);
+  --shadow-block-s: var(--elevation-block-s);
+  --shadow-block-m: var(--elevation-block-m);
+  --shadow-block-l: var(--elevation-block-l);
+
+  /* Label tracking, as `tracking-label`, `tracking-label-tight`,
+     `tracking-label-wide`. */
+  --tracking-label-tight: var(--label-tracking-tight);
+  --tracking-label: var(--label-tracking);
+  --tracking-label-wide: var(--label-tracking-wide);
+
+  /* Tints, as `bg-tint-wash`, `border-tint-rule` and so on. */
+  --color-tint-grid: var(--tint-grid);
+  --color-tint-wash: var(--tint-wash);
+  --color-tint-edge: var(--tint-edge);
+  --color-tint-rule: var(--tint-rule);
+
   --color-surface-page: var(--surface-page);
   --color-surface-tint: var(--surface-tint);
   --color-surface-tint-strong: var(--surface-tint-strong);
@@ -396,4 +423,79 @@
   --weight-strong: 700;
   --weight-heavy: 800;
   --weight-black: 900;
+
+  /* ---------------------------------------------------------------
+     LABEL TRACKING
+     ---------------------------------------------------------------
+     The small uppercase label - eyebrow, kicker, column heading, status
+     caption - is the most repeated typographic idea on the site, and before
+     this it was spelled with twelve different letter-spacing values that
+     nobody had chosen relative to each other. Three steps, graded the way
+     tracking actually works: the smaller the type, the more air it wants.
+
+     Pick by the size of the label, not by the surface it sits on.
+     --------------------------------------------------------------- */
+  /* From --text-ui up: a label large enough to hold together on its own. */
+  --label-tracking-tight: 0.08em;
+  /* --text-meta to --text-caption: the default. Most labels are this one. */
+  --label-tracking: 0.12em;
+  /* --text-micro and below, and anything set in --weight-black, where the
+     letterforms crowd without extra room. */
+  --label-tracking-wide: 0.15em;
+
+  /* ---------------------------------------------------------------
+     TINTS
+     ---------------------------------------------------------------
+     Washes and hairlines drawn as a percentage of --blue-950 over
+     transparent. They were previously written out at the call site at
+     4.5, 5, 5.5, 8, 10 and 12 per cent, which is six answers to four
+     questions. Each of these has a role; if a new surface needs a tint,
+     it takes the closest one rather than inventing a seventh.
+     --------------------------------------------------------------- */
+  /* The 42px graph paper over the transactional surfaces. */
+  --tint-grid: color-mix(in srgb, var(--blue-950) 5.5%, transparent);
+  /* The 64px graph paper behind the marketing hero, the footer and the
+     portfolio case studies. A separate value because it is a separate
+     drawing: wider spacing, a bluer and fainter line, and it is meant to
+     read as paper rather than as a transaction grid. */
+  --tint-hero-grid: rgba(var(--hero-grid-color), var(--hero-grid-opacity));
+  /* A hover or selected wash behind an interactive row. */
+  --tint-wash: color-mix(in srgb, var(--blue-950) 8%, transparent);
+  /* The bottom edge of a translucent sticky surface, where a solid border
+     would show its own colour through the blur. */
+  --tint-edge: color-mix(in srgb, var(--blue-950) 10%, transparent);
+  /* A hairline between blocks inside tinted chrome, where --border-default
+     reads as a hard rule. */
+  --tint-rule: color-mix(in srgb, var(--blue-950) 12%, transparent);
+
+  /* ---------------------------------------------------------------
+     ELEVATION
+     ---------------------------------------------------------------
+     Three families, five distances, and no other shadows. The site had
+     roughly fifty hand-written box-shadows before this, all of them one of
+     these three ideas at an arbitrary offset and opacity.
+
+     Ambient is the default: a card lifted off a light surface, tinted with
+     the same near-navy everything else is tinted with. Contrast is for
+     something floating over a dark section, a photograph or a video, where a
+     blue tint disappears and only a neutral reads. Block is the flat offset
+     slab the marketing illustrations use, which is a drawing style rather
+     than a depth cue and deliberately has no blur.
+
+     Pick by how far the thing is meant to be off the page, not by how much
+     shadow the design looks like it wants.
+     --------------------------------------------------------------- */
+  --elevation-xs: 0 8px 20px color-mix(in srgb, var(--blue-950) 6%, transparent);
+  --elevation-s: 0 12px 30px color-mix(in srgb, var(--blue-950) 10%, transparent);
+  --elevation-m: 0 22px 55px color-mix(in srgb, var(--blue-950) 12%, transparent);
+  --elevation-l: 0 28px 75px color-mix(in srgb, var(--blue-950) 14%, transparent);
+  --elevation-xl: 0 35px 90px color-mix(in srgb, var(--blue-950) 18%, transparent);
+
+  --elevation-contrast-s: 0 12px 30px color-mix(in srgb, var(--text-primary) 22%, transparent);
+  --elevation-contrast-m: 0 22px 55px color-mix(in srgb, var(--text-primary) 26%, transparent);
+  --elevation-contrast-l: 0 30px 75px color-mix(in srgb, var(--text-primary) 32%, transparent);
+
+  --elevation-block-s: 12px 12px 0 var(--slate-100);
+  --elevation-block-m: 22px 22px 0 var(--slate-100);
+  --elevation-block-l: 24px 24px 0 var(--slate-100);
 }

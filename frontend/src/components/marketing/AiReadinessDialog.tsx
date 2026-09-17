@@ -74,7 +74,7 @@ export function AiReadinessDialog({ onClose }: { onClose: () => void }) {
     >
       <div
         ref={dialogRef}
-        className="relative max-h-[calc(100dvh-(var(--gutter)*2))] w-[min(100%,440px)] overflow-auto shadow-[0_24px_80px_color-mix(in_srgb,var(--surface-navy)_55%,transparent)]"
+        className="relative max-h-[calc(100dvh-(var(--gutter)*2))] w-[min(100%,440px)] overflow-auto shadow-contrast-l"
         role="dialog"
         aria-modal="true"
         aria-labelledby="ai-readiness-modal-title"

@@ -44,7 +44,7 @@
   font-size: var(--text-label);
   font-weight: var(--weight-black);
   justify-content: space-between;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--label-tracking);
   padding-bottom: var(--space-m);
   text-transform: uppercase;
 }
@@ -86,7 +86,7 @@
   color: var(--action-primary);
   font-size: var(--text-tiny);
   font-weight: var(--weight-black);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
 }
 .event strong {
@@ -173,7 +173,7 @@
   color: color-mix(in srgb, var(--surface-page) 82%, transparent);
   font-size: var(--text-label);
   font-weight: var(--weight-heavy);
-  letter-spacing: 0.09em;
+  letter-spacing: var(--label-tracking-tight);
   text-transform: uppercase;
 }
 .visual footer strong {

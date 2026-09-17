@@ -18,7 +18,7 @@ export function PortalSteps({ children }: { children: ReactNode }) {
 
 export function PortalStep({ title, children }: { title: ReactNode; children: ReactNode }) {
   return (
-    <li className="relative border-l-2 border-border-default pl-m [counter-increment:portal-step] before:absolute before:top-[-1px] before:left-[16px] before:text-micro before:font-heavy before:tracking-[0.08em] before:text-text-subtle before:content-['0'_counter(portal-step)]">
+    <li className="relative border-l-2 border-border-default pl-m [counter-increment:portal-step] before:absolute before:top-[-1px] before:left-[16px] before:text-micro before:font-heavy before:tracking-label-tight before:text-text-subtle before:content-['0'_counter(portal-step)]">
       <strong className="block pt-m text-body">{title}</strong>
       <span className="mt-3xs block text-small leading-[1.55] text-text-muted">{children}</span>
     </li>

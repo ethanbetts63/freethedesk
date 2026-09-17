@@ -1,7 +1,7 @@
 .browser {
   background: var(--surface-page);
   border: 1px solid var(--slate-200);
-  box-shadow: 0 20px 55px color-mix(in srgb, var(--blue-950) 11%, transparent);
+  box-shadow: var(--elevation-m);
   flex: 1;
   min-height: 0;
   overflow-x: hidden;
@@ -40,7 +40,7 @@
   color: var(--action-primary);
   font-size: var(--demo-text-sm);
   justify-self: end;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--label-tracking-tight);
   text-transform: uppercase;
   display: none;
 }
@@ -144,7 +144,7 @@
   color: var(--action-primary);
   font-size: var(--demo-text-sm);
   font-weight: var(--weight-black);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
 }
 .heroCopy h2 {
@@ -330,7 +330,7 @@
   display: block;
   color: var(--action-primary);
   font-size: var(--demo-text-sm);
-  letter-spacing: 0.08em;
+  letter-spacing: var(--label-tracking-tight);
   margin: 2px 0;
 }
 .reviewsBlock > div:first-child small {
@@ -374,7 +374,7 @@
   color: var(--action-primary);
   font-size: var(--demo-text-md);
   font-weight: var(--weight-black);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
 }
 .aboutBlock h3 {
@@ -467,7 +467,7 @@
 .contactBand small {
   display: block;
   font-size: var(--demo-text-xs);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   margin-bottom: 4px;
   opacity: 0.72;
   text-transform: uppercase;
@@ -518,7 +518,7 @@
   color: var(--text-on-dark);
   display: block;
   font-size: var(--demo-text-xs);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   margin-bottom: 8px;
   text-transform: uppercase;
 }
@@ -692,7 +692,7 @@
   display: block;
   font-size: var(--demo-text-sm);
   font-weight: var(--weight-black);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
 }
 .exampleHeading h2 {
@@ -728,7 +728,7 @@
 .inventoryTile:hover,
 .inventoryTile:focus-visible {
   border-color: var(--action-primary);
-  box-shadow: 0 8px 20px color-mix(in srgb, var(--blue-950) 10%, transparent);
+  box-shadow: var(--elevation-xs);
   outline: 0;
   transform: translateY(-2px);
 }
@@ -774,7 +774,7 @@
   color: var(--action-primary);
   font-size: var(--demo-text-sm);
   font-weight: var(--weight-black);
-  letter-spacing: 0.14em;
+  letter-spacing: var(--label-tracking-wide);
   text-transform: uppercase;
 }
 .inventoryHero h2 {
@@ -861,7 +861,7 @@
   font-size: var(--demo-text-xs);
   font-style: normal;
   font-weight: var(--weight-black);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   margin-bottom: 2px;
   text-transform: uppercase;
 }
@@ -899,7 +899,7 @@
   color: color-mix(in srgb, var(--action-primary) 70%, var(--surface-page));
   font-size: var(--demo-text-xs);
   font-weight: var(--weight-black);
-  letter-spacing: 0.09em;
+  letter-spacing: var(--label-tracking-tight);
   text-transform: uppercase;
 }
 .stockNewsletter strong {
@@ -953,7 +953,7 @@
   display: block;
   font-size: var(--demo-text-xs);
   font-weight: var(--weight-black);
-  letter-spacing: 0.07em;
+  letter-spacing: var(--label-tracking-tight);
   margin-bottom: 5px;
   text-transform: uppercase;
 }
@@ -1064,7 +1064,7 @@
   font-size: var(--demo-text-xs);
   font-weight: var(--weight-black);
   left: 13px;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--label-tracking-tight);
   position: absolute;
   text-transform: uppercase;
 }
@@ -1106,7 +1106,7 @@
   color: var(--action-primary);
   font-size: var(--demo-text-xs);
   font-weight: var(--weight-black);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
 }
 .vehicleTitle h2 {
@@ -1130,7 +1130,7 @@
 .vehicleSpecifications h3,
 .vehicleDescription h3 {
   font-size: var(--demo-text-md);
-  letter-spacing: 0.07em;
+  letter-spacing: var(--label-tracking-tight);
   margin: 0 0 10px;
   text-transform: uppercase;
 }
@@ -1682,7 +1682,7 @@
 }
 .hireGrid .selectedHireCard {
   border-color: var(--action-primary);
-  box-shadow: 0 8px 18px color-mix(in srgb, var(--blue-950) 10%, transparent);
+  box-shadow: var(--elevation-xs);
   transform: translateY(-2px);
 }
 .hireGrid article > small {
@@ -1835,7 +1835,7 @@
   color: color-mix(in srgb, var(--action-primary) 72%, var(--surface-page));
   font-size: var(--demo-text-xs);
   font-weight: var(--weight-black);
-  letter-spacing: 0.14em;
+  letter-spacing: var(--label-tracking-wide);
   text-transform: uppercase;
 }
 .serviceHeroCopy h2 {
@@ -1884,7 +1884,7 @@
 }
 .serviceBookingCard {
   background: var(--surface-page);
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text-primary) 25%, transparent);
+  box-shadow: var(--elevation-contrast-m);
   min-height: 0;
   padding: 19px;
 }
@@ -1929,7 +1929,7 @@
   display: block;
   font-size: var(--demo-text-xs);
   font-weight: var(--weight-black);
-  letter-spacing: 0.07em;
+  letter-spacing: var(--label-tracking-tight);
   margin-bottom: 6px;
   text-transform: uppercase;
 }
@@ -1965,7 +1965,7 @@
   display: block;
   font-size: var(--demo-text-xs);
   font-weight: var(--weight-black);
-  letter-spacing: 0.07em;
+  letter-spacing: var(--label-tracking-tight);
   margin-bottom: 6px;
   text-transform: uppercase;
 }
@@ -1973,7 +1973,7 @@
   color: var(--slate-600);
   display: block;
   font-size: var(--demo-text-xs);
-  letter-spacing: 0.07em;
+  letter-spacing: var(--label-tracking-tight);
   text-transform: uppercase;
 }
 .jobTypeField > p,
@@ -2057,7 +2057,7 @@
   color: var(--action-primary);
   font-size: var(--demo-text-xs);
   font-weight: var(--weight-black);
-  letter-spacing: 0.08em;
+  letter-spacing: var(--label-tracking-tight);
   text-transform: uppercase;
 }
 .bookingReview dl {
@@ -2127,7 +2127,7 @@
 .serviceReviews > div strong span {
   color: var(--action-primary);
   font-size: var(--demo-text-md);
-  letter-spacing: 0.05em;
+  letter-spacing: var(--label-tracking-tight);
 }
 .serviceReviews > div p {
   color: var(--slate-500);
@@ -2174,7 +2174,7 @@
   color: var(--action-primary);
   font-size: var(--demo-text-xs);
   font-weight: var(--weight-black);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
 }
 .serviceWork > header h3 {
@@ -2336,7 +2336,7 @@
   color: color-mix(in srgb, var(--action-primary) 68%, var(--surface-page));
   font-size: var(--demo-text-xs);
   font-weight: var(--weight-black);
-  letter-spacing: 0.08em;
+  letter-spacing: var(--label-tracking-tight);
   text-transform: uppercase;
 }
 .contactPageDetails h3 {

@@ -12,6 +12,7 @@ import { formControlClassName } from '@/components/dashboard/formControl';
 import { adminLoadingClassName } from '@/components/dashboard/dashboardChrome';
 import { cn } from '@/lib/utils';
 import { adminBrandClassName, adminKickerClassName } from '@/components/dashboard/adminLayout';
+import { gridPaperBeforeClassName } from '@/lib/gridSurface';
 
 function LoginContent() {
   const { user, loading, login } = useAuth();
@@ -44,11 +45,16 @@ function LoginContent() {
   }
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-surface-tint p-xl before:pointer-events-none before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-950)_5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-950)_5%,transparent)_1px,transparent_1px)] before:[background-size:42px_42px]">
+    <main
+      className={cn(
+        'relative flex min-h-screen items-center justify-center overflow-hidden bg-surface-tint p-xl',
+        gridPaperBeforeClassName,
+      )}
+    >
       <div className="pointer-events-none absolute inset-0 opacity-[0.78] [&>canvas]:h-full [&>canvas]:w-full">
         <SignalFlow />
       </div>
-      <section className="relative z-1 w-full max-w-[450px] border border-[color-mix(in_srgb,var(--slate-300)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] px-ml py-xl shadow-[0_25px_70px_color-mix(in_srgb,var(--blue-950)_12%,transparent)] backdrop-blur-[13px] sm:p-xl">
+      <section className="relative z-1 w-full max-w-[450px] border border-[color-mix(in_srgb,var(--slate-300)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] px-ml py-xl shadow-l backdrop-blur-[13px] sm:p-xl">
         <Link className={adminBrandClassName} href="/">
           free<span>the</span>desk<i>.</i>
         </Link>

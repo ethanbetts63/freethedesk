@@ -1,7 +1,7 @@
 .card {
   background: var(--surface-page);
   border: 1px solid var(--slate-300);
-  box-shadow: 12px 12px 0 var(--slate-100);
+  box-shadow: var(--elevation-block-s);
   min-width: 0;
   position: relative;
 }
@@ -61,7 +61,7 @@
   color: var(--text-action);
   font-size: var(--text-label);
   font-weight: var(--weight-black);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   margin-left: auto;
   padding: var(--space-2xs) var(--space-xs);
   text-transform: uppercase;
@@ -137,7 +137,7 @@
   display: none;
   font-size: var(--text-label);
   font-weight: var(--weight-black);
-  letter-spacing: 0.07em;
+  letter-spacing: var(--label-tracking-tight);
   text-transform: uppercase;
 }
 

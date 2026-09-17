@@ -8,7 +8,7 @@
   display: block;
   font-size: var(--text-ui);
   font-weight: var(--weight-heavy);
-  letter-spacing: 0.06em;
+  letter-spacing: var(--label-tracking-tight);
   margin-bottom: var(--space-xs);
   text-transform: uppercase;
 }

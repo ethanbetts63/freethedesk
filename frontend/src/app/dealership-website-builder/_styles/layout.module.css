@@ -39,7 +39,7 @@
   font-size: var(--demo-text-md);
   font-weight: var(--weight-heavy);
   justify-content: space-between;
-  letter-spacing: 0.13em;
+  letter-spacing: var(--label-tracking);
   padding: 0 2px 10px;
   text-transform: uppercase;
 }
@@ -51,7 +51,7 @@
   border: 1px solid var(--slate-300);
   border-bottom: 0;
   border-top: 3px solid var(--action-primary);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--blue-950) 8%, transparent);
+  box-shadow: var(--elevation-xs);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   position: relative;

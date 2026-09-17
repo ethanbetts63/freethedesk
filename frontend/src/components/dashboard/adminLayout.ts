@@ -21,7 +21,7 @@ export const adminComposePageClassName = 'max-w-[1020px]';
 
 /** The small tracked label above a page title. */
 export const adminKickerClassName =
-  'm-0 mb-s text-meta font-black tracking-[0.14em] text-text-action uppercase';
+  'm-0 mb-s text-meta font-black tracking-label-wide text-text-action uppercase';
 
 export const adminBackClassName = 'mb-l inline-block text-ui font-heavy text-text-muted';
 
@@ -33,7 +33,7 @@ export const adminBrandClassName =
   'text-[1.45rem] font-black not-italic tracking-[-0.085em] [&>span]:text-text-action [&>i]:not-italic [&>i]:text-action-primary';
 
 export const adminComposeCardClassName =
-  'overflow-hidden rounded-lg border border-border-default bg-surface-page p-ml shadow-[0_8px_30px_color-mix(in_srgb,var(--blue-950)_5%,transparent)] sm:p-xl';
+  'overflow-hidden rounded-lg border border-border-default bg-surface-page p-ml shadow-xs sm:p-xl';
 
 export const adminComposeBadgeClassName =
   'rounded-[var(--radius-xs)] bg-surface-tint-strong px-xs py-2xs text-caption font-heavy text-text-muted';
@@ -52,7 +52,7 @@ export const adminConfigBasicsClassName = 'mb-ml border-b border-border-default 
  */
 export const adminConfigGroupClassName = [
   'mt-ml',
-  '[&>strong]:mb-xs [&>strong]:block [&>strong]:text-micro [&>strong]:tracking-[0.08em] [&>strong]:text-text-subtle [&>strong]:uppercase',
+  '[&>strong]:mb-xs [&>strong]:block [&>strong]:text-micro [&>strong]:tracking-label-tight [&>strong]:text-text-subtle [&>strong]:uppercase',
   '[&>div]:flex [&>div]:flex-wrap [&>div]:gap-2xs',
   '[&_span]:rounded-[var(--radius-pill)] [&_span]:border [&_span]:border-border-default [&_span]:bg-surface-tint-strong [&_span]:px-xs [&_span]:py-2xs [&_span]:text-ui [&_span]:font-strong',
   '[&_em]:text-ui [&_em]:not-italic [&_em]:text-text-subtle',
@@ -61,7 +61,7 @@ export const adminConfigGroupClassName = [
 /** Free text the customer typed, quoted back with a rule beside it. */
 export const adminConfigRequestClassName = [
   'mt-ml border-l-[3px] border-l-action-primary bg-surface-tint px-m py-s',
-  '[&>strong]:mb-xs [&>strong]:block [&>strong]:text-micro [&>strong]:tracking-[0.08em] [&>strong]:text-text-subtle [&>strong]:uppercase',
+  '[&>strong]:mb-xs [&>strong]:block [&>strong]:text-micro [&>strong]:tracking-label-tight [&>strong]:text-text-subtle [&>strong]:uppercase',
   '[&>p]:m-0 [&>p]:text-small [&>p]:leading-[1.65] [&>p]:whitespace-pre-wrap',
 ].join(' ');
 

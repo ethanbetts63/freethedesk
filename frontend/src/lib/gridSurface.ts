@@ -1,22 +1,20 @@
 /**
- * The 42px graph-paper grid. Three surfaces drew it — the checkout panel, the
- * post-payment screen and the legal document page — each with its own copy of
- * the same two linear gradients, and the legal page's copy sat at 4.5% where
- * the checkout's sat at 5.5%. They are one value now: 5.5%. The difference was
- * one percent of alpha on a rule already at the edge of visibility, and two
- * answers to "how faint is the grid" is the kind of drift this phase exists to
- * remove.
+ * The two graph-paper grids the site draws, and nothing else may draw a third.
  *
- * `--blue-950` is a raw ramp value rather than a semantic token on purpose.
- * The role here is "a barely-visible rule on a tinted surface", and the token
- * contract has no line colour for that: `--line-strong` is the near-black used
- * for real dividers, and `--surface-dark` is the same ramp step named for a
- * background, which would be a lie about what this paints. It stays raw until
- * the contract grows a name for it.
+ * The 42px one belongs to the transactional surfaces. Four of them drew it — the checkout panel, the post-payment
+ * screen, the legal document page and the sign-in screen — each with its own
+ * copy of the same two linear gradients, at 4.5%, 5% and 5.5%. The line colour
+ * is now `--tint-grid`, one value, named in the token contract.
  *
- * The hero and footer draw a different grid — `--hero-grid-size`, 64px, a
- * bluer line — and are deliberately not folded in here. That one belongs to the
- * marketing pages' sense of scale; this one to the transactional surfaces.
+ * The 64px one belongs to the marketing pages: wider, fainter, bluer, meant to
+ * read as paper rather than as a transaction grid. Its line is `--tint-hero-grid`.
+ * The two are deliberately separate drawings, not one drawing at two sizes.
+ *
+ * What is *not* shared is what each surface fades the grid out with — a radial
+ * mask on the hero, a horizontal one on a case study, three edge gradients on
+ * the footer. Those are part of the same `background-image` declaration as the
+ * grid itself and cannot be layered on afterwards, so each surface still spells
+ * its own out. The colour and the geometry are shared; the fade is not.
  *
  * The two exports are spelled out rather than derived from a shared fragment
  * because Tailwind compiles only the class strings it can read in the source.
@@ -29,7 +27,7 @@
  * needing a stacking context of its own.
  */
 export const gridPaperClassName =
-  'pointer-events-none absolute inset-0 [background-image:linear-gradient(color-mix(in_srgb,var(--blue-950)_5.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-950)_5.5%,transparent)_1px,transparent_1px)] [background-size:42px_42px]';
+  'pointer-events-none absolute inset-0 [background-image:linear-gradient(var(--tint-grid)_1px,transparent_1px),linear-gradient(90deg,var(--tint-grid)_1px,transparent_1px)] [background-size:42px_42px]';
 
 /**
  * For a surface that cannot: the same layer as `::after`. It comes after the
@@ -41,4 +39,18 @@ export const gridPaperClassName =
  * click is the behaviour both want.
  */
 export const gridPaperAfterClassName =
-  "after:pointer-events-none after:absolute after:inset-0 after:content-[''] after:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-950)_5.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-950)_5.5%,transparent)_1px,transparent_1px)] after:[background-size:42px_42px]";
+  "after:pointer-events-none after:absolute after:inset-0 after:content-[''] after:[background-image:linear-gradient(var(--tint-grid)_1px,transparent_1px),linear-gradient(90deg,var(--tint-grid)_1px,transparent_1px)] after:[background-size:42px_42px]";
+
+/**
+ * The 64px marketing grid, for a surface that can spare a dedicated element.
+ * Callers add their own fade — a mask, usually — on top.
+ */
+export const heroGridClassName =
+  'pointer-events-none absolute inset-0 [background-image:linear-gradient(var(--tint-hero-grid)_1px,transparent_1px),linear-gradient(90deg,var(--tint-hero-grid)_1px,transparent_1px)] [background-size:var(--hero-grid-size)_var(--hero-grid-size)]';
+
+/**
+ * The 42px grid as `::before`, for a surface whose content already sits in its
+ * own stacking context above it.
+ */
+export const gridPaperBeforeClassName =
+  "before:pointer-events-none before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(var(--tint-grid)_1px,transparent_1px),linear-gradient(90deg,var(--tint-grid)_1px,transparent_1px)] before:[background-size:42px_42px]";

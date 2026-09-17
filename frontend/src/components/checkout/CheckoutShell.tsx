@@ -15,7 +15,8 @@ import { gridPaperAfterClassName } from '@/lib/gridSurface';
  * subscriptions, SEO reports) so the two cannot visually drift apart.
  */
 
-const eyebrowClassName = 'text-caption font-black tracking-[0.14em] text-action-primary uppercase';
+const eyebrowClassName =
+  'text-caption font-black tracking-label-wide text-action-primary uppercase';
 const headingClassName = 'my-s text-display-3 leading-[0.96] tracking-[-0.065em]';
 const bodyClassName = 'm-0 text-body leading-[1.6] text-text-muted';
 const fineprintClassName =
@@ -64,7 +65,7 @@ export function CheckoutShell({
             <i className="text-action-primary not-italic">.</i>
           </Link>
           <div className="mx-0 mt-auto mb-xl max-w-[610px] sm:mb-2xl">
-            <p className="m-0 mb-ml text-caption font-black tracking-[0.15em] text-action-primary uppercase">
+            <p className="m-0 mb-ml text-caption font-black tracking-label-wide text-action-primary uppercase">
               {productLabel}
             </p>
             <h1 className="m-0 mb-xl max-w-[690px] text-display-4 leading-[0.87] tracking-[-0.075em] sm:text-display-6">

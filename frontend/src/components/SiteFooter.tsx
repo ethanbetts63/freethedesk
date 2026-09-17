@@ -29,7 +29,7 @@ const footerLineClassName = cn(
 const footerLinkClassName = cn(footerLineClassName, 'hover:text-text-action');
 
 const footerLabelClassName = cn(
-  'm-0 mb-xs text-micro font-heavy tracking-[0.12em] uppercase',
+  'm-0 mb-xs text-micro font-heavy tracking-label uppercase',
   quietTextClassName,
 );
 
@@ -42,7 +42,7 @@ const footerColumnClassName = 'flex flex-col gap-0 text-small lg:gap-s';
  */
 const footerGridBackdropClassName = [
   "relative overflow-hidden before:absolute before:inset-0 before:content-[''] before:pointer-events-none",
-  'before:[background-image:linear-gradient(to_top,var(--surface-page)_0%,transparent_20%),linear-gradient(to_right,var(--surface-page)_0%,transparent_14%),linear-gradient(to_left,var(--surface-page)_0%,transparent_14%),linear-gradient(rgba(var(--hero-grid-color),var(--hero-grid-opacity))_1px,transparent_1px),linear-gradient(90deg,rgba(var(--hero-grid-color),var(--hero-grid-opacity))_1px,transparent_1px)]',
+  'before:[background-image:linear-gradient(to_top,var(--surface-page)_0%,transparent_20%),linear-gradient(to_right,var(--surface-page)_0%,transparent_14%),linear-gradient(to_left,var(--surface-page)_0%,transparent_14%),linear-gradient(var(--tint-hero-grid)_1px,transparent_1px),linear-gradient(90deg,var(--tint-hero-grid)_1px,transparent_1px)]',
   'before:[background-repeat:no-repeat,no-repeat,no-repeat,repeat,repeat]',
   'before:[background-size:100%_100%,100%_100%,100%_100%,var(--hero-grid-size)_var(--hero-grid-size),var(--hero-grid-size)_var(--hero-grid-size)]',
 ].join(' ');

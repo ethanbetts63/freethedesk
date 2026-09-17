@@ -8,7 +8,7 @@
     100% 100%,
     var(--moving-colour-size);
   border: 2px solid transparent;
-  box-shadow: 22px 22px 0 var(--slate-100);
+  box-shadow: var(--elevation-block-m);
   color: var(--text-on-dark);
   min-height: 440px;
   overflow: hidden;
@@ -91,7 +91,7 @@
   color: var(--accent-on-dark);
   font-size: var(--text-label);
   font-weight: var(--weight-black);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
 }
 
@@ -201,7 +201,7 @@
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background-image: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
-  box-shadow: 0 12px 28px color-mix(in srgb, var(--surface-inverse) 34%, transparent);
+  box-shadow: var(--elevation-contrast-s);
   color: var(--text-on-dark);
   display: grid;
   gap: var(--space-4xs) var(--space-s);

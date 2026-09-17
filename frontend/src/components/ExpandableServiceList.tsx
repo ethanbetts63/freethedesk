@@ -70,7 +70,7 @@ export function ExpandableServiceList({
             className="group border-t border-border-default"
           >
             <summary className={summaryClassName}>
-              <span className={cn('text-caption font-black tracking-[0.1em]', accentClassName)}>
+              <span className={cn('text-caption font-black tracking-label', accentClassName)}>
                 {String(index + 1).padStart(2, '0')}
               </span>
               <span
@@ -103,7 +103,7 @@ export function ExpandableServiceList({
             <div className="pt-0 pr-[var(--services-inset)] pb-xl pl-[var(--services-indent)]">
               <p
                 className={cn(
-                  'm-0 mb-s text-meta font-black tracking-[0.12em] uppercase',
+                  'm-0 mb-s text-meta font-black tracking-label uppercase',
                   accentClassName,
                 )}
               >

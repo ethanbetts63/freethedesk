@@ -30,12 +30,8 @@
 }
 .case-hero-grid {
   background-image:
-    linear-gradient(color-mix(in srgb, var(--blue-600) 5.5%, transparent) 1px, transparent 1px),
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--blue-600) 5.5%, transparent) 1px,
-      transparent 1px
-    );
+    linear-gradient(var(--tint-hero-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--tint-hero-grid) 1px, transparent 1px);
   background-size: 64px 64px;
   inset: 0;
   mask-image: linear-gradient(
@@ -86,7 +82,7 @@
   color: var(--text-subtle);
   font-size: var(--text-caption);
   font-weight: var(--weight-heavy);
-  letter-spacing: 0.09em;
+  letter-spacing: var(--label-tracking-tight);
   text-transform: uppercase;
 }
 .case-hero-media {
@@ -99,7 +95,7 @@
   background: var(--surface-page);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-m);
-  box-shadow: 0 28px 75px color-mix(in srgb, var(--blue-950) 16%, transparent);
+  box-shadow: var(--elevation-l);
   overflow: hidden;
 }
 .case-browser > img {
@@ -257,7 +253,7 @@
   display: block;
   font-size: var(--text-micro);
   font-weight: var(--weight-heavy);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   margin-bottom: var(--space-2xs);
   text-transform: uppercase;
 }
@@ -284,7 +280,7 @@
   width: 100%;
 }
 .case-tour-preview .case-browser {
-  box-shadow: 0 28px 70px color-mix(in srgb, var(--blue-950) 13%, transparent);
+  box-shadow: var(--elevation-l);
 }
 .case-tour-image {
   animation: case-image-in 0.35s ease both;
@@ -381,7 +377,7 @@
 .case-mobile-callout {
   align-items: center;
   background: var(--surface-page);
-  box-shadow: 0 14px 35px color-mix(in srgb, var(--text-primary) 20%, transparent);
+  box-shadow: var(--elevation-contrast-s);
   display: flex;
   font-size: var(--text-label);
   font-weight: var(--weight-heavy);
@@ -490,7 +486,7 @@
   color: var(--text-action);
   font-size: var(--text-label);
   font-weight: var(--weight-heavy);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
 }
 .case-ops-topline h3 {
@@ -640,7 +636,7 @@
   display: block;
   font-size: var(--text-micro);
   font-weight: var(--weight-black);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--label-tracking);
   margin-bottom: var(--space-s);
   text-transform: uppercase;
 }
@@ -729,7 +725,7 @@
   padding: var(--space-s) 0;
 }
 .case-split-media .case-browser {
-  box-shadow: 0 28px 70px color-mix(in srgb, var(--blue-950) 13%, transparent);
+  box-shadow: var(--elevation-l);
 }
 .case-tinted-section {
   background: var(--surface-tint);

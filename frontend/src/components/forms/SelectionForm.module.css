@@ -60,7 +60,7 @@
   /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- miniature label inside an illustration */
   font-size: 0.45rem;
   font-weight: var(--weight-strong);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   margin-top: var(--space-3xs);
   text-transform: uppercase;
 }

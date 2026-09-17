@@ -22,7 +22,7 @@ const ARROWS: Record<Exclude<CtaDirection, 'none'>, string> = {
 const ctaButtonVariants = cva(
   [
     'inline-flex items-center justify-between border-0 font-[inherit] font-strong',
-    'cursor-pointer uppercase tracking-[0.05em]',
+    'cursor-pointer uppercase tracking-label-tight',
     'transition-[background,color,transform] duration-200 ease-out',
     focusRingClassName,
     disabledBusyClassName,

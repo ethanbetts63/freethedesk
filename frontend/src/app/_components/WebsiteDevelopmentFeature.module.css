@@ -1,7 +1,7 @@
 .visual {
   --feature-accent: var(--page-accent, var(--action-primary));
   background: var(--surface-dark);
-  box-shadow: 12px 12px 0 var(--slate-100);
+  box-shadow: var(--elevation-block-s);
   min-height: 450px;
   padding: var(--space-xl) var(--space-s) var(--space-ml);
   position: relative;
@@ -38,7 +38,7 @@
   color: var(--text-success);
   font-size: var(--text-nano);
   justify-self: end;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
 }
 .websiteCanvas {
@@ -104,7 +104,7 @@
   display: block;
   font-size: var(--text-nano);
   font-weight: var(--weight-black);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
 }
 .pageHero strong {
@@ -143,7 +143,7 @@
   background: var(--surface-page);
   border: 1px solid var(--slate-200);
   bottom: 0;
-  box-shadow: 0 22px 55px color-mix(in srgb, var(--slate-950) 24%, transparent);
+  box-shadow: var(--elevation-contrast-m);
   color: var(--blue-950);
   padding: var(--space-m) var(--space-m);
   position: absolute;
@@ -158,7 +158,7 @@
   font-size: var(--text-label);
   font-weight: var(--weight-black);
   justify-content: space-between;
-  letter-spacing: 0.09em;
+  letter-spacing: var(--label-tracking-tight);
   margin-bottom: var(--space-2xs);
   padding-bottom: var(--space-s);
   text-transform: uppercase;
@@ -192,7 +192,7 @@
 
 @media (min-width: 640px) {
   .visual {
-    box-shadow: 24px 24px 0 var(--slate-100);
+    box-shadow: var(--elevation-block-l);
     min-height: 520px;
     padding: var(--space-xl) var(--space-xl) var(--space-xl);
   }

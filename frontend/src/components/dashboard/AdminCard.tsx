@@ -21,7 +21,7 @@ import { formControlClassName, formControlPaddingClassName } from './formControl
  * by descendant selector.
  */
 const cardShellClassName =
-  'overflow-hidden rounded-lg border border-border-default bg-surface-page shadow-[0_8px_30px_color-mix(in_srgb,var(--blue-950)_5%,transparent)]';
+  'overflow-hidden rounded-lg border border-border-default bg-surface-page shadow-xs';
 
 /** A full-bleed container whose children supply their own padding (list tables). */
 export const adminPanelClassName = cardShellClassName;
@@ -77,7 +77,7 @@ export const adminDetailListClassName = cn('m-0', adminDetailGridClassName);
 export function AdminDetailItem({ term, children }: { term: ReactNode; children: ReactNode }) {
   return (
     <div className="min-w-0">
-      <dt className="mb-2xs text-micro font-heavy tracking-[0.08em] text-text-subtle uppercase">
+      <dt className="mb-2xs text-micro font-heavy tracking-label-tight text-text-subtle uppercase">
         {term}
       </dt>
       <dd className="m-0 text-small leading-[1.5] [overflow-wrap:anywhere]">{children}</dd>

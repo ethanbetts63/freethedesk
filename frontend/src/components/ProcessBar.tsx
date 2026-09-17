@@ -22,7 +22,7 @@ export function ProcessBar({
   return (
     <section className="bg-surface-dark text-text-on-dark" aria-label={label} id={id}>
       <div className="site-shell py-0">
-        <p className="pt-m pr-0 pb-s pl-0 text-meta font-black tracking-[0.14em] text-[var(--accent-on-dark-soft)] uppercase lg:pt-ml">
+        <p className="pt-m pr-0 pb-s pl-0 text-meta font-black tracking-label-wide text-[var(--accent-on-dark-soft)] uppercase lg:pt-ml">
           {label}
         </p>
         <ol
@@ -32,7 +32,7 @@ export function ProcessBar({
           {steps.map((step, index) => {
             const content = (
               <>
-                <span className="text-caption font-black tracking-[0.1em] text-[var(--accent-on-dark-soft)]">
+                <span className="text-caption font-black tracking-label text-[var(--accent-on-dark-soft)]">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <span>

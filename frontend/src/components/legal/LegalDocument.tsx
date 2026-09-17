@@ -21,8 +21,9 @@ export async function LegalDocument({ filename }: { filename: string }) {
           single step on the space scale does. */}
       <article
         className={cn(
-          'relative mx-auto max-w-[900px] border border-border-default bg-surface-page px-ml py-xl shadow-[0_24px_75px_color-mix(in_srgb,var(--blue-950)_7%,transparent)] sm:p-[clamp(35px,7vw,90px)]',
-          styles.prose,
+          'relative mx-auto max-w-[900px] border border-border-default bg-surface-page px-ml py-xl shadow-l sm:p-[clamp(35px,7vw,90px)]',
+          'prose',
+          styles.legal,
         )}
         dangerouslySetInnerHTML={{ __html: html }}
       />

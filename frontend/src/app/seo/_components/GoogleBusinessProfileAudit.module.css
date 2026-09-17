@@ -14,7 +14,7 @@
     100% 100%,
     var(--moving-colour-size);
   border: 2px solid transparent;
-  box-shadow: 0 30px 70px color-mix(in srgb, var(--text-primary) 30%, transparent);
+  box-shadow: var(--elevation-contrast-l);
   color: var(--text-primary);
   margin: 0 auto;
   max-width: 660px;
@@ -43,7 +43,7 @@
   color: var(--text-subtle);
   font-size: var(--text-nano);
   font-weight: var(--weight-black);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-tracking);
   margin-bottom: var(--space-4xs);
   text-transform: uppercase;
 }
@@ -111,7 +111,7 @@
   color: var(--slate-600);
   font-size: var(--text-tiny);
   font-weight: var(--weight-black);
-  letter-spacing: 0.06em;
+  letter-spacing: var(--label-tracking-tight);
   text-transform: uppercase;
   display: none;
 }

@@ -154,7 +154,7 @@ export function ProjectEnquiryPanel({
             </div>
             {budget === 'custom' && (
               <label className="mt-xs block">
-                <span className="mb-2xs block text-micro font-strong tracking-[0.1em] text-[var(--text-control)] uppercase">
+                <span className="mb-2xs block text-micro font-strong tracking-label text-[var(--text-control)] uppercase">
                   Your budget
                 </span>
                 <input

@@ -1,0 +1,114 @@
+/* The shared prose surface.
+
+   Both consumers render markdown through dangerouslySetInnerHTML, so these
+   have to be element selectors: there is nowhere to attach a utility class.
+   Everything around the prose - the page, the card, the rails - is authored
+   JSX and lives in Tailwind.
+
+   Two files described this same set of elements independently and had already
+   drifted apart on the things that are genuinely shared (list indents, link
+   underline offsets, the rule above an h2). This is the agreement, scoped to
+   `.prose`; each consumer's own module overrides only what its surface really
+   changes - the heading scale, the body colour, and the blockquote, which is a
+   pull quote in an article and a warning in a legal document.
+
+   Imported once by globals.css. The class name is deliberately generic and
+   deliberately not `@apply`-ed anywhere: nothing should get these rules by
+   accident. */
+.prose {
+  color: var(--text-primary);
+  font-size: var(--step-0);
+  line-height: 1.78;
+  min-width: 0;
+}
+.prose > :first-child {
+  margin-top: 0;
+}
+.prose h2 {
+  border-top: 1px solid var(--border-default);
+  font-size: var(--step-2);
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  margin: var(--space-2xl) 0 var(--space-m);
+  padding-top: var(--space-l);
+}
+.prose h3 {
+  font-size: var(--step-2);
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  margin: var(--space-xl) 0 var(--space-m);
+}
+.prose p {
+  margin: 0 0 var(--space-l);
+}
+.prose ul,
+.prose ol {
+  margin: var(--space-m) 0 var(--space-xl);
+  padding-left: var(--space-l);
+}
+.prose li {
+  margin-bottom: var(--space-xs);
+  padding-left: var(--space-3xs);
+}
+.prose a {
+  color: var(--text-action);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.prose a:hover {
+  color: var(--action-primary);
+}
+.prose strong {
+  font-weight: var(--weight-heavy);
+}
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--border-default);
+  margin: var(--space-2xl) 0;
+}
+.prose code {
+  background: var(--surface-tint-strong);
+  border-radius: var(--radius-2xs);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- deliberately relative to the parent, not the scale */
+  font-size: 0.88em;
+  padding: var(--space-4xs) var(--space-2xs);
+}
+.prose pre {
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+  overflow-x: auto;
+  padding: var(--space-ml);
+}
+.prose pre code {
+  background: transparent;
+  padding: 0;
+}
+.prose table {
+  border-collapse: collapse;
+  display: block;
+  font-size: var(--text-body);
+  margin: var(--space-xl) 0;
+  overflow-x: auto;
+  width: 100%;
+}
+.prose th {
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+  font-size: var(--text-caption);
+  letter-spacing: var(--label-tracking-tight);
+  padding: var(--space-s) var(--space-m);
+  text-align: left;
+  text-transform: uppercase;
+}
+.prose td {
+  border-bottom: 1px solid var(--border-default);
+  padding: var(--space-s) var(--space-m);
+}
+.prose img {
+  height: auto;
+  max-width: 100%;
+}
