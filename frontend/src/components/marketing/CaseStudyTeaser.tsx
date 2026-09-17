@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { PrimaryButton } from '@/components/PrimaryButton';
 import { SectionNumber } from '@/components/SectionNumber';
+import { PhoneFrame } from '@/components/visuals/PhoneFrame';
 
 type CaseStudyTeaserProps = {
   eyebrow: string;
@@ -39,20 +40,14 @@ export function CaseStudyTeaser({
             </span>
           </div>
           <div className="relative z-1">
-            <div className="case-mobile-phone">
-              <span />
-              <div className="case-phone-menu" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-              </div>
+            <PhoneFrame size="standalone" menu>
               <Image
                 src="/case-studies/scooter-shop/inventory-mobile.png"
                 alt="Scooter Shop inventory page on mobile"
                 width={390}
                 height={844}
               />
-            </div>
+            </PhoneFrame>
           </div>
         </div>
         <div className="[&>p:not(.section-number)]:mt-0 [&>p:not(.section-number)]:mb-m [&>p:not(.section-number)]:max-w-[560px] [&>p:not(.section-number)]:text-lead [&>p:not(.section-number)]:leading-[1.76] [&>p:not(.section-number)]:text-[var(--text-on-dark-muted)]">

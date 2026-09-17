@@ -55,7 +55,7 @@ export function Hero({
       {path && <Breadcrumbs path={path} variant="overlay" />}
       <div className="site-shell pointer-events-none py-3xl [&_a]:pointer-events-auto">
         <div>
-          <Eyebrow className="[--eyebrow-accent:var(--action-primary)] [&>span]:shadow-[0_0_0_5px_color-mix(in_srgb,var(--action-primary)_12%,transparent),0_0_10px_2px_color-mix(in_srgb,var(--action-primary)_70%,transparent)]">
+          <Eyebrow className="[--eyebrow-accent:var(--action-primary)] [&>span]:shadow-[var(--ring-halo),0_0_10px_2px_color-mix(in_srgb,var(--action-primary)_70%,transparent)]">
             {eyebrow}
           </Eyebrow>
           <h1 className="m-0 max-w-[1000px] text-display-6 leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] lg:leading-[0.83]">

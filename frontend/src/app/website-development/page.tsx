@@ -42,7 +42,7 @@ const casePoints = [
 
 export default function WebsiteDevelopmentPage() {
   return (
-    <main className="bg-surface-page text-text-secondary [--page-accent:var(--action-primary)]">
+    <main className="bg-surface-page text-text-secondary">
       <PageSchema path="/website-development" />
       <AiReadinessBanner />
       <Hero

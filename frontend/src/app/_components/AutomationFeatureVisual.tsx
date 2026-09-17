@@ -4,8 +4,8 @@ import { cn } from '@/lib/utils';
  * A workflow drawn as a card: a trigger event, three branches drawn with
  * borders rather than an SVG, three resulting actions, and a stat bar.
  *
- * `--feature-accent` is set once here so the branch elbows, the action numbers
- * and the eyebrow all follow whatever accent the page sets.
+ * The branch elbows, the action numbers and the eyebrow all read
+ * `--page-accent`, so they follow whatever accent the page sets.
  */
 /**
  * Three elbows: a riser that turns right, a straight drop, and a riser that
@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils';
  */
 const routeClassName = cn(
   'mx-auto flex h-[24px] w-[83%] justify-around overflow-hidden sm:h-[38px] sm:w-[72%]',
-  '[&>i]:h-[38px] [&>i]:w-[33%] [&>i]:border-t [&>i]:border-l [&>i]:border-[color-mix(in_srgb,var(--feature-accent)_55%,transparent)]',
+  '[&>i]:h-[38px] [&>i]:w-[33%] [&>i]:border-t [&>i]:border-l [&>i]:border-[color-mix(in_srgb,var(--page-accent)_55%,transparent)]',
   '[&>i:first-child]:border-t-0',
   '[&>i:nth-child(2)]:w-[1px]',
   '[&>i:last-child]:border-t-0 [&>i:last-child]:border-l-0 [&>i:last-child]:border-r',
@@ -31,7 +31,6 @@ export function AutomationFeatureVisual() {
     <div
       className={cn(
         'relative px-s py-ml text-text-secondary sm:p-l',
-        '[--feature-accent:var(--page-accent,var(--action-primary))]',
         // The animated border, and a tinted slab behind it that deepens from a
         // phone to a desktop.
         'moving-colour-border shadow-block-s [--elevation-block-colour:color-mix(in_srgb,var(--accent-on-dark)_7%,transparent)]',
@@ -79,7 +78,7 @@ export function AutomationFeatureVisual() {
               'grid min-w-0 grid-cols-[25px_minmax(0,1fr)] gap-x-xs gap-y-4xs px-s py-m sm:block',
             )}
           >
-            <span className="row-span-2 block text-tiny font-black text-[var(--feature-accent)] sm:row-auto">
+            <span className="row-span-2 block text-tiny font-black text-[var(--page-accent)] sm:row-auto">
               {index}
             </span>
             <strong className="m-0 block text-ui text-surface-dark sm:mt-s sm:mb-3xs">

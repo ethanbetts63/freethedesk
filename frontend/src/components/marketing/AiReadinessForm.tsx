@@ -19,7 +19,9 @@ const fieldClassName = cn(
   'min-h-[var(--tap-min)] text-step-0 sm:min-h-[40px] sm:text-ui',
   'focus:border-accent-on-dark-soft',
   'focus:bg-[color-mix(in_srgb,var(--surface-page)_12%,transparent)]',
-  'focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--accent-on-dark-soft)_16%,transparent)]',
+  // On a dark surface the page accent is invisible, so the ring takes the
+  // soft on-dark accent instead. Shape and strength stay shared.
+  '[--ring-focus-colour:var(--accent-on-dark-soft)] focus:shadow-focus',
 );
 
 function SubmitButton() {

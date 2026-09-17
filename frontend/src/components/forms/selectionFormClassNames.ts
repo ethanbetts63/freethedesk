@@ -46,7 +46,7 @@ export const choiceCardVariants = cva(
   [
     'relative flex min-h-[var(--selection-choice-min-height,56px)] cursor-pointer flex-col items-center justify-center p-xs text-center text-ui font-control',
     'transition-[background-color,border-color,color] duration-200 ease-[ease]',
-    'has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[color-mix(in_srgb,var(--page-accent,var(--action-primary))_25%,transparent)]',
+    'has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[color-mix(in_srgb,var(--page-accent)_25%,transparent)]',
     // The sub-label is a miniature inside a card, below every step of the
     // type scale on purpose.
     '[&>small]:mt-3xs [&>small]:text-[0.45rem] [&>small]:font-strong [&>small]:tracking-label [&>small]:uppercase',
@@ -67,7 +67,7 @@ export const choiceCardVariants = cva(
         recommended: false,
         selected: false,
         class:
-          'border-border-default bg-surface-tint hover:border-[var(--page-accent,var(--action-primary))] hover:bg-surface-page',
+          'border-border-default bg-surface-tint hover:border-[var(--page-accent)] hover:bg-surface-page',
       },
       {
         recommended: false,
@@ -89,7 +89,7 @@ export const chooserHeadingClassName =
   'm-0 text-display-1 leading-[1.02] tracking-[-0.058em] text-text-secondary';
 
 export const choiceGroupHeadingClassName =
-  'm-0 mb-s border-b border-border-subtle pb-xs text-micro font-strong tracking-label text-[var(--page-accent,var(--action-primary))] uppercase';
+  'm-0 mb-s border-b border-border-subtle pb-xs text-micro font-strong tracking-label text-[var(--page-accent)] uppercase';
 
 export const totalClassName =
   'mt-auto grid grid-cols-[minmax(0,1fr)] items-center gap-s border-t border-dashed border-border-default pt-l sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-ml';
@@ -110,9 +110,9 @@ export const fieldRowClassName = 'grid grid-cols-[minmax(0,1fr)] gap-m sm:grid-c
 export const fieldLabelClassName = 'mb-m block text-caption font-control text-text-control';
 export const fieldLabelSpanClassName = 'mb-xs block';
 export const fieldInputClassName =
-  'min-h-[50px] w-full rounded-none border border-border-default bg-surface-page px-s text-[length:var(--selection-input-font-size)] text-text-primary outline-none [font:inherit] placeholder:text-small placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-[var(--page-accent,var(--action-primary))] focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--page-accent,var(--action-primary))_12%,transparent)]';
+  'min-h-[50px] w-full rounded-none border border-border-default bg-surface-page px-s text-[length:var(--selection-input-font-size)] text-text-primary outline-none [font:inherit] placeholder:text-small placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-[var(--page-accent)] focus:shadow-focus';
 export const fieldTextareaClassName =
-  'min-h-[82px] w-full resize-y rounded-none border border-border-default bg-surface-page p-s text-[length:var(--selection-input-font-size)] text-text-primary outline-none [font:inherit] placeholder:text-small placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-[var(--page-accent,var(--action-primary))] focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--page-accent,var(--action-primary))_12%,transparent)]';
+  'min-h-[82px] w-full resize-y rounded-none border border-border-default bg-surface-page p-s text-[length:var(--selection-input-font-size)] text-text-primary outline-none [font:inherit] placeholder:text-small placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-[var(--page-accent)] focus:shadow-focus';
 export const fieldHintClassName = 'mt-2xs block text-caption font-normal text-text-subtle';
 export const submitClassName = 'mt-xs min-h-[58px] text-left [&>span]:text-step-0';
 export const formErrorClassName =

@@ -64,7 +64,7 @@ export const metadata: Metadata = metadataFor('/dealers');
 
 export default function Dealers() {
   return (
-    <main className="bg-surface-page text-text-primary [--page-accent:var(--action-primary)]">
+    <main className="bg-surface-page text-text-primary">
       <PageSchema path="/dealers" />
       <Hero
         path="/dealers"

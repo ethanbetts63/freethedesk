@@ -1,6 +1,6 @@
 .controls {
   --controls-accent: var(--action-primary);
-  --form-accent: var(--controls-accent);
+  --page-accent: var(--controls-accent);
   background: var(--surface-page);
   border: 0;
   border-left: 0;

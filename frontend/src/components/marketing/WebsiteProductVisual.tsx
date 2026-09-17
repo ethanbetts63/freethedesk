@@ -1,12 +1,13 @@
 import Image from 'next/image';
+import { TrafficLights } from '@/components/visuals/chrome';
 
 /**
  * A dealership website drawn inside a browser window: chrome, nav, hero with a
- * car, and an inventory strip. `--section-accent` is set once on the wrapper so
- * the nav button, the eyebrow, the CTA and the first inventory bar all move
- * together if a section changes it.
+ * car, and an inventory strip. The nav button, the eyebrow, the CTA and the
+ * first inventory bar all read `--page-accent`, so they move together if a
+ * page changes it.
  */
-const accentClassName = 'text-[var(--section-accent)]';
+const accentClassName = 'text-[var(--page-accent)]';
 
 /**
  * The spotlight behind the car. A raw colour on purpose: it is a lighting
@@ -17,7 +18,7 @@ const spotlightClassName =
 
 export function WebsiteProductVisual() {
   return (
-    <div className="w-full min-w-0 [--section-accent:var(--action-primary)]">
+    <div className="w-full min-w-0">
       {/* Turned very slightly away from the reader at desktop width, which is
           the whole reason this is a browser window and not a screenshot. */}
       <div
@@ -25,11 +26,7 @@ export function WebsiteProductVisual() {
         aria-hidden="true"
       >
         <div className="grid h-[38px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center border-b border-border-default bg-surface-tint-strong px-s text-nano text-text-muted">
-          <div className="flex gap-3xs [&>i]:h-[6px] [&>i]:w-[6px] [&>i]:rounded-[var(--radius-circle)] [&>i]:bg-border-strong">
-            <i />
-            <i />
-            <i />
-          </div>
+          <TrafficLights />
           <span className="rounded-[var(--radius-2xs)] bg-surface-page px-m py-3xs sm:px-2xl">
             yourdealership.com.au
           </span>
@@ -38,14 +35,14 @@ export function WebsiteProductVisual() {
           </b>
         </div>
         <div className="flex items-center justify-between px-xl py-l">
-          <strong className="text-step-0 tracking-[-0.06em] [&>span]:text-[var(--section-accent)]">
+          <strong className="text-step-0 tracking-[-0.06em] [&>span]:text-[var(--page-accent)]">
             north<span>line</span>.
           </strong>
           <div className="flex items-center gap-ml text-nano font-heavy [&>span]:hidden sm:[&>span]:inline">
             <span>Stock</span>
             <span>Service</span>
             <span>About</span>
-            <b className="bg-[var(--section-accent)] p-xs text-text-on-dark">Contact</b>
+            <b className="bg-[var(--page-accent)] p-xs text-text-on-dark">Contact</b>
           </div>
         </div>
         <div className="mx-s grid min-h-[330px] grid-cols-[minmax(0,1fr)] items-center overflow-hidden bg-surface-tint p-xl sm:mx-ml sm:p-[clamp(30px,4vw,52px)] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
@@ -61,7 +58,7 @@ export function WebsiteProductVisual() {
             <p className="max-w-[250px] text-meta leading-[1.6] text-text-muted">
               Explore the latest vehicles, buy online or speak with the team.
             </p>
-            <span className="mt-xs inline-block bg-[var(--section-accent)] p-s text-nano font-heavy text-text-on-dark">
+            <span className="mt-xs inline-block bg-[var(--page-accent)] p-s text-nano font-heavy text-text-on-dark">
               View inventory →
             </span>
           </div>
@@ -80,7 +77,7 @@ export function WebsiteProductVisual() {
         </div>
         <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center p-m text-tiny sm:px-xl sm:py-ml">
           <span className="font-black uppercase">Latest inventory</span>
-          <div className="hidden gap-2xs [&>i]:h-[8px] [&>i]:w-[34px] [&>i]:bg-surface-tint-strong [&>i:first-child]:bg-[var(--section-accent)] sm:flex">
+          <div className="hidden gap-2xs [&>i]:h-[8px] [&>i]:w-[34px] [&>i]:bg-surface-tint-strong [&>i:first-child]:bg-[var(--page-accent)] sm:flex">
             <i />
             <i />
             <i />

@@ -1,4 +1,4 @@
-import { StatusPanelVisual } from '@/components/visuals/StatusPanelVisual';
+import { ChecklistCard, LiveDot } from '@/components/visuals/ChecklistCard';
 
 const checks = [
   ['Licence uploaded', 'Clear images of the front and back'],
@@ -8,7 +8,8 @@ const checks = [
 
 export function LicensingVerifyVisual() {
   return (
-    <StatusPanelVisual
+    <ChecklistCard
+      mark={<LiveDot />}
       eyebrow="Identity verification by Stripe"
       title="Customer identity"
       countLabel="~60 seconds"

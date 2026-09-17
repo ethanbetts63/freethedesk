@@ -1,4 +1,4 @@
-import { StatusPanelVisual } from '@/components/visuals/StatusPanelVisual';
+import { ChecklistCard, LiveDot } from '@/components/visuals/ChecklistCard';
 
 const inputs = [
   ['Search performance', 'Queries, impressions and clicks'],
@@ -8,7 +8,8 @@ const inputs = [
 
 export function SeoAnalysisVisual() {
   return (
-    <StatusPanelVisual
+    <ChecklistCard
+      mark={<LiveDot />}
       eyebrow="Automated collection"
       title="Human reviewed"
       countLabel={`${inputs.length} inputs`}

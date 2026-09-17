@@ -1,4 +1,4 @@
-import { StatusPanelVisual } from '@/components/visuals/StatusPanelVisual';
+import { ChecklistCard, LiveDot } from '@/components/visuals/ChecklistCard';
 
 const defaultJobs = [
   'Lead capture & routing',
@@ -18,7 +18,8 @@ export function AdminAutomationVisual({
   title?: string;
 }) {
   return (
-    <StatusPanelVisual
+    <ChecklistCard
+      mark={<LiveDot />}
       eyebrow={eyebrow}
       title={title}
       countLabel={`${jobs.length} jobs`}

@@ -21,6 +21,7 @@ import { PortfolioEnquiryCta } from './PortfolioEnquiryCta';
 import { PortfolioTour, type PortfolioTourItem } from './PortfolioTour';
 import { heroGridClassName } from '@/lib/gridSurface';
 import { cn } from '@/lib/utils';
+import { LivePill, PhoneFrame } from '@/components/visuals/PhoneFrame';
 
 type LineHeading = {
   lines: readonly string[];
@@ -206,13 +207,11 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
             The negative margins are literal: there is no token for absence. */}
         <div className="relative m-0 pt-l pr-0 pb-2xl pl-s sm:pl-xl lg:mr-[-190px] lg:pt-xl lg:pl-2xl xl:mr-[-105px]">
           <BrowserFrame image={config.desktopImage} browserUrl={config.browserUrl} hero />
-          <div className={`case-phone${config.mobileImage.className ? ' case-phone-crop' : ''}`}>
-            <div className="case-phone-speaker" />
-            <div className="case-phone-menu" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </div>
+          <PhoneFrame
+            size="inset"
+            menu
+            className={cn(config.mobileImage.className && 'aspect-[390/844]')}
+          >
             <Image
               className={config.mobileImage.className}
               src={config.mobileImage.src}
@@ -221,10 +220,8 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
               height={config.mobileImage.height}
               priority
             />
-          </div>
-          <div className="case-live-note">
-            <i /> {config.liveLabel}
-          </div>
+          </PhoneFrame>
+          <LivePill>{config.liveLabel}</LivePill>
         </div>
       </div>
     </section>
@@ -297,13 +294,7 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
           <PortfolioEnquiryCta />
         </div>
         <div className="case-mobile-stage">
-          <div className="case-mobile-phone">
-            <span />
-            <div className="case-phone-menu" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </div>
+          <PhoneFrame size="standalone" menu>
             <Image
               className={config.image.className}
               src={config.image.src}
@@ -311,7 +302,7 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
               width={config.image.width}
               height={config.image.height}
             />
-          </div>
+          </PhoneFrame>
           <div className="case-mobile-callout case-mobile-callout-one">
             <b>01</b>
             <span>{config.callout}</span>

@@ -1,4 +1,7 @@
 import type { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
+
+import { TrafficLights, hiddenBelowSmClassName } from './chrome';
 
 export type ReportCardItem = {
   title: string;
@@ -20,10 +23,10 @@ type ReportCardVisualProps = {
  * A report drawn as a desktop window: traffic-light dots, a badge, numbered
  * rows that slide right on hover, and a row of summary chips at the bottom.
  *
- * Shares its row shape with `StatusPanelVisual` and the Google Business
- * Profile audit card and disagrees with both about the chrome. Merging the
- * three is a design decision, not a migration one — see tailwind-migration.md
- * 4.9.
+ * The sibling of `ChecklistCard` and deliberately not merged into it: its
+ * badges are squares rather than circles, its type is a size up, and its rows
+ * indent on hover. What the two did share — the dots and the phone-hidden tag —
+ * now comes from `./chrome`.
  */
 const rowClassName = [
   'grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-s border-b border-border-subtle p-m',
@@ -43,18 +46,11 @@ export function ReportCardVisual({
 }: ReportCardVisualProps) {
   return (
     <div
-      className="relative min-w-0 border border-border-strong bg-surface-page shadow-block-s before:absolute before:inset-y-[-1px] before:left-[-1px] before:z-1 before:w-[3px] before:content-[''] before:[background:linear-gradient(180deg,var(--page-accent,var(--action-primary)),var(--purple-accent))]"
+      className="relative min-w-0 border border-border-strong bg-surface-page shadow-block-s before:absolute before:inset-y-[-1px] before:left-[-1px] before:z-1 before:w-[3px] before:content-[''] before:[background:linear-gradient(180deg,var(--page-accent),var(--purple-accent))]"
       aria-label={ariaLabel}
     >
       <header className="flex items-center gap-s border-b border-border-subtle bg-surface-tint p-m sm:px-ml">
-        <span
-          className="flex gap-3xs [&>i]:h-[8px] [&>i]:w-[8px] [&>i]:rounded-[var(--radius-circle)] [&>i]:bg-border-default"
-          aria-hidden="true"
-        >
-          <i />
-          <i />
-          <i />
-        </span>
+        <TrafficLights size={8} tone="[&>i]:bg-border-default" />
         <div>
           <strong className="block text-body tracking-[-0.01em]">{title}</strong>
           <small className="block text-ui text-text-muted">{subtitle}</small>
@@ -80,9 +76,13 @@ export function ReportCardVisual({
               <h3 className="m-0 mb-4xs text-step-0 tracking-[-0.025em]">{item.title}</h3>
               <p className="m-0 text-body leading-[1.45] text-text-muted">{item.description}</p>
             </div>
-            {/* Cut on a phone: the row is too narrow to carry a tag as well. */}
             {item.tag ? (
-              <span className="hidden text-label font-black tracking-label-tight text-[var(--page-accent,var(--action-primary))] uppercase sm:inline">
+              <span
+                className={cn(
+                  hiddenBelowSmClassName,
+                  'text-label font-black tracking-label-tight text-[var(--page-accent)] uppercase',
+                )}
+              >
                 {item.tag}
               </span>
             ) : null}

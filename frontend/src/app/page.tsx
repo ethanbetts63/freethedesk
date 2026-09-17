@@ -21,7 +21,7 @@ export const metadata: Metadata = metadataFor('/');
 
 export default function Home() {
   return (
-    <main className="bg-surface-page text-text-primary [--page-accent:var(--action-primary)]">
+    <main className="bg-surface-page text-text-primary">
       <PageSchema path="/" />
       <AiReadinessBanner />
       <Hero

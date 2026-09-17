@@ -4,9 +4,6 @@
    scanned for a clause and opens with a reference line. Its body is set larger
    and greyer, its headings smaller, and what an article uses for a pull quote
    it uses for a warning. */
-.legal {
-  --legal-accent: var(--action-primary);
-}
 .legal h1 {
   font-size: var(--display-2);
   letter-spacing: -0.075em;
@@ -15,7 +12,7 @@
 }
 /* The reference line under the title: effective date, version, jurisdiction. */
 .legal h1 + p {
-  color: var(--legal-accent);
+  color: var(--page-accent);
   font-size: var(--text-ui);
   font-weight: var(--weight-control);
   letter-spacing: var(--label-tracking);
@@ -39,11 +36,11 @@
   margin: var(--space-xs) 0;
 }
 .legal li::marker {
-  color: var(--legal-accent);
+  color: var(--page-accent);
   font-weight: var(--weight-control);
 }
 .legal a {
-  color: var(--legal-accent);
+  color: var(--page-accent);
   text-underline-offset: 3px;
 }
 .legal aside,

@@ -68,9 +68,10 @@
   --color-accent: var(--accent);
   --color-accent-on-dark: var(--accent-on-dark);
   --color-accent-on-dark-soft: var(--accent-on-dark-soft);
-  --color-section-number: var(--section-number);
   --color-section-number-on-dark: var(--section-number-on-dark);
   --color-focus-ring: var(--focus-ring);
+  --shadow-focus: var(--ring-focus);
+  --shadow-halo: var(--ring-halo);
 
   --color-surface-success: var(--surface-success);
   --color-border-success: var(--border-success);
@@ -230,12 +231,31 @@
   /* The interactive colour. --accent-* below is decorative only: it is the
      bright sky used to lift the navy sections, not something to click. */
   --action-primary: var(--blue-600);
+  /* The accent a page tints itself with. Defined here rather than set per
+     route: it was five variables (page/section/feature/legal/section-number)
+     that every call site resolved to this same colour. A route that wants a
+     different accent overrides --page-accent on its own wrapper. */
+  --page-accent: var(--action-primary);
   --accent: var(--sky-300);
   --accent-on-dark: var(--sky-500);
   --accent-on-dark-soft: var(--sky-400);
-  --section-number: var(--action-primary);
   --section-number-on-dark: var(--accent-on-dark);
   --focus-ring: color-mix(in srgb, var(--sky-500) 40%, transparent);
+
+  /* RINGS
+     The one shadow family that is not elevation: a flat ring drawn tight
+     around something. There were six of these at 2, 3, 4 and 5px and at 12%,
+     13%, 16% and 18%, which is no scale at all — two shapes, two names.
+
+     --ring-focus  a marketing form field, focused.
+     --ring-halo   the soft glow around a small status dot.
+
+     Both take their colour from a local property so one definition serves a
+     light surface and a dark one, the same way --elevation-block-colour does. */
+  --ring-focus: 0 0 0 3px
+    color-mix(in srgb, var(--ring-focus-colour, var(--page-accent)) 13%, transparent);
+  --ring-halo: 0 0 0 4px
+    color-mix(in srgb, var(--ring-halo-colour, var(--action-primary)) 15%, transparent);
 
   /* One animated gradient for both the moving text and moving borders.
      Deliberately NOT from the site palette - those colours are muted by

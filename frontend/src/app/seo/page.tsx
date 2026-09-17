@@ -62,7 +62,7 @@ export default async function SeoPage() {
   };
 
   return (
-    <main className="bg-surface-page text-text-secondary [--page-accent:var(--action-primary)]">
+    <main className="bg-surface-page text-text-secondary">
       <PageSchema path="/seo" serviceOffers={serviceOffers} />
       <Hero
         path="/seo"

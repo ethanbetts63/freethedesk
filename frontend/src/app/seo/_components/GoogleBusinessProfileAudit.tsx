@@ -1,4 +1,5 @@
 import { GoogleLogo } from '@/components/GoogleLogo';
+import { ChecklistCard } from '@/components/visuals/ChecklistCard';
 import { SectionNumber } from '@/components/SectionNumber';
 
 const AUDIT_AREAS = [
@@ -49,69 +50,32 @@ export function GoogleBusinessProfileAudit({
           </p>
         </div>
 
-        {/* The audit card. Only the animated gradient border, the gradient
-            text and the gradient footer come from CSS; everything else is
-            ordinary layout. */}
-        <div
-          className="moving-colour-border mx-auto w-full max-w-[660px] self-center text-text-primary shadow-contrast-l lg:mx-0 lg:max-w-none lg:w-auto"
-          aria-label="Example Google Business Profile audit coverage"
-        >
-          <header className="flex items-start justify-between gap-s border-b border-border-default bg-surface-tint px-ml py-m sm:items-center sm:gap-0">
-            <div className="flex items-center gap-xs">
-              <GoogleLogo size={24} />
-              <span>
-                <small className="mb-4xs block text-nano font-black tracking-label text-text-subtle uppercase">
-                  Profile audit
-                </small>
-                <strong className="block text-ui">Your business</strong>
-              </span>
-            </div>
-            <span className="moving-colour-text text-label font-black uppercase">
-              6 review areas
-            </span>
-          </header>
-
-          <ol className="m-0 list-none px-ml py-0">
-            {AUDIT_AREAS.map(([title, description], index) => (
-              <li
-                key={title}
-                className="grid grid-cols-[22px_27px_minmax(0,1fr)] items-center gap-s border-b border-border-subtle py-m sm:grid-cols-[24px_27px_minmax(0,1fr)_auto]"
-              >
-                <span className="text-label font-black text-text-on-dark-subtle">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span
-                  className="flex h-[27px] w-[27px] items-center justify-center rounded-[var(--radius-circle)] bg-surface-tint-strong text-meta font-black text-text-action"
+        <ChecklistCard
+          layout="framed"
+          className="shadow-contrast-l"
+          mark={<GoogleLogo size={24} />}
+          eyebrow="Profile audit"
+          title="Your business"
+          countLabel={`${AUDIT_AREAS.length} review areas`}
+          items={AUDIT_AREAS.map(([title, description]) => ({
+            title,
+            description,
+            tag: 'Reviewed',
+          }))}
+          ariaLabel="Example Google Business Profile audit coverage"
+          footer={
+            <footer className="moving-colour-fill flex flex-col items-start justify-between gap-xs px-ml py-m sm:flex-row sm:items-center sm:gap-0">
+              <span className="flex items-center gap-2xs text-label font-heavy text-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] uppercase">
+                <i
                   aria-hidden="true"
-                >
-                  ✓
-                </span>
-                <span>
-                  <strong className="mb-4xs block text-ui">{title}</strong>
-                  <small className="block text-label leading-[1.4] text-text-subtle">
-                    {description}
-                  </small>
-                </span>
-                {/* Cut on a phone: the row is already three columns wide and
-                    the tick has said this. */}
-                <span className="hidden text-tiny font-black tracking-label-tight text-text-muted uppercase sm:block">
-                  Reviewed
-                </span>
-              </li>
-            ))}
-          </ol>
-
-          <footer className="moving-colour-fill flex flex-col items-start justify-between gap-xs px-ml py-m sm:flex-row sm:items-center sm:gap-0">
-            <span className="flex items-center gap-2xs text-label font-heavy text-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] uppercase">
-              <i
-                aria-hidden="true"
-                className="h-[6px] w-[6px] rounded-[var(--radius-circle)] bg-surface-page"
-              />{' '}
-              Delivered as
-            </span>
-            <strong className="text-caption text-text-on-dark">Prioritised action list</strong>
-          </footer>
-        </div>
+                  className="h-[6px] w-[6px] rounded-[var(--radius-circle)] bg-surface-page"
+                />{' '}
+                Delivered as
+              </span>
+              <strong className="text-caption text-text-on-dark">Prioritised action list</strong>
+            </footer>
+          }
+        />
       </div>
     </section>
   );

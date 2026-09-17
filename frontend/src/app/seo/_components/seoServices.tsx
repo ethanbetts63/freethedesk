@@ -1,5 +1,6 @@
 import type { Service } from '@/components/ServiceScroll';
 import { cn } from '@/lib/utils';
+import { TrafficLights } from '@/components/visuals/chrome';
 
 /**
  * Two miniature illustrations — a redirect check and an AI-readiness panel —
@@ -9,7 +10,6 @@ import { cn } from '@/lib/utils';
  * names. Collected here rather than spread through the JSX so the exception is
  * visible in one place.
  */
-const chromeDotClassName = 'bg-[var(--slate-300)]';
 const chromeLabelClassName = 'text-[var(--slate-700)]';
 const urlChipClassName = 'text-[var(--blue-800)]';
 const arrowClassName = 'text-[var(--blue-600)]';
@@ -17,7 +17,7 @@ const badgeClassName = 'bg-[var(--slate-100)] text-[var(--blue-800)]';
 
 /** The tick light: a small dot with a soft halo of its own colour. */
 const successDotClassName =
-  'rounded-[var(--radius-circle)] bg-fill-success shadow-[0_0_0_3px_color-mix(in_srgb,var(--fill-success)_12%,transparent)]';
+  'rounded-[var(--radius-circle)] bg-fill-success shadow-halo [--ring-halo-colour:var(--fill-success)]';
 
 /** One of the four cells of the 2x2 readiness panel: hairlines only between
  * them, never around the outside, which the border already draws. */
@@ -52,9 +52,7 @@ export const seoServices: Service[] = [
         aria-hidden="true"
       >
         <div className="flex min-h-[24px] items-center gap-3xs border-b border-border-default bg-surface-tint px-xs">
-          <i className={cn('h-[4px] w-[4px] rounded-[var(--radius-circle)]', chromeDotClassName)} />
-          <i className={cn('h-[4px] w-[4px] rounded-[var(--radius-circle)]', chromeDotClassName)} />
-          <i className={cn('h-[4px] w-[4px] rounded-[var(--radius-circle)]', chromeDotClassName)} />
+          <TrafficLights size={4} tone="[&>i]:bg-[var(--slate-300)]" />
           <span
             className={cn(
               'ml-auto text-nano font-heavy tracking-label-tight uppercase',

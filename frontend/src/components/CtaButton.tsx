@@ -32,12 +32,11 @@ const ctaButtonVariants = cva(
   {
     variants: {
       appearance: {
-        brand:
-          'bg-[var(--page-accent,var(--action-primary))] text-text-on-dark hover:bg-surface-dark-hover',
+        brand: 'bg-[var(--page-accent)] text-text-on-dark hover:bg-surface-dark-hover',
         dark: 'bg-surface-dark text-text-on-dark hover:bg-surface-dark-hover',
         light: 'bg-surface-page text-text-secondary hover:bg-surface-tint-strong',
         ghost:
-          'border-b border-current bg-transparent text-[var(--page-accent,var(--action-primary))] hover:bg-transparent hover:text-text-secondary',
+          'border-b border-current bg-transparent text-[var(--page-accent)] hover:bg-transparent hover:text-text-secondary',
         // Deliberately no background/text classes: MovingColourButton supplies
         // them via the `.moving-colour-button` legacy class instead (an
         // animated gradient - a legitimate complex-animation exception per

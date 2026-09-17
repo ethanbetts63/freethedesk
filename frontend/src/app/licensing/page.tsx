@@ -39,7 +39,7 @@ export default async function LicensingPage() {
   const settings = await getSiteSettingsServer();
 
   return (
-    <main className="bg-surface-page text-text-primary [--page-accent:var(--action-primary)]">
+    <main className="bg-surface-page text-text-primary">
       <PageSchema path="/licensing" />
       <Hero
         path="/licensing"
