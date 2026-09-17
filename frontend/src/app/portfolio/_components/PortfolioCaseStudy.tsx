@@ -21,7 +21,7 @@ import { PortfolioEnquiryCta } from './PortfolioEnquiryCta';
 import { PortfolioTour, type PortfolioTourItem } from './PortfolioTour';
 import { heroGridClassName } from '@/lib/gridSurface';
 import { cn } from '@/lib/utils';
-import { LivePill, PhoneFrame } from '@/components/visuals/PhoneFrame';
+import { FloatingPill, LiveMark, PhoneFrame } from '@/components/visuals/PhoneFrame';
 
 type LineHeading = {
   lines: readonly string[];
@@ -152,8 +152,8 @@ function HeadingLines({ heading }: { heading: LineHeading }) {
 
 /**
  * Every section below the hero opens with this heading. It was four selectors
- * sharing one rule in `case-study.css`, which is exactly the shape that has to
- * become a named constant rather than a descendant selector.
+ * sharing one rule in the case-study stylesheet, which is exactly the shape
+ * that has to become a named constant rather than a descendant selector.
  */
 const caseHeadingClassName = 'm-0 text-display-4 leading-[0.96] tracking-[-0.067em]';
 
@@ -161,6 +161,16 @@ const caseHeadingClassName = 'm-0 text-display-4 leading-[0.96] tracking-[-0.067
  * The hero's pair of calls to action. Was the last consumer of the global
  * `.button-row` that Phase 3 removed everywhere else.
  */
+/** The muted lead paragraph that follows a section heading. */
+const caseLeadClassName = 'text-step-0 leading-[1.72] text-text-muted';
+
+/**
+ * A section's opening block: the number in a narrow first column, the heading
+ * in a wide second. Three columns from xl, the last left empty as a rail.
+ */
+const caseSectionHeadingClassName =
+  'mb-2xl grid grid-cols-[minmax(0,1fr)] gap-ml lg:mb-3xl lg:grid-cols-[minmax(0,0.4fr)_minmax(0,1.2fr)] lg:gap-x-3xl lg:gap-y-xl xl:grid-cols-[minmax(0,0.5fr)_minmax(0,1.2fr)_minmax(0,0.7fr)]';
+
 const caseButtonRowClassName =
   'flex flex-col flex-wrap items-start gap-l sm:flex-row sm:items-center';
 
@@ -221,7 +231,9 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
               priority
             />
           </PhoneFrame>
-          <LivePill>{config.liveLabel}</LivePill>
+          <FloatingPill className="top-[9px] right-[-4px] shadow-s lg:right-[22px]">
+            <LiveMark /> {config.liveLabel}
+          </FloatingPill>
         </div>
       </div>
     </section>
@@ -262,11 +274,11 @@ function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig['intro'] 
 
 function PortfolioTourSection({ config }: { config: PortfolioCaseStudyConfig['tour'] }) {
   return (
-    <section className="case-tour-section" id="tour">
+    <section className="bg-surface-tint py-section" id="tour">
       <div className="site-shell">
-        <div className="case-section-heading">
+        <div className={caseSectionHeadingClassName}>
           <SectionNumber>{config.eyebrow}</SectionNumber>
-          <h2>
+          <h2 className={cn(caseHeadingClassName, 'lg:col-start-2')}>
             <HeadingLines heading={config.title} />
           </h2>
         </div>
@@ -278,22 +290,30 @@ function PortfolioTourSection({ config }: { config: PortfolioCaseStudyConfig['to
 
 function PortfolioMobileStory({ config }: { config: MobileStory }) {
   return (
-    <section className="case-mobile-story">
-      <div className="site-shell case-mobile-story-grid">
-        <div className="case-mobile-copy">
+    <section className="bg-surface-page py-section">
+      <div className="site-shell grid grid-cols-[minmax(0,1fr)] items-center gap-2xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:gap-section">
+        <div>
           <SectionNumber>{config.eyebrow}</SectionNumber>
-          <h2>{config.title}</h2>
-          <p>{config.description}</p>
-          <div className="case-mobile-stat">
-            <strong className="moving-colour-text">{config.stat.value}</strong>
-            <span>
-              <b>{config.stat.label}</b>
-              <small>{config.stat.description}</small>
+          <h2 className={caseHeadingClassName}>{config.title}</h2>
+          <p className={cn(caseLeadClassName, 'mt-xl mb-0 max-w-[540px]')}>{config.description}</p>
+          <div className="mt-xl grid max-w-[540px] grid-cols-[auto_minmax(0,1fr)] items-center gap-l border-y border-border-default py-ml">
+            {/* The trailing padding is optical kerning after the last glyph:
+                em-relative to the number's own size, not interface spacing. */}
+            <strong className="moving-colour-text pr-[0.08em] text-display-5 leading-[0.85] tracking-[-0.08em]">
+              {config.stat.value}
+            </strong>
+            <span className="block">
+              <b className="block text-body leading-[1.35]">{config.stat.label}</b>
+              <small className="mt-2xs block text-caption leading-[1.45] text-text-subtle">
+                {config.stat.description}
+              </small>
             </span>
           </div>
           <PortfolioEnquiryCta />
         </div>
-        <div className="case-mobile-stage">
+        {/* Graph paper at its own scale: this is a stage for a drawn object,
+            not a page surface, so the 46px grid is literal. */}
+        <div className="relative flex min-h-[550px] items-center justify-center overflow-hidden bg-surface-dark [background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_10%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_10%,transparent)_1px,transparent_1px)] [background-size:46px_46px] lg:min-h-[620px]">
           <PhoneFrame size="standalone" menu>
             <Image
               className={config.image.className}
@@ -303,10 +323,10 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
               height={config.image.height}
             />
           </PhoneFrame>
-          <div className="case-mobile-callout case-mobile-callout-one">
-            <b>01</b>
+          <FloatingPill className="top-[25%] right-[1%] shadow-contrast-s lg:right-[7%]">
+            <b className="text-label text-text-action">01</b>
             <span>{config.callout}</span>
-          </div>
+          </FloatingPill>
         </div>
       </div>
     </section>
@@ -315,34 +335,56 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
 
 function OperationsConsole({ config }: { config: OperationsFeature['console'] }) {
   return (
-    <div className="case-ops-console">
-      <aside>
-        <strong>{config.workspace}</strong>
+    // A row of scrolling chips on a phone, a fixed sidebar from lg.
+    <div className="grid min-h-[530px] grid-cols-[minmax(0,1fr)] overflow-hidden rounded-l border border-border-on-dark-strong bg-surface-tint text-text-primary lg:grid-cols-[190px_minmax(0,1fr)]">
+      <aside className="flex flex-row gap-2xs overflow-x-auto border-b border-border-strong bg-surface-tint-strong p-s lg:flex-col lg:overflow-x-visible lg:border-r lg:border-b-0 lg:px-ml lg:py-xl">
+        <strong className="mr-xs min-w-[115px] px-3xs py-s text-body lg:mr-0 lg:mb-m lg:min-w-0 lg:border-b lg:border-border-strong lg:px-xs lg:pt-0 lg:pb-l">
+          {config.workspace}
+        </strong>
         {config.navigation.map((item) => (
-          <span className={item === config.activeNavigation ? 'active' : undefined} key={item}>
-            {item} {item === config.activeNavigation && <b>{config.activeCount}</b>}
+          <span
+            className={cn(
+              'flex min-w-max items-center justify-between px-xs py-s text-ui font-strong text-text-muted lg:min-w-0',
+              item === config.activeNavigation && 'rounded-xs bg-surface-dark text-text-on-dark',
+            )}
+            key={item}
+          >
+            {item}{' '}
+            {item === config.activeNavigation && (
+              <b className="flex h-[20px] w-[20px] items-center justify-center rounded-[var(--radius-circle)] bg-accent text-tiny text-text-primary">
+                {config.activeCount}
+              </b>
+            )}
           </span>
         ))}
       </aside>
-      <div className="case-ops-main">
-        <div className="case-ops-topline">
+      <div className="px-ml py-xl lg:p-xl">
+        <div className="flex flex-col items-start justify-between gap-m border-b border-border-default pb-l lg:flex-row lg:items-end lg:gap-0">
           <div>
-            <small>{config.timestamp}</small>
-            <h3>{config.title}</h3>
+            <small className="text-label font-heavy tracking-label text-text-action uppercase">
+              {config.timestamp}
+            </small>
+            <h3 className="mt-xs mb-0 text-display-2 tracking-[-0.06em]">{config.title}</h3>
           </div>
-          <span>
-            {config.status} <i />
+          <span className="text-caption text-text-muted">
+            {config.status}{' '}
+            <i className="ml-2xs inline-block h-[7px] w-[7px] rounded-[var(--radius-circle)] bg-[var(--status-won)]" />
           </span>
         </div>
-        <div className="case-ops-list">
+        <div>
           {config.items.map((item) => (
-            <article key={item.number}>
-              <span>{item.number}</span>
+            <article
+              className="grid grid-cols-[25px_minmax(0,1fr)] items-center gap-s border-b border-border-default px-3xs py-ml lg:grid-cols-[35px_minmax(0,1fr)_auto] lg:gap-ml"
+              key={item.number}
+            >
+              <span className="text-meta font-black text-text-action">{item.number}</span>
               <div>
-                <h4>{item.title}</h4>
-                <p>{item.detail}</p>
+                <h4 className="m-0 mb-3xs text-lead">{item.title}</h4>
+                <p className="m-0 text-ui leading-[1.5] text-text-muted">{item.detail}</p>
               </div>
-              <b>Open →</b>
+              {/* Below lg the row is two columns, so this wraps under the copy
+                  rather than sitting beside it. */}
+              <b className="col-start-2 text-caption lg:col-auto">Open →</b>
             </article>
           ))}
         </div>
@@ -351,45 +393,94 @@ function OperationsConsole({ config }: { config: OperationsFeature['console'] })
   );
 }
 
+/**
+ * Two step columns, the second inverted onto the accent. The alternate colours
+ * are the only difference between them, so they ride on one `alt` flag rather
+ * than a second class family.
+ */
 function DualSteps({ columns }: { columns: DualStepsFeature['columns'] }) {
   return (
-    <div className="case-steps-pair">
-      {columns.map((column, index) => (
-        <article
-          className={`case-steps-column${index % 2 ? ' case-steps-column-alt' : ''}`}
-          key={column.label}
-        >
-          <header>
-            <small>{column.label}</small>
-            <h3>{column.title}</h3>
-            <p>{column.description}</p>
-          </header>
-          <ol>
-            {column.steps.map((step) => (
-              <li key={step.number}>
-                <b>{step.number}</b>
-                <span>{step.detail}</span>
-              </li>
-            ))}
-          </ol>
-        </article>
-      ))}
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-l lg:grid-cols-2">
+      {columns.map((column, index) => {
+        const alt = index % 2 === 1;
+        return (
+          <article
+            className={cn(
+              'flex flex-col rounded-l px-xl pt-xl pb-l text-text-primary xl:pb-xl',
+              alt ? 'bg-accent' : 'bg-surface-page',
+            )}
+            key={column.label}
+          >
+            <header className="border-b border-border-default pb-l">
+              <small
+                className={cn(
+                  'mb-s block text-micro font-black tracking-label uppercase',
+                  alt ? 'text-text-primary' : 'text-text-action',
+                )}
+              >
+                {column.label}
+              </small>
+              <h3 className="m-0 text-display-1 tracking-[-0.06em]">{column.title}</h3>
+              <p
+                className={cn(
+                  'mt-s mb-0 max-w-[380px] text-body leading-[1.6]',
+                  alt ? 'text-[var(--blue-950)]' : 'text-text-muted',
+                )}
+              >
+                {column.description}
+              </p>
+            </header>
+            <ol className="m-0 list-none p-0">
+              {column.steps.map((step) => (
+                <li
+                  className={cn(
+                    'grid grid-cols-[26px_minmax(0,1fr)] items-start gap-ml border-b py-m last:border-b-0',
+                    alt
+                      ? 'border-[color-mix(in_srgb,var(--blue-950)_18%,transparent)]'
+                      : 'border-border-default',
+                  )}
+                  key={step.number}
+                >
+                  <b
+                    className={cn(
+                      'pt-4xs text-meta font-black',
+                      alt ? 'text-[var(--blue-950)]' : 'text-text-action',
+                    )}
+                  >
+                    {step.number}
+                  </b>
+                  <span className="text-body leading-[1.5]">{step.detail}</span>
+                </li>
+              ))}
+            </ol>
+          </article>
+        );
+      })}
     </div>
   );
 }
 
 function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig['feature'] }) {
   return (
-    <section className="case-operations-section" id="operations">
+    <section className="bg-surface-dark py-section text-text-on-dark" id="operations">
       <div className="site-shell">
-        <div className="case-operations-heading">
+        <div className="mb-2xl grid grid-cols-[minmax(0,1fr)] gap-xl lg:mb-3xl lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-2xl xl:gap-section">
           <div>
-            <SectionNumber onDark>{config.eyebrow}</SectionNumber>
-            <h2>
+            {/* Brighter than the shared on-dark number: this band is the
+                darkest surface on the page. */}
+            <SectionNumber
+              className="text-[color-mix(in_srgb,var(--surface-page)_72%,transparent)]"
+              onDark
+            >
+              {config.eyebrow}
+            </SectionNumber>
+            <h2 className={caseHeadingClassName}>
               <HeadingLines heading={config.title} />
             </h2>
           </div>
-          <p>{config.description}</p>
+          <p className="m-0 max-w-[540px] self-end text-step-0 leading-[1.72] text-[color-mix(in_srgb,var(--surface-page)_78%,transparent)]">
+            {config.description}
+          </p>
         </div>
         {config.variant === 'operations' ? (
           <OperationsConsole config={config.console} />
@@ -403,20 +494,22 @@ function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig['featur
 
 function PortfolioMediaFeature({ config }: { config: MediaFeature }) {
   return (
-    <section className={config.tinted ? 'case-tinted-section' : 'section'}>
-      <div className={`site-shell case-split${config.reverse ? ' case-split-reverse' : ''}`}>
-        <div className="case-split-copy">
+    <section className={config.tinted ? 'bg-surface-tint py-section' : 'section'}>
+      <div className="site-shell grid grid-cols-[minmax(0,1fr)] items-center gap-2xl lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] xl:gap-3xl">
+        {/* Reversed bands put the copy second from lg; on a phone it always
+            leads, so the order swap is a breakpoint away. */}
+        <div className={cn(config.reverse && 'lg:order-2')}>
           <SectionNumber>{config.eyebrow}</SectionNumber>
-          <h2>{config.title}</h2>
-          <p>{config.description}</p>
-          <div className="case-split-points">
+          <h2 className="m-0 text-display-3 leading-[1] tracking-[-0.062em]">{config.title}</h2>
+          <p className={cn(caseLeadClassName, 'my-xl max-w-[560px]')}>{config.description}</p>
+          <div className="grid grid-cols-[minmax(0,1fr)] border-t border-border-default sm:grid-cols-2 [&>span]:border-b [&>span]:border-border-default [&>span]:py-s [&>span]:text-ui [&>span]:font-heavy [&>span]:text-text-muted">
             {config.points.map((point) => (
               <span key={point}>{point}</span>
             ))}
           </div>
           <PortfolioEnquiryCta />
         </div>
-        <div className="case-split-media">
+        <div>
           <BrowserFrame image={config.image} browserUrl={config.browserUrl} />
         </div>
       </div>
@@ -426,29 +519,42 @@ function PortfolioMediaFeature({ config }: { config: MediaFeature }) {
 
 function PortfolioIntent({ config }: { config: IntentSection }) {
   return (
-    <section className="case-intent-section" id="search-structure">
+    <section className="bg-surface-tint py-section" id="search-structure">
       <div className="site-shell">
-        <div className="case-intent-heading">
+        <div className="mb-2xl grid grid-cols-[minmax(0,1fr)] items-start gap-xl lg:mb-3xl lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-2xl xl:gap-section">
           <div>
             <SectionNumber>{config.eyebrow}</SectionNumber>
-            <h2>
+            <h2 className="m-0 text-display-5 leading-[0.95] tracking-[-0.068em]">
               <HeadingLines heading={config.title} />
             </h2>
           </div>
-          <p>{config.description}</p>
+          <p className={cn(caseLeadClassName, 'm-0 max-w-[530px]')}>{config.description}</p>
         </div>
-        <div className="case-intent-grid">
+        {/* One column on a phone, two from lg, four from xl. The outer rules
+            come from the grid's own top and left borders; every cell draws its
+            own right and bottom so they never double up. */}
+        <div className="grid grid-cols-[minmax(0,1fr)] border-t border-l border-border-strong lg:grid-cols-2 xl:grid-cols-4">
           {config.groups.map((group) => (
-            <article key={group.number}>
-              <header>
-                <span>{group.number}</span>
-                <h3>{group.title}</h3>
+            <article
+              className="flex flex-col border-r border-b border-border-strong px-l py-xl lg:min-h-[420px] xl:min-h-[460px]"
+              key={group.number}
+            >
+              <header className="lg:min-h-[118px]">
+                <span className="mb-ml block text-meta font-black text-text-action lg:mb-xl">
+                  {group.number}
+                </span>
+                <h3 className="m-0 text-step-1 tracking-[-0.035em]">{group.title}</h3>
               </header>
-              <ul>
+              {/* Pinned to the bottom of the card from lg, where the cards
+                  share a height and the headers are padded to match. */}
+              <ul className="mx-0 mt-xl mb-0 list-none p-0 lg:mt-auto">
                 {group.pages.map((page) => (
-                  <li key={page}>
+                  <li
+                    className="flex items-center justify-between border-t border-border-default py-s text-ui font-strong leading-[1.35] text-text-muted"
+                    key={page}
+                  >
                     {page}
-                    <span>↗</span>
+                    <span className="ml-xs text-micro text-text-action">↗</span>
                   </li>
                 ))}
               </ul>

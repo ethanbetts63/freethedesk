@@ -81,12 +81,27 @@ export function PhoneFrame({
   );
 }
 
-/** The floating "live" pill that sits alongside the case-study hero phone. */
-export function LivePill({ children }: { children: ReactNode }) {
+/**
+ * A small white pill floating over a drawn composition: the case-study hero's
+ * "live" note and the mobile story's numbered callout are the same object at
+ * different corners, so position and shadow come from the caller.
+ */
+export function FloatingPill({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className="absolute top-[9px] right-[-4px] z-4 flex items-center gap-xs bg-surface-page p-xs text-label font-heavy shadow-s sm:px-m sm:py-s lg:right-[22px] sm:text-caption">
-      <i className="h-[7px] w-[7px] rounded-[var(--radius-circle)] bg-[var(--status-won)] shadow-halo [--ring-halo-colour:var(--status-won)]" />{' '}
+    <div
+      className={cn(
+        'absolute z-4 flex items-center gap-xs bg-surface-page p-xs text-label font-heavy sm:px-m sm:py-s sm:text-caption',
+        className,
+      )}
+    >
       {children}
     </div>
+  );
+}
+
+/** The green dot that opens the hero's "live" pill. */
+export function LiveMark() {
+  return (
+    <i className="h-[7px] w-[7px] rounded-[var(--radius-circle)] bg-[var(--status-won)] shadow-halo [--ring-halo-colour:var(--status-won)]" />
   );
 }

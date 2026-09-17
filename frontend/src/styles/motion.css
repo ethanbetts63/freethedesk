@@ -118,3 +118,17 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* The case-study tour fades its screenshot in when a tab changes. Applied as
+   `animate-[case-image-in_0.35s_ease_both]`; a keyframe still has to be
+   declared in CSS for a utility to name it. */
+@keyframes case-image-in {
+  from {
+    opacity: 0.25;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

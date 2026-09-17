@@ -5,27 +5,27 @@ import { cn } from '@/lib/utils';
  * `onDark` for dark surfaces. Pages that set `--page-accent` tint it
  * automatically.
  *
- * The bare `section-number` / `section-number-light` classes carry no styling
- * any more - they survive as structural hooks for
- * `app/portfolio/case-study.css`, which both selects around this element
- * (`.case-split-copy > p:not(.section-number)`) and overrides its colour
- * (`.case-operations-section .section-number-light`). That stylesheet is
- * imported unlayered, so its override still wins over the utilities below,
- * exactly as it did over the deleted `.section-number-light` rule. Both hooks
- * go when it migrates in Phase 4.
+ * The bare `section-number` class carries no styling any more. It survives as
+ * a structural hook for `CaseStudyTeaser`, which styles the paragraphs around
+ * this one with `[&>p:not(.section-number)]`. A section that wants a different
+ * colour passes `className`, which is what the case-study operations band does
+ * on its darker ground.
  */
 export function SectionNumber({
   children,
   onDark = false,
+  className,
 }: {
   children: string;
   onDark?: boolean;
+  className?: string;
 }) {
   return (
     <p
       className={cn(
         'section-number m-0 mb-l text-caption font-black uppercase tracking-label-wide',
-        onDark ? 'section-number-light text-section-number-on-dark' : 'text-[var(--page-accent)]',
+        onDark ? 'text-section-number-on-dark' : 'text-[var(--page-accent)]',
+        className,
       )}
     >
       {children}

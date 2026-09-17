@@ -3,10 +3,6 @@
    tokens, base, then primitives. Everything else is colocated with what
    it styles and imported there.
 
-   A stylesheet owns its class prefix exclusively - a new rule for
-   .case-tour belongs in the file that already owns it, with its media
-   queries at the bottom of that same file.
-
    Not-yet-migrated global CSS is imported into an explicit `legacy` layer,
    positioned between Tailwind's `base` and `components` layers. Without this,
    these files would be unlayered - and unlayered CSS always beats layered CSS

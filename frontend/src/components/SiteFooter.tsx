@@ -37,8 +37,8 @@ const footerColumnClassName = 'flex flex-col gap-0 text-small lg:gap-s';
 
 /**
  * The graph-paper backdrop, faded out at the top and both edges so it never
- * meets a hard boundary. Same two grid layers as the hero and the portfolio
- * case study; when `case-study.css` migrates it is worth naming the pair once.
+ * meets a hard boundary. The two grid layers are the hero's, from
+ * `--tint-hero-grid`; only the fade is this footer's own.
  */
 const footerGridBackdropClassName = [
   "relative overflow-hidden before:absolute before:inset-0 before:content-[''] before:pointer-events-none",
