@@ -14,6 +14,7 @@ import {
 } from '@/components/dashboard/AccountDetail';
 import { useAccountDetail } from '@/components/dashboard/useAccountDetail';
 import { DEALER_TYPE, formatDateTime, getDealer, updateDealer, type Dealer } from '@/lib/adminApi';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 export default function DealerDetailPage() {
   const id = Number(useParams<{ dealerId: string }>().dealerId);
@@ -31,7 +32,7 @@ export default function DealerDetailPage() {
   if (loading)
     return (
       <div className="admin-page">
-        <p className="admin-empty">Loading dealer…</p>
+        <p className="text-text-subtle">Loading dealer…</p>
       </div>
     );
   if (error && !account)
@@ -40,7 +41,7 @@ export default function DealerDetailPage() {
         <Link className="admin-back" href="/dashboard/dealers">
           ← Dealers
         </Link>
-        <p className="admin-banner admin-banner-error">{error}</p>
+        <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
   if (!account) return null;
@@ -57,8 +58,8 @@ export default function DealerDetailPage() {
         actionLabel="Email dealer →"
       />
 
-      {error && <p className="admin-banner admin-banner-error">{error}</p>}
-      {notice && <p className="admin-banner">{notice}</p>}
+      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
+      {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
 
       <div className="admin-detail-grid">
         <AccountStatusCard

@@ -17,6 +17,7 @@ import {
 import { messageStatuses, StatusPill, statusLabel } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getMessages, type AdminMessage } from '@/lib/adminApi';
 import { AdminButton } from '@/components/dashboard/AdminButton';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 const SORT_FIELDS = ['created_at'] as const;
 const FILTER_KEYS = ['status', 'channel'] as const;
@@ -73,7 +74,7 @@ function MessagesContent() {
           />
         </AdminFilterBar>
 
-        {list.error && <p className="admin-banner admin-banner-error">{list.error}</p>}
+        {list.error && <AdminNotice tone="danger">{list.error}</AdminNotice>}
         <div className="admin-table-wrap">
           <table className="admin-table">
             <thead>
@@ -136,7 +137,7 @@ export default function MessagesPage() {
     <Suspense
       fallback={
         <div className="admin-page">
-          <p className="admin-empty">Loading messages…</p>
+          <p className="text-text-subtle">Loading messages…</p>
         </div>
       }
     >

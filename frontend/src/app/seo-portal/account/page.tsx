@@ -4,6 +4,7 @@ import { useActionState, useEffect, useState } from 'react';
 import { getSeoAccount, type SeoAccount } from '@/lib/seoApi';
 import { submitSeoAccount, type SeoAccountState } from './SeoAccount.actions';
 import { AdminButton } from '@/components/dashboard/AdminButton';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 const initialState: SeoAccountState = { status: 'idle' };
 
@@ -61,13 +62,13 @@ export default function SeoPortalAccountPage() {
   if (loading)
     return (
       <div className="admin-page">
-        <p className="admin-empty">Loading your account…</p>
+        <p className="text-text-subtle">Loading your account…</p>
       </div>
     );
   if (error && !account)
     return (
       <div className="admin-page">
-        <p className="admin-banner admin-banner-error">{error}</p>
+        <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
   if (!account) return null;
@@ -84,8 +85,8 @@ export default function SeoPortalAccountPage() {
         </div>
       </header>
 
-      {error && <p className="admin-banner admin-banner-error">{error}</p>}
-      {notice && <p className="admin-banner">{notice}</p>}
+      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
+      {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
 
       <div className="admin-detail-grid">
         <section className="admin-detail-card admin-detail-wide">

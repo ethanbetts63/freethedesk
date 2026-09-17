@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { StatusPill } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getMessage, type AdminMessage } from '@/lib/adminApi';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 /** Related objects we have a dashboard page for. Anything else shows as plain text. */
 const RELATED_LINKS: Record<string, string> = {
@@ -30,13 +31,13 @@ export default function MessageDetailPage() {
         <Link className="admin-back" href="/dashboard/messages">
           ← Messages
         </Link>
-        <p className="admin-banner admin-banner-error">{error}</p>
+        <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
   if (!message)
     return (
       <div className="admin-page">
-        <p className="admin-empty">Loading message…</p>
+        <p className="text-text-subtle">Loading message…</p>
       </div>
     );
   return (
@@ -55,17 +56,17 @@ export default function MessageDetailPage() {
         <StatusPill status={message.status} />
       </header>
       {message.status === 'failed' && (
-        <p className="admin-banner admin-banner-error">
+        <AdminNotice tone="danger">
           <strong>This message did not send.</strong> {message.error_message}
-        </p>
+        </AdminNotice>
       )}
       {message.status === 'bounced' && (
-        <p className="admin-banner admin-banner-error">
+        <AdminNotice tone="danger">
           <strong>This message was accepted but never arrived.</strong> {message.error_message}
-        </p>
+        </AdminNotice>
       )}
       {message.status === 'queued' && message.error_message && (
-        <p className="admin-banner admin-banner-warning">{message.error_message}</p>
+        <AdminNotice tone="warning">{message.error_message}</AdminNotice>
       )}
       <div className="admin-detail-grid">
         <section className="admin-detail-card">

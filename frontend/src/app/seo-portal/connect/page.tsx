@@ -17,6 +17,7 @@ import {
   portalFormActionsClassName,
   portalFormClassName,
 } from '@/components/dashboard/PortalField';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 const initialState: SeoConnectState = { status: 'idle' };
 
@@ -91,13 +92,13 @@ export default function SeoPortalConnectPage() {
   if (loading)
     return (
       <div className="admin-page">
-        <p className="admin-empty">Loading your setup…</p>
+        <p className="text-text-subtle">Loading your setup…</p>
       </div>
     );
   if (!profile)
     return (
       <div className="admin-page">
-        <p className="admin-banner admin-banner-error">{error}</p>
+        <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
   const locked = profile.onboarding_status === 'submitted';
@@ -115,11 +116,11 @@ export default function SeoPortalConnectPage() {
           </p>
         </div>
       </header>
-      <p className="admin-banner">
+      <AdminNotice tone="success">
         Status: <strong>{profile.onboarding_status_label}</strong>
-      </p>
-      {error && <p className="admin-banner admin-banner-error">{error}</p>}
-      {notice && <p className="admin-banner">{notice}</p>}
+      </AdminNotice>
+      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
+      {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
 
       <form className={portalFormClassName} onSubmit={onSubmit}>
         <PortalFieldset
@@ -183,7 +184,7 @@ export default function SeoPortalConnectPage() {
           </div>
         )}
         {locked && (
-          <p className="admin-muted">
+          <p className="text-ui text-text-subtle">
             Your brief is in. We will be in touch if we need anything else.
           </p>
         )}

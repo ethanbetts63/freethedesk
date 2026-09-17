@@ -56,7 +56,7 @@ export function AccountApprovalCard({
   return (
     <section className="admin-detail-card admin-detail-wide">
       <h2>{heading}</h2>
-      <p className="admin-muted">{explanation}</p>
+      <p className="text-ui text-text-subtle">{explanation}</p>
       <div className="flex flex-col flex-wrap items-start gap-l sm:flex-row sm:items-center">
         <AdminButton type="button" disabled={saving} onClick={onApprove}>
           Approve
@@ -215,7 +215,7 @@ export function RelatedMessagesCard({
           ))}
         </div>
       ) : (
-        <p className="admin-muted">{emptyLabel}</p>
+        <p className="text-ui text-text-subtle">{emptyLabel}</p>
       )}
     </section>
   );

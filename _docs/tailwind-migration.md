@@ -248,7 +248,26 @@ Convert the foundations that produce the most downstream reuse first:
    three textareas on the SEO reporting brief rendered with no border,
    background or padding at all. That is an intentional, separately
    identified change under principle 4, not a migration side effect;
-5. cards, notices, badges, status indicators, and tables;
+5. cards, notices, badges, status indicators, and tables. In progress, one
+   surface family at a time. **Notices are done:** `admin.css`'s
+   `.admin-banner` / `.admin-banner-error` / `.admin-banner-warning` /
+   `.admin-form-error` and `.admin-muted` rules are deleted (699 lines down to
+   665) and replaced by `components/dashboard/AdminNotice.tsx`, a CVA with a
+   `tone` (success/warning/danger) and a `size` (`banner`, which carries its
+   own vertical rhythm, and `field`, the flush in-form error), across the 17
+   files that rendered them. Three things worth recording: the old base class
+   quietly *was* the success palette, so a neutral-looking
+   `<p className="admin-banner">` was in fact a green banner and every error
+   had to repeat the palette as a second class (`tone` is now always explicit);
+   `.admin-form-error` was declared twice in `admin.css`, the second copy
+   repeating the danger palette it already inherited, and both are gone; and
+   `.admin-muted` was only ever `--text-subtle` at `--text-ui`, so it inlines
+   as two utilities rather than earning a component. One **deliberate change,
+   not a preserved appearance** — `.admin-empty` had no standalone rule, only
+   `.admin-table td.admin-empty`, so the 16 `<p className="admin-empty">`
+   loading states across the dashboard and both portals were rendering
+   completely unstyled in body colour. They now take the muted colour the
+   class name always promised. Flagged under principle 4;
 6. dialogs, checkout controls, and dashboard controls;
 7. focus, disabled, loading, and reduced-motion states.
 

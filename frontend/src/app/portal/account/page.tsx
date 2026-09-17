@@ -5,6 +5,7 @@ import { getDealerAccount, type DealerAccount } from '@/lib/dealerApi';
 import { DEALER_STATES } from '@/lib/dealerStates';
 import { submitPortalAccount, type PortalAccountState } from './PortalAccount.actions';
 import { AdminButton } from '@/components/dashboard/AdminButton';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 const initialState: PortalAccountState = { status: 'idle' };
 
@@ -60,13 +61,13 @@ export default function PortalAccountPage() {
   if (loading)
     return (
       <div className="admin-page">
-        <p className="admin-empty">Loading your account…</p>
+        <p className="text-text-subtle">Loading your account…</p>
       </div>
     );
   if (error && !account)
     return (
       <div className="admin-page">
-        <p className="admin-banner admin-banner-error">{error}</p>
+        <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
   if (!account) return null;
@@ -80,8 +81,8 @@ export default function PortalAccountPage() {
         </div>
       </header>
 
-      {error && <p className="admin-banner admin-banner-error">{error}</p>}
-      {notice && <p className="admin-banner">{notice}</p>}
+      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
+      {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
 
       <div className="admin-detail-grid">
         <section className="admin-detail-card admin-detail-wide">

@@ -12,6 +12,7 @@ import {
   portalFormActionsClassName,
   portalFormClassName,
 } from '@/components/dashboard/PortalField';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 const initialState: DealerSetupState = { status: 'idle' };
 
@@ -62,13 +63,13 @@ export default function DealerSetupPage() {
   if (loading)
     return (
       <div className="admin-page">
-        <p className="admin-empty">Loading dealership setup…</p>
+        <p className="text-text-subtle">Loading dealership setup…</p>
       </div>
     );
   if (!profileToShow)
     return (
       <div className="admin-page">
-        <p className="admin-banner admin-banner-error">{error}</p>
+        <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
   const profile = profileToShow;
@@ -83,11 +84,11 @@ export default function DealerSetupPage() {
           <p>Enter this once. We use it to prefill the dealer side of each workflow.</p>
         </div>
       </header>
-      <p className="admin-banner">
+      <AdminNotice tone="success">
         Setup status: <strong>{profile.onboarding_status_label}</strong>
-      </p>
-      {error && <p className="admin-banner admin-banner-error">{error}</p>}
-      {notice && <p className="admin-banner">{notice}</p>}
+      </AdminNotice>
+      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
+      {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
 
       <form className={portalFormClassName} action={dispatch}>
         <PortalFieldset
@@ -113,7 +114,7 @@ export default function DealerSetupPage() {
           legend="Dealership contact"
           description="Trading name, state, phone and email come from your account so they are maintained in one place."
         >
-          <p className="admin-muted">
+          <p className="text-ui text-text-subtle">
             {profile.trading_name} · {profile.state} ·{' '}
             {profile.phone || 'Phone required before submission'} · {profile.email}
           </p>
@@ -213,7 +214,7 @@ export default function DealerSetupPage() {
           </div>
         )}
         {locked && (
-          <p className="admin-muted">
+          <p className="text-ui text-text-subtle">
             This profile is locked while it is being reviewed. We will let you know if anything
             needs changing.
           </p>

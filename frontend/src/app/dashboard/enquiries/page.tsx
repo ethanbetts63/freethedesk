@@ -18,6 +18,7 @@ import {
 import { enquiryStatuses, StatusPill, statusLabel } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getEnquiries, type Enquiry } from '@/lib/adminApi';
 import { AdminButton } from '@/components/dashboard/AdminButton';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 const SORT_FIELDS = ['created_at', 'business', 'help_with', 'status'] as const;
 const FILTER_KEYS = ['status', 'help_with'] as const;
@@ -80,7 +81,7 @@ function EnquiriesContent() {
           />
         </AdminFilterBar>
 
-        {list.error && <p className="admin-banner admin-banner-error">{list.error}</p>}
+        {list.error && <AdminNotice tone="danger">{list.error}</AdminNotice>}
         <div className="admin-table-wrap">
           <table className="admin-table admin-enquiry-table">
             <thead>
@@ -157,7 +158,7 @@ export default function EnquiriesPage() {
     <Suspense
       fallback={
         <div className="admin-page">
-          <p className="admin-empty">Loading enquiries…</p>
+          <p className="text-text-subtle">Loading enquiries…</p>
         </div>
       }
     >

@@ -5,6 +5,7 @@ import type { PriceField } from '@/lib/api';
 import { formatDateTime, getSiteSettings, type SiteSettings } from '@/lib/adminApi';
 import { submitSiteSettings, type SiteSettingsState } from './SiteSettings.actions';
 import { AdminButton } from '@/components/dashboard/AdminButton';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 const initialState: SiteSettingsState = { status: 'idle' };
 
@@ -69,13 +70,13 @@ export default function SiteSettingsPage() {
   if (loading)
     return (
       <div className="admin-page">
-        <p className="admin-empty">Loading site settings…</p>
+        <p className="text-text-subtle">Loading site settings…</p>
       </div>
     );
   if (error && !settings)
     return (
       <div className="admin-page">
-        <p className="admin-banner admin-banner-error">{error}</p>
+        <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
   if (!settings || !form) return null;
@@ -104,13 +105,13 @@ export default function SiteSettingsPage() {
         </div>
       </header>
 
-      {error && <p className="admin-banner admin-banner-error">{error}</p>}
-      {notice && <p className="admin-banner">{notice}</p>}
+      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
+      {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
 
       <form className="admin-detail-grid" onSubmit={onSubmit}>
         <section className="admin-detail-card admin-detail-wide">
           <h2>Licensing subscription prices</h2>
-          <p className="admin-muted">
+          <p className="text-ui text-text-subtle">
             These are the prices shown on the public licensing page and at checkout. All prices are
             GST inclusive — this is the total a dealer pays each month, with nothing added on top.
           </p>
@@ -119,7 +120,7 @@ export default function SiteSettingsPage() {
 
         <section className="admin-detail-card admin-detail-wide">
           <h2>SEO report prices</h2>
-          <p className="admin-muted">
+          <p className="text-ui text-text-subtle">
             Prices shown on the public SEO page. Each subscription price is what a customer pays per
             report at that cadence. The Google Business Profile report can be selected alone or
             combined with SEO at the same frequency. The AI readiness check is free, so it has no

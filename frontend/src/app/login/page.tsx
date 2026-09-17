@@ -9,6 +9,7 @@ import { useAuth } from '@/context/AuthContext';
 import { homeFor } from '@/lib/api';
 import { SignalFlow } from '@/components/visuals/SignalFlow';
 import { AdminButton } from '@/components/dashboard/AdminButton';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 function LoginContent() {
   const { user, loading, login } = useAuth();
@@ -74,7 +75,11 @@ function LoginContent() {
               required
             />
           </label>
-          {error && <p className="admin-form-error">{error}</p>}
+          {error && (
+            <AdminNotice tone="danger" size="field">
+              {error}
+            </AdminNotice>
+          )}
           <AdminButton type="submit" disabled={submitting || loading}>
             {submitting ? 'Signing in…' : 'Sign in'}
           </AdminButton>

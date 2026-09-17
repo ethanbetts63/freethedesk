@@ -20,6 +20,7 @@ import {
   updateSeoSubscriber,
   type SeoSubscriber,
 } from '@/lib/adminApi';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 export default function SeoSubscriberDetailPage() {
   const id = Number(useParams<{ subscriberId: string }>().subscriberId);
@@ -37,7 +38,7 @@ export default function SeoSubscriberDetailPage() {
   if (loading)
     return (
       <div className="admin-page">
-        <p className="admin-empty">Loading SEO customer…</p>
+        <p className="text-text-subtle">Loading SEO customer…</p>
       </div>
     );
   if (error && !account)
@@ -46,7 +47,7 @@ export default function SeoSubscriberDetailPage() {
         <Link className="admin-back" href="/dashboard/seo">
           ← SEO customers
         </Link>
-        <p className="admin-banner admin-banner-error">{error}</p>
+        <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
   if (!account) return null;
@@ -63,8 +64,8 @@ export default function SeoSubscriberDetailPage() {
         actionLabel="Email customer →"
       />
 
-      {error && <p className="admin-banner admin-banner-error">{error}</p>}
-      {notice && <p className="admin-banner">{notice}</p>}
+      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
+      {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
 
       <div className="admin-detail-grid">
         <AccountStatusCard

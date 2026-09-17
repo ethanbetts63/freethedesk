@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import { formatDateTime } from '@/lib/api';
 import { getSeoAccount, type SeoAccount } from '@/lib/seoApi';
 import { AdminButton } from '@/components/dashboard/AdminButton';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 const statusCopy: Record<SeoAccount['status'], { heading: string; body: string }> = {
   pending: {
@@ -44,13 +45,13 @@ export default function SeoPortalOverviewPage() {
   if (loading)
     return (
       <div className="admin-page">
-        <p className="admin-empty">Loading your account…</p>
+        <p className="text-text-subtle">Loading your account…</p>
       </div>
     );
   if (error && !account)
     return (
       <div className="admin-page">
-        <p className="admin-banner admin-banner-error">{error}</p>
+        <AdminNotice tone="danger">{error}</AdminNotice>
       </div>
     );
   if (!account) return null;
@@ -208,7 +209,7 @@ export default function SeoPortalOverviewPage() {
               <dd>{formatDateTime(account.updated_at)}</dd>
             </div>
           </dl>
-          <p className="admin-muted">
+          <p className="text-ui text-text-subtle">
             Questions? <a href="mailto:hello@freethedesk.com.au">hello@freethedesk.com.au</a>
           </p>
         </section>

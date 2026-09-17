@@ -5,6 +5,7 @@ import { FormEvent, Suspense, useActionState, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { submitComposeMessage, type ComposeMessageState } from './ComposeMessage.actions';
 import { AdminButton } from '@/components/dashboard/AdminButton';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 const initialState: ComposeMessageState = { status: 'idle' };
 
@@ -60,9 +61,7 @@ function ComposeMessageContent() {
           </div>
           {relatedEnquiry && <span>Linked to enquiry #{relatedEnquiry}</span>}
         </header>
-        {state.status === 'error' && (
-          <p className="admin-banner admin-banner-error">{state.error}</p>
-        )}
+        {state.status === 'error' && <AdminNotice tone="danger">{state.error}</AdminNotice>}
         <form className="admin-compose-form" onSubmit={submit}>
           <label>
             To
@@ -127,13 +126,13 @@ function ComposeMessageContent() {
             )}
           </section>
           {confirming && (
-            <p className="admin-banner admin-banner-warning" role="alert">
+            <AdminNotice tone="warning" role="alert">
               Send this email to <strong>{to}</strong>? Press send again to confirm, or{' '}
               <AdminButton variant="inline" type="button" onClick={() => setConfirming(false)}>
                 cancel
               </AdminButton>
               .
-            </p>
+            </AdminNotice>
           )}
           <AdminButton className="self-start" type="submit" disabled={isPending}>
             {isPending ? 'Sending…' : confirming ? 'Confirm and send' : 'Send email'}
@@ -149,7 +148,7 @@ export default function ComposeMessagePage() {
     <Suspense
       fallback={
         <div className="admin-page">
-          <p className="admin-empty">Loading composer…</p>
+          <p className="text-text-subtle">Loading composer…</p>
         </div>
       }
     >
