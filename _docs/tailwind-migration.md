@@ -611,8 +611,10 @@ was a rule written to take effect and silently not taking effect, which is why
 Phase 5 lists arbitrary breakpoint variants as an ESLint error rather than a
 style preference.
 
-**Slices landed so far.** Running total: eight stylesheets deleted and one
-added (`styles/prose.css`); 8,226 lines of CSS down to 7,450.
+**Slices landed so far.** Running total: fifteen stylesheets deleted and two
+added (`styles/prose.css` and `flowCompare.module.css`, which was split out of
+the licensing page); 8,226 lines of CSS down to 5,573. Slices 4.7 to 4.12 are
+summarised in their commit messages rather than restated here.
 
 Line count is a poor scoreboard for this phase and 4.6 is where that becomes
 obvious: it removed real duplication and the total went *up* by a hundred
