@@ -1,6 +1,7 @@
 import type { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
+import { formControlClassName, formControlPaddingClassName } from './formControl';
 
 /**
  * The portal form primitives: the fieldset card, the field grid, a
@@ -24,16 +25,6 @@ export const portalFormClassName = 'grid gap-ml';
 /** Stacked and full-width on phones, right-aligned in a row from `sm`. */
 export const portalFormActionsClassName =
   'flex flex-col items-stretch justify-end gap-s py-xs sm:flex-row sm:items-center';
-
-/* Padding is deliberately NOT in this shared base. Tailwind emits `padding`
-   before `padding-inline`, so a `p-xs` on the file variant would lose to a
-   base `px-s` whatever order the classes are merged in - the flat padding the
-   file control needs has to be the only padding rule it gets. */
-const controlClassName = [
-  'w-full rounded-[var(--radius-xs)] border border-border-strong bg-surface-page',
-  'text-text-primary outline-none',
-  'focus:border-border-focus focus:shadow-[0_0_0_2px_var(--focus-ring)]',
-];
 
 export function PortalFieldset({
   legend,
@@ -90,7 +81,12 @@ function PortalTextarea({ label, hint, multiline, ...rest }: TextareaField) {
   void label;
   void hint;
   void multiline;
-  return <textarea {...rest} className={cn(controlClassName, 'resize-y px-s py-xs')} />;
+  return (
+    <textarea
+      {...rest}
+      className={cn(formControlClassName, 'resize-y', formControlPaddingClassName)}
+    />
+  );
 }
 
 function PortalInput({ label, hint, multiline, ...rest }: InputField) {
@@ -101,11 +97,11 @@ function PortalInput({ label, hint, multiline, ...rest }: InputField) {
     <input
       {...rest}
       className={cn(
-        controlClassName,
+        formControlClassName,
         'min-h-[42px]',
         // The file control brings its own chrome from the browser, so it sits
         // on the tinted surface at a smaller size with even padding.
-        rest.type === 'file' ? 'bg-surface-tint p-xs text-caption' : 'px-s py-xs',
+        rest.type === 'file' ? 'bg-surface-tint p-xs text-caption' : formControlPaddingClassName,
       )}
     />
   );

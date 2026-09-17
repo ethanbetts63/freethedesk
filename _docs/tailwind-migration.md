@@ -332,7 +332,46 @@ Convert the foundations that produce the most downstream reuse first:
    1440px and 480px: zero differences beyond Tailwind's transparent
    ring-placeholder chain in `box-shadow` and `border-color` on zero-width
    sides;
-6. dialogs, checkout controls, and dashboard controls;
+6. dialogs, checkout controls, and dashboard controls. **Dashboard controls
+   are done:** `admin.css` is 378 lines down to 213. The text control that
+   four stylesheets had each grown their own copy of — `portal.css`'s field
+   input, `.admin-filters select/input`, `.admin-compose-form
+   input/select/textarea`, `.admin-notes` and `.admin-status-card select` — is
+   now one definition, `formControlClassName` in
+   `components/dashboard/formControl.ts`, which `PortalField` and `AdminCard`
+   also read. They had already drifted: only some set `width`, the composer's
+   textarea re-declared the seven shared properties a second time to add three
+   of its own, and the focus border was a raw `var(--blue-600)`. Padding stays
+   out of the shared base for the reason 3.4 recorded. `.admin-compose-form`
+   became `adminFormClassName`/`adminFormLabelClassName`/
+   `adminFormControlClassName` (it had long since outgrown the composer — both
+   account screens and the site-settings prices use it), `.admin-filter-bar`
+   /`.admin-filters`/`.admin-search` moved onto `AdminFilterBar`, and
+   `.admin-search button` / `.admin-attachments > button` became
+   `AdminButton`'s `quiet` variant, which 3.5c had already introduced for
+   pagination.
+
+   **One real bug surfaced, and it is not in this slice.** Tailwind sorts
+   breakpoint variants by value, and it cannot compare an arbitrary
+   `min-[900px]` against the named `sm` (`40rem`) — so it emits the arbitrary
+   one *first*, and `sm:` silently wins at every width above 640px. Confirmed
+   on the built CSS (`min-[900px]` block at byte 67566, `sm:` at 71554) and in
+   the browser: `/guides`'s feature row declares
+   `sm:grid-cols-[auto_minmax(0,1fr)] min-[900px]:grid-cols-[auto_minmax(0,1fr)_auto]`
+   and measures two columns at 1000px and 1440px — its three-column layout has
+   never rendered. The filter bar was written the same way and had the same
+   fault; it now uses `lg:`, following the rule `tokens.css` already states
+   ("900px and 1080px are freethedesk's pre-migration values… each is
+   converted to its canonical neighbour, 900 -> 1024, as its file migrates").
+   That moves the three-column filter layout from 900px to 1024px — an
+   intentional, documented breakpoint change, and the only difference the A/B
+   found outside 1440px and 480px. **Every remaining `min-[900px]:` call site
+   that also sets the same property at `sm:` is broken the same way**
+   (`app/guides/page.tsx` lines 114 and 129 confirmed;
+   `components/checkout/CheckoutShell.tsx` lines 45 and 49 declare
+   `sm:min-h-*` beside `min-[900px]:min-h-screen` and are the same shape).
+   Those files belong to Phase 4 and are not touched here, but they should not
+   wait for it;
 7. focus, disabled, loading, and reduced-motion states.
 
 Replace global appearance classes such as `.primary-button` with React

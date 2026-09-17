@@ -12,6 +12,11 @@ import {
   adminDetailGridClassName,
 } from '@/components/dashboard/AdminCard';
 import { cn } from '@/lib/utils';
+import {
+  adminFormClassName,
+  adminFormControlClassName,
+  adminFormLabelClassName,
+} from '@/components/dashboard/formControl';
 
 const initialState: SeoAccountState = { status: 'idle' };
 
@@ -98,37 +103,41 @@ export default function SeoPortalAccountPage() {
       <div className={adminDetailGridClassName}>
         <section className={cn(adminCardClassName, adminCardWideClassName)}>
           <h2 className={adminCardTitleClassName}>Your business</h2>
-          <form className="admin-compose-form" onSubmit={onSubmit}>
-            <label>
+          <form className={adminFormClassName} onSubmit={onSubmit}>
+            <label className={adminFormLabelClassName}>
               Business name
               <input
+                className={cn(adminFormControlClassName)}
                 name="business_name"
                 value={form.business_name}
                 onChange={(event) => setForm({ ...form, business_name: event.target.value })}
                 required
               />
             </label>
-            <label>
+            <label className={adminFormLabelClassName}>
               Contact name
               <input
+                className={cn(adminFormControlClassName)}
                 name="contact_name"
                 value={form.contact_name}
                 onChange={(event) => setForm({ ...form, contact_name: event.target.value })}
                 required
               />
             </label>
-            <label>
+            <label className={adminFormLabelClassName}>
               Phone
               <input
+                className={cn(adminFormControlClassName)}
                 name="phone"
                 type="tel"
                 value={form.phone}
                 onChange={(event) => setForm({ ...form, phone: event.target.value })}
               />
             </label>
-            <label>
+            <label className={adminFormLabelClassName}>
               Website
               <input
+                className={cn(adminFormControlClassName)}
                 name="website"
                 type="url"
                 placeholder="https://"
@@ -136,9 +145,9 @@ export default function SeoPortalAccountPage() {
                 onChange={(event) => setForm({ ...form, website: event.target.value })}
               />
             </label>
-            <label>
+            <label className={adminFormLabelClassName}>
               Email
-              <input value={account.email} disabled />
+              <input className={cn(adminFormControlClassName)} value={account.email} disabled />
               <small className="mt-2xs block text-ui leading-[1.45] font-normal text-text-subtle">
                 This is your sign-in address. To change it, email hello@freethedesk.com.au and we
                 will move it across.
@@ -146,9 +155,10 @@ export default function SeoPortalAccountPage() {
             </label>
             {!account.has_usable_password && (
               <>
-                <label>
+                <label className={adminFormLabelClassName}>
                   Choose a password
                   <input
+                    className={cn(adminFormControlClassName)}
                     name="password"
                     type="password"
                     autoComplete="new-password"
@@ -158,9 +168,10 @@ export default function SeoPortalAccountPage() {
                     required
                   />
                 </label>
-                <label>
+                <label className={adminFormLabelClassName}>
                   Confirm password
                   <input
+                    className={cn(adminFormControlClassName)}
                     name="password_confirmation"
                     type="password"
                     autoComplete="new-password"

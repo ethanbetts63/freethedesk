@@ -13,6 +13,11 @@ import {
   adminDetailGridClassName,
 } from '@/components/dashboard/AdminCard';
 import { cn } from '@/lib/utils';
+import {
+  adminFormClassName,
+  adminFormControlClassName,
+  adminFormLabelClassName,
+} from '@/components/dashboard/formControl';
 
 const initialState: SiteSettingsState = { status: 'idle' };
 
@@ -89,9 +94,10 @@ export default function SiteSettingsPage() {
   if (!settings || !form) return null;
 
   const renderField = ({ field, label }: { field: PriceField; label: string }) => (
-    <label key={field}>
+    <label className={adminFormLabelClassName} key={field}>
       {label}
       <input
+        className={cn(adminFormControlClassName)}
         name={field}
         type="number"
         min="0"
@@ -122,7 +128,7 @@ export default function SiteSettingsPage() {
             These are the prices shown on the public licensing page and at checkout. All prices are
             GST inclusive — this is the total a dealer pays each month, with nothing added on top.
           </p>
-          <div className="admin-compose-form">{LICENSING_FIELDS.map(renderField)}</div>
+          <div className={adminFormClassName}>{LICENSING_FIELDS.map(renderField)}</div>
         </section>
 
         <section className={cn(adminCardClassName, adminCardWideClassName)}>
@@ -133,7 +139,7 @@ export default function SiteSettingsPage() {
             combined with SEO at the same frequency. The AI readiness check is free, so it has no
             price setting.
           </p>
-          <div className="admin-compose-form">
+          <div className={adminFormClassName}>
             {SEO_FIELDS.map(renderField)}
             <AdminButton type="submit" disabled={saving || !dirty}>
               {saving ? 'Saving…' : 'Save changes'}

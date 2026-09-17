@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 
 import { cn } from '@/lib/utils';
 import { AdminButton } from './AdminButton';
+import { formControlClassName, formControlPaddingClassName } from './formControl';
 import { statusTone } from './StatusPill';
 
 /**
@@ -99,7 +100,12 @@ export function FilterSelect({
   options: { value: string; label: string }[];
 }) {
   return (
-    <select aria-label={label} value={value} onChange={(event) => onChange(event.target.value)}>
+    <select
+      className={cn(formControlClassName, formControlPaddingClassName)}
+      aria-label={label}
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
+    >
       <option value="all">{allLabel}</option>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
@@ -132,28 +138,31 @@ export function AdminFilterBar({
   searchPlaceholder: string;
 }) {
   return (
-    <div className="admin-filter-bar">
+    <div className="border-b border-border-default bg-surface-tint p-ml">
       <div>
-        <strong>Filters</strong>
-        <p>
+        <strong className="text-body">Filters</strong>
+        <p className="mt-3xs mb-0 text-ui text-text-subtle">
           {total} {total === 1 ? noun : nounPlural} matching this view
         </p>
       </div>
-      <div className="admin-filters">
+      <div className="mt-m grid grid-cols-[minmax(0,1fr)] gap-xs sm:grid-cols-2 lg:grid-cols-[minmax(155px,0.55fr)_minmax(190px,0.8fr)_minmax(300px,1.5fr)]">
         {children}
         <form
-          className="admin-search"
+          className="col-auto flex gap-2xs sm:col-[1/-1] lg:col-auto"
           onSubmit={(event) => {
             event.preventDefault();
             onSearchSubmit();
           }}
         >
           <input
+            className={cn(formControlClassName, formControlPaddingClassName)}
             value={search}
             onChange={(event) => onSearchChange(event.target.value)}
             placeholder={searchPlaceholder}
           />
-          <button type="submit">Search</button>
+          <AdminButton variant="quiet" type="submit">
+            Search
+          </AdminButton>
         </form>
       </div>
       {legend && legend.length > 0 && (

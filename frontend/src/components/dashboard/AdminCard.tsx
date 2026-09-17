@@ -2,6 +2,8 @@ import type { ReactNode } from 'react';
 
 import { cn } from '@/lib/utils';
 
+import { formControlClassName, formControlPaddingClassName } from './formControl';
+
 /**
  * The card surfaces shared by the dashboard, both portals and the settings
  * screens.
@@ -64,10 +66,9 @@ export const adminStatusCardLabelGroupClassName = 'flex items-center gap-s';
 
 /** The `<select>` inside a status card. */
 export const adminStatusCardSelectClassName = cn(
-  'w-full max-w-none rounded-[var(--radius-xs)] border border-border-strong bg-surface-page',
-  'px-s py-xs text-text-primary outline-none',
-  'focus:border-border-focus focus:shadow-[0_0_0_2px_var(--focus-ring)]',
-  'sm:max-w-[210px]',
+  formControlClassName,
+  formControlPaddingClassName,
+  'max-w-none sm:max-w-[210px]',
 );
 
 export const adminDetailListClassName = cn('m-0', adminDetailGridClassName);

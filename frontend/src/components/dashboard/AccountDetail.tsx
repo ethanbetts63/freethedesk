@@ -8,6 +8,7 @@ import type { AccountBase, DealerStatus } from '@/lib/api';
 
 import { dealerStatuses, StatusPill, statusLabel } from './StatusPill';
 import { AdminButton } from '@/components/dashboard/AdminButton';
+import { formControlClassName } from '@/components/dashboard/formControl';
 import {
   AdminDetailItem,
   adminCardClassName,
@@ -182,7 +183,7 @@ export function StaffNotesCard({
         <h2 className={adminCardTitleClassName}>Internal notes</h2>
       </div>
       <textarea
-        className="admin-notes"
+        className={cn(formControlClassName, 'mb-s resize-y p-s')}
         rows={5}
         value={notes}
         onChange={(event) => onChange(event.target.value)}

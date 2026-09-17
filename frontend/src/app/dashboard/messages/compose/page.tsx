@@ -6,6 +6,13 @@ import { useSearchParams } from 'next/navigation';
 import { submitComposeMessage, type ComposeMessageState } from './ComposeMessage.actions';
 import { AdminButton } from '@/components/dashboard/AdminButton';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import {
+  adminFormClassName,
+  adminFormControlClassName,
+  adminFormLabelClassName,
+  adminFormTextareaClassName,
+} from '@/components/dashboard/formControl';
+import { cn } from '@/lib/utils';
 
 const initialState: ComposeMessageState = { status: 'idle' };
 
@@ -62,37 +69,46 @@ function ComposeMessageContent() {
           {relatedEnquiry && <span>Linked to enquiry #{relatedEnquiry}</span>}
         </header>
         {state.status === 'error' && <AdminNotice tone="danger">{state.error}</AdminNotice>}
-        <form className="admin-compose-form" onSubmit={submit}>
-          <label>
+        <form className={adminFormClassName} onSubmit={submit}>
+          <label className={adminFormLabelClassName}>
             To
             <input
+              className={cn(adminFormControlClassName)}
               type="email"
               value={to}
               onChange={(event) => setTo(event.target.value)}
               required
             />
           </label>
-          <label>
+          <label className={adminFormLabelClassName}>
             Subject
-            <input value={subject} onChange={(event) => setSubject(event.target.value)} required />
+            <input
+              className={cn(adminFormControlClassName)}
+              value={subject}
+              onChange={(event) => setSubject(event.target.value)}
+              required
+            />
           </label>
-          <label>
+          <label className={adminFormLabelClassName}>
             Email body
             <textarea
+              className={cn(adminFormTextareaClassName)}
               rows={18}
               value={body}
               onChange={(event) => setBody(event.target.value)}
               required
             />
           </label>
-          <section className="admin-attachments">
+          <section className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-s rounded-sm border border-border-default bg-surface-tint p-m">
             <div>
-              <strong>Attachments</strong>
-              <small>Up to 10 files; 20 MB each and 24 MB total.</small>
+              <strong className="block">Attachments</strong>
+              <small className="mt-3xs block text-meta text-text-subtle">
+                Up to 10 files; 20 MB each and 24 MB total.
+              </small>
             </div>
-            <button type="button" onClick={() => inputRef.current?.click()}>
+            <AdminButton variant="quiet" onClick={() => inputRef.current?.click()}>
               Attach files
-            </button>
+            </AdminButton>
             <input
               ref={inputRef}
               type="file"
@@ -104,13 +120,17 @@ function ComposeMessageContent() {
               }}
             />
             {attachments.length > 0 && (
-              <ul>
+              <ul className="col-[1/-1] m-0 list-none p-0">
                 {attachments.map((file, index) => (
-                  <li key={`${file.name}-${index}`}>
+                  <li
+                    className="flex items-center justify-between border-t border-border-default py-xs text-caption"
+                    key={`${file.name}-${index}`}
+                  >
                     <span>
                       {file.name} ({(file.size / 1024 / 1024).toFixed(1)} MB)
                     </span>
                     <button
+                      className="cursor-pointer border-0 bg-transparent text-caption font-heavy text-text-danger"
                       type="button"
                       onClick={() =>
                         setAttachments((current) =>

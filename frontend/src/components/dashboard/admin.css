@@ -53,81 +53,6 @@
   margin: 0 0 var(--space-s);
   text-transform: uppercase;
 }
-.admin-filter-bar {
-  background: var(--surface-tint);
-  border-bottom: 1px solid var(--border-default);
-  padding: var(--space-ml) var(--space-ml);
-}
-.admin-filter-bar > div:first-child strong {
-  font-size: var(--text-body);
-}
-.admin-filter-bar > div:first-child p {
-  color: var(--text-subtle);
-  font-size: var(--text-ui);
-  margin: var(--space-3xs) 0 0;
-}
-.admin-filters {
-  display: grid;
-  gap: var(--space-xs);
-  grid-template-columns: minmax(0, 1fr);
-  margin-top: var(--space-m);
-}
-.admin-filters select,
-.admin-filters input,
-.admin-compose-form input,
-.admin-compose-form select,
-.admin-compose-form textarea {
-  background: var(--surface-page);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-xs);
-  color: var(--text-primary);
-  outline: none;
-  padding: var(--space-xs) var(--space-s);
-  width: 100%;
-}
-.admin-filters select:focus,
-.admin-filters input:focus,
-.admin-compose-form input:focus,
-.admin-compose-form select:focus,
-.admin-compose-form textarea:focus {
-  border-color: var(--blue-600);
-  box-shadow: 0 0 0 2px var(--focus-ring);
-}
-.admin-search {
-  display: flex;
-  gap: var(--space-2xs);
-  grid-column: auto;
-}
-.admin-search button,
-.admin-attachments > button {
-  background: var(--surface-page);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-xs);
-  cursor: pointer;
-  font-size: var(--text-ui);
-  font-weight: var(--weight-heavy);
-  padding: var(--space-xs) var(--space-s);
-}
-.admin-search button:hover,
-.admin-attachments > button:hover {
-  background: var(--surface-tint);
-}
-.admin-notes {
-  background: var(--surface-page);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-xs);
-  color: var(--text-primary);
-  font: inherit;
-  margin-bottom: var(--space-s);
-  outline: none;
-  padding: var(--space-s);
-  resize: vertical;
-  width: 100%;
-}
-.admin-notes:focus {
-  border-color: var(--blue-600);
-  box-shadow: 0 0 0 2px var(--focus-ring);
-}
 .admin-back {
   color: var(--text-muted);
   display: inline-block;
@@ -259,95 +184,11 @@
   font-weight: var(--weight-heavy);
   padding: var(--space-2xs) var(--space-xs);
 }
-.admin-compose-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-m);
-}
-.admin-compose-form label {
-  font-size: var(--text-ui);
-  font-weight: var(--weight-heavy);
-}
-.admin-compose-form input,
-.admin-compose-form select,
-.admin-compose-form textarea {
-  background: var(--surface-page);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-xs);
-  color: var(--text-primary);
-  outline: none;
-  padding: var(--space-xs) var(--space-s);
-  width: 100%;
-  display: block;
-  margin-top: var(--space-2xs);
-}
-.admin-compose-form textarea {
-  background: var(--surface-page);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-xs);
-  color: var(--text-primary);
-  outline: none;
-  padding: var(--space-xs) var(--space-s);
-  width: 100%;
-  display: block;
-  margin-top: var(--space-2xs);
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  line-height: 1.55;
-  resize: vertical;
-}
-.admin-attachments {
-  align-items: center;
-  background: var(--surface-tint);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-s);
-  display: grid;
-  gap: var(--space-s);
-  grid-template-columns: minmax(0, 1fr) auto;
-  padding: var(--space-m);
-}
-.admin-attachments strong,
-.admin-attachments small {
-  display: block;
-}
-.admin-attachments small {
-  display: block;
-  color: var(--text-subtle);
-  font-size: var(--text-meta);
-  margin-top: var(--space-3xs);
-}
-.admin-attachments ul {
-  grid-column: 1 / -1;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.admin-attachments li {
-  align-items: center;
-  border-top: 1px solid var(--border-default);
-  display: flex;
-  font-size: var(--text-caption);
-  justify-content: space-between;
-  padding: var(--space-xs) 0;
-}
-.admin-attachments li button {
-  background: transparent;
-  border: 0;
-  color: var(--text-danger);
-  cursor: pointer;
-  font-size: var(--text-caption);
-  font-weight: var(--weight-heavy);
-}
 
 @media (min-width: 640px) {
   .admin-page-header {
     align-items: flex-end;
     flex-direction: revert;
-  }
-  .admin-filters {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-  .admin-search {
-    grid-column: 1 / -1;
   }
   .admin-related-messages a {
     align-items: center;
@@ -368,11 +209,5 @@
 @media (min-width: 900px) {
   .admin-page {
     padding: var(--space-xl);
-  }
-  .admin-filters {
-    grid-template-columns: minmax(155px, 0.55fr) minmax(190px, 0.8fr) minmax(300px, 1.5fr);
-  }
-  .admin-search {
-    grid-column: revert;
   }
 }
