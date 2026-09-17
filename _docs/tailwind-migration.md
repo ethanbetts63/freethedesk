@@ -611,10 +611,33 @@ was a rule written to take effect and silently not taking effect, which is why
 Phase 5 lists arbitrary breakpoint variants as an ESLint error rather than a
 style preference.
 
-**Slices landed so far.** Running total: fifteen stylesheets deleted and two
+**Slices landed so far.** Running total: eighteen stylesheets deleted and two
 added (`styles/prose.css` and `flowCompare.module.css`, which was split out of
-the licensing page); 8,226 lines of CSS down to 5,573. Slices 4.7 to 4.12 are
+the licensing page); 8,226 lines of CSS down to 4,759. Slices 4.7 to 4.14 are
 summarised in their commit messages rather than restated here.
+
+What is left is the generated preview (`preview.module.css` 2,775,
+`configurator.module.css` 435, `layout.module.css` 155), which this plan
+migrates last and which may stay CSS, plus `FlowCardVisual.module.css` (291)
+and `flowCompare.module.css` (113), both of which carry written justifications
+for staying.
+
+**4.13 condensed six families the migration exposed.** Spelling the same idea
+out in enough places makes the repetition visible, and these only became
+countable once they were utilities:
+
+- five accent variables (`--page-accent`, `--section-accent`,
+  `--feature-accent`, `--legal-accent`, `--section-number`) whose every set site
+  resolved to `--action-primary`, now one defined at `:root`;
+- two checklist cards that agreed about the row and disagreed about the
+  dressing, now `ChecklistCard` with a `panel` and a `framed` layout;
+- three phone drawings in two files under three sets of names, now
+  `PhoneFrame`'s three sizes (`styles/phone-mockup.css` deleted);
+- six `0 0 0 Npx` shadows at four sizes and four opacities, now `--ring-focus`
+  and `--ring-halo`, each taking its colour from a local property;
+- five browser drawings that each spelled out the three chrome dots, now
+  `TrafficLights` (the frames stay separate: each is sized to its own drawing);
+- one editorial rule with five spellings, now `hiddenBelowSmClassName`.
 
 Line count is a poor scoreboard for this phase and 4.6 is where that becomes
 obvious: it removed real duplication and the total went *up* by a hundred
@@ -801,8 +824,9 @@ ESLint must reject:
 - raw Tailwind neutral and colour ramps;
 - raw `color-mix()` percentages over a palette ramp where a `--tint-*` token
   already names that role (added in 4.6, which created the tokens);
-- arbitrary `shadow-[…]` outside the `--elevation-*` scale, except the focus
-  rings and glows in `lib/controlState.ts`, which are not elevation (4.6);
+- arbitrary `shadow-[…]` outside the `--elevation-*` and ring scales (4.6,
+  4.13). The exception is `lib/controlState.ts`, whose focus outlines are not
+  box-shadows at all;
 - arbitrary positive `tracking-[…]` outside the three `--label-tracking-*`
   steps (4.6);
 - solid `black` or `white` where a semantic role exists;
@@ -811,6 +835,9 @@ ESLint must reject:
 - dynamic Tailwind class-name construction;
 - duplicated page rails and fixed page-section spacing;
 - arbitrary breakpoint variants;
+- a second name for a role a variable already has. The `--*-accent` family
+  (4.13) is the worked example: five names, one value, and no way to tell from
+  a call site which one a new component should read;
 - arbitrary spacing, typography, weights, and radii unless explicitly allowed;
 - responsive display-size jumps that bypass the fluid scale.
 
