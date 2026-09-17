@@ -12,7 +12,6 @@ import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { metadataFor } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
 import { getSiteSettingsServer } from '@/lib/serverApi';
-import { PUBLIC_SITE_URL } from '@/lib/siteConfig';
 
 import { GoogleBusinessProfileAudit } from './_components/GoogleBusinessProfileAudit';
 import { SeoAnalysis } from './_components/SeoAnalysis';
@@ -49,33 +48,22 @@ const casePoints = [
 export default async function SeoPage() {
   const settings = await getSiteSettingsServer();
 
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: 'Quarterly SEO Reports',
-    serviceType: 'SEO consulting and reporting',
-    areaServed: { '@type': 'Country', name: 'Australia' },
-    provider: { '@id': `${PUBLIC_SITE_URL}/#organization` },
-    offers: {
-      '@type': 'Offer',
+  // The Service node itself is declared in PAGES; only the price is dynamic.
+  const serviceOffers = {
+    '@type': 'Offer',
+    price: settings.seo_quarterly_price,
+    priceCurrency: 'AUD',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
       price: settings.seo_quarterly_price,
       priceCurrency: 'AUD',
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: settings.seo_quarterly_price,
-        priceCurrency: 'AUD',
-        unitText: 'QUARTER',
-      },
+      unitText: 'QUARTER',
     },
   };
 
   return (
     <main className="bg-surface-page text-text-secondary [--page-accent:var(--action-primary)]">
-      <PageSchema path="/seo" />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
+      <PageSchema path="/seo" serviceOffers={serviceOffers} />
       <Hero
         path="/seo"
         eyebrow="Practical SEO reporting"

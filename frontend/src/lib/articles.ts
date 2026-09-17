@@ -1,10 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { AUTHOR_NAME } from './author';
 import { renderMarkdown } from './markdown';
 
 const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles');
 const EXCLUDED_FILES = new Set(['overview.md']);
-const AUTHOR_NAME = 'Ethan Betts-Ingram';
 
 export interface ArticleMeta {
   slug: string;

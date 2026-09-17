@@ -5,13 +5,20 @@ import { PAGES } from '@/lib/pages';
 import { PUBLIC_SITE_URL } from '@/lib/siteConfig';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const builtAt = new Date();
-
   const staticPages = Object.entries(PAGES)
     .filter(([, page]) => page.sitemap)
-    .map(([path, page]) => ({
+    .map(([path, page]): MetadataRoute.Sitemap[number] => ({
       url: `${PUBLIC_SITE_URL}${path === '/' ? '' : path}`,
-      lastModified: builtAt,
+      /**
+       * The registry's own `updated` date, not the build time.
+       *
+       * Build time meant every redeploy announced that all thirteen static
+       * pages had changed, which is the fastest way to teach Google to ignore
+       * every date in the file. `updated` is a required field, so every page
+       * carries a real one; keeping it real is a maintenance obligation, not
+       * something the code can derive.
+       */
+      lastModified: new Date(`${page.updated}T00:00:00+08:00`),
       changeFrequency: page.sitemap!.changeFrequency,
       priority: page.sitemap!.priority,
     }));

@@ -25,6 +25,7 @@ its agreements and messaging capabilities.
 | Security                                              | `_docs/security.md`                                                 |
 | Any form (new, edited, or converted)                  | `../freetheplatform/_docs/forms-standard.md` and `_docs/forms-migration.md` |
 | A role, portal, auth/session change, or edge routing  | `../freetheplatform/_docs/security-standard.md`                     |
+| Structured data, schema.org, JSON-LD                  | `../freetheplatform/_docs/seo-standardisation.md` — read its sources first |
 | Files under `frontend/`                               | `frontend/AGENTS.md` in addition to this file                       |
 
 Read only the documents relevant to the issue; do not load the whole `_docs`
@@ -42,6 +43,9 @@ directory.
   current CSS behaviour from the migration target.
 - Shared package changes require package tests plus focused FreeTheDesk
   integration verification.
+- Changing a page's content means bumping its `updated` date in
+  `frontend/src/lib/pages.ts` in the same commit — that date is the sitemap's
+  `<lastmod>` and the schema `dateModified`, and nothing can derive it for you.
 - Preserve unrelated worktree changes. Do not reset, overwrite, or broadly
   reformat files outside the issue.
 - Do not spin up subagents (Task/Agent tool calls) unless the user explicitly

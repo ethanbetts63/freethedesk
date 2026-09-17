@@ -1,13 +1,21 @@
 import type { Metadata } from 'next';
 
-import { buildBreadcrumbItems, pageMetadata } from './seo';
+import { buildBreadcrumbItems, pageMetadata, type ServiceDefinition } from './seo';
 
 export interface PageDefinition {
   title: string;
   description: string;
 
-  /** ISO date of the last material content change; emitted as `dateModified`. */
-  updated?: string;
+  /**
+   * ISO date of the last material content change; emitted as `dateModified`
+   * and as the sitemap's `<lastmod>`.
+   *
+   * Required, not optional. A freshness signal is only worth having if it is
+   * maintained, so the rule is: change a page, bump its date in the same
+   * commit. Required rather than optional means a new page cannot ship without
+   * one — `tsc` refuses it. See the lastmod line in AGENTS.md.
+   */
+  updated: string;
 
   /**
    * Short name for the final breadcrumb crumb. Breadcrumbs are rendered by
@@ -18,6 +26,15 @@ export interface PageDefinition {
 
   absoluteTitle?: boolean;
   ogImage?: string;
+
+  /**
+   * Set on a page that sells something, to emit a `Service` node alongside the
+   * `WebPage` one. `areaServed` is per page on purpose: most of what we do is
+   * delivered nationally, but the website-development page targets Perth and
+   * says so, and schema should agree with the copy above it rather than with a
+   * sitewide default.
+   */
+  service?: ServiceDefinition;
 
   sitemap?: { changeFrequency: 'weekly' | 'monthly' | 'yearly'; priority: number };
 }
@@ -46,6 +63,11 @@ export const PAGES = {
     title: 'Signed, sealed, delivered—sell more | Online Vehicle Licensing Australia',
     description:
       'Let customers verify their identity, complete vehicle licensing and sign paperwork online without an unnecessary dealership visit.',
+    service: {
+      name: 'Online Vehicle Licensing',
+      serviceType: 'Online vehicle licensing and contract signing',
+      areaServed: { type: 'Country', name: 'Australia' },
+    },
     sitemap: { changeFrequency: 'weekly', priority: 0.95 },
   },
   '/website-development': {
@@ -55,6 +77,13 @@ export const PAGES = {
     description:
       'Website Development for businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.',
     absoluteTitle: true,
+    // Perth rather than Australia, matching the page's own "Website development
+    // Perth" eyebrow and the local intent the title targets.
+    service: {
+      name: 'Website Development Perth',
+      serviceType: 'Website development and web application development',
+      areaServed: { type: 'City', name: 'Perth' },
+    },
     sitemap: { changeFrequency: 'weekly', priority: 0.9 },
   },
   '/dealership-website-builder': {
@@ -71,6 +100,11 @@ export const PAGES = {
     title: 'Stop paying for copy-paste | Business Automation Australia, Perth',
     description:
       'Practical workflow automation and custom integrations for Australian small and medium businesses.',
+    service: {
+      name: 'Business Automation',
+      serviceType: 'Workflow automation and systems integration',
+      areaServed: { type: 'Country', name: 'Australia' },
+    },
     sitemap: { changeFrequency: 'monthly', priority: 0.75 },
   },
   '/seo': {
@@ -79,6 +113,11 @@ export const PAGES = {
     title: 'Find your missing clicks | SEO Reports & Audits Australia',
     description:
       'See what is working, what is holding your website back and where the best search opportunities are.',
+    service: {
+      name: 'Quarterly SEO Reports',
+      serviceType: 'SEO consulting and reporting',
+      areaServed: { type: 'Country', name: 'Australia' },
+    },
     sitemap: { changeFrequency: 'monthly', priority: 0.75 },
   },
   '/guides': {

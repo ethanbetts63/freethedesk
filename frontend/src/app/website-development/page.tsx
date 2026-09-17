@@ -19,7 +19,6 @@ import { numberSections } from '@/lib/sectionNumbers';
 import { WEBSITE_DEV_FAQS } from './_lib/copy';
 import { ConversionFunnel } from './_components/ConversionFunnel';
 import { WebsiteFeatures } from './_components/WebsiteFeatures';
-import { PUBLIC_SITE_URL } from '@/lib/siteConfig';
 
 /* Section eyebrows in page order. */
 const sections = numberSections([
@@ -42,22 +41,9 @@ const casePoints = [
 ];
 
 export default function WebsiteDevelopmentPage() {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: 'Website Development Perth',
-    serviceType: 'Website development and web application development',
-    areaServed: { '@type': 'City', name: 'Perth' },
-    provider: { '@id': `${PUBLIC_SITE_URL}/#organization` },
-  };
-
   return (
     <main className="bg-surface-page text-text-secondary [--page-accent:var(--action-primary)]">
       <PageSchema path="/website-development" />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
       <AiReadinessBanner />
       <Hero
         path="/website-development"
