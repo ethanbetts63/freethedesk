@@ -19,6 +19,8 @@ import { numberSections } from '@/lib/sectionNumbers';
 import { BrowserFrame, type PortfolioImage } from './BrowserFrame';
 import { PortfolioEnquiryCta } from './PortfolioEnquiryCta';
 import { PortfolioTour, type PortfolioTourItem } from './PortfolioTour';
+import { heroGridClassName } from '@/lib/gridSurface';
+import { cn } from '@/lib/utils';
 
 type LineHeading = {
   lines: readonly string[];
@@ -147,18 +149,42 @@ function HeadingLines({ heading }: { heading: LineHeading }) {
   );
 }
 
+/**
+ * Every section below the hero opens with this heading. It was four selectors
+ * sharing one rule in `case-study.css`, which is exactly the shape that has to
+ * become a named constant rather than a descendant selector.
+ */
+const caseHeadingClassName = 'm-0 text-display-4 leading-[0.96] tracking-[-0.067em]';
+
+/**
+ * The hero's pair of calls to action. Was the last consumer of the global
+ * `.button-row` that Phase 3 removed everywhere else.
+ */
+const caseButtonRowClassName =
+  'flex flex-col flex-wrap items-start gap-l sm:flex-row sm:items-center';
+
 function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] }) {
   return (
-    <section className="case-hero">
-      <div className="case-hero-grid" aria-hidden="true" />
-      <div className="site-shell case-hero-layout">
-        <div className="case-hero-copy">
+    <section className="relative min-h-auto overflow-hidden py-3xl lg:min-h-[720px]">
+      <div
+        className={cn(
+          heroGridClassName,
+          '[mask-image:linear-gradient(to_right,var(--text-primary)_15%,color-mix(in_srgb,var(--text-primary)_48%,transparent)_64%,transparent)]',
+        )}
+        aria-hidden="true"
+      />
+      {/* The copy column narrows as the viewport widens so the screenshot can
+          take more of the room it needs. */}
+      <div className="site-shell relative grid grid-cols-[minmax(0,1fr)] items-center gap-2xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] xl:gap-3xl">
+        <div className="relative z-3">
           <Eyebrow>{config.eyebrow}</Eyebrow>
-          <h1>
+          <h1 className="m-0 text-display-3 font-heavy leading-[0.91] tracking-[-0.078em] lg:text-display-5 [&_span]:text-text-action">
             <HeadingLines heading={config.title} />
           </h1>
-          <p>{config.description}</p>
-          <div className="button-row">
+          <p className="my-xl max-w-[555px] text-step-0 leading-[1.65] text-text-muted">
+            {config.description}
+          </p>
+          <div className={caseButtonRowClassName}>
             <PrimaryButton href={config.liveHref} target="_blank" rel="noreferrer">
               Visit the live website
             </PrimaryButton>
@@ -169,14 +195,16 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
               Explore the build <span>↓</span>
             </ScrollCtaButton>
           </div>
-          <div className="case-hero-meta">
+          <div className="mt-xl flex flex-wrap gap-x-l gap-y-s border-t border-border-default pt-m lg:mt-2xl [&>span]:text-caption [&>span]:font-heavy [&>span]:tracking-label-tight [&>span]:text-text-subtle [&>span]:uppercase">
             {config.capabilities.map((capability) => (
               <span key={capability}>{capability}</span>
             ))}
           </div>
         </div>
 
-        <div className="case-hero-media">
+        {/* Bleeds past the page rail from lg so the window runs off the edge.
+            The negative margins are literal: there is no token for absence. */}
+        <div className="relative m-0 pt-l pr-0 pb-2xl pl-s sm:pl-xl lg:mr-[-190px] lg:pt-xl lg:pl-2xl xl:mr-[-105px]">
           <BrowserFrame image={config.desktopImage} browserUrl={config.browserUrl} hero />
           <div className={`case-phone${config.mobileImage.className ? ' case-phone-crop' : ''}`}>
             <div className="case-phone-speaker" />
@@ -205,16 +233,26 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
 
 function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig['intro'] }) {
   return (
-    <section className="section site-shell case-story-intro" id="overview">
+    <section
+      className="section site-shell grid grid-cols-[minmax(0,1fr)] gap-xl py-[78px] lg:grid-cols-[minmax(0,0.42fr)_minmax(0,1.58fr)] lg:gap-section lg:py-[112px]"
+      id="overview"
+    >
       <SectionNumber>{config.eyebrow}</SectionNumber>
-      <div>
-        <h2>
+      <div className="max-w-[880px]">
+        <h2 className={caseHeadingClassName}>
           <HeadingLines heading={config.title} />
         </h2>
         {config.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+          <p
+            key={paragraph}
+            className="my-xl max-w-[720px] text-step-0 leading-[1.72] text-text-muted"
+          >
+            {paragraph}
+          </p>
         ))}
-        <div className="case-capability-list">
+        {/* One row per capability on a phone, two from sm, four from lg. The
+            dot is a ::before so the text can wrap under itself. */}
+        <div className="grid grid-cols-[minmax(0,1fr)] border-t border-border-default sm:grid-cols-2 lg:grid-cols-4 [&>span]:relative [&>span]:border-b [&>span]:border-border-default [&>span]:py-m [&>span]:pr-xs [&>span]:pl-ml [&>span]:text-small [&>span]:font-strong [&>span]:text-text-muted [&>span]:before:absolute [&>span]:before:top-[21px] [&>span]:before:left-[2px] [&>span]:before:h-[5px] [&>span]:before:w-[5px] [&>span]:before:rounded-[var(--radius-circle)] [&>span]:before:bg-action-primary [&>span]:before:content-['']">
           {config.capabilities.map((capability) => (
             <span key={capability}>{capability}</span>
           ))}

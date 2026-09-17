@@ -5,12 +5,6 @@ import { cn } from '@/lib/utils';
  *
  * Sections tint it by setting `--eyebrow-accent` (see `Hero`); unset, it falls
  * back to `--text-action`.
- *
- * The bare `eyebrow` class carries no styling any more - it survives only as a
- * structural hook for `app/portfolio/case-study.css`, which selects the
- * paragraphs around this one with `.case-hero-copy > p:not(.eyebrow)`. It goes
- * when that stylesheet migrates in Phase 4; until then, removing it here would
- * silently restyle the case-study hero copy.
  */
 export function Eyebrow({
   children,
@@ -22,7 +16,7 @@ export function Eyebrow({
   return (
     <p
       className={cn(
-        'eyebrow m-0 mb-l flex items-center gap-s',
+        'm-0 mb-l flex items-center gap-s',
         'text-caption font-heavy uppercase tracking-label-wide',
         'text-[var(--eyebrow-accent,var(--text-action))]',
         className,

@@ -1,8 +1,13 @@
 import { PrimaryButton } from '@/components/PrimaryButton';
+import { cn } from '@/lib/utils';
 
-export function PortfolioEnquiryCta() {
+/**
+ * `flush` is the hero's copy block, where the button follows a meta row that
+ * already carries the gap. Everywhere else it opens its own space.
+ */
+export function PortfolioEnquiryCta({ flush = false }: { flush?: boolean }) {
   return (
-    <PrimaryButton className="case-section-cta" href="#enquiry" direction="down">
+    <PrimaryButton className={cn(!flush && 'mt-xl')} href="#enquiry" direction="down">
       See our options
     </PrimaryButton>
   );

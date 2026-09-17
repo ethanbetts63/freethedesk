@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { cn } from '@/lib/utils';
+
 export type PortfolioImage = {
   src: string;
   alt: string;
@@ -8,7 +10,18 @@ export type PortfolioImage = {
   className?: string;
 };
 
-/** Chrome-less browser mockup wrapping every case-study screenshot. */
+/**
+ * The browser mockup wrapping every case-study screenshot.
+ *
+ * The site draws five browser windows in total — this one, the two feature
+ * visuals, the flow card and the SEO redirect illustration — at four different
+ * bar heights with four different contents. They are not merged: each is sized
+ * to the drawing it belongs to, and a shared frame would have to take every
+ * dimension as a prop, which is the same code with an extra indirection.
+ */
+export const caseBrowserClassName =
+  'overflow-hidden rounded-md border border-border-strong bg-surface-page shadow-l [&>img]:block [&>img]:h-auto [&>img]:w-full';
+
 export function BrowserFrame({
   image,
   browserUrl,
@@ -19,12 +32,16 @@ export function BrowserFrame({
   hero?: boolean;
 }) {
   return (
-    <div className={`case-browser${hero ? ' case-browser-hero' : ''}`}>
-      <div className="case-browser-bar">
+    // A half-degree of rotation on the hero only: enough to read as a real
+    // window sitting on the page rather than a flat screenshot.
+    <div className={cn(caseBrowserClassName, hero && 'rotate-[0.5deg]')}>
+      <div className="flex h-[32px] items-center gap-2xs border-b border-border-default bg-surface-tint-strong px-s [&>i]:h-[6px] [&>i]:w-[6px] [&>i]:rounded-[var(--radius-circle)] [&>i]:bg-border-strong">
         <i />
         <i />
         <i />
-        <span>{browserUrl}</span>
+        <span className="mx-auto rounded-[var(--radius-xs)] bg-surface-page px-l py-3xs text-nano text-text-subtle lg:px-2xl">
+          {browserUrl}
+        </span>
       </div>
       <Image
         key={image.src}
