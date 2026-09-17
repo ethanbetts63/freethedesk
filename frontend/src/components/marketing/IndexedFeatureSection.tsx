@@ -32,7 +32,7 @@ export function IndexedFeatureSection({
 
         <ol
           className={`m-0 mt-2xl grid grid-cols-1 gap-4xs p-0 ${
-            items.length === 2 ? 'min-[900px]:grid-cols-2' : 'min-[900px]:grid-cols-3'
+            items.length === 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'
           }`}
         >
           {items.map(([itemTitle, body], index) => (

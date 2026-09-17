@@ -27,11 +27,11 @@ export function ProcessIntroduction({
       >
         {title} <span className="moving-colour-text">{accentTitle}</span>
       </h2>
-      <div className="grid gap-l min-[900px]:grid-cols-3 min-[900px]:gap-0">
+      <div className="grid gap-l lg:grid-cols-3 lg:gap-0">
         {items.map((item) => (
           <div
             key={item.title}
-            className="flex flex-col border-t border-border-default pt-l min-[900px]:border-t-0 min-[900px]:px-l min-[900px]:py-0 min-[900px]:first:pl-0 min-[900px]:last:pr-0 min-[900px]:[&+div]:border-l min-[900px]:[&+div]:border-border-default"
+            className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default"
           >
             <h3 className="m-0 text-step-2 tracking-[-0.035em] text-[var(--page-accent)]">
               {item.title}

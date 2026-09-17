@@ -89,7 +89,7 @@ export function ProjectEnquiryPanel({
   return (
     <SelectionFormPanel
       onSubmit={onSubmit}
-      chooserClassName={!showProjectType ? 'min-[1080px]:justify-center' : undefined}
+      chooserClassName={!showProjectType ? 'lg:justify-center' : undefined}
       chooser={
         <>
           {heading}
@@ -172,7 +172,7 @@ export function ProjectEnquiryPanel({
           </div>
 
           <div
-            className={`${totalClassName} [--selection-total-size:2.4rem] ${!showProjectType ? 'min-[1080px]:mt-xl' : ''}`}
+            className={`${totalClassName} [--selection-total-size:2.4rem] ${!showProjectType ? 'lg:mt-xl' : ''}`}
             aria-live="polite"
           >
             <div className={totalFigureClassName}>

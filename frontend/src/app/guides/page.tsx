@@ -39,7 +39,7 @@ export default function GuidesPage() {
           </p>
         </div>
         <div
-          className="absolute right-[max(32px,calc((100vw-1176px)/2))] bottom-[34px] z-1 hidden items-center gap-s text-meta tracking-[0.12em] text-[var(--text-on-dark-subtle)] min-[900px]:flex"
+          className="absolute right-[max(32px,calc((100vw-1176px)/2))] bottom-[34px] z-1 hidden items-center gap-s text-meta tracking-[0.12em] text-[var(--text-on-dark-subtle)] lg:flex"
           aria-hidden="true"
         >
           <span>01</span>
@@ -54,7 +54,7 @@ export default function GuidesPage() {
         aria-labelledby="latest-guides"
       >
         <div className="site-shell">
-          <header className="mb-xl grid grid-cols-1 items-start gap-2xl border-b border-border-default pb-xl min-[900px]:grid-cols-[minmax(0,1fr)_minmax(0,0.7fr)] min-[900px]:items-end">
+          <header className="mb-xl grid grid-cols-1 items-start gap-2xl border-b border-border-default pb-xl lg:grid-cols-[minmax(0,1fr)_minmax(0,0.7fr)] lg:items-end">
             <div>
               <SectionNumber>The guide library</SectionNumber>
               <h2
@@ -71,10 +71,10 @@ export default function GuidesPage() {
           </header>
 
           {articles.length > 0 ? (
-            <div className="grid grid-cols-1 gap-m min-[900px]:grid-cols-2">
+            <div className="grid grid-cols-1 gap-m lg:grid-cols-2">
               {articles.map((article, index) => (
                 <Link
-                  className="group flex flex-col border border-border-default p-ml transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-[3px] hover:border-[var(--blue-500)] hover:shadow-[0_24px_60px_color-mix(in_srgb,var(--blue-950)_11%,transparent)] sm:p-xl min-[900px]:min-h-[440px]"
+                  className="group flex flex-col border border-border-default p-ml transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-[3px] hover:border-[var(--blue-500)] hover:shadow-[0_24px_60px_color-mix(in_srgb,var(--blue-950)_11%,transparent)] sm:p-xl lg:min-h-[440px]"
                   href={`/${article.slug}`}
                   key={article.slug}
                 >
@@ -111,7 +111,7 @@ export default function GuidesPage() {
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 items-start gap-xl border border-border-default bg-surface-tint px-l py-xl sm:grid-cols-[auto_minmax(0,1fr)] min-[900px]:grid-cols-[auto_minmax(0,1fr)_auto] min-[900px]:items-center min-[900px]:px-xl">
+            <div className="grid grid-cols-1 items-start gap-xl border border-border-default bg-surface-tint px-l py-xl sm:grid-cols-[auto_minmax(0,1fr)] lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:px-xl">
               <span className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-surface-dark text-ui font-heavy text-accent">
                 01
               </span>
@@ -126,7 +126,7 @@ export default function GuidesPage() {
               </div>
               <Link
                 href="/contact"
-                className="col-start-1 justify-self-start border-b border-text-primary pb-2xs text-small font-heavy sm:col-start-2 min-[900px]:col-auto min-[900px]:justify-self-auto"
+                className="col-start-1 justify-self-start border-b border-text-primary pb-2xs text-small font-heavy sm:col-start-2 lg:col-auto lg:justify-self-auto"
               >
                 Ask us a question{' '}
                 <b aria-hidden="true" className="ml-xs text-text-action">

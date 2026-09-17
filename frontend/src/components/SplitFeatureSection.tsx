@@ -19,14 +19,14 @@ const sectionVariants = cva('text-text-secondary', {
 const layoutVariants = cva(
   [
     'group site-shell grid grid-cols-1 items-center gap-[clamp(46px,7vw,100px)]',
-    'min-[900px]:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]',
-    'min-[900px]:group-data-[text-side=right]:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]',
+    'lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]',
+    'lg:group-data-[text-side=right]:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]',
   ],
   {
     variants: {
       spacing: {
         standard: 'py-section',
-        compact: 'pt-2xl pb-xl min-[900px]:pt-3xl',
+        compact: 'pt-2xl pb-xl lg:pt-3xl',
         joined: 'py-[calc(var(--space-section)/2)]',
       },
     },
@@ -68,12 +68,12 @@ export function SplitFeatureSection({
   return (
     <section className={cn(sectionVariants({ background }), className)} id={id}>
       <div className={layoutVariants({ spacing })} data-text-side={textSide}>
-        <div className="min-w-0 min-[900px]:group-data-[text-side=right]:col-start-2 min-[900px]:group-data-[text-side=right]:row-start-1">
+        <div className="min-w-0 lg:group-data-[text-side=right]:col-start-2 lg:group-data-[text-side=right]:row-start-1">
           <SectionNumber>{eyebrow}</SectionNumber>
           <h2 className="m-0 text-display-1 leading-[1.05] tracking-[-0.055em]">
             {title}
             {titleBreak !== 'none' && (
-              <br className={titleBreak === 'desktop' ? 'hidden min-[900px]:block' : undefined} />
+              <br className={titleBreak === 'desktop' ? 'hidden lg:block' : undefined} />
             )}
             {titleBreak === 'none' ? ' ' : null}
             <span className="moving-colour-text">{accentTitle}</span>
@@ -95,7 +95,7 @@ export function SplitFeatureSection({
           ) : null}
           {action ? <div className="mt-l">{action}</div> : null}
         </div>
-        <div className="min-w-0 min-[900px]:group-data-[text-side=right]:col-start-1 min-[900px]:group-data-[text-side=right]:row-start-1">
+        <div className="min-w-0 lg:group-data-[text-side=right]:col-start-1 lg:group-data-[text-side=right]:row-start-1">
           {visual}
         </div>
       </div>

@@ -104,13 +104,13 @@ function ArticleView({ article }: { article: Article }) {
       </header>
 
       <section className="bg-surface-page py-[clamp(78px,10vw,132px)]">
-        <div className="site-shell grid grid-cols-1 items-start justify-center gap-[clamp(52px,8vw,120px)] min-[900px]:grid-cols-[210px_minmax(0,760px)]">
-          <aside className="static flex gap-m border-b border-border-default pb-ml min-[900px]:sticky min-[900px]:top-[120px] min-[900px]:gap-0 min-[900px]:border-b-0 min-[900px]:pb-0">
+        <div className="site-shell grid grid-cols-1 items-start justify-center gap-[clamp(52px,8vw,120px)] lg:grid-cols-[210px_minmax(0,760px)]">
+          <aside className="static flex gap-m border-b border-border-default pb-ml lg:sticky lg:top-[120px] lg:gap-0 lg:border-b-0 lg:pb-0">
             <span className="text-caption font-heavy tracking-[0.14em] text-text-action uppercase">
               Guide
             </span>
-            <i className="my-ml hidden h-px w-[72px] bg-border-default min-[900px]:block" />
-            <p className="hidden max-w-[180px] text-ui leading-[1.6] text-text-subtle min-[900px]:block">
+            <i className="my-ml hidden h-px w-[72px] bg-border-default lg:block" />
+            <p className="hidden max-w-[180px] text-ui leading-[1.6] text-text-subtle lg:block">
               Practical thinking for dealerships that want better systems and less administration.
             </p>
           </aside>

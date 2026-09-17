@@ -23,7 +23,7 @@ export function GoogleBusinessProfileAudit({
       aria-labelledby="gbp-audit-title"
       id="gbp-audit"
     >
-      <div className="site-shell relative z-1 grid grid-cols-1 gap-[clamp(45px,7vw,90px)] min-[900px]:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+      <div className="site-shell relative z-1 grid grid-cols-1 gap-[clamp(45px,7vw,90px)] lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
         <div>
           <div className="mb-2xl flex items-center gap-s sm:mb-[clamp(48px,6vw,78px)]">
             <span className="flex h-[46px] w-[46px] items-center justify-center rounded-circle bg-surface-page">
@@ -40,11 +40,11 @@ export function GoogleBusinessProfileAudit({
           <SectionNumber onDark>{eyebrow}</SectionNumber>
           <h3
             id="gbp-audit-title"
-            className="m-0 max-w-[680px] text-display-3 leading-[0.98] tracking-[-0.06em] min-[900px]:max-w-[520px]"
+            className="m-0 max-w-[680px] text-display-3 leading-[0.98] tracking-[-0.06em] lg:max-w-[520px]"
           >
             A one-time Google Business Profile audit.
           </h3>
-          <p className="mt-xl mb-m max-w-[680px] text-lead leading-[1.72] text-text-on-dark-muted min-[900px]:max-w-[570px]">
+          <p className="mt-xl mb-m max-w-[680px] text-lead leading-[1.72] text-text-on-dark-muted lg:max-w-[570px]">
             We review the parts of your profile that influence local visibility, then send you a
             prioritised list of what to correct or improve. One audit, one action list, no recurring
             subscription.

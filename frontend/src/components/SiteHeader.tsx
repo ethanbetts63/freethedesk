@@ -12,14 +12,14 @@ const navLinkClassName =
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--blue-950)_10%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] backdrop-blur-[14px]">
-      <div className="site-shell flex min-h-[68px] items-center justify-between min-[900px]:min-h-[78px]">
+      <div className="site-shell flex min-h-[68px] items-center justify-between lg:min-h-[78px]">
         <Link
           className="flex flex-none items-center gap-xs text-[1.35rem] leading-none font-black tracking-[-0.085em]"
           href="/"
           aria-label="freethedesk home"
         >
           <Image
-            className="block h-[46px] w-[46px] object-contain min-[900px]:h-[40px] min-[900px]:w-[40px]"
+            className="block h-[46px] w-[46px] object-contain lg:h-[40px] lg:w-[40px]"
             src="/logo-192x192.png"
             alt=""
             width={40}
@@ -32,7 +32,7 @@ export function SiteHeader() {
           </span>
         </Link>
         <nav
-          className="hidden items-center gap-[clamp(14px,2vw,36px)] self-stretch text-body font-strong min-[900px]:flex"
+          className="hidden items-center gap-[clamp(14px,2vw,36px)] self-stretch text-body font-strong lg:flex"
           aria-label="Primary navigation"
         >
           {PRIMARY_NAVIGATION.map((item) => (
@@ -49,7 +49,7 @@ export function SiteHeader() {
         </nav>
         {/* Native <details>: the panel works with no JavaScript, so only the
             close-on-navigate behaviour is a client component. */}
-        <details className="group relative block min-[900px]:hidden">
+        <details className="group relative block lg:hidden">
           <summary
             className={cn(
               'flex h-[44px] w-[48px] cursor-pointer list-none flex-col items-center justify-center gap-3xs bg-surface-dark [&::-webkit-details-marker]:hidden',

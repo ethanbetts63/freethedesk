@@ -59,12 +59,12 @@ export function ServiceScroll({
       </div>
       {services.map((service, index) => (
         <div
-          className={`grid grid-cols-[minmax(0,1fr)] gap-2xl border-t border-border-default px-0 pb-3xl min-[900px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] ${
+          className={`grid grid-cols-[minmax(0,1fr)] gap-2xl border-t border-border-default px-0 pb-3xl lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] ${
             index === 0 ? 'border-t-0 pt-2xl' : 'pt-3xl'
           }`}
           key={service.title}
         >
-          <div className="static top-[130px] self-start min-[900px]:sticky">
+          <div className="static top-[130px] self-start lg:sticky">
             {/* Number colour comes from the stylesheet (--accent-ink) so it always
                 clears contrast; service.color only tints the decorative icon. */}
             <span className="text-caption font-heavy text-text-action">0{index + 1}</span>
@@ -95,7 +95,7 @@ export function ServiceScroll({
         </div>
       ))}
       {showCustomService && (
-        <div className="relative grid grid-cols-[minmax(0,1fr)] items-center gap-[clamp(30px,5vw,64px)] border-t border-border-default px-0 py-3xl text-text-primary sm:grid-cols-[auto_minmax(0,1fr)] min-[900px]:grid-cols-[auto_minmax(0,1fr)_auto]">
+        <div className="relative grid grid-cols-[minmax(0,1fr)] items-center gap-[clamp(30px,5vw,64px)] border-t border-border-default px-0 py-3xl text-text-primary sm:grid-cols-[auto_minmax(0,1fr)] lg:grid-cols-[auto_minmax(0,1fr)_auto]">
           <div
             className="relative z-1 flex h-[82px] w-[82px] items-center justify-center border border-[color-mix(in_srgb,var(--text-action)_30%,transparent)] bg-[color-mix(in_srgb,var(--text-action)_8%,transparent)] text-text-action sm:h-[112px] sm:w-[112px] [&>svg]:h-[44px] [&>svg]:w-[44px] sm:[&>svg]:h-[58px] sm:[&>svg]:w-[58px]"
             aria-hidden="true"
@@ -118,7 +118,7 @@ export function ServiceScroll({
           </div>
           {showCustomCta && (
             <PrimaryButton
-              className="relative z-1 flex-none justify-self-start sm:col-start-2 min-[900px]:col-auto min-[900px]:justify-self-auto"
+              className="relative z-1 flex-none justify-self-start sm:col-start-2 lg:col-auto lg:justify-self-auto"
               href={customHref}
               direction={ctaDirection}
             >

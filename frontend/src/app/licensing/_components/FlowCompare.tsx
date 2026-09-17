@@ -62,7 +62,7 @@ export function FlowCompare() {
       <p className="m-0 mb-xl text-caption font-control tracking-[0.14em] text-accent-on-dark uppercase">
         What your team does
       </p>
-      <div className="grid grid-cols-1 gap-ml min-[900px]:grid-cols-2">
+      <div className="grid grid-cols-1 gap-ml lg:grid-cols-2">
         <FlowColumn
           label="Hosted portal"
           badge="5 steps, you enter each sale"

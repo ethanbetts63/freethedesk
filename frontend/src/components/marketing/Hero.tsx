@@ -35,13 +35,13 @@ export function Hero({
   trustLine = 'Perth-based · working with businesses across Australia',
 }: HeroProps) {
   return (
-    <section className="relative isolate flex min-h-[calc(100svh-68px)] items-center overflow-hidden bg-surface-page min-[900px]:min-h-[calc(100vh-78px)]">
+    <section className="relative isolate flex min-h-[calc(100svh-68px)] items-center overflow-hidden bg-surface-page lg:min-h-[calc(100vh-78px)]">
       <div className="absolute inset-0 z-[-1] pointer-events-none [background:radial-gradient(circle_at_34%_48%,color-mix(in_srgb,var(--surface-page)_98%,transparent)_0_18%,color-mix(in_srgb,var(--surface-page)_78%,transparent)_36%,transparent_62%)]" />
       {/* Eager, unlike the footer backdrop: this one is above the fold, and
           deferring it only saves a phone 1.9kB gzipped while costing every
           desktop visitor a visible pop-in - the chunk cannot start downloading
           until hydration finishes. */}
-      <div className="absolute inset-0 z-[-2] hidden [&>canvas]:h-full [&>canvas]:w-full min-[900px]:block">
+      <div className="absolute inset-0 z-[-2] hidden [&>canvas]:h-full [&>canvas]:w-full lg:block">
         <NetworkField />
       </div>
       <div className="absolute inset-0 z-[-1] pointer-events-none [background-image:linear-gradient(rgba(var(--hero-grid-color),var(--hero-grid-opacity))_1px,transparent_1px),linear-gradient(90deg,rgba(var(--hero-grid-color),var(--hero-grid-opacity))_1px,transparent_1px)] [background-size:var(--hero-grid-size)_var(--hero-grid-size)] [mask-image:radial-gradient(circle_at_65%_50%,var(--text-primary),transparent_72%)]" />
@@ -51,7 +51,7 @@ export function Hero({
           <Eyebrow className="[--eyebrow-accent:var(--action-primary)] [&>span]:shadow-[0_0_0_5px_color-mix(in_srgb,var(--action-primary)_12%,transparent),0_0_10px_2px_color-mix(in_srgb,var(--action-primary)_70%,transparent)]">
             {eyebrow}
           </Eyebrow>
-          <h1 className="m-0 max-w-[1000px] text-display-6 leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] min-[900px]:leading-[0.83]">
+          <h1 className="m-0 max-w-[1000px] text-display-6 leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] lg:leading-[0.83]">
             {titleLines.map((line, index) => (
               /* The trailing space collapses to nothing on screen, but it keeps
                  the lines separate words for anything that flattens the heading
@@ -62,7 +62,7 @@ export function Hero({
             ))}
             <em className="not-italic text-[var(--action-primary)]">{accentTitle}</em>
           </h1>
-          <p className="my-xl max-w-[420px] text-step-1 leading-[1.65] text-text-muted min-[900px]:max-w-[570px]">
+          <p className="my-xl max-w-[420px] text-step-1 leading-[1.65] text-text-muted lg:max-w-[570px]">
             {lead}
           </p>
           <div className="flex flex-wrap items-center gap-m [&>*]:w-full sm:gap-xl sm:[&>*]:w-auto">

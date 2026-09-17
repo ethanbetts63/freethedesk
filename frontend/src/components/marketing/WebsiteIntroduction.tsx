@@ -24,8 +24,8 @@ export function WebsiteIntroduction({
       >
         Three jobs. <span className="moving-colour-text">One website.</span>
       </h2>
-      <div className="grid gap-l min-[900px]:grid-cols-3 min-[900px]:gap-0">
-        <div className="flex flex-col border-t border-border-default pt-l min-[900px]:border-t-0 min-[900px]:px-l min-[900px]:py-0 min-[900px]:first:pl-0 min-[900px]:last:pr-0 min-[900px]:[&+div]:border-l min-[900px]:[&+div]:border-border-default">
+      <div className="grid gap-l lg:grid-cols-3 lg:gap-0">
+        <div className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default">
           <h3 className="m-0 text-step-2 tracking-[-0.035em] text-[var(--page-accent)]">1. SEO</h3>
           <p className="mt-s mb-m max-w-[42ch] text-step-0 leading-[1.6] text-text-muted">
             {seoDescription}
@@ -34,7 +34,7 @@ export function WebsiteIntroduction({
             Explore SEO <span aria-hidden="true">↘</span>
           </ScrollCtaButton>
         </div>
-        <div className="flex flex-col border-t border-border-default pt-l min-[900px]:border-t-0 min-[900px]:px-l min-[900px]:py-0 min-[900px]:first:pl-0 min-[900px]:last:pr-0 min-[900px]:[&+div]:border-l min-[900px]:[&+div]:border-border-default">
+        <div className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default">
           <h3 className="m-0 text-step-2 tracking-[-0.035em] text-[var(--page-accent)]">
             2. Website design
           </h3>
@@ -45,7 +45,7 @@ export function WebsiteIntroduction({
             Explore website design <span aria-hidden="true">↘</span>
           </ScrollCtaButton>
         </div>
-        <div className="flex flex-col border-t border-border-default pt-l min-[900px]:border-t-0 min-[900px]:px-l min-[900px]:py-0 min-[900px]:first:pl-0 min-[900px]:last:pr-0 min-[900px]:[&+div]:border-l min-[900px]:[&+div]:border-border-default">
+        <div className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default">
           <h3 className="m-0 text-step-2 tracking-[-0.035em] text-[var(--page-accent)]">
             3. Admin automation
           </h3>

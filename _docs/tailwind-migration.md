@@ -575,6 +575,42 @@ Exit criteria:
 
 ## Phase 4: migrate routes and component families
 
+**4.0 — the arbitrary-breakpoint sweep. Done, ahead of the rest of the phase.**
+The plan was to convert `min-[900px]:` and `min-[1080px]:` file by file as each
+file migrated. That was wrong for one reason: the Tailwind ordering defect
+described above is not a migration inconvenience, it is a live rendering bug,
+and leaving it in fifteen files until their turn came meant shipping it for the
+length of the phase. It is also the same edit Phase 4 would make anyway, so
+doing it once costs nothing extra.
+
+All 103 `min-[900px]:` occurrences across 16 files became `lg:`, and the eight
+`min-[1080px]:` became `lg:` in `SelectionFormPanel`/`ProjectEnquiryPanel` (the
+only stage on those elements) and `xl:` in `ProofStrip`, which stages 900 and
+1080 on the same element and needs to keep two steps. No file mixed
+`min-[900px]:` with an existing `lg:`, so nothing collided. No `min-[…px]:`
+variant remains in TSX; the 900/1080 media queries inside the surviving CSS
+files are source-ordered and unaffected, and go when those files do.
+
+Four more instances of the defect were live in production and are fixed by the
+sweep, all of them the same shape — a `sm:` rule silently beating the
+arbitrary-breakpoint rule that was meant to supersede it:
+
+- `ServiceScroll.tsx:98`, `sm:grid-cols-[auto_minmax(0,1fr)]` beating
+  `min-[900px]:grid-cols-[auto_minmax(0,1fr)_auto]`: the custom-service row's
+  three-column layout had never rendered at any width;
+- `ServiceScroll.tsx:121`, `sm:col-start-2` beating `min-[900px]:col-auto`: its
+  CTA stayed in the text column instead of moving to the third;
+- `ProcessBar.tsx:5`, `sm:px-ml sm:py-m` beating `min-[900px]:px-l
+  min-[900px]:py-ml`: the desktop padding never applied (`min-h` had no `sm:`
+  counterpart and did);
+- `app/guides/page.tsx:114,129`, the empty-state card, identical to the
+  `ServiceScroll` pair.
+
+Together with the two already fixed in 3.6a and 3.6c, that is six. Every one
+was a rule written to take effect and silently not taking effect, which is why
+Phase 5 lists arbitrary breakpoint variants as an ESLint error rather than a
+style preference.
+
 Migrate coherent areas in this order:
 
 1. small shared components and static public sections;
