@@ -15,7 +15,12 @@ import {
   useAdminList,
   type AdminListView,
 } from '@/components/dashboard/useAdminList';
-import { enquiryStatuses, StatusPill, statusLabel } from '@/components/dashboard/StatusPill';
+import {
+  enquiryStatuses,
+  StatusPill,
+  statusLabel,
+  statusTone,
+} from '@/components/dashboard/StatusPill';
 import { formatDateTime, getEnquiries, type Enquiry } from '@/lib/adminApi';
 import { AdminButton } from '@/components/dashboard/AdminButton';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
@@ -109,7 +114,11 @@ function EnquiriesContent() {
               emptyLabel="No enquiries match these filters."
             >
               {(enquiry) => (
-                <tr key={enquiry.id} className="admin-row" data-status={enquiry.status}>
+                <tr
+                  key={enquiry.id}
+                  className="bg-[color-mix(in_srgb,var(--status-tone)_12%,var(--surface-page))]"
+                  style={statusTone(enquiry.status)}
+                >
                   <td>
                     <RowLink href={`/dashboard/enquiries/${enquiry.id}`}>
                       {formatDateTime(enquiry.created_at)}

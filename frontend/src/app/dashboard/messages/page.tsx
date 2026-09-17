@@ -14,7 +14,12 @@ import {
   useAdminList,
   type AdminListView,
 } from '@/components/dashboard/useAdminList';
-import { messageStatuses, StatusPill, statusLabel } from '@/components/dashboard/StatusPill';
+import {
+  messageStatuses,
+  StatusPill,
+  statusLabel,
+  statusTone,
+} from '@/components/dashboard/StatusPill';
 import { formatDateTime, getMessages, type AdminMessage } from '@/lib/adminApi';
 import { AdminButton } from '@/components/dashboard/AdminButton';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
@@ -96,7 +101,11 @@ function MessagesContent() {
               emptyLabel="No messages match these filters."
             >
               {(message) => (
-                <tr key={message.id} className="admin-row" data-status={message.status}>
+                <tr
+                  key={message.id}
+                  className="bg-[color-mix(in_srgb,var(--status-tone)_12%,var(--surface-page))]"
+                  style={statusTone(message.status)}
+                >
                   <td>
                     <RowLink href={`/dashboard/messages/${message.id}`}>
                       {formatDateTime(message.created_at)}

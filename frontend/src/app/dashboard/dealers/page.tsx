@@ -15,7 +15,12 @@ import {
   useAdminList,
   type AdminListView,
 } from '@/components/dashboard/useAdminList';
-import { dealerStatuses, StatusPill, statusLabel } from '@/components/dashboard/StatusPill';
+import {
+  dealerStatuses,
+  StatusPill,
+  statusLabel,
+  statusTone,
+} from '@/components/dashboard/StatusPill';
 import { formatDateTime, getDealers, type Dealer } from '@/lib/adminApi';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
@@ -92,7 +97,11 @@ function DealersContent() {
               emptyLabel="No dealers match these filters."
             >
               {(dealer) => (
-                <tr key={dealer.id} className="admin-row" data-status={dealer.status}>
+                <tr
+                  key={dealer.id}
+                  className="bg-[color-mix(in_srgb,var(--status-tone)_12%,var(--surface-page))]"
+                  style={statusTone(dealer.status)}
+                >
                   <td>
                     <RowLink href={`/dashboard/dealers/${dealer.id}`}>
                       {formatDateTime(dealer.created_at)}

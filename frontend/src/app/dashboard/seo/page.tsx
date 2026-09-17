@@ -15,7 +15,12 @@ import {
   useAdminList,
   type AdminListView,
 } from '@/components/dashboard/useAdminList';
-import { dealerStatuses, StatusPill, statusLabel } from '@/components/dashboard/StatusPill';
+import {
+  dealerStatuses,
+  StatusPill,
+  statusLabel,
+  statusTone,
+} from '@/components/dashboard/StatusPill';
 import { formatDateTime, getSeoSubscribers, type SeoSubscriber } from '@/lib/adminApi';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
@@ -94,7 +99,11 @@ function SeoSubscribersContent() {
               emptyLabel="No SEO customers match these filters."
             >
               {(subscriber) => (
-                <tr key={subscriber.id} className="admin-row" data-status={subscriber.status}>
+                <tr
+                  key={subscriber.id}
+                  className="bg-[color-mix(in_srgb,var(--status-tone)_12%,var(--surface-page))]"
+                  style={statusTone(subscriber.status)}
+                >
                   <td>
                     <RowLink href={`/dashboard/seo/${subscriber.id}`}>
                       {formatDateTime(subscriber.created_at)}

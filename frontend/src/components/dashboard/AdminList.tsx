@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+import { statusTone } from './StatusPill';
+
 export function SortHeader({
   field,
   ordering,
@@ -97,11 +99,14 @@ export function AdminFilterBar({
         </form>
       </div>
       {legend && legend.length > 0 && (
-        <div className="admin-legend">
+        <div className="mt-m flex flex-wrap items-center gap-s text-meta leading-[1.8] text-text-subtle capitalize sm:leading-[inherit]">
           <b>Row colour:</b>
           {legend.map((value) => (
-            <span key={value}>
-              <i className="admin-swatch" data-status={value} />
+            <span className="inline-flex items-center gap-3xs" key={value}>
+              <i
+                className="inline-block h-[10px] w-[10px] rounded-[var(--radius-2xs)] bg-[var(--status-tone)]"
+                style={statusTone(value)}
+              />
               {value}
             </span>
           ))}

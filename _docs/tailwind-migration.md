@@ -267,7 +267,23 @@ Convert the foundations that produce the most downstream reuse first:
    `.admin-table td.admin-empty`, so the 16 `<p className="admin-empty">`
    loading states across the dashboard and both portals were rendering
    completely unstyled in body colour. They now take the muted colour the
-   class name always promised. Flagged under principle 4;
+   class name always promised. Flagged under principle 4.
+   **Status indicators are done:** `.admin-status`, `.admin-swatch`,
+   `.admin-legend` and `.admin-row`, plus the whole
+   `[data-status='…'] { --admin-status-color: … }` block, are deleted (665
+   lines down to 604). The colour stays a custom property — the three surfaces
+   mix it at three different strengths (12% for a table row, 26% for a pill
+   background, 45% against the text colour) and a mix is not expressible as a
+   Tailwind colour utility — but the status-to-colour map moves into
+   `StatusPill.tsx` as `statusTone()`, beside the labels and status lists it
+   belongs to. A second **deliberate fix**: `queued`, `delivered`, `bounced`
+   and `cancelled` were added to `messageStatuses` but never to the CSS, so
+   `--admin-status-color` was undefined for them, `color-mix()` was invalid,
+   and those four pills rendered with no background and no colour at all
+   beside perfectly normal `sent` and `failed` ones. They are now mapped by
+   meaning, and an unknown status falls back to the neutral `closed` colour
+   instead of to nothing — the class of bug that a stylesheet with no way to
+   know when a new enum value ships will keep producing;
 6. dialogs, checkout controls, and dashboard controls;
 7. focus, disabled, loading, and reduced-motion states.
 

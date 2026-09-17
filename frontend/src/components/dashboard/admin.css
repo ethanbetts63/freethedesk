@@ -125,29 +125,6 @@
 .admin-pagination button:hover:not(:disabled) {
   background: var(--surface-tint);
 }
-.admin-legend {
-  align-items: center;
-  color: var(--text-subtle);
-  display: flex;
-  flex-wrap: wrap;
-  font-size: var(--text-meta);
-  gap: var(--space-s);
-  margin-top: var(--space-m);
-  text-transform: capitalize;
-  line-height: 1.8;
-}
-.admin-legend span {
-  align-items: center;
-  display: inline-flex;
-  gap: var(--space-3xs);
-}
-.admin-swatch {
-  background: var(--admin-status-color);
-  border-radius: var(--radius-2xs);
-  display: inline-block;
-  height: 10px;
-  width: 10px;
-}
 .admin-table-wrap {
   overflow-x: auto;
 }
@@ -223,44 +200,6 @@
 }
 .admin-row-link:focus-visible {
   outline: 0;
-}
-.admin-row {
-  background: color-mix(in srgb, var(--admin-status-color) 12%, var(--surface-page));
-}
-.admin-status {
-  background: color-mix(in srgb, var(--admin-status-color) 26%, var(--surface-page));
-  border-radius: var(--radius-pill);
-  color: color-mix(in srgb, var(--admin-status-color) 45%, var(--text-primary));
-  display: inline-flex;
-  font-size: var(--text-micro);
-  font-weight: var(--weight-heavy);
-  padding: var(--space-3xs) var(--space-xs);
-}
-[data-status='new'],
-[data-status='pending'] {
-  --admin-status-color: var(--status-new);
-}
-[data-status='contacted'] {
-  --admin-status-color: var(--status-contacted);
-}
-[data-status='qualified'] {
-  --admin-status-color: var(--status-qualified);
-}
-[data-status='won'],
-[data-status='sent'],
-[data-status='active'] {
-  --admin-status-color: var(--status-won);
-}
-[data-status='closed'] {
-  --admin-status-color: var(--status-closed);
-}
-[data-status='spam'],
-[data-status='failed'],
-[data-status='denied'] {
-  --admin-status-color: var(--status-spam);
-}
-[data-status='suspended'] {
-  --admin-status-color: var(--status-suspended);
 }
 .admin-pagination {
   align-items: flex-start;
@@ -610,9 +549,6 @@
   }
   .admin-search {
     grid-column: 1 / -1;
-  }
-  .admin-legend {
-    line-height: revert;
   }
   .admin-pagination {
     align-items: center;
