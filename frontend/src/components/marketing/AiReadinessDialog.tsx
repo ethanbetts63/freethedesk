@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import { AiReadinessBanner } from './AiReadinessBanner';
-import styles from './AiReadinessBanner.module.css';
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',
@@ -67,21 +66,29 @@ export function AiReadinessDialog({ onClose }: { onClose: () => void }) {
 
   return createPortal(
     <div
-      className={styles.modalBackdrop}
+      // AiReadinessModal only ever mounts this below `sm`, where the inline
+      // banner is suppressed; `sm:hidden` is the belt to that braces, so a
+      // viewport widened while the dialog is open cannot show both at once.
+      className="fixed inset-0 z-[1000] grid items-center justify-items-center bg-[color-mix(in_srgb,var(--surface-navy)_72%,transparent)] p-[var(--gutter)] sm:hidden"
       onMouseDown={(event) => event.target === event.currentTarget && onClose()}
     >
       <div
         ref={dialogRef}
-        className={styles.modal}
+        className="relative max-h-[calc(100dvh-(var(--gutter)*2))] w-[min(100%,440px)] overflow-auto shadow-[0_24px_80px_color-mix(in_srgb,var(--surface-navy)_55%,transparent)]"
         role="dialog"
         aria-modal="true"
         aria-labelledby="ai-readiness-modal-title"
       >
-        <button ref={closeRef} className={styles.modalClose} type="button" onClick={onClose}>
+        <button
+          ref={closeRef}
+          className="absolute top-[8px] right-[10px] z-1 flex h-[var(--tap-min)] w-[var(--tap-min)] cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-[1.8rem] text-text-on-dark-muted hover:text-text-on-dark focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-accent-on-dark-soft"
+          type="button"
+          onClick={onClose}
+        >
           <span aria-hidden="true">×</span>
-          <span className={styles.visuallyHidden}>Close</span>
+          <span className="sr-only">Close</span>
         </button>
-        <AiReadinessBanner className={styles.modalBanner} titleId="ai-readiness-modal-title" />
+        <AiReadinessBanner placement="dialog" titleId="ai-readiness-modal-title" />
       </div>
     </div>,
     document.body,

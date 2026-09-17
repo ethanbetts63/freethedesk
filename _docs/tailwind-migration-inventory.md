@@ -18,7 +18,7 @@ Deliverable for `tailwind-migration.md` Phase 0. Captured 2026-09-16.
 | `styles/base.css` | 40 | foundation | reset/base layer |
 | `styles/layout.css` | 10 | foundation | shared layout primitives — **Phase 3.1**: `.shell` renamed `.site-shell`, now declares its own `@layer components` |
 | `styles/typography.css` | 53 | foundation | base type rules — **deleted in Phase 3.2**; rules moved into `Eyebrow`/`SectionNumber`, `.text-link` inlined at its one consumer |
-| `styles/motion.css` | 45 | foundation | reduced-motion, base transitions |
+| `styles/motion.css` | 59 | foundation | reduced-motion, base transitions — **Phase 3.6b** added `.moving-colour-fill`, the gradient painted as an element background rather than into its glyphs; six CSS modules still restate those three declarations and collapse onto it as each migrates |
 | `styles/forms.css` | 39 | foundation | base form element resets |
 | `styles/portal.css` | — | **deleted** | was 122 lines. Phase 3.4 converted the setup-form layer (fieldset/legend/field grid/controls/hints/action row) to `components/dashboard/PortalField.tsx`, leaving 42; Phase 3.5 converted the last rule, the `.portal-steps` numbered list, to `components/dashboard/PortalSteps.tsx`, and both portal layouts dropped the import. It was imported straight from those layouts, so it was **unlayered** and beat every Tailwind utility — which is why its rules had to be deleted as markup converted rather than left to compete |
 | `components/SiteFooter.css` | 141 | migrate | shared component (Phase 4.2) |
@@ -34,7 +34,7 @@ Deliverable for `tailwind-migration.md` Phase 0. Captured 2026-09-16.
 | `app/seo/_components/GoogleBusinessProfileAudit.module.css` | 180 | migrate | marketing/product section |
 | `app/seo/_components/seoServices.module.css` | 148 | migrate | marketing section |
 | `components/marketing/FlagshipCheckout.module.css` | 177 | migrate | checkout (Phase 4.4) |
-| `components/marketing/AiReadinessBanner.module.css` | 205 | migrate — confirm in Phase 4 | some animation/gradient use; re-check for complex-visual reclassification when converted |
+| `components/marketing/AiReadinessBanner.module.css` | ~~205~~ **deleted** | migrated | **Phase 3.6b.** Not complex-visual after all: the only genuinely complex rule was the animated gradient underline, and that is three declarations already shared by `.moving-colour-text` and `.moving-colour-button`, so it became `.moving-colour-fill` in `styles/motion.css` (the approved complex-animation exception) rather than an arbitrary-utility chain. Everything else was a banner, a form and a dialog. The dialog's `.modalBanner .inner` descendant overrides are now a `placement` variant on `AiReadinessBanner` |
 | `components/marketing/WebsiteProductVisual.module.css` | 236 | complex-visual | heavy transform/gradient/animation, artwork-style component |
 | `components/visuals/FlowCardVisual.module.css` | 291 | complex-visual | animation-heavy visual |
 | `components/visuals/ReportCardVisual.module.css` | 172 | complex-visual | animation-heavy visual |
@@ -45,7 +45,7 @@ Deliverable for `tailwind-migration.md` Phase 0. Captured 2026-09-16.
 | `app/dealership-website-builder/_styles/layout.module.css` | 155 | generated-preview | already excluded from Stylelint token rules |
 | `app/dealership-website-builder/_styles/preview.module.css` | 2,775 | generated-preview | already excluded from Stylelint token rules; migrated last per the plan |
 
-Totals by disposition: foundation 7 files / 595 lines · migrate 14 files / 3,143 lines · rich-content 2 files / 236 lines · complex-visual 6 files / 1,941 lines · generated-preview 3 files / 3,365 lines.
+Totals by disposition: foundation 7 files / 609 lines · migrate 13 files / 2,952 lines · rich-content 2 files / 236 lines · complex-visual 6 files / 1,941 lines · generated-preview 3 files / 3,365 lines.
 
 ## Routes requiring visual baseline (from `npm run build` route list)
 

@@ -24,6 +24,19 @@
   background: var(--moving-colour-gradient);
 }
 
+/* The same gradient painted as an element's own background instead of into its
+   glyphs. Six CSS modules still declare these three lines themselves
+   (AutomationFeature, FlowCardVisual, StatusPanelVisual,
+   GoogleBusinessProfileAudit, licensing, FlagshipCheckout); they collapse onto
+   this as each migrates. The AI-readiness banner's underline is the first
+   consumer: it was a ::after on the section, and is now a real element so it
+   can reuse this rather than restate the animation in arbitrary utilities. */
+.moving-colour-fill {
+  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
+  background: var(--moving-colour-gradient);
+  background-size: var(--moving-colour-size);
+}
+
 @keyframes moving-colour-shift {
   to {
     background-position: 300% 50%;
@@ -39,7 +52,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .moving-colour-text,
-  .moving-colour-button {
+  .moving-colour-button,
+  .moving-colour-fill {
     animation: none;
   }
 }

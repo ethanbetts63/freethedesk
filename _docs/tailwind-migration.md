@@ -332,8 +332,49 @@ Convert the foundations that produce the most downstream reuse first:
    1440px and 480px: zero differences beyond Tailwind's transparent
    ring-placeholder chain in `box-shadow` and `border-color` on zero-width
    sides;
-6. dialogs, checkout controls, and dashboard controls. **Dashboard controls
-   are done:** `admin.css` is 378 lines down to 213. The text control that
+6. dialogs, checkout controls, and dashboard controls. **Dialogs and dashboard
+   controls are done; checkout controls remain.**
+
+   **Dialogs (3.6b).** `components/marketing/AiReadinessBanner.module.css` is
+   deleted — 205 lines, the whole AI-readiness banner, its form and the mobile
+   prompt dialog. Phase 0 had flagged it "confirm in Phase 4; re-check for
+   complex-visual reclassification"; it is not complex-visual. The only rule
+   that qualified was the animated gradient underline, and that is the same
+   three declarations `.moving-colour-text` and `.moving-colour-button` already
+   share, so it became `.moving-colour-fill` in `styles/motion.css` beside them
+   and beside the reduced-motion opt-out that disables all three. The underline
+   was a `::after`; it is now a real `<span>`, because a pseudo-element could
+   only have reused that class through an arbitrary-utility chain, which the
+   non-goals rule out. Six other CSS modules still restate those three
+   declarations themselves and collapse onto the class as each migrates.
+
+   The dialog styled the banner by reaching into it — `.modalBanner .inner`
+   and `.modalBanner .copy h2` re-declared the inner layout and the heading
+   size from outside. That is a variant, so it is now spelled as one:
+   `AiReadinessBanner` takes `placement="inline" | "dialog"` and owns both
+   shapes itself. The dialog passes the prop instead of a class, and the
+   component's `className` escape hatch is gone with its only consumer.
+   `--slate-100` on the success message — the file's last raw ramp value — is
+   now `text-text-on-dark`: on navy the two are indistinguishable, and moving
+   the ramp reference from CSS into JSX would only have hidden it from
+   Stylelint. The two hand-rolled visually-hidden blocks are Tailwind's
+   `sr-only`.
+
+   `min-width: 1080px` became `lg:` (1024px), the second of the two
+   pre-migration breakpoints `tokens.css` says to convert on migration. 1024
+   rather than 1280 because the heading already shrank below its 480px cap at
+   1080 — the single-row strip was designed to start as soon as it fits, and
+   1280 would have withheld it from a 200px band where it currently works.
+   Verified at 1024: the row fits, the heading wraps to two lines, nothing
+   overflows. That band is the only difference the A/B found at 1440, 1280,
+   1080, 1024, 960, 640 and 480; everything else was the known non-visual set
+   (`sr-only`'s `margin:-1px` versus `clip-path`, `rounded-full` versus `50%`
+   on a 28px circle, Tailwind's transparent ring placeholders in `box-shadow`)
+   plus the deliberate `--slate-100` change. The live dialog was checked too:
+   backdrop, 351px card, 44px fields at the 16px iOS floor, focus on the close
+   button, body scroll locked, Escape closing and restoring it.
+
+   **Dashboard controls (3.6a) are done:** `admin.css` is 378 lines down to 213. The text control that
    four stylesheets had each grown their own copy of — `portal.css`'s field
    input, `.admin-filters select/input`, `.admin-compose-form
    input/select/textarea`, `.admin-notes` and `.admin-status-card select` — is

@@ -3,17 +3,31 @@
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { MovingColourButton } from '@/components/MovingColourButton';
-import styles from './AiReadinessBanner.module.css';
+import { cn } from '@/lib/utils';
 import { submitAiReadiness, type AiReadinessState } from './AiReadinessForm.actions';
 
 const initialState: AiReadinessState = { status: 'idle' };
+
+const fieldClassName = cn(
+  'w-full rounded-none border px-s py-0 outline-none',
+  'border-[color-mix(in_srgb,var(--accent-on-dark-soft)_32%,transparent)]',
+  'bg-[color-mix(in_srgb,var(--surface-page)_7%,transparent)]',
+  'text-text-on-dark placeholder:text-text-on-dark-subtle',
+  // 16px floor: below it, iOS Safari zooms the page on focus. Only the dialog
+  // ever renders at that width - the inline strip starts at `sm`, where the
+  // field can drop to the interface size and a 40px row.
+  'min-h-[var(--tap-min)] text-step-0 sm:min-h-[40px] sm:text-ui',
+  'focus:border-accent-on-dark-soft',
+  'focus:bg-[color-mix(in_srgb,var(--surface-page)_12%,transparent)]',
+  'focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--accent-on-dark-soft)_16%,transparent)]',
+);
 
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <MovingColourButton
       type="submit"
-      className={styles.submit}
+      className="justify-center whitespace-nowrap sm:justify-start"
       direction="right"
       size="compact"
       disabled={pending}
@@ -30,19 +44,31 @@ export function AiReadinessForm() {
 
   if (state.status === 'success') {
     return (
-      <p className={styles.success} role="status">
-        <span aria-hidden="true">✓</span>
+      // Was --slate-100, the only raw ramp value left in this component. On
+      // navy it is indistinguishable from the on-dark text role it should have
+      // been using, so it now says what it means.
+      <p className="m-0 flex items-center gap-s text-body text-text-on-dark" role="status">
+        <span
+          aria-hidden="true"
+          className="flex h-[28px] flex-[0_0_28px] items-center justify-center rounded-full bg-action-primary text-text-on-dark"
+        >
+          ✓
+        </span>
         Your free check is in the queue — we&apos;ll email you the result.
       </p>
     );
   }
 
   return (
-    <form className={styles.form} action={formAction}>
-      <label>
-        <span>Website</span>
+    <form
+      className="grid min-w-0 grid-cols-[minmax(0,1fr)] items-center gap-xs sm:grid-cols-[minmax(170px,1fr)_minmax(170px,1fr)_auto]"
+      action={formAction}
+    >
+      <label className="block min-w-0">
+        <span className="sr-only">Website</span>
         {/* Not type="url": it rejects a scheme-less host before the schema adds one. */}
         <input
+          className={fieldClassName}
           name="website"
           type="text"
           inputMode="url"
@@ -51,9 +77,10 @@ export function AiReadinessForm() {
           required
         />
       </label>
-      <label>
-        <span>Email</span>
+      <label className="block min-w-0">
+        <span className="sr-only">Email</span>
         <input
+          className={fieldClassName}
           name="email"
           type="email"
           placeholder="e.g. email@example.com"
@@ -63,7 +90,7 @@ export function AiReadinessForm() {
       </label>
       <SubmitButton />
       {state.status === 'error' && (
-        <p className={styles.error} role="alert">
+        <p className="col-[1/-1] m-0 text-caption text-text-danger-on-dark" role="alert">
           {state.error}
         </p>
       )}
