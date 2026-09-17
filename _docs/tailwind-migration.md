@@ -178,6 +178,13 @@ Exit criteria:
 
 ## Phase 3: migrate shared primitives
 
+**Complete.** All seven items below are done. `styles/portal.css` and
+`styles/typography.css` are deleted, `admin.css` is 699 lines down to 213, and
+the primitives every later phase builds on — rails, typography, buttons, form
+controls, cards and notices, dialogs, checkout and dashboard controls, and the
+four interaction states — are typed components or named class constants rather
+than global classes.
+
 Convert the foundations that produce the most downstream reuse first:
 
 1. page rails and vertical section rhythm. Done: `.shell` is now `.site-shell`,
@@ -248,8 +255,8 @@ Convert the foundations that produce the most downstream reuse first:
    three textareas on the SEO reporting brief rendered with no border,
    background or padding at all. That is an intentional, separately
    identified change under principle 4, not a migration side effect;
-5. cards, notices, badges, status indicators, and tables. In progress, one
-   surface family at a time. **Notices are done:** `admin.css`'s
+5. cards, notices, badges, status indicators, and tables. Done, one surface
+   family at a time. **Notices:** `admin.css`'s
    `.admin-banner` / `.admin-banner-error` / `.admin-banner-warning` /
    `.admin-form-error` and `.admin-muted` rules are deleted (699 lines down to 665) and replaced by `components/dashboard/AdminNotice.tsx`, a CVA with a
    `tone` (success/warning/danger) and a `size` (`banner`, which carries its
@@ -485,7 +492,75 @@ input/select/textarea`, `.admin-notes` and `.admin-status-card select` — is
    legacy CSS, which does not have this failure mode; a Tailwind-to-Tailwind
    slice does;
 
-7. focus, disabled, loading, and reduced-motion states.
+7. focus, disabled, loading, and reduced-motion states. Done. These are the
+   states nobody owns until someone names them, and the audit found exactly
+   that: three button families with four different disabled treatments between
+   them and **no focus treatment at all**, seventeen transition and animation
+   declarations of which one honoured `prefers-reduced-motion`, and four
+   unrelated spellings of a focus ring. They are now three constants in
+   `lib/controlState.ts` plus one site-wide media query.
+
+   **Focus.** `focusRingClassName` is `focus-visible:outline-2
+focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]`,
+   and `CtaButton`, `AdminButton`, `CheckoutButton` and the header's menu
+   toggle all take it. An outline rather than a `box-shadow`, so it cannot
+   collide with a component's own shadow; `:focus-visible` rather than
+   `:focus`, so a mouse click on a button does not paint it. The shape is not
+   new — `adminRowClassName` reached the same 2px/offset-2/`--focus-ring`
+   answer independently in 3.5c, and this is that answer named. The header
+   toggle's bespoke 3px shadow ring is gone.
+
+   There are deliberately **two** focus treatments, not one. A control that
+   owns a border says "focus" by moving that border and drawing a 2px ring
+   inside it (`formControl.ts`, unchanged); a filled box has no border to move
+   and draws the outline outside. What is not allowed any more is a third.
+   `app/login/page.tsx` had been carrying its own copy of the text control —
+   the fifth, after the four 3.6a consolidated — and now composes
+   `formControlClassName` with its own background and padding, which is what
+   that module leaves to callers. The one visible consequence is a 4px radius
+   on the two login inputs, matching every other control on an authenticated
+   surface.
+
+   **Disabled.** Two treatments, because there are two reasons:
+   `disabledBusyClassName` (`cursor-wait`, 55% — the application is working)
+   and `disabledUnavailableClassName` (`cursor-not-allowed`, 45% — the control
+   is not offered yet). `AdminButton` had already drawn this distinction in
+   3.3 and is the source of it; what changes is that the marketing CTA's 70%
+   becomes 55% and the admin secondary/quiet `cursor: default` becomes
+   `not-allowed`, which states the meaning the old cursor only implied. Both
+   are intentional under principle 4.
+
+   **Loading** turned out to be the same state wearing a third name. The
+   checkout pay bar is disabled for both reasons at different moments — terms
+   not accepted, then payment in flight — which no single class can say, so
+   `CheckoutButton` takes a `busy` prop that picks the treatment, and the two
+   call sites pass the flag they already had (`preparing`, `submitting`). The
+   label swap they already did ("Confirming…") is the rest of the loading
+   state; there is no spinner anywhere in the product and this does not add
+   one.
+
+   **Reduced motion.** `styles/motion.css` gains a site-wide opt-out beside the
+   moving-colour one it already had: `animation-duration`,
+   `animation-iteration-count` and `transition-duration` collapse for every
+   element, and `scroll-behavior` returns to `auto`. Durations collapse to a
+   frame rather than to `none` so a transition still fires its events and still
+   lands in its final state; `!important` is needed because the declarations
+   being overridden are Tailwind utilities in a later layer. `scroll-behavior`
+   matters most here — every in-page CTA runs `scrollToId()`, and the smooth
+   scroll was the site's largest unasked-for movement with no opt-out at all.
+   The per-module `prefers-reduced-motion` blocks stay where they are; they
+   disable specific animations rather than shortening them, and this rule does
+   not contradict them.
+
+   Verified by A/B against the pre-change class strings, plus a keyboard pass:
+   tabbing 45 stops through the home page, every `CtaButton` (both its
+   `<button>` and `<Link>` forms) now reports `2px solid` at `--focus-ring`
+   with a 2px offset and `:focus-visible` true, while text inputs keep their
+   shadow ring and plain links keep the browser default. The reduced-motion
+   rule was measured with the preference emulated both ways: 0.2s to 0.00001s
+   on a transition, `moving-colour-shift` to `none` on an animation, `smooth`
+   to `auto` on the document. The only computed differences outside those
+   intended are the three listed above.
 
 Replace global appearance classes such as `.primary-button` with React
 components backed by CVA. Props use semantic names such as `primary`,

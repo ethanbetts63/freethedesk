@@ -56,4 +56,30 @@
   .moving-colour-fill {
     animation: none;
   }
+
+  /* Phase 3 item 7. Seventeen transition and animation declarations were spread
+     across the components, and exactly one of them (FloatingPageCta) carried an
+     opt-out; the rest honoured the preference only where a CSS Module happened
+     to declare its own block. This is the site-wide answer, so a new transition
+     is covered by default rather than by its author remembering.
+
+     Durations collapse to a frame rather than to `none`: a zero-length
+     transition still fires its events and still ends in the final state, which
+     a removed one does not. `!important` is required because the declarations
+     it overrides are Tailwind utilities in a later layer.
+
+     `scroll-behavior` is here rather than in base.css because smooth scrolling
+     is the site's largest unasked-for movement - every in-page CTA runs
+     `scrollToId()` - and it had no opt-out at all. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
 }

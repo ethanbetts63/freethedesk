@@ -192,7 +192,7 @@ export function CheckoutTermsForm({
           , and {authorisation}
         </span>
       </label>
-      <CheckoutButton type="submit" disabled={!accepted || preparing}>
+      <CheckoutButton type="submit" busy={preparing} disabled={!accepted || preparing}>
         <span>{preparing ? 'Preparing secure payment…' : 'Payment'}</span>
         <b aria-hidden="true">→</b>
       </CheckoutButton>
@@ -255,7 +255,11 @@ export function CheckoutPaymentForm({
           {error}
         </p>
       )}
-      <CheckoutButton type="submit" disabled={!result.checkout.canConfirm || submitting}>
+      <CheckoutButton
+        type="submit"
+        busy={submitting}
+        disabled={!result.checkout.canConfirm || submitting}
+      >
         <span>{submitting ? 'Confirming…' : submitLabel}</span>
         <b aria-hidden="true">→</b>
       </CheckoutButton>

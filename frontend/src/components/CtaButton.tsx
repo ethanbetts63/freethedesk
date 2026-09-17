@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import Link from 'next/link';
 
+import { disabledBusyClassName, focusRingClassName } from '@/lib/controlState';
 import { cn } from '@/lib/utils';
 
 import { ScrollCtaButton } from './ScrollCtaButton';
@@ -23,7 +24,8 @@ const ctaButtonVariants = cva(
     'inline-flex items-center justify-between border-0 font-[inherit] font-strong',
     'cursor-pointer uppercase tracking-[0.05em]',
     'transition-[background,color,transform] duration-200 ease-out',
-    'disabled:cursor-wait disabled:opacity-70',
+    focusRingClassName,
+    disabledBusyClassName,
     '[&>span]:inline-block [&>span]:transition-transform [&>span]:duration-200',
     'hover:[&>span]:translate-x-1',
   ],

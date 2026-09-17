@@ -2,7 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { MobileNavAutoClose } from '@/components/MobileNavAutoClose';
+import { focusRingClassName } from '@/lib/controlState';
 import { PRIMARY_NAVIGATION } from '@/lib/siteConfig';
+import { cn } from '@/lib/utils';
 
 const navLinkClassName =
   "relative after:absolute after:bottom-[-7px] after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-text-primary after:transition-transform after:duration-200 after:content-[''] hover:after:origin-left hover:after:scale-x-100";
@@ -49,7 +51,10 @@ export function SiteHeader() {
             close-on-navigate behaviour is a client component. */}
         <details className="group relative block min-[900px]:hidden">
           <summary
-            className="flex h-[44px] w-[48px] cursor-pointer list-none flex-col items-center justify-center gap-3xs bg-surface-dark [&::-webkit-details-marker]:hidden focus-visible:shadow-[0_0_0_3px_var(--focus-ring)] focus-visible:outline-0"
+            className={cn(
+              'flex h-[44px] w-[48px] cursor-pointer list-none flex-col items-center justify-center gap-3xs bg-surface-dark [&::-webkit-details-marker]:hidden',
+              focusRingClassName,
+            )}
             aria-label="Open navigation menu"
           >
             <i className="h-[2px] w-[19px] bg-text-on-dark transition-[transform,opacity] duration-200 group-open:translate-y-[7px] group-open:rotate-45" />

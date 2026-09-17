@@ -2,6 +2,11 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import Link from 'next/link';
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
 
+import {
+  disabledBusyClassName,
+  disabledUnavailableClassName,
+  focusRingClassName,
+} from '@/lib/controlState';
 import { cn } from '@/lib/utils';
 
 /**
@@ -16,14 +21,15 @@ import { cn } from '@/lib/utils';
  * duplication: the same declarations were written out three times across two
  * files, once per shape.
  *
- * The disabled treatment sits in the base rather than on `submit`, the only
- * variant that was ever given one. It is inert until a caller disables a
- * button, and one family should not have two answers to the same state.
+ * The pay bar is disabled for two different reasons — the terms are not
+ * accepted yet, and the payment is in flight — so which disabled treatment it
+ * takes is the `busy` prop rather than the variant. Both treatments come from
+ * `lib/controlState.ts`, shared with the other two button families.
  */
 const checkoutButtonVariants = cva(
   [
     'cursor-pointer border-0 bg-action-primary font-[inherit] text-small font-black text-text-on-dark',
-    'disabled:cursor-not-allowed disabled:opacity-45',
+    focusRingClassName,
     // The trailing arrow, when a caller renders one: a <b> beside the label
     // rather than a glyph this component owns, because the label is itself a
     // <span> whose text swaps while the payment is in flight.
@@ -39,8 +45,13 @@ const checkoutButtonVariants = cva(
         /** Sits in a centred column of text on the confirmation screen. */
         link: 'inline-block px-l py-m',
       },
+      /** Disabled because the payment is in flight, rather than not yet offered. */
+      busy: {
+        true: disabledBusyClassName,
+        false: disabledUnavailableClassName,
+      },
     },
-    defaultVariants: { variant: 'submit' },
+    defaultVariants: { variant: 'submit', busy: false },
   },
 );
 
@@ -51,6 +62,7 @@ export type CheckoutButtonVariant = NonNullable<
 type SharedProps = {
   children: ReactNode;
   variant?: CheckoutButtonVariant;
+  busy?: boolean;
   className?: string;
 };
 
@@ -62,8 +74,8 @@ type AsLink = SharedProps &
 
 /** Renders a Link when `href` is set, a <button> otherwise. */
 export function CheckoutButton(props: AsButton | AsLink) {
-  const { children, variant, className, ...rest } = props;
-  const classes = cn(checkoutButtonVariants({ variant }), className);
+  const { children, variant, busy, className, ...rest } = props;
+  const classes = cn(checkoutButtonVariants({ variant, busy }), className);
 
   if ('href' in rest && rest.href !== undefined) {
     const { href, ...anchorProps } = rest as AnchorHTMLAttributes<HTMLAnchorElement> & {

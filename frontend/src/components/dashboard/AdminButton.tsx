@@ -2,6 +2,11 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import Link from 'next/link';
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
 
+import {
+  disabledBusyClassName,
+  disabledUnavailableClassName,
+  focusRingClassName,
+} from '@/lib/controlState';
 import { cn } from '@/lib/utils';
 
 /**
@@ -12,22 +17,25 @@ import { cn } from '@/lib/utils';
  * typed variant rather than restyling a control: there is no palette in the
  * prop names, and the disabled treatment travels with the variant that owns it
  * (primary reads as "working", secondary as "unavailable" - the two states the
- * original CSS distinguished with `cursor: wait` and `cursor: default`).
+ * original CSS distinguished with `cursor: wait` and `cursor: default`). Both
+ * are now the shared treatments in `lib/controlState.ts`; the unavailable one
+ * says `cursor: not-allowed` rather than `default`, which is the same meaning
+ * stated rather than implied.
  */
-const adminButtonVariants = cva('', {
+const adminButtonVariants = cva(focusRingClassName, {
   variants: {
     variant: {
       primary: [
         'inline-flex cursor-pointer items-center justify-center rounded-[var(--radius-xs)] border-0',
         'bg-surface-dark px-m py-s text-small font-heavy text-text-on-dark',
         'hover:bg-surface-dark-soft',
-        'disabled:cursor-wait disabled:opacity-55',
+        disabledBusyClassName,
       ],
       secondary: [
         'inline-flex cursor-pointer items-center justify-center rounded-[var(--radius-xs)]',
         'border border-border-strong bg-surface-page px-m py-s text-small font-heavy text-text-primary',
         'hover:border-border-strong-hover',
-        'disabled:cursor-default disabled:opacity-45',
+        disabledUnavailableClassName,
       ],
       /**
        * The chrome button: pagination, search, attachment lists. Quieter and
@@ -42,7 +50,7 @@ const adminButtonVariants = cva('', {
         // and that is the behaviour worth keeping.
         'border border-border-strong bg-surface-page px-s py-xs text-ui font-heavy',
         'hover:bg-surface-tint',
-        'disabled:cursor-default disabled:opacity-45',
+        disabledUnavailableClassName,
       ],
       // A word in a sentence, not a box: no padding, no box, inherits its type.
       inline: 'cursor-pointer border-0 bg-transparent p-0 font-[inherit] text-inherit underline',
