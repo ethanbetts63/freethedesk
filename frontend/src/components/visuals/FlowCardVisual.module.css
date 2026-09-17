@@ -1,13 +1,25 @@
+/* The flow diagram: a browser chrome, two or three input cards, a connector,
+   and a result banner, arranged one of two ways by `data-mode`.
+
+   This stays a CSS Module, and unlike the modules that made the same claim and
+   were wrong about it, here is the reason. Nearly every rule below is either an
+   ancestor-driven variation (`.body[data-mode='steps'] .steps li` restates the
+   grid of a descendant it does not own), an nth-child width (the three steps
+   taper: 100%, 82%, 64%), or a grid-row span across rows that do not exist
+   until the mode is known. Utilities can express each of those one at a time
+   and cannot express the combination without an arbitrary variant per rule,
+   which would be longer and less legible than the CSS.
+
+   What has been taken out: the animated border, the animated result fill and
+   the graph-paper backdrop were all local copies of things that now have one
+   definition (`.moving-colour-border`, `.moving-colour-fill`,
+   `--tint-grid-on-dark`). */
+
+/* The animated border itself is `.moving-colour-border`; this says which flat
+   colour sits inside it. */
 .visual {
-  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
-  background-clip: padding-box, border-box;
-  background-image:
-    linear-gradient(var(--surface-dark), var(--surface-dark)), var(--moving-colour-gradient);
-  background-origin: border-box;
-  background-size:
-    100% 100%,
-    var(--moving-colour-size);
-  border: 2px solid transparent;
+  --moving-colour-inset: var(--surface-dark);
+
   box-shadow: var(--elevation-block-m);
   color: var(--text-on-dark);
   min-height: 440px;
@@ -15,14 +27,12 @@
   position: relative;
 }
 
+/* Graph paper starting below the browser chrome. 35px because the card is a
+   drawing at its own scale, not a page. */
 .visual::before {
   background-image:
-    linear-gradient(color-mix(in srgb, var(--surface-page) 5.5%, transparent) 1px, transparent 1px),
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--surface-page) 5.5%, transparent) 1px,
-      transparent 1px
-    );
+    linear-gradient(var(--tint-grid-on-dark) 1px, transparent 1px),
+    linear-gradient(90deg, var(--tint-grid-on-dark) 1px, transparent 1px);
   background-size: 35px 35px;
   content: '';
   inset: 42px 0 0;
@@ -32,7 +42,7 @@
 .browser {
   align-items: center;
   background: var(--surface-page);
-  color: var(--slate-600);
+  color: var(--text-muted);
   display: flex;
   font-size: var(--text-meta);
   gap: var(--space-2xs);
@@ -43,14 +53,14 @@
 }
 
 .browser i {
-  background: var(--slate-300);
+  background: var(--border-strong);
   border-radius: var(--radius-circle);
   height: 6px;
   width: 6px;
 }
 
 .browser span {
-  background: var(--slate-100);
+  background: var(--surface-tint-strong);
   margin-left: var(--space-xs);
   padding: var(--space-2xs) var(--space-s);
   width: 60%;
@@ -102,7 +112,7 @@
 }
 
 .inputs article > span {
-  color: var(--slate-300);
+  color: var(--text-on-dark-muted);
   font-size: var(--text-micro);
   margin-top: var(--space-3xs);
 }
@@ -172,7 +182,7 @@
 }
 
 .steps small {
-  color: var(--slate-300);
+  color: var(--text-on-dark-muted);
   font-size: var(--text-label);
 }
 
@@ -195,12 +205,10 @@
   font-size: var(--text-small);
 }
 
+/* The gradient fill is `.moving-colour-fill`. */
 .result {
   align-items: center;
   align-self: center;
-  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
-  background-image: var(--moving-colour-gradient);
-  background-size: var(--moving-colour-size);
   box-shadow: var(--elevation-contrast-s);
   color: var(--text-on-dark);
   display: grid;
@@ -208,7 +216,6 @@
   grid-template-columns: auto minmax(0, 1fr);
   max-width: 360px;
   padding: var(--space-s) var(--space-m);
-  text-shadow: 0 1px 2px color-mix(in srgb, var(--surface-inverse) 32%, transparent);
   width: calc(100% - 24px);
 }
 
@@ -256,13 +263,6 @@
 
 .result small {
   font-size: var(--text-micro);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .visual,
-  .result {
-    animation: none;
-  }
 }
 
 @media (min-width: 640px) {

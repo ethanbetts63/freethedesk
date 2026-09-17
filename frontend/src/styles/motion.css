@@ -35,6 +35,10 @@
   animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
   background: var(--moving-colour-gradient);
   background-size: var(--moving-colour-size);
+  /* Keeps a label readable across the full gradient sweep - the same shadow
+     .moving-colour-button carries, and which FlowCardVisual's result banner
+     had its own copy of. Harmless on a fill with no text in it. */
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--surface-inverse) 32%, transparent);
 }
 
 /* The same gradient painted into a 2px border rather than into a fill: two

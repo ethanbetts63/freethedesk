@@ -454,6 +454,9 @@
      --------------------------------------------------------------- */
   /* The 42px graph paper over the transactional surfaces. */
   --tint-grid: color-mix(in srgb, var(--blue-950) 5.5%, transparent);
+  /* The graph paper's twin on a dark surface, where the line has to be
+     lighter than the background rather than darker. Same role, inverted. */
+  --tint-grid-on-dark: color-mix(in srgb, var(--surface-page) 5.5%, transparent);
   /* The 64px graph paper behind the marketing hero, the footer and the
      portfolio case studies. A separate value because it is a separate
      drawing: wider spacing, a bluer and fainter line, and it is meant to

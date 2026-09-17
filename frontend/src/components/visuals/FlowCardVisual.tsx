@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 
 import styles from './FlowCardVisual.module.css';
+import { cn } from '@/lib/utils';
 
 export type FlowCardNode = {
   label: string;
@@ -26,7 +27,7 @@ export function FlowCardVisual({
   const mode = steps.length ? 'steps' : 'combine';
 
   return (
-    <div className={styles.visual} aria-label={ariaLabel}>
+    <div className={cn('moving-colour-border', styles.visual)} aria-label={ariaLabel}>
       <div className={styles.browser} aria-hidden="true">
         <i />
         <i />
@@ -65,7 +66,7 @@ export function FlowCardVisual({
           <span>↓</span>
         </div>
 
-        <div className={styles.result}>
+        <div className={cn('moving-colour-fill', styles.result)}>
           <span className={styles.tick} aria-hidden="true">
             ✓
           </span>
