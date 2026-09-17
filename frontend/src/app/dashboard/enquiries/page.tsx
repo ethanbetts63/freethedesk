@@ -32,6 +32,7 @@ import { formatDateTime, getEnquiries, type Enquiry } from '@/lib/adminApi';
 import { AdminButton } from '@/components/dashboard/AdminButton';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
 import { cn } from '@/lib/utils';
+import { adminPanelClassName } from '@/components/dashboard/AdminCard';
 
 const SORT_FIELDS = ['created_at', 'business', 'help_with', 'status'] as const;
 const FILTER_KEYS = ['status', 'help_with'] as const;
@@ -67,7 +68,7 @@ function EnquiriesContent() {
         <AdminButton href="/dashboard/messages/compose">＋ Compose</AdminButton>
       </header>
 
-      <section className="admin-panel">
+      <section className={adminPanelClassName}>
         <AdminFilterBar
           total={list.total}
           noun="enquiry"

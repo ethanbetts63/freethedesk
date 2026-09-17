@@ -53,15 +53,6 @@
   margin: 0 0 var(--space-s);
   text-transform: uppercase;
 }
-.admin-panel,
-.admin-detail-card,
-.admin-compose-card {
-  background: var(--surface-page);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-l);
-  box-shadow: 0 8px 30px color-mix(in srgb, var(--blue-950) 5%, transparent);
-  overflow: hidden;
-}
 .admin-filter-bar {
   background: var(--surface-tint);
   border-bottom: 1px solid var(--border-default);
@@ -83,7 +74,6 @@
 }
 .admin-filters select,
 .admin-filters input,
-.admin-status-card select,
 .admin-compose-form input,
 .admin-compose-form select,
 .admin-compose-form textarea {
@@ -97,7 +87,6 @@
 }
 .admin-filters select:focus,
 .admin-filters input:focus,
-.admin-status-card select:focus,
 .admin-compose-form input:focus,
 .admin-compose-form select:focus,
 .admin-compose-form textarea:focus {
@@ -148,94 +137,6 @@
 }
 .admin-detail-heading {
   align-items: center;
-}
-.admin-detail-grid {
-  display: grid;
-  gap: var(--space-ml);
-  grid-template-columns: minmax(0, 1fr);
-}
-.admin-detail-card {
-  background: var(--surface-page);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-l);
-  box-shadow: 0 8px 30px color-mix(in srgb, var(--blue-950) 5%, transparent);
-  overflow: hidden;
-  padding: var(--space-l);
-}
-.admin-detail-card h2 {
-  font-size: var(--step-0);
-  margin: 0 0 var(--space-ml);
-}
-.admin-detail-wide {
-  grid-column: auto;
-}
-.admin-status-card {
-  align-items: flex-start;
-  display: flex;
-  grid-column: auto;
-  justify-content: space-between;
-  flex-direction: column;
-}
-.admin-status-card > div {
-  align-items: center;
-  display: flex;
-  gap: var(--space-s);
-}
-.admin-status-card select {
-  background: var(--surface-page);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-xs);
-  color: var(--text-primary);
-  outline: none;
-  padding: var(--space-xs) var(--space-s);
-  width: 100%;
-  max-width: none;
-}
-.admin-card-label {
-  font-size: var(--text-ui);
-  font-weight: var(--weight-heavy);
-  margin: 0;
-}
-.admin-detail-list {
-  display: grid;
-  gap: var(--space-ml);
-  grid-template-columns: minmax(0, 1fr);
-  margin: 0;
-}
-.admin-detail-list div {
-  min-width: 0;
-}
-.admin-detail-list dt {
-  color: var(--text-subtle);
-  font-size: var(--text-micro);
-  font-weight: var(--weight-heavy);
-  letter-spacing: 0.08em;
-  margin-bottom: var(--space-2xs);
-  text-transform: uppercase;
-}
-.admin-detail-list dd {
-  font-size: var(--text-small);
-  line-height: 1.5;
-  margin: 0;
-  overflow-wrap: anywhere;
-}
-.admin-detail-list a,
-.admin-card-heading a {
-  color: var(--text-action);
-  font-weight: var(--weight-heavy);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.admin-message-body {
-  font-size: var(--text-body);
-  line-height: 1.75;
-  margin: 0;
-  white-space: pre-wrap;
-}
-.admin-card-heading {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
 }
 .admin-config-label {
   background: var(--surface-tint-strong);
@@ -447,23 +348,6 @@
   }
   .admin-search {
     grid-column: 1 / -1;
-  }
-  .admin-detail-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-  .admin-detail-wide {
-    grid-column: 1 / -1;
-  }
-  .admin-status-card {
-    grid-column: 1 / -1;
-    align-items: center;
-    flex-direction: revert;
-  }
-  .admin-status-card select {
-    max-width: 210px;
-  }
-  .admin-detail-list {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .admin-related-messages a {
     align-items: center;

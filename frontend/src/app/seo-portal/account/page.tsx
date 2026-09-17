@@ -5,6 +5,13 @@ import { getSeoAccount, type SeoAccount } from '@/lib/seoApi';
 import { submitSeoAccount, type SeoAccountState } from './SeoAccount.actions';
 import { AdminButton } from '@/components/dashboard/AdminButton';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import {
+  adminCardClassName,
+  adminCardTitleClassName,
+  adminCardWideClassName,
+  adminDetailGridClassName,
+} from '@/components/dashboard/AdminCard';
+import { cn } from '@/lib/utils';
 
 const initialState: SeoAccountState = { status: 'idle' };
 
@@ -88,9 +95,9 @@ export default function SeoPortalAccountPage() {
       {error && <AdminNotice tone="danger">{error}</AdminNotice>}
       {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
 
-      <div className="admin-detail-grid">
-        <section className="admin-detail-card admin-detail-wide">
-          <h2>Your business</h2>
+      <div className={adminDetailGridClassName}>
+        <section className={cn(adminCardClassName, adminCardWideClassName)}>
+          <h2 className={adminCardTitleClassName}>Your business</h2>
           <form className="admin-compose-form" onSubmit={onSubmit}>
             <label>
               Business name

@@ -21,6 +21,7 @@ import {
   type SeoSubscriber,
 } from '@/lib/adminApi';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { adminDetailGridClassName } from '@/components/dashboard/AdminCard';
 
 export default function SeoSubscriberDetailPage() {
   const id = Number(useParams<{ subscriberId: string }>().subscriberId);
@@ -67,7 +68,7 @@ export default function SeoSubscriberDetailPage() {
       {error && <AdminNotice tone="danger">{error}</AdminNotice>}
       {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
 
-      <div className="admin-detail-grid">
+      <div className={adminDetailGridClassName}>
         <AccountStatusCard
           status={account.status}
           saving={saving}

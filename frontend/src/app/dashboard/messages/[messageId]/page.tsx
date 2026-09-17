@@ -6,6 +6,16 @@ import { useEffect, useState } from 'react';
 import { StatusPill } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getMessage, type AdminMessage } from '@/lib/adminApi';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import {
+  AdminDetailItem,
+  adminCardClassName,
+  adminCardLinkClassName,
+  adminCardTitleClassName,
+  adminCardWideClassName,
+  adminDetailGridClassName,
+  adminDetailListClassName,
+} from '@/components/dashboard/AdminCard';
+import { cn } from '@/lib/utils';
 
 /** Related objects we have a dashboard page for. Anything else shows as plain text. */
 const RELATED_LINKS: Record<string, string> = {
@@ -68,46 +78,34 @@ export default function MessageDetailPage() {
       {message.status === 'queued' && message.error_message && (
         <AdminNotice tone="warning">{message.error_message}</AdminNotice>
       )}
-      <div className="admin-detail-grid">
-        <section className="admin-detail-card">
-          <h2>Delivery</h2>
-          <dl className="admin-detail-list">
-            <div>
-              <dt>Status</dt>
-              <dd>
-                <StatusPill status={message.status} />
-              </dd>
-            </div>
-            <div>
-              <dt>Channel</dt>
-              <dd>{message.channel.toUpperCase()}</dd>
-            </div>
-            <div>
-              <dt>Created</dt>
-              <dd>{formatDateTime(message.created_at)}</dd>
-            </div>
-            <div>
-              <dt>Sent</dt>
-              <dd>{formatDateTime(message.sent_at)}</dd>
-            </div>
+      <div className={adminDetailGridClassName}>
+        <section className={adminCardClassName}>
+          <h2 className={adminCardTitleClassName}>Delivery</h2>
+          <dl className={adminDetailListClassName}>
+            <AdminDetailItem term="Status">
+              <StatusPill status={message.status} />
+            </AdminDetailItem>
+            <AdminDetailItem term="Channel">{message.channel.toUpperCase()}</AdminDetailItem>
+            <AdminDetailItem term="Created">{formatDateTime(message.created_at)}</AdminDetailItem>
+            <AdminDetailItem term="Sent">{formatDateTime(message.sent_at)}</AdminDetailItem>
             {message.related && (
-              <div>
-                <dt>About</dt>
-                <dd>
-                  {RELATED_LINKS[message.related.type] ? (
-                    <Link href={`${RELATED_LINKS[message.related.type]}${message.related.id}`}>
-                      {message.related.label || `#${message.related.id}`}
-                    </Link>
-                  ) : (
-                    message.related.label || `#${message.related.id}`
-                  )}
-                </dd>
-              </div>
+              <AdminDetailItem term="About">
+                {RELATED_LINKS[message.related.type] ? (
+                  <Link
+                    className={adminCardLinkClassName}
+                    href={`${RELATED_LINKS[message.related.type]}${message.related.id}`}
+                  >
+                    {message.related.label || `#${message.related.id}`}
+                  </Link>
+                ) : (
+                  message.related.label || `#${message.related.id}`
+                )}
+              </AdminDetailItem>
             )}
           </dl>
         </section>
-        <section className="admin-detail-card admin-detail-wide">
-          <h2>What was sent</h2>
+        <section className={cn(adminCardClassName, adminCardWideClassName)}>
+          <h2 className={adminCardTitleClassName}>What was sent</h2>
           <pre className="admin-message-pre">{message.body_text}</pre>
         </section>
       </div>

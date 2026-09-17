@@ -16,6 +16,22 @@ import {
   type Enquiry,
 } from '@/lib/adminApi';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import {
+  AdminDetailItem,
+  adminCardClassName,
+  adminCardHeadingClassName,
+  adminCardLabelClassName,
+  adminCardLinkClassName,
+  adminCardTitleClassName,
+  adminCardWideClassName,
+  adminDetailGridClassName,
+  adminDetailListClassName,
+  adminMessageBodyClassName,
+  adminStatusCardClassName,
+  adminStatusCardLabelGroupClassName,
+  adminStatusCardSelectClassName,
+} from '@/components/dashboard/AdminCard';
+import { cn } from '@/lib/utils';
 
 export default function EnquiryDetailPage() {
   const id = Number(useParams<{ enquiryId: string }>().enquiryId);
@@ -104,13 +120,14 @@ export default function EnquiryDetailPage() {
         <AdminButton href={replyHref}>Reply by email →</AdminButton>
       </header>
       {error && <AdminNotice tone="danger">{error}</AdminNotice>}
-      <div className="admin-detail-grid">
-        <section className="admin-detail-card admin-status-card">
-          <div>
-            <p className="admin-card-label">Workflow status</p>
+      <div className={adminDetailGridClassName}>
+        <section className={adminStatusCardClassName}>
+          <div className={adminStatusCardLabelGroupClassName}>
+            <p className={adminCardLabelClassName}>Workflow status</p>
             <StatusPill status={enquiry.status} />
           </div>
           <select
+            className={adminStatusCardSelectClassName}
             value={enquiry.status}
             disabled={saving}
             onChange={(event) => changeStatus(event.target.value)}
@@ -122,76 +139,59 @@ export default function EnquiryDetailPage() {
             ))}
           </select>
         </section>
-        <section className="admin-detail-card">
-          <h2>Contact</h2>
-          <dl className="admin-detail-list">
-            <div>
-              <dt>Name</dt>
-              <dd>{enquiry.name}</dd>
-            </div>
-            <div>
-              <dt>Business</dt>
-              <dd>{enquiry.business}</dd>
-            </div>
-            <div>
-              <dt>Email</dt>
-              <dd>
-                <a href={`mailto:${enquiry.email}`}>{enquiry.email}</a>
-              </dd>
-            </div>
-            <div>
-              <dt>Phone</dt>
-              <dd>
-                {enquiry.phone ? (
-                  <a href={`tel:${enquiry.phone}`}>{enquiry.phone}</a>
-                ) : (
-                  'Not supplied'
-                )}
-              </dd>
-            </div>
-            <div>
-              <dt>Website</dt>
-              <dd>
-                {websiteHref ? (
-                  <a href={websiteHref} target="_blank" rel="noreferrer">
-                    {enquiry.website} ↗
-                  </a>
-                ) : (
-                  enquiry.website || 'Not supplied'
-                )}
-              </dd>
-            </div>
-            <div>
-              <dt>Interested in</dt>
-              <dd>{enquiry.help_with_label}</dd>
-            </div>
+        <section className={adminCardClassName}>
+          <h2 className={adminCardTitleClassName}>Contact</h2>
+          <dl className={adminDetailListClassName}>
+            <AdminDetailItem term="Name">{enquiry.name}</AdminDetailItem>
+            <AdminDetailItem term="Business">{enquiry.business}</AdminDetailItem>
+            <AdminDetailItem term="Email">
+              <a className={adminCardLinkClassName} href={`mailto:${enquiry.email}`}>
+                {enquiry.email}
+              </a>
+            </AdminDetailItem>
+            <AdminDetailItem term="Phone">
+              {enquiry.phone ? (
+                <a className={adminCardLinkClassName} href={`tel:${enquiry.phone}`}>
+                  {enquiry.phone}
+                </a>
+              ) : (
+                'Not supplied'
+              )}
+            </AdminDetailItem>
+            <AdminDetailItem term="Website">
+              {websiteHref ? (
+                <a
+                  className={adminCardLinkClassName}
+                  href={websiteHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {enquiry.website} ↗
+                </a>
+              ) : (
+                enquiry.website || 'Not supplied'
+              )}
+            </AdminDetailItem>
+            <AdminDetailItem term="Interested in">{enquiry.help_with_label}</AdminDetailItem>
             {configuration.budget && (
-              <div>
-                <dt>Stated budget</dt>
-                <dd>{configuration.budget}</dd>
-              </div>
+              <AdminDetailItem term="Stated budget">{configuration.budget}</AdminDetailItem>
             )}
           </dl>
         </section>
         {enquiry.help_with === 'website_builder' && (
-          <section className="admin-detail-card admin-detail-wide">
-            <div className="admin-card-heading">
-              <h2>Website configuration</h2>
+          <section className={cn(adminCardClassName, adminCardWideClassName)}>
+            <div className={adminCardHeadingClassName}>
+              <h2 className={adminCardTitleClassName}>Website configuration</h2>
               <span className="admin-config-label">Interactive builder</span>
             </div>
-            <dl className="admin-detail-list admin-config-basics">
-              <div>
-                <dt>Brand name</dt>
-                <dd>{configuration.appearance?.brand_name || enquiry.business}</dd>
-              </div>
-              <div>
-                <dt>Current URL</dt>
-                <dd>{configuration.appearance?.current_url || 'Not supplied'}</dd>
-              </div>
-              <div>
-                <dt>Build version</dt>
-                <dd>{configuration.version ?? '—'}</dd>
-              </div>
+            <dl className={cn(adminDetailListClassName, 'admin-config-basics')}>
+              <AdminDetailItem term="Brand name">
+                {configuration.appearance?.brand_name || enquiry.business}
+              </AdminDetailItem>
+              <AdminDetailItem term="Current URL">
+                {configuration.appearance?.current_url || 'Not supplied'}
+              </AdminDetailItem>
+              <AdminDetailItem term="Build version">{configuration.version ?? '—'}</AdminDetailItem>
             </dl>
             <div className="admin-config-group">
               <strong>Selected capabilities</strong>
@@ -221,14 +221,16 @@ export default function EnquiryDetailPage() {
             )}
           </section>
         )}
-        <section className="admin-detail-card admin-detail-wide">
-          <h2>What they said</h2>
-          <p className="admin-message-body">{enquiry.message}</p>
+        <section className={cn(adminCardClassName, adminCardWideClassName)}>
+          <h2 className={adminCardTitleClassName}>What they said</h2>
+          <p className={adminMessageBodyClassName}>{enquiry.message}</p>
         </section>
-        <section className="admin-detail-card admin-detail-wide">
-          <div className="admin-card-heading">
-            <h2>Related messages</h2>
-            <Link href={replyHref}>Compose reply</Link>
+        <section className={cn(adminCardClassName, adminCardWideClassName)}>
+          <div className={adminCardHeadingClassName}>
+            <h2 className={adminCardTitleClassName}>Related messages</h2>
+            <Link className={adminCardLinkClassName} href={replyHref}>
+              Compose reply
+            </Link>
           </div>
           {messages.length ? (
             <div className="admin-related-messages">

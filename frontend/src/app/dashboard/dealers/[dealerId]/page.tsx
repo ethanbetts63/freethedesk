@@ -15,6 +15,7 @@ import {
 import { useAccountDetail } from '@/components/dashboard/useAccountDetail';
 import { DEALER_TYPE, formatDateTime, getDealer, updateDealer, type Dealer } from '@/lib/adminApi';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { adminDetailGridClassName } from '@/components/dashboard/AdminCard';
 
 export default function DealerDetailPage() {
   const id = Number(useParams<{ dealerId: string }>().dealerId);
@@ -61,7 +62,7 @@ export default function DealerDetailPage() {
       {error && <AdminNotice tone="danger">{error}</AdminNotice>}
       {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
 
-      <div className="admin-detail-grid">
+      <div className={adminDetailGridClassName}>
         <AccountStatusCard
           status={account.status}
           saving={saving}

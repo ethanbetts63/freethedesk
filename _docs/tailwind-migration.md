@@ -306,7 +306,32 @@ Convert the foundations that produce the most downstream reuse first:
    `border-color` and `border-style` on zero-width sides, the empty cell no
    longer needs `position: relative` because nothing is positioned inside it,
    `gap: normal` computes as `0px`, and the pagination buttons are
-   `inline-flex` rather than `block` at an identical measured box;
+   `inline-flex` rather than `block` at an identical measured box.
+   **Cards finish the item:** `.admin-panel`, `.admin-detail-card` and its
+   `h2`, `.admin-detail-grid`, `.admin-detail-wide`, `.admin-status-card` with
+   its label group and `<select>`, `.admin-card-label`, `.admin-card-heading`,
+   `.admin-detail-list` with its `div`/`dt`/`dd`/`a` descendants, and
+   `.admin-message-body` all become exported class names in
+   `components/dashboard/AdminCard.tsx` (494 lines of `admin.css` down to
+   378). Class names rather than wrapper components, because a card is a
+   `<section>` the page already owns — its own heading, its own children,
+   sometimes its own extra class. Only the definition list earned a component:
+   `AdminDetailItem` replaced thirty-seven hand-written
+   `<div><dt>…</dt><dd>…</dd></div>` triples that the deleted CSS reached into
+   by descendant selector. `.admin-compose-card` kept its own copy of the card
+   shell, so deleting the shared one changed nothing for it; the rest of the
+   composer waits for item 6. **`styles/portal.css` is now deleted outright**
+   — its last rule, the numbered `.portal-steps` list, became
+   `components/dashboard/PortalSteps.tsx`, and both portal layouts dropped the
+   import. The numbering stays a CSS counter (`[counter-reset:portal-step]`
+   plus `before:content-['0'_counter(portal-step)]`) rather than becoming a
+   JSX index: the markup is an `<ol>` because the order is the meaning, and a
+   counter keeps the number out of the accessibility tree where a screen
+   reader already announces the list position. Verified by the same A/B as the
+   tables, across cards, the status card, the detail list and the steps at
+   1440px and 480px: zero differences beyond Tailwind's transparent
+   ring-placeholder chain in `box-shadow` and `border-color` on zero-width
+   sides;
 6. dialogs, checkout controls, and dashboard controls;
 7. focus, disabled, loading, and reduced-motion states.
 

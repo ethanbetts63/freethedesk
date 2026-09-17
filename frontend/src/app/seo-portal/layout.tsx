@@ -1,5 +1,3 @@
-import '@/styles/portal.css';
-
 import type { Metadata } from 'next';
 
 import { SeoPortalShell } from '@/components/dashboard/SeoPortalShell';

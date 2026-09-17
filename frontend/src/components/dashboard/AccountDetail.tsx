@@ -8,6 +8,20 @@ import type { AccountBase, DealerStatus } from '@/lib/api';
 
 import { dealerStatuses, StatusPill, statusLabel } from './StatusPill';
 import { AdminButton } from '@/components/dashboard/AdminButton';
+import {
+  AdminDetailItem,
+  adminCardClassName,
+  adminCardHeadingClassName,
+  adminCardLabelClassName,
+  adminCardLinkClassName,
+  adminCardTitleClassName,
+  adminCardWideClassName,
+  adminDetailListClassName,
+  adminStatusCardClassName,
+  adminStatusCardLabelGroupClassName,
+  adminStatusCardSelectClassName,
+} from '@/components/dashboard/AdminCard';
+import { cn } from '@/lib/utils';
 
 export function AccountStatusCard({
   status,
@@ -19,12 +33,13 @@ export function AccountStatusCard({
   onChange: (status: DealerStatus) => void;
 }) {
   return (
-    <section className="admin-detail-card admin-status-card">
-      <div>
-        <p className="admin-card-label">Account status</p>
+    <section className={adminStatusCardClassName}>
+      <div className={adminStatusCardLabelGroupClassName}>
+        <p className={adminCardLabelClassName}>Account status</p>
         <StatusPill status={status} />
       </div>
       <select
+        className={adminStatusCardSelectClassName}
         aria-label="Account status"
         value={status}
         disabled={saving}
@@ -54,8 +69,8 @@ export function AccountApprovalCard({
   onDeny: () => void;
 }) {
   return (
-    <section className="admin-detail-card admin-detail-wide">
-      <h2>{heading}</h2>
+    <section className={cn(adminCardClassName, adminCardWideClassName)}>
+      <h2 className={adminCardTitleClassName}>{heading}</h2>
       <p className="text-ui text-text-subtle">{explanation}</p>
       <div className="flex flex-col flex-wrap items-start gap-l sm:flex-row sm:items-center">
         <AdminButton type="button" disabled={saving} onClick={onApprove}>
@@ -71,14 +86,13 @@ export function AccountApprovalCard({
 
 export function DetailCard({ title, rows }: { title: string; rows: [string, ReactNode][] }) {
   return (
-    <section className="admin-detail-card">
-      <h2>{title}</h2>
-      <dl className="admin-detail-list">
+    <section className={adminCardClassName}>
+      <h2 className={adminCardTitleClassName}>{title}</h2>
+      <dl className={adminDetailListClassName}>
         {rows.map(([term, value]) => (
-          <div key={term}>
-            <dt>{term}</dt>
-            <dd>{value}</dd>
-          </div>
+          <AdminDetailItem key={term} term={term}>
+            {value}
+          </AdminDetailItem>
         ))}
       </dl>
     </section>
@@ -100,14 +114,14 @@ export function AccountContactCard({
         ['Contact', account.contact_name],
         [
           'Email',
-          <a key="email" href={`mailto:${account.email}`}>
+          <a className={adminCardLinkClassName} key="email" href={`mailto:${account.email}`}>
             {account.email}
           </a>,
         ],
         [
           'Phone',
           account.phone ? (
-            <a key="phone" href={`tel:${account.phone}`}>
+            <a className={adminCardLinkClassName} key="phone" href={`tel:${account.phone}`}>
               {account.phone}
             </a>
           ) : (
@@ -163,9 +177,9 @@ export function StaffNotesCard({
   onSave: () => void;
 }) {
   return (
-    <section className="admin-detail-card admin-detail-wide">
-      <div className="admin-card-heading">
-        <h2>Internal notes</h2>
+    <section className={cn(adminCardClassName, adminCardWideClassName)}>
+      <div className={adminCardHeadingClassName}>
+        <h2 className={adminCardTitleClassName}>Internal notes</h2>
       </div>
       <textarea
         className="admin-notes"
@@ -197,10 +211,12 @@ export function RelatedMessagesCard({
   emptyLabel: string;
 }) {
   return (
-    <section className="admin-detail-card admin-detail-wide">
-      <div className="admin-card-heading">
-        <h2>Recent messages</h2>
-        <Link href={replyHref}>Compose email</Link>
+    <section className={cn(adminCardClassName, adminCardWideClassName)}>
+      <div className={adminCardHeadingClassName}>
+        <h2 className={adminCardTitleClassName}>Recent messages</h2>
+        <Link className={adminCardLinkClassName} href={replyHref}>
+          Compose email
+        </Link>
       </div>
       {messages.length ? (
         <div className="admin-related-messages">

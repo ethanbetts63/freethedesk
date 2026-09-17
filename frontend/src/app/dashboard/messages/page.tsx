@@ -31,6 +31,7 @@ import { formatDateTime, getMessages, type AdminMessage } from '@/lib/adminApi';
 import { AdminButton } from '@/components/dashboard/AdminButton';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
 import { cn } from '@/lib/utils';
+import { adminPanelClassName } from '@/components/dashboard/AdminCard';
 
 const SORT_FIELDS = ['created_at'] as const;
 const FILTER_KEYS = ['status', 'channel'] as const;
@@ -60,7 +61,7 @@ function MessagesContent() {
         <AdminButton href="/dashboard/messages/compose">＋ Compose</AdminButton>
       </header>
 
-      <section className="admin-panel">
+      <section className={adminPanelClassName}>
         <AdminFilterBar
           total={list.total}
           noun="message"

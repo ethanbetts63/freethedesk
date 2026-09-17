@@ -1,5 +1,3 @@
-import '@/styles/portal.css';
-
 import type { Metadata } from 'next';
 
 import { DealerShell } from '@/components/dashboard/DealerShell';

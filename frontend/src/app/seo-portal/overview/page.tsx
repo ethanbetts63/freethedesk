@@ -7,6 +7,20 @@ import { formatDateTime } from '@/lib/api';
 import { getSeoAccount, type SeoAccount } from '@/lib/seoApi';
 import { AdminButton } from '@/components/dashboard/AdminButton';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import {
+  AdminDetailItem,
+  adminCardClassName,
+  adminCardLabelClassName,
+  adminCardTitleClassName,
+  adminCardWideClassName,
+  adminDetailGridClassName,
+  adminDetailListClassName,
+  adminMessageBodyClassName,
+  adminStatusCardClassName,
+  adminStatusCardLabelGroupClassName,
+} from '@/components/dashboard/AdminCard';
+import { cn } from '@/lib/utils';
+import { PortalStep, PortalSteps } from '@/components/dashboard/PortalSteps';
 
 const statusCopy: Record<SeoAccount['status'], { heading: string; body: string }> = {
   pending: {
@@ -84,18 +98,18 @@ export default function SeoPortalOverviewPage() {
         </div>
       </header>
 
-      <div className="admin-detail-grid">
-        <section className="admin-detail-card admin-status-card">
-          <div>
-            <p className="admin-card-label">Account status</p>
+      <div className={adminDetailGridClassName}>
+        <section className={adminStatusCardClassName}>
+          <div className={adminStatusCardLabelGroupClassName}>
+            <p className={adminCardLabelClassName}>Account status</p>
             <StatusPill status={account.status} />
           </div>
         </section>
 
         {account.payment_status === 'payment_pending' && (
-          <section className="admin-detail-card admin-detail-wide">
-            <h2>Finish secure payment</h2>
-            <p className="admin-message-body">
+          <section className={cn(adminCardClassName, adminCardWideClassName)}>
+            <h2 className={adminCardTitleClassName}>Finish secure payment</h2>
+            <p className={adminMessageBodyClassName}>
               Your account is saved. Complete payment to unlock your{' '}
               {isGbpAudit ? 'audit' : 'reporting setup'}.
             </p>
@@ -104,110 +118,72 @@ export default function SeoPortalOverviewPage() {
         )}
 
         {hasPaid && !account.has_usable_password && (
-          <section className="admin-detail-card admin-detail-wide">
-            <h2>Complete your account</h2>
-            <p className="admin-message-body">
+          <section className={cn(adminCardClassName, adminCardWideClassName)}>
+            <h2 className={adminCardTitleClassName}>Complete your account</h2>
+            <p className={adminMessageBodyClassName}>
               Add your business and contact names, then choose your sign-in password.
             </p>
             <AdminButton href="/seo-portal/account">Complete account setup →</AdminButton>
           </section>
         )}
 
-        <section className="admin-detail-card admin-detail-wide">
-          <h2>Hello {firstName}.</h2>
-          <p className="admin-message-body">
+        <section className={cn(adminCardClassName, adminCardWideClassName)}>
+          <h2 className={adminCardTitleClassName}>Hello {firstName}.</h2>
+          <p className={adminMessageBodyClassName}>
             <strong>{copy.heading}</strong>
           </p>
-          <p className="admin-message-body">{copy.body}</p>
+          <p className={adminMessageBodyClassName}>{copy.body}</p>
         </section>
 
         {hasPaid && (
-          <section className="admin-detail-card admin-detail-wide">
-            <h2>What happens next</h2>
-            <ol className="portal-steps">
-              <li>
-                <strong>{isGbpAudit ? 'Send your profile' : 'Connect your data'}</strong>
-                <span>
-                  {isGbpAudit
-                    ? 'Add your Google Business Profile link and primary service location.'
-                    : 'Grant access to Search Console and, if relevant, Analytics and your Google Business Profile.'}
-                </span>
-              </li>
-              <li>
-                <strong>{isGbpAudit ? 'We review it' : 'Tell us the focus'}</strong>
-                <span>
-                  {isGbpAudit
-                    ? 'We check visibility, completeness, categories, content, reviews and local-search signals.'
-                    : 'Target locations, the searches you care about and who you compete with.'}
-                </span>
-              </li>
-              <li>
-                <strong>{isGbpAudit ? 'Your audit arrives' : 'Your first report'}</strong>
-                <span>A plain-English, ranked action list lands in your inbox.</span>
-              </li>
-            </ol>
+          <section className={cn(adminCardClassName, adminCardWideClassName)}>
+            <h2 className={adminCardTitleClassName}>What happens next</h2>
+            <PortalSteps>
+              <PortalStep title={isGbpAudit ? 'Send your profile' : 'Connect your data'}>
+                {isGbpAudit
+                  ? 'Add your Google Business Profile link and primary service location.'
+                  : 'Grant access to Search Console and, if relevant, Analytics and your Google Business Profile.'}
+              </PortalStep>
+              <PortalStep title={isGbpAudit ? 'We review it' : 'Tell us the focus'}>
+                {isGbpAudit
+                  ? 'We check visibility, completeness, categories, content, reviews and local-search signals.'
+                  : 'Target locations, the searches you care about and who you compete with.'}
+              </PortalStep>
+              <PortalStep title={isGbpAudit ? 'Your audit arrives' : 'Your first report'}>
+                A plain-English, ranked action list lands in your inbox.
+              </PortalStep>
+            </PortalSteps>
             <AdminButton href="/seo-portal/connect">
               {isGbpAudit ? 'Add profile details' : 'Connect your data'} →
             </AdminButton>
           </section>
         )}
 
-        <section className="admin-detail-card">
-          <h2>Your details</h2>
-          <dl className="admin-detail-list">
-            <div>
-              <dt>Business</dt>
-              <dd>{account.business_name}</dd>
-            </div>
-            <div>
-              <dt>Contact</dt>
-              <dd>{account.contact_name}</dd>
-            </div>
-            <div>
-              <dt>Email</dt>
-              <dd>{account.email}</dd>
-            </div>
-            <div>
-              <dt>Phone</dt>
-              <dd>{account.phone || 'Not supplied'}</dd>
-            </div>
-            <div>
-              <dt>Website</dt>
-              <dd>{account.website || 'Not supplied'}</dd>
-            </div>
+        <section className={adminCardClassName}>
+          <h2 className={adminCardTitleClassName}>Your details</h2>
+          <dl className={adminDetailListClassName}>
+            <AdminDetailItem term="Business">{account.business_name}</AdminDetailItem>
+            <AdminDetailItem term="Contact">{account.contact_name}</AdminDetailItem>
+            <AdminDetailItem term="Email">{account.email}</AdminDetailItem>
+            <AdminDetailItem term="Phone">{account.phone || 'Not supplied'}</AdminDetailItem>
+            <AdminDetailItem term="Website">{account.website || 'Not supplied'}</AdminDetailItem>
           </dl>
           <AdminButton variant="secondary" href="/seo-portal/account">
             Edit details
           </AdminButton>
         </section>
 
-        <section className="admin-detail-card">
-          <h2>Account</h2>
-          <dl className="admin-detail-list">
-            <div>
-              <dt>Report</dt>
-              <dd>{account.report_type_label}</dd>
-            </div>
-            <div>
-              <dt>Plan</dt>
-              <dd>{account.plan_label}</dd>
-            </div>
-            <div>
-              <dt>Payment</dt>
-              <dd>{account.payment_status_label}</dd>
-            </div>
-            <div>
-              <dt>Status</dt>
-              <dd>{account.status_label}</dd>
-            </div>
-            <div>
-              <dt>Signed up</dt>
-              <dd>{formatDateTime(account.created_at)}</dd>
-            </div>
-            <div>
-              <dt>Last updated</dt>
-              <dd>{formatDateTime(account.updated_at)}</dd>
-            </div>
+        <section className={adminCardClassName}>
+          <h2 className={adminCardTitleClassName}>Account</h2>
+          <dl className={adminDetailListClassName}>
+            <AdminDetailItem term="Report">{account.report_type_label}</AdminDetailItem>
+            <AdminDetailItem term="Plan">{account.plan_label}</AdminDetailItem>
+            <AdminDetailItem term="Payment">{account.payment_status_label}</AdminDetailItem>
+            <AdminDetailItem term="Status">{account.status_label}</AdminDetailItem>
+            <AdminDetailItem term="Signed up">{formatDateTime(account.created_at)}</AdminDetailItem>
+            <AdminDetailItem term="Last updated">
+              {formatDateTime(account.updated_at)}
+            </AdminDetailItem>
           </dl>
           <p className="text-ui text-text-subtle">
             Questions? <a href="mailto:hello@freethedesk.com.au">hello@freethedesk.com.au</a>

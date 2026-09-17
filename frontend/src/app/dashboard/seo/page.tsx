@@ -31,6 +31,7 @@ import {
 import { formatDateTime, getSeoSubscribers, type SeoSubscriber } from '@/lib/adminApi';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
 import { cn } from '@/lib/utils';
+import { adminPanelClassName } from '@/components/dashboard/AdminCard';
 
 const SORT_FIELDS = ['created_at', 'business_name', 'contact_name', 'status'] as const;
 const FILTER_KEYS = ['status'] as const;
@@ -57,7 +58,7 @@ function SeoSubscribersContent() {
         </div>
       </header>
 
-      <section className="admin-panel">
+      <section className={adminPanelClassName}>
         <AdminFilterBar
           total={list.total}
           noun="customer"
