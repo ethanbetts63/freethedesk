@@ -601,7 +601,7 @@ arbitrary-breakpoint rule that was meant to supersede it:
 - `ServiceScroll.tsx:121`, `sm:col-start-2` beating `min-[900px]:col-auto`: its
   CTA stayed in the text column instead of moving to the third;
 - `ProcessBar.tsx:5`, `sm:px-ml sm:py-m` beating `min-[900px]:px-l
-  min-[900px]:py-ml`: the desktop padding never applied (`min-h` had no `sm:`
+min-[900px]:py-ml`: the desktop padding never applied (`min-h` had no `sm:`
   counterpart and did);
 - `app/guides/page.tsx:114,129`, the empty-state card, identical to the
   `ServiceScroll` pair.
@@ -611,16 +611,40 @@ was a rule written to take effect and silently not taking effect, which is why
 Phase 5 lists arbitrary breakpoint variants as an ESLint error rather than a
 style preference.
 
-**Slices landed so far.** Running total: eighteen stylesheets deleted and two
+**Slices landed so far.** Running total: twenty stylesheets deleted and two
 added (`styles/prose.css` and `flowCompare.module.css`, which was split out of
-the licensing page); 8,226 lines of CSS down to 4,759. Slices 4.7 to 4.14 are
+the licensing page); 8,226 lines of CSS down to 4,193. Slices 4.7 to 4.15 are
 summarised in their commit messages rather than restated here.
 
-What is left is the generated preview (`preview.module.css` 2,775,
-`configurator.module.css` 435, `layout.module.css` 155), which this plan
-migrates last and which may stay CSS, plus `FlowCardVisual.module.css` (291)
-and `flowCompare.module.css` (113), both of which carry written justifications
-for staying.
+Phase 4 is complete. Three stylesheets remain, each with a written
+justification for staying: `preview.module.css` (2,775, below),
+`FlowCardVisual.module.css` (291) and `flowCompare.module.css` (113).
+
+**4.15 split the website builder rather than migrating or excluding it.** The
+plan called the builder "a scoped second design system" and scheduled it last
+because it might stay CSS. Reading it showed it was not one thing:
+`preview.module.css` draws the fake dealership site, but
+`configurator.module.css` (435) and `layout.module.css` (155) were FreeTheDesk's
+own UI — the controls panel reached into `:global(.form-label)` and
+`.form-control`, overrode `--page-accent`, and carried the page's two-column
+shell and a `min-width: 900px`. Those two are now utilities and both files are
+gone; only the demo itself stays CSS.
+
+The boundary is `.browser`, the frame's outermost element, and it is now stated
+in the file's header rather than implied. Two things moved to make it true:
+
+- the demo's type scale (`--demo-text-*`) was defined on the _page_ wrapper, so
+  the site's own chrome was being sized by the demo's variables. It is now
+  defined on `.browser`, which means a demo size cannot leak outwards and the
+  chrome had to choose a real site token for every size it uses;
+- `--demo-space-xs/sm/md/lg` were 8/12/16/24px — the site's `--space-xs/s/m/l`
+  to the pixel. A second set of names for the same four values is the Phase 5
+  rule below, so they are gone and the demo reads `--space-*` directly.
+
+What the demo keeps is the type scale (genuinely its own, and larger than the
+site's at every step) and the shared colour palette, which it keeps on purpose:
+the preview is a real FreeTheDesk artefact and its chrome should not drift from
+the page around it.
 
 **4.13 condensed six families the migration exposed.** Spelling the same idea
 out in enough places makes the repetition visible, and these only became
@@ -640,7 +664,7 @@ countable once they were utilities:
 - one editorial rule with five spellings, now `hiddenBelowSmClassName`.
 
 Line count is a poor scoreboard for this phase and 4.6 is where that becomes
-obvious: it removed real duplication and the total went *up* by a hundred
+obvious: it removed real duplication and the total went _up_ by a hundred
 lines, because the token definitions and the paragraphs explaining which step
 to pick cost more than the values they replaced. That is the trade being made
 on purpose. What matters is that a new card now has one shadow to choose from
@@ -733,11 +757,11 @@ a scale of five rather than fifty precedents to copy from.
   tinted chrome). Available as `bg-tint-wash`, `border-tint-rule` and so on.
 
   **Elevation.** Roughly fifty hand-written `box-shadow`s, no two alike and no
-  relationship between them. They turned out to be three ideas: *ambient*, a
+  relationship between them. They turned out to be three ideas: _ambient_, a
   card lifted off a light surface and tinted with the same near-navy as
-  everything else; *contrast*, something floating over a dark section or a
+  everything else; _contrast_, something floating over a dark section or a
   photograph, where a blue tint disappears and only a neutral reads; and
-  *block*, the flat offset slab the marketing illustrations use, which is a
+  _block_, the flat offset slab the marketing illustrations use, which is a
   drawing style rather than a depth cue and has no blur. Five ambient steps,
   three contrast, three block — `shadow-xs` through `shadow-xl`,
   `shadow-contrast-*`, `shadow-block-*`. Thirty-five call sites converted to
@@ -775,7 +799,7 @@ a scale of five rather than fifty precedents to copy from.
   drew its line in `--blue-600` at 5.5% while the other two used
   `--hero-grid-color`. Both line colours are tokens now (`--tint-grid`,
   `--tint-hero-grid`) and `lib/gridSurface.ts` carries the geometry. What is
-  *not* shared is each surface's fade — a radial mask on the hero, a horizontal
+  _not_ shared is each surface's fade — a radial mask on the hero, a horizontal
   one on the case study, three edge gradients on the footer. Those live in the
   same `background-image` declaration as the grid and cannot be layered on
   afterwards, so each surface still spells its own out. The colour and the

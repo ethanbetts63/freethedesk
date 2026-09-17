@@ -1,4 +1,28 @@
+/* ---------------------------------------------------------------------------
+   THE DEMO WEBSITE
+   ---------------------------------------------------------------------------
+   Everything in this file draws the *fake dealership site* inside the builder's
+   browser frame. It is a second design system - a different company's website,
+   shown as a product - so it is deliberately not written in the site's
+   utilities: nothing here should be reachable from, or confused with, a
+   FreeTheDesk page.
+
+   `.browser` is the boundary. It is the frame's outermost element and it
+   defines the demo's own type scale, so a demo size cannot leak outwards and a
+   site size is never what a rule in here means. Spacing is the exception: the
+   demo's four steps were the site's four values to the pixel, so they read from
+   --space-* rather than carrying a second set of names for them.
+
+   Colour comes from the shared palette on purpose - the preview is a real
+   FreeTheDesk artefact and its chrome should not drift from the page around it.
+   --------------------------------------------------------------------------- */
+
 .browser {
+  --demo-text-xs: 0.625rem;
+  --demo-text-sm: 0.6875rem;
+  --demo-text-md: 0.75rem;
+  --demo-text-lg: 0.875rem;
+  --demo-text-xl: 1rem;
   background: var(--surface-page);
   border: 1px solid var(--slate-200);
   box-shadow: var(--elevation-m);
@@ -214,7 +238,7 @@
 }
 .dynamicArea {
   display: grid;
-  gap: var(--demo-space-xs);
+  gap: var(--space-xs);
   grid-template-columns: minmax(0, 1fr);
   padding: 12px 16px;
 }
@@ -415,7 +439,7 @@
   gap: 9px;
   grid-template-columns: 34px minmax(0, 1fr);
   min-height: 56px;
-  padding: var(--demo-space-xs);
+  padding: var(--space-xs);
   transition:
     border-color 0.18s,
     transform 0.18s;
@@ -491,7 +515,7 @@
   display: grid;
   gap: 18px;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  padding: var(--demo-space-lg);
+  padding: var(--space-l);
   position: relative;
 }
 .footerBrand > button {
@@ -884,7 +908,7 @@
   background: var(--surface-dark);
   color: var(--text-on-dark);
   display: grid;
-  gap: var(--demo-space-md);
+  gap: var(--space-m);
   grid-template-columns: minmax(0, 1fr);
   margin: 16px 0 4px;
   padding: 15px 17px;
@@ -946,7 +970,7 @@
   gap: 9px;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   margin: 15px 0 13px;
-  padding: var(--demo-space-sm);
+  padding: var(--space-s);
 }
 .inventoryFilters label > span {
   color: var(--slate-500);
@@ -984,7 +1008,7 @@
   cursor: pointer;
   font-size: var(--demo-text-xs);
   font-weight: var(--weight-heavy);
-  padding: var(--demo-space-xs);
+  padding: var(--space-xs);
   grid-column: 1 / -1;
 }
 .inventoryResults {
@@ -1091,7 +1115,7 @@
 .vehicleDetailLayout {
   align-items: start;
   display: grid;
-  gap: var(--demo-space-lg);
+  gap: var(--space-l);
   grid-template-columns: minmax(0, 1fr);
   margin-top: 25px;
 }
@@ -1330,7 +1354,7 @@
 .vehicleInterest input {
   border: 1px solid var(--slate-200);
   font-size: var(--demo-text-xs);
-  padding: var(--demo-space-xs);
+  padding: var(--space-xs);
   width: 100%;
 }
 .vehicleInterest button {
@@ -1341,7 +1365,7 @@
   font-size: var(--demo-text-xs);
   font-weight: var(--weight-black);
   margin-top: 5px;
-  padding: var(--demo-space-xs);
+  padding: var(--space-xs);
   width: 100%;
 }
 .detailPurchaseFlow {
@@ -1423,7 +1447,7 @@
 .partsSelectors {
   background: var(--surface-tint);
   display: grid;
-  gap: var(--demo-space-xs);
+  gap: var(--space-xs);
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   margin: 18px 0 12px;
   padding: 11px;
@@ -1447,7 +1471,7 @@
 .partsWorkspace {
   align-items: start;
   display: grid;
-  gap: var(--demo-space-sm);
+  gap: var(--space-s);
   grid-template-columns: minmax(0, 1fr);
 }
 .partsDiagram {
@@ -1765,7 +1789,7 @@
   cursor: pointer;
   display: flex;
   gap: 7px;
-  padding: var(--demo-space-xs);
+  padding: var(--space-xs);
 }
 .hireExtras input {
   accent-color: var(--action-primary);
@@ -1858,7 +1882,7 @@
 }
 .serviceHeroCopy ul {
   display: grid;
-  gap: var(--demo-space-xs);
+  gap: var(--space-xs);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1868,7 +1892,7 @@
   color: var(--slate-200);
   display: flex;
   font-size: var(--demo-text-sm);
-  gap: var(--demo-space-xs);
+  gap: var(--space-xs);
 }
 .serviceHeroCopy li i {
   align-items: center;
@@ -1953,7 +1977,7 @@
 }
 .serviceDateTimeFields {
   display: grid;
-  gap: var(--demo-space-sm);
+  gap: var(--space-s);
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
 .bookingField {
@@ -1996,7 +2020,7 @@
   border-bottom: 1px solid var(--slate-100);
   cursor: pointer;
   display: grid;
-  gap: var(--demo-space-xs);
+  gap: var(--space-xs);
   grid-template-columns: 13px minmax(0, 1fr);
   padding: 8px 0;
 }
@@ -2098,7 +2122,7 @@
 .serviceReviews {
   background: var(--surface-tint);
   display: grid;
-  gap: var(--demo-space-sm);
+  gap: var(--space-s);
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   margin: 28px 27px 0;
   padding: 18px;
@@ -2299,7 +2323,7 @@
 .journalGrid {
   border-top: 1px solid var(--slate-100);
   display: grid;
-  gap: var(--demo-space-sm);
+  gap: var(--space-s);
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   padding-top: 15px;
 }
@@ -2473,7 +2497,7 @@
 .termsIntro {
   align-items: end;
   display: grid;
-  gap: var(--demo-space-lg);
+  gap: var(--space-l);
   grid-template-columns: minmax(0, 1fr);
   padding: 25px 0;
 }

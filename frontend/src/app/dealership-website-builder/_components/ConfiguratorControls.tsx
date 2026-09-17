@@ -4,14 +4,25 @@ import { useActionState, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { MovingColourButton } from '@/components/MovingColourButton';
+import { cn } from '@/lib/utils';
 
-import { CapabilityOption } from './CapabilityOption';
+import {
+  CapabilityOption,
+  capabilityChevronClassName,
+  capabilityChevronOpenClassName,
+  capabilityIconClassName,
+  capabilityMarkClassName,
+  capabilityPanelClassName,
+  capabilityRowClassName,
+  capabilitySelectedIconClassName,
+  capabilitySelectedMarkClassName,
+  capabilityToggleClassName,
+} from './CapabilityOption';
 import {
   submitConfiguratorEnquiry,
   type ConfiguratorEnquiryState,
 } from './ConfiguratorControls.actions';
 import { INVENTORY_OPTIONS, MODULES, summariseSelection } from '../_lib/configuratorData';
-import styles from '../_styles/configurator.module.css';
 import type {
   InventoryAddonSelection,
   InventoryOption,
@@ -21,11 +32,34 @@ import type {
 
 const initialState: ConfiguratorEnquiryState = { status: 'idle' };
 
+/* The panel is denser than a marketing page: 26px is its own step, and the
+   site's form controls are re-set here at interface size rather than the
+   generous size a landing form wants. */
+const sectionClassName = 'p-[26px]';
+
+const labelClassName =
+  'form-label mb-xs text-[0.69rem] font-control tracking-normal text-text-control normal-case';
+const controlClassName =
+  'form-control min-h-[50px] border-border-default bg-surface-page px-[14px] py-0 text-[1rem] font-normal text-text-primary placeholder:text-small placeholder:text-text-on-dark-subtle';
+
+/** The numbered "01 / 02 / 03" heading that opens each step of the panel. */
+function GroupTitle({ number, title, hint }: { number: string; title: string; hint: string }) {
+  return (
+    <div className="mb-[19px] flex items-start gap-[11px]">
+      <span className="pt-[2px] text-small font-black text-[var(--page-accent)]">{number}</span>
+      <div>
+        <strong className="block text-step-0">{title}</strong>
+        <small className="mt-[5px] block text-lead leading-[1.45] text-text-subtle">{hint}</small>
+      </div>
+    </div>
+  );
+}
+
 function SubmitButton({ hasSucceeded }: { hasSucceeded: boolean }) {
   const { pending } = useFormStatus();
   return (
     <MovingColourButton
-      className={styles.detailsSubmit}
+      className="mt-[3px]"
       type="submit"
       disabled={pending}
       direction="right"
@@ -103,44 +137,50 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
     : 'Interactive dealership website configuration submitted.';
 
   return (
-    <aside className={styles.controls} aria-label="Website configuration options">
-      <section className={styles.baseProduct}>
-        <div>
+    <aside
+      className="border-t border-border-default bg-surface-page [scrollbar-color:var(--slate-400)_var(--slate-100)] [scrollbar-width:thin] lg:h-full lg:overflow-y-auto lg:border-t-0 lg:border-l"
+      aria-label="Website configuration options"
+    >
+      <section className={cn(sectionClassName, 'border-b border-border-default bg-surface-tint')}>
+        <div className="flex justify-between [&>*]:text-small [&>*]:font-black [&>*]:tracking-label [&>*]:text-[var(--page-accent)] [&>*]:uppercase">
           <span>Base product</span>
           <b>Included</b>
         </div>
-        <h2>Build your dealership website.</h2>
-        <p>
+        <h2 className="mt-[15px] mb-xs text-[1.5rem] tracking-[-0.04em]">
+          Build your dealership website.
+        </h2>
+        <p className="m-0 text-lead leading-[1.55] text-text-subtle">
           Add your brand and the capabilities you need, explore the live preview, then send the
           complete configuration to our team. No payment is required.
         </p>
       </section>
 
-      <section className={styles.controlGroup}>
-        <div className={styles.groupTitle}>
-          <span>01</span>
-          <div>
-            <strong>Brand the website</strong>
-            <small>Make the foundation feel like yours.</small>
-          </div>
-        </div>
-        <label className="form-label" htmlFor="brand-name">
+      <section className={cn(sectionClassName, 'border-b border-border-subtle')}>
+        <GroupTitle
+          number="01"
+          title="Brand the website"
+          hint="Make the foundation feel like yours."
+        />
+        <label className={cn(labelClassName, 'mt-[19px] block')} htmlFor="brand-name">
           Brand name
         </label>
         <input
           id="brand-name"
-          className={`form-control ${styles.brandInput}`}
+          className={controlClassName}
           value={brandName}
           onChange={(event) => onBrandNameChange(event.target.value)}
           maxLength={28}
           placeholder="Your dealership"
         />
-        <label className="form-label" htmlFor="current-url">
-          Current website <span className={styles.optionalLabel}>Optional</span>
+        <label className={cn(labelClassName, 'mt-[19px] block')} htmlFor="current-url">
+          Current website{' '}
+          <span className="ml-[5px] text-ui font-strong text-[var(--slate-400)] normal-case">
+            Optional
+          </span>
         </label>
         <input
           id="current-url"
-          className={`form-control ${styles.brandInput}`}
+          className={controlClassName}
           type="text"
           inputMode="url"
           value={currentUrl}
@@ -148,20 +188,18 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           placeholder="e.g. www.example.com.au"
         />
         <small className="field-hint">Helps us understand your current content and setup.</small>
-        <p className={styles.paletteNote}>
+        <p className="mt-[14px] mb-0 max-w-[340px] text-ui leading-[1.55] text-text-subtle">
           Demo palette — production design and colours are tailored to your brand.
         </p>
       </section>
 
-      <section className={styles.controlGroup}>
-        <div className={styles.groupTitle}>
-          <span>02</span>
-          <div>
-            <strong>Add capabilities</strong>
-            <small>Every choice changes the live preview.</small>
-          </div>
-        </div>
-        <div className={styles.moduleOptions}>
+      <section className={cn(sectionClassName, 'border-b border-border-subtle')}>
+        <GroupTitle
+          number="02"
+          title="Add capabilities"
+          hint="Every choice changes the live preview."
+        />
+        <div className="flex flex-col">
           {MODULES.map((module) => {
             const explanationId = `module-${module.key}`;
 
@@ -175,8 +213,10 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
                 onExpandedChange={() => toggleExpanded(explanationId)}
               >
                 {module.key === 'inventory' && selected.inventory ? (
-                  <div className={styles.inventorySubOptions}>
-                    <p>Optional online actions</p>
+                  <div className="mb-s ml-s border-l-2 border-[var(--page-accent)] bg-surface-tint p-[10px] pb-[4px]">
+                    <p className="mt-0 mb-[6px] text-ui font-black tracking-label text-text-subtle uppercase">
+                      Optional online actions
+                    </p>
                     {INVENTORY_OPTIONS.map((option) => {
                       const optionExplanationId = `inventory-${option.key}`;
 
@@ -197,31 +237,59 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
               </CapabilityOption>
             );
           })}
-          <div className={styles.moduleChoice}>
-            <div className={styles.moduleRow}>
+          {/* The same row as a capability, but its "selected" state is whether
+              the textarea has anything in it, so it is spelled out here. */}
+          <div className={capabilityRowClassName}>
+            <div className="flex items-stretch">
               <button
                 type="button"
-                className={`${styles.moduleToggle} ${hasCustomRequest ? styles.moduleSelected : ''}`}
+                className={cn(capabilityToggleClassName, 'py-[19px]')}
                 onClick={() => setExpanded((current) => ({ ...current, custom: !current.custom }))}
                 aria-expanded={Boolean(expanded.custom)}
                 aria-controls="custom-capability-details"
               >
-                <span className={styles.capabilityLabel}>
-                  <span className={styles.capabilityIcon}>
+                <span className="flex min-w-0 items-center gap-[11px]">
+                  <span
+                    className={cn(
+                      capabilityIconClassName,
+                      'flex-[0_0_44px] bg-surface-tint [&_svg]:h-[21px] [&_svg]:w-[21px]',
+                      hasCustomRequest && capabilitySelectedIconClassName,
+                    )}
+                  >
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4" />
                     </svg>
                   </span>
                   <span>
-                    <strong>Custom capability</strong>
-                    <small>Tell us what would make this work for you.</small>
+                    <strong
+                      className={cn(
+                        'block text-step-0 leading-[1.25]',
+                        hasCustomRequest && 'text-[var(--page-accent)]',
+                      )}
+                    >
+                      Custom capability
+                    </strong>
+                    <small className="mt-[5px] block text-lead leading-[1.45] text-text-subtle">
+                      Tell us what would make this work for you.
+                    </small>
                   </span>
                 </span>
-                <i>{hasCustomRequest ? '✓' : '+'}</i>
+                <i
+                  className={cn(
+                    capabilityMarkClassName,
+                    'h-[24px] w-[24px] flex-[0_0_24px]',
+                    hasCustomRequest && capabilitySelectedMarkClassName,
+                  )}
+                >
+                  {hasCustomRequest ? '✓' : '+'}
+                </i>
               </button>
               <button
                 type="button"
-                className={`${styles.expandToggle} ${expanded.custom ? styles.expandToggleOpen : ''}`}
+                className={cn(
+                  capabilityChevronClassName,
+                  expanded.custom && capabilityChevronOpenClassName,
+                )}
                 onClick={() => toggleExpanded('custom')}
                 aria-expanded={Boolean(expanded.custom)}
                 aria-controls="custom-capability-details"
@@ -233,34 +301,36 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
               </button>
             </div>
             {expanded.custom && (
-              <div className={styles.customRequestPanel} id="custom-capability-details">
-                <label className="form-label" htmlFor="custom-request">
+              <div
+                className={cn(capabilityPanelClassName, 'mb-[14px] w-full bg-surface-tint')}
+                id="custom-capability-details"
+              >
+                <label className={cn(labelClassName, 'mb-[10px] block')} htmlFor="custom-request">
                   What would you like your website to do?
                 </label>
                 <textarea
                   id="custom-request"
-                  className="form-control"
+                  className={cn(
+                    controlClassName,
+                    'min-h-[112px] px-[14px] py-[13px] leading-[1.5]',
+                  )}
                   value={customRequest}
                   onChange={(event) => onCustomRequestChange(event.target.value)}
                   placeholder="e.g. Connect stock, bookings or trade-ins to our existing systems."
                   rows={5}
                 />
-                <small>It can be rough—we’ll help turn the idea into a clear scope.</small>
+                <small className="mt-xs block text-small leading-[1.5] text-text-subtle">
+                  It can be rough—we’ll help turn the idea into a clear scope.
+                </small>
               </div>
             )}
           </div>
         </div>
       </section>
 
-      <section className={styles.detailsSection}>
-        <div className={styles.groupTitle}>
-          <span>03</span>
-          <div>
-            <strong>Your details</strong>
-            <small>Send this configuration to our team.</small>
-          </div>
-        </div>
-        <form className={styles.detailsForm} action={formAction}>
+      <section className={cn(sectionClassName, 'bg-surface-tint')}>
+        <GroupTitle number="03" title="Your details" hint="Send this configuration to our team." />
+        <form className="flex flex-col gap-[14px]" action={formAction}>
           <input
             type="hidden"
             name="business"
@@ -270,9 +340,9 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           <input type="hidden" name="message" value={message} />
           <input type="hidden" name="configuration" value={JSON.stringify(configuration)} />
           <label>
-            <span className="form-label">Name</span>
+            <span className={labelClassName}>Name</span>
             <input
-              className="form-control"
+              className={controlClassName}
               name="name"
               autoComplete="name"
               placeholder="e.g. Alex Smith"
@@ -280,9 +350,9 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             />
           </label>
           <label>
-            <span className="form-label">Email</span>
+            <span className={labelClassName}>Email</span>
             <input
-              className="form-control"
+              className={controlClassName}
               name="email"
               type="email"
               autoComplete="email"
@@ -291,9 +361,9 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             />
           </label>
           <label>
-            <span className="form-label">Phone number</span>
+            <span className={labelClassName}>Phone number</span>
             <input
-              className="form-control"
+              className={controlClassName}
               name="phone"
               type="tel"
               autoComplete="tel"
@@ -301,25 +371,34 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
               required
             />
           </label>
-          <div className={styles.configurationReview}>
-            <div>
-              <span>Your configuration</span>
-              <strong>{additionCount === 0 ? 'Base website' : `Base + ${additionCount}`}</strong>
+          <div className="mt-[5px] border-t border-border-default pt-[17px]">
+            <div className="flex items-center justify-between">
+              <span className="text-small text-text-subtle uppercase">Your configuration</span>
+              <strong className="text-step-0">
+                {additionCount === 0 ? 'Base website' : `Base + ${additionCount}`}
+              </strong>
             </div>
-            {summaryItems.length > 0 && <p>{summaryItems.join(' · ')}</p>}
+            {summaryItems.length > 0 && (
+              <p className="mt-[10px] mb-0 text-small leading-[1.55] text-text-muted">
+                {summaryItems.join(' · ')}
+              </p>
+            )}
           </div>
           <SubmitButton hasSucceeded={state.status === 'success'} />
-          <small className={styles.submissionNote}>
+          <small className="block text-ui leading-[1.55] text-text-subtle">
             No payment today. We’ll confirm integrations, scope and timing with you first.
           </small>
-          <div className={styles.submissionMessage} aria-live="polite">
+          <div
+            className="empty:hidden [&_p]:m-0 [&_p]:px-s [&_p]:py-[11px] [&_p]:text-small [&_p]:font-strong [&_p]:leading-[1.55]"
+            aria-live="polite"
+          >
             {state.status === 'success' && (
-              <p className={styles.submissionSuccess}>
+              <p className="bg-surface-success text-text-success">
                 Thanks — your complete configuration is now with our team.
               </p>
             )}
             {state.status === 'error' && (
-              <p className={styles.submissionError}>
+              <p className="bg-surface-danger text-text-danger">
                 Something went wrong. Please try again or email hello@freethedesk.com.au.
               </p>
             )}

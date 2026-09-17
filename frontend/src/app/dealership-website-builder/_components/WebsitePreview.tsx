@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import { cn } from '@/lib/utils';
+
 import { PREVIEW_NAVIGATION } from '../_lib/configuratorData';
 import { getDemoBrandIdentity } from '../_lib/demoBrand';
 import { ConversionLink } from './ConversionButton';
@@ -13,8 +15,7 @@ import {
   InventoryTile,
   type InventoryVehicle,
 } from './PreviewPages';
-import layoutStyles from '../_styles/layout.module.css';
-import previewStyles from '../_styles/preview.module.css';
+import styles from '../_styles/preview.module.css';
 import type { InventoryAddonSelection, ModuleSelection, PreviewPage } from '../_lib/types';
 
 type WebsitePreviewProps = {
@@ -27,7 +28,12 @@ type WebsitePreviewProps = {
   onPageChange: (page: PreviewPage) => void;
 };
 
-const styles = { ...layoutStyles, ...previewStyles };
+/** The instructions above the preview - the page's own chrome, not the demo. */
+const PREVIEW_STEPS = [
+  { number: '01', title: 'Customize', detail: 'Add your brand and capabilities' },
+  { number: '02', title: 'Explore', detail: 'Use the live website preview' },
+  { number: '03', title: 'Send it', detail: 'Give the configuration to our team' },
+] as const;
 
 function BrandWordmark({ name }: { name: string }) {
   const displayName = name.trim() || 'Your brand';
@@ -341,33 +347,46 @@ export function WebsitePreview(props: WebsitePreviewProps) {
   };
 
   return (
-    <section className={styles.previewColumn} aria-label="Live website preview">
-      <div className={styles.previewLabel}>
+    // The demo's container: preview.module.css sizes the fake website against
+    // this column's width, not the viewport's, because the column is a third of
+    // the page on a phone and two thirds from lg.
+    <section
+      className="@container/dealer-preview relative top-0 flex h-[72svh] min-h-[560px] min-w-0 flex-col bg-surface-tint-strong p-s lg:sticky lg:top-[78px] lg:h-auto lg:min-h-0 lg:px-l lg:pt-[15px] lg:pb-ml"
+      aria-label="Live website preview"
+    >
+      <div className="flex justify-between px-[2px] pb-[10px] text-small font-heavy tracking-label text-text-subtle uppercase">
         <span>Live website preview</span>
-        <b>{additionCount} additions active</b>
+        <b className="text-action-primary">{additionCount} additions active</b>
       </div>
-      <div className={styles.previewGuide} aria-label="How to use the website builder">
-        <div>
-          <b>01</b>
-          <span>
-            <strong>Customize</strong>
-            <small>Add your brand and capabilities</small>
-          </span>
-        </div>
-        <div>
-          <b>02</b>
-          <span>
-            <strong>Explore</strong>
-            <small>Use the live website preview</small>
-          </span>
-        </div>
-        <div>
-          <b>03</b>
-          <span>
-            <strong>Send it</strong>
-            <small>Give the configuration to our team</small>
-          </span>
-        </div>
+      <div
+        className="relative z-1 grid grid-cols-3 border border-b-0 border-border-strong border-t-action-primary border-t-[3px] bg-surface-page shadow-xs"
+        aria-label="How to use the website builder"
+      >
+        {PREVIEW_STEPS.map((step, index) => (
+          // Every step but the last draws a rule and the notch that sits over
+          // it, so the three read as one path rather than three cards.
+          <div
+            className={cn(
+              'relative flex min-w-0 items-center gap-[7px] px-xs py-[11px] @min-[720px]/dealer-preview:gap-m @min-[720px]/dealer-preview:px-[18px] @min-[720px]/dealer-preview:py-m',
+              index === 0 && 'bg-[color-mix(in_srgb,var(--action-primary)_5%,var(--surface-page))]',
+              index < PREVIEW_STEPS.length - 1 &&
+                "border-r border-border-subtle after:absolute after:top-[calc(50%-4px)] after:right-[-5px] after:z-1 after:h-[8px] after:w-[8px] after:rotate-45 after:border-t after:border-r after:border-border-subtle after:bg-surface-page after:content-['']",
+            )}
+            key={step.number}
+          >
+            <b className="flex h-[25px] w-[25px] flex-none items-center justify-center rounded-[var(--radius-circle)] border border-[color-mix(in_srgb,var(--action-primary)_35%,var(--surface-page))] bg-[color-mix(in_srgb,var(--action-primary)_12%,var(--surface-page))] text-small text-action-primary @min-[720px]/dealer-preview:h-[31px] @min-[720px]/dealer-preview:w-[31px]">
+              {step.number}
+            </b>
+            <span className="min-w-0">
+              <strong className="block min-w-0 text-small tracking-[-0.01em] @min-[720px]/dealer-preview:text-lead">
+                {step.title}
+              </strong>
+              <small className="mt-[3px] hidden min-w-0 text-small leading-[1.35] text-text-subtle @min-[720px]/dealer-preview:block">
+                {step.detail}
+              </small>
+            </span>
+          </div>
+        ))}
       </div>
       <div className={styles.browser}>
         <div className={styles.browserTop}>

@@ -8,7 +8,6 @@ import {
   DEFAULT_MODULES,
   summariseSelection,
 } from '../_lib/configuratorData';
-import styles from '../_styles/layout.module.css';
 import type {
   InventoryAddonSelection,
   InventoryOption,
@@ -47,8 +46,10 @@ export function WebsiteConfigurator() {
   };
 
   return (
-    <main className={styles.page}>
-      <div className={styles.builder}>
+    // The header is 68px on a phone and 78px from lg; the builder fills what
+    // is left of the viewport and scrolls its two columns independently.
+    <main className="min-h-[calc(100svh-68px)] bg-surface-tint text-text-primary lg:h-[calc(100vh-78px)] lg:min-h-0 lg:overflow-hidden">
+      <div className="grid grid-cols-[minmax(0,1fr)] lg:h-full lg:grid-cols-[minmax(0,1.6fr)_minmax(390px,0.7fr)] lg:overflow-hidden">
         <WebsitePreview
           brandName={brandName}
           currentUrl={currentUrl}
