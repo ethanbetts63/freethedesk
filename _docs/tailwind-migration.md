@@ -611,8 +611,8 @@ was a rule written to take effect and silently not taking effect, which is why
 Phase 5 lists arbitrary breakpoint variants as an ESLint error rather than a
 style preference.
 
-**Slices landed so far.** Running total: seven stylesheets deleted, 8,226 lines
-of CSS down to 7,109.
+**Slices landed so far.** Running total: eight stylesheets deleted, 8,226 lines
+of CSS down to 7,348.
 
 - **4.1 — `SiteFooter.css` (141) and `ExpandableServiceList.css` (201).** The
   footer's three repeated `color-mix` tints become two local constants named
@@ -658,6 +658,33 @@ of CSS down to 7,109.
   countable. The success dot's halo was a literal `rgba(52, 168, 83, 0.12)`, the
   raw green written out; it is a `color-mix` over `--fill-success` now, so the
   dot and its glow cannot drift apart.
+
+- **4.5 — `admin.css` (213), the last global stylesheet outside `styles/`.**
+  Nineteen consuming files. The page rail, the back link, the wordmark and the
+  one-off blocks on the enquiry-detail and compose screens become named
+  constants in `components/dashboard/adminLayout.ts`; the page heading becomes
+  `AdminPageHeader`, used at all fourteen call sites.
+
+  The heading had to be a component rather than a constant, and the reason
+  generalises. `admin.css` styled the block's `h1` and its non-kicker `p` by
+  descendant selector. Translated literally that is `[&_p]:text-text-muted`,
+  which compiles to a two-part selector and therefore outranks any class
+  sitting on the `p` itself — the kicker would have silently lost its colour
+  and tracking to the subtitle's. **Descendant selectors over a fixed structure
+  do not survive the translation to utilities; the structure has to become
+  markup.** Expect the same call in `case-study.css` and the licensing page.
+  Along the way the subtitle stops being "whichever `p` is not the kicker" and
+  becomes a prop.
+
+  One deliberate behaviour change: `.admin-config-group`'s margin was on the
+  adjacent-sibling selector, so the first group in a section had none. Every
+  group takes it now — the groups always follow the basics block, which is
+  separated by its own border, and the missing gap read as a mistake. The
+  config request's `--blue-600` left rule becomes `--action-primary`.
+
+  What remains of the dashboard is components, not stylesheets. The only global
+  CSS left in the tree is `styles/` — tokens, base, forms, motion, layout,
+  globals and the phone mockup — which is foundation and stays.
 
 Migrate coherent areas in this order:
 
