@@ -11,6 +11,7 @@ import { SignalFlow } from '@/components/visuals/SignalFlow';
 import { AdminButton } from '@/components/dashboard/AdminButton';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
 import { formControlClassName } from '@/components/dashboard/formControl';
+import { adminLoadingClassName } from '@/components/dashboard/dashboardChrome';
 import { cn } from '@/lib/utils';
 
 function LoginContent() {
@@ -114,7 +115,7 @@ function LoginContent() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="admin-loading">Loading sign in…</div>}>
+    <Suspense fallback={<div className={adminLoadingClassName}>Loading sign in…</div>}>
       <LoginContent />
     </Suspense>
   );
