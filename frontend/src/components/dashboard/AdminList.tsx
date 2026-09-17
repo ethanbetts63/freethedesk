@@ -3,7 +3,58 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+import { cn } from '@/lib/utils';
+import { AdminButton } from './AdminButton';
 import { statusTone } from './StatusPill';
+
+/**
+ * The list-table surface shared by the four dashboard list pages.
+ *
+ * Replaces `admin.css`'s `.admin-table-wrap` / `.admin-table` rules, including
+ * the `td`/`th`/`strong`/`small` descendant selectors that styled markup the
+ * pages wrote by hand. Those are class constants and two tiny elements now, so
+ * a cell's appearance is visible where the cell is written rather than three
+ * files away. `<CellTitle>` and `<CellNote>` keep the `<strong>`/`<small>`
+ * semantics the originals relied on.
+ */
+export const adminTableWrapClassName = 'overflow-x-auto';
+
+export const adminTableClassName = 'w-full min-w-[960px] border-collapse';
+
+export const adminThClassName =
+  'border-b border-border-default bg-surface-tint px-m py-s text-left text-caption tracking-[0.04em] text-text-muted uppercase';
+
+export const adminTdClassName =
+  'border-b border-[color-mix(in_srgb,var(--blue-950)_8%,transparent)] p-m align-middle text-ui leading-[1.45] text-text-muted';
+
+/**
+ * Row tint, hover and focus treatment. The tint reads from `--status-tone`, so
+ * pair it with `style={statusTone(row.status)}`.
+ *
+ * `focus-within` rather than `focus` because the focusable thing is the first
+ * cell's `<RowLink>`, not the row: the whole row lights up when the link that
+ * covers it takes focus.
+ */
+export const adminRowClassName = [
+  'bg-[color-mix(in_srgb,var(--status-tone)_12%,var(--surface-page))]',
+  'transition-[filter] duration-150 hover:brightness-[0.975]',
+  'focus-within:brightness-[0.95] focus-within:outline-2 focus-within:-outline-offset-2',
+  'focus-within:outline-[var(--focus-ring)]',
+].join(' ');
+
+/** Bold first line of a cell. */
+export function CellTitle({ children }: { children: ReactNode }) {
+  return <strong className="block text-small text-text-primary">{children}</strong>;
+}
+
+/** Muted second line of a cell, clipped rather than allowed to widen the column. */
+export function CellNote({ children }: { children: ReactNode }) {
+  return (
+    <small className="mt-4xs block max-w-[230px] overflow-hidden text-meta text-ellipsis text-text-subtle">
+      {children}
+    </small>
+  );
+}
 
 export function SortHeader({
   field,
@@ -19,8 +70,15 @@ export function SortHeader({
   const active = ordering.replace(/^-/, '') === field;
   const arrow = !active ? '↕' : ordering.startsWith('-') ? '↓' : '↑';
   return (
-    <th aria-sort={!active ? 'none' : ordering.startsWith('-') ? 'descending' : 'ascending'}>
-      <button type="button" onClick={() => onSort(field)}>
+    <th
+      aria-sort={!active ? 'none' : ordering.startsWith('-') ? 'descending' : 'ascending'}
+      className={adminThClassName}
+    >
+      <button
+        className="cursor-pointer border-0 bg-transparent p-0 font-heavy tracking-[inherit] text-inherit [font-size:inherit] [text-transform:inherit]"
+        type="button"
+        onClick={() => onSort(field)}
+      >
         {children} {arrow}
       </button>
     </th>
@@ -116,6 +174,8 @@ export function AdminFilterBar({
   );
 }
 
+const emptyCellClassName = cn(adminTdClassName, 'h-[180px] text-center text-text-subtle');
+
 /** List-table body: a loading row, an empty row, or the rows. */
 export function AdminTableBody<Row>({
   rows,
@@ -136,7 +196,7 @@ export function AdminTableBody<Row>({
     return (
       <tbody>
         <tr>
-          <td colSpan={columns} className="admin-empty">
+          <td colSpan={columns} className={emptyCellClassName}>
             {loadingLabel}
           </td>
         </tr>
@@ -146,7 +206,7 @@ export function AdminTableBody<Row>({
     return (
       <tbody>
         <tr>
-          <td colSpan={columns} className="admin-empty">
+          <td colSpan={columns} className={emptyCellClassName}>
             {emptyLabel}
           </td>
         </tr>
@@ -158,7 +218,10 @@ export function AdminTableBody<Row>({
 /** First cell of a clickable row — a real link, so it works with the keyboard and new-tab. */
 export function RowLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <Link className="admin-row-link" href={href}>
+    <Link
+      className="block focus-visible:outline-0 after:absolute after:inset-0 after:content-['']"
+      href={href}
+    >
       {children}
     </Link>
   );
@@ -181,20 +244,28 @@ export function AdminPagination({
 }) {
   const pageCount = Math.max(1, Math.ceil(total / pageSize));
   return (
-    <footer className="admin-pagination">
+    <footer className="flex flex-col items-start justify-between gap-s px-m py-s text-caption text-text-subtle sm:flex-row sm:items-center sm:gap-0">
       <span>
         {total ? (page - 1) * pageSize + 1 : 0}–{Math.min(page * pageSize, total)} of {total}
       </span>
-      <div>
-        <button type="button" disabled={page <= 1 || loading} onClick={() => onPage(page - 1)}>
+      <div className="flex items-center gap-xs">
+        <AdminButton
+          variant="quiet"
+          disabled={page <= 1 || loading}
+          onClick={() => onPage(page - 1)}
+        >
           ← Previous
-        </button>
+        </AdminButton>
         <span>
           Page {page} of {pageCount}
         </span>
-        <button type="button" disabled={!hasNext || loading} onClick={() => onPage(page + 1)}>
+        <AdminButton
+          variant="quiet"
+          disabled={!hasNext || loading}
+          onClick={() => onPage(page + 1)}
+        >
           Next →
-        </button>
+        </AdminButton>
       </div>
     </footer>
   );

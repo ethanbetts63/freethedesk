@@ -283,7 +283,30 @@ Convert the foundations that produce the most downstream reuse first:
    beside perfectly normal `sent` and `failed` ones. They are now mapped by
    meaning, and an unknown status falls back to the neutral `closed` colour
    instead of to nothing — the class of bug that a stylesheet with no way to
-   know when a new enum value ships will keep producing;
+   know when a new enum value ships will keep producing.
+   **Tables are done:** `.admin-table-wrap`, `.admin-table` and its
+   `th`/`th button`/`td`/`td strong`/`td small` descendant rules, the row
+   hover/focus-within treatment, `.admin-row-link` and its full-row `::after`
+   overlay, `.admin-pagination`, and `.admin-table td.admin-empty` are all
+   deleted (604 lines down to 494). They become class constants and two tiny
+   elements exported from `AdminList.tsx` — `adminTableClassName`,
+   `adminThClassName`, `adminTdClassName`, `adminRowClassName`, `CellTitle`
+   and `CellNote` — applied at each cell across the four list pages, following
+   allbikes' own table pattern of exported class constants rather than
+   descendant selectors. `<CellTitle>`/`<CellNote>` keep the `<strong>`/
+   `<small>` semantics the deleted rules relied on. The pagination buttons
+   took a new `quiet` variant on `AdminButton` (bordered, `--text-ui`, fills
+   on hover instead of darkening its border) which also covers the filter-bar
+   search and attachment-list buttons when item 6 reaches them; it
+   deliberately declares no colour, because the original inherited its
+   panel's. `.admin-enquiry-table` was a class with no rule anywhere and is
+   gone. Verified by A/B: the deleted CSS was re-injected beside the Tailwind
+   markup and every computed property compared element by element at 1440px
+   and 480px. The only surviving differences are non-visual — Tailwind sets
+   `border-color` and `border-style` on zero-width sides, the empty cell no
+   longer needs `position: relative` because nothing is positioned inside it,
+   `gap: normal` computes as `0px`, and the pagination buttons are
+   `inline-flex` rather than `block` at an identical measured box;
 6. dialogs, checkout controls, and dashboard controls;
 7. focus, disabled, loading, and reduced-motion states.
 

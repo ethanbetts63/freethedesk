@@ -29,6 +29,21 @@ const adminButtonVariants = cva('', {
         'hover:border-border-strong-hover',
         'disabled:cursor-default disabled:opacity-45',
       ],
+      /**
+       * The chrome button: pagination, search, attachment lists. Quieter and
+       * smaller than `secondary` — it marks its hover by filling rather than by
+       * darkening its border, because it sits inside a tinted panel where a
+       * border change reads as noise.
+       */
+      quiet: [
+        'inline-flex cursor-pointer items-center justify-center rounded-[var(--radius-xs)]',
+        // No colour of its own: the original inherited from whatever panel it sat
+        // in (the pagination footer's muted grey, the filter bar's body text),
+        // and that is the behaviour worth keeping.
+        'border border-border-strong bg-surface-page px-s py-xs text-ui font-heavy',
+        'hover:bg-surface-tint',
+        'disabled:cursor-default disabled:opacity-45',
+      ],
       // A word in a sentence, not a box: no padding, no box, inherits its type.
       inline: 'cursor-pointer border-0 bg-transparent p-0 font-[inherit] text-inherit underline',
     },

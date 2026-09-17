@@ -3,9 +3,16 @@
 import { Suspense, useCallback } from 'react';
 
 import {
+  adminRowClassName,
+  adminTableClassName,
+  adminTableWrapClassName,
+  adminTdClassName,
+  adminThClassName,
   AdminFilterBar,
   AdminPagination,
   AdminTableBody,
+  CellNote,
+  CellTitle,
   FilterSelect,
   RowLink,
   SortHeader,
@@ -24,6 +31,7 @@ import {
 import { formatDateTime, getEnquiries, type Enquiry } from '@/lib/adminApi';
 import { AdminButton } from '@/components/dashboard/AdminButton';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { cn } from '@/lib/utils';
 
 const SORT_FIELDS = ['created_at', 'business', 'help_with', 'status'] as const;
 const FILTER_KEYS = ['status', 'help_with'] as const;
@@ -87,8 +95,8 @@ function EnquiriesContent() {
         </AdminFilterBar>
 
         {list.error && <AdminNotice tone="danger">{list.error}</AdminNotice>}
-        <div className="admin-table-wrap">
-          <table className="admin-table admin-enquiry-table">
+        <div className={adminTableWrapClassName}>
+          <table className={adminTableClassName}>
             <thead>
               <tr>
                 <SortHeader field="created_at" ordering={list.ordering} onSort={list.toggleSort}>
@@ -97,7 +105,7 @@ function EnquiriesContent() {
                 <SortHeader field="business" ordering={list.ordering} onSort={list.toggleSort}>
                   Business
                 </SortHeader>
-                <th>Contact</th>
+                <th className={adminThClassName}>Contact</th>
                 <SortHeader field="help_with" ordering={list.ordering} onSort={list.toggleSort}>
                   Interested in
                 </SortHeader>
@@ -116,31 +124,31 @@ function EnquiriesContent() {
               {(enquiry) => (
                 <tr
                   key={enquiry.id}
-                  className="bg-[color-mix(in_srgb,var(--status-tone)_12%,var(--surface-page))]"
+                  className={adminRowClassName}
                   style={statusTone(enquiry.status)}
                 >
-                  <td>
+                  <td className={cn(adminTdClassName, 'relative')}>
                     <RowLink href={`/dashboard/enquiries/${enquiry.id}`}>
                       {formatDateTime(enquiry.created_at)}
                     </RowLink>
                   </td>
-                  <td>
-                    <strong>{enquiry.business || '—'}</strong>
+                  <td className={adminTdClassName}>
+                    <CellTitle>{enquiry.business || '—'}</CellTitle>
                     {enquiry.website && (
-                      <small>{enquiry.website.replace(/^https?:\/\//, '')}</small>
+                      <CellNote>{enquiry.website.replace(/^https?:\/\//, '')}</CellNote>
                     )}
                   </td>
-                  <td>
-                    <strong>{enquiry.name}</strong>
-                    <small>{enquiry.email}</small>
+                  <td className={adminTdClassName}>
+                    <CellTitle>{enquiry.name}</CellTitle>
+                    <CellNote>{enquiry.email}</CellNote>
                   </td>
-                  <td>
-                    <strong>{enquiry.help_with_label}</strong>
+                  <td className={adminTdClassName}>
+                    <CellTitle>{enquiry.help_with_label}</CellTitle>
                     {enquiry.configuration?.budget && (
-                      <small>Budget: {enquiry.configuration.budget}</small>
+                      <CellNote>Budget: {enquiry.configuration.budget}</CellNote>
                     )}
                   </td>
-                  <td>
+                  <td className={adminTdClassName}>
                     <StatusPill status={enquiry.status} />
                   </td>
                 </tr>

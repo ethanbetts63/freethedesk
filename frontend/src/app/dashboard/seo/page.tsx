@@ -3,9 +3,16 @@
 import { Suspense, useCallback } from 'react';
 
 import {
+  adminRowClassName,
+  adminTableClassName,
+  adminTableWrapClassName,
+  adminTdClassName,
+  adminThClassName,
   AdminFilterBar,
   AdminPagination,
   AdminTableBody,
+  CellNote,
+  CellTitle,
   FilterSelect,
   RowLink,
   SortHeader,
@@ -23,6 +30,7 @@ import {
 } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getSeoSubscribers, type SeoSubscriber } from '@/lib/adminApi';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { cn } from '@/lib/utils';
 
 const SORT_FIELDS = ['created_at', 'business_name', 'contact_name', 'status'] as const;
 const FILTER_KEYS = ['status'] as const;
@@ -70,8 +78,8 @@ function SeoSubscribersContent() {
         </AdminFilterBar>
 
         {list.error && <AdminNotice tone="danger">{list.error}</AdminNotice>}
-        <div className="admin-table-wrap">
-          <table className="admin-table">
+        <div className={adminTableWrapClassName}>
+          <table className={adminTableClassName}>
             <thead>
               <tr>
                 <SortHeader field="created_at" ordering={list.ordering} onSort={list.toggleSort}>
@@ -83,9 +91,9 @@ function SeoSubscribersContent() {
                 <SortHeader field="contact_name" ordering={list.ordering} onSort={list.toggleSort}>
                   Contact
                 </SortHeader>
-                <th>Plan</th>
-                <th>Payment</th>
-                <th>Phone</th>
+                <th className={adminThClassName}>Plan</th>
+                <th className={adminThClassName}>Payment</th>
+                <th className={adminThClassName}>Phone</th>
                 <SortHeader field="status" ordering={list.ordering} onSort={list.toggleSort}>
                   Status
                 </SortHeader>
@@ -101,28 +109,28 @@ function SeoSubscribersContent() {
               {(subscriber) => (
                 <tr
                   key={subscriber.id}
-                  className="bg-[color-mix(in_srgb,var(--status-tone)_12%,var(--surface-page))]"
+                  className={adminRowClassName}
                   style={statusTone(subscriber.status)}
                 >
-                  <td>
+                  <td className={cn(adminTdClassName, 'relative')}>
                     <RowLink href={`/dashboard/seo/${subscriber.id}`}>
                       {formatDateTime(subscriber.created_at)}
                     </RowLink>
                   </td>
-                  <td>
-                    <strong>{subscriber.business_name}</strong>
+                  <td className={adminTdClassName}>
+                    <CellTitle>{subscriber.business_name}</CellTitle>
                   </td>
-                  <td>
-                    <strong>{subscriber.contact_name}</strong>
-                    <small>{subscriber.email}</small>
+                  <td className={adminTdClassName}>
+                    <CellTitle>{subscriber.contact_name}</CellTitle>
+                    <CellNote>{subscriber.email}</CellNote>
                   </td>
-                  <td>
+                  <td className={adminTdClassName}>
                     {subscriber.report_type_label}
-                    <small>{subscriber.plan_label}</small>
+                    <CellNote>{subscriber.plan_label}</CellNote>
                   </td>
-                  <td>{subscriber.payment_status_label}</td>
-                  <td>{subscriber.phone || '—'}</td>
-                  <td>
+                  <td className={adminTdClassName}>{subscriber.payment_status_label}</td>
+                  <td className={adminTdClassName}>{subscriber.phone || '—'}</td>
+                  <td className={adminTdClassName}>
                     <StatusPill status={subscriber.status} />
                   </td>
                 </tr>

@@ -3,9 +3,16 @@
 import { Suspense, useCallback } from 'react';
 
 import {
+  adminRowClassName,
+  adminTableClassName,
+  adminTableWrapClassName,
+  adminTdClassName,
+  adminThClassName,
   AdminFilterBar,
   AdminPagination,
   AdminTableBody,
+  CellNote,
+  CellTitle,
   FilterSelect,
   RowLink,
 } from '@/components/dashboard/AdminList';
@@ -23,6 +30,7 @@ import {
 import { formatDateTime, getMessages, type AdminMessage } from '@/lib/adminApi';
 import { AdminButton } from '@/components/dashboard/AdminButton';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { cn } from '@/lib/utils';
 
 const SORT_FIELDS = ['created_at'] as const;
 const FILTER_KEYS = ['status', 'channel'] as const;
@@ -80,17 +88,17 @@ function MessagesContent() {
         </AdminFilterBar>
 
         {list.error && <AdminNotice tone="danger">{list.error}</AdminNotice>}
-        <div className="admin-table-wrap">
-          <table className="admin-table">
+        <div className={adminTableWrapClassName}>
+          <table className={adminTableClassName}>
             <thead>
               <tr>
-                <th>Created</th>
-                <th>Type</th>
-                <th>To</th>
-                <th>Subject</th>
-                <th>Channel</th>
-                <th>Status</th>
-                <th>Sent</th>
+                <th className={adminThClassName}>Created</th>
+                <th className={adminThClassName}>Type</th>
+                <th className={adminThClassName}>To</th>
+                <th className={adminThClassName}>Subject</th>
+                <th className={adminThClassName}>Channel</th>
+                <th className={adminThClassName}>Status</th>
+                <th className={adminThClassName}>Sent</th>
               </tr>
             </thead>
             <AdminTableBody
@@ -103,25 +111,25 @@ function MessagesContent() {
               {(message) => (
                 <tr
                   key={message.id}
-                  className="bg-[color-mix(in_srgb,var(--status-tone)_12%,var(--surface-page))]"
+                  className={adminRowClassName}
                   style={statusTone(message.status)}
                 >
-                  <td>
+                  <td className={cn(adminTdClassName, 'relative')}>
                     <RowLink href={`/dashboard/messages/${message.id}`}>
                       {formatDateTime(message.created_at)}
                     </RowLink>
                   </td>
-                  <td>{message.type_label}</td>
-                  <td>
-                    <strong>{message.to}</strong>
-                    {message.related && <small>{message.related.label}</small>}
+                  <td className={adminTdClassName}>{message.type_label}</td>
+                  <td className={adminTdClassName}>
+                    <CellTitle>{message.to}</CellTitle>
+                    {message.related && <CellNote>{message.related.label}</CellNote>}
                   </td>
-                  <td>{message.subject || '—'}</td>
-                  <td>{message.channel.toUpperCase()}</td>
-                  <td>
+                  <td className={adminTdClassName}>{message.subject || '—'}</td>
+                  <td className={adminTdClassName}>{message.channel.toUpperCase()}</td>
+                  <td className={adminTdClassName}>
                     <StatusPill status={message.status} />
                   </td>
-                  <td>{formatDateTime(message.sent_at)}</td>
+                  <td className={adminTdClassName}>{formatDateTime(message.sent_at)}</td>
                 </tr>
               )}
             </AdminTableBody>
