@@ -3,32 +3,23 @@
    tokens, base, then primitives. Everything else is colocated with what
    it styles and imported there.
 
-   Not-yet-migrated global CSS is imported into an explicit `legacy` layer,
-   positioned between Tailwind's `base` and `components` layers. Without this,
-   these files would be unlayered - and unlayered CSS always beats layered CSS
-   regardless of source order, so a Tailwind utility added next to legacy
-   styles during the migration would silently lose. `layer(legacy)` fixes
-   that: Tailwind's own utilities layer still wins, only the reverse.
-   Route-scoped CSS Modules aren't part of this - each one is deleted the same
-   slice it's converted, so there is no lingering same-element conflict to
-   guard against; see tailwind-migration.md.
+   There is no `legacy` layer any more. It existed to hold global CSS that had
+   not been converted yet, positioned between Tailwind's `base` and
+   `components` so a utility written next to it would still win; Phase 6
+   emptied it. What is left is layered by what it is: base.css states the
+   document's defaults, and the class-based primitives sit in `components`,
+   which is below `utilities` - so a utility on the same element still wins,
+   which is the intended direction for all of them. */
 
-   layout.css is imported without layer(legacy) because it declares its own
-   `components` layer: it is a permanent foundation rather than CSS awaiting
-   migration, and the rail it defines is meant to lose to a utility on the
-   same element. */
-
-@layer base, legacy, components, utilities;
+@layer base, components, utilities;
 
 @import 'tailwindcss';
 @import '../styles/tokens.css';
-@import '../styles/base.css' layer(legacy);
+@import '../styles/base.css' layer(base);
 @import '../styles/layout.css';
-@import '../styles/motion.css' layer(legacy);
-@import '../styles/forms.css' layer(legacy);
+@import '../styles/motion.css' layer(components);
 
-/* The shared prose surface. In `components` rather than `legacy` because it is
-   not awaiting migration: markdown-rendered HTML has no class attributes to
+/* The shared prose surface. Markdown-rendered HTML has no class attributes to
    hang utilities on, so element selectors are the permanent answer here. Each
    consumer's CSS Module is unlayered and therefore overrides it, which is the
    intended direction. */

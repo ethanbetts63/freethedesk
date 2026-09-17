@@ -941,6 +941,41 @@ After the last consumer migrates:
 - update the README and contributor guidance to point to the shared policy;
 - compare FreeTheDesk and allbikes configurations for accidental drift.
 
+**Phase 6 is complete.** What it actually found:
+
+- **the `legacy` layer is gone.** It existed to hold global CSS that had not
+  been converted yet, wedged between Tailwind's `base` and `components` so a
+  utility written next to it would still win. Nothing was awaiting migration
+  any more, so the three files it held are now layered by what they are:
+  `base.css` in `base` (document defaults), `motion.css` in `components`
+  (class-based primitives). `@layer base, components, utilities` is the whole
+  declaration. Every one of them still loses to a utility on the same element,
+  which is the relationship the legacy layer was built to preserve.
+- **`styles/forms.css` is deleted.** It described itself as the website
+  builder's form primitives, and by this point the builder's controls panel was
+  its only consumer — overriding six of the seven properties `.form-label` set
+  and most of `.form-control`. The real values are written out at the call site
+  in `ConfiguratorControls.tsx`; the focus ring it was there to supply is now
+  `focus:shadow-focus`, which reads the same `--ring-focus` token.
+- **`.field-hint` was a class name with no rule behind it** — the current-URL
+  hint under the builder's website field had been rendering unstyled since
+  before this migration started. It now uses `fieldHintClassName`, the same
+  constant every other form hint on the site uses.
+- **two dead tokens removed:** `--blue-990` (a palette rung nothing read) and
+  `--moving-colour-gradient-reverse` (a gradient added for a Stripe surface
+  that no longer exists).
+- **no dependency was removed,** because there was never a second styling
+  dependency to remove: this repo went from hand-written CSS to Tailwind, not
+  from one framework to another.
+
+Eleven stylesheets remain, 4,167 lines. Two thirds of that is
+`preview.module.css` (2,799), the generated dealership site. The rest is four
+foundation files (`tokens`, `base`, `layout`, `motion`, plus `globals.css`
+which only orders them), `prose.css` and its two rich-content modules
+(`article`, `legal`), and the two artwork exceptions (`FlowCardVisual`,
+`flowCompare`). Every one is classifiable under an allowed exception, which was
+the exit criterion.
+
 ## Verification for every phase
 
 Run, at minimum:

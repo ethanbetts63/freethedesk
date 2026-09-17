@@ -38,11 +38,11 @@ const ctaButtonVariants = cva(
         ghost:
           'border-b border-current bg-transparent text-[var(--page-accent)] hover:bg-transparent hover:text-text-secondary',
         // Deliberately no background/text classes: MovingColourButton supplies
-        // them via the `.moving-colour-button` legacy class instead (an
+        // them via `.moving-colour-button` in styles/motion.css instead (an
         // animated gradient - a legitimate complex-animation exception per
         // tailwind-migration.md, not translatable to arbitrary utilities).
         // Emitting Tailwind bg-*/text-* here would sit in the `utilities`
-        // layer and beat that legacy-layer class outright.
+        // layer and beat that `components`-layer class outright.
         moving: '',
       },
       size: {

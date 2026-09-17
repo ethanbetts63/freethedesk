@@ -3,6 +3,7 @@
 import { useActionState, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
+import { fieldHintClassName } from '@/components/forms/selectionFormClassNames';
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { cn } from '@/lib/utils';
 
@@ -32,15 +33,20 @@ import type {
 
 const initialState: ConfiguratorEnquiryState = { status: 'idle' };
 
-/* The panel is denser than a marketing page: 26px is its own step, and the
-   site's form controls are re-set here at interface size rather than the
-   generous size a landing form wants. */
+/* The panel is denser than a marketing page: the site's form controls are
+   re-set here at interface size rather than the generous size a landing form
+   wants.
+
+   styles/forms.css held these two as `.form-label` and `.form-control`. This
+   was its last consumer, and it was already overriding six of the seven things
+   the label class set, so Phase 6 deleted the file and the real values are
+   written out here. */
 const sectionClassName = 'p-l';
 
 const labelClassName =
-  'form-label mb-xs text-ui font-control tracking-normal text-text-control normal-case';
+  'mb-xs block text-ui font-control tracking-normal text-text-control normal-case';
 const controlClassName =
-  'form-control min-h-[50px] border-border-default bg-surface-page px-m py-0 font-normal text-text-primary placeholder:text-small placeholder:text-text-on-dark-subtle';
+  'min-h-[50px] w-full border border-border-default bg-surface-page px-m py-0 text-step-0 font-normal text-text-primary outline-0 transition-[border-color,box-shadow] duration-150 placeholder:text-small placeholder:text-text-on-dark-subtle focus:border-[var(--page-accent)] focus:shadow-focus';
 
 /** The numbered "01 / 02 / 03" heading that opens each step of the panel. */
 function GroupTitle({ number, title, hint }: { number: string; title: string; hint: string }) {
@@ -161,7 +167,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           title="Brand the website"
           hint="Make the foundation feel like yours."
         />
-        <label className={cn(labelClassName, 'mt-ml block')} htmlFor="brand-name">
+        <label className={cn(labelClassName, 'mt-ml')} htmlFor="brand-name">
           Brand name
         </label>
         <input
@@ -172,7 +178,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           maxLength={28}
           placeholder="Your dealership"
         />
-        <label className={cn(labelClassName, 'mt-ml block')} htmlFor="current-url">
+        <label className={cn(labelClassName, 'mt-ml')} htmlFor="current-url">
           Current website{' '}
           <span className="ml-2xs text-ui font-strong text-[var(--slate-400)] normal-case">
             Optional
@@ -187,7 +193,9 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           onChange={(event) => onCurrentUrlChange(event.target.value)}
           placeholder="e.g. www.example.com.au"
         />
-        <small className="field-hint">Helps us understand your current content and setup.</small>
+        <small className={fieldHintClassName}>
+          Helps us understand your current content and setup.
+        </small>
         <p className="mt-m mb-0 max-w-[340px] text-ui leading-[1.55] text-text-subtle">
           Demo palette — production design and colours are tailored to your brand.
         </p>
@@ -305,12 +313,12 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
                 className={cn(capabilityPanelClassName, 'mb-m w-full bg-surface-tint')}
                 id="custom-capability-details"
               >
-                <label className={cn(labelClassName, 'mb-s block')} htmlFor="custom-request">
+                <label className={cn(labelClassName, 'mb-s')} htmlFor="custom-request">
                   What would you like your website to do?
                 </label>
                 <textarea
                   id="custom-request"
-                  className={cn(controlClassName, 'min-h-[112px] px-m py-s leading-[1.5]')}
+                  className={cn(controlClassName, 'min-h-[112px] resize-y px-m py-s leading-[1.5]')}
                   value={customRequest}
                   onChange={(event) => onCustomRequestChange(event.target.value)}
                   placeholder="e.g. Connect stock, bookings or trade-ins to our existing systems."

@@ -1,9 +1,9 @@
 /* Shared page rails and vertical rhythm. Components decide their internal
    layout; pages should not redefine gutters and content widths.
 
-   Lives in the `components` layer (not `legacy`) because this file is a
-   permanent foundation, not a migration casualty: it is the one definition of
-   the rail, so a Tailwind utility on the same element is meant to win over it.
+   Declares its own `components` layer rather than being wrapped at the import,
+   because the layer is part of what this file means: it is the one definition
+   of the rail, so a Tailwind utility on the same element is meant to win.
    Vertical rhythm is tokens, not classes - sections space themselves with
    py-section / my-section from --space-section. */
 @layer components {
