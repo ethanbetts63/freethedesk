@@ -611,6 +611,54 @@ was a rule written to take effect and silently not taking effect, which is why
 Phase 5 lists arbitrary breakpoint variants as an ESLint error rather than a
 style preference.
 
+**Slices landed so far.** Running total: seven stylesheets deleted, 8,226 lines
+of CSS down to 7,109.
+
+- **4.1 — `SiteFooter.css` (141) and `ExpandableServiceList.css` (201).** The
+  footer's three repeated `color-mix` tints become two local constants named
+  for what they are, a quiet tint and a link tint, instead of being written out
+  at five call sites. The service list's summary picked up the shared
+  `focusRingClassName` in place of its own outline in `--page-accent`, so the
+  site has one focus colour rather than one per section; its
+  `--services-indent`/`--services-inset` pair stays as custom properties on the
+  section, because both are functions of the summary's icon grid rather than of
+  the space scale and the body padding reads better naming them. Two hand-rolled
+  clamps are carried over verbatim — replacing them is a type decision, not a
+  migration one.
+
+- **4.2 — `legal.module.css` (122 to 88) and one graph-paper grid.** Split along
+  the line that matters: the page, the backdrop and the document card are
+  authored JSX and move to Tailwind; the rules under `.document` are element
+  selectors over markdown-rendered HTML with nowhere to hang a utility class, so
+  they stay CSS, renamed `.prose` to match the article module. The two prose
+  modules stay separate on purpose and now say why. `checkoutSurface.ts` becomes
+  `lib/gridSurface.ts` now that the legal page is a third consumer of the same
+  42px grid; its copy was 4.5% where the checkout's was 5.5%, and they are 5.5%
+  now. Two exports rather than one, each spelled out in full, because a class
+  string built at runtime is invisible to Tailwind's scanner and compiles to
+  nothing — the 3.6c method note in another guise.
+
+- **4.3 — `DashboardChrome.css` (145).** The shell is a top bar on a phone and a
+  sticky left rail from `lg`, which the stylesheet expressed as a desktop layout
+  partly undone at the small end: nine `revert` declarations across two media
+  queries, all of which mobile-first utilities make unnecessary. Two bugs fell
+  out. The nav's bare global `.active` class becomes `aria-current="page"` plus
+  a conditional class, so a screen reader is told which item is current for the
+  first time. And `/login` rendered its Suspense fallback with
+  `className="admin-loading"` while importing only `admin.css` — the class lived
+  in `DashboardChrome.css`, which `/login` never imported, so the sign-in
+  loading state has been unstyled since it was written. Both now share
+  `adminLoadingClassName`.
+
+- **4.4 — `seoServices.module.css` (148).** Two miniature illustrations with
+  fully authored JSX; nothing held them in CSS but history. Their greys and
+  blues stay ramp steps as a documented exception — they are picked for the
+  picture, not for a role the contract names — but they are five named constants
+  at the top of the file rather than scattered through it, so the exception is
+  countable. The success dot's halo was a literal `rgba(52, 168, 83, 0.12)`, the
+  raw green written out; it is a `color-mix` over `--fill-success` now, so the
+  dot and its glow cannot drift apart.
+
 Migrate coherent areas in this order:
 
 1. small shared components and static public sections;
