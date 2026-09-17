@@ -1,0 +1,120 @@
+/* FlowCompare's two columns: the plain one and the moving-colour one.
+
+   This is the genuine CSS exception on the licensing page, and it is worth
+   being precise about why, because everything else that used to live beside it
+   has now migrated. Three things here have no utility equivalent:
+
+   - the animated gradient border, which needs two background layers with
+     different `background-clip` and `background-origin` values on one element;
+   - the step numbers, which come from a CSS counter - the list does not know
+     its own indices, the markup is a plain <li> per step, and `content:
+     counter()` is the only thing that can render them;
+   - the highlight variant, which re-colours four descendants of an ancestor
+     class rather than styling itself.
+
+   Colocated with FlowCompare.tsx, its only consumer. */
+
+.flowColumn {
+  background: linear-gradient(160deg, var(--blue-900), var(--blue-950));
+  border: 1px solid var(--blue-500);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--surface-page) 12%, transparent);
+  padding: var(--space-l);
+}
+.flowColumn.flowColumnHighlight {
+  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
+  background-clip: padding-box, border-box;
+  background-image:
+    linear-gradient(var(--surface-navy), var(--surface-navy)), var(--moving-colour-gradient);
+  background-origin: border-box;
+  background-size:
+    100% 100%,
+    var(--moving-colour-size);
+  border: 2px solid transparent;
+  box-shadow: none;
+  padding-bottom: var(--space-l);
+}
+.flowColumnHead {
+  align-items: baseline;
+  border-bottom: 1px solid color-mix(in srgb, var(--surface-page) 18%, transparent);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-s);
+  margin-bottom: var(--space-2xs);
+  padding-bottom: var(--space-m);
+}
+.flowColumnHead span {
+  color: var(--text-on-dark);
+  font-size: var(--text-body);
+  font-weight: var(--weight-black);
+}
+.flowColumnHead b {
+  color: var(--slate-100);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-strong);
+  text-align: right;
+}
+.flowColumnHighlight .flowColumnHead b {
+  color: var(--sky-300);
+}
+.flowStepsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: flow-step;
+}
+.flowStepsList li {
+  border-top: 1px dashed color-mix(in srgb, var(--surface-page) 20%, transparent);
+  counter-increment: flow-step;
+  padding: var(--space-m) 0 var(--space-m) var(--space-xl);
+  position: relative;
+}
+.flowStepsList li:first-child {
+  border-top: 0;
+}
+.flowStepsList li::before {
+  align-items: center;
+  background: var(--surface-page);
+  border: none;
+  border-radius: var(--radius-circle);
+  color: var(--page-accent);
+  content: counter(flow-step);
+  display: flex;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-control);
+  height: 22px;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 16px;
+  width: 22px;
+}
+.flowColumnHighlight .flowStepsList li::before {
+  animation: moving-colour-shift var(--moving-colour-speed) linear infinite;
+  background: var(--moving-colour-gradient);
+  background-size: var(--moving-colour-size);
+  color: var(--text-on-dark);
+}
+.flowStepText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+.flowStepText strong {
+  color: var(--text-on-dark);
+  font-size: var(--text-body);
+  font-weight: var(--weight-heavy);
+  letter-spacing: -0.01em;
+}
+.flowStepText small {
+  color: var(--slate-200);
+  font-size: var(--text-ui);
+}
+.flowColumnHighlight .flowStepText small {
+  color: var(--sky-300);
+}
+@media (prefers-reduced-motion: reduce) {
+  .flowColumn.flowColumnHighlight,
+  .flowColumnHighlight .flowStepsList li::before {
+    animation: none;
+  }
+}

@@ -1,4 +1,4 @@
-import styles from '../page.module.css';
+import styles from './flowCompare.module.css';
 
 type Step = { title: string; caption?: string };
 
