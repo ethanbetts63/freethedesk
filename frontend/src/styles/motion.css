@@ -37,6 +37,36 @@
   background-size: var(--moving-colour-size);
 }
 
+/* The same gradient painted into a 2px border rather than into a fill: two
+   background layers on one element, the inner one clipped to the padding box
+   and the outer to the border box, so the border shows the gradient and the
+   inside shows a flat colour. There is no utility equivalent - `background-clip`
+   and `background-origin` both need two comma-separated values on the same
+   element - which is why five modules each had their own copy of these six
+   declarations (FlowCompare, SelectionForm's panel and its recommended choice,
+   GoogleBusinessProfileAudit, FlagshipCheckout).
+
+   What differs between them is only the flat inner colour, so that is a custom
+   property. A caller sets it with an arbitrary property -
+   `[--moving-colour-inset:var(--surface-dark)]` - which means a state that
+   changes the inner colour is now a variable swap and not a second copy of the
+   whole treatment fighting the first on specificity. */
+.moving-colour-border {
+  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
+  background-clip: padding-box, border-box;
+  background-image:
+    linear-gradient(
+      var(--moving-colour-inset, var(--surface-page)),
+      var(--moving-colour-inset, var(--surface-page))
+    ),
+    var(--moving-colour-gradient);
+  background-origin: border-box;
+  background-size:
+    100% 100%,
+    var(--moving-colour-size);
+  border: 2px solid transparent;
+}
+
 @keyframes moving-colour-shift {
   to {
     background-position: 300% 50%;
@@ -53,7 +83,8 @@
 @media (prefers-reduced-motion: reduce) {
   .moving-colour-text,
   .moving-colour-button,
-  .moving-colour-fill {
+  .moving-colour-fill,
+  .moving-colour-border {
     animation: none;
   }
 

@@ -4,7 +4,6 @@ import { FormEvent, useActionState, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { PrimaryButton } from '@/components/PrimaryButton';
-import formStyles from '@/components/forms/SelectionForm.module.css';
 import {
   choiceGroupHeadingClassName,
   chooserClassName,
@@ -25,6 +24,13 @@ import {
 import { SESSION_FLAG, type PublicSiteSettings } from '@/lib/api';
 import { planByCode } from '@/lib/plans';
 import { submitSignup, type SignupState } from '@/lib/signup.actions';
+import {
+  choiceCardVariants,
+  choiceGridClassName,
+  choiceInputClassName,
+  selectionPanelClassName,
+} from '@/components/forms/selectionFormClassNames';
+import { cn } from '@/lib/utils';
 import {
   buildSeoPlans,
   REPORT_TYPES,
@@ -89,7 +95,7 @@ export function SeoSignupPanel({
   const recommendedFrequency: SeoPlanCode = reportType === 'gbp' ? 'oneoff' : 'quarterly';
 
   return (
-    <div className={`${formStyles.panel} mt-0`}>
+    <div className={cn(selectionPanelClassName, 'mt-0')}>
       <aside
         className={`${chooserClassName} [scroll-margin-top:24px]`}
         id="google-business-profile-audit"
@@ -99,19 +105,20 @@ export function SeoSignupPanel({
         <div>
           <p className={choiceGroupHeadingClassName}>What do you want?</p>
           <div
-            className={`${formStyles.choiceGrid} grid-cols-1 sm:grid-cols-3`}
+            className={cn(choiceGridClassName, 'grid-cols-1 sm:grid-cols-3')}
             role="radiogroup"
             aria-label="Report type"
           >
             {REPORT_TYPES.map((option) => (
               <label
-                className={`${reportType === option.code ? formStyles.choiceSelected : ''} ${
-                  option.code === 'both' ? formStyles.choiceRecommended : ''
-                }`}
+                className={choiceCardVariants({
+                  selected: reportType === option.code,
+                  recommended: option.code === 'both',
+                })}
                 key={option.code}
               >
                 <input
-                  className={formStyles.choiceInput}
+                  className={choiceInputClassName}
                   type="radio"
                   name="seo-report-type"
                   value={option.code}
@@ -132,21 +139,25 @@ export function SeoSignupPanel({
             {reportType === 'gbp' ? 'Payment schedule' : 'How often?'}
           </p>
           <div
-            className={`${formStyles.choiceGrid} grid-cols-2 sm:grid-cols-4`}
+            className={cn(choiceGridClassName, 'grid-cols-2 sm:grid-cols-4')}
             role="radiogroup"
             aria-label="Report frequency"
           >
             {plans.map((frequency) => (
               <label
-                className={`${selectedCode === frequency.code ? formStyles.choiceSelected : ''} ${
-                  recommendedFrequency === frequency.code
-                    ? 'border-[var(--page-accent)] shadow-[inset_0_-3px_0_var(--page-accent)]'
-                    : ''
-                }`}
+                className={cn(
+                  choiceCardVariants({ selected: selectedCode === frequency.code }),
+                  // Not the moving-colour treatment the report-type cards use:
+                  // the recommended frequency is marked with an accent rule
+                  // under the card instead, so two recommendations on one panel
+                  // do not compete for attention.
+                  recommendedFrequency === frequency.code &&
+                    'border-[var(--page-accent)] shadow-[inset_0_-3px_0_var(--page-accent)]',
+                )}
                 key={frequency.code}
               >
                 <input
-                  className={formStyles.choiceInput}
+                  className={choiceInputClassName}
                   type="radio"
                   name="seo-report-frequency"
                   value={frequency.code}

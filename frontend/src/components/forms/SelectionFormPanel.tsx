@@ -2,8 +2,9 @@
 
 import type { FormEventHandler, ReactNode } from 'react';
 
-import formStyles from './SelectionForm.module.css';
 import { chooserClassName, formClassName as sharedFormClassName } from './selectionFormClassNames';
+import { selectionPanelClassName } from './selectionFormClassNames';
+import { cn } from '@/lib/utils';
 
 function classes(...names: Array<string | undefined>) {
   return names.filter(Boolean).join(' ');
@@ -24,7 +25,10 @@ export function SelectionFormPanel({
 }) {
   return (
     <div
-      className={`${formStyles.panel} mx-[calc(var(--gutter)*-1)] [--selection-input-font-size:1rem] [--selection-panel-min-height:560px] [--selection-total-size:2.4rem] sm:mx-0 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)]`}
+      className={cn(
+        selectionPanelClassName,
+        'mx-[calc(var(--gutter)*-1)] [--selection-input-font-size:1rem] [--selection-panel-min-height:560px] [--selection-total-size:2.4rem] sm:mx-0 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)]',
+      )}
     >
       <aside className={classes(chooserClassName, chooserClassNameProp)}>{chooser}</aside>
       <form

@@ -4,8 +4,6 @@
    being precise about why, because everything else that used to live beside it
    has now migrated. Three things here have no utility equivalent:
 
-   - the animated gradient border, which needs two background layers with
-     different `background-clip` and `background-origin` values on one element;
    - the step numbers, which come from a CSS counter - the list does not know
      its own indices, the markup is a plain <li> per step, and `content:
      counter()` is the only thing that can render them;
@@ -20,16 +18,12 @@
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--surface-page) 12%, transparent);
   padding: var(--space-l);
 }
+/* The animated border itself is `.moving-colour-border` in motion.css; this
+   only says which flat colour sits inside it, and cancels the plain column's
+   inset highlight. */
 .flowColumn.flowColumnHighlight {
-  animation: moving-colour-border-shift var(--moving-colour-speed) linear infinite;
-  background-clip: padding-box, border-box;
-  background-image:
-    linear-gradient(var(--surface-navy), var(--surface-navy)), var(--moving-colour-gradient);
-  background-origin: border-box;
-  background-size:
-    100% 100%,
-    var(--moving-colour-size);
-  border: 2px solid transparent;
+  --moving-colour-inset: var(--surface-navy);
+
   box-shadow: none;
   padding-bottom: var(--space-l);
 }
@@ -113,7 +107,6 @@
   color: var(--sky-300);
 }
 @media (prefers-reduced-motion: reduce) {
-  .flowColumn.flowColumnHighlight,
   .flowColumnHighlight .flowStepsList li::before {
     animation: none;
   }

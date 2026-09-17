@@ -2,13 +2,85 @@
  * Shared Tailwind classes for the "selection form" shape (a chooser aside +
  * a form, used by the licensing/SEO signup panels and the project-enquiry
  * panel) - kept in one place since three separate page components render
- * identical structure. The animated moving-colour panel border and the
- * choice-card hover/selected/focus-visible/recommended cluster stay in
- * SelectionForm.module.css: they're a single tightly-coupled interactive +
- * animated unit whose "recommended" and "selected" states combine via plain
- * CSS specificity, which would break if split across Tailwind's unlayered
- * utilities (those always beat the legacy-layer module regardless of state).
+ * identical structure.
+ *
+ * This used to end by saying the choice-card cluster could never move here,
+ * because "recommended" and "selected" combined through CSS specificity and
+ * utilities would flatten that. The premise was right and the conclusion was
+ * wrong: what the two states actually disagreed about was the flat colour
+ * inside the animated border, and once `.moving-colour-border` takes that as a
+ * custom property the combination is a variable swap rather than two copies of
+ * a treatment fighting each other. The cluster is `choiceCardVariants` below.
  */
+import { cva } from 'class-variance-authority';
+
+/**
+ * The animated outer border of a selection panel. `--selection-panel-min-height`
+ * is a caller-set floor so the chooser and the form stay the same height while
+ * the form's own content changes.
+ */
+export const selectionPanelClassName =
+  'moving-colour-border grid min-h-[var(--selection-panel-min-height,590px)] grid-cols-[minmax(0,1fr)]';
+
+export const choiceGridClassName = 'grid gap-xs';
+
+/**
+ * The radio itself. Visually gone but still in the accessibility tree and
+ * still focusable, which is what drives the card's focus ring through
+ * `has-[:focus-visible]`.
+ */
+export const choiceInputClassName = 'pointer-events-none absolute h-0 w-0 opacity-0';
+
+/**
+ * A choice card. Four states from two booleans, and the two that involve
+ * `recommended` deliberately do not emit a `border` utility - the animated
+ * border owns that property, and a utility would win over it.
+ *
+ * One behaviour change falls out of the rewrite. In the stylesheet,
+ * `.choiceGrid label:hover` was more specific than `.choiceGrid
+ * .choiceRecommended`, and it set the `background` shorthand, so hovering a
+ * recommended card wiped out the gradient it was recommended with. Recommended
+ * cards no longer take a hover background, so the border survives the pointer.
+ */
+export const choiceCardVariants = cva(
+  [
+    'relative flex min-h-[var(--selection-choice-min-height,56px)] cursor-pointer flex-col items-center justify-center p-xs text-center text-ui font-control',
+    'transition-[background-color,border-color,color] duration-200 ease-[ease]',
+    'has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[color-mix(in_srgb,var(--page-accent,var(--action-primary))_25%,transparent)]',
+    // The sub-label is a miniature inside a card, below every step of the
+    // type scale on purpose.
+    '[&>small]:mt-3xs [&>small]:text-[0.45rem] [&>small]:font-strong [&>small]:tracking-label [&>small]:uppercase',
+  ],
+  {
+    variants: {
+      selected: {
+        true: 'text-text-on-dark [&>small]:text-accent-on-dark-soft',
+        false: 'text-text-control [&>small]:text-text-muted',
+      },
+      recommended: {
+        true: 'moving-colour-border',
+        false: 'border',
+      },
+    },
+    compoundVariants: [
+      {
+        recommended: false,
+        selected: false,
+        class:
+          'border-border-default bg-surface-tint hover:border-[var(--page-accent,var(--action-primary))] hover:bg-surface-page',
+      },
+      {
+        recommended: false,
+        selected: true,
+        class:
+          'border-surface-dark bg-surface-dark hover:border-surface-dark-hover hover:bg-surface-dark-hover',
+      },
+      { recommended: true, selected: false, class: '[--moving-colour-inset:var(--surface-tint)]' },
+      { recommended: true, selected: true, class: '[--moving-colour-inset:var(--surface-dark)]' },
+    ],
+    defaultVariants: { selected: false, recommended: false },
+  },
+);
 
 export const chooserClassName =
   'flex flex-col px-ml py-xl text-text-secondary sm:p-[clamp(34px,4.5vw,64px)]';

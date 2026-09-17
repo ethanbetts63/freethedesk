@@ -2,7 +2,6 @@
 
 import { FormEvent, useActionState, useId, useState } from 'react';
 
-import formStyles from '@/components/forms/SelectionForm.module.css';
 import { SelectionFormPanel } from '@/components/forms/SelectionFormPanel';
 import {
   choiceGroupHeadingClassName,
@@ -22,6 +21,12 @@ import {
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { type ProjectType } from '@/lib/api';
 import { submitProjectEnquiry, type ProjectEnquiryState } from './ProjectEnquiryPanel.actions';
+import {
+  choiceCardVariants,
+  choiceGridClassName,
+  choiceInputClassName,
+} from '@/components/forms/selectionFormClassNames';
+import { cn } from '@/lib/utils';
 
 const initialState: ProjectEnquiryState = { status: 'idle' };
 
@@ -100,19 +105,20 @@ export function ProjectEnquiryPanel({
                 What do you need?
               </p>
               <div
-                className={`${formStyles.choiceGrid} grid-cols-1 sm:grid-cols-3`}
+                className={cn(choiceGridClassName, 'grid-cols-1 sm:grid-cols-3')}
                 role="radiogroup"
                 aria-labelledby={`${groupId}-type`}
               >
                 {PROJECT_TYPES.map((option) => (
                   <label
-                    className={`${projectType === option.code ? formStyles.choiceSelected : ''} ${
-                      option.code === 'both' ? formStyles.choiceRecommended : ''
-                    }`}
+                    className={choiceCardVariants({
+                      selected: projectType === option.code,
+                      recommended: option.code === 'both',
+                    })}
                     key={option.code}
                   >
                     <input
-                      className={formStyles.choiceInput}
+                      className={choiceInputClassName}
                       type="radio"
                       name={`${groupId}-project-type`}
                       value={option.code}
@@ -134,14 +140,14 @@ export function ProjectEnquiryPanel({
               What&apos;s your budget?
             </p>
             <div
-              className={`${formStyles.choiceGrid} grid-cols-2 sm:grid-cols-4`}
+              className={cn(choiceGridClassName, 'grid-cols-2 sm:grid-cols-4')}
               role="radiogroup"
               aria-labelledby={`${groupId}-budget`}
             >
               {BUDGETS.map((option) => (
-                <label className={budget === option ? formStyles.choiceSelected : ''} key={option}>
+                <label className={choiceCardVariants({ selected: budget === option })} key={option}>
                   <input
-                    className={formStyles.choiceInput}
+                    className={choiceInputClassName}
                     type="radio"
                     name={`${groupId}-budget-choice`}
                     value={option}

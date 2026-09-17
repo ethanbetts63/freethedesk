@@ -1,8 +1,6 @@
 import { GoogleLogo } from '@/components/GoogleLogo';
 import { SectionNumber } from '@/components/SectionNumber';
 
-import styles from './GoogleBusinessProfileAudit.module.css';
-
 const AUDIT_AREAS = [
   ['Business details', 'Contact information, opening hours and attributes'],
   ['Categories', 'Primary and supporting category fit'],
@@ -51,39 +49,67 @@ export function GoogleBusinessProfileAudit({
           </p>
         </div>
 
-        <div className={styles.preview} aria-label="Example Google Business Profile audit coverage">
-          <header className={styles.previewHeader}>
-            <div>
+        {/* The audit card. Only the animated gradient border, the gradient
+            text and the gradient footer come from CSS; everything else is
+            ordinary layout. */}
+        <div
+          className="moving-colour-border mx-auto w-full max-w-[660px] self-center text-text-primary shadow-contrast-l lg:mx-0 lg:max-w-none lg:w-auto"
+          aria-label="Example Google Business Profile audit coverage"
+        >
+          <header className="flex items-start justify-between gap-s border-b border-border-default bg-surface-tint px-ml py-m sm:items-center sm:gap-0">
+            <div className="flex items-center gap-xs">
               <GoogleLogo size={24} />
               <span>
-                <small>Profile audit</small>
-                <strong>Your business</strong>
+                <small className="mb-4xs block text-nano font-black tracking-label text-text-subtle uppercase">
+                  Profile audit
+                </small>
+                <strong className="block text-ui">Your business</strong>
               </span>
             </div>
-            <span className={styles.areaCount}>6 review areas</span>
+            <span className="moving-colour-text text-label font-black uppercase">
+              6 review areas
+            </span>
           </header>
 
-          <ol className={styles.auditList}>
+          <ol className="m-0 list-none px-ml py-0">
             {AUDIT_AREAS.map(([title, description], index) => (
-              <li key={title}>
-                <span className={styles.index}>{String(index + 1).padStart(2, '0')}</span>
-                <span className={styles.check} aria-hidden="true">
+              <li
+                key={title}
+                className="grid grid-cols-[22px_27px_minmax(0,1fr)] items-center gap-s border-b border-border-subtle py-m sm:grid-cols-[24px_27px_minmax(0,1fr)_auto]"
+              >
+                <span className="text-label font-black text-text-on-dark-subtle">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <span
+                  className="flex h-[27px] w-[27px] items-center justify-center rounded-[var(--radius-circle)] bg-surface-tint-strong text-meta font-black text-text-action"
+                  aria-hidden="true"
+                >
                   ✓
                 </span>
-                <span className={styles.auditCopy}>
-                  <strong>{title}</strong>
-                  <small>{description}</small>
+                <span>
+                  <strong className="mb-4xs block text-ui">{title}</strong>
+                  <small className="block text-label leading-[1.4] text-text-subtle">
+                    {description}
+                  </small>
                 </span>
-                <span className={styles.reviewed}>Reviewed</span>
+                {/* Cut on a phone: the row is already three columns wide and
+                    the tick has said this. */}
+                <span className="hidden text-tiny font-black tracking-label-tight text-text-muted uppercase sm:block">
+                  Reviewed
+                </span>
               </li>
             ))}
           </ol>
 
-          <footer className={styles.previewFooter}>
-            <span>
-              <i aria-hidden="true" /> Delivered as
+          <footer className="moving-colour-fill flex flex-col items-start justify-between gap-xs px-ml py-m sm:flex-row sm:items-center sm:gap-0">
+            <span className="flex items-center gap-2xs text-label font-heavy text-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] uppercase">
+              <i
+                aria-hidden="true"
+                className="h-[6px] w-[6px] rounded-[var(--radius-circle)] bg-surface-page"
+              />{' '}
+              Delivered as
             </span>
-            <strong>Prioritised action list</strong>
+            <strong className="text-caption text-text-on-dark">Prioritised action list</strong>
           </footer>
         </div>
       </div>

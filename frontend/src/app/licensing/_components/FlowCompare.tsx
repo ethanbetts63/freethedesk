@@ -1,4 +1,5 @@
 import styles from './flowCompare.module.css';
+import { cn } from '@/lib/utils';
 
 type Step = { title: string; caption?: string };
 
@@ -31,7 +32,12 @@ function FlowColumn({
   eyebrow?: string;
 }) {
   return (
-    <div className={`${styles.flowColumn} ${highlight ? styles.flowColumnHighlight : ''}`}>
+    <div
+      className={cn(
+        styles.flowColumn,
+        highlight && `moving-colour-border ${styles.flowColumnHighlight}`,
+      )}
+    >
       {eyebrow && (
         <p className="m-0 mb-s text-meta font-black tracking-label uppercase moving-colour-text">
           {eyebrow}

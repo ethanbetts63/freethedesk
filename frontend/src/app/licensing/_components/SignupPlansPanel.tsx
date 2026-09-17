@@ -3,7 +3,6 @@
 import { FormEvent, useActionState, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import formStyles from '@/components/forms/SelectionForm.module.css';
 import { SelectionFormPanel } from '@/components/forms/SelectionFormPanel';
 import {
   choiceGroupHeadingClassName,
@@ -29,6 +28,12 @@ import { SESSION_FLAG } from '@/lib/api';
 import { submitSignup, type SignupState } from '@/lib/signup.actions';
 
 import { buildDealerPlans, type DealerPlanCode, type LicensingPrices } from '../_lib/plans';
+import {
+  choiceCardVariants,
+  choiceGridClassName,
+  choiceInputClassName,
+} from '@/components/forms/selectionFormClassNames';
+import { cn } from '@/lib/utils';
 
 const initialState: SignupState = { status: 'idle' };
 const boundSubmitSignup = submitSignup.bind(null, { endpoint: '/api/dealers/signup/' });
@@ -71,19 +76,20 @@ export function SignupPlansPanel({
           <div>
             <p className={choiceGroupHeadingClassName}>What do you need?</p>
             <div
-              className={`${formStyles.choiceGrid} grid-cols-1 sm:grid-cols-3`}
+              className={cn(choiceGridClassName, 'grid-cols-1 sm:grid-cols-3')}
               role="radiogroup"
               aria-label="Subscription plan"
             >
               {plans.map((plan) => (
                 <label
-                  className={`${selectedCode === plan.code ? formStyles.choiceSelected : ''} ${
-                    plan.recommended ? formStyles.choiceRecommended : ''
-                  }`}
+                  className={choiceCardVariants({
+                    selected: selectedCode === plan.code,
+                    recommended: plan.recommended,
+                  })}
                   key={plan.code}
                 >
                   <input
-                    className={formStyles.choiceInput}
+                    className={choiceInputClassName}
                     type="radio"
                     name="dealer-plan"
                     value={plan.code}
