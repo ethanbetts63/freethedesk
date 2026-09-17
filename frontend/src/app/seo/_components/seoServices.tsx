@@ -1,5 +1,31 @@
 import type { Service } from '@/components/ServiceScroll';
-import styles from './seoServices.module.css';
+import { cn } from '@/lib/utils';
+
+/**
+ * Two miniature illustrations — a redirect check and an AI-readiness panel —
+ * drawn at 168-190px wide. Their greys and blues are ramp steps rather than
+ * semantic tokens on purpose: they are picked for the picture (a dot in a fake
+ * window bar, a monospace URL chip) and not for any role the token contract
+ * names. Collected here rather than spread through the JSX so the exception is
+ * visible in one place.
+ */
+const chromeDotClassName = 'bg-[var(--slate-300)]';
+const chromeLabelClassName = 'text-[var(--slate-700)]';
+const urlChipClassName = 'text-[var(--blue-800)]';
+const arrowClassName = 'text-[var(--blue-600)]';
+const badgeClassName = 'bg-[var(--slate-100)] text-[var(--blue-800)]';
+
+/** The tick light: a small dot with a soft halo of its own colour. */
+const successDotClassName =
+  'rounded-[var(--radius-circle)] bg-fill-success shadow-[0_0_0_3px_color-mix(in_srgb,var(--fill-success)_12%,transparent)]';
+
+/** One of the four cells of the 2x2 readiness panel: hairlines only between
+ * them, never around the outside, which the border already draws. */
+const aiCellClassName =
+  'grid grid-cols-[7px_minmax(0,1fr)] gap-3xs px-2xs py-s even:border-l even:border-border-on-dark [&:nth-child(n+3)]:border-t [&:nth-child(n+3)]:border-border-on-dark sm:px-xs';
+
+const monoChipClassName =
+  'overflow-hidden border border-border-default p-2xs font-mono text-nano text-ellipsis whitespace-nowrap';
 
 const iconProps = {
   viewBox: '0 0 64 64',
@@ -21,21 +47,33 @@ export const seoServices: Service[] = [
     ],
     color: 'var(--blue-500)',
     icon: (
-      <div className={styles.redirectVisual} aria-hidden="true">
-        <div className={styles.redirectBar}>
-          <i />
-          <i />
-          <i />
-          <span>Redirect check</span>
+      <div
+        className="w-[168px] flex-none border border-border-strong bg-surface-page text-text-primary shadow-[0_12px_28px_color-mix(in_srgb,var(--blue-950)_10%,transparent)] sm:w-[190px]"
+        aria-hidden="true"
+      >
+        <div className="flex min-h-[24px] items-center gap-3xs border-b border-border-default bg-surface-tint px-xs">
+          <i className={cn('h-[4px] w-[4px] rounded-[var(--radius-circle)]', chromeDotClassName)} />
+          <i className={cn('h-[4px] w-[4px] rounded-[var(--radius-circle)]', chromeDotClassName)} />
+          <i className={cn('h-[4px] w-[4px] rounded-[var(--radius-circle)]', chromeDotClassName)} />
+          <span
+            className={cn(
+              'ml-auto text-nano font-heavy tracking-[0.07em] uppercase',
+              chromeLabelClassName,
+            )}
+          >
+            Redirect check
+          </span>
         </div>
-        <div className={styles.redirectRoute}>
-          <span className={styles.oldUrl}>/old-stock</span>
-          <b>301</b>
-          <span className={styles.routeArrow}>→</span>
-          <span className={styles.liveUrl}>/inventory</span>
+        <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(0,1fr)] items-center gap-3xs px-xs pt-m pb-s sm:gap-2xs sm:px-s">
+          <span className={cn(monoChipClassName, 'text-text-muted line-through')}>/old-stock</span>
+          <b className={cn('p-3xs text-nano', badgeClassName)}>301</b>
+          <span className={cn('text-ui font-black', arrowClassName)}>&rarr;</span>
+          <span className={cn(monoChipClassName, 'bg-surface-tint font-heavy', urlChipClassName)}>
+            /inventory
+          </span>
         </div>
-        <div className={styles.redirectStatus}>
-          <i /> Crawl path preserved
+        <div className="flex items-center gap-2xs border-t border-border-default px-s py-xs text-nano font-strong text-text-muted">
+          <i className={cn('h-[5px] w-[5px]', successDotClassName)} /> Crawl path preserved
         </div>
       </div>
     ),
@@ -110,26 +148,43 @@ export const seoServices: Service[] = [
     ],
     color: 'var(--blue-800)',
     icon: (
-      <div className={styles.aiReadinessVisual} aria-hidden="true">
-        <div>
-          <i />
-          <span>Accessibility</span>
-          <b>Ready</b>
+      <div
+        className="grid w-[168px] grid-cols-2 border border-border-on-dark bg-surface-dark sm:w-[190px]"
+        aria-hidden="true"
+      >
+        <div className={aiCellClassName}>
+          <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
+          <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">
+            Accessibility
+          </span>
+          <b className="col-start-2 text-[0.43rem] font-heavy tracking-[0.07em] text-accent uppercase">
+            Ready
+          </b>
         </div>
-        <div>
-          <i />
-          <span>Stable layout</span>
-          <b>Ready</b>
+        <div className={aiCellClassName}>
+          <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
+          <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">
+            Stable layout
+          </span>
+          <b className="col-start-2 text-[0.43rem] font-heavy tracking-[0.07em] text-accent uppercase">
+            Ready
+          </b>
         </div>
-        <div>
-          <i />
-          <span>llms.txt</span>
-          <b>Found</b>
+        <div className={aiCellClassName}>
+          <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
+          <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">llms.txt</span>
+          <b className="col-start-2 text-[0.43rem] font-heavy tracking-[0.07em] text-accent uppercase">
+            Found
+          </b>
         </div>
-        <div>
-          <i />
-          <span>robots.txt</span>
-          <b>Open</b>
+        <div className={aiCellClassName}>
+          <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
+          <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">
+            robots.txt
+          </span>
+          <b className="col-start-2 text-[0.43rem] font-heavy tracking-[0.07em] text-accent uppercase">
+            Open
+          </b>
         </div>
       </div>
     ),
