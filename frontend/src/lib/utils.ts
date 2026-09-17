@@ -21,6 +21,8 @@ const FLUID_TEXT_SIZES = [
   'small',
   'body',
   'lead',
+  'glyph',
+  'wordmark',
   'step-0',
   'step-1',
   'step-2',
