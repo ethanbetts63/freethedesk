@@ -52,6 +52,9 @@ directory.
   reformat files outside the issue.
 - Do not spin up subagents (Task/Agent tool calls) unless the user explicitly
   asks for it.
+- Never create a branch, and never switch, rebase, or reset to escape a mistake.
+  Work commits straight onto main. See
+  [`../freetheplatform/_docs/agent-workflow.md`](../freetheplatform/_docs/agent-workflow.md#branching).
 
 ## Verification
 
