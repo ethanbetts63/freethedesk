@@ -78,8 +78,8 @@
   --color-accent-on-dark: var(--accent-on-dark);
   --color-accent-on-dark-soft: var(--accent-on-dark-soft);
   --color-section-number-on-dark: var(--section-number-on-dark);
-  --color-outline-focus: var(--outline-focus);
-  --shadow-focus: var(--ring-focus);
+  --color-focus-ring: var(--focus-ring);
+  --shadow-focus: var(--ring-field);
   --shadow-halo: var(--ring-halo);
 
   --color-surface-success: var(--surface-success);
@@ -235,7 +235,7 @@
   --border-strong-hover: var(--slate-400);
   /* The border of a focused control. Not a new colour: it is the interactive
      colour named for the role, so call sites stop reaching for the ramp.
-     Pairs with --outline-focus, which is the outline drawn outside it. */
+     Pairs with --focus-ring, which is the outline drawn outside it. */
   --border-focus: var(--action-primary);
   --border-subtle: var(--slate-100);
   --border-on-dark: var(--blue-900);
@@ -254,24 +254,23 @@
   --accent-on-dark-soft: var(--sky-400);
   --section-number-on-dark: var(--accent-on-dark);
   /* The focus OUTLINE colour, for a control that is a box rather than a border:
-     buttons, button-like links, a table row. Named shape-first to sit beside
-     --ring-focus and --ring-halo below, which it is not: those are box-shadows
-     a bordered text control draws, this is an `outline-color`. The two were
-     --focus-ring and --ring-focus until Phase 6, one letter apart. */
-  --outline-focus: color-mix(in srgb, var(--sky-500) 40%, transparent);
+     buttons, button-like links, a table row. allbikes defines the same name for
+     the same job, so it stays as it is; what moved is the box-shadow ring below,
+     which used to be --ring-focus and was one letter away from this. */
+  --focus-ring: color-mix(in srgb, var(--sky-500) 40%, transparent);
 
   /* RINGS
      The one shadow family that is not elevation: a flat ring drawn tight
      around something. There were six of these at 2, 3, 4 and 5px and at 12%,
      13%, 16% and 18%, which is no scale at all — two shapes, two names.
 
-     --ring-focus  a marketing form field, focused.
+     --ring-field  a marketing form field, focused.
      --ring-halo   the soft glow around a small status dot.
 
      Both take their colour from a local property so one definition serves a
      light surface and a dark one, the same way --elevation-block-colour does. */
-  --ring-focus: 0 0 0 3px
-    color-mix(in srgb, var(--ring-focus-colour, var(--page-accent)) 13%, transparent);
+  --ring-field: 0 0 0 3px
+    color-mix(in srgb, var(--ring-field-colour, var(--page-accent)) 13%, transparent);
   --ring-halo: 0 0 0 4px
     color-mix(in srgb, var(--ring-halo-colour, var(--action-primary)) 15%, transparent);
 

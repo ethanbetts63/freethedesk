@@ -21,7 +21,7 @@ const fieldClassName = cn(
   'focus:bg-[color-mix(in_srgb,var(--surface-page)_12%,transparent)]',
   // On a dark surface the page accent is invisible, so the ring takes the
   // soft on-dark accent instead. Shape and strength stay shared.
-  '[--ring-focus-colour:var(--accent-on-dark-soft)] focus:shadow-focus',
+  '[--ring-field-colour:var(--accent-on-dark-soft)] focus:shadow-focus',
 );
 
 function SubmitButton() {

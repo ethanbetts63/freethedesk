@@ -40,7 +40,7 @@ export const adminRowClassName = [
   'bg-[color-mix(in_srgb,var(--status-tone)_12%,var(--surface-page))]',
   'transition-[filter] duration-150 hover:brightness-[0.975]',
   'focus-within:brightness-[0.95] focus-within:outline-2 focus-within:-outline-offset-2',
-  'focus-within:outline-[var(--outline-focus)]',
+  'focus-within:outline-[var(--focus-ring)]',
 ].join(' ');
 
 /** Bold first line of a cell. */

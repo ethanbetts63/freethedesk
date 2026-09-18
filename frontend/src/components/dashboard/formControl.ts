@@ -10,8 +10,8 @@
  * them set `width`, and the focus border was a raw `var(--blue-600)` rather
  * than a named role. This is the single definition they converge on.
  *
- * The focus ring is `--ring-focus` via `shadow-focus`, the same ring the public
- * forms draw. It used to be a hand-written `0 0 0 2px var(--outline-focus)`,
+ * The focus ring is `--ring-field` via `shadow-focus`, the same ring the public
+ * forms draw. It used to be a hand-written `0 0 0 2px var(--focus-ring)`,
  * which was a second focus vocabulary nobody had chosen.
  *
  * Padding is deliberately NOT included. Tailwind emits `padding` before

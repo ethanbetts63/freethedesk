@@ -17,11 +17,11 @@
  * An outline rather than a `box-shadow`, so it cannot collide with a
  * component's own shadow and cannot be clipped by a rounded background. Drawn
  * only for `:focus-visible`, so a mouse click on a button does not paint it.
- * `--outline-focus` and the 2px/offset-2 shape match `adminRowClassName`, which
+ * `--focus-ring` and the 2px/offset-2 shape match `adminRowClassName`, which
  * arrived at the same answer independently in 3.5c.
  */
 export const focusRingClassName =
-  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--outline-focus)]';
+  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]';
 
 /**
  * Disabled because the application is working: a submit that has been pressed,
