@@ -13,6 +13,9 @@ from ..utils.services import ensure_seo_profile
 class SeoOnboardingView(RetrieveUpdateAPIView):
     """Reporting inputs, available only after payment activates."""
 
+    # A dealer or subscriber acting on their own record.
+    throttle_scope = "portal"
+
     permission_classes = [IsSeoSubscriber]
     serializer_class = SeoOnboardingSerializer
     http_method_names = ["get", "patch", "head", "options"]
@@ -25,6 +28,8 @@ class SeoOnboardingView(RetrieveUpdateAPIView):
 
 
 class SeoOnboardingSubmitView(APIView):
+    # A dealer or subscriber acting on their own record.
+    throttle_scope = "portal"
     permission_classes = [IsSeoSubscriber]
 
     required_fields = {

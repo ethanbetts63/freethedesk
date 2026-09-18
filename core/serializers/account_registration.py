@@ -30,8 +30,7 @@ class BaseAccountRegistrationSerializer(serializers.Serializer):
 
     def validate_email(self, value: str) -> str:
         value = value.strip().lower()
-        # Signup accounts use username == email, so the username column carries
-        # the real DB uniqueness — check both.
+        # username == email for signups, so uniqueness lives on both columns.
         exists = get_user_model().objects.filter(
             Q(email__iexact=value) | Q(username__iexact=value[:150])
         ).exists()
@@ -52,9 +51,7 @@ class BaseAccountRegistrationSerializer(serializers.Serializer):
         email = validated_data.pop("email")
         try:
             user = get_user_model().objects.create_user(
-                # Customers never see or type a separate username, and it keeps
-                # the login form single-field.
-                username=email[:150],
+                username=email[:150],  # Keeps login single-field; no separate username shown.
                 email=email,
                 password=password,
                 is_staff=False,

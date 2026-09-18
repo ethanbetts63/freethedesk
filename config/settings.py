@@ -39,19 +39,15 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_simplejwt",
-    # Provides the OutstandingToken/BlacklistedToken tables that make
-    # BLACKLIST_AFTER_ROTATION and logout revocation possible. Rows are
-    # pruned opportunistically on login, inside the auth app below.
+    # Backs BLACKLIST_AFTER_ROTATION and logout revocation; pruned on login in the auth app below.
     "rest_framework_simplejwt.token_blacklist",
-    # Cookie-JWT sessions, and the deployment checks that come with it.
-    "freetheplatform.auth",
+    "freetheplatform.auth",  # Cookie-JWT sessions plus their deployment checks.
     "core",
     "dealers",
     "seo",
     "payments",
     "freetheplatform.agreements",
-    # Last, so a template of ours overrides the package's default of the same name.
-    "freetheplatform.messaging",
+    "freetheplatform.messaging",  # Last, so our template overrides the package's default.
 ]
 
 MIDDLEWARE = [
@@ -101,10 +97,8 @@ else:
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
-    # Twelve, not Django's default of eight. Eight characters of a human-chosen
-    # password is inside the reach of an offline guess against a leaked hash, and
-    # the rate limit that would otherwise slow an online guess runs in per-process
-    # memory and resets on restart — so length is the part of this we control.
+    # 12, not Django's default of 8: the throttle that would slow an online guess is
+    # per-process and resets on restart, so length is the part we actually control.
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
         "OPTIONS": {"min_length": 12},
@@ -124,57 +118,73 @@ PRIVATE_MEDIA_ROOT = BASE_DIR / "private-media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    # Cookie-JWT is the only authentication path. A session is not one: it would
-    # be a second way into every endpoint, with its own lifetime, no revocation
-    # and nothing applying the login throttle to it.
+    # The only auth path — a session would be a second way in with no revocation
+    # and no login throttle.
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "freetheplatform.auth.authentication.CookieJWTAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
-    "DEFAULT_THROTTLE_CLASSES": [
-        "rest_framework.throttling.AnonRateThrottle",
-        "rest_framework.throttling.UserRateThrottle",
-    ],
+    # Applies whatever scope a view declares, and nothing at all when a view
+    # declares none — which is safe only because ftp_security.E006 refuses to
+    # let a route answer without one.
+    "DEFAULT_THROTTLE_CLASSES": ["freetheplatform.auth.throttling.ScopedRequestThrottle"],
     "NUM_PROXIES": 1,
+    # No catch-all rate: an unscoped endpoint should fail ftp_security.W006's
+    # route-coverage check, not fall through to a default. Grouped below by what
+    # each group of numbers protects against.
     "DEFAULT_THROTTLE_RATES": {
-        "anon": "250/day",
-        "user": "10000/day",
+        # Credential guessing; lockout does the actual blocking, so these stay
+        # generous enough not to catch someone who forgot their password.
         "login": "5/minute",
+        "password_reset": "5/hour",
+        "password_change": "10/hour",
+        # Cost/load — each accepted request writes a row and/or sends a message.
         "enquiry": "10/hour",
         "dealer-signup": "5/hour",
         "seo-signup": "5/hour",
-        # Each accepted request sends an email, so this is a spend limit as much
-        # as a guessing limit.
-        "password_reset": "5/hour",
-        # Keyed on the account, not the address: this is what caps guessing at
-        # the current password from inside a stolen session.
-        "password_change": "10/hour",
+        # Everything else, by who is calling rather than by what it does. None
+        # of these is a security control — who may call them is settled by the
+        # permission class — so each is set where a runaway client is stopped
+        # and a person working normally never notices.
+        "session": "600/hour",
+        "staff": "2000/hour",
+        "portal": "600/hour",
+        "public": "600/hour",
+        "checkout": "20/hour",
     },
 }
 
-# Cookie-JWT sessions. Everything the package needs beyond this has a default
-# that is safe on its own; `manage.py ftp_auth_config` prints what is in force.
-#
-# The cookie prefix names the site: two of ours under one parent domain would
-# otherwise overwrite each other's session.
+# Separate cache for throttle counters so ordinary cache pressure can't evict an
+# attacker's attempt count. Both are per-process and cleared on restart, which is
+# why lockout is a database row instead — the durable line of defense.
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "default",
+    },
+    "throttling": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "throttling",
+        "OPTIONS": {"MAX_ENTRIES": 10000},  # Generous — eviction is what this cache exists to avoid.
+    },
+}
+
+# Everything else the package needs has a safe default; `manage.py ftp_auth_config`
+# prints what's in force. Cookie prefix names the site so two of ours under one
+# parent domain don't overwrite each other's session.
 FTP_AUTH = {
     "COOKIE_PREFIX": "freethedesk",
     "PRINCIPAL": "core.principal.principal",
     "CREDENTIAL_RESOLVER": "freetheplatform.auth.credentials.username_or_email",
-    # The package counts and mints; sending is ours, because it owns neither the
-    # wording nor the URL a reset link points at.
+    # Package counts/mints; sending is ours since it owns the wording and reset URL.
     "LOCKOUT_NOTIFIER": "core.utils.auth_notifications.auth_alert",
     "PASSWORD_RESET_NOTIFIER": "core.utils.auth_notifications.send_password_reset",
 }
 
-# A reset link is a password. Django's token generator reads this setting
-# directly, which is why it is here rather than restated inside FTP_AUTH.
+# Django's token generator reads this directly, so it can't live inside FTP_AUTH.
 PASSWORD_RESET_TIMEOUT = 60 * 60
 
-# Derived from FTP_AUTH rather than written out again, so the token lifetimes
-# and the cookie max-ages cannot drift apart. A JWT is trusted because its
-# signature verifies, not because a row exists, which is why rotation with
-# blacklisting is not optional there.
+# Derived from FTP_AUTH so token lifetimes and cookie max-ages can't drift apart.
 SIMPLE_JWT = ftp_auth_conf.simple_jwt(FTP_AUTH)
 
 CSRF_TRUSTED_ORIGINS = [
@@ -191,13 +201,12 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 SITE_URL = os.getenv("SITE_URL", "http://localhost:3000")
-# Where staff alerts go. Read directly by the senders in core, dealers and seo.
+# Staff alert destination, read directly by senders in core, dealers and seo.
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "")
 ADMIN_NUMBER = os.getenv("ADMIN_NUMBER", "")
 
-# Shared messaging app. There is no on/off switch: with no provider credentials
-# nothing is sent, and each attempt is recorded as failed with the missing
-# setting named on the row.
+# No on/off switch: with no provider credentials, sends fail and are recorded
+# with the missing setting named on the row.
 FTP_MESSAGING = {
     "FROM_EMAIL": os.getenv("DEFAULT_FROM_EMAIL", "freethedesk <hello@freethedesk.com.au>"),
     "SITE_URL": SITE_URL,

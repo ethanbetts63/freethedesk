@@ -62,6 +62,7 @@ ENQUIRY_ORDERING = {
 
 
 class AdminEnquiryListView(ListAPIView):
+    throttle_scope = "staff"  # Runaway-client limit; access is gated by the permission class.
     permission_classes = [IsAdminUser]
     serializer_class = AdminEnquirySerializer
     pagination_class = DashboardPagination
@@ -87,6 +88,7 @@ class AdminEnquiryListView(ListAPIView):
 
 
 class AdminEnquiryDetailView(RetrieveUpdateAPIView):
+    throttle_scope = "staff"  # Runaway-client limit; access is gated by the permission class.
     permission_classes = [IsAdminUser]
     serializer_class = AdminEnquirySerializer
     queryset = Enquiry.objects.all()

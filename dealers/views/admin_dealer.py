@@ -19,6 +19,7 @@ DEALER_ORDERING = {
 
 
 class AdminDealerListView(ListAPIView):
+    throttle_scope = "staff"  # Runaway-client limit; access is gated by the permission class.
     permission_classes = [IsAdminUser]
     serializer_class = AdminDealerSerializer
     pagination_class = DashboardPagination
@@ -41,6 +42,7 @@ class AdminDealerListView(ListAPIView):
 
 
 class AdminDealerDetailView(RetrieveUpdateAPIView):
+    throttle_scope = "staff"  # Runaway-client limit; access is gated by the permission class.
     permission_classes = [IsAdminUser]
     serializer_class = AdminDealerSerializer
     queryset = Dealer.objects.select_related("user")

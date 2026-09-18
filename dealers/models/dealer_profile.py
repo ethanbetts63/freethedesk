@@ -15,8 +15,7 @@ class DealerProfile(models.Model):
         SUBMITTED = "submitted", "Submitted"
 
     dealer = models.OneToOneField(Dealer, on_delete=models.CASCADE, related_name="profile")
-    # Matches SeoProfile: how far the customer has got with their own form.
-    # Whether staff have approved the account is Dealer.status, not this.
+    # Customer's own form progress, matching SeoProfile; approval is Dealer.status.
     onboarding_status = models.CharField(
         max_length=20,
         choices=OnboardingStatus.choices,

@@ -6,9 +6,8 @@ class CoreConfig(AppConfig):
     name = "core"
 
     def ready(self):
-        # Display names for the message-type slugs used across the site. The
-        # slugs themselves are free text, so this only affects how a row reads in
-        # the dashboard; an unregistered slug still sends and shows as itself.
+        # Display names for message-type slugs; an unregistered slug still sends
+        # and just shows as itself in the dashboard.
         from freetheplatform.messaging import registry
 
         registry.register_many(

@@ -16,9 +16,7 @@ class PrivateDealerDocumentStorage(FileSystemStorage):
         return os.path.abspath(self.base_location)
 
     def url(self, name):
-        # Django's admin file widget expects a URL even when the storage is
-        # deliberately not web-addressable. A fragment keeps the form usable
-        # without exposing a filesystem path or creating a public media route.
+        # Admin's file widget needs a URL; this storage is deliberately not web-addressable.
         return "#"
 
 

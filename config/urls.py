@@ -5,17 +5,9 @@ from django.urls import include, path
 
 urlpatterns = []
 
-# Django's admin is a local-development convenience only. It is deliberately not
-# routed in production: staff work happens in the Next portals, and anything it
-# cannot do is done from a manage.py shell, while it was the one password-guessing
-# surface with no rate limit on it — DRF's throttle classes do not apply to it, so
-# `/admin/login/` took unlimited attempts against `is_staff` accounts while
-# `/api/token/` next door was capped by LoginRateThrottle. Those accounts reach
-# every dealer, SEO subscriber and enquiry through the ORM.
-#
-# `django.contrib.admin` stays installed so this still works locally; removing the
-# route is what removes the surface. Re-adding it to production means first putting
-# brute-force protection in front of it.
+# Dev-only: DRF's throttles don't cover /admin/login/, so it was an
+# unrate-limited guessing surface against is_staff accounts. Re-add to
+# production only behind its own brute-force protection.
 if settings.DEBUG:
     urlpatterns += [path("admin/", admin.site.urls)]
 

@@ -41,6 +41,8 @@ def checkout_failure_response(error):
 
 
 class SubscriptionCheckoutView(APIView):
+    # Creates a Stripe session per call, so this is a spend limit.
+    throttle_scope = "checkout"
     permission_classes = [IsDealer]
 
     def post(self, request):
@@ -68,6 +70,8 @@ class SubscriptionCheckoutView(APIView):
 
 
 class SeoSubscriptionCheckoutView(APIView):
+    # Creates a Stripe session per call, so this is a spend limit.
+    throttle_scope = "checkout"
     permission_classes = [IsSeoSubscriber]
 
     def post(self, request):

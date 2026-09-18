@@ -13,7 +13,12 @@ def site_settings(request):
     return Response(SiteSettingsSerializer(SiteSettings.load()).data)
 
 
+# Public marketing prices, hit by every visitor — rate set above browsing, below scraping.
+site_settings.cls.throttle_scope = "public"
+
+
 class AdminSiteSettingsView(APIView):
+    throttle_scope = "staff"  # Runaway-client limit; access is gated by the permission class.
     permission_classes = [IsAdminUser]
 
     def get(self, request):

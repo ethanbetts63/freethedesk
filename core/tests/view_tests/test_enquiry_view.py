@@ -9,9 +9,7 @@ pytestmark = pytest.mark.django_db
 
 @pytest.fixture(autouse=True)
 def _clear_throttle_cache():
-    # The enquiry endpoints share a 10/hour bucket held in the default cache,
-    # which outlives a single test. Without this, tests start 429-ing once
-    # enough of them have posted.
+    # Enquiry endpoints share a 10/hour bucket that outlives a single test.
     cache.clear()
 
 

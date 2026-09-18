@@ -13,6 +13,9 @@ from ..utils.permissions import IsSeoSubscriber
 class SeoAccountView(RetrieveUpdateAPIView):
     """The signed-in SEO customer's own account."""
 
+    # A dealer or subscriber acting on their own record.
+    throttle_scope = "portal"
+
     permission_classes = [IsSeoSubscriber]
     serializer_class = SeoSelfSerializer
     http_method_names = ["get", "patch", "head", "options"]

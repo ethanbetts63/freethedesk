@@ -9,6 +9,11 @@ from ..utils.services import process_stripe_event
 
 
 class StripeWebhookView(APIView):
+    # Deliberately unlimited. Stripe retries an event until it is accepted, so
+    # throttling this would drop real payment events and be told about them
+    # again later; the signature check is what stands in for a rate limit.
+    ftp_throttle_exempt = True
+
     authentication_classes = []
     permission_classes = [AllowAny]
 

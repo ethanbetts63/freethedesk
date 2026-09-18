@@ -1,4 +1,5 @@
 import pytest
+from django.core.cache import caches
 from django.test import Client
 from freetheplatform.auth.conf import cookie_names
 from freetheplatform.messaging.backends import locmem, reset_backend_cache
@@ -23,6 +24,23 @@ class SignInClient(Client):
 @pytest.fixture
 def client():
     return SignInClient()
+
+
+@pytest.fixture(autouse=True)
+def empty_caches():
+    """No test inherits another's throttle history.
+
+    Throttle counters live in the `throttling` cache and the blacklist-cleanup
+    marker lives in the default one. Neither is touched by the database
+    rollback, so without this a test that signs in fails because eleven earlier
+    ones already used up the login rate — and it fails only in a full run, which
+    is the worst way to find out.
+    """
+    for cache in caches.all(initialized_only=False):
+        cache.clear()
+    yield
+    for cache in caches.all(initialized_only=False):
+        cache.clear()
 
 
 @pytest.fixture(autouse=True)
