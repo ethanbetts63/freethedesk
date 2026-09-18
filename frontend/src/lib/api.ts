@@ -21,7 +21,13 @@ export interface Principal {
   role: Role;
   dealer: PrincipalDealer | null;
   seo: PrincipalSeo | null;
+  /** Set when the password was chosen by somebody other than its owner. The API
+   * computes it; every portal sends them here until they have changed it. */
+  must_change_password: boolean;
 }
+
+/** Where somebody with `must_change_password` is held until they have. */
+export const CHANGE_PASSWORD_PATH = '/change-password';
 
 export interface Paginated<T> {
   count: number;
@@ -163,8 +169,49 @@ export async function getProfile(): Promise<Principal> {
   return jsonOrError(await authedFetch('/api/auth/me/'));
 }
 
-/** The portal home for a signed-in principal. */
+/** Ask for a reset link. Always resolves: the API answers the same for an
+ * address it knows and one it does not, and the UI must not undo that. */
+export async function requestPasswordReset(email: string): Promise<void> {
+  await apiFetch('/api/auth/password/reset/', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+}
+
+/** Spend a reset link on a new password. Throws the API's message on a link that
+ * has expired, been used, or was never real. */
+export async function confirmPasswordReset(
+  uid: string,
+  token: string,
+  newPassword: string,
+): Promise<void> {
+  await jsonOrError(
+    await apiFetch('/api/auth/password/reset/confirm/', {
+      method: 'POST',
+      body: JSON.stringify({ uid, token, new_password: newPassword }),
+    }),
+  );
+}
+
+/** Change your own password. The current one is required: without it a stolen
+ * session could take the account permanently. */
+export async function changePassword(currentPassword: string, newPassword: string): Promise<void> {
+  await jsonOrError(
+    await authedFetch('/api/auth/password/change/', {
+      method: 'POST',
+      body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }),
+    }),
+  );
+}
+
+/** The portal home for a signed-in principal.
+ *
+ * A password somebody else chose is the one thing that comes before the portal.
+ * Routing it here rather than in each shell means a new portal inherits the gate
+ * instead of having to remember it.
+ */
 export function homeFor(user: Principal): string {
+  if (user.must_change_password) return CHANGE_PASSWORD_PATH;
   if (user.role === 'staff') return '/dashboard/enquiries';
   if (user.role === 'seo') return '/seo-portal';
   return '/portal';

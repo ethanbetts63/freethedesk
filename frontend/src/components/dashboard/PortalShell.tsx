@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { homeFor, type Role } from '@/lib/api';
+import { CHANGE_PASSWORD_PATH, homeFor, type Role } from '@/lib/api';
 import { adminLoadingClassName, chromeHairlineClassName } from './dashboardChrome';
 import { cn } from '@/lib/utils';
 import { adminBrandClassName } from './adminLayout';
@@ -56,11 +56,14 @@ export function PortalShell({
   useEffect(() => {
     if (loading) return;
     if (!user) router.replace(`/login?next=${encodeURIComponent(pathname)}`);
+    // A password somebody else chose comes before the portal, whichever portal
+    // it is. Here rather than in each shell, so a new one inherits the gate.
+    else if (user.must_change_password) router.replace(CHANGE_PASSWORD_PATH);
     // Wrong portal but signed in — send them to their own, not back through login.
     else if (user.role !== role) router.replace(homeFor(user));
   }, [loading, pathname, role, router, user]);
 
-  if (loading || !user || user.role !== role)
+  if (loading || !user || user.must_change_password || user.role !== role)
     return <div className={adminLoadingClassName}>Loading…</div>;
 
   return (

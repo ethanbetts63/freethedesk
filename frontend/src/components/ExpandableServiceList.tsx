@@ -1,4 +1,4 @@
-import { SectionNumber } from './SectionNumber';
+import { SectionHeader } from './SectionHeader';
 import type { Service } from './ServiceScroll';
 import { focusRingClassName } from '@/lib/controlState';
 import { cn } from '@/lib/utils';
@@ -50,10 +50,12 @@ export function ExpandableServiceList({
       {/* At `sm` the description moves into a second column and sits on the
           heading's baseline, so it spans both of the left column's rows. */}
       <header className="mb-2xl grid gap-ml sm:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
-        <SectionNumber>{eyebrow}</SectionNumber>
-        <h2 className="m-0 max-w-[850px] text-display-lg leading-[0.98] tracking-[-0.06em] sm:col-start-1">
-          {title}
-        </h2>
+        <SectionHeader
+          eyebrow={eyebrow}
+          title={title}
+          size="display-lg"
+          titleClassName="max-w-[850px] sm:col-start-1"
+        />
         <p className="m-0 max-w-[680px] leading-[1.7] text-text-muted sm:col-start-2 sm:row-span-2 sm:row-start-1 sm:self-end">
           {description}
         </p>

@@ -37,6 +37,11 @@ const DISALLOWED_ROUTES = [
   '/seo-portal',
   '/seo-portal/',
   '/login',
+  // Session plumbing, not pages. A reset link is single use and account
+  // specific, so a crawler following one would only spend it.
+  '/change-password',
+  '/reset-password',
+  '/reset-password/',
   '/licensing/payment',
   '/seo/payment',
 ];

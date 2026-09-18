@@ -1,5 +1,5 @@
 import { PrimaryButton } from '@/components/PrimaryButton';
-import { SectionNumber } from '@/components/SectionNumber';
+import { SectionHeader } from '@/components/SectionHeader';
 
 export type Service = {
   title: string;
@@ -51,10 +51,13 @@ export function ServiceScroll({
     <div className="service-scroll mt-0">
       <div className="flex flex-wrap items-center justify-between gap-xl pt-2xl">
         <div>
-          <SectionNumber>{eyebrow}</SectionNumber>
-          <h2 className="m-0 max-w-[780px] text-display-md leading-[1.02] tracking-[-0.058em]">
-            {title}
-          </h2>
+          {/* Leading and tracking are a hair off the scale; see SectionHeader. */}
+          <SectionHeader
+            eyebrow={eyebrow}
+            title={title}
+            size="display-md"
+            titleClassName="max-w-[780px] leading-[1.02] tracking-[-0.058em]"
+          />
         </div>
       </div>
       {services.map((service, index) => (

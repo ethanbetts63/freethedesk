@@ -1,4 +1,4 @@
-import { SectionNumber } from './SectionNumber';
+import { SectionHeader } from './SectionHeader';
 
 export type ProcessIntroductionItem = {
   title: string;
@@ -20,13 +20,13 @@ export function ProcessIntroduction({
 }) {
   return (
     <section className="site-shell pb-xl pt-section" id={id} aria-labelledby={`${id}-title`}>
-      <SectionNumber>{eyebrow}</SectionNumber>
-      <h2
-        id={`${id}-title`}
-        className="mt-0 mb-xl mx-0 text-display leading-[1.05] tracking-[-0.055em]"
-      >
-        {title} <span className="moving-colour-text">{accentTitle}</span>
-      </h2>
+      <SectionHeader
+        eyebrow={eyebrow}
+        title={title}
+        accentTitle={accentTitle}
+        titleId={`${id}-title`}
+        titleClassName="mb-xl"
+      />
       <div className="grid gap-l lg:grid-cols-3 lg:gap-0">
         {items.map((item) => (
           <div

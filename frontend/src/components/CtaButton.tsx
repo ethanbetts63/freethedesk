@@ -1,9 +1,9 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import Link from 'next/link';
 
 import { disabledBusyClassName, focusRingClassName } from '@/lib/controlState';
 import { cn } from '@/lib/utils';
 
+import { LinkOrButton } from './LinkOrButton';
 import { ScrollCtaButton } from './ScrollCtaButton';
 
 /**
@@ -121,14 +121,14 @@ export function CtaButton({
   }
   if (href) {
     return (
-      <Link className={classes} href={href} target={target} rel={rel}>
+      <LinkOrButton classes={classes} href={href} target={target} rel={rel}>
         {content}
-      </Link>
+      </LinkOrButton>
     );
   }
   return (
-    <button className={classes} type={type} disabled={disabled}>
+    <LinkOrButton classes={classes} type={type} disabled={disabled}>
       {content}
-    </button>
+    </LinkOrButton>
   );
 }

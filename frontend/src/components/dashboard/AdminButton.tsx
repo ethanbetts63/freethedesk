@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import Link from 'next/link';
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
+import { LinkOrButton, type LinkOrButtonProps } from '@/components/LinkOrButton';
 import {
   disabledBusyClassName,
   disabledUnavailableClassName,
@@ -67,32 +67,11 @@ type SharedProps = {
   className?: string;
 };
 
-type AsButton = SharedProps &
-  Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & { href?: never };
-
-type AsLink = SharedProps &
-  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'href'> & { href: string };
-
-/** Renders a Link when `href` is set, a <button> otherwise. */
-export function AdminButton(props: AsButton | AsLink) {
+export function AdminButton(props: LinkOrButtonProps<SharedProps>) {
   const { children, variant, className, ...rest } = props;
-  const classes = cn(adminButtonVariants({ variant }), className);
-
-  if ('href' in rest && rest.href !== undefined) {
-    const { href, ...anchorProps } = rest as AnchorHTMLAttributes<HTMLAnchorElement> & {
-      href: string;
-    };
-    return (
-      <Link className={classes} href={href} {...anchorProps}>
-        {children}
-      </Link>
-    );
-  }
-
-  const { type = 'button', ...buttonProps } = rest as ButtonHTMLAttributes<HTMLButtonElement>;
   return (
-    <button className={classes} type={type} {...buttonProps}>
+    <LinkOrButton classes={cn(adminButtonVariants({ variant }), className)} {...rest}>
       {children}
-    </button>
+    </LinkOrButton>
   );
 }

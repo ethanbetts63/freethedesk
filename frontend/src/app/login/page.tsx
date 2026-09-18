@@ -20,11 +20,18 @@ function LoginContent() {
   const search = useSearchParams();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const justReset = search.get('reset') === '1';
 
   useEffect(() => {
     if (loading || !user) return;
     const next = search.get('next');
     const home = homeFor(user);
+    // A password somebody else chose comes before any `next`: `homeFor` returns
+    // the gate, and honouring the requested page here would walk straight past it.
+    if (user.must_change_password) {
+      router.replace(home);
+      return;
+    }
     const prefix =
       user.role === 'staff' ? '/dashboard' : user.role === 'seo' ? '/seo-portal' : '/portal';
     router.replace(next && next.startsWith(prefix) ? next : home);
@@ -63,7 +70,12 @@ function LoginContent() {
         <p className="mt-s mb-xl text-body-sm leading-[1.5] text-text-muted">
           Dealers and staff sign in here — we will take you to the right place.
         </p>
-        <form className="flex flex-col gap-m" onSubmit={submit}>
+        {justReset && (
+          <AdminNotice tone="success" size="field">
+            Your password has been changed. Sign in with the new one.
+          </AdminNotice>
+        )}
+        <form className="mt-m flex flex-col gap-m" onSubmit={submit}>
           <label className="text-label font-heavy">
             Email
             <input
@@ -92,6 +104,14 @@ function LoginContent() {
             {submitting ? 'Signing in…' : 'Sign in'}
           </AdminButton>
         </form>
+        <p className="mt-ml text-label text-text-muted">
+          <Link
+            className="font-heavy text-text-action underline underline-offset-[3px]"
+            href="/reset-password"
+          >
+            Forgot your password?
+          </Link>
+        </p>
         <p className="mt-ml text-label text-text-muted">
           No dealer account yet?{' '}
           <Link

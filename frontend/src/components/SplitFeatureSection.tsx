@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
-import { SectionNumber } from './SectionNumber';
+import { SectionHeader } from './SectionHeader';
 
 const sectionVariants = cva('text-text-secondary', {
   variants: {
@@ -69,15 +69,13 @@ export function SplitFeatureSection({
     <section className={cn(sectionVariants({ background }), className)} id={id}>
       <div className={layoutVariants({ spacing })} data-text-side={textSide}>
         <div className="min-w-0 lg:group-data-[text-side=right]:col-start-2 lg:group-data-[text-side=right]:row-start-1">
-          <SectionNumber>{eyebrow}</SectionNumber>
-          <h2 className="m-0 text-display-sm leading-[1.05] tracking-[-0.055em]">
-            {title}
-            {titleBreak !== 'none' && (
-              <br className={titleBreak === 'desktop' ? 'hidden lg:block' : undefined} />
-            )}
-            {titleBreak === 'none' ? ' ' : null}
-            <span className="moving-colour-text">{accentTitle}</span>
-          </h2>
+          <SectionHeader
+            eyebrow={eyebrow}
+            title={title}
+            accentTitle={accentTitle}
+            size="display-sm"
+            titleBreak={titleBreak}
+          />
           <div className="mt-ml max-w-[440px] text-lead leading-[1.74] text-text-muted [&>:first-child]:mt-0 [&>:last-child]:mb-0">
             {description}
           </div>

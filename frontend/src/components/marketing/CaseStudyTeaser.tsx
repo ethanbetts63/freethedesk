@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { PrimaryButton } from '@/components/PrimaryButton';
-import { SectionNumber } from '@/components/SectionNumber';
+import { SectionHeader } from '@/components/SectionHeader';
 import { PhoneFrame } from '@/components/visuals/PhoneFrame';
 
 type CaseStudyTeaserProps = {
@@ -51,8 +51,13 @@ export function CaseStudyTeaser({
           </div>
         </div>
         <div className="[&>p:not(.section-number)]:mt-0 [&>p:not(.section-number)]:mb-m [&>p:not(.section-number)]:max-w-[560px] [&>p:not(.section-number)]:text-lead [&>p:not(.section-number)]:leading-[1.76] [&>p:not(.section-number)]:text-[var(--text-on-dark-muted)]">
-          <SectionNumber onDark>{eyebrow}</SectionNumber>
-          <h2 className="m-0 mb-ml text-display tracking-[-0.05em]">{title}</h2>
+          {/* Tracking is -0.05em rather than the scale's -0.055em; see SectionHeader. */}
+          <SectionHeader
+            eyebrow={eyebrow}
+            title={title}
+            onDark
+            titleClassName="mb-ml tracking-[-0.05em]"
+          />
           {children}
           <div className="mt-l mb-xl flex flex-wrap gap-xs">
             {points.map((point) => (
