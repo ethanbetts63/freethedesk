@@ -35,13 +35,13 @@ const sectionClassName = 'p-l';
 const labelClassName =
   'mb-xs block text-ui font-control tracking-normal text-text-control normal-case';
 const controlClassName =
-  'min-h-[50px] w-full border border-border-default bg-surface-page px-m py-0 text-step-0 font-normal text-text-primary outline-0 transition-[border-color,box-shadow] duration-150 placeholder:text-small placeholder:text-text-on-dark-subtle focus:border-[var(--page-accent)] focus:shadow-focus';
+  'min-h-[50px] w-full border border-border-default bg-surface-page px-m py-0 text-step-0 font-normal text-text-primary outline-0 transition-[border-color,box-shadow] duration-150 placeholder:text-small placeholder:text-text-on-dark-subtle focus:border-action-primary focus:shadow-focus';
 
 /** The numbered "01 / 02 / 03" heading that opens each step of the panel. */
 function GroupTitle({ number, title, hint }: { number: string; title: string; hint: string }) {
   return (
     <div className="mb-ml flex items-start gap-s">
-      <span className="pt-4xs text-small font-black text-[var(--page-accent)]">{number}</span>
+      <span className="pt-4xs text-small font-black text-action-primary">{number}</span>
       <div>
         <strong className="block text-step-0">{title}</strong>
         <small className="mt-2xs block text-lead leading-[1.45] text-text-subtle">{hint}</small>
@@ -137,7 +137,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
       aria-label="Website configuration options"
     >
       <section className={cn(sectionClassName, 'border-b border-border-default bg-surface-tint')}>
-        <div className="flex justify-between [&>*]:text-small [&>*]:font-black [&>*]:tracking-label [&>*]:text-[var(--page-accent)] [&>*]:uppercase">
+        <div className="flex justify-between [&>*]:text-small [&>*]:font-black [&>*]:tracking-label [&>*]:text-action-primary [&>*]:uppercase">
           <span>Base product</span>
           <b>Included</b>
         </div>
@@ -210,7 +210,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
                 onExpandedChange={() => toggleExpanded(explanationId)}
               >
                 {module.key === 'inventory' && selected.inventory ? (
-                  <div className="mb-s ml-s border-l-2 border-[var(--page-accent)] bg-surface-tint p-s pb-3xs">
+                  <div className="mb-s ml-s border-l-2 border-action-primary bg-surface-tint p-s pb-3xs">
                     <p className="mt-0 mb-2xs text-ui font-black tracking-label text-text-subtle uppercase">
                       Optional online actions
                     </p>

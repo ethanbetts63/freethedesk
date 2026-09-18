@@ -2,7 +2,7 @@ import { ScrollCtaButton } from '@/components/ScrollCtaButton';
 import { SectionNumber } from '@/components/SectionNumber';
 
 const linkClassName =
-  'mt-auto inline-flex min-h-[var(--tap-min)] cursor-pointer items-center gap-s self-start border-0 bg-transparent p-0 font-[inherit] text-body font-strong text-text-secondary underline [text-underline-offset:5px] hover:text-[var(--page-accent)] focus-visible:outline-2 focus-visible:outline-[var(--page-accent)] focus-visible:outline-offset-4 [&>span]:text-[var(--page-accent)]';
+  'mt-auto inline-flex min-h-[var(--tap-min)] cursor-pointer items-center gap-s self-start border-0 bg-transparent p-0 font-[inherit] text-body font-strong text-text-secondary underline [text-underline-offset:5px] hover:text-action-primary focus-visible:outline-2 focus-visible:outline-action-primary focus-visible:outline-offset-4 [&>span]:text-action-primary';
 
 export function WebsiteIntroduction({
   id = 'website-overview',
@@ -26,7 +26,7 @@ export function WebsiteIntroduction({
       </h2>
       <div className="grid gap-l lg:grid-cols-3 lg:gap-0">
         <div className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default">
-          <h3 className="m-0 text-step-2 tracking-[-0.035em] text-[var(--page-accent)]">1. SEO</h3>
+          <h3 className="m-0 text-step-2 tracking-[-0.035em] text-action-primary">1. SEO</h3>
           <p className="mt-s mb-m max-w-[42ch] text-step-0 leading-[1.6] text-text-muted">
             {seoDescription}
           </p>
@@ -35,7 +35,7 @@ export function WebsiteIntroduction({
           </ScrollCtaButton>
         </div>
         <div className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default">
-          <h3 className="m-0 text-step-2 tracking-[-0.035em] text-[var(--page-accent)]">
+          <h3 className="m-0 text-step-2 tracking-[-0.035em] text-action-primary">
             2. Website design
           </h3>
           <p className="mt-s mb-m max-w-[42ch] text-step-0 leading-[1.6] text-text-muted">
@@ -46,7 +46,7 @@ export function WebsiteIntroduction({
           </ScrollCtaButton>
         </div>
         <div className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default">
-          <h3 className="m-0 text-step-2 tracking-[-0.035em] text-[var(--page-accent)]">
+          <h3 className="m-0 text-step-2 tracking-[-0.035em] text-action-primary">
             3. Admin automation
           </h3>
           <p className="mt-s mb-m max-w-[42ch] text-step-0 leading-[1.6] text-text-muted">

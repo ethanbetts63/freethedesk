@@ -156,7 +156,7 @@ export function SeoSignupPanel({
                     // card gains an underline without a border box that would shift the
                     // two unselected ones beside it.
                     // eslint-disable-next-line no-restricted-syntax
-                    'border-[var(--page-accent)] shadow-[inset_0_-3px_0_var(--page-accent)]',
+                    'border-action-primary shadow-[inset_0_-3px_0_var(--action-primary)]',
                 )}
                 key={frequency.code}
               >

@@ -3,12 +3,8 @@ import type { Service } from './ServiceScroll';
 import { focusRingClassName } from '@/lib/controlState';
 import { cn } from '@/lib/utils';
 
-/**
- * The accent this section draws its numbers, ticks and toggles in: whatever
- * `--page-accent` the route sets, falling back to the interactive blue. Not a
- * token, because the point of it is that each service page overrides it.
- */
-const accentClassName = 'text-[var(--page-accent)]';
+/** The accent this section draws its numbers, ticks and toggles in. */
+const accentClassName = 'text-action-primary';
 
 /**
  * The body copy hangs under the summary's icon column, so its indent is a
@@ -32,7 +28,7 @@ const summaryClassName = cn(
  */
 const listItemClassName = cn(
   "relative border-t border-border-default py-s pr-0 pl-l leading-[1.55] text-text-muted before:absolute before:left-0 before:font-black before:content-['✓']",
-  'before:text-[var(--page-accent)]',
+  'before:text-action-primary',
   'sm:even:border-l sm:even:border-border-default sm:even:pl-xl sm:even:before:left-[18px]',
 );
 

@@ -6,7 +6,7 @@ export function DealerDemoAlternative() {
       <span className="text-text-muted">or</span>
       <Link
         href="/dealership-website-builder"
-        className="border-b border-[var(--page-accent)] pb-4xs font-heavy text-[var(--page-accent)]"
+        className="border-b border-action-primary pb-4xs font-heavy text-action-primary"
       >
         Try the dealer demo ↗
       </Link>

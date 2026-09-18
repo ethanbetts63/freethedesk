@@ -37,7 +37,7 @@ export function IndexedFeatureSection({
         >
           {items.map(([itemTitle, body], index) => (
             <li key={itemTitle} className="bg-surface-tint p-xl">
-              <span className="mb-m block text-ui font-black tracking-label-wide text-[var(--page-accent)]">
+              <span className="mb-m block text-ui font-black tracking-label-wide text-action-primary">
                 {String(index + 1).padStart(2, '0')}
               </span>
               <strong className="mb-xs block text-step-0 tracking-[-0.025em] text-[var(--blue-950)]">

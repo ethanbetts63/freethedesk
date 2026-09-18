@@ -42,8 +42,11 @@
   --tracking-label: var(--label-tracking);
   --tracking-label-wide: var(--label-tracking-wide);
 
-  /* Tints, as `bg-tint-wash`, `border-tint-rule` and so on. */
-  --color-tint-grid: var(--tint-grid);
+  /* Tints, as `bg-tint-wash`, `border-tint-rule` and so on. --tint-grid has no
+     entry here on purpose: its only consumers draw it into a repeating
+     `linear-gradient`, which no colour utility can express. Same reason the
+     --status-*, --purple-* and --line-strong families are read as var() and
+     have no mirror: a utility nobody can use is vocabulary nobody can find. */
   --color-tint-wash: var(--tint-wash);
   --color-tint-edge: var(--tint-edge);
   --color-tint-rule: var(--tint-rule);
@@ -65,7 +68,6 @@
   --color-text-on-dark-muted: var(--text-on-dark-muted);
   --color-text-on-dark-subtle: var(--text-on-dark-subtle);
   --color-text-action: var(--text-action);
-  --color-line-strong: var(--line-strong);
   --color-border-default: var(--border-default);
   --color-border-strong: var(--border-strong);
   --color-border-strong-hover: var(--border-strong-hover);
@@ -95,18 +97,6 @@
   --color-fill-danger: var(--fill-danger);
   --color-text-danger: var(--text-danger);
   --color-text-danger-on-dark: var(--text-danger-on-dark);
-
-  --color-purple-surface: var(--purple-surface);
-  --color-purple-accent: var(--purple-accent);
-
-  /* Admin CRM lead status. Categorical, not feedback - see status-* below. */
-  --color-status-new: var(--status-new);
-  --color-status-contacted: var(--status-contacted);
-  --color-status-qualified: var(--status-qualified);
-  --color-status-won: var(--status-won);
-  --color-status-closed: var(--status-closed);
-  --color-status-spam: var(--status-spam);
-  --color-status-suspended: var(--status-suspended);
 
   /* Page-level vertical rhythm. Named --space-section in the token file to
      match allbikes; freethedesk previously called this --section-space. */
@@ -244,11 +234,6 @@
   /* The interactive colour. --accent-* below is decorative only: it is the
      bright sky used to lift the navy sections, not something to click. */
   --action-primary: var(--blue-600);
-  /* The accent a page tints itself with. Defined here rather than set per
-     route: it was five variables (page/section/feature/legal/section-number)
-     that every call site resolved to this same colour. A route that wants a
-     different accent overrides --page-accent on its own wrapper. */
-  --page-accent: var(--action-primary);
   --accent: var(--sky-300);
   --accent-on-dark: var(--sky-500);
   --accent-on-dark-soft: var(--sky-400);
@@ -270,7 +255,7 @@
      Both take their colour from a local property so one definition serves a
      light surface and a dark one, the same way --elevation-block-colour does. */
   --ring-field: 0 0 0 3px
-    color-mix(in srgb, var(--ring-field-colour, var(--page-accent)) 13%, transparent);
+    color-mix(in srgb, var(--ring-field-colour, var(--action-primary)) 13%, transparent);
   --ring-halo: 0 0 0 4px
     color-mix(in srgb, var(--ring-halo-colour, var(--action-primary)) 15%, transparent);
 

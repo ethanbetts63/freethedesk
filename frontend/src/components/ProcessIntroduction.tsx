@@ -33,7 +33,7 @@ export function ProcessIntroduction({
             key={item.title}
             className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default"
           >
-            <h3 className="m-0 text-step-2 tracking-[-0.035em] text-[var(--page-accent)]">
+            <h3 className="m-0 text-step-2 tracking-[-0.035em] text-action-primary">
               {item.title}
             </h3>
             <p className="mt-s max-w-[42ch] text-step-0 leading-[1.6] text-text-muted">

@@ -49,7 +49,7 @@ export function ReportCardVisual({
       // 1px: the gradient spine sits over the card's own hairline border rather
       // than inside it, so the offset is that border's width and nothing else.
       // eslint-disable-next-line no-restricted-syntax
-      className="relative min-w-0 border border-border-strong bg-surface-page shadow-block-s before:absolute before:inset-y-[-1px] before:left-[-1px] before:z-1 before:w-[3px] before:content-[''] before:[background:linear-gradient(180deg,var(--page-accent),var(--purple-accent))]"
+      className="relative min-w-0 border border-border-strong bg-surface-page shadow-block-s before:absolute before:inset-y-[-1px] before:left-[-1px] before:z-1 before:w-[3px] before:content-[''] before:[background:linear-gradient(180deg,var(--action-primary),var(--purple-accent))]"
       aria-label={ariaLabel}
     >
       <header className="flex items-center gap-s border-b border-border-subtle bg-surface-tint p-m sm:px-ml">
@@ -83,7 +83,7 @@ export function ReportCardVisual({
               <span
                 className={cn(
                   hiddenBelowSmClassName,
-                  'text-label font-black tracking-label-tight text-[var(--page-accent)] uppercase',
+                  'text-label font-black tracking-label-tight text-action-primary uppercase',
                 )}
               >
                 {item.tag}

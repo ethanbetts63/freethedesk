@@ -42,7 +42,7 @@ const stepClassName =
   'relative z-1 grid min-w-0 grid-cols-[38px_28px_minmax(0,1fr)] items-center gap-x-s gap-y-3xs border border-border-subtle bg-surface-tint p-s sm:block sm:px-s sm:py-m';
 
 const iconClassName =
-  'm-0 flex h-[38px] w-[38px] items-center justify-center border border-border-default bg-surface-tint-strong text-[var(--page-accent)] [grid-row:1/3] sm:mb-ml [&>svg]:h-[19px] [&>svg]:w-[19px] [&>svg]:fill-none [&>svg]:stroke-current [&>svg]:[stroke-linecap:round] [&>svg]:[stroke-linejoin:round] [&>svg]:[stroke-width:1.6]';
+  'm-0 flex h-[38px] w-[38px] items-center justify-center border border-border-default bg-surface-tint-strong text-action-primary [grid-row:1/3] sm:mb-ml [&>svg]:h-[19px] [&>svg]:w-[19px] [&>svg]:fill-none [&>svg]:stroke-current [&>svg]:[stroke-linecap:round] [&>svg]:[stroke-linejoin:round] [&>svg]:[stroke-width:1.6]';
 
 export function FlagshipCheckoutVisual() {
   return (
@@ -61,7 +61,7 @@ export function FlagshipCheckoutVisual() {
         {journey.map((step) => (
           <article key={step.number} className={stepClassName}>
             <div className={iconClassName}>{step.icon}</div>
-            <span className="col-start-2 block text-label font-black tracking-label text-[var(--page-accent)] [grid-row:1/3]">
+            <span className="col-start-2 block text-label font-black tracking-label text-action-primary [grid-row:1/3]">
               {step.number}
             </span>
             <strong className="col-start-3 m-0 block text-lead sm:mt-2xs">{step.title}</strong>

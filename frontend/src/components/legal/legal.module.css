@@ -12,7 +12,7 @@
 }
 /* The reference line under the title: effective date, version, jurisdiction. */
 .legal h1 + p {
-  color: var(--page-accent);
+  color: var(--action-primary);
   font-size: var(--text-ui);
   font-weight: var(--weight-control);
   letter-spacing: var(--label-tracking);
@@ -36,11 +36,11 @@
   margin: var(--space-xs) 0;
 }
 .legal li::marker {
-  color: var(--page-accent);
+  color: var(--action-primary);
   font-weight: var(--weight-control);
 }
 .legal a {
-  color: var(--page-accent);
+  color: var(--action-primary);
   text-underline-offset: 3px;
 }
 .legal aside,

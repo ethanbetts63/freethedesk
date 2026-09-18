@@ -38,25 +38,23 @@ const toggleClassName =
 
 /** The square icon tile. Inverts onto the accent once its row is selected. */
 const iconClassName =
-  'flex items-center justify-center border border-border-subtle text-[var(--page-accent)] [&_svg]:fill-none [&_svg]:stroke-current [&_svg]:[stroke-linecap:round] [&_svg]:[stroke-linejoin:round] [&_svg]:stroke-[1.45]';
+  'flex items-center justify-center border border-border-subtle text-action-primary [&_svg]:fill-none [&_svg]:stroke-current [&_svg]:[stroke-linecap:round] [&_svg]:[stroke-linejoin:round] [&_svg]:stroke-[1.45]';
 
-const selectedIconClassName =
-  'border-[var(--page-accent)] bg-[var(--page-accent)] text-text-on-dark';
+const selectedIconClassName = 'border-action-primary bg-action-primary text-text-on-dark';
 
 /** The round +/✓ at the end of the row. */
 const markClassName =
-  'flex items-center justify-center rounded-circle border border-border-default text-lead text-[var(--page-accent)] not-italic';
+  'flex items-center justify-center rounded-circle border border-border-default text-lead text-action-primary not-italic';
 
-const selectedMarkClassName =
-  'border-[var(--page-accent)] bg-[var(--page-accent)] text-text-on-dark';
+const selectedMarkClassName = 'border-action-primary bg-action-primary text-text-on-dark';
 
 const chevronClassName =
   'flex flex-[0_0_34px] items-center justify-center bg-surface-page p-0 text-text-subtle [&_svg]:h-[17px] [&_svg]:w-[17px] [&_svg]:fill-none [&_svg]:stroke-current [&_svg]:[stroke-linecap:round] [&_svg]:[stroke-linejoin:round] [&_svg]:stroke-[1.6] [&_svg]:transition-transform [&_svg]:duration-200';
 
-const chevronOpenClassName = 'text-[var(--page-accent)] [&_svg]:rotate-180';
+const chevronOpenClassName = 'text-action-primary [&_svg]:rotate-180';
 
 /** The panel that unfolds under a row. */
-const panelClassName = 'border-l-2 border-[var(--page-accent)] px-m py-m';
+const panelClassName = 'border-l-2 border-action-primary px-m py-m';
 
 function Chevron() {
   return (
@@ -117,11 +115,7 @@ export function CapabilityRow({
         </span>
         <span>
           <strong
-            className={cn(
-              'block leading-[1.25]',
-              size.name,
-              selected && 'text-[var(--page-accent)]',
-            )}
+            className={cn('block leading-[1.25]', size.name, selected && 'text-action-primary')}
           >
             {name}
           </strong>
@@ -153,7 +147,7 @@ export function CapabilityRow({
               type="button"
               className={cn(
                 chevronClassName,
-                'cursor-pointer hover:text-[var(--page-accent)]',
+                'cursor-pointer hover:text-action-primary',
                 compact && 'bg-transparent',
                 expanded && chevronOpenClassName,
               )}
@@ -221,7 +215,7 @@ export function CapabilityOption({ option, compact = false, ...rest }: Capabilit
           <ul className="m-0 grid list-none gap-2xs p-0">
             {option.includes.map((item) => (
               <li
-                className="relative pl-s text-small leading-[1.5] text-text-muted before:absolute before:top-[0.4em] before:left-0 before:h-[4px] before:w-[4px] before:rounded-circle before:bg-[var(--page-accent)] before:content-['']"
+                className="relative pl-s text-small leading-[1.5] text-text-muted before:absolute before:top-[0.4em] before:left-0 before:h-[4px] before:w-[4px] before:rounded-circle before:bg-action-primary before:content-['']"
                 key={item}
               >
                 {item}

@@ -24,7 +24,7 @@ export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; 
       <p className="mx-0 mt-ml mb-0 text-center text-body text-[var(--slate-600)]">
         Want this built into a custom dealership website instead?{' '}
         <Link
-          className="border-b border-[var(--page-accent)] font-heavy text-[var(--page-accent)]"
+          className="border-b border-action-primary font-heavy text-action-primary"
           href="/dealership-website-builder"
         >
           See the website builder ↗

@@ -164,7 +164,7 @@ export function ProjectEnquiryPanel({
                   Your budget
                 </span>
                 <input
-                  className="min-h-[48px] w-full border border-border-default bg-surface-page px-s text-step-0 text-text-primary outline-none [font:inherit] placeholder:text-small placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-[var(--page-accent)] focus:shadow-focus"
+                  className="min-h-[48px] w-full border border-border-default bg-surface-page px-s text-step-0 text-text-primary outline-none [font:inherit] placeholder:text-small placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus"
                   value={customBudget}
                   onChange={(event) => setCustomBudget(event.target.value.replace(/\D/g, ''))}
                   inputMode="numeric"
@@ -199,7 +199,7 @@ export function ProjectEnquiryPanel({
         <div role="status">
           <span
             aria-hidden="true"
-            className="mb-m flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[var(--page-accent)] text-text-on-dark"
+            className="mb-m flex h-[34px] w-[34px] items-center justify-center rounded-full bg-action-primary text-text-on-dark"
           >
             ✓
           </span>

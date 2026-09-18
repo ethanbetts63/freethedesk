@@ -100,7 +100,7 @@ export function ChecklistCard({
             <span
               className={cn(
                 stepBadgeClassName,
-                'h-[26px] w-[26px] bg-surface-tint-strong text-meta font-black text-[var(--page-accent)]',
+                'h-[26px] w-[26px] bg-surface-tint-strong text-meta font-black text-action-primary',
               )}
               aria-hidden="true"
             >

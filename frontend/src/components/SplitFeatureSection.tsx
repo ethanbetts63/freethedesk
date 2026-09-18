@@ -86,7 +86,7 @@ export function SplitFeatureSection({
               {bullets.map((bullet) => (
                 <li
                   key={bullet}
-                  className="relative my-s pl-ml text-small font-strong before:absolute before:left-0 before:text-[var(--page-accent)] before:content-['↳']"
+                  className="relative my-s pl-ml text-small font-strong before:absolute before:left-0 before:text-action-primary before:content-['↳']"
                 >
                   {bullet}
                 </li>

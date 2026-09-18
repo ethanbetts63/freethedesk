@@ -70,7 +70,7 @@
   background: var(--surface-page);
   border: none;
   border-radius: var(--radius-circle);
-  color: var(--page-accent);
+  color: var(--action-primary);
   content: counter(flow-step);
   display: flex;
   font-size: var(--text-caption);

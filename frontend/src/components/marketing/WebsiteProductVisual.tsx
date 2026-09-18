@@ -4,10 +4,9 @@ import { TrafficLights } from '@/components/visuals/chrome';
 /**
  * A dealership website drawn inside a browser window: chrome, nav, hero with a
  * car, and an inventory strip. The nav button, the eyebrow, the CTA and the
- * first inventory bar all read `--page-accent`, so they move together if a
- * page changes it.
+ * first inventory bar are all --action-primary, so they move together.
  */
-const accentClassName = 'text-[var(--page-accent)]';
+const accentClassName = 'text-action-primary';
 
 /**
  * The spotlight behind the car. A raw colour on purpose: it is a lighting
@@ -35,14 +34,14 @@ export function WebsiteProductVisual() {
           </b>
         </div>
         <div className="flex items-center justify-between px-xl py-l">
-          <strong className="text-step-0 tracking-[-0.06em] [&>span]:text-[var(--page-accent)]">
+          <strong className="text-step-0 tracking-[-0.06em] [&>span]:text-action-primary">
             north<span>line</span>.
           </strong>
           <div className="flex items-center gap-ml text-nano font-heavy [&>span]:hidden sm:[&>span]:inline">
             <span>Stock</span>
             <span>Service</span>
             <span>About</span>
-            <b className="bg-[var(--page-accent)] p-xs text-text-on-dark">Contact</b>
+            <b className="bg-action-primary p-xs text-text-on-dark">Contact</b>
           </div>
         </div>
         <div className="mx-s grid min-h-[330px] grid-cols-[minmax(0,1fr)] items-center overflow-hidden bg-surface-tint p-xl sm:mx-ml sm:p-xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
@@ -58,7 +57,7 @@ export function WebsiteProductVisual() {
             <p className="max-w-[250px] text-meta leading-[1.6] text-text-muted">
               Explore the latest vehicles, buy online or speak with the team.
             </p>
-            <span className="mt-xs inline-block bg-[var(--page-accent)] p-s text-nano font-heavy text-text-on-dark">
+            <span className="mt-xs inline-block bg-action-primary p-s text-nano font-heavy text-text-on-dark">
               View inventory →
             </span>
           </div>
@@ -77,7 +76,7 @@ export function WebsiteProductVisual() {
         </div>
         <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center p-m text-tiny sm:px-xl sm:py-ml">
           <span className="font-black uppercase">Latest inventory</span>
-          <div className="hidden gap-2xs [&>i]:h-[8px] [&>i]:w-[34px] [&>i]:bg-surface-tint-strong [&>i:first-child]:bg-[var(--page-accent)] sm:flex">
+          <div className="hidden gap-2xs [&>i]:h-[8px] [&>i]:w-[34px] [&>i]:bg-surface-tint-strong [&>i:first-child]:bg-action-primary sm:flex">
             <i />
             <i />
             <i />

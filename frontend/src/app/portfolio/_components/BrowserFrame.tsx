@@ -21,7 +21,7 @@ export type PortfolioImage = {
  * have to take every dimension as a prop, which is the same code with an extra
  * indirection. What they genuinely shared — the three dots — is `TrafficLights`.
  */
-export const caseBrowserClassName =
+const caseBrowserClassName =
   'overflow-hidden rounded-md border border-border-strong bg-surface-page shadow-l [&>img]:block [&>img]:h-auto [&>img]:w-full';
 
 export function BrowserFrame({
