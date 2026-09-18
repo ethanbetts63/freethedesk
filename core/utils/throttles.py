@@ -1,19 +1,15 @@
-from rest_framework.throttling import AnonRateThrottle
+from freetheplatform.auth.throttling import ScopedAnonThrottle
 
 
-class EnquiryRateThrottle(AnonRateThrottle):
+class EnquiryRateThrottle(ScopedAnonThrottle):
     scope = "enquiry"
 
 
-class DealerSignupRateThrottle(AnonRateThrottle):
+class DealerSignupRateThrottle(ScopedAnonThrottle):
     # Its own bucket: a dealer who already sent an enquiry should not find
     # themselves unable to create an account.
     scope = "dealer-signup"
 
 
-class SeoSignupRateThrottle(AnonRateThrottle):
+class SeoSignupRateThrottle(ScopedAnonThrottle):
     scope = "seo-signup"
-
-
-class LoginRateThrottle(AnonRateThrottle):
-    scope = "login"

@@ -4,7 +4,15 @@ from rest_framework import serializers
 
 
 class SeoPasswordSerializer(serializers.Serializer):
-    password = serializers.CharField(write_only=True)
+    """Validates a first password; the view is what sets it.
+
+    Length and shape are the project's validators, so this never has an opinion
+    of its own about either.
+    """
+
+    # Hashing is deliberately expensive, so an unbounded field is an unbounded
+    # amount of work per request.
+    password = serializers.CharField(write_only=True, max_length=128)
 
     def validate_password(self, value):
         try:
@@ -12,9 +20,3 @@ class SeoPasswordSerializer(serializers.Serializer):
         except DjangoValidationError as error:
             raise serializers.ValidationError(list(error.messages)) from error
         return value
-
-    def save(self):
-        user = self.context["request"].user
-        user.set_password(self.validated_data["password"])
-        user.save(update_fields=["password"])
-        return user

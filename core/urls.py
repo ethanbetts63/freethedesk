@@ -1,5 +1,13 @@
 from django.urls import include, path
-from freetheplatform.auth.views import LoginView, LogoutView, ProfileView, RefreshView
+from freetheplatform.auth.views import (
+    LoginView,
+    LogoutView,
+    PasswordChangeView,
+    PasswordResetConfirmView,
+    PasswordResetRequestView,
+    ProfileView,
+    RefreshView,
+)
 
 from .views import (
     AdminEnquiryDetailView,
@@ -26,6 +34,13 @@ urlpatterns = [
     path("token/refresh/", RefreshView.as_view(), name="token-refresh"),
     path("token/logout/", LogoutView.as_view(), name="token-logout"),
     path("auth/me/", ProfileView.as_view(), name="profile"),
+    path("auth/password/change/", PasswordChangeView.as_view(), name="password-change"),
+    path("auth/password/reset/", PasswordResetRequestView.as_view(), name="password-reset"),
+    path(
+        "auth/password/reset/confirm/",
+        PasswordResetConfirmView.as_view(),
+        name="password-reset-confirm",
+    ),
     path("admin/enquiries/", AdminEnquiryListView.as_view(), name="admin-enquiry-list"),
     path("admin/enquiries/<int:pk>/", AdminEnquiryDetailView.as_view(), name="admin-enquiry-detail"),
     # The message log, its compose endpoint and its per-message actions all come

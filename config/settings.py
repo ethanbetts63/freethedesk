@@ -143,6 +143,12 @@ REST_FRAMEWORK = {
         "enquiry": "10/hour",
         "dealer-signup": "5/hour",
         "seo-signup": "5/hour",
+        # Each accepted request sends an email, so this is a spend limit as much
+        # as a guessing limit.
+        "password_reset": "5/hour",
+        # Keyed on the account, not the address: this is what caps guessing at
+        # the current password from inside a stolen session.
+        "password_change": "10/hour",
     },
 }
 
@@ -155,7 +161,15 @@ FTP_AUTH = {
     "COOKIE_PREFIX": "freethedesk",
     "PRINCIPAL": "core.principal.principal",
     "CREDENTIAL_RESOLVER": "freetheplatform.auth.credentials.username_or_email",
+    # The package counts and mints; sending is ours, because it owns neither the
+    # wording nor the URL a reset link points at.
+    "LOCKOUT_NOTIFIER": "core.utils.auth_notifications.auth_alert",
+    "PASSWORD_RESET_NOTIFIER": "core.utils.auth_notifications.send_password_reset",
 }
+
+# A reset link is a password. Django's token generator reads this setting
+# directly, which is why it is here rather than restated inside FTP_AUTH.
+PASSWORD_RESET_TIMEOUT = 60 * 60
 
 # Derived from FTP_AUTH rather than written out again, so the token lifetimes
 # and the cookie max-ages cannot drift apart. A JWT is trusted because its
