@@ -55,6 +55,8 @@ export function Hero({
       {path && <Breadcrumbs path={path} variant="overlay" />}
       <div className="site-shell pointer-events-none py-3xl [&_a]:pointer-events-auto">
         <div>
+          {/* eslint-disable-next-line no-restricted-syntax -- --ring-halo plus a second
+              glow: the live dot is lit, not raised, and one ring does not draw it. */}
           <Eyebrow className="[--eyebrow-accent:var(--action-primary)] [&>span]:shadow-[var(--ring-halo),0_0_10px_2px_color-mix(in_srgb,var(--action-primary)_70%,transparent)]">
             {eyebrow}
           </Eyebrow>

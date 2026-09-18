@@ -17,14 +17,14 @@ export async function LegalDocument({ filename }: { filename: string }) {
   const html = await renderMarkdown(source);
 
   return (
-    <main className="relative min-h-screen bg-surface-tint px-s py-2xl text-surface-inverse sm:px-l sm:py-[clamp(80px,10vw,145px)]">
+    <main className="relative min-h-screen bg-surface-tint px-s py-2xl text-surface-inverse sm:px-l sm:py-section-tall">
       <div className={gridPaperClassName} aria-hidden="true" />
       {/* The card's padding is one fluid value rather than a step: it has to
           hold a 900px measure comfortably from a phone to a desktop, which no
           single step on the space scale does. */}
       <article
         className={cn(
-          'relative mx-auto max-w-[900px] border border-border-default bg-surface-page px-ml py-xl shadow-l sm:p-[clamp(35px,7vw,90px)]',
+          'relative mx-auto max-w-[900px] border border-border-default bg-surface-page px-ml py-xl shadow-l sm:p-3xl',
           'prose',
           styles.legal,
         )}

@@ -215,6 +215,9 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
 
         {/* Bleeds past the page rail from lg so the window runs off the edge.
             The negative margins are literal: there is no token for absence. */}
+        {/* eslint-disable-next-line no-restricted-syntax -- A bleed, not spacing: the
+          panel overhangs its column by however much the artwork beside it needs,
+          measured against the image rather than chosen from the scale. */}
         <div className="relative m-0 pt-l pr-0 pb-2xl pl-s sm:pl-xl lg:mr-[-190px] lg:pt-xl lg:pl-2xl xl:mr-[-105px]">
           <BrowserFrame image={config.desktopImage} browserUrl={config.browserUrl} hero />
           <PhoneFrame

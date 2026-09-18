@@ -24,7 +24,7 @@ export function GoogleBusinessProfileAudit({
     >
       <div className="site-shell relative z-1 grid grid-cols-1 gap-split lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
         <div>
-          <div className="mb-2xl flex items-center gap-s sm:mb-[clamp(48px,6vw,78px)]">
+          <div className="mb-2xl flex items-center gap-s sm:mb-3xl">
             <span className="flex h-[46px] w-[46px] items-center justify-center rounded-circle bg-surface-page">
               <GoogleLogo size={31} />
             </span>

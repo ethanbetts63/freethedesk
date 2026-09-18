@@ -45,7 +45,7 @@ export function WebsiteProductVisual() {
             <b className="bg-[var(--page-accent)] p-xs text-text-on-dark">Contact</b>
           </div>
         </div>
-        <div className="mx-s grid min-h-[330px] grid-cols-[minmax(0,1fr)] items-center overflow-hidden bg-surface-tint p-xl sm:mx-ml sm:p-[clamp(30px,4vw,52px)] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div className="mx-s grid min-h-[330px] grid-cols-[minmax(0,1fr)] items-center overflow-hidden bg-surface-tint p-xl sm:mx-ml sm:p-xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <div>
             <small className={`text-nano font-black tracking-label uppercase ${accentClassName}`}>
               New arrivals / 2026

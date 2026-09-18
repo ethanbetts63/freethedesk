@@ -54,7 +54,7 @@ export function CheckoutShell({
         <div className="absolute inset-0 opacity-85 [&>canvas]:h-full [&>canvas]:w-full">
           <SignalFlow />
         </div>
-        <div className="relative z-2 flex min-h-[540px] flex-col px-ml py-xl sm:min-h-[620px] sm:p-[clamp(30px,5vw,72px)] lg:min-h-screen">
+        <div className="relative z-2 flex min-h-[540px] flex-col px-ml py-xl sm:min-h-[620px] sm:p-2xl lg:min-h-screen">
           <Link
             className="w-fit text-step-1 font-black tracking-[-0.07em] text-surface-inverse"
             href="/"
@@ -99,7 +99,7 @@ export function CheckoutShell({
         </div>
       </section>
 
-      <section className="flex min-h-auto items-center justify-center overflow-y-auto px-ml py-3xl sm:p-[clamp(44px,7vw,100px)] lg:min-h-screen lg:py-[clamp(44px,7vw,100px)]">
+      <section className="flex min-h-auto items-center justify-center overflow-y-auto px-ml py-3xl sm:p-3xl lg:min-h-screen lg:py-3xl">
         {children}
       </section>
     </main>

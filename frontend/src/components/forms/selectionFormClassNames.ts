@@ -49,7 +49,7 @@ export const choiceCardVariants = cva(
     'has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[color-mix(in_srgb,var(--page-accent)_25%,transparent)]',
     // The sub-label is a miniature inside a card, below every step of the
     // type scale on purpose.
-    '[&>small]:mt-3xs [&>small]:text-[0.45rem] [&>small]:font-strong [&>small]:tracking-label [&>small]:uppercase',
+    '[&>small]:mt-3xs [&>small]:text-nano [&>small]:font-strong [&>small]:tracking-label [&>small]:uppercase',
   ],
   {
     variants: {
@@ -82,8 +82,7 @@ export const choiceCardVariants = cva(
   },
 );
 
-export const chooserClassName =
-  'flex flex-col px-ml py-xl text-text-secondary sm:p-[clamp(34px,4.5vw,64px)]';
+export const chooserClassName = 'flex flex-col px-ml py-xl text-text-secondary sm:p-2xl';
 
 export const chooserHeadingClassName =
   'm-0 text-display-1 leading-[1.02] tracking-[-0.058em] text-text-secondary';

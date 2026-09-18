@@ -40,7 +40,7 @@ const innerVariants = cva('grid min-h-0 grid-cols-[minmax(0,1fr)] justify-betwee
       // already shrank below its 480px cap at 1080 - the row was designed to
       // start as soon as it fits, and 1280 would withhold it from a 200px band
       // where it currently works.
-      inline: 'items-center py-l lg:flex lg:min-h-[92px] lg:gap-[clamp(24px,4vw,56px)] lg:py-m',
+      inline: 'items-center py-l lg:flex lg:min-h-[92px] lg:gap-xl lg:py-m',
       // Overrides the rail's own gutter: inside a 440px dialog the strip's
       // horizontal padding is the card's padding.
       dialog: 'items-stretch px-l pt-2xl pb-xl',

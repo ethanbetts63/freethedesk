@@ -46,6 +46,9 @@ export function ReportCardVisual({
 }: ReportCardVisualProps) {
   return (
     <div
+      // 1px: the gradient spine sits over the card's own hairline border rather
+      // than inside it, so the offset is that border's width and nothing else.
+      // eslint-disable-next-line no-restricted-syntax
       className="relative min-w-0 border border-border-strong bg-surface-page shadow-block-s before:absolute before:inset-y-[-1px] before:left-[-1px] before:z-1 before:w-[3px] before:content-[''] before:[background:linear-gradient(180deg,var(--page-accent),var(--purple-accent))]"
       aria-label={ariaLabel}
     >

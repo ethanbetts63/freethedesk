@@ -55,7 +55,7 @@ export function ExpandableServiceList({
           heading's baseline, so it spans both of the left column's rows. */}
       <header className="mb-2xl grid gap-ml sm:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
         <SectionNumber>{eyebrow}</SectionNumber>
-        <h2 className="m-0 max-w-[850px] text-[clamp(2rem,4.8vw,4.8rem)] leading-[0.98] tracking-[-0.06em] sm:col-start-1">
+        <h2 className="m-0 max-w-[850px] text-display-4 leading-[0.98] tracking-[-0.06em] sm:col-start-1">
           {title}
         </h2>
         <p className="m-0 max-w-[680px] leading-[1.7] text-text-muted sm:col-start-2 sm:row-span-2 sm:row-start-1 sm:self-end">
@@ -81,9 +81,7 @@ export function ExpandableServiceList({
                 {service.icon}
               </span>
               <span>
-                <strong className="block text-[clamp(1.02rem,2vw,1.4rem)] tracking-[-0.025em]">
-                  {service.title}
-                </strong>
+                <strong className="block text-step-1 tracking-[-0.025em]">{service.title}</strong>
                 {/* Hidden on a phone: at that width the row is already 112px
                     tall and the title has to carry the meaning alone. */}
                 <small className="mt-2xs hidden max-w-[760px] text-small leading-[1.55] text-text-muted sm:block">

@@ -152,6 +152,10 @@ export function SeoSignupPanel({
                   // under the card instead, so two recommendations on one panel
                   // do not compete for attention.
                   recommendedFrequency === frequency.code &&
+                    // Not elevation: an inset rule drawn as a shadow, so the selected
+                    // card gains an underline without a border box that would shift the
+                    // two unselected ones beside it.
+                    // eslint-disable-next-line no-restricted-syntax
                     'border-[var(--page-accent)] shadow-[inset_0_-3px_0_var(--page-accent)]',
                 )}
                 key={frequency.code}
