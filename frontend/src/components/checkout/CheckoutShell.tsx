@@ -17,12 +17,12 @@ import { gridPaperAfterClassName } from '@/lib/gridSurface';
 
 const eyebrowClassName =
   'text-caption font-black tracking-label-wide text-action-primary uppercase';
-const headingClassName = 'my-s text-display-3 leading-[0.96] tracking-[-0.065em]';
+const headingClassName = 'my-s text-display-md leading-[0.96] tracking-[-0.065em]';
 const bodyClassName = 'm-0 text-body leading-[1.6] text-text-muted';
 const fineprintClassName =
-  'mx-auto mt-s max-w-[430px] text-center text-meta leading-[1.5] text-text-subtle';
+  'mx-auto mt-s max-w-[430px] text-center text-caption-sm leading-[1.5] text-text-subtle';
 const paymentErrorClassName =
-  'my-m border-l-[3px] border-border-danger bg-surface-danger p-s text-ui leading-[1.55] text-text-danger';
+  'my-m border-l-[3px] border-border-danger bg-surface-danger p-s text-label leading-[1.55] text-text-danger';
 
 export type CheckoutOrder = {
   lineLabel: string;
@@ -70,7 +70,7 @@ export function CheckoutShell({
             <p className="m-0 mb-ml text-caption font-black tracking-label-wide text-action-primary uppercase">
               {productLabel}
             </p>
-            <h1 className="m-0 mb-xl max-w-[690px] text-display-4 leading-[0.87] tracking-[-0.075em] sm:text-display-6">
+            <h1 className="m-0 mb-xl max-w-[690px] text-display-lg leading-[0.87] tracking-[-0.075em] sm:text-hero-lg">
               {productName}
             </h1>
             <span className="block max-w-[430px] text-lead leading-[1.65] text-text-muted">
@@ -79,19 +79,21 @@ export function CheckoutShell({
           </div>
           {order && (
             <div className="border border-[color-mix(in_srgb,var(--border-strong)_68%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] p-m backdrop-blur-[12px] sm:p-l">
-              <div className="flex items-center justify-between py-2xs text-ui">
+              <div className="flex items-center justify-between py-2xs text-label">
                 <span className="text-text-muted">{order.lineLabel}</span>
-                <strong className="text-small">{order.price}</strong>
+                <strong className="text-body-sm">{order.price}</strong>
               </div>
-              <div className="flex items-center justify-between py-2xs text-ui">
+              <div className="flex items-center justify-between py-2xs text-label">
                 <span className="text-text-muted">GST</span>
-                <strong className="text-small">Included</strong>
+                <strong className="text-body-sm">Included</strong>
               </div>
-              <div className="mt-xs flex items-center justify-between border-t border-border-default pt-m pb-2xs text-ui">
+              <div className="mt-xs flex items-center justify-between border-t border-border-default pt-m pb-2xs text-label">
                 <span className="text-text-muted">{order.dueLabel}</span>
-                <strong className="text-step-2 tracking-[-0.04em] text-action-primary">
+                <strong className="text-title-sm tracking-[-0.04em] text-action-primary">
                   {order.price}{' '}
-                  <small className="text-label tracking-normal text-text-subtle">GST inc.</small>
+                  <small className="text-caption-sm tracking-normal text-text-subtle">
+                    GST inc.
+                  </small>
                 </strong>
               </div>
             </div>
@@ -166,7 +168,7 @@ export function CheckoutTermsForm({
         <h2 className={headingClassName}>Confirm the offer.</h2>
         <p className={bodyClassName}>{priceNote}</p>
       </div>
-      <label className="mt-l mr-0 mb-m ml-0 flex cursor-pointer items-start gap-s text-ui leading-[1.5] text-text-muted">
+      <label className="mt-l mr-0 mb-m ml-0 flex cursor-pointer items-start gap-s text-label leading-[1.5] text-text-muted">
         <input
           type="checkbox"
           checked={accepted}
@@ -236,7 +238,7 @@ export function CheckoutPaymentForm({
   }
 
   if (result.type === 'loading')
-    return <div className="py-l text-small text-text-muted">Loading secure card entry…</div>;
+    return <div className="py-l text-body-sm text-text-muted">Loading secure card entry…</div>;
   if (result.type === 'error')
     return <p className={paymentErrorClassName}>{result.error.message}</p>;
 

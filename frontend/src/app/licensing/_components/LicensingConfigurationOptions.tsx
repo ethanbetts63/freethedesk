@@ -12,7 +12,7 @@ export function LicensingConfigurationOptions({ eyebrow }: { eyebrow: string }) 
       <div className="site-shell grid grid-cols-[minmax(0,1fr)] items-start gap-split lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
         <div>
           <SectionNumber>{eyebrow}</SectionNumber>
-          <h2 className="m-0 text-display-3 leading-[0.94] tracking-[-0.07em] sm:text-display-5">
+          <h2 className="m-0 text-display-md leading-[0.94] tracking-[-0.07em] sm:text-hero">
             Our portal or <span className="moving-colour-text">your website.</span>
           </h2>
           <p className="mt-ml max-w-[440px] text-lead leading-[1.7] text-[var(--slate-300)]">
@@ -23,13 +23,13 @@ export function LicensingConfigurationOptions({ eyebrow }: { eyebrow: string }) 
         <div className="flex flex-wrap items-start justify-center gap-xl sm:flex-nowrap sm:gap-2xl">
           <div className="flex flex-col items-center">
             <LoginPreviewPhone />
-            <p className="mx-0 mt-m mb-0 text-small font-control text-text-on-dark">
+            <p className="mx-0 mt-m mb-0 text-body-sm font-control text-text-on-dark">
               Hosted portal
             </p>
           </div>
           <div className="flex flex-col items-center">
             <LicensingNextStepPhone />
-            <p className="mx-0 mt-m mb-0 text-small font-control text-text-on-dark">
+            <p className="mx-0 mt-m mb-0 text-body-sm font-control text-text-on-dark">
               Built into your website
             </p>
             <Link

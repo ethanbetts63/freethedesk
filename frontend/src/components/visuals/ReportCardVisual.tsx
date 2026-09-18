@@ -56,9 +56,9 @@ export function ReportCardVisual({
         <TrafficLights size={8} tone="[&>i]:bg-border-default" />
         <div>
           <strong className="block text-body tracking-[-0.01em]">{title}</strong>
-          <small className="block text-ui text-text-muted">{subtitle}</small>
+          <small className="block text-label text-text-muted">{subtitle}</small>
         </div>
-        <span className="ml-auto border border-border-default bg-surface-tint-strong px-xs py-2xs text-label font-black tracking-label text-text-action uppercase">
+        <span className="ml-auto border border-border-default bg-surface-tint-strong px-xs py-2xs text-caption-sm font-black tracking-label text-text-action uppercase">
           {badge}
         </span>
       </header>
@@ -66,11 +66,11 @@ export function ReportCardVisual({
       <ol className="m-0 list-none p-0">
         {items.map((item, index) => (
           <li key={item.title} className={rowClassName}>
-            <span className="flex h-[25px] w-[25px] flex-none items-center justify-center bg-surface-navy text-label font-black text-text-on-dark">
+            <span className="flex h-[25px] w-[25px] flex-none items-center justify-center bg-surface-navy text-caption-sm font-black text-text-on-dark">
               {String(index + 1).padStart(2, '0')}
             </span>
             <span
-              className="flex h-[40px] w-[40px] flex-none items-center justify-center border border-border-subtle text-small font-black text-text-action [background:linear-gradient(135deg,var(--surface-tint-strong),var(--purple-surface))]"
+              className="flex h-[40px] w-[40px] flex-none items-center justify-center border border-border-subtle text-body-sm font-black text-text-action [background:linear-gradient(135deg,var(--surface-tint-strong),var(--purple-surface))]"
               aria-hidden="true"
             >
               {item.icon ?? '✓'}
@@ -83,7 +83,7 @@ export function ReportCardVisual({
               <span
                 className={cn(
                   hiddenBelowSmClassName,
-                  'text-label font-black tracking-label-tight text-action-primary uppercase',
+                  'text-caption-sm font-black tracking-label-tight text-action-primary uppercase',
                 )}
               >
                 {item.tag}

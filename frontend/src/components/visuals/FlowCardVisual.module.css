@@ -44,7 +44,7 @@
   background: var(--surface-page);
   color: var(--text-muted);
   display: flex;
-  font-size: var(--text-meta);
+  font-size: var(--text-caption-sm);
   gap: var(--space-2xs);
   height: 42px;
   padding: 0 var(--space-s);
@@ -99,7 +99,7 @@
 .inputs small,
 .result > span:not(.tick) {
   color: var(--accent-on-dark);
-  font-size: var(--text-label);
+  font-size: var(--text-caption-sm);
   font-weight: var(--weight-black);
   letter-spacing: var(--label-tracking);
   text-transform: uppercase;
@@ -113,7 +113,7 @@
 
 .inputs article > span {
   color: var(--text-on-dark-muted);
-  font-size: var(--text-micro);
+  font-size: var(--text-caption-sm);
   margin-top: var(--space-3xs);
 }
 
@@ -165,7 +165,7 @@
   background: color-mix(in srgb, var(--surface-page) 8%, transparent);
   color: var(--accent-on-dark);
   display: flex;
-  font-size: var(--text-tiny);
+  font-size: var(--text-caption-xs);
   font-weight: var(--weight-black);
   grid-row: 1 / 3;
   height: 27px;
@@ -178,12 +178,12 @@
 }
 
 .steps strong {
-  font-size: var(--text-ui);
+  font-size: var(--text-label);
 }
 
 .steps small {
   color: var(--text-on-dark-muted);
-  font-size: var(--text-label);
+  font-size: var(--text-caption-sm);
 }
 
 .connector {
@@ -202,7 +202,7 @@
 
 .connector span {
   color: var(--accent-on-dark);
-  font-size: var(--text-small);
+  font-size: var(--text-body-sm);
 }
 
 /* The gradient fill is `.moving-colour-fill`. */
@@ -244,7 +244,7 @@
   border: 1px solid var(--text-on-dark);
   border-radius: var(--radius-circle);
   display: flex;
-  font-size: var(--text-micro);
+  font-size: var(--text-caption-sm);
   grid-row: 1 / 4;
   height: 24px;
   justify-content: center;
@@ -262,7 +262,7 @@
 }
 
 .result small {
-  font-size: var(--text-micro);
+  font-size: var(--text-caption-sm);
 }
 
 @media (min-width: 640px) {

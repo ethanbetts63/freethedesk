@@ -91,7 +91,7 @@ export function PaymentConfirmation({
         <span className="mb-xl inline-flex h-[50px] w-[50px] items-center justify-center rounded-circle bg-action-primary text-glyph text-text-on-dark">
           {state === 'active' ? '✓' : '···'}
         </span>
-        <h1 className="m-0 mb-m text-display-4 leading-[0.94] tracking-[-0.07em]">{title}</h1>
+        <h1 className="m-0 mb-m text-display-lg leading-[0.94] tracking-[-0.07em]">{title}</h1>
         <p className="mx-auto my-0 max-w-[480px] text-lead leading-[1.7] text-text-muted">{body}</p>
         {state === 'failed' && (
           <CheckoutButton variant="link" className="mt-xl" href={retryHref}>

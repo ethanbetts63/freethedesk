@@ -43,7 +43,7 @@
 }
 .flowColumnHead b {
   color: var(--slate-100);
-  font-size: var(--text-meta);
+  font-size: var(--text-caption-sm);
   font-weight: var(--weight-strong);
   text-align: right;
 }
@@ -101,7 +101,7 @@
 }
 .flowStepText small {
   color: var(--slate-200);
-  font-size: var(--text-ui);
+  font-size: var(--text-label);
 }
 .flowColumnHighlight .flowStepText small {
   color: var(--sky-300);

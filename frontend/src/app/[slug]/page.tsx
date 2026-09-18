@@ -83,7 +83,7 @@ function ArticleView({ article }: { article: Article }) {
       <header className="relative overflow-hidden bg-surface-dark pt-2xl pb-section-tall text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_5%,transparent)_1px,transparent_1px)] before:[background-size:64px_64px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_88%)] after:absolute after:top-[-180px] after:right-[-100px] after:h-[380px] after:w-[380px] after:rounded-full after:bg-accent after:opacity-10 after:content-[''] after:[filter:blur(24px)]">
         <div className="site-shell relative z-1">
           <nav
-            className="mb-2xl flex items-center gap-xs text-ui font-strong text-[var(--text-on-dark-subtle)] [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-accent sm:mb-section"
+            className="mb-2xl flex items-center gap-xs text-label font-strong text-[var(--text-on-dark-subtle)] [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-accent sm:mb-section"
             aria-label="Breadcrumb"
           >
             <Link href="/">Home</Link>
@@ -93,7 +93,7 @@ function ArticleView({ article }: { article: Article }) {
           <Eyebrow className="mb-l gap-xs text-caption tracking-label-wide text-accent">
             Dealer field notes
           </Eyebrow>
-          <h1 className="m-0 max-w-[1040px] text-display-6 leading-[0.94] tracking-[-0.07em]">
+          <h1 className="m-0 max-w-[1040px] text-hero-lg leading-[0.94] tracking-[-0.07em]">
             {article.title}
           </h1>
           <p className="mt-xl max-w-[720px] text-step-1 leading-[1.65] text-[var(--text-on-dark-muted)]">
@@ -114,7 +114,7 @@ function ArticleView({ article }: { article: Article }) {
               Guide
             </span>
             <i className="my-ml hidden h-px w-[72px] bg-border-default lg:block" />
-            <p className="hidden max-w-[180px] text-ui leading-[1.6] text-text-subtle lg:block">
+            <p className="hidden max-w-[180px] text-label leading-[1.6] text-text-subtle lg:block">
               Practical thinking for dealerships that want better systems and less administration.
             </p>
           </aside>

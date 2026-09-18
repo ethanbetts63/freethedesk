@@ -253,7 +253,9 @@ export default function EnquiryDetailPage() {
               ))}
             </div>
           ) : (
-            <p className="text-ui text-text-subtle">No messages are linked to this enquiry yet.</p>
+            <p className="text-label text-text-subtle">
+              No messages are linked to this enquiry yet.
+            </p>
           )}
         </section>
       </div>

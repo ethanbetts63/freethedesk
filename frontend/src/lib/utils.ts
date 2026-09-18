@@ -7,32 +7,29 @@ import { extendTailwindMerge } from 'tailwind-merge';
  * generates a `text-*` utility from.
  *
  * tailwind-merge only knows the stock sizes, so without this list it reads
- * a name like `text-small` or `text-step-2` as a *colour* and drops whatever
+ * a name like `text-body-sm` or `text-title-sm` as a *colour* and drops whatever
  * real colour it is merged with. Keep in step with tokens.css.
  */
 const FLUID_TEXT_SIZES = [
-  'nano',
-  'tiny',
-  'label',
-  'micro',
-  'meta',
+  'caption-xs',
+  'caption-sm',
   'caption',
-  'ui',
-  'small',
+  'label',
+  'body-sm',
   'body',
   'lead',
   'glyph',
   'wordmark',
   'step-0',
   'step-1',
-  'step-2',
-  'step-3',
-  'display-1',
-  'display-2',
-  'display-3',
-  'display-4',
-  'display-5',
-  'display-6',
+  'title-sm',
+  'title',
+  'display-sm',
+  'display',
+  'display-md',
+  'display-lg',
+  'hero',
+  'hero-lg',
 ];
 
 const twMerge = extendTailwindMerge({

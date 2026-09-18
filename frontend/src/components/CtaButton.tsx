@@ -46,11 +46,11 @@ const ctaButtonVariants = cva(
         moving: '',
       },
       size: {
-        compact: 'gap-ml p-m text-ui',
+        compact: 'gap-ml p-m text-label',
         // `large` renders identically to `default` - preserved from the CSS
         // this replaces (src/styles/buttons.css) rather than redesigned.
-        default: 'gap-xl px-ml py-m text-small',
-        large: 'gap-xl px-ml py-m text-small',
+        default: 'gap-xl px-ml py-m text-body-sm',
+        large: 'gap-xl px-ml py-m text-body-sm',
       },
       fullWidth: {
         true: 'w-full',

@@ -24,12 +24,12 @@ export function WebsiteProductVisual() {
         className="min-w-0 origin-right bg-surface-page text-text-primary shadow-contrast-l lg:[transform:perspective(1400px)_rotateY(-2deg)]"
         aria-hidden="true"
       >
-        <div className="grid h-[38px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center border-b border-border-default bg-surface-tint-strong px-s text-nano text-text-muted">
+        <div className="grid h-[38px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center border-b border-border-default bg-surface-tint-strong px-s text-caption-xs text-text-muted">
           <TrafficLights />
           <span className="rounded-2xs bg-surface-page px-m py-3xs sm:px-2xl">
             yourdealership.com.au
           </span>
-          <b className="hidden justify-self-end text-nano tracking-label-tight text-text-action uppercase sm:block">
+          <b className="hidden justify-self-end text-caption-xs tracking-label-tight text-text-action uppercase sm:block">
             Live preview
           </b>
         </div>
@@ -37,7 +37,7 @@ export function WebsiteProductVisual() {
           <strong className="text-step-0 tracking-[-0.06em] [&>span]:text-action-primary">
             north<span>line</span>.
           </strong>
-          <div className="flex items-center gap-ml text-nano font-heavy [&>span]:hidden sm:[&>span]:inline">
+          <div className="flex items-center gap-ml text-caption-xs font-heavy [&>span]:hidden sm:[&>span]:inline">
             <span>Stock</span>
             <span>Service</span>
             <span>About</span>
@@ -46,18 +46,20 @@ export function WebsiteProductVisual() {
         </div>
         <div className="mx-s grid min-h-[330px] grid-cols-[minmax(0,1fr)] items-center overflow-hidden bg-surface-tint p-xl sm:mx-ml sm:p-xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <div>
-            <small className={`text-nano font-black tracking-label uppercase ${accentClassName}`}>
+            <small
+              className={`text-caption-xs font-black tracking-label uppercase ${accentClassName}`}
+            >
               New arrivals / 2026
             </small>
-            <h3 className="my-m text-display-3 leading-[0.86] tracking-[-0.075em]">
+            <h3 className="my-m text-display-md leading-[0.86] tracking-[-0.075em]">
               Find your
               <br />
               next car.
             </h3>
-            <p className="max-w-[250px] text-meta leading-[1.6] text-text-muted">
+            <p className="max-w-[250px] text-caption-sm leading-[1.6] text-text-muted">
               Explore the latest vehicles, buy online or speak with the team.
             </p>
-            <span className="mt-xs inline-block bg-action-primary p-s text-nano font-heavy text-text-on-dark">
+            <span className="mt-xs inline-block bg-action-primary p-s text-caption-xs font-heavy text-text-on-dark">
               View inventory →
             </span>
           </div>
@@ -74,7 +76,7 @@ export function WebsiteProductVisual() {
             />
           </div>
         </div>
-        <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center p-m text-tiny sm:px-xl sm:py-ml">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center p-m text-caption-xs sm:px-xl sm:py-ml">
           <span className="font-black uppercase">Latest inventory</span>
           <div className="hidden gap-2xs [&>i]:h-[8px] [&>i]:w-[34px] [&>i]:bg-surface-tint-strong [&>i:first-child]:bg-action-primary sm:flex">
             <i />

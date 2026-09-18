@@ -38,7 +38,7 @@ export const formControlPaddingClassName = 'px-s py-xs';
  */
 export const adminFormClassName = 'flex flex-col gap-m';
 
-export const adminFormLabelClassName = 'text-ui font-heavy';
+export const adminFormLabelClassName = 'text-label font-heavy';
 
 export const adminFormControlClassName = `${formControlClassName} ${formControlPaddingClassName} mt-2xs block`;
 

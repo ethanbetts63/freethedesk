@@ -14,7 +14,7 @@ export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; 
         heading={
           <>
             <SectionNumber>{eyebrow}</SectionNumber>
-            <h2 className="m-0 text-display-1 leading-[1.02] tracking-[-0.058em] text-text-secondary">
+            <h2 className="m-0 text-display-sm leading-[1.02] tracking-[-0.058em] text-text-secondary">
               Choose what you need.
             </h2>
           </>

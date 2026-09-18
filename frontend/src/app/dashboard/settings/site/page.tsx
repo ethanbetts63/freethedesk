@@ -121,7 +121,7 @@ export default function SiteSettingsPage() {
       <form className={adminDetailGridClassName} onSubmit={onSubmit}>
         <section className={cn(adminCardClassName, adminCardWideClassName)}>
           <h2 className={adminCardTitleClassName}>Licensing subscription prices</h2>
-          <p className="text-ui text-text-subtle">
+          <p className="text-label text-text-subtle">
             These are the prices shown on the public licensing page and at checkout. All prices are
             GST inclusive — this is the total a dealer pays each month, with nothing added on top.
           </p>
@@ -130,7 +130,7 @@ export default function SiteSettingsPage() {
 
         <section className={cn(adminCardClassName, adminCardWideClassName)}>
           <h2 className={adminCardTitleClassName}>SEO report prices</h2>
-          <p className="text-ui text-text-subtle">
+          <p className="text-label text-text-subtle">
             Prices shown on the public SEO page. Each subscription price is what a customer pays per
             report at that cadence. The Google Business Profile report can be selected alone or
             combined with SEO at the same frequency. The AI readiness check is free, so it has no
@@ -141,7 +141,7 @@ export default function SiteSettingsPage() {
             <AdminButton type="submit" disabled={saving || !dirty}>
               {saving ? 'Saving…' : 'Save changes'}
             </AdminButton>
-            <p className="mt-2xs block text-ui leading-[1.45] font-normal text-text-subtle">
+            <p className="mt-2xs block text-label leading-[1.45] font-normal text-text-subtle">
               Last updated {formatDateTime(settings.updated_at)}.
             </p>
           </div>

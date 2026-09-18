@@ -3,8 +3,8 @@
  * Fails the build when `cn()`'s text-size list drifts from tokens.css.
  *
  * `tailwind-merge` is a runtime JavaScript library and the theme is CSS: it
- * never sees the stylesheet. Its whole job is knowing that `text-small` and
- * `text-step-2` are the same group (later wins, earlier is dropped) while
+ * never sees the stylesheet. Its whole job is knowing that `text-body-sm` and
+ * `text-title-sm` are the same group (later wins, earlier is dropped) while
  * `text-text-primary` is a different one (both survive) — and it does that from
  * a hardcoded table of Tailwind's stock class names. Every custom `--text-*`
  * token generates a `text-*` utility it has never heard of, and its fallback

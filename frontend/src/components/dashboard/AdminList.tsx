@@ -26,7 +26,7 @@ export const adminThClassName =
   'border-b border-border-default bg-surface-tint px-m py-s text-left text-caption tracking-[0.04em] text-text-muted uppercase';
 
 export const adminTdClassName =
-  'border-b border-tint-wash p-m align-middle text-ui leading-[1.45] text-text-muted';
+  'border-b border-tint-wash p-m align-middle text-label leading-[1.45] text-text-muted';
 
 /**
  * Row tint, hover and focus treatment. The tint reads from `--status-tone`, so
@@ -45,13 +45,13 @@ export const adminRowClassName = [
 
 /** Bold first line of a cell. */
 export function CellTitle({ children }: { children: ReactNode }) {
-  return <strong className="block text-small text-text-primary">{children}</strong>;
+  return <strong className="block text-body-sm text-text-primary">{children}</strong>;
 }
 
 /** Muted second line of a cell, clipped rather than allowed to widen the column. */
 export function CellNote({ children }: { children: ReactNode }) {
   return (
-    <small className="mt-4xs block max-w-[230px] overflow-hidden text-meta text-ellipsis text-text-subtle">
+    <small className="mt-4xs block max-w-[230px] overflow-hidden text-caption-sm text-ellipsis text-text-subtle">
       {children}
     </small>
   );
@@ -141,7 +141,7 @@ export function AdminFilterBar({
     <div className="border-b border-border-default bg-surface-tint p-ml">
       <div>
         <strong className="text-body">Filters</strong>
-        <p className="mt-3xs mb-0 text-ui text-text-subtle">
+        <p className="mt-3xs mb-0 text-label text-text-subtle">
           {total} {total === 1 ? noun : nounPlural} matching this view
         </p>
       </div>
@@ -166,7 +166,7 @@ export function AdminFilterBar({
         </form>
       </div>
       {legend && legend.length > 0 && (
-        <div className="mt-m flex flex-wrap items-center gap-s text-meta leading-[1.8] text-text-subtle capitalize sm:leading-[inherit]">
+        <div className="mt-m flex flex-wrap items-center gap-s text-caption-sm leading-[1.8] text-text-subtle capitalize sm:leading-[inherit]">
           <b>Row colour:</b>
           {legend.map((value) => (
             <span className="inline-flex items-center gap-3xs" key={value}>

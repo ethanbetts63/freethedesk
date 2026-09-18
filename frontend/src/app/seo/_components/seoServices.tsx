@@ -25,7 +25,7 @@ const aiCellClassName =
   'grid grid-cols-[7px_minmax(0,1fr)] gap-3xs px-2xs py-s even:border-l even:border-border-on-dark [&:nth-child(n+3)]:border-t [&:nth-child(n+3)]:border-border-on-dark sm:px-xs';
 
 const monoChipClassName =
-  'overflow-hidden border border-border-default p-2xs font-mono text-nano text-ellipsis whitespace-nowrap';
+  'overflow-hidden border border-border-default p-2xs font-mono text-caption-xs text-ellipsis whitespace-nowrap';
 
 const iconProps = {
   viewBox: '0 0 64 64',
@@ -55,7 +55,7 @@ export const seoServices: Service[] = [
           <TrafficLights size={4} tone="[&>i]:bg-[var(--slate-300)]" />
           <span
             className={cn(
-              'ml-auto text-nano font-heavy tracking-label-tight uppercase',
+              'ml-auto text-caption-xs font-heavy tracking-label-tight uppercase',
               chromeLabelClassName,
             )}
           >
@@ -64,13 +64,13 @@ export const seoServices: Service[] = [
         </div>
         <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(0,1fr)] items-center gap-3xs px-xs pt-m pb-s sm:gap-2xs sm:px-s">
           <span className={cn(monoChipClassName, 'text-text-muted line-through')}>/old-stock</span>
-          <b className={cn('p-3xs text-nano', badgeClassName)}>301</b>
-          <span className={cn('text-ui font-black', arrowClassName)}>&rarr;</span>
+          <b className={cn('p-3xs text-caption-xs', badgeClassName)}>301</b>
+          <span className={cn('text-label font-black', arrowClassName)}>&rarr;</span>
           <span className={cn(monoChipClassName, 'bg-surface-tint font-heavy', urlChipClassName)}>
             /inventory
           </span>
         </div>
-        <div className="flex items-center gap-2xs border-t border-border-default px-s py-xs text-nano font-strong text-text-muted">
+        <div className="flex items-center gap-2xs border-t border-border-default px-s py-xs text-caption-xs font-strong text-text-muted">
           <i className={cn('h-[5px] w-[5px]', successDotClassName)} /> Crawl path preserved
         </div>
       </div>
@@ -152,35 +152,37 @@ export const seoServices: Service[] = [
       >
         <div className={aiCellClassName}>
           <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
-          <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">
+          <span className="text-caption-xs font-heavy whitespace-nowrap text-text-on-dark">
             Accessibility
           </span>
-          <b className="col-start-2 text-nano font-heavy tracking-label-tight text-accent uppercase">
+          <b className="col-start-2 text-caption-xs font-heavy tracking-label-tight text-accent uppercase">
             Ready
           </b>
         </div>
         <div className={aiCellClassName}>
           <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
-          <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">
+          <span className="text-caption-xs font-heavy whitespace-nowrap text-text-on-dark">
             Stable layout
           </span>
-          <b className="col-start-2 text-nano font-heavy tracking-label-tight text-accent uppercase">
+          <b className="col-start-2 text-caption-xs font-heavy tracking-label-tight text-accent uppercase">
             Ready
           </b>
         </div>
         <div className={aiCellClassName}>
           <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
-          <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">llms.txt</span>
-          <b className="col-start-2 text-nano font-heavy tracking-label-tight text-accent uppercase">
+          <span className="text-caption-xs font-heavy whitespace-nowrap text-text-on-dark">
+            llms.txt
+          </span>
+          <b className="col-start-2 text-caption-xs font-heavy tracking-label-tight text-accent uppercase">
             Found
           </b>
         </div>
         <div className={aiCellClassName}>
           <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
-          <span className="text-nano font-heavy whitespace-nowrap text-text-on-dark">
+          <span className="text-caption-xs font-heavy whitespace-nowrap text-text-on-dark">
             robots.txt
           </span>
-          <b className="col-start-2 text-nano font-heavy tracking-label-tight text-accent uppercase">
+          <b className="col-start-2 text-caption-xs font-heavy tracking-label-tight text-accent uppercase">
             Open
           </b>
         </div>

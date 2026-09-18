@@ -20,7 +20,7 @@ export function SeoSignup({
         heading={
           <>
             <SectionNumber>{eyebrow}</SectionNumber>
-            <h2 className="m-0 max-w-[780px] text-display-3 leading-[1.06] tracking-[-0.058em]">
+            <h2 className="m-0 max-w-[780px] text-display-md leading-[1.06] tracking-[-0.058em]">
               Choose your report.
             </h2>
           </>

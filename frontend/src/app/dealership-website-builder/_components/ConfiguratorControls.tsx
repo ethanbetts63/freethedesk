@@ -33,15 +33,15 @@ const initialState: ConfiguratorEnquiryState = { status: 'idle' };
 const sectionClassName = 'p-l';
 
 const labelClassName =
-  'mb-xs block text-ui font-control tracking-normal text-text-control normal-case';
+  'mb-xs block text-label font-control tracking-normal text-text-control normal-case';
 const controlClassName =
-  'min-h-[50px] w-full border border-border-default bg-surface-page px-m py-0 text-step-0 font-normal text-text-primary outline-0 transition-[border-color,box-shadow] duration-150 placeholder:text-small placeholder:text-text-on-dark-subtle focus:border-action-primary focus:shadow-focus';
+  'min-h-[50px] w-full border border-border-default bg-surface-page px-m py-0 text-step-0 font-normal text-text-primary outline-0 transition-[border-color,box-shadow] duration-150 placeholder:text-body-sm placeholder:text-text-on-dark-subtle focus:border-action-primary focus:shadow-focus';
 
 /** The numbered "01 / 02 / 03" heading that opens each step of the panel. */
 function GroupTitle({ number, title, hint }: { number: string; title: string; hint: string }) {
   return (
     <div className="mb-ml flex items-start gap-s">
-      <span className="pt-4xs text-small font-black text-action-primary">{number}</span>
+      <span className="pt-4xs text-body-sm font-black text-action-primary">{number}</span>
       <div>
         <strong className="block text-step-0">{title}</strong>
         <small className="mt-2xs block text-lead leading-[1.45] text-text-subtle">{hint}</small>
@@ -137,11 +137,11 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
       aria-label="Website configuration options"
     >
       <section className={cn(sectionClassName, 'border-b border-border-default bg-surface-tint')}>
-        <div className="flex justify-between [&>*]:text-small [&>*]:font-black [&>*]:tracking-label [&>*]:text-action-primary [&>*]:uppercase">
+        <div className="flex justify-between [&>*]:text-body-sm [&>*]:font-black [&>*]:tracking-label [&>*]:text-action-primary [&>*]:uppercase">
           <span>Base product</span>
           <b>Included</b>
         </div>
-        <h2 className="mt-m mb-xs text-step-2 tracking-[-0.04em]">
+        <h2 className="mt-m mb-xs text-title-sm tracking-[-0.04em]">
           Build your dealership website.
         </h2>
         <p className="m-0 text-lead leading-[1.55] text-text-subtle">
@@ -169,7 +169,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
         />
         <label className={cn(labelClassName, 'mt-ml')} htmlFor="current-url">
           Current website{' '}
-          <span className="ml-2xs text-ui font-strong text-[var(--slate-400)] normal-case">
+          <span className="ml-2xs text-label font-strong text-[var(--slate-400)] normal-case">
             Optional
           </span>
         </label>
@@ -185,7 +185,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
         <small className={fieldHintClassName}>
           Helps us understand your current content and setup.
         </small>
-        <p className="mt-m mb-0 max-w-[340px] text-ui leading-[1.55] text-text-subtle">
+        <p className="mt-m mb-0 max-w-[340px] text-label leading-[1.55] text-text-subtle">
           Demo palette — production design and colours are tailored to your brand.
         </p>
       </section>
@@ -211,7 +211,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
               >
                 {module.key === 'inventory' && selected.inventory ? (
                   <div className="mb-s ml-s border-l-2 border-action-primary bg-surface-tint p-s pb-3xs">
-                    <p className="mt-0 mb-2xs text-ui font-black tracking-label text-text-subtle uppercase">
+                    <p className="mt-0 mb-2xs text-label font-black tracking-label text-text-subtle uppercase">
                       Optional online actions
                     </p>
                     {INVENTORY_OPTIONS.map((option) => {
@@ -262,7 +262,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
                   placeholder="e.g. Connect stock, bookings or trade-ins to our existing systems."
                   rows={5}
                 />
-                <small className="mt-xs block text-small leading-[1.5] text-text-subtle">
+                <small className="mt-xs block text-body-sm leading-[1.5] text-text-subtle">
                   It can be rough—we’ll help turn the idea into a clear scope.
                 </small>
               </>
@@ -316,23 +316,23 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           </label>
           <div className="mt-2xs border-t border-border-default pt-m">
             <div className="flex items-center justify-between">
-              <span className="text-small text-text-subtle uppercase">Your configuration</span>
+              <span className="text-body-sm text-text-subtle uppercase">Your configuration</span>
               <strong className="text-step-0">
                 {additionCount === 0 ? 'Base website' : `Base + ${additionCount}`}
               </strong>
             </div>
             {summaryItems.length > 0 && (
-              <p className="mt-s mb-0 text-small leading-[1.55] text-text-muted">
+              <p className="mt-s mb-0 text-body-sm leading-[1.55] text-text-muted">
                 {summaryItems.join(' · ')}
               </p>
             )}
           </div>
           <SubmitButton hasSucceeded={state.status === 'success'} />
-          <small className="block text-ui leading-[1.55] text-text-subtle">
+          <small className="block text-label leading-[1.55] text-text-subtle">
             No payment today. We’ll confirm integrations, scope and timing with you first.
           </small>
           <div
-            className="empty:hidden [&_p]:m-0 [&_p]:px-s [&_p]:py-s [&_p]:text-small [&_p]:font-strong [&_p]:leading-[1.55]"
+            className="empty:hidden [&_p]:m-0 [&_p]:px-s [&_p]:py-s [&_p]:text-body-sm [&_p]:font-strong [&_p]:leading-[1.55]"
             aria-live="polite"
           >
             {state.status === 'success' && (

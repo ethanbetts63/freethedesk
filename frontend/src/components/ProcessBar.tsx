@@ -22,7 +22,7 @@ export function ProcessBar({
   return (
     <section className="bg-surface-dark text-text-on-dark" aria-label={label} id={id}>
       <div className="site-shell py-0">
-        <p className="pt-m pr-0 pb-s pl-0 text-meta font-black tracking-label-wide text-[var(--accent-on-dark-soft)] uppercase lg:pt-ml">
+        <p className="pt-m pr-0 pb-s pl-0 text-caption-sm font-black tracking-label-wide text-[var(--accent-on-dark-soft)] uppercase lg:pt-ml">
           {label}
         </p>
         <ol
@@ -37,7 +37,7 @@ export function ProcessBar({
                 </span>
                 <span>
                   <strong className="block text-lead tracking-[-0.02em]">{step.label}</strong>
-                  <small className="mt-3xs hidden text-ui leading-[1.4] text-text-on-dark-muted sm:block">
+                  <small className="mt-3xs hidden text-label leading-[1.4] text-text-on-dark-muted sm:block">
                     {step.description}
                   </small>
                 </span>

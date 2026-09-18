@@ -42,10 +42,10 @@ const tabClassName = [
   'grid w-full cursor-pointer grid-cols-[28px_minmax(0,1fr)_20px] items-start gap-m',
   'border-0 border-t border-border-strong bg-transparent text-left',
   'transition-[background,padding] duration-200',
-  '[&>span]:pt-4xs [&>span]:text-meta [&>span]:font-black [&>span]:text-text-action',
-  '[&_small]:mb-2xs [&_small]:block [&_small]:text-micro [&_small]:font-heavy [&_small]:tracking-label [&_small]:text-text-subtle [&_small]:uppercase',
+  '[&>span]:pt-4xs [&>span]:text-caption-sm [&>span]:font-black [&>span]:text-text-action',
+  '[&_small]:mb-2xs [&_small]:block [&_small]:text-caption-sm [&_small]:font-heavy [&_small]:tracking-label [&_small]:text-text-subtle [&_small]:uppercase',
   '[&_strong]:block [&_strong]:text-step-0 [&_strong]:leading-[1.2] [&_strong]:tracking-[-0.025em]',
-  '[&_p]:mt-s [&_p]:mb-0 [&_p]:text-small [&_p]:leading-[1.58] [&_p]:text-text-muted',
+  '[&_p]:mt-s [&_p]:mb-0 [&_p]:text-body-sm [&_p]:leading-[1.58] [&_p]:text-text-muted',
   '[&>i]:text-right [&>i]:text-step-0 [&>i]:not-italic',
 ].join(' ');
 
@@ -141,7 +141,7 @@ export function PortfolioTour({ label, browserUrl, items }: PortfolioTourProps) 
           browserUrl={browserUrl}
         />
         <a
-          className="mt-m inline-flex gap-m border-b border-text-primary pb-3xs text-ui font-heavy lg:float-right"
+          className="mt-m inline-flex gap-m border-b border-text-primary pb-3xs text-label font-heavy lg:float-right"
           href={active.url}
           target="_blank"
           rel="noreferrer"

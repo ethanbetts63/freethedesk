@@ -24,7 +24,7 @@ const SIZES = {
     toggle: 'bg-transparent py-m',
     icon: 'flex-[0_0_29px] bg-surface-page [&_svg]:h-[16px] [&_svg]:w-[16px]',
     name: 'text-lead',
-    description: 'text-small',
+    description: 'text-body-sm',
     mark: 'h-[21px] w-[21px] flex-[0_0_21px] bg-surface-page',
     explanation: 'bg-surface-page mb-s',
   },
@@ -215,7 +215,7 @@ export function CapabilityOption({ option, compact = false, ...rest }: Capabilit
           <ul className="m-0 grid list-none gap-2xs p-0">
             {option.includes.map((item) => (
               <li
-                className="relative pl-s text-small leading-[1.5] text-text-muted before:absolute before:top-[0.4em] before:left-0 before:h-[4px] before:w-[4px] before:rounded-circle before:bg-action-primary before:content-['']"
+                className="relative pl-s text-body-sm leading-[1.5] text-text-muted before:absolute before:top-[0.4em] before:left-0 before:h-[4px] before:w-[4px] before:rounded-circle before:bg-action-primary before:content-['']"
                 key={item}
               >
                 {item}

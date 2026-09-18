@@ -112,7 +112,7 @@ function ComposeMessageContent() {
           <section className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-s rounded-sm border border-border-default bg-surface-tint p-m">
             <div>
               <strong className="block">Attachments</strong>
-              <small className="mt-3xs block text-meta text-text-subtle">
+              <small className="mt-3xs block text-caption-sm text-text-subtle">
                 Up to 10 files; 20 MB each and 24 MB total.
               </small>
             </div>

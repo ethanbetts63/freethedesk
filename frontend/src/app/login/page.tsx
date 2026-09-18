@@ -59,12 +59,12 @@ function LoginContent() {
           free<span>the</span>desk<i>.</i>
         </Link>
         <p className={cn(adminKickerClassName, 'mt-xl')}>Sign in</p>
-        <h1 className="m-0 text-step-3 tracking-[-0.06em]">Welcome back</h1>
-        <p className="mt-s mb-xl text-small leading-[1.5] text-text-muted">
+        <h1 className="m-0 text-title tracking-[-0.06em]">Welcome back</h1>
+        <p className="mt-s mb-xl text-body-sm leading-[1.5] text-text-muted">
           Dealers and staff sign in here — we will take you to the right place.
         </p>
         <form className="flex flex-col gap-m" onSubmit={submit}>
-          <label className="text-ui font-heavy">
+          <label className="text-label font-heavy">
             Email
             <input
               className={cn(formControlClassName, 'mt-2xs block bg-surface-tint p-s')}
@@ -73,7 +73,7 @@ function LoginContent() {
               required
             />
           </label>
-          <label className="text-ui font-heavy">
+          <label className="text-label font-heavy">
             Password
             <input
               className={cn(formControlClassName, 'mt-2xs block bg-surface-tint p-s')}
@@ -92,7 +92,7 @@ function LoginContent() {
             {submitting ? 'Signing in…' : 'Sign in'}
           </AdminButton>
         </form>
-        <p className="mt-ml text-ui text-text-muted">
+        <p className="mt-ml text-label text-text-muted">
           No dealer account yet?{' '}
           <Link
             className="font-heavy text-text-action underline underline-offset-[3px]"
@@ -101,7 +101,7 @@ function LoginContent() {
             Create one
           </Link>
         </p>
-        <p className="mt-ml text-ui text-text-muted">
+        <p className="mt-ml text-label text-text-muted">
           Looking for SEO reports?{' '}
           <Link
             className="font-heavy text-text-action underline underline-offset-[3px]"

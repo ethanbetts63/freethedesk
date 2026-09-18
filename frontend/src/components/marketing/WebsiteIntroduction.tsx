@@ -18,15 +18,12 @@ export function WebsiteIntroduction({
   return (
     <section className="site-shell pt-section pb-xl" id={id} aria-labelledby={`${id}-title`}>
       <SectionNumber>What we build</SectionNumber>
-      <h2
-        id={`${id}-title`}
-        className="m-0 mb-xl text-display-2 leading-[1.05] tracking-[-0.055em]"
-      >
+      <h2 id={`${id}-title`} className="m-0 mb-xl text-display leading-[1.05] tracking-[-0.055em]">
         Three jobs. <span className="moving-colour-text">One website.</span>
       </h2>
       <div className="grid gap-l lg:grid-cols-3 lg:gap-0">
         <div className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default">
-          <h3 className="m-0 text-step-2 tracking-[-0.035em] text-action-primary">1. SEO</h3>
+          <h3 className="m-0 text-title-sm tracking-[-0.035em] text-action-primary">1. SEO</h3>
           <p className="mt-s mb-m max-w-[42ch] text-step-0 leading-[1.6] text-text-muted">
             {seoDescription}
           </p>
@@ -35,7 +32,7 @@ export function WebsiteIntroduction({
           </ScrollCtaButton>
         </div>
         <div className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default">
-          <h3 className="m-0 text-step-2 tracking-[-0.035em] text-action-primary">
+          <h3 className="m-0 text-title-sm tracking-[-0.035em] text-action-primary">
             2. Website design
           </h3>
           <p className="mt-s mb-m max-w-[42ch] text-step-0 leading-[1.6] text-text-muted">
@@ -46,7 +43,7 @@ export function WebsiteIntroduction({
           </ScrollCtaButton>
         </div>
         <div className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default">
-          <h3 className="m-0 text-step-2 tracking-[-0.035em] text-action-primary">
+          <h3 className="m-0 text-title-sm tracking-[-0.035em] text-action-primary">
             3. Admin automation
           </h3>
           <p className="mt-s mb-m max-w-[42ch] text-step-0 leading-[1.6] text-text-muted">

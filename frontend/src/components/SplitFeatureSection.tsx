@@ -70,7 +70,7 @@ export function SplitFeatureSection({
       <div className={layoutVariants({ spacing })} data-text-side={textSide}>
         <div className="min-w-0 lg:group-data-[text-side=right]:col-start-2 lg:group-data-[text-side=right]:row-start-1">
           <SectionNumber>{eyebrow}</SectionNumber>
-          <h2 className="m-0 text-display-1 leading-[1.05] tracking-[-0.055em]">
+          <h2 className="m-0 text-display-sm leading-[1.05] tracking-[-0.055em]">
             {title}
             {titleBreak !== 'none' && (
               <br className={titleBreak === 'desktop' ? 'hidden lg:block' : undefined} />
@@ -86,7 +86,7 @@ export function SplitFeatureSection({
               {bullets.map((bullet) => (
                 <li
                   key={bullet}
-                  className="relative my-s pl-ml text-small font-strong before:absolute before:left-0 before:text-action-primary before:content-['↳']"
+                  className="relative my-s pl-ml text-body-sm font-strong before:absolute before:left-0 before:text-action-primary before:content-['↳']"
                 >
                   {bullet}
                 </li>

@@ -14,7 +14,7 @@ no action needed:
 | `--space-4xs` … `--space-3xl` | Identical values in both files |
 | `--radius-2xs` … `--radius-pill`, `--radius-circle` | Identical |
 | `--tap-min` | Identical (44px) |
-| `--text-nano` … `--text-lead` (the ten fixed interface sizes) | Identical values; allbikes' comment states this explicitly ("mirror freethedesk exactly") |
+| `--text-caption-xs` … `--text-body-sm` (the five shared fixed interface sizes) | Identical values; allbikes' comment states this explicitly ("mirror freethedesk exactly"). Both sides renamed off the old nano/tiny/label/micro/meta/ui/small ladder in the same pass: every name is now a role or a role plus an explicit step. `--text-body` and `--text-lead` exist in both but are **not** shared values — see the open item below. |
 | `--weight-control` | Identical (700) |
 | `--surface-page/-tint/-tint-strong/-dark/-dark-soft/-dark-hover/-inverse` | Same names, same roles, per-brand values |
 | `--text-primary/-secondary/-muted` | Same names, same roles |
@@ -45,34 +45,42 @@ no action needed:
 
 ## Needs a decision before Phase 3/4 touches it
 
-**freethedesk's fluid heading scale is exposed under raw `step-*`/`display-*`
-names, not semantic ones.** `tokens.css`'s own comment already flags this:
-"exposed under its existing step/display names rather than renamed to
-allbikes' title/display-sm/hero vocabulary — that mapping needs a per-usage
-check this pass didn't do." That per-usage check is real work: every
-`text-step-0`/`text-step-1`/`text-step-2`/`text-step-3`/`text-display-1..6`
-call site needs to be read for what it's actually being used for (a lead
-paragraph? a section title? a hero?) before it can take a semantic name like
-allbikes' `text-lead`/`text-title`/`text-display`/`text-hero`. Not done in
-this pass — no visual baseline exists yet to safely verify a rename didn't
-shift anything (Phase 0's screenshot capture is still pending), and it's
-naturally the kind of decision that happens *while* converting typography
-primitives in Phase 3, one call site at a time, not as a bulk rename ahead of
-it.
+**Done: the fluid heading scale now uses role names, except its bottom two
+rungs.** `text-step-2`/`text-step-3` became `text-title-sm`/`text-title`
+(identical clamps to allbikes, so the names transfer outright), and
+`text-display-1..6` became
+`text-display-sm`/`text-display`/`text-display-md`/`text-display-lg`/`text-hero`/`text-hero-lg`.
+The clamps behind the display rungs are *not* allbikes' — freethedesk's
+ladder starts lower (1.75rem vs 2.25rem) and runs two rungs higher — and
+they deliberately stay that way. A desk UI and a marketing site share a
+vocabulary, not a scale. `text-step-0` and `text-step-1` are the exception,
+for the reason below.
 
-**freethedesk's fixed `--text-body` (0.84rem, dense-UI scale) and its fluid
-`--step-0` are two different things that could collide under allbikes'
-naming.** allbikes' `--text-body` **is** `--step-0` (the fluid marketing
-paragraph size, ~16–17px) — a completely different value and purpose from
-freethedesk's fixed 13.44px dense-UI body text. If freethedesk's `step-0`
-later takes the semantic name `text-body` (following allbikes), it collides
-with the existing fixed `--text-body` token. Whoever does the Phase 3 rename
-needs to pick a different semantic name for one of the two (freethedesk's
-existing marketing pages are sparse enough — mostly the public site, not the
-dense desk UI — that renaming the *fluid* one to something like `text-prose`
-or keeping the dense-UI `text-body` as-is and giving the fluid scale
-allbikes-style names for everything except `body` is the likely shape, but
-this needs the same per-usage read as the step/display renaming above).
+**Open: `text-step-0` and `text-step-1` have no free role name, because
+`--text-body` means two different sizes across the two repos.** allbikes'
+`--text-body` **is** `--step-0` — the fluid marketing paragraph size,
+~16–17px. freethedesk's `--text-body` is a fixed 0.84rem (13.44px), the
+dense desk-UI default, and its `--text-lead` is a fixed 0.92rem. So the two
+names allbikes would hand to `step-0` and `step-1` are already spent here on
+rungs 25% smaller. That is the last naming inconsistency between the repos,
+and it is worse than the ordinals were: a shared vocabulary where the
+most-used word means two things.
+
+Three ways out, none of them free:
+
+1. **Rename freethedesk's fluid rungs.** `text-step-0` → `text-prose`,
+   `text-step-1` → `text-prose-lg`. 42 call sites, no visual change, and
+   the two repos still disagree about what `body` means.
+2. **Rename freethedesk's fixed rungs.** The dense ladder shifts down a name
+   (`body` → something like `text-dense`), `step-0` takes `body`, and the
+   repos finally agree. Touches far more call sites and needs a name for the
+   dense default that isn't a magnitude word.
+3. **Accept the divergence** and document `--text-body` as per-repo. Cheapest
+   now, and it quietly contradicts the point of a shared vocabulary.
+
+Option 1 is the recommendation: it is the small move, it makes freethedesk
+internally consistent, and it leaves the harder `body` question to be settled
+once rather than half-settled twice.
 
 **Status enum colours are already correctly reconciled, just not in
 allbikes' naming pattern.** freethedesk's CRM lead statuses

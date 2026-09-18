@@ -52,7 +52,7 @@ export function ServiceScroll({
       <div className="flex flex-wrap items-center justify-between gap-xl pt-2xl">
         <div>
           <SectionNumber>{eyebrow}</SectionNumber>
-          <h2 className="m-0 max-w-[780px] text-display-3 leading-[1.02] tracking-[-0.058em]">
+          <h2 className="m-0 max-w-[780px] text-display-md leading-[1.02] tracking-[-0.058em]">
             {title}
           </h2>
         </div>
@@ -68,7 +68,7 @@ export function ServiceScroll({
             {/* Number colour comes from the stylesheet (--accent-ink) so it always
                 clears contrast; service.color only tints the decorative icon. */}
             <span className="text-caption font-heavy text-text-action">0{index + 1}</span>
-            <h3 className="mt-m mb-0 text-display-2 leading-[1.05] tracking-[-0.04em]">
+            <h3 className="mt-m mb-0 text-display leading-[1.05] tracking-[-0.04em]">
               {service.title}
             </h3>
           </div>
@@ -103,13 +103,13 @@ export function ServiceScroll({
             {customService.icon}
           </div>
           <div className="relative z-1">
-            <p className="m-0 mb-s flex items-center gap-s text-meta font-black tracking-label text-text-action uppercase">
+            <p className="m-0 mb-s flex items-center gap-s text-caption-sm font-black tracking-label text-text-action uppercase">
               <span className="border-r border-[color-mix(in_srgb,var(--text-action)_30%,transparent)] pr-s">
                 0{services.length + 1}
               </span>
               Built around your business
             </p>
-            <h3 className="m-0 mb-m text-display-2 leading-none tracking-[-0.05em]">
+            <h3 className="m-0 mb-m text-display leading-none tracking-[-0.05em]">
               {customService.title}
             </h3>
             <p className="m-0 max-w-[520px] text-lead leading-[1.65] text-text-muted">

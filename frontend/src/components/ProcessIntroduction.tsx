@@ -23,7 +23,7 @@ export function ProcessIntroduction({
       <SectionNumber>{eyebrow}</SectionNumber>
       <h2
         id={`${id}-title`}
-        className="mt-0 mb-xl mx-0 text-display-2 leading-[1.05] tracking-[-0.055em]"
+        className="mt-0 mb-xl mx-0 text-display leading-[1.05] tracking-[-0.055em]"
       >
         {title} <span className="moving-colour-text">{accentTitle}</span>
       </h2>
@@ -33,7 +33,7 @@ export function ProcessIntroduction({
             key={item.title}
             className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default"
           >
-            <h3 className="m-0 text-step-2 tracking-[-0.035em] text-action-primary">
+            <h3 className="m-0 text-title-sm tracking-[-0.035em] text-action-primary">
               {item.title}
             </h3>
             <p className="mt-s max-w-[42ch] text-step-0 leading-[1.6] text-text-muted">

@@ -94,7 +94,7 @@ export function FloatingPill({ children, className }: { children: ReactNode; cla
   return (
     <div
       className={cn(
-        'absolute z-4 flex items-center gap-xs bg-surface-page p-xs text-label font-heavy sm:px-m sm:py-s sm:text-caption',
+        'absolute z-4 flex items-center gap-xs bg-surface-page p-xs text-caption-sm font-heavy sm:px-m sm:py-s sm:text-caption',
         className,
       )}
     >

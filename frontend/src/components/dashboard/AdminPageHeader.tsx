@@ -44,8 +44,8 @@ export function AdminPageHeader({
     >
       <div>
         <p className={adminKickerClassName}>{kicker}</p>
-        <h1 className="m-0 text-display-2 leading-none tracking-[-0.06em]">{title}</h1>
-        {subtitle ? <p className="mt-xs mb-0 text-small text-text-muted">{subtitle}</p> : null}
+        <h1 className="m-0 text-display leading-none tracking-[-0.06em]">{title}</h1>
+        {subtitle ? <p className="mt-xs mb-0 text-body-sm text-text-muted">{subtitle}</p> : null}
       </div>
       {children}
     </header>

@@ -354,7 +354,7 @@ export function WebsitePreview(props: WebsitePreviewProps) {
       className="@container/dealer-preview relative top-0 flex h-[72svh] min-h-[560px] min-w-0 flex-col bg-surface-tint-strong p-s lg:sticky lg:top-[var(--header-height-lg)] lg:h-auto lg:min-h-0 lg:px-l lg:pt-m lg:pb-ml"
       aria-label="Live website preview"
     >
-      <div className="flex justify-between px-4xs pb-s text-small font-heavy tracking-label text-text-subtle uppercase">
+      <div className="flex justify-between px-4xs pb-s text-body-sm font-heavy tracking-label text-text-subtle uppercase">
         <span>Live website preview</span>
         <b className="text-action-primary">{additionCount} additions active</b>
       </div>
@@ -374,14 +374,14 @@ export function WebsitePreview(props: WebsitePreviewProps) {
             )}
             key={step.number}
           >
-            <b className="flex h-[25px] w-[25px] flex-none items-center justify-center rounded-circle border border-[color-mix(in_srgb,var(--action-primary)_35%,var(--surface-page))] bg-[color-mix(in_srgb,var(--action-primary)_12%,var(--surface-page))] text-small text-action-primary @min-[720px]/dealer-preview:h-[31px] @min-[720px]/dealer-preview:w-[31px]">
+            <b className="flex h-[25px] w-[25px] flex-none items-center justify-center rounded-circle border border-[color-mix(in_srgb,var(--action-primary)_35%,var(--surface-page))] bg-[color-mix(in_srgb,var(--action-primary)_12%,var(--surface-page))] text-body-sm text-action-primary @min-[720px]/dealer-preview:h-[31px] @min-[720px]/dealer-preview:w-[31px]">
               {step.number}
             </b>
             <span className="min-w-0">
-              <strong className="block min-w-0 text-small tracking-[-0.01em] @min-[720px]/dealer-preview:text-lead">
+              <strong className="block min-w-0 text-body-sm tracking-[-0.01em] @min-[720px]/dealer-preview:text-lead">
                 {step.title}
               </strong>
-              <small className="mt-3xs hidden min-w-0 text-small leading-[1.35] text-text-subtle @min-[720px]/dealer-preview:block">
+              <small className="mt-3xs hidden min-w-0 text-body-sm leading-[1.35] text-text-subtle @min-[720px]/dealer-preview:block">
                 {step.detail}
               </small>
             </span>

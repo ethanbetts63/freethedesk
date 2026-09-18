@@ -28,7 +28,7 @@ import { cn } from '@/lib/utils';
  */
 const checkoutButtonVariants = cva(
   [
-    'cursor-pointer border-0 bg-action-primary font-[inherit] text-small font-black text-text-on-dark',
+    'cursor-pointer border-0 bg-action-primary font-[inherit] text-body-sm font-black text-text-on-dark',
     focusRingClassName,
     // The trailing arrow, when a caller renders one: a <b> beside the label
     // rather than a glyph this component owns, because the label is itself a

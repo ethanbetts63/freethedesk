@@ -7,7 +7,7 @@ export function LicensingNextStepPhone() {
         <i />
         <i />
         <i />
-        <span className="text-label font-heavy tracking-[-0.02em] text-text-muted">
+        <span className="text-caption-sm font-heavy tracking-[-0.02em] text-text-muted">
           Your Business
         </span>
       </div>
@@ -18,14 +18,14 @@ export function LicensingNextStepPhone() {
         <h4 className="m-0 mb-3xs text-lead font-control tracking-[-0.03em] text-surface-inverse">
           Vehicle selected
         </h4>
-        <p className="m-0 mb-ml text-meta leading-[1.4] text-text-muted">
+        <p className="m-0 mb-ml text-caption-sm leading-[1.4] text-text-muted">
           Your details have been saved.
         </p>
         <div className="rounded-md border border-action-primary bg-surface-page p-s text-left">
-          <span className="mb-3xs block text-label font-black tracking-label text-action-primary uppercase">
+          <span className="mb-3xs block text-caption-sm font-black tracking-label text-action-primary uppercase">
             Next step
           </span>
-          <strong className="flex items-center justify-between text-small font-control text-surface-inverse">
+          <strong className="flex items-center justify-between text-body-sm font-control text-surface-inverse">
             Online licensing <span>→</span>
           </strong>
         </div>

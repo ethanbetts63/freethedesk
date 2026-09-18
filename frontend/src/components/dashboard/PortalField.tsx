@@ -44,7 +44,7 @@ export function PortalFieldset({
     >
       <legend className="bg-surface-page px-xs py-0 text-step-0 font-control">{legend}</legend>
       {description && (
-        <p className="m-0 mb-l text-ui leading-[1.55] text-text-muted">{description}</p>
+        <p className="m-0 mb-l text-label leading-[1.55] text-text-muted">{description}</p>
       )}
       {children}
     </fieldset>
@@ -62,11 +62,11 @@ type TextareaField = FieldBase &
 export function PortalField(props: InputField | TextareaField) {
   const { label, hint } = props;
   return (
-    <label className="text-ui font-heavy">
+    <label className="text-label font-heavy">
       <span className="mb-2xs block">{label}</span>
       {props.multiline ? <PortalTextarea {...props} /> : <PortalInput {...props} />}
       {hint && (
-        <small className="mt-2xs block text-meta leading-[1.4] font-normal text-text-subtle">
+        <small className="mt-2xs block text-caption-sm leading-[1.4] font-normal text-text-subtle">
           {hint}
         </small>
       )}

@@ -26,10 +26,10 @@ export default function GuidesPage() {
 
       <section className="relative overflow-hidden bg-surface-dark py-section-tall text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_5.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_5.5%,transparent)_1px,transparent_1px)] before:[background-size:64px_64px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_82%)] after:absolute after:top-[-26%] after:right-[-8%] after:h-[clamp(230px,34vw,520px)] after:w-[clamp(230px,34vw,520px)] after:rounded-full after:bg-accent after:opacity-[0.12] after:content-[''] after:[filter:blur(1px)]">
         <div className="site-shell relative z-1">
-          <Eyebrow className="mb-xl gap-xs text-ui tracking-label-wide text-accent">
+          <Eyebrow className="mb-xl gap-xs text-label tracking-label-wide text-accent">
             Field notes for dealers
           </Eyebrow>
-          <h1 className="m-0 max-w-[930px] text-display-4 leading-[0.88] tracking-[-0.075em] sm:text-display-6">
+          <h1 className="m-0 max-w-[930px] text-display-lg leading-[0.88] tracking-[-0.075em] sm:text-hero-lg">
             Useful systems.
             <br />
             <em className="not-italic text-accent">Plain English.</em>
@@ -39,7 +39,7 @@ export default function GuidesPage() {
           </p>
         </div>
         <div
-          className="absolute right-[max(32px,calc((100vw-1176px)/2))] bottom-[34px] z-1 hidden items-center gap-s text-meta tracking-label text-[var(--text-on-dark-subtle)] lg:flex"
+          className="absolute right-[max(32px,calc((100vw-1176px)/2))] bottom-[34px] z-1 hidden items-center gap-s text-caption-sm tracking-label text-[var(--text-on-dark-subtle)] lg:flex"
           aria-hidden="true"
         >
           <span>01</span>
@@ -56,7 +56,7 @@ export default function GuidesPage() {
               <SectionNumber>The guide library</SectionNumber>
               <h2
                 id="latest-guides"
-                className="m-0 text-display-4 leading-[0.95] tracking-[-0.065em]"
+                className="m-0 text-display-lg leading-[0.95] tracking-[-0.065em]"
               >
                 Dealership guides you can use.
               </h2>
@@ -75,7 +75,7 @@ export default function GuidesPage() {
                   href={`/${article.slug}`}
                   key={article.slug}
                 >
-                  <div className="flex items-center justify-between text-meta font-heavy tracking-label text-text-subtle uppercase">
+                  <div className="flex items-center justify-between text-caption-sm font-heavy tracking-label text-text-subtle uppercase">
                     <span className="flex h-[38px] w-[38px] items-center justify-center rounded-full border border-border-default tracking-normal">
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -88,14 +88,14 @@ export default function GuidesPage() {
                         {dateFormatter.format(new Date(`${article.publishedDate}T00:00:00+08:00`))}
                       </time>
                     </p>
-                    <h3 className="m-0 text-step-3 leading-[1.06] tracking-[-0.045em] transition-colors duration-200 group-hover:text-[var(--blue-800)]">
+                    <h3 className="m-0 text-title leading-[1.06] tracking-[-0.045em] transition-colors duration-200 group-hover:text-[var(--blue-800)]">
                       {article.title}
                     </h3>
                     <p className="mt-ml max-w-[560px] text-body leading-[1.65] text-text-muted">
                       {article.excerpt}
                     </p>
                   </div>
-                  <span className="flex items-center justify-between border-t border-border-default pt-ml text-small font-heavy">
+                  <span className="flex items-center justify-between border-t border-border-default pt-ml text-body-sm font-heavy">
                     Read guide{' '}
                     <b
                       aria-hidden="true"
@@ -109,7 +109,7 @@ export default function GuidesPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 items-start gap-xl border border-border-default bg-surface-tint px-l py-xl sm:grid-cols-[auto_minmax(0,1fr)] lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:px-xl">
-              <span className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-surface-dark text-ui font-heavy text-accent">
+              <span className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-surface-dark text-label font-heavy text-accent">
                 01
               </span>
               <div>
@@ -123,7 +123,7 @@ export default function GuidesPage() {
               </div>
               <Link
                 href="/contact"
-                className="col-start-1 justify-self-start border-b border-text-primary pb-2xs text-small font-heavy sm:col-start-2 lg:col-auto lg:justify-self-auto"
+                className="col-start-1 justify-self-start border-b border-text-primary pb-2xs text-body-sm font-heavy sm:col-start-2 lg:col-auto lg:justify-self-auto"
               >
                 Ask us a question{' '}
                 <b aria-hidden="true" className="ml-xs text-text-action">

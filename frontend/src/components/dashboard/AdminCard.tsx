@@ -39,7 +39,7 @@ export const adminCardWideClassName = 'col-auto sm:col-[1/-1]';
 export const adminCardTitleClassName = 'm-0 mb-ml text-step-0';
 
 /** A card's one-line label, where a heading would be too loud. */
-export const adminCardLabelClassName = 'm-0 text-ui font-heavy';
+export const adminCardLabelClassName = 'm-0 text-label font-heavy';
 
 /** A card heading row: title on the left, an action on the right. */
 export const adminCardHeadingClassName = 'flex items-center justify-between';
@@ -77,10 +77,10 @@ export const adminDetailListClassName = cn('m-0', adminDetailGridClassName);
 export function AdminDetailItem({ term, children }: { term: ReactNode; children: ReactNode }) {
   return (
     <div className="min-w-0">
-      <dt className="mb-2xs text-micro font-heavy tracking-label-tight text-text-subtle uppercase">
+      <dt className="mb-2xs text-caption-sm font-heavy tracking-label-tight text-text-subtle uppercase">
         {term}
       </dt>
-      <dd className="m-0 text-small leading-[1.5] [overflow-wrap:anywhere]">{children}</dd>
+      <dd className="m-0 text-body-sm leading-[1.5] [overflow-wrap:anywhere]">{children}</dd>
     </div>
   );
 }

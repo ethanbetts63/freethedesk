@@ -33,7 +33,7 @@ export function LoginPreviewPhone() {
         </p>
         <div className="mb-xs h-[20px] rounded-xs border border-border-default bg-surface-tint" />
         <div className="mb-xs h-[20px] rounded-xs border border-border-default bg-surface-tint" />
-        <div className="mt-2xs flex h-[25px] items-center justify-center rounded-xs bg-action-primary text-micro font-heavy text-text-on-dark">
+        <div className="mt-2xs flex h-[25px] items-center justify-center rounded-xs bg-action-primary text-caption-sm font-heavy text-text-on-dark">
           Sign in
         </div>
       </div>

@@ -29,11 +29,11 @@ const footerLineClassName = cn(
 const footerLinkClassName = cn(footerLineClassName, 'hover:text-text-action');
 
 const footerLabelClassName = cn(
-  'm-0 mb-xs text-micro font-heavy tracking-label uppercase',
+  'm-0 mb-xs text-caption-sm font-heavy tracking-label uppercase',
   quietTextClassName,
 );
 
-const footerColumnClassName = 'flex flex-col gap-0 text-small lg:gap-s';
+const footerColumnClassName = 'flex flex-col gap-0 text-body-sm lg:gap-s';
 
 /**
  * The graph-paper backdrop, faded out at the top and both edges so it never
@@ -119,7 +119,7 @@ export function SiteFooter() {
       </div>
       <div
         className={cn(
-          'site-shell relative z-1 mt-3xl flex flex-col items-start justify-between gap-xs border-t border-border-default pt-ml text-meta lg:flex-row lg:items-center lg:gap-0',
+          'site-shell relative z-1 mt-3xl flex flex-col items-start justify-between gap-xs border-t border-border-default pt-ml text-caption-sm lg:flex-row lg:items-center lg:gap-0',
           quietTextClassName,
         )}
       >

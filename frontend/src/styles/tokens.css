@@ -130,33 +130,35 @@
   /* Fixed interface sizes. Duplicated as literals (not var()) because the
      :root declarations below use the same names for direct `var(--text-*)`
      consumption in hand-written CSS - matching allbikes' tokens.css pattern. */
-  --text-nano: 0.5rem;
-  --text-tiny: 0.54rem;
-  --text-label: 0.58rem;
-  --text-micro: 0.6rem;
-  --text-meta: 0.62rem;
+  --text-caption-xs: 0.54rem;
+  --text-caption-sm: 0.6rem;
   --text-caption: 0.66rem;
-  --text-ui: 0.72rem;
-  --text-small: 0.78rem;
+  --text-label: 0.72rem;
+  --text-body-sm: 0.78rem;
   --text-body: 0.84rem;
   --text-lead: 0.92rem;
   --text-glyph: 1.25rem;
   --text-wordmark: 1.4rem;
 
-  /* Fluid heading scale. Exposed under its existing step/display names rather
-     than renamed to allbikes' title/display-sm/hero vocabulary - that mapping
-     needs a per-usage check this pass didn't do; see tailwind-migration.md
-     Phase 2. */
+  /* Fluid heading scale, on the same naming rule as the fixed sizes above: a
+     role (title, display, hero) plus an explicit -sm/-md/-lg step, never a
+     bare ordinal. The vocabulary is allbikes'; the clamps are not - this
+     ladder starts lower and runs two rungs higher, because a desk UI and a
+     marketing site do not want the same headings. Shared names, local values.
+
+     step-0 and step-1 keep their ordinal names for now: the roles they would
+     take, body and lead, are already spent on the fixed 0.84rem and 0.92rem
+     rungs the dashboard runs on. */
   --text-step-0: var(--step-0);
   --text-step-1: var(--step-1);
-  --text-step-2: var(--step-2);
-  --text-step-3: var(--step-3);
-  --text-display-1: var(--display-1);
-  --text-display-2: var(--display-2);
-  --text-display-3: var(--display-3);
-  --text-display-4: var(--display-4);
-  --text-display-5: var(--display-5);
-  --text-display-6: var(--display-6);
+  --text-title-sm: var(--step-2);
+  --text-title: var(--step-3);
+  --text-display-sm: var(--display-1);
+  --text-display: var(--display-2);
+  --text-display-md: var(--display-3);
+  --text-display-lg: var(--display-4);
+  --text-hero: var(--display-5);
+  --text-hero-lg: var(--display-6);
 }
 
 :root {
@@ -436,15 +438,21 @@
   --radius-circle: 50%;
 
   /* Repeated interface roles. Keep microcopy consistent without making
-     route styles remember a collection of nearly identical rem values. */
-  --text-nano: 0.5rem;
-  --text-tiny: 0.54rem;
-  --text-label: 0.58rem;
-  --text-micro: 0.6rem;
-  --text-meta: 0.62rem;
+     route styles remember a collection of nearly identical rem values.
+
+     Every name in the scale is either a role (caption, label, body, lead,
+     step, display) or a role plus an explicit -xs/-sm step. No name is a bare
+     magnitude word. The scale used to run nano, tiny, label, micro, meta,
+     caption, ui, small, and nothing in that list told you which rung was
+     larger -- nano and micro mean the same thing in ordinary English. Eight
+     rungs also did not survive contact with a screen: label, micro and meta
+     were 9.3px, 9.6px and 9.9px, three names for a difference nobody can pick
+     on purpose. They are one rung now. Shared verbatim with allbikes. */
+  --text-caption-xs: 0.54rem;
+  --text-caption-sm: 0.6rem;
   --text-caption: 0.66rem;
-  --text-ui: 0.72rem;
-  --text-small: 0.78rem;
+  --text-label: 0.72rem;
+  --text-body-sm: 0.78rem;
   --text-body: 0.84rem;
   --text-lead: 0.92rem;
   /* A character used as an icon - a tick, a chevron, a plus. Sized by eye
@@ -472,11 +480,11 @@
 
      Pick by the size of the label, not by the surface it sits on.
      --------------------------------------------------------------- */
-  /* From --text-ui up: a label large enough to hold together on its own. */
+  /* From --text-label up: a label large enough to hold together on its own. */
   --label-tracking-tight: 0.08em;
-  /* --text-meta to --text-caption: the default. Most labels are this one. */
+  /* --text-caption-sm to --text-caption: the default. Most labels are this one. */
   --label-tracking: 0.12em;
-  /* --text-micro and below, and anything set in --weight-black, where the
+  /* --text-caption-xs, and anything set in --weight-black, where the
      letterforms crowd without extra room. */
   --label-tracking-wide: 0.15em;
 

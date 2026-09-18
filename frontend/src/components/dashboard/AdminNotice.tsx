@@ -28,7 +28,7 @@ const adminNoticeVariants = cva('border', {
       danger: 'border-border-danger bg-surface-danger text-text-danger',
     },
     size: {
-      banner: 'my-m rounded-sm p-s text-ui leading-[1.5]',
+      banner: 'my-m rounded-sm p-s text-label leading-[1.5]',
       field: 'm-0 rounded-xs p-xs text-caption',
     },
   },

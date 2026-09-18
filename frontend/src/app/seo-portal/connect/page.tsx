@@ -184,7 +184,7 @@ export default function SeoPortalConnectPage() {
           </div>
         )}
         {locked && (
-          <p className="text-ui text-text-subtle">
+          <p className="text-label text-text-subtle">
             Your brief is in. We will be in touch if we need anything else.
           </p>
         )}

@@ -52,8 +52,8 @@ const innerVariants = cva('grid min-h-0 grid-cols-[minmax(0,1fr)] justify-betwee
 const headingVariants = cva('m-0 leading-[1.1] tracking-[-0.035em]', {
   variants: {
     placement: {
-      inline: 'text-step-2 lg:max-w-[480px]',
-      dialog: 'max-w-[320px] text-display-1',
+      inline: 'text-title-sm lg:max-w-[480px]',
+      dialog: 'max-w-[320px] text-display-sm',
     },
   },
   defaultVariants: { placement: 'inline' },

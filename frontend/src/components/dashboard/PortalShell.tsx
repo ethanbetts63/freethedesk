@@ -104,12 +104,12 @@ export function PortalShell({
         >
           {/* The account name is cut below `lg`: the top bar has no room for it
               and the log-out control is the only part that has to be reachable. */}
-          <span className="hidden overflow-hidden text-ellipsis text-ui text-text-muted lg:block">
+          <span className="hidden overflow-hidden text-ellipsis text-label text-text-muted lg:block">
             {user.dealer?.business_name || user.seo?.business_name || user.email || user.username}
           </span>
           <button
             type="button"
-            className="cursor-pointer border-0 bg-transparent p-0 text-left text-small font-heavy whitespace-nowrap lg:whitespace-normal"
+            className="cursor-pointer border-0 bg-transparent p-0 text-left text-body-sm font-heavy whitespace-nowrap lg:whitespace-normal"
             onClick={async () => {
               await logout();
               router.replace('/login');

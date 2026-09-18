@@ -29,17 +29,17 @@ export function GoogleBusinessProfileAudit({
               <GoogleLogo size={31} />
             </span>
             <span>
-              <small className="mb-3xs block text-label font-black tracking-label-tight text-accent uppercase">
+              <small className="mb-3xs block text-caption-sm font-black tracking-label-tight text-accent uppercase">
                 One-time audit · available alone or with SEO
               </small>
-              <strong className="block text-small">Google Business Profile</strong>
+              <strong className="block text-body-sm">Google Business Profile</strong>
             </span>
           </div>
 
           <SectionNumber onDark>{eyebrow}</SectionNumber>
           <h3
             id="gbp-audit-title"
-            className="m-0 max-w-[680px] text-display-3 leading-[0.98] tracking-[-0.06em] lg:max-w-[520px]"
+            className="m-0 max-w-[680px] text-display-md leading-[0.98] tracking-[-0.06em] lg:max-w-[520px]"
           >
             A one-time Google Business Profile audit.
           </h3>
@@ -65,7 +65,7 @@ export function GoogleBusinessProfileAudit({
           ariaLabel="Example Google Business Profile audit coverage"
           footer={
             <footer className="moving-colour-fill flex flex-col items-start justify-between gap-xs px-ml py-m sm:flex-row sm:items-center sm:gap-0">
-              <span className="flex items-center gap-2xs text-label font-heavy text-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] uppercase">
+              <span className="flex items-center gap-2xs text-caption-sm font-heavy text-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] uppercase">
                 <i aria-hidden="true" className="h-[6px] w-[6px] rounded-circle bg-surface-page" />{' '}
                 Delivered as
               </span>

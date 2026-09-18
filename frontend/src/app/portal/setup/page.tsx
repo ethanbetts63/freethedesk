@@ -114,7 +114,7 @@ export default function DealerSetupPage() {
           legend="Dealership contact"
           description="Trading name, state, phone and email come from your account so they are maintained in one place."
         >
-          <p className="text-ui text-text-subtle">
+          <p className="text-label text-text-subtle">
             {profile.trading_name} · {profile.state} ·{' '}
             {profile.phone || 'Phone required before submission'} · {profile.email}
           </p>
@@ -214,7 +214,7 @@ export default function DealerSetupPage() {
           </div>
         )}
         {locked && (
-          <p className="text-ui text-text-subtle">
+          <p className="text-label text-text-subtle">
             This profile is locked while it is being reviewed. We will let you know if anything
             needs changing.
           </p>

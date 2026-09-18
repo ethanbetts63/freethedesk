@@ -27,13 +27,13 @@ const adminButtonVariants = cva(focusRingClassName, {
     variant: {
       primary: [
         'inline-flex cursor-pointer items-center justify-center rounded-xs border-0',
-        'bg-surface-dark px-m py-s text-small font-heavy text-text-on-dark',
+        'bg-surface-dark px-m py-s text-body-sm font-heavy text-text-on-dark',
         'hover:bg-surface-dark-soft',
         disabledBusyClassName,
       ],
       secondary: [
         'inline-flex cursor-pointer items-center justify-center rounded-xs',
-        'border border-border-strong bg-surface-page px-m py-s text-small font-heavy text-text-primary',
+        'border border-border-strong bg-surface-page px-m py-s text-body-sm font-heavy text-text-primary',
         'hover:border-border-strong-hover',
         disabledUnavailableClassName,
       ],
@@ -48,7 +48,7 @@ const adminButtonVariants = cva(focusRingClassName, {
         // No colour of its own: the original inherited from whatever panel it sat
         // in (the pagination footer's muted grey, the filter bar's body text),
         // and that is the behaviour worth keeping.
-        'border border-border-strong bg-surface-page px-s py-xs text-ui font-heavy',
+        'border border-border-strong bg-surface-page px-s py-xs text-label font-heavy',
         'hover:bg-surface-tint',
         disabledUnavailableClassName,
       ],

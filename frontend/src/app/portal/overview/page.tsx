@@ -165,7 +165,7 @@ export default function PortalOverviewPage() {
               {formatDateTime(account.updated_at)}
             </AdminDetailItem>
           </dl>
-          <p className="text-ui text-text-subtle">
+          <p className="text-label text-text-subtle">
             Questions? <a href="mailto:hello@freethedesk.com.au">hello@freethedesk.com.au</a>
           </p>
         </section>
