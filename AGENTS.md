@@ -26,7 +26,7 @@ its agreements and messaging capabilities.
 | Security                                              | `_docs/security.md`                                                 |
 | Any form (new, edited, or converted)                  | `../freetheplatform/_docs/forms-standard.md` and `_docs/forms-migration.md` |
 | A role, portal, auth/session change, or edge routing  | `../freetheplatform/_docs/security-standard.md`                     |
-| Structured data, schema.org, JSON-LD                  | `../freetheplatform/_docs/seo-standardisation.md` — read its sources first |
+| Metadata, structured data, sitemap, robots, or indexation policy | `../freetheplatform/_docs/seo-standard.md` — read its sourcing rule first |
 | Files under `frontend/`                               | `frontend/AGENTS.md` in addition to this file                       |
 
 Read only the documents relevant to the issue; do not load the whole `_docs`

@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_simplejwt",
+    # Provides the OutstandingToken/BlacklistedToken tables that make
+    # BLACKLIST_AFTER_ROTATION and logout revocation possible. Rows are
+    # pruned opportunistically on login; see core.utils.token_cleanup.
+    "rest_framework_simplejwt.token_blacklist",
     "core",
     "dealers",
     "seo",
@@ -94,7 +98,14 @@ else:
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    # Twelve, not Django's default of eight. Eight characters of a human-chosen
+    # password is inside the reach of an offline guess against a leaked hash, and
+    # the rate limit that would otherwise slow an online guess runs in per-process
+    # memory and resets on restart — so length is the part of this we control.
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "OPTIONS": {"min_length": 12},
+    },
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
@@ -132,11 +143,22 @@ REST_FRAMEWORK = {
 
 AUTH_COOKIE = "freethedesk_access"
 AUTH_COOKIE_REFRESH = "freethedesk_refresh"
+# A JWT is trusted because its signature verifies, not because a row exists, so
+# nothing server-side can withdraw one unless it has been blacklisted. Without
+# the blacklist the only way to end a session early is to rotate SECRET_KEY,
+# which signs out everybody at once.
+#
+# REFRESH_TOKEN_LIFETIME is how long a stolen refresh token stays useful. Seven
+# days, flat: a staff/dealer/subscriber split would be three numbers to reason
+# about for a difference nobody could justify.
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": True,
-    "BLACKLIST_AFTER_ROTATION": False,
+    # Rotation without this achieves nothing: the token rotated away stays
+    # valid until it expires, so a stolen one is not displaced by the refresh
+    # that replaced it. With it, a replayed token is also a theft signal.
+    "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": True,
     "SIGNING_KEY": SECRET_KEY,
 }

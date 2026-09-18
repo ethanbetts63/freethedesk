@@ -29,6 +29,44 @@ throttled, with a separate five-per-minute login limit.
 proxy. Client IP recording uses that same rule instead of trusting the first
 caller-supplied `X-Forwarded-For` value.
 
+Staff passwords require twelve characters, not Django's default eight. Validators
+run only when a password is set, so this binds new accounts and future changes;
+accounts created before 2026-09-18 are unchanged and cannot be audited, because
+they are hashed.
+
+### Refresh tokens can be revoked
+
+A JWT is trusted because its signature verifies, not because a row exists, so
+nothing server-side can withdraw one unless it has been recorded as withdrawn.
+`rest_framework_simplejwt.token_blacklist` is installed and two things use it:
+`BLACKLIST_AFTER_ROTATION`, so the token a refresh replaced stops working and a
+replayed one is a theft signal; and `LogoutView`, which blacklists the refresh
+cookie before clearing it. Logout still returns 200 for a missing, malformed or
+already-blacklisted token — refusing it would leave open the session the caller
+asked to close. `REFRESH_TOKEN_LIFETIME` is 7 days, flat for all roles.
+
+The **access** token stays unrevocable by design, so a copied one works until it
+expires, up to 60 minutes. Revocation bounds an incident to that hour rather than
+to seven days; it does not end one instantly.
+
+Blacklist rows are pruned opportunistically on a successful login
+(`core/utils/token_cleanup.py`): a bounded batch, at most once a day, wrapped so
+it can never fail a login. There is no scheduler here we control, and a cron job
+that quietly stops running would let the table grow with nobody being told.
+
+### Known gaps
+
+- Django's admin is routed in production and its login is not throttled, because
+  it is not a DRF view. `SessionAuthentication` is also in the default
+  authentication classes, so a session obtained there authenticates the whole API.
+- `seo/set-password/` does not ask for the current password, is not throttled, and
+  does not revoke other sessions.
+- There is no password reset flow, no second factor, and no alerting on repeated
+  authentication failure.
+- No `CACHES` block is declared, so throttle counters live in Django's implicit
+  per-process local memory: multiplied by the worker count, and reset by any
+  restart.
+
 ## Dealer documents
 
 Dealer licence and identity documents live outside public media storage and do

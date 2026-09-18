@@ -7,9 +7,12 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from ..utils.throttles import LoginRateThrottle
+from ..utils.token_cleanup import purge_expired_tokens_if_due
 
 logger = logging.getLogger(__name__)
 
@@ -106,6 +109,10 @@ class CookieTokenObtainPairView(APIView):
                 status=status.HTTP_403_FORBIDDEN,
             )
 
+        # Attached here because a login is frequent, is not time sensitive, and
+        # cannot be forgotten the way a scheduled job can. It never raises.
+        purge_expired_tokens_if_due()
+
         # A dealer awaiting approval, suspended or denied still signs in — the
         # portal shows them where they stand rather than a generic auth error.
         response = Response(payload)
@@ -141,9 +148,30 @@ class LogoutView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
+        """Blacklist the refresh token, then clear the cookies.
+
+        Clearing cookies alone only removes the browser's copy. Anything that
+        already holds the token — a proxy log, a copied value, a compromised
+        machine — could keep refreshing with it until it expired. Blacklisting
+        is what makes logging out an actual containment step.
+
+        A token that is missing, malformed or already blacklisted still logs
+        out successfully. Logout is the one request that must never fail: the
+        caller's intent is to end the session, and refusing them leaves it
+        open.
+        """
+        refresh_token = request.COOKIES.get(settings.AUTH_COOKIE_REFRESH)
+        if refresh_token:
+            try:
+                RefreshToken(refresh_token).blacklist()
+            except TokenError:
+                pass  # Expired, invalid, or already blacklisted — all fine here.
+            except Exception:
+                logger.exception("Failed to blacklist refresh token on logout.")
+
         response = Response({"detail": "Logged out."})
-        response.delete_cookie(settings.AUTH_COOKIE)
-        response.delete_cookie(settings.AUTH_COOKIE_REFRESH)
+        response.delete_cookie(settings.AUTH_COOKIE, samesite="Lax")
+        response.delete_cookie(settings.AUTH_COOKIE_REFRESH, samesite="Lax")
         return response
 
 
