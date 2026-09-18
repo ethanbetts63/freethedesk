@@ -1,0 +1,37 @@
+# Runtime dependencies — what production needs to serve the site.
+#
+# This file is hand-written and holds intent. `requirements.txt` is generated
+# from it and is the lockfile production installs; never edit that by hand.
+#
+#     pip-compile --no-index --strip-extras requirements.in   # regenerate
+#     pip-compile --upgrade-package django                    # move one deliberately
+#     pip-sync requirements-dev.txt                           # make this venv match
+#
+# Python 3.14 locally and on the server. The lockfile is resolved for that
+# version; resolving it on another one can pin releases that will not install.
+#
+# Pins are the versions that are installed and passing tests, not the newest
+# available. Every upgrade after that is a `--upgrade-package` with a diff
+# someone can read.
+
+Django
+djangorestframework
+djangorestframework-simplejwt
+mysqlclient
+python-dotenv
+
+# Shared Django capabilities: agreements and messaging. The `twilio` extra is
+# what the messaging app's SMS backend needs — nothing in this repository
+# imports twilio or requests directly, so they arrive through here rather than
+# being declared twice.
+#
+# Pinned to a tag, and a security fix in the package means a new tag and a bump
+# here the same day. See ../freetheplatform/_docs/strategy.md.
+freetheplatform[twilio] @ git+https://github.com/ethanbetts63/freetheplatform@v0.4.0
+
+# Dealer document uploads are sniffed by bytes and fully parsed before they are
+# stored; see core/utils/uploads.py.
+Pillow
+pypdf
+
+stripe

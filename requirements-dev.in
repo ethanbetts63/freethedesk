@@ -1,0 +1,19 @@
+# Development and test dependencies.
+#
+# Hand-written, like `requirements.in`; `requirements-dev.txt` is generated:
+#
+#     pip-compile --no-index --strip-extras requirements-dev.in
+#
+# The `-r` line below makes this a superset of the runtime set rather than a
+# second resolution of it, so a developer and the server always agree on
+# Django's version — and so pytest and Faker never ship to the server.
+
+-r requirements.in
+
+# pip-compile and pip-sync, which maintain these files.
+pip-tools
+
+pytest
+pytest-django
+factory-boy
+Faker

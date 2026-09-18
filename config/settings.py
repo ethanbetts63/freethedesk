@@ -121,9 +121,11 @@ PRIVATE_MEDIA_ROOT = BASE_DIR / "private-media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
+    # Cookie-JWT is the only authentication path. A session is not one: it would
+    # be a second way into every endpoint, with its own lifetime, no revocation
+    # and nothing applying the login throttle to it.
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "core.utils.authentication.CookieJWTAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_THROTTLE_CLASSES": [

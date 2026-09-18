@@ -42,7 +42,7 @@ def test_user_without_a_portal_is_refused(client, dealer):
 
 
 def test_dealer_can_read_and_update_own_account(client, dealer):
-    client.force_login(dealer.user)
+    client.sign_in(dealer.user)
     assert client.get(reverse("dealer-profile")).json()["business_name"] == "Bikes WA"
 
     response = client.patch(
@@ -57,7 +57,7 @@ def test_dealer_can_read_and_update_own_account(client, dealer):
 
 
 def test_dealer_cannot_change_own_status_or_email(client, dealer):
-    client.force_login(dealer.user)
+    client.sign_in(dealer.user)
     client.patch(
         reverse("dealer-profile"),
         {"status": "active", "email": "someone@else.com"},
@@ -69,17 +69,17 @@ def test_dealer_cannot_change_own_status_or_email(client, dealer):
 
 
 def test_staff_cannot_use_the_dealer_profile_endpoint(client, dealer, staff_user):
-    client.force_login(staff_user)
+    client.sign_in(staff_user)
     assert client.get(reverse("dealer-profile")).status_code == 403
 
 
 def test_dealer_cannot_reach_staff_endpoints(client, dealer):
-    client.force_login(dealer.user)
+    client.sign_in(dealer.user)
     assert client.get(reverse("admin-dealer-list")).status_code == 403
 
 
 def test_onboarding_requires_active_payment(client, dealer):
-    client.force_login(dealer.user)
+    client.sign_in(dealer.user)
     response = client.get(reverse("dealer-onboarding"))
     assert response.status_code == 403
 
@@ -88,7 +88,7 @@ def test_paid_dealer_can_save_onboarding_draft(client, dealer):
     dealer.plan = Dealer.Plan.COMPLETE
     dealer.payment_status = Dealer.PaymentStatus.ACTIVE
     dealer.save()
-    client.force_login(dealer.user)
+    client.sign_in(dealer.user)
     response = client.patch(
         reverse("dealer-onboarding"),
         {"legal_name": "Bikes WA Pty Ltd", "trading_name": "Bikes WA"},

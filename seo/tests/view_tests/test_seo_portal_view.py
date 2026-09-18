@@ -32,7 +32,7 @@ def test_user_without_a_portal_is_refused(client, seo_subscriber):
 
 
 def test_subscriber_can_read_and_update_own_account(client, seo_subscriber):
-    client.force_login(seo_subscriber.user)
+    client.sign_in(seo_subscriber.user)
     assert client.get(reverse("seo-account")).json()["business_name"] == "Peak Digital"
 
     response = client.patch(
@@ -49,7 +49,7 @@ def test_subscriber_can_read_and_update_own_account(client, seo_subscriber):
 def test_provisional_subscriber_can_set_a_password(client, seo_subscriber):
     seo_subscriber.user.set_unusable_password()
     seo_subscriber.user.save(update_fields=["password"])
-    client.force_login(seo_subscriber.user)
+    client.sign_in(seo_subscriber.user)
 
     response = client.post(
         reverse("seo-set-password"),
@@ -63,7 +63,7 @@ def test_provisional_subscriber_can_set_a_password(client, seo_subscriber):
 
 
 def test_subscriber_cannot_change_own_status_or_plan(client, seo_subscriber):
-    client.force_login(seo_subscriber.user)
+    client.sign_in(seo_subscriber.user)
     client.patch(
         reverse("seo-account"),
         {"status": "active", "plan": "monthly", "report_type": "gbp"},
@@ -76,17 +76,17 @@ def test_subscriber_cannot_change_own_status_or_plan(client, seo_subscriber):
 
 
 def test_staff_cannot_use_the_seo_account_endpoint(client, seo_subscriber, staff_user):
-    client.force_login(staff_user)
+    client.sign_in(staff_user)
     assert client.get(reverse("seo-account")).status_code == 403
 
 
 def test_onboarding_requires_paid_status(client, seo_subscriber):
-    client.force_login(seo_subscriber.user)
+    client.sign_in(seo_subscriber.user)
     assert client.get(reverse("seo-onboarding")).status_code == 403
 
 
 def test_paid_subscriber_can_save_onboarding_draft(client, paid_seo_subscriber):
-    client.force_login(paid_seo_subscriber.user)
+    client.sign_in(paid_seo_subscriber.user)
     response = client.patch(
         reverse("seo-onboarding"),
         {"search_console_property": "sc-domain:peak.example", "target_keywords": "vespa perth"},
@@ -99,7 +99,7 @@ def test_paid_subscriber_can_save_onboarding_draft(client, paid_seo_subscriber):
 
 
 def test_onboarding_submit_requires_the_core_fields(client, paid_seo_subscriber):
-    client.force_login(paid_seo_subscriber.user)
+    client.sign_in(paid_seo_subscriber.user)
     response = client.post(reverse("seo-onboarding-submit"))
     assert response.status_code == 400
 

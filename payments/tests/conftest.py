@@ -25,7 +25,7 @@ def dealer():
 
 @pytest.fixture
 def logged_in_dealer(client, dealer):
-    client.force_login(dealer.user)
+    client.sign_in(dealer.user)
     return dealer
 
 
@@ -42,5 +42,5 @@ def seo_subscriber():
 
 @pytest.fixture
 def logged_in_seo_subscriber(client, seo_subscriber):
-    client.force_login(seo_subscriber.user)
+    client.sign_in(seo_subscriber.user)
     return seo_subscriber

@@ -1,6 +1,27 @@
 import pytest
+from django.conf import settings as django_settings
+from django.test import Client
 from freetheplatform.messaging.backends import locmem, reset_backend_cache
 from rest_framework.test import APIClient, APIRequestFactory, force_authenticate
+from rest_framework_simplejwt.tokens import AccessToken
+
+
+class SignInClient(Client):
+    """A test client that authenticates the way the product does.
+
+    Cookie-JWT is the only authentication class, so a session no longer reaches
+    the API and ``force_login`` proves nothing about it. ``sign_in`` sets the
+    access-token cookie instead, which is the path a real browser takes.
+    """
+
+    def sign_in(self, user):
+        self.cookies[django_settings.AUTH_COOKIE] = str(AccessToken.for_user(user))
+        return user
+
+
+@pytest.fixture
+def client():
+    return SignInClient()
 
 
 @pytest.fixture(autouse=True)

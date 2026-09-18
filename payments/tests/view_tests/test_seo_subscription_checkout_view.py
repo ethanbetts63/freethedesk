@@ -56,7 +56,7 @@ def test_quarterly_checkout_is_a_three_month_subscription(customer_create, sessi
 def test_one_off_checkout_is_a_single_payment(customer_create, session_create, client, seo_subscriber):
     seo_subscriber.plan = SeoSubscriber.Plan.ONEOFF
     seo_subscriber.save(update_fields=["plan"])
-    client.force_login(seo_subscriber.user)
+    client.sign_in(seo_subscriber.user)
     settings = SiteSettings.load()
     settings.seo_oneoff_price = Decimal("250.00")
     settings.save()
@@ -89,7 +89,7 @@ def test_google_business_profile_audit_uses_its_own_one_off_price(
     seo_subscriber.plan = SeoSubscriber.Plan.ONEOFF
     seo_subscriber.report_type = SeoSubscriber.ReportType.GBP
     seo_subscriber.save(update_fields=["plan", "report_type"])
-    client.force_login(seo_subscriber.user)
+    client.sign_in(seo_subscriber.user)
     settings = SiteSettings.load()
     settings.gbp_audit_price = Decimal("110.00")
     settings.save()
@@ -119,7 +119,7 @@ def test_combined_report_charges_gbp_once_and_only_recurs_the_seo_price(
 ):
     seo_subscriber.report_type = SeoSubscriber.ReportType.BOTH
     seo_subscriber.save(update_fields=["report_type"])
-    client.force_login(seo_subscriber.user)
+    client.sign_in(seo_subscriber.user)
     settings = SiteSettings.load()
     settings.seo_quarterly_price = Decimal("150.00")
     settings.gbp_audit_price = Decimal("100.00")
