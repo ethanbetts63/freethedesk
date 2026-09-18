@@ -28,7 +28,7 @@ export function LoginPreviewPhone() {
             free<span>the</span>desk<b>.</b>
           </span>
         </p>
-        <p className="m-0 mb-s text-step-0 font-heavy tracking-[-0.04em] text-surface-inverse">
+        <p className="m-0 mb-s text-body-lg font-heavy tracking-[-0.04em] text-surface-inverse">
           Welcome back
         </p>
         <div className="mb-xs h-[20px] rounded-xs border border-border-default bg-surface-tint" />

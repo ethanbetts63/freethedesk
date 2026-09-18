@@ -77,7 +77,7 @@ export function ExpandableServiceList({
                 {service.icon}
               </span>
               <span>
-                <strong className="block text-step-1 tracking-[-0.025em]">{service.title}</strong>
+                <strong className="block text-body-xl tracking-[-0.025em]">{service.title}</strong>
                 {/* Hidden on a phone: at that width the row is already 112px
                     tall and the title has to carry the meaning alone. */}
                 <small className="mt-2xs hidden max-w-[760px] text-body-sm leading-[1.55] text-text-muted sm:block">

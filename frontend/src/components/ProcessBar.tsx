@@ -43,7 +43,7 @@ export function ProcessBar({
                 </span>
                 {step.href && (
                   <span
-                    className="hidden text-step-0 text-[var(--accent-on-dark-soft)] transition-transform duration-[160ms] ease sm:block group-hover:translate-y-[3px]"
+                    className="hidden text-body-lg text-[var(--accent-on-dark-soft)] transition-transform duration-[160ms] ease sm:block group-hover:translate-y-[3px]"
                     aria-hidden="true"
                   >
                     ↓

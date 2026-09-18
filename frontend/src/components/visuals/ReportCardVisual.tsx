@@ -76,7 +76,7 @@ export function ReportCardVisual({
               {item.icon ?? '✓'}
             </span>
             <div>
-              <h3 className="m-0 mb-4xs text-step-0 tracking-[-0.025em]">{item.title}</h3>
+              <h3 className="m-0 mb-4xs text-body-lg tracking-[-0.025em]">{item.title}</h3>
               <p className="m-0 text-body leading-[1.45] text-text-muted">{item.description}</p>
             </div>
             {item.tag ? (

@@ -44,9 +44,9 @@ const tabClassName = [
   'transition-[background,padding] duration-200',
   '[&>span]:pt-4xs [&>span]:text-caption-sm [&>span]:font-black [&>span]:text-text-action',
   '[&_small]:mb-2xs [&_small]:block [&_small]:text-caption-sm [&_small]:font-heavy [&_small]:tracking-label [&_small]:text-text-subtle [&_small]:uppercase',
-  '[&_strong]:block [&_strong]:text-step-0 [&_strong]:leading-[1.2] [&_strong]:tracking-[-0.025em]',
+  '[&_strong]:block [&_strong]:text-body-lg [&_strong]:leading-[1.2] [&_strong]:tracking-[-0.025em]',
   '[&_p]:mt-s [&_p]:mb-0 [&_p]:text-body-sm [&_p]:leading-[1.58] [&_p]:text-text-muted',
-  '[&>i]:text-right [&>i]:text-step-0 [&>i]:not-italic',
+  '[&>i]:text-right [&>i]:text-body-lg [&>i]:not-italic',
 ].join(' ');
 
 export function PortfolioTour({ label, browserUrl, items }: PortfolioTourProps) {

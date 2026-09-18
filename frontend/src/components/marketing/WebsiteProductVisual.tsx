@@ -34,7 +34,7 @@ export function WebsiteProductVisual() {
           </b>
         </div>
         <div className="flex items-center justify-between px-xl py-l">
-          <strong className="text-step-0 tracking-[-0.06em] [&>span]:text-action-primary">
+          <strong className="text-body-lg tracking-[-0.06em] [&>span]:text-action-primary">
             north<span>line</span>.
           </strong>
           <div className="flex items-center gap-ml text-caption-xs font-heavy [&>span]:hidden sm:[&>span]:inline">

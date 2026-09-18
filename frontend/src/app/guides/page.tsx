@@ -34,7 +34,7 @@ export default function GuidesPage() {
             <br />
             <em className="not-italic text-accent">Plain English.</em>
           </h1>
-          <p className="mt-xl max-w-[660px] text-step-1 leading-[1.65] text-[var(--text-on-dark-muted)]">
+          <p className="mt-xl max-w-[660px] text-body-xl leading-[1.65] text-[var(--text-on-dark-muted)]">
             {PAGES['/guides'].description}
           </p>
         </div>
@@ -99,7 +99,7 @@ export default function GuidesPage() {
                     Read guide{' '}
                     <b
                       aria-hidden="true"
-                      className="text-step-0 text-text-action transition-transform duration-200 group-hover:translate-x-[5px]"
+                      className="text-body-lg text-text-action transition-transform duration-200 group-hover:translate-x-[5px]"
                     >
                       →
                     </b>
@@ -113,7 +113,7 @@ export default function GuidesPage() {
                 01
               </span>
               <div>
-                <h3 className="m-0 mb-xs text-step-1 tracking-[-0.03em]">
+                <h3 className="m-0 mb-xs text-body-xl tracking-[-0.03em]">
                   The first field note is on the way.
                 </h3>
                 <p className="m-0 text-body leading-[1.6] text-text-muted">

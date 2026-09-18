@@ -27,7 +27,7 @@ export function IndexedFeatureSection({
           <h2 className="m-0 text-display-md leading-[0.98] tracking-[-0.055em]">
             {title} <span className="moving-colour-text">{accentTitle}</span>
           </h2>
-          <p className="mt-l max-w-[720px] text-step-0 leading-[1.75] text-text-muted">{lead}</p>
+          <p className="mt-l max-w-[720px] text-body-lg leading-[1.75] text-text-muted">{lead}</p>
         </div>
 
         <ol
@@ -40,7 +40,7 @@ export function IndexedFeatureSection({
               <span className="mb-m block text-label font-black tracking-label-wide text-action-primary">
                 {String(index + 1).padStart(2, '0')}
               </span>
-              <strong className="mb-xs block text-step-0 tracking-[-0.025em] text-[var(--blue-950)]">
+              <strong className="mb-xs block text-body-lg tracking-[-0.025em] text-[var(--blue-950)]">
                 {itemTitle}
               </strong>
               <p className="m-0 text-body leading-[1.65] text-text-muted">{body}</p>

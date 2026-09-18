@@ -18,7 +18,7 @@ export function ProofStrip({ stats, id }: { stats: readonly ProofStat[]; id?: st
               {stat.value}
             </strong>
             <div>
-              <h2 className="m-0 mb-2xs text-step-0">{stat.label}</h2>
+              <h2 className="m-0 mb-2xs text-body-lg">{stat.label}</h2>
               <p className="m-0 text-body leading-[1.5] text-text-on-dark-muted">
                 {stat.description}
               </p>

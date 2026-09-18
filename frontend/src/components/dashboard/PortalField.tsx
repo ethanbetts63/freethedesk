@@ -42,7 +42,7 @@ export function PortalFieldset({
       disabled={disabled}
       className="m-0 rounded-lg border border-border-default bg-surface-page px-m py-ml sm:p-xl"
     >
-      <legend className="bg-surface-page px-xs py-0 text-step-0 font-control">{legend}</legend>
+      <legend className="bg-surface-page px-xs py-0 text-body-lg font-control">{legend}</legend>
       {description && (
         <p className="m-0 mb-l text-label leading-[1.55] text-text-muted">{description}</p>
       )}

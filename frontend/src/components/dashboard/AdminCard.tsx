@@ -36,7 +36,7 @@ export const adminDetailGridClassName = 'grid grid-cols-[minmax(0,1fr)] gap-ml s
 export const adminCardWideClassName = 'col-auto sm:col-[1/-1]';
 
 /** `<h2>` inside a card. */
-export const adminCardTitleClassName = 'm-0 mb-ml text-step-0';
+export const adminCardTitleClassName = 'm-0 mb-ml text-body-lg';
 
 /** A card's one-line label, where a heading would be too loud. */
 export const adminCardLabelClassName = 'm-0 text-label font-heavy';

@@ -155,18 +155,21 @@ before mass conversion. Known examples include:
 Do not mechanically rename a token based only on equal colour values. Roles are
 defined by meaning, and two roles may currently resolve to the same value.
 
-Done: [`tailwind-token-mapping.md`](tailwind-token-mapping.md) — full
-token-by-token comparison. `--section-space`/`--space-section` was already
-reconciled; `--text-on-dark`/`--text-on-brand` is a confirmed synonym
+Done. The token-by-token comparison found: `--section-space`/`--space-section`
+already reconciled; `--text-on-dark`/`--text-on-brand` a confirmed synonym
 (173 combined call sites, deferred to a later cleanup rather than renamed
-here); status enum colours are already correctly split between feedback and
+here); status enum colours already correctly split between feedback and
 categorical meaning, just not yet in allbikes' `--category-N` naming
-pattern; direct `--slate-*`/`--blue-*` consumers resolve per-file during
-Phase 4. One open item carried into Phase 3: the fluid heading scale
-(`text-step-*`/`text-display-*`) still needs its per-usage semantic rename,
-and freethedesk's fixed `--text-body` would collide with allbikes' fluid
-`--text-body` if renamed carelessly — see the mapping doc's "needs a
-decision" section.
+pattern; direct `--slate-*`/`--blue-*` consumers resolving per-file during
+Phase 4.
+
+The fluid scale's semantic rename is also done — `text-step-*`/`text-display-*`
+are now `text-body-lg`/`text-body-xl`/`text-title-sm`/`text-title`/
+`text-display-sm`/`text-display`/`text-display-md`/`text-display-lg`/
+`text-hero`/`text-hero-lg`. `--text-body` stays divergent by design: the
+fixed 0.84rem here, `--step-0` in allbikes. The live rule lives in
+`tokens.css` beside the tokens; `../freetheplatform/_docs/token-contract.md`
+carries the cross-repo half.
 
 Exit criteria:
 

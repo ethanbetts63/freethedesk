@@ -56,7 +56,7 @@ export function CheckoutShell({
         </div>
         <div className="relative z-2 flex min-h-[540px] flex-col px-ml py-xl sm:min-h-[620px] sm:p-2xl lg:min-h-screen">
           <Link
-            className="w-fit text-step-1 font-black tracking-[-0.07em] text-surface-inverse"
+            className="w-fit text-body-xl font-black tracking-[-0.07em] text-surface-inverse"
             href="/"
           >
             free

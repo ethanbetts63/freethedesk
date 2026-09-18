@@ -140,17 +140,26 @@
   --text-glyph: 1.25rem;
   --text-wordmark: 1.4rem;
 
-  /* Fluid heading scale, on the same naming rule as the fixed sizes above: a
-     role (title, display, hero) plus an explicit -sm/-md/-lg step, never a
-     bare ordinal. The vocabulary is allbikes'; the clamps are not - this
+  /* Fluid sizes, on the same naming rule as the fixed ones above: a role
+     (body, title, display, hero) plus an explicit -sm/-lg/-xl/-md step, never
+     a bare ordinal. The vocabulary is allbikes'; the clamps are not - this
      ladder starts lower and runs two rungs higher, because a desk UI and a
      marketing site do not want the same headings. Shared names, local values.
 
-     step-0 and step-1 keep their ordinal names for now: the roles they would
-     take, body and lead, are already spent on the fixed 0.84rem and 0.92rem
-     rungs the dashboard runs on. */
-  --text-step-0: var(--step-0);
-  --text-step-1: var(--step-1);
+     body-lg and body-xl are the comfortable reading sizes, and they are one
+     role family with the fixed body-sm/body above rather than a separate
+     "prose" word, because they are the same thing at a larger step: a button
+     label, a portal field, a marketing paragraph. The ladder therefore runs
+     body-sm 0.78 / body 0.84 / body-lg ~16-17px / body-xl ~16-19.5px, with
+     `lead` sitting beside body as a role (an intro paragraph), not a rung.
+
+     Note for anyone reading both repos: --text-body is the one name that does
+     NOT mean the same size on each side. Here it is the fixed 0.84rem the
+     dashboard runs on; in allbikes it is --step-0, which is this file's
+     --text-body-lg. Aligning them means resizing a whole desk UI by 25%, so
+     the divergence is deliberate and documented, not drift. */
+  --text-body-lg: var(--step-0);
+  --text-body-xl: var(--step-1);
   --text-title-sm: var(--step-2);
   --text-title: var(--step-3);
   --text-display-sm: var(--display-1);

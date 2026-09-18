@@ -96,7 +96,7 @@ function ArticleView({ article }: { article: Article }) {
           <h1 className="m-0 max-w-[1040px] text-hero-lg leading-[0.94] tracking-[-0.07em]">
             {article.title}
           </h1>
-          <p className="mt-xl max-w-[720px] text-step-1 leading-[1.65] text-[var(--text-on-dark-muted)]">
+          <p className="mt-xl max-w-[720px] text-body-xl leading-[1.65] text-[var(--text-on-dark-muted)]">
             {article.excerpt}
           </p>
           <p className="mt-xl flex flex-wrap items-center gap-xs text-caption font-heavy tracking-label-tight text-[var(--text-on-dark-subtle)] uppercase">
@@ -134,7 +134,7 @@ function ArticleView({ article }: { article: Article }) {
             Back to all guides{' '}
             <span
               aria-hidden="true"
-              className="text-step-0 text-text-action transition-transform duration-200 group-hover:translate-x-[5px]"
+              className="text-body-lg text-text-action transition-transform duration-200 group-hover:translate-x-[5px]"
             >
               →
             </span>

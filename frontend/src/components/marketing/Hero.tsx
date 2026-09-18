@@ -71,7 +71,7 @@ export function Hero({
             ))}
             <em className="not-italic text-[var(--action-primary)]">{accentTitle}</em>
           </h1>
-          <p className="my-xl max-w-[420px] text-step-1 leading-[1.65] text-text-muted lg:max-w-[570px]">
+          <p className="my-xl max-w-[420px] text-body-xl leading-[1.65] text-text-muted lg:max-w-[570px]">
             {lead}
           </p>
           <div className="flex flex-wrap items-center gap-m [&>*]:w-full sm:gap-xl sm:[&>*]:w-auto">

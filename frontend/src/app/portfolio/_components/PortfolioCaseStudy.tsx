@@ -162,7 +162,7 @@ const caseHeadingClassName = 'm-0 text-display-lg leading-[0.96] tracking-[-0.06
  * `.button-row` that Phase 3 removed everywhere else.
  */
 /** The muted lead paragraph that follows a section heading. */
-const caseLeadClassName = 'text-step-0 leading-[1.72] text-text-muted';
+const caseLeadClassName = 'text-body-lg leading-[1.72] text-text-muted';
 
 /**
  * A section's opening block: the number in a narrow first column, the heading
@@ -192,7 +192,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
           <h1 className="m-0 text-display-md font-heavy leading-[0.91] tracking-[-0.078em] lg:text-hero [&_span]:text-text-action">
             <HeadingLines heading={config.title} />
           </h1>
-          <p className="my-xl max-w-[555px] text-step-0 leading-[1.65] text-text-muted">
+          <p className="my-xl max-w-[555px] text-body-lg leading-[1.65] text-text-muted">
             {config.description}
           </p>
           <div className={caseButtonRowClassName}>
@@ -257,7 +257,7 @@ function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig['intro'] 
         {config.paragraphs.map((paragraph) => (
           <p
             key={paragraph}
-            className="my-xl max-w-[720px] text-step-0 leading-[1.72] text-text-muted"
+            className="my-xl max-w-[720px] text-body-lg leading-[1.72] text-text-muted"
           >
             {paragraph}
           </p>
@@ -482,7 +482,7 @@ function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig['featur
               <HeadingLines heading={config.title} />
             </h2>
           </div>
-          <p className="m-0 max-w-[540px] self-end text-step-0 leading-[1.72] text-[color-mix(in_srgb,var(--surface-page)_78%,transparent)]">
+          <p className="m-0 max-w-[540px] self-end text-body-lg leading-[1.72] text-[color-mix(in_srgb,var(--surface-page)_78%,transparent)]">
             {config.description}
           </p>
         </div>
@@ -547,7 +547,7 @@ function PortfolioIntent({ config }: { config: IntentSection }) {
                 <span className="mb-ml block text-caption-sm font-black text-text-action lg:mb-xl">
                   {group.number}
                 </span>
-                <h3 className="m-0 text-step-1 tracking-[-0.035em]">{group.title}</h3>
+                <h3 className="m-0 text-body-xl tracking-[-0.035em]">{group.title}</h3>
               </header>
               {/* Pinned to the bottom of the card from lg, where the cards
                   share a height and the headers are padded to match. */}

@@ -33,7 +33,7 @@ const checkoutButtonVariants = cva(
     // The trailing arrow, when a caller renders one: a <b> beside the label
     // rather than a glyph this component owns, because the label is itself a
     // <span> whose text swaps while the payment is in flight.
-    '[&>b]:text-step-0',
+    '[&>b]:text-body-lg',
   ],
   {
     variants: {
