@@ -1,3 +1,5 @@
+import { cn } from '@/lib/utils';
+
 import styles from '../_styles/preview.module.css';
 
 type DemoMapProps = {
@@ -31,7 +33,7 @@ export function DemoMap({ ariaLabel, className = '', actionLabel, onClick }: Dem
     return (
       <button
         type="button"
-        className={`${styles.demoMap} ${className}`}
+        className={cn(styles.demoMap, className)}
         onClick={onClick}
         aria-label={ariaLabel}
       >
@@ -39,7 +41,7 @@ export function DemoMap({ ariaLabel, className = '', actionLabel, onClick }: Dem
       </button>
     );
   return (
-    <div className={`${styles.demoMap} ${className}`} role="img" aria-label={ariaLabel}>
+    <div className={cn(styles.demoMap, className)} role="img" aria-label={ariaLabel}>
       {drawing}
     </div>
   );

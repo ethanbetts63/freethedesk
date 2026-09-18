@@ -5,6 +5,8 @@
 import type { ReactNode } from 'react';
 
 import type { InventoryVehicle } from './data';
+import { cn } from '@/lib/utils';
+
 import type { InventoryAddonSelection } from '../../_lib/types';
 import styles from '../../_styles/preview.module.css';
 import { VehicleArtwork } from '../PreviewArtwork';
@@ -23,7 +25,7 @@ export function PreviewPageShell({
   heading: { eyebrow: string; title: string; detail: string };
 }) {
   return (
-    <div className={`${styles.examplePage} ${className}`} data-preview-kind={kind}>
+    <div className={cn(styles.examplePage, className)} data-preview-kind={kind}>
       <PageHeading {...heading} />
       {children}
     </div>
@@ -104,7 +106,7 @@ export function CatalogueGrid({
   children: ReactNode;
   className?: string;
 }) {
-  return <div className={`${styles.catalogueGrid} ${className}`}>{children}</div>;
+  return <div className={cn(styles.catalogueGrid, className)}>{children}</div>;
 }
 
 export function EmptyResults({ label, onClear }: { label: string; onClear: () => void }) {

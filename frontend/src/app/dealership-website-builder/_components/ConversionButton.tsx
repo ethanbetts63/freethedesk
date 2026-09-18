@@ -9,6 +9,8 @@ import {
   type CSSProperties,
 } from 'react';
 
+import { cn } from '@/lib/utils';
+
 import styles from '../_styles/preview.module.css';
 
 const PARTICLES = [
@@ -89,7 +91,7 @@ export function ConversionButton({
     <button
       {...props}
       type={type}
-      className={`${styles.conversionButton} ${className}`}
+      className={cn(styles.conversionButton, className)}
       onClick={trigger}
     >
       {children}
@@ -109,7 +111,7 @@ export function ConversionLink({
   return (
     <a
       {...props}
-      className={`${styles.conversionLink} ${className}`}
+      className={cn(styles.conversionLink, className)}
       onClick={(event) => {
         onClick?.(event);
         if (!event.defaultPrevented) triggerBurst();

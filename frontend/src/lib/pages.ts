@@ -179,6 +179,44 @@ export const PAGES = {
 
 export type PagePath = keyof typeof PAGES;
 
+/**
+ * Routes whose page is only a `redirect`/`permanentRedirect` call — no content
+ * is ever served, so no indexation decision applies to the URL itself; the
+ * destination carries its own. Listed so the indexation ledger doesn't flag a
+ * stub as an undeclared route. Mirrors allbikes' `REDIRECT_STUBS`.
+ */
+export const REDIRECT_STUBS: string[] = [
+  '/blog',
+  '/blog/[slug]',
+  // Bounces to /dashboard/enquiries; also covered by the robots.txt disallow
+  // on /dashboard, but a redirect stub either way.
+  '/dashboard',
+];
+
+/**
+ * Route *families* whose pages are generated from data rather than
+ * hand-authored, one entry per distinct dynamic `page.tsx`. Mirrors allbikes'
+ * `DYNAMIC_ROUTE_FAMILIES` — see that file for the state definitions.
+ *
+ * FreeTheDesk's only public one is the guides article route; everything else
+ * dynamic (`/dashboard/**`) is private and already covered by the robots.txt
+ * disallow, not by this registry.
+ */
+export interface DynamicRouteFamily {
+  pattern: string;
+  state: 'listed' | 'unlisted' | 'noindex' | 'conditional';
+  policySource: string;
+}
+
+export const DYNAMIC_ROUTE_FAMILIES: DynamicRouteFamily[] = [
+  {
+    pattern: '/[slug]',
+    state: 'listed',
+    policySource:
+      'lib/articles.ts#getAllArticleMeta — every article is published, none are noindex',
+  },
+];
+
 export function metadataFor(path: PagePath): Metadata {
   const page: PageDefinition = PAGES[path];
   return pageMetadata({ ...page, path });

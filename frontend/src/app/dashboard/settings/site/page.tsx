@@ -99,7 +99,7 @@ export default function SiteSettingsPage() {
     <label className={adminFormLabelClassName} key={field}>
       {label}
       <input
-        className={cn(adminFormControlClassName)}
+        className={adminFormControlClassName}
         name={field}
         type="number"
         min="0"

@@ -100,7 +100,7 @@ export default function PortalAccountPage() {
             <label className={adminFormLabelClassName}>
               Business name
               <input
-                className={cn(adminFormControlClassName)}
+                className={adminFormControlClassName}
                 name="business_name"
                 value={form.business_name}
                 onChange={(event) => setForm({ ...form, business_name: event.target.value })}
@@ -110,7 +110,7 @@ export default function PortalAccountPage() {
             <label className={adminFormLabelClassName}>
               Contact name
               <input
-                className={cn(adminFormControlClassName)}
+                className={adminFormControlClassName}
                 name="contact_name"
                 value={form.contact_name}
                 onChange={(event) => setForm({ ...form, contact_name: event.target.value })}
@@ -120,7 +120,7 @@ export default function PortalAccountPage() {
             <label className={adminFormLabelClassName}>
               Phone
               <input
-                className={cn(adminFormControlClassName)}
+                className={adminFormControlClassName}
                 name="phone"
                 type="tel"
                 value={form.phone}
@@ -130,7 +130,7 @@ export default function PortalAccountPage() {
             <label className={adminFormLabelClassName}>
               State or territory
               <select
-                className={cn(adminFormControlClassName)}
+                className={adminFormControlClassName}
                 name="state"
                 value={form.state}
                 onChange={(event) =>
@@ -146,7 +146,7 @@ export default function PortalAccountPage() {
             </label>
             <label className={adminFormLabelClassName}>
               Email
-              <input className={cn(adminFormControlClassName)} value={account.email} disabled />
+              <input className={adminFormControlClassName} value={account.email} disabled />
               <small className="mt-2xs block text-ui leading-[1.45] font-normal text-text-subtle">
                 This is your sign-in address. To change it, email hello@freethedesk.com.au and we
                 will move it across.

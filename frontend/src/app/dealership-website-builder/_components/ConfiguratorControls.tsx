@@ -7,18 +7,7 @@ import { fieldHintClassName } from '@/components/forms/selectionFormClassNames';
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { cn } from '@/lib/utils';
 
-import {
-  CapabilityOption,
-  capabilityChevronClassName,
-  capabilityChevronOpenClassName,
-  capabilityIconClassName,
-  capabilityMarkClassName,
-  capabilityPanelClassName,
-  capabilityRowClassName,
-  capabilitySelectedIconClassName,
-  capabilitySelectedMarkClassName,
-  capabilityToggleClassName,
-} from './CapabilityOption';
+import { CapabilityOption, CapabilityRow } from './CapabilityOption';
 import {
   submitConfiguratorEnquiry,
   type ConfiguratorEnquiryState,
@@ -246,73 +235,22 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
             );
           })}
           {/* The same row as a capability, but its "selected" state is whether
-              the textarea has anything in it, so it is spelled out here. */}
-          <div className={capabilityRowClassName}>
-            <div className="flex items-stretch">
-              <button
-                type="button"
-                className={cn(capabilityToggleClassName, 'py-ml')}
-                onClick={() => setExpanded((current) => ({ ...current, custom: !current.custom }))}
-                aria-expanded={Boolean(expanded.custom)}
-                aria-controls="custom-capability-details"
-              >
-                <span className="flex min-w-0 items-center gap-s">
-                  <span
-                    className={cn(
-                      capabilityIconClassName,
-                      'flex-[0_0_44px] bg-surface-tint [&_svg]:h-[21px] [&_svg]:w-[21px]',
-                      hasCustomRequest && capabilitySelectedIconClassName,
-                    )}
-                  >
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4" />
-                    </svg>
-                  </span>
-                  <span>
-                    <strong
-                      className={cn(
-                        'block text-step-0 leading-[1.25]',
-                        hasCustomRequest && 'text-[var(--page-accent)]',
-                      )}
-                    >
-                      Custom capability
-                    </strong>
-                    <small className="mt-2xs block text-lead leading-[1.45] text-text-subtle">
-                      Tell us what would make this work for you.
-                    </small>
-                  </span>
-                </span>
-                <i
-                  className={cn(
-                    capabilityMarkClassName,
-                    'h-[24px] w-[24px] flex-[0_0_24px]',
-                    hasCustomRequest && capabilitySelectedMarkClassName,
-                  )}
-                >
-                  {hasCustomRequest ? '✓' : '+'}
-                </i>
-              </button>
-              <button
-                type="button"
-                className={cn(
-                  capabilityChevronClassName,
-                  expanded.custom && capabilityChevronOpenClassName,
-                )}
-                onClick={() => toggleExpanded('custom')}
-                aria-expanded={Boolean(expanded.custom)}
-                aria-controls="custom-capability-details"
-                aria-label={`${expanded.custom ? 'Hide' : 'Open'} custom capability request`}
-              >
-                <svg viewBox="0 0 20 20" aria-hidden="true">
-                  <path d="m5 7.5 5 5 5-5" />
-                </svg>
-              </button>
-            </div>
-            {expanded.custom && (
-              <div
-                className={cn(capabilityPanelClassName, 'mb-m w-full bg-surface-tint')}
-                id="custom-capability-details"
-              >
+              the textarea has anything in it - there is nothing to toggle, so
+              opening the row is the whole interaction. */}
+          <CapabilityRow
+            name="Custom capability"
+            description="Tell us what would make this work for you."
+            icon={
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4" />
+              </svg>
+            }
+            selected={hasCustomRequest}
+            expanded={Boolean(expanded.custom)}
+            detailsId="custom-capability-details"
+            onExpandedChange={() => toggleExpanded('custom')}
+            panel={
+              <>
                 <label className={cn(labelClassName, 'mb-s')} htmlFor="custom-request">
                   What would you like your website to do?
                 </label>
@@ -327,9 +265,9 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
                 <small className="mt-xs block text-small leading-[1.5] text-text-subtle">
                   It can be rough—we’ll help turn the idea into a clear scope.
                 </small>
-              </div>
-            )}
-          </div>
+              </>
+            }
+          />
         </div>
       </section>
 

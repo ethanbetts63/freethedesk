@@ -26,8 +26,15 @@ interface RobotsGroup {
  */
 const DISALLOWED_ROUTES = [
   '/api/',
+  // Bare and trailing-slash forms both listed: "Disallow: /dashboard/" does not
+  // match the exact path /dashboard, only paths starting with /dashboard/ —
+  // the same gap the allbikes robots.txt shipped with, caught by its
+  // indexation ledger 2026-09-17.
+  '/dashboard',
   '/dashboard/',
+  '/portal',
   '/portal/',
+  '/seo-portal',
   '/seo-portal/',
   '/login',
   '/licensing/payment',

@@ -18,7 +18,8 @@ its agreements and messaging capabilities.
 | Frontend styling, Tailwind, CSS, lint, or breakpoints | `../freetheplatform/_docs/lint-rules.md`                            |
 | Design tokens                                         | `../freetheplatform/_docs/token-contract.md`                        |
 | FreeTheDesk Tailwind conversion                       | `_docs/tailwind-migration.md`                                       |
-| Tests or test infrastructure                          | `../freetheplatform/_docs/TESTING.md`                                |
+| Backend tests or test infrastructure                  | `../freetheplatform/_docs/testing-standard-backend.md`               |
+| Frontend tests or test infrastructure                 | `../freetheplatform/_docs/testing-standard-frontend.md`              |
 | Shared agent workflow or definition of done           | `../freetheplatform/_docs/agent-workflow.md`                        |
 | Licensing                                             | `_docs/licensing/README.md` and the relevant plan/research file     |
 | Stripe subscriptions                                  | `_docs/stripe-subscriptions.md`                                     |
@@ -39,8 +40,9 @@ directory.
   do not reintroduce local substitutes.
 - The dealership website builder previews a generated customer site and is a
   scoped second design system. Its exception is defined by the shared lint policy.
-- The frontend is migrating to the shared Tailwind v4 architecture. Distinguish
-  current CSS behaviour from the migration target.
+- The frontend follows the shared Tailwind v4 architecture. Remaining CSS files
+  are foundations or named exceptions; `_docs/tailwind-migration.md` records how
+  it got there rather than what is still planned.
 - Shared package changes require package tests plus focused FreeTheDesk
   integration verification.
 - Changing a page's content means bumping its `updated` date in

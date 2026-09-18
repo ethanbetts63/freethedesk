@@ -56,7 +56,8 @@ npm run build
 | ------------------------------------------- | ---------------------------------------------------------------- |
 | Agent instructions                          | [`AGENTS.md`](AGENTS.md)                                         |
 | All product documentation                   | [`_docs/README.md`](_docs/README.md)                             |
-| Tests and local fixtures                    | [`../freetheplatform/_docs/TESTING.md`](../freetheplatform/_docs/TESTING.md) |
+| Backend tests and local fixtures             | [`../freetheplatform/_docs/testing-standard-backend.md`](../freetheplatform/_docs/testing-standard-backend.md) |
+| Frontend tests                               | [`../freetheplatform/_docs/testing-standard-frontend.md`](../freetheplatform/_docs/testing-standard-frontend.md) |
 | Notifications                               | [`_docs/notifications.md`](_docs/notifications.md)               |
 | Stripe subscriptions and agreement evidence | [`_docs/stripe-subscriptions.md`](_docs/stripe-subscriptions.md) |
 | Licensing                                   | [`_docs/licensing/README.md`](_docs/licensing/README.md)         |

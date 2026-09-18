@@ -73,7 +73,7 @@ function PreviewNavigation({
                 <button
                   type="button"
                   key={item.page}
-                  className={previewPage === item.page ? styles.activeNav : ''}
+                  className={cn(previewPage === item.page && styles.activeNav)}
                   onClick={() => onPageChange(item.page)}
                 >
                   {item.label}
@@ -82,7 +82,7 @@ function PreviewNavigation({
           )}
           <button
             type="button"
-            className={`${styles.contactNav} ${previewPage === 'contact' ? styles.activeNav : ''}`}
+            className={cn(styles.contactNav, previewPage === 'contact' && styles.activeNav)}
             onClick={() => onPageChange('contact')}
           >
             Contact
@@ -163,7 +163,7 @@ function HomePreview({
               View all stock →
             </button>
           </div>
-          <div className={`${styles.catalogueGrid} ${styles.featuredInventoryGrid}`}>
+          <div className={cn(styles.catalogueGrid, styles.featuredInventoryGrid)}>
             {INVENTORY_VEHICLES.slice(0, 3).map((vehicle) => (
               <InventoryTile
                 key={vehicle.name}
@@ -351,7 +351,7 @@ export function WebsitePreview(props: WebsitePreviewProps) {
     // this column's width, not the viewport's, because the column is a third of
     // the page on a phone and two thirds from lg.
     <section
-      className="@container/dealer-preview relative top-0 flex h-[72svh] min-h-[560px] min-w-0 flex-col bg-surface-tint-strong p-s lg:sticky lg:top-[78px] lg:h-auto lg:min-h-0 lg:px-l lg:pt-m lg:pb-ml"
+      className="@container/dealer-preview relative top-0 flex h-[72svh] min-h-[560px] min-w-0 flex-col bg-surface-tint-strong p-s lg:sticky lg:top-[var(--header-height-lg)] lg:h-auto lg:min-h-0 lg:px-l lg:pt-m lg:pb-ml"
       aria-label="Live website preview"
     >
       <div className="flex justify-between px-4xs pb-s text-small font-heavy tracking-label text-text-subtle uppercase">

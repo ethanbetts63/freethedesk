@@ -78,7 +78,7 @@
   --color-accent-on-dark: var(--accent-on-dark);
   --color-accent-on-dark-soft: var(--accent-on-dark-soft);
   --color-section-number-on-dark: var(--section-number-on-dark);
-  --color-focus-ring: var(--focus-ring);
+  --color-outline-focus: var(--outline-focus);
   --shadow-focus: var(--ring-focus);
   --shadow-halo: var(--ring-halo);
 
@@ -235,7 +235,7 @@
   --border-strong-hover: var(--slate-400);
   /* The border of a focused control. Not a new colour: it is the interactive
      colour named for the role, so call sites stop reaching for the ramp.
-     Pairs with --focus-ring, which is the halo drawn outside that border. */
+     Pairs with --outline-focus, which is the outline drawn outside it. */
   --border-focus: var(--action-primary);
   --border-subtle: var(--slate-100);
   --border-on-dark: var(--blue-900);
@@ -253,7 +253,12 @@
   --accent-on-dark: var(--sky-500);
   --accent-on-dark-soft: var(--sky-400);
   --section-number-on-dark: var(--accent-on-dark);
-  --focus-ring: color-mix(in srgb, var(--sky-500) 40%, transparent);
+  /* The focus OUTLINE colour, for a control that is a box rather than a border:
+     buttons, button-like links, a table row. Named shape-first to sit beside
+     --ring-focus and --ring-halo below, which it is not: those are box-shadows
+     a bordered text control draws, this is an `outline-color`. The two were
+     --focus-ring and --ring-focus until Phase 6, one letter apart. */
+  --outline-focus: color-mix(in srgb, var(--sky-500) 40%, transparent);
 
   /* RINGS
      The one shadow family that is not elevation: a flat ring drawn tight
@@ -428,6 +433,13 @@
 
   /* Minimum comfortable touch target. */
   --tap-min: 44px;
+
+  /* The sticky site header's own height, so anything that sticks below it can
+     clear it without a second copy of the number. Literal because the header's
+     min-height is: it is sized by the wordmark and the logo, not by the
+     spacing scale. */
+  --header-height: 68px;
+  --header-height-lg: 78px;
 
   /* Corner radii. Small radii are perceptually sensitive - 2px and 4px do not
      read the same - so the bottom of the ramp is deliberately dense. */

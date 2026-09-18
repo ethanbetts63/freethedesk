@@ -83,7 +83,7 @@ function ComposeMessageContent() {
           <label className={adminFormLabelClassName}>
             To
             <input
-              className={cn(adminFormControlClassName)}
+              className={adminFormControlClassName}
               type="email"
               value={to}
               onChange={(event) => setTo(event.target.value)}
@@ -93,7 +93,7 @@ function ComposeMessageContent() {
           <label className={adminFormLabelClassName}>
             Subject
             <input
-              className={cn(adminFormControlClassName)}
+              className={adminFormControlClassName}
               value={subject}
               onChange={(event) => setSubject(event.target.value)}
               required
@@ -102,7 +102,7 @@ function ComposeMessageContent() {
           <label className={adminFormLabelClassName}>
             Email body
             <textarea
-              className={cn(adminFormTextareaClassName)}
+              className={adminFormTextareaClassName}
               rows={18}
               value={body}
               onChange={(event) => setBody(event.target.value)}
