@@ -1,13 +1,10 @@
 from django.urls import include, path
+from freetheplatform.auth.views import LoginView, LogoutView, ProfileView, RefreshView
 
 from .views import (
     AdminEnquiryDetailView,
     AdminEnquiryListView,
     AdminSiteSettingsView,
-    CookieTokenObtainPairView,
-    CookieTokenRefreshView,
-    LogoutView,
-    ProfileView,
     create_ai_readiness_enquiry,
     create_enquiry,
     create_project_enquiry,
@@ -23,8 +20,10 @@ urlpatterns = [
     path("project-enquiries/", create_project_enquiry, name="create-project-enquiry"),
     path("site-settings/", site_settings, name="site-settings"),
     path("admin/site-settings/", AdminSiteSettingsView.as_view(), name="admin-site-settings"),
-    path("token/", CookieTokenObtainPairView.as_view(), name="token"),
-    path("token/refresh/", CookieTokenRefreshView.as_view(), name="token-refresh"),
+    # The session endpoints come from the shared package; the paths are
+    # unchanged, so the frontend and the edge proxy are untouched by that.
+    path("token/", LoginView.as_view(), name="token"),
+    path("token/refresh/", RefreshView.as_view(), name="token-refresh"),
     path("token/logout/", LogoutView.as_view(), name="token-logout"),
     path("auth/me/", ProfileView.as_view(), name="profile"),
     path("admin/enquiries/", AdminEnquiryListView.as_view(), name="admin-enquiry-list"),

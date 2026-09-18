@@ -1,11 +1,12 @@
 """Settings for the freethedesk Django API."""
 
 import os
-from datetime import timedelta
 from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
+
+from freetheplatform.auth import conf as ftp_auth_conf
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,8 +41,10 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     # Provides the OutstandingToken/BlacklistedToken tables that make
     # BLACKLIST_AFTER_ROTATION and logout revocation possible. Rows are
-    # pruned opportunistically on login; see core.utils.token_cleanup.
+    # pruned opportunistically on login, inside the auth app below.
     "rest_framework_simplejwt.token_blacklist",
+    # Cookie-JWT sessions, and the deployment checks that come with it.
+    "freetheplatform.auth",
     "core",
     "dealers",
     "seo",
@@ -125,7 +128,7 @@ REST_FRAMEWORK = {
     # be a second way into every endpoint, with its own lifetime, no revocation
     # and nothing applying the login throttle to it.
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "core.utils.authentication.CookieJWTAuthentication",
+        "freetheplatform.auth.authentication.CookieJWTAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_THROTTLE_CLASSES": [
@@ -143,27 +146,22 @@ REST_FRAMEWORK = {
     },
 }
 
-AUTH_COOKIE = "freethedesk_access"
-AUTH_COOKIE_REFRESH = "freethedesk_refresh"
-# A JWT is trusted because its signature verifies, not because a row exists, so
-# nothing server-side can withdraw one unless it has been blacklisted. Without
-# the blacklist the only way to end a session early is to rotate SECRET_KEY,
-# which signs out everybody at once.
+# Cookie-JWT sessions. Everything the package needs beyond this has a default
+# that is safe on its own; `manage.py ftp_auth_config` prints what is in force.
 #
-# REFRESH_TOKEN_LIFETIME is how long a stolen refresh token stays useful. Seven
-# days, flat: a staff/dealer/subscriber split would be three numbers to reason
-# about for a difference nobody could justify.
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-    "ROTATE_REFRESH_TOKENS": True,
-    # Rotation without this achieves nothing: the token rotated away stays
-    # valid until it expires, so a stolen one is not displaced by the refresh
-    # that replaced it. With it, a replayed token is also a theft signal.
-    "BLACKLIST_AFTER_ROTATION": True,
-    "UPDATE_LAST_LOGIN": True,
-    "SIGNING_KEY": SECRET_KEY,
+# The cookie prefix names the site: two of ours under one parent domain would
+# otherwise overwrite each other's session.
+FTP_AUTH = {
+    "COOKIE_PREFIX": "freethedesk",
+    "PRINCIPAL": "core.principal.principal",
+    "CREDENTIAL_RESOLVER": "freetheplatform.auth.credentials.username_or_email",
 }
+
+# Derived from FTP_AUTH rather than written out again, so the token lifetimes
+# and the cookie max-ages cannot drift apart. A JWT is trusted because its
+# signature verifies, not because a row exists, which is why rotation with
+# blacklisting is not optional there.
+SIMPLE_JWT = ftp_auth_conf.simple_jwt(FTP_AUTH)
 
 CSRF_TRUSTED_ORIGINS = [
     origin.strip()

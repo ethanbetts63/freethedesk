@@ -1,6 +1,6 @@
 import pytest
-from django.conf import settings as django_settings
 from django.test import Client
+from freetheplatform.auth.conf import cookie_names
 from freetheplatform.messaging.backends import locmem, reset_backend_cache
 from rest_framework.test import APIClient, APIRequestFactory, force_authenticate
 from rest_framework_simplejwt.tokens import AccessToken
@@ -15,7 +15,8 @@ class SignInClient(Client):
     """
 
     def sign_in(self, user):
-        self.cookies[django_settings.AUTH_COOKIE] = str(AccessToken.for_user(user))
+        access_cookie, _ = cookie_names()
+        self.cookies[access_cookie] = str(AccessToken.for_user(user))
         return user
 
 

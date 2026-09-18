@@ -1,4 +1,8 @@
-"""Rotation, logout revocation, and the blacklist cleanup that follows them.
+"""Rotation, logout revocation, and that a login still triggers the blacklist flush.
+
+The flush itself is the shared package's, and is tested there. What is worth
+asserting here is that this product still calls it, since a cleanup nothing
+invokes is the same as no cleanup.
 
 These tests fail if the blacklist app is dropped from ``INSTALLED_APPS`` or
 ``BLACKLIST_AFTER_ROTATION`` is turned back off, which is the point of writing
@@ -10,11 +14,10 @@ from datetime import timedelta
 import pytest
 from django.core.cache import cache
 from django.utils import timezone
-from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
+from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from core.tests.factories import UserFactory
-from core.utils import token_cleanup
 
 pytestmark = pytest.mark.django_db
 
@@ -97,76 +100,6 @@ def test_logout_twice_succeeds(api_client):
 
     api_client.cookies["freethedesk_refresh"] = str(refresh)
     assert api_client.post("/api/token/logout/", format="json").status_code == 200
-
-
-def test_expired_tokens_are_purged_and_live_ones_kept():
-    """The flush clears what has expired and nothing else.
-
-    Deleting a live token would sign somebody out, so this is the boundary that
-    matters most.
-    """
-    user = UserFactory()
-    _expired_token(user)
-    RefreshToken.for_user(user)
-
-    token_cleanup.purge_expired_tokens()
-
-    assert OutstandingToken.objects.count() == 1
-    assert not OutstandingToken.objects.filter(expires_at__lte=timezone.now()).exists()
-
-
-def test_blacklist_rows_go_with_their_token():
-    """The blacklist table is only reachable through the cascade."""
-    user = UserFactory()
-    token = RefreshToken.for_user(user)
-    token.blacklist()
-    row = OutstandingToken.objects.get(jti=token["jti"])
-    row.expires_at = timezone.now() - timedelta(days=1)
-    row.save(update_fields=["expires_at"])
-
-    token_cleanup.purge_expired_tokens()
-
-    assert BlacklistedToken.objects.count() == 0
-
-
-def test_deletion_is_bounded_by_the_batch_size(monkeypatch):
-    """One unlucky login pays for a bounded batch, not the whole table."""
-    monkeypatch.setattr(token_cleanup, "CLEANUP_BATCH_SIZE", 2)
-    user = UserFactory()
-    for _ in range(3):
-        _expired_token(user)
-
-    token_cleanup.purge_expired_tokens()
-
-    assert OutstandingToken.objects.count() == 1
-
-
-def test_cleanup_skips_when_it_ran_recently():
-    """At most once per interval, however busy the morning is."""
-    user = UserFactory()
-    token_cleanup.purge_expired_tokens_if_due()
-    _expired_token(user)
-
-    token_cleanup.purge_expired_tokens_if_due()
-
-    assert OutstandingToken.objects.count() == 1
-
-
-def test_a_failing_cleanup_neither_raises_nor_retries(monkeypatch):
-    """A login must not fail because a housekeeping delete did, and a database
-    problem must not then be paid for by every login that follows."""
-    calls = []
-
-    def boom():
-        calls.append(1)
-        raise RuntimeError("database is having a bad day")
-
-    monkeypatch.setattr(token_cleanup, "purge_expired_tokens", boom)
-
-    token_cleanup.purge_expired_tokens_if_due()
-    token_cleanup.purge_expired_tokens_if_due()
-
-    assert len(calls) == 1
 
 
 def test_successful_login_purges_expired_tokens(api_client):
