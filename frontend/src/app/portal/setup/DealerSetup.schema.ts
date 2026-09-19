@@ -1,6 +1,8 @@
+import { FIELD_MAX } from '@freetheplatform/web-security';
 import { z } from 'zod';
 
-const text = z.string().optional().default('');
+/** Every text field on this form is one line the dealer types. */
+const text = z.string().trim().max(FIELD_MAX.line).optional().default('');
 
 // A file input always appears in FormData, even when nothing was chosen —
 // browsers submit an empty File (name "", size 0) rather than omitting it.

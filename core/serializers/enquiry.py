@@ -1,5 +1,6 @@
 from urllib.parse import urlsplit
 
+from freetheplatform.security import bounds
 from rest_framework import serializers
 
 from ..models import Enquiry
@@ -12,6 +13,9 @@ class EnquirySerializer(serializers.ModelSerializer):
             "name", "business", "email", "phone", "website", "help_with", "message",
             "configuration",
         ]
+        # `message` is a TextField column, which DRF maps to a CharField with
+        # no maximum. This one is posted by anybody, from a public form.
+        extra_kwargs = {"message": {"max_length": bounds.FIELD_MAX["note"]}}
 
     def validate_message(self, value: str) -> str:
         value = value.strip()
@@ -28,10 +32,10 @@ class EnquirySerializer(serializers.ModelSerializer):
 class AiReadinessEnquirySerializer(serializers.Serializer):
     """The intentionally small lead form for the free automated site check."""
 
-    website = serializers.URLField()
+    website = bounds.url()
     # The slim banner variant of the form asks for website and email only.
-    phone = serializers.CharField(max_length=40, required=False, allow_blank=True, default="")
-    email = serializers.EmailField()
+    phone = bounds.char("phone", required=False, allow_blank=True, default="")
+    email = bounds.email()
 
     def create(self, validated_data):
         hostname = urlsplit(validated_data["website"]).hostname or ""
@@ -61,8 +65,8 @@ class ProjectEnquirySerializer(serializers.Serializer):
     project_type = serializers.ChoiceField(choices=sorted(HELP_WITH_BY_TYPE))
     # Free text because the "custom" option lets people write their own figure.
     budget = serializers.CharField(max_length=60)
-    website = serializers.URLField()
-    email = serializers.EmailField()
+    website = bounds.url()
+    email = bounds.email()
     phone = serializers.CharField(max_length=40, required=False, allow_blank=True, default="")
     notes = serializers.CharField(max_length=2000, required=False, allow_blank=True, default="")
 

@@ -52,18 +52,19 @@ npm run build
 
 ## Documentation
 
-| Topic                                       | Source                                                           |
-| ------------------------------------------- | ---------------------------------------------------------------- |
-| Agent instructions                          | [`AGENTS.md`](AGENTS.md)                                         |
-| All product documentation                   | [`_docs/README.md`](_docs/README.md)                             |
-| Backend tests and local fixtures             | [`../freetheplatform/_docs/testing-standard-backend.md`](../freetheplatform/_docs/testing-standard-backend.md) |
-| Frontend tests                               | [`../freetheplatform/_docs/testing-standard-frontend.md`](../freetheplatform/_docs/testing-standard-frontend.md) |
-| Notifications                               | [`_docs/notifications.md`](_docs/notifications.md)               |
-| Stripe subscriptions and agreement evidence | [`_docs/stripe-subscriptions.md`](_docs/stripe-subscriptions.md) |
-| Licensing                                   | [`_docs/licensing/README.md`](_docs/licensing/README.md)         |
-| Security                                    | [`_docs/security.md`](_docs/security.md)                         |
-| Tailwind migration                          | [`_docs/tailwind-migration.md`](_docs/tailwind-migration.md)     |
-| Shared strategy, testing, lint, and tokens  | `../freetheplatform/_docs/README.md`                             |
+| Topic                                       | Source                                                                                                           |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Agent instructions                          | [`AGENTS.md`](AGENTS.md)                                                                                         |
+| All product documentation                   | [`_docs/README.md`](_docs/README.md)                                                                             |
+| Backend tests and local fixtures            | [`../freetheplatform/_docs/testing-standard-backend.md`](../freetheplatform/_docs/testing-standard-backend.md)   |
+| Frontend tests                              | [`../freetheplatform/_docs/testing-standard-frontend.md`](../freetheplatform/_docs/testing-standard-frontend.md) |
+| Notifications                               | [`_docs/notifications.md`](_docs/notifications.md)                                                               |
+| Stripe subscriptions and agreement evidence | [`_docs/stripe-subscriptions.md`](_docs/stripe-subscriptions.md)                                                 |
+| Licensing                                   | [`_docs/licensing/README.md`](_docs/licensing/README.md)                                                         |
+| Security                                    | [`../freetheplatform/_docs/security-standard.md`](../freetheplatform/_docs/security-standard.md)                 |
+| Personal data                               | [`_docs/pii_inventory.md`](_docs/pii_inventory.md)                                                               |
+| Tailwind migration                          | [`_docs/tailwind-migration.md`](_docs/tailwind-migration.md)                                                     |
+| Shared strategy, testing, lint, and tokens  | `../freetheplatform/_docs/README.md`                                                                             |
 
 Apply migrations and run `py manage.py createsuperuser` to access the local staff
 dashboard at `/login`.

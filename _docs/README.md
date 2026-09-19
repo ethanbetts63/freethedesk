@@ -9,12 +9,12 @@ not override implemented behaviour or shared policy.
 
 ## Development and operations
 
-| Document                                           | Type              | Purpose                                                                                            |
-| -------------------------------------------------- | ----------------- | -------------------------------------------------------------------------------------------------- |
-| [security.md](security.md)                         | Policy/reference  | Product security controls and expectations                                                         |
-| [notifications.md](notifications.md)               | Runbook           | Enquiry notification configuration and ownership boundary                                          |
-| [stripe-subscriptions.md](stripe-subscriptions.md) | Reference/runbook | Subscription checkout, Stripe, and agreement evidence                                              |
-| [tailwind-migration.md](tailwind-migration.md)     | Migration plan    | Move from CSS/CSS Modules to the shared Tailwind v4 architecture                                   |
+| Document                                           | Type              | Purpose                                                          |
+| -------------------------------------------------- | ----------------- | ---------------------------------------------------------------- |
+| [pii_inventory.md](pii_inventory.md)               | Reference         | Personal-data locations and handling                             |
+| [notifications.md](notifications.md)               | Runbook           | Enquiry notification configuration and ownership boundary        |
+| [stripe-subscriptions.md](stripe-subscriptions.md) | Reference/runbook | Subscription checkout, Stripe, and agreement evidence            |
+| [tailwind-migration.md](tailwind-migration.md)     | Migration plan    | Move from CSS/CSS Modules to the shared Tailwind v4 architecture |
 
 ## Licensing
 

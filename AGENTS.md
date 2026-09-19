@@ -12,22 +12,22 @@ its agreements and messaging capabilities.
 
 ## Read before changing
 
-| Work                                                  | Required document                                                   |
-| ----------------------------------------------------- | ------------------------------------------------------------------- |
-| Any cross-project or reusable capability              | `../freetheplatform/_docs/strategy.md`                              |
-| Frontend styling, Tailwind, CSS, lint, or breakpoints | `../freetheplatform/_docs/lint-rules.md`                            |
-| Design tokens                                         | `../freetheplatform/_docs/token-contract.md`                        |
-| FreeTheDesk Tailwind conversion                       | `_docs/tailwind-migration.md`                                       |
-| Backend tests or test infrastructure                  | `../freetheplatform/_docs/testing-standard-backend.md`               |
-| Frontend tests or test infrastructure                 | `../freetheplatform/_docs/testing-standard-frontend.md`              |
-| Shared agent workflow or definition of done           | `../freetheplatform/_docs/agent-workflow.md`                        |
-| Licensing                                             | `_docs/licensing/README.md` and the relevant plan/research file     |
-| Stripe subscriptions                                  | `_docs/stripe-subscriptions.md`                                     |
-| Security                                              | `_docs/security.md`                                                 |
-| Any form (new, edited, or converted)                  | `../freetheplatform/_docs/forms-standard.md` and `_docs/forms-migration.md` |
-| A role, portal, auth/session change, or edge routing  | `../freetheplatform/_docs/security-standard.md`                     |
-| Metadata, structured data, sitemap, robots, or indexation policy | `../freetheplatform/_docs/seo-standard.md` — read its sourcing rule first |
-| Files under `frontend/`                               | `frontend/AGENTS.md` in addition to this file                       |
+| Work                                                             | Required document                                                           |
+| ---------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Any cross-project or reusable capability                         | `../freetheplatform/_docs/strategy.md`                                      |
+| Frontend styling, Tailwind, CSS, lint, or breakpoints            | `../freetheplatform/_docs/lint-rules.md`                                    |
+| Design tokens                                                    | `../freetheplatform/_docs/token-contract.md`                                |
+| FreeTheDesk Tailwind conversion                                  | `_docs/tailwind-migration.md`                                               |
+| Backend tests or test infrastructure                             | `../freetheplatform/_docs/testing-standard-backend.md`                      |
+| Frontend tests or test infrastructure                            | `../freetheplatform/_docs/testing-standard-frontend.md`                     |
+| Shared agent workflow or definition of done                      | `../freetheplatform/_docs/agent-workflow.md`                                |
+| Licensing                                                        | `_docs/licensing/README.md` and the relevant plan/research file             |
+| Stripe subscriptions                                             | `_docs/stripe-subscriptions.md`                                             |
+| Security, authentication, sessions, headers, or input            | `../freetheplatform/_docs/security-standard.md`                             |
+| Personal data                                                    | `_docs/pii_inventory.md`                                                    |
+| Any form (new, edited, or converted)                             | `../freetheplatform/_docs/forms-standard.md` and `_docs/forms-migration.md` |
+| Metadata, structured data, sitemap, robots, or indexation policy | `../freetheplatform/_docs/seo-standard.md` — read its sourcing rule first   |
+| Files under `frontend/`                                          | `frontend/AGENTS.md` in addition to this file                               |
 
 Read only the documents relevant to the issue; do not load the whole `_docs`
 directory.

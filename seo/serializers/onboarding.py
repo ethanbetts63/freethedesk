@@ -1,3 +1,4 @@
+from freetheplatform.security import bounds
 from rest_framework import serializers
 
 from ..models import SeoProfile
@@ -24,6 +25,13 @@ class SeoOnboardingSerializer(serializers.ModelSerializer):
             "onboarding_status", "onboarding_status_label", "submitted_at",
             "created_at", "updated_at",
         ]
+        # Three TextField columns, which DRF maps to CharFields with no
+        # maximum. A customer types these, so they are notes, not documents.
+        extra_kwargs = {
+            "target_keywords": {"max_length": bounds.FIELD_MAX["note"]},
+            "competitors": {"max_length": bounds.FIELD_MAX["note"]},
+            "notes": {"max_length": bounds.FIELD_MAX["note"]},
+        }
 
     def update(self, instance, validated_data):
         if instance.onboarding_status == SeoProfile.OnboardingStatus.NOT_STARTED:

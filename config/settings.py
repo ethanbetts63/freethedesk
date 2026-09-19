@@ -154,6 +154,18 @@ REST_FRAMEWORK = {
     },
 }
 
+# The ceiling on the request body itself, which is the only bound that applies
+# before anything is parsed: a serializer's per-field maximums are checked after
+# the body has already been read into memory. Django's own defaults, stated
+# rather than inherited, so that raising one is a visible decision.
+#
+# Neither figure caps an uploaded dealer document — a file streams to disk and
+# is governed by the upload pipeline's own byte, pixel and page limits.
+DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5 MiB
+# Parsing is quadratic in the number of form fields, so an unbounded count is a
+# cheap denial of service.
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
+
 # Separate cache for throttle counters so ordinary cache pressure can't evict an
 # attacker's attempt count. Both are per-process and cleared on restart, which is
 # why lockout is a database row instead — the durable line of defense.

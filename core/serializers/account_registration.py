@@ -3,6 +3,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import IntegrityError, transaction
 from django.db.models import Q
+from freetheplatform.security import bounds
 from rest_framework import serializers
 
 
@@ -18,11 +19,13 @@ class BaseAccountRegistrationSerializer(serializers.Serializer):
     tenant_model = None
     tenant_defaults: dict = {}
 
-    business_name = serializers.CharField(max_length=180)
-    contact_name = serializers.CharField(max_length=120)
-    email = serializers.EmailField()
-    phone = serializers.CharField(max_length=40, required=False, allow_blank=True)
-    password = serializers.CharField(write_only=True, style={"input_type": "password"})
+    business_name = bounds.char("business_name")
+    contact_name = bounds.char("name")
+    email = bounds.email()
+    phone = bounds.char("phone", required=False, allow_blank=True)
+    # Bounded because the hasher runs on whatever arrives: an unbounded
+    # password field lets a caller hand the site megabytes to run PBKDF2 over.
+    password = bounds.password()
 
     default_error_messages = {
         "email_taken": "An account already exists for this email address.",

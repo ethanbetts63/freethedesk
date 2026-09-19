@@ -1,15 +1,20 @@
+import { FIELD_MAX } from '@freetheplatform/web-security';
 import { z } from 'zod';
 
-const text = z.string().optional().default('');
+/** One line each. */
+const line = z.string().trim().max(FIELD_MAX.line).optional().default('');
+/** A paragraph the customer types. */
+const note = z.string().trim().max(FIELD_MAX.note).optional().default('');
+const url = z.string().trim().max(FIELD_MAX.url).optional().default('');
 
 export const seoConnectSchema = z.object({
-  website_url: text,
-  search_console_property: text,
-  google_business_profile_url: text,
-  primary_location: text,
-  target_keywords: text,
-  competitors: text,
-  notes: text,
+  website_url: url,
+  search_console_property: line,
+  google_business_profile_url: url,
+  primary_location: line,
+  target_keywords: note,
+  competitors: note,
+  notes: note,
   intent: z.enum(['draft', 'submit']).default('draft'),
 });
 

@@ -1,5 +1,6 @@
 from urllib.parse import urlsplit
 
+from freetheplatform.security import bounds
 from rest_framework import serializers
 
 from core.serializers import BaseAccountRegistrationSerializer
@@ -13,16 +14,10 @@ class SeoRegistrationSerializer(BaseAccountRegistrationSerializer):
     tenant_model = SeoSubscriber
     tenant_defaults = {"payment_status": SeoSubscriber.PaymentStatus.PAYMENT_PENDING}
 
-    business_name = serializers.CharField(max_length=180, required=False, allow_blank=True)
-    contact_name = serializers.CharField(max_length=120, required=False, allow_blank=True)
-    password = serializers.CharField(
-        write_only=True,
-        required=False,
-        allow_blank=True,
-        allow_null=True,
-        style={"input_type": "password"},
-    )
-    website = serializers.URLField(required=False, allow_blank=True)
+    business_name = bounds.char("business_name", required=False, allow_blank=True)
+    contact_name = bounds.char("name", required=False, allow_blank=True)
+    password = bounds.password(required=False, allow_blank=True, allow_null=True)
+    website = bounds.url(required=False, allow_blank=True)
     report_type = serializers.ChoiceField(
         choices=SeoSubscriber.ReportType.choices, default=SeoSubscriber.ReportType.BOTH
     )

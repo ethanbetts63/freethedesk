@@ -1,3 +1,4 @@
+from freetheplatform.security import bounds
 from rest_framework import serializers
 
 from ..models import Dealer
@@ -25,3 +26,6 @@ class AdminDealerSerializer(serializers.ModelSerializer):
             "cancel_at_period_end",
             "status_label", "status_changed_at", "created_at", "updated_at",
         ]
+        # A TextField column, which DRF maps to a CharField with no
+        # maximum. Staff-written, but still a bound.
+        extra_kwargs = {"staff_notes": {"max_length": bounds.FIELD_MAX["note"]}}
