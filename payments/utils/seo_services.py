@@ -1,8 +1,7 @@
-"""SEO subscription checkout + webhook handling.
+"""SEO checkout: quoting, agreement acceptance, and the Stripe session.
 
-Parallel to ``payments.utils.services`` (the dealer flow), kept separate so the
-working dealer code is untouched. ``process_stripe_event`` in ``services`` does a
-deferred import of the handlers here and dispatches by Stripe metadata.
+Webhook handling moved to ``freetheplatform.payments``; what happens once an
+SEO payment succeeds is in ``payments/flows.py``.
 """
 
 from dataclasses import dataclass
@@ -10,12 +9,11 @@ from decimal import Decimal
 
 import stripe
 from django.conf import settings
-from freetheplatform.agreements import Acceptance
 
 from core.models import SiteSettings
 from seo.models import SeoSubscriber
-from seo.utils.services import ensure_seo_profile
 
+from ..flows import SEO_ONEOFF, SEO_SUBSCRIPTION
 from .agreements import (
     AgreementConfigurationError,
     SEO_AGREEMENT_KEY,
@@ -24,13 +22,8 @@ from .agreements import (
     seo_acceptance_statement,
     seo_offer_context,
 )
-from .services import (
-    PaymentConfigurationError,
-    _period_end,
-    _session_matches_acceptance,
-    _subscription_id,
-    _value,
-)
+from .records import attach_session, billing_customer_for, record_payment
+from .services import PaymentConfigurationError, _session_matches_acceptance, _value
 
 
 @dataclass(frozen=True)
@@ -161,22 +154,52 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
         except stripe.InvalidRequestError:
             pass
 
+    billing_customer = billing_customer_for(
+        related=subscriber,
+        email=subscriber.user.email,
+        name=subscriber.business_name,
+        phone=subscriber.phone or "",
+    )
     if not subscriber.stripe_customer_id:
-        customer_data = {
-            "email": subscriber.user.email,
-            "name": subscriber.business_name,
-            "metadata": {"subscriber_id": str(subscriber.pk)},
-        }
-        if subscriber.phone:
-            customer_data["phone"] = subscriber.phone
-        customer = stripe.Customer.create(
-            **customer_data,
-            idempotency_key=f"seo-{subscriber.pk}-customer-v1",
-        )
-        subscriber.stripe_customer_id = customer.id
+        subscriber.stripe_customer_id = billing_customer.stripe_customer_id
         subscriber.save(update_fields=["stripe_customer_id", "updated_at"])
 
+    recurring_unit_amount = (
+        int((quote.recurring_price * Decimal("100")).quantize(Decimal("1")))
+        if quote.recurring_price is not None
+        else None
+    )
+
+    # The shared record, written before Stripe is called. A recurring plan
+    # bought with a one-off audit is two lines, exactly as Stripe sees it, so
+    # the quote and the charge cannot drift apart.
+    items = [{
+        "key": f"seo.{subscriber.plan}",
+        "name": quote.recurring_name or quote.name,
+        "unit_amount": quote.recurring_price if quote.recurring else quote.price,
+    }]
+    if quote.recurring:
+        items[0]["recurring"] = quote.recurring
+    if quote.one_off_addon:
+        items.append({
+            "key": "seo.gbp_audit",
+            "name": "One-time Google Business Profile audit",
+            "unit_amount": quote.one_off_addon,
+        })
+
+    payment = record_payment(
+        flow=SEO_SUBSCRIPTION if quote.recurring else SEO_ONEOFF,
+        related=subscriber,
+        related_label=subscriber.business_name,
+        billing_customer=billing_customer,
+        mode=quote.mode,
+        purpose=subscriber.plan,
+        agreement_acceptance_id=acceptance.pk,
+        items=items,
+    )
+
     metadata = {
+        "ftp_payment": str(payment.id),
         "subscriber_id": str(subscriber.pk),
         "plan": subscriber.plan,
         "report_type": subscriber.report_type,
@@ -186,15 +209,9 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
         "currency": quote.currency,
     }
     return_url = f"{settings.SITE_URL.rstrip('/')}/seo/payment/complete"
-    recurring_unit_amount = (
-        int((quote.recurring_price * Decimal("100")).quantize(Decimal("1")))
-        if quote.recurring_price is not None
-        else None
-    )
     price_data = {
         "currency": quote.currency,
         "unit_amount": recurring_unit_amount if recurring_unit_amount is not None else quote.unit_amount,
-        "tax_behavior": "inclusive",
         "product_data": {"name": quote.recurring_name or quote.name},
     }
     session_args = {
@@ -202,16 +219,12 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
         "mode": quote.mode,
         "customer": subscriber.stripe_customer_id,
         "line_items": [{"price_data": price_data, "quantity": 1}],
-        "billing_address_collection": "required",
-        "customer_update": {"address": "auto"},
-        "automatic_tax": {"enabled": True},
+        # No automatic_tax and no tax_behavior: not registered for GST.
+        # See _docs/stripe-subscriptions.md.
         "return_url": return_url,
         "client_reference_id": str(subscriber.pk),
         "metadata": metadata,
-        "idempotency_key": (
-            f"seo-{subscriber.pk}-{quote.mode}-{acceptance.pk}-"
-            f"after-{prior_session_id or 'initial'}"
-        ),
+        "idempotency_key": f"seo-{subscriber.pk}-{quote.mode}-{payment.id}",
     }
     if quote.recurring is None:
         session_args["payment_intent_data"] = {"metadata": metadata}
@@ -223,7 +236,6 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
                 "price_data": {
                     "currency": quote.currency,
                     "unit_amount": int((quote.one_off_addon * Decimal("100")).quantize(Decimal("1"))),
-                    "tax_behavior": "inclusive",
                     "product_data": {"name": "One-time Google Business Profile audit"},
                 },
                 "quantity": 1,
@@ -233,115 +245,7 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
     if not session.client_secret:
         raise PaymentConfigurationError("Stripe did not return a checkout session.")
 
+    attach_session(payment, session.id)
     subscriber.stripe_checkout_session_id = session.id
     subscriber.save(update_fields=["stripe_checkout_session_id", "updated_at"])
     return session.client_secret
-
-
-def stripe_object_is_seo(obj) -> bool:
-    """True if this Stripe object belongs to the SEO flow rather than the dealer flow."""
-    metadata = _value(obj, "metadata", {}) or {}
-    if _value(metadata, "subscriber_id"):
-        return True
-    if _value(metadata, "dealer_id"):
-        return False
-    candidate = _subscription_id(obj) or _value(obj, "id")
-    return bool(candidate) and SeoSubscriber.objects.filter(
-        stripe_subscription_id=candidate
-    ).exists()
-
-
-def _seo_subscriber_for_stripe_object(obj):
-    metadata = _value(obj, "metadata", {}) or {}
-    subscriber_id = _value(metadata, "subscriber_id")
-    if subscriber_id:
-        return SeoSubscriber.objects.filter(pk=subscriber_id).first()
-    subscription_id = _subscription_id(obj) or _value(obj, "id")
-    if subscription_id:
-        return SeoSubscriber.objects.filter(stripe_subscription_id=subscription_id).first()
-    return None
-
-
-def _acceptance_for_seo_object(obj, subscriber):
-    metadata = _value(obj, "metadata", {}) or {}
-    acceptance_id = _value(metadata, "terms_acceptance_id")
-    if not acceptance_id:
-        return None
-    return Acceptance.objects.for_related(subscriber).filter(
-        pk=acceptance_id,
-        agreement_version__agreement__key=SEO_AGREEMENT_KEY,
-    ).first()
-
-
-def _payment_status_for_seo_subscription(stripe_status):
-    if stripe_status in {"active", "trialing"}:
-        return SeoSubscriber.PaymentStatus.ACTIVE
-    if stripe_status in {"past_due", "unpaid"}:
-        return SeoSubscriber.PaymentStatus.PAST_DUE
-    if stripe_status in {"canceled", "paused"}:
-        return SeoSubscriber.PaymentStatus.CANCELLED
-    return SeoSubscriber.PaymentStatus.PAYMENT_PENDING
-
-
-def handle_seo_checkout_session_completed(session):
-    subscriber = _seo_subscriber_for_stripe_object(session)
-    if not subscriber:
-        return "ignored: seo subscriber not found"
-    subscriber = SeoSubscriber.objects.select_for_update().get(pk=subscriber.pk)
-    if _value(session, "id") != subscriber.stripe_checkout_session_id:
-        return "ignored: superseded checkout session"
-    if not _acceptance_for_seo_object(session, subscriber):
-        return "ignored: terms acceptance not found"
-
-    subscriber.stripe_customer_id = _value(session, "customer") or subscriber.stripe_customer_id
-
-    if _value(session, "mode") == "payment" or subscriber.is_one_off:
-        # One-off products have no subscription event, so this is authoritative.
-        subscriber.stripe_payment_intent_id = (
-            _value(session, "payment_intent") or subscriber.stripe_payment_intent_id
-        )
-        subscriber.payment_status = SeoSubscriber.PaymentStatus.PAID
-        subscriber.subscription_current_period_end = None
-        subscriber.save(update_fields=[
-            "stripe_customer_id", "stripe_payment_intent_id", "payment_status",
-            "subscription_current_period_end", "updated_at",
-        ])
-        ensure_seo_profile(subscriber)
-        return "one-off payment recorded"
-
-    subscriber.stripe_subscription_id = (
-        _value(session, "subscription") or subscriber.stripe_subscription_id
-    )
-    subscriber.save(update_fields=[
-        "stripe_customer_id", "stripe_subscription_id", "updated_at",
-    ])
-    return "checkout recorded"
-
-
-def handle_seo_subscription_changed(subscription, event_created):
-    subscriber = _seo_subscriber_for_stripe_object(subscription)
-    if not subscriber:
-        return "ignored: seo subscriber not found"
-    subscriber = SeoSubscriber.objects.select_for_update().get(pk=subscriber.pk)
-    subscription_id = _value(subscription, "id")
-    if subscriber.stripe_subscription_id and subscription_id != subscriber.stripe_subscription_id:
-        return "ignored: superseded subscription"
-    if subscriber.stripe_last_event_created_at and event_created < subscriber.stripe_last_event_created_at:
-        return "ignored: stale subscription event"
-    if not _acceptance_for_seo_object(subscription, subscriber):
-        return "ignored: terms acceptance not found"
-
-    subscriber.stripe_subscription_id = subscription_id
-    subscriber.stripe_customer_id = _value(subscription, "customer") or subscriber.stripe_customer_id
-    subscriber.payment_status = _payment_status_for_seo_subscription(_value(subscription, "status", ""))
-    subscriber.subscription_current_period_end = _period_end(subscription)
-    subscriber.cancel_at_period_end = bool(_value(subscription, "cancel_at_period_end", False))
-    subscriber.stripe_last_event_created_at = event_created
-    subscriber.save(update_fields=[
-        "stripe_subscription_id", "stripe_customer_id", "payment_status",
-        "subscription_current_period_end", "cancel_at_period_end",
-        "stripe_last_event_created_at", "updated_at",
-    ])
-    if subscriber.payment_status == SeoSubscriber.PaymentStatus.ACTIVE:
-        ensure_seo_profile(subscriber)
-    return f"subscription {subscriber.payment_status}"

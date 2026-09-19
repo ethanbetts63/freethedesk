@@ -1,11 +1,64 @@
 # Stripe subscription setup
 
+## Tax position: no GST
+
+**The entity taking FreeTheDesk payments is not registered for GST**, and is
+below the $75,000 turnover threshold that would require it.
+
+An unregistered business must not charge GST, must not issue a document
+presenting part of a price as GST, and cannot claim input tax credits. So:
+
+| Rule                                                                                                                     | Why                                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **No mention of GST anywhere a customer can see** — pricing pages, checkout, agreements, invoices, emails, admin labels. | There is no GST in the price. Saying otherwise is wrong in a document a customer relies on.                                                                  |
+| A displayed price is simply the total payable.                                                                           | Correct regardless of registration, and what Australian Consumer Law requires.                                                                               |
+| The payment flow declares `tax_mode="none"` explicitly, and `automatic_tax` stays off.                                   | The shared payments app requires a site to state its tax position rather than infer one from missing configuration. Silence is how a wrong default survives. |
+| Changing this is a deliberate, dated change, not a settings tweak.                                                       | `tax_behavior: "inclusive"` is harmless now and costs 10% of revenue the day registration happens.                                                           |
+
+**A customer being registered changes nothing.** GST is charged by a registered
+supplier, not because the buyer is registered. A dealer told a price is
+GST-inclusive would claim an input tax credit they cannot support.
+
+The threshold is roughly 32 dealers at $199/month, so this position has a shelf
+life. When it changes, the decision to make first is whether prices are quoted
+inclusive or ex-GST: customers are registered businesses who reclaim the GST, so
+ex-GST costs them nothing in real terms and makes registration a non-event rather
+than a 10% revenue cut. The reasoning is in
+`../../freetheplatform/_docs/payments-plan.md`.
+
+## Where this lives now
+
+Checkout preparation — quoting, agreement acceptance, and building the Stripe
+session — is still in this repository's `payments` app. **Everything after the
+customer pays belongs to `freetheplatform.payments`:** signature verification,
+event de-duplication, payment and subscription records, refunds, and the
+failure alerting.
+
+| Concern                                                      | Owner                                                            |
+| ------------------------------------------------------------ | ---------------------------------------------------------------- |
+| Prices, plans, report types, agreement wording               | `payments/utils/services.py`, `seo_services.py`, `agreements.py` |
+| What a paid dealer or subscriber becomes                     | `payments/flows.py`                                              |
+| Telling staff a webhook is stuck                             | `payments/utils/alerts.py`                                       |
+| Verifying, recording and dispatching an event                | the package                                                      |
+| `Payment`, `Subscription`, `BillingCustomer`, `WebhookEvent` | the package                                                      |
+
+`payments/utils/records.py` is a bridge and is temporary: it writes the shared
+`Payment` beside this site's own Stripe call so the package's handlers have
+something to find. Phase 3 replaces the session-building code with the
+package's `start_checkout` and deletes it. The API is documented in
+`../../freetheplatform/_docs/apps/payments.md`.
+
+There is no longer a local `StripeEvent` model, and `Dealer` and
+`SeoSubscriber` no longer carry `stripe_last_event_created_at`. Ordering is
+settled by which event owns which field, not by comparing Stripe's clock.
+
+## Prices
+
 Subscription prices are managed in Django's **Licensing settings** admin page.
-They are monthly Australian-dollar prices and are GST inclusive everywhere.
+They are monthly Australian-dollar prices, and each is the total a dealer pays.
 
 Django is the pricing authority. For each new Checkout Session it sends Stripe
-inline recurring `price_data` containing the current model price in cents and
-sets `tax_behavior` to `inclusive`. Existing subscriptions retain the price that
+inline recurring `price_data` containing the current model price in cents. Existing subscriptions retain the price that
 was accepted when they were created; changing Licensing settings affects only
 future subscriptions.
 

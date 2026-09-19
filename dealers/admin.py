@@ -12,7 +12,7 @@ class DealerAdmin(admin.ModelAdmin):
     search_fields = ("business_name", "contact_name", "user__email", "phone")
     readonly_fields = (
         "payment_status", "stripe_customer_id", "stripe_subscription_id",
-        "stripe_checkout_session_id", "stripe_last_event_created_at",
+        "stripe_checkout_session_id",
         "subscription_current_period_end", "cancel_at_period_end",
         "created_at", "updated_at", "status_changed_at",
     )

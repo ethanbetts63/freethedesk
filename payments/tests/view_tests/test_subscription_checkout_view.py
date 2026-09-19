@@ -12,15 +12,27 @@ from payments.utils.agreements import DEALER_AGREEMENT_KEY
 pytestmark = pytest.mark.django_db
 
 
+@pytest.fixture
+def ftp_stripe():
+    """Fake the package's Stripe client.
+
+    Customer creation moved into ``freetheplatform.payments`` when webhook
+    handling did, so patching ``stripe.Customer.create`` here no longer reaches
+    it. The package builds its client through ``client.get_client``, which is
+    the one seam both halves of checkout now go through.
+    """
+    with patch("freetheplatform.payments.client.get_client") as get_client:
+        get_client.return_value.customers.create.return_value = Mock(id="cus_test")
+        yield get_client.return_value
+
+
 @stripe_settings
 @patch("payments.utils.services.stripe.checkout.Session.create")
-@patch("payments.utils.services.stripe.Customer.create")
-def test_checkout_uses_backend_price_and_records_terms(customer_create, session_create, client, logged_in_dealer):
+def test_checkout_uses_backend_price_and_records_terms(session_create, ftp_stripe, client, logged_in_dealer):
     SiteSettings.load()
     settings = SiteSettings.load()
     settings.complete_price = Decimal("219.50")
     settings.save()
-    customer_create.return_value = Mock(id="cus_test")
     session_create.return_value = Mock(id="cs_test", client_secret="cs_test_secret")
 
     response = client.post(
@@ -38,9 +50,14 @@ def test_checkout_uses_backend_price_and_records_terms(customer_create, session_
     price_data = create_kwargs["line_items"][0]["price_data"]
     assert price_data["unit_amount"] == 21950
     assert price_data["currency"] == "aud"
-    assert price_data["tax_behavior"] == "inclusive"
     assert price_data["recurring"] == {"interval": "month"}
-    assert create_kwargs["customer_update"] == {"address": "auto"}
+    # No GST: the entity taking these payments is not registered for it, so
+    # nothing describes part of the price as tax and Stripe is not asked to
+    # calculate any. Asserted as absence because the absence is the position.
+    # See _docs/stripe-subscriptions.md.
+    assert "tax_behavior" not in price_data
+    assert "automatic_tax" not in create_kwargs
+    assert "billing_address_collection" not in create_kwargs
     acceptance = Acceptance.objects.get(
         agreement_version__agreement__key=DEALER_AGREEMENT_KEY
     )
@@ -65,9 +82,7 @@ def test_checkout_requires_terms_acceptance(client, logged_in_dealer):
 
 @stripe_settings
 @patch("payments.utils.services.stripe.checkout.Session.create")
-@patch("payments.utils.services.stripe.Customer.create")
-def test_repeated_checkout_reuses_same_offer_acceptance(customer_create, session_create, client, logged_in_dealer):
-    customer_create.return_value = Mock(id="cus_test")
+def test_repeated_checkout_reuses_same_offer_acceptance(session_create, ftp_stripe, client, logged_in_dealer):
     session_create.return_value = Mock(id="cs_test", client_secret="cs_test_secret")
     payload = {"accepted_terms": True}
     client.post(reverse("subscription-checkout"), payload, content_type="application/json")

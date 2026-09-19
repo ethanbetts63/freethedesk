@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "seo",
     "payments",
     "freetheplatform.agreements",
+    "freetheplatform.payments",
     "freetheplatform.messaging",  # Last, so our template overrides the package's default.
 ]
 
@@ -81,19 +82,32 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
 
-if os.getenv("DB_ENGINE", "sqlite") == "mysql":
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": os.getenv("DB_NAME"),
-            "USER": os.getenv("DB_USER"),
-            "PASSWORD": os.getenv("DB_PASSWORD"),
-            "HOST": os.getenv("DB_HOST", "localhost"),
-            "PORT": os.getenv("DB_PORT", "3306"),
-        }
+# MySQL everywhere, including tests, and no SQLite fallback. This used to select
+# an engine from DB_ENGINE and default to SQLite, which meant an unset variable
+# in a deployed environment silently ran the site on a local file rather than
+# failing — and it meant the suite proved less than it looked like it did.
+#
+# The gap that mattered: `select_for_update()` has no effect on SQLite. Django
+# does not raise, it ignores the lock, so a concurrency test passes while
+# testing nothing. Unique constraints also differ (MySQL's default collation is
+# case-insensitive, SQLite's is not), and SQLite has no index key-length limit,
+# so a migration can apply in tests and fail on deploy.
+#
+# allbikes and bloomprint both name MySQL unconditionally; this now matches them.
+# CI provisions no database — system checks never open a connection.
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        # 127.0.0.1, not "localhost": the name resolves to ::1 first and MySQL
+        # listens on IPv4, so every connection pays roughly two seconds waiting
+        # for the IPv6 attempt to fail before falling back.
+        "HOST": os.getenv("DB_HOST", "127.0.0.1"),
+        "PORT": os.getenv("DB_PORT", "3306"),
     }
-else:
-    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3"}}
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -238,6 +252,20 @@ FTP_MESSAGING = {
 
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
+
+FTP_PAYMENTS = {
+    "SITE": "freethedesk",
+    "SECRET_KEY": STRIPE_SECRET_KEY,
+    "WEBHOOK_SECRET": STRIPE_WEBHOOK_SECRET,
+    "SITE_URL": SITE_URL,
+    # No GST: the entity taking these payments is not registered for it, so
+    # the position is stated rather than left for Stripe Tax to infer from a
+    # registration it would not find. See _docs/stripe-subscriptions.md.
+    "CURRENCY": "aud",
+    # Stripe stops retrying a failing event after about three days. Without
+    # this, the first report of one is a dealer who paid and got nothing.
+    "ALERT_HANDLER": "payments.utils.alerts.alert_failed_webhook",
+}
 FTP_AGREEMENTS = {
     "DOCUMENTS": {
         "dealer.subscription": {

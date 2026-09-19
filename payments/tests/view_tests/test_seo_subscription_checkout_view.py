@@ -13,14 +13,26 @@ from seo.models import SeoSubscriber
 pytestmark = pytest.mark.django_db
 
 
+@pytest.fixture
+def ftp_stripe():
+    """Fake the package's Stripe client.
+
+    Customer creation moved into ``freetheplatform.payments`` when webhook
+    handling did, so patching ``stripe.Customer.create`` here no longer reaches
+    it. The package builds its client through ``client.get_client``, which is
+    the one seam both halves of checkout now go through.
+    """
+    with patch("freetheplatform.payments.client.get_client") as get_client:
+        get_client.return_value.customers.create.return_value = Mock(id="cus_test")
+        yield get_client.return_value
+
+
 @stripe_settings
 @patch("payments.utils.seo_services.stripe.checkout.Session.create")
-@patch("payments.utils.seo_services.stripe.Customer.create")
-def test_quarterly_checkout_is_a_three_month_subscription(customer_create, session_create, client, logged_in_seo_subscriber):
+def test_quarterly_checkout_is_a_three_month_subscription(session_create, ftp_stripe, client, logged_in_seo_subscriber):
     settings = SiteSettings.load()
     settings.seo_quarterly_price = Decimal("150.00")
     settings.save()
-    customer_create.return_value = Mock(id="cus_test")
     session_create.return_value = Mock(id="cs_test", client_secret="cs_test_secret")
 
     response = client.post(
@@ -52,15 +64,13 @@ def test_quarterly_checkout_is_a_three_month_subscription(customer_create, sessi
 
 @stripe_settings
 @patch("payments.utils.seo_services.stripe.checkout.Session.create")
-@patch("payments.utils.seo_services.stripe.Customer.create")
-def test_one_off_checkout_is_a_single_payment(customer_create, session_create, client, seo_subscriber):
+def test_one_off_checkout_is_a_single_payment(session_create, ftp_stripe, client, seo_subscriber):
     seo_subscriber.plan = SeoSubscriber.Plan.ONEOFF
     seo_subscriber.save(update_fields=["plan"])
     client.sign_in(seo_subscriber.user)
     settings = SiteSettings.load()
     settings.seo_oneoff_price = Decimal("250.00")
     settings.save()
-    customer_create.return_value = Mock(id="cus_test")
     session_create.return_value = Mock(id="cs_test", client_secret="cs_test_secret")
 
     response = client.post(
@@ -82,9 +92,8 @@ def test_one_off_checkout_is_a_single_payment(customer_create, session_create, c
 
 @stripe_settings
 @patch("payments.utils.seo_services.stripe.checkout.Session.create")
-@patch("payments.utils.seo_services.stripe.Customer.create")
 def test_google_business_profile_audit_uses_its_own_one_off_price(
-    customer_create, session_create, client, seo_subscriber
+    session_create, ftp_stripe, client, seo_subscriber
 ):
     seo_subscriber.plan = SeoSubscriber.Plan.ONEOFF
     seo_subscriber.report_type = SeoSubscriber.ReportType.GBP
@@ -93,7 +102,6 @@ def test_google_business_profile_audit_uses_its_own_one_off_price(
     settings = SiteSettings.load()
     settings.gbp_audit_price = Decimal("110.00")
     settings.save()
-    customer_create.return_value = Mock(id="cus_test")
     session_create.return_value = Mock(id="cs_test", client_secret="cs_test_secret")
 
     response = client.post(
@@ -113,9 +121,8 @@ def test_google_business_profile_audit_uses_its_own_one_off_price(
 
 @stripe_settings
 @patch("payments.utils.seo_services.stripe.checkout.Session.create")
-@patch("payments.utils.seo_services.stripe.Customer.create")
 def test_combined_report_charges_gbp_once_and_only_recurs_the_seo_price(
-    customer_create, session_create, client, seo_subscriber
+    session_create, ftp_stripe, client, seo_subscriber
 ):
     seo_subscriber.report_type = SeoSubscriber.ReportType.BOTH
     seo_subscriber.save(update_fields=["report_type"])
@@ -124,7 +131,6 @@ def test_combined_report_charges_gbp_once_and_only_recurs_the_seo_price(
     settings.seo_quarterly_price = Decimal("150.00")
     settings.gbp_audit_price = Decimal("100.00")
     settings.save()
-    customer_create.return_value = Mock(id="cus_test")
     session_create.return_value = Mock(id="cs_test", client_secret="cs_test_secret")
 
     response = client.post(

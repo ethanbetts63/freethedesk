@@ -1,4 +1,5 @@
 import pytest
+from django.conf import settings
 from django.test import override_settings
 
 from dealers.models import Dealer
@@ -6,9 +7,16 @@ from dealers.tests.factories import DealerFactory
 from seo.models import SeoSubscriber
 from seo.tests.factories import SeoSubscriberFactory
 
+# FTP_PAYMENTS is built from STRIPE_* at settings-import time, so overriding
+# only those would leave the package still reading the unset originals.
 stripe_settings = override_settings(
     STRIPE_SECRET_KEY="sk_test_placeholder",
     STRIPE_WEBHOOK_SECRET="whsec_placeholder",
+    FTP_PAYMENTS={
+        **settings.FTP_PAYMENTS,
+        "SECRET_KEY": "sk_test_placeholder",
+        "WEBHOOK_SECRET": "whsec_placeholder",
+    },
 )
 
 

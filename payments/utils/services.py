@@ -1,17 +1,12 @@
 from dataclasses import dataclass
-from datetime import datetime, timezone as datetime_timezone
 from decimal import Decimal
 
 import stripe
 from django.conf import settings
-from django.db import transaction
-from freetheplatform.agreements import Acceptance
 
 from core.models import SiteSettings
 from dealers.models import Dealer
-from dealers.utils.services import ensure_dealer_profile
 
-from ..models import StripeEvent
 from .agreements import (
     AgreementConfigurationError,
     DEALER_ACCEPTANCE_STATEMENT,
@@ -20,6 +15,8 @@ from .agreements import (
     publish_configured_agreement,
     record_checkout_acceptance,
 )
+from ..flows import DEALER_SUBSCRIPTION
+from .records import attach_session, billing_customer_for, record_payment
 
 
 class PaymentConfigurationError(Exception):
@@ -114,22 +111,36 @@ def create_or_reuse_checkout_session(dealer, acceptance, quote):
         except stripe.InvalidRequestError:
             pass
 
+    billing_customer = billing_customer_for(
+        related=dealer,
+        email=dealer.user.email,
+        name=dealer.business_name,
+        phone=dealer.phone or "",
+    )
     if not dealer.stripe_customer_id:
-        customer_data = {
-            "email": dealer.user.email,
-            "name": dealer.business_name,
-            "metadata": {"dealer_id": str(dealer.pk)},
-        }
-        if dealer.phone:
-            customer_data["phone"] = dealer.phone
-        customer = stripe.Customer.create(
-            **customer_data,
-            idempotency_key=f"dealer-{dealer.pk}-customer-v1",
-        )
-        dealer.stripe_customer_id = customer.id
+        dealer.stripe_customer_id = billing_customer.stripe_customer_id
         dealer.save(update_fields=["stripe_customer_id", "updated_at"])
 
+    # Written before Stripe is called, so the session can carry its id and the
+    # package's webhook handlers have something to find.
+    payment = record_payment(
+        flow=DEALER_SUBSCRIPTION,
+        related=dealer,
+        related_label=dealer.business_name,
+        billing_customer=billing_customer,
+        mode="subscription",
+        purpose=dealer.plan,
+        agreement_acceptance_id=acceptance.pk,
+        items=[{
+            "key": f"dealer.{dealer.plan}",
+            "name": quote.name,
+            "unit_amount": quote.monthly_price,
+            "recurring": {"interval": "month"},
+        }],
+    )
+
     metadata = {
+        "ftp_payment": str(payment.id),
         "dealer_id": str(dealer.pk),
         "plan": dealer.plan,
         "terms_acceptance_id": str(acceptance.pk),
@@ -146,174 +157,24 @@ def create_or_reuse_checkout_session(dealer, acceptance, quote):
             "price_data": {
                 "currency": quote.currency,
                 "unit_amount": quote.unit_amount,
-                "tax_behavior": "inclusive",
                 "recurring": {"interval": "month"},
                 "product_data": {"name": quote.name},
             },
             "quantity": 1,
         }],
-        billing_address_collection="required",
-        customer_update={"address": "auto"},
-        automatic_tax={"enabled": True},
+        # No automatic_tax and no tax_behavior: the entity taking these
+        # payments is not registered for GST, so there is none to calculate or
+        # to describe the price as containing. See _docs/stripe-subscriptions.md.
         return_url=return_url,
         client_reference_id=str(dealer.pk),
         metadata=metadata,
         subscription_data={"metadata": metadata},
-        idempotency_key=(
-            f"dealer-{dealer.pk}-subscription-{acceptance.pk}-"
-            f"after-{prior_session_id or 'initial'}"
-        ),
+        idempotency_key=f"dealer-{dealer.pk}-subscription-{payment.id}",
     )
     if not session.client_secret:
         raise PaymentConfigurationError("Stripe did not return a checkout session.")
 
+    attach_session(payment, session.id)
     dealer.stripe_checkout_session_id = session.id
     dealer.save(update_fields=["stripe_checkout_session_id", "updated_at"])
     return session.client_secret
-
-
-def _subscription_id(obj):
-    subscription = _value(obj, "subscription")
-    if subscription:
-        return _value(subscription, "id", subscription)
-    parent = _value(obj, "parent", {}) or {}
-    details = _value(parent, "subscription_details", {}) or {}
-    subscription = _value(details, "subscription")
-    return _value(subscription, "id", subscription)
-
-
-def _dealer_for_stripe_object(obj):
-    metadata = _value(obj, "metadata", {}) or {}
-    dealer_id = _value(metadata, "dealer_id")
-    if dealer_id:
-        return Dealer.objects.filter(pk=dealer_id).first()
-    subscription_id = _subscription_id(obj)
-    if subscription_id:
-        return Dealer.objects.filter(stripe_subscription_id=subscription_id).first()
-    return None
-
-
-def _acceptance_for_object(obj, dealer):
-    metadata = _value(obj, "metadata", {}) or {}
-    acceptance_id = _value(metadata, "terms_acceptance_id")
-    if not acceptance_id:
-        return None
-    return Acceptance.objects.for_related(dealer).filter(
-        pk=acceptance_id,
-        agreement_version__agreement__key=DEALER_AGREEMENT_KEY,
-    ).first()
-
-
-def _period_end(subscription):
-    timestamp = _value(subscription, "current_period_end")
-    if not timestamp:
-        items = _value(_value(subscription, "items", {}), "data", []) or []
-        timestamp = _value(items[0], "current_period_end") if items else None
-    return datetime.fromtimestamp(timestamp, tz=datetime_timezone.utc) if timestamp else None
-
-
-def _payment_status_for_subscription(stripe_status):
-    if stripe_status in {"active", "trialing"}:
-        return Dealer.PaymentStatus.ACTIVE
-    if stripe_status in {"past_due", "unpaid"}:
-        return Dealer.PaymentStatus.PAST_DUE
-    if stripe_status in {"canceled", "paused"}:
-        return Dealer.PaymentStatus.CANCELLED
-    return Dealer.PaymentStatus.PAYMENT_PENDING
-
-
-def _event_datetime(timestamp):
-    return datetime.fromtimestamp(timestamp, tz=datetime_timezone.utc)
-
-
-def handle_checkout_session_completed(session):
-    dealer = _dealer_for_stripe_object(session)
-    if not dealer:
-        return "ignored: dealer not found"
-    dealer = Dealer.objects.select_for_update().get(pk=dealer.pk)
-    if _value(session, "id") != dealer.stripe_checkout_session_id:
-        return "ignored: superseded checkout session"
-    if not _acceptance_for_object(session, dealer):
-        return "ignored: terms acceptance not found"
-    dealer.stripe_customer_id = _value(session, "customer") or dealer.stripe_customer_id
-    dealer.stripe_subscription_id = _value(session, "subscription") or dealer.stripe_subscription_id
-    dealer.save(update_fields=["stripe_customer_id", "stripe_subscription_id", "updated_at"])
-    return "checkout recorded"
-
-
-def handle_subscription_changed(subscription, event_created):
-    dealer = _dealer_for_stripe_object(subscription)
-    if not dealer:
-        return "ignored: dealer not found"
-    dealer = Dealer.objects.select_for_update().get(pk=dealer.pk)
-    subscription_id = _value(subscription, "id")
-    if dealer.stripe_subscription_id and subscription_id != dealer.stripe_subscription_id:
-        return "ignored: superseded subscription"
-    if dealer.stripe_last_event_created_at and event_created < dealer.stripe_last_event_created_at:
-        return "ignored: stale subscription event"
-    if not _acceptance_for_object(subscription, dealer):
-        return "ignored: terms acceptance not found"
-
-    dealer.stripe_subscription_id = subscription_id
-    dealer.stripe_customer_id = _value(subscription, "customer") or dealer.stripe_customer_id
-    dealer.payment_status = _payment_status_for_subscription(_value(subscription, "status", ""))
-    dealer.subscription_current_period_end = _period_end(subscription)
-    dealer.cancel_at_period_end = bool(_value(subscription, "cancel_at_period_end", False))
-    dealer.stripe_last_event_created_at = event_created
-    dealer.save(update_fields=[
-        "stripe_subscription_id", "stripe_customer_id", "payment_status",
-        "subscription_current_period_end", "cancel_at_period_end",
-        "stripe_last_event_created_at", "updated_at",
-    ])
-    if dealer.payment_status == Dealer.PaymentStatus.ACTIVE:
-        ensure_dealer_profile(dealer)
-    return f"subscription {dealer.payment_status}"
-
-
-@transaction.atomic
-def process_stripe_event(event):
-    event_id = _value(event, "id")
-    event_type = _value(event, "type", "")
-    created_timestamp = _value(event, "created")
-    if not event_id or not event_type or not created_timestamp:
-        raise ValueError("Incomplete Stripe event.")
-    stripe_object = _value(_value(event, "data", {}), "object", {})
-    record, created = StripeEvent.objects.get_or_create(
-        event_id=event_id,
-        defaults={
-            "event_type": event_type,
-            "object_id": str(_value(stripe_object, "id", "")),
-            "stripe_created_at": _event_datetime(created_timestamp),
-        },
-    )
-    if not created:
-        return "duplicate"
-
-    # Deferred import: seo_services imports helpers from this module, so importing
-    # it at module load would be circular.
-    from .seo_services import (
-        handle_seo_checkout_session_completed,
-        handle_seo_subscription_changed,
-        stripe_object_is_seo,
-    )
-
-    if event_type == "checkout.session.completed":
-        if stripe_object_is_seo(stripe_object):
-            outcome = handle_seo_checkout_session_completed(stripe_object)
-        else:
-            outcome = handle_checkout_session_completed(stripe_object)
-    elif event_type in {
-        "customer.subscription.created", "customer.subscription.updated",
-        "customer.subscription.deleted",
-    }:
-        if stripe_object_is_seo(stripe_object):
-            outcome = handle_seo_subscription_changed(stripe_object, record.stripe_created_at)
-        else:
-            outcome = handle_subscription_changed(stripe_object, record.stripe_created_at)
-    elif event_type in {"invoice.paid", "invoice.payment_failed"}:
-        outcome = "invoice recorded; subscription event remains authoritative"
-    else:
-        outcome = "ignored: unsupported event"
-    record.outcome = outcome
-    record.save(update_fields=["outcome"])
-    return outcome
