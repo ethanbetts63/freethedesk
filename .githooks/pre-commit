@@ -1,0 +1,64 @@
+#!/bin/sh
+#
+# Pre-commit gate. Fast on purpose.
+#
+# A hook that takes minutes is a hook people bypass, and a rule that gets
+# bypassed once stops being a rule. So this runs the checks that are cheap and
+# catch the common breakages, and nothing else. The full suites --
+# `py -m pytest` and `npm run check` -- stay where AGENTS.md puts them: run when
+# you have changed that area, by the person or agent who changed it.
+#
+# Roughly: 5s for a backend commit, ~15s for a frontend one.
+#
+# Installed by `git config core.hooksPath .githooks`, once per clone. It is not
+# automatic: .git/ is never committed, so a fresh clone has no hooks at all and
+# says nothing about it.
+
+set -e
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -z "$staged" ] && exit 0
+
+fail() {
+    echo ""
+    echo "pre-commit: $1"
+    echo "            Fix it, or run 'git commit --no-verify' if you are certain."
+    exit 1
+}
+
+# --- Backend -------------------------------------------------------------
+#
+# Deployment, security and Stripe configuration checks. Always, not only on a
+# Python commit: a frontend change can move a route that the route-coverage
+# check reads, and five seconds is cheap enough not to think about.
+echo "pre-commit: security checks"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/check-security.ps1 \
+    || fail "manage.py check --deploy reported an error."
+
+# --- Frontend ------------------------------------------------------------
+#
+# Only when something under frontend/ is staged. Typecheck is whole-project
+# because types are a graph -- a change here can break a file nobody touched --
+# while formatting is per-file and only the staged ones are read.
+#
+# Deliberately NOT here: eslint, stylelint, and the token/sitemap/ledger
+# scripts. They belong to `npm run check`, which AGENTS.md already requires for
+# frontend work and which takes well over a minute.
+if echo "$staged" | grep -q '^frontend/'; then
+    echo "pre-commit: frontend typecheck"
+    (cd frontend && ./node_modules/.bin/tsc --noEmit) \
+        || fail "TypeScript reported an error."
+
+    formattable=$(echo "$staged" | grep '^frontend/' || true)
+    if [ -n "$formattable" ]; then
+        echo "pre-commit: formatting"
+        # --ignore-unknown so a staged image or lockfile is skipped rather than
+        # failing; the paths are repo-relative and prettier finds
+        # frontend/.prettierrc.json from each file's own directory.
+        # shellcheck disable=SC2086
+        ./frontend/node_modules/.bin/prettier --check --ignore-unknown $formattable \
+            || fail "Prettier would reformat a staged file. Run 'npm run format' in frontend/."
+    fi
+fi
+
+exit 0

@@ -68,6 +68,23 @@ domain is not on the browser preload list. Anything else is a finding.
 Run it before committing a change to settings, a URLconf, a serializer or a
 throttle. **There is no CI here** — see the shared standard, §19, for why.
 
+### The commit hook
+
+```powershell
+git config core.hooksPath .githooks
+```
+
+**Once per clone, by hand.** `.git/` is never committed, so a fresh clone has no
+hooks and says nothing about it — a missing hook looks exactly like a passing
+one. That one line points git at the tracked `.githooks/` directory instead.
+
+`.githooks/pre-commit` runs the security script on every commit, and adds a
+whole-project typecheck plus a Prettier check on the staged files when anything
+under `frontend/` is involved. About five seconds for a backend commit, fifteen for a frontend one. It is deliberately not the full suite:
+a hook that takes minutes is a hook people bypass, and a rule bypassed once
+stops being one. `py -m pytest` and `npm run check` stay where the Verification
+table in `AGENTS.md` puts them — run by whoever changed that area.
+
 ### Monthly: audit the lockfile
 
 ```powershell
