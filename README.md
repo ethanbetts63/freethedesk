@@ -40,6 +40,48 @@ npm run check
 npm run build
 ```
 
+### Security checks
+
+```powershell
+.\scripts\check-security.ps1
+```
+
+Everything the shared standard lists as checked — cookie and TLS settings, the
+unrouted admin, the single authentication path, a throttle scope on every route,
+a rate for every scope, the request-body ceiling — plus Django's own deployment
+checks and the Stripe configuration checks. Seconds; no database connection.
+
+The script exists rather than a line in this file because the checks are all
+deliberate no-ops under `DEBUG` — local work runs on plain HTTP, and complaining
+about that would train everybody to ignore the output. `.env` sets `DEBUG=True`,
+so `manage.py check --deploy` run plainly reports nothing while looking exactly
+like a pass. Turning `DEBUG` off then makes settings demand four values only
+production carries, two of which are shape-checked, so the script supplies
+placeholders, runs the check, and puts the environment back. Read it: every
+value has a comment saying which check it satisfies, and none of them is a
+credential.
+
+Two warnings are expected and correct: `security.W008`, because the host does
+the HTTP-to-HTTPS redirect rather than Django, and `security.W021`, because the
+domain is not on the browser preload list. Anything else is a finding.
+
+Run it before committing a change to settings, a URLconf, a serializer or a
+throttle. **There is no CI here** — see the shared standard, §19, for why.
+
+### Monthly: audit the lockfile
+
+```powershell
+py -m pip install --user pip-audit
+py -m pip_audit --requirement requirements.txt
+```
+
+This asks the public vulnerability databases whether anything pinned in the
+lockfile carries a _published_ advisory. It is about the dependencies, not this
+code, so it is a calendar job rather than a per-commit one: an advisory lands
+when somebody else publishes it. `freetheplatform` installs from git rather than
+PyPI and is reported as unauditable; its own dependencies resolve into this
+lockfile and are covered.
+
 ## Main areas
 
 | Path        | Responsibility                                                         |

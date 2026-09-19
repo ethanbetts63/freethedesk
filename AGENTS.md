@@ -58,13 +58,14 @@ directory.
 
 ## Verification
 
-| Changed area              | Commands from repository root                                                           |
-| ------------------------- | --------------------------------------------------------------------------------------- |
-| Django/Python             | `py -m pytest <relevant paths>`; broaden to `py -m pytest` when warranted               |
-| Django models             | `py manage.py makemigrations --check --dry-run` plus relevant tests                     |
-| Frontend static checks    | `Set-Location frontend; npm run check`                                                  |
-| Frontend production build | `Set-Location frontend; npm run build`                                                  |
-| Documentation only        | Prettier for changed Markdown where available, link/path checks, and `git diff --check` |
+| Changed area                              | Commands from repository root                                                                         |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Django/Python                             | `py -m pytest <relevant paths>`; broaden to `py -m pytest` when warranted                             |
+| Django models                             | `py manage.py makemigrations --check --dry-run` plus relevant tests                                   |
+| Settings, URLconf, serializers, throttles | `.\scripts\check-security.ps1` — deployment and security checks. There is no CI here; see `README.md` |
+| Frontend static checks                    | `Set-Location frontend; npm run check`                                                                |
+| Frontend production build                 | `Set-Location frontend; npm run build`                                                                |
+| Documentation only                        | Prettier for changed Markdown where available, link/path checks, and `git diff --check`               |
 
 ## Definition of done
 
