@@ -8,8 +8,19 @@ export const SERVER_API_BASE_URL = process.env.DJANGO_API_URL ?? 'http://127.0.0
  * The authenticated reader for a Server Action. The request policy is the
  * shared one; what is local is the base URL and reading Next's cookie store.
  */
+/**
+ * Django's session cookies, and nothing else.
+ *
+ * Without this the whole jar goes: analytics, consent flags, and anything else
+ * the origin holds, none of which Django reads. `csrftoken` is always
+ * forwarded by the shared helper.
+ */
+const SESSION_COOKIES = ['freethedesk_access', 'freethedesk_refresh'];
+
 export async function serverApiFetch(path: string, init: RequestInit = {}): Promise<Response> {
-  return sharedServerApiFetch(`${SERVER_API_BASE_URL}${path}`, await cookies(), init);
+  return sharedServerApiFetch(`${SERVER_API_BASE_URL}${path}`, await cookies(), init, {
+    forwardCookies: SESSION_COOKIES,
+  });
 }
 
 const PRICE_FIELDS = [

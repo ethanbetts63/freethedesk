@@ -49,7 +49,7 @@ faker==40.38.0
     # via
     #   -r requirements-dev.in
     #   factory-boy
-freetheplatform @ git+https://github.com/ethanbetts63/freetheplatform@v0.9.0
+freetheplatform @ git+https://github.com/ethanbetts63/freetheplatform@v0.10.0
     # via -r requirements.in
 frozenlist==1.8.0
     # via
