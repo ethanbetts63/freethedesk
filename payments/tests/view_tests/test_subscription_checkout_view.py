@@ -7,6 +7,7 @@ from freetheplatform.agreements import Acceptance
 
 from core.models import SiteSettings
 from payments.tests.conftest import stripe_settings
+from payments.tests.stripe_fake import FakeStripe
 from payments.utils.agreements import DEALER_AGREEMENT_KEY
 
 pytestmark = pytest.mark.django_db
@@ -16,24 +17,20 @@ pytestmark = pytest.mark.django_db
 def ftp_stripe():
     """Fake the package's Stripe client.
 
-    Customer creation moved into ``freetheplatform.payments`` when webhook
-    handling did, so patching ``stripe.Customer.create`` here no longer reaches
-    it. The package builds its client through ``client.get_client``, which is
-    the one seam both halves of checkout now go through.
+    Checkout goes through ``freetheplatform.payments`` now, so this is the one
+    seam both the customer and the session go through.
     """
-    with patch("freetheplatform.payments.client.get_client") as get_client:
-        get_client.return_value.customers.create.return_value = Mock(id="cus_test")
-        yield get_client.return_value
+    fake = FakeStripe()
+    with patch("freetheplatform.payments.client.get_client", return_value=fake):
+        yield fake
 
 
 @stripe_settings
-@patch("payments.utils.services.stripe.checkout.Session.create")
-def test_checkout_uses_backend_price_and_records_terms(session_create, ftp_stripe, client, logged_in_dealer):
+def test_checkout_uses_backend_price_and_records_terms(ftp_stripe, client, logged_in_dealer):
     SiteSettings.load()
     settings = SiteSettings.load()
     settings.complete_price = Decimal("219.50")
     settings.save()
-    session_create.return_value = Mock(id="cs_test", client_secret="cs_test_secret")
 
     response = client.post(
         reverse("subscription-checkout"),
@@ -46,11 +43,13 @@ def test_checkout_uses_backend_price_and_records_terms(session_create, ftp_strip
     assert response.status_code == 200
     assert response.json()["monthly_price"] == "219.50"
     assert "terms_version" not in response.json()
-    create_kwargs = session_create.call_args.kwargs
+    create_kwargs = ftp_stripe.last_session
     price_data = create_kwargs["line_items"][0]["price_data"]
     assert price_data["unit_amount"] == 21950
     assert price_data["currency"] == "aud"
-    assert price_data["recurring"] == {"interval": "month"}
+    # The package normalises a recurring line, so interval_count is always
+    # explicit rather than left to Stripe's default.
+    assert price_data["recurring"] == {"interval": "month", "interval_count": 1}
     # No GST: the entity taking these payments is not registered for it, so
     # nothing describes part of the price as tax and Stripe is not asked to
     # calculate any. Asserted as absence because the absence is the position.
@@ -68,7 +67,13 @@ def test_checkout_uses_backend_price_and_records_terms(session_create, ftp_strip
     assert acceptance.statement.startswith("I agree to the Dealer Subscription Terms")
     assert acceptance.agreement_version.content_archived is True
     assert acceptance.agreement_version.content
-    assert create_kwargs["metadata"]["terms_acceptance_id"] == str(acceptance.pk)
+    # Metadata is the package's standard set now: enough to find the local
+    # record and nothing personal. The acceptance is still bound to it.
+    metadata = create_kwargs["metadata"]
+    assert metadata["ftp_agreement_acceptance"] == str(acceptance.pk)
+    assert metadata["ftp_flow"] == "dealer.subscription"
+    assert metadata["ftp_reference"] == str(logged_in_dealer.pk)
+    assert metadata["ftp_site"] == "freethedesk"
 
 
 @stripe_settings
@@ -81,27 +86,37 @@ def test_checkout_requires_terms_acceptance(client, logged_in_dealer):
 
 
 @stripe_settings
-@patch("payments.utils.services.stripe.checkout.Session.create")
-def test_repeated_checkout_reuses_same_offer_acceptance(session_create, ftp_stripe, client, logged_in_dealer):
-    session_create.return_value = Mock(id="cs_test", client_secret="cs_test_secret")
-    payload = {"accepted_terms": True}
-    client.post(reverse("subscription-checkout"), payload, content_type="application/json")
+def test_repeated_checkout_reuses_the_offer_and_the_session(ftp_stripe, client, logged_in_dealer):
+    """A refresh must not produce a second way to be charged.
 
-    with patch("payments.utils.services.stripe.checkout.Session.retrieve") as retrieve:
-        retrieve.return_value = {
-            "id": "cs_test",
-            "status": "open",
-            "client_secret": "cs_test_secret",
-            "metadata": {
-                "terms_acceptance_id": str(
-                    Acceptance.objects.get(
-                        agreement_version__agreement__key=DEALER_AGREEMENT_KEY
-                    ).pk
-                )
-            },
-        }
-        response = client.post(reverse("subscription-checkout"), payload, content_type="application/json")
-    assert response.status_code == 200
+    The retrieve/expire dance the old code did by hand is the package's now,
+    so this asserts the outcome rather than the mechanism: one acceptance, one
+    Stripe session, whatever the customer does to the page.
+    """
+    payload = {"accepted_terms": True}
+    first = client.post(reverse("subscription-checkout"), payload, content_type="application/json")
+    second = client.post(reverse("subscription-checkout"), payload, content_type="application/json")
+
+    assert first.status_code == 200
+    assert second.status_code == 200
+    assert second.json()["client_secret"] == first.json()["client_secret"]
+    assert ftp_stripe.session_count == 1
     assert Acceptance.objects.filter(
         agreement_version__agreement__key=DEALER_AGREEMENT_KEY
     ).count() == 1
+
+
+@stripe_settings
+def test_a_price_change_forces_a_new_checkout(ftp_stripe, client, logged_in_dealer):
+    payload = {"accepted_terms": True}
+    client.post(reverse("subscription-checkout"), payload, content_type="application/json")
+
+    site_settings = SiteSettings.load()
+    site_settings.complete_price = Decimal("299.00")
+    site_settings.save()
+    client.post(reverse("subscription-checkout"), payload, content_type="application/json")
+
+    # The old session is expired rather than left open beside the new one.
+    assert ftp_stripe.session_count == 2
+    assert ftp_stripe.sessions["cs_test_1"].status == "expired"
+    assert ftp_stripe.last_session["line_items"][0]["price_data"]["unit_amount"] == 29900

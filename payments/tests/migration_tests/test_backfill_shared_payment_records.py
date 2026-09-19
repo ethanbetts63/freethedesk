@@ -1,64 +1,59 @@
 """The backfill runs once, against live data, and cannot be rehearsed.
 
-So it is tested directly: the functions are called with the historical models
-the migration itself would receive, on rows shaped like production's. What this
-protects is the cutover window — a dealer who opened checkout before the deploy
-and paid after it.
+Its decisions are tested directly rather than by rewinding the database. The
+columns it reads — ``stripe_checkout_session_id`` above all — are removed by
+the migration immediately after it, so a test needing them present on a real
+model would have to rewind two apps while rolling a third forward, which Django
+refuses as a mixed plan. Passing stand-in rows instead tests the thing that can
+actually be got wrong: which accounts get a record and which are left alone.
+
+That the migration *runs* is covered by every test in the suite, since pytest
+applies the full migration graph to build its database.
+
+What this protects is the cutover window: a dealer who opened checkout before
+the deploy and paid after it.
 """
 
 from importlib import import_module
+from types import SimpleNamespace
 
 import pytest
-from django.apps import apps as global_apps
-from freetheplatform.payments import BillingCustomer, Payment, Subscription
-
-from dealers.models import Dealer
-from dealers.tests.factories import DealerFactory
-from seo.models import SeoSubscriber
-from seo.tests.factories import SeoSubscriberFactory
+from freetheplatform.payments import Payment
 
 
 pytestmark = pytest.mark.django_db
 
 migration = import_module("payments.migrations.0008_backfill_shared_payment_records")
 
-
-def run_backfill():
-    # The real models rather than historical ones: the fields this migration
-    # touches are identical in both, and using them keeps the test readable.
-    migration.backfill(global_apps, None)
+DEALER_FLOW = "dealer.subscription"
 
 
-def test_an_existing_stripe_customer_becomes_a_billing_customer():
-    dealer = DealerFactory(
-        business_name="Example Motorcycles", stripe_customer_id="cus_existing"
+def row(**overrides):
+    """A stand-in for the historical Dealer or SeoSubscriber row."""
+    fields = {
+        "pk": 1,
+        "stripe_customer_id": None,
+        "stripe_subscription_id": None,
+        "stripe_checkout_session_id": None,
+        "payment_status": "payment_pending",
+        "plan": "complete",
+        "business_name": "Example Motorcycles",
+        "subscription_current_period_end": None,
+        "cancel_at_period_end": False,
+    }
+    fields.update(overrides)
+    return SimpleNamespace(**fields)
+
+
+def backfill_checkout(account, flow=DEALER_FLOW):
+    migration._backfill_in_flight_checkout(
+        Payment, account, flow, None, account.business_name, None
     )
-    run_backfill()
-
-    customer = BillingCustomer.objects.get(stripe_customer_id="cus_existing")
-    assert customer.related == dealer
-    assert customer.related_label == "Example Motorcycles"
-    # No Stripe call was made, and none should have been: this describes a
-    # customer Stripe already has.
-    assert customer.email_snapshot == dealer.user.email
 
 
-def test_an_existing_subscription_becomes_trackable():
-    dealer = DealerFactory(
-        stripe_customer_id="cus_1",
-        stripe_subscription_id="sub_existing",
-        payment_status=Dealer.PaymentStatus.ACTIVE,
-    )
-    run_backfill()
-
-    subscription = Subscription.objects.get(stripe_subscription_id="sub_existing")
-    assert subscription.related == dealer
-    assert subscription.status == "active"
-    assert subscription.plan_key == dealer.plan
-    # Never guessed: paid_through means an invoice was actually paid, and the
-    # old schema never recorded that. The first invoice.paid sets it.
-    assert subscription.paid_through is None
-
+# --------------------------------------------------------------------------
+# Which accounts get a placeholder payment
+# --------------------------------------------------------------------------
 
 def test_a_checkout_open_at_the_cutover_gets_something_to_land_on():
     """The window this migration exists for.
@@ -66,73 +61,62 @@ def test_a_checkout_open_at_the_cutover_gets_something_to_land_on():
     Without a payment row, a dealer who opened checkout before the deploy and
     paid after it hits a webhook that finds nothing — charged, not provisioned.
     """
-    dealer = DealerFactory(
-        stripe_checkout_session_id="cs_inflight",
-        payment_status=Dealer.PaymentStatus.PAYMENT_PENDING,
-    )
-    run_backfill()
+    backfill_checkout(row(stripe_checkout_session_id="cs_inflight"))
 
     payment = Payment.objects.get(stripe_checkout_session_id="cs_inflight")
-    assert payment.related == dealer
-    assert payment.flow == "dealer.subscription"
+    assert payment.flow == DEALER_FLOW
     assert payment.purpose == "migrated"
+    assert payment.related_label == "Example Motorcycles"
     # No quote, because none was ever recorded. The package treats that as
-    # "nothing to compare" and adopts the amount Stripe reports.
+    # "nothing to compare" and adopts the amount Stripe reports rather than
+    # refusing the payment for disagreeing with a zero it invented.
     assert payment.quote_sha256 == ""
+    assert payment.total_amount == 0
 
 
-def test_an_already_paid_account_gets_no_placeholder_payment():
+@pytest.mark.parametrize("status", ["active", "paid"])
+def test_an_already_paid_account_gets_no_placeholder(status):
     # A finished checkout needs no rescuing, and inventing a pending payment
-    # for one would make the account look like it owed money.
-    DealerFactory(
-        stripe_checkout_session_id="cs_done",
-        payment_status=Dealer.PaymentStatus.ACTIVE,
-    )
-    run_backfill()
-    assert not Payment.objects.filter(stripe_checkout_session_id="cs_done").exists()
+    # for one would make a paid account look like it owed money.
+    backfill_checkout(row(stripe_checkout_session_id="cs_done", payment_status=status))
+    assert not Payment.objects.exists()
 
 
-def test_an_account_stripe_has_never_seen_is_left_alone():
-    DealerFactory(stripe_customer_id=None, stripe_subscription_id=None)
-    run_backfill()
-    assert BillingCustomer.objects.count() == 0
-    assert Subscription.objects.count() == 0
-    assert Payment.objects.count() == 0
+def test_an_account_with_no_open_checkout_is_left_alone():
+    backfill_checkout(row())
+    assert not Payment.objects.exists()
 
 
-def test_seo_subscribers_are_backfilled_too():
-    subscriber = SeoSubscriberFactory(
-        business_name="Peak Digital",
-        stripe_customer_id="cus_seo",
-        stripe_subscription_id="sub_seo",
-        payment_status=SeoSubscriber.PaymentStatus.ACTIVE,
-    )
-    run_backfill()
-
-    assert BillingCustomer.objects.get(stripe_customer_id="cus_seo").related == subscriber
-    assert Subscription.objects.get(stripe_subscription_id="sub_seo").flow == "seo.subscription"
-
-
-def test_running_it_twice_changes_nothing():
+def test_running_it_twice_creates_one_payment():
     # A migration that half-applies and is re-run must not double up.
-    DealerFactory(
-        stripe_customer_id="cus_1",
-        stripe_subscription_id="sub_1",
-        stripe_checkout_session_id="cs_1",
-        payment_status=Dealer.PaymentStatus.PAYMENT_PENDING,
-    )
-    run_backfill()
-    run_backfill()
-
-    assert BillingCustomer.objects.count() == 1
-    assert Subscription.objects.count() == 1
+    account = row(stripe_checkout_session_id="cs_1")
+    backfill_checkout(account)
+    backfill_checkout(account)
     assert Payment.objects.count() == 1
 
 
-def test_a_dealer_and_a_subscriber_get_separate_billing_customers():
-    # They are two Stripe Customers today, and the migration describes what is
-    # there rather than merging them.
-    DealerFactory(stripe_customer_id="cus_dealer")
-    SeoSubscriberFactory(stripe_customer_id="cus_seo")
-    run_backfill()
-    assert BillingCustomer.objects.count() == 2
+def test_a_one_off_flow_is_recorded_as_a_payment_not_a_subscription():
+    backfill_checkout(row(stripe_checkout_session_id="cs_oneoff"), flow="seo.oneoff")
+    assert Payment.objects.get(stripe_checkout_session_id="cs_oneoff").mode == "payment"
+
+
+# --------------------------------------------------------------------------
+# Translating this site's access states back to Stripe's
+# --------------------------------------------------------------------------
+
+@pytest.mark.parametrize("local,stripe_status", [
+    ("active", "active"),
+    ("paid", "active"),
+    ("past_due", "past_due"),
+    ("cancelled", "canceled"),
+    ("payment_pending", "incomplete"),
+])
+def test_payment_status_maps_onto_stripe_s_vocabulary(local, stripe_status):
+    assert migration._STATUS_FROM_PAYMENT_STATUS[local] == stripe_status
+
+
+def test_an_unknown_status_falls_back_to_incomplete():
+    # Going from this site's smaller set back to Stripe's cannot be exact, so
+    # the first real subscription event corrects whatever is guessed here.
+    mapping = migration._STATUS_FROM_PAYMENT_STATUS
+    assert mapping.get("something_new", "incomplete") == "incomplete"

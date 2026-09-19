@@ -34,11 +34,23 @@ def _normalised_file_hash(path):
     return sha256(content.encode("utf-8")).hexdigest()
 
 
+# dealers/0010 and seo/0006 remove columns the payments backfill reads, and
+# declare a dependency on it so they can never be planned first. That makes
+# their leaf nodes unreachable while payments is rewound below the backfill —
+# Django would have to unapply payments entirely to satisfy them — so this
+# test pins both apps just under those removals.
+_PINNED_BELOW_PAYMENTS = {
+    "dealers": ("dealers", "0009_remove_dealer_stripe_last_event_created_at"),
+    "seo": ("seo", "0005_remove_seosubscriber_stripe_last_event_created_at"),
+}
+
+
 def _targets(loader, *, payment, include_agreements):
     targets = [
         node for node in loader.graph.leaf_nodes()
-        if node[0] not in {"payments", "ftp_agreements"}
+        if node[0] not in {"payments", "ftp_agreements", *_PINNED_BELOW_PAYMENTS}
     ]
+    targets.extend(_PINNED_BELOW_PAYMENTS.values())
     targets.append(payment)
     targets.append(
         ("ftp_agreements", "0001_initial")

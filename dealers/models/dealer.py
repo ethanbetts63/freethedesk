@@ -53,7 +53,6 @@ class Dealer(models.Model):
     )
     stripe_customer_id = models.CharField(max_length=255, null=True, blank=True, unique=True)
     stripe_subscription_id = models.CharField(max_length=255, null=True, blank=True, unique=True)
-    stripe_checkout_session_id = models.CharField(max_length=255, null=True, blank=True, unique=True)
     subscription_current_period_end = models.DateTimeField(null=True, blank=True)
     cancel_at_period_end = models.BooleanField(default=False)
     status = models.CharField(
