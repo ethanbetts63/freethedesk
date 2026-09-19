@@ -14,12 +14,14 @@
     "check:sitemap": "node scripts/check-sitemap-routes.mjs",
     "check:seo-ledger": "node scripts/check-indexation-ledger.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
+    "check:customer-routes": "node scripts/check-customer-routes.mjs",
     "check:text-scale": "node scripts/sync-text-scale.mjs --check",
     "tokens:text-scale": "node scripts/sync-text-scale.mjs",
-    "check": "npm run format:check && npm run lint && npm run lint:css && npm run typecheck && npm run check:sitemap && npm run check:seo-ledger && npm run check:tokens && npm run check:text-scale"
+    "check": "npm run format:check && npm run lint && npm run lint:css && npm run typecheck && npm run check:sitemap && npm run check:seo-ledger && npm run check:customer-routes && npm run check:tokens && npm run check:text-scale"
   },
   "dependencies": {
-    "@freetheplatform/web-security": "github:ethanbetts63/freetheplatform#v0.12.0",
+    "@freetheplatform/web-security": "github:ethanbetts63/freetheplatform#v0.12.1",
+    "@hookform/resolvers": "^5.9.1",
     "@stripe/react-stripe-js": "^6.9.0",
     "@stripe/stripe-js": "^9.15.0",
     "@tailwindcss/postcss": "^4.3.3",
@@ -31,6 +33,7 @@
     "next": "^16.2.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-hook-form": "^7.88.0",
     "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.3.3",
     "zod": "^4.6.5"
