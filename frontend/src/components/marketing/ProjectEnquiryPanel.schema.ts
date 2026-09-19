@@ -6,8 +6,9 @@ import { normaliseWebsiteUrl } from '@/lib/api';
 
 export const projectEnquirySchema = z.object({
   project_type: z.enum(['website', 'automation', 'both']),
-  // Free text, because the "custom" option lets people write their own figure.
-  budget: requiredString('reference', 'Budget is required.'),
+  // Free text on one line, because the "custom" option lets people write
+  // their own figure in words rather than pick one.
+  budget: requiredString('line', 'Budget is required.'),
   // Bounded before `normaliseWebsiteUrl` rather than after: the transform adds
   // a scheme, so checking the result would let a longer input through.
   website: z

@@ -64,7 +64,9 @@ class ProjectEnquirySerializer(serializers.Serializer):
 
     project_type = serializers.ChoiceField(choices=sorted(HELP_WITH_BY_TYPE))
     # Free text because the "custom" option lets people write their own figure.
-    budget = bounds.char("reference")
+    # Free text on one line: the "custom" option lets people write their own
+    # figure in words rather than pick one.
+    budget = bounds.char("line")
     website = bounds.url()
     email = bounds.email()
     phone = serializers.CharField(max_length=40, required=False, allow_blank=True, default="")

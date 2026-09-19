@@ -19,7 +19,7 @@
     "check": "npm run format:check && npm run lint && npm run lint:css && npm run typecheck && npm run check:sitemap && npm run check:seo-ledger && npm run check:tokens && npm run check:text-scale"
   },
   "dependencies": {
-    "@freetheplatform/web-security": "github:ethanbetts63/freetheplatform#v0.10.0",
+    "@freetheplatform/web-security": "github:ethanbetts63/freetheplatform#v0.12.0",
     "@stripe/react-stripe-js": "^6.9.0",
     "@stripe/stripe-js": "^9.15.0",
     "@tailwindcss/postcss": "^4.3.3",

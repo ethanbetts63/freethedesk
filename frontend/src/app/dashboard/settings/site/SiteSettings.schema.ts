@@ -1,7 +1,7 @@
 import { requiredString } from '@freetheplatform/web-security/schema';
 import { z } from 'zod';
 
-const price = requiredString('reference', 'This field is required.');
+const price = requiredString('token', 'This field is required.');
 
 export const siteSettingsSchema = z.object({
   licensing_price: price,
