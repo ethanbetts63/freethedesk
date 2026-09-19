@@ -1,0 +1,104 @@
+{
+  "slug": "freethedesk",
+  "property": "https://www.freethedesk.com.au/",
+  "site_url": "https://www.freethedesk.com.au",
+  "title": "FreeTheDesk",
+  "country": null,
+  "search_type": "web",
+  "brand_patterns": [
+    "free ?the ?desk"
+  ],
+  "geo_terms": [
+    "perth",
+    "western australia",
+    "fremantle",
+    "joondalup",
+    "midland",
+    "osborne park",
+    "wangara",
+    "malaga"
+  ],
+  "near_me_patterns": [
+    "near me",
+    "nearby",
+    "near by"
+  ],
+  "target_pages": {
+    "web design perth": "/website-development-perth",
+    "perth web design": "/website-development-perth",
+    "custom web design perth": "/website-development-perth",
+    "web development perth": "/website-development-perth",
+    "perth web development": "/website-development-perth",
+    "custom web development perth": "/website-development-perth",
+    "website development perth": "/website-development-perth",
+    "perth website development": "/website-development-perth",
+    "website design perth": "/website-development-perth",
+    "web developer perth": "/website-development-perth",
+    "website developer perth": "/website-development-perth",
+    "dealership website": "/dealership-website-builder",
+    "dealership websites": "/dealership-website-builder",
+    "dealership website builder": "/dealership-website-builder",
+    "vehicle dealer website": "/dealership-website-builder",
+    "car dealer website builder": "/dealership-website-builder",
+    "motorcycle dealer website": "/dealership-website-builder",
+    "seo perth": "/seo",
+    "perth seo": "/seo",
+    "seo services perth": "/seo",
+    "seo agency perth": "/seo",
+    "dealer licence wa": "/licensing",
+    "motor vehicle dealer licence wa": "/licensing",
+    "car dealer licence western australia": "/licensing"
+  },
+  "business_lines": {
+    "Web development": [
+      "web design",
+      "web development",
+      "web developer",
+      "website design",
+      "website development",
+      "website developer",
+      "build a website",
+      "custom website"
+    ],
+    "Dealer systems": [
+      "dealer",
+      "dealership",
+      "desking",
+      "yard management",
+      "inventory system",
+      "dms"
+    ],
+    "SEO": [
+      "seo",
+      "search engine",
+      "google ranking",
+      "rank higher"
+    ],
+    "Licensing": [
+      "licence",
+      "license",
+      "licensing"
+    ],
+    "Automation": [
+      "automat",
+      "workflow",
+      "integration"
+    ]
+  },
+  "excluded_query_patterns": [
+    "^site:"
+  ],
+  "internal_paths": [
+    "/login",
+    "/dashboard",
+    "/portal",
+    "/seo-portal",
+    "/change-password",
+    "/reset-password",
+    "/sale/",
+    "/licensing/payment",
+    "/seo/payment",
+    "/api/"
+  ],
+  "notes": "country is null on purpose and matches the bloomprint configuration: at this volume a country filter discards rows without improving any figure, and the field is hashed, so it is set once now rather than changed later. line_markets is omitted on purpose. Web development is sold in Perth and the dealer product is sold nationally, but the field triggers a local/unqualified query split that is not a measure this series will publish, and at present volume no segment figure would survive the sample anyway. target_pages includes queries not yet observed in the snapshot as well as the four that have been; a declared target that never matches costs nothing and stops the map being rewritten - and so config_hash being moved - the first time a term appears. /website-development-perth is served by the root [slug] route, not by /website-development, and is the page that currently ranks."
+}

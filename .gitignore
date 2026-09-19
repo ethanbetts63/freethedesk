@@ -10,3 +10,7 @@ node_modules/
 out/
 *.tsbuildinfo
 *.log
+
+# Search Console snapshots. Rebuildable from Google for 16 months; the pack
+# and report committed under _search/reports/ are what make a report reproducible.
+_search/data/

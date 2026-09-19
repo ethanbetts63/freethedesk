@@ -1,0 +1,91 @@
+{
+  "report_version": "r1",
+  "period": {
+    "start": "2026-08-29",
+    "end": "2026-09-19"
+  },
+  "headline": [
+    {
+      "label": "Clicks",
+      "value": 4,
+      "basis": "period",
+      "note": "26 impressions, whole property history"
+    },
+    {
+      "label": "Impressions",
+      "value": 26,
+      "basis": "period",
+      "note": "site tier, date-only series"
+    },
+    {
+      "label": "Average position",
+      "value": 32.73,
+      "basis": "period",
+      "note": "site tier, all countries"
+    },
+    {
+      "label": "Pages ranking",
+      "value": 9,
+      "basis": "period",
+      "note": "one earned a click"
+    },
+    {
+      "label": "Indexed pages serving 404",
+      "value": 1,
+      "basis": "live 2026-09-19",
+      "note": "/website-development-perth"
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "fix-wdp-404",
+      "title": "Restore or redirect /website-development-perth",
+      "status": "open",
+      "opened_in": "r1",
+      "priority": 1,
+      "evidence": "section 02",
+      "note": "Highest-impression page on the site (15 impressions, position 28.9) and the only page ranking for the Perth web development terms. Returns 404; Google reports it Submitted and indexed with a successful crawl on 2026-09-05, so it broke on or after that date. Restore at the same URL, or 301 to /website-development and remove it from the sitemap. Must be settled before the next recrawl drops it."
+    },
+    {
+      "id": "sitemap-404-audit",
+      "title": "Audit the sitemap against what actually resolves",
+      "status": "open",
+      "opened_in": "r1",
+      "priority": 2,
+      "evidence": "section 02",
+      "note": "One of nine checked URLs is a submitted 404. The routing change that broke it may have broken URLs that have no impressions yet to reveal them."
+    },
+    {
+      "id": "error-page-metadata",
+      "title": "Give the 404 template its own title and metadata",
+      "status": "open",
+      "opened_in": "r1",
+      "priority": 3,
+      "evidence": "section 02",
+      "note": "The error template inherits the homepage title and meta description, so a broken URL presents to a crawler as a legitimate page. Add a distinct title and a noindex directive."
+    },
+    {
+      "id": "dealer-page-depth",
+      "title": "Build the dealer product pages out to match the service pages",
+      "status": "open",
+      "opened_in": "r1",
+      "priority": 4,
+      "evidence": "section 04",
+      "note": "Both dealer-side queries sit past position 80. /dealership-website-builder is 455 words against 1,661 for /seo and 1,050 for /automation. The two pages that rank respectably are the two with substance on them."
+    },
+    {
+      "id": "hold-for-data",
+      "title": "Leave the rest alone until there is data",
+      "status": "open",
+      "opened_in": "r1",
+      "priority": 5,
+      "evidence": "section 01",
+      "note": "26 impressions cannot distinguish an underperforming page from an unseen one. Tuning against these figures optimises against noise and destroys the baseline."
+    }
+  ],
+  "experiments": [],
+  "published_at": "2026-09-19T14:36:34+00:00",
+  "engine_version": "1.0.0",
+  "ruleset_version": "1.0.0",
+  "config_hash": "39416ed72b56"
+}

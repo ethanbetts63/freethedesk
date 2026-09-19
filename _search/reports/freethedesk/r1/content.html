@@ -1,0 +1,207 @@
+<p class="lede">Three weeks of search history, four clicks, and every one of them from someone who already knew the name — while the only page earning impressions for the commercial terms has been returning a 404 since at least the fifth of September.</p>
+
+<div class="stat-row">
+  <div class="stat"><span class="stat__value">4</span>
+    <span class="stat__label">Clicks, 29 Aug – 19 Sep</span>
+    <span class="stat__note">26 impressions, all-time</span></div>
+  <div class="stat"><span class="stat__value">9</span>
+    <span class="stat__label">Pages ranking</span>
+    <span class="stat__note">one of them earned a click</span></div>
+  <div class="stat"><span class="stat__value">32.7</span>
+    <span class="stat__label">Average position</span>
+    <span class="stat__note">page four, site level</span></div>
+  <div class="stat stat--down"><span class="stat__value">1</span>
+    <span class="stat__label">Indexed page serving 404</span>
+    <span class="stat__note">/website-development-perth</span></div>
+</div>
+
+<section class="section" data-num="01" data-kicker="Where this starts">
+  <h2>This is a baseline, not a performance review</h2>
+
+  <p>Search Console has twenty-two days of history for this property, beginning 29 August 2026. In that time the site drew <strong>26 impressions and 4 clicks</strong>. There is no earlier data, no previous report, and no window long enough to support a percentage change — the smallest valid comparison is two matched fourteen-day periods, and twenty-two days does not contain them.</p>
+
+  <p>So nothing here is a trend. What follows is a description of the starting position, precise enough to be measured against later, plus one concrete fault found by checking the site rather than the data.</p>
+
+  <p>All four clicks went to the homepage, which sat at <strong>position 1.3</strong> across 10 impressions — a 40% click-through rate. That is the signature of people searching the business by name and finding it immediately. Every other page on the site earned impressions and no clicks.</p>
+
+  <figure class="exhibit">
+    <figcaption class="exhibit__caption">Every page that ranked</figcaption>
+    <p class="exhibit__window">29 Aug – 19 Sep 2026, page level, all countries</p>
+    <table>
+      <thead><tr><th>Page</th><th class="num">Impressions</th><th class="num">Clicks</th><th class="num">Position</th><th>Live status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="path">/</span></td><td class="num">10</td><td class="num">4</td><td class="num">1.3</td><td>200</td></tr>
+        <tr class="is-negative"><td><span class="path">/website-development-perth</span></td><td class="num">15</td><td class="num">0</td><td class="num">28.9</td><td><strong>404</strong></td></tr>
+        <tr><td><span class="path">/automation</span></td><td class="num">10</td><td class="num">0</td><td class="num">27.5</td><td>200</td></tr>
+        <tr><td><span class="path">/dealership-website-builder</span></td><td class="num">9</td><td class="num">0</td><td class="num">14.6</td><td>200</td></tr>
+        <tr><td><span class="path">/licensing</span></td><td class="num">6</td><td class="num">0</td><td class="num">5.2</td><td>200</td></tr>
+        <tr><td><span class="path">/portfolio/scooter-shop</span></td><td class="num">5</td><td class="num">0</td><td class="num">21.8</td><td>200</td></tr>
+        <tr><td><span class="path">/legal/dealer-subscription-terms</span></td><td class="num">4</td><td class="num">0</td><td class="num">7.0</td><td>200</td></tr>
+        <tr><td><span class="path">/seo</span></td><td class="num">3</td><td class="num">0</td><td class="num">2.0</td><td>200</td></tr>
+        <tr><td><span class="path">/legal/privacy</span></td><td class="num">1</td><td class="num">0</td><td class="num">5.0</td><td>200</td></tr>
+      </tbody>
+    </table>
+    <p class="exhibit__source">Search Console page tier; live status from a rendered fetch on 19 September 2026</p>
+  </figure>
+
+  <aside class="callout callout--limit"><h3>What twenty-six impressions can and cannot support</h3>
+    <p>A single impression moves any rate on this page by several points. Positions drawn from three or four impressions describe those three or four searches and nothing wider. Treat every figure in this report as a recorded starting value, not as an estimate of how the site performs.</p></aside>
+</section>
+
+<section class="section" data-num="02" data-kicker="The finding">
+  <h2>The page ranking for the commercial terms is a 404, and Google does not know yet</h2>
+
+  <p><span class="path">/website-development-perth</span> drew <strong>15 impressions</strong> in the period, more than any page on the site including the homepage, at an average position of 28.9. It is the page that answers "perth website development", "custom web development perth" and "custom web design perth" — the terms the web development side of the business is sold on.</p>
+
+  <p>It returns <strong>HTTP 404</strong>. The URL serves the site's error template: an <code>h1</code> reading "404", the line "This page could not be found", and — because the template inherits the site's default metadata — the homepage's title and meta description.</p>
+
+  <p>Google's own view of the same URL, taken through the URL Inspection API on 19 September, still reports it as <em>Submitted and indexed</em>, verdict PASS, with a page fetch state of SUCCESSFUL and a last crawl of <strong>5 September 2026</strong>. Two things follow from that. The page was working when Google last fetched it, so it broke on or after 5 September. And because Google is serving a cached copy it believes is healthy, the URL is still being shown to searchers — which is exactly what the 15 impressions are.</p>
+
+  <p>"Submitted" also means the URL is listed in the sitemap. The site is actively telling Google to crawl a URL that no longer resolves.</p>
+
+  <aside class="callout"><h3>What this costs right now</h3>
+    <p>Very little in clicks, because at position 28.9 almost nobody was reaching it anyway. The cost is ahead: when Google next recrawls, a 404 on a submitted URL drops it from the index, and the site loses its only ranking page for its highest-value commercial terms. The fix is worth making before that recrawl, not after.</p></aside>
+</section>
+
+<section class="section" data-num="03" data-kicker="A quirk worth reading">
+  <h2>The site's own pages appear together in the same results</h2>
+
+  <p>Grouped by date, the property recorded 26 impressions. Grouped by page, the same period gives <strong>63</strong>. On most properties the page tier is the smaller number, because Search Console withholds the URL for a large share of searches. Here it is 2.4 times larger, and that is reproducible against the API rather than an artefact of storage.</p>
+
+  <p>The arithmetic that produces it is straightforward: a date-level impression counts one appearance in one set of results, while a page-level impression counts each URL shown. When two or three FreeTheDesk URLs surface in the same result set, that is one site impression and two or three page impressions.</p>
+
+  <p>On a nine-page site whose pages all describe adjacent services in similar language, that is what is happening. It is not a fault — appearing more than once on a page of results is usually good — but it does mean the page-tier impression counts above describe appearances, not searches, and the two should not be added together or compared.</p>
+
+  <figure class="exhibit">
+    <figcaption class="exhibit__caption">The three attribution tiers do not agree, and the direction is unusual</figcaption>
+    <p class="exhibit__window">29 Aug – 19 Sep 2026, all countries</p>
+    <table>
+      <thead><tr><th>Grouped by</th><th class="num">Impressions</th><th class="num">Clicks</th><th>What it counts</th></tr></thead>
+      <tbody>
+        <tr><td>Date only</td><td class="num">26</td><td class="num">4</td><td>Searches where the site appeared. The complete series.</td></tr>
+        <tr><td>Page</td><td class="num">63</td><td class="num">4</td><td>URL appearances, so one search can count more than once.</td></tr>
+        <tr><td>Query</td><td class="num">13</td><td class="num">0</td><td>Searches Google was willing to name — half the total.</td></tr>
+      </tbody>
+    </table>
+    <p class="exhibit__source">Search Console Search Analytics API, verified directly against all three groupings</p>
+  </figure>
+
+  <p>The query tier is the constraint on everything in the next section. Google named the search term for 13 of 26 impressions and none of the 4 clicks. Every query-level statement in this report covers that half.</p>
+</section>
+
+<section class="section" data-num="04" data-kicker="What ranks">
+  <h2>The best-placed pages are the ones with nothing to sell</h2>
+
+  <p>Ordering the nine ranked pages by position rather than by impressions inverts the site. <span class="path">/seo</span> sits at <strong>position 2.0</strong>, <span class="path">/legal/privacy</span> at 5.0, <span class="path">/licensing</span> at 5.2 and <span class="path">/legal/dealer-subscription-terms</span> at <strong>7.0</strong> — a subscription terms page on the first page of results. Meanwhile <span class="path">/dealership-website-builder</span>, a product page, averages 14.6, and <span class="path">/automation</span> 27.5.</p>
+
+  <p>The honest reading is that the well-placed pages are matching long, specific, low-competition phrasing — a legal document ranks seventh because barely anything competes for the exact words in it. They are not evidence of authority. But they are evidence that the site is fully crawled and indexed, which for a three-week-old property is the thing that actually had to be true.</p>
+
+  <p>Where the named queries do reach the commercial terms, the positions are page three and four: "custom web design perth" at 20.0, "custom web development perth" at 31.0, "perth website development" at 37.5. One query — "custom web design perth" — is inside striking distance, and it is the single closest the site comes to competing for work.</p>
+
+  <figure class="exhibit">
+    <figcaption class="exhibit__caption">Every named query</figcaption>
+    <p class="exhibit__window">29 Aug – 19 Sep 2026, query tier — 13 of 26 impressions</p>
+    <table>
+      <thead><tr><th>Query</th><th class="num">Impressions</th><th class="num">Position</th><th>Reads as</th></tr></thead>
+      <tbody>
+        <tr><td>perth website development</td><td class="num">4</td><td class="num">37.5</td><td>Web development, the money term</td></tr>
+        <tr><td>desking tool</td><td class="num">3</td><td class="num">83.0</td><td>Dealer systems, product category</td></tr>
+        <tr><td>custom web development perth</td><td class="num">2</td><td class="num">31.0</td><td>Web development</td></tr>
+        <tr><td>scooter shop fremantle</td><td class="num">2</td><td class="num">43.5</td><td>A client's brand, via the portfolio</td></tr>
+        <tr><td>custom web design perth</td><td class="num">1</td><td class="num">20.0</td><td>Closest to competitive</td></tr>
+        <tr><td>vehicle dealer website</td><td class="num">1</td><td class="num">83.0</td><td>Dealer systems</td></tr>
+      </tbody>
+    </table>
+    <p class="exhibit__source">Search Console query tier, all countries</p>
+  </figure>
+
+  <p>Two of the six are for the dealer product and both sit past position 80. Neither "desking tool" nor "vehicle dealer website" has a page written against it: <span class="path">/dealership-website-builder</span> is 455 words, the shortest page on the site and a third the length of <span class="path">/automation</span>.</p>
+</section>
+
+<section class="section" data-num="05" data-kicker="Worth watching">
+  <h2>The portfolio page is competing in a client's own search results</h2>
+
+  <p>"scooter shop fremantle" produced 2 impressions at position 43.5, served by <span class="path">/portfolio/scooter-shop</span> — the case study describing work done for Scootershop, which is a separate property in this series.</p>
+
+  <p>At position 43 this is harmless and it is not demand for FreeTheDesk; two impressions for a client's brand term is a fact about where this site's pages have been indexed, not an opportunity, and it is not counted as one anywhere in this report. It is recorded because the failure mode it points at is real: a well-optimised case study carrying a client's brand name, trading links with that client, can end up above the client on their own name. Nothing suggests that is happening. It is cheap to keep an eye on.</p>
+</section>
+
+<section class="section" data-num="06" data-kicker="Since the last report">
+  <h2>Nothing carries forward</h2>
+  <p>This is the first report for the property. There is no inherited recommendation ledger, no running experiment and no previous figure to attribute a movement to. The live check recorded all nine URLs for the first time, so there is no site-change comparison either — what changed since the last check is, for now, everything.</p>
+</section>
+
+<section class="section" data-num="07" data-kicker="What to do">
+  <h2>Recommendations</h2>
+
+  <ol class="recommendations">
+    <li>
+      <p class="rec__title">Restore or redirect <span class="path">/website-development-perth</span></p>
+      <p class="rec__meta"><span class="tag">id: fix-wdp-404</span> <span class="tag tag--high">priority 1</span> <span class="tag">cost: low</span></p>
+      <p>It is the highest-impression page on the site, it answers the commercial terms, it returns 404, and Google still has it indexed from a successful crawl on 5 September. If the page was removed deliberately, 301 it to <span class="path">/website-development</span>, which serves correctly, and take the URL out of the sitemap. If it was not removed deliberately, it is a routing regression and the page should come back at the same URL. Either way this is settled before the next recrawl, because after that the ranking is gone rather than stranded. Evidence: section 02.</p>
+    </li>
+    <li>
+      <p class="rec__title">Audit the sitemap against what actually resolves</p>
+      <p class="rec__meta"><span class="tag">id: sitemap-404-audit</span> <span class="tag tag--high">priority 2</span> <span class="tag">cost: low</span></p>
+      <p>One of nine checked URLs is a submitted 404. Nine URLs is small enough that one fault is 11% of the site, and the same routing change that broke this page may have broken URLs with no impressions yet to reveal them. Check every URL the sitemap declares, not only the ones Search Console has noticed. Evidence: section 02.</p>
+    </li>
+    <li>
+      <p class="rec__title">Give the 404 template its own title and metadata</p>
+      <p class="rec__meta"><span class="tag">id: error-page-metadata</span> <span class="tag">priority 3</span> <span class="tag">cost: low</span></p>
+      <p>The error page currently inherits the homepage title and meta description, so a broken URL presents to a crawler as a legitimate page. That makes faults like the one above harder to spot from the outside and slower for Google to act on. A distinct title and a <code>noindex</code> directive on the error template make a 404 read as a 404.</p>
+    </li>
+    <li>
+      <p class="rec__title">Build the dealer product pages out to match the service pages</p>
+      <p class="rec__meta"><span class="tag">id: dealer-page-depth</span> <span class="tag">priority 4</span> <span class="tag">cost: medium</span></p>
+      <p>Both dealer-side queries sit past position 80, and <span class="path">/dealership-website-builder</span> is 455 words against 1,661 for <span class="path">/seo</span> and 1,050 for <span class="path">/automation</span>. The two pages that rank respectably are the two with substance on them. This is the clearest lever the site has, and it is a content job rather than a technical one. Evidence: section 04.</p>
+    </li>
+    <li>
+      <p class="rec__title">Leave the rest alone until there is data</p>
+      <p class="rec__meta"><span class="tag">id: hold-for-data</span> <span class="tag tag--low">priority 5</span> <span class="tag">cost: low</span></p>
+      <p>Twenty-six impressions cannot distinguish a page that is underperforming from one that has not been seen. Optimising against these figures means optimising against noise, and it would also destroy the baseline this report exists to establish. The useful work over the next quarter is publishing and fixing, not tuning.</p>
+    </li>
+  </ol>
+</section>
+
+<section class="section" data-num="08" data-kicker="What to test">
+  <h2>Experiments</h2>
+
+  <p>One proposed, none running.</p>
+
+  <figure class="exhibit">
+    <figcaption class="exhibit__caption">Proposed</figcaption>
+    <table>
+      <thead><tr><th>Hypothesis</th><th>Baseline</th><th>Read on</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>wdp-restore</strong> — restoring <span class="path">/website-development-perth</span> holds its index position, and the page recovers impressions for the three Perth web development terms rather than losing them at the next recrawl.</td>
+          <td>15 impressions, position 28.9, 0 clicks, 29 Aug – 19 Sep 2026</td>
+          <td>2026-11-14</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="exhibit__source">Baseline from the page tier for this period</p>
+  </figure>
+
+  <p>The read date is set far enough out to clear a recrawl cycle on a site Google currently visits about fortnightly. An earlier look shows whether the URL still resolves, which is worth knowing, but it does not answer the question.</p>
+</section>
+
+<section class="section" data-num="09" data-kicker="Method and limits">
+  <h2>What was measured, and what this report cannot tell you</h2>
+
+  <p><strong>Measured.</strong> Every figure comes from the Google Search Console Search Analytics API for <code>https://www.freethedesk.com.au/</code>, web search, all countries, stored daily from 29 August 2026. Site totals use the date-only series, which is the complete one. Page and query figures are separate tiers and are labelled as such wherever they appear. All nine URLs the report describes were fetched and rendered with headless Chrome on 19 September 2026, and Google's own index view of the same nine was read through the URL Inspection API the same day.</p>
+
+  <p><strong>No country filter.</strong> Twenty-four of twenty-six impressions are Australian; the remaining two are not excluded, because at this volume a filter removes rows without improving a figure.</p>
+
+  <p><strong>Seasonality cannot be separated from cause.</strong> Twenty-two days of history, no prior year. Nothing in this report should be read as a trend, and no movement in it can be attributed to a season, a change on the site, or anything else.</p>
+
+  <p><strong>Google named the query for half the impressions and none of the clicks.</strong> Section 04 describes 13 of 26 impressions. The other half were searches Google declined to disclose, and they may not resemble the ones it did.</p>
+
+  <p><strong>The page tier overcounts here.</strong> Page-level impressions exceed site-level by 2.4 times because one search can show more than one of the site's URLs. Page impressions are appearances, not searches.</p>
+
+  <p><strong>One render in the first pass was wrong, and the check was repeated.</strong> The first live pass recorded <span class="path">/licensing</span> with no title and no body text. Fetched directly, the page serves 847 words and a correct title; the render had failed rather than the page being empty. The check was re-run and the corrected record is what this report and its stored baseline use. A rendered fetch is evidence, not proof, and a single failed render looks exactly like a broken page.</p>
+
+  <p><strong>There is no analytics.</strong> Search Console carries no sessions, no conversions and no revenue, so nothing here can say what a click was worth or what happened after it. Every priority above is ranked on search evidence and commercial judgement, not on outcomes. Google Analytics was removed from this site and no replacement is collecting; restoring it is the single change that would most improve the next report.</p>
+
+  <p><strong>What is not known about the 404.</strong> The live check establishes that the URL returns 404 today and that Google fetched it successfully on 5 September. It does not establish when it broke, why, or whether anything else broke at the same time. The deploy history would settle that and was not available.</p>
+</section>
