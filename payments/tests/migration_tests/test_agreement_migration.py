@@ -7,6 +7,10 @@ from django.db import connection
 from django.db.migrations.executor import MigrationExecutor
 
 
+migration_module = import_module(
+    "payments.migrations.0007_migrate_acceptances_to_ftp_agreements"
+)
+
 FROM_PAYMENT = ("payments", "0006_separate_seo_report_type_and_frequency")
 TO_PAYMENT = ("payments", "0007_migrate_acceptances_to_ftp_agreements")
 
@@ -45,8 +49,20 @@ def _targets(loader, *, payment, include_agreements):
 
 @pytest.mark.django_db(transaction=True)
 def test_existing_ftd_acceptances_are_preserved():
-    dealer_document = settings.FTP_AGREEMENTS["DOCUMENTS"]["dealer.subscription"]
-    seo_document = settings.FTP_AGREEMENTS["DOCUMENTS"]["seo.reporting"]
+    # The version comes from the migration, not from settings. A migration
+    # describes the world at the time it ran and hardcodes the version it was
+    # written against; reading the live setting here made the test pass only
+    # while the two happened to agree, and fail the first time a new agreement
+    # version was published. The *source file* is still read live, because the
+    # migration reads it live too.
+    dealer_document = {
+        **settings.FTP_AGREEMENTS["DOCUMENTS"]["dealer.subscription"],
+        "VERSION": migration_module.DEALER_CONFIGURED_VERSION,
+    }
+    seo_document = {
+        **settings.FTP_AGREEMENTS["DOCUMENTS"]["seo.reporting"],
+        "VERSION": migration_module.SEO_CONFIGURED_VERSION,
+    }
     executor = MigrationExecutor(connection)
     old_targets = _targets(
         executor.loader, payment=FROM_PAYMENT, include_agreements=False

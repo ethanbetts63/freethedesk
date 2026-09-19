@@ -27,11 +27,11 @@ The service is analysis and recommendations. Implementing the recommendations, w
 
 The combined option adds one Google Business Profile audit to the first payment of a recurring website SEO plan. The audit does not recur. The checkout shows the first payment and the lower recurring SEO price separately.
 
-The selected plan, current GST-inclusive price and billing frequency are displayed before payment. If there is a conflict between these terms and a signed custom proposal, the custom proposal prevails to the extent of the conflict.
+The selected plan, current price and billing frequency are displayed before payment. The displayed price is the total payable; no amount is added at checkout. If there is a conflict between these terms and a signed custom proposal, the custom proposal prevails to the extent of the conflict.
 
 ## 4. Signup, payment and renewal
 
-A paid service begins when Stripe confirms payment. You authorise Stripe to charge the payment method supplied for the displayed GST-inclusive fee at the billing frequency shown for the selected product.
+A paid service begins when Stripe confirms payment. You authorise Stripe to charge the payment method supplied for the displayed fee at the billing frequency shown for the selected product.
 
 Recurring website SEO plans renew automatically at their billing frequency until cancelled. A standalone Google Business Profile audit is charged once and does not renew. When the combined option is selected, the Google Business Profile audit is charged only on the first invoice and later renewals contain only the recurring website SEO report. There is no fixed minimum term unless a separate written proposal says otherwise. Invoices and payment records may be issued electronically.
 

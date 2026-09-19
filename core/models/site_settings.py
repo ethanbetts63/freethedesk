@@ -7,8 +7,10 @@ from django.db import models
 class SiteSettings(models.Model):
     """Singleton holding the prices shown on the public site.
 
-    All prices are GST inclusive — what a customer actually pays, with no
-    "+ GST" added at checkout. Editable from the admin dashboard so pricing
+    A price here is the total a customer pays, with nothing added at
+    checkout. The entity taking these payments is not registered for GST, so
+    no part of a price is tax and nothing may describe it as containing any —
+    see _docs/stripe-subscriptions.md. Editable from the admin dashboard so pricing
     can change without a deploy.
 
     Licensing prices are per month and are the source of truth sent to Stripe

@@ -100,7 +100,7 @@ export function SubscriptionPaymentPage() {
         </CheckoutElementsProvider>
       ) : dealer && plan ? (
         <CheckoutTermsForm
-          priceNote="Your GST-inclusive monthly price and the exact terms accepted are saved with this checkout."
+          priceNote="Your monthly price and the exact terms accepted are saved with this checkout."
           termsHref="/legal/dealer-subscription-terms"
           termsLabel="Dealer Subscription Terms"
           authorisation="authorise this monthly subscription."

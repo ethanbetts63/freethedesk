@@ -27,7 +27,7 @@ const PLAN_COPY: Omit<DealerPlan, 'price'>[] = [
   {
     code: 'licensing',
     name: 'Online licensing',
-    cadence: '/ month, GST inc.',
+    cadence: '/ month',
     summary: 'Move vehicle licensing out of the showroom and onto any device.',
     features: [
       'Online licensing journey',
@@ -38,7 +38,7 @@ const PLAN_COPY: Omit<DealerPlan, 'price'>[] = [
   {
     code: 'contracts',
     name: 'Online contracts',
-    cadence: '/ month, GST inc.',
+    cadence: '/ month',
     summary: 'Prepare and sign your dealership sales contracts online.',
     features: [
       'Online sales contracts',
@@ -49,7 +49,7 @@ const PLAN_COPY: Omit<DealerPlan, 'price'>[] = [
   {
     code: 'complete',
     name: 'Licensing + contracts',
-    cadence: '/ month, GST inc.',
+    cadence: '/ month',
     summary: 'The complete path from customer decision to ready for handover.',
     features: [
       'Everything in online licensing',

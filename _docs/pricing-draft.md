@@ -36,8 +36,9 @@ this doesn't quietly become unpaid consulting.
     naturally to the per-feature checkpoint reviews already in the contract
     (Section 2) — the mid-build payment lands at a point the client has
     already seen and signed off on, not a surprise.
-- GST: confirm whether quoted figures are GST-inclusive and state it plainly
-  next to the numbers.
+- GST: settled. The entity is not registered, so no quoted figure contains
+  GST and nothing may say one does. A figure here is the total payable. See
+  `stripe-subscriptions.md`; revisit at the $75,000 threshold.
 
 ## Step 3 — Ongoing
 
@@ -83,8 +84,7 @@ etc.). State this once, clearly, rather than as a buried caveat.
 
 1. Fill in the maintenance/SEO/hosting dollar amounts — currently
    placeholders.
-2. Confirm GST treatment and state it next to the numbers.
-3. Decide the actual milestone-payment threshold (used $15k as a working
+2. Decide the actual milestone-payment threshold (used $15k as a working
    example above) and whether it's a hard rule or case-by-case.
-4. Build the actual `/pricing` page once this wording is approved — it
+3. Build the actual `/pricing` page once this wording is approved — it
    doesn't exist yet in `frontend/src/app/`.

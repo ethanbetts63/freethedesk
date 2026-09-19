@@ -125,7 +125,7 @@ export function SeoPaymentPage() {
         </CheckoutElementsProvider>
       ) : account && plan ? (
         <CheckoutTermsForm
-          priceNote="Your GST-inclusive price and the exact terms accepted are saved with this checkout."
+          priceNote="Your price and the exact terms accepted are saved with this checkout."
           termsHref="/legal/seo-subscription-terms"
           termsLabel="SEO Reporting & Audit Terms"
           authorisation={`authorise this ${oneOff ? 'payment' : 'recurring subscription'}.`}

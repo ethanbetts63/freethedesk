@@ -270,13 +270,13 @@ FTP_AGREEMENTS = {
     "DOCUMENTS": {
         "dealer.subscription": {
             "TITLE": "Dealer Subscription Terms",
-            "VERSION": "2026-09-05",
+            "VERSION": "2026-09-19",
             "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "dealer-subscription-terms.md",
             "FORMAT": "markdown",
         },
         "seo.reporting": {
             "TITLE": "SEO Reporting & Audit Terms",
-            "VERSION": "2026-09-09",
+            "VERSION": "2026-09-19",
             "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "seo-subscription-terms.md",
             "FORMAT": "markdown",
         },

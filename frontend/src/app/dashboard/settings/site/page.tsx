@@ -26,17 +26,17 @@ const initialState: SiteSettingsState = { status: 'idle' };
 type FormState = Record<PriceField, string>;
 
 const LICENSING_FIELDS: { field: PriceField; label: string }[] = [
-  { field: 'licensing_price', label: 'Online licensing ($ / month, GST inc.)' },
-  { field: 'contracts_price', label: 'Online contracts ($ / month, GST inc.)' },
-  { field: 'complete_price', label: 'Licensing + contracts ($ / month, GST inc.)' },
+  { field: 'licensing_price', label: 'Online licensing ($ / month)' },
+  { field: 'contracts_price', label: 'Online contracts ($ / month)' },
+  { field: 'complete_price', label: 'Licensing + contracts ($ / month)' },
 ];
 
 const SEO_FIELDS: { field: PriceField; label: string }[] = [
-  { field: 'seo_monthly_price', label: 'SEO report — monthly ($ / report, GST inc.)' },
-  { field: 'seo_quarterly_price', label: 'SEO report — quarterly ($ / report, GST inc.)' },
-  { field: 'seo_biannual_price', label: 'SEO report — bi-annual ($ / report, GST inc.)' },
-  { field: 'seo_oneoff_price', label: 'SEO report — one-off ($ once, GST inc.)' },
-  { field: 'gbp_audit_price', label: 'Google Business Profile report ($ / report, GST inc.)' },
+  { field: 'seo_monthly_price', label: 'SEO report — monthly ($ / report)' },
+  { field: 'seo_quarterly_price', label: 'SEO report — quarterly ($ / report)' },
+  { field: 'seo_biannual_price', label: 'SEO report — bi-annual ($ / report)' },
+  { field: 'seo_oneoff_price', label: 'SEO report — one-off ($ once)' },
+  { field: 'gbp_audit_price', label: 'Google Business Profile report ($ / report)' },
 ];
 
 const ALL_FIELDS = [...LICENSING_FIELDS, ...SEO_FIELDS];
@@ -123,7 +123,7 @@ export default function SiteSettingsPage() {
           <h2 className={adminCardTitleClassName}>Licensing subscription prices</h2>
           <p className="text-label text-text-subtle">
             These are the prices shown on the public licensing page and at checkout. All prices are
-            GST inclusive — this is the total a dealer pays each month, with nothing added on top.
+            This is the total a dealer pays each month, with nothing added on top.
           </p>
           <div className={adminFormClassName}>{LICENSING_FIELDS.map(renderField)}</div>
         </section>

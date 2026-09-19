@@ -83,17 +83,10 @@ export function CheckoutShell({
                 <span className="text-text-muted">{order.lineLabel}</span>
                 <strong className="text-body-sm">{order.price}</strong>
               </div>
-              <div className="flex items-center justify-between py-2xs text-label">
-                <span className="text-text-muted">GST</span>
-                <strong className="text-body-sm">Included</strong>
-              </div>
               <div className="mt-xs flex items-center justify-between border-t border-border-default pt-m pb-2xs text-label">
                 <span className="text-text-muted">{order.dueLabel}</span>
                 <strong className="text-title-sm tracking-[-0.04em] text-action-primary">
-                  {order.price}{' '}
-                  <small className="text-caption-sm tracking-normal text-text-subtle">
-                    GST inc.
-                  </small>
+                  {order.price}
                 </strong>
               </div>
             </div>
@@ -269,7 +262,8 @@ export function CheckoutPaymentForm({
         <b aria-hidden="true">→</b>
       </CheckoutButton>
       <p className={fineprintClassName}>
-        Prices include GST. Your account opens immediately after Stripe confirms payment.
+        The price shown is the total payable. Your account opens immediately after Stripe confirms
+        payment.
       </p>
     </form>
   );

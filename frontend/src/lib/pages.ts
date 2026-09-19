@@ -58,7 +58,7 @@ export const PAGES = {
     sitemap: { changeFrequency: 'weekly', priority: 0.95 },
   },
   '/licensing': {
-    updated: '2026-09-09',
+    updated: '2026-09-19',
     label: 'Online licensing',
     title: 'Signed, sealed, delivered—sell more | Online Vehicle Licensing Australia',
     description:
@@ -162,14 +162,14 @@ export const PAGES = {
     sitemap: { changeFrequency: 'yearly', priority: 0.3 },
   },
   '/legal/dealer-subscription-terms': {
-    updated: '2026-09-08',
+    updated: '2026-09-19',
     label: 'Dealer subscription terms',
     title: 'Dealer Subscription Terms',
     description: 'Terms for freethedesk dealer licensing and contract subscriptions.',
     sitemap: { changeFrequency: 'yearly', priority: 0.3 },
   },
   '/legal/seo-subscription-terms': {
-    updated: '2026-09-08',
+    updated: '2026-09-19',
     label: 'SEO reporting terms',
     title: 'SEO Reporting & Audit Terms',
     description: 'Terms for freethedesk SEO reporting and audit services.',
