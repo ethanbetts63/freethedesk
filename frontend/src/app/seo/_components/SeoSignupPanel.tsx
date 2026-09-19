@@ -21,7 +21,7 @@ import {
   totalPriceClassName,
   totalSummaryClassName,
 } from '@/components/forms/selectionFormClassNames';
-import { SESSION_FLAG, type PublicSiteSettings } from '@/lib/api';
+import { type PublicSiteSettings } from '@/lib/api';
 import { planByCode } from '@/lib/plans';
 import { submitSignup, type SignupState } from '@/lib/signup.actions';
 import {
@@ -63,7 +63,6 @@ export function SeoSignupPanel({
 
   useEffect(() => {
     if (state.status !== 'success') return;
-    localStorage.setItem(SESSION_FLAG, '1');
     router.push('/seo/payment');
   }, [state, router]);
 

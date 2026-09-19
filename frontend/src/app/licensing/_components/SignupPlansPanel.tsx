@@ -24,7 +24,6 @@ import {
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { DEALER_STATES } from '@/lib/dealerStates';
 import { planByCode } from '@/lib/plans';
-import { SESSION_FLAG } from '@/lib/api';
 import { submitSignup, type SignupState } from '@/lib/signup.actions';
 
 import { buildDealerPlans, type DealerPlanCode, type LicensingPrices } from '../_lib/plans';
@@ -54,7 +53,6 @@ export function SignupPlansPanel({
 
   useEffect(() => {
     if (state.status !== 'success') return;
-    localStorage.setItem(SESSION_FLAG, '1');
     router.push('/licensing/payment');
   }, [state, router]);
 

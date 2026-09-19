@@ -1,4 +1,5 @@
-export const SESSION_FLAG = 'hasSession';
+import { createAuthedFetch, apiFetch } from '@freetheplatform/web-security';
+
 export const AUTH_FAILURE_EVENT = 'auth-failure';
 
 export type Role = 'staff' | 'dealer' | 'seo' | 'none';
@@ -59,77 +60,15 @@ export interface StaffAccountFields {
   status_changed_at: string | null;
 }
 
-const API_TIMEOUT_MS = 15_000;
-const SAFE_METHOD = /^(GET|HEAD|OPTIONS|TRACE)$/i;
-
-function csrfToken(): string | null {
-  if (typeof document === 'undefined') return null;
-  const value = document.cookie
-    .split('; ')
-    .find((row) => row.startsWith('csrftoken='))
-    ?.split('=')[1];
-  return value ? decodeURIComponent(value) : null;
-}
-
-/** Shared browser request policy for the same-origin Django API. */
-async function apiFetch(url: string, options: RequestInit = {}): Promise<Response> {
-  const headers = new Headers(options.headers);
-  if (options.body && !(options.body instanceof FormData) && !headers.has('Content-Type')) {
-    headers.set('Content-Type', 'application/json');
-  }
-  if (!SAFE_METHOD.test(options.method ?? 'GET')) {
-    const token = csrfToken();
-    if (token) headers.set('X-CSRFToken', token);
-  }
-
-  try {
-    return await fetch(url, {
-      ...options,
-      credentials: 'include',
-      headers,
-      signal: options.signal ?? AbortSignal.timeout(API_TIMEOUT_MS),
-    });
-  } catch (reason) {
-    if (
-      reason instanceof DOMException &&
-      (reason.name === 'TimeoutError' || reason.name === 'AbortError')
-    ) {
-      throw new Error('The request timed out. Please try again.');
-    }
-    throw reason;
-  }
-}
-
-function endSession(): void {
-  localStorage.removeItem(SESSION_FLAG);
-  window.dispatchEvent(new Event(AUTH_FAILURE_EVENT));
-}
-
-let refreshInFlight: Promise<boolean> | null = null;
-
-function refreshSession(): Promise<boolean> {
-  refreshInFlight ??= apiFetch('/api/token/refresh/', { method: 'POST' })
-    .then((response) => response.ok)
-    .catch(() => false)
-    .finally(() => {
-      refreshInFlight = null;
-    });
-  return refreshInFlight;
-}
-
-export async function authedFetch(url: string, options: RequestInit = {}): Promise<Response> {
-  const response = await apiFetch(url, options);
-  if (response.status !== 401) return response;
-
-  if (!(await refreshSession())) {
-    endSession();
-    return response;
-  }
-
-  const retried = await apiFetch(url, options);
-  if (retried.status === 401) endSession();
-  return retried;
-}
+/**
+ * The site's request policy. The deadline, the CSRF header, the JSON
+ * content-type and the single-flight refresh all live in the shared package;
+ * what is local is where a refresh is POSTed and what the end of a session
+ * means to this app.
+ */
+export const { authedFetch } = createAuthedFetch({
+  onAuthFailure: () => window.dispatchEvent(new Event(AUTH_FAILURE_EVENT)),
+});
 
 export function firstError(data: unknown, fallback = 'Request failed'): string {
   if (typeof data !== 'object' || data === null) return fallback;
