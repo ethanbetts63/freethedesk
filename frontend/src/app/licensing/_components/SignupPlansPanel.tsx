@@ -24,7 +24,7 @@ import {
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { DEALER_STATES } from '@/lib/dealerStates';
 import { planByCode } from '@/lib/plans';
-import { submitSignup, type SignupState } from '@/lib/signup.actions';
+import { submitDealerSignup, type SignupState } from './SignupPlansPanel.actions';
 
 import { buildDealerPlans, type DealerPlanCode, type LicensingPrices } from '../_lib/plans';
 import {
@@ -35,7 +35,6 @@ import {
 import { cn } from '@/lib/utils';
 
 const initialState: SignupState = { status: 'idle' };
-const boundSubmitSignup = submitSignup.bind(null, { endpoint: '/api/dealers/signup/' });
 
 /** The stateful half of the signup section. `heading` arrives already rendered
     from the server so its markup stays out of the client bundle. */
@@ -49,7 +48,7 @@ export function SignupPlansPanel({
   const router = useRouter();
   const plans = useMemo(() => buildDealerPlans(settings), [settings]);
   const [selectedCode, setSelectedCode] = useState<DealerPlanCode>('complete');
-  const [state, dispatch, isPending] = useActionState(boundSubmitSignup, initialState);
+  const [state, dispatch, isPending] = useActionState(submitDealerSignup, initialState);
 
   useEffect(() => {
     if (state.status !== 'success') return;
@@ -158,9 +157,9 @@ export function SignupPlansPanel({
             className={fieldInputClassName}
             name="password"
             type="password"
-            placeholder="At least 8 characters"
+            placeholder="At least 12 characters"
             autoComplete="new-password"
-            minLength={8}
+            minLength={12}
             required
           />
         </label>

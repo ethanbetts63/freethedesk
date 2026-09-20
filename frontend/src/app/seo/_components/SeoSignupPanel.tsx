@@ -23,7 +23,7 @@ import {
 } from '@/components/forms/selectionFormClassNames';
 import { type PublicSiteSettings } from '@/lib/api';
 import { planByCode } from '@/lib/plans';
-import { submitSignup, type SignupState } from '@/lib/signup.actions';
+import { submitSeoSignup, type SignupState } from './SeoSignupPanel.actions';
 import {
   choiceCardVariants,
   choiceGridClassName,
@@ -40,10 +40,6 @@ import {
 } from '../_lib/plans';
 
 const initialState: SignupState = { status: 'idle' };
-const boundSubmitSignup = submitSignup.bind(null, {
-  endpoint: '/api/seo/signup/',
-  sessionFromSignup: true,
-});
 
 /** The stateful half of the signup section. `heading` arrives already rendered
     from the server so its markup stays out of the client bundle. */
@@ -59,7 +55,7 @@ export function SeoSignupPanel({
   const [selectedCode, setSelectedCode] = useState<SeoPlanCode>('quarterly');
   const plans = useMemo(() => buildSeoPlans(settings, reportType), [settings, reportType]);
   const selected = planByCode(plans, selectedCode) ?? plans[0];
-  const [state, dispatch, isPending] = useActionState(boundSubmitSignup, initialState);
+  const [state, dispatch, isPending] = useActionState(submitSeoSignup, initialState);
 
   useEffect(() => {
     if (state.status !== 'success') return;
