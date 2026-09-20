@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { formControlClassName } from '@/components/dashboard/formControl';
+import { formControlClassName } from '@/components/ui/formControl';
 import { authFieldLabelClassName } from './AuthCard';
 
 /**

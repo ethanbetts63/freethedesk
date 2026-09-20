@@ -17,6 +17,18 @@ const labels: Record<string, string> = {
   active: 'Active',
   suspended: 'Suspended',
   denied: 'Denied',
+  // Sale statuses. `Awaiting identity review` and `Signed by customer` are
+  // shortened here because they sit in a table column, not because the API's
+  // own labels are wrong.
+  draft: 'Draft',
+  awaiting_customer: 'Awaiting customer',
+  awaiting_identity_review: 'Identity review',
+  ready_to_sign: 'Ready to sign',
+  signed: 'Signed',
+  accepted: 'Accepted',
+  awaiting_payment: 'Awaiting payment',
+  payment_confirmed: 'Payment confirmed',
+  completed: 'Completed',
 };
 
 export function statusLabel(status: string): string {
@@ -59,6 +71,23 @@ const tones: Record<string, string> = {
   denied: 'var(--status-spam)',
   bounced: 'var(--status-spam)',
   suspended: 'var(--status-suspended)',
+  // Sale statuses, coloured by who the sale is waiting on rather than by how
+  // far through it is: amber where the dealer has something to do, blue where
+  // the customer does, purple once it is binding, green when it is finished.
+  //
+  // `signed` takes the suspended orange on its own, and that is the point. It
+  // is the only urgent state — the offer lapses at close of business the next
+  // business day — so it must not look like the two blue states either side of
+  // it. See `_docs/licensing/plan/04-dealer-portal.md`.
+  draft: 'var(--status-new)',
+  awaiting_customer: 'var(--status-contacted)',
+  awaiting_identity_review: 'var(--status-new)',
+  ready_to_sign: 'var(--status-contacted)',
+  signed: 'var(--status-suspended)',
+  accepted: 'var(--status-qualified)',
+  awaiting_payment: 'var(--status-contacted)',
+  payment_confirmed: 'var(--status-qualified)',
+  completed: 'var(--status-won)',
 };
 
 /** Spread onto any element that draws itself from a status colour. */
@@ -79,6 +108,18 @@ export function StatusPill({ status }: { status: string }) {
 
 export const enquiryStatuses = ['new', 'contacted', 'qualified', 'won', 'closed', 'spam'] as const;
 export const dealerStatuses = ['pending', 'active', 'suspended', 'denied'] as const;
+export const saleStatuses = [
+  'draft',
+  'awaiting_customer',
+  'awaiting_identity_review',
+  'ready_to_sign',
+  'signed',
+  'accepted',
+  'awaiting_payment',
+  'payment_confirmed',
+  'completed',
+  'cancelled',
+] as const;
 export const messageStatuses = [
   'queued',
   'sent',

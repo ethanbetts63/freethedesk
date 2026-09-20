@@ -17,9 +17,15 @@ interface StructuredDataScriptProps {
  * one of those would close the tag early and hand whatever followed to the
  * browser as markup. `\u003c` is valid JSON, parses back to `<`, and can never
  * form that sequence.
+ *
+ * The replacement must be a literal backslash followed by `u003c`, so in this
+ * source it is written with two: `'\\u003c'`. Written with one, `'\u003c'` is
+ * simply the character `<`, and the replace becomes an identity no-op that
+ * reads as correct and does nothing — the form this component shipped with
+ * until 2026-09-20.
  */
 function toJsonLd(structuredData: object | object[]): string {
-  return JSON.stringify(structuredData).replace(/</g, '\u003c');
+  return JSON.stringify(structuredData).replace(/</g, '\\u003c');
 }
 
 const StructuredDataScript = ({ structuredData }: StructuredDataScriptProps) => {

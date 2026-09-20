@@ -7,24 +7,25 @@ import { formatDateTime, type AdminMessage } from '@/lib/adminApi';
 import type { AccountBase, DealerStatus } from '@/lib/api';
 
 import { dealerStatuses, StatusPill, statusLabel } from './StatusPill';
-import { AdminButton } from '@/components/dashboard/AdminButton';
-import { formControlClassName } from '@/components/dashboard/formControl';
+import { Button } from '@/components/ui/Button';
+import { formControlClassName } from '@/components/ui/formControl';
 import {
-  AdminDetailItem,
-  adminCardClassName,
-  adminCardHeadingClassName,
-  adminCardLabelClassName,
-  adminCardLinkClassName,
-  adminCardTitleClassName,
-  adminCardWideClassName,
-  adminDetailListClassName,
-  adminStatusCardClassName,
-  adminStatusCardLabelGroupClassName,
-  adminStatusCardSelectClassName,
-} from '@/components/dashboard/AdminCard';
+  DetailItem,
+  cardClassName,
+  cardHeadingClassName,
+  cardLabelClassName,
+  cardLinkClassName,
+  cardTitleClassName,
+  cardWideClassName,
+  detailListClassName,
+  statusCardClassName,
+  statusCardLabelGroupClassName,
+  statusCardSelectClassName,
+} from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
-import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
-import { adminBackClassName, adminRelatedMessagesClassName } from './adminLayout';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { backClassName } from '@/components/ui/layout';
+import { adminRelatedMessagesClassName } from './adminLayout';
 
 export function AccountStatusCard({
   status,
@@ -36,13 +37,13 @@ export function AccountStatusCard({
   onChange: (status: DealerStatus) => void;
 }) {
   return (
-    <section className={adminStatusCardClassName}>
-      <div className={adminStatusCardLabelGroupClassName}>
-        <p className={adminCardLabelClassName}>Account status</p>
+    <section className={statusCardClassName}>
+      <div className={statusCardLabelGroupClassName}>
+        <p className={cardLabelClassName}>Account status</p>
         <StatusPill status={status} />
       </div>
       <select
-        className={adminStatusCardSelectClassName}
+        className={statusCardSelectClassName}
         aria-label="Account status"
         value={status}
         disabled={saving}
@@ -72,16 +73,16 @@ export function AccountApprovalCard({
   onDeny: () => void;
 }) {
   return (
-    <section className={cn(adminCardClassName, adminCardWideClassName)}>
-      <h2 className={adminCardTitleClassName}>{heading}</h2>
+    <section className={cn(cardClassName, cardWideClassName)}>
+      <h2 className={cardTitleClassName}>{heading}</h2>
       <p className="text-label text-text-subtle">{explanation}</p>
       <div className="flex flex-col flex-wrap items-start gap-l sm:flex-row sm:items-center">
-        <AdminButton type="button" disabled={saving} onClick={onApprove}>
+        <Button type="button" disabled={saving} onClick={onApprove}>
           Approve
-        </AdminButton>
-        <AdminButton variant="secondary" type="button" disabled={saving} onClick={onDeny}>
+        </Button>
+        <Button variant="secondary" type="button" disabled={saving} onClick={onDeny}>
           Deny
-        </AdminButton>
+        </Button>
       </div>
     </section>
   );
@@ -89,13 +90,13 @@ export function AccountApprovalCard({
 
 export function DetailCard({ title, rows }: { title: string; rows: [string, ReactNode][] }) {
   return (
-    <section className={adminCardClassName}>
-      <h2 className={adminCardTitleClassName}>{title}</h2>
-      <dl className={adminDetailListClassName}>
+    <section className={cardClassName}>
+      <h2 className={cardTitleClassName}>{title}</h2>
+      <dl className={detailListClassName}>
         {rows.map(([term, value]) => (
-          <AdminDetailItem key={term} term={term}>
+          <DetailItem key={term} term={term}>
             {value}
-          </AdminDetailItem>
+          </DetailItem>
         ))}
       </dl>
     </section>
@@ -117,14 +118,14 @@ export function AccountContactCard({
         ['Contact', account.contact_name],
         [
           'Email',
-          <a className={adminCardLinkClassName} key="email" href={`mailto:${account.email}`}>
+          <a className={cardLinkClassName} key="email" href={`mailto:${account.email}`}>
             {account.email}
           </a>,
         ],
         [
           'Phone',
           account.phone ? (
-            <a className={adminCardLinkClassName} key="phone" href={`tel:${account.phone}`}>
+            <a className={cardLinkClassName} key="phone" href={`tel:${account.phone}`}>
               {account.phone}
             </a>
           ) : (
@@ -180,9 +181,9 @@ export function StaffNotesCard({
   onSave: () => void;
 }) {
   return (
-    <section className={cn(adminCardClassName, adminCardWideClassName)}>
-      <div className={adminCardHeadingClassName}>
-        <h2 className={adminCardTitleClassName}>Internal notes</h2>
+    <section className={cn(cardClassName, cardWideClassName)}>
+      <div className={cardHeadingClassName}>
+        <h2 className={cardTitleClassName}>Internal notes</h2>
       </div>
       <textarea
         className={cn(formControlClassName, 'mb-s resize-y p-s')}
@@ -191,14 +192,14 @@ export function StaffNotesCard({
         onChange={(event) => onChange(event.target.value)}
         placeholder="Anything worth recording about this account — checks, phone calls, why they were denied."
       />
-      <AdminButton
+      <Button
         variant="secondary"
         type="button"
         disabled={saving || notes === saved}
         onClick={onSave}
       >
         {saving ? 'Saving…' : 'Save notes'}
-      </AdminButton>
+      </Button>
     </section>
   );
 }
@@ -214,10 +215,10 @@ export function RelatedMessagesCard({
   emptyLabel: string;
 }) {
   return (
-    <section className={cn(adminCardClassName, adminCardWideClassName)}>
-      <div className={adminCardHeadingClassName}>
-        <h2 className={adminCardTitleClassName}>Recent messages</h2>
-        <Link className={adminCardLinkClassName} href={replyHref}>
+    <section className={cn(cardClassName, cardWideClassName)}>
+      <div className={cardHeadingClassName}>
+        <h2 className={cardTitleClassName}>Recent messages</h2>
+        <Link className={cardLinkClassName} href={replyHref}>
           Compose email
         </Link>
       </div>
@@ -260,12 +261,12 @@ export function AccountDetailHeader({
 }) {
   return (
     <>
-      <Link className={adminBackClassName} href={backHref}>
+      <Link className={backClassName} href={backHref}>
         ← {backLabel}
       </Link>
-      <AdminPageHeader align="center" kicker={kicker} title={title} subtitle={subtitle}>
-        <AdminButton href={actionHref}>{actionLabel}</AdminButton>
-      </AdminPageHeader>
+      <PageHeader align="center" kicker={kicker} title={title} subtitle={subtitle}>
+        <Button href={actionHref}>{actionLabel}</Button>
+      </PageHeader>
     </>
   );
 }

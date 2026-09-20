@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { SignalFlow } from '@/components/visuals/SignalFlow';
-import { adminBrandClassName, adminKickerClassName } from '@/components/dashboard/adminLayout';
+import { brandClassName, kickerClassName } from '@/components/ui/layout';
 import { gridPaperBeforeClassName } from '@/lib/gridSurface';
 
 /**
@@ -35,10 +35,10 @@ export function AuthCard({
         <SignalFlow />
       </div>
       <section className="relative z-1 w-full max-w-[450px] border border-[color-mix(in_srgb,var(--slate-300)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] px-ml py-xl shadow-l backdrop-blur-[13px] sm:p-xl">
-        <Link className={adminBrandClassName} href="/">
+        <Link className={brandClassName} href="/">
           free<span>the</span>desk<i>.</i>
         </Link>
-        <p className={cn(adminKickerClassName, 'mt-xl')}>{kicker}</p>
+        <p className={cn(kickerClassName, 'mt-xl')}>{kicker}</p>
         <h1 className="m-0 text-title tracking-[-0.06em]">{heading}</h1>
         {intro && <p className="mt-s mb-xl text-body-sm leading-[1.5] text-text-muted">{intro}</p>}
         {children}

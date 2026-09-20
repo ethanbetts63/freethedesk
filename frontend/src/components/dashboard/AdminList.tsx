@@ -4,8 +4,8 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import { cn } from '@/lib/utils';
-import { AdminButton } from './AdminButton';
-import { formControlClassName, formControlPaddingClassName } from './formControl';
+import { Button } from '@/components/ui/Button';
+import { formControlClassName, formControlPaddingClassName } from '@/components/ui/formControl';
 import { statusTone } from './StatusPill';
 
 /**
@@ -160,9 +160,9 @@ export function AdminFilterBar({
             onChange={(event) => onSearchChange(event.target.value)}
             placeholder={searchPlaceholder}
           />
-          <AdminButton variant="quiet" type="submit">
+          <Button variant="quiet" type="submit">
             Search
-          </AdminButton>
+          </Button>
         </form>
       </div>
       {legend && legend.length > 0 && (
@@ -258,23 +258,15 @@ export function AdminPagination({
         {total ? (page - 1) * pageSize + 1 : 0}–{Math.min(page * pageSize, total)} of {total}
       </span>
       <div className="flex items-center gap-xs">
-        <AdminButton
-          variant="quiet"
-          disabled={page <= 1 || loading}
-          onClick={() => onPage(page - 1)}
-        >
+        <Button variant="quiet" disabled={page <= 1 || loading} onClick={() => onPage(page - 1)}>
           ← Previous
-        </AdminButton>
+        </Button>
         <span>
           Page {page} of {pageCount}
         </span>
-        <AdminButton
-          variant="quiet"
-          disabled={!hasNext || loading}
-          onClick={() => onPage(page + 1)}
-        >
+        <Button variant="quiet" disabled={!hasNext || loading} onClick={() => onPage(page + 1)}>
           Next →
-        </AdminButton>
+        </Button>
       </div>
     </footer>
   );

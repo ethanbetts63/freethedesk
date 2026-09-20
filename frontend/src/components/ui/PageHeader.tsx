@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { adminKickerClassName } from './adminLayout';
+import { kickerClassName } from './layout';
 import { cn } from '@/lib/utils';
 
 /**
@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
  * has a fixed shape, so the honest fix is to make the shape explicit and give
  * each part its own class.
  */
-export function AdminPageHeader({
+export function PageHeader({
   kicker,
   title,
   subtitle,
@@ -43,7 +43,7 @@ export function AdminPageHeader({
       )}
     >
       <div>
-        <p className={adminKickerClassName}>{kicker}</p>
+        <p className={kickerClassName}>{kicker}</p>
         <h1 className="m-0 text-display leading-none tracking-[-0.06em]">{title}</h1>
         {subtitle ? <p className="mt-xs mb-0 text-body-sm text-text-muted">{subtitle}</p> : null}
       </div>

@@ -7,7 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { CHANGE_PASSWORD_PATH, homeFor, type Role } from '@/lib/api';
 import { adminLoadingClassName, chromeHairlineClassName } from './dashboardChrome';
 import { cn } from '@/lib/utils';
-import { adminBrandClassName } from './adminLayout';
+import { brandClassName } from '@/components/ui/layout';
 
 export interface NavItem {
   href: string;
@@ -69,7 +69,7 @@ export function PortalShell({
   return (
     <div className="block min-h-screen bg-surface-tint lg:flex">
       <aside className={sidebarClassName}>
-        <Link className={adminBrandClassName} href={homeHref}>
+        <Link className={brandClassName} href={homeHref}>
           free<span>the</span>desk<i>.</i>
         </Link>
         {/* The section name only earns its line once the rail is vertical. */}
