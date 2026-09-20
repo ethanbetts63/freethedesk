@@ -1,3 +1,6 @@
+/* Component registry: freetheplatform/frontend/registry/src/lib/serverCookies.ts
+   Copied, not imported. Edit the registry and re-sync; a deliberate local
+   change here must be marked. See _docs/component-registry.md. */
 import { cookies } from 'next/headers';
 
 interface ParsedCookie {

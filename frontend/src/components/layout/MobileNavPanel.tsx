@@ -6,6 +6,7 @@ import type { ReactNode } from 'react';
 
 import { NavPanelDismiss } from '@/components/layout/NavPanelDismiss';
 import { mobileNavRowClassName, type NavItem } from '@/components/layout/navigation';
+import { focusRingClassName } from '@/lib/controlState';
 import { cn } from '@/lib/utils';
 
 const BAR = 'h-[2px] w-[19px] bg-text-primary transition-[transform,opacity] duration-200';
@@ -37,7 +38,10 @@ export function MobileNavPanel({
   return (
     <details className="group nav:hidden relative block">
       <summary
-        className="flex h-[44px] w-[44px] cursor-pointer list-none flex-col items-center justify-center gap-3xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary [&::-webkit-details-marker]:hidden"
+        className={cn(
+          'flex h-[44px] w-[44px] cursor-pointer list-none flex-col items-center justify-center gap-3xs [&::-webkit-details-marker]:hidden',
+          focusRingClassName,
+        )}
         aria-label="Navigation menu"
       >
         <i className={cn(BAR, 'group-open:translate-y-[7px] group-open:rotate-45')} />

@@ -1,8 +1,15 @@
 import { ScrollCtaButton } from '@/components/common/ScrollCtaButton';
 import { SectionNumber } from '@/components/SectionNumber';
 
-const linkClassName =
-  'mt-auto inline-flex min-h-[var(--tap-min)] cursor-pointer items-center gap-s self-start border-0 bg-transparent p-0 font-[inherit] text-body font-strong text-text-secondary underline [text-underline-offset:5px] hover:text-action-primary focus-visible:outline-2 focus-visible:outline-action-primary focus-visible:outline-offset-4 [&>span]:text-action-primary';
+import { focusRingClassName } from '@/lib/controlState';
+
+const linkClassName = [
+  'mt-auto inline-flex min-h-[var(--tap-min)] cursor-pointer items-center gap-s self-start border-0 bg-transparent p-0 font-[inherit] text-body font-strong text-text-secondary underline [text-underline-offset:5px] hover:text-action-primary [&>span]:text-action-primary',
+  focusRingClassName,
+  // An underlined link in running text: the outline wants clearance from
+  // the underline rather than sitting on it.
+  'focus-visible:outline-offset-4',
+].join(' ');
 
 export function WebsiteIntroduction({
   id = 'website-overview',

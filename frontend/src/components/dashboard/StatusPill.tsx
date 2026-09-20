@@ -1,76 +1,52 @@
 import type { CSSProperties } from 'react';
 
-const labels: Record<string, string> = {
-  new: 'New',
-  contacted: 'Contacted',
-  qualified: 'Qualified',
-  won: 'Won',
-  closed: 'Closed',
-  spam: 'Spam',
-  pending: 'Pending',
-  queued: 'Queued',
-  sent: 'Sent',
-  delivered: 'Delivered',
-  failed: 'Failed',
-  bounced: 'Bounced',
-  cancelled: 'Cancelled',
-  active: 'Active',
-  suspended: 'Suspended',
-  denied: 'Denied',
-  // Sale statuses. `Awaiting identity review` and `Signed by customer` are
-  // shortened here because they sit in a table column, not because the API's
-  // own labels are wrong.
-  draft: 'Draft',
-  awaiting_customer: 'Awaiting customer',
-  awaiting_identity_review: 'Identity review',
-  ready_to_sign: 'Ready to sign',
-  signed: 'Signed',
-  accepted: 'Accepted',
-  awaiting_payment: 'Awaiting payment',
-  payment_confirmed: 'Payment confirmed',
-  completed: 'Completed',
-};
-
-export function statusLabel(status: string): string {
-  return labels[status] ?? status[0].toUpperCase() + status.slice(1);
-}
+import {
+  StatusChip,
+  statusLabel as chipLabel,
+  statusTone as chipTone,
+  type StatusMap,
+} from '@/components/common/status-chip';
 
 /**
- * Status enum to the categorical colour it is drawn in.
+ * This app's status vocabulary, and the chip bound to it.
  *
- * Replaces the `[data-status='…'] { --admin-status-color: … }` block from
- * `admin.css`. The colour is still a custom property, because the three
- * surfaces that use it mix it at three different strengths (12% for a table
- * row, 26% for a pill background, 45% against the text colour) and a mix
- * cannot be expressed as a Tailwind colour utility. What changes is where the
- * mapping lives: beside the labels and the status lists it belongs to, instead
- * of in a stylesheet that had no way to know when a new status shipped.
+ * An adapter over the shared `StatusChip`, which owns the shape, the two
+ * colour mixes and the unmapped-status fallback. What stays here is what is
+ * ours: the labels, the tones, and the four status lists — four unrelated
+ * vocabularies that happen to be drawn the same way.
  *
- * Which is exactly what went wrong. `queued`, `delivered`, `bounced` and
- * `cancelled` were added to `messageStatuses` but never to the CSS, so
- * `--admin-status-color` was undefined for them, `color-mix()` was invalid,
- * and those four pills rendered with no background and no colour at all next
- * to perfectly normal `sent` and `failed` ones. They are mapped here by
- * meaning, and an unrecognised status falls back to the neutral `closed`
- * colour rather than to nothing.
+ * Tones are a *categorical* scale rather than success/warning/danger, because
+ * these are pipeline stages: `contacted` is not worse than `qualified`, it is
+ * earlier. Replaces the `[data-status='…'] { --admin-status-color: … }` block
+ * that used to live in `admin.css` and had no way to know when a new status
+ * shipped — `queued`, `delivered`, `bounced` and `cancelled` were added to
+ * `messageStatuses` and never to the CSS, so `color-mix()` got an undefined
+ * value, the whole declaration was invalid, and those four pills rendered with
+ * no background and no colour at all beside perfectly normal `sent` ones.
+ *
+ * `Awaiting identity review` and `Signed by customer` are shortened here
+ * because they sit in a table column, not because the API's labels are wrong.
  */
-const tones: Record<string, string> = {
-  new: 'var(--status-new)',
-  pending: 'var(--status-new)',
-  queued: 'var(--status-new)',
-  contacted: 'var(--status-contacted)',
-  qualified: 'var(--status-qualified)',
-  won: 'var(--status-won)',
-  sent: 'var(--status-won)',
-  active: 'var(--status-won)',
-  delivered: 'var(--status-won)',
-  closed: 'var(--status-closed)',
-  cancelled: 'var(--status-closed)',
-  spam: 'var(--status-spam)',
-  failed: 'var(--status-spam)',
-  denied: 'var(--status-spam)',
-  bounced: 'var(--status-spam)',
-  suspended: 'var(--status-suspended)',
+const STATUS: StatusMap = {
+  new: { label: 'New', tone: 'var(--status-new)' },
+  contacted: { label: 'Contacted', tone: 'var(--status-contacted)' },
+  qualified: { label: 'Qualified', tone: 'var(--status-qualified)' },
+  won: { label: 'Won', tone: 'var(--status-won)' },
+  closed: { label: 'Closed', tone: 'var(--status-closed)' },
+  spam: { label: 'Spam', tone: 'var(--status-spam)' },
+
+  pending: { label: 'Pending', tone: 'var(--status-new)' },
+  active: { label: 'Active', tone: 'var(--status-won)' },
+  suspended: { label: 'Suspended', tone: 'var(--status-suspended)' },
+  denied: { label: 'Denied', tone: 'var(--status-spam)' },
+
+  queued: { label: 'Queued', tone: 'var(--status-new)' },
+  sent: { label: 'Sent', tone: 'var(--status-won)' },
+  delivered: { label: 'Delivered', tone: 'var(--status-won)' },
+  failed: { label: 'Failed', tone: 'var(--status-spam)' },
+  bounced: { label: 'Bounced', tone: 'var(--status-spam)' },
+  cancelled: { label: 'Cancelled', tone: 'var(--status-closed)' },
+
   // Sale statuses, coloured by who the sale is waiting on rather than by how
   // far through it is: amber where the dealer has something to do, blue where
   // the customer does, purple once it is binding, green when it is finished.
@@ -79,31 +55,28 @@ const tones: Record<string, string> = {
   // is the only urgent state — the offer lapses at close of business the next
   // business day — so it must not look like the two blue states either side of
   // it. See `_docs/licensing/plan/04-dealer-portal.md`.
-  draft: 'var(--status-new)',
-  awaiting_customer: 'var(--status-contacted)',
-  awaiting_identity_review: 'var(--status-new)',
-  ready_to_sign: 'var(--status-contacted)',
-  signed: 'var(--status-suspended)',
-  accepted: 'var(--status-qualified)',
-  awaiting_payment: 'var(--status-contacted)',
-  payment_confirmed: 'var(--status-qualified)',
-  completed: 'var(--status-won)',
+  draft: { label: 'Draft', tone: 'var(--status-new)' },
+  awaiting_customer: { label: 'Awaiting customer', tone: 'var(--status-contacted)' },
+  awaiting_identity_review: { label: 'Identity review', tone: 'var(--status-new)' },
+  ready_to_sign: { label: 'Ready to sign', tone: 'var(--status-contacted)' },
+  signed: { label: 'Signed', tone: 'var(--status-suspended)' },
+  accepted: { label: 'Accepted', tone: 'var(--status-qualified)' },
+  awaiting_payment: { label: 'Awaiting payment', tone: 'var(--status-contacted)' },
+  payment_confirmed: { label: 'Payment confirmed', tone: 'var(--status-qualified)' },
+  completed: { label: 'Completed', tone: 'var(--status-won)' },
 };
+
+export function statusLabel(status: string): string {
+  return chipLabel(STATUS, status);
+}
 
 /** Spread onto any element that draws itself from a status colour. */
 export function statusTone(status: string): CSSProperties {
-  return { '--status-tone': tones[status] ?? tones.closed } as CSSProperties;
+  return chipTone(STATUS, status);
 }
 
 export function StatusPill({ status }: { status: string }) {
-  return (
-    <span
-      className="inline-flex rounded-pill bg-[color-mix(in_srgb,var(--status-tone)_26%,var(--surface-page))] px-xs py-3xs text-label font-heavy text-[color-mix(in_srgb,var(--status-tone)_45%,var(--text-primary))]"
-      style={statusTone(status)}
-    >
-      {statusLabel(status)}
-    </span>
-  );
+  return <StatusChip map={STATUS} status={status} />;
 }
 
 export const enquiryStatuses = ['new', 'contacted', 'qualified', 'won', 'closed', 'spam'] as const;

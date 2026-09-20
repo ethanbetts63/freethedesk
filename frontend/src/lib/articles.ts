@@ -1,10 +1,32 @@
+/* Component registry: freetheplatform/frontend/registry/src/lib/articles.ts
+   Copied, not imported. Edit the registry and re-sync; a deliberate local
+   change here must be marked. See _docs/component-registry.md. */
 import fs from 'node:fs';
 import path from 'node:path';
-import { AUTHOR_NAME } from './author';
-import { renderMarkdown } from './markdown';
 
-const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles');
-const EXCLUDED_FILES = new Set(['overview.md']);
+import { AUTHOR_NAME } from '@/lib/author';
+import { ARTICLES_DIR, articleFilenames, isExcludedArticle } from '@/lib/articleSlugs';
+import { renderMarkdown } from '@/lib/markdown';
+
+/**
+ * Markdown articles, read from disk with their metadata in front matter.
+ *
+ * Front matter rather than the file's own timestamps, and this is the whole
+ * reason the module is shared. A CI checkout gives every file the same
+ * creation and modification time, so a loader that reads `stat.birthtime` or
+ * `stat.mtime` dates every article to the deploy — which then goes out as
+ * `datePublished` and `dateModified` in Article schema and as `lastModified`
+ * in the sitemap, telling a crawler that every guide on the site was rewritten
+ * this morning. One of the two apps was doing exactly that.
+ *
+ * A missing or malformed `published` throws rather than falling back, for the
+ * same reason: a wrong date published into structured data is worse than a
+ * failed build, because only one of the two is visible.
+ *
+ * Per-site: the directory and exclusions (`lib/articleSlugs`, deliberately
+ * free of path aliases so a Next config can load it) and the markdown
+ * renderer (`lib/markdown`).
+ */
 
 export interface ArticleMeta {
   slug: string;
@@ -28,6 +50,7 @@ interface FrontMatter {
 
 const FRONT_MATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/;
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 function parseFrontMatter(source: string): { data: FrontMatter; body: string } {
   const match = FRONT_MATTER.exec(source);
@@ -53,10 +76,12 @@ function slugFromFilename(filename: string): string {
   return filename.replace(/\.md$/, '');
 }
 
+/** The `#` heading, used when the front matter names no title. */
 function extractTitle(markdown: string): string {
-  return markdown.match(/^#\s+(.+)$/m)?.[1].trim() ?? 'Untitled guide';
+  return markdown.match(/^#\s+(.+)$/m)?.[1].trim() ?? 'Untitled';
 }
 
+/** The first real paragraph, used when the front matter names no description. */
 function extractExcerpt(markdown: string): string {
   const line = markdown
     .split('\n')
@@ -70,15 +95,6 @@ function extractExcerpt(markdown: string): string {
     .replace(/\*\*/g, '')
     .replace(/\[([^\]]+)]\([^)]+\)/g, '$1')
     .slice(0, 180);
-}
-
-function articleFilenames(): string[] {
-  if (!fs.existsSync(ARTICLES_DIR)) return [];
-
-  return fs
-    .readdirSync(ARTICLES_DIR)
-    .filter((filename) => filename.endsWith('.md') && !EXCLUDED_FILES.has(filename))
-    .sort();
 }
 
 function readArticle(filename: string): { meta: ArticleMeta; body: string } {
@@ -105,25 +121,26 @@ function readArticle(filename: string): { meta: ArticleMeta; body: string } {
   };
 }
 
+/** Newest first, which is the order every index that renders them wants. */
 export function getAllArticleMeta(): ArticleMeta[] {
   return articleFilenames()
     .map((filename) => readArticle(filename).meta)
     .sort((a, b) => b.publishedDate.localeCompare(a.publishedDate));
 }
 
-export function getAllArticleSlugs(): string[] {
-  return articleFilenames().map(slugFromFilename);
-}
-
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return null;
+  // A route param reaches this unvalidated, and it becomes a filename below.
+  if (!SLUG.test(slug)) return null;
 
   const filename = `${slug}.md`;
-  if (EXCLUDED_FILES.has(filename)) return null;
+  if (isExcludedArticle(filename)) return null;
   if (!fs.existsSync(path.join(ARTICLES_DIR, filename))) return null;
 
   const { meta, body } = readArticle(filename);
+  // The title is the page's H1 already; rendering it again would repeat it.
   const articleBody = body.replace(/^#\s+.+(?:\r?\n)+/, '');
 
   return { ...meta, html: await renderMarkdown(articleBody) };
 }
+
+export { getAllArticleSlugs } from '@/lib/articleSlugs';

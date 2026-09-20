@@ -5,6 +5,8 @@ import Eyebrow from '@/components/common/eyebrow';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import { renderFaqAnswer } from '@/components/marketing/renderFaqAnswer';
 import type { FaqItem } from '@/types/FaqItem';
+import { focusRingClassName } from '@/lib/controlState';
+import { cn } from '@/lib/utils';
 
 interface FaqSectionProps {
   title: string;
@@ -71,7 +73,15 @@ export const FaqSection = ({
             <details key={item.question} className="group border-b border-border-default">
               {/* Both marker rules: `marker:` covers the standard pseudo-element,
                   the WebKit one covers Safari, which still draws its own. */}
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-m py-l marker:hidden focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-action-primary [&::-webkit-details-marker]:hidden">
+              <summary
+                className={cn(
+                  'flex cursor-pointer list-none items-center justify-between gap-m py-l marker:hidden [&::-webkit-details-marker]:hidden',
+                  focusRingClassName,
+                  // A full-width row: the outline wants clearance from the
+                  // question text, not a hairline around it.
+                  'focus-visible:outline-offset-4',
+                )}
+              >
                 <h3 className="m-0 text-lead font-strong text-text-primary">{item.question}</h3>
                 <span
                   aria-hidden="true"
