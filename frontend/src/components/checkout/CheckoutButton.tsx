@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ReactNode } from 'react';
 
-import { LinkOrButton, type LinkOrButtonProps } from '@/components/LinkOrButton';
+import { LinkOrButton, type LinkOrButtonProps } from '@/components/common/LinkOrButton';
 import {
   disabledBusyClassName,
   disabledUnavailableClassName,

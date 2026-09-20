@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 
-import { ClarityAnalytics } from '@/components/ClarityAnalytics';
-import { ScrollToTop } from '@/components/ScrollToTop';
+import { ClarityAnalytics } from '@/components/analytics/ClarityAnalytics';
+import { ScrollToTop } from '@/components/common/ScrollToTop';
+import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import { SiteChrome } from '@/components/SiteChrome';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
@@ -34,12 +35,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify([buildOrganizationSchema(), buildWebsiteSchema()]),
-          }}
-        />
+        <StructuredDataScript structuredData={[buildOrganizationSchema(), buildWebsiteSchema()]} />
         <ScrollToTop />
         {/* Chrome is passed in already rendered, so its markup stays on the
             server and SiteChrome only decides which routes show it. AuthProvider

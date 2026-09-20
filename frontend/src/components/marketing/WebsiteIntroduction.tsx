@@ -1,4 +1,4 @@
-import { ScrollCtaButton } from '@/components/ScrollCtaButton';
+import { ScrollCtaButton } from '@/components/common/ScrollCtaButton';
 import { SectionNumber } from '@/components/SectionNumber';
 
 const linkClassName =

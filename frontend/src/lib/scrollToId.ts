@@ -1,3 +1,6 @@
+/* Component registry: freetheplatform/frontend/registry/src/lib/scrollToId.ts
+   Copied, not imported. Edit the registry and re-sync; a deliberate local
+   change here must be marked. See _docs/component-registry.md. */
 /**
  * Smoothly bring an in-page section into view and move focus to it, without
  * touching the URL.

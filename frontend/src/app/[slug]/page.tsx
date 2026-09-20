@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { Eyebrow } from '@/components/Eyebrow';
+import Eyebrow from '@/components/common/eyebrow';
+import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import { getAllArticleSlugs, getArticleBySlug, type Article } from '@/lib/articles';
 import {
   buildArticleSchema,
@@ -61,10 +62,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   return (
     <main>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <StructuredDataScript structuredData={structuredData} />
       <ArticleView article={article} />
     </main>
   );
@@ -90,7 +88,11 @@ function ArticleView({ article }: { article: Article }) {
             <span>/</span>
             <Link href="/guides">Guides</Link>
           </nav>
-          <Eyebrow className="mb-l gap-xs text-caption tracking-label-wide text-accent">
+          <Eyebrow
+            dot
+            tone="accent"
+            className="mb-l gap-xs text-caption tracking-label-wide text-accent"
+          >
             Dealer field notes
           </Eyebrow>
           <h1 className="m-0 max-w-[1040px] text-hero leading-[0.94] tracking-[-0.07em]">

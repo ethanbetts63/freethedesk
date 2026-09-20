@@ -1,5 +1,6 @@
 import { PAGES, breadcrumbItemsFor, type PageDefinition, type PagePath } from '@/lib/pages';
 import { buildBreadcrumbSchema, buildServiceSchema, buildWebPageSchema } from '@/lib/seo';
+import StructuredDataScript from '@/components/seo/StructuredDataScript';
 
 /**
  * Every schema node a registry-declared page emits.
@@ -24,10 +25,5 @@ export function PageSchema({ path, serviceOffers }: { path: PagePath; serviceOff
     schemas.push(buildServiceSchema({ service, path, description, offers: serviceOffers }));
   }
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }}
-    />
-  );
+  return <StructuredDataScript structuredData={schemas} />;
 }

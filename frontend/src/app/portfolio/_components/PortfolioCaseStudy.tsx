@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Fragment } from 'react';
 
-import { Eyebrow } from '@/components/Eyebrow';
+import Eyebrow from '@/components/common/eyebrow';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import type { FaqItem } from '@/types/FaqItem';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
@@ -10,7 +10,7 @@ import { PageSchema } from '@/components/PageSchema';
 import { PrimaryButton } from '@/components/PrimaryButton';
 import { ProcessBar, type ProcessBarStep } from '@/components/ProcessBar';
 import { ProofStrip, type ProofStat } from '@/components/ProofStrip';
-import { ScrollCtaButton } from '@/components/ScrollCtaButton';
+import { ScrollCtaButton } from '@/components/common/ScrollCtaButton';
 import { SectionNumber } from '@/components/SectionNumber';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
@@ -189,7 +189,9 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
           take more of the room it needs. */}
       <div className="site-shell relative grid grid-cols-[minmax(0,1fr)] items-center gap-2xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] xl:gap-3xl">
         <div className="relative z-3">
-          <Eyebrow>{config.eyebrow}</Eyebrow>
+          <Eyebrow dot tone="accent">
+            {config.eyebrow}
+          </Eyebrow>
           <h1 className="m-0 text-display font-heavy leading-[0.91] tracking-[-0.078em] lg:text-hero [&_span]:text-text-action">
             <HeadingLines heading={config.title} />
           </h1>

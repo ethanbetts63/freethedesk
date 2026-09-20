@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ReactNode } from 'react';
 
-import { LinkOrButton, type LinkOrButtonProps } from '@/components/LinkOrButton';
+import { LinkOrButton, type LinkOrButtonProps } from '@/components/common/LinkOrButton';
 import {
   disabledBusyClassName,
   disabledUnavailableClassName,
@@ -59,15 +59,15 @@ const adminButtonVariants = cva(focusRingClassName, {
   defaultVariants: { variant: 'primary' },
 });
 
-export type AdminButtonVariant = NonNullable<VariantProps<typeof adminButtonVariants>['variant']>;
+export type ButtonVariant = NonNullable<VariantProps<typeof adminButtonVariants>['variant']>;
 
 type SharedProps = {
   children: ReactNode;
-  variant?: AdminButtonVariant;
+  variant?: ButtonVariant;
   className?: string;
 };
 
-export function AdminButton(props: LinkOrButtonProps<SharedProps>) {
+export function Button(props: LinkOrButtonProps<SharedProps>) {
   const { children, variant, className, ...rest } = props;
   return (
     <LinkOrButton classes={cn(adminButtonVariants({ variant }), className)} {...rest}>

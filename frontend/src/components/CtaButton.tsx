@@ -3,8 +3,8 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { disabledBusyClassName, focusRingClassName } from '@/lib/controlState';
 import { cn } from '@/lib/utils';
 
-import { LinkOrButton } from './LinkOrButton';
-import { ScrollCtaButton } from './ScrollCtaButton';
+import { LinkOrButton } from '@/components/common/LinkOrButton';
+import { ScrollCtaButton } from '@/components/common/ScrollCtaButton';
 
 /**
  * Which glyph the CTA shows. In-page anchors use the scroll direction (`down` /

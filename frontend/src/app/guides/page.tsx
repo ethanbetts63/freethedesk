@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import Link from 'next/link';
 
-import { Eyebrow } from '@/components/Eyebrow';
+import Eyebrow from '@/components/common/eyebrow';
 import { PageSchema } from '@/components/PageSchema';
 import { SectionNumber } from '@/components/SectionNumber';
 import { getAllArticleMeta } from '@/lib/articles';
@@ -26,7 +26,11 @@ export default function GuidesPage() {
 
       <section className="relative overflow-hidden bg-surface-dark py-section-tall text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_5.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_5.5%,transparent)_1px,transparent_1px)] before:[background-size:64px_64px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_82%)] after:absolute after:top-[-26%] after:right-[-8%] after:h-[clamp(230px,34vw,520px)] after:w-[clamp(230px,34vw,520px)] after:rounded-full after:bg-accent after:opacity-[0.12] after:content-[''] after:[filter:blur(1px)]">
         <div className="site-shell relative z-1">
-          <Eyebrow className="mb-xl gap-xs text-label tracking-label-wide text-accent">
+          <Eyebrow
+            dot
+            tone="accent"
+            className="mb-xl gap-xs text-label tracking-label-wide text-accent"
+          >
             Field notes for dealers
           </Eyebrow>
           <h1 className="m-0 max-w-[930px] text-hero leading-[0.88] tracking-[-0.075em] sm:text-hero">
