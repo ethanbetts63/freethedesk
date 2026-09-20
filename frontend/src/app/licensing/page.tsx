@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { Faq } from '@/components/Faq';
+import { FaqSection } from '@/components/marketing/FaqSection';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { Hero } from '@/components/marketing/Hero';
@@ -72,7 +72,8 @@ export default async function LicensingPage() {
         hideAtId="signup"
       />
 
-      <Faq
+      <FaqSection
+        emitSchema
         eyebrow={sections['Common questions']}
         title="Online licensing questions."
         items={LICENSING_FAQS}

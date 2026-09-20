@@ -1,4 +1,4 @@
-import type { FaqItem } from '@/components/Faq';
+import type { FaqItem } from '@/types/FaqItem';
 
 export const DEALER_FAQS: FaqItem[] = [
   {

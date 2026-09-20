@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { ExpandableServiceList } from '@/components/ExpandableServiceList';
-import { Faq } from '@/components/Faq';
+import { FaqSection } from '@/components/marketing/FaqSection';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { AiReadinessBanner } from '@/components/marketing/AiReadinessBanner';
@@ -133,7 +133,8 @@ export default async function SeoPage() {
         hideAtId="signup"
       />
 
-      <Faq
+      <FaqSection
+        emitSchema
         eyebrow={sections['Common questions']}
         title="SEO report and audit questions."
         items={SEO_FAQS}

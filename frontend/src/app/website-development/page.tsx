@@ -7,7 +7,7 @@ import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
 import { SubscriptionSwap } from '@/components/marketing/SubscriptionSwap';
 import { WebsiteIntroduction } from '@/components/marketing/WebsiteIntroduction';
 import { WebsiteJobsBar } from '@/components/marketing/WebsiteJobsBar';
-import { Faq } from '@/components/Faq';
+import { FaqSection } from '@/components/marketing/FaqSection';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
@@ -110,7 +110,8 @@ export default function WebsiteDevelopmentPage() {
         hideAtId="enquiry"
       />
 
-      <Faq
+      <FaqSection
+        emitSchema
         eyebrow={sections['Common questions']}
         title="Website development questions."
         items={WEBSITE_DEV_FAQS}

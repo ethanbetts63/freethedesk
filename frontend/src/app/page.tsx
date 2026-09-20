@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { Faq } from '@/components/Faq';
+import { FaqSection } from '@/components/marketing/FaqSection';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
 import { ProcessStepsBar } from '@/components/ProcessStepsBar';
@@ -50,7 +50,12 @@ export default function Home() {
         id="dealership-builder"
       />
       <ProjectEnquiry />
-      <Faq eyebrow="Common questions" title="Questions about working with us." items={HOME_FAQS} />
+      <FaqSection
+        emitSchema
+        eyebrow="Common questions"
+        title="Questions about working with us."
+        items={HOME_FAQS}
+      />
       <ManualAdminCta buttonLabel="Get in touch" />
     </main>
   );

@@ -1,4 +1,4 @@
-import type { FaqItem } from '@/components/Faq';
+import type { FaqItem } from '@/types/FaqItem';
 
 export const AUTOMATION_FAQS: FaqItem[] = [
   {

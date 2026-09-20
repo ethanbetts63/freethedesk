@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { Faq } from '@/components/Faq';
+import { FaqSection } from '@/components/marketing/FaqSection';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSection';
@@ -150,7 +150,8 @@ export default function Dealers() {
         hideAtId="project-enquiry"
       />
 
-      <Faq
+      <FaqSection
+        emitSchema
         eyebrow={sections['Common questions']}
         title="Dealership website and automation questions."
         items={DEALER_FAQS}

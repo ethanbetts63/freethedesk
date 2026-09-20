@@ -17,6 +17,7 @@ its agreements and messaging capabilities.
 | Any cross-project or reusable capability                         | `../freetheplatform/_docs/strategy.md`                                      |
 | Frontend styling, Tailwind, CSS, lint, or breakpoints            | `../freetheplatform/_docs/lint-rules.md`                                    |
 | Design tokens                                                    | `../freetheplatform/_docs/token-contract.md`                                |
+| Shared frontend components (nav, footer, FAQ, the registry)      | `../freetheplatform/_docs/component-registry.md`                            |
 | FreeTheDesk Tailwind conversion                                  | `_docs/tailwind-migration.md`                                               |
 | Backend tests or test infrastructure                             | `../freetheplatform/_docs/testing-standard-backend.md`                      |
 | Frontend tests or test infrastructure                            | `../freetheplatform/_docs/testing-standard-frontend.md`                     |

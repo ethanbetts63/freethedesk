@@ -4,8 +4,8 @@ import { Analytics } from '@vercel/analytics/next';
 import { ClarityAnalytics } from '@/components/ClarityAnalytics';
 import { ScrollToTop } from '@/components/ScrollToTop';
 import { SiteChrome } from '@/components/SiteChrome';
-import { SiteFooter } from '@/components/SiteFooter';
-import { SiteHeader } from '@/components/SiteHeader';
+import { Footer } from '@/components/layout/Footer';
+import { Header } from '@/components/layout/Header';
 import { PAGES } from '@/lib/pages';
 import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo';
 import { METADATA_BASE_URL } from '@/lib/siteConfig';
@@ -46,7 +46,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             is deliberately NOT here: it belongs to the signed-in areas, and in
             the root layout it hydrated on every marketing page and fired a
             profile request per view. */}
-        <SiteChrome header={<SiteHeader />} footer={<SiteFooter />}>
+        <SiteChrome header={<Header />} footer={<Footer />}>
           {children}
         </SiteChrome>
         <Analytics />

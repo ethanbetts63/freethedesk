@@ -8,6 +8,11 @@
    away in every component - that reconciliation continues per Phase 2/4. */
 
 @theme inline {
+  /* The full navigation needs slightly more measure than Tailwind's lg
+     breakpoint. Naming the content-driven threshold keeps the shared
+     SiteHeader's desktop row and hamburger panel switching together. */
+  --breakpoint-nav: 64rem;
+
   /* The whole radius ramp, not three of its seven steps. `rounded-[var(--radius-circle)]`
      appeared thirteen times and `rounded-[var(--radius-xs)]` eleven because those
      rungs had no utility name - a bracket around a token reads as an escape from
@@ -52,6 +57,7 @@
   --color-tint-rule: var(--tint-rule);
 
   --color-surface-page: var(--surface-page);
+  --color-surface-muted: var(--surface-muted);
   --color-surface-tint: var(--surface-tint);
   --color-surface-tint-strong: var(--surface-tint-strong);
   --color-surface-dark: var(--surface-dark);
@@ -212,6 +218,7 @@
      platform; only the values differ. See _docs/token-contract.md.
      --------------------------------------------------------------- */
   --surface-page: #fff;
+  --surface-muted: var(--slate-50);
   --surface-tint: var(--slate-50);
   --surface-tint-strong: var(--slate-100);
   --surface-dark: var(--blue-950);

@@ -3,7 +3,8 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Fragment } from 'react';
 
 import { Eyebrow } from '@/components/Eyebrow';
-import { Faq, type FaqItem } from '@/components/Faq';
+import { FaqSection } from '@/components/marketing/FaqSection';
+import type { FaqItem } from '@/types/FaqItem';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
 import { PrimaryButton } from '@/components/PrimaryButton';
@@ -587,7 +588,8 @@ function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, 's
         }
       />
       <ProjectEnquiry id="enquiry" />
-      <Faq
+      <FaqSection
+        emitSchema
         eyebrow={config.faq.eyebrow}
         title="Website project questions."
         items={config.faq.items}
