@@ -11,7 +11,7 @@ import type { SeoAccount } from './seoApi';
 import { handleResponse } from '@freetheplatform/web-security';
 
 export type { Paginated, Principal as StaffUser } from './api';
-export { authedFetch, login, logout, getProfile } from './api';
+export { authedFetch, logout, getProfile } from './api';
 export { formatDateTime } from './formatting';
 
 export interface WebsiteEnquiryConfiguration {

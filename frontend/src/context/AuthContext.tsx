@@ -1,20 +1,27 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import {
-  AUTH_FAILURE_EVENT,
-  getProfile,
-  login as loginRequest,
-  logout as logoutRequest,
-  type Principal,
-} from '@/lib/api';
+import { AUTH_FAILURE_EVENT, getProfile, logout as logoutRequest, type Principal } from '@/lib/api';
 
 interface AuthValue {
   user: Principal | null;
   loading: boolean;
 
-  login: (identifier: string, password: string) => Promise<Principal>;
   logout: () => Promise<void>;
+  /**
+   * Re-read the profile and adopt it.
+   *
+   * The way a Server Action gets its result into this context. An action runs
+   * on the Next server: it can relay Django's `Set-Cookie` onto the response,
+   * but it has no way to hand the `Principal` in the login body back into React
+   * state. Re-reading is how the client catches up, and it works because by the
+   * time the action has returned, the cookies it relayed are already on this
+   * browser. This replaced a `login()` method that took the credentials itself.
+   *
+   * Also the honest move after a change of password, where the must-change
+   * marker has just cleared and the page routes on it.
+   */
+  refresh: () => Promise<Principal | null>;
 }
 
 const AuthContext = createContext<AuthValue | null>(null);
@@ -55,8 +62,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener(AUTH_FAILURE_EVENT, failed);
   }, []);
 
-  async function login(identifier: string, password: string) {
-    const principal = await loginRequest(identifier, password);
+  async function refresh() {
+    const principal = await getProfile().catch(() => null);
     setUser(principal);
     setLoading(false);
     return principal;
@@ -68,7 +75,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, loading, logout, refresh }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 

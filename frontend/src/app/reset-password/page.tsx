@@ -1,13 +1,16 @@
 'use client';
 
-import { type FormEvent, useState } from 'react';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import Link from 'next/link';
-import { requestPasswordReset } from '@/lib/api';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import { formControlClassName } from '@/components/ui/formControl';
 import { cn } from '@/lib/utils';
 import { AuthCard, authFieldLabelClassName, authLinkClassName } from '@/components/auth/AuthCard';
+import { submitResetRequest, type ResetRequestState } from './ResetPassword.actions';
+
+const initialState: ResetRequestState = { status: 'idle' };
 
 /**
  * Ask for a reset link.
@@ -15,20 +18,11 @@ import { AuthCard, authFieldLabelClassName, authLinkClassName } from '@/componen
  * The confirmation is the same whatever happened — address known, unknown, or
  * the email failing to send. The API is deliberately built that way, and
  * reporting anything more specific here would undo it: the page would become a
- * way of testing whether somebody has an account.
+ * way of testing whether somebody has an account. The only thing this page
+ * reports as a failure is its own validation, which happens before any request.
  */
 export default function ResetPasswordPage() {
-  const [submitting, setSubmitting] = useState(false);
-  const [sent, setSent] = useState(false);
-
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    setSubmitting(true);
-    await requestPasswordReset(String(data.get('email'))).catch(() => undefined);
-    setSubmitting(false);
-    setSent(true);
-  }
+  const [state, formAction] = useActionState(submitResetRequest, initialState);
 
   return (
     <AuthCard
@@ -44,13 +38,18 @@ export default function ResetPasswordPage() {
         </p>
       }
     >
-      {sent ? (
+      {state.status === 'sent' ? (
         <Notice tone="success" size="field">
           If that address has an account, a reset link is on its way. It works once and expires
           within the hour.
         </Notice>
       ) : (
-        <form className="flex flex-col gap-m" onSubmit={submit}>
+        <form className="flex flex-col gap-m" action={formAction}>
+          {state.status === 'error' && (
+            <Notice tone="danger" size="field">
+              {state.error}
+            </Notice>
+          )}
           <label className={authFieldLabelClassName}>
             Email
             <input
@@ -61,11 +60,18 @@ export default function ResetPasswordPage() {
               required
             />
           </label>
-          <Button type="submit" disabled={submitting}>
-            {submitting ? 'Sending…' : 'Send reset link'}
-          </Button>
+          <SubmitButton />
         </form>
       )}
     </AuthCard>
+  );
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending}>
+      {pending ? 'Sending…' : 'Send reset link'}
+    </Button>
   );
 }

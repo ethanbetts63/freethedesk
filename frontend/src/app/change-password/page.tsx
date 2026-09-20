@@ -1,14 +1,18 @@
 'use client';
 
-import { type FormEvent, useEffect, useState } from 'react';
+import { useActionState, useEffect } from 'react';
+import { useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { changePassword, getProfile, homeFor } from '@/lib/api';
+import { homeFor } from '@/lib/api';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import { adminLoadingClassName } from '@/components/dashboard/dashboardChrome';
 import { AuthCard } from '@/components/auth/AuthCard';
 import { MINIMUM_PASSWORD_LENGTH, PasswordField } from '@/components/auth/PasswordFields';
+import { submitChangePassword, type ChangePasswordState } from './ChangePassword.actions';
+
+const initialState: ChangePasswordState = { status: 'idle' };
 
 /**
  * Change your own password, and the gate for an account that has to.
@@ -22,36 +26,23 @@ import { MINIMUM_PASSWORD_LENGTH, PasswordField } from '@/components/auth/Passwo
  * itself straight back.
  */
 export default function ChangePasswordPage() {
-  const { user, loading } = useAuth();
+  const { user, loading, refresh } = useAuth();
   const router = useRouter();
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const [state, formAction] = useActionState(submitChangePassword, initialState);
 
   useEffect(() => {
     if (!loading && !user) router.replace('/login?next=/change-password');
   }, [loading, router, user]);
 
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const password = String(data.get('new_password'));
-    if (password !== String(data.get('confirm_password'))) {
-      setError('Those two passwords do not match.');
-      return;
-    }
-    setSubmitting(true);
-    setError('');
-    try {
-      await changePassword(String(data.get('current_password')), password);
-      // The API re-issued this session's cookies and ended every other one. The
-      // profile is re-read because the must-change marker has just cleared, and
-      // the page routes on it.
-      router.replace(homeFor(await getProfile()));
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'That password could not be saved.');
-      setSubmitting(false);
-    }
-  }
+  useEffect(() => {
+    if (state.status !== 'success') return;
+    // The profile is re-read before leaving because the must-change marker has
+    // just cleared and `homeFor` routes on it -- routing on the stale one would
+    // send this page straight back to itself.
+    refresh().then((principal) => {
+      if (principal) router.replace(homeFor(principal));
+    });
+  }, [refresh, router, state.status]);
 
   if (loading || !user) return <div className={adminLoadingClassName}>Loading…</div>;
 
@@ -65,7 +56,7 @@ export default function ChangePasswordPage() {
           : `At least ${MINIMUM_PASSWORD_LENGTH} characters. Your other sessions will be signed out.`
       }
     >
-      <form className="flex flex-col gap-m" onSubmit={submit}>
+      <form className="flex flex-col gap-m" action={formAction}>
         <PasswordField
           name="current_password"
           label="Current password"
@@ -83,15 +74,22 @@ export default function ChangePasswordPage() {
           autoComplete="new-password"
           minLength={MINIMUM_PASSWORD_LENGTH}
         />
-        {error && (
+        {state.status === 'error' && (
           <Notice tone="danger" size="field">
-            {error}
+            {state.error}
           </Notice>
         )}
-        <Button type="submit" disabled={submitting}>
-          {submitting ? 'Saving…' : 'Change password'}
-        </Button>
+        <SubmitButton />
       </form>
     </AuthCard>
+  );
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending}>
+      {pending ? 'Saving…' : 'Change password'}
+    </Button>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
-import { type FormEvent, Suspense, useEffect, useState } from 'react';
+import { Suspense, useActionState, useEffect } from 'react';
+import { useFormStatus } from 'react-dom';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
@@ -13,14 +14,23 @@ import { adminLoadingClassName } from '@/components/dashboard/dashboardChrome';
 import { cn } from '@/lib/utils';
 import { brandClassName, kickerClassName } from '@/components/ui/layout';
 import { gridPaperBeforeClassName } from '@/lib/gridSurface';
+import { submitLogin, type LoginState } from './Login.actions';
+
+const initialState: LoginState = { status: 'idle' };
 
 function LoginContent() {
-  const { user, loading, login } = useAuth();
+  const { user, loading, refresh } = useAuth();
   const router = useRouter();
   const search = useSearchParams();
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const [state, formAction] = useActionState(submitLogin, initialState);
   const justReset = search.get('reset') === '1';
+
+  // The action established the session; this adopts it. Where to go next is
+  // decided by the effect below, from the `Principal` -- one copy of that
+  // decision, in the place that already had it.
+  useEffect(() => {
+    if (state.status === 'success') void refresh();
+  }, [refresh, state.status]);
 
   useEffect(() => {
     if (loading || !user) return;
@@ -36,20 +46,6 @@ function LoginContent() {
       user.role === 'staff' ? '/dashboard' : user.role === 'seo' ? '/seo-portal' : '/portal';
     router.replace(next && next.startsWith(prefix) ? next : home);
   }, [loading, router, search, user]);
-
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    setSubmitting(true);
-    setError('');
-    try {
-      await login(String(data.get('identifier')), String(data.get('password')));
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Login failed.');
-    } finally {
-      setSubmitting(false);
-    }
-  }
 
   return (
     <main
@@ -75,7 +71,7 @@ function LoginContent() {
             Your password has been changed. Sign in with the new one.
           </Notice>
         )}
-        <form className="mt-m flex flex-col gap-m" onSubmit={submit}>
+        <form className="mt-m flex flex-col gap-m" action={formAction}>
           <label className="text-label font-heavy">
             Email
             <input
@@ -95,14 +91,12 @@ function LoginContent() {
               required
             />
           </label>
-          {error && (
+          {state.status === 'error' && (
             <Notice tone="danger" size="field">
-              {error}
+              {state.error}
             </Notice>
           )}
-          <Button type="submit" disabled={submitting || loading}>
-            {submitting ? 'Signing in…' : 'Sign in'}
-          </Button>
+          <SubmitButton disabled={loading} />
         </form>
         <p className="mt-ml text-label text-text-muted">
           <Link
@@ -143,5 +137,14 @@ export default function LoginPage() {
     <Suspense fallback={<div className={adminLoadingClassName}>Loading sign in…</div>}>
       <LoginContent />
     </Suspense>
+  );
+}
+
+function SubmitButton({ disabled }: { disabled: boolean }) {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending || disabled}>
+      {pending ? 'Signing in…' : 'Sign in'}
+    </Button>
   );
 }

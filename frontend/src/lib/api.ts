@@ -86,55 +86,12 @@ export function queryString(values: Record<string, string | number | undefined>)
   return query.size ? `?${query}` : '';
 }
 
-export async function login(identifier: string, password: string): Promise<Principal> {
-  const response = await apiFetch('/api/token/', {
-    method: 'POST',
-    body: JSON.stringify({ username: identifier, password }),
-  });
-  return handleResponse<Principal>(response);
-}
-
 export async function logout(): Promise<void> {
   await handleResponse<void>(await apiFetch('/api/token/logout/', { method: 'POST' }));
 }
 
 export async function getProfile(): Promise<Principal> {
   return handleResponse(await authedFetch('/api/auth/me/'));
-}
-
-/** Ask for a reset link. Always resolves: the API answers the same for an
- * address it knows and one it does not, and the UI must not undo that. */
-export async function requestPasswordReset(email: string): Promise<void> {
-  await apiFetch('/api/auth/password/reset/', {
-    method: 'POST',
-    body: JSON.stringify({ email }),
-  });
-}
-
-/** Spend a reset link on a new password. Throws the API's message on a link that
- * has expired, been used, or was never real. */
-export async function confirmPasswordReset(
-  uid: string,
-  token: string,
-  newPassword: string,
-): Promise<void> {
-  await handleResponse(
-    await apiFetch('/api/auth/password/reset/confirm/', {
-      method: 'POST',
-      body: JSON.stringify({ uid, token, new_password: newPassword }),
-    }),
-  );
-}
-
-/** Change your own password. The current one is required: without it a stolen
- * session could take the account permanently. */
-export async function changePassword(currentPassword: string, newPassword: string): Promise<void> {
-  await handleResponse(
-    await authedFetch('/api/auth/password/change/', {
-      method: 'POST',
-      body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }),
-    }),
-  );
 }
 
 /** The portal home for a signed-in principal.

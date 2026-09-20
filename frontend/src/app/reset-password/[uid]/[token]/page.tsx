@@ -1,13 +1,15 @@
 'use client';
 
-import { type FormEvent, use, useState } from 'react';
+import { use, useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { confirmPasswordReset } from '@/lib/api';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import { AuthCard, authLinkClassName } from '@/components/auth/AuthCard';
 import { MINIMUM_PASSWORD_LENGTH, PasswordField } from '@/components/auth/PasswordFields';
+import { submitResetConfirm, type ResetConfirmState } from './ResetPasswordConfirm.actions';
+
+const initialState: ResetConfirmState = { status: 'idle' };
 
 /**
  * Spend a reset link on a new password.
@@ -23,28 +25,7 @@ export default function ResetPasswordConfirmPage({
   params: Promise<{ uid: string; token: string }>;
 }) {
   const { uid, token } = use(params);
-  const router = useRouter();
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState('');
-
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const password = String(data.get('new_password'));
-    if (password !== String(data.get('confirm_password'))) {
-      setError('Those two passwords do not match.');
-      return;
-    }
-    setSubmitting(true);
-    setError('');
-    try {
-      await confirmPasswordReset(uid, token, password);
-      router.replace('/login?reset=1');
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'That link is no longer valid.');
-      setSubmitting(false);
-    }
-  }
+  const [state, formAction] = useActionState(submitResetConfirm, initialState);
 
   return (
     <AuthCard
@@ -60,7 +41,10 @@ export default function ResetPasswordConfirmPage({
         </p>
       }
     >
-      <form className="flex flex-col gap-m" onSubmit={submit}>
+      <form className="flex flex-col gap-m" action={formAction}>
+        {/* From the route, not from the person; the action bounds them anyway. */}
+        <input type="hidden" name="uid" value={uid} />
+        <input type="hidden" name="token" value={token} />
         <PasswordField
           name="new_password"
           label="New password"
@@ -73,15 +57,22 @@ export default function ResetPasswordConfirmPage({
           autoComplete="new-password"
           minLength={MINIMUM_PASSWORD_LENGTH}
         />
-        {error && (
+        {state.status === 'error' && (
           <Notice tone="danger" size="field">
-            {error}
+            {state.error}
           </Notice>
         )}
-        <Button type="submit" disabled={submitting}>
-          {submitting ? 'Saving…' : 'Set password'}
-        </Button>
+        <SubmitButton />
       </form>
     </AuthCard>
+  );
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending}>
+      {pending ? 'Saving…' : 'Set password'}
+    </Button>
   );
 }
