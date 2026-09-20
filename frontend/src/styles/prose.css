@@ -1,114 +1,167 @@
 /* The shared prose surface.
 
-   Both consumers render markdown through dangerouslySetInnerHTML, so these
-   have to be element selectors: there is nowhere to attach a utility class.
-   Everything around the prose - the page, the card, the rails - is authored
-   JSX and lives in Tailwind.
+   Every site renders author-written HTML through dangerouslySetInnerHTML --
+   articles, terms, legal documents -- so these have to be element selectors:
+   there is nowhere to hang a utility class. That is the "uncontrolled rich
+   content" exception in lint-rules.md. Being an allowed exception does not
+   exempt it from the token contract, so every value here names a role.
 
-   Two files described this same set of elements independently and had already
-   drifted apart on the things that are genuinely shared (list indents, link
-   underline offsets, the rule above an h2). This is the agreement, scoped to
-   `.prose`; each consumer's own module overrides only what its surface really
-   changes - the heading scale, the body colour, and the blockquote, which is a
-   pull quote in an article and a warning in a legal document.
+   Three files described the same elements independently. allbikes and
+   bloomprint had already agreed on `.prose-article` and on the look; this
+   keeps both. freethedesk's `.prose` contributed the structural rules the
+   other two lacked and that matter on a phone: a table that scrolls instead of
+   overflowing, an image that cannot exceed its column, a first child that does
+   not push the whole block down, and `pre` handling.
 
-   Imported once by globals.css. The class name is deliberately generic and
-   deliberately not `@apply`-ed anywhere: nothing should get these rules by
-   accident. */
-.prose {
+   Sizes come from the nine-rung ladder, which is identical across all three
+   sites, so a heading here is the same heading everywhere. The body rung is
+   `--step-prose`: long-form prose sits one step above interface body copy,
+   which the nine rungs have no name for because `lead` is the rung above that
+   and is a standfirst, not body text.
+
+   Synced by freetheplatform/frontend/registry. Edit it there. */
+
+.prose-article {
   color: var(--text-primary);
-  font-size: var(--step-lead);
-  line-height: 1.78;
+  font-size: var(--step-prose);
+  line-height: 1.75;
+  /* A long table or a `pre` must not widen the grid column it sits in. */
   min-width: 0;
 }
-.prose > :first-child {
+
+/* The prose block sets its own top spacing; its first child must not add more. */
+.prose-article > :first-child {
   margin-top: 0;
 }
-.prose h2 {
-  border-top: 1px solid var(--border-default);
-  font-size: var(--step-2);
-  letter-spacing: -0.04em;
-  line-height: 1.15;
-  margin: var(--space-2xl) 0 var(--space-m);
-  padding-top: var(--space-l);
-}
-.prose h3 {
-  font-size: var(--step-2);
-  letter-spacing: -0.025em;
+
+.prose-article h1 {
+  color: var(--text-primary);
+  font-size: var(--text-title);
+  font-weight: var(--weight-heavy);
   line-height: 1.25;
-  margin: var(--space-xl) 0 var(--space-m);
+  margin-bottom: var(--space-l);
 }
-.prose p {
-  margin: 0 0 var(--space-l);
+
+.prose-article h2 {
+  border-bottom: 1px solid var(--border-default);
+  color: var(--text-primary);
+  font-size: var(--text-title-sm);
+  font-weight: var(--weight-semibold);
+  line-height: 1.35;
+  margin-bottom: var(--space-s);
+  margin-top: var(--space-xl);
+  padding-bottom: var(--space-xs);
 }
-.prose ul,
-.prose ol {
-  margin: var(--space-m) 0 var(--space-xl);
+
+.prose-article h3 {
+  color: var(--text-primary);
+  font-size: var(--text-lead);
+  font-weight: var(--weight-semibold);
+  line-height: 1.4;
+  margin-bottom: var(--space-xs);
+  margin-top: var(--space-xl);
+}
+
+.prose-article p {
+  margin-bottom: var(--space-ml);
+}
+
+.prose-article ul,
+.prose-article ol {
+  margin-bottom: var(--space-ml);
   padding-left: var(--space-l);
 }
-.prose li {
-  margin-bottom: var(--space-xs);
-  padding-left: var(--space-3xs);
+
+.prose-article ul {
+  list-style-type: disc;
 }
-.prose a {
-  color: var(--text-action);
+
+.prose-article ol {
+  list-style-type: decimal;
+}
+
+.prose-article li {
+  margin-bottom: var(--space-2xs);
+}
+
+.prose-article a {
+  color: var(--link);
   text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
 }
-.prose a:hover {
-  color: var(--action-primary);
+
+.prose-article a:hover {
+  color: var(--link-hover);
 }
-.prose strong {
-  font-weight: var(--weight-heavy);
+
+.prose-article strong {
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
 }
-.prose blockquote p:last-child {
+
+.prose-article blockquote p:last-child {
   margin-bottom: 0;
 }
-.prose hr {
+
+.prose-article hr {
   border: 0;
   border-top: 1px solid var(--border-default);
-  margin: var(--space-2xl) 0;
+  margin: var(--space-xl) 0;
 }
-.prose code {
-  background: var(--surface-tint-strong);
-  border-radius: var(--radius-2xs);
-  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- deliberately relative to the parent, not the scale */
-  font-size: 0.88em;
+
+/* `display: block` plus the scroll is what stops a wide table from widening
+   the page on a phone; a table in author-written markdown has no column count
+   anyone controls. */
+.prose-article table {
+  border-collapse: collapse;
+  display: block;
+  font-size: var(--text-body-sm);
+  margin-bottom: var(--space-l);
+  overflow-x: auto;
+  width: 100%;
+}
+
+.prose-article th {
+  background: var(--surface-tint);
+  border-bottom: 1px solid var(--border-default);
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+  padding: var(--space-xs) var(--space-s);
+  text-align: left;
+}
+
+.prose-article td {
+  border-bottom: 1px solid var(--border-default);
+  padding: var(--space-xs) var(--space-s);
+}
+
+.prose-article tr:last-child td {
+  border-bottom: none;
+}
+
+.prose-article code {
+  background: var(--surface-tint);
+  border-radius: var(--radius-xs);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value --
+     relative to the parent's own fluid font-size; no absolute token can
+     express a ratio to a variable parent size. */
+  font-size: 0.875em;
   padding: var(--space-4xs) var(--space-2xs);
 }
-.prose pre {
+
+.prose-article pre {
   background: var(--surface-dark);
   color: var(--text-on-dark);
   overflow-x: auto;
   padding: var(--space-ml);
 }
-.prose pre code {
+
+.prose-article pre code {
   background: transparent;
   padding: 0;
 }
-.prose table {
-  border-collapse: collapse;
-  display: block;
-  font-size: var(--text-body);
-  margin: var(--space-xl) 0;
-  overflow-x: auto;
-  width: 100%;
-}
-.prose th {
-  background: var(--surface-dark);
-  color: var(--text-on-dark);
-  font-size: var(--text-caption);
-  letter-spacing: var(--label-tracking-tight);
-  padding: var(--space-s) var(--space-m);
-  text-align: left;
-  text-transform: uppercase;
-}
-.prose td {
-  border-bottom: 1px solid var(--border-default);
-  padding: var(--space-s) var(--space-m);
-}
-.prose img {
+
+.prose-article img {
   height: auto;
   max-width: 100%;
 }

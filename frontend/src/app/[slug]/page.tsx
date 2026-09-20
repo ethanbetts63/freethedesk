@@ -9,7 +9,7 @@ import {
   buildArticleSchema,
   buildBreadcrumbSchema,
   buildWebPageSchema,
-  pageMetadata,
+  buildMetadata,
 } from '@/lib/seo';
 
 // Uncontrolled rich content: the markup comes from the article body, so the
@@ -36,7 +36,7 @@ export async function generateMetadata({
     return { title: 'Guide not found', robots: { index: false, follow: false } };
   }
 
-  return pageMetadata({
+  return buildMetadata({
     title: article.title,
     description: article.excerpt,
     path: `/${article.slug}`,
@@ -121,7 +121,7 @@ function ArticleView({ article }: { article: Article }) {
             </p>
           </aside>
           <article
-            className={cn('prose', styles.article)}
+            className={cn('prose-article', styles.article)}
             dangerouslySetInnerHTML={{ __html: article.html }}
           />
         </div>

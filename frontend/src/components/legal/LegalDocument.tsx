@@ -25,7 +25,7 @@ export async function LegalDocument({ filename }: { filename: string }) {
       <article
         className={cn(
           'relative mx-auto max-w-[900px] border border-border-default bg-surface-page px-ml py-xl shadow-l sm:p-3xl',
-          'prose',
+          'prose-article',
           styles.legal,
         )}
         dangerouslySetInnerHTML={{ __html: html }}
