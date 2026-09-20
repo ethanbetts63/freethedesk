@@ -139,31 +139,26 @@
   --text-caption: 0.66rem;
   --text-label: 0.72rem;
   --text-body-sm: 0.78rem;
-  --text-body: 0.84rem;
+  --text-body: var(--step-body);
   --text-lead: var(--step-lead);
 
   /* Fluid sizes, on the same naming rule as the fixed ones above: a role
-     (body, title, display, hero) plus an explicit -sm/-lg/-xl/-md step, never
-     a bare ordinal. The vocabulary is allbikes'; the clamps are not - this
-     ladder starts lower and runs two rungs higher, because a desk UI and a
-     marketing site do not want the same headings. Shared names, local values.
+     (body, lead, title, display, hero), never a bare ordinal.
 
-     body-lg and body-xl are the comfortable reading sizes, and they are one
-     role family with the fixed body-sm/body above rather than a separate
-     "prose" word, because they are the same thing at a larger step: a button
-     label, a portal field, a marketing paragraph. The ladder therefore runs
-     body-sm 0.78 / body 0.84 / body-lg ~16-17px / body-xl ~16-19.5px, with
-     `lead` sitting beside body as a role (an intro paragraph), not a rung.
-
-     Note for anyone reading both repos: --text-body is the one name that does
-     NOT mean the same size on each side. Here it is the fixed 0.84rem the
-     dashboard runs on; in allbikes it is --step-0, which is this file's
-     --text-body-lg. Aligning them means resizing a whole desk UI by 25%, so
-     the divergence is deliberate and documented, not drift. */
+     The vocabulary AND the clamps are shared now. This block used to say the
+     ladder "starts lower and runs two rungs higher, because a desk UI and a
+     marketing site do not want the same headings", and that the --text-body
+     divergence was "deliberate and documented, not drift". Neither survived
+     being checked: --text-body was used in 22 non-dashboard files against 4
+     dashboard ones, it sat 0.96px above --text-body-sm (two rungs, one size),
+     and --text-hero ran 29% LARGER at desktop than either marketing site's.
+     All three products are a marketing surface plus a dashboard; the density
+     split is between surfaces, not between repos, and body-sm and label are
+     the rungs for it. See token-contract.md. */
   --text-title-sm: var(--step-2);
   --text-title: var(--step-3);
   --text-display: var(--display-2);
-  --text-hero: var(--display-5);
+  --text-hero: var(--display-hero);
 }
 
 :root {
@@ -381,13 +376,12 @@
 
   /* Text scale. Fluid between a 320px and a 1240px viewport.
      Body copy barely moves; only display type travels far. */
-  /* The lead-paragraph size, and the only rung between body copy and the
-     headings. Floor is 16px deliberately - the smallest comfortable body size
-     on a phone, and the threshold below which iOS Safari zooms a focused
-     field. It replaces --step-0 and --step-1, which were 1rem-1.0625rem and
-     1rem-1.22rem: two rungs 0.16rem apart at their ceilings, feeding
-     --text-body-lg and --text-body-xl, both retired. */
-  --step-lead: clamp(1rem, 0.978rem + 0.109vw, 1.0625rem);
+  /* The two reading rungs, identical in all three repos. --step-lead is the
+     only rung between body copy and the headings; it replaced --step-0 and
+     --step-1, which were 0.16rem apart at their ceilings and fed the retired
+     --text-body-lg and --text-body-xl. */
+  --step-body: clamp(0.875rem, 0.832rem + 0.217vw, 1rem);
+  --step-lead: clamp(1.0625rem, 0.99728rem + 0.32609vw, 1.25rem);
   --step-2: clamp(1.375rem, 1.201rem + 0.87vw, 1.875rem);
   --step-3: clamp(1.75rem, 1.489rem + 1.304vw, 2.5rem);
 
@@ -397,8 +391,8 @@
      word in a heading ("automation", 10 characters at ~0.574em each in
      Arial 800 with -0.085em tracking) must fit 288px, the content box of
      a 320px screen. That caps the floor at 40px / 2.5rem. */
-  --display-2: clamp(2rem, 1.527rem + 2.365vw, 3.36rem);
-  --display-5: clamp(2.25rem, 1.015rem + 6.174vw, 5.8rem);
+  --display-2: clamp(2.25rem, 1.728rem + 2.609vw, 3.75rem);
+  --display-hero: clamp(2.625rem, 12vw, 4.5rem);
 
   /* Fluid space scale. The fixed steps below --space-xl are the rungs route
      styles actually reach for; before they existed, every gap and padding under
@@ -455,7 +449,7 @@
   --text-caption: 0.66rem;
   --text-label: 0.72rem;
   --text-body-sm: 0.78rem;
-  --text-body: 0.84rem;
+  --text-body: var(--step-body);
   /* The one rung above body copy. It absorbs what were --text-lead (0.92rem),
      --text-body-lg and --text-body-xl -- four rungs between 13.4px and 19.5px
      in a band the contract gives two. Fluid so it still reaches the size the

@@ -61,7 +61,7 @@
 
 @media (min-width: 640px) {
   .legal h1 {
-    font-size: var(--display-5);
+    font-size: var(--display-hero);
   }
   .legal p,
   .legal li {

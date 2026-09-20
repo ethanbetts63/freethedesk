@@ -1863,7 +1863,7 @@
   text-transform: uppercase;
 }
 .serviceHeroCopy h2 {
-  font-size: var(--display-5);
+  font-size: var(--display-hero);
   letter-spacing: -0.07em;
   line-height: 0.79;
   margin: 15px 0 18px;
