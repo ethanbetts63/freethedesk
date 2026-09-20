@@ -11,7 +11,8 @@ import type { DealerAccount } from './dealerApi';
 import type { SeoAccount } from './seoApi';
 
 export type { Paginated, Principal as StaffUser } from './api';
-export { authedFetch, formatDateTime, login, logout, getProfile } from './api';
+export { authedFetch, login, logout, getProfile } from './api';
+export { formatDateTime } from './formatting';
 
 export interface WebsiteEnquiryConfiguration {
   version?: number;

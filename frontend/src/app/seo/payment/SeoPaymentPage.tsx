@@ -15,6 +15,7 @@ import { createSeoCheckout, getSeoAccount, type SeoAccount } from '@/lib/seoApi'
 import { getSiteSettings } from '@/lib/api';
 import { stripeConfigured, stripePromise, STRIPE_ELEMENTS_OPTIONS } from '@/lib/stripe';
 import { buildSeoPlans, planByCode, reportTypeLabel, type SeoPlan } from '../_lib/plans';
+import { formatMoney } from '@/lib/formatting';
 
 const RETURN_PATH = '/seo/payment/complete';
 
@@ -66,12 +67,8 @@ export function SeoPaymentPage() {
   const oneOff = account?.plan === 'oneoff';
   const productName =
     account && plan ? `${reportTypeLabel(account.report_type)} · ${plan.name}` : 'Your report';
-  const displayedPrice = quotedPrice
-    ? `$${Number(quotedPrice).toLocaleString('en-AU', { maximumFractionDigits: 2 })}`
-    : plan?.price;
-  const displayedRecurringPrice = recurringPrice
-    ? `$${Number(recurringPrice).toLocaleString('en-AU', { maximumFractionDigits: 2 })}`
-    : '';
+  const displayedPrice = quotedPrice ? formatMoney(quotedPrice) : plan?.price;
+  const displayedRecurringPrice = recurringPrice ? formatMoney(recurringPrice) : '';
 
   async function prepareCheckout() {
     setError('');

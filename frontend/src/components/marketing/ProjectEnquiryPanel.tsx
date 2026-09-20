@@ -27,6 +27,7 @@ import {
   choiceInputClassName,
 } from '@/components/forms/selectionFormClassNames';
 import { cn } from '@/lib/utils';
+import { formatMoney } from '@/lib/formatting';
 
 const initialState: ProjectEnquiryState = { status: 'idle' };
 
@@ -46,11 +47,7 @@ function formatCustomBudget(value: string) {
 
   const numericValue = trimmed.replaceAll(',', '');
   if (/^\d+(?:\.\d{1,2})?$/.test(numericValue)) {
-    return new Intl.NumberFormat('en-AU', {
-      style: 'currency',
-      currency: 'AUD',
-      maximumFractionDigits: 2,
-    }).format(Number(numericValue));
+    return formatMoney(numericValue);
   }
 
   return `$${trimmed}`;

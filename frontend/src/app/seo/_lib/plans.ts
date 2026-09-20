@@ -1,6 +1,7 @@
-import { formatPrice, type PublicSiteSettings } from '@/lib/api';
+import { type PublicSiteSettings } from '@/lib/api';
 import { planByCode, type Plan } from '@/lib/plans';
 import type { SeoPlanCode, SeoReportType } from '@/lib/seoApi';
+import { formatMoney } from '@/lib/formatting';
 
 export type { SeoPlanCode, SeoReportType };
 export type SeoPlan = Plan<SeoPlanCode>;
@@ -47,7 +48,7 @@ export function buildSeoPlans(
       {
         code: 'oneoff',
         name: 'One-time audit',
-        price: formatPrice(String(gbpPrice)),
+        price: formatMoney(String(gbpPrice)),
         cadence: 'once, no subscription',
         summary: reportSummary,
         features,
@@ -62,10 +63,10 @@ export function buildSeoPlans(
     return {
       code,
       name,
-      price: formatPrice(String(price)),
+      price: formatMoney(String(price)),
       cadence:
         reportType === 'both'
-          ? `first payment, then ${formatPrice(String(numericSeoPrice))} ${cadence}`
+          ? `first payment, then ${formatMoney(String(numericSeoPrice))} ${cadence}`
           : cadence,
       summary: reportSummary,
       features,

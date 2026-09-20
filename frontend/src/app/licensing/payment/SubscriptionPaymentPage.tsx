@@ -15,6 +15,7 @@ import { createSubscriptionCheckout, getDealerAccount, type DealerAccount } from
 import { getSiteSettings } from '@/lib/api';
 import { stripeConfigured, stripePromise, STRIPE_ELEMENTS_OPTIONS } from '@/lib/stripe';
 import { buildDealerPlans, planByCode, type DealerPlan } from '../_lib/plans';
+import { formatMoney } from '@/lib/formatting';
 
 const RETURN_PATH = '/licensing/payment/complete';
 
@@ -54,9 +55,7 @@ export function SubscriptionPaymentPage() {
   }, [authLoading, router, user]);
 
   const plan = dealer ? planByCode(plans, dealer.plan) : undefined;
-  const displayedPrice = quotedMonthlyPrice
-    ? `$${Number(quotedMonthlyPrice).toLocaleString('en-AU', { maximumFractionDigits: 2 })}`
-    : plan?.price;
+  const displayedPrice = quotedMonthlyPrice ? formatMoney(quotedMonthlyPrice) : plan?.price;
 
   async function prepareCheckout() {
     setError('');

@@ -3,26 +3,27 @@
 import { useEffect, useState } from 'react';
 import { StatusPill } from '@/components/dashboard/StatusPill';
 import { useAuth } from '@/context/AuthContext';
-import { formatDateTime } from '@/lib/api';
+
 import { getDealerAccount, type DealerAccount } from '@/lib/dealerApi';
-import { AdminButton } from '@/components/dashboard/AdminButton';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { Button } from '@/components/ui/Button';
+import { Notice } from '@/components/ui/Notice';
 import {
-  AdminDetailItem,
-  adminCardClassName,
-  adminCardLabelClassName,
-  adminCardTitleClassName,
-  adminCardWideClassName,
-  adminDetailGridClassName,
-  adminDetailListClassName,
-  adminMessageBodyClassName,
-  adminStatusCardClassName,
-  adminStatusCardLabelGroupClassName,
-} from '@/components/dashboard/AdminCard';
+  DetailItem,
+  cardClassName,
+  cardLabelClassName,
+  cardTitleClassName,
+  cardWideClassName,
+  detailGridClassName,
+  detailListClassName,
+  messageBodyClassName,
+  statusCardClassName,
+  statusCardLabelGroupClassName,
+} from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
 import { PortalStep, PortalSteps } from '@/components/dashboard/PortalSteps';
-import { adminPageClassName } from '@/components/dashboard/adminLayout';
-import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { pageClassName } from '@/components/ui/layout';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { formatDateTime } from '@/lib/formatting';
 
 const statusCopy: Record<DealerAccount['status'], { heading: string; body: string }> = {
   pending: {
@@ -60,14 +61,14 @@ export default function PortalOverviewPage() {
 
   if (loading)
     return (
-      <div className={adminPageClassName}>
+      <div className={pageClassName}>
         <p className="text-text-subtle">Loading your account…</p>
       </div>
     );
   if (error && !account)
     return (
-      <div className={adminPageClassName}>
-        <AdminNotice tone="danger">{error}</AdminNotice>
+      <div className={pageClassName}>
+        <Notice tone="danger">{error}</Notice>
       </div>
     );
   if (!account) return null;
@@ -87,42 +88,42 @@ export default function PortalOverviewPage() {
   const firstName = account.contact_name.trim().split(/\s+/)[0] || account.contact_name;
 
   return (
-    <div className={adminPageClassName}>
-      <AdminPageHeader
+    <div className={pageClassName}>
+      <PageHeader
         kicker="Dealer portal"
         title={account.business_name}
         subtitle={`Signed in as ${user?.email}`}
       />
 
-      <div className={adminDetailGridClassName}>
-        <section className={adminStatusCardClassName}>
-          <div className={adminStatusCardLabelGroupClassName}>
-            <p className={adminCardLabelClassName}>Account status</p>
+      <div className={detailGridClassName}>
+        <section className={statusCardClassName}>
+          <div className={statusCardLabelGroupClassName}>
+            <p className={cardLabelClassName}>Account status</p>
             <StatusPill status={account.status} />
           </div>
         </section>
 
         {account.payment_status === 'payment_pending' && (
-          <section className={cn(adminCardClassName, adminCardWideClassName)}>
-            <h2 className={adminCardTitleClassName}>Finish secure payment</h2>
-            <p className={adminMessageBodyClassName}>
+          <section className={cn(cardClassName, cardWideClassName)}>
+            <h2 className={cardTitleClassName}>Finish secure payment</h2>
+            <p className={messageBodyClassName}>
               Your account is saved. Complete payment to unlock dealership setup and verification.
             </p>
-            <AdminButton href="/licensing/payment">Continue to payment →</AdminButton>
+            <Button href="/licensing/payment">Continue to payment →</Button>
           </section>
         )}
 
-        <section className={cn(adminCardClassName, adminCardWideClassName)}>
-          <h2 className={adminCardTitleClassName}>Hello {firstName}.</h2>
-          <p className={adminMessageBodyClassName}>
+        <section className={cn(cardClassName, cardWideClassName)}>
+          <h2 className={cardTitleClassName}>Hello {firstName}.</h2>
+          <p className={messageBodyClassName}>
             <strong>{copy.heading}</strong>
           </p>
-          <p className={adminMessageBodyClassName}>{copy.body}</p>
+          <p className={messageBodyClassName}>{copy.body}</p>
         </section>
 
         {account.payment_status === 'active' && (
-          <section className={cn(adminCardClassName, adminCardWideClassName)}>
-            <h2 className={adminCardTitleClassName}>What happens next</h2>
+          <section className={cn(cardClassName, cardWideClassName)}>
+            <h2 className={cardTitleClassName}>What happens next</h2>
             <PortalSteps>
               <PortalStep title="Dealership setup">
                 Your licence details and the information that fills the dealer side of every form,
@@ -136,34 +137,32 @@ export default function PortalOverviewPage() {
                 Enter the vehicle, send the buyer a link, and get back a signed pack ready to lodge.
               </PortalStep>
             </PortalSteps>
-            <AdminButton href="/portal/setup">Start dealership setup →</AdminButton>
+            <Button href="/portal/setup">Start dealership setup →</Button>
           </section>
         )}
 
-        <section className={adminCardClassName}>
-          <h2 className={adminCardTitleClassName}>Your details</h2>
-          <dl className={adminDetailListClassName}>
-            <AdminDetailItem term="Business">{account.business_name}</AdminDetailItem>
-            <AdminDetailItem term="Contact">{account.contact_name}</AdminDetailItem>
-            <AdminDetailItem term="Email">{account.email}</AdminDetailItem>
-            <AdminDetailItem term="Phone">{account.phone || 'Not supplied'}</AdminDetailItem>
-            <AdminDetailItem term="State">{account.state_label}</AdminDetailItem>
+        <section className={cardClassName}>
+          <h2 className={cardTitleClassName}>Your details</h2>
+          <dl className={detailListClassName}>
+            <DetailItem term="Business">{account.business_name}</DetailItem>
+            <DetailItem term="Contact">{account.contact_name}</DetailItem>
+            <DetailItem term="Email">{account.email}</DetailItem>
+            <DetailItem term="Phone">{account.phone || 'Not supplied'}</DetailItem>
+            <DetailItem term="State">{account.state_label}</DetailItem>
           </dl>
-          <AdminButton variant="secondary" href="/portal/account">
+          <Button variant="secondary" href="/portal/account">
             Edit details
-          </AdminButton>
+          </Button>
         </section>
 
-        <section className={adminCardClassName}>
-          <h2 className={adminCardTitleClassName}>Account</h2>
-          <dl className={adminDetailListClassName}>
-            <AdminDetailItem term="Plan">{account.plan_label}</AdminDetailItem>
-            <AdminDetailItem term="Payment">{account.payment_status_label}</AdminDetailItem>
-            <AdminDetailItem term="Status">{account.status_label}</AdminDetailItem>
-            <AdminDetailItem term="Signed up">{formatDateTime(account.created_at)}</AdminDetailItem>
-            <AdminDetailItem term="Last updated">
-              {formatDateTime(account.updated_at)}
-            </AdminDetailItem>
+        <section className={cardClassName}>
+          <h2 className={cardTitleClassName}>Account</h2>
+          <dl className={detailListClassName}>
+            <DetailItem term="Plan">{account.plan_label}</DetailItem>
+            <DetailItem term="Payment">{account.payment_status_label}</DetailItem>
+            <DetailItem term="Status">{account.status_label}</DetailItem>
+            <DetailItem term="Signed up">{formatDateTime(account.created_at)}</DetailItem>
+            <DetailItem term="Last updated">{formatDateTime(account.updated_at)}</DetailItem>
           </dl>
           <p className="text-label text-text-subtle">
             Questions? <a href="mailto:hello@freethedesk.com.au">hello@freethedesk.com.au</a>

@@ -220,20 +220,43 @@ export function safeWebsiteHref(value: string | null | undefined): string | null
 
 export type ProjectType = 'website' | 'automation' | 'both';
 
-export function formatPrice(value: string): string {
-  const amount = Number(value);
-  if (!value?.trim() || !Number.isFinite(amount)) return '—';
-  return `$${amount.toLocaleString('en-AU', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+/**
+ * Fetch a file and hand it to the browser as a download.
+ *
+ * Parameterised by its fetch function rather than written once per portal: the
+ * dealer's side goes through `authedFetch` (so it rides the single-flight token
+ * refresh) and the customer's through `apiFetch` (there is no session to
+ * refresh, only a path-scoped cookie). Everything after that — the error
+ * sentence, the filename, the object URL — was identical in both copies, and
+ * the copies had already drifted: only one of them read the filename the server
+ * sent.
+ */
+export async function downloadThrough(
+  fetcher: (url: string) => Promise<Response>,
+  url: string,
+  fallbackName: string,
+  failureMessage: string,
+): Promise<void> {
+  const response = await fetcher(url);
+  if (!response.ok) {
+    throw new Error(firstError(await response.json().catch(() => ({})), failureMessage));
+  }
+  const blob = await response.blob();
+  const objectUrl = URL.createObjectURL(blob);
+  try {
+    const link = document.createElement('a');
+    link.href = objectUrl;
+    link.download = filenameFrom(response.headers.get('Content-Disposition')) ?? fallbackName;
+    link.click();
+  } finally {
+    // Revoked immediately: the click has already started the download, and an
+    // object URL left behind pins the whole blob in memory for the life of the
+    // page — which here is a PDF carrying a licence number.
+    URL.revokeObjectURL(objectUrl);
+  }
 }
 
-export function formatDateTime(value: string | null): string {
-  if (!value) return '—';
-  return new Date(value).toLocaleString('en-AU', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    timeZone: 'Australia/Perth',
-  });
+function filenameFrom(disposition: string | null): string | null {
+  const match = disposition?.match(/filename="([^"]+)"/);
+  return match ? match[1] : null;
 }

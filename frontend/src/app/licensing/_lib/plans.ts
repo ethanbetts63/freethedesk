@@ -1,6 +1,7 @@
-import { formatPrice, type PublicSiteSettings } from '@/lib/api';
+import { type PublicSiteSettings } from '@/lib/api';
 import { planByCode, type Plan } from '@/lib/plans';
 import type { DealerPlanCode } from '@/lib/dealerApi';
+import { formatMoney } from '@/lib/formatting';
 
 export type { DealerPlanCode };
 export type DealerPlan = Plan<DealerPlanCode>;
@@ -63,7 +64,7 @@ const PLAN_COPY: Omit<DealerPlan, 'price'>[] = [
 export function buildDealerPlans(settings: LicensingPrices): DealerPlan[] {
   return PLAN_COPY.map((plan) => ({
     ...plan,
-    price: formatPrice(settings[PRICE_FIELD[plan.code]]),
+    price: formatMoney(settings[PRICE_FIELD[plan.code]]),
   })).sort(
     (a, b) =>
       priceAmount(settings[PRICE_FIELD[a.code]]) - priceAmount(settings[PRICE_FIELD[b.code]]),
