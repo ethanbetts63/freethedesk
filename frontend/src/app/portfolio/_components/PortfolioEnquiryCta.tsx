@@ -1,4 +1,4 @@
-import { PrimaryButton } from '@/components/PrimaryButton';
+import { CtaButton } from '@/components/CtaButton';
 import { cn } from '@/lib/utils';
 
 /**
@@ -7,8 +7,8 @@ import { cn } from '@/lib/utils';
  */
 export function PortfolioEnquiryCta({ flush = false }: { flush?: boolean }) {
   return (
-    <PrimaryButton className={cn(!flush && 'mt-xl')} href="#enquiry" direction="down">
+    <CtaButton className={cn(!flush && 'mt-xl')} href="#enquiry" direction="down">
       See our options
-    </PrimaryButton>
+    </CtaButton>
   );
 }

@@ -86,7 +86,10 @@ export type CtaButtonProps = {
   fullWidth?: boolean;
 };
 
-/** Shared plumbing for the two CTA styles; render `PrimaryButton` or `MovingColourButton`, not this. */
+/**
+ * The marketing call to action. `MovingColourButton` is the same component with
+ * the animated appearance preset applied.
+ */
 export function CtaButton({
   children,
   href,

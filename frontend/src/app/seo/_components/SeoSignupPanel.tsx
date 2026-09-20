@@ -3,7 +3,7 @@
 import { FormEvent, useActionState, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { PrimaryButton } from '@/components/PrimaryButton';
+import { CtaButton } from '@/components/CtaButton';
 import {
   choiceGroupHeadingClassName,
   chooserClassName,
@@ -230,7 +230,7 @@ export function SeoSignupPanel({
             {state.error}
           </p>
         )}
-        <PrimaryButton
+        <CtaButton
           type="submit"
           className={submitClassName}
           direction="right"
@@ -239,7 +239,7 @@ export function SeoSignupPanel({
           disabled={isPending}
         >
           {isPending ? 'Creating your checkout…' : 'Payment'}
-        </PrimaryButton>
+        </CtaButton>
       </form>
     </div>
   );

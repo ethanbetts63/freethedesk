@@ -7,7 +7,7 @@ import { FaqSection } from '@/components/marketing/FaqSection';
 import type { FaqItem } from '@/types/FaqItem';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
-import { PrimaryButton } from '@/components/PrimaryButton';
+import { CtaButton } from '@/components/CtaButton';
 import { ProcessBar, type ProcessBarStep } from '@/components/ProcessBar';
 import { ProofStrip, type ProofStat } from '@/components/ProofStrip';
 import { ScrollCtaButton } from '@/components/common/ScrollCtaButton';
@@ -199,9 +199,9 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
             {config.description}
           </p>
           <div className={caseButtonRowClassName}>
-            <PrimaryButton href={config.liveHref} target="_blank" rel="noreferrer">
+            <CtaButton href={config.liveHref} target="_blank" rel="noreferrer">
               Visit the live website
-            </PrimaryButton>
+            </CtaButton>
             <ScrollCtaButton
               targetId="tour"
               className="cursor-pointer appearance-none border-0 border-b border-b-text-primary bg-transparent pt-3xs pb-2xs font-[inherit] text-body font-heavy text-inherit [&>span]:ml-xs"

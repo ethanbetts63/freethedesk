@@ -1,4 +1,4 @@
-import { PrimaryButton } from '@/components/PrimaryButton';
+import { CtaButton } from '@/components/CtaButton';
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
 import { AutomationFeatureVisual } from './AutomationFeatureVisual';
@@ -12,9 +12,9 @@ export function AutomationFeature() {
       accentTitle="around your business."
       description="We connect the systems you already use and build the missing pieces, so information moves without your team moving it by hand."
       action={
-        <PrimaryButton href="/automation" size="compact">
+        <CtaButton href="/automation" size="compact">
           Explore business automation
-        </PrimaryButton>
+        </CtaButton>
       }
       visual={<AutomationFeatureVisual />}
       textSide="right"

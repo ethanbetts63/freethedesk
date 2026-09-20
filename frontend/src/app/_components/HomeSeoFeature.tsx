@@ -1,4 +1,4 @@
-import { PrimaryButton } from '@/components/PrimaryButton';
+import { CtaButton } from '@/components/CtaButton';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
 
 export function HomeSeoFeature() {
@@ -16,9 +16,9 @@ export function HomeSeoFeature() {
             ongoing website SEO report, a one-time Google Business Profile audit, or use both. The
             AI readiness check is free.
           </span>
-          <PrimaryButton className="self-start tracking-label-tight" href="/seo" size="compact">
+          <CtaButton className="self-start tracking-label-tight" href="/seo" size="compact">
             Explore SEO reports
-          </PrimaryButton>
+          </CtaButton>
         </div>
       }
     />

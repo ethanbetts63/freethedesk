@@ -1,4 +1,4 @@
-import { PrimaryButton } from '@/components/PrimaryButton';
+import { CtaButton } from '@/components/CtaButton';
 import { SectionNumber } from '@/components/SectionNumber';
 
 export function ManualAdminCta({
@@ -29,9 +29,9 @@ export function ManualAdminCta({
         {children}
       </p>
       {/* Closing section, so in-page links scroll up. */}
-      <PrimaryButton href={href} direction={href.startsWith('#') ? 'up' : 'page'} size="large">
+      <CtaButton href={href} direction={href.startsWith('#') ? 'up' : 'page'} size="large">
         {buttonLabel}
-      </PrimaryButton>
+      </CtaButton>
     </section>
   );
 }
