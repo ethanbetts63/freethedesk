@@ -43,7 +43,7 @@
 }
 .flowColumnHead b {
   color: var(--slate-100);
-  font-size: var(--text-caption-sm);
+  font-size: var(--text-caption);
   font-weight: var(--weight-strong);
   text-align: right;
 }
