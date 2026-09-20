@@ -17,17 +17,17 @@
    }
   ],
   "report_version": "r1",
-  "engine_version": "1.1.0",
+  "engine_version": "1.4.0",
   "ruleset_version": "1.1.0",
   "config_hash": "8046c668eee3",
   "context_digest": "ac5d807ac42b",
-  "data_version": "2026-09-19T14:03:05+00:00",
-  "generated_at": "2026-09-20T01:15:19+00:00",
+  "data_version": "2026-09-20T01:52:36+00:00",
+  "generated_at": "2026-09-20T06:35:34+00:00",
   "first_available_date": "2026-08-29",
   "latest_available_date": "2026-09-19",
   "unstable_from": "2026-09-17",
   "stored_days": 22,
-  "store_bytes": 13005
+  "store_bytes": 16507
  },
  "sources": [
   {
@@ -957,8 +957,59 @@
   "note": "A query appears here when the page with the most impressions for it is not the page the configuration says should own it."
  },
  "revision_curve": {
-  "observations": 0,
-  "by_lag_days": [],
+  "observations": 10,
+  "by_lag_days": [
+   {
+    "lag_days": 2,
+    "samples": 1,
+    "median_abs_change": 0.0
+   },
+   {
+    "lag_days": 3,
+    "samples": 1,
+    "median_abs_change": 0.0
+   },
+   {
+    "lag_days": 4,
+    "samples": 1,
+    "median_abs_change": 0.0
+   },
+   {
+    "lag_days": 5,
+    "samples": 1,
+    "median_abs_change": 0.0
+   },
+   {
+    "lag_days": 6,
+    "samples": 1,
+    "median_abs_change": 0.0
+   },
+   {
+    "lag_days": 9,
+    "samples": 1,
+    "median_abs_change": 0.0
+   },
+   {
+    "lag_days": 10,
+    "samples": 1,
+    "median_abs_change": 0.0
+   },
+   {
+    "lag_days": 11,
+    "samples": 1,
+    "median_abs_change": 0.0
+   },
+   {
+    "lag_days": 12,
+    "samples": 1,
+    "median_abs_change": 0.0
+   },
+   {
+    "lag_days": 13,
+    "samples": 1,
+    "median_abs_change": 0.0
+   }
+  ],
   "note": "Empty until the trailing window has been re-fetched across several runs. Until then the unstable tail on the trend chart is Google's three-day convention, not a measurement of this property."
  },
  "query_surface": {
