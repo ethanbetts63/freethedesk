@@ -1,36 +1,16 @@
 /**
- * The authenticated app's page furniture: the page rail, the back link, the
- * wordmark, and the handful of one-off blocks on the enquiry detail and
+ * The one-off blocks on the staff dashboard's enquiry detail, message and
  * compose screens. Everything here came out of `admin.css`, the last global
  * stylesheet outside `styles/`.
  *
- * Page headers are a component rather than a constant — see `AdminPageHeader`.
- * They were the only block in this file with a fixed internal structure, and
- * a structure is better expressed as markup than as a set of descendant
- * selectors reproduced in arbitrary variants.
+ * The furniture these used to sit beside — the page rail, the kicker, the back
+ * link, the wordmark — moved to `components/ui/layout.ts`, because the
+ * customer's own sale pages render it and it is not admin anything. What is
+ * left is genuinely one screen each.
  */
-
-/**
- * Every authenticated route's outer rail. 1500px is wide for reading but these
- * are tables of accounts and messages, where the columns are what needs room.
- */
-export const adminPageClassName = 'mx-auto w-full max-w-[1500px] px-m py-l lg:p-xl';
 
 /** The compose screen is a form, so it takes a measure rather than the rail. */
 export const adminComposePageClassName = 'max-w-[1020px]';
-
-/** The small tracked label above a page title. */
-export const adminKickerClassName =
-  'm-0 mb-s text-caption-sm font-black tracking-label-wide text-text-action uppercase';
-
-export const adminBackClassName = 'mb-l inline-block text-label font-heavy text-text-muted';
-
-/**
- * The wordmark in the sidebar and on the sign-in screen. 1.45rem is a logotype
- * size, deliberately off the type scale.
- */
-export const adminBrandClassName =
-  'text-wordmark font-black not-italic tracking-[-0.085em] [&>span]:text-text-action [&>i]:not-italic [&>i]:text-action-primary';
 
 export const adminComposeCardClassName =
   'overflow-hidden rounded-lg border border-border-default bg-surface-page p-ml shadow-xs sm:p-xl';

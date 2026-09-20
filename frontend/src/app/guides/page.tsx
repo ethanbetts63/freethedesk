@@ -29,17 +29,17 @@ export default function GuidesPage() {
           <Eyebrow className="mb-xl gap-xs text-label tracking-label-wide text-accent">
             Field notes for dealers
           </Eyebrow>
-          <h1 className="m-0 max-w-[930px] text-display-lg leading-[0.88] tracking-[-0.075em] sm:text-hero-lg">
+          <h1 className="m-0 max-w-[930px] text-hero leading-[0.88] tracking-[-0.075em] sm:text-hero">
             Useful systems.
             <br />
             <em className="not-italic text-accent">Plain English.</em>
           </h1>
-          <p className="mt-xl max-w-[660px] text-body-xl leading-[1.65] text-[var(--text-on-dark-muted)]">
+          <p className="mt-xl max-w-[660px] text-lead leading-[1.65] text-[var(--text-on-dark-muted)]">
             {PAGES['/guides'].description}
           </p>
         </div>
         <div
-          className="absolute right-[max(32px,calc((100vw-1176px)/2))] bottom-[34px] z-1 hidden items-center gap-s text-caption-sm tracking-label text-[var(--text-on-dark-subtle)] lg:flex"
+          className="absolute right-[max(32px,calc((100vw-1176px)/2))] bottom-[34px] z-1 hidden items-center gap-s text-label tracking-label text-[var(--text-on-dark-subtle)] lg:flex"
           aria-hidden="true"
         >
           <span>01</span>
@@ -54,10 +54,7 @@ export default function GuidesPage() {
           <header className="mb-xl grid grid-cols-1 items-start gap-2xl border-b border-border-default pb-xl lg:grid-cols-[minmax(0,1fr)_minmax(0,0.7fr)] lg:items-end">
             <div>
               <SectionNumber>The guide library</SectionNumber>
-              <h2
-                id="latest-guides"
-                className="m-0 text-display-lg leading-[0.95] tracking-[-0.065em]"
-              >
+              <h2 id="latest-guides" className="m-0 text-hero leading-[0.95] tracking-[-0.065em]">
                 Dealership guides you can use.
               </h2>
             </div>
@@ -75,7 +72,7 @@ export default function GuidesPage() {
                   href={`/${article.slug}`}
                   key={article.slug}
                 >
-                  <div className="flex items-center justify-between text-caption-sm font-heavy tracking-label text-text-subtle uppercase">
+                  <div className="flex items-center justify-between text-label font-heavy tracking-label text-text-subtle uppercase">
                     <span className="flex h-[38px] w-[38px] items-center justify-center rounded-full border border-border-default tracking-normal">
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -99,7 +96,7 @@ export default function GuidesPage() {
                     Read guide{' '}
                     <b
                       aria-hidden="true"
-                      className="text-body-lg text-text-action transition-transform duration-200 group-hover:translate-x-[5px]"
+                      className="text-lead text-text-action transition-transform duration-200 group-hover:translate-x-[5px]"
                     >
                       →
                     </b>
@@ -113,7 +110,7 @@ export default function GuidesPage() {
                 01
               </span>
               <div>
-                <h3 className="m-0 mb-xs text-body-xl tracking-[-0.03em]">
+                <h3 className="m-0 mb-xs text-lead tracking-[-0.03em]">
                   The first field note is on the way.
                 </h3>
                 <p className="m-0 text-body leading-[1.6] text-text-muted">

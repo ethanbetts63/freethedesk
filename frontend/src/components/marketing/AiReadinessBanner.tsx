@@ -53,7 +53,7 @@ const headingVariants = cva('m-0 leading-[1.1] tracking-[-0.035em]', {
   variants: {
     placement: {
       inline: 'text-title-sm lg:max-w-[480px]',
-      dialog: 'max-w-[320px] text-display-sm',
+      dialog: 'max-w-[320px] text-display',
     },
   },
   defaultVariants: { placement: 'inline' },

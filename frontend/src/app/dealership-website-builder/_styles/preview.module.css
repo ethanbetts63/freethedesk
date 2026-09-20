@@ -172,7 +172,7 @@
   text-transform: uppercase;
 }
 .heroCopy h2 {
-  font-size: var(--display-3);
+  font-size: var(--display-2);
   letter-spacing: -0.075em;
   line-height: 0.86;
   margin: 12px 0;
@@ -802,7 +802,7 @@
   text-transform: uppercase;
 }
 .inventoryHero h2 {
-  font-size: var(--display-3);
+  font-size: var(--display-2);
   letter-spacing: -0.07em;
   line-height: 0.88;
   margin: 12px 0;
@@ -1863,7 +1863,7 @@
   text-transform: uppercase;
 }
 .serviceHeroCopy h2 {
-  font-size: var(--display-4);
+  font-size: var(--display-5);
   letter-spacing: -0.07em;
   line-height: 0.79;
   margin: 15px 0 18px;

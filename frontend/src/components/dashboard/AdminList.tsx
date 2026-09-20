@@ -51,7 +51,7 @@ export function CellTitle({ children }: { children: ReactNode }) {
 /** Muted second line of a cell, clipped rather than allowed to widen the column. */
 export function CellNote({ children }: { children: ReactNode }) {
   return (
-    <small className="mt-4xs block max-w-[230px] overflow-hidden text-caption-sm text-ellipsis text-text-subtle">
+    <small className="mt-4xs block max-w-[230px] overflow-hidden text-label text-ellipsis text-text-subtle">
       {children}
     </small>
   );
@@ -166,7 +166,7 @@ export function AdminFilterBar({
         </form>
       </div>
       {legend && legend.length > 0 && (
-        <div className="mt-m flex flex-wrap items-center gap-s text-caption-sm leading-[1.8] text-text-subtle capitalize sm:leading-[inherit]">
+        <div className="mt-m flex flex-wrap items-center gap-s text-label leading-[1.8] text-text-subtle capitalize sm:leading-[inherit]">
           <b>Row colour:</b>
           {legend.map((value) => (
             <span className="inline-flex items-center gap-3xs" key={value}>

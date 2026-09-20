@@ -3,7 +3,7 @@
    else - the type scale, the rule above an h2, lists, links, code, tables - is
    the agreement, not this file's business. */
 .article h1 {
-  font-size: var(--display-3);
+  font-size: var(--display-2);
   letter-spacing: -0.055em;
   line-height: 1;
   margin: 0 0 var(--space-xl);

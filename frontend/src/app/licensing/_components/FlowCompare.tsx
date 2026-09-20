@@ -39,7 +39,7 @@ function FlowColumn({
       )}
     >
       {eyebrow && (
-        <p className="m-0 mb-s text-caption-sm font-black tracking-label uppercase moving-colour-text">
+        <p className="m-0 mb-s text-label font-black tracking-label uppercase moving-colour-text">
           {eyebrow}
         </p>
       )}

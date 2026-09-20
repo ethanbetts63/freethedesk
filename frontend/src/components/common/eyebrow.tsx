@@ -9,7 +9,7 @@ export type EyebrowSize = 'sm' | 'md' | 'lg';
 export type EyebrowTone = 'secondary' | 'primary' | 'muted' | 'brand' | 'on-dark' | 'on-dark-muted';
 
 const SIZE: Record<EyebrowSize, string> = {
-  sm: 'text-caption-sm',
+  sm: 'text-label',
   md: 'text-body-sm',
   lg: 'text-body',
 };

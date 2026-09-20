@@ -136,15 +136,11 @@
   /* Fixed interface sizes. Duplicated as literals (not var()) because the
      :root declarations below use the same names for direct `var(--text-*)`
      consumption in hand-written CSS - matching allbikes' tokens.css pattern. */
-  --text-caption-xs: 0.54rem;
-  --text-caption-sm: 0.6rem;
   --text-caption: 0.66rem;
   --text-label: 0.72rem;
   --text-body-sm: 0.78rem;
   --text-body: 0.84rem;
-  --text-lead: 0.92rem;
-  --text-glyph: 1.25rem;
-  --text-wordmark: 1.4rem;
+  --text-lead: var(--step-lead);
 
   /* Fluid sizes, on the same naming rule as the fixed ones above: a role
      (body, title, display, hero) plus an explicit -sm/-lg/-xl/-md step, never
@@ -164,16 +160,10 @@
      dashboard runs on; in allbikes it is --step-0, which is this file's
      --text-body-lg. Aligning them means resizing a whole desk UI by 25%, so
      the divergence is deliberate and documented, not drift. */
-  --text-body-lg: var(--step-0);
-  --text-body-xl: var(--step-1);
   --text-title-sm: var(--step-2);
   --text-title: var(--step-3);
-  --text-display-sm: var(--display-1);
   --text-display: var(--display-2);
-  --text-display-md: var(--display-3);
-  --text-display-lg: var(--display-4);
   --text-hero: var(--display-5);
-  --text-hero-lg: var(--display-6);
 }
 
 :root {
@@ -391,11 +381,13 @@
 
   /* Text scale. Fluid between a 320px and a 1240px viewport.
      Body copy barely moves; only display type travels far. */
-  --step-0: clamp(1rem, 0.978rem + 0.109vw, 1.0625rem);
-  /* step-1 is the lead-paragraph size. It shares step-0's 16px floor
-     deliberately - 16px is the smallest comfortable body size on a phone,
-     and it is also the threshold below which iOS Safari zooms on focus. */
-  --step-1: clamp(1rem, 0.924rem + 0.383vw, 1.22rem);
+  /* The lead-paragraph size, and the only rung between body copy and the
+     headings. Floor is 16px deliberately - the smallest comfortable body size
+     on a phone, and the threshold below which iOS Safari zooms a focused
+     field. It replaces --step-0 and --step-1, which were 1rem-1.0625rem and
+     1rem-1.22rem: two rungs 0.16rem apart at their ceilings, feeding
+     --text-body-lg and --text-body-xl, both retired. */
+  --step-lead: clamp(1rem, 0.978rem + 0.109vw, 1.0625rem);
   --step-2: clamp(1.375rem, 1.201rem + 0.87vw, 1.875rem);
   --step-3: clamp(1.75rem, 1.489rem + 1.304vw, 2.5rem);
 
@@ -405,12 +397,8 @@
      word in a heading ("automation", 10 characters at ~0.574em each in
      Arial 800 with -0.085em tracking) must fit 288px, the content box of
      a 320px screen. That caps the floor at 40px / 2.5rem. */
-  --display-1: clamp(1.75rem, 1.385rem + 1.826vw, 2.8rem);
   --display-2: clamp(2rem, 1.527rem + 2.365vw, 3.36rem);
-  --display-3: clamp(2.125rem, 1.462rem + 3.313vw, 4.03rem);
-  --display-4: clamp(2.25rem, 1.349rem + 4.504vw, 4.84rem);
   --display-5: clamp(2.25rem, 1.015rem + 6.174vw, 5.8rem);
-  --display-6: clamp(2.25rem, 0.608rem + 8.209vw, 6.97rem);
 
   /* Fluid space scale. The fixed steps below --space-xl are the rungs route
      styles actually reach for; before they existed, every gap and padding under
@@ -464,19 +452,15 @@
      rungs also did not survive contact with a screen: label, micro and meta
      were 9.3px, 9.6px and 9.9px, three names for a difference nobody can pick
      on purpose. They are one rung now. Shared verbatim with allbikes. */
-  --text-caption-xs: 0.54rem;
-  --text-caption-sm: 0.6rem;
   --text-caption: 0.66rem;
   --text-label: 0.72rem;
   --text-body-sm: 0.78rem;
   --text-body: 0.84rem;
-  --text-lead: 0.92rem;
-  /* A character used as an icon - a tick, a chevron, a plus. Sized by eye
-     against the control around it, not by the text scale. */
-  --text-glyph: 1.25rem;
-  /* The brand wordmark at interface size, in the site header and the dashboard
-     header. */
-  --text-wordmark: 1.4rem;
+  /* The one rung above body copy. It absorbs what were --text-lead (0.92rem),
+     --text-body-lg and --text-body-xl -- four rungs between 13.4px and 19.5px
+     in a band the contract gives two. Fluid so it still reaches the size the
+     old body-lg had at desktop. */
+  --text-lead: var(--step-lead);
   --weight-normal: 400;
   --weight-medium: 500;
   --weight-semibold: 600;

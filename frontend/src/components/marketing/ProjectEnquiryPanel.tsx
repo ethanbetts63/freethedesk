@@ -160,11 +160,11 @@ export function ProjectEnquiryPanel({
             </div>
             {budget === 'custom' && (
               <label className="mt-xs block">
-                <span className="mb-2xs block text-caption-sm font-strong tracking-label text-[var(--text-control)] uppercase">
+                <span className="mb-2xs block text-label font-strong tracking-label text-[var(--text-control)] uppercase">
                   Your budget
                 </span>
                 <input
-                  className="min-h-[48px] w-full border border-border-default bg-surface-page px-s text-body-lg text-text-primary outline-none [font:inherit] placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus"
+                  className="min-h-[48px] w-full border border-border-default bg-surface-page px-s text-lead text-text-primary outline-none [font:inherit] placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus"
                   value={customBudget}
                   onChange={(event) => setCustomBudget(event.target.value.replace(/\D/g, ''))}
                   inputMode="numeric"
@@ -203,7 +203,7 @@ export function ProjectEnquiryPanel({
           >
             ✓
           </span>
-          <strong className="block text-body-lg tracking-[-0.03em]">
+          <strong className="block text-lead tracking-[-0.03em]">
             Thanks — that&apos;s with us.
           </strong>
           <p className="mt-xs text-body leading-[1.65] text-text-muted">

@@ -79,7 +79,7 @@ export function ExpandableServiceList({
                 {service.icon}
               </span>
               <span>
-                <strong className="block text-body-xl tracking-[-0.025em]">{service.title}</strong>
+                <strong className="block text-lead tracking-[-0.025em]">{service.title}</strong>
                 {/* Hidden on a phone: at that width the row is already 112px
                     tall and the title has to carry the meaning alone. */}
                 <small className="mt-2xs hidden max-w-[760px] text-body-sm leading-[1.55] text-text-muted sm:block">
@@ -88,7 +88,7 @@ export function ExpandableServiceList({
               </span>
               <span
                 className={cn(
-                  'flex h-[34px] w-[34px] items-center justify-center rounded-circle border border-border-default text-glyph transition-[rotate] duration-[180ms] ease-[ease] group-open:rotate-45',
+                  'flex h-[34px] w-[34px] items-center justify-center rounded-circle border border-border-default text-title-sm transition-[rotate] duration-[180ms] ease-[ease] group-open:rotate-45',
                   accentClassName,
                 )}
                 aria-hidden="true"
@@ -101,7 +101,7 @@ export function ExpandableServiceList({
             <div className="pt-0 pr-[var(--services-inset)] pb-xl pl-[var(--services-indent)]">
               <p
                 className={cn(
-                  'm-0 mb-s text-caption-sm font-black tracking-label uppercase',
+                  'm-0 mb-s text-label font-black tracking-label uppercase',
                   accentClassName,
                 )}
               >

@@ -15,7 +15,7 @@ const SIZES = {
   full: {
     toggle: 'py-ml',
     icon: 'flex-[0_0_44px] bg-surface-tint [&_svg]:h-[21px] [&_svg]:w-[21px]',
-    name: 'text-body-lg',
+    name: 'text-lead',
     description: 'text-lead',
     mark: 'h-[24px] w-[24px] flex-[0_0_24px]',
     explanation: 'bg-surface-tint mb-m',

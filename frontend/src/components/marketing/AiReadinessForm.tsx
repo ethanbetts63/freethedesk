@@ -16,7 +16,7 @@ const fieldClassName = cn(
   // 16px floor: below it, iOS Safari zooms the page on focus. Only the dialog
   // ever renders at that width - the inline strip starts at `sm`, where the
   // field can drop to the interface size and a 40px row.
-  'min-h-[var(--tap-min)] text-body-lg sm:min-h-[40px] sm:text-label',
+  'min-h-[var(--tap-min)] text-lead sm:min-h-[40px] sm:text-label',
   'focus:border-accent-on-dark-soft',
   'focus:bg-[color-mix(in_srgb,var(--surface-page)_12%,transparent)]',
   // On a dark surface the page accent is invisible, so the ring takes the

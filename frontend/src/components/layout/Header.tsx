@@ -19,7 +19,7 @@ export function Header() {
       items={NAV}
       logo={
         <Link
-          className="text-wordmark flex flex-none items-center gap-xs leading-none font-black tracking-[-0.085em]"
+          className="text-title-sm flex flex-none items-center gap-xs leading-none font-black tracking-[-0.085em]"
           href="/"
           aria-label="freethedesk home"
         >

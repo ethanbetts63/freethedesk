@@ -42,7 +42,7 @@ export function AutomationFeatureVisual() {
       )}
       aria-hidden="true"
     >
-      <header className="flex items-center justify-between border-b border-border-subtle pb-m text-caption-sm font-black tracking-label text-text-subtle uppercase">
+      <header className="flex items-center justify-between border-b border-border-subtle pb-m text-label font-black tracking-label text-text-subtle uppercase">
         <span>Workflow / 01</span>
         {/* background-clip: text paints the gradient into the glyphs only; the
             status dot is a child with its own background, so it is unaffected. */}
@@ -51,11 +51,11 @@ export function AutomationFeatureVisual() {
         </b>
       </header>
       <div className={cn(cardClassName, 'mx-auto mt-l w-[92%] px-ml py-m sm:w-[78%]')}>
-        <small className="block text-caption-xs font-black tracking-label text-action-primary uppercase">
+        <small className="block text-caption font-black tracking-label text-action-primary uppercase">
           Trigger
         </small>
         <strong className="mt-2xs mb-3xs block text-lead">New enquiry received</strong>
-        <span className="block text-caption-sm text-text-subtle">
+        <span className="block text-label text-text-subtle">
           Customer + product context attached
         </span>
       </div>
@@ -77,22 +77,22 @@ export function AutomationFeatureVisual() {
               'grid min-w-0 grid-cols-[25px_minmax(0,1fr)] gap-x-xs gap-y-4xs px-s py-m sm:block',
             )}
           >
-            <span className="row-span-2 block text-caption-xs font-black text-action-primary sm:row-auto">
+            <span className="row-span-2 block text-caption font-black text-action-primary sm:row-auto">
               {index}
             </span>
             <strong className="m-0 block text-label text-surface-dark sm:mt-s sm:mb-3xs">
               {title}
             </strong>
-            <small className="block text-caption-sm leading-[1.4] text-text-subtle">{note}</small>
+            <small className="block text-label leading-[1.4] text-text-subtle">{note}</small>
           </article>
         ))}
       </div>
       <footer className="moving-colour-fill mt-m grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-s gap-y-3xs px-m py-s">
-        <span className="text-caption-sm font-heavy tracking-label-tight text-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] uppercase">
+        <span className="text-label font-heavy tracking-label-tight text-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] uppercase">
           Manual touches
         </span>
         <strong className="row-span-2 text-title text-text-on-dark">0</strong>
-        <small className="text-caption-sm font-strong text-text-on-dark">Workflow complete</small>
+        <small className="text-label font-strong text-text-on-dark">Workflow complete</small>
       </footer>
     </div>
   );

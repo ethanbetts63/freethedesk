@@ -74,15 +74,13 @@ export function ChecklistCard({
         <div className="flex items-center gap-s">
           {mark}
           <span>
-            <small className="mb-4xs block text-caption-xs font-black tracking-label text-text-muted uppercase">
+            <small className="mb-4xs block text-caption font-black tracking-label text-text-muted uppercase">
               {eyebrow}
             </small>
             <strong className="block text-body-sm">{title}</strong>
           </span>
         </div>
-        <span className="moving-colour-text text-caption-sm font-black uppercase">
-          {countLabel}
-        </span>
+        <span className="moving-colour-text text-label font-black uppercase">{countLabel}</span>
       </header>
 
       <ol className={cn('m-0 list-none p-0', framed ? 'px-ml' : 'grid gap-s pt-xl')}>
@@ -96,13 +94,13 @@ export function ChecklistCard({
                 : 'border border-border-subtle bg-surface-tint px-s py-m',
             )}
           >
-            <span className="text-caption-sm font-black text-text-subtle">
+            <span className="text-label font-black text-text-subtle">
               {String(index + 1).padStart(2, '0')}
             </span>
             <span
               className={cn(
                 stepBadgeClassName,
-                'h-[26px] w-[26px] bg-surface-tint-strong text-caption-sm font-black text-action-primary',
+                'h-[26px] w-[26px] bg-surface-tint-strong text-label font-black text-action-primary',
               )}
               aria-hidden="true"
             >
@@ -111,7 +109,7 @@ export function ChecklistCard({
             <span>
               <strong className="block text-body-sm">{item.title}</strong>
               {item.description ? (
-                <small className="mt-4xs block text-caption-sm leading-[1.4] text-text-muted">
+                <small className="mt-4xs block text-label leading-[1.4] text-text-muted">
                   {item.description}
                 </small>
               ) : null}
@@ -120,7 +118,7 @@ export function ChecklistCard({
               <span
                 className={cn(
                   hiddenBelowSmClassName,
-                  'text-caption-xs font-black tracking-label-tight text-text-muted uppercase',
+                  'text-caption font-black tracking-label-tight text-text-muted uppercase',
                 )}
               >
                 {item.tag}

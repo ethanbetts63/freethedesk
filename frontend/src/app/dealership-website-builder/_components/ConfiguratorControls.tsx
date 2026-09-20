@@ -35,7 +35,7 @@ const sectionClassName = 'p-l';
 const labelClassName =
   'mb-xs block text-label font-control tracking-normal text-text-control normal-case';
 const controlClassName =
-  'min-h-[50px] w-full border border-border-default bg-surface-page px-m py-0 text-body-lg font-normal text-text-primary outline-0 transition-[border-color,box-shadow] duration-150 placeholder:text-body-sm placeholder:text-text-on-dark-subtle focus:border-action-primary focus:shadow-focus';
+  'min-h-[50px] w-full border border-border-default bg-surface-page px-m py-0 text-lead font-normal text-text-primary outline-0 transition-[border-color,box-shadow] duration-150 placeholder:text-body-sm placeholder:text-text-on-dark-subtle focus:border-action-primary focus:shadow-focus';
 
 /** The numbered "01 / 02 / 03" heading that opens each step of the panel. */
 function GroupTitle({ number, title, hint }: { number: string; title: string; hint: string }) {
@@ -43,7 +43,7 @@ function GroupTitle({ number, title, hint }: { number: string; title: string; hi
     <div className="mb-ml flex items-start gap-s">
       <span className="pt-4xs text-body-sm font-black text-action-primary">{number}</span>
       <div>
-        <strong className="block text-body-lg">{title}</strong>
+        <strong className="block text-lead">{title}</strong>
         <small className="mt-2xs block text-lead leading-[1.45] text-text-subtle">{hint}</small>
       </div>
     </div>
@@ -317,7 +317,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           <div className="mt-2xs border-t border-border-default pt-m">
             <div className="flex items-center justify-between">
               <span className="text-body-sm text-text-subtle uppercase">Your configuration</span>
-              <strong className="text-body-lg">
+              <strong className="text-lead">
                 {additionCount === 0 ? 'Base website' : `Base + ${additionCount}`}
               </strong>
             </div>

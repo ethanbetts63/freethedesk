@@ -25,10 +25,10 @@ export function ProjectEnquiry({
         heading={
           <>
             {eyebrow && <SectionNumber>{eyebrow}</SectionNumber>}
-            <h2 className="m-0 text-display-sm leading-[1.02] tracking-[-0.058em] text-text-secondary">
+            <h2 className="m-0 text-display leading-[1.02] tracking-[-0.058em] text-text-secondary">
               Tell us your <span className="moving-colour-text">budget.</span>
             </h2>
-            <p className="mt-m mb-xl max-w-[470px] text-body-lg leading-[1.7] text-text-muted">
+            <p className="mt-m mb-xl max-w-[470px] text-lead leading-[1.7] text-text-muted">
               {lead}
             </p>
           </>

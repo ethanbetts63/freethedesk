@@ -61,7 +61,7 @@ export function FlagshipCheckoutVisual() {
         {journey.map((step) => (
           <article key={step.number} className={stepClassName}>
             <div className={iconClassName}>{step.icon}</div>
-            <span className="col-start-2 block text-caption-sm font-black tracking-label text-action-primary [grid-row:1/3]">
+            <span className="col-start-2 block text-label font-black tracking-label text-action-primary [grid-row:1/3]">
               {step.number}
             </span>
             <strong className="col-start-3 m-0 block text-lead sm:mt-2xs">{step.title}</strong>

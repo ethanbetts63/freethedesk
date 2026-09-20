@@ -106,7 +106,7 @@ export function ServiceScroll({
             {customService.icon}
           </div>
           <div className="relative z-1">
-            <p className="m-0 mb-s flex items-center gap-s text-caption-sm font-black tracking-label text-text-action uppercase">
+            <p className="m-0 mb-s flex items-center gap-s text-label font-black tracking-label text-text-action uppercase">
               <span className="border-r border-[color-mix(in_srgb,var(--text-action)_30%,transparent)] pr-s">
                 0{services.length + 1}
               </span>

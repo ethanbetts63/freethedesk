@@ -113,7 +113,7 @@ export function SiteFooter({ brand, columns, legal, backdrop, className }: SiteF
           </div>
         ))}
       </div>
-      <div className="site-shell relative z-1 mt-3xl flex flex-col items-start justify-between gap-xs border-t border-border-default pt-ml text-caption-sm text-text-muted lg:flex-row lg:items-center lg:gap-0">
+      <div className="site-shell relative z-1 mt-3xl flex flex-col items-start justify-between gap-xs border-t border-border-default pt-ml text-label text-text-muted lg:flex-row lg:items-center lg:gap-0">
         {legal}
       </div>
     </footer>

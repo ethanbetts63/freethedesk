@@ -20,7 +20,7 @@
   text-transform: uppercase;
 }
 .legal h3 {
-  font-size: var(--step-0);
+  font-size: var(--step-lead);
   margin: var(--space-xl) 0 var(--space-s);
 }
 .legal p,
@@ -61,7 +61,7 @@
 
 @media (min-width: 640px) {
   .legal h1 {
-    font-size: var(--display-6);
+    font-size: var(--display-5);
   }
   .legal p,
   .legal li {

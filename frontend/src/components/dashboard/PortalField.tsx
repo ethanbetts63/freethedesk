@@ -42,7 +42,7 @@ export function PortalFieldset({
       disabled={disabled}
       className="m-0 rounded-lg border border-border-default bg-surface-page px-m py-ml sm:p-xl"
     >
-      <legend className="bg-surface-page px-xs py-0 text-body-lg font-control">{legend}</legend>
+      <legend className="bg-surface-page px-xs py-0 text-lead font-control">{legend}</legend>
       {description && (
         <p className="m-0 mb-l text-label leading-[1.55] text-text-muted">{description}</p>
       )}
@@ -66,7 +66,7 @@ export function PortalField(props: InputField | TextareaField) {
       <span className="mb-2xs block">{label}</span>
       {props.multiline ? <PortalTextarea {...props} /> : <PortalInput {...props} />}
       {hint && (
-        <small className="mt-2xs block text-caption-sm leading-[1.4] font-normal text-text-subtle">
+        <small className="mt-2xs block text-label leading-[1.4] font-normal text-text-subtle">
           {hint}
         </small>
       )}

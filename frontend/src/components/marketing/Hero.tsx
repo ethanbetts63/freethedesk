@@ -60,7 +60,7 @@ export function Hero({
           <Eyebrow className="[--eyebrow-accent:var(--action-primary)] [&>span]:shadow-[var(--ring-halo),0_0_10px_2px_color-mix(in_srgb,var(--action-primary)_70%,transparent)]">
             {eyebrow}
           </Eyebrow>
-          <h1 className="m-0 max-w-[1000px] text-hero-lg leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] lg:leading-[0.83]">
+          <h1 className="m-0 max-w-[1000px] text-hero leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] lg:leading-[0.83]">
             {titleLines.map((line, index) => (
               /* The trailing space collapses to nothing on screen, but it keeps
                  the lines separate words for anything that flattens the heading
@@ -71,7 +71,7 @@ export function Hero({
             ))}
             <em className="not-italic text-[var(--action-primary)]">{accentTitle}</em>
           </h1>
-          <p className="my-xl max-w-[420px] text-body-xl leading-[1.65] text-text-muted lg:max-w-[570px]">
+          <p className="my-xl max-w-[420px] text-lead leading-[1.65] text-text-muted lg:max-w-[570px]">
             {lead}
           </p>
           <div className="flex flex-wrap items-center gap-m [&>*]:w-full sm:gap-xl sm:[&>*]:w-auto">

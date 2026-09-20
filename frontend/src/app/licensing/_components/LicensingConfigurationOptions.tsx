@@ -12,7 +12,7 @@ export function LicensingConfigurationOptions({ eyebrow }: { eyebrow: string }) 
       <div className="site-shell grid grid-cols-[minmax(0,1fr)] items-start gap-split lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
         <div>
           <SectionNumber>{eyebrow}</SectionNumber>
-          <h2 className="m-0 text-display-md leading-[0.94] tracking-[-0.07em] sm:text-hero">
+          <h2 className="m-0 text-display leading-[0.94] tracking-[-0.07em] sm:text-hero">
             Our portal or <span className="moving-colour-text">your website.</span>
           </h2>
           <p className="mt-ml max-w-[440px] text-lead leading-[1.7] text-[var(--slate-300)]">

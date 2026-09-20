@@ -14,10 +14,10 @@ import { SectionNumber } from './SectionNumber';
  * than intent, and deleting those two overrides collapses the scale to four.
  */
 const titleSizes = {
-  'display-sm': 'text-display-sm leading-[1.05] tracking-[-0.055em]',
+  'display-sm': 'text-display leading-[1.05] tracking-[-0.055em]',
   display: 'text-display leading-[1.05] tracking-[-0.055em]',
-  'display-md': 'text-display-md leading-[0.98] tracking-[-0.055em]',
-  'display-lg': 'text-display-lg leading-[0.98] tracking-[-0.06em]',
+  'display-md': 'text-display leading-[0.98] tracking-[-0.055em]',
+  'display-lg': 'text-hero leading-[0.98] tracking-[-0.06em]',
 } as const;
 
 type SectionHeaderProps = {

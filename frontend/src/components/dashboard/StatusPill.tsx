@@ -69,7 +69,7 @@ export function statusTone(status: string): CSSProperties {
 export function StatusPill({ status }: { status: string }) {
   return (
     <span
-      className="inline-flex rounded-pill bg-[color-mix(in_srgb,var(--status-tone)_26%,var(--surface-page))] px-xs py-3xs text-caption-sm font-heavy text-[color-mix(in_srgb,var(--status-tone)_45%,var(--text-primary))]"
+      className="inline-flex rounded-pill bg-[color-mix(in_srgb,var(--status-tone)_26%,var(--surface-page))] px-xs py-3xs text-label font-heavy text-[color-mix(in_srgb,var(--status-tone)_45%,var(--text-primary))]"
       style={statusTone(status)}
     >
       {statusLabel(status)}

@@ -58,7 +58,7 @@ export function ReportCardVisual({
           <strong className="block text-body tracking-[-0.01em]">{title}</strong>
           <small className="block text-label text-text-muted">{subtitle}</small>
         </div>
-        <span className="ml-auto border border-border-default bg-surface-tint-strong px-xs py-2xs text-caption-sm font-black tracking-label text-text-action uppercase">
+        <span className="ml-auto border border-border-default bg-surface-tint-strong px-xs py-2xs text-label font-black tracking-label text-text-action uppercase">
           {badge}
         </span>
       </header>
@@ -66,7 +66,7 @@ export function ReportCardVisual({
       <ol className="m-0 list-none p-0">
         {items.map((item, index) => (
           <li key={item.title} className={rowClassName}>
-            <span className="flex h-[25px] w-[25px] flex-none items-center justify-center bg-surface-navy text-caption-sm font-black text-text-on-dark">
+            <span className="flex h-[25px] w-[25px] flex-none items-center justify-center bg-surface-navy text-label font-black text-text-on-dark">
               {String(index + 1).padStart(2, '0')}
             </span>
             <span
@@ -76,14 +76,14 @@ export function ReportCardVisual({
               {item.icon ?? '✓'}
             </span>
             <div>
-              <h3 className="m-0 mb-4xs text-body-lg tracking-[-0.025em]">{item.title}</h3>
+              <h3 className="m-0 mb-4xs text-lead tracking-[-0.025em]">{item.title}</h3>
               <p className="m-0 text-body leading-[1.45] text-text-muted">{item.description}</p>
             </div>
             {item.tag ? (
               <span
                 className={cn(
                   hiddenBelowSmClassName,
-                  'text-caption-sm font-black tracking-label-tight text-action-primary uppercase',
+                  'text-label font-black tracking-label-tight text-action-primary uppercase',
                 )}
               >
                 {item.tag}

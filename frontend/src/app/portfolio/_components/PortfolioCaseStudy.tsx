@@ -156,14 +156,14 @@ function HeadingLines({ heading }: { heading: LineHeading }) {
  * sharing one rule in the case-study stylesheet, which is exactly the shape
  * that has to become a named constant rather than a descendant selector.
  */
-const caseHeadingClassName = 'm-0 text-display-lg leading-[0.96] tracking-[-0.067em]';
+const caseHeadingClassName = 'm-0 text-hero leading-[0.96] tracking-[-0.067em]';
 
 /**
  * The hero's pair of calls to action. Was the last consumer of the global
  * `.button-row` that Phase 3 removed everywhere else.
  */
 /** The muted lead paragraph that follows a section heading. */
-const caseLeadClassName = 'text-body-lg leading-[1.72] text-text-muted';
+const caseLeadClassName = 'text-lead leading-[1.72] text-text-muted';
 
 /**
  * A section's opening block: the number in a narrow first column, the heading
@@ -190,10 +190,10 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
       <div className="site-shell relative grid grid-cols-[minmax(0,1fr)] items-center gap-2xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] xl:gap-3xl">
         <div className="relative z-3">
           <Eyebrow>{config.eyebrow}</Eyebrow>
-          <h1 className="m-0 text-display-md font-heavy leading-[0.91] tracking-[-0.078em] lg:text-hero [&_span]:text-text-action">
+          <h1 className="m-0 text-display font-heavy leading-[0.91] tracking-[-0.078em] lg:text-hero [&_span]:text-text-action">
             <HeadingLines heading={config.title} />
           </h1>
-          <p className="my-xl max-w-[555px] text-body-lg leading-[1.65] text-text-muted">
+          <p className="my-xl max-w-[555px] text-lead leading-[1.65] text-text-muted">
             {config.description}
           </p>
           <div className={caseButtonRowClassName}>
@@ -258,7 +258,7 @@ function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig['intro'] 
         {config.paragraphs.map((paragraph) => (
           <p
             key={paragraph}
-            className="my-xl max-w-[720px] text-body-lg leading-[1.72] text-text-muted"
+            className="my-xl max-w-[720px] text-lead leading-[1.72] text-text-muted"
           >
             {paragraph}
           </p>
@@ -329,7 +329,7 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
             />
           </PhoneFrame>
           <FloatingPill className="top-[25%] right-[1%] shadow-contrast-s lg:right-[7%]">
-            <b className="text-caption-sm text-text-action">01</b>
+            <b className="text-label text-text-action">01</b>
             <span>{config.callout}</span>
           </FloatingPill>
         </div>
@@ -356,7 +356,7 @@ function OperationsConsole({ config }: { config: OperationsFeature['console'] })
           >
             {item}{' '}
             {item === config.activeNavigation && (
-              <b className="flex h-[20px] w-[20px] items-center justify-center rounded-circle bg-accent text-caption-xs text-text-primary">
+              <b className="flex h-[20px] w-[20px] items-center justify-center rounded-circle bg-accent text-caption text-text-primary">
                 {config.activeCount}
               </b>
             )}
@@ -366,7 +366,7 @@ function OperationsConsole({ config }: { config: OperationsFeature['console'] })
       <div className="px-ml py-xl lg:p-xl">
         <div className="flex flex-col items-start justify-between gap-m border-b border-border-default pb-l lg:flex-row lg:items-end lg:gap-0">
           <div>
-            <small className="text-caption-sm font-heavy tracking-label text-text-action uppercase">
+            <small className="text-label font-heavy tracking-label text-text-action uppercase">
               {config.timestamp}
             </small>
             <h3 className="mt-xs mb-0 text-display tracking-[-0.06em]">{config.title}</h3>
@@ -382,7 +382,7 @@ function OperationsConsole({ config }: { config: OperationsFeature['console'] })
               className="grid grid-cols-[25px_minmax(0,1fr)] items-center gap-s border-b border-border-default px-3xs py-ml lg:grid-cols-[35px_minmax(0,1fr)_auto] lg:gap-ml"
               key={item.number}
             >
-              <span className="text-caption-sm font-black text-text-action">{item.number}</span>
+              <span className="text-label font-black text-text-action">{item.number}</span>
               <div>
                 <h4 className="m-0 mb-3xs text-lead">{item.title}</h4>
                 <p className="m-0 text-label leading-[1.5] text-text-muted">{item.detail}</p>
@@ -419,13 +419,13 @@ function DualSteps({ columns }: { columns: DualStepsFeature['columns'] }) {
             <header className="border-b border-border-default pb-l">
               <small
                 className={cn(
-                  'mb-s block text-caption-sm font-black tracking-label uppercase',
+                  'mb-s block text-label font-black tracking-label uppercase',
                   alt ? 'text-text-primary' : 'text-text-action',
                 )}
               >
                 {column.label}
               </small>
-              <h3 className="m-0 text-display-sm tracking-[-0.06em]">{column.title}</h3>
+              <h3 className="m-0 text-display tracking-[-0.06em]">{column.title}</h3>
               <p
                 className={cn(
                   'mt-s mb-0 max-w-[380px] text-body leading-[1.6]',
@@ -448,7 +448,7 @@ function DualSteps({ columns }: { columns: DualStepsFeature['columns'] }) {
                 >
                   <b
                     className={cn(
-                      'pt-4xs text-caption-sm font-black',
+                      'pt-4xs text-label font-black',
                       alt ? 'text-[var(--blue-950)]' : 'text-text-action',
                     )}
                   >
@@ -483,7 +483,7 @@ function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig['featur
               <HeadingLines heading={config.title} />
             </h2>
           </div>
-          <p className="m-0 max-w-[540px] self-end text-body-lg leading-[1.72] text-[color-mix(in_srgb,var(--surface-page)_78%,transparent)]">
+          <p className="m-0 max-w-[540px] self-end text-lead leading-[1.72] text-[color-mix(in_srgb,var(--surface-page)_78%,transparent)]">
             {config.description}
           </p>
         </div>
@@ -505,7 +505,7 @@ function PortfolioMediaFeature({ config }: { config: MediaFeature }) {
             leads, so the order swap is a breakpoint away. */}
         <div className={cn(config.reverse && 'lg:order-2')}>
           <SectionNumber>{config.eyebrow}</SectionNumber>
-          <h2 className="m-0 text-display-md leading-[1] tracking-[-0.062em]">{config.title}</h2>
+          <h2 className="m-0 text-display leading-[1] tracking-[-0.062em]">{config.title}</h2>
           <p className={cn(caseLeadClassName, 'my-xl max-w-[560px]')}>{config.description}</p>
           <div className="grid grid-cols-[minmax(0,1fr)] border-t border-border-default sm:grid-cols-2 [&>span]:border-b [&>span]:border-border-default [&>span]:py-s [&>span]:text-label [&>span]:font-heavy [&>span]:text-text-muted">
             {config.points.map((point) => (
@@ -545,10 +545,10 @@ function PortfolioIntent({ config }: { config: IntentSection }) {
               key={group.number}
             >
               <header className="lg:min-h-[118px]">
-                <span className="mb-ml block text-caption-sm font-black text-text-action lg:mb-xl">
+                <span className="mb-ml block text-label font-black text-text-action lg:mb-xl">
                   {group.number}
                 </span>
-                <h3 className="m-0 text-body-xl tracking-[-0.035em]">{group.title}</h3>
+                <h3 className="m-0 text-lead tracking-[-0.035em]">{group.title}</h3>
               </header>
               {/* Pinned to the bottom of the card from lg, where the cards
                   share a height and the headers are padded to match. */}
@@ -559,7 +559,7 @@ function PortfolioIntent({ config }: { config: IntentSection }) {
                     key={page}
                   >
                     {page}
-                    <span className="ml-xs text-caption-sm text-text-action">↗</span>
+                    <span className="ml-xs text-label text-text-action">↗</span>
                   </li>
                 ))}
               </ul>

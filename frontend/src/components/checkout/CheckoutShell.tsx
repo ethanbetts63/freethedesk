@@ -17,10 +17,10 @@ import { gridPaperAfterClassName } from '@/lib/gridSurface';
 
 const eyebrowClassName =
   'text-caption font-black tracking-label-wide text-action-primary uppercase';
-const headingClassName = 'my-s text-display-md leading-[0.96] tracking-[-0.065em]';
+const headingClassName = 'my-s text-display leading-[0.96] tracking-[-0.065em]';
 const bodyClassName = 'm-0 text-body leading-[1.6] text-text-muted';
 const fineprintClassName =
-  'mx-auto mt-s max-w-[430px] text-center text-caption-sm leading-[1.5] text-text-subtle';
+  'mx-auto mt-s max-w-[430px] text-center text-label leading-[1.5] text-text-subtle';
 const paymentErrorClassName =
   'my-m border-l-[3px] border-border-danger bg-surface-danger p-s text-label leading-[1.55] text-text-danger';
 
@@ -56,7 +56,7 @@ export function CheckoutShell({
         </div>
         <div className="relative z-2 flex min-h-[540px] flex-col px-ml py-xl sm:min-h-[620px] sm:p-2xl lg:min-h-screen">
           <Link
-            className="w-fit text-body-xl font-black tracking-[-0.07em] text-surface-inverse"
+            className="w-fit text-lead font-black tracking-[-0.07em] text-surface-inverse"
             href="/"
           >
             free
@@ -70,7 +70,7 @@ export function CheckoutShell({
             <p className="m-0 mb-ml text-caption font-black tracking-label-wide text-action-primary uppercase">
               {productLabel}
             </p>
-            <h1 className="m-0 mb-xl max-w-[690px] text-display-lg leading-[0.87] tracking-[-0.075em] sm:text-hero-lg">
+            <h1 className="m-0 mb-xl max-w-[690px] text-hero leading-[0.87] tracking-[-0.075em] sm:text-hero">
               {productName}
             </h1>
             <span className="block max-w-[430px] text-lead leading-[1.65] text-text-muted">

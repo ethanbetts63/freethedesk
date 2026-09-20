@@ -61,7 +61,7 @@ export const FaqSection = ({
           <Eyebrow size="sm" tone="brand" className="mb-l">
             {eyebrow}
           </Eyebrow>
-          <h2 className="m-0 text-display-lg leading-[0.93] font-black tracking-[-0.055em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal]">
+          <h2 className="m-0 text-hero leading-[0.93] font-black tracking-[-0.055em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal]">
             {title}
           </h2>
         </div>
