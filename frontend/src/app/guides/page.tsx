@@ -6,7 +6,7 @@ import Eyebrow from '@/components/common/eyebrow';
 import { PageSchema } from '@/components/PageSchema';
 import { SectionNumber } from '@/components/SectionNumber';
 import { getAllArticleMeta } from '@/lib/articles';
-import { metadataFor, PAGES } from '@/lib/pages';
+import { metadataFor, STATIC_PAGES } from '@/lib/pages';
 
 export const metadata: Metadata = metadataFor('/guides');
 
@@ -39,7 +39,7 @@ export default function GuidesPage() {
             <em className="not-italic text-accent">Plain English.</em>
           </h1>
           <p className="mt-xl max-w-[660px] text-lead leading-[1.65] text-[var(--text-on-dark-muted)]">
-            {PAGES['/guides'].description}
+            {STATIC_PAGES['/guides'].description}
           </p>
         </div>
         <div

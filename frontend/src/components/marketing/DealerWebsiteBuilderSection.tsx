@@ -1,4 +1,4 @@
-import { PrimaryButton } from '@/components/PrimaryButton';
+import { CtaButton } from '@/components/CtaButton';
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
 import { WebsiteProductVisual } from './WebsiteProductVisual';
@@ -25,9 +25,9 @@ export function DealerWebsiteBuilderSection({
       description="Shape a complete dealership website around your brand. Choose the capabilities you need, then explore every page as the demo changes in real time."
       bullets={bullets}
       action={
-        <PrimaryButton href="/dealership-website-builder" size="compact">
+        <CtaButton href="/dealership-website-builder" size="compact">
           Try the free demo
-        </PrimaryButton>
+        </CtaButton>
       }
       visual={<WebsiteProductVisual />}
       textSide="right"

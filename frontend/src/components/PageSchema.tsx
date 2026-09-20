@@ -1,4 +1,4 @@
-import { PAGES, breadcrumbItemsFor, type PageDefinition, type PagePath } from '@/lib/pages';
+import { STATIC_PAGES, breadcrumbItemsFor, type StaticPage, type PagePath } from '@/lib/pages';
 import { buildBreadcrumbSchema, buildServiceSchema, buildWebPageSchema } from '@/lib/seo';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
 
@@ -7,13 +7,13 @@ import StructuredDataScript from '@/components/seo/StructuredDataScript';
  *
  * `serviceOffers` is the one thing the registry cannot hold: the only page with
  * a published price reads it from the admin at request time, so that page passes
- * its offer node in. Everything else is declared once in PAGES.
+ * its offer node in. Everything else is declared once in STATIC_PAGES.
  */
 export function PageSchema({ path, serviceOffers }: { path: PagePath; serviceOffers?: object }) {
-  // Annotated rather than inferred: `as const satisfies` narrows each PAGES
+  // Annotated rather than inferred: `as const satisfies` narrows each STATIC_PAGES
   // entry to its own literal shape, so the optional fields are absent from the
   // union unless every page happens to declare them.
-  const page: PageDefinition = PAGES[path];
+  const page: StaticPage = STATIC_PAGES[path];
   const { title, description, updated, service } = page;
   const schemas: object[] = [buildWebPageSchema({ title, description, path, updated })];
 

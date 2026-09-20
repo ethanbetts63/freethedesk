@@ -20,9 +20,9 @@ import {
   updateSeoSubscriber,
   type SeoSubscriber,
 } from '@/lib/adminApi';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
-import { adminDetailGridClassName } from '@/components/dashboard/AdminCard';
-import { adminBackClassName, adminPageClassName } from '@/components/dashboard/adminLayout';
+import { Notice } from '@/components/ui/Notice';
+import { detailGridClassName } from '@/components/ui/Card';
+import { backClassName, pageClassName } from '@/components/ui/layout';
 
 export default function SeoSubscriberDetailPage() {
   const id = Number(useParams<{ subscriberId: string }>().subscriberId);
@@ -39,23 +39,23 @@ export default function SeoSubscriberDetailPage() {
 
   if (loading)
     return (
-      <div className={adminPageClassName}>
+      <div className={pageClassName}>
         <p className="text-text-subtle">Loading SEO customer…</p>
       </div>
     );
   if (error && !account)
     return (
-      <div className={adminPageClassName}>
-        <Link className={adminBackClassName} href="/dashboard/seo">
+      <div className={pageClassName}>
+        <Link className={backClassName} href="/dashboard/seo">
           ← SEO customers
         </Link>
-        <AdminNotice tone="danger">{error}</AdminNotice>
+        <Notice tone="danger">{error}</Notice>
       </div>
     );
   if (!account) return null;
 
   return (
-    <div className={adminPageClassName}>
+    <div className={pageClassName}>
       <AccountDetailHeader
         backHref="/dashboard/seo"
         backLabel="Back to SEO customers"
@@ -66,10 +66,10 @@ export default function SeoSubscriberDetailPage() {
         actionLabel="Email customer →"
       />
 
-      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
-      {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
+      {error && <Notice tone="danger">{error}</Notice>}
+      {notice && <Notice tone="success">{notice}</Notice>}
 
-      <div className={adminDetailGridClassName}>
+      <div className={detailGridClassName}>
         <AccountStatusCard
           status={account.status}
           saving={saving}

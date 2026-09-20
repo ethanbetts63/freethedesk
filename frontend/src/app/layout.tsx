@@ -1,23 +1,46 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { ClarityAnalytics } from '@/components/analytics/ClarityAnalytics';
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import { ScrollToTop } from '@/components/common/ScrollToTop';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import { SiteChrome } from '@/components/SiteChrome';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
-import { PAGES } from '@/lib/pages';
+import { STATIC_PAGES } from '@/lib/pages';
 import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo';
-import { METADATA_BASE_URL } from '@/lib/siteConfig';
+import { SITE_URL } from '@/lib/siteConfig';
 import './globals.css';
 
 const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? '';
 
+/**
+ * GA4's measurement id. Public in the same way Clarity's is -- it ships in the
+ * gtag.js URL -- and unset outside production for the same reason, so a preview
+ * deploy does not file its traffic under the real property.
+ */
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? '';
+
+/**
+ * The three signed-in portals, kept out of the property.
+ *
+ * Neither CLARITY_EXCLUDED_ROUTES nor APPLICATION_ROUTES, though it overlaps
+ * both. Clarity's list is a security decision about what a third party gets a
+ * picture of, and APPLICATION_ROUTES is about which chrome a page wears -- it
+ * holds /sale and /dealership-website-builder, which are customer-facing and
+ * exactly what this property is being installed to measure. What is excluded
+ * here is excluded for a measurement reason only: staff live in these three for
+ * hours a day, and left in they sit on top of every engagement, retention and
+ * landing-page number on the property.
+ */
+const GA_EXCLUDED_ROUTES = ['/dashboard', '/portal', '/seo-portal'];
+
 export const metadata: Metadata = {
-  metadataBase: new URL(METADATA_BASE_URL),
-  title: PAGES['/'].title,
-  description: PAGES['/'].description,
+  metadataBase: new URL(SITE_URL),
+  title: STATIC_PAGES['/'].title,
+  description: STATIC_PAGES['/'].description,
   verification: {
     google: 'NPT1jo_98rxtDYj63w_sk4NePShMgItyKEdFQdigwOk',
   },
@@ -46,7 +69,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
         </SiteChrome>
         <Analytics />
+        <SpeedInsights />
         {CLARITY_PROJECT_ID && <ClarityAnalytics projectId={CLARITY_PROJECT_ID} />}
+        {GA_MEASUREMENT_ID && (
+          <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} excludedRoutes={GA_EXCLUDED_ROUTES} />
+        )}
       </body>
     </html>
   );

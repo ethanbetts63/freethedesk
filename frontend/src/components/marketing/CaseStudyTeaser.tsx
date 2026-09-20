@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { PrimaryButton } from '@/components/PrimaryButton';
+import { CtaButton } from '@/components/CtaButton';
 import { SectionHeader } from '@/components/SectionHeader';
 import { PhoneFrame } from '@/components/visuals/PhoneFrame';
 
@@ -71,9 +71,9 @@ export function CaseStudyTeaser({
           </div>
           <div className="flex flex-wrap items-center gap-ml">
             {showPrimaryAction && (
-              <PrimaryButton href={primaryHref} direction="down" size="compact">
+              <CtaButton href={primaryHref} direction="down" size="compact">
                 {primaryLabel}
-              </PrimaryButton>
+              </CtaButton>
             )}
             <Link
               href="/portfolio/scooter-shop"

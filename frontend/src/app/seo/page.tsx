@@ -48,7 +48,7 @@ const casePoints = [
 export default async function SeoPage() {
   const settings = await getSiteSettingsServer();
 
-  // The Service node itself is declared in PAGES; only the price is dynamic.
+  // The Service node itself is declared in STATIC_PAGES; only the price is dynamic.
   const serviceOffers = {
     '@type': 'Offer',
     price: settings.seo_quarterly_price,

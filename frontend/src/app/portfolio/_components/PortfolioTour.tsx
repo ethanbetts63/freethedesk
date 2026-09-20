@@ -1,6 +1,6 @@
 'use client';
 
-import { KeyboardEvent, useId, useRef, useState } from 'react';
+import { type KeyboardEvent, useId, useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
 

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
-import { buildBreadcrumbItems, pageMetadata, type ServiceDefinition } from './seo';
+import { buildBreadcrumbItems, buildMetadata, type ServiceDefinition } from './seo';
 
-export interface PageDefinition {
+export interface StaticPage {
   title: string;
   description: string;
 
@@ -35,11 +35,9 @@ export interface PageDefinition {
    * sitewide default.
    */
   service?: ServiceDefinition;
-
-  sitemap?: { changeFrequency: 'weekly' | 'monthly' | 'yearly'; priority: number };
 }
 
-export const PAGES = {
+export const STATIC_PAGES = {
   '/': {
     updated: '2026-09-09',
     label: 'Home',
@@ -47,7 +45,6 @@ export const PAGES = {
     description:
       'Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.',
     absoluteTitle: true,
-    sitemap: { changeFrequency: 'weekly', priority: 1 },
   },
   '/dealers': {
     updated: '2026-09-09',
@@ -55,7 +52,6 @@ export const PAGES = {
     title: 'Fire your admin | Online Licensing & Digital Dealerships Australia, Perth',
     description:
       'Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.',
-    sitemap: { changeFrequency: 'weekly', priority: 0.95 },
   },
   '/licensing': {
     updated: '2026-09-19',
@@ -68,7 +64,6 @@ export const PAGES = {
       serviceType: 'Online vehicle licensing and contract signing',
       areaServed: { type: 'Country', name: 'Australia' },
     },
-    sitemap: { changeFrequency: 'weekly', priority: 0.95 },
   },
   '/website-development': {
     updated: '2026-09-09',
@@ -84,7 +79,6 @@ export const PAGES = {
       serviceType: 'Website development and web application development',
       areaServed: { type: 'City', name: 'Perth' },
     },
-    sitemap: { changeFrequency: 'weekly', priority: 0.9 },
   },
   '/dealership-website-builder': {
     updated: '2026-09-08',
@@ -92,7 +86,6 @@ export const PAGES = {
     title: 'Interactive Digital Dealership Builder | Custom Dealer Websites & Automation',
     description:
       'Configure a dealership website around the way your business sells, books and grows.',
-    sitemap: { changeFrequency: 'monthly', priority: 0.85 },
   },
   '/automation': {
     updated: '2026-09-09',
@@ -105,7 +98,6 @@ export const PAGES = {
       serviceType: 'Workflow automation and systems integration',
       areaServed: { type: 'Country', name: 'Australia' },
     },
-    sitemap: { changeFrequency: 'monthly', priority: 0.75 },
   },
   '/seo': {
     updated: '2026-09-09',
@@ -118,7 +110,6 @@ export const PAGES = {
       serviceType: 'SEO consulting and reporting',
       areaServed: { type: 'Country', name: 'Australia' },
     },
-    sitemap: { changeFrequency: 'monthly', priority: 0.75 },
   },
   '/guides': {
     updated: '2026-09-09',
@@ -126,7 +117,6 @@ export const PAGES = {
     title: 'Steal our playbook | Dealership Website & Automation Guides',
     description:
       'Practical guides for Australian dealerships on websites, search visibility, online sales, licensing and better operational systems.',
-    sitemap: { changeFrequency: 'weekly', priority: 0.7 },
   },
   '/portfolio/scooter-shop': {
     updated: '2026-09-08',
@@ -135,7 +125,6 @@ export const PAGES = {
     description:
       'A connected dealership website for sales, online purchasing, licensing, parts, service, hire and long-term organic growth.',
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
-    sitemap: { changeFrequency: 'monthly', priority: 0.75 },
   },
   '/portfolio/bloomprint': {
     updated: '2026-09-08',
@@ -144,7 +133,6 @@ export const PAGES = {
     description:
       'A two-sided flower delivery marketplace: brief-led ordering for customers, paid local orders for independent florists, and a landing page system built to be found.',
     ogImage: '/case-studies/bloomprint/home-desktop.png',
-    sitemap: { changeFrequency: 'monthly', priority: 0.75 },
   },
   '/contact': {
     updated: '2026-09-08',
@@ -152,32 +140,59 @@ export const PAGES = {
     title: 'Bring us the bottleneck | Website & Automation Developers Australia, Perth',
     description:
       'Talk to freethedesk about a custom website, online licensing product, web application or business automation project.',
-    sitemap: { changeFrequency: 'yearly', priority: 0.65 },
   },
   '/legal/privacy': {
-    updated: '2026-09-08',
+    updated: '2026-09-19',
     label: 'Privacy policy',
     title: 'Privacy Policy',
     description: 'How freethedesk collects, uses, stores and discloses personal information.',
-    sitemap: { changeFrequency: 'yearly', priority: 0.3 },
+  },
+  '/legal/customer-terms': {
+    updated: '2026-09-19',
+    label: 'Customer terms',
+    title: 'Customer Terms',
+    description:
+      'Terms for a customer completing vehicle paperwork through a dealership on freethedesk.',
   },
   '/legal/dealer-subscription-terms': {
     updated: '2026-09-19',
     label: 'Dealer subscription terms',
     title: 'Dealer Subscription Terms',
     description: 'Terms for freethedesk dealer licensing and contract subscriptions.',
-    sitemap: { changeFrequency: 'yearly', priority: 0.3 },
   },
   '/legal/seo-subscription-terms': {
     updated: '2026-09-19',
     label: 'SEO reporting terms',
     title: 'SEO Reporting & Audit Terms',
     description: 'Terms for freethedesk SEO reporting and audit services.',
-    sitemap: { changeFrequency: 'yearly', priority: 0.3 },
   },
-} as const satisfies Record<string, PageDefinition>;
+} as const satisfies Record<string, StaticPage>;
 
-export type PagePath = keyof typeof PAGES;
+export type PagePath = keyof typeof STATIC_PAGES;
+
+/**
+ * Static routes that are crawlable but not indexable — state 3 of
+ * seo-standard.md section 2, which this registry could not express at all
+ * until 2026-09-20.
+ *
+ * Each one's `page.tsx` must `export const metadata = NOINDEX_METADATA`, and
+ * `check-indexation-ledger.mjs` fails the build when one does not: listing a
+ * route here is not what makes it noindexed, and a ledger that only checks the
+ * decision was recorded is worse than none.
+ *
+ * `noindex` rather than a robots.txt disallow, because noindex needs the page
+ * crawled to take effect: a disallowed page can still surface as a bare URL
+ * with no title if anything external links to it.
+ */
+export const STATIC_NOINDEX_PAGES: string[] = [];
+
+/**
+ * What a noindex route's `page.tsx` must export for its declaration above to
+ * be true. Mirrors bloomprint's `NOINDEX_METADATA`.
+ */
+export const NOINDEX_METADATA: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 /**
  * Routes whose page is only a `redirect`/`permanentRedirect` call — no content
@@ -185,13 +200,12 @@ export type PagePath = keyof typeof PAGES;
  * destination carries its own. Listed so the indexation ledger doesn't flag a
  * stub as an undeclared route. Mirrors allbikes' `REDIRECT_STUBS`.
  */
-export const REDIRECT_STUBS: string[] = [
-  '/blog',
-  '/blog/[slug]',
-  // Bounces to /dashboard/enquiries; also covered by the robots.txt disallow
-  // on /dashboard, but a redirect stub either way.
-  '/dashboard',
-];
+export const REDIRECT_STUBS: string[] = ['/blog', '/blog/[slug]'];
+
+// `/dashboard` is deliberately NOT here. It bounces to /dashboard/enquiries
+// AND is robots-disallowed, and seo-standard.md section 2 wants exactly one
+// bucket per route. Disallowed is the real statement — the whole tree is a
+// staff area — so the stub entry was the redundant one.
 
 /**
  * Route *families* whose pages are generated from data rather than
@@ -203,23 +217,40 @@ export const REDIRECT_STUBS: string[] = [
  * disallow, not by this registry.
  */
 export interface DynamicRouteFamily {
+  /** The route as it appears in the app tree, dynamic segments included. */
   pattern: string;
+  /** One of the four ledger states, or 'conditional' when it varies by record. */
   state: 'listed' | 'unlisted' | 'noindex' | 'conditional';
-  policySource: string;
+  /**
+   * Where the real per-record decision is made, split into a module and a
+   * symbol so the ledger can assert both still exist. As one prose string this
+   * was read by nothing, and a renamed resolver rotted it silently.
+   *
+   * Deliberately not a function reference: the resolvers live in `lib/seo.ts`
+   * and `app/sitemap.ts`, which pull in the server API client, so importing
+   * them here would drag that graph into the one module every build-time check
+   * loads. A path plus a symbol is verifiable without the import edge.
+   */
+  policyModule: string;
+  /** A named export, or any distinctive line, inside `policyModule`. */
+  policySymbol?: string;
+  /** Why it resolves the way it does. Prose, for a human. */
+  policyNote?: string;
 }
 
 export const DYNAMIC_ROUTE_FAMILIES: DynamicRouteFamily[] = [
   {
     pattern: '/[slug]',
     state: 'listed',
-    policySource:
-      'lib/articles.ts#getAllArticleMeta — every article is published, none are noindex',
+    policyModule: 'lib/articles.ts',
+    policySymbol: 'getAllArticleMeta',
+    policyNote: 'every article is published, none are noindex',
   },
 ];
 
 export function metadataFor(path: PagePath): Metadata {
-  const page: PageDefinition = PAGES[path];
-  return pageMetadata({ ...page, path });
+  const page: StaticPage = STATIC_PAGES[path];
+  return buildMetadata({ ...page, path });
 }
 
 /**
@@ -232,6 +263,6 @@ export function metadataFor(path: PagePath): Metadata {
  * the two from drifting apart.
  */
 export function breadcrumbItemsFor(path: PagePath): { name: string; path: string }[] {
-  const { title, label } = PAGES[path];
-  return buildBreadcrumbItems(path, label ?? title).filter((item) => item.path in PAGES);
+  const { title, label } = STATIC_PAGES[path];
+  return buildBreadcrumbItems(path, label ?? title).filter((item) => item.path in STATIC_PAGES);
 }

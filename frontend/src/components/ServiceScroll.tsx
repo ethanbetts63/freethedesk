@@ -1,4 +1,4 @@
-import { PrimaryButton } from '@/components/PrimaryButton';
+import { CtaButton } from '@/components/CtaButton';
 import { SectionHeader } from '@/components/SectionHeader';
 
 export type Service = {
@@ -120,13 +120,13 @@ export function ServiceScroll({
             </p>
           </div>
           {showCustomCta && (
-            <PrimaryButton
+            <CtaButton
               className="relative z-1 flex-none justify-self-start sm:col-start-2 lg:col-auto lg:justify-self-auto"
               href={customHref}
               direction={ctaDirection}
             >
               {ctaLabel}
-            </PrimaryButton>
+            </CtaButton>
           )}
         </div>
       )}

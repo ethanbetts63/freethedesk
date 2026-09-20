@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { enquiryStatuses, StatusPill } from '@/components/dashboard/StatusPill';
 import { safeWebsiteHref } from '@/lib/api';
-import { AdminButton } from '@/components/dashboard/AdminButton';
+import { Button } from '@/components/ui/Button';
 import {
   ENQUIRY_TYPE,
   formatDateTime,
@@ -15,31 +15,30 @@ import {
   type AdminMessage,
   type Enquiry,
 } from '@/lib/adminApi';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { Notice } from '@/components/ui/Notice';
 import {
-  AdminDetailItem,
-  adminCardClassName,
-  adminCardHeadingClassName,
-  adminCardLabelClassName,
-  adminCardLinkClassName,
-  adminCardTitleClassName,
-  adminCardWideClassName,
-  adminDetailGridClassName,
-  adminDetailListClassName,
-  adminMessageBodyClassName,
-  adminStatusCardClassName,
-  adminStatusCardLabelGroupClassName,
-  adminStatusCardSelectClassName,
-} from '@/components/dashboard/AdminCard';
+  DetailItem,
+  cardClassName,
+  cardHeadingClassName,
+  cardLabelClassName,
+  cardLinkClassName,
+  cardTitleClassName,
+  cardWideClassName,
+  detailGridClassName,
+  detailListClassName,
+  messageBodyClassName,
+  statusCardClassName,
+  statusCardLabelGroupClassName,
+  statusCardSelectClassName,
+} from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
-import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { backClassName, pageClassName } from '@/components/ui/layout';
 import {
-  adminBackClassName,
   adminConfigBasicsClassName,
   adminConfigGroupClassName,
   adminConfigLabelClassName,
   adminConfigRequestClassName,
-  adminPageClassName,
   adminRelatedMessagesClassName,
 } from '@/components/dashboard/adminLayout';
 
@@ -93,17 +92,17 @@ export default function EnquiryDetailPage() {
 
   if (loading)
     return (
-      <div className={adminPageClassName}>
+      <div className={pageClassName}>
         <p className="text-text-subtle">Loading enquiry…</p>
       </div>
     );
   if (error && !enquiry)
     return (
-      <div className={adminPageClassName}>
-        <Link className={adminBackClassName} href="/dashboard/enquiries">
+      <div className={pageClassName}>
+        <Link className={backClassName} href="/dashboard/enquiries">
           ← Enquiries
         </Link>
-        <AdminNotice tone="danger">{error}</AdminNotice>
+        <Notice tone="danger">{error}</Notice>
       </div>
     );
   if (!enquiry) return null;
@@ -115,27 +114,27 @@ export default function EnquiryDetailPage() {
     configuration.inventory_options?.filter((item) => item.selected) ?? [];
 
   return (
-    <div className={adminPageClassName}>
-      <Link className={adminBackClassName} href="/dashboard/enquiries">
+    <div className={pageClassName}>
+      <Link className={backClassName} href="/dashboard/enquiries">
         ← Back to enquiries
       </Link>
-      <AdminPageHeader
+      <PageHeader
         align="center"
         kicker={`Enquiry #${enquiry.id}`}
         title={enquiry.business}
         subtitle={`${enquiry.name} · received ${formatDateTime(enquiry.created_at)}`}
       >
-        <AdminButton href={replyHref}>Reply by email →</AdminButton>
-      </AdminPageHeader>
-      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
-      <div className={adminDetailGridClassName}>
-        <section className={adminStatusCardClassName}>
-          <div className={adminStatusCardLabelGroupClassName}>
-            <p className={adminCardLabelClassName}>Workflow status</p>
+        <Button href={replyHref}>Reply by email →</Button>
+      </PageHeader>
+      {error && <Notice tone="danger">{error}</Notice>}
+      <div className={detailGridClassName}>
+        <section className={statusCardClassName}>
+          <div className={statusCardLabelGroupClassName}>
+            <p className={cardLabelClassName}>Workflow status</p>
             <StatusPill status={enquiry.status} />
           </div>
           <select
-            className={adminStatusCardSelectClassName}
+            className={statusCardSelectClassName}
             value={enquiry.status}
             disabled={saving}
             onChange={(event) => changeStatus(event.target.value)}
@@ -147,29 +146,29 @@ export default function EnquiryDetailPage() {
             ))}
           </select>
         </section>
-        <section className={adminCardClassName}>
-          <h2 className={adminCardTitleClassName}>Contact</h2>
-          <dl className={adminDetailListClassName}>
-            <AdminDetailItem term="Name">{enquiry.name}</AdminDetailItem>
-            <AdminDetailItem term="Business">{enquiry.business}</AdminDetailItem>
-            <AdminDetailItem term="Email">
-              <a className={adminCardLinkClassName} href={`mailto:${enquiry.email}`}>
+        <section className={cardClassName}>
+          <h2 className={cardTitleClassName}>Contact</h2>
+          <dl className={detailListClassName}>
+            <DetailItem term="Name">{enquiry.name}</DetailItem>
+            <DetailItem term="Business">{enquiry.business}</DetailItem>
+            <DetailItem term="Email">
+              <a className={cardLinkClassName} href={`mailto:${enquiry.email}`}>
                 {enquiry.email}
               </a>
-            </AdminDetailItem>
-            <AdminDetailItem term="Phone">
+            </DetailItem>
+            <DetailItem term="Phone">
               {enquiry.phone ? (
-                <a className={adminCardLinkClassName} href={`tel:${enquiry.phone}`}>
+                <a className={cardLinkClassName} href={`tel:${enquiry.phone}`}>
                   {enquiry.phone}
                 </a>
               ) : (
                 'Not supplied'
               )}
-            </AdminDetailItem>
-            <AdminDetailItem term="Website">
+            </DetailItem>
+            <DetailItem term="Website">
               {websiteHref ? (
                 <a
-                  className={adminCardLinkClassName}
+                  className={cardLinkClassName}
                   href={websiteHref}
                   target="_blank"
                   rel="noreferrer"
@@ -179,27 +178,27 @@ export default function EnquiryDetailPage() {
               ) : (
                 enquiry.website || 'Not supplied'
               )}
-            </AdminDetailItem>
-            <AdminDetailItem term="Interested in">{enquiry.help_with_label}</AdminDetailItem>
+            </DetailItem>
+            <DetailItem term="Interested in">{enquiry.help_with_label}</DetailItem>
             {configuration.budget && (
-              <AdminDetailItem term="Stated budget">{configuration.budget}</AdminDetailItem>
+              <DetailItem term="Stated budget">{configuration.budget}</DetailItem>
             )}
           </dl>
         </section>
         {enquiry.help_with === 'website_builder' && (
-          <section className={cn(adminCardClassName, adminCardWideClassName)}>
-            <div className={adminCardHeadingClassName}>
-              <h2 className={adminCardTitleClassName}>Website configuration</h2>
+          <section className={cn(cardClassName, cardWideClassName)}>
+            <div className={cardHeadingClassName}>
+              <h2 className={cardTitleClassName}>Website configuration</h2>
               <span className={adminConfigLabelClassName}>Interactive builder</span>
             </div>
-            <dl className={cn(adminDetailListClassName, adminConfigBasicsClassName)}>
-              <AdminDetailItem term="Brand name">
+            <dl className={cn(detailListClassName, adminConfigBasicsClassName)}>
+              <DetailItem term="Brand name">
                 {configuration.appearance?.brand_name || enquiry.business}
-              </AdminDetailItem>
-              <AdminDetailItem term="Current URL">
+              </DetailItem>
+              <DetailItem term="Current URL">
                 {configuration.appearance?.current_url || 'Not supplied'}
-              </AdminDetailItem>
-              <AdminDetailItem term="Build version">{configuration.version ?? '—'}</AdminDetailItem>
+              </DetailItem>
+              <DetailItem term="Build version">{configuration.version ?? '—'}</DetailItem>
             </dl>
             <div className={adminConfigGroupClassName}>
               <strong>Selected capabilities</strong>
@@ -229,14 +228,14 @@ export default function EnquiryDetailPage() {
             )}
           </section>
         )}
-        <section className={cn(adminCardClassName, adminCardWideClassName)}>
-          <h2 className={adminCardTitleClassName}>What they said</h2>
-          <p className={adminMessageBodyClassName}>{enquiry.message}</p>
+        <section className={cn(cardClassName, cardWideClassName)}>
+          <h2 className={cardTitleClassName}>What they said</h2>
+          <p className={messageBodyClassName}>{enquiry.message}</p>
         </section>
-        <section className={cn(adminCardClassName, adminCardWideClassName)}>
-          <div className={adminCardHeadingClassName}>
-            <h2 className={adminCardTitleClassName}>Related messages</h2>
-            <Link className={adminCardLinkClassName} href={replyHref}>
+        <section className={cn(cardClassName, cardWideClassName)}>
+          <div className={cardHeadingClassName}>
+            <h2 className={cardTitleClassName}>Related messages</h2>
+            <Link className={cardLinkClassName} href={replyHref}>
               Compose reply
             </Link>
           </div>

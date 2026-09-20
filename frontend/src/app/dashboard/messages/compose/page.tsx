@@ -1,25 +1,24 @@
 'use client';
 
 import Link from 'next/link';
-import { FormEvent, Suspense, useActionState, useRef, useState } from 'react';
+import { type FormEvent, Suspense, useActionState, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { submitComposeMessage, type ComposeMessageState } from './ComposeMessage.actions';
-import { AdminButton } from '@/components/dashboard/AdminButton';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { Button } from '@/components/ui/Button';
+import { Notice } from '@/components/ui/Notice';
 import {
   adminFormClassName,
   adminFormControlClassName,
   adminFormLabelClassName,
   adminFormTextareaClassName,
-} from '@/components/dashboard/formControl';
+} from '@/components/ui/formControl';
 import { cn } from '@/lib/utils';
-import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { backClassName, pageClassName } from '@/components/ui/layout';
 import {
-  adminBackClassName,
   adminComposeBadgeClassName,
   adminComposeCardClassName,
   adminComposePageClassName,
-  adminPageClassName,
 } from '@/components/dashboard/adminLayout';
 
 const initialState: ComposeMessageState = { status: 'idle' };
@@ -61,15 +60,15 @@ function ComposeMessageContent() {
   }
 
   return (
-    <div className={cn(adminPageClassName, adminComposePageClassName)}>
+    <div className={cn(pageClassName, adminComposePageClassName)}>
       <Link
-        className={adminBackClassName}
+        className={backClassName}
         href={relatedEnquiry ? `/dashboard/enquiries/${relatedEnquiry}` : '/dashboard/messages'}
       >
         ← Back
       </Link>
       <section className={adminComposeCardClassName}>
-        <AdminPageHeader
+        <PageHeader
           className="mb-l border-b border-border-default pb-ml"
           kicker="Outbound message"
           title="Compose email"
@@ -77,8 +76,8 @@ function ComposeMessageContent() {
           {relatedEnquiry && (
             <span className={adminComposeBadgeClassName}>Linked to enquiry #{relatedEnquiry}</span>
           )}
-        </AdminPageHeader>
-        {state.status === 'error' && <AdminNotice tone="danger">{state.error}</AdminNotice>}
+        </PageHeader>
+        {state.status === 'error' && <Notice tone="danger">{state.error}</Notice>}
         <form className={adminFormClassName} onSubmit={submit}>
           <label className={adminFormLabelClassName}>
             To
@@ -116,9 +115,9 @@ function ComposeMessageContent() {
                 Up to 10 files; 20 MB each and 24 MB total.
               </small>
             </div>
-            <AdminButton variant="quiet" onClick={() => inputRef.current?.click()}>
+            <Button variant="quiet" onClick={() => inputRef.current?.click()}>
               Attach files
-            </AdminButton>
+            </Button>
             <input
               ref={inputRef}
               type="file"
@@ -156,17 +155,17 @@ function ComposeMessageContent() {
             )}
           </section>
           {confirming && (
-            <AdminNotice tone="warning" role="alert">
+            <Notice tone="warning" role="alert">
               Send this email to <strong>{to}</strong>? Press send again to confirm, or{' '}
-              <AdminButton variant="inline" type="button" onClick={() => setConfirming(false)}>
+              <Button variant="inline" type="button" onClick={() => setConfirming(false)}>
                 cancel
-              </AdminButton>
+              </Button>
               .
-            </AdminNotice>
+            </Notice>
           )}
-          <AdminButton className="self-start" type="submit" disabled={isPending}>
+          <Button className="self-start" type="submit" disabled={isPending}>
             {isPending ? 'Sending…' : confirming ? 'Confirm and send' : 'Send email'}
-          </AdminButton>
+          </Button>
         </form>
       </section>
     </div>
@@ -177,7 +176,7 @@ export default function ComposeMessagePage() {
   return (
     <Suspense
       fallback={
-        <div className={adminPageClassName}>
+        <div className={pageClassName}>
           <p className="text-text-subtle">Loading composer…</p>
         </div>
       }

@@ -4,22 +4,22 @@ import { useActionState, useEffect, useState } from 'react';
 import { getDealerAccount, type DealerAccount } from '@/lib/dealerApi';
 import { DEALER_STATES } from '@/lib/dealerStates';
 import { submitPortalAccount, type PortalAccountState } from './PortalAccount.actions';
-import { AdminButton } from '@/components/dashboard/AdminButton';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { Button } from '@/components/ui/Button';
+import { Notice } from '@/components/ui/Notice';
 import {
-  adminCardClassName,
-  adminCardTitleClassName,
-  adminCardWideClassName,
-  adminDetailGridClassName,
-} from '@/components/dashboard/AdminCard';
+  cardClassName,
+  cardTitleClassName,
+  cardWideClassName,
+  detailGridClassName,
+} from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
-import { adminPageClassName } from '@/components/dashboard/adminLayout';
-import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
+import { pageClassName } from '@/components/ui/layout';
+import { PageHeader } from '@/components/ui/PageHeader';
 import {
   adminFormClassName,
   adminFormControlClassName,
   adminFormLabelClassName,
-} from '@/components/dashboard/formControl';
+} from '@/components/ui/formControl';
 
 const initialState: PortalAccountState = { status: 'idle' };
 
@@ -74,28 +74,28 @@ export default function PortalAccountPage() {
 
   if (loading)
     return (
-      <div className={adminPageClassName}>
+      <div className={pageClassName}>
         <p className="text-text-subtle">Loading your account…</p>
       </div>
     );
   if (error && !account)
     return (
-      <div className={adminPageClassName}>
-        <AdminNotice tone="danger">{error}</AdminNotice>
+      <div className={pageClassName}>
+        <Notice tone="danger">{error}</Notice>
       </div>
     );
   if (!account) return null;
 
   return (
-    <div className={adminPageClassName}>
-      <AdminPageHeader kicker="Dealer portal" title="Account details" />
+    <div className={pageClassName}>
+      <PageHeader kicker="Dealer portal" title="Account details" />
 
-      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
-      {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
+      {error && <Notice tone="danger">{error}</Notice>}
+      {notice && <Notice tone="success">{notice}</Notice>}
 
-      <div className={adminDetailGridClassName}>
-        <section className={cn(adminCardClassName, adminCardWideClassName)}>
-          <h2 className={adminCardTitleClassName}>Your dealership</h2>
+      <div className={detailGridClassName}>
+        <section className={cn(cardClassName, cardWideClassName)}>
+          <h2 className={cardTitleClassName}>Your dealership</h2>
           <form className={adminFormClassName} onSubmit={onSubmit}>
             <label className={adminFormLabelClassName}>
               Business name
@@ -152,9 +152,9 @@ export default function PortalAccountPage() {
                 will move it across.
               </small>
             </label>
-            <AdminButton type="submit" disabled={saving || !dirty}>
+            <Button type="submit" disabled={saving || !dirty}>
               {saving ? 'Saving…' : 'Save changes'}
-            </AdminButton>
+            </Button>
           </form>
         </section>
       </div>

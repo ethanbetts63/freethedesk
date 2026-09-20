@@ -1,17 +1,17 @@
 'use client';
 
-import { FormEvent, Suspense, useEffect, useState } from 'react';
+import { type FormEvent, Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { homeFor } from '@/lib/api';
 import { SignalFlow } from '@/components/visuals/SignalFlow';
-import { AdminButton } from '@/components/dashboard/AdminButton';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
-import { formControlClassName } from '@/components/dashboard/formControl';
+import { Button } from '@/components/ui/Button';
+import { Notice } from '@/components/ui/Notice';
+import { formControlClassName } from '@/components/ui/formControl';
 import { adminLoadingClassName } from '@/components/dashboard/dashboardChrome';
 import { cn } from '@/lib/utils';
-import { adminBrandClassName, adminKickerClassName } from '@/components/dashboard/adminLayout';
+import { brandClassName, kickerClassName } from '@/components/ui/layout';
 import { gridPaperBeforeClassName } from '@/lib/gridSurface';
 
 function LoginContent() {
@@ -62,18 +62,18 @@ function LoginContent() {
         <SignalFlow />
       </div>
       <section className="relative z-1 w-full max-w-[450px] border border-[color-mix(in_srgb,var(--slate-300)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] px-ml py-xl shadow-l backdrop-blur-[13px] sm:p-xl">
-        <Link className={adminBrandClassName} href="/">
+        <Link className={brandClassName} href="/">
           free<span>the</span>desk<i>.</i>
         </Link>
-        <p className={cn(adminKickerClassName, 'mt-xl')}>Sign in</p>
+        <p className={cn(kickerClassName, 'mt-xl')}>Sign in</p>
         <h1 className="m-0 text-title tracking-[-0.06em]">Welcome back</h1>
         <p className="mt-s mb-xl text-body-sm leading-[1.5] text-text-muted">
           Dealers and staff sign in here — we will take you to the right place.
         </p>
         {justReset && (
-          <AdminNotice tone="success" size="field">
+          <Notice tone="success" size="field">
             Your password has been changed. Sign in with the new one.
-          </AdminNotice>
+          </Notice>
         )}
         <form className="mt-m flex flex-col gap-m" onSubmit={submit}>
           <label className="text-label font-heavy">
@@ -96,13 +96,13 @@ function LoginContent() {
             />
           </label>
           {error && (
-            <AdminNotice tone="danger" size="field">
+            <Notice tone="danger" size="field">
               {error}
-            </AdminNotice>
+            </Notice>
           )}
-          <AdminButton type="submit" disabled={submitting || loading}>
+          <Button type="submit" disabled={submitting || loading}>
             {submitting ? 'Signing in…' : 'Sign in'}
-          </AdminButton>
+          </Button>
         </form>
         <p className="mt-ml text-label text-text-muted">
           <Link

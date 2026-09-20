@@ -1,4 +1,4 @@
-import { PrimaryButton } from '@/components/PrimaryButton';
+import { CtaButton } from '@/components/CtaButton';
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
 import { FlagshipCheckoutVisual } from './FlagshipCheckoutVisual';
@@ -19,9 +19,9 @@ export function FlagshipCheckout() {
       description="Let customers purchase, complete their paperwork and arrange handover without needing to visit the dealership."
       bullets={bullets}
       action={
-        <PrimaryButton href="/licensing" size="compact">
+        <CtaButton href="/licensing" size="compact">
           Explore online licensing
-        </PrimaryButton>
+        </CtaButton>
       }
       visual={<FlagshipCheckoutVisual />}
       textSide="right"

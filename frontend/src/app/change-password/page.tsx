@@ -1,11 +1,11 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { changePassword, getProfile, homeFor } from '@/lib/api';
-import { AdminButton } from '@/components/dashboard/AdminButton';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { Button } from '@/components/ui/Button';
+import { Notice } from '@/components/ui/Notice';
 import { adminLoadingClassName } from '@/components/dashboard/dashboardChrome';
 import { AuthCard } from '@/components/auth/AuthCard';
 import { MINIMUM_PASSWORD_LENGTH, PasswordField } from '@/components/auth/PasswordFields';
@@ -84,13 +84,13 @@ export default function ChangePasswordPage() {
           minLength={MINIMUM_PASSWORD_LENGTH}
         />
         {error && (
-          <AdminNotice tone="danger" size="field">
+          <Notice tone="danger" size="field">
             {error}
-          </AdminNotice>
+          </Notice>
         )}
-        <AdminButton type="submit" disabled={submitting}>
+        <Button type="submit" disabled={submitting}>
           {submitting ? 'Saving…' : 'Change password'}
-        </AdminButton>
+        </Button>
       </form>
     </AuthCard>
   );

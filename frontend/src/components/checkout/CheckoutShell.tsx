@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, ReactNode, useState } from 'react';
+import { type FormEvent, type ReactNode, useState } from 'react';
 import Link from 'next/link';
 import { PaymentElement, useCheckoutElements } from '@stripe/react-stripe-js/checkout';
 

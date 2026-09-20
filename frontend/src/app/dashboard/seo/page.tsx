@@ -29,11 +29,11 @@ import {
   statusTone,
 } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getSeoSubscribers, type SeoSubscriber } from '@/lib/adminApi';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { Notice } from '@/components/ui/Notice';
 import { cn } from '@/lib/utils';
-import { adminPanelClassName } from '@/components/dashboard/AdminCard';
-import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
-import { adminPageClassName } from '@/components/dashboard/adminLayout';
+import { panelClassName } from '@/components/ui/Card';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { pageClassName } from '@/components/ui/layout';
 
 const SORT_FIELDS = ['created_at', 'business_name', 'contact_name', 'status'] as const;
 const FILTER_KEYS = ['status'] as const;
@@ -52,10 +52,10 @@ function SeoSubscribersContent() {
   });
 
   return (
-    <div className={adminPageClassName}>
-      <AdminPageHeader kicker="SEO accounts" title="SEO customers" />
+    <div className={pageClassName}>
+      <PageHeader kicker="SEO accounts" title="SEO customers" />
 
-      <section className={adminPanelClassName}>
+      <section className={panelClassName}>
         <AdminFilterBar
           total={list.total}
           noun="customer"
@@ -75,7 +75,7 @@ function SeoSubscribersContent() {
           />
         </AdminFilterBar>
 
-        {list.error && <AdminNotice tone="danger">{list.error}</AdminNotice>}
+        {list.error && <Notice tone="danger">{list.error}</Notice>}
         <div className={adminTableWrapClassName}>
           <table className={adminTableClassName}>
             <thead>
@@ -154,7 +154,7 @@ export default function SeoSubscribersPage() {
   return (
     <Suspense
       fallback={
-        <div className={adminPageClassName}>
+        <div className={pageClassName}>
           <p className="text-text-subtle">Loading SEO customers…</p>
         </div>
       }

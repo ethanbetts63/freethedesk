@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import Eyebrow from '@/components/common/eyebrow';
-import { PrimaryButton } from '@/components/PrimaryButton';
+import { CtaButton } from '@/components/CtaButton';
 import { NetworkField } from '@/components/visuals/NetworkField';
 import type { PagePath } from '@/lib/pages';
 import { heroGridClassName } from '@/lib/gridSurface';
@@ -80,14 +80,14 @@ export function Hero({
           </p>
           <div className="flex flex-wrap items-center gap-m [&>*]:w-full sm:gap-xl sm:[&>*]:w-auto">
             {/* Hero is at the top, so in-page links scroll down. */}
-            <PrimaryButton
+            <CtaButton
               className="transition-[background,transform] duration-200 hover:-translate-y-0.5"
               href={primaryHref}
               direction={primaryHref.startsWith('#') ? 'down' : 'page'}
               size="large"
             >
               {primaryLabel}
-            </PrimaryButton>
+            </CtaButton>
             <Link
               className="inline-flex min-h-[var(--tap-min)] items-center justify-between gap-s border-b border-text-primary py-2xs text-body font-heavy sm:min-h-0"
               href={secondaryHref}

@@ -14,9 +14,9 @@ import {
 } from '@/components/dashboard/AccountDetail';
 import { useAccountDetail } from '@/components/dashboard/useAccountDetail';
 import { DEALER_TYPE, formatDateTime, getDealer, updateDealer, type Dealer } from '@/lib/adminApi';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
-import { adminDetailGridClassName } from '@/components/dashboard/AdminCard';
-import { adminBackClassName, adminPageClassName } from '@/components/dashboard/adminLayout';
+import { Notice } from '@/components/ui/Notice';
+import { detailGridClassName } from '@/components/ui/Card';
+import { backClassName, pageClassName } from '@/components/ui/layout';
 
 export default function DealerDetailPage() {
   const id = Number(useParams<{ dealerId: string }>().dealerId);
@@ -33,23 +33,23 @@ export default function DealerDetailPage() {
 
   if (loading)
     return (
-      <div className={adminPageClassName}>
+      <div className={pageClassName}>
         <p className="text-text-subtle">Loading dealer…</p>
       </div>
     );
   if (error && !account)
     return (
-      <div className={adminPageClassName}>
-        <Link className={adminBackClassName} href="/dashboard/dealers">
+      <div className={pageClassName}>
+        <Link className={backClassName} href="/dashboard/dealers">
           ← Dealers
         </Link>
-        <AdminNotice tone="danger">{error}</AdminNotice>
+        <Notice tone="danger">{error}</Notice>
       </div>
     );
   if (!account) return null;
 
   return (
-    <div className={adminPageClassName}>
+    <div className={pageClassName}>
       <AccountDetailHeader
         backHref="/dashboard/dealers"
         backLabel="Back to dealers"
@@ -60,10 +60,10 @@ export default function DealerDetailPage() {
         actionLabel="Email dealer →"
       />
 
-      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
-      {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
+      {error && <Notice tone="danger">{error}</Notice>}
+      {notice && <Notice tone="success">{notice}</Notice>}
 
-      <div className={adminDetailGridClassName}>
+      <div className={detailGridClassName}>
         <AccountStatusCard
           status={account.status}
           saving={saving}

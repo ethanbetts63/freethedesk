@@ -1,11 +1,11 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import Link from 'next/link';
 import { requestPasswordReset } from '@/lib/api';
-import { AdminButton } from '@/components/dashboard/AdminButton';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
-import { formControlClassName } from '@/components/dashboard/formControl';
+import { Button } from '@/components/ui/Button';
+import { Notice } from '@/components/ui/Notice';
+import { formControlClassName } from '@/components/ui/formControl';
 import { cn } from '@/lib/utils';
 import { AuthCard, authFieldLabelClassName, authLinkClassName } from '@/components/auth/AuthCard';
 
@@ -45,10 +45,10 @@ export default function ResetPasswordPage() {
       }
     >
       {sent ? (
-        <AdminNotice tone="success" size="field">
+        <Notice tone="success" size="field">
           If that address has an account, a reset link is on its way. It works once and expires
           within the hour.
-        </AdminNotice>
+        </Notice>
       ) : (
         <form className="flex flex-col gap-m" onSubmit={submit}>
           <label className={authFieldLabelClassName}>
@@ -61,9 +61,9 @@ export default function ResetPasswordPage() {
               required
             />
           </label>
-          <AdminButton type="submit" disabled={submitting}>
+          <Button type="submit" disabled={submitting}>
             {submitting ? 'Sending…' : 'Send reset link'}
-          </AdminButton>
+          </Button>
         </form>
       )}
     </AuthCard>

@@ -1,11 +1,11 @@
 'use client';
 
-import { FormEvent, use, useState } from 'react';
+import { type FormEvent, use, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { confirmPasswordReset } from '@/lib/api';
-import { AdminButton } from '@/components/dashboard/AdminButton';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { Button } from '@/components/ui/Button';
+import { Notice } from '@/components/ui/Notice';
 import { AuthCard, authLinkClassName } from '@/components/auth/AuthCard';
 import { MINIMUM_PASSWORD_LENGTH, PasswordField } from '@/components/auth/PasswordFields';
 
@@ -74,13 +74,13 @@ export default function ResetPasswordConfirmPage({
           minLength={MINIMUM_PASSWORD_LENGTH}
         />
         {error && (
-          <AdminNotice tone="danger" size="field">
+          <Notice tone="danger" size="field">
             {error}
-          </AdminNotice>
+          </Notice>
         )}
-        <AdminButton type="submit" disabled={submitting}>
+        <Button type="submit" disabled={submitting}>
           {submitting ? 'Saving…' : 'Set password'}
-        </AdminButton>
+        </Button>
       </form>
     </AuthCard>
   );

@@ -9,7 +9,7 @@ import {
   type SeoOnboardingProfile,
 } from '@/lib/seoApi';
 import { submitSeoConnect, type SeoConnectState } from './SeoConnect.actions';
-import { AdminButton } from '@/components/dashboard/AdminButton';
+import { Button } from '@/components/ui/Button';
 import {
   PortalField,
   PortalFieldset,
@@ -17,9 +17,9 @@ import {
   portalFormActionsClassName,
   portalFormClassName,
 } from '@/components/dashboard/PortalField';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
-import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
-import { adminPageClassName } from '@/components/dashboard/adminLayout';
+import { Notice } from '@/components/ui/Notice';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { pageClassName } from '@/components/ui/layout';
 
 const initialState: SeoConnectState = { status: 'idle' };
 
@@ -93,21 +93,21 @@ export default function SeoPortalConnectPage() {
 
   if (loading)
     return (
-      <div className={adminPageClassName}>
+      <div className={pageClassName}>
         <p className="text-text-subtle">Loading your setup…</p>
       </div>
     );
   if (!profile)
     return (
-      <div className={adminPageClassName}>
-        <AdminNotice tone="danger">{error}</AdminNotice>
+      <div className={pageClassName}>
+        <Notice tone="danger">{error}</Notice>
       </div>
     );
   const locked = profile.onboarding_status === 'submitted';
 
   return (
-    <div className={adminPageClassName}>
-      <AdminPageHeader
+    <div className={pageClassName}>
+      <PageHeader
         kicker="Onboarding"
         title={isGbpAudit ? 'Add your profile details' : 'Connect your data'}
         subtitle={
@@ -116,11 +116,11 @@ export default function SeoPortalConnectPage() {
             : 'Tell us where to look and what matters. We use this to focus every report.'
         }
       />
-      <AdminNotice tone="success">
+      <Notice tone="success">
         Status: <strong>{profile.onboarding_status_label}</strong>
-      </AdminNotice>
-      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
-      {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
+      </Notice>
+      {error && <Notice tone="danger">{error}</Notice>}
+      {notice && <Notice tone="success">{notice}</Notice>}
 
       <form className={portalFormClassName} onSubmit={onSubmit}>
         <PortalFieldset
@@ -169,18 +169,12 @@ export default function SeoPortalConnectPage() {
 
         {!locked && (
           <div className={portalFormActionsClassName}>
-            <AdminButton
-              variant="secondary"
-              type="submit"
-              name="intent"
-              value="draft"
-              disabled={saving}
-            >
+            <Button variant="secondary" type="submit" name="intent" value="draft" disabled={saving}>
               {saving ? 'Saving…' : 'Save draft'}
-            </AdminButton>
-            <AdminButton type="submit" name="intent" value="submit" disabled={saving}>
+            </Button>
+            <Button type="submit" name="intent" value="submit" disabled={saving}>
               Save and submit
-            </AdminButton>
+            </Button>
           </div>
         )}
         {locked && (

@@ -1,10 +1,25 @@
 import type { Metadata } from 'next';
 
 import { AUTHOR } from './author';
-import { PUBLIC_SITE_URL } from './siteConfig';
+import { SITE_URL } from './siteConfig';
 
 const SITE_NAME = 'freethedesk';
 const DEFAULT_OG_IMAGE = '/og-images/og-default.webp';
+const DEFAULT_OG_WIDTH = 1200;
+const DEFAULT_OG_HEIGHT = 630;
+
+/**
+ * The one spelling of a route's absolute URL, used by the canonical tag, the
+ * sitemap, and every `@id`.
+ *
+ * The homepage is `{SITE_URL}/` — with the trailing slash — everywhere. The
+ * sitemap used to special-case it to `{SITE_URL}` while the canonical said
+ * `{SITE_URL}/`, which is two answers to one question. See seo-standard.md
+ * section 4.
+ */
+export function absoluteUrl(path: string): string {
+  return new URL(path, SITE_URL).toString();
+}
 const CONTACT_EMAIL = 'hello@freethedesk.com.au';
 
 /** Our ABN, published as `taxID` and used to build the ABR lookup URL below. */
@@ -22,9 +37,9 @@ export function buildOrganizationSchema(): object {
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    '@id': `${PUBLIC_SITE_URL}/#organization`,
+    '@id': `${SITE_URL}/#organization`,
     name: SITE_NAME,
-    url: PUBLIC_SITE_URL,
+    url: SITE_URL,
     email: CONTACT_EMAIL,
     /*
      * One entity-level sentence: what this company is, not what any page sells.
@@ -35,11 +50,11 @@ export function buildOrganizationSchema(): object {
       'Perth web development and digital automation company, building custom websites, web applications and workflow automation for Australian businesses — including dealership websites and online vehicle licensing.',
     logo: {
       '@type': 'ImageObject',
-      url: `${PUBLIC_SITE_URL}/logo-512x512.png`,
+      url: `${SITE_URL}/logo-512x512.png`,
       width: 512,
       height: 512,
     },
-    image: `${PUBLIC_SITE_URL}/logo-512x512.png`,
+    image: `${SITE_URL}/logo-512x512.png`,
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Dianella',
@@ -87,10 +102,10 @@ export function buildWebsiteSchema(): object {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': `${PUBLIC_SITE_URL}/#website`,
+    '@id': `${SITE_URL}/#website`,
     name: SITE_NAME,
-    url: PUBLIC_SITE_URL,
-    publisher: { '@id': `${PUBLIC_SITE_URL}/#organization` },
+    url: SITE_URL,
+    publisher: { '@id': `${SITE_URL}/#organization` },
   };
 }
 
@@ -98,7 +113,7 @@ export function buildWebsiteSchema(): object {
  * The per-page WebPage entity, linked to the sitewide Organization/WebSite via @id.
  *
  * `updated` emits `dateModified`, which is the only freshness signal a marketing
- * page has - articles carry their own dates from front matter. Bump it in PAGES
+ * page has - articles carry their own dates from front matter. Bump it in STATIC_PAGES
  * when a page's content materially changes, the same way an article's `updated`
  * is bumped; a date that never moves is worse than no date.
  */
@@ -108,7 +123,7 @@ export function buildWebPageSchema(options: {
   path: string;
   updated?: string;
 }): object {
-  const url = `${PUBLIC_SITE_URL}${options.path}`;
+  const url = `${SITE_URL}${options.path}`;
 
   return {
     '@context': 'https://schema.org',
@@ -118,8 +133,8 @@ export function buildWebPageSchema(options: {
     name: options.title,
     ...(options.description ? { description: options.description } : {}),
     ...(options.updated ? { dateModified: options.updated } : {}),
-    isPartOf: { '@id': `${PUBLIC_SITE_URL}/#website` },
-    publisher: { '@id': `${PUBLIC_SITE_URL}/#organization` },
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    publisher: { '@id': `${SITE_URL}/#organization` },
   };
 }
 
@@ -151,7 +166,7 @@ export function buildServiceSchema(options: {
   description?: string;
   offers?: object;
 }): object {
-  const url = `${PUBLIC_SITE_URL}${options.path}`;
+  const url = `${SITE_URL}${options.path}`;
   const { service } = options;
 
   return {
@@ -163,7 +178,7 @@ export function buildServiceSchema(options: {
     url,
     ...(options.description ? { description: options.description } : {}),
     areaServed: { '@type': service.areaServed.type, name: service.areaServed.name },
-    provider: { '@id': `${PUBLIC_SITE_URL}/#organization` },
+    provider: { '@id': `${SITE_URL}/#organization` },
     mainEntityOfPage: { '@id': `${url}#webpage` },
     ...(options.offers ? { offers: options.offers } : {}),
     ...(service.catalog
@@ -193,7 +208,7 @@ export function buildBreadcrumbSchema(items: { name: string; path: string }[]): 
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: `${PUBLIC_SITE_URL}${item.path}`,
+      item: `${SITE_URL}${item.path}`,
     })),
   };
 }
@@ -228,28 +243,36 @@ function titleCaseSlug(slug: string): string {
  * Set `absoluteTitle: true` when a title must remain immune to any title
  * templates introduced by a parent layout in the future.
  */
-export function pageMetadata(options: {
+export function buildMetadata(options: {
   title: string;
   description: string;
   path: string;
   ogImage?: string;
   absoluteTitle?: boolean;
   openGraphType?: 'website' | 'article';
+  noindex?: boolean;
 }): Metadata {
-  const canonicalUrl = `${PUBLIC_SITE_URL}${options.path}`;
-  const imageUrl = `${PUBLIC_SITE_URL}${options.ogImage ?? DEFAULT_OG_IMAGE}`;
+  const url = absoluteUrl(options.path);
+  const imageUrl = absoluteUrl(options.ogImage ?? DEFAULT_OG_IMAGE);
+
+  // Only the default asset carries width and height. A page-supplied image is
+  // a photograph whose dimensions this function does not know, and stating
+  // them wrongly is worse than omitting them. Matches allbikes and bloomprint.
+  const ogImage = options.ogImage
+    ? { url: imageUrl }
+    : { url: imageUrl, width: DEFAULT_OG_WIDTH, height: DEFAULT_OG_HEIGHT };
 
   return {
     title: options.absoluteTitle ? { absolute: options.title } : options.title,
     description: options.description,
-    alternates: { canonical: canonicalUrl },
+    alternates: { canonical: url },
     openGraph: {
       title: options.title,
       description: options.description,
       type: options.openGraphType ?? 'website',
-      url: canonicalUrl,
+      url,
       siteName: SITE_NAME,
-      images: [{ url: imageUrl, width: 1200, height: 630 }],
+      images: [ogImage],
     },
     twitter: {
       card: 'summary_large_image',
@@ -257,6 +280,7 @@ export function pageMetadata(options: {
       description: options.description,
       images: [imageUrl],
     },
+    robots: options.noindex ? { index: false, follow: false } : undefined,
   };
 }
 
@@ -273,7 +297,7 @@ export function buildArticleSchema(article: {
   publishedDate: string;
   lastModified: string;
 }): object {
-  const url = `${PUBLIC_SITE_URL}/${article.slug}`;
+  const url = `${SITE_URL}/${article.slug}`;
 
   return {
     '@context': 'https://schema.org',
@@ -285,14 +309,14 @@ export function buildArticleSchema(article: {
     mainEntityOfPage: { '@id': `${url}#webpage` },
     author: {
       '@type': 'Person',
-      '@id': `${PUBLIC_SITE_URL}/#author`,
+      '@id': `${SITE_URL}/#author`,
       name: AUTHOR.name,
       givenName: AUTHOR.givenName,
       additionalName: AUTHOR.additionalName,
       familyName: AUTHOR.familyName,
       url: AUTHOR.profileUrl,
     },
-    publisher: { '@id': `${PUBLIC_SITE_URL}/#organization` },
+    publisher: { '@id': `${SITE_URL}/#organization` },
     datePublished: article.publishedDate,
     dateModified: article.lastModified,
   };

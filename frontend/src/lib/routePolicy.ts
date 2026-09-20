@@ -6,6 +6,8 @@ const STANDALONE_CHROME_ROUTES = ['/login', '/licensing/payment'] as const;
 
 const APPLICATION_ROUTES = [
   '/dashboard',
+  // Chrome-wise it is an application screen, even though nobody signs in to it.
+  '/sale',
   '/portal',
   '/seo-portal',
   '/seo/payment',
@@ -16,6 +18,11 @@ const CLARITY_EXCLUDED_ROUTES = [
   '/dashboard',
   '/portal',
   '/seo-portal',
+  // A customer-order page, and this one shows a date of birth and a driver's
+  // licence number. Section 7 of the security standard requires session
+  // recording off it; `scripts/check-customer-routes.mjs` is what notices if
+  // this entry ever goes.
+  '/sale',
   '/login',
   '/licensing/payment',
   '/seo/payment',

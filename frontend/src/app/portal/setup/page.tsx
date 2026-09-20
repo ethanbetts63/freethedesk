@@ -2,9 +2,16 @@
 
 import { useActionState, useEffect, useState } from 'react';
 
-import { getDealerOnboarding, type DealerOnboardingProfile } from '@/lib/dealerApi';
+import {
+  getDealerAccount,
+  getDealerOnboarding,
+  type DealerAccount,
+  type DealerOnboardingProfile,
+} from '@/lib/dealerApi';
+import { SpecialConditions } from './_components/SpecialConditions';
+import { TradingDetails } from './_components/TradingDetails';
 import { submitDealerSetup, type DealerSetupState } from './DealerSetup.actions';
-import { AdminButton } from '@/components/dashboard/AdminButton';
+import { Button } from '@/components/ui/Button';
 import {
   PortalField,
   PortalFieldset,
@@ -12,9 +19,9 @@ import {
   portalFormActionsClassName,
   portalFormClassName,
 } from '@/components/dashboard/PortalField';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
-import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
-import { adminPageClassName } from '@/components/dashboard/adminLayout';
+import { Notice } from '@/components/ui/Notice';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { pageClassName } from '@/components/ui/layout';
 
 const initialState: DealerSetupState = { status: 'idle' };
 
@@ -45,13 +52,17 @@ const officerFields = [
 
 export default function DealerSetupPage() {
   const [loadedProfile, setLoadedProfile] = useState<DealerOnboardingProfile | null>(null);
+  const [account, setAccount] = useState<DealerAccount | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
   const [state, dispatch, saving] = useActionState(submitDealerSetup, initialState);
 
   useEffect(() => {
-    getDealerOnboarding()
-      .then(setLoadedProfile)
+    Promise.all([getDealerOnboarding(), getDealerAccount()])
+      .then(([profile, dealerAccount]) => {
+        setLoadedProfile(profile);
+        setAccount(dealerAccount);
+      })
       .catch((reason) =>
         setLoadError(reason instanceof Error ? reason.message : 'Setup could not be loaded.'),
       )
@@ -64,31 +75,31 @@ export default function DealerSetupPage() {
 
   if (loading)
     return (
-      <div className={adminPageClassName}>
+      <div className={pageClassName}>
         <p className="text-text-subtle">Loading dealership setup…</p>
       </div>
     );
   if (!profileToShow)
     return (
-      <div className={adminPageClassName}>
-        <AdminNotice tone="danger">{error}</AdminNotice>
+      <div className={pageClassName}>
+        <Notice tone="danger">{error}</Notice>
       </div>
     );
   const profile = profileToShow;
   const locked = profile.onboarding_status === 'submitted';
 
   return (
-    <div className={adminPageClassName}>
-      <AdminPageHeader
+    <div className={pageClassName}>
+      <PageHeader
         kicker="Onboarding"
         title="Dealership setup"
         subtitle="Enter this once. We use it to prefill the dealer side of each workflow."
       />
-      <AdminNotice tone="success">
+      <Notice tone="success">
         Setup status: <strong>{profile.onboarding_status_label}</strong>
-      </AdminNotice>
-      {error && <AdminNotice tone="danger">{error}</AdminNotice>}
-      {notice && <AdminNotice tone="success">{notice}</AdminNotice>}
+      </Notice>
+      {error && <Notice tone="danger">{error}</Notice>}
+      {notice && <Notice tone="success">{notice}</Notice>}
 
       <form className={portalFormClassName} action={dispatch}>
         <PortalFieldset
@@ -199,18 +210,12 @@ export default function DealerSetupPage() {
 
         {!locked && (
           <div className={portalFormActionsClassName}>
-            <AdminButton
-              variant="secondary"
-              type="submit"
-              name="intent"
-              value="draft"
-              disabled={saving}
-            >
+            <Button variant="secondary" type="submit" name="intent" value="draft" disabled={saving}>
               {saving ? 'Saving…' : 'Save draft'}
-            </AdminButton>
-            <AdminButton type="submit" name="intent" value="submit" disabled={saving}>
+            </Button>
+            <Button type="submit" name="intent" value="submit" disabled={saving}>
               Save and submit for verification
-            </AdminButton>
+            </Button>
           </div>
         )}
         {locked && (
@@ -220,6 +225,29 @@ export default function DealerSetupPage() {
           </p>
         )}
       </form>
+
+      <section className="mt-xl">
+        <PageHeader
+          kicker="Getting paid"
+          title="Trading details"
+          subtitle="Where your customers send the balance, and how you sign a contract."
+        />
+        <TradingDetails />
+      </section>
+
+      {/* A licensing-only dealer has no Schedule 5 contract, so there is nothing
+          here for them to decide. They get the Authority to Lodge, which carries
+          the same authority and is not negotiable. */}
+      {account && account.plan !== 'licensing' && (
+        <section className="mt-xl">
+          <PageHeader
+            kicker="Your contract"
+            title="Special conditions"
+            subtitle="The conditions printed on the face of every Vehicle Sale Contract you issue."
+          />
+          <SpecialConditions />
+        </section>
+      )}
     </div>
   );
 }

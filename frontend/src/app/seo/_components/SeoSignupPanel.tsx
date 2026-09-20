@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useActionState, useEffect, useMemo, useState } from 'react';
+import { type FormEvent, useActionState, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { CtaButton } from '@/components/CtaButton';

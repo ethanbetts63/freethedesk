@@ -17,6 +17,7 @@ This file is excluded from the public guide index. To publish a guide:
    Only `published` is required, and it must be `YYYY-MM-DD`. `updated` defaults
    to the publish date. `title` and `description` override the `#` heading and
    the first paragraph, which are otherwise used for search listings.
+
 3. Follow the front matter with one `#` heading and a plain introductory paragraph.
 
 Dates are read from the front matter rather than the file's timestamps, because

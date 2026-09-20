@@ -5,23 +5,20 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { StatusPill } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getMessage, type AdminMessage } from '@/lib/adminApi';
-import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { Notice } from '@/components/ui/Notice';
 import {
-  AdminDetailItem,
-  adminCardClassName,
-  adminCardLinkClassName,
-  adminCardTitleClassName,
-  adminCardWideClassName,
-  adminDetailGridClassName,
-  adminDetailListClassName,
-} from '@/components/dashboard/AdminCard';
+  DetailItem,
+  cardClassName,
+  cardLinkClassName,
+  cardTitleClassName,
+  cardWideClassName,
+  detailGridClassName,
+  detailListClassName,
+} from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
-import { AdminPageHeader } from '@/components/dashboard/AdminPageHeader';
-import {
-  adminBackClassName,
-  adminMessagePreClassName,
-  adminPageClassName,
-} from '@/components/dashboard/adminLayout';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { backClassName, pageClassName } from '@/components/ui/layout';
+import { adminMessagePreClassName } from '@/components/dashboard/adminLayout';
 
 /** Related objects we have a dashboard page for. Anything else shows as plain text. */
 const RELATED_LINKS: Record<string, string> = {
@@ -43,60 +40,60 @@ export default function MessageDetailPage() {
   }, [id]);
   if (error)
     return (
-      <div className={adminPageClassName}>
-        <Link className={adminBackClassName} href="/dashboard/messages">
+      <div className={pageClassName}>
+        <Link className={backClassName} href="/dashboard/messages">
           ← Messages
         </Link>
-        <AdminNotice tone="danger">{error}</AdminNotice>
+        <Notice tone="danger">{error}</Notice>
       </div>
     );
   if (!message)
     return (
-      <div className={adminPageClassName}>
+      <div className={pageClassName}>
         <p className="text-text-subtle">Loading message…</p>
       </div>
     );
   return (
-    <div className={adminPageClassName}>
-      <Link className={adminBackClassName} href="/dashboard/messages">
+    <div className={pageClassName}>
+      <Link className={backClassName} href="/dashboard/messages">
         ← Back to messages
       </Link>
-      <AdminPageHeader
+      <PageHeader
         align="center"
         kicker={`${message.channel.toUpperCase()} message #${message.id}`}
         title={message.subject || 'SMS notification'}
         subtitle={`To ${message.to}`}
       >
         <StatusPill status={message.status} />
-      </AdminPageHeader>
+      </PageHeader>
       {message.status === 'failed' && (
-        <AdminNotice tone="danger">
+        <Notice tone="danger">
           <strong>This message did not send.</strong> {message.error_message}
-        </AdminNotice>
+        </Notice>
       )}
       {message.status === 'bounced' && (
-        <AdminNotice tone="danger">
+        <Notice tone="danger">
           <strong>This message was accepted but never arrived.</strong> {message.error_message}
-        </AdminNotice>
+        </Notice>
       )}
       {message.status === 'queued' && message.error_message && (
-        <AdminNotice tone="warning">{message.error_message}</AdminNotice>
+        <Notice tone="warning">{message.error_message}</Notice>
       )}
-      <div className={adminDetailGridClassName}>
-        <section className={adminCardClassName}>
-          <h2 className={adminCardTitleClassName}>Delivery</h2>
-          <dl className={adminDetailListClassName}>
-            <AdminDetailItem term="Status">
+      <div className={detailGridClassName}>
+        <section className={cardClassName}>
+          <h2 className={cardTitleClassName}>Delivery</h2>
+          <dl className={detailListClassName}>
+            <DetailItem term="Status">
               <StatusPill status={message.status} />
-            </AdminDetailItem>
-            <AdminDetailItem term="Channel">{message.channel.toUpperCase()}</AdminDetailItem>
-            <AdminDetailItem term="Created">{formatDateTime(message.created_at)}</AdminDetailItem>
-            <AdminDetailItem term="Sent">{formatDateTime(message.sent_at)}</AdminDetailItem>
+            </DetailItem>
+            <DetailItem term="Channel">{message.channel.toUpperCase()}</DetailItem>
+            <DetailItem term="Created">{formatDateTime(message.created_at)}</DetailItem>
+            <DetailItem term="Sent">{formatDateTime(message.sent_at)}</DetailItem>
             {message.related && (
-              <AdminDetailItem term="About">
+              <DetailItem term="About">
                 {RELATED_LINKS[message.related.type] ? (
                   <Link
-                    className={adminCardLinkClassName}
+                    className={cardLinkClassName}
                     href={`${RELATED_LINKS[message.related.type]}${message.related.id}`}
                   >
                     {message.related.label || `#${message.related.id}`}
@@ -104,12 +101,12 @@ export default function MessageDetailPage() {
                 ) : (
                   message.related.label || `#${message.related.id}`
                 )}
-              </AdminDetailItem>
+              </DetailItem>
             )}
           </dl>
         </section>
-        <section className={cn(adminCardClassName, adminCardWideClassName)}>
-          <h2 className={adminCardTitleClassName}>What was sent</h2>
+        <section className={cn(cardClassName, cardWideClassName)}>
+          <h2 className={cardTitleClassName}>What was sent</h2>
           <pre className={adminMessagePreClassName}>{message.body_text}</pre>
         </section>
       </div>
