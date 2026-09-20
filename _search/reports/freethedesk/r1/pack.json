@@ -20,9 +20,9 @@
   "engine_version": "1.4.0",
   "ruleset_version": "1.1.0",
   "config_hash": "8046c668eee3",
-  "context_digest": "ac5d807ac42b",
+  "context_digest": "cd3fc481af21",
   "data_version": "2026-09-20T01:52:36+00:00",
-  "generated_at": "2026-09-20T06:35:34+00:00",
+  "generated_at": "2026-09-20T08:25:32+00:00",
   "first_available_date": "2026-08-29",
   "latest_available_date": "2026-09-19",
   "unstable_from": "2026-09-17",
@@ -43,7 +43,7 @@
   {
    "source": "Business context recorded by the owner",
    "status": "present",
-   "detail": "4 standing fact(s) in freethedesk.context.md. These are things the data cannot show; they constrain what this report may conclude."
+   "detail": "5 standing fact(s) in freethedesk.context.md. These are things the data cannot show; they constrain what this report may conclude."
   },
   {
    "source": "Analytics (sessions, conversions, revenue)",
@@ -63,6 +63,14 @@
    "message": "1 checked page(s) did not return a success status: https://www.freethedesk.com.au/website-development-perth. Any finding about their search performance must say so."
   },
   {
+   "code": "context_applies_to_prominent_page",
+   "severity": "high",
+   "message": "A page under standing business guidance is among this period's most prominent: /website-development-perth (/website-development-perth was renamed, not removed). Report its figures as measured, but read business_context before drawing any conclusion or making any recommendation about it.",
+   "pages": [
+    "/website-development-perth"
+   ]
+  },
+  {
    "code": "unstable_tail",
    "severity": "medium",
    "message": "Data from 2026-09-17 onward is still being revised by Google. It is included and marked, but the last few days of any series should be drawn as provisional and not used as an endpoint for a claim.",
@@ -78,9 +86,9 @@
  "business_context": {
   "present": true,
   "path": "C:\\Users\\ethan\\coding\\freethedesk\\_search\\properties\\freethedesk.context.md",
-  "digest": "ac5d807ac42b",
-  "entry_count": 4,
-  "active_count": 4,
+  "digest": "cd3fc481af21",
+  "entry_count": 5,
+  "active_count": 5,
   "entries": [
    {
     "title": "The property is new to Search Console",
@@ -127,6 +135,19 @@
     "fact": "Web development and SEO are sold to local Perth businesses. The dealership\nwebsite builder and licensing support are aimed at vehicle dealers and are not\ngeographically limited to Perth in the way a services engagement is.",
     "guidance": "judge `/website-development-perth` and `/seo` against Perth-qualified\ndemand as a matter of commercial judgement, not by any measure derived from\nwhether a query happened to contain the word Perth. Search Console has no\ngeography finer than the country; where that limit bites, state it.",
     "since": "2026-09-19",
+    "extra": {
+     "source": "repository"
+    }
+   },
+   {
+    "title": "/website-development-perth was renamed, not removed",
+    "scope": "page /website-development-perth",
+    "scope_kind": "page",
+    "scope_value": "/website-development-perth",
+    "status": "active",
+    "fact": "Vercel and git, read 20 September 2026: a production deploy at 08:11 AWST on\n7 September 2026 renamed the page to /website-development \u2014 same content,\nde-localised \u2014 and updated the sitemap to the new path in the same commit. No\nredirect from the old URL was added, so the old address has served the 404\ntemplate since that deploy while Google continued to rank its cached copy.",
+    "guidance": "the r1 404 finding has a known origin and a one-line fix (a permanent\nredirect). Once the redirect ships, later reports should read\n/website-development as the continuation of /website-development-perth's\nhistory, and should watch whether de-localising the title costs the Perth\nweb-development impressions the old page held.",
+    "since": "2026-09-20",
     "extra": {
      "source": "repository"
     }

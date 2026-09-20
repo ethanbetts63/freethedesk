@@ -992,7 +992,7 @@ td.indent {
 <header class="masthead"><p class="masthead__eyebrow">r1 · https://www.freethedesk.com.au/</p><h1>FreeTheDesk search report</h1><p class="masthead__meta">Reporting period <strong>29 August 2026 to 19 September 2026 (22 days)</strong></p></header>
 <p class="lede">Three weeks of history, four clicks — every one from someone who already
 knew the name — while the only page earning impressions for the commercial terms has
-been returning a 404 since at least 5 September.</p>
+returned a 404 since 7 September, when a rename shipped without a redirect.</p>
 
 <figure class="browser-shot">
   <div class="browser-shot__bar"><i></i><i></i><i></i><span>www.freethedesk.com.au</span></div>
@@ -1022,10 +1022,11 @@ been returning a 404 since at least 5 September.</p>
   homepage at position 1.3. The finding that matters was caught by checking the site, not
   the data: <span class="path">/website-development-perth</span> — the highest-impression
   page on the site, and the one answering the Perth web-development terms — has returned
-  a 404 since at least 5 September while Google still serves its cached copy as healthy.
-  Fix it before the next recrawl, audit the sitemap for other broken URLs, give the error
-  template its own metadata, build the dealer product pages out to real depth, and leave
-  everything else alone until there is data to act on.</p>
+  a 404 since a 7 September deploy renamed it to <span class="path">/website-development</span>
+  without a redirect, while Google still serves its cached copy as healthy. Add the
+  redirect before the next recrawl, check nothing else was renamed the same way, give the
+  error template its own metadata, build the dealer product pages out to real depth, and
+  leave everything else alone until there is data to act on.</p>
 </section>
 
 <section class="section" data-num="01" data-kicker="Where this starts">
@@ -1098,7 +1099,12 @@ been returning a 404 since at least 5 September.</p>
 
   <p>Google's view of the same URL, read through the URL Inspection API on 19 September, still reports it <em>Submitted and indexed</em>, last crawled successfully on <strong>5 September 2026</strong>. Two things follow: the page broke on or after 5 September, and Google is still showing searchers a cached copy it believes is healthy — which is exactly what the 15 impressions are.</p>
 
-  <p>"Submitted" also means the URL is listed in the sitemap. The site is actively telling Google to crawl a URL that no longer resolves.</p>
+  <p>The deploy history settles when and why. A production deploy at 08:11 on
+  <strong>7 September</strong> renamed the page to <span class="path">/website-development</span>
+  — same content, de-localised — and updated the sitemap to the new path in the same
+  commit. What it did not do is redirect the old URL. So the address Google knows, ranks
+  and still shows to searchers has served the error template ever since; the break is not
+  a removal or a regression but the missing half of a rename.</p>
 
   <aside class="callout"><h3>What this costs right now</h3>
     <p>Very little in clicks, because at position 28.9 almost nobody was reaching it anyway. The cost is ahead: when Google next recrawls, a 404 on a submitted URL drops it from the index, and the site loses its only ranking page for its highest-value commercial terms. The fix is worth making before that recrawl, not after.</p></aside>
@@ -1230,14 +1236,26 @@ been returning a 404 since at least 5 September.</p>
 
   <ol class="recommendations">
     <li>
-      <p class="rec__title">Restore or redirect <span class="path">/website-development-perth</span></p>
+      <p class="rec__title">Redirect <span class="path">/website-development-perth</span> to its renamed self</p>
       <p class="rec__meta"><span class="tag">id: fix-wdp-404</span> <span class="tag tag--high">priority 1</span> <span class="tag">cost: low</span></p>
-      <p>It is the highest-impression page on the site, it answers the commercial terms, it returns 404, and Google still has it indexed from a successful crawl on 5 September. If the page was removed deliberately, 301 it to <span class="path">/website-development</span>, which serves correctly, and take the URL out of the sitemap. If it was not removed deliberately, it is a routing regression and the page should come back at the same URL. Either way this is settled before the next recrawl, because after that the ranking is gone rather than stranded. Evidence: section 02.</p>
+      <p>The deploy history removes the ambiguity: the page was renamed to
+      <span class="path">/website-development</span> deliberately on 7 September and the
+      sitemap was updated in the same deploy — the only missing piece is a permanent
+      redirect from the old URL. One rule, shipped before the next recrawl, and the index
+      standing transfers instead of dying stranded. Worth watching afterwards: the old,
+      Perth-qualified URL held the site's only impressions for the Perth web-development
+      terms, and whether the de-localised page keeps them is exactly what the experiment
+      in section 08 reads. Evidence: section 02.</p>
     </li>
     <li>
-      <p class="rec__title">Audit the sitemap against what actually resolves</p>
+      <p class="rec__title">Check nothing else was renamed without a redirect</p>
       <p class="rec__meta"><span class="tag">id: sitemap-404-audit</span> <span class="tag tag--high">priority 2</span> <span class="tag">cost: low</span></p>
-      <p>One of nine checked URLs is a submitted 404. Nine URLs is small enough that one fault is 11% of the site, and the same routing change that broke this page may have broken URLs with no impressions yet to reveal them. Check every URL the sitemap declares, not only the ones Search Console has noticed. Evidence: section 02.</p>
+      <p>The current sitemap is clean — the 7 September deploy got it right — but the
+      fault class is a rename that updates the sitemap and forgets the redirect, and that
+      leaves no trace in the current sitemap at all. The URLs Google already knows are
+      the exposure: check every URL Search Console has ever recorded an impression for
+      still resolves, after any batch of renames. Nine pages today; cheap forever.
+      Evidence: section 02.</p>
     </li>
     <li>
       <p class="rec__title">Give the 404 template its own title and metadata</p>
@@ -1268,7 +1286,7 @@ been returning a 404 since at least 5 September.</p>
       <thead><tr><th>Hypothesis</th><th>Baseline</th><th>Read on</th></tr></thead>
       <tbody>
         <tr>
-          <td><strong>wdp-restore</strong> — restoring <span class="path">/website-development-perth</span> holds its index position, and the page recovers impressions for the three Perth web development terms rather than losing them at the next recrawl.</td>
+          <td><strong>wdp-restore</strong> — a permanent redirect from <span class="path">/website-development-perth</span> to <span class="path">/website-development</span> transfers its index standing: the Perth web-development impressions reappear on the new URL rather than vanishing at the next recrawl.</td>
           <td>15 impressions, position 28.9, 0 clicks, 29 Aug – 19 Sep 2026</td>
           <td>2026-11-14</td>
         </tr>
@@ -1297,10 +1315,15 @@ been returning a 404 since at least 5 September.</p>
 
   <p><strong>There is no analytics.</strong> Search Console carries no sessions, no conversions and no revenue, so nothing here can say what a click was worth or what happened after it. Every priority above is ranked on search evidence and commercial judgement, not on outcomes. Google Analytics was removed from this site and no replacement is collecting; restoring it is the single change that would most improve the next report.</p>
 
-  <p><strong>What is not known about the 404.</strong> The live check establishes that the URL returns 404 today and that Google fetched it successfully on 5 September. It does not establish when it broke, why, or whether anything else broke at the same time. The deploy history would settle that and was not available.</p>
+  <p><strong>The 404's origin is established.</strong> The live check found the URL
+  returning 404; the deploy history (Vercel, read 20 September, after the period closed)
+  shows why: a 7 September deploy renamed the page and updated the sitemap without
+  redirecting the old URL. What deploy evidence cannot show is whether an earlier rename
+  did the same thing to a URL that never earned impressions — recommendation 2 covers
+  that.</p>
 </section>
 
-<section class="provenance"><h2>Provenance</h2><dl><dt>Property</dt><dd>https://www.freethedesk.com.au/</dd><dt>Market</dt><dd>ALL COUNTRIES</dd><dt>Search type</dt><dd>web</dd><dt>Reporting period</dt><dd>29 August 2026 to 19 September 2026 (22 days)</dd><dt>Data through</dt><dd>19 September 2026</dd><dt>Provisional from</dt><dd>17 September 2026</dd><dt>Stored history</dt><dd>29 August 2026 onward, 22 days</dd><dt>Report version</dt><dd>r1</dd><dt>Engine / ruleset / config</dt><dd>1.4.0 / 1.1.0 / 8046c668eee3</dd><dt>Extracted</dt><dd>2026-09-20 01:52:36 UTC</dd></dl><h2>Sources</h2><table><thead><tr><th>Source</th><th>Status</th><th>Detail</th></tr></thead><tbody><tr><td>Google Search Console Search Analytics API</td><td>present</td><td>Property https://www.freethedesk.com.au/, all countries, type=web. Stored daily from 2026-08-29 to 2026-09-19.</td></tr><tr><td>Live site checks</td><td>present</td><td>9 URLs rendered and recorded 2026-09-19T15:22:04+00:00, with Google&#x27;s index view of the same URLs. Full record in site.json.</td></tr><tr><td>Business context recorded by the owner</td><td>present</td><td>4 standing fact(s) in freethedesk.context.md. These are things the data cannot show; they constrain what this report may conclude.</td></tr><tr><td>Analytics (sessions, conversions, revenue)</td><td>absent</td><td>Search Console has no revenue and no post-click behaviour, so every opportunity below is ranked by clicks, not by what a click is worth.</td></tr></tbody></table></section>
+<section class="provenance"><h2>Provenance</h2><dl><dt>Property</dt><dd>https://www.freethedesk.com.au/</dd><dt>Market</dt><dd>ALL COUNTRIES</dd><dt>Search type</dt><dd>web</dd><dt>Reporting period</dt><dd>29 August 2026 to 19 September 2026 (22 days)</dd><dt>Data through</dt><dd>19 September 2026</dd><dt>Provisional from</dt><dd>17 September 2026</dd><dt>Stored history</dt><dd>29 August 2026 onward, 22 days</dd><dt>Report version</dt><dd>r1</dd><dt>Engine / ruleset / config</dt><dd>1.4.0 / 1.1.0 / 8046c668eee3</dd><dt>Extracted</dt><dd>2026-09-20 01:52:36 UTC</dd></dl><h2>Sources</h2><table><thead><tr><th>Source</th><th>Status</th><th>Detail</th></tr></thead><tbody><tr><td>Google Search Console Search Analytics API</td><td>present</td><td>Property https://www.freethedesk.com.au/, all countries, type=web. Stored daily from 2026-08-29 to 2026-09-19.</td></tr><tr><td>Live site checks</td><td>present</td><td>9 URLs rendered and recorded 2026-09-19T15:22:04+00:00, with Google&#x27;s index view of the same URLs. Full record in site.json.</td></tr><tr><td>Business context recorded by the owner</td><td>present</td><td>5 standing fact(s) in freethedesk.context.md. These are things the data cannot show; they constrain what this report may conclude.</td></tr><tr><td>Analytics (sessions, conversions, revenue)</td><td>absent</td><td>Search Console has no revenue and no post-click behaviour, so every opportunity below is ranked by clicks, not by what a click is worth.</td></tr></tbody></table></section>
 <footer class="colophon">Generated by freetheplatform.searchconsole 1.4.0, ruleset 1.1.0, property configuration 8046c668eee3. Figures come from the Google Search Console Search Analytics API and are reproducible from the stored snapshot for this property. Search Console reports two to three days behind; anything after 17 September 2026 is provisional.</footer>
 </article>
 </body>

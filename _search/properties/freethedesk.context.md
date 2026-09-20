@@ -75,3 +75,21 @@ geographically limited to Perth in the way a services engagement is.
 demand as a matter of commercial judgement, not by any measure derived from
 whether a query happened to contain the word Perth. Search Console has no
 geography finer than the country; where that limit bites, state it.
+
+## /website-development-perth was renamed, not removed
+
+- scope: page /website-development-perth
+- since: 2026-09-20
+- source: repository
+
+Vercel and git, read 20 September 2026: a production deploy at 08:11 AWST on
+7 September 2026 renamed the page to /website-development — same content,
+de-localised — and updated the sitemap to the new path in the same commit. No
+redirect from the old URL was added, so the old address has served the 404
+template since that deploy while Google continued to rank its cached copy.
+
+**So:** the r1 404 finding has a known origin and a one-line fix (a permanent
+redirect). Once the redirect ships, later reports should read
+/website-development as the continuation of /website-development-perth's
+history, and should watch whether de-localising the title costs the Perth
+web-development impressions the old page held.
