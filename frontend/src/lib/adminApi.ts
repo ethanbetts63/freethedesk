@@ -1,6 +1,5 @@
 import {
   authedFetch,
-  jsonOrError,
   queryString,
   type Paginated,
   type PublicSiteSettings,
@@ -9,6 +8,7 @@ import {
 
 import type { DealerAccount } from './dealerApi';
 import type { SeoAccount } from './seoApi';
+import { handleResponse } from '@freetheplatform/web-security';
 
 export type { Paginated, Principal as StaffUser } from './api';
 export { authedFetch, login, logout, getProfile } from './api';
@@ -89,15 +89,15 @@ export const SEO_SUBSCRIBER_TYPE = 'seo.seosubscriber';
 export async function getEnquiries(
   params: Record<string, string | number | undefined>,
 ): Promise<Paginated<Enquiry>> {
-  return jsonOrError(await authedFetch(`/api/admin/enquiries/${queryString(params)}`));
+  return handleResponse(await authedFetch(`/api/admin/enquiries/${queryString(params)}`));
 }
 
 export async function getEnquiry(id: number): Promise<Enquiry> {
-  return jsonOrError(await authedFetch(`/api/admin/enquiries/${id}/`));
+  return handleResponse(await authedFetch(`/api/admin/enquiries/${id}/`));
 }
 
 export async function updateEnquiryStatus(id: number, status: string): Promise<Enquiry> {
-  return jsonOrError(
+  return handleResponse(
     await authedFetch(`/api/admin/enquiries/${id}/`, {
       method: 'PATCH',
       body: JSON.stringify({ status }),
@@ -108,18 +108,18 @@ export async function updateEnquiryStatus(id: number, status: string): Promise<E
 export async function getDealers(
   params: Record<string, string | number | undefined>,
 ): Promise<Paginated<Dealer>> {
-  return jsonOrError(await authedFetch(`/api/admin/dealers/${queryString(params)}`));
+  return handleResponse(await authedFetch(`/api/admin/dealers/${queryString(params)}`));
 }
 
 export async function getDealer(id: number): Promise<Dealer> {
-  return jsonOrError(await authedFetch(`/api/admin/dealers/${id}/`));
+  return handleResponse(await authedFetch(`/api/admin/dealers/${id}/`));
 }
 
 export async function updateDealer(
   id: number,
   changes: Partial<Pick<Dealer, 'status' | 'staff_notes'>>,
 ): Promise<Dealer> {
-  return jsonOrError(
+  return handleResponse(
     await authedFetch(`/api/admin/dealers/${id}/`, {
       method: 'PATCH',
       body: JSON.stringify(changes),
@@ -130,18 +130,18 @@ export async function updateDealer(
 export async function getSeoSubscribers(
   params: Record<string, string | number | undefined>,
 ): Promise<Paginated<SeoSubscriber>> {
-  return jsonOrError(await authedFetch(`/api/admin/seo/${queryString(params)}`));
+  return handleResponse(await authedFetch(`/api/admin/seo/${queryString(params)}`));
 }
 
 export async function getSeoSubscriber(id: number): Promise<SeoSubscriber> {
-  return jsonOrError(await authedFetch(`/api/admin/seo/${id}/`));
+  return handleResponse(await authedFetch(`/api/admin/seo/${id}/`));
 }
 
 export async function updateSeoSubscriber(
   id: number,
   changes: Partial<Pick<SeoSubscriber, 'status' | 'staff_notes'>>,
 ): Promise<SeoSubscriber> {
-  return jsonOrError(
+  return handleResponse(
     await authedFetch(`/api/admin/seo/${id}/`, {
       method: 'PATCH',
       body: JSON.stringify(changes),
@@ -150,15 +150,15 @@ export async function updateSeoSubscriber(
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
-  return jsonOrError(await authedFetch('/api/admin/site-settings/'));
+  return handleResponse(await authedFetch('/api/admin/site-settings/'));
 }
 
 export async function getMessages(
   params: Record<string, string | number | undefined>,
 ): Promise<Paginated<AdminMessage>> {
-  return jsonOrError(await authedFetch(`/api/admin/messages/${queryString(params)}`));
+  return handleResponse(await authedFetch(`/api/admin/messages/${queryString(params)}`));
 }
 
 export async function getMessage(id: number): Promise<AdminMessage> {
-  return jsonOrError(await authedFetch(`/api/admin/messages/${id}/`));
+  return handleResponse(await authedFetch(`/api/admin/messages/${id}/`));
 }

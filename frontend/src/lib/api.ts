@@ -1,4 +1,4 @@
-import { createAuthedFetch, apiFetch } from '@freetheplatform/web-security';
+import { apiFetch, createAuthedFetch, handleResponse } from '@freetheplatform/web-security';
 
 export const AUTH_FAILURE_EVENT = 'auth-failure';
 
@@ -78,12 +78,6 @@ export function firstError(data: unknown, fallback = 'Request failed'): string {
   return typeof value === 'string' ? value : fallback;
 }
 
-export async function jsonOrError<T>(response: Response): Promise<T> {
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(firstError(data));
-  return data as T;
-}
-
 export function queryString(values: Record<string, string | number | undefined>): string {
   const query = new URLSearchParams();
   Object.entries(values).forEach(([key, value]) => {
@@ -97,15 +91,15 @@ export async function login(identifier: string, password: string): Promise<Princ
     method: 'POST',
     body: JSON.stringify({ username: identifier, password }),
   });
-  return jsonOrError<Principal>(response);
+  return handleResponse<Principal>(response);
 }
 
 export async function logout(): Promise<void> {
-  await jsonOrError<void>(await apiFetch('/api/token/logout/', { method: 'POST' }));
+  await handleResponse<void>(await apiFetch('/api/token/logout/', { method: 'POST' }));
 }
 
 export async function getProfile(): Promise<Principal> {
-  return jsonOrError(await authedFetch('/api/auth/me/'));
+  return handleResponse(await authedFetch('/api/auth/me/'));
 }
 
 /** Ask for a reset link. Always resolves: the API answers the same for an
@@ -124,7 +118,7 @@ export async function confirmPasswordReset(
   token: string,
   newPassword: string,
 ): Promise<void> {
-  await jsonOrError(
+  await handleResponse(
     await apiFetch('/api/auth/password/reset/confirm/', {
       method: 'POST',
       body: JSON.stringify({ uid, token, new_password: newPassword }),
@@ -135,7 +129,7 @@ export async function confirmPasswordReset(
 /** Change your own password. The current one is required: without it a stolen
  * session could take the account permanently. */
 export async function changePassword(currentPassword: string, newPassword: string): Promise<void> {
-  await jsonOrError(
+  await handleResponse(
     await authedFetch('/api/auth/password/change/', {
       method: 'POST',
       body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }),
@@ -173,12 +167,12 @@ export type PriceField = Exclude<keyof PublicSiteSettings, 'updated_at'>;
 
 /** Unauthenticated; powers the public licensing and SEO pricing pages. */
 export async function getSiteSettings(): Promise<PublicSiteSettings> {
-  return jsonOrError(await apiFetch('/api/site-settings/'));
+  return handleResponse(await apiFetch('/api/site-settings/'));
 }
 
 /** Unauthenticated JSON POST (signup, enquiry). Throws the API's own message. */
 export async function postJson<T = unknown>(url: string, payload: object): Promise<T> {
-  return jsonOrError<T>(
+  return handleResponse<T>(
     await apiFetch(url, {
       method: 'POST',
       body: JSON.stringify(payload),

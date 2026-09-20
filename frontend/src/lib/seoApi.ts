@@ -1,4 +1,5 @@
-import { authedFetch, jsonOrError, type AccountBase, type OnboardingStatus } from './api';
+import { authedFetch, type AccountBase, type OnboardingStatus } from './api';
+import { handleResponse } from '@freetheplatform/web-security';
 
 export type SeoPlanCode = 'monthly' | 'quarterly' | 'biannual' | 'oneoff';
 export type SeoReportType = 'gbp' | 'seo' | 'both';
@@ -53,11 +54,11 @@ export type SeoOnboardingChanges = Partial<
 >;
 
 export async function getSeoAccount(): Promise<SeoAccount> {
-  return jsonOrError(await authedFetch('/api/seo/me/'));
+  return handleResponse(await authedFetch('/api/seo/me/'));
 }
 
 export async function createSeoCheckout(): Promise<SeoCheckout> {
-  return jsonOrError(
+  return handleResponse(
     await authedFetch('/api/payments/seo-subscription/', {
       method: 'POST',
       body: JSON.stringify({ accepted_terms: true }),
@@ -66,5 +67,5 @@ export async function createSeoCheckout(): Promise<SeoCheckout> {
 }
 
 export async function getSeoOnboarding(): Promise<SeoOnboardingProfile> {
-  return jsonOrError(await authedFetch('/api/seo/onboarding/'));
+  return handleResponse(await authedFetch('/api/seo/onboarding/'));
 }
