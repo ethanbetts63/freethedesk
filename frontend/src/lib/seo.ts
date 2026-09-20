@@ -1,25 +1,20 @@
 import type { Metadata } from 'next';
 
 import { AUTHOR } from './author';
-import { SITE_URL } from './siteConfig';
+import {
+  DEFAULT_OG_HEIGHT,
+  DEFAULT_OG_IMAGE,
+  DEFAULT_OG_WIDTH,
+  SITE_NAME,
+  SITE_URL,
+} from './siteConfig';
+import {
+  absoluteUrl,
+  buildBreadcrumbSchema,
+  buildWebPageSchema,
+  buildWebsiteSchema,
+} from '@/lib/schema';
 
-const SITE_NAME = 'freethedesk';
-const DEFAULT_OG_IMAGE = '/og-images/og-default.webp';
-const DEFAULT_OG_WIDTH = 1200;
-const DEFAULT_OG_HEIGHT = 630;
-
-/**
- * The one spelling of a route's absolute URL, used by the canonical tag, the
- * sitemap, and every `@id`.
- *
- * The homepage is `{SITE_URL}/` — with the trailing slash — everywhere. The
- * sitemap used to special-case it to `{SITE_URL}` while the canonical said
- * `{SITE_URL}/`, which is two answers to one question. See seo-standard.md
- * section 4.
- */
-export function absoluteUrl(path: string): string {
-  return new URL(path, SITE_URL).toString();
-}
 const CONTACT_EMAIL = 'hello@freethedesk.com.au';
 
 /** Our ABN, published as `taxID` and used to build the ABR lookup URL below. */
@@ -98,46 +93,6 @@ export function buildOrganizationSchema(): object {
   };
 }
 
-export function buildWebsiteSchema(): object {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': `${SITE_URL}/#website`,
-    name: SITE_NAME,
-    url: SITE_URL,
-    publisher: { '@id': `${SITE_URL}/#organization` },
-  };
-}
-
-/**
- * The per-page WebPage entity, linked to the sitewide Organization/WebSite via @id.
- *
- * `updated` emits `dateModified`, which is the only freshness signal a marketing
- * page has - articles carry their own dates from front matter. Bump it in STATIC_PAGES
- * when a page's content materially changes, the same way an article's `updated`
- * is bumped; a date that never moves is worse than no date.
- */
-export function buildWebPageSchema(options: {
-  title: string;
-  description?: string;
-  path: string;
-  updated?: string;
-}): object {
-  const url = `${SITE_URL}${options.path}`;
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    '@id': `${url}#webpage`,
-    url,
-    name: options.title,
-    ...(options.description ? { description: options.description } : {}),
-    ...(options.updated ? { dateModified: options.updated } : {}),
-    isPartOf: { '@id': `${SITE_URL}/#website` },
-    publisher: { '@id': `${SITE_URL}/#organization` },
-  };
-}
-
 export interface ServiceDefinition {
   name: string;
   serviceType: string;
@@ -197,19 +152,6 @@ export function buildServiceSchema(options: {
           },
         }
       : {}),
-  };
-}
-
-export function buildBreadcrumbSchema(items: { name: string; path: string }[]): object {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item.name,
-      item: `${SITE_URL}${item.path}`,
-    })),
   };
 }
 
@@ -321,3 +263,10 @@ export function buildArticleSchema(article: {
     dateModified: article.lastModified,
   };
 }
+
+/**
+ * The sitewide nodes come from `lib/schema`, which all three sites share.
+ * Re-exported here so every caller that already reads them from `lib/seo`
+ * keeps one import.
+ */
+export { absoluteUrl, buildBreadcrumbSchema, buildWebPageSchema, buildWebsiteSchema };

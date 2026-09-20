@@ -41,3 +41,20 @@ export const FOOTER_NAVIGATION = [
  * `lib/formatting`.
  */
 export const SITE_TIMEZONE = 'Australia/Perth';
+
+/**
+ * The site's name as it appears in `siteName`, in a `WebSite` node, and
+ * anywhere a schema node has to say whose site this is.
+ */
+export const SITE_NAME = 'freethedesk';
+
+/**
+ * The one fallback link-preview image, and its real dimensions.
+ *
+ * Only the default asset carries width and height: a page-supplied image is a
+ * photograph whose size the metadata builder does not know, and stating it
+ * wrongly is worse than omitting it.
+ */
+export const DEFAULT_OG_IMAGE = '/og-images/og-default.webp';
+export const DEFAULT_OG_WIDTH = 1200;
+export const DEFAULT_OG_HEIGHT = 630;
