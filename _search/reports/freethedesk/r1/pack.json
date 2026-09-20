@@ -17,12 +17,12 @@
    }
   ],
   "report_version": "r1",
-  "engine_version": "1.0.0",
-  "ruleset_version": "1.0.0",
-  "config_hash": "39416ed72b56",
+  "engine_version": "1.1.0",
+  "ruleset_version": "1.1.0",
+  "config_hash": "8046c668eee3",
   "context_digest": "ac5d807ac42b",
   "data_version": "2026-09-19T14:03:05+00:00",
-  "generated_at": "2026-09-19T15:22:24+00:00",
+  "generated_at": "2026-09-20T01:15:19+00:00",
   "first_available_date": "2026-08-29",
   "latest_available_date": "2026-09-19",
   "unstable_from": "2026-09-17",
@@ -136,7 +136,6 @@
   "note": "Facts the data cannot show, recorded by the site owner. They change what this report may conclude, never what a number means, which is why they sit outside config_hash. The engine does not act on them: a page under standing guidance still appears in every exhibit with its real figures. Applying them is the writer's job."
  },
  "live": {
-  "render_failed": [],
   "status": "present",
   "checked_at": "2026-09-19T15:22:04+00:00",
   "url_count": 9,
@@ -144,6 +143,7 @@
   "not_ok": [
    "https://www.freethedesk.com.au/website-development-perth"
   ],
+  "render_failed": [],
   "redirecting": [],
   "noindex": [
    "https://www.freethedesk.com.au/website-development-perth"
@@ -989,7 +989,7 @@
   "example": "python -m freetheplatform.searchconsole query --property freethedesk --dimset query --start 2026-08-01 --end 2026-09-09 --contains 'near me' --limit 50"
  },
  "ruleset": {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "striking_distance": [
    5.0,
    20.0

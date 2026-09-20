@@ -88,13 +88,13 @@ report for this family of sites.
    `query_coverage`; state both once, early, as facts about the dataset. A
    homepage share from `concentration` is a share of page-attributed clicks, not
    of all clicks — write it that way. Do not re-caveat it in every section.
-5. **Geography is a property of the business line, not of the site.**
-   `exhibits.*.segments` marks each declared line `local` or `national` and
-   gives `locally_qualified_share`. Search Console cannot filter below the
-   country, so for a local line the locally-qualified split is the closest
-   available proxy for its real market and national impressions are largely
-   noise. For a national line those same impressions are the market. Never draw
-   one geographic conclusion for the whole site.
+5. **A dimension the data does not have is stated, never substituted.** The
+   finest geography Search Console reports is the country; there is no state,
+   city or suburb. Do not reach for a stand-in — the words in a query are not a
+   location, because proximity is itself a ranking factor and a nearby site
+   surfaces for the unqualified term too. The same holds for any missing
+   dimension: conversions, sessions, revenue. Say the measurement does not
+   exist and say what would provide it.
 6. **Never compare "number of queries ranking" across windows of different
    lengths.** It is a function of window length. Pages are safe; queries are not.
 7. **Only publish facts.** Every number traces to the pack or to a query you ran
@@ -109,10 +109,16 @@ report for this family of sites.
    what happened, still open and why, or withdrawn and on what grounds.
    Experiments marked running are read on their declared date and not before —
    an interim is direction, not outcome, and must say so.
-10. **Say what the report cannot tell you.** A closing section covering at
+10. **Draw the shape, do not tabulate it.** A change over time, a
+    distribution across bands, a cliff on a date — those are charts, and the
+    `chart` command builds one from the store. Reserve a table for figures a
+    reader will read individually or check against a source. A ten-row table of
+    a collapse makes the reader do arithmetic to see what a line would have
+    shown at a glance.
+11. **Say what the report cannot tell you.** A closing section covering at
    minimum: seasonality, the query/page reconciliation gap, anything the
    `sources` array marks absent, and any warning you could not design around.
-11. **Read `business_context` before you recommend anything.** It holds facts
+12. **Read `business_context` before you recommend anything.** It holds facts
     about the business that the data cannot show — a dormant page, a line that
     trades nationally while the rest is local, a figure not to quote forward.
     Each entry carries a **guidance** line saying what it means for the report.
@@ -120,16 +126,16 @@ report for this family of sites.
     suppressing them is its own distortion. But do not recommend, propose an
     experiment on, or describe as an opportunity anything the guidance rules
     out.
-12. **Check the site before describing a page.** `live` holds a rendered fetch
+13. **Check the site before describing a page.** `live` holds a rendered fetch
     of every page this report is about, plus Google's own index view of it.
     `live.disagreements` is where the two tell different stories, and those are
     usually the concrete bugs. If `live.status` is `not run`, say so and make no
     claim about what is deployed. A page is not underperforming if it is
     redirecting, noindexed or empty — find out which before writing either.
-13. **Cost is `low`, `medium` or `high`.** Never a number of hours or days. You
+14. **Cost is `low`, `medium` or `high`.** Never a number of hours or days. You
     do not know the team, the codebase or what else is in flight, and an invented
     estimate reads as precision that was never there.
-14. **Do not describe the reporting apparatus to the reader.** No explaining why
+15. **Do not describe the reporting apparatus to the reader.** No explaining why
     a section exists, no addressing a future report version as though it were a
     person, no narrating the method in the prose. State the finding. The method
     belongs in the closing section, written as what was and was not measured.
@@ -221,10 +227,17 @@ invisible to its successor and the ledger restarts.
   "experiments": [
     { "id": "homepage-link-block", "hypothesis": "...", "shipped": "2026-08-30",
       "baseline_window": { "start": "2026-08-01", "end": "2026-08-29" },
-      "remeasure_on": "2026-10-11", "status": "running", "note": "..." }
+      "remeasure_on": "2026-10-11", "status": "running", "note": "..." },
+    { "id": "adelaide-consolidation", "hypothesis": "...", "status": "proposed",
+      "note": "what it would change, and what would read as it having worked" }
   ]
 }
 ```
+
+An experiment you are recommending but nobody has shipped is `proposed`: no
+`shipped` date, no `remeasure_on`, and it is carried to the next report as
+something to resolve. Put it in the ledger, not only in the prose — a proposal
+that lives in a paragraph is one nobody will be asked about again.
 
 Every `headline` figure needs a `basis` naming its window. Every recommendation
 needs a stable `id` that will survive into later reports — if you are resolving

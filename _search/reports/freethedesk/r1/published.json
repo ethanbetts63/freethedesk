@@ -83,9 +83,20 @@
       "note": "26 impressions cannot distinguish an underperforming page from an unseen one. Tuning against these figures optimises against noise and destroys the baseline."
     }
   ],
-  "experiments": [],
+  "experiments": [
+    {
+      "id": "wdp-restore",
+      "status": "proposed",
+      "hypothesis": "Restoring /website-development-perth holds its index position, and the page recovers impressions for the three Perth web development terms rather than losing them at the next recrawl.",
+      "baseline_window": {
+        "start": "2026-08-29",
+        "end": "2026-09-19"
+      },
+      "note": "15 impressions, position 28.9, 0 clicks, page tier. Read no earlier than 2026-11-14: far enough out to clear a recrawl cycle on a site Google currently visits about fortnightly. An earlier look shows whether the URL resolves, which is worth knowing, but does not answer the question."
+    }
+  ],
   "published_at": "2026-09-19T14:36:34+00:00",
-  "engine_version": "1.0.0",
-  "ruleset_version": "1.0.0",
-  "config_hash": "39416ed72b56"
+  "engine_version": "1.1.0",
+  "ruleset_version": "1.1.0",
+  "config_hash": "8046c668eee3"
 }
