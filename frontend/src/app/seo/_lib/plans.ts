@@ -48,7 +48,7 @@ export function buildSeoPlans(
       {
         code: 'oneoff',
         name: 'One-time audit',
-        price: formatMoney(String(gbpPrice)),
+        price: formatMoney(String(gbpPrice), { cents: 'auto' }),
         cadence: 'once, no subscription',
         summary: reportSummary,
         features,
@@ -63,10 +63,10 @@ export function buildSeoPlans(
     return {
       code,
       name,
-      price: formatMoney(String(price)),
+      price: formatMoney(String(price), { cents: 'auto' }),
       cadence:
         reportType === 'both'
-          ? `first payment, then ${formatMoney(String(numericSeoPrice))} ${cadence}`
+          ? `first payment, then ${formatMoney(String(numericSeoPrice), { cents: 'auto' })} ${cadence}`
           : cadence,
       summary: reportSummary,
       features,

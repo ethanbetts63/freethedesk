@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useActionState, useId, useState } from 'react';
+import { type FormEvent, useActionState, useId, useState } from 'react';
 
 import { SelectionFormPanel } from '@/components/forms/SelectionFormPanel';
 import {
@@ -47,7 +47,7 @@ function formatCustomBudget(value: string) {
 
   const numericValue = trimmed.replaceAll(',', '');
   if (/^\d+(?:\.\d{1,2})?$/.test(numericValue)) {
-    return formatMoney(numericValue);
+    return formatMoney(numericValue, { cents: 'auto' });
   }
 
   return `$${trimmed}`;

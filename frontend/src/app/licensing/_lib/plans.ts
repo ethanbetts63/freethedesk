@@ -64,7 +64,7 @@ const PLAN_COPY: Omit<DealerPlan, 'price'>[] = [
 export function buildDealerPlans(settings: LicensingPrices): DealerPlan[] {
   return PLAN_COPY.map((plan) => ({
     ...plan,
-    price: formatMoney(settings[PRICE_FIELD[plan.code]]),
+    price: formatMoney(settings[PRICE_FIELD[plan.code]], { cents: 'auto' }),
   })).sort(
     (a, b) =>
       priceAmount(settings[PRICE_FIELD[a.code]]) - priceAmount(settings[PRICE_FIELD[b.code]]),

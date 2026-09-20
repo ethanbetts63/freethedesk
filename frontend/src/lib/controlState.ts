@@ -1,13 +1,19 @@
+/* Component registry: freetheplatform/frontend/registry/src/lib/controlState.ts
+   Copied, not imported. Edit the registry and re-sync; a deliberate local
+   change here must be marked. See _docs/component-registry.md. */
+
 /**
  * The interaction states every control family shares: the focus ring, and the
  * two reasons a control can be disabled.
  *
- * Phase 3 item 7. Before this, the three button families had four different
+ * Written for freethedesk, where three button families had four different
  * disabled treatments between them and no focus treatment at all — they fell
- * back to the browser's default ring, which is the one part of the design
- * system nobody had written down. Text controls keep their own focus
- * treatment (see `formControl.ts`): a control that owns a border says "focus"
- * by moving that border, and a filled box has no border to move.
+ * back to the browser's default ring, the one part of the design system nobody
+ * had written down. The same three states exist in every app; naming them once
+ * is what stops the fifth spelling appearing.
+ *
+ * Text controls keep their own focus treatment: a control that owns a border
+ * says "focus" by moving that border, and a filled box has no border to move.
  */
 
 /**
@@ -17,8 +23,11 @@
  * An outline rather than a `box-shadow`, so it cannot collide with a
  * component's own shadow and cannot be clipped by a rounded background. Drawn
  * only for `:focus-visible`, so a mouse click on a button does not paint it.
- * `--focus-ring` and the 2px/offset-2 shape match `adminRowClassName`, which
- * arrived at the same answer independently in 3.5c.
+ *
+ * Not yet adopted by the shadcn primitives in allbikes and bloomprint, which
+ * still draw the `focus-visible:ring-[3px]` soft ring they shipped with. That
+ * is one treatment or the other across ~110 call sites, not a convergence
+ * chore — see the open item in _docs/component-convergence.md.
  */
 export const focusRingClassName =
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]';
