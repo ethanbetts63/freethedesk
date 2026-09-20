@@ -12,12 +12,14 @@
     "format": "prettier --write src",
     "format:check": "prettier --check src",
     "check:sitemap": "node scripts/check-sitemap-routes.mjs",
+    "check:crumbs": "node scripts/check-crumb-labels.mjs",
     "check:seo-ledger": "node scripts/check-indexation-ledger.mjs",
+    "check:og-images": "node scripts/check-og-images.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:customer-routes": "node scripts/check-customer-routes.mjs",
     "check:text-scale": "node scripts/sync-text-scale.mjs --check",
     "tokens:text-scale": "node scripts/sync-text-scale.mjs",
-    "check": "npm run format:check && npm run lint && npm run lint:css && npm run typecheck && npm run check:sitemap && npm run check:seo-ledger && npm run check:customer-routes && npm run check:tokens && npm run check:text-scale"
+    "check": "npm run format:check && npm run lint && npm run lint:css && npm run typecheck && npm run check:sitemap && npm run check:crumbs && npm run check:seo-ledger && npm run check:og-images && npm run check:customer-routes && npm run check:tokens && npm run check:text-scale"
   },
   "dependencies": {
     "@freetheplatform/web-security": "github:ethanbetts63/freetheplatform#v0.16.0",

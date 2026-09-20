@@ -19,8 +19,9 @@ export interface BreadcrumbItem {
  * that list from a route stays with each site, which is the part that knows its
  * own page registry.
  *
- * Renders nothing on a page only one level deep from home, where a trail is
- * just the word "Home".
+ * Renders nothing when handed fewer than two crumbs — that is, on the home
+ * page itself, whose trail would be the single word "Home". Every other page
+ * draws, including one whose trail is just `Home / This page`.
  *
  * `overlay` floats it in the top-right of a hero and needs a positioned
  * ancestor; `band` is the standalone strip for pages that have no hero.
