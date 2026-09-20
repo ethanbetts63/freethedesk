@@ -1,4 +1,8 @@
 node_modules/
 .next/
-.env.local
+# env files. `.env*` is Next's own default and covers .env.production and the
+# .env.*.local variants too -- anything holding a real secret. The one
+# exception is committed on purpose, so the variables are discoverable.
+.env*
+!.env.example
 
