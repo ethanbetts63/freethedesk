@@ -19,12 +19,29 @@ const nextConfig: NextConfig = {
               'https://www.clarity.ms',
               'https://va.vercel-scripts.com',
               'https://js.stripe.com',
+              // GA4. gtag.js is served from googletagmanager.com even when Tag
+              // Manager itself is not in use.
+              'https://www.googletagmanager.com',
             ],
-            img: ['https://www.clarity.ms', 'https://c.clarity.ms'],
+            img: [
+              'https://www.clarity.ms',
+              'https://c.clarity.ms',
+              // GA4's fallback transport: where `sendBeacon` is unavailable the
+              // hit goes out as a pixel, so img-src is what carries it.
+              'https://www.googletagmanager.com',
+              'https://*.google-analytics.com',
+            ],
             connect: [
               'https://*.clarity.ms',
               'https://va.vercel-scripts.com',
               'https://api.stripe.com',
+              // GA4 collection. Three hosts, not one: hits go to
+              // *.google-analytics.com, consent and server-side tagging to
+              // *.analytics.google.com, and the tag fetches its own remote
+              // config from googletagmanager.com after loading.
+              'https://*.google-analytics.com',
+              'https://*.analytics.google.com',
+              'https://www.googletagmanager.com',
             ],
             frame: ['https://js.stripe.com', 'https://hooks.stripe.com'],
           },
