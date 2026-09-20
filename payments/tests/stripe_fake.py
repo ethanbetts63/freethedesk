@@ -34,9 +34,23 @@ class FakeStripe:
             id=session_id,
             status="open",
             client_secret=f"{session_id}_secret",
+            amount_total=self._total(params),
         )
         self.sessions[session_id] = session
         return session
+
+    @staticmethod
+    def _total(params):
+        """What Stripe would charge for these line items.
+
+        Stripe does this sum, not the quote, and the package refuses a session
+        whose total disagrees with what it quoted. A fake that left the total
+        to a ``Mock`` would pass that check by accident and prove nothing.
+        """
+        return sum(
+            line["price_data"]["unit_amount"] * line["quantity"]
+            for line in (params or {}).get("line_items", [])
+        )
 
     def _retrieve_session(self, session_id, **kwargs):
         if session_id not in self.sessions:

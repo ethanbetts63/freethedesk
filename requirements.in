@@ -27,11 +27,18 @@ python-dotenv
 #
 # Pinned to a tag, and a security fix in the package means a new tag and a bump
 # here the same day. See ../freetheplatform/_docs/strategy.md.
-freetheplatform[twilio,stripe] @ git+https://github.com/ethanbetts63/freetheplatform@v0.13.0
+freetheplatform[twilio,stripe] @ git+https://github.com/ethanbetts63/freetheplatform@v0.16.0
 
 # Dealer document uploads are sniffed by bytes and fully parsed before they are
-# stored; see core/utils/uploads.py.
+# stored; see core/utils/uploads.py. `pypdf` also fills the prescribed AcroForms
+# — VL17 and MR9B — and merges the signature overlay onto them.
 Pillow
 pypdf
+
+# Typesetting the documents that have no published form to fill: the Schedule 5
+# Vehicle Sale Contract, the Authority to Lodge, and the "Electronically signed
+# by" overlay stamped onto a prescribed form. See
+# _docs/licensing/plan/06-documents.md.
+reportlab
 
 stripe
