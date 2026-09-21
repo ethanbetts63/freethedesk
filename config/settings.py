@@ -264,6 +264,21 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 63072000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
+# Two `check --deploy` warnings are decisions, not oversights. They are silenced
+# by name so the gate can be read as pass/fail: a gate that always prints two
+# warnings is a gate people stop reading, and then the third one -- the real one
+# -- arrives unnoticed. Remove an entry here the day the decision changes.
+SILENCED_SYSTEM_CHECKS = [
+    # SECURE_SSL_REDIRECT. The host does the HTTP-to-HTTPS redirect at the
+    # edge. Django's copy would duplicate it, and because the test runner
+    # forces DEBUG off it 301s every plain-HTTP test request.
+    "security.W008",
+    # SECURE_HSTS_PRELOAD. Preload is a one-way commitment binding every
+    # present and future subdomain to HTTPS, and it takes a manual submission
+    # to hstspreload.org that nothing here performs. Neither sibling sets it.
+    "security.W021",
+]
+
 # No default. Stripe return URLs and every link in staff and customer email
 # are built out of this, and a hard-coded localhost standing in for a
 # missing variable is a production deploy that mails people a dead link.

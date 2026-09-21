@@ -54,7 +54,7 @@ finally {
     }
 }
 
-# Two warnings are expected and correct: security.W008, because the host does
-# the HTTP-to-HTTPS redirect rather than Django, and security.W021, because the
-# domain is not on the browser preload list. Anything else is a finding.
+# security.W008 and security.W021 are silenced by name in SILENCED_SYSTEM_CHECKS
+# with their reasons -- the host does the HTTP-to-HTTPS redirect, and the domain
+# is not on the browser preload list. Anything this prints is a finding.
 exit $code
