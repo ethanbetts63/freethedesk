@@ -14,6 +14,7 @@ clause is about.
 from decimal import Decimal
 
 from reportlab.lib import colors
+from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.platypus import KeepTogether, Paragraph, Spacer, Table, TableStyle
 
@@ -175,8 +176,22 @@ def _payment_rows(sale):
     ]
 
 
-def _signature_block(purchaser_signature="", signed_at=None, dealer_signature="", accepted_at=None):
-    """A conventional signature line until somebody actually signs."""
+SMALL_PRINT = ParagraphStyle(
+    "small-print", fontName="Helvetica", fontSize=6.5, leading=8,
+    textColor=colors.HexColor("#555555"),
+)
+
+
+def _signature_block(
+    purchaser_signature="", signed_at=None, dealer_signature="", accepted_at=None,
+    purchaser_signature_image=None,
+):
+    """A conventional signature line until somebody actually signs.
+
+    A drawn signature (a validated ``freetheplatform.signatures``
+    ``SignatureImage``) renders as the drawing with the electronic-signing
+    small print beneath it; the typed-name line stays as the fallback.
+    """
 
     def line(value):
         return Paragraph(f"Electronically signed by {value}" if value else "_" * 38, VALUE)
@@ -184,10 +199,22 @@ def _signature_block(purchaser_signature="", signed_at=None, dealer_signature=""
     def when(value):
         return Paragraph(value.strftime("%d/%m/%Y") if value else "_" * 18, VALUE)
 
+    if purchaser_signature_image is not None:
+        from freetheplatform.signatures import signature_flowable
+
+        # A plain list: the cell keeps its contents together itself, and
+        # KeepTogether inside a table cell derails reportlab's height maths.
+        purchaser_cell = [
+            signature_flowable(purchaser_signature_image, max_width=65 * mm, max_height=16 * mm),
+            Paragraph(f"Electronically signed by {purchaser_signature}", SMALL_PRINT),
+        ]
+    else:
+        purchaser_cell = line(purchaser_signature)
+
     data = [
         [
             Paragraph("Purchaser signature", LABEL),
-            line(purchaser_signature),
+            purchaser_cell,
             Paragraph("Date", LABEL),
             when(signed_at),
         ],
@@ -243,7 +270,7 @@ def can_build_sale_contract(sale) -> bool:
 
 def build_sale_contract(
     sale, dealer, profile, *, purchaser_signature="", signed_at=None,
-    dealer_signature="", accepted_at=None,
+    dealer_signature="", accepted_at=None, purchaser_signature_image=None,
 ):
     """Return ``(filename, pdf_bytes)`` for this sale's contract.
 
@@ -312,6 +339,7 @@ def build_sale_contract(
             signed_at=signed_at,
             dealer_signature=dealer_signature,
             accepted_at=accepted_at,
+            purchaser_signature_image=purchaser_signature_image,
         )
     )
 

@@ -17,6 +17,7 @@ that read like a sale agreement would collide with it. It says so in terms.
 
 from reportlab.platypus import Paragraph, Spacer, Table, TableStyle
 from reportlab.lib import colors
+from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
 
 from .pdf import BODY, CLAUSE, LABEL, NOTE, PART_HEADING, SECTION, TITLE, VALUE, build_document, rows_table
@@ -167,16 +168,26 @@ def published_text(sale) -> str:
     return "\n".join(lines).strip() + "\n"
 
 
-def _signature_block(signer_name="", signed_at=None):
-    value = (
-        f"Electronically signed by {signer_name}" if signer_name else "_" * 38
-    )
+def _signature_block(signer_name="", signed_at=None, signer_signature_image=None):
+    if signer_signature_image is not None:
+        from freetheplatform.signatures import signature_flowable
+
+        # A plain list: the cell keeps its contents together itself, and
+        # KeepTogether inside a table cell derails reportlab's height maths.
+        cell = [
+            signature_flowable(signer_signature_image, max_width=65 * mm, max_height=16 * mm),
+            Paragraph(f"Electronically signed by {signer_name}", SMALL_PRINT),
+        ]
+    else:
+        cell = Paragraph(
+            f"Electronically signed by {signer_name}" if signer_name else "_" * 38, VALUE
+        )
     when = signed_at.strftime("%d/%m/%Y") if signed_at else "_" * 18
     table = Table(
         [
             [
                 Paragraph("Purchaser signature", LABEL),
-                Paragraph(value, VALUE),
+                cell,
                 Paragraph("Date", LABEL),
                 Paragraph(when, VALUE),
             ]
@@ -197,7 +208,15 @@ def _signature_block(signer_name="", signed_at=None):
     return table
 
 
-def build_authority_to_lodge(sale, dealer, profile, *, signer_name="", signed_at=None):
+SMALL_PRINT = ParagraphStyle(
+    "small-print", fontName="Helvetica", fontSize=6.5, leading=8,
+    textColor=colors.HexColor("#555555"),
+)
+
+
+def build_authority_to_lodge(
+    sale, dealer, profile, *, signer_name="", signed_at=None, signer_signature_image=None,
+):
     """Return ``(filename, pdf_bytes)`` for this sale's Authority to Lodge."""
     trading_name = dealer.business_name
     story = [
@@ -224,7 +243,10 @@ def build_authority_to_lodge(sale, dealer, profile, *, signer_name="", signed_at
             BODY,
         )
     )
-    story.append(_signature_block(signer_name=signer_name, signed_at=signed_at))
+    story.append(_signature_block(
+        signer_name=signer_name, signed_at=signed_at,
+        signer_signature_image=signer_signature_image,
+    ))
 
     pdf = build_document(
         story,

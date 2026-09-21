@@ -27,7 +27,7 @@ python-dotenv
 #
 # Pinned to a tag, and a security fix in the package means a new tag and a bump
 # here the same day. See ../freetheplatform/_docs/strategy.md.
-freetheplatform[twilio,stripe] @ git+https://github.com/ethanbetts63/freetheplatform@v0.21.1
+freetheplatform[twilio,stripe,documents] @ git+https://github.com/ethanbetts63/freetheplatform@v0.22.0
 
 # Dealer document uploads are sniffed by bytes and fully parsed before they are
 # stored; see core/utils/uploads.py. `pypdf` also fills the prescribed AcroForms
