@@ -1,3 +1,93 @@
+# --- One test run per repository at a time ---------------------------------
+#
+# Django derives the test database name from DATABASES["default"]["NAME"], so
+# every pytest process in this repository uses the same one. Several agents work
+# these repositories at once, and a second run's DROP/CREATE pulls the tables out
+# from under the first -- which surfaces as hundreds of "table doesn't exist"
+# errors that read exactly like a code regression rather than a collision.
+#
+# The lock is taken when this file is imported, the earliest point available, and
+# is held by the operating system rather than by a file we write. That matters:
+# a cancelled or crashed run releases it automatically, so it can never strand
+# the next one.
+#
+# Keyed per repository, so two runs here wait for each other while a run in a
+# sibling product does not. The key also covers anything else a run shares --
+# the media directory written during a run.
+
+import atexit
+import sys as _sys
+import tempfile as _tempfile
+import time as _time
+from pathlib import Path as _Path
+
+_TEST_RUN_KEY = "freethedesk"
+_TEST_RUN_WAIT = 0.0
+
+
+def _notify(message):
+    """Write to the real terminal, bypassing pytest's capture."""
+    device = "CON" if _sys.platform == "win32" else "/dev/tty"
+    try:
+        with open(device, "w") as terminal:
+            terminal.write(f"\n{message}\n")
+    except OSError:
+        # No terminal -- CI, or output redirected to a file.
+        print(message, file=_sys.__stderr__, flush=True)
+
+
+def _acquire_test_run_lock(key):
+    path = _Path(_tempfile.gettempdir()) / f"ftp-pytest-{key}.lock"
+    handle = open(path, "a+")
+
+    def taken():
+        try:
+            if _sys.platform == "win32":
+                import msvcrt
+
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+            else:
+                import fcntl
+
+                fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            return False
+        return True
+
+    waited_from = _time.time()
+    announced = False
+    while not taken():
+        if not announced:
+            # Straight to the terminal, not to stdout: pytest installs its
+            # capture before it imports this file, so a plain print here is
+            # swallowed and a waiting run just looks hung.
+            _notify(f"Another test run holds {path.name}. Waiting for it to finish.")
+            announced = True
+        _time.sleep(5)
+
+    global _TEST_RUN_WAIT
+    _TEST_RUN_WAIT = _time.time() - waited_from
+
+    # Held for the life of the process; the OS releases it on exit.
+    atexit.register(handle.close)
+    return handle
+
+
+_TEST_RUN_LOCK = _acquire_test_run_lock(_TEST_RUN_KEY)
+
+
+def pytest_report_header(config):
+    """Say so in the run header when this run queued behind another.
+
+    The notice printed while waiting goes to the terminal, which a human
+    sees and a piped caller does not. This is the half that survives a pipe.
+    """
+    if _TEST_RUN_WAIT >= 1:
+        return f"test-run lock: waited {_TEST_RUN_WAIT:.0f}s for another run in this repository"
+    return None
+
+
 import pytest
 from django.core.cache import caches
 from django.test import Client
@@ -146,3 +236,32 @@ def rival_dealer():
         status=Dealer.Status.ACTIVE,
         payment_status=Dealer.PaymentStatus.ACTIVE,
     )
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _complete_test_schema(django_db_setup, django_db_blocker):
+    """Refuse to run against a half-built test database.
+
+    A run that was cancelled partway through creation leaves one behind, and the
+    next run inherits it: single tests pass because they touch the few tables
+    that exist, while the suite fails in hundreds of places. This turns that into
+    one sentence naming the cause.
+    """
+    from django.apps import apps
+    from django.db import connection
+
+    with django_db_blocker.unblock():
+        existing = set(connection.introspection.table_names())
+
+    missing = sorted(
+        model._meta.db_table
+        for model in apps.get_models()
+        if model._meta.managed and model._meta.db_table not in existing
+    )
+    if missing:
+        pytest.exit(
+            f"The test database is missing {len(missing)} table(s), starting with "
+            f"{missing[0]}. It was most likely left half-built by a cancelled or "
+            "concurrent run. Re-run with --create-db.",
+            returncode=1,
+        )
