@@ -22,30 +22,18 @@
  *
  * See freetheplatform/_docs/forms-standard.md.
  */
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
-
-const SKIP_DIRECTORIES = new Set(['node_modules', '.next', 'dist', 'build']);
-
-function walk(directory, out = []) {
-  for (const entry of readdirSync(directory)) {
-    const path = join(directory, entry);
-    if (statSync(path).isDirectory()) {
-      if (!SKIP_DIRECTORIES.has(entry)) walk(path, out);
-    } else if (entry.endsWith('.tsx')) {
-      out.push(path);
-    }
-  }
-  return out;
-}
+import { walk } from './walk.mjs';
 
 /** A `<form` opening tag, not the word "form" in prose or a className. */
 const FORM_TAG = /<form[\s>]/;
 
-export function checkFormLedger({ root, ledger }) {
+/** The comparison itself, exit-free so the test suite can call it. */
+export function findFormLedgerProblems({ root, ledger }) {
   const source = join(root, 'src');
   const found = new Set();
-  for (const path of walk(source)) {
+  for (const path of walk(source, ['.tsx'])) {
     if (FORM_TAG.test(readFileSync(path, 'utf8'))) {
       found.add(relative(source, path).split(sep).join('/'));
     }
@@ -76,6 +64,12 @@ export function checkFormLedger({ root, ledger }) {
     }
   }
 
+  return { problems, formCount: found.size };
+}
+
+export function checkFormLedger({ root, ledger }) {
+  const { problems, formCount } = findFormLedgerProblems({ root, ledger });
+
   if (problems.length) {
     console.error('check-forms: the ledger and the tree disagree.\n');
     console.error(problems.join('\n'));
@@ -96,6 +90,6 @@ export function checkFormLedger({ root, ledger }) {
     .map(([track, count]) => `${count} ${track}`)
     .join(', ');
   console.log(
-    `check-forms: all ${found.size} files rendering a <form> are accounted for (${summary}).`,
+    `check-forms: all ${formCount} files rendering a <form> are accounted for (${summary}).`,
   );
 }

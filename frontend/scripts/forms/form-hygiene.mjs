@@ -21,42 +21,36 @@
  * 3. `DJANGO_API_URL` is read only by the files that own it. One place owns the
  *    base and its fallback; an inline re-read is how an app ends up half on
  *    `localhost` (which can resolve IPv6-first) and half on `127.0.0.1`.
- * 4. Only the local wrapper imports the package `serverApiFetch`, and its
- *    `forwardCookies` allowlist is exactly the session cookies, named
- *    literally. A Server Action reads the whole cookie jar; without the
- *    allowlist everything in it goes to Django — analytics, consent flags, and
- *    any per-record capability cookie the site issues.
+ * 4. Only the local wrapper imports the package `serverApiFetch` — by name or
+ *    hidden behind a namespace import — and its `forwardCookies` allowlist is
+ *    exactly the session cookies, named literally, with no second allowlist
+ *    anywhere in the wrapper. A Server Action reads the whole cookie jar;
+ *    without the allowlist everything in it goes to Django — analytics,
+ *    consent flags, and any per-record capability cookie the site issues.
  *
- * What these cannot check is whether a schema's ceilings use the *right* kinds,
- * or whether a track was chosen correctly — that is review's job, and the
- * judgement rows in freetheplatform/_docs/forms-standard.md name it as such.
+ * These checks catch honest mistakes, not adversaries: a text scan can always
+ * be walked around by someone trying to. What they also cannot check is
+ * whether a schema's ceilings use the *right* kinds, or whether a track was
+ * chosen correctly — that is review's job (FORMS-3), and the judgement rows in
+ * freetheplatform/_docs/forms-standard.md name it as such.
  */
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
-
-const SKIP_DIRECTORIES = new Set(['node_modules', '.next', 'dist', 'build']);
-
-function walk(directory, out = []) {
-  for (const entry of readdirSync(directory)) {
-    const path = join(directory, entry);
-    if (statSync(path).isDirectory()) {
-      if (!SKIP_DIRECTORIES.has(entry)) walk(path, out);
-    } else if (entry.endsWith('.ts') || entry.endsWith('.tsx')) {
-      out.push(path);
-    }
-  }
-  return out;
-}
+import { walk } from './walk.mjs';
 
 /**
  * Every `z.string(...)` call in `text` with the full method chain hanging off
  * it (`.trim().max(FIELD_MAX.name).optional()` …), found by walking balanced
  * parentheses rather than by line, so a prettier-wrapped chain still reads as
- * one chain.
+ * one chain. Exported for the test suite.
  */
-function stringChains(text) {
+export function stringChains(text) {
   const chains = [];
-  const opener = /z\.string\(/g;
+  // `\s*` around the dot: prettier wraps a long chain at every link,
+  // `.string()` included, and an opener that only matches the contiguous
+  // spelling would skip the whole chain — silently, which for this check
+  // means an unbounded field nobody hears about.
+  const opener = /\bz\s*\.\s*string\s*\(/g;
   let match;
   while ((match = opener.exec(text)) !== null) {
     let i = match.index + match[0].length - 1; // at the '('
@@ -93,7 +87,8 @@ function stringChains(text) {
 
 const WIDEST_RAW_CEILING = 255; // FIELD_MAX.line
 
-export function checkFormHygiene({
+/** The checks themselves, exit-free so the test suite can call them. */
+export function findFormHygieneProblems({
   root,
   sessionCookies,
   wrapperFile = 'lib/serverApi.ts',
@@ -115,7 +110,7 @@ export function checkFormHygiene({
     }
   }
 
-  for (const path of walk(source)) {
+  for (const path of walk(source, ['.ts', '.tsx'])) {
     const file = posix(path);
     const text = readFileSync(path, 'utf8');
     const isSchema = file.endsWith('.schema.ts');
@@ -157,6 +152,11 @@ export function checkFormHygiene({
           );
         }
       }
+      if (/import\s*\*\s*as\s+[\w$]+\s+from\s*['"]@freetheplatform\/web-security['"]/.test(text)) {
+        problems.push(
+          `  ${file}\n      namespace-imports @freetheplatform/web-security, which hides whether\n      serverApiFetch is reached. Import the names this file uses.`,
+        );
+      }
     }
   }
 
@@ -176,6 +176,24 @@ export function checkFormHygiene({
       `  ${wrapperFile}\n      forwards [${cookies.join(', ')}] but the session cookies are\n      [${sessionCookies.join(', ')}]. Django reads nothing else — every extra\n      name here is a cookie leaked to it on every authenticated action.`,
     );
   }
+  // One allowlist, used everywhere. A second forwardCookies in the wrapper —
+  // a spread, a wider literal, a different constant — passes the two checks
+  // above while still forwarding more than the session; exactly the hole the
+  // rule exists to close.
+  const rogue = [...wrapper.matchAll(/forwardCookies\s*:\s*([^,}\r\n]+)/g)]
+    .map((m) => m[1].trim())
+    .filter((value) => value !== 'SESSION_COOKIES');
+  if (rogue.length) {
+    problems.push(
+      `  ${wrapperFile}\n      passes forwardCookies with something other than the SESSION_COOKIES\n      identifier: ${rogue.join('; ')}. One allowlist — extend SESSION_COOKIES\n      or change the standard, never a second list.`,
+    );
+  }
+
+  return { problems, schemaFiles };
+}
+
+export function checkFormHygiene(options) {
+  const { problems, schemaFiles } = findFormHygieneProblems(options);
 
   if (problems.length) {
     console.error('check-forms: hygiene problems.\n');
@@ -186,6 +204,6 @@ export function checkFormHygiene({
 
   console.log(
     `check-forms: ${schemaFiles} schema files bounded; DJANGO_API_URL confined to ` +
-      `${envReaders.length} file(s); forwarding only [${sessionCookies.join(', ')}].`,
+      `${options.envReaders?.length ?? 0} file(s); forwarding only [${options.sessionCookies.join(', ')}].`,
   );
 }
