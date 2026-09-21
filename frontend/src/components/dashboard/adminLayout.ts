@@ -19,7 +19,7 @@ export const adminComposeBadgeClassName =
   'rounded-xs bg-surface-tint-strong px-xs py-2xs text-caption font-heavy text-text-muted';
 
 export const adminConfigLabelClassName =
-  'rounded-pill bg-surface-tint-strong px-xs py-2xs text-caption-sm font-control text-text-muted';
+  'rounded-pill bg-surface-tint-strong px-xs py-2xs text-caption font-control text-text-muted';
 
 /** The dl of brand/URL/version above the capability groups. */
 export const adminConfigBasicsClassName = 'mb-ml border-b border-border-default pb-ml';
@@ -32,7 +32,7 @@ export const adminConfigBasicsClassName = 'mb-ml border-b border-border-default 
  */
 export const adminConfigGroupClassName = [
   'mt-ml',
-  '[&>strong]:mb-xs [&>strong]:block [&>strong]:text-caption-sm [&>strong]:tracking-label-tight [&>strong]:text-text-subtle [&>strong]:uppercase',
+  '[&>strong]:mb-xs [&>strong]:block [&>strong]:text-caption [&>strong]:tracking-label-tight [&>strong]:text-text-subtle [&>strong]:uppercase',
   '[&>div]:flex [&>div]:flex-wrap [&>div]:gap-2xs',
   '[&_span]:rounded-pill [&_span]:border [&_span]:border-border-default [&_span]:bg-surface-tint-strong [&_span]:px-xs [&_span]:py-2xs [&_span]:text-label [&_span]:font-strong',
   '[&_em]:text-label [&_em]:not-italic [&_em]:text-text-subtle',
@@ -41,7 +41,7 @@ export const adminConfigGroupClassName = [
 /** Free text the customer typed, quoted back with a rule beside it. */
 export const adminConfigRequestClassName = [
   'mt-ml border-l-[3px] border-l-action-primary bg-surface-tint px-m py-s',
-  '[&>strong]:mb-xs [&>strong]:block [&>strong]:text-caption-sm [&>strong]:tracking-label-tight [&>strong]:text-text-subtle [&>strong]:uppercase',
+  '[&>strong]:mb-xs [&>strong]:block [&>strong]:text-caption [&>strong]:tracking-label-tight [&>strong]:text-text-subtle [&>strong]:uppercase',
   '[&>p]:m-0 [&>p]:text-body-sm [&>p]:leading-[1.65] [&>p]:whitespace-pre-wrap',
 ].join(' ');
 
@@ -54,9 +54,9 @@ export const adminRelatedMessagesClassName = [
   'border-t border-border-default',
   '[&>a]:grid [&>a]:grid-cols-[minmax(0,1fr)] [&>a]:items-start [&>a]:gap-m [&>a]:border-b [&>a]:border-border-default [&>a]:px-3xs [&>a]:py-s',
   'sm:[&>a]:grid-cols-[120px_minmax(0,1fr)_170px] sm:[&>a]:items-center',
-  '[&_span]:text-caption-sm [&_span]:text-text-subtle',
+  '[&_span]:text-caption [&_span]:text-text-subtle',
   '[&_strong]:text-label',
-  '[&_small]:text-caption-sm [&_small]:text-text-subtle sm:[&_small]:text-right',
+  '[&_small]:text-caption [&_small]:text-text-subtle sm:[&_small]:text-right',
 ].join(' ');
 
 /** A delivered message body, shown verbatim. */

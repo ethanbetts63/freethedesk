@@ -18,9 +18,10 @@
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:customer-routes": "node scripts/check-customer-routes.mjs",
     "check:forms": "node scripts/check-forms.mjs",
+    "check:baseline": "node scripts/baseline/baseline-drift.mjs",
     "check:text-scale": "node scripts/sync-text-scale.mjs --check",
     "tokens:text-scale": "node scripts/sync-text-scale.mjs",
-    "check": "npm run format:check && npm run lint && npm run lint:css && npm run typecheck && npm run check:sitemap && npm run check:crumbs && npm run check:seo-ledger && npm run check:og-images && npm run check:customer-routes && npm run check:forms && npm run check:tokens && npm run check:text-scale"
+    "check": "npm run format:check && npm run lint && npm run lint:css && npm run typecheck && npm run check:sitemap && npm run check:crumbs && npm run check:seo-ledger && npm run check:og-images && npm run check:customer-routes && npm run check:forms && npm run check:tokens && npm run check:text-scale && npm run check:baseline"
   },
   "dependencies": {
     "@freetheplatform/web-security": "github:ethanbetts63/freetheplatform#v0.19.0",

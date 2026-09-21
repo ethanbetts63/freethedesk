@@ -23,7 +23,7 @@ export const pageClassName = 'mx-auto w-full max-w-[1500px] px-m py-l lg:p-xl';
 
 /** The small tracked label above a page title. */
 export const kickerClassName =
-  'm-0 mb-s text-caption-sm font-black tracking-label-wide text-text-action uppercase';
+  'm-0 mb-s text-caption font-black tracking-label-wide text-text-action uppercase';
 
 export const backClassName = 'mb-l inline-block text-label font-heavy text-text-muted';
 
@@ -32,4 +32,5 @@ export const backClassName = 'mb-l inline-block text-label font-heavy text-text-
  * size, deliberately off the type scale.
  */
 export const brandClassName =
-  'text-wordmark font-black not-italic tracking-[-0.085em] [&>span]:text-text-action [&>i]:not-italic [&>i]:text-action-primary';
+  // eslint-disable-next-line no-restricted-syntax -- 1.45rem is the logotype size, deliberately off the type scale.
+  'text-[1.45rem] font-black not-italic tracking-[-0.085em] [&>span]:text-text-action [&>i]:not-italic [&>i]:text-action-primary';

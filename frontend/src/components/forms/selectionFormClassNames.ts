@@ -47,9 +47,8 @@ export const choiceCardVariants = cva(
     'relative flex min-h-[var(--selection-choice-min-height,56px)] cursor-pointer flex-col items-center justify-center p-xs text-center text-label font-control',
     'transition-[background-color,border-color,color] duration-200 ease-[ease]',
     'has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)]',
-    // The sub-label is a miniature inside a card, below every step of the
-    // type scale on purpose.
-    '[&>small]:mt-3xs [&>small]:text-caption-xs [&>small]:font-strong [&>small]:tracking-label [&>small]:uppercase',
+    // The sub-label is a miniature inside a card, on the smallest rung.
+    '[&>small]:mt-3xs [&>small]:text-caption [&>small]:font-strong [&>small]:tracking-label [&>small]:uppercase',
   ],
   {
     variants: {
@@ -85,7 +84,7 @@ export const choiceCardVariants = cva(
 export const chooserClassName = 'flex flex-col px-ml py-xl text-text-secondary sm:p-2xl';
 
 export const choiceGroupHeadingClassName =
-  'm-0 mb-s border-b border-border-subtle pb-xs text-caption-sm font-strong tracking-label text-action-primary uppercase';
+  'm-0 mb-s border-b border-border-subtle pb-xs text-caption font-strong tracking-label text-action-primary uppercase';
 
 export const totalClassName =
   'mt-auto grid grid-cols-[minmax(0,1fr)] items-center gap-s border-t border-dashed border-border-default pt-l sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-ml';
@@ -95,7 +94,7 @@ export const totalPriceClassName =
   // --selection-total-size - em-relative and token-derived, not literals.
   // eslint-disable-next-line no-restricted-syntax -- see above
   'pr-[0.06em] text-[length:var(--selection-total-size,2.8rem)] leading-none tracking-[-0.06em]';
-export const totalCadenceClassName = 'text-caption-sm text-text-muted';
+export const totalCadenceClassName = 'text-caption text-text-muted';
 export const totalSummaryClassName = 'text-body-sm leading-[1.45] font-strong text-text-control';
 
 export const formClassName =
@@ -104,7 +103,7 @@ export const formTitleClassName =
   'mb-l flex flex-wrap items-baseline justify-between gap-s gap-x-m border-b border-border-subtle pb-ml';
 export const formTitleHeadingClassName = 'm-0 text-title-sm tracking-[-0.04em]';
 export const pillClassName =
-  'flex-none bg-surface-tint-strong px-xs py-2xs text-caption-sm font-strong tracking-label-tight text-text-action uppercase whitespace-nowrap';
+  'flex-none bg-surface-tint-strong px-xs py-2xs text-caption font-strong tracking-label-tight text-text-action uppercase whitespace-nowrap';
 export const fieldRowClassName = 'grid grid-cols-[minmax(0,1fr)] gap-m sm:grid-cols-2';
 export const fieldLabelClassName = 'mb-m block text-caption font-control text-text-control';
 export const fieldLabelSpanClassName = 'mb-xs block';
@@ -113,6 +112,6 @@ export const fieldInputClassName =
 export const fieldTextareaClassName =
   'min-h-[82px] w-full resize-y rounded-none border border-border-default bg-surface-page p-s text-[length:var(--selection-input-font-size)] text-text-primary outline-none [font:inherit] placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus';
 export const fieldHintClassName = 'mt-2xs block text-caption font-normal text-text-subtle';
-export const submitClassName = 'mt-xs min-h-[58px] text-left [&>span]:text-body-lg';
+export const submitClassName = 'mt-xs min-h-[58px] text-left [&>span]:text-lead';
 export const formErrorClassName =
   'm-0 mb-s border-l-[3px] border-border-danger bg-surface-danger p-s text-caption leading-[1.5] text-text-danger';
