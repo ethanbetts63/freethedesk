@@ -13,9 +13,12 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { checkFormLedger } from './forms/form-ledger.mjs';
+import { checkFormHygiene } from './forms/form-hygiene.mjs';
+
+const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 checkFormLedger({
-  root: join(dirname(fileURLToPath(import.meta.url)), '..'),
+  root,
   ledger: [
     // Track A — react-hook-form + a Zod resolver.
     { file: 'app/portal/sales/new/page.tsx', track: 'A' },
@@ -91,6 +94,17 @@ checkFormLedger({
       file: 'app/dealership-website-builder/_components/previews/shared.tsx',
       track: 'excluded',
       why: 'Configurator preview building blocks. Submits nowhere.',
+    },
+  ],
+});
+
+checkFormHygiene({
+  root,
+  sessionCookies: ['freethedesk_access', 'freethedesk_refresh'],
+  envReaders: [
+    {
+      file: 'lib/serverApi.ts',
+      why: 'Owns SERVER_API_BASE_URL and the 127.0.0.1 fallback.',
     },
   ],
 });

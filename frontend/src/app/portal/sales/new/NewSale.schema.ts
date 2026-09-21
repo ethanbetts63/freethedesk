@@ -67,7 +67,7 @@ export const newSaleSchema = z
     is_electric: z.boolean(),
     odometer_km: optionalInt,
     registration: z.string().max(20),
-    registration_expiry: z.string(),
+    registration_expiry: z.string().max(FIELD_MAX.token),
     registration_months_included: optionalInt,
     stock_number: z.string().max(64),
     rrp: optionalMoney,

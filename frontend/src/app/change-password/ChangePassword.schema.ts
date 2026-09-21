@@ -21,7 +21,7 @@ export const changePasswordSchema = z
       .min(1, 'Your current password is required.')
       .max(FIELD_MAX.password),
     new_password: password(MINIMUM_PASSWORD_LENGTH),
-    confirm_password: z.string(),
+    confirm_password: z.string().max(FIELD_MAX.password),
   })
   .refine((v) => v.new_password === v.confirm_password, {
     message: 'Those two passwords do not match.',

@@ -67,8 +67,12 @@ export function checkFormLedger({ root, ledger }) {
         `  ${row.file}\n      is in the ledger but renders no <form>. Remove the row, or point it\n      at the file that does.`,
       );
     }
-    if (row.track === 'excluded' && !String(row.why ?? '').trim()) {
-      problems.push(`  ${row.file}\n      is excluded with no reason given. Say why.`);
+    if (row.track !== 'A' && row.track !== 'B' && !String(row.why ?? '').trim()) {
+      problems.push(
+        `  ${row.file}
+      is '${row.track}' with no reason given. A row that is not on a track
+      says why in words: what excludes it, who owns it, or what is left.`,
+      );
     }
   }
 

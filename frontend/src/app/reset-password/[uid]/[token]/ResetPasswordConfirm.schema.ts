@@ -1,4 +1,5 @@
 import { password } from '@freetheplatform/web-security/schema';
+import { FIELD_MAX } from '@freetheplatform/web-security';
 import { z } from 'zod';
 
 import { MINIMUM_PASSWORD_LENGTH } from '@/components/auth/PasswordFields';
@@ -20,7 +21,7 @@ export const resetConfirmSchema = z
     uid: z.string().trim().min(1).max(64),
     token: z.string().trim().min(1).max(64),
     new_password: password(MINIMUM_PASSWORD_LENGTH),
-    confirm_password: z.string(),
+    confirm_password: z.string().max(FIELD_MAX.password),
   })
   .refine((v) => v.new_password === v.confirm_password, {
     message: 'Those two passwords do not match.',

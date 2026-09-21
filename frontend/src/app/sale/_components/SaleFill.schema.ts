@@ -30,7 +30,10 @@ export const saleFillSchema = z
     licence_family_name: name.min(1, 'Give the family name on the licence.'),
     licence_given_names: name.min(1, 'Give the given names on the licence.'),
     licence_number: z.string().trim().max(64).min(1, 'Give the driver’s licence number.'),
-    licence_date_of_birth: z.string().min(1, 'Give the date of birth on the licence.'),
+    licence_date_of_birth: z
+      .string()
+      .max(FIELD_MAX.token)
+      .min(1, 'Give the date of birth on the licence.'),
     licensee_address_line1: line.min(1, 'Give the licence holder’s street address.'),
     licensee_suburb: suburb.min(1, 'Give the suburb.'),
     licensee_postcode: postcode,
