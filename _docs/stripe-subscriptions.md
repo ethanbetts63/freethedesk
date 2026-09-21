@@ -21,10 +21,21 @@ GST-inclusive would claim an input tax credit they cannot support.
 
 The threshold is roughly 32 dealers at $199/month, so this position has a shelf
 life. When it changes, the decision to make first is whether prices are quoted
-inclusive or ex-GST: customers are registered businesses who reclaim the GST, so
+inclusive or ex-GST:
+
+| Quoted as        | Dealer pays today | Dealer pays once registered | You keep                               |
+| ---------------- | ----------------- | --------------------------- | -------------------------------------- |
+| `$199` inclusive | $199              | $199                        | $180.91 — a 10% revenue drop overnight |
+| `$199 + GST`     | $199              | $218.90, claims $19.90 back | $199 — nothing changes                 |
+
+Because the customers are GST-registered businesses who reclaim the GST, quoting
 ex-GST costs them nothing in real terms and makes registration a non-event rather
-than a 10% revenue cut. The reasoning is in
-`../../freetheplatform/_docs/payments-plan.md`.
+than a 10% cut or a price rise. Recommended — but it is a pricing and marketing
+decision, so it is made deliberately and not on the day.
+
+`tax_behavior: "inclusive"` is harmless while unregistered and becomes expensive
+the day registration happens, so whatever this settles, that switch must be a
+deliberate act rather than a leftover.
 
 ## Where this lives now
 
