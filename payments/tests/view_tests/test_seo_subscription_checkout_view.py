@@ -33,7 +33,7 @@ def test_quarterly_checkout_is_a_three_month_subscription(ftp_stripe, client, lo
     settings.save()
 
     response = client.post(
-        reverse("seo-subscription-checkout"),
+        reverse("payments:seo-subscription-checkout"),
         {"accepted_terms": True},
         content_type="application/json",
         HTTP_X_FORWARDED_FOR="203.0.113.99, 198.51.100.24",
@@ -71,7 +71,7 @@ def test_one_off_checkout_is_a_single_payment(ftp_stripe, client, seo_subscriber
     settings.save()
 
     response = client.post(
-        reverse("seo-subscription-checkout"),
+        reverse("payments:seo-subscription-checkout"),
         {"accepted_terms": True},
         content_type="application/json",
     )
@@ -101,7 +101,7 @@ def test_google_business_profile_audit_uses_its_own_one_off_price(
     settings.save()
 
     response = client.post(
-        reverse("seo-subscription-checkout"),
+        reverse("payments:seo-subscription-checkout"),
         {"accepted_terms": True},
         content_type="application/json",
     )
@@ -128,7 +128,7 @@ def test_combined_report_charges_gbp_once_and_only_recurs_the_seo_price(
     settings.save()
 
     response = client.post(
-        reverse("seo-subscription-checkout"),
+        reverse("payments:seo-subscription-checkout"),
         {"accepted_terms": True},
         content_type="application/json",
     )
@@ -148,7 +148,7 @@ def test_combined_report_charges_gbp_once_and_only_recurs_the_seo_price(
 
 @stripe_settings
 def test_checkout_requires_terms_acceptance(client, logged_in_seo_subscriber):
-    response = client.post(reverse("seo-subscription-checkout"), {}, content_type="application/json")
+    response = client.post(reverse("payments:seo-subscription-checkout"), {}, content_type="application/json")
     assert response.status_code == 400
     assert not Acceptance.objects.filter(
         agreement_version__agreement__key=SEO_AGREEMENT_KEY
@@ -158,7 +158,7 @@ def test_checkout_requires_terms_acceptance(client, logged_in_seo_subscriber):
 @stripe_settings
 def test_dealer_cannot_use_seo_checkout(client, logged_in_dealer):
     response = client.post(
-        reverse("seo-subscription-checkout"),
+        reverse("payments:seo-subscription-checkout"),
         {"accepted_terms": True},
         content_type="application/json",
     )

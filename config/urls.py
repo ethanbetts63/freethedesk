@@ -14,6 +14,7 @@ if settings.DEBUG:
 urlpatterns += [
     path("api/", include("core.urls")),
     path("api/", include("dealers.urls")),
+    path("api/", include("sales.urls")),
     path("api/", include("seo.urls")),
     path("api/payments/", include("payments.urls")),
     # Public, verified by provider signature rather than by authentication.

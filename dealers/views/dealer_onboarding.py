@@ -14,8 +14,7 @@ from ..utils.services import ensure_dealer_profile
 class DealerOnboardingView(RetrieveUpdateAPIView):
     """Extended dealership details, available only after a paid subscription activates."""
 
-    # A dealer or subscriber acting on their own record.
-    throttle_scope = "portal"
+    throttle_scope = "portal"  # A dealer or subscriber acting on their own record.
 
     permission_classes = [IsDealer]
     serializer_class = DealerOnboardingSerializer
@@ -30,8 +29,7 @@ class DealerOnboardingView(RetrieveUpdateAPIView):
 
 
 class DealerOnboardingSubmitView(APIView):
-    # A dealer or subscriber acting on their own record.
-    throttle_scope = "portal"
+    throttle_scope = "portal"  # A dealer or subscriber acting on their own record.
     permission_classes = [IsDealer]
 
     required_fields = {

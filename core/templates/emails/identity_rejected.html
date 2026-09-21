@@ -1,0 +1,18 @@
+{% extends "emails/base.html" %}
+
+{% block title %}One more photo needed — {{ sale.reference }}{% endblock %}
+{% block preheader %}{{ sale.dealer.business_name }} needs one of your photos again.{% endblock %}
+
+{% block content %}
+<p style="margin: 0 0 20px; font-size: 18px; font-weight: 700;">Hello {{ sale.customer_name }}.</p>
+
+<p style="margin: 0 0 20px;"><strong>{{ sale.dealer.business_name }}</strong> has looked at the photos you sent and needs one or more of them again.</p>
+
+<ul style="margin: 0 0 24px; padding-left: 20px;">
+  {% for sentence in outstanding %}<li style="margin-bottom: 8px;">{{ sentence }}</li>{% endfor %}
+</ul>
+
+<p style="margin: 0 0 24px;"><a href="{{ link }}" style="background-color: #16201a; color: #ffffff; padding: 12px 22px; border-radius: 4px; text-decoration: none; font-weight: 700; display: inline-block;">Send them now</a></p>
+
+<p style="margin: 0;">Everything else you have done is saved. Only the photos listed above need doing again.</p>
+{% endblock %}

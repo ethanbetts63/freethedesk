@@ -52,8 +52,7 @@ def outbox(settings):
     either of them. Assert on this rather than on rows in the table: a row proves
     only that the caller ran.
     """
-    # Staff addresses are env-driven and unset under test, which would make every
-    # admin alert fail with "no recipient" before it reached a provider.
+    # Env-driven and unset under test, which would fail every alert with "no recipient".
     settings.ADMIN_EMAIL = settings.ADMIN_EMAIL or "staff@example.com"
     settings.ADMIN_NUMBER = settings.ADMIN_NUMBER or "+61400000000"
     settings.FTP_MESSAGING = {
@@ -100,3 +99,50 @@ def drf_request_factory():
         return request
 
     return _build
+
+
+@pytest.fixture
+def selling_dealer():
+    """A dealership cleared to trade.
+
+    Defined here rather than in one app's own conftest because three apps now
+    act on a sale — `sales`, `documents`, and shortly `identity` — and a fixture
+    copied into each is three definitions that can disagree about what "able to
+    sell" means.
+
+    Cleared to trade matters: the sales views require an approved account on a
+    paying subscription, so a factory-default dealer is refused before any of
+    the behaviour under test is reached.
+    """
+    from core.tests.factories import UserFactory
+    from dealers.models import Dealer
+    from dealers.tests.factories import DealerFactory
+
+    return DealerFactory(
+        user=UserFactory(username="sam@bikeswa.example"),
+        business_name="Bikes WA",
+        contact_name="Sam Lee",
+        status=Dealer.Status.ACTIVE,
+        payment_status=Dealer.PaymentStatus.ACTIVE,
+    )
+
+
+@pytest.fixture
+def rival_dealer():
+    """A second dealership, for the cross-tenant tests.
+
+    Named for what it is for. Every list and detail endpoint gets a test that
+    this one cannot see the other's sales, and a fixture called `dealer_two`
+    would not say why it exists.
+    """
+    from core.tests.factories import UserFactory
+    from dealers.models import Dealer
+    from dealers.tests.factories import DealerFactory
+
+    return DealerFactory(
+        user=UserFactory(username="kim@otherbikes.example"),
+        business_name="Other Bikes",
+        contact_name="Kim Ng",
+        status=Dealer.Status.ACTIVE,
+        payment_status=Dealer.PaymentStatus.ACTIVE,
+    )

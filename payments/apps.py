@@ -6,6 +6,6 @@ class PaymentsConfig(AppConfig):
     name = "payments"
 
     def ready(self):
-        from . import flows
+        from . import fulfilment
 
-        flows.register()
+        fulfilment.register()

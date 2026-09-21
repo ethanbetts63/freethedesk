@@ -10,9 +10,7 @@ class SeoPasswordSerializer(serializers.Serializer):
     of its own about either.
     """
 
-    # Hashing is deliberately expensive, so an unbounded field is an unbounded
-    # amount of work per request.
-    password = serializers.CharField(write_only=True, max_length=128)
+    password = serializers.CharField(write_only=True, max_length=128)  # Hashing is expensive; cap the work.
 
     def validate_password(self, value):
         try:

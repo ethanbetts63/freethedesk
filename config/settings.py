@@ -12,6 +12,20 @@ from freetheplatform.auth import conf as ftp_auth_conf
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
+
+def _required(name):
+    """An environment variable with no sensible default.
+
+    Raising here beats defaulting: a value this site builds customer-facing
+    URLs out of is either configured or it is not, and a plausible-looking
+    fallback turns a configuration error into a silent one.
+    """
+    value = os.getenv(name)
+    if not value:
+        raise ImproperlyConfigured(f"{name} must be set.")
+    return value
+
+
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 SECRET_KEY = os.getenv("SECRET_KEY")
 if not DEBUG:
@@ -44,6 +58,9 @@ INSTALLED_APPS = [
     "freetheplatform.auth",  # Cookie-JWT sessions plus their deployment checks.
     "core",
     "dealers",
+    "documents",
+    "identity",
+    "sales",
     "seo",
     "payments",
     "freetheplatform.agreements",
@@ -156,6 +173,23 @@ REST_FRAMEWORK = {
         "enquiry": "10/hour",
         "dealer-signup": "5/hour",
         "seo-signup": "5/hour",
+        # Each accepted request mints a password and sends an email.
+        "sale-link": "60/hour",
+        # Credential-class, and tight. The pair is deliberate: `sale-login` is
+        # keyed on the sale reference, which is effectively the username here,
+        # and `sale-login-ip` on the caller. One bounds how hard any single sale
+        # can be hammered, the other how much one source can do across many. A
+        # shared office NAT locking its own customers out, and a botnet getting
+        # free rein on one reference, are the same mistake from opposite ends.
+        "sale-login": "10/hour",
+        "sale-login-ip": "30/hour",
+        # Redeeming a token the caller already holds grants nothing new, so this
+        # is generous — it exists to bound a scripted sweep, not a person.
+        "sale-access": "60/hour",
+        # Not traffic — CPU. Typesetting a Schedule 5 contract is real work, and
+        # it is reachable from the customer's side of the product by somebody
+        # holding no account. Named for the cost rather than for the caller.
+        "document-render": "120/hour",
         # Everything else, by who is calling rather than by what it does. None
         # of these is a security control — who may call them is settled by the
         # permission class — so each is set where a runaway client is stopped
@@ -165,6 +199,10 @@ REST_FRAMEWORK = {
         "portal": "600/hour",
         "public": "600/hour",
         "checkout": "20/hour",
+        # A customer working through their own sale. Set where a runaway client
+        # stops and a person filling in a form never notices.
+        "sale-customer": "600/hour",
+        "sale-upload": "60/hour",
     },
 }
 
@@ -226,7 +264,10 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 63072000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-SITE_URL = os.getenv("SITE_URL", "http://localhost:3000")
+# No default. Stripe return URLs and every link in staff and customer email
+# are built out of this, and a hard-coded localhost standing in for a
+# missing variable is a production deploy that mails people a dead link.
+SITE_URL = _required("SITE_URL").rstrip("/")
 # Staff alert destination, read directly by senders in core, dealers and seo.
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "")
 ADMIN_NUMBER = os.getenv("ADMIN_NUMBER", "")
@@ -258,13 +299,16 @@ FTP_PAYMENTS = {
     "SECRET_KEY": STRIPE_SECRET_KEY,
     "WEBHOOK_SECRET": STRIPE_WEBHOOK_SECRET,
     "SITE_URL": SITE_URL,
-    # No GST: the entity taking these payments is not registered for it, so
-    # the position is stated rather than left for Stripe Tax to infer from a
-    # registration it would not find. See _docs/stripe-subscriptions.md.
-    "CURRENCY": "aud",
+    # No CURRENCY: the package already defaults to "aud", and a site that
+    # restates a default is a site that will not notice when the default moves.
+    #
+    # No tax configuration either. The entity taking these payments is not
+    # registered for GST, so there is nothing for Stripe Tax to find and
+    # nothing to declare. See _docs/stripe-subscriptions.md.
+    #
     # Stripe stops retrying a failing event after about three days. Without
     # this, the first report of one is a dealer who paid and got nothing.
-    "ALERT_HANDLER": "payments.utils.alerts.alert_failed_webhook",
+    "ALERT_HANDLER": "payments.alerts.alert_failed_event",
 }
 FTP_AGREEMENTS = {
     "DOCUMENTS": {

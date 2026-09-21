@@ -1,7 +1,8 @@
 # PII Inventory & Handling
 
-_First pass, 2026-09-19._ A map of the personal information freethedesk holds,
-where it lives and how it is handled. Companion to the shared
+_First pass 2026-09-19; rewritten the same day when the sale flow landed._ A map
+of the personal information freethedesk holds, where it lives and how it is
+handled. Companion to the shared
 [security standard](../../freetheplatform/_docs/security-standard.md), which
 covers auth, transport and headers but not data lifecycle.
 
@@ -16,44 +17,92 @@ third-party tool directly.
 
 ## TL;DR
 
-Freethedesk holds far less than allbikes does, and the sensitive part is narrow:
-three categories of dealer document, one of which is an identity document, plus
-a date of birth. Access control over those is sound — they sit outside the
-web-served tree and leave only through an authenticated view, and the dealer's
-own client is told nothing but uploaded/not-uploaded.
+**This document described a system with no customer data in it. It no longer
+does.** The online licensing product added a tier that did not exist: a member of
+the public's name, date of birth, driver's licence number, residential address,
+photographs of their licence and their face, and a disclosure — the dealer sees
+all of it. That is now Tier 0 below, ahead of everything else, because it is the
+most sensitive category either this system or allbikes holds.
 
-Two things to know:
+Four things to know:
 
-1. **There is no retention or deletion anywhere.** No purge job, no expiry, no
-   `deleted_at`. Every table and the document tree grow forever. This is the
-   same gap allbikes records as G1, and it is not closed here either.
-2. **`Message` keeps a rendered copy of every email sent.** Names, business
+1. **Tier 0 is the new sensitive tier, and it is the only one with a written
+   retention schedule** — [`licensing/retention.md`](licensing/retention.md).
+   That schedule deletes nothing. The identity photographs are kept as the
+   dealer's evidence of due diligence, and the periods for the sale record are
+   set by the Motor Vehicle Dealers Act 1973 (WA) and are not yet verified. A
+   schedule that says "kept, and here is why" is a decision; the absence of one
+   is what G1 is about.
+2. **Nothing anywhere has retention or deletion.** No purge job, no expiry, no
+   `deleted_at`, in the sale flow or outside it. G1 below is unchanged in
+   substance and narrowed only in that one tier now says so deliberately.
+3. **The dealer is a third-party recipient, by design.** A customer's identity
+   documents are disclosed to the dealership handling their sale. That is the
+   purpose of collecting them, it is stated in the customer terms and the privacy
+   policy, and it engages APP 6 rather than being incidental.
+4. **`Message` keeps a rendered copy of every email sent.** Names, business
    details and portal links are stored in `body_text` / `body_html`
-   indefinitely. No credential is written into one here — a password reset
-   carries a single-use token, not a password — which is the one way this is
-   better than allbikes' equivalent.
+   indefinitely. The sale-link email additionally carries a **temporary access
+   password in the clear**, which is new and is recorded as G8.
 
 ---
 
 ## Part 1 — What we collect
 
-### Tier 1: Dealer identity and licensing data (highest sensitivity)
+### Tier 0: Customer identity and sale data (highest sensitivity)
+
+Created by the online licensing product. The subject is a member of the public
+with no account, reached through a capability in a link.
+
+All on `Sale` (`sales/models/sale.py`) unless noted.
+
+| Data                                | Field(s)                                                                                                       | Notes                                                              |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Customer name and contact           | `customer_name`, `customer_email`, `customer_phone`                                                            | entered by the dealer; the address the sale link goes to           |
+| **Date of birth**                   | `licence_date_of_birth`                                                                                        | plaintext column                                                   |
+| **Driver's licence number**         | `licence_number`                                                                                               | plaintext column; a government-related identifier                  |
+| Licence holder name and address     | `licence_family_name`, `licence_given_names`, `licensee_address_line1`, `licensee_suburb`, `licensee_postcode` | a residential address                                              |
+| Purchaser, where a different person | `purchaser_*`                                                                                                  | a second identified individual on the same row                     |
+| Delivery address                    | `delivery_*`                                                                                                   | a residential address, and where the Department sends the papers   |
+| Company details                     | `company_name`, `company_acn`, `company_organisation_code`                                                     | identifies a sole director                                         |
+| **Access password hash**            | `access_password_hash`                                                                                         | a credential; the plain text is emailed once and never stored      |
+| **Access token**                    | `access_token`                                                                                                 | a bearer capability for the whole record                           |
+| **Identity images**                 | `identity.Verification` — licence front, licence back, selfie                                                  | private storage, outside `MEDIA_ROOT`; the most sensitive category |
+| Signature evidence                  | `documents.SaleDocument` — `signer_name`, `signing_ip_address`, `signing_user_agent`, `signing_statement`      | **the IP address is PII**; retained deliberately as evidence       |
+| Sale history                        | `sales.SaleEvent` — `actor_label`, `ip_address`, `user_agent`, `context`                                       | append-only; the audit trail is the product                        |
+
+**Disclosed to the dealer in full.** Every field above is visible to the
+dealership on the sale, including the identity images, which they review by
+hand. That is the purpose of collecting it and it is an APP 6 disclosure, stated
+in the customer terms and the privacy policy.
+
+**Retention:** [`licensing/retention.md`](licensing/retention.md). Nothing here
+is deleted. The identity photographs are kept because they are the dealer's
+evidence that they satisfied themselves who they were licensing a vehicle to,
+and that evidence has to outlast the questions about the sale. The period for
+the sale record is set by the Motor Vehicle Dealers Act 1973 (WA) and has not
+been verified; until it is, nothing is deleted. The APP 11.2 tension this
+creates is stated in that file rather than left to be discovered here.
+
+### Tier 1: Dealer identity and licensing data
 
 All on `DealerProfile` (`dealers/models/dealer_profile.py`), gathered during
 post-payment onboarding.
 
-| Data                                     | Field(s)                                                                                    | Notes                                                     |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| Authorised officer name                  | `authorised_officer_name`                                                                   |                                                           |
-| **Authorised officer date of birth**     | `authorised_officer_date_of_birth`                                                          | plaintext column                                          |
-| Licence numbers                          | `dealer_licence_number`, `repairer_licence_number`, `authorised_officer_licence_number`     | plaintext columns                                         |
-| Business identifiers                     | `legal_name`, `abn`, `acn`, `organisation_code`                                             | company data, but identifies a sole trader                |
-| Business address                         | `address_line1`, `suburb`, `postcode`, `state`                                              | a home address, where the dealer trades from one          |
-| **Dealer licence document**              | `dealer_licence_document`                                                                   | `FileField`, private storage                              |
-| **Authorised officer identity document** | `authorised_officer_identity_document`                                                      | `FileField`, private storage — a licence or passport scan |
-| **Business evidence document**           | `business_evidence_document`                                                                | `FileField`, private storage                              |
-| Declaration evidence                     | `declared_at`, `conditions_accepted_at`, `conditions_accepted_ip`, `conditions_accepted_by` | **the IP address is PII**                                 |
-| Staff review trail                       | `reviewed_at`, `reviewed_by`, `verification_notes`                                          | free text written by staff about a named person           |
+| Data                                     | Field(s)                                                                                | Notes                                                     |
+| ---------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Authorised officer name                  | `authorised_officer_name`                                                               |                                                           |
+| **Authorised officer date of birth**     | `authorised_officer_date_of_birth`                                                      | plaintext column                                          |
+| Licence numbers                          | `dealer_licence_number`, `repairer_licence_number`, `authorised_officer_licence_number` | plaintext columns                                         |
+| Business identifiers                     | `legal_name`, `abn`, `acn`, `organisation_code`                                         | company data, but identifies a sole trader                |
+| Business address                         | `address_line1`, `suburb`, `postcode`, `state`                                          | a home address, where the dealer trades from one          |
+| **Dealer licence document**              | `dealer_licence_document`                                                               | `FileField`, private storage                              |
+| **Authorised officer identity document** | `authorised_officer_identity_document`                                                  | `FileField`, private storage — a licence or passport scan |
+| **Business evidence document**           | `business_evidence_document`                                                            | `FileField`, private storage                              |
+| Bank details                             | `bank_account_name`, `bank_bsb`, `bank_account_number`                                  | shown to a customer on their payment instructions         |
+| Signature image                          | `signature_image`, `signature_name`                                                     | `FileField`, private storage                              |
+| Declaration evidence                     | `declared_at`, plus the `freetheplatform.agreements` acceptances                        | **the acceptance's IP address is PII**                    |
+| Staff review trail                       | `reviewed_at`, `reviewed_by`, `verification_notes`                                      | free text written by staff about a named person           |
 
 ### Tier 2: Account and contact data
 
@@ -120,11 +169,18 @@ password — plus the `AccountSecurity` row above. Low volume, standard handling
 
 ### Gaps
 
-**G1 — No retention or deletion, anywhere.** No purge command, no anonymisation,
-no expiry. An identity document uploaded by a dealer who cancelled in 2026 is
-still on disk in 2032. Australian Privacy Principle 11.2 requires destroying or
+**G1 — No retention or deletion anywhere.** There is no purge command, no
+anonymisation and no expiry in this codebase. An identity document uploaded by a
+dealer who cancelled in 2026 is still on disk in 2032, and so is a customer's
+licence photograph. Australian Privacy Principle 11.2 requires destroying or
 de-identifying personal information once it is no longer needed for any
-permitted purpose, and there is no mechanism here to do that.
+permitted purpose.
+
+Tier 0 is the one place where that is a stated decision rather than an omission:
+[`licensing/retention.md`](licensing/retention.md) says what is kept, why the
+identity photographs are evidence rather than a spent means, and that the
+statutory period has not been verified. It also states the APP 11.2 tension
+rather than resolving it. Everywhere else the silence is just silence.
 
 **G2 — `Message` is a second copy of most contact data.** Every email is stored
 fully rendered, indefinitely. Names, business details and portal links live in
@@ -151,33 +207,50 @@ account opened a dealer's identity document, or when. For the most sensitive
 thing here, viewing is invisible. Recorded in the shared plan's deferred list as
 a data-modelling project rather than a security one.
 
-**G7 — The privacy policy has not been checked against this document.** Until it
-has been, treat it as unverified rather than as a description of the above.
+**G7 — The privacy policy has been checked against Tier 0 only.** Its sections 2,
+5 and 9 were rewritten on 19 September 2026 to name the customer categories, the
+disclosure to the dealer and the retention schedule. Tiers 1 to 5 and Part 3 are
+still unverified against it.
+
+**G8 — The sale-link email carries a temporary password in the clear.** It has to
+— it is recovery for a customer with no account, and asking them to fetch it
+separately means a support call for something the link already grants — but
+`Message.body_text` therefore holds a live credential for the sale until it is
+next resent. Bounded by the sale's own lifetime rather than by anything that
+clears it. Two ways out, neither taken yet: blank the stored body once the
+message is delivered, or hold the credential out of the stored copy.
+
+**G9 — No audit trail on customer identity-image views.** The same gap as G6, one
+tier up. Nothing records which dealer user opened a customer's licence
+photograph, or when. Viewing the most sensitive thing in the system is invisible
+on both sides of it.
 
 ---
 
 ## Part 3 — Third-party processors (data leaving the system)
 
-| Processor             | Via                           | Personal data sent                                                      | Hosting   |
-| --------------------- | ----------------------------- | ----------------------------------------------------------------------- | --------- |
-| **Stripe**            | `payments/`                   | Checkout session; customer email and business name attached at checkout | US / AU   |
-| **Mailgun**           | `freetheplatform.messaging`   | Every transactional email body — names, business details, portal links  | US        |
-| **Twilio**            | `freetheplatform.messaging`   | SMS to staff numbers; bodies carry a customer's business name           | US        |
-| **Vercel**            | hosting + `@vercel/analytics` | Request metadata, IP-derived analytics                                  | US (edge) |
-| **Microsoft Clarity** | `frontend/src/app/layout.tsx` | Session recordings: interaction events, page content, possibly input    | US        |
+| Processor             | Via                           | Personal data sent                                                                                   | Hosting   |
+| --------------------- | ----------------------------- | ---------------------------------------------------------------------------------------------------- | --------- |
+| **Stripe**            | `payments/`                   | Checkout session; customer email and business name attached at checkout                              | US / AU   |
+| **Mailgun**           | `freetheplatform.messaging`   | Every transactional email body — names, business details, portal links, and a sale's access password | US        |
+| **Twilio**            | `freetheplatform.messaging`   | SMS to staff numbers; bodies carry a customer's business name                                        | US        |
+| **Vercel**            | hosting + `@vercel/analytics` | Request metadata, IP-derived analytics                                                               | US (edge) |
+| **Microsoft Clarity** | `frontend/src/app/layout.tsx` | Session recordings: interaction events, page content, possibly input                                 | US        |
 
 ---
 
 ## Part 4 — Recommendations
 
 Ordered by priority. Allbikes' own inventory proposes the same retention work in
-more detail; if one purge command is ever written, the two are worth writing
+more detail; if a purge command is ever written, the two are worth writing
 together rather than twice.
 
 ### P0
 
-1. **Write a retention schedule and enforce it with a daily command.** Starting
-   points, to settle with the business:
+1. **Write a retention schedule, and enforce it once the periods are known.**
+   Tier 0 has the schedule — [`licensing/retention.md`](licensing/retention.md) —
+   and no command, because its periods are the statutory ones and they have not
+   been verified. Starting points for the others, to settle with the business:
 
    | Data                                                | Retain until                             | Then                                          |
    | --------------------------------------------------- | ---------------------------------------- | --------------------------------------------- |

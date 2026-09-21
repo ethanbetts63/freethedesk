@@ -26,9 +26,7 @@ class SeoRegistrationView(APIView):
         subscriber = serializer.save()
         notify_staff_of_seo_signup(subscriber)
         send_seo_welcome(subscriber)
-        # Registering signs them straight in, on the same cookies a login
-        # issues. The CSRF token is issued alongside them so the first write
-        # after registering has one to send back.
+        # Registering signs them in on the same cookies login uses; CSRF token issued alongside.
         refresh = RefreshToken.for_user(subscriber.user)
         get_token(request)
         response = Response(principal(subscriber.user), status=status.HTTP_201_CREATED)

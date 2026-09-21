@@ -19,6 +19,7 @@ The pack raised the following. Each one changes what this report may claim.
 
 - **high** · `site_and_google_disagree` — The site and Google's index disagree about 1 URL(s): indexed_but_unavailable; noindex_still_indexed. These are usually concrete bugs and neither source shows them alone. See live.disagreements.
 - **high** · `pages_not_serving` — 1 checked page(s) did not return a success status: https://www.freethedesk.com.au/website-development-perth. Any finding about their search performance must say so.
+- **high** · `context_applies_to_prominent_page` — A page under standing business guidance is among this period's most prominent: /website-development-perth (/website-development-perth was renamed, not removed). Report its figures as measured, but read business_context before drawing any conclusion or making any recommendation about it.
 - **medium** · `unstable_tail` — Data from 2026-09-17 onward is still being revised by Google. It is included and marked, but the last few days of any series should be drawn as provisional and not used as an endpoint for a claim.
 - **medium** · `seasonality_unresolvable` — Only 21 days of history exist, so there is no prior year to compare against and seasonality cannot be separated from cause. Any trend explanation must say this rather than imply a clean attribution.
 

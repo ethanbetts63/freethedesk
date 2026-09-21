@@ -2,11 +2,13 @@ from django.conf import settings
 
 from freetheplatform.messaging import send, send_many
 
+from core.utils.urls import site_url
+
 from ..models import Dealer
 
 
 def _dealer_url(dealer: Dealer) -> str:
-    return f"{settings.SITE_URL.rstrip('/')}/dashboard/dealers/{dealer.pk}"
+    return f"{site_url()}/dashboard/dealers/{dealer.pk}"
 
 
 def notify_staff_of_dealer_signup(dealer: Dealer):
@@ -45,7 +47,7 @@ def notify_staff_of_dealer_signup(dealer: Dealer):
 
 def send_dealer_welcome(dealer: Dealer):
     """Confirm the lightweight account and point the dealer to its next step."""
-    payment_url = f"{settings.SITE_URL.rstrip('/')}/licensing/payment"
+    payment_url = f"{site_url()}/licensing/payment"
     body = (
         f"Thanks, {dealer.contact_name}. Your account for {dealer.business_name} is saved.\n\n"
         f"Selected plan: {dealer.get_plan_display()}\n"

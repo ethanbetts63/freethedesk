@@ -1,0 +1,18 @@
+{# Plain text, so nothing here is HTML. Without this an apostrophe renders
+   as &#x27; in a customer's inbox — Django autoescapes by template engine
+   rather than by file extension. #}
+{% autoescape off %}Hello {{ sale.customer_name }},
+
+{{ sale.dealer.business_name }} has started the paperwork for your {{ vehicle|default:"vehicle" }}.
+
+Open your sale:
+{{ link }}
+
+That link signs you in on this device. If you need to pick it up somewhere else, go to:
+
+{{ login_url }}
+Reference: {{ sale.reference }}
+Password: {{ password }}
+
+You will be asked for your licence details, some identity photos, and your signature. Nothing is binding until the dealer accepts your offer, and we will email you when they do.
+{% endautoescape %}

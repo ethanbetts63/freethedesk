@@ -1,6 +1,19 @@
-# Online licensing — product idea
+# Online licensing
 
-**Status: idea, not a spec.** Nothing designed, nothing built.
+**Status: specified; steps 1 to 6 of the build sequence are built.** The sale
+flow is settled in `plan/02-sale-flow.md` — read that first for how the product
+works.
+
+Built: the tenancy base and the sale aggregate; the dealer's queue, creation
+screen and sale page; per-clause approval of the special conditions; every
+document unsigned — VL17, MR9B, the Schedule 5 contract, the Authority to Lodge
+and the warranty notice; the customer's link, recovery, Fill step and warranty
+gate; and identity verification. Nothing is deleted anywhere — see
+`retention.md`, which is a decision rather than an omission.
+
+Not built: signing (step 7), acceptance and the lapse clock (step 8), payment
+and completion (step 9), and Stripe Identity (step 10). See
+`plan/07-build-sequence.md`.
 
 ## The idea
 
@@ -41,7 +54,27 @@ pack; the dealer lodges it.
 
 ## What's here
 
+**The plan**, in reading order. `02` is the one to start with — the rest answer
+"how" once it has answered "what".
+
+| Doc                         | Answers                                                     |
+| --------------------------- | ----------------------------------------------------------- |
+| `plan/02-sale-flow.md`      | **The specification.** What happens, in what order, and why |
+| `plan/00-app-overview.md`   | The architecture around it — apps, tenancy, actors, routes  |
+| `plan/01-staff-app.md`      | Phase 1. Largely delivered                                  |
+| `plan/03-data-model.md`     | The models, the tenancy base, and retention                 |
+| `plan/04-dealer-portal.md`  | The dealer's screens, actions, endpoints and emails         |
+| `plan/05-customer-flow.md`  | Access, the four steps, the requirements engine, privacy    |
+| `plan/06-documents.md`      | Form filling, contract typesetting, signing, storage        |
+| `plan/07-build-sequence.md` | The order of work and what proves each step                 |
+
+**The rest**
+
+- `retention.md` — what the sale flow keeps, for how long, and what enforces it
+- `open-questions.md` — the live decision record
 - `research/online_licensing.md` — the legal position (26 Aug 2026)
+- `research/findings-2026-08-30.md` — the warranty rule, the offer window, the
+  used path, and the Stripe Identity answer
 - `research/contract_special_conditions.md` — deposit terms and special
   conditions to the prescribed Schedule 5 contract
 - `wa_dealer_forms/` — DoT and MV Dealers Act forms, plus the Sales Regs

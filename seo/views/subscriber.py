@@ -13,8 +13,7 @@ from ..utils.permissions import IsSeoSubscriber
 class SeoAccountView(RetrieveUpdateAPIView):
     """The signed-in SEO customer's own account."""
 
-    # A dealer or subscriber acting on their own record.
-    throttle_scope = "portal"
+    throttle_scope = "portal"  # A dealer or subscriber acting on their own record.
 
     permission_classes = [IsSeoSubscriber]
     serializer_class = SeoSelfSerializer
@@ -46,8 +45,6 @@ class SeoPasswordView(APIView):
 
         serializer = SeoPasswordSerializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
-        # Through the package, so the first password clears the same state a
-        # change or a reset does — the lockout counters and the must-change
-        # marker — rather than only writing the hash.
+        # Via the package so this clears lockout counters and the must-change marker too, not just the hash.
         apply_new_password(request.user, serializer.validated_data["password"])
         return Response({"status": "password_set"}, status=status.HTTP_200_OK)

@@ -2,6 +2,8 @@ from django.conf import settings
 
 from freetheplatform.messaging import send_many
 
+from core.utils.urls import site_url
+
 from ..models import Enquiry
 
 
@@ -11,7 +13,7 @@ def notify_admin_of_enquiry(enquiry: Enquiry):
     The email carries the whole submission so nobody has to open the dashboard to
     triage it; the SMS is the short version with a link.
     """
-    dashboard_url = f"{settings.SITE_URL.rstrip('/')}/dashboard/enquiries/{enquiry.pk}"
+    dashboard_url = f"{site_url()}/dashboard/enquiries/{enquiry.pk}"
     enquiry_label = enquiry.business or enquiry.name
     contact_label = f"{enquiry.business} — {enquiry.name}" if enquiry.business else enquiry.name
     email_body = (

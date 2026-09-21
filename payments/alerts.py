@@ -14,7 +14,7 @@ from freetheplatform.messaging import send
 logger = logging.getLogger(__name__)
 
 
-def alert_failed_webhook(*, event):
+def alert_failed_event(*, event):
     """Email staff once a webhook event looks permanently stuck.
 
     Fires once per event rather than once per retry. Stripe gives up after

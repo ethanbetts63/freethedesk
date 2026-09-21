@@ -19,9 +19,7 @@ SEO_ORDERING = {
 
 
 class AdminSeoSubscriberListView(ListAPIView):
-    # Staff-only, so the rate is a runaway-client limit rather than a security
-    # control; who may call it is settled by the permission class.
-    throttle_scope = "staff"
+    throttle_scope = "staff"  # Runaway-client limit; access is gated by the permission class.
     permission_classes = [IsAdminUser]
     serializer_class = AdminSeoSubscriberSerializer
     pagination_class = DashboardPagination
@@ -44,9 +42,7 @@ class AdminSeoSubscriberListView(ListAPIView):
 
 
 class AdminSeoSubscriberDetailView(RetrieveUpdateAPIView):
-    # Staff-only, so the rate is a runaway-client limit rather than a security
-    # control; who may call it is settled by the permission class.
-    throttle_scope = "staff"
+    throttle_scope = "staff"  # Runaway-client limit; access is gated by the permission class.
     permission_classes = [IsAdminUser]
     serializer_class = AdminSeoSubscriberSerializer
     queryset = SeoSubscriber.objects.select_related("user")

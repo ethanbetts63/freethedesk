@@ -7,8 +7,7 @@ from ..utils.permissions import IsDealer
 class DealerProfileView(RetrieveUpdateAPIView):
     """The signed-in dealer's own account."""
 
-    # A dealer or subscriber acting on their own record.
-    throttle_scope = "portal"
+    throttle_scope = "portal"  # A dealer or subscriber acting on their own record.
 
     permission_classes = [IsDealer]
     serializer_class = DealerSelfSerializer

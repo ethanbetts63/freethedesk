@@ -2,7 +2,7 @@
 
 The package's own tests prove it handles duplicates, ordering and failure.
 These prove the wiring: that the URL reaches it, that the flows registered in
-``payments/flows.py`` are the ones it calls, and that a dealer or subscriber
+``payments/fulfilment.py`` are the ones it calls, and that a dealer or subscriber
 ends up in the state this site expects.
 """
 
@@ -22,7 +22,7 @@ from seo.models import SeoSubscriber
 pytestmark = pytest.mark.django_db
 
 
-WEBHOOK = "stripe-webhook"
+WEBHOOK = "payments:ftp_payments:stripe-webhook"
 
 
 def post(client, event):
@@ -228,7 +228,7 @@ def test_a_failing_handler_returns_an_error_so_stripe_retries(client, dealer):
 
     payment = make_payment(dealer, flow=DEALER_SUBSCRIPTION)
     with patch(
-        "payments.flows.ensure_dealer_profile", side_effect=RuntimeError("boom")
+        "payments.fulfilment.ensure_dealer_profile", side_effect=RuntimeError("boom")
     ):
         with pytest.raises(RuntimeError):
             post(client, completed(payment))

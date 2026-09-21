@@ -3,11 +3,35 @@
 Plain answers are Ethan's. **Bold notes** are research outcomes — detail in
 `research/findings-2026-08-30.md`.
 
+## Decided 19 Sep 2026
+
+Scope decisions taken in one sitting. All of them are specified in
+`plan/02-sale-flow.md`; they are listed here because this file is the decision
+record.
+
+| Question                               | Decision                                                                                             |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| How the plans separate (relates to Q3) | Licensing-only carries its own **Authority to Lodge** — SC2 has nowhere to live without Schedule 5   |
+| Entry point                            | Hosted portal only in v1. "Built into your website" keeps a seam and is not built                    |
+| Identity (Q14, Q15)                    | Manual licence images and selfie with dealer review; Stripe Identity swapped in last                 |
+| Vehicle data                           | Dealer types it per sale, snapshotted onto the `Sale`. DMS push later                                |
+| Offer lapse (finding A)                | Surfaced to the dealer, never enforced. Derived, not a state                                         |
+| Document set                           | Licensing form, contract, warranty notice. Form 4 and the Form 1 register are out of v1              |
+| Special conditions (Q2)                | Per-clause approval at onboarding in v1, with recorded deviations. SC2 and SC6 not removable         |
+| Dealer acceptance                      | One "approve & sign" button; optional signature image in settings; notice sent by the system         |
+| Dealer output                          | A sale detail page per sale, with every document downloadable signed and unsigned                    |
+| Allbikes                               | Stays a separate application. FreeTheDesk owes it no compatibility                                   |
+| Retention (new, forced by the above)   | The schedule ships **with** the identity step. It keeps everything; the identity images are evidence |
+
+Still open after this sitting: the product's name, the lawyer review of the
+default conditions and the Authority to Lodge, Q4 (DVS and an electronically
+signed printed form), and Q5 (the Dealer Online contract).
+
 ## Found in research, not previously listed
 
 **A. The offer lapses at close of business the next business day.** Schedule 5
 cl 1.3. The customer's signature is only an offer; a contract exists when the
-dealer countersigns *and* gives notice (cl 1.2). Sign Friday, countersign
+dealer countersigns _and_ gives notice (cl 1.2). Sign Friday, countersign
 Tuesday, no contract. Async remote flow makes this routine — needs a hard dealer
 escalation clock, acceptance recorded as its own event, live status for the
 customer. Most important finding so far.
@@ -16,7 +40,7 @@ customer. Most important finding so far.
 digitally, so the used path may not be automatable without Dealer Online. Ask
 DVS alongside Q4.
 
-**C. Warranty statement must be given *before* the sale** (reg 7). Form 5A or 6
+**C. Warranty statement must be given _before_ the sale** (reg 7). Form 5A or 6
 shown before signing, not bundled into the pack after.
 
 ## Blocking — decides whether there is a product
@@ -32,7 +56,7 @@ hands them to people who never assessed them.
 → provide default special clauses, let dealers add and edit.
 
 **Settled model.** Writing our own terms is unrestricted; the only line is
-advising a *specific* dealer which clause fits *their* circumstances.
+advising a _specific_ dealer which clause fits _their_ circumstances.
 
 - One template — prescribed Schedule 5 + our defaults — reviewed once by a WA
   lawyer before shipping. This review is load-bearing, not optional.
@@ -64,7 +88,7 @@ public. NSW's equivalent deputises the dealer as identity checker.
 SC5's justification is about first licensing.
 → requires research.
 
-**Resolved — the used path is simpler.** MR9B is lodged within 7 days *of sale*;
+**Resolved — the used path is simpler.** MR9B is lodged within 7 days _of sale_;
 no proof of payment needed, nothing requires transfer before delivery. SC5 has
 no basis here — prescribed cl 3.1 works unmodified. Schedule 5 already splits
 new from used (cl 4.3 gives 1 month not 3; cl 3.2/3.3 are new-only). Make SC3–5
@@ -113,7 +137,7 @@ customer marks paid → dealer confirms received → licensing unlocked.
 → signed link.
 
 **14. Identity document retention.** SC10 has the customer consenting to the
-*dealer* holding a licence copy.
+_dealer_ holding a licence copy.
 → the dealer should be able to see the licence image. this is important.
 
 **Resolved cleanly.** Stripe exposes images via the FileUpload API and
@@ -128,6 +152,7 @@ probably generated per dealer with recorded acceptance.
 → not really an issue.
 
 **17. We need our own terms — three documents, not two.**
+
 - **freethedesk ↔ dealer** (subscription): fees, liability allocation, the Q8
   condition term, data accountability. B2B allocation holds, but the unfair
   contract terms regime covers standard-form small business contracts.
@@ -141,3 +166,17 @@ probably generated per dealer with recorded acceptance.
 **18. Assume we are a full APP entity from day one.** The Privacy Act small
 business exemption likely doesn't apply, since it falls away where personal
 information is disclosed for a benefit or service.
+
+**19. The warranty test reads Perth's date, not the dealer's.**
+`documents/warranty.py` counts a vehicle's age from `timezone.localdate()`, which
+is `TIME_ZONE` — `Australia/Perth`. That is right while every dealer is in WA and
+the whole product is built around WA's prescribed forms.
+
+It stops being right the moment a dealer is not. The eight-year limb of reg 7 is
+a bright line, and on 31 December a dealer in Brisbane and a dealer in Perth are
+looking at different years for the same vehicle. The fix is a timezone on the
+dealer and `vehicle_age_years(..., today=localdate_for(dealer))`; the function
+already takes `today`, which is the whole of the seam.
+
+Not urgent, and deliberately not done early: a per-dealer timezone with one
+possible value is a column nobody can test.

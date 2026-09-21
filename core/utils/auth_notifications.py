@@ -9,9 +9,7 @@ from django.conf import settings
 
 from freetheplatform.messaging import send
 
-
-def _site_url() -> str:
-    return settings.SITE_URL.rstrip("/")
+from core.utils.urls import site_url
 
 
 def auth_alert(event, user, state, request=None):
@@ -52,7 +50,7 @@ def send_password_reset(user, uid, token, request=None):
     The package supplies the pair and knows nothing about our URLs; building the
     link is the whole reason this hook exists.
     """
-    link = f"{_site_url()}/reset-password/{uid}/{token}"
+    link = f"{site_url()}/reset-password/{uid}/{token}"
     body = (
         f"Hello {user.get_username()},\n\n"
         "Somebody asked to reset the password on your freethedesk account. "

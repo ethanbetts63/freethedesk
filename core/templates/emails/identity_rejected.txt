@@ -1,0 +1,14 @@
+{# Plain text, so nothing here is HTML. Without this an apostrophe renders
+   as &#x27; in a customer's inbox — Django autoescapes by template engine
+   rather than by file extension. #}
+{% autoescape off %}Hello {{ sale.customer_name }},
+
+{{ sale.dealer.business_name }} has looked at the photos you sent and needs one or more of them again.
+
+{% for sentence in outstanding %}- {{ sentence }}
+{% endfor %}
+Open your sale to send them:
+{{ link }}
+
+Everything else you have done is saved. Only the photos listed above need doing again.
+{% endautoescape %}

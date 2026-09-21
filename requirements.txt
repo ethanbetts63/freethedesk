@@ -39,7 +39,7 @@ djangorestframework-simplejwt==5.5.1
     # via
     #   -r requirements.in
     #   freetheplatform
-freetheplatform @ git+https://github.com/ethanbetts63/freetheplatform@v0.16.0
+freetheplatform @ git+https://github.com/ethanbetts63/freetheplatform@v0.21.0
     # via -r requirements.in
 frozenlist==1.8.0
     # via

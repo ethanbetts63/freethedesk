@@ -33,7 +33,7 @@ def test_checkout_uses_backend_price_and_records_terms(ftp_stripe, client, logge
     settings.save()
 
     response = client.post(
-        reverse("subscription-checkout"),
+        reverse("payments:subscription-checkout"),
         {"accepted_terms": True},
         content_type="application/json",
         HTTP_X_FORWARDED_FOR="203.0.113.99, 198.51.100.24",
@@ -78,7 +78,7 @@ def test_checkout_uses_backend_price_and_records_terms(ftp_stripe, client, logge
 
 @stripe_settings
 def test_checkout_requires_terms_acceptance(client, logged_in_dealer):
-    response = client.post(reverse("subscription-checkout"), {}, content_type="application/json")
+    response = client.post(reverse("payments:subscription-checkout"), {}, content_type="application/json")
     assert response.status_code == 400
     assert not Acceptance.objects.filter(
         agreement_version__agreement__key=DEALER_AGREEMENT_KEY
@@ -94,8 +94,8 @@ def test_repeated_checkout_reuses_the_offer_and_the_session(ftp_stripe, client, 
     Stripe session, whatever the customer does to the page.
     """
     payload = {"accepted_terms": True}
-    first = client.post(reverse("subscription-checkout"), payload, content_type="application/json")
-    second = client.post(reverse("subscription-checkout"), payload, content_type="application/json")
+    first = client.post(reverse("payments:subscription-checkout"), payload, content_type="application/json")
+    second = client.post(reverse("payments:subscription-checkout"), payload, content_type="application/json")
 
     assert first.status_code == 200
     assert second.status_code == 200
@@ -109,12 +109,12 @@ def test_repeated_checkout_reuses_the_offer_and_the_session(ftp_stripe, client, 
 @stripe_settings
 def test_a_price_change_forces_a_new_checkout(ftp_stripe, client, logged_in_dealer):
     payload = {"accepted_terms": True}
-    client.post(reverse("subscription-checkout"), payload, content_type="application/json")
+    client.post(reverse("payments:subscription-checkout"), payload, content_type="application/json")
 
     site_settings = SiteSettings.load()
     site_settings.complete_price = Decimal("299.00")
     site_settings.save()
-    client.post(reverse("subscription-checkout"), payload, content_type="application/json")
+    client.post(reverse("payments:subscription-checkout"), payload, content_type="application/json")
 
     # The old session is expired rather than left open beside the new one.
     assert ftp_stripe.session_count == 2

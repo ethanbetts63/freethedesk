@@ -2,11 +2,13 @@ from django.conf import settings
 
 from freetheplatform.messaging import send, send_many
 
+from core.utils.urls import site_url
+
 from ..models import SeoSubscriber
 
 
 def _subscriber_url(subscriber: SeoSubscriber) -> str:
-    return f"{settings.SITE_URL.rstrip('/')}/dashboard/seo/{subscriber.pk}"
+    return f"{site_url()}/dashboard/seo/{subscriber.pk}"
 
 
 def notify_staff_of_seo_signup(subscriber: SeoSubscriber):
@@ -53,7 +55,7 @@ def notify_staff_of_seo_signup(subscriber: SeoSubscriber):
 
 def send_seo_welcome(subscriber: SeoSubscriber):
     """Confirm the lightweight account and point the customer to payment."""
-    payment_url = f"{settings.SITE_URL.rstrip('/')}/seo/payment"
+    payment_url = f"{site_url()}/seo/payment"
     is_gbp_audit = subscriber.report_type == SeoSubscriber.ReportType.GBP
     next_step = (
         "Once Stripe confirms payment, you can send us your Google Business Profile link and business location."

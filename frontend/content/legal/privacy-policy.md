@@ -1,6 +1,6 @@
 # Privacy Policy
 
-Last updated: 5 September 2026
+Last updated: 19 September 2026
 
 > Draft for launch preparation. Free the Desk's legal entity name, ABN and business address must be added, and the policy reviewed against the final hosting, identity-verification and data-retention setup before production use.
 
@@ -25,6 +25,15 @@ Depending on how you use our website and services, we may collect:
 - payment status, subscription and transaction metadata supplied by our payment provider, but not complete card details;
 - device, browser, IP address, cookie, analytics and service-usage information; and
 - any other information a person chooses to give us.
+
+Where a dealership sends you a link to complete the paperwork for a vehicle, we collect from you specifically:
+
+- your name, date of birth, residential address, email address and phone number;
+- your driver's licence number, and the name the licence is in where that is a different person from the buyer;
+- company name, ACN and Department of Transport organisation code, where the vehicle is being licensed to a company;
+- a photograph of the front and the back of your driver's licence, and a photograph of your face, for identity verification;
+- the delivery address for the vehicle, where it is being delivered; and
+- the record of each document you sign: the exact wording of the declaration shown to you, the time, the internet address you signed from, your browser's user agent, and a cryptographic fingerprint of the exact document.
 
 Some documents used in a licensing or contracting workflow may contain government-related identifiers or other sensitive information. We only seek this information where it is reasonably necessary for the service, authorised by law, or collected with the required consent.
 
@@ -56,6 +65,8 @@ We do not sell personal information.
 
 For customer information processed through a dealership's workflow, Free the Desk may act as the dealership's service provider while the dealership remains responsible for its own customer relationship, collection notices and legal obligations. A customer may therefore need to read both this policy and the relevant dealership's privacy policy.
 
+**Everything a customer enters or uploads for a sale is visible to the dealership named on that sale**, including the identity photographs and the driver's licence number. That is the purpose of collecting it: the dealership has to satisfy itself who it is licensing a vehicle to, and it has to lodge the application. A customer who is not willing for the dealership to hold that information should deal with the dealership directly rather than through this service. The dealership's own handling of it is theirs and is not governed by this policy.
+
 Questions about a dealership's decision, contract, vehicle or use of customer information should usually be directed to that dealership. Questions about the Free the Desk platform can be directed to us.
 
 ## 6. Who we disclose information to
@@ -85,9 +96,22 @@ No internet service is completely risk free. If a data breach occurs, we will in
 
 ## 9. Retention and deletion
 
-We keep information only for as long as reasonably needed to provide the service, meet contractual and legal record-keeping obligations, resolve disputes and protect the service. Different records may require different retention periods, particularly signed contracts, licensing records, financial records and identity evidence.
+We keep information only for as long as reasonably needed to provide the service, meet contractual and legal record-keeping obligations, resolve disputes and protect the service. Different records require different periods.
 
-When information is no longer required, we take reasonable steps to delete it or de-identify it. Backup copies may remain for a limited period before being overwritten. The final production retention schedule will be reflected in this policy before live customer transactions begin.
+| Information                                                                              | We keep it until                                                                    |
+| ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Customer identity photographs — driver's licence front and back, and the face photograph | the record-keeping period the dealership is required to observe; see the note below |
+| Signed sale documents                                                                    | the same period                                                                     |
+| A customer's name, date of birth, licence number and addresses on a completed sale       | the same period                                                                     |
+| The history of what happened on a sale                                                   | kept, as the record of the transaction                                              |
+
+The identity photographs are kept rather than deleted on a timer. They are the dealership's evidence that it satisfied itself who it was licensing a vehicle to, and a dealership asked about a transaction years later has to be able to answer. Evidence that expires before the question does is not evidence.
+
+**The period itself is not yet settled.** How long a motor vehicle dealer must keep a sale record is set by the Motor Vehicle Dealers Act 1973 (WA) and its regulations. Until that is confirmed we retain this information rather than guess at a period and destroy something a dealership is required to hold. We will publish the confirmed period here, and we will not begin deleting anything before we do.
+
+Anything a dealership downloads leaves our systems entirely, and what they then do with it is governed by their own obligations rather than by this policy.
+
+When information is no longer required, we take reasonable steps to delete it or de-identify it. Backup copies may remain for a limited period before being overwritten.
 
 ## 10. Cookies and analytics
 
