@@ -248,12 +248,19 @@ The sequence, in one transaction with the sale row locked:
 
 1. Re-derive the requirements server-side and refuse with a 409 if the gate is
    not open. A stale tab must not produce a signed document.
-2. Build the final PDF with the signature applied — an overlay stamping
-   "Electronically signed by \<name\>" into the signature box for a prescribed
-   form, or the typeset signature block for the contract.
-3. SHA-256 the bytes.
+2. Build the final PDF with the signature applied — the customer's drawn
+   signature (a `freetheplatform.signatures.SignatureImage`) stamped into the
+   signature box for a prescribed form, or placed in the contract's signature
+   cell, with "Electronically signed by \<name\>" and the timestamp as small
+   print beside it. The renderers in `documents/render/` already take the
+   image; the allbikes builders are the working reference for form geometry.
+3. SHA-256 the bytes, then append the signing-evidence page
+   (`freetheplatform.signatures.append_evidence_page`) so the record travels
+   inside the document — the printed hash names the signed content, not itself.
 4. Store the file, the signer's name, the moment, the verbatim declaration, the
-   hash, the client address and the user agent.
+   hash, the client address, the user agent, and the original signature PNG in
+   private storage — the drawn mark is the artefact a dispute would compare
+   against a licence.
 5. Record a `freetheplatform.agreements` acceptance with the document kind and
    the hash in `context`.
 6. Advance the sale and write a `SaleEvent`.

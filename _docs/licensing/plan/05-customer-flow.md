@@ -190,9 +190,14 @@ alternative is a customer who acknowledged a statutory warranty applied and then
 bought a vehicle where it does not.
 
 **Then the documents.** Each one is read in the browser and signed by typing
-their full name and confirming a declaration. No handwritten image is collected
-and none is needed — what makes this a signature is the authenticated session,
-the explicit declaration, and the hash of the exact document it was made against.
+their full name, confirming a declaration, and **drawing their signature** on
+the registry's `SignaturePad` (validated server-side by
+`freetheplatform.signatures`; one drawing is shared across the documents until
+redrawn). The drawn mark is what lands in each document's signature box — on a
+licensing form it should match the licence — while the evidentiary weight still
+comes from the authenticated session, the explicit declaration, and the hash of
+the exact document it was made against. Allbikes runs this flow in production;
+converge with it rather than redesigning.
 
 Declarations, which are the record and are stored verbatim:
 
