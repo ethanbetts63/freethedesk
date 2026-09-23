@@ -18,6 +18,8 @@ from identity.views import (
 )
 
 from .views import (
+    AccountSaleOpenView,
+    AccountSalesView,
     DealerSaleDetailView,
     DealerSaleDocumentView,
     DealerSaleListView,
@@ -34,6 +36,15 @@ from .views import (
 
 
 urlpatterns = [
+    # --- the customer's account, across dealers -----------------------------
+    # Session-authenticated, so deliberately outside the ``sales/<reference>/``
+    # tree the per-sale access cookie is scoped to.
+    path("account/sales/", AccountSalesView.as_view(), name="account-sales"),
+    path(
+        "account/sales/<str:reference>/open/",
+        AccountSaleOpenView.as_view(),
+        name="account-sale-open",
+    ),
     # --- the dealer ---------------------------------------------------------
     path("sales/", DealerSaleListView.as_view(), name="dealer-sale-list"),
     path("sales/<str:reference>/", DealerSaleDetailView.as_view(), name="dealer-sale-detail"),

@@ -43,7 +43,13 @@ function LoginContent() {
       return;
     }
     const prefix =
-      user.role === 'staff' ? '/dashboard' : user.role === 'seo' ? '/seo-portal' : '/portal';
+      user.role === 'staff'
+        ? '/dashboard'
+        : user.role === 'seo'
+          ? '/seo-portal'
+          : user.role === 'customer'
+            ? '/account'
+            : '/portal';
     router.replace(next && next.startsWith(prefix) ? next : home);
   }, [loading, router, search, user]);
 
@@ -64,7 +70,7 @@ function LoginContent() {
         <p className={cn(kickerClassName, 'mt-xl')}>Sign in</p>
         <h1 className="m-0 text-title tracking-[-0.06em]">Welcome back</h1>
         <p className="mt-s mb-xl text-body-sm leading-[1.5] text-text-muted">
-          Dealers and staff sign in here — we will take you to the right place.
+          Dealers, staff and customers sign in here — we will take you to the right place.
         </p>
         {justReset && (
           <Notice tone="success" size="field">

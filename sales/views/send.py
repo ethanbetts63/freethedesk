@@ -16,6 +16,7 @@ from sales.models import Sale
 from sales.serializers import DealerSaleSerializer
 from sales.transitions import InvalidTransition, record, transition
 from sales.utils.access import set_access_password
+from sales.utils.customer_accounts import ensure_customer_account
 from sales.utils.notifications import send_sale_link
 
 from .dealer import DealerSaleQuerysetMixin
@@ -60,8 +61,14 @@ class DealerSaleSendView(DealerSaleQuerysetMixin, APIView):
                 # deliberately unchanged — a customer who already has the link in
                 # a browser must not be locked out by the dealer resending it.
                 password = set_access_password(sale, save=False)
+                # A first send creates the customer's account with this same
+                # password; a resend only re-links, because the account may by
+                # now hold a password the customer chose.
+                _, account_created = ensure_customer_account(sale, password=password)
                 sale.link_sent_at = timezone.now()
-                sale.save(update_fields=["access_password_hash", "link_sent_at", "updated_at"])
+                sale.save(update_fields=[
+                    "access_password_hash", "account", "link_sent_at", "updated_at",
+                ])
 
                 if not resending:
                     transition(
@@ -96,5 +103,5 @@ class DealerSaleSendView(DealerSaleQuerysetMixin, APIView):
         # The consequence is real and accepted: a send that fails leaves a sale
         # marked sent with no email behind it. That is visible on the message row
         # and fixed by resending, which is the same button.
-        send_sale_link(sale, password)
+        send_sale_link(sale, password, account_created=account_created)
         return Response(DealerSaleSerializer(sale).data)

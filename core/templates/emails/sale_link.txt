@@ -14,5 +14,7 @@ That link signs you in on this device. If you need to pick it up somewhere else,
 Reference: {{ sale.reference }}
 Password: {{ password }}
 
+{% if account_created %}This password also signs into your FreeTheDesk account at {{ account_url }} — all your paperwork in one place, and you can choose your own password there.{% else %}You can also see this sale in your account: {{ account_url }}{% endif %}
+
 You will be asked for your licence details, some identity photos, and your signature. Nothing is binding until the dealer accepts your offer, and we will email you when they do.
 {% endautoescape %}

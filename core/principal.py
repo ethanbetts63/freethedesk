@@ -14,13 +14,26 @@ anyone who is not one. `is_staff` stays a Django-internal flag — it drives the
 from rest_framework.exceptions import PermissionDenied
 
 
+def _is_customer(user):
+    """Whether a sale has ever been sent to this account's email.
+
+    Imported lazily and queried through ``all_objects``: the reverse accessor
+    on a tenant-owned model raises by design (see ``core.models.tenancy``), and
+    here the account itself is the scope — a customer's sales deliberately
+    cross dealers.
+    """
+    from sales.models import Sale
+
+    return Sale.all_objects.filter(account=user).exists()
+
+
 def principal(user):
     """Describe `user`, or refuse an account with no portal to enter.
 
     Authenticating correctly and belonging somewhere are different questions.
-    An account that is neither staff, dealer nor subscriber has answered the
-    first and failed the second, so this raises rather than returning a payload
-    the frontend would have to check — a 403, not a 401.
+    An account that is none of staff, dealer, subscriber or sale customer has
+    answered the first and failed the second, so this raises rather than
+    returning a payload the frontend would have to check — a 403, not a 401.
 
     A dealer awaiting approval, suspended or denied still signs in: the portal
     shows them where they stand rather than a generic authentication error.
@@ -31,6 +44,7 @@ def principal(user):
         "staff" if user.is_staff
         else "dealer" if dealer is not None
         else "seo" if seo is not None
+        else "customer" if _is_customer(user)
         else "none"
     )
     if role == "none":

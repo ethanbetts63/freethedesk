@@ -1,3 +1,4 @@
+from .account import AccountSaleOpenView, AccountSalesView
 from .customer import (
     SaleDetailsView,
     SaleDocumentView,
@@ -12,6 +13,8 @@ from .documents import DealerSaleDocumentView, DealerSaleWarrantyNoticeView
 from .send import DealerSaleSendView
 
 __all__ = [
+    "AccountSaleOpenView",
+    "AccountSalesView",
     "DealerSaleDetailView",
     "DealerSaleDocumentView",
     "DealerSaleListView",

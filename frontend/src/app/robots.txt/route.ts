@@ -34,6 +34,8 @@ const DISALLOWED_ROUTES = [
   '/dashboard',
   '/portal',
   '/seo-portal',
+  // The customer's own account: session-gated, nothing for a crawler.
+  '/account',
   // Customer sale pages. Not private in the sign-in sense - access is a
   // capability carried in a link - which is exactly why a crawler has to be
   // told to stay away rather than left to find one in a forwarded email.

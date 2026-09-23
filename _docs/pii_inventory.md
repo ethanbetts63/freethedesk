@@ -142,6 +142,11 @@ chose to put in it. Bounded at 2,000 characters, not filtered.
 Django's default `auth.User` — username, email, first and last name, hashed
 password — plus the `AccountSecurity` row above. Low volume, standard handling.
 
+Customer accounts share the same table: when a sale link is first sent, the
+customer gets an `auth.User` keyed by their email (`Sale.account`), holding
+`username`/`email` = customer email, `first_name` = customer name, and a hashed
+password. See the Accounts note in `_docs/licensing/plan/05-customer-flow.md`.
+
 ---
 
 ## Part 2 — How it is handled today

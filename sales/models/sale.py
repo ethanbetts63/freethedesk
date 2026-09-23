@@ -96,6 +96,20 @@ class Sale(TenantOwned):
         on_delete=models.SET_NULL,
         related_name="created_sales",
     )
+    # The customer account this sale belongs to, linked when the link is first
+    # sent (the moment the email is fixed and a password exists). The account is
+    # how one person sees all their sales — access itself still runs on the
+    # sale's own token and cookie. related_name "+" on purpose: the reverse
+    # accessor on a tenant-owned model raises (see core.models.tenancy), so
+    # queries name the account explicitly through ``all_objects``. SET_NULL: a
+    # sale is the dealer's trading record and outlives any account.
+    account = models.ForeignKey(
+        "auth.User",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
     # The seam a later embedded or DMS entry path writes. One value today, and a
     # column rather than an assumption so adding the second is not a migration
     # plus a backfill.

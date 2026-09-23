@@ -15,6 +15,12 @@
 <p style="margin: 0 0 20px;">Reference: <strong>{{ sale.reference }}</strong><br>
 Password: <strong>{{ password }}</strong></p>
 
+{% if account_created %}
+<p style="margin: 0 0 20px;">This password also signs into your FreeTheDesk account at <a href="{{ account_url }}">{{ account_url }}</a> — all your paperwork in one place, and you can choose your own password there.</p>
+{% else %}
+<p style="margin: 0 0 20px;">You can also see this sale in <a href="{{ account_url }}">your account</a>.</p>
+{% endif %}
+
 <p style="margin: 0 0 8px;">You will be asked for your licence details, some identity photos, and your signature.</p>
 <p style="margin: 0;">Nothing is binding until the dealer accepts your offer, and we will email you when they do.</p>
 {% endblock %}
