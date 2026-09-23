@@ -32,7 +32,16 @@ import { fileURLToPath } from 'node:url';
 
 const CONSUMERS = ['allbikes', 'bloomprint', 'freethedesk'];
 
-/** Declared identically today. Drifting one of these is a failure. */
+/**
+ * Declared identically today. Drifting one of these is a failure.
+ *
+ * A row is a package name (expected in every repo), or `{ name, repos }` for a
+ * dependency only some of the family shares. Before scoped rows existed a
+ * two-repo package was structurally invisible here — which is how lucide-react
+ * sat a major version apart between allbikes and bloomprint for a while
+ * (BASE-4). A scoped package appearing in a repo outside its row is also a
+ * failure: that is the row gone stale, so widen it.
+ */
 const PINNED = [
   '@freetheplatform/web-security',
   '@vercel/analytics',
@@ -43,6 +52,9 @@ const PINNED = [
   'stylelint-declaration-strict-value',
   'typescript',
   'zod',
+  { name: 'lucide-react', repos: ['allbikes', 'bloomprint'] },
+  { name: 'marked', repos: ['allbikes', 'freethedesk'] },
+  { name: 'tw-animate-css', repos: ['allbikes', 'bloomprint'] },
 ];
 
 /**
@@ -98,34 +110,60 @@ const declared = new Map(
   }),
 );
 
-const versionsOf = (name) => CONSUMERS.map((repo) => declared.get(repo)[name] ?? '—');
+const rowsOf = (list) =>
+  list.map((entry) => (typeof entry === 'string' ? { name: entry, repos: CONSUMERS } : entry));
+
+const versionsOf = (name, repos = CONSUMERS) =>
+  repos.map((repo) => declared.get(repo)[name] ?? '—');
 const agrees = (versions) => new Set(versions).size === 1 && !versions.includes('—');
+/** A scoped row's package declared by a repo the row does not name. */
+const straysOf = ({ name, repos }) =>
+  CONSUMERS.filter((repo) => !repos.includes(repo) && name in declared.get(repo));
 
 if (process.argv.includes('--report')) {
+  const pinnedRows = rowsOf(PINNED);
+  const scoped = new Map(
+    pinnedRows.filter((row) => row.repos !== CONSUMERS).map((r) => [r.name, r]),
+  );
+  const pinnedNames = new Set(pinnedRows.map((row) => row.name));
   const shared = [...new Set(CONSUMERS.flatMap((repo) => Object.keys(declared.get(repo))))]
-    .filter((name) => CONSUMERS.every((repo) => name in declared.get(repo)))
+    .filter((name) => scoped.has(name) || CONSUMERS.every((repo) => name in declared.get(repo)))
     .sort();
   console.log(`baseline-drift: ${resolve(workspace)}\n`);
   console.log(['package'.padEnd(36), ...CONSUMERS.map((repo) => repo.padEnd(14))].join(''));
   for (const name of shared) {
     const versions = versionsOf(name);
-    const mark = PINNED.includes(name) ? 'pin ' : BASELINE.includes(name) ? 'base' : '    ';
-    const state = agrees(versions) ? ' ' : '!';
+    const row = scoped.get(name);
+    const mark = pinnedNames.has(name) ? 'pin ' : BASELINE.includes(name) ? 'base' : '    ';
+    const ok = row
+      ? agrees(versionsOf(name, row.repos)) && !straysOf(row).length
+      : agrees(versions);
     console.log(
-      [`${state} ${mark} ${name}`.padEnd(42), ...versions.map((v) => v.padEnd(14))].join(''),
+      [`${ok ? ' ' : '!'} ${mark} ${name}`.padEnd(42), ...versions.map((v) => v.padEnd(14))].join(
+        '',
+      ),
     );
   }
   process.exit(0);
 }
 
-const failures = PINNED.map((name) => [name, versionsOf(name)]).filter(([, v]) => !agrees(v));
-const drifting = BASELINE.map((name) => [name, versionsOf(name)]).filter(([, v]) => !agrees(v));
+const failures = rowsOf(PINNED)
+  .map((row) => ({ ...row, versions: versionsOf(row.name, row.repos), strays: straysOf(row) }))
+  .filter(({ versions, strays }) => !agrees(versions) || strays.length);
+const drifting = rowsOf(BASELINE)
+  .map(({ name, repos }) => versionsOf(name, repos))
+  .filter((versions) => !agrees(versions));
 
 if (failures.length) {
   console.error('baseline-drift: pinned packages disagree.\n');
-  for (const [name, versions] of failures) {
+  for (const { name, repos, versions, strays } of failures) {
     console.error(`  ${name}`);
-    CONSUMERS.forEach((repo, i) => console.error(`      ${repo.padEnd(12)} ${versions[i]}`));
+    repos.forEach((repo, i) => console.error(`      ${repo.padEnd(12)} ${versions[i]}`));
+    for (const repo of strays) {
+      console.error(
+        `      ${repo.padEnd(12)} ${declared.get(repo)[name]}  (outside this row's repos — widen the row)`,
+      );
+    }
   }
   console.error(
     '\nThe rule is one baseline (freetheplatform/_docs/frontend-baseline.md).\n' +
