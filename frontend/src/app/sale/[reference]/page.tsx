@@ -18,7 +18,6 @@ import {
   type CustomerSale,
 } from '@/lib/saleApi';
 import { SaleFill } from '../_components/SaleFill';
-import { SaleLogin } from '../_components/SaleLogin';
 import { SaleSummary } from '../_components/SaleSummary';
 import { SaleVerify } from '../_components/SaleVerify';
 
@@ -66,15 +65,18 @@ export default function CustomerSalePage() {
       </div>
     );
 
+  // No usable cookie for this sale. The way in is the emailed link, or the
+  // account — the reference+password sale login is retired.
   if (!sale || needsPassword)
     return (
-      <SaleLogin
-        reference={reference}
-        onSignedIn={(result) => {
-          setSale(result);
-          setNeedsPassword(false);
-        }}
-      />
+      <div className={pageClassName}>
+        <PageHeader
+          kicker="Your vehicle paperwork"
+          title="This device is not signed in to this sale"
+          subtitle="Open the link from the email we sent you, or sign in to your account and open the sale from there."
+        />
+        <Button href="/login?next=/account">Sign in to your account</Button>
+      </div>
     );
 
   const step = sale.requirements.next_action;

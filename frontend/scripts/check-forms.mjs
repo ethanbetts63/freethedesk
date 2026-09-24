@@ -41,13 +41,6 @@ checkFormLedger({
     { file: 'components/marketing/AiReadinessForm.tsx', track: 'B' },
     { file: 'app/seo/_components/SeoSignupPanel.tsx', track: 'B' },
 
-    // Outstanding — see ../../_docs/forms-migration.md.
-    {
-      file: 'app/sale/_components/SaleLogin.tsx',
-      track: 'outstanding',
-      why: 'Track B. An inline useActionState closure with no schema and no Server Action.',
-    },
-
     // Excluded, with the argument. Re-opening one means disagreeing with the
     // reason, not noticing a gap.
     {

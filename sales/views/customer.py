@@ -15,11 +15,9 @@ never will.
 
 from django.db import transaction
 from django.utils import timezone
-from freetheplatform.auth.throttling import ScopedAnonThrottle, ThrottleCacheMixin
 from rest_framework.exceptions import APIException
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.throttling import SimpleRateThrottle
 from rest_framework.views import APIView
 
 from core.utils.security import client_ip
@@ -33,12 +31,7 @@ from sales.serializers.customer_sale import (
 from sales.transitions import record
 from sales.utils.access import (
     access_has_ended,
-    access_is_locked,
-    burn_a_hash,
-    check_access_password,
-    clear_access_failures,
     cookie_name,
-    record_access_failure,
     set_access_cookie,
 )
 
@@ -53,37 +46,8 @@ class SaleAccessDenied(APIException):
     """
 
     status_code = 403
-    default_detail = "Open the link we emailed you, or sign in with your reference."
+    default_detail = "Open the link we emailed you, or sign in to your account."
     default_code = "sale_access_denied"
-
-
-class SaleLoginThrottle(ThrottleCacheMixin, SimpleRateThrottle):
-    """Slows password guessing against one sale.
-
-    Keyed on the reference rather than on the caller's address, because the
-    reference is effectively the username here and the address is not the thing
-    being attacked. Per-IP alone gets this wrong in both directions: a shared
-    office NAT locks its own customers out of unrelated sales, while anyone with
-    a modest pool of addresses gets effectively unlimited attempts at a single
-    reference.
-
-    Paired with ``SaleLoginIPThrottle`` below. One bounds how hard any one sale
-    can be hammered, the other how much of that one source can do.
-    """
-
-    scope = "sale-login"
-
-    def get_cache_key(self, request, view):
-        reference = (view.kwargs.get("reference") or "").strip().upper()
-        if not reference:
-            return None
-        return self.cache_format % {"scope": self.scope, "ident": reference}
-
-
-class SaleLoginIPThrottle(ScopedAnonThrottle):
-    """The per-caller half. Stops one source working through many references."""
-
-    scope = "sale-login-ip"
 
 
 class CustomerSaleView(APIView):
@@ -159,49 +123,6 @@ class SaleRedeemView(APIView):
             return Response({"detail": "This link is no longer valid."}, status=403)
         if access_has_ended(sale):
             return Response({"detail": "This sale has been cancelled."}, status=403)
-        return set_access_cookie(overview(sale), sale)
-
-
-#: One sentence for every way this can fail — wrong reference, wrong password,
-#: cancelled sale, locked. Distinguishing them would tell somebody which
-#: references are real and exactly when to come back.
-LOGIN_REFUSED = {"detail": "Wrong reference or password."}
-
-
-class SaleLoginView(APIView):
-    """Recovery on another device: the reference plus the emailed password.
-
-    The two throttles cap how fast this can be worked at. What actually makes
-    the password hard to guess is the lockout in `sales.utils.access`, which is
-    a durable row rather than a cache entry — see the note there, and section 5
-    of the security standard, which is explicit that a rate limit is not the
-    credential control.
-    """
-
-    throttle_classes = [SaleLoginThrottle, SaleLoginIPThrottle]
-
-    authentication_classes = []
-    permission_classes = [AllowAny]
-
-    def post(self, request, reference):
-        password = (request.data.get("password") or "").strip()
-        sale = (
-            Sale.all_objects.select_related("dealer", "dealer__user")
-            .filter(reference=reference)
-            .first()
-        )
-        if sale is None or access_has_ended(sale):
-            # No row to check against, so nothing has been spent. Spend it
-            # anyway: a reference that does not exist must not answer faster
-            # than one that does.
-            burn_a_hash()
-            return Response(LOGIN_REFUSED, status=403)
-        if access_is_locked(sale):
-            return Response(LOGIN_REFUSED, status=403)
-        if not check_access_password(sale, password):
-            record_access_failure(sale)
-            return Response(LOGIN_REFUSED, status=403)
-        clear_access_failures(sale)
         return set_access_cookie(overview(sale), sale)
 
 

@@ -14,11 +14,11 @@ allbikes): the first send also creates an `auth.User` keyed by the customer's
 email (`Sale.account`), adopting the same emailed password flagged
 `must_change_password`; `/account` lists their sales across dealers and opens
 one by trading the session for that sale's own cookie
-(`sales/views/account.py`). The capability path below is unchanged and stays
-primary — emailed links must keep working for people who never claim the
-account, and a resend never touches the account password. An account session
-may mint sale cookies because its password only travels by email; a sale
-cookie proves nothing about the email, so the reverse direction does not
+(`sales/views/account.py`). The emailed link stays primary; the old
+reference+password sale login is **retired** — recovery on another device is
+the account, and a resend never touches the account password. An account
+session may mint sale cookies because its password only travels by email; a
+sale cookie proves nothing about the email, so the reverse direction does not
 exist.
 
 **The link.** `/sale/<reference>/<token>` is emailed when the dealer sends the

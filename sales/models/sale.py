@@ -83,12 +83,11 @@ class Sale(TenantOwned):
     access_token = models.CharField(
         max_length=64, unique=True, default=generate_access_token, editable=False
     )
+    # Records that a link has been sent (the send view's own guard) and holds
+    # the hash of the password the account adopted at creation. The
+    # reference+password sale login it used to serve is retired; account
+    # lockout lives with the account, in `freetheplatform.auth`.
     access_password_hash = models.CharField(max_length=128, blank=True)
-    # Lockout state for the recovery password, the same shape
-    # `freetheplatform.auth` keeps for a staff account: a durable counter and an
-    # expiring lock, not a cache entry. See `sales.utils.access`.
-    access_failure_count = models.PositiveIntegerField(default=0)
-    access_locked_until = models.DateTimeField(null=True, blank=True)
     created_by = models.ForeignKey(
         "auth.User",
         null=True,

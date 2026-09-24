@@ -19,7 +19,6 @@ product's own signup path. A row that says done should mean done.
 
 | File                                 | Track | Why not yet                                                                                                                                                                                                                                                                                                                                |
 | ------------------------------------ | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `app/sale/_components/SaleLogin.tsx` | B     | Uses `useActionState` with an inline closure rather than a Server Action, and validates nothing beyond "not blank". Untouched here because it is uncommitted work in progress belonging to the sales feature; editing another session's files to satisfy a standard is not a trade worth making. Convert it with the rest of that feature. |
 
 ## Excluded, with the argument
 

@@ -175,14 +175,6 @@ REST_FRAMEWORK = {
         "seo-signup": "5/hour",
         # Each accepted request mints a password and sends an email.
         "sale-link": "60/hour",
-        # Credential-class, and tight. The pair is deliberate: `sale-login` is
-        # keyed on the sale reference, which is effectively the username here,
-        # and `sale-login-ip` on the caller. One bounds how hard any single sale
-        # can be hammered, the other how much one source can do across many. A
-        # shared office NAT locking its own customers out, and a botnet getting
-        # free rein on one reference, are the same mistake from opposite ends.
-        "sale-login": "10/hour",
-        "sale-login-ip": "30/hour",
         # Redeeming a token the caller already holds grants nothing new, so this
         # is generous — it exists to bound a scripted sweep, not a person.
         "sale-access": "60/hour",

@@ -10,16 +10,18 @@
 
 <p style="margin: 0 0 24px;"><a href="{{ link }}" style="background-color: #16201a; color: #ffffff; padding: 12px 22px; border-radius: 4px; text-decoration: none; font-weight: 700; display: inline-block;">Open your sale</a></p>
 
-<p style="margin: 0 0 8px;">That link signs you in on this device. To pick it up somewhere else, go to <a href="{{ login_url }}">{{ login_url }}</a> and enter:</p>
-
-<p style="margin: 0 0 20px;">Reference: <strong>{{ sale.reference }}</strong><br>
-Password: <strong>{{ password }}</strong></p>
+<p style="margin: 0 0 20px;">That link signs you in on this device.</p>
 
 {% if account_created %}
-<p style="margin: 0 0 20px;">This password also signs into your FreeTheDesk account at <a href="{{ account_url }}">{{ account_url }}</a> — all your paperwork in one place, and you can choose your own password there.</p>
+<p style="margin: 0 0 8px;">Coming back on another device? Sign in to <a href="{{ login_url }}">your FreeTheDesk account</a>:</p>
+<p style="margin: 0 0 20px;">Email: <strong>{{ sale.customer_email }}</strong><br>
+Password: <strong>{{ password }}</strong></p>
+<p style="margin: 0 0 20px;">You will be asked to choose your own password the first time you sign in. Your account shows this sale and any others.</p>
 {% else %}
-<p style="margin: 0 0 20px;">You can also see this sale in <a href="{{ account_url }}">your account</a>.</p>
+<p style="margin: 0 0 20px;">Coming back on another device? <a href="{{ login_url }}">Sign in</a> with this email and your account password. Forgot it? Reset it from the sign-in page.</p>
 {% endif %}
+
+<p style="margin: 0 0 20px;">Your reference is <strong>{{ sale.reference }}</strong> — quote it if you need to contact the dealer.</p>
 
 <p style="margin: 0 0 8px;">You will be asked for your licence details, some identity photos, and your signature.</p>
 <p style="margin: 0;">Nothing is binding until the dealer accepts your offer, and we will email you when they do.</p>

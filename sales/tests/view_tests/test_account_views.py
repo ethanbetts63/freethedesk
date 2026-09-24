@@ -53,7 +53,7 @@ def test_the_first_send_creates_the_customer_account(client, selling_dealer, out
     # The emailed password opens the account too, but only until they choose
     # their own — the login flags it as somebody else's choice.
     assert lockout.state_for(user).must_change_password
-    assert "also signs into your FreeTheDesk account" in outbox[0].body_text
+    assert "choose your own password the first time" in outbox[0].body_text
     assert principal(user)["role"] == "customer"
 
 
@@ -76,7 +76,7 @@ def test_a_resend_never_touches_the_account_password(client, selling_dealer, out
     user = User.objects.get(username="alex@example.com")
     assert user.password == account_hash
     assert sale.account == user
-    assert "also signs into your FreeTheDesk account" not in outbox[1].body_text
+    assert "choose your own password the first time" not in outbox[1].body_text
 
 
 def test_an_existing_user_is_linked_untouched(client, selling_dealer):

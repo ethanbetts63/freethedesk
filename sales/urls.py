@@ -27,7 +27,6 @@ from .views import (
     DealerSaleWarrantyNoticeView,
     SaleDetailsView,
     SaleDocumentView,
-    SaleLoginView,
     SaleOverviewView,
     SaleRedeemView,
     SaleWarrantyNoticeView,
@@ -72,7 +71,6 @@ urlpatterns = [
 
     # --- the customer -------------------------------------------------------
     path("sales/<str:reference>/redeem/", SaleRedeemView.as_view(), name="sale-redeem"),
-    path("sales/<str:reference>/login/", SaleLoginView.as_view(), name="sale-login"),
     path("sales/<str:reference>/customer/", SaleOverviewView.as_view(), name="sale-overview"),
     path(
         "sales/<str:reference>/customer/details/",

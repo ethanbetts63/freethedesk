@@ -119,16 +119,6 @@ export async function redeemSale(reference: string, token: string): Promise<Cust
   );
 }
 
-/** Recovery on another device: the reference plus the emailed password. */
-export async function loginToSale(reference: string, password: string): Promise<CustomerSale> {
-  return handleResponse(
-    await apiFetch(`${base(reference)}/login/`, {
-      method: 'POST',
-      body: JSON.stringify({ password }),
-    }),
-  );
-}
-
 export async function getCustomerSale(reference: string): Promise<CustomerSale> {
   return handleResponse(await apiFetch(`${base(reference)}/customer/`));
 }

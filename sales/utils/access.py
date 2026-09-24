@@ -1,13 +1,12 @@
-"""The credential that gets a customer into their own sale.
+"""The sale capability, and the temporary password that seeds the account.
 
-There are no accounts here and there will not be. A member of the public buying
-one vehicle should not have to create a login they will use twice and forget,
-and giving them one would make FreeTheDesk the custodian of a password they
-reuse elsewhere.
-
-What they get instead is a **capability scoped to one sale**: a signed link,
-redeemed once for an httpOnly cookie that is scoped to that sale's own API path.
-The reference and an emailed password recover it on another device.
+Access to one sale is a **capability**: a signed link, redeemed once for an
+httpOnly cookie scoped to that sale's own API path. Recovery on another device
+goes through the customer's account (``sales.views.account``), whose open
+bridge mints the same cookie — the reference+password sale login this file
+used to arm is retired, so the password minted below has exactly one job left:
+the account's first credential (``customer_accounts.py``). The hash kept on
+the sale records that a link has been sent.
 
 Imports no models, so the sale views and the notification layer can both use it
 without importing each other.
@@ -16,9 +15,7 @@ without importing each other.
 import secrets
 
 from django.conf import settings
-from django.contrib.auth.hashers import check_password, make_password
-from django.utils import timezone
-from freetheplatform.auth import conf as auth_conf
+from django.contrib.auth.hashers import make_password
 
 from core.utils.urls import site_url
 
@@ -54,85 +51,6 @@ def set_access_password(sale, *, save=True) -> str:
     return plain
 
 
-def check_access_password(sale, plain) -> bool:
-    if not sale.access_password_hash or not plain:
-        return False
-    return check_password(plain, sale.access_password_hash)
-
-
-def burn_a_hash() -> None:
-    """Spend the cost of a password check against nothing.
-
-    Called when there is no sale to check against, so that a reference nobody
-    holds takes about as long to refuse as a reference somebody does. Without
-    it the recovery form answers measurably faster for a reference that does
-    not exist, which turns it into a way of finding out which do.
-
-    The hash is minted once per process against a value nothing knows, so this
-    can only ever fail.
-    """
-    global _DUMMY_HASH
-    if _DUMMY_HASH is None:
-        _DUMMY_HASH = make_password(secrets.token_urlsafe(32))
-    check_password("x", _DUMMY_HASH)
-
-
-_DUMMY_HASH = None
-
-
-# --- lockout ----------------------------------------------------------------
-#
-# The same control the staff login has, reading the same two settings, because
-# the two credentials have the same problem and two thresholds would be two
-# numbers nobody could justify the difference between. `FTP_AUTH` ships 10
-# failures and a 15-minute lock; `manage.py ftp_auth_config` prints what is in
-# force, and changing it there moves both.
-#
-# Not a rate limit. Throttle counters live in a per-worker cache that is emptied
-# by every deploy, so "ten attempts" really means "ten, in one process, since
-# the last restart" — a cost control, not a credential control. This is a
-# durable row, keyed on the thing being attacked, and it costs a write only on
-# failure. `freetheplatform.auth.lockout` says the same thing at more length.
-#
-# Automatic expiry is not optional: a lock with no end is a way of switching a
-# customer out of their own sale by typing at it.
-
-
-def access_is_locked(sale) -> bool:
-    """Whether recovery on this sale is locked right now.
-
-    Reading is what unlocks, so nothing has to be scheduled: the lock ends at
-    the owner's next attempt after it expires.
-    """
-    if sale.access_locked_until is None:
-        return False
-    if sale.access_locked_until <= timezone.now():
-        clear_access_failures(sale)
-        return False
-    return True
-
-
-def record_access_failure(sale):
-    """Count a failed recovery attempt, locking the sale at the threshold."""
-    sale.access_failure_count += 1
-    if sale.access_failure_count >= auth_conf.get("LOCKOUT_THRESHOLD"):
-        sale.access_locked_until = timezone.now() + auth_conf.get("LOCKOUT_DURATION")
-    sale.save(update_fields=["access_failure_count", "access_locked_until", "updated_at"])
-    return sale
-
-
-def clear_access_failures(sale):
-    """Forget the failures leading up to a success, or an expired lock.
-
-    Written only when there is something to forget, so an ordinary sign-in stays
-    a read.
-    """
-    if not sale.access_failure_count and sale.access_locked_until is None:
-        return sale
-    sale.access_failure_count = 0
-    sale.access_locked_until = None
-    sale.save(update_fields=["access_failure_count", "access_locked_until", "updated_at"])
-    return sale
 
 
 def access_has_ended(sale) -> bool:

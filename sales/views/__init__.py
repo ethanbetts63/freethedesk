@@ -2,7 +2,6 @@ from .account import AccountSaleOpenView, AccountSalesView
 from .customer import (
     SaleDetailsView,
     SaleDocumentView,
-    SaleLoginView,
     SaleOverviewView,
     SaleRedeemView,
     SaleWarrantyNoticeView,
@@ -22,7 +21,6 @@ __all__ = [
     "DealerSaleWarrantyNoticeView",
     "SaleDetailsView",
     "SaleDocumentView",
-    "SaleLoginView",
     "SaleOverviewView",
     "SaleRedeemView",
     "SaleWarrantyNoticeView",

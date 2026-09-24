@@ -12,46 +12,45 @@ from .access import sale_link
 
 
 def send_sale_link(sale, password, *, account_created=False):
-    """The link, the reference and the password, in one email.
+    """The link, and the way back in on another device: the account.
 
-    The password is in the same email as the link on purpose. It is not a second
-    factor — it is recovery for the day the customer opens the sale on their
-    phone and finishes it on a laptop — and making them ask for it separately
-    would mean a support conversation for something the link already grants.
+    ``account_created``: this send just created the customer's account, and
+    its first password is the one below — printed only in that case, because a
+    returning customer's account keeps whatever password they already have and
+    a fresh one here would be a lie. The reference+password sale login this
+    email used to arm is retired.
 
-    The plain password reaches this function once and is never stored. If the
-    email fails, the dealer resends, which mints a new one.
-
-    ``account_created``: this send just created the customer's account, whose
-    first password is the same one below — worth a line, because "one password,
-    two doors" is only obvious if somebody says it. A resend never repeats the
-    claim: the sale password was re-minted but the account's was deliberately
-    left alone.
+    The plain password reaches this function once and is never stored.
     """
     link = sale_link(sale)
-    login_url = f"{site_url()}/sale/{sale.reference}"
-    account_url = f"{site_url()}/account"
+    login_url = f"{site_url()}/login"
     vehicle = " ".join(
         part for part in (str(sale.year or ""), sale.make, sale.model_name) if part
     )
-    account_line = (
-        f"This password also signs into your FreeTheDesk account at {account_url} — "
-        f"all your paperwork in one place, and you can choose your own password "
-        f"there.\n\n"
+    signing_back_in = (
+        (
+            f"Coming back on another device? Sign in to your FreeTheDesk account:\n\n"
+            f"{login_url}\n"
+            f"Email: {sale.customer_email}\n"
+            f"Password: {password}\n\n"
+            "You will be asked to choose your own password the first time you sign "
+            "in. Your account shows this sale and any others.\n"
+        )
         if account_created
-        else f"You can also see this sale in your account: {account_url}\n\n"
+        else (
+            f"Coming back on another device? Sign in at {login_url} with this email "
+            f"and your account password. Forgot it? Reset it from the sign-in page.\n"
+        )
     )
     body = (
         f"Hello {sale.customer_name},\n\n"
         f"{sale.dealer.business_name} has started the paperwork for your "
         f"{vehicle or 'vehicle'}.\n\n"
         f"Open your sale: {link}\n\n"
-        "That link signs you in on this device. If you need to pick it up somewhere "
-        "else, go to:\n\n"
-        f"{login_url}\n"
-        f"Reference: {sale.reference}\n"
-        f"Password: {password}\n\n"
-        f"{account_line}"
+        "That link signs you in on this device.\n\n"
+        f"{signing_back_in}\n"
+        f"Your reference is {sale.reference} — quote it if you need to contact "
+        "the dealer.\n\n"
         "You will be asked for your licence details, some identity photos, and your "
         "signature. Nothing is binding until the dealer accepts your offer, and we "
         "will email you when they do."
@@ -67,10 +66,9 @@ def send_sale_link(sale, password, *, account_created=False):
             "sale": sale,
             "link": link,
             "login_url": login_url,
-            "password": password,
+            "password": password if account_created else None,
             "vehicle": vehicle,
             "account_created": account_created,
-            "account_url": account_url,
         },
         related=sale,
     )

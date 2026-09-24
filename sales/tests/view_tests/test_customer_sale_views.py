@@ -6,19 +6,17 @@ a residential address, and the only thing between them and somebody else's is a
 cookie scoped to one path.
 """
 
-from datetime import date, timedelta
+from datetime import date
 
 import pytest
 from django.urls import reverse
-from django.utils import timezone
 
 from dealers.models import Dealer
 from dealers.tests.factories import DealerProfileFactory
 from documents.tests.factories import load_current_templates
 from sales.models import Sale, SaleEvent
 from sales.tests.factories import SaleFactory
-from sales.utils.access import cookie_name, set_access_password
-from sales.views.customer import SaleLoginIPThrottle, SaleLoginThrottle
+from sales.utils.access import cookie_name
 
 pytestmark = pytest.mark.django_db
 
@@ -147,182 +145,6 @@ def test_a_completed_sale_stays_reachable(client, selling_dealer):
     )
 
     assert response.status_code == 200
-
-
-# --- recovery ---------------------------------------------------------------
-
-
-def test_the_reference_and_password_recover_the_cookie(client, selling_dealer):
-    sale = sent_sale(selling_dealer)
-    password = set_access_password(sale)
-
-    response = client.post(
-        url("sale-login", sale), {"password": password}, content_type="application/json"
-    )
-
-    assert response.status_code == 200
-    assert response.cookies[cookie_name(sale.reference)].value == sale.access_token
-
-
-def test_a_wrong_password_is_refused(client, selling_dealer):
-    sale = sent_sale(selling_dealer)
-    set_access_password(sale)
-
-    response = client.post(
-        url("sale-login", sale), {"password": "wrong"}, content_type="application/json"
-    )
-
-    assert response.status_code == 403
-
-
-def test_a_sale_with_no_password_set_cannot_be_logged_into(client, selling_dealer):
-    """An empty hash must not match an empty password."""
-    sale = sent_sale(selling_dealer)
-
-    response = client.post(
-        url("sale-login", sale), {"password": ""}, content_type="application/json"
-    )
-
-    assert response.status_code == 403
-
-
-# --- lockout ----------------------------------------------------------------
-#
-# The throttles above cap cost. These are the control: a durable counter on the
-# sale, not a cache entry a deploy empties.
-
-
-def attempt(client, sale, password="wrong"):
-    return client.post(
-        url("sale-login", sale), {"password": password}, content_type="application/json"
-    )
-
-
-def test_failed_attempts_lock_the_sale_at_the_shared_threshold(
-    client, selling_dealer, settings
-):
-    """The same number the staff login uses, read from the same setting."""
-    settings.FTP_AUTH = {**settings.FTP_AUTH, "LOCKOUT_THRESHOLD": 3}
-    sale = sent_sale(selling_dealer)
-    password = set_access_password(sale)
-
-    for _ in range(3):
-        assert attempt(client, sale).status_code == 403
-
-    sale.refresh_from_db()
-    assert sale.access_failure_count == 3
-    assert sale.access_locked_until is not None
-    # The right password is refused too, which is the whole point of a lockout.
-    assert attempt(client, sale, password).status_code == 403
-
-
-def test_the_lock_expires_and_the_next_attempt_clears_it(
-    client, selling_dealer, settings
-):
-    """Reading is what unlocks. A lock with no end is a denial of service on the
-    customer's own sale."""
-    settings.FTP_AUTH = {**settings.FTP_AUTH, "LOCKOUT_THRESHOLD": 1}
-    sale = sent_sale(selling_dealer)
-    password = set_access_password(sale)
-    attempt(client, sale)
-
-    sale.refresh_from_db()
-    sale.access_locked_until = timezone.now() - timedelta(seconds=1)
-    sale.save(update_fields=["access_locked_until"])
-
-    assert attempt(client, sale, password).status_code == 200
-    sale.refresh_from_db()
-    assert sale.access_failure_count == 0
-    assert sale.access_locked_until is None
-
-
-def test_a_success_forgets_the_failures_before_it(client, selling_dealer, settings):
-    settings.FTP_AUTH = {**settings.FTP_AUTH, "LOCKOUT_THRESHOLD": 10}
-    sale = sent_sale(selling_dealer)
-    password = set_access_password(sale)
-    attempt(client, sale)
-    attempt(client, sale)
-
-    assert attempt(client, sale, password).status_code == 200
-    sale.refresh_from_db()
-    assert sale.access_failure_count == 0
-
-
-def test_a_reference_that_does_not_exist_answers_the_same_way(client, selling_dealer):
-    """One sentence for every failure, and a hash spent either way, so this is
-    not a way of finding out which references are real."""
-    sale = sent_sale(selling_dealer)
-    set_access_password(sale)
-
-    real = attempt(client, sale)
-    fake = client.post(
-        reverse("sale-login", kwargs={"reference": "NOSUCHREF"}),
-        {"password": "wrong"},
-        content_type="application/json",
-    )
-
-    assert real.status_code == fake.status_code == 403
-    assert real.json() == fake.json()
-
-
-def tighten(monkeypatch, throttle, rate):
-    """Set one throttle's rate for the duration of a test.
-
-    On the class rather than through `settings.REST_FRAMEWORK`. DRF snapshots
-    `DEFAULT_THROTTLE_RATES` onto `SimpleRateThrottle.THROTTLE_RATES` at import,
-    so a settings override reaches it inconsistently — it appeared to work and
-    then stopped working depending on test order, which is the worst way for a
-    rate limit to be tested. `rate` on the class is the documented lever and
-    `SimpleRateThrottle.__init__` honours it.
-    """
-    monkeypatch.setattr(throttle, "rate", rate, raising=False)
-
-
-def test_the_login_throttle_is_keyed_on_the_sale_rather_than_the_caller(
-    client, selling_dealer, monkeypatch
-):
-    """The reference is effectively the username here, and the address is not
-    the thing being attacked. Keying on the address alone lets anyone with a
-    modest pool of them make unlimited attempts at one sale."""
-    tighten(monkeypatch, SaleLoginThrottle, "2/hour")
-    tighten(monkeypatch, SaleLoginIPThrottle, "1000/hour")
-    one = sent_sale(selling_dealer)
-    two = sent_sale(selling_dealer)
-
-    for _ in range(2):
-        client.post(url("sale-login", one), {"password": "x"}, content_type="application/json")
-
-    spent = client.post(
-        url("sale-login", one), {"password": "x"}, content_type="application/json"
-    )
-    other = client.post(
-        url("sale-login", two), {"password": "x"}, content_type="application/json"
-    )
-
-    assert spent.status_code == 429
-    # The same caller still reaches a different sale, because that sale's own
-    # allowance has not been touched. A shared office NAT must not lock its own
-    # customers out of unrelated sales.
-    assert other.status_code == 403
-
-
-def test_the_second_throttle_bounds_one_source_across_many_references(
-    client, selling_dealer, monkeypatch
-):
-    """The other half of the pair. Without it, a botnet gets free rein on a
-    single reference — the same mistake made from the opposite end."""
-    tighten(monkeypatch, SaleLoginThrottle, "1000/hour")
-    tighten(monkeypatch, SaleLoginIPThrottle, "2/hour")
-    sales = [sent_sale(selling_dealer) for _ in range(3)]
-
-    codes = [
-        client.post(
-            url("sale-login", sale), {"password": "x"}, content_type="application/json"
-        ).status_code
-        for sale in sales
-    ]
-
-    assert codes == [403, 403, 429]
 
 
 # --- what the cookie reaches ------------------------------------------------

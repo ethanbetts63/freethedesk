@@ -8,13 +8,17 @@
 Open your sale:
 {{ link }}
 
-That link signs you in on this device. If you need to pick it up somewhere else, go to:
+That link signs you in on this device.
+
+{% if account_created %}Coming back on another device? Sign in to your FreeTheDesk account:
 
 {{ login_url }}
-Reference: {{ sale.reference }}
+Email: {{ sale.customer_email }}
 Password: {{ password }}
 
-{% if account_created %}This password also signs into your FreeTheDesk account at {{ account_url }} — all your paperwork in one place, and you can choose your own password there.{% else %}You can also see this sale in your account: {{ account_url }}{% endif %}
+You will be asked to choose your own password the first time you sign in. Your account shows this sale and any others.{% else %}Coming back on another device? Sign in at {{ login_url }} with this email and your account password. Forgot it? Reset it from the sign-in page.{% endif %}
+
+Your reference is {{ sale.reference }} — quote it if you need to contact the dealer.
 
 You will be asked for your licence details, some identity photos, and your signature. Nothing is binding until the dealer accepts your offer, and we will email you when they do.
 {% endautoescape %}
