@@ -12,7 +12,7 @@ Access to a sale is a capability scoped to that one sale — no signup stands in
 front of it. Since then, **accounts have been layered on top** (mirroring
 allbikes): the first send also creates an `auth.User` keyed by the customer's
 email (`Sale.account`), adopting the same emailed password flagged
-`must_change_password`; `/account` lists their sales across dealers and opens
+`must_change_password`; `/dashboard/user` lists their sales across dealers and opens
 one by trading the session for that sale's own cookie
 (`sales/views/account.py`). The emailed link stays primary; the old
 reference+password sale login is **retired** — recovery on another device is
