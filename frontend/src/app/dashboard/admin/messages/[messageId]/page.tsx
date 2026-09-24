@@ -22,9 +22,9 @@ import { adminMessagePreClassName } from '@/components/dashboard/adminLayout';
 
 /** Related objects we have a dashboard page for. Anything else shows as plain text. */
 const RELATED_LINKS: Record<string, string> = {
-  enquiry: '/dashboard/enquiries/',
-  dealer: '/dashboard/dealers/',
-  seosubscriber: '/dashboard/seo/',
+  enquiry: '/dashboard/admin/enquiries/',
+  dealer: '/dashboard/admin/dealers/',
+  seosubscriber: '/dashboard/admin/seo/',
 };
 
 export default function MessageDetailPage() {
@@ -41,7 +41,7 @@ export default function MessageDetailPage() {
   if (error)
     return (
       <div className={pageClassName}>
-        <Link className={backClassName} href="/dashboard/messages">
+        <Link className={backClassName} href="/dashboard/admin/messages">
           ← Messages
         </Link>
         <Notice tone="danger">{error}</Notice>
@@ -55,7 +55,7 @@ export default function MessageDetailPage() {
     );
   return (
     <div className={pageClassName}>
-      <Link className={backClassName} href="/dashboard/messages">
+      <Link className={backClassName} href="/dashboard/admin/messages">
         ← Back to messages
       </Link>
       <PageHeader

@@ -102,9 +102,9 @@ export async function getProfile(): Promise<Principal> {
  */
 export function homeFor(user: Principal): string {
   if (user.must_change_password) return CHANGE_PASSWORD_PATH;
-  if (user.role === 'staff') return '/dashboard/enquiries';
+  if (user.role === 'staff') return '/dashboard/admin/enquiries';
   if (user.role === 'seo') return '/seo-portal';
-  if (user.role === 'customer') return '/account';
+  if (user.role === 'customer') return '/dashboard/user';
   return '/portal';
 }
 

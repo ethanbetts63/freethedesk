@@ -200,7 +200,12 @@ export const NOINDEX_METADATA: Metadata = {
  * destination carries its own. Listed so the indexation ledger doesn't flag a
  * stub as an undeclared route. Mirrors allbikes' `REDIRECT_STUBS`.
  */
-export const REDIRECT_STUBS: string[] = ['/blog', '/blog/[slug]'];
+export const REDIRECT_STUBS: string[] = [
+  '/blog',
+  '/blog/[slug]',
+  // The customer dashboard's first home, in early sale-link emails; → /dashboard/user.
+  '/account',
+];
 
 // `/dashboard` is deliberately NOT here. It bounces to /dashboard/enquiries
 // AND is robots-disallowed, and seo-standard.md section 2 wants exactly one
@@ -213,7 +218,7 @@ export const REDIRECT_STUBS: string[] = ['/blog', '/blog/[slug]'];
  * `DYNAMIC_ROUTE_FAMILIES` — see that file for the state definitions.
  *
  * FreeTheDesk's only public one is the guides article route; everything else
- * dynamic (`/dashboard/**`) is private and already covered by the robots.txt
+ * dynamic (`/dashboard/admin/**`) is private and already covered by the robots.txt
  * disallow, not by this registry.
  */
 export interface DynamicRouteFamily {

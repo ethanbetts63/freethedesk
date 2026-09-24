@@ -66,7 +66,7 @@ export default function EnquiryDetailPage() {
   }, [id]);
 
   const replyHref = useMemo(() => {
-    if (!enquiry) return '/dashboard/messages/compose';
+    if (!enquiry) return '/dashboard/admin/messages/compose';
     const firstName = enquiry.name.trim().split(/\s+/)[0] || enquiry.name;
     const params = new URLSearchParams({
       to: enquiry.email,
@@ -74,7 +74,7 @@ export default function EnquiryDetailPage() {
       body: `Hi ${firstName},\n\nThanks for getting in touch with freethedesk.\n\n`,
       enquiry: String(enquiry.id),
     });
-    return `/dashboard/messages/compose?${params}`;
+    return `/dashboard/admin/messages/compose?${params}`;
   }, [enquiry]);
 
   async function changeStatus(status: string) {
@@ -99,7 +99,7 @@ export default function EnquiryDetailPage() {
   if (error && !enquiry)
     return (
       <div className={pageClassName}>
-        <Link className={backClassName} href="/dashboard/enquiries">
+        <Link className={backClassName} href="/dashboard/admin/enquiries">
           ← Enquiries
         </Link>
         <Notice tone="danger">{error}</Notice>
@@ -115,7 +115,7 @@ export default function EnquiryDetailPage() {
 
   return (
     <div className={pageClassName}>
-      <Link className={backClassName} href="/dashboard/enquiries">
+      <Link className={backClassName} href="/dashboard/admin/enquiries">
         ← Back to enquiries
       </Link>
       <PageHeader
@@ -242,7 +242,7 @@ export default function EnquiryDetailPage() {
           {messages.length ? (
             <div className={adminRelatedMessagesClassName}>
               {messages.map((message) => (
-                <Link key={message.id} href={`/dashboard/messages/${message.id}`}>
+                <Link key={message.id} href={`/dashboard/admin/messages/${message.id}`}>
                   <span>
                     {message.channel.toUpperCase()} · {message.status}
                   </span>

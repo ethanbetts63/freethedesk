@@ -56,7 +56,7 @@ function MessagesContent() {
   return (
     <div className={pageClassName}>
       <PageHeader kicker="Delivery audit" title="Messages">
-        <Button href="/dashboard/messages/compose">＋ Compose</Button>
+        <Button href="/dashboard/admin/messages/compose">＋ Compose</Button>
       </PageHeader>
 
       <section className={panelClassName}>
@@ -114,7 +114,7 @@ function MessagesContent() {
                   style={statusTone(message.status)}
                 >
                   <td className={cn(adminTdClassName, 'relative')}>
-                    <RowLink href={`/dashboard/messages/${message.id}`}>
+                    <RowLink href={`/dashboard/admin/messages/${message.id}`}>
                       {formatDateTime(message.created_at)}
                     </RowLink>
                   </td>

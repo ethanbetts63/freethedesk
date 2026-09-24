@@ -63,7 +63,11 @@ function ComposeMessageContent() {
     <div className={cn(pageClassName, adminComposePageClassName)}>
       <Link
         className={backClassName}
-        href={relatedEnquiry ? `/dashboard/enquiries/${relatedEnquiry}` : '/dashboard/messages'}
+        href={
+          relatedEnquiry
+            ? `/dashboard/admin/enquiries/${relatedEnquiry}`
+            : '/dashboard/admin/messages'
+        }
       >
         ← Back
       </Link>

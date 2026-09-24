@@ -105,7 +105,7 @@ function DealersContent() {
               {(dealer) => (
                 <tr key={dealer.id} className={adminRowClassName} style={statusTone(dealer.status)}>
                   <td className={cn(adminTdClassName, 'relative')}>
-                    <RowLink href={`/dashboard/dealers/${dealer.id}`}>
+                    <RowLink href={`/dashboard/admin/dealers/${dealer.id}`}>
                       {formatDateTime(dealer.created_at)}
                     </RowLink>
                   </td>

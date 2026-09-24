@@ -23,55 +23,73 @@ import {
   type AdminListView,
 } from '@/components/dashboard/useAdminList';
 import {
-  dealerStatuses,
+  enquiryStatuses,
   StatusPill,
   statusLabel,
   statusTone,
 } from '@/components/dashboard/StatusPill';
-import { formatDateTime, getSeoSubscribers, type SeoSubscriber } from '@/lib/adminApi';
+import { formatDateTime, getEnquiries, type Enquiry } from '@/lib/adminApi';
+import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import { cn } from '@/lib/utils';
 import { panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
 
-const SORT_FIELDS = ['created_at', 'business_name', 'contact_name', 'status'] as const;
-const FILTER_KEYS = ['status'] as const;
-const COLUMNS = 7;
+const SORT_FIELDS = ['created_at', 'business', 'help_with', 'status'] as const;
+const FILTER_KEYS = ['status', 'help_with'] as const;
 
-function SeoSubscribersContent() {
-  const fetchPage = useCallback(
-    (view: AdminListView) => getSeoSubscribers(adminListParams(view)),
-    [],
-  );
-  const list = useAdminList<SeoSubscriber>({
+const HELP_WITH_OPTIONS = [
+  { value: 'website', label: 'Dealer website' },
+  { value: 'website_builder', label: 'Dealer web enquiry' },
+  { value: 'inventory', label: 'Inventory, parts, service or hire' },
+  { value: 'automation', label: 'Business automation' },
+  { value: 'ai_readiness', label: 'AI readiness check' },
+  { value: 'everything', label: 'All of the above' },
+  { value: 'unsure', label: 'Not sure yet' },
+];
+
+const COLUMNS = 5;
+
+function EnquiriesContent() {
+  const fetchPage = useCallback((view: AdminListView) => getEnquiries(adminListParams(view)), []);
+  const list = useAdminList<Enquiry>({
     fetchPage,
     filterKeys: FILTER_KEYS,
     sortFields: SORT_FIELDS,
-    loadError: 'SEO customers could not be loaded.',
+    loadError: 'Enquiries could not be loaded.',
   });
 
   return (
     <div className={pageClassName}>
-      <PageHeader kicker="SEO accounts" title="SEO customers" />
+      <PageHeader kicker="Lead management" title="Enquiries">
+        <Button href="/dashboard/admin/messages/compose">＋ Compose</Button>
+      </PageHeader>
 
       <section className={panelClassName}>
         <AdminFilterBar
           total={list.total}
-          noun="customer"
-          nounPlural="customers"
-          legend={dealerStatuses}
+          noun="enquiry"
+          nounPlural="enquiries"
+          legend={enquiryStatuses}
           search={list.searchDraft}
           onSearchChange={list.setSearchDraft}
           onSearchSubmit={list.submitSearch}
           searchPlaceholder="Search business, person or email"
         >
           <FilterSelect
-            label="Filter SEO customers by status"
+            label="Filter enquiries by status"
             value={list.filters.status}
             onChange={(value) => list.setFilter('status', value)}
             allLabel="All statuses"
-            options={dealerStatuses.map((value) => ({ value, label: statusLabel(value) }))}
+            options={enquiryStatuses.map((value) => ({ value, label: statusLabel(value) }))}
+          />
+          <FilterSelect
+            label="Filter enquiries by type"
+            value={list.filters.help_with}
+            onChange={(value) => list.setFilter('help_with', value)}
+            allLabel="All enquiry types"
+            options={HELP_WITH_OPTIONS}
           />
         </AdminFilterBar>
 
@@ -81,17 +99,15 @@ function SeoSubscribersContent() {
             <thead>
               <tr>
                 <SortHeader field="created_at" ordering={list.ordering} onSort={list.toggleSort}>
-                  Signed up
+                  Received
                 </SortHeader>
-                <SortHeader field="business_name" ordering={list.ordering} onSort={list.toggleSort}>
+                <SortHeader field="business" ordering={list.ordering} onSort={list.toggleSort}>
                   Business
                 </SortHeader>
-                <SortHeader field="contact_name" ordering={list.ordering} onSort={list.toggleSort}>
-                  Contact
+                <th className={adminThClassName}>Contact</th>
+                <SortHeader field="help_with" ordering={list.ordering} onSort={list.toggleSort}>
+                  Interested in
                 </SortHeader>
-                <th className={adminThClassName}>Plan</th>
-                <th className={adminThClassName}>Payment</th>
-                <th className={adminThClassName}>Phone</th>
                 <SortHeader field="status" ordering={list.ordering} onSort={list.toggleSort}>
                   Status
                 </SortHeader>
@@ -101,35 +117,38 @@ function SeoSubscribersContent() {
               rows={list.rows}
               loading={list.loading}
               columns={COLUMNS}
-              loadingLabel="Loading SEO customers…"
-              emptyLabel="No SEO customers match these filters."
+              loadingLabel="Loading enquiries…"
+              emptyLabel="No enquiries match these filters."
             >
-              {(subscriber) => (
+              {(enquiry) => (
                 <tr
-                  key={subscriber.id}
+                  key={enquiry.id}
                   className={adminRowClassName}
-                  style={statusTone(subscriber.status)}
+                  style={statusTone(enquiry.status)}
                 >
                   <td className={cn(adminTdClassName, 'relative')}>
-                    <RowLink href={`/dashboard/seo/${subscriber.id}`}>
-                      {formatDateTime(subscriber.created_at)}
+                    <RowLink href={`/dashboard/admin/enquiries/${enquiry.id}`}>
+                      {formatDateTime(enquiry.created_at)}
                     </RowLink>
                   </td>
                   <td className={adminTdClassName}>
-                    <CellTitle>{subscriber.business_name}</CellTitle>
+                    <CellTitle>{enquiry.business || '—'}</CellTitle>
+                    {enquiry.website && (
+                      <CellNote>{enquiry.website.replace(/^https?:\/\//, '')}</CellNote>
+                    )}
                   </td>
                   <td className={adminTdClassName}>
-                    <CellTitle>{subscriber.contact_name}</CellTitle>
-                    <CellNote>{subscriber.email}</CellNote>
+                    <CellTitle>{enquiry.name}</CellTitle>
+                    <CellNote>{enquiry.email}</CellNote>
                   </td>
                   <td className={adminTdClassName}>
-                    {subscriber.report_type_label}
-                    <CellNote>{subscriber.plan_label}</CellNote>
+                    <CellTitle>{enquiry.help_with_label}</CellTitle>
+                    {enquiry.configuration?.budget && (
+                      <CellNote>Budget: {enquiry.configuration.budget}</CellNote>
+                    )}
                   </td>
-                  <td className={adminTdClassName}>{subscriber.payment_status_label}</td>
-                  <td className={adminTdClassName}>{subscriber.phone || '—'}</td>
                   <td className={adminTdClassName}>
-                    <StatusPill status={subscriber.status} />
+                    <StatusPill status={enquiry.status} />
                   </td>
                 </tr>
               )}
@@ -150,16 +169,16 @@ function SeoSubscribersContent() {
   );
 }
 
-export default function SeoSubscribersPage() {
+export default function EnquiriesPage() {
   return (
     <Suspense
       fallback={
         <div className={pageClassName}>
-          <p className="text-text-subtle">Loading SEO customers…</p>
+          <p className="text-text-subtle">Loading enquiries…</p>
         </div>
       }
     >
-      <SeoSubscribersContent />
+      <EnquiriesContent />
     </Suspense>
   );
 }

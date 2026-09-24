@@ -75,7 +75,7 @@ export default function CustomerSalePage() {
           title="This device is not signed in to this sale"
           subtitle="Open the link from the email we sent you, or sign in to your account and open the sale from there."
         />
-        <Button href="/login?next=/account">Sign in to your account</Button>
+        <Button href="/login?next=/dashboard/user">Sign in to your account</Button>
       </div>
     );
 

@@ -12,5 +12,5 @@ export const proxy = createProxy({
 });
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/portal/:path*', '/seo-portal/:path*'],
+  matcher: ['/dashboard/admin/:path*', '/portal/:path*', '/seo-portal/:path*'],
 };

@@ -225,7 +225,7 @@ export function RelatedMessagesCard({
       {messages.length ? (
         <div className={adminRelatedMessagesClassName}>
           {messages.map((message) => (
-            <Link key={message.id} href={`/dashboard/messages/${message.id}`}>
+            <Link key={message.id} href={`/dashboard/admin/messages/${message.id}`}>
               <span>
                 {message.channel.toUpperCase()} · {message.status}
               </span>

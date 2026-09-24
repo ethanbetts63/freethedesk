@@ -74,14 +74,14 @@ export function useAccountDetail<Account extends StaffAccount>({
   }, [id, relatedType]);
 
   const replyHref = useMemo(() => {
-    if (!account) return '/dashboard/messages/compose';
+    if (!account) return '/dashboard/admin/messages/compose';
     const firstName = account.contact_name.trim().split(/\s+/)[0] || account.contact_name;
     const params = new URLSearchParams({
       to: account.email,
       subject: replySubject,
       body: `Hi ${firstName},\n\n`,
     });
-    return `/dashboard/messages/compose?${params}`;
+    return `/dashboard/admin/messages/compose?${params}`;
   }, [account, replySubject]);
 
   async function save(changes: Partial<Pick<Account, 'status' | 'staff_notes'>>, message: string) {

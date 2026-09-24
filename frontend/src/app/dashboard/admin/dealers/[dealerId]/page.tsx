@@ -13,41 +13,35 @@ import {
   StaffNotesCard,
 } from '@/components/dashboard/AccountDetail';
 import { useAccountDetail } from '@/components/dashboard/useAccountDetail';
-import {
-  formatDateTime,
-  getSeoSubscriber,
-  SEO_SUBSCRIBER_TYPE,
-  updateSeoSubscriber,
-  type SeoSubscriber,
-} from '@/lib/adminApi';
+import { DEALER_TYPE, formatDateTime, getDealer, updateDealer, type Dealer } from '@/lib/adminApi';
 import { Notice } from '@/components/ui/Notice';
 import { detailGridClassName } from '@/components/ui/Card';
 import { backClassName, pageClassName } from '@/components/ui/layout';
 
-export default function SeoSubscriberDetailPage() {
-  const id = Number(useParams<{ subscriberId: string }>().subscriberId);
+export default function DealerDetailPage() {
+  const id = Number(useParams<{ dealerId: string }>().dealerId);
   const { account, messages, notes, setNotes, loading, saving, notice, error, replyHref, save } =
-    useAccountDetail<SeoSubscriber>({
+    useAccountDetail<Dealer>({
       id,
-      fetch: getSeoSubscriber,
-      update: updateSeoSubscriber,
-      relatedType: SEO_SUBSCRIBER_TYPE,
-      replySubject: 'Your freethedesk SEO account',
-      loadError: 'SEO customer could not be loaded.',
-      saveError: 'The SEO customer could not be updated.',
+      fetch: getDealer,
+      update: updateDealer,
+      relatedType: DEALER_TYPE,
+      replySubject: 'Your freethedesk dealer account',
+      loadError: 'Dealer could not be loaded.',
+      saveError: 'The dealer could not be updated.',
     });
 
   if (loading)
     return (
       <div className={pageClassName}>
-        <p className="text-text-subtle">Loading SEO customer…</p>
+        <p className="text-text-subtle">Loading dealer…</p>
       </div>
     );
   if (error && !account)
     return (
       <div className={pageClassName}>
-        <Link className={backClassName} href="/dashboard/seo">
-          ← SEO customers
+        <Link className={backClassName} href="/dashboard/admin/dealers">
+          ← Dealers
         </Link>
         <Notice tone="danger">{error}</Notice>
       </div>
@@ -57,13 +51,13 @@ export default function SeoSubscriberDetailPage() {
   return (
     <div className={pageClassName}>
       <AccountDetailHeader
-        backHref="/dashboard/seo"
-        backLabel="Back to SEO customers"
-        kicker={`SEO customer #${account.id}`}
+        backHref="/dashboard/admin/dealers"
+        backLabel="Back to dealers"
+        kicker={`Dealer #${account.id}`}
         title={account.business_name}
         subtitle={`${account.contact_name} · signed up ${formatDateTime(account.created_at)}`}
         actionHref={replyHref}
-        actionLabel="Email customer →"
+        actionLabel="Email dealer →"
       />
 
       {error && <Notice tone="danger">{error}</Notice>}
@@ -78,21 +72,15 @@ export default function SeoSubscriberDetailPage() {
 
         {account.status === 'pending' && (
           <AccountApprovalCard
-            heading="Approve this customer"
-            explanation="Approving switches the account on so reporting can begin once they have connected their data."
+            heading="Approve this dealer"
+            explanation="Approving only switches the account on. The dealer still has to complete onboarding — licence details, prefill data and their sale conditions — before they can run a sale."
             saving={saving}
-            onApprove={() => save({ status: 'active' }, 'Customer approved.')}
-            onDeny={() => save({ status: 'denied' }, 'Customer denied.')}
+            onApprove={() => save({ status: 'active' }, 'Dealer approved.')}
+            onDeny={() => save({ status: 'denied' }, 'Dealer denied.')}
           />
         )}
 
-        <AccountContactCard
-          account={account}
-          extra={[
-            ['Website', account.website || 'Not supplied'],
-            ['Report', account.report_type_label],
-          ]}
-        />
+        <AccountContactCard account={account} extra={[['State', account.state_label]]} />
         <AccountBillingCard account={account} statusChangedAt={account.status_changed_at} />
 
         <StaffNotesCard

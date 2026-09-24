@@ -56,7 +56,7 @@ export async function submitComposeMessage(
 
   redirect(
     parsed.data.relatedEnquiry
-      ? `/dashboard/enquiries/${parsed.data.relatedEnquiry}`
-      : '/dashboard/messages',
+      ? `/dashboard/admin/enquiries/${parsed.data.relatedEnquiry}`
+      : '/dashboard/admin/messages',
   );
 }

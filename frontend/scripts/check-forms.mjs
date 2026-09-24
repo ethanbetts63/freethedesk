@@ -27,8 +27,8 @@ checkFormLedger({
 
     // Track B — useActionState + a Server Action validating the same schema.
     { file: 'app/change-password/page.tsx', track: 'B' },
-    { file: 'app/dashboard/messages/compose/page.tsx', track: 'B' },
-    { file: 'app/dashboard/settings/site/page.tsx', track: 'B' },
+    { file: 'app/dashboard/admin/messages/compose/page.tsx', track: 'B' },
+    { file: 'app/dashboard/admin/settings/site/page.tsx', track: 'B' },
     { file: 'app/dealership-website-builder/_components/ConfiguratorControls.tsx', track: 'B' },
     { file: 'app/login/page.tsx', track: 'B' },
     { file: 'app/portal/account/page.tsx', track: 'B' },

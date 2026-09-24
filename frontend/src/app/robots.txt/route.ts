@@ -27,15 +27,13 @@ interface RobotsGroup {
 const DISALLOWED_ROUTES = [
   '/api',
   // Every entry is the BARE prefix, never the trailing-slash form. Robots
-  // rules are prefixes, so '/dashboard' already covers '/dashboard/' and
-  // everything under it, while '/dashboard/' does NOT cover the exact path
+  // rules are prefixes, so '/dashboard' already covers '/dashboard/admin/' and
+  // everything under it, while '/dashboard/admin/' does NOT cover the exact path
   // '/dashboard' - the gap allbikes shipped with. See seo-standard.md
   // section 4.
   '/dashboard',
   '/portal',
   '/seo-portal',
-  // The customer's own account: session-gated, nothing for a crawler.
-  '/account',
   // Customer sale pages. Not private in the sign-in sense - access is a
   // capability carried in a link - which is exactly why a crawler has to be
   // told to stay away rather than left to find one in a forwarded email.

@@ -44,11 +44,11 @@ function LoginContent() {
     }
     const prefix =
       user.role === 'staff'
-        ? '/dashboard'
+        ? '/dashboard/admin'
         : user.role === 'seo'
           ? '/seo-portal'
           : user.role === 'customer'
-            ? '/account'
+            ? '/dashboard/user'
             : '/portal';
     router.replace(next && next.startsWith(prefix) ? next : home);
   }, [loading, router, search, user]);
