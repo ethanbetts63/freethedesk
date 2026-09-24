@@ -24,6 +24,16 @@ export interface FooterColumn {
 interface SiteFooterProps {
   /** Logo, wordmark and any standing copy. Takes the widest track. */
   brand: ReactNode;
+  /**
+   * Which end of the row the brand block sits at. The wide track follows it,
+   * so `end` is a mirror rather than a narrow column at the right.
+   *
+   * A closed pair rather than a number: the link columns already position
+   * themselves by their order in `columns`, so the only thing that could not
+   * be moved was the brand, and an arbitrary index would let a caller drop it
+   * mid-row where the wide track cannot follow.
+   */
+  brandPosition?: 'start' | 'end';
   columns: FooterColumn[];
   /** The bottom bar: copyright, registration numbers, credits. */
   legal: ReactNode;
@@ -47,6 +57,15 @@ const COLUMN_GRID: Record<number, string> = {
   3: 'lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))]',
   4: 'lg:grid-cols-[minmax(0,1.4fr)_repeat(4,minmax(0,1fr))]',
   5: 'lg:grid-cols-[minmax(0,1.4fr)_repeat(5,minmax(0,1fr))]',
+};
+
+/** The same tracks mirrored, for `brandPosition="end"`. */
+const COLUMN_GRID_BRAND_END: Record<number, string> = {
+  1: 'lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]',
+  2: 'lg:grid-cols-[repeat(2,minmax(0,1fr))_minmax(0,1.4fr)]',
+  3: 'lg:grid-cols-[repeat(3,minmax(0,1fr))_minmax(0,1.4fr)]',
+  4: 'lg:grid-cols-[repeat(4,minmax(0,1fr))_minmax(0,1.4fr)]',
+  5: 'lg:grid-cols-[repeat(5,minmax(0,1fr))_minmax(0,1.4fr)]',
 };
 
 /**
@@ -84,7 +103,29 @@ function FooterRow({ href, label, external }: FooterLink) {
   );
 }
 
-export function SiteFooter({ brand, columns, legal, backdrop, className }: SiteFooterProps) {
+export function SiteFooter({
+  brand,
+  brandPosition = 'start',
+  columns,
+  legal,
+  backdrop,
+  className,
+}: SiteFooterProps) {
+  const grid = brandPosition === 'end' ? COLUMN_GRID_BRAND_END : COLUMN_GRID;
+  /* Spans the pair of columns at `sm`, then takes the wide track. */
+  const brandBlock = <div className="sm:col-span-full lg:col-auto">{brand}</div>;
+  const linkBlocks = columns.map((column) => (
+    <div key={column.label} className="flex flex-col gap-0 text-body-sm lg:gap-s">
+      <Eyebrow size="sm" tone="muted" className="mb-xs">
+        {column.label}
+      </Eyebrow>
+      {column.links?.map((link) => (
+        <FooterRow key={link.href} {...link} />
+      ))}
+      {column.children}
+    </div>
+  ));
+
   return (
     <footer
       className={cn(
@@ -96,22 +137,20 @@ export function SiteFooter({ brand, columns, legal, backdrop, className }: SiteF
       <div
         className={cn(
           'site-shell relative z-1 grid grid-cols-[minmax(0,1fr)] gap-2xl sm:grid-cols-2',
-          COLUMN_GRID[columns.length] ?? COLUMN_GRID[4],
+          grid[columns.length] ?? grid[4],
         )}
       >
-        {/* Spans the pair of columns at `sm`, then takes the wide track. */}
-        <div className="sm:col-span-full lg:col-auto">{brand}</div>
-        {columns.map((column) => (
-          <div key={column.label} className="flex flex-col gap-0 text-body-sm lg:gap-s">
-            <Eyebrow size="sm" tone="muted" className="mb-xs">
-              {column.label}
-            </Eyebrow>
-            {column.links?.map((link) => (
-              <FooterRow key={link.href} {...link} />
-            ))}
-            {column.children}
-          </div>
-        ))}
+        {brandPosition === 'end' ? (
+          <>
+            {linkBlocks}
+            {brandBlock}
+          </>
+        ) : (
+          <>
+            {brandBlock}
+            {linkBlocks}
+          </>
+        )}
       </div>
       <div className="site-shell relative z-1 mt-3xl flex flex-col items-start justify-between gap-xs border-t border-border-default pt-ml text-label text-text-muted lg:flex-row lg:items-center lg:gap-0">
         {legal}
