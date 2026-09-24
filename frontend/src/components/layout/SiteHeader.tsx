@@ -73,7 +73,10 @@ export function SiteHeader({
     >
       {banner}
 
-      <div className="site-shell flex min-h-[var(--header-height)] items-center justify-between gap-l lg:min-h-[var(--header-height-lg)]">
+      {/* Full viewport width with the shared gutter, not the content shell:
+          the header is chrome, and pinning the logo and actions to the
+          viewport edges is what separates it from the column of content. */}
+      <div className="flex min-h-[var(--header-height)] w-full items-center justify-between gap-l px-[var(--gutter)] lg:min-h-[var(--header-height-lg)]">
         {logo}
 
         <nav
