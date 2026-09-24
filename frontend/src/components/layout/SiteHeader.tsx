@@ -76,6 +76,7 @@ export function SiteHeader({
       {/* Full viewport width with the shared gutter, not the content shell:
           the header is chrome, and pinning the logo and actions to the
           viewport edges is what separates it from the column of content. */}
+      {/* eslint-disable-next-line no-restricted-syntax -- --header-height and --gutter are named tokens; var() references are not one-off values */}
       <div className="flex min-h-[var(--header-height)] w-full items-center justify-between gap-l px-[var(--gutter)] lg:min-h-[var(--header-height-lg)]">
         {logo}
 
