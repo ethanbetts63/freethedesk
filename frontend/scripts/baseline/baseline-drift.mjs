@@ -7,12 +7,13 @@
  * list is family policy, not a repo fact, so changing it is a registry edit
  * that lands everywhere in one sync.
  *
- * frontend-baseline.md's rule is that the three products run one baseline —
+ * frontend-baseline.md's rule is that the products run one baseline —
  * the registry ships components by byte-copy, so a version skew means the
  * copy is not the thing that was tested. This script holds the part of that
  * rule that is already true:
  *
- * - PINNED packages must be declared identically in all three repos. Fail.
+ * - PINNED packages must be declared identically in every repo a row names.
+ *   Fail.
  * - BASELINE packages should be, but the family has not leveled them yet —
  *   the sequence is in _docs/frontend-baseline-outstanding.md. Warn, count.
  *   When a leveling step lands, move its packages into PINNED in the same
@@ -30,7 +31,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const CONSUMERS = ['allbikes', 'bloomprint', 'freethedesk'];
+const CONSUMERS = ['allbikes', 'bloomprint', 'freethedesk', 'splitcart'];
 
 /**
  * Declared identically today. Drifting one of these is a failure.
@@ -43,7 +44,6 @@ const CONSUMERS = ['allbikes', 'bloomprint', 'freethedesk'];
  * failure: that is the row gone stale, so widen it.
  */
 const PINNED = [
-  '@freetheplatform/web-security',
   '@vercel/analytics',
   'class-variance-authority',
   'clsx',
@@ -51,10 +51,33 @@ const PINNED = [
   'stylelint-config-standard',
   'stylelint-declaration-strict-value',
   'typescript',
-  'zod',
-  { name: 'lucide-react', repos: ['allbikes', 'bloomprint'] },
+  // Two packages every founding repo has and splitcart does not yet. Scoped
+  // rather than widened so the check stays meaningful in all four repos: a
+  // bare row would fail everywhere for a gap splitcart is scheduled to close,
+  // and a permanently red check is a check nobody reads. The stray detection
+  // below is what closes the loop — the day splitcart declares either one, the
+  // row goes stale loudly and gets widened.
+  //   @freetheplatform/web-security — splitcart/_docs/convergence/auth-migration.md
+  //   zod                           — splitcart/_docs/convergence/forms.md
+  { name: '@freetheplatform/web-security', repos: ['allbikes', 'bloomprint', 'freethedesk'] },
+  { name: 'zod', repos: ['allbikes', 'bloomprint', 'freethedesk'] },
+  { name: 'lucide-react', repos: ['allbikes', 'bloomprint', 'splitcart'] },
   { name: 'marked', repos: ['allbikes', 'freethedesk'] },
-  { name: 'tw-animate-css', repos: ['allbikes', 'bloomprint'] },
+  { name: 'tw-animate-css', repos: ['allbikes', 'bloomprint', 'splitcart'] },
+  { name: 'sonner', repos: ['bloomprint', 'splitcart'] },
+  // The Radix primitives more than one repo builds on. Before splitcart joined
+  // these were a two-repo dependency with no row at all — structurally the
+  // same blind spot that let lucide-react drift a major version (BASE-4).
+  // They carry the family's caret, not an exact pin: BASE-5 wants exact, but
+  // BASE-1 wants identical, and levelling a caret to a pin is a family-wide
+  // change (BASE-2) rather than something a single repo joining can do.
+  { name: '@radix-ui/react-checkbox', repos: ['allbikes', 'bloomprint', 'splitcart'] },
+  { name: '@radix-ui/react-dialog', repos: ['allbikes', 'splitcart'] },
+  { name: '@radix-ui/react-label', repos: ['allbikes', 'bloomprint', 'splitcart'] },
+  { name: '@radix-ui/react-select', repos: ['allbikes', 'bloomprint', 'splitcart'] },
+  { name: '@radix-ui/react-slider', repos: ['bloomprint', 'splitcart'] },
+  { name: '@radix-ui/react-slot', repos: ['allbikes', 'bloomprint', 'splitcart'] },
+  { name: '@radix-ui/react-switch', repos: ['allbikes', 'splitcart'] },
 ];
 
 /**
