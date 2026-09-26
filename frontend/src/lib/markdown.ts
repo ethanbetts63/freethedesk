@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { sanitizeHtml } from '@freetheplatform/web-security';
+import { sanitizeHtml } from '@freetheplatform/web-security/sanitize';
 import { marked } from 'marked';
 
 export async function renderMarkdown(source: string): Promise<string> {

@@ -3,18 +3,29 @@
 # This file is hand-written and holds intent. `requirements.txt` is generated
 # from it and is the lockfile production installs; never edit that by hand.
 #
-#     pip-compile --no-index --strip-extras requirements.in   # regenerate
-#     pip-compile --upgrade-package django                    # move one deliberately
-#     pip-sync requirements-dev.txt                           # make this venv match
+#     pip-compile --no-emit-index-url --strip-extras requirements.in  # regenerate
+#     pip-compile --upgrade-package django                            # move one deliberately
+#     pip-sync requirements-dev.txt                                   # make this venv match
 #
-# Python 3.14 locally and on the server. The lockfile is resolved for that
-# version; resolving it on another one can pin releases that will not install.
+# The lockfile must be resolved for the Python version the PythonAnywhere *web
+# app* runs -- not the newest interpreter installed there, which the web app
+# will not accept, and not whatever is newest locally. Resolving on another
+# version pins a different dependency graph. Read the number off the web app's
+# dashboard before recompiling; see ../freetheplatform/_docs/strategy.md.
 #
 # Pins are the versions that are installed and passing tests, not the newest
 # available. Every upgrade after that is a `--upgrade-package` with a diff
 # someone can read.
 
-Django
+# Capped below 6.1, which raised Django's minimum MySQL to 8.4. PythonAnywhere
+# serves 8.0.42, so 6.1 refuses to open a connection at all:
+# "MySQL 8.4 or later is required (found 8.0.42)". 6.0 still accepts 8.0.11+.
+#
+# This line was bare `Django`, and the lock -- resolved on a machine that never
+# talks to production -- picked exactly 6.1. The cap is the production
+# database's constraint written down, so a later recompile cannot quietly step
+# over it. Lifting it means moving MySQL first, not the other way round.
+Django<6.1
 djangorestframework
 djangorestframework-simplejwt
 mysqlclient
