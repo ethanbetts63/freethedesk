@@ -1,7 +1,10 @@
+import re
+
 import pytest
 from django.db import IntegrityError
 
-from sales.models import Sale, generate_reference
+from freetheplatform.identifiers.references import ALPHABET
+from sales.models import Sale
 from sales.tests.factories import SaleFactory
 
 pytestmark = pytest.mark.django_db
@@ -10,8 +13,7 @@ pytestmark = pytest.mark.django_db
 def test_a_reference_is_assigned_on_first_save():
     sale = SaleFactory()
 
-    assert sale.reference.startswith("S-")
-    assert len(sale.reference) == len("S-") + 10
+    assert re.fullmatch(rf"S-[{ALPHABET}]{{8}}", sale.reference)
 
 
 def test_a_reference_is_not_reassigned_on_a_later_save():
@@ -38,12 +40,20 @@ def test_references_are_unique_across_dealers():
         clash.save()
 
 
-def test_the_generator_skips_a_reference_already_taken(monkeypatch):
+def test_a_reference_taken_by_another_dealer_is_skipped(monkeypatch):
+    """The reason this sale passes ``all_objects`` to the shared generator: the
+    scoped manager would not see another dealer's row, and would hand this one
+    the same reference for the column to then reject."""
     taken = SaleFactory()
-    minted = iter([taken.reference[2:].lower(), "abcdef0123"])
-    monkeypatch.setattr("sales.models.sale.secrets.token_hex", lambda _n: next(minted))
+    minted = iter([taken.reference, "S-FREE2345"])
+    monkeypatch.setattr(
+        "freetheplatform.identifiers.references.generate_reference",
+        lambda *args, **kwargs: next(minted),
+    )
 
-    assert generate_reference() == "S-ABCDEF0123"
+    other_dealer_sale = SaleFactory()
+
+    assert other_dealer_sale.reference == "S-FREE2345"
 
 
 def test_each_sale_gets_its_own_access_token():

@@ -10,38 +10,14 @@ See `_docs/licensing/plan/03-data-model.md` for the field-by-field reasoning and
 `02-sale-flow.md` for the flow the status field walks through.
 """
 
-import secrets
-
 from django.db import models
 
 from core.models import TenantOwned
+from freetheplatform.identifiers.references import generate_unique_reference
 
-
-def generate_reference():
-    """A free ``S-`` reference.
-
-    The retry matters rather than being belt-and-braces: collisions follow the
-    birthday bound, not the per-pair odds. Ten hex characters is a 2**40 space,
-    chosen deliberately wider than allbikes' eight — its own comment records
-    that eight gives roughly a 1.2% chance of a collision across 10,000 orders,
-    and a product serving many dealers starts on the far side of that rather
-    than waiting to print two customers the same reference.
-
-    ``unique=True`` on the column is still what guarantees it. This check races,
-    and the loser gets an IntegrityError rather than a duplicate, which is the
-    correct failure.
-
-    Uses ``all_objects`` because ``objects`` refuses an unscoped query, and
-    uniqueness is a property of the whole table rather than of one dealer.
-    """
-    while True:
-        reference = f"S-{secrets.token_hex(5).upper()}"
-        if not Sale.all_objects.filter(reference=reference).exists():
-            return reference
-
-
-def generate_access_token():
-    return secrets.token_urlsafe(32)
+# Imported under this name because ``sales/migrations/0001_initial.py`` names
+# ``sales.models.sale.generate_access_token`` as the column's default.
+from freetheplatform.identifiers.tokens import generate_access_token
 
 
 class Sale(TenantOwned):
@@ -239,7 +215,10 @@ class Sale(TenantOwned):
 
     def save(self, *args, **kwargs):
         if not self.reference:
-            self.reference = generate_reference()
+            # ``all_objects`` rather than ``objects``: the scoped manager refuses
+            # an unscoped query, and uniqueness is a property of the whole table
+            # rather than of one dealer's slice of it.
+            self.reference = generate_unique_reference(Sale.all_objects, "S")
         super().save(*args, **kwargs)
 
     # Changing any of these makes an already-generated document wrong, which is

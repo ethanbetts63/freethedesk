@@ -1,4 +1,4 @@
-from .sale import Sale, generate_access_token, generate_reference
+from .sale import Sale, generate_access_token
 from .sale_event import SaleEvent, SaleEventManager
 
 __all__ = [
@@ -6,5 +6,4 @@ __all__ = [
     "SaleEvent",
     "SaleEventManager",
     "generate_access_token",
-    "generate_reference",
 ]
