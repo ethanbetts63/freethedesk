@@ -16,7 +16,9 @@ const nextConfig: NextConfig = {
 
           hosts: {
             script: [
-              'https://www.clarity.ms',
+              // Wildcard, not www: the tag only bootstraps, and pulls the
+              // recorder from scripts.clarity.ms.
+              'https://*.clarity.ms',
               'https://va.vercel-scripts.com',
               'https://js.stripe.com',
               // GA4. gtag.js is served from googletagmanager.com even when Tag
