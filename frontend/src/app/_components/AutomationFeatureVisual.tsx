@@ -17,8 +17,8 @@ import { cn } from '@/lib/utils';
  * source, and a name interpolated at runtime produces no CSS at all.
  */
 const routeClassName = cn(
-  'mx-auto flex h-[24px] w-[83%] justify-around overflow-hidden sm:h-[38px] sm:w-[72%]',
-  '[&>i]:h-[38px] [&>i]:w-[33%] [&>i]:border-t [&>i]:border-l [&>i]:border-[color-mix(in_srgb,var(--action-primary)_55%,transparent)]',
+  'mx-auto flex h-[24px] w-[83%] justify-around overflow-hidden sm:h-[var(--size-control)] sm:w-[72%]',
+  '[&>i]:h-[var(--size-control)] [&>i]:w-[33%] [&>i]:border-t [&>i]:border-l [&>i]:border-[color-mix(in_srgb,var(--action-primary)_55%,transparent)]',
   '[&>i:first-child]:border-t-0',
   '[&>i:nth-child(2)]:w-[1px]',
   '[&>i:last-child]:border-t-0 [&>i:last-child]:border-l-0 [&>i:last-child]:border-r',
@@ -34,7 +34,7 @@ export function AutomationFeatureVisual() {
         // The animated border, and a tinted slab behind it that deepens from a
         // phone to a desktop.
         'moving-colour-border shadow-block-s [--elevation-block-colour:color-mix(in_srgb,var(--accent-on-dark)_7%,transparent)]',
-        'sm:shadow-block-l sm:[--elevation-block-colour:color-mix(in_srgb,var(--slate-950)_14%,transparent)]',
+        'sm:shadow-block-l sm:[--elevation-block-colour:color-mix(in_srgb,var(--surface-inverse)_14%,transparent)]',
         // Graph paper behind the contents; children are positioned so they sit
         // above it without needing a z-index.
         "before:pointer-events-none before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(var(--tint-grid)_1px,transparent_1px),linear-gradient(90deg,var(--tint-grid)_1px,transparent_1px)] before:[background-size:32px_32px]",
@@ -47,7 +47,8 @@ export function AutomationFeatureVisual() {
         {/* background-clip: text paints the gradient into the glyphs only; the
             status dot is a child with its own background, so it is unaffected. */}
         <b className="moving-colour-text flex items-center gap-xs">
-          <i className="moving-colour-fill h-[6px] w-[6px] rounded-circle" /> Running
+          <i className="moving-colour-fill h-[var(--size-dot)] w-[var(--size-dot)] rounded-circle" />{' '}
+          Running
         </b>
       </header>
       <div className={cn(cardClassName, 'mx-auto mt-l w-[92%] px-ml py-m sm:w-[78%]')}>

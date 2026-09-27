@@ -34,6 +34,16 @@ export interface StatusStyle {
 }
 
 export type StatusMap = Record<string, StatusStyle>;
+export type StatusChipSize = 'default' | 'readable' | 'prominent';
+
+const SIZE: Record<StatusChipSize, string> = {
+  default: 'px-xs py-3xs text-label',
+  /* Dense notification lists need a little more body size without changing
+     the chip's padding. */
+  readable: 'px-xs py-3xs text-body-sm',
+  /* A detail header treats status as a primary fact rather than table meta. */
+  prominent: 'px-m py-2xs text-body',
+};
 
 /**
  * The tone for a status nobody mapped. `--text-secondary` rather than a
@@ -62,19 +72,19 @@ export function statusTone(map: StatusMap, status: string): CSSProperties {
 export function StatusChip({
   map,
   status,
-  className,
+  size = 'default',
 }: {
   map: StatusMap;
   status: string;
-  className?: string;
+  size?: StatusChipSize;
 }) {
   return (
     <span
       className={cn(
-        'rounded-pill px-xs py-3xs text-label font-heavy inline-flex',
+        'inline-flex rounded-pill font-heavy',
+        SIZE[size],
         'bg-[color-mix(in_srgb,var(--status-tone)_26%,var(--surface-page))]',
         'text-[color-mix(in_srgb,var(--status-tone)_45%,var(--text-primary))]',
-        className,
       )}
       style={statusTone(map, status)}
     >

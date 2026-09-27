@@ -3,6 +3,9 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
+import { focusRowClassName } from '@/lib/controlState';
+import { cn } from '@/lib/utils';
+
 import { AiReadinessBanner } from './AiReadinessBanner';
 
 const FOCUSABLE_SELECTOR = [
@@ -83,7 +86,10 @@ export function AiReadinessDialog({ onClose }: { onClose: () => void }) {
       >
         <button
           ref={closeRef}
-          className="absolute top-[8px] right-[10px] z-1 flex h-[var(--tap-min)] w-[var(--tap-min)] cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-title text-text-on-dark-muted hover:text-text-on-dark focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-accent-on-dark-soft"
+          className={cn(
+            'absolute top-[8px] right-[10px] z-1 flex h-[var(--tap-min)] w-[var(--tap-min)] cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-title text-text-on-dark-muted hover:text-text-on-dark',
+            focusRowClassName,
+          )}
           type="button"
           onClick={onClose}
         >

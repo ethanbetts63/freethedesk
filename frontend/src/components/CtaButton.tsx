@@ -117,7 +117,7 @@ export function CtaButton({
   // alone. Real routes (including "/path#fragment") still go through Link.
   if (href?.startsWith('#')) {
     return (
-      <ScrollCtaButton targetId={href.slice(1)} className={classes}>
+      <ScrollCtaButton targetId={href.slice(1)} classes={classes}>
         {content}
       </ScrollCtaButton>
     );

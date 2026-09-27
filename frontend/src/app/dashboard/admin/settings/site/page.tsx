@@ -141,7 +141,7 @@ export default function SiteSettingsPage() {
             <Button type="submit" disabled={saving || !dirty}>
               {saving ? 'Saving…' : 'Save changes'}
             </Button>
-            <p className="mt-2xs block text-label leading-[1.45] font-normal text-text-subtle">
+            <p className="mt-2xs block text-label leading-normal font-normal text-text-subtle">
               Last updated {formatDateTime(settings.updated_at)}.
             </p>
           </div>

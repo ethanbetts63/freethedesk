@@ -3,9 +3,8 @@
    being defined, and so every semantic alias below is also available as a
    Tailwind utility (bg-surface-page, text-text-primary, gap-m, rounded-md...).
    See freetheplatform/_docs/token-contract.md for the shared vocabulary and
-   freetheplatform/_docs/tailwind-migration.md for migration status: palette
-   ramps and raw --slate-* and --blue-* consumers are not yet fully aliased
-   away in every component - that reconciliation continues per Phase 2/4. */
+   freethedesk/_docs/tailwind-migration.md for the history of the conversion. Palette
+   ramps are private to this file; components consume the roles below. */
 
 @theme inline {
   /* The full navigation needs slightly more measure than Tailwind's lg
@@ -74,6 +73,8 @@
   --color-text-on-dark-muted: var(--text-on-dark-muted);
   --color-text-on-dark-subtle: var(--text-on-dark-subtle);
   --color-text-action: var(--text-action);
+  --color-text-chrome: var(--text-chrome);
+  --color-text-on-accent: var(--text-on-accent);
   --color-border-default: var(--border-default);
   --color-border-strong: var(--border-strong);
   --color-border-strong-hover: var(--border-strong-hover);
@@ -81,10 +82,12 @@
   --color-border-subtle: var(--border-subtle);
   --color-border-on-dark: var(--border-on-dark);
   --color-border-on-dark-strong: var(--border-on-dark-strong);
+  --color-border-on-accent: var(--border-on-accent);
   --color-action-primary: var(--action-primary);
   --color-accent: var(--accent);
   --color-accent-on-dark: var(--accent-on-dark);
   --color-accent-on-dark-soft: var(--accent-on-dark-soft);
+  --color-surface-accent-soft: var(--surface-accent-soft);
   --color-section-number-on-dark: var(--section-number-on-dark);
   --color-focus-ring: var(--focus-ring);
   --shadow-focus: var(--ring-field);
@@ -103,6 +106,14 @@
   --color-fill-danger: var(--fill-danger);
   --color-text-danger: var(--text-danger);
   --color-text-danger-on-dark: var(--text-danger-on-dark);
+  --color-surface-info: var(--surface-info);
+  --color-border-info: var(--border-info);
+  --color-fill-info: var(--fill-info);
+  --color-text-info: var(--text-info);
+
+  /* Repeated prose rhythm and interface geometry. These are roles rather
+     than call-site literals, so one adjustment moves the whole family. */
+  --container-copy: 35rem;
 
   /* Page-level vertical rhythm. Named --space-section in the token file to
      match allbikes; freethedesk previously called this --section-space. */
@@ -220,6 +231,8 @@
   --text-on-dark-muted: var(--slate-300);
   --text-on-dark-subtle: var(--slate-400);
   --text-action: var(--blue-800);
+  --text-chrome: var(--slate-700);
+  --text-on-accent: var(--blue-950);
   /* A link inside prose, and its hover step. allbikes and bloomprint have
      named these `--link`/`--link-hover` from the start; the shared prose sheet
      reads them, and a role that exists on every site should not have a third
@@ -240,6 +253,7 @@
   --border-subtle: var(--slate-100);
   --border-on-dark: var(--blue-900);
   --border-on-dark-strong: var(--slate-600);
+  --border-on-accent: color-mix(in srgb, var(--blue-950) 18%, transparent);
 
   /* The interactive colour. --accent-* below is decorative only: it is the
      bright sky used to lift the navy sections, not something to click. */
@@ -247,12 +261,23 @@
   --accent: var(--sky-300);
   --accent-on-dark: var(--sky-500);
   --accent-on-dark-soft: var(--sky-400);
+  --surface-accent-soft: var(--blue-400);
   --section-number-on-dark: var(--accent-on-dark);
   /* The focus OUTLINE colour, for a control that is a box rather than a border:
      buttons, button-like links, a table row. allbikes defines the same name for
      the same job, so it stays as it is; what moved is the box-shadow ring below,
      which used to be --ring-focus and was one letter away from this. */
   --focus-ring: color-mix(in srgb, var(--sky-500) 40%, transparent);
+
+  /* A six-step category set used to distinguish service families in drawn
+     diagrams. The ordering has no good/bad axis; it is visual identity, not
+     feedback, so it is deliberately separate from the status colours. */
+  --category-service-1: var(--blue-500);
+  --category-service-2: var(--blue-600);
+  --category-service-3: var(--blue-700);
+  --category-service-4: var(--blue-800);
+  --category-service-5: var(--blue-900);
+  --category-service-6: var(--blue-950);
 
   /* RINGS
      The one shadow family that is not elevation: a flat ring drawn tight
@@ -308,6 +333,11 @@
   --fill-danger: #d45b5b;
   --text-danger: #842222;
   --text-danger-on-dark: #ffb4b4;
+
+  --surface-info: color-mix(in srgb, var(--sky-300) 16%, var(--surface-page));
+  --border-info: color-mix(in srgb, var(--blue-600) 42%, var(--surface-page));
+  --fill-info: var(--blue-600);
+  --text-info: var(--blue-950);
 
   --purple-surface: #f2edff;
   --purple-accent: #6558dc;
@@ -411,6 +441,8 @@
   --space-4xs: 2px;
   --space-3xs: 4px;
   --space-2xs: 6px;
+  --size-dot: 6px;
+  --size-control: 2.375rem;
   --space-xs: 8px;
   --space-s: 12px;
   --space-m: 16px;
@@ -507,6 +539,7 @@
   /* The graph paper's twin on a dark surface, where the line has to be
      lighter than the background rather than darker. Same role, inverted. */
   --tint-grid-on-dark: color-mix(in srgb, var(--surface-page) 5.5%, transparent);
+  --tint-grid-on-dark-strong: color-mix(in srgb, var(--surface-page) 10%, transparent);
   /* The 64px graph paper behind the marketing hero, the footer and the
      portfolio case studies. A separate value because it is a separate
      drawing: wider spacing, a bluer and fainter line, and it is meant to

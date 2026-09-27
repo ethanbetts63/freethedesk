@@ -18,9 +18,9 @@ import { gridPaperAfterClassName } from '@/lib/gridSurface';
 const eyebrowClassName =
   'text-caption font-black tracking-label-wide text-action-primary uppercase';
 const headingClassName = 'my-s text-display leading-[0.96] tracking-[-0.065em]';
-const bodyClassName = 'm-0 text-body leading-[1.6] text-text-muted';
+const bodyClassName = 'm-0 text-body leading-relaxed text-text-muted';
 const fineprintClassName =
-  'mx-auto mt-s max-w-[430px] text-center text-label leading-[1.5] text-text-subtle';
+  'mx-auto mt-s max-w-[430px] text-center text-label leading-normal text-text-subtle';
 const paymentErrorClassName =
   'my-m border-l-[3px] border-border-danger bg-surface-danger p-s text-label leading-[1.55] text-text-danger';
 
@@ -73,7 +73,7 @@ export function CheckoutShell({
             <h1 className="m-0 mb-xl max-w-[690px] text-hero leading-[0.87] tracking-[-0.075em] sm:text-hero">
               {productName}
             </h1>
-            <span className="block max-w-[430px] text-lead leading-[1.65] text-text-muted">
+            <span className="block max-w-[430px] text-lead leading-relaxed text-text-muted">
               {productSummary}
             </span>
           </div>
@@ -113,7 +113,7 @@ export function CheckoutState({
   onRetry?: () => void;
 }) {
   return (
-    <div className="w-full max-w-[560px]">
+    <div className="w-full max-w-copy">
       <span className={eyebrowClassName}>{eyebrow}</span>
       <h2 className={headingClassName}>{title}</h2>
       <p className={bodyClassName}>{body}</p>
@@ -155,13 +155,13 @@ export function CheckoutTermsForm({
   }
 
   return (
-    <form className="w-full max-w-[560px]" onSubmit={submit}>
+    <form className="w-full max-w-copy" onSubmit={submit}>
       <div className="mb-xl border-b border-border-default pb-xl">
         <span className={eyebrowClassName}>Before payment</span>
         <h2 className={headingClassName}>Confirm the offer.</h2>
         <p className={bodyClassName}>{priceNote}</p>
       </div>
-      <label className="mt-l mr-0 mb-m ml-0 flex cursor-pointer items-start gap-s text-label leading-[1.5] text-text-muted">
+      <label className="mt-l mr-0 mb-m ml-0 flex cursor-pointer items-start gap-s text-label leading-normal text-text-muted">
         <input
           type="checkbox"
           checked={accepted}
@@ -236,7 +236,7 @@ export function CheckoutPaymentForm({
     return <p className={paymentErrorClassName}>{result.error.message}</p>;
 
   return (
-    <form className="w-full max-w-[560px]" onSubmit={submit}>
+    <form className="w-full max-w-copy" onSubmit={submit}>
       <div className="mb-xl border-b border-border-default pb-xl">
         <span className={eyebrowClassName}>Secure payment</span>
         <h2 className={headingClassName}>{heading}</h2>

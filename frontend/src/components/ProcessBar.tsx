@@ -1,8 +1,11 @@
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
 
+import { focusRowClassName } from '@/lib/controlState';
+import { cn } from '@/lib/utils';
+
 const contentClassName =
-  'group grid min-h-[76px] grid-cols-[auto_minmax(0,1fr)] items-center gap-xs px-xs py-s text-inherit no-underline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--accent-on-dark-soft)] sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:gap-s sm:px-ml sm:py-m lg:min-h-[104px] lg:px-l lg:py-ml';
+  'group grid min-h-[76px] grid-cols-[auto_minmax(0,1fr)] items-center gap-xs px-xs py-s text-inherit no-underline sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:gap-s sm:px-ml sm:py-m lg:min-h-[104px] lg:px-l lg:py-ml';
 
 export type ProcessBarStep = {
   label: string;
@@ -58,7 +61,7 @@ export function ProcessBar({
                 className="min-w-0 border-t border-border-on-dark even:border-l even:border-border-on-dark lg:even:border-l-0 lg:[&:not(:first-child)]:border-l lg:[&:not(:first-child)]:border-border-on-dark"
               >
                 {step.href ? (
-                  <Link className={contentClassName} href={step.href}>
+                  <Link className={cn(contentClassName, focusRowClassName)} href={step.href}>
                     {content}
                   </Link>
                 ) : (

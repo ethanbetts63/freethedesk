@@ -33,13 +33,10 @@ export function Notice({
   ...rest
 }: NoticeProps) {
   return (
-    <StatusBanner
-      tone={tone}
-      size={size === 'field' ? 'compact' : 'default'}
-      className={cn(size === 'field' ? 'm-0' : 'my-m', className)}
-      {...rest}
-    >
-      {children}
-    </StatusBanner>
+    <div className={cn(size === 'field' ? 'm-0' : 'my-m', className)}>
+      <StatusBanner tone={tone} size={size === 'field' ? 'compact' : 'default'} {...rest}>
+        {children}
+      </StatusBanner>
+    </div>
   );
 }

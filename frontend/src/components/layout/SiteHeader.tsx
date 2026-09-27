@@ -35,7 +35,6 @@ interface SiteHeaderProps {
    */
   translucent?: boolean;
   linkStyle?: NavLinkStyle;
-  className?: string;
 }
 
 /**
@@ -59,7 +58,6 @@ export function SiteHeader({
   banner,
   translucent = false,
   linkStyle = 'label',
-  className,
 }: SiteHeaderProps) {
   return (
     <header
@@ -68,7 +66,6 @@ export function SiteHeader({
         translucent
           ? 'bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] backdrop-blur-[14px]'
           : 'bg-surface-page',
-        className,
       )}
     >
       {banner}

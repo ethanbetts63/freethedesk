@@ -121,7 +121,7 @@ export default function CustomerSalePage() {
           {step === 'sign' && (
             <section className={cardClassName}>
               <h2 className={cardTitleClassName}>{sale.warranty.title}</h2>
-              <p className="mt-0 mb-m text-body-sm leading-[1.6] text-text-muted">
+              <p className="mt-0 mb-m text-body-sm leading-relaxed text-text-muted">
                 {sale.warranty.summary}
               </p>
               {sale.warranty.kind !== 'manufacturer' && (
@@ -149,7 +149,7 @@ export default function CustomerSalePage() {
                 </Notice>
               ) : (
                 <>
-                  <p className="m-0 mb-m text-label leading-[1.6]">{sale.warranty.statement}</p>
+                  <p className="m-0 mb-m text-label leading-relaxed">{sale.warranty.statement}</p>
                   <Button
                     onClick={() =>
                       acknowledgeWarranty(sale.reference, sale.warranty.acknowledgement_key)
@@ -173,7 +173,7 @@ export default function CustomerSalePage() {
           {step === 'payment' && (
             <section className={cardClassName}>
               <h2 className={cardTitleClassName}>Pay</h2>
-              <p className="m-0 text-body-sm leading-[1.6] text-text-muted">
+              <p className="m-0 text-body-sm leading-relaxed text-text-muted">
                 {sale.dealer_name} will send you their account details. This step opens shortly.
               </p>
             </section>
@@ -182,7 +182,7 @@ export default function CustomerSalePage() {
           {step === 'done' && (
             <section className={cardClassName}>
               <h2 className={cardTitleClassName}>All done</h2>
-              <p className="m-0 text-body-sm leading-[1.6] text-text-muted">
+              <p className="m-0 text-body-sm leading-relaxed text-text-muted">
                 Nothing is waiting on you. Anything from here is a conversation with{' '}
                 {sale.dealer_name}.
               </p>

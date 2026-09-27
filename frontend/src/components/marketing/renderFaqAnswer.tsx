@@ -41,7 +41,7 @@ export function renderFaqAnswer(faq: FaqItem): React.ReactNode {
       <Link
         key={`${href}-${start}`}
         href={href}
-        className="text-action-primary-hover underline underline-offset-[3px] hover:opacity-70"
+        className="text-text-action underline underline-offset-[3px] hover:opacity-70"
       >
         {answer.slice(start, end)}
       </Link>,

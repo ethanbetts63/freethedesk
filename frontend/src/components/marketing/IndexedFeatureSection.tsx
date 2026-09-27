@@ -42,10 +42,10 @@ export function IndexedFeatureSection({
               <span className="mb-m block text-label font-black tracking-label-wide text-action-primary">
                 {String(index + 1).padStart(2, '0')}
               </span>
-              <strong className="mb-xs block text-lead tracking-[-0.025em] text-[var(--blue-950)]">
+              <strong className="mb-xs block text-lead tracking-[-0.025em] text-text-secondary">
                 {itemTitle}
               </strong>
-              <p className="m-0 text-body leading-[1.65] text-text-muted">{body}</p>
+              <p className="m-0 text-body leading-relaxed text-text-muted">{body}</p>
             </li>
           ))}
         </ol>

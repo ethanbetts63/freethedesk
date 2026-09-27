@@ -73,7 +73,7 @@ export function Footer() {
               free<span>the</span>desk<span className="wordmark-dot">.</span>
             </span>
           </Link>
-          <p className="mt-l mb-0 max-w-[360px] text-body leading-[1.6] text-text-muted">
+          <p className="mt-l mb-0 max-w-[360px] text-body leading-relaxed text-text-muted">
             Dealer websites and operational systems built by a development team with hands-on
             experience across dealerships and automotive suppliers.
           </p>

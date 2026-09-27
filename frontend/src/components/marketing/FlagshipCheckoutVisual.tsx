@@ -42,7 +42,7 @@ const stepClassName =
   'relative z-1 grid min-w-0 grid-cols-[38px_28px_minmax(0,1fr)] items-center gap-x-s gap-y-3xs border border-border-subtle bg-surface-tint p-s sm:block sm:px-s sm:py-m';
 
 const iconClassName =
-  'm-0 flex h-[38px] w-[38px] items-center justify-center border border-border-default bg-surface-tint-strong text-action-primary [grid-row:1/3] sm:mb-ml [&>svg]:h-[19px] [&>svg]:w-[19px] [&>svg]:fill-none [&>svg]:stroke-current [&>svg]:[stroke-linecap:round] [&>svg]:[stroke-linejoin:round] [&>svg]:[stroke-width:1.6]';
+  'm-0 flex h-[var(--size-control)] w-[var(--size-control)] items-center justify-center border border-border-default bg-surface-tint-strong text-action-primary [grid-row:1/3] sm:mb-ml [&>svg]:h-[19px] [&>svg]:w-[19px] [&>svg]:fill-none [&>svg]:stroke-current [&>svg]:[stroke-linecap:round] [&>svg]:[stroke-linejoin:round] [&>svg]:[stroke-width:1.6]';
 
 export function FlagshipCheckoutVisual() {
   return (
@@ -65,7 +65,7 @@ export function FlagshipCheckoutVisual() {
               {step.number}
             </span>
             <strong className="col-start-3 m-0 block text-lead sm:mt-2xs">{step.title}</strong>
-            <small className="col-start-3 m-0 block text-caption leading-[1.45] text-text-muted sm:mt-2xs">
+            <small className="col-start-3 m-0 block text-caption leading-normal text-text-muted sm:mt-2xs">
               {step.detail}
             </small>
           </article>
@@ -75,7 +75,7 @@ export function FlagshipCheckoutVisual() {
       {/* Pale blue, not the moving gradient: the Stripe wordmark is a
           blue-violet and vanished as the gradient swept its own colours under
           it. The label goes dark to stay readable on the light ground. */}
-      <div className="flex items-center justify-center gap-0 bg-[var(--blue-400)] px-m py-m text-caption font-strong text-[var(--blue-950)] shadow-s sm:text-body-sm">
+      <div className="flex items-center justify-center gap-0 bg-surface-accent-soft px-m py-m text-caption font-strong text-text-on-accent shadow-s sm:text-body-sm">
         <span>Identity Verification by</span>
         <Image
           className="h-[28px] w-auto flex-none"

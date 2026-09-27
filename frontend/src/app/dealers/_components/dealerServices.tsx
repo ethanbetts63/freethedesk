@@ -18,7 +18,7 @@ export const dealerServices: Service[] = [
       'Finance and trade-in steps tracked in one place',
       'Every handoff—sales to admin to delivery—visible without asking',
     ],
-    color: 'var(--blue-500)',
+    color: 'var(--category-service-1)',
     icon: (
       <svg {...iconProps}>
         <rect x="12" y="8" width="34" height="48" rx="4" stroke="currentColor" strokeWidth="2.5" />
@@ -48,7 +48,7 @@ export const dealerServices: Service[] = [
       'A reminder if a lead sits untouched for too long',
       'Follow-up timed around how buyers actually decide',
     ],
-    color: 'var(--blue-600)',
+    color: 'var(--category-service-2)',
     icon: (
       <svg {...iconProps}>
         <circle cx="32" cy="32" r="23" stroke="currentColor" strokeWidth="2" opacity=".2" />
@@ -66,7 +66,7 @@ export const dealerServices: Service[] = [
       'Consistent tone and information, whoever hits send',
       'Edited centrally so a wording fix updates everywhere at once',
     ],
-    color: 'var(--blue-700)',
+    color: 'var(--category-service-3)',
     icon: (
       <svg {...iconProps}>
         <rect x="6" y="14" width="52" height="36" rx="4" stroke="currentColor" strokeWidth="2.5" />
@@ -89,7 +89,7 @@ export const dealerServices: Service[] = [
       'Sent to the customer without leaving the enquiry',
       'No re-typing figures that already exist elsewhere in the system',
     ],
-    color: 'var(--blue-800)',
+    color: 'var(--category-service-4)',
     icon: (
       <svg {...iconProps}>
         <rect

@@ -16,7 +16,7 @@ const TONE: Record<StatusTone, string> = {
 };
 
 const SIZE: Record<StatusSize, string> = {
-  default: 'rounded-sm p-s text-body leading-[1.5]',
+  default: 'rounded-sm p-s text-body leading-normal',
   compact: 'rounded-xs p-xs text-body-sm',
 };
 
@@ -35,7 +35,6 @@ interface StatusBannerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'classN
   icon?: IconComponent;
   /** `alert` interrupts a screen reader; `status` waits its turn. */
   role?: 'alert' | 'status';
-  className?: string;
 }
 
 /**
@@ -47,8 +46,8 @@ interface StatusBannerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'classN
  * which meant a caller who forgot the prop silently announced good news.
  *
  * Vertical margin is deliberately not included: a shared component that sets
- * its own `my-*` fights every layout it is dropped into. Callers that want
- * rhythm pass it in `className`.
+ * its own `my-*` fights every layout it is dropped into. The caller owns that
+ * rhythm on a parent or through its surrounding gap.
  */
 export function StatusBanner({
   tone,
@@ -56,13 +55,12 @@ export function StatusBanner({
   size = 'default',
   icon: Icon,
   role,
-  className,
   ...rest
 }: StatusBannerProps) {
   return (
     <div
       role={role}
-      className={cn('border', TONE[tone], SIZE[size], Icon && 'flex items-start gap-xs', className)}
+      className={cn('border', TONE[tone], SIZE[size], Icon && 'flex items-start gap-xs')}
       {...rest}
     >
       {Icon ? (
@@ -71,8 +69,7 @@ export function StatusBanner({
           <div className="min-w-0 flex-1">{children}</div>
         </>
       ) : (
-        // No wrapper without an icon: a caller that passes its own `flex` in
-        // `className` is laying out these children directly.
+        // No wrapper without an icon: ordinary text does not need another box.
         children
       )}
     </div>

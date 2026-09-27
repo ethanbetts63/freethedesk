@@ -10,10 +10,10 @@ import { TrafficLights } from '@/components/visuals/chrome';
  * names. Collected here rather than spread through the JSX so the exception is
  * visible in one place.
  */
-const chromeLabelClassName = 'text-[var(--slate-700)]';
-const urlChipClassName = 'text-[var(--blue-800)]';
-const arrowClassName = 'text-[var(--blue-600)]';
-const badgeClassName = 'bg-[var(--slate-100)] text-[var(--blue-800)]';
+const chromeLabelClassName = 'text-text-chrome';
+const urlChipClassName = 'text-text-action';
+const arrowClassName = 'text-action-primary';
+const badgeClassName = 'bg-surface-tint-strong text-text-action';
 
 /** The tick light: a small dot with a soft halo of its own colour. */
 const successDotClassName =
@@ -45,14 +45,14 @@ export const seoServices: Service[] = [
       'Crawl access opened deliberately to AI answer engines, not just Google, and closed off from admin, checkout and account pages that have nothing to rank for',
       "A sitemap that reflects what's actually live, not what used to be",
     ],
-    color: 'var(--blue-500)',
+    color: 'var(--category-service-1)',
     icon: (
       <div
         className="w-[168px] flex-none border border-border-strong bg-surface-page text-text-primary shadow-s sm:w-[190px]"
         aria-hidden="true"
       >
         <div className="flex min-h-[24px] items-center gap-3xs border-b border-border-default bg-surface-tint px-xs">
-          <TrafficLights size={4} tone="[&>i]:bg-[var(--slate-300)]" />
+          <TrafficLights size={4} tone="[&>i]:bg-border-strong" />
           <span
             className={cn(
               'ml-auto text-caption font-heavy tracking-label-tight uppercase',
@@ -85,7 +85,7 @@ export const seoServices: Service[] = [
       'Genuine reviews shown on the page itself, not just buried in schema',
       'Guides and location pages cross-linked to each other so authority moves between them',
     ],
-    color: 'var(--blue-600)',
+    color: 'var(--category-service-2)',
     icon: (
       <svg {...iconProps}>
         <rect
@@ -120,7 +120,7 @@ export const seoServices: Service[] = [
       'Launched as a test, not a bet: watched in Search Console to see whether it actually gets indexed and ranks',
       "Kept if it earns its place, folded back in or removed if it doesn't—nothing left cluttering the site just because it was built",
     ],
-    color: 'var(--blue-700)',
+    color: 'var(--category-service-3)',
     icon: (
       <svg {...iconProps}>
         <circle cx="12" cy="32" r="5" stroke="currentColor" strokeWidth="2.5" />
@@ -144,14 +144,16 @@ export const seoServices: Service[] = [
       "A useful llms.txt file that points AI systems towards the site's important public content",
       'robots.txt rules checked so the crawlers you want can reach public pages while admin, checkout and account areas stay protected',
     ],
-    color: 'var(--blue-800)',
+    color: 'var(--category-service-4)',
     icon: (
       <div
         className="grid w-[168px] grid-cols-2 border border-border-on-dark bg-surface-dark sm:w-[190px]"
         aria-hidden="true"
       >
         <div className={aiCellClassName}>
-          <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
+          <i
+            className={cn('mt-4xs h-[var(--size-dot)] w-[var(--size-dot)]', successDotClassName)}
+          />
           <span className="text-caption font-heavy whitespace-nowrap text-text-on-dark">
             Accessibility
           </span>
@@ -160,7 +162,9 @@ export const seoServices: Service[] = [
           </b>
         </div>
         <div className={aiCellClassName}>
-          <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
+          <i
+            className={cn('mt-4xs h-[var(--size-dot)] w-[var(--size-dot)]', successDotClassName)}
+          />
           <span className="text-caption font-heavy whitespace-nowrap text-text-on-dark">
             Stable layout
           </span>
@@ -169,7 +173,9 @@ export const seoServices: Service[] = [
           </b>
         </div>
         <div className={aiCellClassName}>
-          <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
+          <i
+            className={cn('mt-4xs h-[var(--size-dot)] w-[var(--size-dot)]', successDotClassName)}
+          />
           <span className="text-caption font-heavy whitespace-nowrap text-text-on-dark">
             llms.txt
           </span>
@@ -178,7 +184,9 @@ export const seoServices: Service[] = [
           </b>
         </div>
         <div className={aiCellClassName}>
-          <i className={cn('mt-4xs h-[6px] w-[6px]', successDotClassName)} />
+          <i
+            className={cn('mt-4xs h-[var(--size-dot)] w-[var(--size-dot)]', successDotClassName)}
+          />
           <span className="text-caption font-heavy whitespace-nowrap text-text-on-dark">
             robots.txt
           </span>

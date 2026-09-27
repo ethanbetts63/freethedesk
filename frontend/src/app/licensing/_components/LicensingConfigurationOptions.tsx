@@ -15,7 +15,7 @@ export function LicensingConfigurationOptions({ eyebrow }: { eyebrow: string }) 
           <h2 className="m-0 text-display leading-[0.94] tracking-[-0.07em] sm:text-hero">
             Our portal or <span className="moving-colour-text">your website.</span>
           </h2>
-          <p className="mt-ml max-w-[440px] text-lead leading-[1.7] text-[var(--slate-300)]">
+          <p className="mt-ml max-w-[440px] text-lead leading-[1.7] text-text-on-dark-muted">
             Use the hosted product with the website you already have, or make it a seamless part of
             a dealership site we build.
           </p>
@@ -33,7 +33,7 @@ export function LicensingConfigurationOptions({ eyebrow }: { eyebrow: string }) 
               Built into your website
             </p>
             <Link
-              className="mt-xs inline-flex cursor-pointer items-center gap-xs border-0 border-b border-[color-mix(in_srgb,var(--surface-page)_50%,transparent)] bg-none pb-3xs font-[inherit] text-caption font-heavy text-[var(--slate-200)]"
+              className="mt-xs inline-flex cursor-pointer items-center gap-xs border-0 border-b border-[color-mix(in_srgb,var(--surface-page)_50%,transparent)] bg-none pb-3xs font-[inherit] text-caption font-heavy text-text-on-dark-muted"
               href="/portfolio/scooter-shop"
             >
               See the Scooter Shop approach <b>↗</b>

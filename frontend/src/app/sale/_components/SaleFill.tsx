@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button } from '@/components/ui/Button';
@@ -66,7 +66,7 @@ export function SaleFill({
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     setError,
     formState: { errors, isSubmitting },
   } = useForm<SaleFillValues>({
@@ -74,8 +74,9 @@ export function SaleFill({
     defaultValues: valuesFrom(sale),
   });
 
-  const buyingForSomebodyElse = watch('purchaser_is_licence_holder') === false;
-  const toCompany = watch('licensed_to_company');
+  const buyingForSomebodyElse =
+    useWatch({ control, name: 'purchaser_is_licence_holder' }) === false;
+  const toCompany = useWatch({ control, name: 'licensed_to_company' });
   const isDelivery = sale.fulfilment_method === 'delivery';
   const locked = !sale.details_editable;
 

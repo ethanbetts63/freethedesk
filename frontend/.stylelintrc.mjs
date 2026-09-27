@@ -1,4 +1,8 @@
 import { stylelintBaseConfig } from '../../freetheplatform/frontend/lint/stylelint-base.mjs';
+import {
+  freethedeskDisallowedValues,
+  freethedeskShadowAllowedList,
+} from '../../freetheplatform/frontend/lint/freethedesk-stylelint.mjs';
 
 /**
  * CSS is the half of this codebase ESLint cannot see.
@@ -18,34 +22,6 @@ import { stylelintBaseConfig } from '../../freetheplatform/frontend/lint/styleli
 const ARTWORK_EXCEPTIONS = [
   'src/components/visuals/FlowCardVisual.module.css',
   'src/app/licensing/_components/flowCompare.module.css',
-];
-
-const [GRID_TRACKS] = stylelintBaseConfig.rules['declaration-property-value-disallowed-list'];
-
-/**
- * --tint-grid/wash/edge/rule already name the four washes drawn as a percentage
- * of --blue-950. Re-mixing one at the call site produces a fifth opacity nobody
- * chose, and makes the token unfindable by anyone looking for the idea.
- */
-const REMIXED_TINT = /color-mix\(\s*in srgb,\s*var\(--blue-950\)/;
-
-/**
- * A component stylesheet reading --slate-200 instead of --border-default is how
- * a palette change stops propagating. Lifted inside styles/, which is where the
- * semantic tokens are defined in terms of the ramps and so the one place naming
- * a rung is the right thing to do.
- */
-const PALETTE_RUNG = /var\(--(slate|blue|sky|green|amber|red|purple)-\d{2,3}\)/;
-
-/** One rule key, so a narrower scope has to restate what it keeps. */
-const disallowedValues = (extra) => [
-  extra.length > 0 ? { ...GRID_TRACKS, '/.*/': extra } : GRID_TRACKS,
-  {
-    message:
-      'Bare `1fr` cannot shrink below its content - use `minmax(0, 1fr)`. Use a --tint-* ' +
-      'token rather than re-mixing --blue-950, and a semantic token (surface-*, text-*, ' +
-      'border-*, action-*, accent) rather than a palette rung.',
-  },
 ];
 
 export default {
@@ -73,22 +49,13 @@ export default {
        colour triple is a third scale nobody agreed to. Phase 4.13 collapsed
        six such shadows into two tokens - this is what stops a seventh.
        ------------------------------------------------------------------ */
-    'declaration-property-value-allowed-list': [
-      {
-        'box-shadow': [/^(none|inherit|initial|revert|unset|var\(--(elevation|ring)[\w-]*\))$/],
-      },
-      {
-        message:
-          'Shadows come from --elevation-* (depth) or --ring-focus/--ring-halo (a flat ring). ' +
-          'If neither fits, add the step to tokens.css rather than a literal here.',
-      },
-    ],
+    'declaration-property-value-allowed-list': freethedeskShadowAllowedList,
 
     /* ------------------------------------------------------------------
        6 and 7. Tints are named rather than re-mixed, and the palette is the
        foundation's vocabulary rather than a route's.
        ------------------------------------------------------------------ */
-    'declaration-property-value-disallowed-list': disallowedValues([REMIXED_TINT, PALETTE_RUNG]),
+    'declaration-property-value-disallowed-list': freethedeskDisallowedValues(),
   },
 
   overrides: [
@@ -98,7 +65,7 @@ export default {
       // the grid-track rule is restated, because an override REPLACES a rule's
       // options rather than merging them.
       files: ['src/styles/*.css'],
-      rules: { 'declaration-property-value-disallowed-list': disallowedValues([]) },
+      rules: { 'declaration-property-value-disallowed-list': freethedeskDisallowedValues([]) },
     },
     {
       /* --------------------------------------------------------------
@@ -137,7 +104,7 @@ export default {
       files: ARTWORK_EXCEPTIONS,
       rules: {
         'declaration-property-value-allowed-list': null,
-        'declaration-property-value-disallowed-list': disallowedValues([]),
+        'declaration-property-value-disallowed-list': freethedeskDisallowedValues([]),
       },
     },
   ],

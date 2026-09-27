@@ -119,7 +119,7 @@ export function CapabilityRow({
           >
             {name}
           </strong>
-          <small className={cn('mt-2xs block leading-[1.45] text-text-subtle', size.description)}>
+          <small className={cn('mt-2xs block leading-normal text-text-subtle', size.description)}>
             {description}
           </small>
         </span>
@@ -211,11 +211,11 @@ export function CapabilityOption({ option, compact = false, ...rest }: Capabilit
       detailsId={`${compact ? 'inventory' : 'module'}-${option.key}-details`}
       panel={
         <>
-          <p className="mb-s text-lead leading-[1.65] text-text-muted">{option.detail}</p>
+          <p className="mb-s text-lead leading-relaxed text-text-muted">{option.detail}</p>
           <ul className="m-0 grid list-none gap-2xs p-0">
             {option.includes.map((item) => (
               <li
-                className="relative pl-s text-body-sm leading-[1.5] text-text-muted before:absolute before:top-[0.4em] before:left-0 before:h-[4px] before:w-[4px] before:rounded-circle before:bg-action-primary before:content-['']"
+                className="relative pl-s text-body-sm leading-normal text-text-muted before:absolute before:top-[0.4em] before:left-0 before:h-[4px] before:w-[4px] before:rounded-circle before:bg-action-primary before:content-['']"
                 key={item}
               >
                 {item}

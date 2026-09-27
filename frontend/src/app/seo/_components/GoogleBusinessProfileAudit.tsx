@@ -18,7 +18,7 @@ export function GoogleBusinessProfileAudit({
 }) {
   return (
     <section
-      className="relative mt-section overflow-hidden bg-surface-dark py-section text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_4.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_4.5%,transparent)_1px,transparent_1px)] before:[background-size:42px_42px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_82%)]"
+      className="relative mt-section overflow-hidden bg-surface-dark py-section text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(var(--tint-grid-on-dark)_1px,transparent_1px),linear-gradient(90deg,var(--tint-grid-on-dark)_1px,transparent_1px)] before:[background-size:42px_42px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_82%)]"
       aria-labelledby="gbp-audit-title"
       id="gbp-audit"
     >
@@ -66,7 +66,10 @@ export function GoogleBusinessProfileAudit({
           footer={
             <footer className="moving-colour-fill flex flex-col items-start justify-between gap-xs px-ml py-m sm:flex-row sm:items-center sm:gap-0">
               <span className="flex items-center gap-2xs text-label font-heavy text-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] uppercase">
-                <i aria-hidden="true" className="h-[6px] w-[6px] rounded-circle bg-surface-page" />{' '}
+                <i
+                  aria-hidden="true"
+                  className="h-[var(--size-dot)] w-[var(--size-dot)] rounded-circle bg-surface-page"
+                />{' '}
                 Delivered as
               </span>
               <strong className="text-caption text-text-on-dark">Prioritised action list</strong>

@@ -43,7 +43,6 @@ interface SiteFooterProps {
    * whole footer box.
    */
   backdrop?: ReactNode;
-  className?: string;
 }
 
 /**
@@ -109,16 +108,17 @@ export function SiteFooter({
   columns,
   legal,
   backdrop,
-  className,
 }: SiteFooterProps) {
   const grid = brandPosition === 'end' ? COLUMN_GRID_BRAND_END : COLUMN_GRID;
   /* Spans the pair of columns at `sm`, then takes the wide track. */
   const brandBlock = <div className="sm:col-span-full lg:col-auto">{brand}</div>;
   const linkBlocks = columns.map((column) => (
     <div key={column.label} className="flex flex-col gap-0 text-body-sm lg:gap-s">
-      <Eyebrow size="sm" tone="muted" className="mb-xs">
-        {column.label}
-      </Eyebrow>
+      <div className="mb-xs">
+        <Eyebrow size="sm" tone="muted">
+          {column.label}
+        </Eyebrow>
+      </div>
       {column.links?.map((link) => (
         <FooterRow key={link.href} {...link} />
       ))}
@@ -127,12 +127,7 @@ export function SiteFooter({
   ));
 
   return (
-    <footer
-      className={cn(
-        'relative overflow-hidden bg-surface-page pt-section pb-l text-text-primary',
-        className,
-      )}
-    >
+    <footer className="relative overflow-hidden bg-surface-page pt-section pb-l text-text-primary">
       {backdrop}
       <div
         className={cn(

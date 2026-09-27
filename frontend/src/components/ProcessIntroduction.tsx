@@ -36,7 +36,7 @@ export function ProcessIntroduction({
             <h3 className="m-0 text-title-sm tracking-[-0.035em] text-action-primary">
               {item.title}
             </h3>
-            <p className="mt-s max-w-[42ch] text-lead leading-[1.6] text-text-muted">
+            <p className="mt-s max-w-[42ch] text-lead leading-relaxed text-text-muted">
               {item.description}
             </p>
           </div>

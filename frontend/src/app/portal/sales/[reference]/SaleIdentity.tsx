@@ -65,7 +65,7 @@ export function SaleIdentity({
           Identity verified {formatDateTime(sale.identity.verified_at)}.
         </Notice>
       ) : (
-        <p className="mt-0 mb-ml text-label leading-[1.6] text-text-muted">
+        <p className="mt-0 mb-ml text-label leading-relaxed text-text-muted">
           A vehicle is about to be licensed in this person&rsquo;s name. Check each photo against
           the licence details on this sale before you approve it.
         </p>

@@ -44,7 +44,7 @@ function GroupTitle({ number, title, hint }: { number: string; title: string; hi
       <span className="pt-4xs text-body-sm font-black text-action-primary">{number}</span>
       <div>
         <strong className="block text-lead">{title}</strong>
-        <small className="mt-2xs block text-lead leading-[1.45] text-text-subtle">{hint}</small>
+        <small className="mt-2xs block text-lead leading-normal text-text-subtle">{hint}</small>
       </div>
     </div>
   );
@@ -133,7 +133,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
 
   return (
     <aside
-      className="border-t border-border-default bg-surface-page [scrollbar-color:var(--slate-400)_var(--slate-100)] [scrollbar-width:thin] lg:h-full lg:overflow-y-auto lg:border-t-0 lg:border-l"
+      className="border-t border-border-default bg-surface-page [scrollbar-color:var(--border-strong-hover)_var(--border-subtle)] [scrollbar-width:thin] lg:h-full lg:overflow-y-auto lg:border-t-0 lg:border-l"
       aria-label="Website configuration options"
     >
       <section className={cn(sectionClassName, 'border-b border-border-default bg-surface-tint')}>
@@ -169,7 +169,7 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
         />
         <label className={cn(labelClassName, 'mt-ml')} htmlFor="current-url">
           Current website{' '}
-          <span className="ml-2xs text-label font-strong text-[var(--slate-400)] normal-case">
+          <span className="ml-2xs text-label font-strong text-text-subtle normal-case">
             Optional
           </span>
         </label>
@@ -256,13 +256,16 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
                 </label>
                 <textarea
                   id="custom-request"
-                  className={cn(controlClassName, 'min-h-[112px] resize-y px-m py-s leading-[1.5]')}
+                  className={cn(
+                    controlClassName,
+                    'min-h-[112px] resize-y px-m py-s leading-normal',
+                  )}
                   value={customRequest}
                   onChange={(event) => onCustomRequestChange(event.target.value)}
                   placeholder="e.g. Connect stock, bookings or trade-ins to our existing systems."
                   rows={5}
                 />
-                <small className="mt-xs block text-body-sm leading-[1.5] text-text-subtle">
+                <small className="mt-xs block text-body-sm leading-normal text-text-subtle">
                   It can be rough—we’ll help turn the idea into a clear scope.
                 </small>
               </>

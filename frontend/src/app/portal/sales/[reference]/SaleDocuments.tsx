@@ -101,7 +101,7 @@ export function SaleDocuments({ sale }: { sale: Sale }) {
 
       <div className="mt-l border-t border-border-default pt-l">
         <strong className="block text-body-sm">{sale.warranty.title}</strong>
-        <p className="mt-2xs mb-s text-label leading-[1.6] text-text-muted">
+        <p className="mt-2xs mb-s text-label leading-relaxed text-text-muted">
           {sale.warranty.summary}
         </p>
         <p className="m-0 text-label text-text-subtle">

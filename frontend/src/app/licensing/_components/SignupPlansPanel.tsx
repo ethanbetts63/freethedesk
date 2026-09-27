@@ -104,7 +104,7 @@ export function SignupPlansPanel({
             {selected.features.map((feature) => (
               <li
                 key={feature}
-                className="relative mx-0 my-xs pl-ml text-body-sm font-strong text-[var(--slate-800)] before:absolute before:left-0 before:font-black before:text-action-primary before:content-['↳']"
+                className="relative mx-0 my-xs pl-ml text-body-sm font-strong text-text-control before:absolute before:left-0 before:font-black before:text-action-primary before:content-['↳']"
               >
                 {feature}
               </li>

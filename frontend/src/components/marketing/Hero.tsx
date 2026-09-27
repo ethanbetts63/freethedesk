@@ -55,15 +55,13 @@ export function Hero({
       {path && <Breadcrumbs path={path} variant="overlay" />}
       <div className="site-shell pointer-events-none py-3xl [&_a]:pointer-events-auto">
         <div>
-          <Eyebrow
-            dot
-            tone="accent"
-            /* eslint-disable-next-line no-restricted-syntax -- --ring-halo plus a second
-               glow: the live dot is lit, not raised, and one ring does not draw it. */
-            className="[--eyebrow-accent:var(--action-primary)] [&>span]:shadow-[var(--ring-halo),0_0_10px_2px_color-mix(in_srgb,var(--action-primary)_70%,transparent)]"
-          >
-            {eyebrow}
-          </Eyebrow>
+          {/* eslint-disable-next-line no-restricted-syntax -- --ring-halo plus a second
+              glow: the live dot is lit, not raised, and one ring does not draw it. */}
+          <div className="[--eyebrow-accent:var(--action-primary)] [&_span]:shadow-[var(--ring-halo),0_0_10px_2px_color-mix(in_srgb,var(--action-primary)_70%,transparent)]">
+            <Eyebrow dot tone="accent">
+              {eyebrow}
+            </Eyebrow>
+          </div>
           <h1 className="m-0 max-w-[1000px] text-hero leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] lg:leading-[0.83]">
             {titleLines.map((line, index) => (
               /* The trailing space collapses to nothing on screen, but it keeps
@@ -75,7 +73,7 @@ export function Hero({
             ))}
             <em className="not-italic text-[var(--action-primary)]">{accentTitle}</em>
           </h1>
-          <p className="my-xl max-w-[420px] text-lead leading-[1.65] text-text-muted lg:max-w-[570px]">
+          <p className="my-xl max-w-[420px] text-lead leading-relaxed text-text-muted lg:max-w-[570px]">
             {lead}
           </p>
           <div className="flex flex-wrap items-center gap-m [&>*]:w-full sm:gap-xl sm:[&>*]:w-auto">

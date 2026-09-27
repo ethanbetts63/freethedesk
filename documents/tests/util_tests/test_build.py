@@ -6,16 +6,21 @@ than simply that a PDF came out.
 """
 
 import io
+import struct
+import zlib
 from datetime import date
 
 import pytest
 from pypdf import PdfReader
+
+from freetheplatform.signatures import SignatureImage
 
 from dealers.models import Dealer
 from dealers.tests.factories import DealerFactory, DealerProfileFactory
 from documents.build import build_unsigned, document_kinds_for
 from documents.field_maps import MissingFieldMap, values_for
 from documents.models import FormTemplate, SaleDocument
+from documents.render.authority import build_authority_to_lodge
 from documents.render.contract import SaleContractError, build_sale_contract
 from documents.render.prescribed import TemplateUnavailable, form_kind_for
 from documents.tests.factories import FormTemplateFactory, load_current_templates
@@ -35,6 +40,39 @@ COMPLETE_CUSTOMER = {
     "licensee_suburb": "Fremantle",
     "licensee_postcode": "6160",
 }
+
+
+def signature_image(width=200, height=80):
+    """A valid grayscale PNG without adding Pillow to the consumer suite."""
+
+    def chunk(kind, data):
+        payload = kind + data
+        return (
+            struct.pack(">I", len(data))
+            + payload
+            + struct.pack(">I", zlib.crc32(payload) & 0xFFFFFFFF)
+        )
+
+    ihdr = struct.pack(">IIBBBBB", width, height, 8, 0, 0, 0, 0)
+    raw = b"".join(b"\x00" + b"\x7f" * width for _ in range(height))
+    png = (
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", ihdr)
+        + chunk(b"IDAT", zlib.compress(raw))
+        + chunk(b"IEND", b"")
+    )
+    return SignatureImage(png_bytes=png, width=width, height=height)
+
+
+def has_embedded_image(pdf_bytes):
+    for page in PdfReader(io.BytesIO(pdf_bytes)).pages:
+        resources = page.get("/Resources")
+        xobjects = resources.get("/XObject") if resources else None
+        if xobjects and any(
+            image.get_object().get("/Subtype") == "/Image" for image in xobjects.values()
+        ):
+            return True
+    return False
 
 
 @pytest.fixture
@@ -306,6 +344,23 @@ def test_a_signed_contract_names_who_signed_it(dealership):
     assert "Electronically signed by Alex Tran" in extract_text(signed)
 
 
+def test_a_drawn_signature_is_rendered_into_the_contract(dealership):
+    dealer, profile = dealership
+    sale = priced_sale(dealer)
+
+    _filename, signed = build_sale_contract(
+        sale,
+        dealer,
+        profile,
+        purchaser_signature="Alex Tran",
+        signed_at=date(2026, 9, 19),
+        purchaser_signature_image=signature_image(),
+    )
+
+    assert has_embedded_image(signed)
+    assert "Electronically signed by Alex Tran" in extract_text(signed)
+
+
 def test_the_prescribed_terms_are_printed_in_the_contract(dealership):
     dealer, profile = dealership
     sale = priced_sale(dealer)
@@ -377,6 +432,23 @@ def test_the_authority_names_a_licence_holder_who_is_not_the_purchaser(dealershi
     text = extract_text(build_unsigned(sale, Kind.AUTHORITY_TO_LODGE).content)
 
     assert "Proposed Licence Holder" in text
+
+
+def test_a_drawn_signature_is_rendered_into_the_authority(dealership):
+    dealer, profile = dealership
+    sale = priced_sale(dealer)
+
+    _filename, signed = build_authority_to_lodge(
+        sale,
+        dealer,
+        profile,
+        signer_name="Alex Tran",
+        signed_at=date(2026, 9, 19),
+        signer_signature_image=signature_image(),
+    )
+
+    assert has_embedded_image(signed)
+    assert "Electronically signed by Alex Tran" in extract_text(signed)
 
 
 def extract_text(pdf_bytes: str) -> str:

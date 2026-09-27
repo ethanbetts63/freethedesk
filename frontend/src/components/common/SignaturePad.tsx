@@ -19,14 +19,12 @@ import { cn } from '@/lib/utils';
 export function SignaturePad({
   onChange,
   disabled = false,
-  className,
   clearLabel = 'Clear',
   emptyPrompt = 'Sign here',
 }: {
   /** Fired with a PNG data URL after each stroke, and with null on clear. */
   onChange: (dataUrl: string | null) => void;
   disabled?: boolean;
-  className?: string;
   clearLabel?: string;
   emptyPrompt?: string;
 }) {
@@ -112,7 +110,7 @@ export function SignaturePad({
   };
 
   return (
-    <div className={cn('relative', className)}>
+    <div className="relative">
       <canvas
         ref={canvasRef}
         role="img"

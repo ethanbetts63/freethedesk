@@ -195,7 +195,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
           <h1 className="m-0 text-display font-heavy leading-[0.91] tracking-[-0.078em] lg:text-hero [&_span]:text-text-action">
             <HeadingLines heading={config.title} />
           </h1>
-          <p className="my-xl max-w-[555px] text-lead leading-[1.65] text-text-muted">
+          <p className="my-xl max-w-[555px] text-lead leading-relaxed text-text-muted">
             {config.description}
           </p>
           <div className={caseButtonRowClassName}>
@@ -204,7 +204,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
             </CtaButton>
             <ScrollCtaButton
               targetId="tour"
-              className="cursor-pointer appearance-none border-0 border-b border-b-text-primary bg-transparent pt-3xs pb-2xs font-[inherit] text-body font-heavy text-inherit [&>span]:ml-xs"
+              classes="cursor-pointer appearance-none border-0 border-b border-b-text-primary bg-transparent pt-3xs pb-2xs font-[inherit] text-body font-heavy text-inherit [&>span]:ml-xs"
             >
               Explore the build <span>↓</span>
             </ScrollCtaButton>
@@ -311,7 +311,7 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
             </strong>
             <span className="block">
               <b className="block text-body leading-[1.35]">{config.stat.label}</b>
-              <small className="mt-2xs block text-caption leading-[1.45] text-text-subtle">
+              <small className="mt-2xs block text-caption leading-normal text-text-subtle">
                 {config.stat.description}
               </small>
             </span>
@@ -320,7 +320,7 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
         </div>
         {/* Graph paper at its own scale: this is a stage for a drawn object,
             not a page surface, so the 46px grid is literal. */}
-        <div className="relative flex min-h-[550px] items-center justify-center overflow-hidden bg-surface-dark [background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_10%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_10%,transparent)_1px,transparent_1px)] [background-size:46px_46px] lg:min-h-[620px]">
+        <div className="relative flex min-h-[550px] items-center justify-center overflow-hidden bg-surface-dark [background-image:linear-gradient(var(--tint-grid-on-dark-strong)_1px,transparent_1px),linear-gradient(90deg,var(--tint-grid-on-dark-strong)_1px,transparent_1px)] [background-size:46px_46px] lg:min-h-[620px]">
           <PhoneFrame size="standalone" menu>
             <Image
               className={config.image.className}
@@ -387,7 +387,7 @@ function OperationsConsole({ config }: { config: OperationsFeature['console'] })
               <span className="text-label font-black text-text-action">{item.number}</span>
               <div>
                 <h4 className="m-0 mb-3xs text-lead">{item.title}</h4>
-                <p className="m-0 text-label leading-[1.5] text-text-muted">{item.detail}</p>
+                <p className="m-0 text-label leading-normal text-text-muted">{item.detail}</p>
               </div>
               {/* Below lg the row is two columns, so this wraps under the copy
                   rather than sitting beside it. */}
@@ -430,8 +430,8 @@ function DualSteps({ columns }: { columns: DualStepsFeature['columns'] }) {
               <h3 className="m-0 text-display tracking-[-0.06em]">{column.title}</h3>
               <p
                 className={cn(
-                  'mt-s mb-0 max-w-[380px] text-body leading-[1.6]',
-                  alt ? 'text-[var(--blue-950)]' : 'text-text-muted',
+                  'mt-s mb-0 max-w-[380px] text-body leading-relaxed',
+                  alt ? 'text-text-on-accent' : 'text-text-muted',
                 )}
               >
                 {column.description}
@@ -442,21 +442,19 @@ function DualSteps({ columns }: { columns: DualStepsFeature['columns'] }) {
                 <li
                   className={cn(
                     'grid grid-cols-[26px_minmax(0,1fr)] items-start gap-ml border-b py-m last:border-b-0',
-                    alt
-                      ? 'border-[color-mix(in_srgb,var(--blue-950)_18%,transparent)]'
-                      : 'border-border-default',
+                    alt ? 'border-border-on-accent' : 'border-border-default',
                   )}
                   key={step.number}
                 >
                   <b
                     className={cn(
                       'pt-4xs text-label font-black',
-                      alt ? 'text-[var(--blue-950)]' : 'text-text-action',
+                      alt ? 'text-text-on-accent' : 'text-text-action',
                     )}
                   >
                     {step.number}
                   </b>
-                  <span className="text-body leading-[1.5]">{step.detail}</span>
+                  <span className="text-body leading-normal">{step.detail}</span>
                 </li>
               ))}
             </ol>
@@ -508,7 +506,7 @@ function PortfolioMediaFeature({ config }: { config: MediaFeature }) {
         <div className={cn(config.reverse && 'lg:order-2')}>
           <SectionNumber>{config.eyebrow}</SectionNumber>
           <h2 className="m-0 text-display leading-[1] tracking-[-0.062em]">{config.title}</h2>
-          <p className={cn(caseLeadClassName, 'my-xl max-w-[560px]')}>{config.description}</p>
+          <p className={cn(caseLeadClassName, 'my-xl max-w-copy')}>{config.description}</p>
           <div className="grid grid-cols-[minmax(0,1fr)] border-t border-border-default sm:grid-cols-2 [&>span]:border-b [&>span]:border-border-default [&>span]:py-s [&>span]:text-label [&>span]:font-heavy [&>span]:text-text-muted">
             {config.points.map((point) => (
               <span key={point}>{point}</span>

@@ -16,7 +16,7 @@ export function ProcessStepsBar({
           {steps.map((step) => (
             <li
               key={step}
-              className="flex min-w-0 flex-1 items-center gap-s last:flex-none [&:not(:last-child)]:after:h-[10px] [&:not(:last-child)]:after:min-w-[6px] [&:not(:last-child)]:after:flex-1 [&:not(:last-child)]:after:bg-[var(--accent-on-dark-soft)] [&:not(:last-child)]:after:opacity-65 [&:not(:last-child)]:after:content-[''] [&:not(:last-child)]:after:[clip-path:polygon(0_45%,calc(100%-5px)_45%,calc(100%-5px)_0,100%_50%,calc(100%-5px)_100%,calc(100%-5px)_55%,0_55%)]"
+              className="flex min-w-0 flex-1 items-center gap-s last:flex-none [&:not(:last-child)]:after:h-[10px] [&:not(:last-child)]:after:min-w-[var(--size-dot)] [&:not(:last-child)]:after:flex-1 [&:not(:last-child)]:after:bg-[var(--accent-on-dark-soft)] [&:not(:last-child)]:after:opacity-65 [&:not(:last-child)]:after:content-[''] [&:not(:last-child)]:after:[clip-path:polygon(0_45%,calc(100%-5px)_45%,calc(100%-5px)_0,100%_50%,calc(100%-5px)_100%,calc(100%-5px)_55%,0_55%)]"
             >
               <span
                 className={`text-body font-strong tracking-[-0.025em] sm:text-title-sm ${step === accentStep ? 'moving-colour-text' : ''}`}

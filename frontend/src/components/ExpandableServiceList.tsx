@@ -72,7 +72,7 @@ export function ExpandableServiceList({
                 {String(index + 1).padStart(2, '0')}
               </span>
               <span
-                className="flex items-center justify-center [&>svg]:h-[38px] [&>svg]:w-[38px] sm:[&>svg]:h-[54px] sm:[&>svg]:w-[54px]"
+                className="flex items-center justify-center [&>svg]:h-[var(--size-control)] [&>svg]:w-[var(--size-control)] sm:[&>svg]:h-[54px] sm:[&>svg]:w-[54px]"
                 style={{ color: service.color }}
                 aria-hidden="true"
               >

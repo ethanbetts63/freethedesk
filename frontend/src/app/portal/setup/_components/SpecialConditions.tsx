@@ -138,7 +138,7 @@ export function SpecialConditions() {
               </h3>
               <p className="mt-2xs mb-s text-label text-text-subtle">{condition.applies}</p>
               {condition.paragraphs.map((paragraph, index) => (
-                <p key={index} className="mt-xs mb-0 text-label leading-[1.6]">
+                <p key={index} className="mt-xs mb-0 text-label leading-relaxed">
                   {paragraph}
                 </p>
               ))}
@@ -148,7 +148,7 @@ export function SpecialConditions() {
                     Where the purchaser is not the licence holder, this is printed instead:
                   </p>
                   {condition.alternative_paragraphs.map((paragraph, index) => (
-                    <p key={index} className="mt-xs mb-0 text-label leading-[1.6]">
+                    <p key={index} className="mt-xs mb-0 text-label leading-relaxed">
                       {paragraph}
                     </p>
                   ))}

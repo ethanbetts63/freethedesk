@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
  */
 const DOT_SIZES = {
   4: '[&>i]:h-[4px] [&>i]:w-[4px]',
-  6: '[&>i]:h-[6px] [&>i]:w-[6px]',
+  6: '[&>i]:h-[var(--size-dot)] [&>i]:w-[var(--size-dot)]',
   8: '[&>i]:h-[8px] [&>i]:w-[8px]',
 } as const;
 

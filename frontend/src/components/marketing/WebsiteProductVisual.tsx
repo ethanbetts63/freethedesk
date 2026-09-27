@@ -24,7 +24,7 @@ export function WebsiteProductVisual() {
         className="min-w-0 origin-right bg-surface-page text-text-primary shadow-contrast-l lg:[transform:perspective(1400px)_rotateY(-2deg)]"
         aria-hidden="true"
       >
-        <div className="grid h-[38px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center border-b border-border-default bg-surface-tint-strong px-s text-caption text-text-muted">
+        <div className="grid h-[var(--size-control)] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center border-b border-border-default bg-surface-tint-strong px-s text-caption text-text-muted">
           <TrafficLights />
           <span className="rounded-2xs bg-surface-page px-m py-3xs sm:px-2xl">
             yourdealership.com.au
@@ -56,7 +56,7 @@ export function WebsiteProductVisual() {
               <br />
               next car.
             </h3>
-            <p className="max-w-[250px] text-label leading-[1.6] text-text-muted">
+            <p className="max-w-[250px] text-label leading-relaxed text-text-muted">
               Explore the latest vehicles, buy online or speak with the team.
             </p>
             <span className="mt-xs inline-block bg-action-primary p-s text-caption font-heavy text-text-on-dark">

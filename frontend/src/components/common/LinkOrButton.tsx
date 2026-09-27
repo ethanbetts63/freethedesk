@@ -59,7 +59,7 @@ export function LinkOrButton({ children, classes, ...rest }: LinkOrButtonProps<O
       return (
         <ScrollCtaButton
           targetId={href.slice(1)}
-          className={classes}
+          classes={classes}
           ariaLabel={anchorProps['aria-label']}
         >
           {children}

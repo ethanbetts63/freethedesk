@@ -203,7 +203,7 @@ export function ProjectEnquiryPanel({
           <strong className="block text-lead tracking-[-0.03em]">
             Thanks — that&apos;s with us.
           </strong>
-          <p className="mt-xs text-body leading-[1.65] text-text-muted">
+          <p className="mt-xs text-body leading-relaxed text-text-muted">
             We&apos;ll come back with what we&apos;d suggest building for that budget, and what it
             would take.
           </p>

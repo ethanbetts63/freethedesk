@@ -31,10 +31,10 @@ export function WebsiteIntroduction({
       <div className="grid gap-l lg:grid-cols-3 lg:gap-0">
         <div className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default">
           <h3 className="m-0 text-title-sm tracking-[-0.035em] text-action-primary">1. SEO</h3>
-          <p className="mt-s mb-m max-w-[42ch] text-lead leading-[1.6] text-text-muted">
+          <p className="mt-s mb-m max-w-[42ch] text-lead leading-relaxed text-text-muted">
             {seoDescription}
           </p>
-          <ScrollCtaButton className={linkClassName} targetId="seo">
+          <ScrollCtaButton classes={linkClassName} targetId="seo">
             Explore SEO <span aria-hidden="true">↘</span>
           </ScrollCtaButton>
         </div>
@@ -42,10 +42,10 @@ export function WebsiteIntroduction({
           <h3 className="m-0 text-title-sm tracking-[-0.035em] text-action-primary">
             2. Website design
           </h3>
-          <p className="mt-s mb-m max-w-[42ch] text-lead leading-[1.6] text-text-muted">
+          <p className="mt-s mb-m max-w-[42ch] text-lead leading-relaxed text-text-muted">
             {designDescription}
           </p>
-          <ScrollCtaButton className={linkClassName} targetId="customer-journeys">
+          <ScrollCtaButton classes={linkClassName} targetId="customer-journeys">
             Explore website design <span aria-hidden="true">↘</span>
           </ScrollCtaButton>
         </div>
@@ -53,10 +53,10 @@ export function WebsiteIntroduction({
           <h3 className="m-0 text-title-sm tracking-[-0.035em] text-action-primary">
             3. Admin automation
           </h3>
-          <p className="mt-s mb-m max-w-[42ch] text-lead leading-[1.6] text-text-muted">
+          <p className="mt-s mb-m max-w-[42ch] text-lead leading-relaxed text-text-muted">
             {automationDescription}
           </p>
-          <ScrollCtaButton className={linkClassName} targetId="website-automation">
+          <ScrollCtaButton classes={linkClassName} targetId="website-automation">
             Explore automation <span aria-hidden="true">↘</span>
           </ScrollCtaButton>
         </div>

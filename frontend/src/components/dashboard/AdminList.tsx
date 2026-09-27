@@ -26,7 +26,7 @@ export const adminThClassName =
   'border-b border-border-default bg-surface-tint px-m py-s text-left text-caption tracking-[0.04em] text-text-muted uppercase';
 
 export const adminTdClassName =
-  'border-b border-tint-wash p-m align-middle text-label leading-[1.45] text-text-muted';
+  'border-b border-tint-wash p-m align-middle text-label leading-normal text-text-muted';
 
 /**
  * Row tint, hover and focus treatment. The tint reads from `--status-tone`, so

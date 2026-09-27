@@ -24,21 +24,19 @@ export default function GuidesPage() {
     <main>
       <PageSchema path="/guides" />
 
-      <section className="relative overflow-hidden bg-surface-dark py-section-tall text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(color-mix(in_srgb,var(--blue-400)_5.5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--blue-400)_5.5%,transparent)_1px,transparent_1px)] before:[background-size:64px_64px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_82%)] after:absolute after:top-[-26%] after:right-[-8%] after:h-[clamp(230px,34vw,520px)] after:w-[clamp(230px,34vw,520px)] after:rounded-full after:bg-accent after:opacity-[0.12] after:content-[''] after:[filter:blur(1px)]">
+      <section className="relative overflow-hidden bg-surface-dark py-section-tall text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(var(--tint-grid-on-dark)_1px,transparent_1px),linear-gradient(90deg,var(--tint-grid-on-dark)_1px,transparent_1px)] before:[background-size:64px_64px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_82%)] after:absolute after:top-[-26%] after:right-[-8%] after:h-[clamp(230px,34vw,520px)] after:w-[clamp(230px,34vw,520px)] after:rounded-full after:bg-accent after:opacity-[0.12] after:content-[''] after:[filter:blur(1px)]">
         <div className="site-shell relative z-1">
-          <Eyebrow
-            dot
-            tone="accent"
-            className="mb-xl gap-xs text-label tracking-label-wide text-accent"
-          >
-            Field notes for dealers
-          </Eyebrow>
+          <div className="mb-xl [--eyebrow-accent:var(--accent)]">
+            <Eyebrow dot size="sm" tone="accent">
+              Field notes for dealers
+            </Eyebrow>
+          </div>
           <h1 className="m-0 max-w-[930px] text-hero leading-[0.88] tracking-[-0.075em] sm:text-hero">
             Useful systems.
             <br />
             <em className="not-italic text-accent">Plain English.</em>
           </h1>
-          <p className="mt-xl max-w-[660px] text-lead leading-[1.65] text-[var(--text-on-dark-muted)]">
+          <p className="mt-xl max-w-[660px] text-lead leading-relaxed text-[var(--text-on-dark-muted)]">
             {STATIC_PAGES['/guides'].description}
           </p>
         </div>
@@ -72,12 +70,12 @@ export default function GuidesPage() {
             <div className="grid grid-cols-1 gap-m lg:grid-cols-2">
               {articles.map((article, index) => (
                 <Link
-                  className="group flex flex-col border border-border-default p-ml transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-[3px] hover:border-[var(--blue-500)] hover:shadow-l sm:p-xl lg:min-h-[440px]"
+                  className="group flex flex-col border border-border-default p-ml transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-[3px] hover:border-action-primary hover:shadow-l sm:p-xl lg:min-h-[440px]"
                   href={`/${article.slug}`}
                   key={article.slug}
                 >
                   <div className="flex items-center justify-between text-label font-heavy tracking-label text-text-subtle uppercase">
-                    <span className="flex h-[38px] w-[38px] items-center justify-center rounded-full border border-border-default tracking-normal">
+                    <span className="flex h-[var(--size-control)] w-[var(--size-control)] items-center justify-center rounded-full border border-border-default tracking-normal">
                       {String(index + 1).padStart(2, '0')}
                     </span>
                     <span>Guide</span>
@@ -89,10 +87,10 @@ export default function GuidesPage() {
                         {dateFormatter.format(new Date(`${article.publishedDate}T00:00:00+08:00`))}
                       </time>
                     </p>
-                    <h3 className="m-0 text-title leading-[1.06] tracking-[-0.045em] transition-colors duration-200 group-hover:text-[var(--blue-800)]">
+                    <h3 className="m-0 text-title leading-[1.06] tracking-[-0.045em] transition-colors duration-200 group-hover:text-text-action">
                       {article.title}
                     </h3>
-                    <p className="mt-ml max-w-[560px] text-body leading-[1.65] text-text-muted">
+                    <p className="mt-ml max-w-copy text-body leading-relaxed text-text-muted">
                       {article.excerpt}
                     </p>
                   </div>
@@ -117,7 +115,7 @@ export default function GuidesPage() {
                 <h3 className="m-0 mb-xs text-lead tracking-[-0.03em]">
                   The first field note is on the way.
                 </h3>
-                <p className="m-0 text-body leading-[1.6] text-text-muted">
+                <p className="m-0 text-body leading-relaxed text-text-muted">
                   We are assembling practical guides for dealers who want clearer websites and less
                   administration.
                 </p>

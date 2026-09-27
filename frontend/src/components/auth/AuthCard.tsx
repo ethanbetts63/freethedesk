@@ -34,13 +34,13 @@ export function AuthCard({
       <div className="pointer-events-none absolute inset-0 opacity-[0.78] [&>canvas]:h-full [&>canvas]:w-full">
         <SignalFlow />
       </div>
-      <section className="relative z-1 w-full max-w-[450px] border border-[color-mix(in_srgb,var(--slate-300)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] px-ml py-xl shadow-l backdrop-blur-[13px] sm:p-xl">
+      <section className="relative z-1 w-full max-w-[450px] border border-[color-mix(in_srgb,var(--border-strong)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] px-ml py-xl shadow-l backdrop-blur-[13px] sm:p-xl">
         <Link className={brandClassName} href="/">
           free<span>the</span>desk<i>.</i>
         </Link>
         <p className={cn(kickerClassName, 'mt-xl')}>{kicker}</p>
         <h1 className="m-0 text-title tracking-[-0.06em]">{heading}</h1>
-        {intro && <p className="mt-s mb-xl text-body-sm leading-[1.5] text-text-muted">{intro}</p>}
+        {intro && <p className="mt-s mb-xl text-body-sm leading-normal text-text-muted">{intro}</p>}
         {children}
         {footer}
       </section>

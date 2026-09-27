@@ -18,7 +18,7 @@ export const automationServices: Service[] = [
       'A text the moment it lands, not the next time someone checks email',
       'A reminder if a lead sits untouched for too long',
     ],
-    color: 'var(--blue-500)',
+    color: 'var(--category-service-1)',
     icon: (
       <svg {...iconProps}>
         <circle cx="32" cy="32" r="23" stroke="currentColor" strokeWidth="2" opacity=".2" />
@@ -36,7 +36,7 @@ export const automationServices: Service[] = [
       'The job created in every system it needs to exist in',
       'A task list waiting for your team so nothing is missed on day one',
     ],
-    color: 'var(--blue-600)',
+    color: 'var(--category-service-2)',
     icon: (
       <svg {...iconProps}>
         <path
@@ -65,7 +65,7 @@ export const automationServices: Service[] = [
       'Customers notified the moment something changes',
       'Synced with the booking system you already run',
     ],
-    color: 'var(--blue-700)',
+    color: 'var(--category-service-3)',
     icon: (
       <svg {...iconProps}>
         <rect x="10" y="14" width="44" height="40" rx="5" stroke="currentColor" strokeWidth="2.5" />
@@ -91,7 +91,7 @@ export const automationServices: Service[] = [
       'Sales, accounts and delivery working from the same record',
       "The gaps between tools that don't officially integrate, filled in",
     ],
-    color: 'var(--blue-800)',
+    color: 'var(--category-service-4)',
     icon: (
       <svg {...iconProps}>
         <path
@@ -132,7 +132,7 @@ export const automationServices: Service[] = [
       'Payments matched against the bank feed as they land',
       'Recurring billing that runs without a monthly reminder',
     ],
-    color: 'var(--blue-900)',
+    color: 'var(--category-service-5)',
     icon: (
       <svg {...iconProps}>
         <rect x="8" y="15" width="48" height="34" rx="4" stroke="currentColor" strokeWidth="2.5" />
@@ -151,7 +151,7 @@ export const automationServices: Service[] = [
       'Classify incoming documents without opening each one',
       "Move data between systems that don't otherwise talk to each other",
     ],
-    color: 'var(--blue-950)',
+    color: 'var(--category-service-6)',
     icon: (
       <svg {...iconProps}>
         <rect

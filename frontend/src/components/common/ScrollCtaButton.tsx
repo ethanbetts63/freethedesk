@@ -9,7 +9,12 @@ import { scrollToId } from '@/lib/scrollToId';
 
 interface ScrollCtaButtonProps {
   targetId: string;
-  className?: string;
+  /**
+   * The owning CTA family must resolve its closed variants before this
+   * behaviour-only primitive is called. Required and named `classes` to make
+   * that boundary explicit; this is not an optional appearance override.
+   */
+  classes: string;
   disabled?: boolean;
   ariaLabel?: string;
   children: ReactNode;
@@ -22,7 +27,7 @@ interface ScrollCtaButtonProps {
  */
 export function ScrollCtaButton({
   targetId,
-  className,
+  classes,
   disabled,
   ariaLabel,
   children,
@@ -32,7 +37,7 @@ export function ScrollCtaButton({
       type="button"
       disabled={disabled}
       aria-label={ariaLabel}
-      className={className}
+      className={classes}
       onClick={() => scrollToId(targetId)}
     >
       {children}

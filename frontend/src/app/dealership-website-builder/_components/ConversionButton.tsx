@@ -47,7 +47,7 @@ function useConfettiBurst() {
 
 // Three colours so adjacent particles read as separate pieces, all drawn from
 // the palette rather than picked by eye.
-const BURST_COLOURS = ['var(--action-primary)', 'var(--purple-accent)', 'var(--sky-500)'];
+const BURST_COLOURS = ['var(--action-primary)', 'var(--purple-accent)', 'var(--accent-on-dark)'];
 
 function ConfettiBurst({ burst }: { burst: number }) {
   if (!burst) return null;

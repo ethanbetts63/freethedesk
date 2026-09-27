@@ -60,9 +60,11 @@ export const FaqSection = ({
 
       <div className="site-shell grid grid-cols-1 gap-l lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-split">
         <div>
-          <Eyebrow size="sm" tone="brand" className="mb-l">
-            {eyebrow}
-          </Eyebrow>
+          <div className="mb-l">
+            <Eyebrow size="sm" tone="brand">
+              {eyebrow}
+            </Eyebrow>
+          </div>
           <h2 className="m-0 text-hero leading-[0.93] font-black tracking-[-0.055em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal]">
             {title}
           </h2>

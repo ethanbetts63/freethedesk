@@ -18,7 +18,7 @@ export const websiteServices: Service[] = [
       'Price and stock changes reflected without manual re-entry',
       'One source of truth instead of a spreadsheet everyone half-trusts',
     ],
-    color: 'var(--blue-500)',
+    color: 'var(--category-service-1)',
     icon: (
       <svg {...iconProps}>
         <path
@@ -52,7 +52,7 @@ export const websiteServices: Service[] = [
       'No dashboard to remember to check',
       'Routed to the right person, not broadcast to everyone',
     ],
-    color: 'var(--blue-600)',
+    color: 'var(--category-service-2)',
     icon: (
       <svg {...iconProps}>
         <path
@@ -79,7 +79,7 @@ export const websiteServices: Service[] = [
       'Consistent tone and information, whoever or whatever triggers it',
       'Nothing left waiting on someone to remember to send it',
     ],
-    color: 'var(--blue-700)',
+    color: 'var(--category-service-3)',
     icon: (
       <svg {...iconProps}>
         <rect x="6" y="14" width="52" height="36" rx="4" stroke="currentColor" strokeWidth="2.5" />
@@ -102,7 +102,7 @@ export const websiteServices: Service[] = [
       'A change on one side reflected on the other automatically',
       'Built around what you already use, not a replacement for it',
     ],
-    color: 'var(--blue-800)',
+    color: 'var(--category-service-4)',
     icon: (
       <svg {...iconProps}>
         <rect x="10" y="12" width="44" height="42" rx="4" stroke="currentColor" strokeWidth="2.5" />

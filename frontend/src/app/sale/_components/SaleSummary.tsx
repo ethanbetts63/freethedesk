@@ -45,7 +45,7 @@ export function SaleSummary({ sale }: { sale: CustomerSale }) {
       </dl>
 
       {sale.signed_at && !sale.accepted_at && (
-        <p className="mt-ml mb-0 text-label leading-[1.6] text-text-muted">
+        <p className="mt-ml mb-0 text-label leading-relaxed text-text-muted">
           <strong>You have made an offer, not a purchase.</strong> {sale.dealer_name} has to accept
           and sign it before there is a contract, and we will email you the moment they do.
         </p>

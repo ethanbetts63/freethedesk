@@ -34,8 +34,6 @@ interface EyebrowProps {
   tone?: EyebrowTone;
   /** The leading dot. */
   dot?: boolean;
-  /** Spacing and alignment stay with the caller; the type does not. */
-  className?: string;
   id?: string;
 }
 
@@ -49,7 +47,6 @@ export default function Eyebrow({
   size = 'md',
   tone = 'secondary',
   dot = false,
-  className,
   id,
 }: EyebrowProps) {
   return (
@@ -60,7 +57,6 @@ export default function Eyebrow({
         SIZE[size],
         TONE[tone],
         dot && 'flex items-center gap-s',
-        className,
       )}
     >
       {/* 50% and a full pill round a 7x7 box identically, so this uses the

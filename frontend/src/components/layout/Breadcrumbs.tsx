@@ -29,11 +29,9 @@ export interface BreadcrumbItem {
 export function Breadcrumbs({
   items,
   variant = 'band',
-  className,
 }: {
   items: BreadcrumbItem[];
   variant?: 'band' | 'overlay';
-  className?: string;
 }) {
   if (items.length < 2) return null;
 
@@ -42,12 +40,11 @@ export function Breadcrumbs({
   return (
     <nav
       aria-label="Breadcrumb"
-      className={cn(
+      className={
         isOverlay
           ? 'absolute inset-x-0 top-0 z-2 bg-transparent'
-          : 'border-b border-border-default bg-surface-page',
-        className,
-      )}
+          : 'border-b border-border-default bg-surface-page'
+      }
     >
       <ol
         className={cn(

@@ -74,7 +74,7 @@ export function SaleVerify({
 
   return (
     <>
-      <p className="mt-0 mb-ml text-body-sm leading-[1.6] text-text-muted">
+      <p className="mt-0 mb-ml text-body-sm leading-relaxed text-text-muted">
         A vehicle is about to be licensed in your name, so {sale.dealer_name} has to see photo
         identification first. <strong>A person at the dealership looks at these</strong> — it is not
         a machine, and it is not instant. We will email you if anything needs doing again.

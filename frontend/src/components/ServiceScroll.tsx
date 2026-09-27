@@ -75,12 +75,12 @@ export function ServiceScroll({
               {service.title}
             </h3>
           </div>
-          <div className="max-w-[560px] pt-2xs">
+          <div className="max-w-copy pt-2xs">
             <div className="flex flex-col items-start gap-l sm:flex-row sm:items-center">
               <div className="flex-none" style={{ color: service.color }}>
                 {service.icon}
               </div>
-              <p className="m-0 text-lead leading-[1.65] font-medium text-text-muted">
+              <p className="m-0 text-lead leading-relaxed font-medium text-text-muted">
                 {service.body}
               </p>
             </div>
@@ -88,7 +88,7 @@ export function ServiceScroll({
               {service.examples.map((example) => (
                 <li
                   key={example}
-                  className="relative border-b border-border-default py-m pr-0 pl-l text-body leading-[1.6] text-text-primary before:absolute before:left-0 before:text-text-action before:content-['→']"
+                  className="relative border-b border-border-default py-m pr-0 pl-l text-body leading-relaxed text-text-primary before:absolute before:left-0 before:text-text-action before:content-['→']"
                 >
                   {example}
                 </li>
@@ -115,7 +115,7 @@ export function ServiceScroll({
             <h3 className="m-0 mb-m text-display leading-none tracking-[-0.05em]">
               {customService.title}
             </h3>
-            <p className="m-0 max-w-[520px] text-lead leading-[1.65] text-text-muted">
+            <p className="m-0 max-w-[520px] text-lead leading-relaxed text-text-muted">
               {customService.body}
             </p>
           </div>

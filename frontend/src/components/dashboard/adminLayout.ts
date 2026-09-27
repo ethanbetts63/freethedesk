@@ -42,7 +42,7 @@ export const adminConfigGroupClassName = [
 export const adminConfigRequestClassName = [
   'mt-ml border-l-[3px] border-l-action-primary bg-surface-tint px-m py-s',
   '[&>strong]:mb-xs [&>strong]:block [&>strong]:text-caption [&>strong]:tracking-label-tight [&>strong]:text-text-subtle [&>strong]:uppercase',
-  '[&>p]:m-0 [&>p]:text-body-sm [&>p]:leading-[1.65] [&>p]:whitespace-pre-wrap',
+  '[&>p]:m-0 [&>p]:text-body-sm [&>p]:leading-relaxed [&>p]:whitespace-pre-wrap',
 ].join(' ');
 
 /**
@@ -61,4 +61,4 @@ export const adminRelatedMessagesClassName = [
 
 /** A delivered message body, shown verbatim. */
 export const adminMessagePreClassName =
-  'm-0 overflow-x-auto rounded-xs border border-border-default bg-surface-tint p-m font-mono text-label leading-[1.65] whitespace-pre-wrap';
+  'm-0 overflow-x-auto rounded-xs border border-border-default bg-surface-tint p-m font-mono text-label leading-relaxed whitespace-pre-wrap';

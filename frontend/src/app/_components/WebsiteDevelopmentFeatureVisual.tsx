@@ -10,7 +10,7 @@ import { TrafficLights } from '@/components/visuals/chrome';
  * so they stay one colour rather than three.
  */
 const browserBarClassName =
-  'grid h-[38px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center bg-surface-tint-strong px-s text-caption text-text-muted';
+  'grid h-[var(--size-control)] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center bg-surface-tint-strong px-s text-caption text-text-muted';
 
 const systemRowClassName =
   'grid grid-cols-[25px_minmax(0,1fr)_auto] items-center gap-xs border-b border-border-subtle py-xs text-caption last:border-b-0 [&>i]:text-caption [&>i]:font-black [&>i]:not-italic [&>i]:text-action-primary [&>strong]:text-caption [&>strong]:text-text-success [&>strong]:uppercase';
@@ -48,7 +48,7 @@ export function WebsiteDevelopmentFeatureVisual() {
         </nav>
         {/* The sphere is a ::after so it can bleed past the hero's right edge
             without a wrapper, and sits under the copy by paint order. */}
-        <div className="relative mt-m min-h-[210px] px-ml py-l [background:linear-gradient(135deg,var(--surface-tint),var(--slate-50))] after:absolute after:top-[45px] after:right-[-16px] after:h-[110px] after:w-[110px] after:rounded-circle after:opacity-[0.72] after:content-[''] after:[background:radial-gradient(circle_at_35%_35%,var(--sky-500),var(--action-primary)_60%,var(--surface-dark))] sm:min-h-[215px] sm:p-xl sm:after:top-[26px] sm:after:right-[7%] sm:after:h-[155px] sm:after:w-[155px] sm:after:opacity-[0.92]">
+        <div className="relative mt-m min-h-[210px] px-ml py-l [background:linear-gradient(135deg,var(--surface-tint),var(--surface-muted))] after:absolute after:top-[45px] after:right-[-16px] after:h-[110px] after:w-[110px] after:rounded-circle after:opacity-[0.72] after:content-[''] after:[background:radial-gradient(circle_at_35%_35%,var(--accent-on-dark),var(--action-primary)_60%,var(--surface-dark))] sm:min-h-[215px] sm:p-xl sm:after:top-[26px] sm:after:right-[7%] sm:after:h-[155px] sm:after:w-[155px] sm:after:opacity-[0.92]">
           <small className="block text-caption font-black tracking-label text-action-primary uppercase">
             A clear path forward
           </small>

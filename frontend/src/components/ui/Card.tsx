@@ -79,7 +79,7 @@ export function DetailItem({ term, children }: { term: ReactNode; children: Reac
       <dt className="mb-2xs text-label font-heavy tracking-label-tight text-text-subtle uppercase">
         {term}
       </dt>
-      <dd className="m-0 text-body-sm leading-[1.5] [overflow-wrap:anywhere]">{children}</dd>
+      <dd className="m-0 text-body-sm leading-normal [overflow-wrap:anywhere]">{children}</dd>
     </div>
   );
 }

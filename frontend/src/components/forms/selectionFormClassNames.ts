@@ -95,7 +95,7 @@ export const totalPriceClassName =
   // eslint-disable-next-line no-restricted-syntax -- see above
   'pr-[0.06em] text-[length:var(--selection-total-size,2.8rem)] leading-none tracking-[-0.06em]';
 export const totalCadenceClassName = 'text-caption text-text-muted';
-export const totalSummaryClassName = 'text-body-sm leading-[1.45] font-strong text-text-control';
+export const totalSummaryClassName = 'text-body-sm leading-normal font-strong text-text-control';
 
 export const formClassName =
   'flex flex-col justify-center border-t border-border-subtle bg-surface-tint p-xl [--selection-input-font-size:0.9rem]';
@@ -114,4 +114,4 @@ export const fieldTextareaClassName =
 export const fieldHintClassName = 'mt-2xs block text-caption font-normal text-text-subtle';
 export const submitClassName = 'mt-xs min-h-[58px] text-left [&>span]:text-lead';
 export const formErrorClassName =
-  'm-0 mb-s border-l-[3px] border-border-danger bg-surface-danger p-s text-caption leading-[1.5] text-text-danger';
+  'm-0 mb-s border-l-[3px] border-border-danger bg-surface-danger p-s text-caption leading-normal text-text-danger';
