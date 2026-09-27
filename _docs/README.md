@@ -11,6 +11,7 @@ not override implemented behaviour or shared policy.
 
 | Document                                           | Type              | Purpose                                                          |
 | -------------------------------------------------- | ----------------- | ---------------------------------------------------------------- |
+| [deployment.md](deployment.md)                     | Runbook           | PythonAnywhere virtualenv and product deployment sequence        |
 | [pii_inventory.md](pii_inventory.md)               | Reference         | Personal-data locations and handling                             |
 | [notifications.md](notifications.md)               | Runbook           | Enquiry notification configuration and ownership boundary        |
 | [stripe-subscriptions.md](stripe-subscriptions.md) | Reference/runbook | Subscription checkout, Stripe, and agreement evidence            |

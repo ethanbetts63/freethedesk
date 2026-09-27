@@ -13,7 +13,7 @@ offers, presentation, and legal source documents.
 Backend:
 
 ```powershell
-py -m venv .venv
+py -3.13 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe manage.py migrate
 .\.venv\Scripts\python.exe manage.py runserver
@@ -34,7 +34,7 @@ The frontend runs at `http://localhost:3000` and proxies `/api/*` through
 ## Verify
 
 ```powershell
-py -m pytest
+.\.venv\Scripts\python.exe -m pytest
 Set-Location frontend
 npm run check
 npm run build
@@ -114,6 +114,7 @@ lockfile and are covered.
 | Topic                                       | Source                                                                                                           |
 | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | Agent instructions                          | [`AGENTS.md`](AGENTS.md)                                                                                         |
+| Deployment                                  | [`_docs/deployment.md`](_docs/deployment.md)                                                                     |
 | All product documentation                   | [`_docs/README.md`](_docs/README.md)                                                                             |
 | Backend tests and local fixtures            | [`../freetheplatform/_docs/testing-standard-backend.md`](../freetheplatform/_docs/testing-standard-backend.md)   |
 | Frontend tests                              | [`../freetheplatform/_docs/testing-standard-frontend.md`](../freetheplatform/_docs/testing-standard-frontend.md) |

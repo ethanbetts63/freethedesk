@@ -7,11 +7,10 @@
 #     pip-compile --upgrade-package django                            # move one deliberately
 #     pip-sync requirements-dev.txt                                   # make this venv match
 #
-# The lockfile must be resolved for the Python version the PythonAnywhere *web
-# app* runs -- not the newest interpreter installed there, which the web app
-# will not accept, and not whatever is newest locally. Resolving on another
-# version pins a different dependency graph. Read the number off the web app's
-# dashboard before recompiling; see ../freetheplatform/_docs/strategy.md.
+# Python 3.13, the version the PythonAnywhere web app runs -- not whatever is
+# newest locally. The lockfile must be resolved with this interpreter too;
+# resolving on 3.14 previously admitted a package set production could not
+# install. See ../freetheplatform/_docs/strategy.md.
 #
 # Pins are the versions that are installed and passing tests, not the newest
 # available. Every upgrade after that is a `--upgrade-package` with a diff
@@ -38,7 +37,7 @@ python-dotenv
 #
 # Pinned to a tag, and a security fix in the package means a new tag and a bump
 # here the same day. See ../freetheplatform/_docs/strategy.md.
-freetheplatform[twilio,stripe,documents] @ git+https://github.com/ethanbetts63/freetheplatform@v0.22.0
+freetheplatform[twilio,stripe,documents] @ git+https://github.com/ethanbetts63/freetheplatform@v0.25.0
 
 # Dealer document uploads are sniffed by bytes and fully parsed before they are
 # stored; see core/utils/uploads.py. `pypdf` also fills the prescribed AcroForms
