@@ -188,6 +188,8 @@ REST_FRAMEWORK = {
         # and a person working normally never notices.
         "session": "600/hour",
         "staff": "2000/hour",
+        # Staff setting a password or sending a reset link: credential-class.
+        "staff_password": "30/hour",
         "portal": "600/hour",
         "public": "600/hour",
         "checkout": "20/hour",
@@ -235,6 +237,10 @@ FTP_AUTH = {
     # Package counts/mints; sending is ours since it owns the wording and reset URL.
     "LOCKOUT_NOTIFIER": "core.utils.auth_notifications.auth_alert",
     "PASSWORD_RESET_NOTIFIER": "core.utils.auth_notifications.send_password_reset",
+    # The staff users pages: roles and activity, and telling an owner staff set
+    # their password.
+    "ACCOUNT_DIRECTORY": "core.account_directory.FreeTheDeskAccountDirectory",
+    "PASSWORD_SET_NOTIFIER": "core.utils.auth_notifications.send_password_set",
 }
 
 # Django's token generator reads this directly, so it can't live inside FTP_AUTH.

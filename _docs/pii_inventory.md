@@ -147,6 +147,14 @@ customer gets an `auth.User` keyed by their email (`Sale.account`), holding
 `username`/`email` = customer email, `first_name` = customer name, and a hashed
 password. See the Accounts note in `_docs/licensing/plan/05-customer-flow.md`.
 
+**The staff users page** (`/dashboard/admin/users`, API `/api/admin/users/` from
+`freetheplatform.auth.staff`, activity from `core/account_directory.py`) stores
+nothing new, but it is a new access pattern: one screen gathering an account's
+dealer or SEO record, its sales across every dealer, its enquiries and every
+message sent to its address, as linked summaries rather than copies. Staff can
+edit the account and set its password; the password is never shown or echoed,
+and the owner is emailed (`auth.password_set`) without it. `IsAdminUser` only.
+
 ---
 
 ## Part 2 — How it is handled today

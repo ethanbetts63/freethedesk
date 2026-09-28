@@ -17,6 +17,8 @@ urlpatterns += [
     path("api/", include("sales.urls")),
     path("api/", include("seo.urls")),
     path("api/payments/", include("payments.urls")),
+    # Staff management of accounts, the same API on all three sites.
+    path("api/admin/users/", include("freetheplatform.auth.staff.urls")),
     # Public, verified by provider signature rather than by authentication.
     path("api/webhooks/messaging/", include("freetheplatform.messaging.api.webhook_urls")),
 ]

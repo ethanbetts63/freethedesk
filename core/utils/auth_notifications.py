@@ -66,3 +66,27 @@ def send_password_reset(user, uid, token, request=None):
         body=body,
         message_type="auth.password_reset",
     )
+
+
+def send_password_set(user, actor, request=None):
+    """Tell the owner staff set their password. Never the password itself.
+
+    Sent to the account rather than to staff: its owner is the one person who
+    would know if they had not asked for this.
+    """
+    if not user.email:
+        return None
+    body = (
+        f"Hello {user.get_full_name() or user.get_username()},\n\n"
+        "freethedesk staff have just set a new password on your account, and "
+        "every device that was signed in has been signed out.\n\n"
+        "If you asked us to do this, there is nothing else to do. If you did "
+        "not, reply to this email straight away."
+    )
+    return send(
+        channel="email",
+        to=user.email,
+        subject="Your freethedesk password was changed",
+        body=body,
+        message_type="auth.password_set",
+    )

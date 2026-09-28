@@ -29,6 +29,8 @@ checkFormLedger({
     { file: 'app/change-password/page.tsx', track: 'B' },
     { file: 'app/dashboard/admin/messages/compose/page.tsx', track: 'B' },
     { file: 'app/dashboard/admin/settings/site/page.tsx', track: 'B' },
+    { file: 'app/dashboard/admin/users/[userId]/AccountForm.tsx', track: 'B' },
+    { file: 'app/dashboard/admin/users/[userId]/SetPasswordForm.tsx', track: 'B' },
     { file: 'app/dealership-website-builder/_components/ConfiguratorControls.tsx', track: 'B' },
     { file: 'app/login/page.tsx', track: 'B' },
     { file: 'app/portal/account/page.tsx', track: 'B' },
