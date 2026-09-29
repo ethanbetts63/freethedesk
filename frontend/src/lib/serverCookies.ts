@@ -45,14 +45,7 @@ function parseSetCookie(header: string): ParsedCookie | null {
   return { name: pair.slice(0, separator), value: pair.slice(separator + 1), options };
 }
 
-/**
- * Copies every `Set-Cookie` header from an upstream Django response onto this
- * request's outgoing cookie jar — name, value, and whichever attributes
- * Django set (max-age, httpOnly, secure, sameSite, path) — parsed generically
- * rather than hard-coded per endpoint, so it stays correct if those settings
- * change. The server-side equivalent of what a browser does automatically for
- * a same-origin `credentials: 'include'` fetch made straight from the client.
- */
+/** Copies every upstream Django `Set-Cookie` header, with its attributes, onto this request's cookie jar: what a browser does for a same-origin `credentials: 'include'` fetch. */
 export async function relaySetCookies(response: Response): Promise<void> {
   const setCookieHeaders = response.headers.getSetCookie();
   if (setCookieHeaders.length === 0) return;

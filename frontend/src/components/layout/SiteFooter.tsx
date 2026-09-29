@@ -24,32 +24,16 @@ export interface FooterColumn {
 interface SiteFooterProps {
   /** Logo, wordmark and any standing copy. Takes the widest track. */
   brand: ReactNode;
-  /**
-   * Which end of the row the brand block sits at. The wide track follows it,
-   * so `end` is a mirror rather than a narrow column at the right.
-   *
-   * A closed pair rather than a number: the link columns already position
-   * themselves by their order in `columns`, so the only thing that could not
-   * be moved was the brand, and an arbitrary index would let a caller drop it
-   * mid-row where the wide track cannot follow.
-   */
+  /** Which end of the row the brand block sits at; the wide track follows it. A closed pair, not an index, so the brand cannot land mid-row. */
   brandPosition?: 'start' | 'end';
   columns: FooterColumn[];
   /** The bottom bar: copyright, registration numbers, credits. */
   legal: ReactNode;
-  /**
-   * Painted behind everything, inside the footer's own stacking context. The
-   * content sits at `z-1` above it. Position it yourself — it is handed the
-   * whole footer box.
-   */
+  /** Painted behind the content (`z-1`) inside the footer's stacking context; position it yourself. */
   backdrop?: ReactNode;
 }
 
-/**
- * Column tracks by column count. Written out rather than computed because
- * Tailwind only sees class names that appear literally in source; the brand
- * block always takes the wide track.
- */
+/** Column tracks by count, written out because Tailwind only sees literal class names. */
 const COLUMN_GRID: Record<number, string> = {
   1: 'lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]',
   2: 'lg:grid-cols-[minmax(0,1.4fr)_repeat(2,minmax(0,1fr))]',
@@ -67,25 +51,11 @@ const COLUMN_GRID_BRAND_END: Record<number, string> = {
   5: 'lg:grid-cols-[repeat(5,minmax(0,1fr))_minmax(0,1.4fr)]',
 };
 
-/**
- * Footer rows are ~19px tall, too small to tap reliably, so on narrow screens
- * each is widened to the tap minimum rather than enlarged — that keeps the
- * visual weight while giving the finger a target. From `lg` they go back to
- * inline text. `overflow-wrap` is for email addresses, single unbreakable
- * tokens wider than their column.
- */
+/** Rows are ~19px tall, so below `lg` they take the tap minimum; `overflow-wrap` is for long email addresses. */
 const rowClassName =
   'flex min-h-[var(--tap-min)] items-center [overflow-wrap:anywhere] text-text-muted lg:inline lg:min-h-0';
 
-/**
- * `prefetch={false}` on every footer link.
- *
- * The footer sits in the root layout, so it renders on every page, and App
- * Router `<Link>` prefetches each destination as it scrolls into view. That
- * means an RSC request per footer link on every page view — twenty-odd fetches
- * for pages the visitor is unlikely to open. Footer navigation is infrequent
- * and deliberate, so it can afford to load on click.
- */
+/** `prefetch={false}`: the footer is in every page, so prefetching would cost twenty-odd RSC requests per view. */
 function FooterRow({ href, label, external }: FooterLink) {
   const className = cn(rowClassName, 'transition-colors hover:text-text-action');
   if (external) {

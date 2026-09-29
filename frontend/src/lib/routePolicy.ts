@@ -4,25 +4,12 @@
 import { CLARITY_EXCLUDED_ROUTES } from '@/lib/clarityRoutes';
 
 /**
- * Which routes session recording is allowed to run on.
+ * Which routes session recording may run on. A security decision, not an analytics one
+ * (security-standard.md section 7): a Clarity replay of a staff dashboard or customer order is a copy of
+ * that screen with a third party, and input masking does not hide the screen around the fields.
  *
- * Section 7 of freetheplatform/_docs/security-standard.md treats this as a
- * security decision rather than an analytics one: Clarity replays what the
- * visitor saw, so a recording taken on a staff dashboard or a customer's order
- * is a copy of that screen sitting with a third party. Input masking is not
- * the control — it hides field values, not the screen around them.
- *
- * The matching is prefix-based and includes descendants, so a new page under
- * an excluded tree is excluded the day it is added rather than the day
- * somebody remembers. The list itself is per-site and lives in
- * `lib/clarityRoutes`; `scripts/check-customer-routes.mjs` asserts the entries
- * that must never leave it, so removing one is a build failure rather than a
- * quiet change to what a third party receives.
- *
- * This reasoning is the reason the file is shared. The matcher is four lines
- * and nobody would have got it wrong; what was missing in two of the three
- * repos was any statement of why the list exists, so an editor there could
- * shorten it without ever meeting the argument against.
+ * Matching is prefix-based and includes descendants, so a new page under an excluded tree is excluded at once.
+ * The list is per-site in `lib/clarityRoutes`; `scripts/check-customer-routes.mjs` fails the build if a required entry is removed.
  */
 
 export function isRouteOrDescendant(pathname: string, route: string): boolean {

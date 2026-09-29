@@ -1,24 +1,12 @@
 /**
- * Fails the build when a page's OG image does not exist.
+ * Fails the build when a page's OG image does not exist: a missing one is invisible until someone shares the link
+ * and gets a bare URL. Validate at the write site (seo-standard.md section 4), not by rerouting missing images to the default.
  *
- * A missing OG image is invisible until somebody shares the link and gets a
- * bare URL instead of a preview card. Bloomprint had eight of the nine images
- * its registry named never made, and `lib/seo.ts` carried a helper quietly
- * rerouting them to the default so the JSON-LD would not show the dead URL —
- * a workaround at the read site for a value nobody validated at the write
- * site. See seo-standard.md section 4.
+ * Only `public/`-relative paths are checked; an imported asset's `.src` is hashed under `/_next/` and an absolute URL is not ours.
  *
- * Only `public/`-relative paths are checked. An imported asset's `.src` is a
- * build-time hashed URL under `/_next/`, which exists by construction, and an
- * absolute URL belongs to someone else.
- *
- * This one still scans source TEXT where the other two checks import values,
- * and deliberately so. It is a superset scan with no idea which field it is
- * looking at, which is the point: an image path is worth validating wherever
- * it appears, including inside a function body that no export exposes. The
- * usual text-parsing hazard does not apply, because the pattern is anchored at
- * both ends on `'/…​.ext'` — prose cannot accidentally look like one. A quoting
- * style this misses costs a skipped check, never a wrong answer.
+ * Unlike the other two checks this scans source text, deliberately: an image path is worth validating wherever it appears,
+ * including inside a function body no export exposes. The pattern is anchored at both ends on a quoted `'/….ext'`, so prose
+ * cannot match, and a quoting style it misses skips a check rather than giving a wrong answer.
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';

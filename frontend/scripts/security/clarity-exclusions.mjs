@@ -1,18 +1,8 @@
 /**
- * Fails the build if session recording is re-enabled on a page that must not
- * be recorded.
- *
- * Section 7 of freetheplatform/_docs/security-standard.md requires Clarity off
- * every signed-in portal, credential page, and payment or customer-order page.
- * Deleting a line from `CLARITY_EXCLUDED_ROUTES` produces no error anywhere:
- * the site works, the tests pass, and a third party quietly starts receiving
- * replays of staff screens and customer orders. Nobody finds that by using the
- * site, which is why it is a build check rather than a convention.
- *
- * Adding a route to the list is fine and needs no change to the caller.
- * Removing one of the required routes is the thing that has to be argued for,
- * and arguing for it means editing the caller's `required` list — a diff a
- * reviewer will see.
+ * Fails the build if session recording is re-enabled on a page that must not be recorded.
+ * security-standard.md section 7 requires Clarity off every portal, credential, payment and customer-order page; deleting a
+ * line from `CLARITY_EXCLUDED_ROUTES` raises no error anywhere. Adding a route needs no caller change; removing a required
+ * one means editing the caller's `required` list, a diff a reviewer sees.
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -35,9 +25,7 @@ export function clarityExclusionFailures({
   const failures = [];
   const source = readFileSync(join(root, listPath), 'utf8');
 
-  // Anchored on the closing `] as const` rather than the first `]`, because
-  // the comments inside the list name routes such as
-  // /hire/book/[bookingReference].
+  // Anchored on `] as const`, not the first `]`: comments in the list name routes like /hire/book/[bookingReference].
   const excluded = source.match(/CLARITY_EXCLUDED_ROUTES\s*=\s*\[(.*?)\]\s*as const/s);
 
   if (!excluded) {
@@ -50,9 +38,7 @@ export function clarityExclusionFailures({
     }
   }
 
-  // The stop call is the half that is easy to lose in a refactor: without it
-  // the tag started on a public page keeps recording straight through a
-  // client-side navigation into an excluded one.
+  // Without the stop call a recording started on a public page follows navigation into an excluded route.
   if (componentPath) {
     const component = readFileSync(join(root, componentPath), 'utf8');
     if (!/clarity\?\.\('stop'\)/.test(component)) {

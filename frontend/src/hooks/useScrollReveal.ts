@@ -6,17 +6,8 @@
 import { useEffect, useState } from 'react';
 
 /**
- * Whether a floating element should be showing, from the position of two
- * sections: it appears once `showAfterId` has scrolled past the top, and hides
- * again as `hideBeforeId` comes up — because a floating "enquire" button is
- * noise once the enquiry form itself is on screen.
- *
- * Extracted from two byte-for-byte identical copies of this scroll maths.
- * Callers keep their own wrapper and their own button; only the question of
- * *when* is shared.
- *
- * `hideMargin` is the fraction of the viewport height at which the second
- * section counts as approaching.
+ * Whether a floating element should show: once `showAfterId` has scrolled past the top, until `hideBeforeId` approaches
+ * (an "enquire" button is noise beside the form). `hideMargin` is the viewport-height fraction at which that counts.
  */
 export function useScrollReveal({
   showAfterId,

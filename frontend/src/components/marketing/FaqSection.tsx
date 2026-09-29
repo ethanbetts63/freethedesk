@@ -14,27 +14,11 @@ interface FaqSectionProps {
   /** The kicker above the heading. Pass a numbered string where the site numbers its sections. */
   eyebrow?: string;
   id?: string;
-  /**
-   * Emit `FAQPage` structured data from this section.
-   *
-   * Off by default because a page that composes its schema centrally — one
-   * `StructuredDataScript` holding `WebPage` + `BreadcrumbList` + the rest, as
-   * `_docs/seo-standard.md` §3 describes — must not also get a second FAQPage
-   * block from here. Turn it on where this section is the only thing that
-   * knows the questions.
-   */
+  /** Emit `FAQPage` structured data. Off by default: a page composing its schema centrally (`_docs/seo-standard.md` §3) must not get a second block. */
   emitSchema?: boolean;
 }
 
-/**
- * The questions-and-answers band: heading on the left, a rule-separated
- * `<details>` list on the right.
- *
- * The answer is plain text in `FaqItem` because it is also the source of
- * `FAQPage` structured data, which must not contain markup. `renderFaqAnswer`
- * is what turns declared phrases into links for the visible copy only, so the
- * schema and the page can never disagree about what the answer says.
- */
+/** The questions band: heading left, `<details>` list right. Answers are plain text because they also feed `FAQPage` schema; `renderFaqAnswer` links phrases in the visible copy only. */
 export const FaqSection = ({
   title,
   items,
@@ -73,14 +57,12 @@ export const FaqSection = ({
         <div className="border-t border-border-default">
           {items.map((item) => (
             <details key={item.question} className="group border-b border-border-default">
-              {/* Both marker rules: `marker:` covers the standard pseudo-element,
-                  the WebKit one covers Safari, which still draws its own. */}
+              {/* Both marker rules: the WebKit one covers Safari. */}
               <summary
                 className={cn(
                   'flex cursor-pointer list-none items-center justify-between gap-m py-l marker:hidden [&::-webkit-details-marker]:hidden',
                   focusRingClassName,
-                  // A full-width row: the outline wants clearance from the
-                  // question text, not a hairline around it.
+                  // Full-width row: clear the question text.
                   'focus-visible:outline-offset-4',
                 )}
               >

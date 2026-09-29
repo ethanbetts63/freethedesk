@@ -9,23 +9,10 @@ import { ARTICLES_DIR, articleFilenames, isExcludedArticle } from '@/lib/article
 import { renderMarkdown } from '@/lib/markdown';
 
 /**
- * Markdown articles, read from disk with their metadata in front matter.
+ * Markdown articles from disk, dated by front matter, not file timestamps (a CI checkout gives every file the deploy time,
+ * which would reach Article schema and the sitemap). A missing or malformed `published` throws: a failed build beats a wrong date.
  *
- * Front matter rather than the file's own timestamps, and this is the whole
- * reason the module is shared. A CI checkout gives every file the same
- * creation and modification time, so a loader that reads `stat.birthtime` or
- * `stat.mtime` dates every article to the deploy — which then goes out as
- * `datePublished` and `dateModified` in Article schema and as `lastModified`
- * in the sitemap, telling a crawler that every guide on the site was rewritten
- * this morning. One of the two apps was doing exactly that.
- *
- * A missing or malformed `published` throws rather than falling back, for the
- * same reason: a wrong date published into structured data is worse than a
- * failed build, because only one of the two is visible.
- *
- * Per-site: the directory and exclusions (`lib/articleSlugs`, deliberately
- * free of path aliases so a Next config can load it) and the markdown
- * renderer (`lib/markdown`).
+ * Per-site: the directory and exclusions (`lib/articleSlugs`, alias-free so a Next config can load it) and `lib/markdown`.
  */
 
 export interface ArticleMeta {

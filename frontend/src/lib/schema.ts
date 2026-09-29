@@ -4,29 +4,11 @@
 import { DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from '@/lib/siteConfig';
 
 /**
- * The sitewide schema nodes, which are the same graph on every site.
- *
- * Each site's own entity — the dealership, the florist network, the studio —
- * stays in its `lib/seo`, because what a business *is* differs. What does not
- * differ is the wiring: one Organization node, one WebSite pointing at it, one
- * WebPage per page pointing at both, and a BreadcrumbList built from the trail
- * the page already renders. Those four were written three times, and
- * `buildBreadcrumbSchema` was the same eleven lines in each.
- *
- * Every node anchors on `#organization`. allbikes used `#business`, which was
- * internally consistent and still a second name for one thing — nine `@id`
- * references in one file, all renamed.
+ * The sitewide schema graph, the same on every site. Each site's own entity stays in its `lib/seo`.
+ * Every node anchors on `#organization`.
  */
 
-/**
- * The one spelling of a route's absolute URL, used by the canonical tag, the
- * sitemap, and every `@id`.
- *
- * The homepage is `{SITE_URL}/` — with the trailing slash — everywhere. One
- * site's sitemap used to special-case it to `{SITE_URL}` while its canonical
- * said `{SITE_URL}/`, which is two answers to one question. See
- * seo-standard.md section 4.
- */
+/** A route's absolute URL, for the canonical, sitemap and every `@id`; the homepage is `{SITE_URL}/`, trailing slash included (seo-standard.md section 4). */
 export function absoluteUrl(pathOrUrl: string): string {
   return new URL(pathOrUrl, SITE_URL).toString();
 }
@@ -44,14 +26,9 @@ export function buildWebsiteSchema(): object {
 }
 
 /**
- * The per-page WebPage entity, linked to the sitewide business and website
- * nodes by `@id` pointer rather than a second copy of either.
- *
- * `updated` emits `dateModified`, which is the only freshness signal a
- * marketing page has — articles carry their own dates. Bump it in the page
- * registry when a page's content materially changes; a date that never moves
- * is worse than no date. No Google rich result reads this node today; see the
- * 2026-09-17 entry in seo-standardisation.md before promising more.
+ * The per-page WebPage entity, pointing at the sitewide nodes by `@id`.
+ * `updated` emits `dateModified`; bump it in the page registry when content materially changes.
+ * No Google rich result reads this node today (seo-standardisation.md, 2026-09-17).
  */
 export function buildWebPageSchema(options: {
   title: string;
@@ -80,11 +57,7 @@ export function buildWebPageSchema(options: {
   };
 }
 
-/**
- * The trail, as schema. Takes the same `{ name, path }[]` the visible
- * `<Breadcrumbs>` renders, so the two cannot disagree — which is the whole
- * reason a breadcrumb in a search result can be trusted to match the page.
- */
+/** The trail as schema, from the same `{ name, path }[]` `<Breadcrumbs>` renders, so the two cannot disagree. */
 export function buildBreadcrumbSchema(items: { name: string; path: string }[]): object {
   return {
     '@context': 'https://schema.org',

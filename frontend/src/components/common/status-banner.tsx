@@ -20,11 +20,7 @@ const SIZE: Record<StatusSize, string> = {
   compact: 'rounded-xs p-xs text-body-sm',
 };
 
-/**
- * An icon component. Typed structurally rather than as a `LucideIcon` so the
- * registry does not depend on lucide-react, which one of the three sites does
- * not install.
- */
+/** Typed structurally, not as a `LucideIcon`, because freethedesk does not install lucide-react. */
 type IconComponent = ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }>;
 
 interface StatusBannerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'role'> {
@@ -38,16 +34,8 @@ interface StatusBannerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'classN
 }
 
 /**
- * The tinted box that tells the reader something went wrong, needs attention,
- * or worked. Colour comes from the status tokens, which already agree across
- * every site; this settles the shape.
- *
- * `tone` has no default. The version this replaces defaulted to `success`,
- * which meant a caller who forgot the prop silently announced good news.
- *
- * Vertical margin is deliberately not included: a shared component that sets
- * its own `my-*` fights every layout it is dropped into. The caller owns that
- * rhythm on a parent or through its surrounding gap.
+ * The tinted box for something that went wrong, needs attention, or worked.
+ * `tone` has no default, so a forgotten prop cannot announce good news; no vertical margin, the caller owns that rhythm.
  */
 export function StatusBanner({
   tone,
@@ -69,7 +57,6 @@ export function StatusBanner({
           <div className="min-w-0 flex-1">{children}</div>
         </>
       ) : (
-        // No wrapper without an icon: ordinary text does not need another box.
         children
       )}
     </div>

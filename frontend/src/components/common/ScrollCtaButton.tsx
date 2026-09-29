@@ -9,22 +9,14 @@ import { scrollToId } from '@/lib/scrollToId';
 
 interface ScrollCtaButtonProps {
   targetId: string;
-  /**
-   * The owning CTA family must resolve its closed variants before this
-   * behaviour-only primitive is called. Required and named `classes` to make
-   * that boundary explicit; this is not an optional appearance override.
-   */
+  /** Already-resolved variants from the owning CTA family; required, not an optional appearance override. */
   classes: string;
   disabled?: boolean;
   ariaLabel?: string;
   children: ReactNode;
 }
 
-/**
- * The in-page ("scroll down to the form") form of a CTA: it moves the reader
- * without putting the target in the URL. It carries no href on purpose — see
- * `scrollToId` for why a real hash link only works once.
- */
+/** The in-page CTA: scrolls without putting the target in the URL, and has no href because a hash link only works once (`scrollToId`). */
 export function ScrollCtaButton({
   targetId,
   classes,

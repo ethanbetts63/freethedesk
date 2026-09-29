@@ -6,24 +6,10 @@ import type { CSSProperties } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
- * A status as a tinted chip, coloured from a per-domain map.
+ * A status as a tinted chip, coloured from a per-domain map. Rendering is shared; vocabularies stay with each domain.
  *
- * The rendering is shared and the vocabularies are not, and that boundary is
- * the whole design. Hire statuses, parts-order statuses and dealer statuses
- * are unrelated lists that happen to be drawn the same way; a shared component
- * that knew any of them would have to know all of them, and one app had
- * exactly that — a single file holding labels for twenty-four statuses from
- * four different domains, plus the component, plus the four vocabularies.
- *
- * The tone is a CSS colour rather than a class because the chip mixes it at
- * two strengths, and a table row that carries the same tone mixes it at a
- * third. A `color-mix` cannot be written as a Tailwind colour utility, so the
- * value travels as a custom property and the mixing lives here, once.
- *
- * An unrecognised status still draws. It gets the neutral tone and a
- * title-cased version of its own name, because the alternative — a chip with
- * no background and no colour — is what happens when a status ships without
- * being added to a map, and it is invisible in review.
+ * The tone is a CSS colour, not a class: `color-mix` cannot be a Tailwind utility, so it travels as a custom property.
+ * An unmapped status still draws, neutral and title-cased, rather than as an invisible bare chip.
  */
 
 export interface StatusStyle {
@@ -38,20 +24,13 @@ export type StatusChipSize = 'default' | 'readable' | 'prominent';
 
 const SIZE: Record<StatusChipSize, string> = {
   default: 'px-xs py-3xs text-label',
-  /* Dense notification lists need a little more body size without changing
-     the chip's padding. */
+  /* Dense notification lists. */
   readable: 'px-xs py-3xs text-body-sm',
-  /* A detail header treats status as a primary fact rather than table meta. */
+  /* A detail header, where status is a primary fact. */
   prominent: 'px-m py-2xs text-body',
 };
 
-/**
- * The tone for a status nobody mapped. `--text-secondary` rather than a
- * neutral *fill*, because it is the one grey every repo on this contract
- * declares, and because the chip mixes its tone rather than using it flat.
- * Deliberately not alarming: an unmapped status is a gap in a table, not an
- * error in the record.
- */
+/** Tone for an unmapped status: `--text-secondary`, the one grey every repo declares; deliberately not alarming. */
 const FALLBACK_TONE = 'var(--text-secondary)';
 
 export function statusLabel(map: StatusMap, status: string): string {
@@ -61,10 +40,7 @@ export function statusLabel(map: StatusMap, status: string): string {
   return words.charAt(0).toUpperCase() + words.slice(1);
 }
 
-/**
- * Spread onto any element that draws itself from a status colour — a table
- * row, a legend swatch, the chip below.
- */
+/** Spread onto any element drawn from a status colour: a table row, a swatch, the chip. */
 export function statusTone(map: StatusMap, status: string): CSSProperties {
   return { '--status-tone': map[status]?.tone ?? FALLBACK_TONE } as CSSProperties;
 }

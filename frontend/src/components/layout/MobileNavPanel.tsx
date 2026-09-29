@@ -12,15 +12,8 @@ import { cn } from '@/lib/utils';
 const BAR = 'h-[2px] w-[19px] bg-text-primary transition-[transform,opacity] duration-200';
 
 /**
- * The hamburger panel, below the `nav` breakpoint.
- *
- * A native `<details>` rather than React state: it works with JavaScript off,
- * it announces its own expanded/collapsed state, and its contents are properly
- * hidden from the tab order while closed — which a `max-height: 0` panel is
- * not.
- *
- * Dropdown entries are flattened: the desktop menu's destinations become rows
- * here rather than a nested menu.
+ * The hamburger panel below the `nav` breakpoint, dropdown entries flattened into rows.
+ * A native `<details>`, not React state: it works without JavaScript, announces its own state, and leaves the tab order when closed.
  */
 export function MobileNavPanel({
   items,

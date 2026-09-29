@@ -6,14 +6,11 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'reac
 
 import { ScrollCtaButton } from '@/components/common/ScrollCtaButton';
 
-/**
- * A control's own props when it renders a `<button>` — `href` is forbidden, so
- * the union below discriminates on its presence.
- */
+/** Props when rendering a `<button>`; `href` is forbidden so the union discriminates on it. */
 export type AsButton<Own> = Own &
   Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & { href?: never };
 
-/** The same control's props when it renders a `Link`. */
+/** Props when rendering a `Link`. */
 export type AsLink<Own> = Own &
   Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'href'> & { href: string };
 
@@ -22,28 +19,13 @@ export type LinkOrButtonProps<Own> = AsButton<Own> | AsLink<Own>;
 type OwnProps = { children: ReactNode; classes: string };
 
 /**
- * Chooses the element a control renders as. Nine button and CTA families
- * across the three sites each used to make this choice separately, and they
- * disagreed about two of the three cases.
+ * Chooses the element a control renders as, in order:
  *
- * The three cases, in order:
+ *  1. **Disabled always wins**: `disabled` on an anchor is ignored, so a disabled control is a `<button>` even with an href.
+ *  2. **A bare `#fragment` is a scroll**, via `ScrollCtaButton`; `/path#fragment` is a real route and stays a `Link`.
+ *  3. Otherwise `href` renders a `Link`, its absence a `<button>`.
  *
- *  1. **Disabled always wins.** A disabled link is not a thing the DOM has:
- *     `disabled` on an anchor is ignored and the destination stays one click
- *     away. So a disabled control renders as a `<button>` whether or not it was
- *     given an href — which is what makes a greyed-out action actually inert.
- *     Only allbikes' `PrimaryCta` used to implement this.
- *  2. **A bare `#fragment` is a scroll, not a navigation**, so it gets a button
- *     that drives the scroll itself. `/path#fragment` is a real route and still
- *     goes through `Link`.
- *  3. Otherwise: `href` renders a `Link`, its absence a `<button>`.
- *
- * `className` is deliberately absent from both halves of the union: callers
- * resolve their variants first and pass the result as `classes`, so there is no
- * second class list arriving late and winning by accident. Each family still
- * owns its own variants — a dashboard button, a pay bar and a marketing CTA are
- * different design decisions. What they share is only how the element is
- * chosen, which is what lives here.
+ * `className` is absent from the union: callers resolve their variants and pass `classes`, so no second class list wins late.
  */
 export function LinkOrButton({ children, classes, ...rest }: LinkOrButtonProps<OwnProps>) {
   const href = 'href' in rest ? rest.href : undefined;

@@ -6,15 +6,8 @@ import Link from 'next/link';
 import type { FaqItem } from '@/types/FaqItem';
 
 /**
- * Renders an FAQ answer with its declared links applied.
- *
- * Each `links` entry marks the first case-insensitive occurrence of its
- * phrase in the answer text and wraps it in a Link. Phrases that no longer
- * appear in the answer are skipped, so copy edits degrade to plain text
- * rather than breaking the page. The answer string itself stays untouched —
- * it is what buildFaqSchema feeds into FAQPage structured data.
- *
- * Link colour is the site amber, matching `.prose-article a`.
+ * Renders an FAQ answer, linking the first case-insensitive occurrence of each `links` phrase. Missing phrases are skipped,
+ * so copy edits degrade to plain text. The answer string is untouched; it feeds `FAQPage` schema.
  */
 export function renderFaqAnswer(faq: FaqItem): React.ReactNode {
   const { answer, links } = faq;

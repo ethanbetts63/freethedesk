@@ -6,15 +6,7 @@
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
-/**
- * Resets scroll to the top on client-side navigation, which can otherwise land
- * part-way down a long page.
- *
- * Skipped when the URL has a hash, so the browser's own anchor jump wins — a
- * copy of this without that guard fought every deep link on the site.
- * `scroll-behavior` is forced to `auto` for the jump so a global `smooth` does
- * not animate a page change.
- */
+/** Resets scroll on client-side navigation, unless the URL has a hash. `scroll-behavior` is forced to `auto` so a global `smooth` does not animate it. */
 export function ScrollToTop() {
   const pathname = usePathname();
 

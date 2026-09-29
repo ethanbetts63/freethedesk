@@ -11,20 +11,9 @@ export interface BreadcrumbItem {
 }
 
 /**
- * The visible trail.
- *
- * It takes the same `{ name, path }[]` that every site already feeds to its
- * `buildBreadcrumbSchema`, so a page that renders this and emits a
- * `BreadcrumbList` cannot tell a reader one thing and Google another. Resolving
- * that list from a route stays with each site, which is the part that knows its
- * own page registry.
- *
- * Renders nothing when handed fewer than two crumbs — that is, on the home
- * page itself, whose trail would be the single word "Home". Every other page
- * draws, including one whose trail is just `Home / This page`.
- *
- * `overlay` floats it in the top-right of a hero and needs a positioned
- * ancestor; `band` is the standalone strip for pages that have no hero.
+ * The visible trail, from the same `{ name, path }[]` fed to `buildBreadcrumbSchema`, so page and schema agree.
+ * Renders nothing for fewer than two crumbs (the home page).
+ * `overlay` floats top-right in a hero and needs a positioned ancestor; `band` is the standalone strip.
  */
 export function Breadcrumbs({
   items,

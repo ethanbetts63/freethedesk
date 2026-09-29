@@ -42,16 +42,8 @@ function installClarity(projectId: string) {
 }
 
 /**
- * Starts session recording on the routes that allow it, and stops it on the
- * ones that do not.
- *
- * `stop` rather than simply not starting: the tag survives client-side
- * navigation, so a visitor who lands on a public page and then opens an order
- * would otherwise carry a live recording into it. `useLayoutEffect` runs before
- * paint, so the stop lands before the excluded screen is on the glass.
- *
- * Section 7 of _docs/security-standard.md; the route list and the reasoning per
- * route stay with each site, in `lib/routePolicy.ts`.
+ * Starts session recording on routes that allow it and stops it on the rest (security-standard.md section 7).
+ * It must `stop`, not just skip starting: the tag survives client-side navigation. `useLayoutEffect` stops it before paint.
  */
 export function ClarityAnalytics({ projectId }: { projectId: string }) {
   const pathname = usePathname();

@@ -12,15 +12,8 @@ export interface NavItem extends NavMenuItem {
 }
 
 /**
- * Two nav typographies, and only two.
- *
- * `label` is the uppercase, wide-tracked kicker allbikes and bloomprint use.
- * `body` is sentence case at body size, which freethedesk needs because its
- * labels are phrases ("Online licensing") that do not survive uppercasing at
- * 0.18em tracking inside the header width.
- *
- * This is the one appearance choice the header exposes, and it is a closed
- * set rather than a className so a fourth site has to pick one.
+ * The two nav typographies, a closed set rather than a className. `label` is the uppercase wide-tracked kicker;
+ * `body` is sentence case, for freethedesk's phrase labels that do not survive uppercasing at 0.18em tracking.
  */
 export type NavLinkStyle = 'label' | 'body';
 

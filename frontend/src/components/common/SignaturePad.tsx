@@ -8,13 +8,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
- * A drawn-signature pad: dark strokes on a transparent canvas, exported as a
- * PNG data URL. The transparent background matters — the PNG is stamped onto
- * PDF forms, and a white rectangle would blot out the form's ruling.
- *
- * Pointer events only, so mouse, touch and stylus are one code path. The
- * canvas backing store is scaled by devicePixelRatio so strokes stay sharp on
- * the retina screens most phones have, which is where most signing happens.
+ * A drawn-signature pad exported as a PNG data URL. The canvas is transparent because the PNG is stamped onto PDF
+ * forms and a white rectangle would blot out their ruling. Pointer events only; the backing store is scaled by devicePixelRatio.
  */
 export function SignaturePad({
   onChange,
@@ -33,9 +28,7 @@ export function SignaturePad({
   const lastPoint = useRef<{ x: number; y: number } | null>(null);
   const [hasInk, setHasInk] = useState(false);
 
-  // Size the backing store from the rendered size once mounted, and again if
-  // the element resizes; the drawing is cleared when that happens, which is
-  // the honest outcome — rescaling strokes would distort the signature.
+  // Sized from the rendered size, again on resize; a resize clears the drawing because rescaling would distort it.
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return undefined;

@@ -21,25 +21,14 @@ function isRouteOrDescendant(pathname: string, route: string) {
   return pathname === route || pathname.startsWith(`${route}/`);
 }
 
-/**
- * Installs gtag.js once, with automatic page views turned off.
- *
- * `send_page_view: false` is the whole reason this is a component rather than
- * a script tag. gtag's built-in page view fires when the tag loads and never
- * again; in an App Router site the tag loads once and then the visitor moves
- * through a dozen routes without a single document request, so the default
- * setting measures the landing page and nothing after it. The route effect
- * below sends every view instead, including the first.
- */
+/** Installs gtag.js once. `send_page_view: false` because the built-in view fires once per load and App Router navigations are not loads; the route effect sends every view. */
 function installGtag(measurementId: string) {
   if (window.gtag) return;
 
   const dataLayer = (window.dataLayer ??= []);
 
   window.gtag = function gtag() {
-    // `arguments` itself, not a rest array. gtag.js drains the queue by reading
-    // each entry as an `arguments` object; a plain array is silently dropped,
-    // which costs the `js` and `config` calls queued before the tag downloads.
+    // `arguments`, not a rest array: gtag.js silently drops plain arrays from the queue.
     // eslint-disable-next-line prefer-rest-params
     dataLayer.push(arguments);
   };
@@ -64,16 +53,10 @@ function GoogleAnalyticsTracker({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Depended on as a string: a consumer writing `excludedRoutes={['/dashboard']}`
-  // inline hands a new array every render, and the array's contents are what
-  // the effect actually reads.
+  // A string dependency: an inline `excludedRoutes` array is new every render.
   const excluded = excludedRoutes.join('\n');
 
-  /**
-   * The last URL reported, so a re-render that does not change the URL does not
-   * double-count. React runs effects twice in development's strict mode, and a
-   * duplicate page view is not visible in GA until the numbers are wrong.
-   */
+  /** The last URL reported, so re-renders and strict-mode double effects do not double-count. */
   const lastSent = useRef<string | null>(null);
 
   useEffect(() => {
@@ -87,10 +70,7 @@ function GoogleAnalyticsTracker({
 
     installGtag(measurementId);
 
-    // `page_location` absolute and `page_path` relative, matching what gtag
-    // sends for a real document load. Title is left to gtag, which reads
-    // `document.title` as it sends — by this effect the App Router has already
-    // committed the new route's metadata.
+    // Absolute `page_location` and relative `page_path`, as gtag sends on a document load; gtag reads the title itself.
     window.gtag?.('event', 'page_view', {
       page_path: path,
       page_location: window.location.href,
@@ -101,21 +81,12 @@ function GoogleAnalyticsTracker({
 }
 
 /**
- * Google Analytics 4, sending one page view per client-side navigation.
+ * Google Analytics 4, one page view per client-side navigation.
  *
- * `excludedRoutes` is prefix-based and matches descendants. It exists for
- * internal screens — a staff portal is hours of engaged sessions by the three
- * people who are not the audience, and left in it dominates every engagement
- * and retention number on the property. It is not the session-recording
- * exclusion list: GA sends URLs and event names, not a copy of the screen, so
- * checkout and order pages stay measured. Session recording's list is a
- * security decision and lives separately — see `lib/routePolicy.ts`.
+ * `excludedRoutes` is prefix-based and keeps internal screens (staff portal) out of the numbers. It is not the
+ * session-recording list, which is a security decision in `lib/routePolicy.ts`.
  *
- * The Suspense boundary is required, not decorative. `useSearchParams` makes
- * everything above it render on the client; without the boundary that is every
- * page of the site, and a static marketing page would start shipping as an
- * empty shell. It lives here rather than in each layout so that a consumer
- * cannot forget it.
+ * The Suspense boundary is required: `useSearchParams` would otherwise turn every static page into an empty shell.
  */
 export function GoogleAnalytics({
   measurementId,

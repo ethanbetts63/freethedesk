@@ -20,9 +20,7 @@ const TONE: Record<EyebrowTone, string> = {
   primary: 'text-text-primary',
   muted: 'text-text-muted',
   brand: 'text-action-primary',
-  /* Sections tint this by setting `--eyebrow-accent` on an ancestor; unset, it
-     falls back to the action-text role, so a site that never sets it still
-     gets a sensible colour. */
+  /* Sections tint it via `--eyebrow-accent` on an ancestor; unset, it falls back to the action-text role. */
   accent: 'text-[var(--eyebrow-accent,var(--text-action))]',
   'on-dark': 'text-text-on-dark',
   'on-dark-muted': 'text-text-on-dark-muted',
@@ -37,11 +35,7 @@ interface EyebrowProps {
   id?: string;
 }
 
-/**
- * The small uppercase kicker that labels a section above its heading, with a
- * single tracking value (0.18em) so changing it is one edit here rather than
- * re-tuning every section that uses it.
- */
+/** The uppercase kicker above a section heading, with one tracking value (0.18em). */
 export default function Eyebrow({
   children,
   size = 'md',
@@ -59,8 +53,6 @@ export default function Eyebrow({
         dot && 'flex items-center gap-s',
       )}
     >
-      {/* 50% and a full pill round a 7x7 box identically, so this uses the
-          stock utility rather than the radius scale. */}
       {dot && <span aria-hidden="true" className="h-[7px] w-[7px] rounded-full bg-current" />}
       {children}
     </p>

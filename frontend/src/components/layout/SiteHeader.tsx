@@ -12,11 +12,7 @@ import { cn } from '@/lib/utils';
 interface SiteHeaderProps {
   /** Logo, wordmark, or both — already wrapped in its own home link. */
   logo: ReactNode;
-  /**
-   * The single nav source. Desktop renders each entry as a link, or as a
-   * dropdown where `items` is present; the mobile panel flattens the same
-   * array. Writing the tree twice is how the two menus drift apart.
-   */
+  /** The single nav source: desktop renders links and dropdowns, the mobile panel flattens the same array. */
   items: readonly NavItem[];
   /** Filled CTA at the end of the desktop row. Apply `navCtaClassName`. */
   cta?: ReactNode;
@@ -28,25 +24,14 @@ interface SiteHeaderProps {
   mobileExtra?: ReactNode;
   /** Announcement strip above the nav row, inside the sticky container. */
   banner?: ReactNode;
-  /**
-   * Frosted rather than solid. An appearance choice rather than drift: the
-   * translucent header is load-bearing for the site that has one, and making
-   * every site solid to avoid the prop is a bigger change than the prop.
-   */
+  /** Frosted rather than solid; load-bearing for the site that has one. */
   translucent?: boolean;
   linkStyle?: NavLinkStyle;
 }
 
 /**
- * The site header: sticky chrome, one nav source, a desktop row above the
- * `nav` breakpoint and a hamburger panel below it.
- *
- * A Server Component. The only client code beneath it is the dropdown's touch
- * toggle and the mobile panel's dismiss controller, so the nav markup itself
- * never reaches the bundle.
- *
- * Height comes from `--header-height` / `--header-height-lg`, which each site
- * sets. A site that wants a taller header changes a token, not this file.
+ * Sticky header: a desktop row above the `nav` breakpoint, a hamburger panel below it.
+ * A Server Component; height comes from each site's `--header-height` / `--header-height-lg`.
  */
 export function SiteHeader({
   logo,
@@ -70,9 +55,7 @@ export function SiteHeader({
     >
       {banner}
 
-      {/* Full viewport width with the shared gutter, not the content shell:
-          the header is chrome, and pinning the logo and actions to the
-          viewport edges is what separates it from the column of content. */}
+      {/* Full viewport width with the gutter, not the content shell: the header is chrome. */}
       {/* eslint-disable-next-line no-restricted-syntax -- --header-height and --gutter are named tokens; var() references are not one-off values */}
       <div className="flex min-h-[var(--header-height)] w-full items-center justify-between gap-l px-[var(--gutter)] lg:min-h-[var(--header-height-lg)]">
         {logo}

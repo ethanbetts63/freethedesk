@@ -13,27 +13,14 @@ const MENU_LINK =
   'block px-m py-s text-label font-strong tracking-[0.18em] text-text-primary uppercase transition-colors hover:bg-surface-tint hover:text-text-secondary';
 
 /**
- * A top-level nav item that opens a dropdown.
+ * A top-level nav item that opens a dropdown, driven three ways into the same classes:
+ * `group-hover` (mouse), `group-has-[:focus-visible]` (keyboard), `group-data-[open=true]` (touch toggle).
  *
- * Opening is driven three ways, all feeding the same visibility classes:
- *   - `group-hover`                — mouse pointer
- *   - `group-has-[:focus-visible]` — keyboard
- *   - `group-data-[open=true]`     — an explicit toggle for touch
+ * The touch toggle is why this is a Client Component: iPadOS never fires `hover` or `:focus-visible` from a tap,
+ * and it gets the desktop layout, so it never sees the hamburger.
  *
- * The touch toggle is the only reason this is a Client Component: iPadOS
- * never fires `hover` or matches `:focus-visible` from a tap, and iOS Safari
- * doesn't even focus a `<button>` on tap, so a pure-CSS menu was unreachable
- * on an iPad — which gets the desktop layout at 1024px and so never sees the
- * hamburger fallback.
- *
- * Deliberately NOT `role="menu"`/`role="menuitem"` — those promise an
- * application-menu keyboard model (arrow keys, Home/End, typeahead) this
- * doesn't implement. This is a list of links; `aria-expanded` on the trigger
- * is the whole contract it needs.
- *
- * `:focus-visible` rather than `:focus-within`: navigation is client side so
- * the header never remounts, and a clicked menu link stays focused — a
- * `:focus-within` menu stayed pinned open on the next page.
+ * Not `role="menu"`, which promises an arrow-key model this lacks; `aria-expanded` is the whole contract.
+ * `:focus-visible` rather than `:focus-within`, which stayed pinned open after client-side navigation.
  */
 export default function DesktopNavMenu({
   label,
@@ -66,9 +53,7 @@ export default function DesktopNavMenu({
           className="h-0 w-0 flex-none border-x-[5px] border-t-[6px] border-x-transparent border-t-action-primary transition-transform duration-200 group-hover:rotate-180 group-has-[:focus-visible]:rotate-180 group-data-[open=true]:rotate-180 motion-reduce:transition-none"
         />
       </button>
-      {/* Kept in the DOM rather than mounted on open, which is what lets CSS do
-          the work. `invisible` rather than `hidden` so the links stay in the
-          tab order path that triggers the focus-visible rule. */}
+      {/* Always in the DOM so CSS drives it; `invisible` not `hidden`, so keyboard focus can reach the links and trigger the focus-visible rule. */}
       <ul className="invisible absolute top-full left-0 z-50 m-0 min-w-52 list-none overflow-hidden border border-border-default bg-surface-page py-2xs pl-0 opacity-0 shadow-xl transition-opacity group-hover:visible group-hover:opacity-100 group-has-[:focus-visible]:visible group-has-[:focus-visible]:opacity-100 group-data-[open=true]:visible group-data-[open=true]:opacity-100">
         {items.map((item) => (
           <li key={item.href}>

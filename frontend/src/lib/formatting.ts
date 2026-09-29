@@ -3,28 +3,11 @@
    change here must be marked. See _docs/component-registry.md. */
 import { SITE_TIMEZONE } from '@/lib/siteConfig';
 
-/**
- * Dates, times and money as Australians read them.
- *
- * One module per app, and the same module in each, because the three had
- * converged on the same idea and disagreed on every detail of it: only one
- * guarded against `$NaN`, only one parsed a date-only value correctly, and the
- * one that rendered cents "only when there are cents" printed $1,250.5 for a
- * dollar-fifty balance. Every call site in all three now gets the union of
- * what each had got right.
- *
- * The timezone is the one per-site value and lives in `lib/siteConfig`.
- */
+/** Dates, times and money as Australians read them. The timezone is the one per-site value, in `lib/siteConfig`. */
 
 const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
 
-/**
- * A date-only API value is a calendar date, not an instant. `new Date('2026-09-20')`
- * parses as UTC midnight, which renders as the previous day anywhere behind UTC
- * and drags the value through a timezone conversion it has no business in.
- * Parsing it as local midnight and formatting without a zone makes the day
- * displayed always the day sent — including on a server that is not in ours.
- */
+/** A date-only value is a calendar date, not an instant: `new Date('2026-09-20')` is UTC midnight, the previous day behind UTC. Parse as local midnight, format without a zone. */
 function parse(value: string): Date {
   return new Date(DATE_ONLY.test(value) ? `${value}T00:00:00` : value);
 }
@@ -77,12 +60,7 @@ export function formatDayMonth(value: string | null | undefined): string {
   });
 }
 
-/**
- * `20 Sept 2026, 2:30 pm`, in the timezone the business runs on.
- *
- * `hour: 'numeric'` rather than `'2-digit'`: a leading zero on a 12-hour clock
- * ("02:30 pm") is a digital-watch convention, not how the time is written.
- */
+/** `20 Sept 2026, 2:30 pm`, in the business timezone. `hour: 'numeric'` avoids "02:30 pm". */
 export function formatDateTime(value: string | null | undefined): string {
   if (!value) return '—';
   return parse(value).toLocaleString('en-AU', {
@@ -95,11 +73,7 @@ export function formatDateTime(value: string | null | undefined): string {
   });
 }
 
-/**
- * Shows a date-only API value in the format customers and staff use here.
- * Date inputs are deliberately not native `type=date` controls, whose visible
- * format is chosen by the browser and OS and can otherwise show month/day/year.
- */
+/** A date-only value as DD/MM/YYYY; inputs avoid native `type=date`, whose format follows the browser and OS. */
 export function formatDayMonthYear(value: string | null | undefined): string {
   if (!value) return '';
   const match = DATE_ONLY.exec(value);
@@ -123,16 +97,8 @@ export function dateInputValue(value: string): string {
 }
 
 /**
- * An amount as it is read here: A$, thousands grouped. Accepts the string DRF
- * sends for a DecimalField, and renders a missing or unparseable value as an
- * em dash rather than `$NaN` — which is what two of the three did before, the
- * first time an API sent `"N/A"` or an empty decimal.
- *
- * `cents` is the transactional default because a total, a deposit and a
- * balance are read against each other and `$12` beside `$12.50` reads as a
- * different kind of number. `'auto'` drops the pair of zeroes from a whole
- * amount, for a marketing price that is never itemised — and drops *both* or
- * neither, so a plan at $1,250.50 does not advertise itself as $1,250.5.
+ * An amount in A$, thousands grouped. Accepts a DRF DecimalField string; a missing or unparseable value is an em dash, not `$NaN`.
+ * `cents` defaults on because totals are read against each other; `'auto'` drops the zeroes from a whole amount only, never yielding `$1,250.5`.
  */
 export function formatMoney(
   value: string | number | null | undefined,
@@ -153,11 +119,7 @@ export function formatMoney(
   }).format(amount);
 }
 
-/**
- * First letter up, rest down. Written for API enum values — `weekly`,
- * `fortnightly` — so the lowercasing is deliberate. It is the wrong tool for
- * anything with a proper noun in it.
- */
+/** First letter up, rest down, for API enum values (`weekly`); wrong for proper nouns. */
 export function capitalize(value: string | null | undefined): string {
   if (!value) return '';
   return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();

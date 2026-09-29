@@ -6,18 +6,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
- * The four dismissals a nav disclosure needs, in one place. Four partial
- * implementations across the three sites each omitted a different one.
- *
- * `touchstart` alongside `mousedown` is the one worth keeping: iOS does not
- * reliably fire `mousedown` for a tap on a non-interactive region, so a
- * mousedown-only outside handler leaves the panel open when a finger taps the
- * page behind it. Both fire for a real desktop click, and closing twice is a
- * no-op.
- *
- * `closeOnNavigate` exists because Next navigates client side: without it a
- * panel stays open over the page the link just went to. One delegated listener
- * on the root rather than an `onClick` per link.
+ * The four dismissals a nav disclosure needs: outside `mousedown`, outside `touchstart`, Escape, and link click.
+ * `touchstart` is needed because iOS does not reliably fire `mousedown` for a tap on a non-interactive region.
+ * `closeOnNavigate` is one delegated listener, since client-side navigation would leave the panel open.
  */
 export interface DismissOptions {
   closeOnNavigate?: boolean;
@@ -39,8 +30,7 @@ export function attachDismiss(
   };
 
   document.addEventListener('mousedown', closeOnOutside);
-  // Passive: this never calls preventDefault, and a non-passive touchstart
-  // listener on document costs scroll performance on every touch.
+  // Passive: a non-passive document touchstart listener costs scroll performance.
   document.addEventListener('touchstart', closeOnOutside, { passive: true });
   document.addEventListener('keydown', closeOnEscape);
   if (closeOnNavigate) root?.addEventListener('click', closeOnLink);
@@ -83,12 +73,7 @@ export function useDisclosure<T extends HTMLElement = HTMLDivElement>(
   return { open, toggle, close, ref };
 }
 
-/**
- * The same dismissals for a native `<details>` panel, which owns its own open
- * state. Nothing here renders: the panel is server markup that already works
- * with JavaScript off, and this only adds the closing behaviours the element
- * has no opinion about.
- */
+/** The same dismissals for a native `<details>` panel, which owns its open state and works without JavaScript. */
 export function useDetailsDismiss(options: DismissOptions = {}) {
   const anchor = useRef<HTMLSpanElement>(null);
 

@@ -1,28 +1,13 @@
 /**
- * Fails the build when an indexed route has no breadcrumb name.
+ * Fails the build when an indexed route has no breadcrumb name. Trail and `BreadcrumbList` come from the same list,
+ * so an omission does not throw: it quietly shortens both, to `Home` or to the full SEO title.
  *
- * The visible trail and the `BreadcrumbList` schema are resolved from the same
- * list, so an omission does not throw. It quietly shortens both — to `Home` in
- * the apps that keep a crumb table, or to the full SEO title ("Fire your admin
- * | Online Licensing & Digital Dealerships Australia, Perth") in the app that
- * falls back to one. Either way it is invisible until somebody reads the
- * search result, which is exactly the failure a ledger is for.
+ * Two shapes: allbikes and bloomprint keep a separate `lib/crumbs` table (so the Client Component band does not ship
+ * every meta description; pass `crumbsPath`); freethedesk carries `label` on the page record (omit it).
+ * Noindex routes, redirect stubs and disallowed routes are absent from the page registry and need no name.
  *
- * Two shapes, because the apps store the name in two places and neither is
- * wrong. allbikes and bloomprint keep a separate `lib/crumbs` table, so that
- * their Client Component breadcrumb band does not drag every meta description
- * into the browser bundle; freethedesk carries `label` on the page record
- * itself. Pass `crumbsPath` for the first shape and omit it for the second.
- *
- * Noindex routes, redirect stubs and robots-disallowed routes are deliberately
- * absent from the page registry and so are never required to carry a name.
- *
- * Source text rather than imported values, like the indexation ledger beside
- * it: both declarations are plain object literals whose keys are quoted route
- * paths, and reading them as text keeps the check free of the app's module
- * graph. A quoting style this misses costs a skipped route, never a wrong
- * answer — and a renamed declaration is caught explicitly below rather than
- * being reported as "everything is fine".
+ * Reads source text, not imported values, keeping the check out of the app's module graph. A quoting style it misses
+ * skips a route, never gives a wrong answer, and a renamed declaration is reported explicitly.
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -106,8 +91,7 @@ function labelOnEachRecord(pagesSource, indexed) {
   const body = pagesSource.slice(start);
   const entries = [...body.matchAll(/^\s*'([^']+)':\s*\{/gm)];
 
-  // Each record runs from its route key to the next one, so a missing `label`
-  // is a property absent from that slice rather than from the file as a whole.
+  // Each record runs from its route key to the next, so a missing `label` is absent from that slice.
   const unlabelled = entries
     .filter((entry, index) => {
       const to = index + 1 < entries.length ? entries[index + 1].index : body.length;

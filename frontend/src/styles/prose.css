@@ -1,23 +1,7 @@
-/* The shared prose surface.
-
-   Every site renders author-written HTML through dangerouslySetInnerHTML --
-   articles, terms, legal documents -- so these have to be element selectors:
-   there is nowhere to hang a utility class. That is the "uncontrolled rich
-   content" exception in lint-rules.md. Being an allowed exception does not
-   exempt it from the token contract, so every value here names a role.
-
-   Three files described the same elements independently. allbikes and
-   bloomprint had already agreed on `.prose-article` and on the look; this
-   keeps both. freethedesk's `.prose` contributed the structural rules the
-   other two lacked and that matter on a phone: a table that scrolls instead of
-   overflowing, an image that cannot exceed its column, a first child that does
-   not push the whole block down, and `pre` handling.
-
-   Sizes come from the nine-rung ladder, which is identical across all three
-   sites, so a heading here is the same heading everywhere. The body rung is
-   `--step-prose`: long-form prose sits one step above interface body copy,
-   which the nine rungs have no name for because `lead` is the rung above that
-   and is a standfirst, not body text.
+/* The shared prose surface for author-written HTML (articles, terms, legal), rendered through
+   dangerouslySetInnerHTML, so it must use element selectors: the "uncontrolled rich content" exception in
+   lint-rules.md, which does not exempt it from the token contract. Sizes come from the nine-rung ladder;
+   the body rung is `--step-prose`, one step above interface body copy, which no rung names.
 
    Synced by freetheplatform/frontend/registry. Edit it there. */
 
@@ -109,9 +93,7 @@
   margin: var(--space-xl) 0;
 }
 
-/* `display: block` plus the scroll is what stops a wide table from widening
-   the page on a phone; a table in author-written markdown has no column count
-   anyone controls. */
+/* `display: block` plus the scroll stops a wide table widening the page on a phone. */
 .prose-article table {
   border-collapse: collapse;
   display: block;
@@ -143,8 +125,7 @@
   background: var(--surface-tint);
   border-radius: var(--radius-xs);
   /* stylelint-disable-next-line scale-unlimited/declaration-strict-value --
-     relative to the parent's own fluid font-size; no absolute token can
-     express a ratio to a variable parent size. */
+     a ratio to the parent's fluid font-size; no absolute token can express it. */
   font-size: 0.875em;
   padding: var(--space-4xs) var(--space-2xs);
 }

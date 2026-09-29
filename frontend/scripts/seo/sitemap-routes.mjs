@@ -1,21 +1,12 @@
 /**
- * Fails the build when the sitemap-listed registry drifts from the app tree.
+ * Fails the build when the sitemap-listed registry drifts from the app tree (the outward counterpart of
+ * `indexation-ledger.mjs`):
  *
- * `indexation-ledger.mjs` guards the inward direction — a route nobody
- * declared. This is the outward direction, and it catches the half that
- * silently costs traffic:
+ *  - A listed route that no longer resolves to a page wastes crawl budget advertising a 301.
+ *  - A listed route whose page is only a `redirect`/`permanentRedirect` stub: list the destination, not the hop.
  *
- *  - A listed route that no longer resolves to a page. `/bikes` sat in
- *    allbikes' list after it had started redirecting to `/patrol`, so the
- *    sitemap spent crawl budget advertising a 301.
- *  - A listed route whose page is only a `redirect`/`permanentRedirect` stub —
- *    it looks like a real page in the tree but is a hop to somewhere else. A
- *    sitemap should list the destination, not the hop.
- *
- * `STATIC_PAGES` is imported rather than scraped, which matters more here than
- * anywhere else: bloomprint spreads one entry per article into the registry at
- * module evaluation, so 11 of its 23 listed routes are not literal keys in the
- * source at all. A text scan could not see them, and never checked them.
+ * `STATIC_PAGES` is imported, not scraped: bloomprint spreads one entry per article into it at module evaluation,
+ * so many listed routes are not literal keys in the source.
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';

@@ -1,55 +1,27 @@
 /**
- * The parts of the forms standard a script can hold, beyond the ledger.
+ * The parts of the forms standard a script can hold, beyond the ledger. Shared engine: edit it in
+ * `freetheplatform/frontend/registry/tooling/forms/` and re-sync. Repo-specific facts (session cookies, files
+ * allowed to read the Django base URL) come from each repo's `scripts/check-forms.mjs`; an exception is a row with a reason.
  *
- * Shared engine — edit it in `freetheplatform/frontend/registry/tooling/forms/`
- * and re-sync, never in a product. The repo-specific facts (which cookies are
- * the session, which files may read the Django base URL) are passed in by each
- * repo's `scripts/check-forms.mjs`, ledger-style: an exception is a row with a
- * written reason, not a silent gap in a pattern.
+ * 1. Form schemas live in `*.schema.ts`; a `z.object(` elsewhere goes in `schemaExceptions` with its reason.
+ * 2. Every `z.string(` chain in a `*.schema.ts` carries `.max(`, and a raw ceiling never exceeds 255 (`FIELD_MAX.line`);
+ *    wider is a field kind taken from `FIELD_MAX`, so frontend and serializer bound the same field.
+ * 3. `DJANGO_API_URL` is read only by the files that own it, or an app ends up half on `localhost` (may resolve IPv6-first) and half on `127.0.0.1`.
+ * 4. Only the local wrapper imports the package `serverApiFetch` (by name or namespace), and its `forwardCookies` is
+ *    exactly the session cookies, with no second allowlist: a Server Action reads the whole jar, so without it
+ *    analytics, consent and capability cookies would go to Django.
  *
- * Four checks:
- *
- * 1. Form schemas live in `*.schema.ts`. A `z.object(` anywhere else is either
- *    a form schema hiding from check 2, or a legitimate non-form use that
- *    belongs in `schemaExceptions` with its reason.
- * 2. Every `z.string(` chain in a `*.schema.ts` carries `.max(`, and a raw
- *    numeric ceiling never exceeds 255 (`FIELD_MAX.line`) — anything wider is a
- *    field kind and takes its ceiling from `FIELD_MAX`, so the frontend and the
- *    serializer bound the same field from opposite ends. Tighter-than-kind
- *    numerics (a 17-char VIN) are fine; the rule is that a ceiling exists and
- *    that big ones are never invented locally.
- * 3. `DJANGO_API_URL` is read only by the files that own it. One place owns the
- *    base and its fallback; an inline re-read is how an app ends up half on
- *    `localhost` (which can resolve IPv6-first) and half on `127.0.0.1`.
- * 4. Only the local wrapper imports the package `serverApiFetch` — by name or
- *    hidden behind a namespace import — and its `forwardCookies` allowlist is
- *    exactly the session cookies, named literally, with no second allowlist
- *    anywhere in the wrapper. A Server Action reads the whole cookie jar;
- *    without the allowlist everything in it goes to Django — analytics,
- *    consent flags, and any per-record capability cookie the site issues.
- *
- * These checks catch honest mistakes, not adversaries: a text scan can always
- * be walked around by someone trying to. What they also cannot check is
- * whether a schema's ceilings use the *right* kinds, or whether a track was
- * chosen correctly — that is review's job (FORMS-3), and the judgement rows in
- * freetheplatform/_docs/forms-standard.md name it as such.
+ * These catch honest mistakes, not adversaries. Whether ceilings use the right kinds or a track was chosen correctly
+ * is review's job (FORMS-3).
  */
 import { readFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { walk } from './walk.mjs';
 
-/**
- * Every `z.string(...)` call in `text` with the full method chain hanging off
- * it (`.trim().max(FIELD_MAX.name).optional()` …), found by walking balanced
- * parentheses rather than by line, so a prettier-wrapped chain still reads as
- * one chain. Exported for the test suite.
- */
+/** Every `z.string(...)` call with its full method chain, found by balanced parentheses so a prettier-wrapped chain is one chain. Exported for tests. */
 export function stringChains(text) {
   const chains = [];
-  // `\s*` around the dot: prettier wraps a long chain at every link,
-  // `.string()` included, and an opener that only matches the contiguous
-  // spelling would skip the whole chain — silently, which for this check
-  // means an unbounded field nobody hears about.
+  // `\s*` around the dot: prettier can wrap at `.string()`, and skipping such a chain would hide an unbounded field.
   const opener = /\bz\s*\.\s*string\s*\(/g;
   let match;
   while ((match = opener.exec(text)) !== null) {
@@ -176,10 +148,7 @@ export function findFormHygieneProblems({
       `  ${wrapperFile}\n      forwards [${cookies.join(', ')}] but the session cookies are\n      [${sessionCookies.join(', ')}]. Django reads nothing else — every extra\n      name here is a cookie leaked to it on every authenticated action.`,
     );
   }
-  // One allowlist, used everywhere. A second forwardCookies in the wrapper —
-  // a spread, a wider literal, a different constant — passes the two checks
-  // above while still forwarding more than the session; exactly the hole the
-  // rule exists to close.
+  // One allowlist: a second forwardCookies (a spread, a wider literal) passes the checks above while forwarding more than the session.
   const rogue = [...wrapper.matchAll(/forwardCookies\s*:\s*([^,}\r\n]+)/g)]
     .map((m) => m[1].trim())
     .filter((value) => value !== 'SESSION_COOKIES');
