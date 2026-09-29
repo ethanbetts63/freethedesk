@@ -7,10 +7,11 @@
 #     pip-compile --upgrade-package django                            # move one deliberately
 #     pip-sync requirements-dev.txt                                   # make this venv match
 #
-# Python 3.13, the version the PythonAnywhere web app runs -- not whatever is
+# Python 3.12, the version the PythonAnywhere web app runs -- not whatever is
 # newest locally. The lockfile must be resolved with this interpreter too;
 # resolving on 3.14 previously admitted a package set production could not
-# install. See ../freetheplatform/_docs/strategy.md.
+# install, while the server's user-level pip-sync runs under 3.13 and is not the
+# web runtime either. See ../freetheplatform/_docs/strategy.md.
 #
 # Pins are the versions that are installed and passing tests, not the newest
 # available. Every upgrade after that is a `--upgrade-package` with a diff

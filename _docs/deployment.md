@@ -6,9 +6,10 @@ backend/frontend ordering. This file records the FreeTheDesk-specific values.
 
 ## Runtime floors
 
-- **Python 3.13** — the version selected for the PythonAnywhere web app. The
-  virtualenv and both lockfiles must use 3.13; the host does not currently
-  offer Python 3.14 for web apps.
+- **Python 3.12** — the version selected for the PythonAnywhere web app. The
+  virtualenv and both lockfiles must use 3.12. The host's user-level
+  `pip-sync` currently runs under 3.13, but that is not the interpreter serving
+  this application.
 - **`Django<6.1`** — PythonAnywhere serves MySQL 8.0.42, while Django 6.1
   requires MySQL 8.4. Moving Django means moving the database first.
 - **FreeThePlatform v0.25.0 or later** — v0.25.0 is the first release that
@@ -22,24 +23,27 @@ system interpreter: it will try to uninstall PythonAnywhere's root-owned
 packages.
 
 ```bash
-mkvirtualenv --python=/usr/local/bin/python3.13 freethedesk
+python3.12 -m venv /home/ethanbetts/freethedesk/venv
+source /home/ethanbetts/freethedesk/venv/bin/activate
 python -m pip install --upgrade pip pip-tools
 which python
 python --version
-pip-sync /home/ethanbetts/freethedesk/requirements.txt
+python -m piptools sync /home/ethanbetts/freethedesk/requirements.txt
 ```
 
 `which python` must print a path below
-`/home/ethanbetts/.virtualenvs/freethedesk/`, and the version must be 3.13.
+`/home/ethanbetts/freethedesk/venv/`, and the version must be 3.12.
 In the PythonAnywhere Web tab, set **Virtualenv** to:
 
 ```text
-/home/ethanbetts/.virtualenvs/freethedesk
+/home/ethanbetts/freethedesk/venv
 ```
 
-Later consoles re-enter it with `workon freethedesk`. Deployment commands may
-also use the virtualenv's executables by absolute path; they must never call
-`~/.local/bin/pip-sync` with the system Python.
+Later consoles re-enter it with
+`source /home/ethanbetts/freethedesk/venv/bin/activate`. Invoke sync as
+`python -m piptools sync`, not bare `pip-sync`: Bash can retain the old
+`~/.local/bin/pip-sync` command in its lookup cache after activation, which
+runs under Python 3.13 and targets PythonAnywhere's system packages.
 
 ## Before pulling
 
@@ -55,7 +59,7 @@ With the shared ordering guard in place and `workon freethedesk` active:
 ```bash
 cd /home/ethanbetts/freethedesk
 git pull --ff-only
-pip-sync requirements.txt
+python -m piptools sync requirements.txt
 python manage.py migrate
 python manage.py check --deploy
 python manage.py collectstatic --noinput
