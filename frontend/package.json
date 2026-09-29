@@ -25,7 +25,7 @@
     "check": "npm run format:check && npm run lint && npm run lint:css && npm run typecheck && npm run check:sitemap && npm run check:crumbs && npm run check:seo-ledger && npm run check:og-images && npm run check:customer-routes && npm run check:forms && npm run check:tokens && npm run check:text-scale && npm run check:baseline"
   },
   "dependencies": {
-    "@freetheplatform/web-security": "github:ethanbetts63/freetheplatform#v0.26.0",
+    "@freetheplatform/web-security": "github:ethanbetts63/freetheplatform#v0.29.2",
     "@hookform/resolvers": "^5.9.1",
     "@stripe/react-stripe-js": "^6.9.0",
     "@stripe/stripe-js": "^9.15.0",
