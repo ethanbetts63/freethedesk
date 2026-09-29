@@ -21,4 +21,6 @@ urlpatterns += [
     path("api/admin/users/", include("freetheplatform.auth.staff.urls")),
     # Public, verified by provider signature rather than by authentication.
     path("api/webhooks/messaging/", include("freetheplatform.messaging.api.webhook_urls")),
+    # Read-only access for the reporting agents, by token; nothing here writes.
+    path("api/read/", include("freetheplatform.readapi.urls")),
 ]

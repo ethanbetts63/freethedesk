@@ -242,13 +242,14 @@ on both sides of it.
 
 ## Part 3 — Third-party processors (data leaving the system)
 
-| Processor             | Via                           | Personal data sent                                                                                   | Hosting   |
-| --------------------- | ----------------------------- | ---------------------------------------------------------------------------------------------------- | --------- |
-| **Stripe**            | `payments/`                   | Checkout session; customer email and business name attached at checkout                              | US / AU   |
-| **Mailgun**           | `freetheplatform.messaging`   | Every transactional email body — names, business details, portal links, and a sale's access password | US        |
-| **Twilio**            | `freetheplatform.messaging`   | SMS to staff numbers; bodies carry a customer's business name                                        | US        |
-| **Vercel**            | hosting + `@vercel/analytics` | Request metadata, IP-derived analytics                                                               | US (edge) |
-| **Microsoft Clarity** | `frontend/src/app/layout.tsx` | Session recordings: interaction events, page content, possibly input                                 | US        |
+| Processor              | Via                                                  | Personal data sent                                                                                                     | Hosting   |
+| ---------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | --------- |
+| **Stripe**             | `payments/`                                          | Checkout session; customer email and business name attached at checkout                                                | US / AU   |
+| **Mailgun**            | `freetheplatform.messaging`                          | Every transactional email body — names, business details, portal links, and a sale's access password                   | US        |
+| **Twilio**             | `freetheplatform.messaging`                          | SMS to staff numbers; bodies carry a customer's business name                                                          | US        |
+| **Vercel**             | hosting + `@vercel/analytics`                        | Request metadata, IP-derived analytics                                                                                 | US (edge) |
+| **Microsoft Clarity**  | `frontend/src/app/layout.tsx`                        | Session recordings: interaction events, page content, possibly input                                                   | US        |
+| **Anthropic (Claude)** | `/api/read/` (`freetheplatform.readapi`), token-only | Any record a view permission reaches, every dealer's, read by the reporting agents; never credentials or file contents | US        |
 
 ---
 

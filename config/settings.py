@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "payments",
     "freetheplatform.agreements",
     "freetheplatform.payments",
+    "freetheplatform.readapi",  # Read-only access by token for the reporting agents.
     "freetheplatform.messaging",  # Last, so our template overrides the package's default.
 ]
 
@@ -197,6 +198,8 @@ REST_FRAMEWORK = {
         # stops and a person filling in a form never notices.
         "sale-customer": "600/hour",
         "sale-upload": "60/hour",
+        # One reporting agent paging tables; high enough for a full collection run.
+        "read_api": "600/minute",
     },
 }
 
