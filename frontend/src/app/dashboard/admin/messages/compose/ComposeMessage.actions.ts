@@ -49,6 +49,14 @@ export async function submitComposeMessage(
   } catch {
     return { status: 'error', error: FAILURE_MESSAGE };
   }
+  // A suppressed address answers 409: the message is recorded but never handed to the provider.
+  if (response.status === 409) {
+    return {
+      status: 'error',
+      error:
+        'Not sent: this address is on the suppression list (bounced, complained or opted out).',
+    };
+  }
   // A send failure answers 502 with the recorded message - still a failure to report.
   if (!response.ok) {
     return { status: 'error', error: FAILURE_MESSAGE };

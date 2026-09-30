@@ -76,6 +76,12 @@ export default function MessageDetailPage() {
           <strong>This message was accepted but never arrived.</strong> {message.error_message}
         </Notice>
       )}
+      {message.status === 'suppressed' && (
+        <Notice tone="warning">
+          <strong>This message was never sent: the address is on the suppression list.</strong>{' '}
+          {message.error_message}
+        </Notice>
+      )}
       {message.status === 'queued' && message.error_message && (
         <Notice tone="warning">{message.error_message}</Notice>
       )}

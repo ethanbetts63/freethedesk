@@ -46,6 +46,7 @@ const STATUS: StatusMap = {
   failed: { label: 'Failed', tone: 'var(--status-spam)' },
   bounced: { label: 'Bounced', tone: 'var(--status-spam)' },
   cancelled: { label: 'Cancelled', tone: 'var(--status-closed)' },
+  suppressed: { label: 'Suppressed', tone: 'var(--status-closed)' },
 
   // Sale statuses, coloured by who the sale is waiting on rather than by how
   // far through it is: amber where the dealer has something to do, blue where
@@ -100,4 +101,5 @@ export const messageStatuses = [
   'failed',
   'bounced',
   'cancelled',
+  'suppressed',
 ] as const;

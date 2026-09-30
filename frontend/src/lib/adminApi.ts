@@ -58,7 +58,8 @@ export interface RelatedObject {
   label: string;
 }
 
-export type MessageStatus = 'queued' | 'sent' | 'delivered' | 'failed' | 'bounced' | 'cancelled';
+export type MessageStatus =
+  'queued' | 'sent' | 'delivered' | 'failed' | 'bounced' | 'cancelled' | 'suppressed';
 
 export interface AdminMessage {
   id: number;
