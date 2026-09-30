@@ -66,7 +66,6 @@ const PINNED = [
   { name: 'lucide-react', repos: ['allbikes', 'bloomprint', 'splitcart'] },
   { name: 'marked', repos: ['allbikes', 'freethedesk'] },
   { name: 'tw-animate-css', repos: ['allbikes', 'bloomprint', 'splitcart'] },
-  { name: 'sonner', repos: ['bloomprint', 'splitcart'] },
   // Replaced `isomorphic-dompurify`, which sat in BASELINE drifting between
   // ^4.1.0 and ^4.2.0. It arrives leveled in one change, so it is pinned from
   // the start rather than warned about: it is the HTML sanitiser, and a repo

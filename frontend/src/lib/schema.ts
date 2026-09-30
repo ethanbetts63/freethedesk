@@ -20,7 +20,8 @@ export function buildWebsiteSchema(): object {
     '@type': 'WebSite',
     '@id': `${SITE_URL}/#website`,
     name: SITE_NAME,
-    url: SITE_URL,
+    // The homepage's one spelling, the same as its canonical and sitemap entry.
+    url: absoluteUrl('/'),
     publisher: { '@id': `${SITE_URL}/#organization` },
   };
 }

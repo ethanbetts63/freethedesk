@@ -32,7 +32,7 @@ export function MobileNavPanel({
     <details className="group nav:hidden relative block">
       <summary
         className={cn(
-          'flex h-[44px] w-[44px] cursor-pointer list-none flex-col items-center justify-center gap-3xs [&::-webkit-details-marker]:hidden',
+          'flex size-[var(--tap-min)] cursor-pointer list-none flex-col items-center justify-center gap-3xs [&::-webkit-details-marker]:hidden',
           focusRingClassName,
         )}
         aria-label="Navigation menu"

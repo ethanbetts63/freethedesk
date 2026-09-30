@@ -108,9 +108,13 @@ export async function checkIndexationLedger({ root, noindexIn, noindexFix }) {
 
   // A noindex declaration is only true if the page's metadata carries it. This is a regex over source text,
   // because `page.tsx` cannot be imported (Node does not transpile JSX), so it is the weakest check here:
-  // a match inside a comment would satisfy it (seo-standard.md section 2).
+  // a match inside a comment would satisfy it (seo-standard.md section 2). A dynamic family declared
+  // `noindex` is held to the same test: its one `page.tsx` serves every record, so it must say so too.
+  const noindexFamilies = pages.DYNAMIC_ROUTE_FAMILIES.filter(
+    (family) => family.state === 'noindex',
+  ).map((family) => family.pattern);
   const unenforced = [];
-  for (const route of noindexed) {
+  for (const route of [...noindexed, ...noindexFamilies]) {
     const file = routes.get(route);
     if (!file) {
       unenforced.push(`${route} — declared noindex but has no page`);
