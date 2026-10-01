@@ -17,7 +17,7 @@ const DESTINATIONS = [
   { href: '/website-development', label: 'Website development' },
   { href: '/seo', label: 'SEO' },
   { href: '/automation', label: 'Automation' },
-  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/portfolio/scooter-shop', label: 'Case study: Scooter Shop' },
 ];
 
 export default function NotFound() {

@@ -3,6 +3,23 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   skipTrailingSlashRedirect: true,
+  // Addresses Google has already seen. They went out on 9 September 2026 with
+  // the config rewrite and the Perth page, still listed in Google, answered 404
+  // until they came back. Remove one only once Search Console no longer has it.
+  async redirects() {
+    return [
+      { source: '/websites', destination: '/', permanent: true },
+      { source: '/dealer-websites', destination: '/', permanent: true },
+      { source: '/website-builder', destination: '/dealership-website-builder', permanent: true },
+      {
+        source: '/website-development-perth',
+        destination: '/website-development',
+        permanent: true,
+      },
+      { source: '/dealers/signup', destination: '/licensing#signup', permanent: true },
+      { source: '/work/:path*', destination: '/portfolio/:path*', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {
