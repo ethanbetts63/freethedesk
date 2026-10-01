@@ -1,4 +1,7 @@
-import { serverApiFetch as sharedServerApiFetch } from '@freetheplatform/web-security';
+import {
+  clientIpFrom,
+  serverApiFetch as sharedServerApiFetch,
+} from '@freetheplatform/web-security';
 import { cookies, headers } from 'next/headers';
 import type { PublicSiteSettings } from './api';
 
@@ -18,10 +21,13 @@ export const SERVER_API_BASE_URL = process.env.DJANGO_API_URL ?? 'http://127.0.0
 const SESSION_COOKIES = ['freethedesk_access', 'freethedesk_refresh'];
 
 export async function serverApiFetch(path: string, init: RequestInit = {}): Promise<Response> {
+  const incoming = await headers();
   return sharedServerApiFetch(`${SERVER_API_BASE_URL}${path}`, await cookies(), init, {
     forwardCookies: SESSION_COOKIES,
     // Without it, Django's CSRF check refuses every HTTPS write (no Origin, no Referer).
-    origin: (await headers()).get('origin'),
+    origin: incoming.get('origin'),
+    // Otherwise Django sees Vercel's egress address; sent with FTP_PROXY_SECRET.
+    clientIp: clientIpFrom(incoming),
   });
 }
 

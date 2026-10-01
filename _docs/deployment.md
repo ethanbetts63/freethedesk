@@ -52,6 +52,14 @@ Back up MySQL and confirm production carries `SECRET_KEY`,
 and the provider credentials used for email and SMS. Settings fail closed when
 the first four production values are absent.
 
+Set `FTP_PROXY_SECRET` — the same 32 or more random characters — in both the
+PythonAnywhere web app's environment and Vercel's server environment (never
+`NEXT_PUBLIC_`). Server Actions send it beside the visitor's address, and Django
+believes that address only when the two match; unset, every server-side call is
+throttled and logged as Vercel's egress address, and `check --deploy` warns
+(`ftp_security.W008`). See
+[security-standard.md §6](../../freetheplatform/_docs/security-standard.md#6-client-addresses).
+
 ## Deploy
 
 With the shared ordering guard in place and `workon freethedesk` active:

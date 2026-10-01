@@ -66,11 +66,14 @@ INSTALLED_APPS = [
     "freetheplatform.agreements",
     "freetheplatform.payments",
     "freetheplatform.readapi",  # Read-only access by token for the reporting agents.
+    "freetheplatform.archive",  # `manage.py archive dump|restore` for development data.
     "freetheplatform.messaging",  # Last, so our template overrides the package's default.
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    # Before anything that reads an address: trusts X-FTP-Client-IP only with the proxy secret.
+    "freetheplatform.security.proxy.ForwardedClientMiddleware",
     "core.utils.middleware.NoCacheApiMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -245,6 +248,13 @@ FTP_AUTH = {
     "ACCOUNT_DIRECTORY": "core.account_directory.FreeTheDeskAccountDirectory",
     "PASSWORD_SET_NOTIFIER": "core.utils.auth_notifications.send_password_set",
 }
+
+# The Next server sends the visitor's address beside this secret; Vercel holds the
+# same value. Unset, server-side calls are keyed on Vercel's egress address.
+FTP_SECURITY = {"PROXY_SECRET": os.getenv("FTP_PROXY_SECRET", "")}
+
+# Dumps hold customer data, so the root is git-ignored.
+FTP_ARCHIVE = {"ROOT": BASE_DIR / "db_backups"}
 
 # Django's token generator reads this directly, so it can't live inside FTP_AUTH.
 PASSWORD_RESET_TIMEOUT = 60 * 60
