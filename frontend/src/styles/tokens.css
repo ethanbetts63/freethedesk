@@ -41,10 +41,11 @@
   --shadow-block-l: var(--elevation-block-l);
 
   /* Label tracking, as `tracking-label`, `tracking-label-tight`,
-     `tracking-label-wide`. */
+     `tracking-label-wide`, and the registry's `tracking-label-eyebrow`. */
   --tracking-label-tight: var(--label-tracking-tight);
   --tracking-label: var(--label-tracking);
   --tracking-label-wide: var(--label-tracking-wide);
+  --tracking-label-eyebrow: var(--label-tracking-eyebrow);
 
   /* Tints, as `bg-tint-wash`, `border-tint-rule` and so on. --tint-grid has no
      entry here on purpose: its only consumers draw it into a repeating
@@ -524,6 +525,10 @@
   /* --text-caption-xs, and anything set in --weight-black, where the
      letterforms crowd without extra room. */
   --label-tracking-wide: 0.15em;
+  /* The registry's Eyebrow and the nav labels and CTA: the family's shared
+     kicker, wider than this site's own steps because it is set at
+     --text-label in a heavy weight across all three founders. */
+  --label-tracking-eyebrow: 0.18em;
 
   /* ---------------------------------------------------------------
      TINTS

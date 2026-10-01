@@ -13,21 +13,21 @@ export interface NavItem extends NavMenuItem {
 
 /**
  * The two nav typographies, a closed set rather than a className. `label` is the uppercase wide-tracked kicker;
- * `body` is sentence case, for freethedesk's phrase labels that do not survive uppercasing at 0.18em tracking.
+ * `body` is sentence case, for freethedesk's phrase labels that do not survive uppercasing at that tracking.
  */
 export type NavLinkStyle = 'label' | 'body';
 
 const LINK_BASE = 'text-text-primary transition-colors duration-200';
 
 export const NAV_LINK: Record<NavLinkStyle, string> = {
-  label: `${LINK_BASE} text-label font-strong tracking-[0.18em] uppercase hover:text-text-secondary`,
+  label: `${LINK_BASE} text-label font-strong tracking-label-eyebrow uppercase hover:text-text-secondary`,
   /* The underline slides in from the left on hover and out to the right. */
   body: `${LINK_BASE} text-body font-strong relative after:absolute after:bottom-[-7px] after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-text-primary after:transition-transform after:duration-200 after:content-[''] hover:after:origin-left hover:after:scale-x-100`,
 };
 
 /** The filled CTA at the end of the desktop row. */
 export const navCtaClassName =
-  'inline-flex items-center bg-action-primary px-m py-s text-label font-strong tracking-[0.18em] text-text-on-dark uppercase transition-[background,transform] duration-200 hover:-translate-y-px';
+  'inline-flex items-center bg-action-primary px-m py-s text-label font-strong tracking-label-eyebrow text-text-on-dark uppercase transition-[background,transform] duration-200 hover:-translate-y-px';
 
 /** A row in the mobile panel. */
 export const mobileNavRowClassName =

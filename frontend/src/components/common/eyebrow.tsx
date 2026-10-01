@@ -35,7 +35,7 @@ interface EyebrowProps {
   id?: string;
 }
 
-/** The uppercase kicker above a section heading, with one tracking value (0.18em). */
+/** The uppercase kicker above a section heading, with one tracking token (`tracking-label-eyebrow`, 0.18em in every founder). */
 export default function Eyebrow({
   children,
   size = 'md',
@@ -47,7 +47,7 @@ export default function Eyebrow({
     <p
       id={id}
       className={cn(
-        'font-bold uppercase tracking-[0.18em]',
+        'font-bold uppercase tracking-label-eyebrow',
         SIZE[size],
         TONE[tone],
         dot && 'flex items-center gap-s',

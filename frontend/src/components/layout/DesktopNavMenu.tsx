@@ -10,7 +10,7 @@ import { useDisclosure } from '@/hooks/useDisclosure';
 import { cn } from '@/lib/utils';
 
 const MENU_LINK =
-  'block px-m py-s text-label font-strong tracking-[0.18em] text-text-primary uppercase transition-colors hover:bg-surface-tint hover:text-text-secondary';
+  'block px-m py-s text-label font-strong tracking-label-eyebrow text-text-primary uppercase transition-colors hover:bg-surface-tint hover:text-text-secondary';
 
 /**
  * A top-level nav item that opens a dropdown, driven three ways into the same classes:

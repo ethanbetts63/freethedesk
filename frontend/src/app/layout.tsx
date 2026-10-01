@@ -24,18 +24,30 @@ const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? '';
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? '';
 
 /**
- * The three signed-in portals, kept out of the property.
+ * The three signed-in portals and the credential and token routes, kept out of
+ * the property.
  *
  * Neither CLARITY_EXCLUDED_ROUTES nor APPLICATION_ROUTES, though it overlaps
  * both. Clarity's list is a security decision about what a third party gets a
  * picture of, and APPLICATION_ROUTES is about which chrome a page wears -- it
- * holds /sale and /dealership-website-builder, which are customer-facing and
- * exactly what this property is being installed to measure. What is excluded
- * here is excluded for a measurement reason only: staff live in these three for
- * hours a day, and left in they sit on top of every engagement, retention and
- * landing-page number on the property.
+ * holds /dealership-website-builder, which is customer-facing and exactly what
+ * this property is being installed to measure. The portals are excluded for a
+ * measurement reason: staff live in these three for hours a day, and left in
+ * they sit on top of every engagement, retention and landing-page number on the
+ * property. The rest are excluded because GA never receives a secret
+ * (integrations-standard.md section 8): /sale/{reference}/{token} is an emailed
+ * bearer link, and a prefix cannot spare /sale/{reference} without it.
  */
-const GA_EXCLUDED_ROUTES = ['/dashboard', '/portal', '/seo-portal'];
+const GA_EXCLUDED_ROUTES = [
+  '/dashboard',
+  '/portal',
+  '/seo-portal',
+  '/login',
+  '/account',
+  '/change-password',
+  '/reset-password',
+  '/sale',
+];
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

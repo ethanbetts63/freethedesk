@@ -21,8 +21,12 @@ function isRouteOrDescendant(pathname: string, route: string) {
   return pathname === route || pathname.startsWith(`${route}/`);
 }
 
-/** Installs gtag.js once. `send_page_view: false` because the built-in view fires once per load and App Router navigations are not loads; the route effect sends every view. */
-function installGtag(measurementId: string) {
+/**
+ * Installs gtag.js once. `send_page_view: false` because the built-in view fires once per load and App Router
+ * navigations are not loads; the route effect sends every view. `page_location` is given from the
+ * first command, so no hit falls back to `document.location` and its query.
+ */
+function installGtag(measurementId: string, pageLocation: string) {
   if (window.gtag) return;
 
   const dataLayer = (window.dataLayer ??= []);
@@ -34,13 +38,37 @@ function installGtag(measurementId: string) {
   };
 
   window.gtag('js', new Date());
-  window.gtag('config', measurementId, { send_page_view: false });
+  window.gtag('config', measurementId, { send_page_view: false, page_location: pageLocation });
 
   const script = document.createElement('script');
   script.id = GA_SCRIPT_ID;
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
   document.head.appendChild(script);
+}
+
+/**
+ * GA4 reads campaign attribution from `page_location`'s query, which is never sent (it carries Stripe client
+ * secrets and reset tokens). The utm values go as gtag's documented `campaign_*` fields instead.
+ */
+const CAMPAIGN_FIELDS = {
+  utm_source: 'campaign_source',
+  utm_medium: 'campaign_medium',
+  utm_campaign: 'campaign_name',
+  utm_term: 'campaign_term',
+  utm_content: 'campaign_content',
+  utm_id: 'campaign_id',
+} as const;
+
+function campaignFields(searchParams: {
+  get(name: string): string | null;
+}): Record<string, string> {
+  const fields: Record<string, string> = {};
+  for (const [param, field] of Object.entries(CAMPAIGN_FIELDS)) {
+    const value = searchParams.get(param);
+    if (value) fields[field] = value;
+  }
+  return fields;
 }
 
 function GoogleAnalyticsTracker({
@@ -63,17 +91,19 @@ function GoogleAnalyticsTracker({
     const routes = excluded ? excluded.split('\n') : [];
     if (routes.some((route) => isRouteOrDescendant(pathname, route))) return;
 
-    const query = searchParams.toString();
-    const path = query ? `${pathname}?${query}` : pathname;
-    if (lastSent.current === path) return;
-    lastSent.current = path;
+    // The query string never leaves the browser: it carries secrets (`payment_intent_client_secret`).
+    if (lastSent.current === pathname) return;
+    lastSent.current = pathname;
 
-    installGtag(measurementId);
+    const pageLocation = `${window.location.origin}${pathname}`;
+    installGtag(measurementId, pageLocation);
 
-    // Absolute `page_location` and relative `page_path`, as gtag sends on a document load; gtag reads the title itself.
+    // Later hits (enhanced measurement, user_engagement) take the location from `set`, not the address bar.
+    window.gtag?.('set', { page_location: pageLocation });
     window.gtag?.('event', 'page_view', {
-      page_path: path,
-      page_location: window.location.href,
+      page_path: pathname,
+      page_location: pageLocation,
+      ...campaignFields(searchParams),
     });
   }, [pathname, searchParams, measurementId, excluded]);
 
@@ -83,8 +113,9 @@ function GoogleAnalyticsTracker({
 /**
  * Google Analytics 4, one page view per client-side navigation.
  *
- * `excludedRoutes` is prefix-based and keeps internal screens (staff portal) out of the numbers. It is not the
- * session-recording list, which is a security decision in `lib/routePolicy.ts`.
+ * Only the origin and path are sent, never the query (integrations-standard.md section 8). `excludedRoutes` is
+ * prefix-based and keeps internal screens (staff portal) and credential or token routes (login, password reset,
+ * payment return) out of GA entirely. It is not the session-recording list, which is a security decision in `lib/routePolicy.ts`.
  *
  * The Suspense boundary is required: `useSearchParams` would otherwise turn every static page into an empty shell.
  */
