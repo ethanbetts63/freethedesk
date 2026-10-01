@@ -18,7 +18,7 @@ function priceAmount(value: string): number {
   return Number.isFinite(amount) ? amount : Number.MAX_SAFE_INTEGER;
 }
 
-const PRICE_FIELD: Record<DealerPlanCode, keyof LicensingPrices> = {
+export const PRICE_FIELD: Record<DealerPlanCode, keyof LicensingPrices> = {
   licensing: 'licensing_price',
   contracts: 'contracts_price',
   complete: 'complete_price',

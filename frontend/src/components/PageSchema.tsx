@@ -5,9 +5,9 @@ import StructuredDataScript from '@/components/seo/StructuredDataScript';
 /**
  * Every schema node a registry-declared page emits.
  *
- * `serviceOffers` is the one thing the registry cannot hold: the only page with
- * a published price reads it from the admin at request time, so that page passes
- * its offer node in. Everything else is declared once in STATIC_PAGES.
+ * `serviceOffers` is the one thing the registry cannot hold: the priced pages
+ * read their prices from the admin at request time, so they pass their offer
+ * nodes in. Everything else is declared once in STATIC_PAGES.
  */
 export function PageSchema({ path, serviceOffers }: { path: PagePath; serviceOffers?: object }) {
   // Annotated rather than inferred: `as const satisfies` narrows each STATIC_PAGES

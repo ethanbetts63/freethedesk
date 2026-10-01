@@ -103,6 +103,33 @@ export interface ServiceDefinition {
 }
 
 /**
+ * A subscription price as Google reads it: price, currency, availability and
+ * the billing period. Missing any of the first three, no price shows in
+ * results. Returns undefined for a blank admin price rather than offering
+ * something for nothing.
+ */
+export function buildRecurringOffer(options: {
+  price: string;
+  unitText: 'MONTH' | 'QUARTER';
+  name?: string;
+}): object | undefined {
+  if (!options.price.trim()) return undefined;
+  return {
+    '@type': 'Offer',
+    ...(options.name ? { name: options.name } : {}),
+    price: options.price,
+    priceCurrency: 'AUD',
+    availability: 'https://schema.org/InStock',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: options.price,
+      priceCurrency: 'AUD',
+      unitText: options.unitText,
+    },
+  };
+}
+
+/**
  * The commercial node for a page that sells something.
  *
  * Addressable (`@id`) and anchored (`url`, `mainEntityOfPage`) so it is a real
@@ -110,8 +137,8 @@ export interface ServiceDefinition {
  * previously built this inline had neither, which left a `Service` Google could
  * read but not attach to the page or the business offering it.
  *
- * `offers` is passed in rather than declared in the registry because the only
- * page with a published price reads it from the admin at request time. A
+ * `offers` is passed in rather than declared in the registry because the
+ * priced pages read their prices from the admin at request time. A
  * service with no offer node is still valid and still useful; an invented price
  * is not.
  */

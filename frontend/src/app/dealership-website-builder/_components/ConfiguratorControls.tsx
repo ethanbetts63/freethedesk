@@ -141,9 +141,10 @@ export function ConfiguratorControls(props: ConfiguratorControlsProps) {
           <span>Base product</span>
           <b>Included</b>
         </div>
-        <h2 className="mt-m mb-xs text-title-sm tracking-[-0.04em]">
+        {/* The page's one h1: the preview beside it is a mock customer site. */}
+        <h1 className="mt-m mb-xs text-title-sm tracking-[-0.04em]">
           Build your dealership website.
-        </h2>
+        </h1>
         <p className="m-0 text-lead leading-[1.55] text-text-subtle">
           Add your brand and the capabilities you need, explore the live preview, then send the
           complete configuration to our team. No payment is required.

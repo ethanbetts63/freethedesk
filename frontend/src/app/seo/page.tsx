@@ -10,6 +10,7 @@ import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { metadataFor } from '@/lib/pages';
+import { buildRecurringOffer } from '@/lib/seo';
 import { numberSections } from '@/lib/sectionNumbers';
 import { getSiteSettingsServer } from '@/lib/serverApi';
 
@@ -49,17 +50,10 @@ export default async function SeoPage() {
   const settings = await getSiteSettingsServer();
 
   // The Service node itself is declared in STATIC_PAGES; only the price is dynamic.
-  const serviceOffers = {
-    '@type': 'Offer',
+  const serviceOffers = buildRecurringOffer({
     price: settings.seo_quarterly_price,
-    priceCurrency: 'AUD',
-    priceSpecification: {
-      '@type': 'UnitPriceSpecification',
-      price: settings.seo_quarterly_price,
-      priceCurrency: 'AUD',
-      unitText: 'QUARTER',
-    },
-  };
+    unitText: 'QUARTER',
+  });
 
   return (
     <main className="bg-surface-page text-text-secondary">

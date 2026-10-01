@@ -39,24 +39,24 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-09-09',
+    updated: '2026-10-01',
     label: 'Home',
-    title: 'Fire your admin | Websites & Digital Automation | Australia, Perth',
+    title: 'Dealer Websites & Business Automation Perth | freethedesk',
     description:
       'Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.',
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-09-09',
+    updated: '2026-10-01',
     label: 'Dealer websites',
-    title: 'Fire your admin | Online Licensing & Digital Dealerships Australia, Perth',
+    title: 'Dealership Websites & Online Licensing | Australia, Perth',
     description:
-      'Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.',
+      'One connected system for your dealership: a website built to be found, online licensing, and the admin automation behind it, priced against the tools it replaces.',
   },
   '/licensing': {
-    updated: '2026-09-19',
+    updated: '2026-10-01',
     label: 'Online licensing',
-    title: 'Signed, sealed, delivered—sell more | Online Vehicle Licensing Australia',
+    title: 'Online Vehicle Licensing for Dealers | Australia',
     description:
       'Let customers verify their identity, complete vehicle licensing and sign paperwork online without an unnecessary dealership visit.',
     service: {
@@ -66,9 +66,9 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-09-09',
+    updated: '2026-10-01',
     label: 'Website development',
-    title: 'Make your website work harder | Website Development & Automation Perth',
+    title: 'Website Development Perth | Make your website work harder',
     description:
       'Website Development for businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.',
     absoluteTitle: true,
@@ -81,16 +81,16 @@ export const STATIC_PAGES = {
     },
   },
   '/dealership-website-builder': {
-    updated: '2026-09-08',
+    updated: '2026-10-01',
     label: 'Website builder',
-    title: 'Interactive Digital Dealership Builder | Custom Dealer Websites & Automation',
+    title: 'Dealership Website Builder | Custom Dealer Websites',
     description:
       'Configure a dealership website around the way your business sells, books and grows.',
   },
   '/automation': {
-    updated: '2026-09-09',
+    updated: '2026-10-01',
     label: 'Automation',
-    title: 'Stop paying for copy-paste | Business Automation Australia, Perth',
+    title: 'Business Automation Australia | Stop paying for copy-paste',
     description:
       'Practical workflow automation and custom integrations for Australian small and medium businesses.',
     service: {
@@ -100,7 +100,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-09-09',
+    updated: '2026-10-01',
     label: 'SEO reports',
     title: 'Find your missing clicks | SEO Reports & Audits Australia',
     description:
@@ -119,25 +119,25 @@ export const STATIC_PAGES = {
       'Practical guides for Australian dealerships on websites, search visibility, online sales, licensing and better operational systems.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-09-08',
+    updated: '2026-10-01',
     label: 'Scooter Shop',
-    title: 'How one dealership grew organic clicks 300% | Dealer Website Case Study',
+    title: 'Dealer Website Case Study | Organic Clicks Up 300%',
     description:
       'A connected dealership website for sales, online purchasing, licensing, parts, service, hire and long-term organic growth.',
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {
-    updated: '2026-09-08',
+    updated: '2026-10-01',
     label: 'Bloomprint',
-    title: 'Sell flowers without showing the flowers? | Marketplace Website Case Study',
+    title: 'Marketplace Website Case Study | Bloomprint Flowers',
     description:
       'A two-sided flower delivery marketplace: brief-led ordering for customers, paid local orders for independent florists, and a landing page system built to be found.',
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
   '/contact': {
-    updated: '2026-09-08',
+    updated: '2026-10-01',
     label: 'Contact',
-    title: 'Bring us the bottleneck | Website & Automation Developers Australia, Perth',
+    title: 'Website & Automation Developers Perth | Contact',
     description:
       'Talk to freethedesk about a custom website, online licensing product, web application or business automation project.',
   },

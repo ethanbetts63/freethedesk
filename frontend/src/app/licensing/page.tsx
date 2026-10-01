@@ -6,6 +6,7 @@ import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
 import { metadataFor } from '@/lib/pages';
+import { buildRecurringOffer } from '@/lib/seo';
 import { numberSections } from '@/lib/sectionNumbers';
 import { getSiteSettingsServer } from '@/lib/serverApi';
 
@@ -18,6 +19,7 @@ import { LicensingStepsBar } from './_components/LicensingStepsBar';
 import { LicensingVerify } from './_components/LicensingVerify';
 import { SignupPlans } from './_components/SignupPlans';
 import { LICENSING_FAQS } from './_lib/copy';
+import { buildDealerPlans, PRICE_FIELD } from './_lib/plans';
 
 const sections = numberSections([
   'Fill',
@@ -38,9 +40,19 @@ export const dynamic = 'force-dynamic';
 export default async function LicensingPage() {
   const settings = await getSiteSettingsServer();
 
+  // One offer per plan, priced from the same admin settings the plan cards show.
+  const serviceOffers = buildDealerPlans(settings).flatMap((plan) => {
+    const price = settings[PRICE_FIELD[plan.code]];
+    const offer = buildRecurringOffer({ price, unitText: 'MONTH', name: plan.name });
+    return offer ? [offer] : [];
+  });
+
   return (
     <main className="bg-surface-page text-text-primary">
-      <PageSchema path="/licensing" />
+      <PageSchema
+        path="/licensing"
+        serviceOffers={serviceOffers.length ? serviceOffers : undefined}
+      />
       <Hero
         path="/licensing"
         eyebrow="Online vehicle licensing"
