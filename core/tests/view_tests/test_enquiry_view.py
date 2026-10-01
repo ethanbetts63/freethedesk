@@ -209,6 +209,24 @@ def test_project_enquiry_accepts_a_custom_budget_without_a_phone_number(api_clie
     assert "Notes:" not in enquiry.message
 
 
+def test_project_enquiry_accepts_someone_with_no_website_yet(api_client):
+    response = api_client.post(
+        "/api/project-enquiries/",
+        {
+            "project_type": "website",
+            "budget": "$5,000",
+            "website": "",
+            "email": "owner@example.com.au",
+        },
+        format="json",
+    )
+
+    assert response.status_code == 201
+    enquiry = Enquiry.objects.get()
+    assert enquiry.website == ""
+    assert enquiry.business == ""
+
+
 def test_project_enquiry_rejects_an_unknown_project_type(api_client):
     response = api_client.post(
         "/api/project-enquiries/",

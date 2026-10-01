@@ -9,14 +9,16 @@ export const projectEnquirySchema = z.object({
   // Free text on one line, because the "custom" option lets people write
   // their own figure in words rather than pick one.
   budget: requiredString('line', 'Budget is required.'),
-  // Bounded before `normaliseWebsiteUrl` rather than after: the transform adds
-  // a scheme, so checking the result would let a longer input through.
+  // Optional, so someone with no website yet can still enquire. Bounded before
+  // `normaliseWebsiteUrl` rather than after: the transform adds a scheme, so
+  // checking the result would let a longer input through.
   website: z
     .string()
     .trim()
-    .min(1, 'Website is required.')
     .max(FIELD_MAX.url)
-    .transform(normaliseWebsiteUrl),
+    .transform(normaliseWebsiteUrl)
+    .optional()
+    .default(''),
   email: email({ required: 'Email is required.' }),
   phone: z.string().trim().max(FIELD_MAX.phone).optional().default(''),
   notes: z.string().trim().max(FIELD_MAX.note).optional().default(''),

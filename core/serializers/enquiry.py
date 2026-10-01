@@ -67,7 +67,8 @@ class ProjectEnquirySerializer(serializers.Serializer):
     # Free text on one line: the "custom" option lets people write their own
     # figure in words rather than pick one.
     budget = bounds.char("line")
-    website = bounds.url()
+    # Optional: the people most likely to want a first website have none to give.
+    website = bounds.url(required=False, allow_blank=True, default="")
     email = bounds.email()
     phone = serializers.CharField(max_length=40, required=False, allow_blank=True, default="")
     notes = serializers.CharField(max_length=2000, required=False, allow_blank=True, default="")

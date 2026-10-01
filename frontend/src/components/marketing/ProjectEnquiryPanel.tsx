@@ -232,15 +232,14 @@ export function ProjectEnquiryPanel({
             />
           </label>
           <label className={fieldLabelClassName}>
-            <span className={fieldLabelSpanClassName}>Website</span>
+            <span className={fieldLabelSpanClassName}>Website (optional)</span>
             <input
               className={fieldInputClassName}
               name="website"
               type="text"
               inputMode="url"
-              placeholder="e.g. www.yoursite.com"
+              placeholder="Leave blank if you don't have one yet"
               autoComplete="url"
-              required
             />
           </label>
           <label className={fieldLabelClassName}>
