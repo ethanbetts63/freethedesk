@@ -48,27 +48,31 @@ function installGtag(measurementId: string, pageLocation: string) {
 }
 
 /**
- * GA4 reads campaign attribution from `page_location`'s query, which is never sent (it carries Stripe client
- * secrets and reset tokens). The utm values go as gtag's documented `campaign_*` fields instead.
+ * The only query parameters GA ever sees. GA4 reads campaign attribution (`utm_*`) and ad-click
+ * identifiers (`gclid` and its iOS/web variants, which Google Ads conversions depend on) from
+ * `page_location`'s query, so these pass through; everything else is dropped, because a query can
+ * carry secrets (`payment_intent_client_secret`) and nothing else here is worth the risk.
  */
-const CAMPAIGN_FIELDS = {
-  utm_source: 'campaign_source',
-  utm_medium: 'campaign_medium',
-  utm_campaign: 'campaign_name',
-  utm_term: 'campaign_term',
-  utm_content: 'campaign_content',
-  utm_id: 'campaign_id',
-} as const;
+const ALLOWED_PARAMS = new Set([
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_term',
+  'utm_content',
+  'utm_id',
+  'gclid',
+  'gbraid',
+  'wbraid',
+  'dclid',
+]);
 
-function campaignFields(searchParams: {
-  get(name: string): string | null;
-}): Record<string, string> {
-  const fields: Record<string, string> = {};
-  for (const [param, field] of Object.entries(CAMPAIGN_FIELDS)) {
-    const value = searchParams.get(param);
-    if (value) fields[field] = value;
-  }
-  return fields;
+function allowedQuery(searchParams: URLSearchParams): string {
+  const kept = new URLSearchParams();
+  searchParams.forEach((value, key) => {
+    if (ALLOWED_PARAMS.has(key)) kept.append(key, value);
+  });
+  const query = kept.toString();
+  return query ? `?${query}` : '';
 }
 
 function GoogleAnalyticsTracker({
@@ -91,11 +95,11 @@ function GoogleAnalyticsTracker({
     const routes = excluded ? excluded.split('\n') : [];
     if (routes.some((route) => isRouteOrDescendant(pathname, route))) return;
 
-    // The query string never leaves the browser: it carries secrets (`payment_intent_client_secret`).
-    if (lastSent.current === pathname) return;
-    lastSent.current = pathname;
+    // Only allow-listed parameters leave the browser: a query can carry secrets.
+    const pageLocation = `${window.location.origin}${pathname}${allowedQuery(new URLSearchParams(searchParams.toString()))}`;
+    if (lastSent.current === pageLocation) return;
+    lastSent.current = pageLocation;
 
-    const pageLocation = `${window.location.origin}${pathname}`;
     installGtag(measurementId, pageLocation);
 
     // Later hits (enhanced measurement, user_engagement) take the location from `set`, not the address bar.
@@ -103,7 +107,6 @@ function GoogleAnalyticsTracker({
     window.gtag?.('event', 'page_view', {
       page_path: pathname,
       page_location: pageLocation,
-      ...campaignFields(searchParams),
     });
   }, [pathname, searchParams, measurementId, excluded]);
 
@@ -113,7 +116,7 @@ function GoogleAnalyticsTracker({
 /**
  * Google Analytics 4, one page view per client-side navigation.
  *
- * Only the origin and path are sent, never the query (integrations-standard.md section 8). `excludedRoutes` is
+ * Only the origin, the path and allow-listed campaign and ad-click parameters are sent (integrations-standard.md section 8). `excludedRoutes` is
  * prefix-based and keeps internal screens (staff portal) and credential or token routes (login, password reset,
  * payment return) out of GA entirely. It is not the session-recording list, which is a security decision in `lib/routePolicy.ts`.
  *
