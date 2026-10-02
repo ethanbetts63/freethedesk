@@ -6,12 +6,14 @@ These prove the wiring: that the URL reaches it, that the flows registered in
 ends up in the state this site expects.
 """
 
+import re
 from decimal import Decimal
 from unittest.mock import patch
 
 import pytest
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
+from freetheplatform.auth import lockout
 from freetheplatform.payments import Payment, PaymentStatus, Subscription
 
 from dealers.models import Dealer, DealerProfile
@@ -193,6 +195,26 @@ def test_a_paid_seo_subscription_activates_the_subscriber(client, seo_subscriber
     seo_subscriber.refresh_from_db()
     assert seo_subscriber.payment_status == SeoSubscriber.PaymentStatus.ACTIVE
     assert seo_subscriber.stripe_subscription_id == "sub_seo"
+
+
+@stripe_settings
+def test_a_paid_seo_subscription_emails_a_temporary_password(
+    client, seo_subscriber, outbox, django_capture_on_commit_callbacks
+):
+    # Signup creates the login without a password; payment is what hands one over.
+    seo_subscriber.user.set_unusable_password()
+    seo_subscriber.user.save(update_fields=["password"])
+    payment = make_payment(seo_subscriber, flow=SEO_SUBSCRIPTION, total="150.00")
+
+    with django_capture_on_commit_callbacks(execute=True):
+        post(client, completed(payment, subscription="sub_seo"))
+
+    seo_subscriber.refresh_from_db()
+    assert seo_subscriber.status == SeoSubscriber.Status.ACTIVE
+    [welcome] = [m for m in outbox if m.to == "seo@example.com"]
+    password = re.search(r"Temporary password: (\S+)", welcome.body_text).group(1)
+    assert seo_subscriber.user.check_password(password)
+    assert lockout.state_for(seo_subscriber.user).must_change_password
 
 
 @stripe_settings

@@ -27,9 +27,7 @@ export default function SeoPortalAccountPage() {
   const [form, setForm] = useState({ business_name: '', contact_name: '', phone: '', website: '' });
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [state, dispatch, saving] = useActionState(submitSeoAccount, initialState);
+  const [state, formAction, saving] = useActionState(submitSeoAccount, initialState);
 
   useEffect(() => {
     getSeoAccount()
@@ -51,11 +49,7 @@ export default function SeoPortalAccountPage() {
   }, []);
 
   // `form` already holds exactly what was just submitted, and `account`
-  // (below) picks up the saved snapshot from `state`. Once
-  // `has_usable_password` flips true the password fields stop rendering
-  // entirely, so nothing needs to explicitly clear them on success — and
-  // leaving them alone on a mismatch error means the user isn't forced to
-  // retype both.
+  // (below) picks up the saved snapshot from `state`.
   const account = state.status === 'success' && state.account ? state.account : loadedAccount;
   const error = state.status === 'error' ? state.error : loadError;
   const notice = state.status === 'success' && !saving ? 'Your details have been saved.' : '';
@@ -65,13 +59,7 @@ export default function SeoPortalAccountPage() {
     (form.business_name !== account.business_name ||
       form.contact_name !== account.contact_name ||
       form.phone !== account.phone ||
-      form.website !== account.website ||
-      (!account.has_usable_password && password.length > 0));
-
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    dispatch(new FormData(event.currentTarget));
-  };
+      form.website !== account.website);
 
   if (loading)
     return (
@@ -89,15 +77,7 @@ export default function SeoPortalAccountPage() {
 
   return (
     <div className={pageClassName}>
-      <PageHeader
-        kicker="SEO portal"
-        title={account.has_usable_password ? 'Account details' : 'Complete your account'}
-        subtitle={
-          account.has_usable_password
-            ? undefined
-            : "Add your details and choose the password you'll use next time."
-        }
-      />
+      <PageHeader kicker="SEO portal" title="Account details" />
 
       {error && <Notice tone="danger">{error}</Notice>}
       {notice && <Notice tone="success">{notice}</Notice>}
@@ -105,7 +85,7 @@ export default function SeoPortalAccountPage() {
       <div className={detailGridClassName}>
         <section className={cn(cardClassName, cardWideClassName)}>
           <h2 className={cardTitleClassName}>Your business</h2>
-          <form className={adminFormClassName} onSubmit={onSubmit}>
+          <form className={adminFormClassName} action={formAction}>
             <label className={adminFormLabelClassName}>
               Business name
               <input
@@ -155,42 +135,8 @@ export default function SeoPortalAccountPage() {
                 will move it across.
               </small>
             </label>
-            {!account.has_usable_password && (
-              <>
-                <label className={adminFormLabelClassName}>
-                  Choose a password
-                  <input
-                    className={adminFormControlClassName}
-                    name="password"
-                    type="password"
-                    autoComplete="new-password"
-                    minLength={8}
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    required
-                  />
-                </label>
-                <label className={adminFormLabelClassName}>
-                  Confirm password
-                  <input
-                    className={adminFormControlClassName}
-                    name="password_confirmation"
-                    type="password"
-                    autoComplete="new-password"
-                    minLength={8}
-                    value={passwordConfirmation}
-                    onChange={(event) => setPasswordConfirmation(event.target.value)}
-                    required
-                  />
-                </label>
-              </>
-            )}
             <Button type="submit" disabled={saving || !dirty}>
-              {saving
-                ? 'Saving…'
-                : account.has_usable_password
-                  ? 'Save changes'
-                  : 'Complete account setup'}
+              {saving ? 'Saving…' : 'Save changes'}
             </Button>
           </form>
         </section>

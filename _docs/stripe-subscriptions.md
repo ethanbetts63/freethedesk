@@ -76,11 +76,20 @@ future subscriptions.
 SEO is sold as one of two plans: a one-off (`seo_oneoff_price`, charged once)
 or a subscription (`seo_subscription_price`, charged per cycle). Signup only
 accepts `monthly` or `oneoff`. A subscription starts monthly and is slowed by
-staff as its easy wins run out — `bimonthly`, then `quarterly`, then
-`biannual` — at the same per-cycle price. There is no tooling for that move
-yet: change the Stripe subscription's billing interval in the Stripe dashboard
-and set the subscriber's `plan` to match in Django admin, after telling the
-customer, as the SEO subscription terms require.
+staff when there's less new data to judge changes by — `bimonthly`, then
+`quarterly`, then `biannual` — at the same per-cycle price. There is no tooling
+for that move yet: change the Stripe subscription's billing interval in the
+Stripe dashboard and set the subscriber's `plan` to match in Django admin, after
+telling the customer, as the SEO subscription terms require.
+
+Payment is what opens an SEO account; there is no approval step after it. The
+first payment event for a pending subscriber (`seo/utils/services.py`,
+`activate_paid_subscriber`) makes it `active`, gives the login a temporary
+password with `must_change_password` set if signup left it without one, and
+emails the sign-in details once the webhook transaction commits. Later events
+for the same purchase change nothing, so a second password is never minted.
+Reporting then waits on setup (`seo/utils/setup.py`): it starts once the Search
+Console step is confirmed, by the service-account check or by staff.
 
 Before creating the session, FTD publishes the configured legal document through
 `freetheplatform.agreements` and records an immutable acceptance against the

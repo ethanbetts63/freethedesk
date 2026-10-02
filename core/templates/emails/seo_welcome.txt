@@ -1,7 +1,13 @@
-Thanks, {{ subscriber.contact_name }}. Your account for {{ subscriber.business_name }} is ready.
+Payment confirmed.
 
-Selected plan: {{ subscriber.get_plan_display }}
+Thanks — your SEO dashboard for {{ subscriber.business_name }} is ready.
 
-Payment: {{ payment_url }}
+Sign in: {{ login_url }}
+{% if password %}Email: {{ subscriber.user.email }}
+Temporary password: {{ password }}
 
-Once Stripe confirms payment, you can connect your Search Console data and tell us what to focus on.
+You'll choose your own password the first time you sign in.{% else %}Email: {{ subscriber.user.email }}, with the password you already use.{% endif %}
+
+The setup page walks you through giving us read-only access to Search Console and your other tools. Reporting starts once Search Console is connected.
+
+Start setup: {{ setup_url }}

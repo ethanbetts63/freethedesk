@@ -24,7 +24,7 @@ from freetheplatform.payments import register_handler
 from dealers.models import Dealer
 from dealers.utils.services import ensure_dealer_profile
 from seo.models import SeoSubscriber
-from seo.utils.services import ensure_seo_profile
+from seo.utils.services import activate_paid_subscriber, ensure_seo_profile
 
 from .flows import DEALER_SUBSCRIPTION, SEO_ONEOFF, SEO_SUBSCRIPTION
 
@@ -166,7 +166,7 @@ def seo_payment_succeeded(*, payment, related):
         subscriber.save(update_fields=[
             "stripe_subscription_id", "payment_status", "updated_at",
         ])
-    ensure_seo_profile(subscriber)
+    activate_paid_subscriber(subscriber)
 
 
 def seo_payment_failed(*, payment, related):
@@ -192,7 +192,7 @@ def seo_subscription_changed(*, subscription, related):
         "subscription_current_period_end", "cancel_at_period_end", "updated_at",
     ])
     if subscriber.payment_status == SeoSubscriber.PaymentStatus.ACTIVE:
-        ensure_seo_profile(subscriber)
+        activate_paid_subscriber(subscriber)
 
 
 def seo_renewal_paid(*, subscription, payment, related):

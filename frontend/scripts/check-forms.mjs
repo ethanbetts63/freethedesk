@@ -39,7 +39,7 @@ checkFormLedger({
     { file: 'app/reset-password/page.tsx', track: 'B' },
     { file: 'app/reset-password/[uid]/[token]/page.tsx', track: 'B' },
     { file: 'app/seo-portal/account/page.tsx', track: 'B' },
-    { file: 'app/seo-portal/connect/page.tsx', track: 'B' },
+    { file: 'app/seo-portal/setup/_components/SetupBrief.tsx', track: 'B' },
     { file: 'components/marketing/AiReadinessForm.tsx', track: 'B' },
 
     // Excluded, with the argument. Re-opening one means disagreeing with the

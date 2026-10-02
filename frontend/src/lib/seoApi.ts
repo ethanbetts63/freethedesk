@@ -1,4 +1,4 @@
-import { authedFetch, type AccountBase, type OnboardingStatus } from './api';
+import { authedFetch, type AccountBase } from './api';
 import { handleResponse } from '@freetheplatform/web-security';
 
 /** Signup offers monthly or oneoff; the slower cadences are reached later. */
@@ -9,7 +9,6 @@ export interface SeoAccount extends AccountBase {
   website: string;
   plan: SeoPlanCode;
   payment_status: SeoPaymentStatus;
-  has_usable_password: boolean;
 }
 
 export interface SeoCheckout {
@@ -21,18 +20,16 @@ export interface SeoCheckout {
 }
 
 export interface SeoOnboardingProfile {
-  onboarding_status: OnboardingStatus;
-  onboarding_status_label: string;
   business_name: string;
   email: string;
   website_url: string;
+  /** Written by the Search Console check, never by the customer. */
   search_console_property: string;
   primary_location: string;
   target_keywords: string;
   competitors: string;
   google_business_profile_url: string;
   notes: string;
-  submitted_at: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -41,7 +38,6 @@ export type SeoOnboardingChanges = Partial<
   Pick<
     SeoOnboardingProfile,
     | 'website_url'
-    | 'search_console_property'
     | 'primary_location'
     | 'target_keywords'
     | 'competitors'
@@ -49,6 +45,38 @@ export type SeoOnboardingChanges = Partial<
     | 'notes'
   >
 >;
+
+export type SeoSetupKey =
+  | 'search_console'
+  | 'google_analytics'
+  | 'business_profile'
+  | 'google_ads'
+  | 'clarity'
+  | 'enquiries';
+
+export type SeoSetupState = 'not_started' | 'marked_done' | 'confirmed';
+
+export interface SeoSetupStep {
+  key: SeoSetupKey;
+  label: string;
+  state: SeoSetupState;
+  state_label: string;
+  required: boolean;
+  /** Our service account can verify this one itself. */
+  checkable: boolean;
+  detail: string;
+  marked_done_at: string | null;
+  confirmed_at: string | null;
+}
+
+export interface SeoSetup {
+  steps: SeoSetupStep[];
+  /** Every required step confirmed: reporting has started. */
+  complete: boolean;
+}
+
+/** `unavailable`: the check couldn't run, which says nothing about the setup. */
+export type SeoSetupCheckResult = 'confirmed' | 'not_found' | 'unavailable';
 
 export async function getSeoAccount(): Promise<SeoAccount> {
   return handleResponse(await authedFetch('/api/seo/me/'));
@@ -65,4 +93,23 @@ export async function createSeoCheckout(): Promise<SeoCheckout> {
 
 export async function getSeoOnboarding(): Promise<SeoOnboardingProfile> {
   return handleResponse(await authedFetch('/api/seo/onboarding/'));
+}
+
+export async function getSeoSetup(): Promise<SeoSetup> {
+  return handleResponse(await authedFetch('/api/seo/setup/'));
+}
+
+export async function markSeoSetupStep(key: SeoSetupKey, done: boolean): Promise<SeoSetup> {
+  return handleResponse(
+    await authedFetch(`/api/seo/setup/${key}/mark/`, {
+      method: 'POST',
+      body: JSON.stringify({ done }),
+    }),
+  );
+}
+
+export async function checkSeoSetupStep(
+  key: SeoSetupKey,
+): Promise<SeoSetup & { result: SeoSetupCheckResult }> {
+  return handleResponse(await authedFetch(`/api/seo/setup/${key}/check/`, { method: 'POST' }));
 }

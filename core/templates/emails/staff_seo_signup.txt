@@ -1,6 +1,6 @@
 New SEO signup
 
-{{ subscriber.business_name }} has created an SEO account and is waiting for approval.
+{{ subscriber.business_name }} has created an SEO account.
 
 Business: {{ subscriber.business_name }}
 Contact:  {{ subscriber.contact_name }}
@@ -9,4 +9,4 @@ Phone:    {{ subscriber.phone|default:"Not supplied" }}
 Website:  {{ subscriber.website|default:"Not supplied" }}
 Plan:     {{ subscriber.get_plan_display }}
 
-Review this customer: {{ subscriber_url }}
+Open this customer: {{ subscriber_url }}

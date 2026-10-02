@@ -52,7 +52,7 @@ export default function ChangePasswordPage() {
       heading={user.must_change_password ? 'Choose your own password' : 'Change your password'}
       intro={
         user.must_change_password
-          ? `This password was set for you, so it has to be replaced before you go any further. At least ${MINIMUM_PASSWORD_LENGTH} characters.`
+          ? `Your account has a temporary password, which has to be replaced before you go any further. Enter it as your current password (it's in the email or message you were sent), then choose your own: at least ${MINIMUM_PASSWORD_LENGTH} characters.`
           : `At least ${MINIMUM_PASSWORD_LENGTH} characters. Your other sessions will be signed out.`
       }
     >

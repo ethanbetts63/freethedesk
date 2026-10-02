@@ -12,17 +12,11 @@ Imports no models, so the sale views and the notification layer can both use it
 without importing each other.
 """
 
-import secrets
-
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
 
+from core.utils.temporary_password import generate_temporary_password
 from core.utils.urls import site_url
-
-#: Avoids the characters people mistake for each other when reading a password
-#: off a screen and typing it on a phone: no O/0, no I/l/1.
-_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789"
-_LENGTH = 12
 
 COOKIE_PREFIX = "sale-access"
 #: Six months. A sale runs for weeks and a customer comes back to it after
@@ -32,11 +26,6 @@ COOKIE_PREFIX = "sale-access"
 COOKIE_MAX_AGE = 60 * 60 * 24 * 180
 
 
-def generate_access_password() -> str:
-    """A plain temporary password. Only ever returned, never persisted as-is."""
-    return "".join(secrets.choice(_ALPHABET) for _ in range(_LENGTH))
-
-
 def set_access_password(sale, *, save=True) -> str:
     """Mint a password, store only its hash, and return the plain text.
 
@@ -44,7 +33,7 @@ def set_access_password(sale, *, save=True) -> str:
     customer exactly once. It cannot be recovered afterwards, which is the
     point: a password we can read back is one a support conversation can leak.
     """
-    plain = generate_access_password()
+    plain = generate_temporary_password()
     sale.access_password_hash = make_password(plain)
     if save:
         sale.save(update_fields=["access_password_hash", "updated_at"])

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { StatusPill } from '@/components/dashboard/StatusPill';
 import { useAuth } from '@/context/AuthContext';
 
-import { getSeoAccount, type SeoAccount } from '@/lib/seoApi';
+import { getSeoAccount, getSeoSetup, type SeoAccount, type SeoSetup } from '@/lib/seoApi';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import {
@@ -20,20 +20,12 @@ import {
   statusCardLabelGroupClassName,
 } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
-import { PortalStep, PortalSteps } from '@/components/dashboard/PortalSteps';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
 import { formatDateTime } from '@/lib/formatting';
 
-const statusCopy: Record<SeoAccount['status'], { heading: string; body: string }> = {
-  pending: {
-    heading: 'We are getting your account ready.',
-    body: 'We check every new account by hand before switching it on — usually within a business day. There is nothing for you to do in the meantime, and we will email you the moment it is done.',
-  },
-  active: {
-    heading: 'Your account is active.',
-    body: 'Connect your Search Console data and tell us what to focus the reporting on. Your first report follows once that is in.',
-  },
+/** Only the statuses that need explaining; an active account just gets on with setup. */
+const statusCopy: Partial<Record<SeoAccount['status'], { heading: string; body: string }>> = {
   suspended: {
     heading: 'This account is suspended.',
     body: 'You can still sign in, but reporting is paused. Get in touch and we will sort out what happened.',
@@ -47,12 +39,17 @@ const statusCopy: Record<SeoAccount['status'], { heading: string; body: string }
 export default function SeoPortalOverviewPage() {
   const { user } = useAuth();
   const [account, setAccount] = useState<SeoAccount | null>(null);
+  const [setup, setSetup] = useState<SeoSetup | null>(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getSeoAccount()
-      .then(setAccount)
+      .then(async (loaded) => {
+        setAccount(loaded);
+        if (loaded.payment_status === 'active' || loaded.payment_status === 'paid')
+          setSetup(await getSeoSetup());
+      })
       .catch((reason) =>
         setError(reason instanceof Error ? reason.message : 'Your account could not be loaded.'),
       )
@@ -73,20 +70,8 @@ export default function SeoPortalOverviewPage() {
     );
   if (!account) return null;
 
-  const hasPaid = account.payment_status === 'active' || account.payment_status === 'paid';
-  const copy =
-    account.payment_status === 'payment_pending'
-      ? {
-          heading: 'Your account is saved.',
-          body: 'Your selected plan has not been paid yet. Continue when you are ready; you will not need to enter these signup details again.',
-        }
-      : hasPaid && account.status === 'pending'
-        ? {
-            heading: 'Payment confirmed. Connect your data.',
-            body: 'Add your Search Console property and Google Business Profile, and tell us what to focus on. Your first round of findings follows once we have reviewed the account.',
-          }
-        : statusCopy[account.status];
-  const firstName = account.contact_name.trim().split(/\s+/)[0] || account.contact_name;
+  const message = statusCopy[account.status];
+  const done = setup?.steps.filter((step) => step.state !== 'not_started').length ?? 0;
 
   return (
     <div className={pageClassName}>
@@ -108,46 +93,32 @@ export default function SeoPortalOverviewPage() {
           <section className={cn(cardClassName, cardWideClassName)}>
             <h2 className={cardTitleClassName}>Finish secure payment</h2>
             <p className={messageBodyClassName}>
-              Your account is saved. Complete payment to unlock your setup.
+              Your selected plan has not been paid yet. Continue when you are ready; you will not
+              need to enter your signup details again.
             </p>
             <Button href="/seo/payment">Continue to payment →</Button>
           </section>
         )}
 
-        {hasPaid && !account.has_usable_password && (
+        {message && (
           <section className={cn(cardClassName, cardWideClassName)}>
-            <h2 className={cardTitleClassName}>Complete your account</h2>
-            <p className={messageBodyClassName}>
-              Add your business and contact names, then choose your sign-in password.
-            </p>
-            <Button href="/seo-portal/account">Complete account setup →</Button>
+            <h2 className={cardTitleClassName}>{message.heading}</h2>
+            <p className={messageBodyClassName}>{message.body}</p>
           </section>
         )}
 
-        <section className={cn(cardClassName, cardWideClassName)}>
-          <h2 className={cardTitleClassName}>Hello {firstName}.</h2>
-          <p className={messageBodyClassName}>
-            <strong>{copy.heading}</strong>
-          </p>
-          <p className={messageBodyClassName}>{copy.body}</p>
-        </section>
-
-        {hasPaid && (
+        {setup && (
           <section className={cn(cardClassName, cardWideClassName)}>
-            <h2 className={cardTitleClassName}>What happens next</h2>
-            <PortalSteps>
-              <PortalStep title="Connect your data">
-                Grant read-only access to Search Console, your Google Business Profile and your
-                analytics.
-              </PortalStep>
-              <PortalStep title="Tell us the focus">
-                Target locations, the searches you care about and who you compete with.
-              </PortalStep>
-              <PortalStep title="Your first findings">
-                Plain-English, ranked recommendations land in your inbox.
-              </PortalStep>
-            </PortalSteps>
-            <Button href="/seo-portal/connect">Connect your data →</Button>
+            <h2 className={cardTitleClassName}>Setup</h2>
+            <p className={messageBodyClassName}>
+              {setup.complete
+                ? 'Search Console is connected, so reporting has started.'
+                : 'Reporting starts once Search Console is connected.'}{' '}
+              {done} of {setup.steps.length} tools set up.
+            </p>
+            <Button href="/seo-portal/setup">
+              {setup.complete ? 'Review setup →' : 'Continue setup →'}
+            </Button>
           </section>
         )}
 

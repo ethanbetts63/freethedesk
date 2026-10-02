@@ -111,6 +111,7 @@ post-payment onboarding.
 | `Dealer`        | `dealers/models/dealer.py` | `business_name`, `contact_name`, `phone`, `state`, `staff_notes`; email lives on the linked `auth.User` |
 | `SeoSubscriber` | `seo/models/subscriber.py` | `business_name`, `contact_name`, `phone`, `website`, `staff_notes`; email likewise on `auth.User`       |
 | `SeoProfile`    | `seo/models/profile.py`    | `website_url`, `search_console_property`, `primary_location`, `target_keywords`, `competitors`, `notes` |
+| `SeoSetupStep`  | `seo/models/setup_step.py` | `detail` (the Search Console or Analytics property a check matched): business data, not personal        |
 
 Both customer models are 1:1 with an `auth.User` whose `username` **is** the
 email address, so an account row is itself a contact record.
@@ -237,6 +238,12 @@ message is delivered, or hold the credential out of the stored copy.
 tier up. Nothing records which dealer user opened a customer's licence
 photograph, or when. Viewing the most sensitive thing in the system is invisible
 on both sides of it.
+
+**G10 — The SEO welcome email carries a temporary password in the clear.** The
+same shape as G8, accepted deliberately on 2 October 2026: the account holds
+nothing personal beyond the signup email until the owner signs in, and the
+first sign-in forces a new password (`must_change_password`). `Message.body_text`
+still keeps the temporary one indefinitely, so the same two ways out apply.
 
 ---
 

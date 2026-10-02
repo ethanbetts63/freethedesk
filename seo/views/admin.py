@@ -7,7 +7,7 @@ from core.utils.ordering import apply_ordering
 from core.utils.pagination import DashboardPagination
 
 from ..models import SeoSubscriber
-from ..serializers import AdminSeoSubscriberSerializer
+from ..serializers import AdminSeoSubscriberDetailSerializer, AdminSeoSubscriberSerializer
 
 SEO_ORDERING = {
     "created_at": ("created_at",),
@@ -44,7 +44,7 @@ class AdminSeoSubscriberListView(ListAPIView):
 class AdminSeoSubscriberDetailView(RetrieveUpdateAPIView):
     throttle_scope = "staff"  # Runaway-client limit; access is gated by the permission class.
     permission_classes = [IsAdminUser]
-    serializer_class = AdminSeoSubscriberSerializer
+    serializer_class = AdminSeoSubscriberDetailSerializer
     queryset = SeoSubscriber.objects.select_related("user")
     http_method_names = ["get", "patch", "head", "options"]
 

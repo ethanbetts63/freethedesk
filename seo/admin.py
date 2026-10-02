@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import SeoProfile, SeoSubscriber
+from .models import SeoProfile, SeoSetupStep, SeoSubscriber
 
 
 @admin.register(SeoSubscriber)
@@ -19,7 +19,14 @@ class SeoSubscriberAdmin(admin.ModelAdmin):
 
 @admin.register(SeoProfile)
 class SeoProfileAdmin(admin.ModelAdmin):
-    list_display = ("subscriber", "onboarding_status", "primary_location", "updated_at")
-    list_filter = ("onboarding_status",)
+    list_display = ("subscriber", "primary_location", "updated_at")
     search_fields = ("subscriber__business_name", "subscriber__user__email", "primary_location")
-    readonly_fields = ("created_at", "updated_at", "submitted_at")
+    readonly_fields = ("created_at", "updated_at")
+
+
+@admin.register(SeoSetupStep)
+class SeoSetupStepAdmin(admin.ModelAdmin):
+    list_display = ("subscriber", "key", "state", "marked_done_at", "confirmed_at")
+    list_filter = ("key", "state")
+    search_fields = ("subscriber__business_name", "subscriber__user__email")
+    readonly_fields = ("marked_done_at", "confirmed_at", "updated_at")

@@ -46,22 +46,6 @@ def test_subscriber_can_read_and_update_own_account(client, seo_subscriber):
     assert seo_subscriber.website == "https://peak.example"
 
 
-def test_provisional_subscriber_can_set_a_password(client, seo_subscriber):
-    seo_subscriber.user.set_unusable_password()
-    seo_subscriber.user.save(update_fields=["password"])
-    client.sign_in(seo_subscriber.user)
-
-    response = client.post(
-        reverse("seo-set-password"),
-        {"password": "A-New-Sturdy-Passphrase-52"},
-        content_type="application/json",
-    )
-
-    assert response.status_code == 200
-    seo_subscriber.user.refresh_from_db()
-    assert seo_subscriber.user.check_password("A-New-Sturdy-Passphrase-52")
-
-
 def test_subscriber_cannot_change_own_status_or_plan(client, seo_subscriber):
     client.sign_in(seo_subscriber.user)
     client.patch(
@@ -84,36 +68,25 @@ def test_onboarding_requires_paid_status(client, seo_subscriber):
     assert client.get(reverse("seo-onboarding")).status_code == 403
 
 
-def test_paid_subscriber_can_save_onboarding_draft(client, paid_seo_subscriber):
+def test_paid_subscriber_can_save_the_brief(client, paid_seo_subscriber):
     client.sign_in(paid_seo_subscriber.user)
     response = client.patch(
         reverse("seo-onboarding"),
-        {"search_console_property": "sc-domain:peak.example", "target_keywords": "vespa perth"},
+        {"target_keywords": "vespa perth", "primary_location": "Perth"},
         content_type="application/json",
     )
     assert response.status_code == 200
     profile = SeoProfile.objects.get(subscriber=paid_seo_subscriber)
-    assert profile.search_console_property == "sc-domain:peak.example"
-    assert profile.onboarding_status == SeoProfile.OnboardingStatus.IN_PROGRESS
+    assert profile.target_keywords == "vespa perth"
+    assert profile.primary_location == "Perth"
 
 
-def test_onboarding_submit_requires_the_core_fields(client, paid_seo_subscriber):
+def test_the_brief_cannot_set_the_search_console_property(client, paid_seo_subscriber):
+    # Only the Search Console check writes it, so it is always one we can read.
     client.sign_in(paid_seo_subscriber.user)
-    response = client.post(reverse("seo-onboarding-submit"))
-    assert response.status_code == 400
-
     client.patch(
         reverse("seo-onboarding"),
-        {
-            "website_url": "https://peak.example",
-            "search_console_property": "sc-domain:peak.example",
-            "primary_location": "Perth",
-            "target_keywords": "vespa perth",
-        },
+        {"search_console_property": "sc-domain:someone-else.example"},
         content_type="application/json",
     )
-    ok = client.post(reverse("seo-onboarding-submit"))
-    assert ok.status_code == 200
-    profile = SeoProfile.objects.get(subscriber=paid_seo_subscriber)
-    assert profile.onboarding_status == SeoProfile.OnboardingStatus.SUBMITTED
-    assert profile.submitted_at is not None
+    assert SeoProfile.objects.get(subscriber=paid_seo_subscriber).search_console_property == ""

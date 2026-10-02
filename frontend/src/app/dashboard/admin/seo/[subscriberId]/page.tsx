@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 import {
-  AccountApprovalCard,
   AccountBillingCard,
   AccountContactCard,
   AccountDetailHeader,
@@ -23,6 +22,7 @@ import {
 import { Notice } from '@/components/ui/Notice';
 import { detailGridClassName } from '@/components/ui/Card';
 import { backClassName, pageClassName } from '@/components/ui/layout';
+import { SeoSetupCard } from './_components/SeoSetupCard';
 
 export default function SeoSubscriberDetailPage() {
   const id = Number(useParams<{ subscriberId: string }>().subscriberId);
@@ -76,15 +76,8 @@ export default function SeoSubscriberDetailPage() {
           onChange={(status) => save({ status }, `Status set to ${status}.`)}
         />
 
-        {account.status === 'pending' && (
-          <AccountApprovalCard
-            heading="Approve this customer"
-            explanation="Approving switches the account on so reporting can begin once they have connected their data."
-            saving={saving}
-            onApprove={() => save({ status: 'active' }, 'Customer approved.')}
-            onDeny={() => save({ status: 'denied' }, 'Customer denied.')}
-          />
-        )}
+        {/* Payment switches the account on; there is no approval step. */}
+        {account.setup && <SeoSetupCard subscriberId={account.id} initial={account.setup} />}
 
         <AccountContactCard
           account={account}

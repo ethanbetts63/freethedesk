@@ -65,6 +65,12 @@ const STATUS: StatusMap = {
   awaiting_payment: { label: 'Awaiting payment', tone: 'var(--status-contacted)' },
   payment_confirmed: { label: 'Payment confirmed', tone: 'var(--status-qualified)' },
   completed: { label: 'Completed', tone: 'var(--status-won)' },
+
+  // SEO setup steps. Marked done is waiting on us to confirm the access, so it
+  // takes the colour of the other "waiting on someone" states.
+  not_started: { label: 'Not started', tone: 'var(--status-closed)' },
+  marked_done: { label: 'Marked done', tone: 'var(--status-contacted)' },
+  confirmed: { label: 'Confirmed', tone: 'var(--status-won)' },
 };
 
 export function statusLabel(status: string): string {

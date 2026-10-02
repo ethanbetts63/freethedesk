@@ -5,26 +5,25 @@ from ..models import SeoProfile
 
 
 class SeoOnboardingSerializer(serializers.ModelSerializer):
-    """The reporting inputs an SEO customer fills in after payment."""
+    """The optional brief an SEO customer fills in after payment.
 
-    onboarding_status_label = serializers.CharField(
-        source="get_onboarding_status_display", read_only=True
-    )
+    ``search_console_property`` is read-only: the Search Console setup check
+    writes the property it matched, so a customer can't point us at one we
+    can't read.
+    """
+
     business_name = serializers.CharField(source="subscriber.business_name", read_only=True)
     email = serializers.EmailField(source="subscriber.user.email", read_only=True)
 
     class Meta:
         model = SeoProfile
         fields = [
-            "onboarding_status", "onboarding_status_label", "business_name", "email",
+            "business_name", "email",
             "website_url", "search_console_property", "primary_location",
             "target_keywords", "competitors", "google_business_profile_url", "notes",
-            "submitted_at", "created_at", "updated_at",
-        ]
-        read_only_fields = [
-            "onboarding_status", "onboarding_status_label", "submitted_at",
             "created_at", "updated_at",
         ]
+        read_only_fields = ["search_console_property", "created_at", "updated_at"]
         # Three TextField columns, which DRF maps to CharFields with no
         # maximum. A customer types these, so they are notes, not documents.
         extra_kwargs = {
@@ -32,8 +31,3 @@ class SeoOnboardingSerializer(serializers.ModelSerializer):
             "competitors": {"max_length": bounds.FIELD_MAX["note"]},
             "notes": {"max_length": bounds.FIELD_MAX["note"]},
         }
-
-    def update(self, instance, validated_data):
-        if instance.onboarding_status == SeoProfile.OnboardingStatus.NOT_STARTED:
-            validated_data["onboarding_status"] = SeoProfile.OnboardingStatus.IN_PROGRESS
-        return super().update(instance, validated_data)

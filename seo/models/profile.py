@@ -4,20 +4,15 @@ from .subscriber import SeoSubscriber
 
 
 class SeoProfile(models.Model):
-    """The reporting inputs collected after payment activates."""
+    """The brief a paid subscriber gives us, all of it optional.
 
-    class OnboardingStatus(models.TextChoices):
-        NOT_STARTED = "not_started", "Not started"
-        IN_PROGRESS = "in_progress", "In progress"
-        SUBMITTED = "submitted", "Submitted"
+    Access is tracked separately, one ``SeoSetupStep`` per tool; this is what
+    the customer tells us about the business. ``search_console_property`` is
+    not typed by the customer: the Search Console check writes the property it
+    matched.
+    """
 
     subscriber = models.OneToOneField(SeoSubscriber, on_delete=models.CASCADE, related_name="profile")
-    onboarding_status = models.CharField(
-        max_length=20,
-        choices=OnboardingStatus.choices,
-        default=OnboardingStatus.NOT_STARTED,
-        db_index=True,
-    )
     website_url = models.URLField(blank=True)
     search_console_property = models.CharField(max_length=255, blank=True)
     primary_location = models.CharField(max_length=180, blank=True)
@@ -25,7 +20,6 @@ class SeoProfile(models.Model):
     competitors = models.TextField(blank=True)
     google_business_profile_url = models.URLField(blank=True)
     notes = models.TextField(blank=True)
-    submitted_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

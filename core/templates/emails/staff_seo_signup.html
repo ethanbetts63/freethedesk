@@ -1,12 +1,12 @@
 {% extends "emails/base.html" %}
 
 {% block title %}New SEO signup — {{ subscriber.business_name }}{% endblock %}
-{% block preheader %}{{ subscriber.business_name }} has signed up for SEO and is waiting for approval.{% endblock %}
+{% block preheader %}{{ subscriber.business_name }} has signed up for SEO.{% endblock %}
 
 {% block content %}
 <p style="margin: 0 0 20px; font-size: 18px; font-weight: 700;">New SEO signup</p>
 
-<p style="margin: 0 0 24px;"><strong>{{ subscriber.business_name }}</strong> has created an SEO account and is waiting for approval.</p>
+<p style="margin: 0 0 24px;"><strong>{{ subscriber.business_name }}</strong> has created an SEO account.</p>
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0 0 28px; font-size: 15px;">
     <tr>
@@ -31,5 +31,5 @@
     </tr>
 </table>
 
-<a href="{{ subscriber_url }}" target="_blank" style="background-color: #16201a; border-radius: 5px; color: #ffffff; display: inline-block; font-size: 14px; font-weight: 700; padding: 13px 22px; text-decoration: none;">Review this customer</a>
+<a href="{{ subscriber_url }}" target="_blank" style="background-color: #16201a; border-radius: 5px; color: #ffffff; display: inline-block; font-size: 14px; font-weight: 700; padding: 13px 22px; text-decoration: none;">Open this customer</a>
 {% endblock %}

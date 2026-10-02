@@ -7,7 +7,7 @@ import {
 } from './api';
 
 import type { DealerAccount } from './dealerApi';
-import type { SeoAccount } from './seoApi';
+import type { SeoAccount, SeoSetup, SeoSetupKey } from './seoApi';
 import { handleResponse } from '@freetheplatform/web-security';
 
 export type { Paginated, Principal as StaffUser } from './api';
@@ -47,7 +47,11 @@ export interface Enquiry {
 
 export type Dealer = DealerAccount & StaffAccountFields;
 
-export type SeoSubscriber = SeoAccount & StaffAccountFields;
+export type SeoSubscriber = SeoAccount &
+  StaffAccountFields & {
+    /** Only on the detail endpoint, and null until the subscriber has paid. */
+    setup?: SeoSetup | null;
+  };
 
 export type SiteSettings = PublicSiteSettings;
 
@@ -146,6 +150,20 @@ export async function updateSeoSubscriber(
     await authedFetch(`/api/admin/seo/${id}/`, {
       method: 'PATCH',
       body: JSON.stringify(changes),
+    }),
+  );
+}
+
+/** Staff confirming a setup step by hand, or resetting it. */
+export async function updateSeoSetupStep(
+  id: number,
+  key: SeoSetupKey,
+  action: 'confirm' | 'reset',
+): Promise<SeoSetup> {
+  return handleResponse(
+    await authedFetch(`/api/admin/seo/${id}/setup/${key}/`, {
+      method: 'POST',
+      body: JSON.stringify({ action }),
     }),
   );
 }

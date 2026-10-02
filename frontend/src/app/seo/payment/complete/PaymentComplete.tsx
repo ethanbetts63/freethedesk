@@ -11,7 +11,7 @@ async function check(): Promise<ConfirmationResult> {
   if (account.payment_status === 'active' || account.payment_status === 'paid') {
     return {
       status: 'active',
-      next: account.has_usable_password ? '/seo-portal/overview' : '/seo-portal/account',
+      next: '/seo-portal/setup',
     };
   }
   if (account.payment_status === 'past_due' || account.payment_status === 'cancelled')

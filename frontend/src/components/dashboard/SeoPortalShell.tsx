@@ -4,7 +4,7 @@ import { PortalShell } from './PortalShell';
 
 const nav = [
   { href: '/seo-portal/overview', label: 'Overview' },
-  { href: '/seo-portal/connect', label: 'Connect data' },
+  { href: '/seo-portal/setup', label: 'Setup' },
   { href: '/seo-portal/account', label: 'Account' },
 ];
 

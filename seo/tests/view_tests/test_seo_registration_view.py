@@ -76,14 +76,13 @@ def test_signup_allows_missing_website(client):
     assert response.status_code == 201
 
 
-def test_signup_records_staff_and_customer_notifications(client, outbox):
+def test_signup_tells_staff_but_not_the_customer(client, outbox):
+    # The customer is mid-checkout; their email comes once payment lands.
     client.post(reverse("seo-signup"), PAYLOAD, content_type="application/json")
 
     subscriber = SeoSubscriber.objects.get()
-    assert len(outbox) == 3
     sent = {(message.message_type, message.channel) for message in outbox}
     assert sent == {
-        ("seo.welcome", "email"),
         ("seo.staff_signup", "email"),
         ("seo.staff_signup", "sms"),
     }

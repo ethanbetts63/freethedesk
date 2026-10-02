@@ -10,11 +10,15 @@ from core.principal import principal
 from core.utils.throttles import SeoSignupRateThrottle
 
 from ..serializers import SeoRegistrationSerializer
-from ..utils.notifications import notify_staff_of_seo_signup, send_seo_welcome
+from ..utils.notifications import notify_staff_of_seo_signup
 
 
 class SeoRegistrationView(APIView):
-    """Create the basic SEO login before paid checkout."""
+    """Create the basic SEO login before paid checkout.
+
+    The customer hears from us once payment lands (``activate_paid_subscriber``);
+    until then they are still on the checkout page.
+    """
 
     authentication_classes = []
     permission_classes = [AllowAny]
@@ -25,7 +29,6 @@ class SeoRegistrationView(APIView):
         serializer.is_valid(raise_exception=True)
         subscriber = serializer.save()
         notify_staff_of_seo_signup(subscriber)
-        send_seo_welcome(subscriber)
         # Registering signs them in on the same cookies login uses; CSRF token issued alongside.
         refresh = RefreshToken.for_user(subscriber.user)
         get_token(request)

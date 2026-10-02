@@ -197,6 +197,10 @@ REST_FRAMEWORK = {
         "portal": "600/hour",
         "public": "600/hour",
         "checkout": "20/hour",
+        # Each check signs a Google token and pages Google's APIs on the
+        # customer's behalf. Enough for someone retrying while they fix their
+        # access; a loop on the button should not spend our API quota.
+        "seo-access-check": "30/hour",
         # A customer working through their own sale. Set where a runaway client
         # stops and a person filling in a form never notices.
         "sale-customer": "600/hour",
@@ -297,6 +301,12 @@ SITE_URL = _required("SITE_URL").rstrip("/")
 # Staff alert destination, read directly by senders in core, dealers and seo.
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "")
 ADMIN_NUMBER = os.getenv("ADMIN_NUMBER", "")
+
+# Path to the Google service-account key SEO customers add to Search Console
+# and Analytics; the same variable the freetheplatform reporting CLI reads.
+# Unset, the setup page's access checks say they can't run and staff confirm by
+# hand instead.
+SEO_GOOGLE_CREDENTIALS = os.getenv("FTP_SEARCHCONSOLE_CREDENTIALS", "")
 
 # No on/off switch: with no provider credentials, sends fail and are recorded
 # with the missing setting named on the row.
