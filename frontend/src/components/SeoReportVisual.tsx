@@ -57,7 +57,11 @@ const reportSections: readonly ReportCardItem[] = [
   { title: 'Recommendations', description: 'Ranked by impact and cost.', icon: actionIcon },
   { title: 'Experiments', description: 'What each change earned.', icon: trendIcon },
   { title: 'Foundations', description: '23 checks: pass, warn or fail.', icon: issueIcon },
-  { title: 'Opportunities', description: "Searches you're missing.", icon: targetIcon },
+  {
+    title: 'Trend analysis',
+    description: 'Where your search traffic is heading.',
+    icon: targetIcon,
+  },
 ];
 
 const improvementSections: readonly ReportCardItem[] = [
