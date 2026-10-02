@@ -67,7 +67,7 @@ export default async function SeoPage() {
         accentTitle="Google"
         accentAlternates={['ChatGPT', 'Claude', 'Gemini', 'Perplexity']}
         titleSuffix="recommends first."
-        lead="We find where Perth customers search and don't find you, rank the fixes by value, then measure what changed. Every click you earn is one you stop buying from Google Ads."
+        lead="SEO you can see working. We find where Perth customers search and don't find you, rank what to fix, and measure every change."
         primaryHref="#signup"
         primaryLabel="Choose a plan"
         secondaryHref="#recommend"
