@@ -135,7 +135,7 @@ const labelClassName = 'font-heavy text-text-primary';
 export function SeoExperimentCard() {
   return (
     <article
-      className="rounded-m border border-border-default bg-surface-page p-l text-body-sm leading-relaxed text-text-secondary shadow-contrast-l sm:p-xl"
+      className="border border-border-strong bg-surface-page p-l text-body-sm leading-relaxed text-text-secondary shadow-block-s sm:p-xl sm:shadow-block-l"
       aria-labelledby="seo-experiment-card-title"
     >
       <header className="mb-m flex flex-wrap items-start justify-between gap-s">
