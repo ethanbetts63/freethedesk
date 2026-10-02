@@ -24,8 +24,8 @@ const ABN = '11493753896';
  * The single business entity every other node points at via `@id`.
  *
  * Typed `ProfessionalService` (a LocalBusiness subtype) rather than a bare
- * Organization so the Perth address carries local weight, and `areaServed`
- * names Western Australia, the market the site's copy is written for. Only verifiable facts belong here -
+ * Organization so the Perth address carries local weight, while `areaServed`
+ * stays national: the work is mostly in Perth, with clients across Australia. Only verifiable facts belong here -
  * no phone or opening hours until there is a real one to publish.
  */
 export function buildOrganizationSchema(): object {
@@ -42,7 +42,7 @@ export function buildOrganizationSchema(): object {
      * dealership work is one line of it, not the headline.
      */
     description:
-      'Perth web development, SEO and digital automation company, building custom websites, SEO reports and workflow automation for Perth and WA businesses — including dealership websites and online vehicle licensing.',
+      'Perth web development, SEO and digital automation company, building custom websites, SEO and workflow automation for businesses in Perth and across Australia — including dealership websites and online vehicle licensing.',
     logo: {
       '@type': 'ImageObject',
       url: `${SITE_URL}/logo-512x512.png`,
@@ -73,7 +73,7 @@ export function buildOrganizationSchema(): object {
      * none of. Social profiles belong here too, once there are live ones.
      */
     sameAs: [`https://abr.business.gov.au/ABN/View?id=${ABN}`],
-    areaServed: { '@type': 'State', name: 'Western Australia' },
+    areaServed: { '@type': 'Country', name: 'Australia' },
     /*
      * Spelled identically to the Person node on the other sites, and carrying
      * the same profile URL — one profile is what ties three sites' references

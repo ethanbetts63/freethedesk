@@ -27,7 +27,6 @@ export const HOME_FAQS: FaqItem[] = [
 
   {
     question: 'Do you work outside Perth?',
-    answer:
-      "We're Perth-based, and Perth and WA businesses are who we build for. We can work with businesses elsewhere in Australia when the project suits.",
+    answer: 'Yes. We work primarily in Perth, and we also have clients in cities across Australia.',
   },
 ];

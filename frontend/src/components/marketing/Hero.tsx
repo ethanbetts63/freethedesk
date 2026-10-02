@@ -41,7 +41,7 @@ export function Hero({
   primaryLabel,
   secondaryHref,
   secondaryLabel,
-  trustLine = 'Perth-based · working with Perth and WA businesses',
+  trustLine = 'Perth-based · clients across Australia',
 }: HeroProps) {
   return (
     <section className="relative isolate flex min-h-[calc(100svh-68px)] items-center overflow-hidden bg-surface-page lg:min-h-[calc(100vh-78px)]">

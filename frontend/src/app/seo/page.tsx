@@ -72,7 +72,6 @@ export default async function SeoPage() {
         primaryLabel="Choose a plan"
         secondaryHref="#recommend"
         secondaryLabel="See what you get"
-        trustLine="Perth-based · built for Perth and WA businesses"
       />
 
       <SeoStepsBar />

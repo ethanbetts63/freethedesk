@@ -35,11 +35,11 @@ class SiteSettings(models.Model):
     # Per cycle, at whatever cadence the subscriber is on: a subscription
     # starts monthly and slows, and the price of each cycle does not change.
     seo_subscription_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=Decimal("225.00"),
+        max_digits=8, decimal_places=2, default=Decimal("499.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
     seo_oneoff_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=Decimal("250.00"),
+        max_digits=8, decimal_places=2, default=Decimal("550.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
     updated_at = models.DateTimeField(auto_now=True)

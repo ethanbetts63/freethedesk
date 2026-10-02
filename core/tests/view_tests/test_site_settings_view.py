@@ -10,8 +10,8 @@ def test_site_settings_are_publicly_readable(api_client):
     assert data["licensing_price"] == "149.00"
     assert data["contracts_price"] == "99.00"
     assert data["complete_price"] == "199.00"
-    assert data["seo_subscription_price"] == "225.00"
-    assert data["seo_oneoff_price"] == "250.00"
+    assert data["seo_subscription_price"] == "499.00"
+    assert data["seo_oneoff_price"] == "550.00"
 
 
 def test_site_settings_dashboard_requires_staff(api_client):

@@ -96,8 +96,8 @@ export function SeoSignupPanel({
               ))}
             </div>
             <p className="mt-l mb-0 max-w-[46ch] text-body-sm leading-relaxed text-text-muted">
-              Subscriptions start monthly and slow down as the easy wins run out. The price of a
-              cycle never changes, and you can cancel at any time.
+              Subscriptions start monthly, we will recommended less frequent reports as growth
+              settles.
             </p>
           </div>
 
@@ -114,7 +114,7 @@ export function SeoSignupPanel({
       }
     >
       <div className={formTitleClassName}>
-        <h3 className={formTitleHeadingClassName}>Where should we send it?</h3>
+        <h3 className={formTitleHeadingClassName}>Create your account.</h3>
       </div>
       <label className={fieldLabelClassName}>
         <span className={fieldLabelSpanClassName}>Email</span>
@@ -163,7 +163,7 @@ export function SeoSignupPanel({
         fullWidth
         disabled={isPending}
       >
-        {isPending ? 'Creating your checkout…' : 'Payment'}
+        {isPending ? 'Creating your account…' : 'Continue to payment'}
       </CtaButton>
     </SelectionFormPanel>
   );

@@ -10,7 +10,7 @@ export const DEALER_FAQS: FaqItem[] = [
   {
     question: 'Do you work outside Perth?',
     answer:
-      "Perth and WA dealerships are our focus, and we're Perth-based. Online licensing and the website builder also work for dealers in other states.",
+      'Yes. We work primarily in Perth, and we also have clients in cities across Australia. Online licensing and the website builder work for dealers in every state.',
   },
 
   {

@@ -46,12 +46,12 @@ export const SEO_FAQS: FaqItem[] = [
   {
     question: 'Do you only work with Perth businesses?',
     answer:
-      "We're Perth-based, and the work is built for businesses competing for Perth and WA searches: local results, Google Maps and the suburbs you serve. The process works anywhere in Australia, but local Perth businesses get the most out of it.",
+      'No. We work primarily in Perth, and we also have clients in cities across Australia. Local results, Google Maps and the suburbs or regions you serve are part of every cycle, wherever you are.',
   },
 
   {
-    question: "What happens when there's nothing left to improve?",
+    question: 'Do you ever run out of things to improve?',
     answer:
-      "The findings say so and recommend you slow down or cancel. We'd rather lose the money than keep charging for attention your data doesn't need yet.",
+      "No. There are always more opportunities, but as the low-hanging fruit is used up we recommend less frequent cycles. At every six months, there's enough new data between decisions to keep finding the next ones.",
   },
 ];

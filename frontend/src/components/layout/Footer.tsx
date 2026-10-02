@@ -75,7 +75,7 @@ export function Footer() {
           </Link>
           <p className="mt-l mb-0 max-w-[360px] text-body leading-relaxed text-text-muted">
             Websites, SEO and automation for Perth businesses, built by a Perth development team
-            with hands-on experience across dealerships and automotive suppliers.
+            with years of hands-on experience.
           </p>
         </>
       }
@@ -83,7 +83,7 @@ export function Footer() {
         <>
           <span>&copy; {new Date().getFullYear()} freethedesk</span>
           <span>ABN 11 493 753 896</span>
-          <span>Working with Perth and WA businesses</span>
+          <span>Perth-based, with clients across Australia</span>
         </>
       }
     />
