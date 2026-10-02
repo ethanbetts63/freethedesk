@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
 
+import { ScrollCtaButton } from '@/components/common/ScrollCtaButton';
 import { focusRowClassName } from '@/lib/controlState';
 import { cn } from '@/lib/utils';
 
@@ -60,7 +61,20 @@ export function ProcessBar({
                 key={step.label}
                 className="min-w-0 border-t border-border-on-dark even:border-l even:border-border-on-dark lg:even:border-l-0 lg:[&:not(:first-child)]:border-l lg:[&:not(:first-child)]:border-border-on-dark"
               >
-                {step.href ? (
+                {/* A bare "#fragment" scrolls without touching the URL, as CtaButton
+                    does: a hash link only works on the first click. */}
+                {step.href?.startsWith('#') ? (
+                  <ScrollCtaButton
+                    targetId={step.href.slice(1)}
+                    classes={cn(
+                      contentClassName,
+                      focusRowClassName,
+                      'w-full cursor-pointer bg-transparent text-left',
+                    )}
+                  >
+                    {content}
+                  </ScrollCtaButton>
+                ) : step.href ? (
                   <Link className={cn(contentClassName, focusRowClassName)} href={step.href}>
                     {content}
                   </Link>

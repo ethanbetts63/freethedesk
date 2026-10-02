@@ -2,12 +2,16 @@ import Link from 'next/link';
 
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import Eyebrow from '@/components/common/eyebrow';
+import { ScrollCtaButton } from '@/components/common/ScrollCtaButton';
 import { CtaButton } from '@/components/CtaButton';
 import { HeroRotatingWord } from '@/components/marketing/HeroRotatingWord';
 import { NetworkField } from '@/components/visuals/NetworkField';
 import type { PagePath } from '@/lib/pages';
 import { heroGridClassName } from '@/lib/gridSurface';
 import { cn } from '@/lib/utils';
+
+const secondaryLinkClassName =
+  'inline-flex min-h-[var(--tap-min)] items-center justify-between gap-s border-b border-text-primary py-2xs text-body font-heavy sm:min-h-0';
 
 type HeroProps = {
   /** Set to float the breadcrumb trail over the top-right of the hero. */
@@ -60,7 +64,9 @@ export function Hero({
         )}
       />
       {path && <Breadcrumbs path={path} variant="overlay" />}
-      <div className="site-shell pointer-events-none py-3xl [&_a]:pointer-events-auto">
+      {/* Clicks pass through to the network field except on the controls. In-page
+          CTAs render as buttons (ScrollCtaButton), so buttons need it as much as links. */}
+      <div className="site-shell pointer-events-none py-3xl [&_a]:pointer-events-auto [&_button]:pointer-events-auto">
         <div>
           {/* eslint-disable-next-line no-restricted-syntax -- --ring-halo plus a second
               glow: the live dot is lit, not raised, and one ring does not draw it. */}
@@ -102,12 +108,20 @@ export function Hero({
             >
               {primaryLabel}
             </CtaButton>
-            <Link
-              className="inline-flex min-h-[var(--tap-min)] items-center justify-between gap-s border-b border-text-primary py-2xs text-body font-heavy sm:min-h-0"
-              href={secondaryHref}
-            >
-              {secondaryLabel} <span>{secondaryHref.startsWith('#') ? '↓' : '↗'}</span>
-            </Link>
+            {/* Same rule as CtaButton: a bare "#fragment" scrolls without touching the
+                URL, because a hash link only works on the first click. */}
+            {secondaryHref.startsWith('#') ? (
+              <ScrollCtaButton
+                targetId={secondaryHref.slice(1)}
+                classes={cn(secondaryLinkClassName, 'cursor-pointer bg-transparent')}
+              >
+                {secondaryLabel} <span>↓</span>
+              </ScrollCtaButton>
+            ) : (
+              <Link className={secondaryLinkClassName} href={secondaryHref}>
+                {secondaryLabel} <span>↗</span>
+              </Link>
+            )}
           </div>
           {trustLine ? (
             <p className="m-0 mt-xl text-caption font-strong tracking-label-tight text-text-muted uppercase">
