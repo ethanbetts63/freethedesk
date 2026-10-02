@@ -52,9 +52,9 @@ export function HeroRotatingWord({ words }: { words: readonly string[] }) {
           className={cn(
             'col-start-1 row-start-1 motion-reduce:transition-none',
             index === active &&
-              'translate-y-0 opacity-100 transition-[opacity,transform] duration-700 ease-out',
+              'translate-y-0 opacity-100 transition-[opacity,translate] duration-700 ease-out',
             index === previous &&
-              '-translate-y-1/3 opacity-0 transition-[opacity,transform] duration-1000 ease-out',
+              '-translate-y-1/3 opacity-0 transition-[opacity,translate] duration-1000 ease-in-out',
             index !== active && index !== previous && 'translate-y-1/3 opacity-0 transition-none',
           )}
         >
