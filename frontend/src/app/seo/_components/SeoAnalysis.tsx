@@ -9,7 +9,7 @@ export function SeoAnalysis({ eyebrow }: { eyebrow: string }) {
       eyebrow={eyebrow}
       title="We look at what"
       accentTitle="Google looks at."
-      description="Search Console, your Google Business Profile, your analytics and your enquiries, read together with a crawl of the site, a walk through it as a customer, page speed and what AI answers say about you. Then 23 foundation checks, each a pass, warn or fail, and a person to separate real opportunities from noise."
+      description="Connect Search Console and we'll tell you what it's saying. We read it alongside your Business Profile, analytics and enquiries, a crawl of the site and what AI answers say about you, then run 23 foundation checks."
       visual={<SeoAnalysisVisual />}
       textSide="left"
       background="white"

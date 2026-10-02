@@ -68,7 +68,7 @@ export function SeoSignupPanel({
           {heading}
 
           <div>
-            <p className={choiceGroupHeadingClassName}>One-off or ongoing?</p>
+            <p className={choiceGroupHeadingClassName}>Audit or ongoing?</p>
             <div
               className={cn(choiceGridClassName, 'grid-cols-1 sm:grid-cols-2')}
               role="radiogroup"

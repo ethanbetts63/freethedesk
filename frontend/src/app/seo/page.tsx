@@ -22,7 +22,7 @@ import { SeoIntroduction } from './_components/SeoIntroduction';
 import { SeoSignup } from './_components/SeoSignup';
 import { SeoStepsBar } from './_components/SeoStepsBar';
 import { seoServices } from './_components/seoServices';
-import { SEO_FAQS } from './_lib/copy';
+import { seoFaqs } from './_lib/copy';
 
 const sections = numberSections([
   'Analyse',
@@ -138,7 +138,7 @@ export default async function SeoPage() {
         emitSchema
         eyebrow={sections['Common questions']}
         title="SEO questions."
-        items={SEO_FAQS}
+        items={seoFaqs(settings)}
       />
 
       <ManualAdminCta

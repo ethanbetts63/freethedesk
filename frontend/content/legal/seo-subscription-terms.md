@@ -6,7 +6,7 @@ Effective date: 2 October 2026
 
 ## 1. These terms
 
-These terms govern a customer's purchase of a Free the Desk SEO subscription or a one-off SEO review. They form an agreement between Free the Desk (we, us or our) and the business identified during signup (Customer, you or your).
+These terms govern a customer's purchase of a Free the Desk SEO subscription or a one-off SEO audit. They form an agreement between Free the Desk (we, us or our) and the business identified during signup (Customer, you or your).
 
 The person accepting these terms confirms that they are authorised to enter the agreement for the Customer. These are business service terms.
 
@@ -19,7 +19,7 @@ The service is analysis and recommendations. Implementing the recommendations, w
 ## 3. Plans
 
 - SEO subscription: one cycle at a time, charged per cycle, starting monthly.
-- One-off SEO review: a single cycle with no ongoing subscription.
+- SEO audit: a single cycle with no ongoing subscription.
 
 A subscription starts with a cycle every month. As the most valuable early opportunities are used up, we may move it to a cycle every two months, then every three months, and, once the site's growth has matured, every six months. The price of each cycle does not change when the cadence changes; only how often it is charged. We will tell you before a change of cadence takes effect, and you may ask to stay on, or return to, a faster cadence.
 
@@ -29,7 +29,7 @@ The selected plan, current price and billing frequency are displayed before paym
 
 A paid service begins when Stripe confirms payment. You authorise Stripe to charge the payment method supplied for the displayed fee at the billing frequency shown for the selected product.
 
-A subscription renews automatically at its current cadence until cancelled. A one-off SEO review is charged once and does not renew. There is no fixed minimum term unless a separate written proposal says otherwise. Invoices and payment records may be issued electronically.
+A subscription renews automatically at its current cadence until cancelled. An SEO audit is charged once and does not renew. There is no fixed minimum term unless a separate written proposal says otherwise. Invoices and payment records may be issued electronically.
 
 If payment fails, we may retry the payment and may pause report delivery until the account is brought up to date. We will not charge a new or increased recurring fee without giving at least 30 days' notice and an opportunity to cancel before the new fee applies.
 
@@ -37,7 +37,7 @@ If payment fails, we may retry the payment and may pause report delivery until t
 
 You may cancel a recurring plan at any time by emailing hello@freethedesk.com.au from an authorised account address. Cancellation takes effect at the end of the already-paid billing period; the report for that period is still delivered.
 
-Fees already paid are not refundable for a change of mind or unused time, except where required by law or where we agree to a refund. A one-off SEO review that has not yet been delivered may be refunded at our discretion.
+Fees already paid are not refundable for a change of mind or unused time, except where required by law or where we agree to a refund. An SEO audit that has not yet been delivered may be refunded at our discretion.
 
 ## 6. What we need from you
 

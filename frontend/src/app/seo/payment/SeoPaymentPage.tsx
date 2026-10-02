@@ -64,7 +64,7 @@ export function SeoPaymentPage() {
 
   const plan = account ? planByCode(plans, signupPlanFor(account.plan)) : undefined;
   const oneOff = account?.plan === 'oneoff';
-  const productName = plan ? `SEO ${plan.name.toLowerCase()}` : 'Your plan';
+  const productName = plan ? (oneOff ? 'SEO audit' : 'SEO subscription') : 'Your plan';
   const displayedPrice = quotedPrice ? formatMoney(quotedPrice) : plan?.price;
 
   async function prepareCheckout() {

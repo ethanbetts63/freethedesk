@@ -50,7 +50,7 @@ SEO_PLAN_DETAILS = {
     SeoSubscriber.Plan.BIMONTHLY: ("SEO subscription, every two months", _every(2)),
     SeoSubscriber.Plan.QUARTERLY: ("Quarterly SEO subscription", _every(3)),
     SeoSubscriber.Plan.BIANNUAL: ("SEO subscription, every six months", _every(6)),
-    SeoSubscriber.Plan.ONEOFF: ("One-off SEO opportunity review", None),
+    SeoSubscriber.Plan.ONEOFF: ("SEO audit", None),
 }
 
 

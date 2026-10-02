@@ -7,7 +7,7 @@ Perth-based, working primarily in Perth with clients in cities across Australia.
 ## Services
 - [Website development](https://www.freethedesk.com.au/website-development): Custom websites and web applications for small and medium businesses, built around automation that saves staff time rather than a marketing site alone.
 - [Business automation](https://www.freethedesk.com.au/automation): Workflow automation and custom integrations connecting the systems a business already runs.
-- [SEO](https://www.freethedesk.com.au/seo): A one-off or ongoing SEO subscription for Perth businesses: analyse search data, rank recommended changes by value, and measure each change as an experiment. Starts monthly, slowing as growth matures. Human-reviewed, not AI-generated.
+- [SEO](https://www.freethedesk.com.au/seo): An SEO audit or an ongoing SEO subscription for Perth businesses: analyse search data, rank recommended changes by value, and measure each change as an experiment. Starts monthly, slowing as growth matures. Human-reviewed, not AI-generated.
 - [Dealer websites](https://www.freethedesk.com.au/dealers): Inventory, parts, service and hire websites built specifically for vehicle and equipment dealerships.
 - [Online vehicle licensing](https://www.freethedesk.com.au/licensing): Online vehicle licensing and contract signing so customers can complete paperwork without a dealership visit.
 - [Dealership website builder](https://www.freethedesk.com.au/dealership-website-builder): An interactive configurator for specifying a dealership website around how a business sells, books and grows.

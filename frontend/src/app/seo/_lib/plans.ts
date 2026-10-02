@@ -32,7 +32,7 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
     },
     {
       code: 'oneoff',
-      name: 'One-off',
+      name: 'SEO audit',
       price: formatMoney(settings.seo_oneoff_price, { cents: 'auto' }),
       cadence: 'once, no subscription',
       summary: 'One full round of analysis and ranked recommendations.',

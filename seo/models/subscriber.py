@@ -30,7 +30,7 @@ class SeoSubscriber(models.Model):
         BIMONTHLY = "bimonthly", "Every two months"
         QUARTERLY = "quarterly", "Quarterly"
         BIANNUAL = "biannual", "Every six months"
-        ONEOFF = "oneoff", "One-off"
+        ONEOFF = "oneoff", "SEO audit"
 
     SIGNUP_PLANS = (Plan.MONTHLY, Plan.ONEOFF)
 
