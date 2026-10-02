@@ -11,6 +11,7 @@ import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { metadataFor } from '@/lib/pages';
+import { formatMoney } from '@/lib/formatting';
 import { buildRecurringOffer } from '@/lib/seo';
 import { numberSections } from '@/lib/sectionNumbers';
 import { getSiteSettingsServer } from '@/lib/serverApi';
@@ -56,6 +57,7 @@ export default async function SeoPage() {
     price: settings.seo_subscription_price,
     unitText: 'MONTH',
   });
+  const cyclePrice = formatMoney(settings.seo_subscription_price, { cents: 'auto' });
 
   return (
     <main className="bg-surface-page text-text-secondary">
@@ -67,11 +69,12 @@ export default async function SeoPage() {
         accentTitle="Google"
         accentAlternates={['ChatGPT', 'Claude', 'Gemini', 'Perplexity']}
         titleSuffix="recommends first."
-        lead="SEO you can see working. We find where Perth customers search and don't find you, rank what to fix, and measure every change."
+        lead={`Each month we find the searches you're losing, tell you what to fix first, and show what last month's fixes earned. ${cyclePrice} a month to start, less often as your site matures.`}
         primaryHref="#signup"
-        primaryLabel="Choose a plan"
+        primaryLabel={`Start for ${cyclePrice} a month`}
         secondaryHref="#recommend"
         secondaryLabel="See what you get"
+        trustLine="Cancel any time · Refund if nothing improves · Perth-based"
       />
 
       <SeoStepsBar />
