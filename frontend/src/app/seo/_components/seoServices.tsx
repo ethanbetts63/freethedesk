@@ -1,31 +1,4 @@
 import type { Service } from '@/components/ServiceScroll';
-import { cn } from '@/lib/utils';
-import { TrafficLights } from '@/components/visuals/chrome';
-
-/**
- * Two miniature illustrations — a redirect check and an AI-readiness panel —
- * drawn at 168-190px wide. Their greys and blues are ramp steps rather than
- * semantic tokens on purpose: they are picked for the picture (a dot in a fake
- * window bar, a monospace URL chip) and not for any role the token contract
- * names. Collected here rather than spread through the JSX so the exception is
- * visible in one place.
- */
-const chromeLabelClassName = 'text-text-chrome';
-const urlChipClassName = 'text-text-action';
-const arrowClassName = 'text-action-primary';
-const badgeClassName = 'bg-surface-tint-strong text-text-action';
-
-/** The tick light: a small dot with a soft halo of its own colour. */
-const successDotClassName =
-  'rounded-circle bg-fill-success shadow-halo [--ring-halo-colour:var(--fill-success)]';
-
-/** One of the four cells of the 2x2 readiness panel: hairlines only between
- * them, never around the outside, which the border already draws. */
-const aiCellClassName =
-  'grid grid-cols-[7px_minmax(0,1fr)] gap-3xs px-2xs py-s even:border-l even:border-border-on-dark [&:nth-child(n+3)]:border-t [&:nth-child(n+3)]:border-border-on-dark sm:px-xs';
-
-const monoChipClassName =
-  'overflow-hidden border border-border-default p-2xs font-mono text-caption text-ellipsis whitespace-nowrap';
 
 const iconProps = {
   viewBox: '0 0 64 64',
@@ -47,33 +20,17 @@ export const seoServices: Service[] = [
     ],
     color: 'var(--category-service-1)',
     icon: (
-      <div
-        className="w-[168px] flex-none border border-border-strong bg-surface-page text-text-primary shadow-s sm:w-[190px]"
-        aria-hidden="true"
-      >
-        <div className="flex min-h-[24px] items-center gap-3xs border-b border-border-default bg-surface-tint px-xs">
-          <TrafficLights size={4} tone="[&>i]:bg-border-strong" />
-          <span
-            className={cn(
-              'ml-auto text-caption font-heavy tracking-label-tight uppercase',
-              chromeLabelClassName,
-            )}
-          >
-            Redirect check
-          </span>
-        </div>
-        <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(0,1fr)] items-center gap-3xs px-xs pt-m pb-s sm:gap-2xs sm:px-s">
-          <span className={cn(monoChipClassName, 'text-text-muted line-through')}>/old-stock</span>
-          <b className={cn('p-3xs text-caption', badgeClassName)}>301</b>
-          <span className={cn('text-label font-black', arrowClassName)}>&rarr;</span>
-          <span className={cn(monoChipClassName, 'bg-surface-tint font-heavy', urlChipClassName)}>
-            /inventory
-          </span>
-        </div>
-        <div className="flex items-center gap-2xs border-t border-border-default px-s py-xs text-caption font-strong text-text-muted">
-          <i className={cn('h-[5px] w-[5px]', successDotClassName)} /> Crawl path preserved
-        </div>
-      </div>
+      <svg {...iconProps}>
+        <rect x="5" y="18" width="18" height="28" rx="3" stroke="currentColor" strokeWidth="2.5" />
+        <rect x="41" y="18" width="18" height="28" rx="3" stroke="currentColor" strokeWidth="2.5" />
+        <path
+          d="M27 32h10M33 27l5 5-5 5"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
     ),
   },
   {
@@ -146,55 +103,20 @@ export const seoServices: Service[] = [
     ],
     color: 'var(--category-service-4)',
     icon: (
-      <div
-        className="grid w-[168px] grid-cols-2 border border-border-on-dark bg-surface-dark sm:w-[190px]"
-        aria-hidden="true"
-      >
-        <div className={aiCellClassName}>
-          <i
-            className={cn('mt-4xs h-[var(--size-dot)] w-[var(--size-dot)]', successDotClassName)}
-          />
-          <span className="text-caption font-heavy whitespace-nowrap text-text-on-dark">
-            Accessibility
-          </span>
-          <b className="col-start-2 text-caption font-heavy tracking-label-tight text-accent uppercase">
-            Ready
-          </b>
-        </div>
-        <div className={aiCellClassName}>
-          <i
-            className={cn('mt-4xs h-[var(--size-dot)] w-[var(--size-dot)]', successDotClassName)}
-          />
-          <span className="text-caption font-heavy whitespace-nowrap text-text-on-dark">
-            Stable layout
-          </span>
-          <b className="col-start-2 text-caption font-heavy tracking-label-tight text-accent uppercase">
-            Ready
-          </b>
-        </div>
-        <div className={aiCellClassName}>
-          <i
-            className={cn('mt-4xs h-[var(--size-dot)] w-[var(--size-dot)]', successDotClassName)}
-          />
-          <span className="text-caption font-heavy whitespace-nowrap text-text-on-dark">
-            llms.txt
-          </span>
-          <b className="col-start-2 text-caption font-heavy tracking-label-tight text-accent uppercase">
-            Found
-          </b>
-        </div>
-        <div className={aiCellClassName}>
-          <i
-            className={cn('mt-4xs h-[var(--size-dot)] w-[var(--size-dot)]', successDotClassName)}
-          />
-          <span className="text-caption font-heavy whitespace-nowrap text-text-on-dark">
-            robots.txt
-          </span>
-          <b className="col-start-2 text-caption font-heavy tracking-label-tight text-accent uppercase">
-            Open
-          </b>
-        </div>
-      </div>
+      <svg {...iconProps}>
+        <path
+          d="M10 14h44v28H30l-12 9v-9h-8z"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M32 21l2.2 5.8L40 29l-5.8 2.2L32 37l-2.2-5.8L24 29l5.8-2.2z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+      </svg>
     ),
   },
 ];

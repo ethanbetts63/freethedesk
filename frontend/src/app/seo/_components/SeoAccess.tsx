@@ -4,14 +4,11 @@ import { SectionNumber } from '@/components/SectionNumber';
 
 /** The sources a cycle reads, as a customer would name them. */
 const ACCESS = [
-  [
-    'Google Search Console',
-    'Searches, clicks, the pages Google has and has not added, and AI results',
-  ],
-  ['Google Business Profile', 'Searches, calls, directions and the details customers see'],
-  ['Website analytics', 'What visitors do after they land, from GA4, Clarity or your host'],
-  ['Your enquiries', 'How many came in, so changes are judged by what they earn'],
-  ['A short brief', 'What you sell, the suburbs you serve and who you compete with'],
+  'Google Search Console',
+  'Google Business Profile',
+  'Website analytics',
+  'Your enquiries',
+  'A short brief',
 ] as const;
 
 export function SeoAccess({ eyebrow }: { eyebrow: string }) {
@@ -56,11 +53,7 @@ export function SeoAccess({ eyebrow }: { eyebrow: string }) {
           eyebrow="Onboarding"
           title="Your business"
           countLabel={`${ACCESS.length} sources`}
-          items={ACCESS.map(([title, description]) => ({
-            title,
-            description,
-            tag: 'Read',
-          }))}
+          items={ACCESS.map((title) => ({ title, tag: 'Read' }))}
           ariaLabel="The data an SEO subscription reads"
           footer={
             <footer className="moving-colour-fill flex flex-col items-start justify-between gap-xs px-ml py-m sm:flex-row sm:items-center sm:gap-0">

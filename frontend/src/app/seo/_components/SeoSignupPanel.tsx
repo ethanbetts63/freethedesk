@@ -4,13 +4,12 @@ import { type FormEvent, useActionState, useEffect, useMemo, useState } from 're
 import { useRouter } from 'next/navigation';
 
 import { CtaButton } from '@/components/CtaButton';
+import { SelectionFormPanel } from '@/components/forms/SelectionFormPanel';
 import {
   choiceGroupHeadingClassName,
-  chooserClassName,
   fieldInputClassName,
   fieldLabelClassName,
   fieldLabelSpanClassName,
-  formClassName,
   formErrorClassName,
   formTitleClassName,
   formTitleHeadingClassName,
@@ -28,7 +27,6 @@ import {
   choiceCardVariants,
   choiceGridClassName,
   choiceInputClassName,
-  selectionPanelClassName,
 } from '@/components/forms/selectionFormClassNames';
 import { cn } from '@/lib/utils';
 import { buildSeoPlans, type SignupPlanCode } from '../_lib/plans';
@@ -63,105 +61,110 @@ export function SeoSignupPanel({
   };
 
   return (
-    <div className={cn(selectionPanelClassName, 'mt-0')}>
-      <aside className={chooserClassName}>
-        {heading}
+    <SelectionFormPanel
+      onSubmit={onSubmit}
+      chooser={
+        <>
+          {heading}
 
-        <div>
-          <p className={choiceGroupHeadingClassName}>One-off or ongoing?</p>
-          <div
-            className={cn(choiceGridClassName, 'grid-cols-1 sm:grid-cols-2')}
-            role="radiogroup"
-            aria-label="Plan"
-          >
-            {plans.map((plan) => (
-              <label
-                className={choiceCardVariants({
-                  selected: selectedCode === plan.code,
-                  recommended: plan.recommended,
-                })}
-                key={plan.code}
-              >
-                <input
-                  className={choiceInputClassName}
-                  type="radio"
-                  name="seo-plan"
-                  value={plan.code}
-                  checked={selectedCode === plan.code}
-                  onChange={() => setSelectedCode(plan.code)}
-                />
-                <span>{plan.name}</span>
-                {plan.recommended && <small className="moving-colour-text">Recommended</small>}
-              </label>
-            ))}
+          <div>
+            <p className={choiceGroupHeadingClassName}>One-off or ongoing?</p>
+            <div
+              className={cn(choiceGridClassName, 'grid-cols-1 sm:grid-cols-2')}
+              role="radiogroup"
+              aria-label="Plan"
+            >
+              {plans.map((plan) => (
+                <label
+                  className={choiceCardVariants({
+                    selected: selectedCode === plan.code,
+                    recommended: plan.recommended,
+                  })}
+                  key={plan.code}
+                >
+                  <input
+                    className={choiceInputClassName}
+                    type="radio"
+                    name="seo-plan"
+                    value={plan.code}
+                    checked={selectedCode === plan.code}
+                    onChange={() => setSelectedCode(plan.code)}
+                  />
+                  <span>{plan.name}</span>
+                  {plan.recommended && <small className="moving-colour-text">Recommended</small>}
+                </label>
+              ))}
+            </div>
+            <p className="mt-l mb-0 max-w-[46ch] text-body-sm leading-relaxed text-text-muted">
+              Subscriptions start monthly and slow down as the easy wins run out. The price of a
+              cycle never changes, and you can cancel at any time.
+            </p>
           </div>
-        </div>
 
-        <div className={totalClassName} aria-live="polite">
-          <div className={totalFigureClassName}>
-            <strong className={`${totalPriceClassName} moving-colour-text`}>
-              {selected.price}
-            </strong>
-            <small className={totalCadenceClassName}>{selected.cadence}</small>
+          <div className={totalClassName} aria-live="polite">
+            <div className={totalFigureClassName}>
+              <strong className={`${totalPriceClassName} moving-colour-text`}>
+                {selected.price}
+              </strong>
+              <small className={totalCadenceClassName}>{selected.cadence}</small>
+            </div>
+            <span className={totalSummaryClassName}>{selected.summary}</span>
           </div>
-          <span className={totalSummaryClassName}>{selected.summary}</span>
-        </div>
-      </aside>
-
-      <form className={formClassName} onSubmit={onSubmit}>
-        <div className={formTitleClassName}>
-          <h3 className={formTitleHeadingClassName}>Where should we send it?</h3>
-        </div>
-        <label className={fieldLabelClassName}>
-          <span className={fieldLabelSpanClassName}>Email</span>
-          <input
-            className={fieldInputClassName}
-            name="email"
-            type="email"
-            placeholder="e.g. email@example.com"
-            autoComplete="email"
-            required
-          />
-        </label>
-        <label className={fieldLabelClassName}>
-          <span className={fieldLabelSpanClassName}>Phone</span>
-          <input
-            className={fieldInputClassName}
-            name="phone"
-            type="tel"
-            placeholder="e.g. 0400 000 000"
-            autoComplete="tel"
-          />
-        </label>
-        <label className={fieldLabelClassName}>
-          <span className={fieldLabelSpanClassName}>Website</span>
-          {/* Not type="url": it rejects a scheme-less host like the placeholder example. */}
-          <input
-            className={fieldInputClassName}
-            name="website"
-            type="text"
-            inputMode="url"
-            placeholder="e.g. www.yoursite.com"
-            autoComplete="url"
-            required
-          />
-        </label>
-        {state.status === 'error' && (
-          <p className={formErrorClassName} role="alert">
-            {state.error}
-          </p>
-        )}
-        <CtaButton
-          type="submit"
-          className={submitClassName}
-          direction="right"
-          size="large"
-          fullWidth
-          disabled={isPending}
-        >
-          {isPending ? 'Creating your checkout…' : 'Payment'}
-        </CtaButton>
-      </form>
-    </div>
+        </>
+      }
+    >
+      <div className={formTitleClassName}>
+        <h3 className={formTitleHeadingClassName}>Where should we send it?</h3>
+      </div>
+      <label className={fieldLabelClassName}>
+        <span className={fieldLabelSpanClassName}>Email</span>
+        <input
+          className={fieldInputClassName}
+          name="email"
+          type="email"
+          placeholder="e.g. email@example.com"
+          autoComplete="email"
+          required
+        />
+      </label>
+      <label className={fieldLabelClassName}>
+        <span className={fieldLabelSpanClassName}>Phone</span>
+        <input
+          className={fieldInputClassName}
+          name="phone"
+          type="tel"
+          placeholder="e.g. 0400 000 000"
+          autoComplete="tel"
+        />
+      </label>
+      <label className={fieldLabelClassName}>
+        <span className={fieldLabelSpanClassName}>Website</span>
+        {/* Not type="url": it rejects a scheme-less host like the placeholder example. */}
+        <input
+          className={fieldInputClassName}
+          name="website"
+          type="text"
+          inputMode="url"
+          placeholder="e.g. www.yoursite.com"
+          autoComplete="url"
+          required
+        />
+      </label>
+      {state.status === 'error' && (
+        <p className={formErrorClassName} role="alert">
+          {state.error}
+        </p>
+      )}
+      <CtaButton
+        type="submit"
+        className={submitClassName}
+        direction="right"
+        size="large"
+        fullWidth
+        disabled={isPending}
+      >
+        {isPending ? 'Creating your checkout…' : 'Payment'}
+      </CtaButton>
+    </SelectionFormPanel>
   );
 }

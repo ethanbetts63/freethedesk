@@ -41,7 +41,6 @@ checkFormLedger({
     { file: 'app/seo-portal/account/page.tsx', track: 'B' },
     { file: 'app/seo-portal/connect/page.tsx', track: 'B' },
     { file: 'components/marketing/AiReadinessForm.tsx', track: 'B' },
-    { file: 'app/seo/_components/SeoSignupPanel.tsx', track: 'B' },
 
     // Excluded, with the argument. Re-opening one means disagreeing with the
     // reason, not noticing a gap.
@@ -53,7 +52,7 @@ checkFormLedger({
     {
       file: 'components/forms/SelectionFormPanel.tsx',
       track: 'excluded',
-      why: 'Presentational {chooser, children, onSubmit} wrapper. Holds the <form> for SignupPlansPanel and ProjectEnquiryPanel, whose schemas and actions sit beside those panels.',
+      why: 'Presentational {chooser, children, onSubmit} wrapper. Holds the <form> for SignupPlansPanel, ProjectEnquiryPanel and SeoSignupPanel, whose schemas and actions sit beside those panels.',
     },
     {
       file: 'components/checkout/CheckoutShell.tsx',

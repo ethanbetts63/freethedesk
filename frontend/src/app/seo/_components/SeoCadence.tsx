@@ -3,10 +3,10 @@ import { ChecklistCard, LiveDot } from '@/components/visuals/ChecklistCard';
 
 /** Mirrors SeoSubscriber.Plan: every cadence is the same price per cycle. */
 const CADENCES = [
-  ['Monthly', 'While the quick wins are still there', 'Start'],
-  ['Every two months', 'Once the low-hanging fruit is picked', 'Then'],
-  ['Quarterly', 'When changes need longer to show', 'Then'],
-  ['Every six months', 'Once growth has matured', 'Mature'],
+  ['Monthly', 'Start'],
+  ['Every two months', 'Then'],
+  ['Quarterly', 'Then'],
+  ['Every six months', 'Mature'],
 ] as const;
 
 export function SeoCadence({ eyebrow }: { eyebrow: string }) {
@@ -23,7 +23,7 @@ export function SeoCadence({ eyebrow }: { eyebrow: string }) {
           eyebrow="Cadence"
           title="Same price per cycle"
           countLabel={`${CADENCES.length} stages`}
-          items={CADENCES.map(([title, description, tag]) => ({ title, description, tag }))}
+          items={CADENCES.map(([title, tag]) => ({ title, tag }))}
           ariaLabel="How a subscription's cadence slows as growth matures"
         />
       }
