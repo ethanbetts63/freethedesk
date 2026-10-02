@@ -68,10 +68,11 @@ export default function Dealers() {
       <PageSchema path="/dealers" />
       <Hero
         path="/dealers"
-        eyebrow="Efficiency First Solutions"
+        eyebrow="Dealership websites Perth"
         titleLines={['Digital']}
         accentTitle="dealerships."
-        lead="Connected websites and operational systems built for the way modern dealerships sell, service and work."
+        accentAlternates={['licensing.', 'contracts.', 'handovers.']}
+        lead="Connected websites and operational systems for Perth and WA dealerships, built for the way they sell, service and work."
         primaryHref="/dealership-website-builder"
         primaryLabel="Try the free demo"
         secondaryHref="/portfolio/scooter-shop"
@@ -82,7 +83,7 @@ export default function Dealers() {
 
       <WebsiteIntroduction
         id="dealer-overview"
-        seoDescription="Search engine optimisation (SEO) helps your dealership website appear when people search Google for the vehicles, brands or services you offer."
+        seoDescription="Search engine optimisation (SEO) helps your dealership website appear when Perth buyers search Google for the vehicles, brands or services you offer."
         designDescription="Clear layouts guide buyers from stock to an enquiry, purchase, online licensing and contract signing on mobile or desktop."
         automationDescription="We connect your dealership website to the systems your team uses so leads, contracts, licensing, payments and handovers keep moving."
       />
@@ -93,7 +94,7 @@ export default function Dealers() {
         title="Launch SEO Strong."
         accentTitle="Improve with data."
         mode="improvement"
-        description="Every dealership website launches with strong SEO foundations. As search data arrives, we rank the best opportunities across stock, service and local search."
+        description="Every dealership website launches with strong SEO foundations. As search data arrives, we rank the best opportunities across stock, service and the Perth suburbs you sell into."
       />
 
       <DealerWebsiteBuilderSection eyebrow={sections['Website Design']} />
@@ -130,9 +131,9 @@ export default function Dealers() {
         showPrimaryAction={false}
       >
         <p>
-          Scooter Shop connects dealership inventory, parts, purchasing and service journeys in one
-          website. Fast structured pages and focused search content helped organic clicks grow by
-          300% in six months.
+          Scooter Shop, a Perth scooter dealership, connects inventory, parts, purchasing and
+          service journeys in one website. Fast structured pages and focused search content helped
+          organic clicks grow by 300% in six months.
         </p>
         <p>The same dealership system keeps customer actions and admin moving together.</p>
       </CaseStudyTeaser>

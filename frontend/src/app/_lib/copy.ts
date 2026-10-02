@@ -10,7 +10,7 @@ export const HOME_FAQS: FaqItem[] = [
   {
     question: 'Do you only work with dealerships?',
     answer:
-      'No. Our dealership products are specialised, but we build websites and business automations for service, retail, equipment, trade and other Australian businesses.',
+      'No. Our dealership products are specialised, but we build websites, SEO reports and business automations for service, retail, equipment, trade and other Perth businesses.',
   },
 
   {
@@ -27,6 +27,7 @@ export const HOME_FAQS: FaqItem[] = [
 
   {
     question: 'Do you work outside Perth?',
-    answer: "Yes. We're Perth-based and work with businesses across Australia.",
+    answer:
+      "We're Perth-based, and Perth and WA businesses are who we build for. We can work with businesses elsewhere in Australia when the project suits.",
   },
 ];

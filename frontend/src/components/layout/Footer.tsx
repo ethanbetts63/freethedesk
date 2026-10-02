@@ -74,8 +74,8 @@ export function Footer() {
             </span>
           </Link>
           <p className="mt-l mb-0 max-w-[360px] text-body leading-relaxed text-text-muted">
-            Dealer websites and operational systems built by a development team with hands-on
-            experience across dealerships and automotive suppliers.
+            Websites, SEO and automation for Perth businesses, built by a Perth development team
+            with hands-on experience across dealerships and automotive suppliers.
           </p>
         </>
       }
@@ -83,7 +83,7 @@ export function Footer() {
         <>
           <span>&copy; {new Date().getFullYear()} freethedesk</span>
           <span>ABN 11 493 753 896</span>
-          <span>Working with dealers across Australia</span>
+          <span>Working with Perth and WA businesses</span>
         </>
       }
     />

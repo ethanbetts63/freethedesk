@@ -33,10 +33,11 @@ export default function AutomationPage() {
       <PageSchema path="/automation" />
       <Hero
         path="/automation"
-        eyebrow="Automate Boring Away"
+        eyebrow="Business automation Perth"
         titleLines={['Less repetition.']}
         accentTitle="More progress."
-        lead="We connect the systems you already use and build the missing pieces, so information moves while your team stays focused on customers."
+        accentAlternates={['More selling.', 'Fewer errors.', 'More weekends.']}
+        lead="We connect the systems your Perth business already uses and build the missing pieces, so information moves while your team stays focused on customers."
         primaryHref="#enquiry"
         primaryLabel="Automate your admin"
         secondaryHref="#workflows"

@@ -39,38 +39,38 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-10-01',
+    updated: '2026-10-02',
     label: 'Home',
-    title: 'Dealer Websites & Business Automation Perth | freethedesk',
+    title: 'Websites, SEO & Business Automation Perth | freethedesk',
     description:
-      'Dealer websites and operational systems for Australian vehicle, equipment and leisure dealerships.',
+      'Perth websites, SEO reports and business automation for WA businesses, plus dealership websites and online vehicle licensing.',
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-10-01',
+    updated: '2026-10-02',
     label: 'Dealer websites',
-    title: 'Dealership Websites & Online Licensing | Australia, Perth',
+    title: 'Dealership Websites Perth | Online Licensing for WA Dealers',
     description:
-      'One connected system for your dealership: a website built to be found, online licensing, and the admin automation behind it, priced against the tools it replaces.',
+      'One connected system for Perth and WA dealerships: a website built to be found, online licensing, and the admin automation behind it, priced against the tools it replaces.',
   },
   '/licensing': {
-    updated: '2026-10-01',
+    updated: '2026-10-02',
     label: 'Online licensing',
-    title: 'Online Vehicle Licensing for Dealers | Australia',
+    title: 'Online Vehicle Licensing for Perth & WA Dealers',
     description:
-      'Let customers verify their identity, complete vehicle licensing and sign paperwork online without an unnecessary dealership visit.',
+      'Let Perth customers verify their identity, complete vehicle licensing and sign paperwork online, without another trip across town to the dealership.',
     service: {
-      name: 'Online Vehicle Licensing',
+      name: 'Online Vehicle Licensing Perth',
       serviceType: 'Online vehicle licensing and contract signing',
-      areaServed: { type: 'Country', name: 'Australia' },
+      areaServed: { type: 'City', name: 'Perth' },
     },
   },
   '/website-development': {
-    updated: '2026-10-01',
+    updated: '2026-10-02',
     label: 'Website development',
     title: 'Website Development Perth | Make your website work harder',
     description:
-      'Website Development for businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.',
+      'Website development for Perth businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.',
     absoluteTitle: true,
     // Perth rather than Australia, matching the page's own "Website development
     // Perth" eyebrow and the local intent the title targets.
@@ -81,49 +81,49 @@ export const STATIC_PAGES = {
     },
   },
   '/dealership-website-builder': {
-    updated: '2026-10-01',
+    updated: '2026-10-02',
     label: 'Website builder',
-    title: 'Dealership Website Builder | Custom Dealer Websites',
+    title: 'Dealership Website Builder | Custom Dealer Websites Perth',
     description:
-      'Configure a dealership website around the way your business sells, books and grows.',
+      'Configure a dealership website around the way your Perth dealership sells, books and grows.',
   },
   '/automation': {
-    updated: '2026-10-01',
+    updated: '2026-10-02',
     label: 'Automation',
-    title: 'Business Automation Australia | Stop paying for copy-paste',
+    title: 'Business Automation Perth | Stop paying for copy-paste',
     description:
-      'Practical workflow automation and custom integrations for Australian small and medium businesses.',
+      'Practical workflow automation and custom integrations for Perth small and medium businesses.',
     service: {
-      name: 'Business Automation',
+      name: 'Business Automation Perth',
       serviceType: 'Workflow automation and systems integration',
-      areaServed: { type: 'Country', name: 'Australia' },
+      areaServed: { type: 'City', name: 'Perth' },
     },
   },
   '/seo': {
-    updated: '2026-10-01',
+    updated: '2026-10-02',
     label: 'SEO reports',
-    title: 'Find your missing clicks | SEO Reports & Audits Australia',
+    title: 'SEO Reports Perth | Find the clicks you are missing',
     description:
-      'See what is working, what is holding your website back and where the best search opportunities are.',
+      'Recurring SEO reports for Perth businesses: what to fix, ranked by value, then measured. Every click you earn in search is one you stop buying from Google Ads.',
     service: {
-      name: 'Quarterly SEO Reports',
+      name: 'SEO Reports Perth',
       serviceType: 'SEO consulting and reporting',
-      areaServed: { type: 'Country', name: 'Australia' },
+      areaServed: { type: 'City', name: 'Perth' },
     },
   },
   '/guides': {
-    updated: '2026-09-09',
+    updated: '2026-10-02',
     label: 'Guides',
     title: 'Steal our playbook | Dealership Website & Automation Guides',
     description:
-      'Practical guides for Australian dealerships on websites, search visibility, online sales, licensing and better operational systems.',
+      'Practical guides for Perth and WA dealerships on websites, search visibility, online sales, licensing and better operational systems.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-10-01',
+    updated: '2026-10-02',
     label: 'Scooter Shop',
-    title: 'Dealer Website Case Study | Organic Clicks Up 300%',
+    title: 'Perth Dealer Website Case Study | Organic Clicks Up 300%',
     description:
-      'A connected dealership website for sales, online purchasing, licensing, parts, service, hire and long-term organic growth.',
+      'A connected website for a Perth scooter dealership: sales, online purchasing, licensing, parts, service, hire and long-term organic growth.',
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {
@@ -135,11 +135,11 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
   '/contact': {
-    updated: '2026-10-01',
+    updated: '2026-10-02',
     label: 'Contact',
-    title: 'Website & Automation Developers Perth | Contact',
+    title: 'Website, SEO & Automation Developers Perth | Contact',
     description:
-      'Talk to freethedesk about a custom website, online licensing product, web application or business automation project.',
+      'Talk to freethedesk, a Perth team, about a custom website, SEO report, online licensing, web application or business automation project.',
   },
   '/legal/privacy': {
     updated: '2026-09-19',

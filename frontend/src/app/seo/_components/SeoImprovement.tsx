@@ -8,8 +8,8 @@ export function SeoImprovement({ eyebrow }: { eyebrow: string }) {
       id="improve"
       eyebrow={eyebrow}
       title="Make the change."
-      accentTitle="Measure what happens."
-      description="SEO compounds through iteration. Act on the best opportunity, let new data collect, then use the next report to decide what deserves attention."
+      accentTitle="Measure what it earned."
+      description="SEO compounds through iteration. Once a change is live, fresh data shows whether it worked and which clicks it brought in. The next report starts from there, so every cycle builds on the last."
       visual={<SeoImprovementVisual />}
       textSide="left"
       background="white"

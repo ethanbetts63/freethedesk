@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import Eyebrow from '@/components/common/eyebrow';
 import { CtaButton } from '@/components/CtaButton';
+import { HeroRotatingWord } from '@/components/marketing/HeroRotatingWord';
 import { NetworkField } from '@/components/visuals/NetworkField';
 import type { PagePath } from '@/lib/pages';
 import { heroGridClassName } from '@/lib/gridSurface';
@@ -16,6 +17,10 @@ type HeroProps = {
   titleLines: readonly string[];
 
   accentTitle: string;
+  /** Further accent lines, rotated in after `accentTitle` once the page hydrates. */
+  accentAlternates?: readonly string[];
+  /** A closing line after the accent, for a heading the rotating word sits inside. */
+  titleSuffix?: string;
   lead: string;
   primaryHref: string;
   primaryLabel: string;
@@ -29,12 +34,14 @@ export function Hero({
   eyebrow,
   titleLines,
   accentTitle,
+  accentAlternates = [],
+  titleSuffix,
   lead,
   primaryHref,
   primaryLabel,
   secondaryHref,
   secondaryLabel,
-  trustLine = 'Perth-based · working with businesses across Australia',
+  trustLine = 'Perth-based · working with Perth and WA businesses',
 }: HeroProps) {
   return (
     <section className="relative isolate flex min-h-[calc(100svh-68px)] items-center overflow-hidden bg-surface-page lg:min-h-[calc(100vh-78px)]">
@@ -71,7 +78,16 @@ export function Hero({
                 {line} <br />
               </span>
             ))}
-            <em className="not-italic text-[var(--action-primary)]">{accentTitle}</em>
+            <em className="not-italic text-[var(--action-primary)]">
+              <HeroRotatingWord words={[accentTitle, ...accentAlternates]} />
+            </em>
+            {titleSuffix ? (
+              <>
+                {' '}
+                <br />
+                {titleSuffix}
+              </>
+            ) : null}
           </h1>
           <p className="my-xl max-w-[420px] text-lead leading-relaxed text-text-muted lg:max-w-[570px]">
             {lead}

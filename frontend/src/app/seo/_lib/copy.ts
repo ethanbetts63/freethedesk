@@ -16,7 +16,7 @@ export const SEO_FAQS: FaqItem[] = [
   {
     question: 'Do you make the changes for us?',
     answer:
-      'If we built your site, yes—every recommendation comes with a fixed, discounted implementation price, and you tick what you want done. Otherwise the report is written so you, your web person, or whatever platform you already use (GoDaddy, Wix, Squarespace and the rest) can implement it yourselves.',
+      "Your choice. Every recommendation is written so you, your IT person or whatever platform you already use (GoDaddy, Wix, Squarespace and the rest) can make the change. If you'd rather we did it, each recommendation can come with a fixed implementation price, and you tick what you want done.",
   },
 
   {
@@ -29,6 +29,18 @@ export const SEO_FAQS: FaqItem[] = [
     question: 'What about AI search—ChatGPT, AI Overviews?',
     answer:
       "Search increasingly answers the question directly and cites its sources. The work that earns those citations is the same work that ranks: structured data, fast pages, and clear answers to real questions. Our four-point AI readiness check is free for anyone—enter your website, phone and email and we'll send the result. Every paid report is then written with both search and AI answers in mind.",
+  },
+
+  {
+    question: 'Should we keep paying for Google Ads?',
+    answer:
+      "Ads are useful while your rankings catch up, but every ad click is rented: it stops when the budget does. Each report shows the searches you're closest to winning organically. If you're also paying for clicks on those searches, they're the first places to earn the click instead of buying it, and to lower your ad spend as rankings take over.",
+  },
+
+  {
+    question: 'Do you only work with Perth businesses?',
+    answer:
+      "We're Perth-based, and our reports are written for businesses competing for Perth and WA searches: local results, Google Maps and the suburbs you serve. The process works anywhere in Australia, but local Perth businesses get the most out of it.",
   },
 
   {

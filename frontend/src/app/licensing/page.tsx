@@ -55,10 +55,11 @@ export default async function LicensingPage() {
       />
       <Hero
         path="/licensing"
-        eyebrow="Online vehicle licensing"
+        eyebrow="Online vehicle licensing Perth"
         titleLines={['License online.']}
         accentTitle="Lose the visit."
-        lead="Use our portal or build it into your website. Customers fill in their details, verify their identity and sign online—no dealership visit required."
+        accentAlternates={['Lose the paperwork.', 'Lose the scanner.', 'Lose the wait.']}
+        lead="Use our portal or build it into your website. Perth customers fill in their details, verify their identity and sign online, with no trip across town to the dealership."
         primaryHref="#signup"
         primaryLabel="Choose your plan"
         secondaryHref="/contact"
@@ -97,8 +98,8 @@ export default async function LicensingPage() {
         href="#signup"
         buttonLabel="Choose your plan"
       >
-        Let customers fill, verify and sign from wherever they are. The paperwork travels—not the
-        customer.
+        Let customers fill, verify and sign from anywhere in Perth or regional WA. The paperwork
+        travels—not the customer.
       </ManualAdminCta>
     </main>
   );

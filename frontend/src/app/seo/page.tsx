@@ -6,6 +6,7 @@ import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { AiReadinessBanner } from '@/components/marketing/AiReadinessBanner';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
+import { ClickValueModal } from '@/components/marketing/ClickValueModal';
 import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
@@ -24,9 +25,9 @@ import { seoServices } from './_components/seoServices';
 import { SEO_FAQS } from './_lib/copy';
 
 const sections = numberSections([
-  'Analyze',
-  'Report',
-  'Improve',
+  'Discover',
+  'Recommend',
+  'Measure',
   'Google Business Profile audit',
   'What we inspect',
   'Proof this works',
@@ -60,33 +61,36 @@ export default async function SeoPage() {
       <PageSchema path="/seo" serviceOffers={serviceOffers} />
       <Hero
         path="/seo"
-        eyebrow="Practical SEO reporting"
-        titleLines={['Data Driven,']}
-        accentTitle="SEO."
-        lead="See what's working, what's holding you back and where the best opportunities are."
+        eyebrow="SEO reports Perth"
+        titleLines={['Be the Perth business']}
+        accentTitle="Google"
+        accentAlternates={['ChatGPT', 'Claude', 'Gemini', 'Perplexity']}
+        titleSuffix="recommends first."
+        lead="We find where Perth customers search and don't find you, rank the fixes by value, then measure what changed. Every click you earn is one you stop buying from Google Ads."
         primaryHref="#signup"
         primaryLabel="Choose a Report"
         secondaryHref="#report"
         secondaryLabel="See what you get"
+        trustLine="Perth-based · reports for Perth and WA businesses"
       />
 
       <SeoStepsBar />
 
       <SeoIntroduction />
 
-      <SeoAnalysis eyebrow={sections['Analyze']} />
+      <SeoAnalysis eyebrow={sections['Discover']} />
 
       <SeoReportOverview
         id="report"
-        eyebrow={sections['Report']}
-        title="See what changed."
-        accentTitle="Know what to do next."
-        description="Each report turns fresh search data into a ranked, plain-English action plan: what improved, what is holding you back and where the next opportunity sits."
+        eyebrow={sections['Recommend']}
+        title="Ranked by value."
+        accentTitle="Ready to hand over."
+        description="Each report turns fresh search data into a plain-English action plan: what improved, what is holding you back, and the next changes ranked by the clicks they could earn. Written so you, your IT person or we can make the changes."
         spacing="joined"
         textSide="right"
       />
 
-      <SeoImprovement eyebrow={sections['Improve']} />
+      <SeoImprovement eyebrow={sections['Measure']} />
 
       <GoogleBusinessProfileAudit eyebrow={sections['Google Business Profile audit']} />
 
@@ -100,16 +104,17 @@ export default async function SeoPage() {
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
-        title="A website that grew organic clicks 300%."
+        title="A Perth website that grew organic clicks 300%."
         points={casePoints}
         primaryHref="#signup"
         primaryLabel="Choose a Report"
         showPrimaryAction={false}
       >
         <p>
-          Scooter Shop&apos;s website combines inventory, parts, purchasing and service journeys in
-          one connected experience. Fast structured pages and focused search content helped organic
-          clicks grow by 300% in six months.
+          Scooter Shop is a Perth scooter dealership. Its website combines inventory, parts,
+          purchasing and service journeys in one connected experience. Fast structured pages and
+          search content aimed at what Perth riders search for helped organic clicks grow by 300% in
+          six months.
         </p>
         <p>
           It is a practical example of what happens when the public website and the work behind it
@@ -119,6 +124,8 @@ export default async function SeoPage() {
 
       <AiReadinessBanner id="ai-readiness" />
       <SeoSignup settings={settings} eyebrow={sections['Choose your plan']} />
+
+      <ClickValueModal />
 
       <FloatingPageCta
         label="Choose a Report"
@@ -135,11 +142,12 @@ export default async function SeoPage() {
       />
 
       <ManualAdminCta
-        eyebrow="Start with your own data"
-        title="What is search actually costing you right now?"
+        eyebrow="Stop renting your traffic"
+        title="Google Ads is SEO you pay for, click by click."
         href="#signup"
         buttonLabel="Choose a Report"
       >
+        An ad click stops the day the budget does. A click you earn in search keeps arriving.
         Connect Google Search Console and your first report arrives within the week—ranked,
         plain-English, and honest about whether you should keep paying us.
       </ManualAdminCta>

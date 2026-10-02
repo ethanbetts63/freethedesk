@@ -2,13 +2,16 @@ import { ProcessIntroduction } from '@/components/ProcessIntroduction';
 
 const steps = [
   {
-    title: 'Analyze',
-    description: 'Read the search data and inspect what is helping or hurting visibility.',
+    title: 'Discover',
+    description: 'Find where Perth customers search for what you sell and do not find you.',
   },
-  { title: 'Report', description: 'Turn the evidence into a ranked, plain-English action plan.' },
   {
-    title: 'Improve',
-    description: 'Make the best change, gather fresh data and run the cycle again.',
+    title: 'Implement',
+    description: 'You, your IT person or we make the changes, starting with the most valuable.',
+  },
+  {
+    title: 'Measure',
+    description: 'Fresh data shows what each change earned. The next report builds on it.',
   },
 ] as const;
 
@@ -16,9 +19,9 @@ export function SeoIntroduction() {
   return (
     <ProcessIntroduction
       id="seo-overview"
-      eyebrow="How recurring SEO works"
-      title="Better data."
-      accentTitle="Better decisions."
+      eyebrow="How the subscription works"
+      title="Find it. Fix it."
+      accentTitle="Measure it. Repeat."
       items={steps}
     />
   );

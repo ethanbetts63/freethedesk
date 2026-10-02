@@ -12,9 +12,9 @@ export function HomeSeoFeature() {
       description={
         <div className="flex flex-col gap-l [&>span]:block">
           <span>
-            Human-written reports that turn your search data into ranked next steps. Choose an
-            ongoing website SEO report, a one-time Google Business Profile audit, or use both. The
-            AI readiness check is free.
+            Human-written reports that show where Perth customers search and don&apos;t find you,
+            then rank the fixes by value. Choose an ongoing SEO report, a one-time Google Business
+            Profile audit, or both. The AI readiness check is free.
           </span>
           <CtaButton className="self-start tracking-label-tight" href="/seo" size="compact">
             Explore SEO reports

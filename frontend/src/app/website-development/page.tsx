@@ -50,7 +50,8 @@ export default function WebsiteDevelopmentPage() {
         eyebrow="Website development Perth"
         titleLines={['Websites should']}
         accentTitle="work harder."
-        lead="Custom websites that convert users and automate the repetitive work behind your business."
+        accentAlternates={['be faster.', 'grow faster.', 'be easier.', 'sell more.']}
+        lead="Custom websites for Perth businesses that turn visitors into customers and automate the repetitive work behind them."
         primaryHref="#enquiry"
         primaryLabel="Discuss your website"
         secondaryHref="/portfolio/scooter-shop"
@@ -67,7 +68,7 @@ export default function WebsiteDevelopmentPage() {
         title="Launch SEO Strong."
         accentTitle="Improve with data."
         mode="improvement"
-        description="Every website launches with strong SEO foundations but optimization requires iteration. We analyze live data as it arrives and present you with ranked, plain-english oppurtunities and implementation costs."
+        description="Every website launches with strong SEO foundations, but ranking in Perth takes iteration. We analyse live data as it arrives and give you ranked, plain-English opportunities with implementation costs."
       />
 
       <ConversionFunnel eyebrow={sections['Website Design']} />
@@ -84,16 +85,16 @@ export default function WebsiteDevelopmentPage() {
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
-        title="A website that grew organic clicks 300%."
+        title="A Perth website that grew organic clicks 300%."
         points={casePoints}
         primaryHref="#enquiry"
         primaryLabel="Discuss your website"
         showPrimaryAction={false}
       >
         <p>
-          Scooter Shop&apos;s website combines inventory, parts, purchasing and service journeys in
-          one connected experience. Fast structured pages and focused search content helped organic
-          clicks grow by 300% in six months.
+          Scooter Shop is a Perth scooter dealership. Its website combines inventory, parts,
+          purchasing and service journeys in one connected experience. Fast structured pages and
+          focused search content helped organic clicks grow by 300% in six months.
         </p>
         <p>
           It is a practical example of what happens when the public website and the work behind it

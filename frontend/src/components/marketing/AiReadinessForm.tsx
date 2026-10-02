@@ -8,7 +8,8 @@ import { submitAiReadiness, type AiReadinessState } from './AiReadinessForm.acti
 
 const initialState: AiReadinessState = { status: 'idle' };
 
-const fieldClassName = cn(
+/** A text field on the navy prompt surface; the click-value calculator shares it. */
+export const onDarkFieldClassName = cn(
   'w-full rounded-none border px-s py-0 outline-none',
   'border-[color-mix(in_srgb,var(--accent-on-dark-soft)_32%,transparent)]',
   'bg-[color-mix(in_srgb,var(--surface-page)_7%,transparent)]',
@@ -70,7 +71,7 @@ export function AiReadinessForm() {
         <span className="sr-only">Website</span>
         {/* Not type="url": it rejects a scheme-less host before the schema adds one. */}
         <input
-          className={fieldClassName}
+          className={onDarkFieldClassName}
           name="website"
           type="text"
           inputMode="url"
@@ -82,7 +83,7 @@ export function AiReadinessForm() {
       <label className="block min-w-0">
         <span className="sr-only">Email</span>
         <input
-          className={fieldClassName}
+          className={onDarkFieldClassName}
           name="email"
           type="email"
           placeholder="e.g. email@example.com"

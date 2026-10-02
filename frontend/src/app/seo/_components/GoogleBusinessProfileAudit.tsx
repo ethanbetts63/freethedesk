@@ -44,9 +44,9 @@ export function GoogleBusinessProfileAudit({
             A one-time Google Business Profile audit.
           </h3>
           <p className="mt-xl mb-m max-w-[680px] text-lead leading-[1.72] text-text-on-dark-muted lg:max-w-[570px]">
-            We review the parts of your profile that influence local visibility, then send you a
-            prioritised list of what to correct or improve. One audit, one action list, no recurring
-            subscription.
+            We review the parts of your profile that decide whether you appear in Google Maps when
+            Perth customers search near them, then send you a prioritised list of what to correct or
+            improve. One audit, one action list, no recurring subscription.
           </p>
         </div>
 

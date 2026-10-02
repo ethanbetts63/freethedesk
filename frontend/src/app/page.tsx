@@ -25,10 +25,11 @@ export default function Home() {
       <PageSchema path="/" />
       <AiReadinessBanner />
       <Hero
-        eyebrow="Online Automation Services Australia"
-        titleLines={['Digital', 'automation']}
-        accentTitle="solutions."
-        lead="Connected websites and automation systems built to reduce the workload of modern businesses."
+        eyebrow="Websites, SEO & automation Perth"
+        titleLines={['Help your business']}
+        accentTitle="get found."
+        accentAlternates={['win customers.', 'lose the admin.', 'grow faster.']}
+        lead="Connected websites, SEO and automation for Perth businesses, built to bring customers in and take the repetitive work off your team."
         primaryHref="/contact"
         primaryLabel="Get in touch"
         secondaryHref="/portfolio/scooter-shop"

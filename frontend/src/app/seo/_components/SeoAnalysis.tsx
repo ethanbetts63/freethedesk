@@ -7,9 +7,9 @@ export function SeoAnalysis({ eyebrow }: { eyebrow: string }) {
     <SplitFeatureSection
       id="analyze"
       eyebrow={eyebrow}
-      title="Start with evidence."
-      accentTitle="Not assumptions."
-      description="We combine live search data with a technical review of your site, then use human judgement to separate real opportunities from automated noise."
+      title="Find the growth."
+      accentTitle="Not just the errors."
+      description="We combine your live Search Console data with a technical review of your site and what Perth customers actually search for, then use human judgement to keep the opportunities worth your time and drop the noise."
       visual={<SeoAnalysisVisual />}
       textSide="left"
       background="white"

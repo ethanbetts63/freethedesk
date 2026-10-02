@@ -7,7 +7,7 @@ export function AutomationFeature() {
   return (
     <SplitFeatureSection
       id="automation"
-      eyebrow="Business automation"
+      eyebrow="Business automation Perth"
       title="Automation built"
       accentTitle="around your business."
       description="We connect the systems you already use and build the missing pieces, so information moves without your team moving it by hand."

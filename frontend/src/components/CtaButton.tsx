@@ -75,6 +75,8 @@ export type CtaButtonProps = {
   /** Renders a Link when set, a <button> otherwise. */
   href?: string;
   type?: 'button' | 'submit';
+  /** Only for a `<button>`, i.e. when `href` is unset. */
+  onClick?: () => void;
   disabled?: boolean;
   className?: string;
   target?: '_blank' | '_self';
@@ -94,6 +96,7 @@ export function CtaButton({
   children,
   href,
   type = 'button',
+  onClick,
   disabled = false,
   className,
   target,
@@ -130,7 +133,7 @@ export function CtaButton({
     );
   }
   return (
-    <LinkOrButton classes={classes} type={type} disabled={disabled}>
+    <LinkOrButton classes={classes} type={type} disabled={disabled} onClick={onClick}>
       {content}
     </LinkOrButton>
   );
