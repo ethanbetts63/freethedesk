@@ -20,8 +20,8 @@ export function SeoIntroduction() {
     <ProcessIntroduction
       id="seo-overview"
       eyebrow="How it works"
-      title="Analyse. Recommend. Experiment."
-      accentTitle="Repeat."
+      title="Data Driven Seo Analysis."
+      accentTitle="Not Guesswork."
       items={steps}
     />
   );
