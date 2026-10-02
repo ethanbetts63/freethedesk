@@ -11,7 +11,7 @@ from seo.tests.factories import SeoSubscriberFactory
 
 
 def SeoAgreementAcceptanceFactory(
-    *, subscriber=None, accepted_by=None, plan=None, report_type=None,
+    *, subscriber=None, accepted_by=None, plan=None,
     price=Decimal("150.00"), currency="AUD", stripe_checkout_session_id="", **kwargs,
 ):
     """Create shared agreement evidence for SEO webhook tests."""
@@ -20,7 +20,7 @@ def SeoAgreementAcceptanceFactory(
     plan = plan or subscriber.plan
     mode = "payment" if plan == SeoSubscriber.Plan.ONEOFF else "subscription"
     statement = (
-        "I agree to the SEO Reporting & Audit Terms, acknowledge the Privacy Policy, "
+        "I agree to the SEO Subscription Terms, acknowledge the Privacy Policy, "
         f"and authorise this {'payment' if mode == 'payment' else 'recurring subscription'}."
     )
     version = publish_configured_agreement(SEO_AGREEMENT_KEY)
@@ -31,7 +31,6 @@ def SeoAgreementAcceptanceFactory(
         statement=statement,
         context={
             "plan": plan,
-            "report_type": report_type or subscriber.report_type,
             "price": str(price),
             "currency": currency,
             "billing_mode": mode,

@@ -90,7 +90,7 @@ export default function SeoSubscriberDetailPage() {
           account={account}
           extra={[
             ['Website', account.website || 'Not supplied'],
-            ['Report', account.report_type_label],
+            ['Plan', account.plan_label],
           ]}
         />
         <AccountBillingCard account={account} statusChangedAt={account.status_changed_at} />

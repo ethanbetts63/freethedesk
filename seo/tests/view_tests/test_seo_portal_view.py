@@ -66,13 +66,12 @@ def test_subscriber_cannot_change_own_status_or_plan(client, seo_subscriber):
     client.sign_in(seo_subscriber.user)
     client.patch(
         reverse("seo-account"),
-        {"status": "active", "plan": "monthly", "report_type": "gbp"},
+        {"status": "active", "plan": "monthly"},
         content_type="application/json",
     )
     seo_subscriber.refresh_from_db()
     assert seo_subscriber.status == SeoSubscriber.Status.PENDING
     assert seo_subscriber.plan == SeoSubscriber.Plan.QUARTERLY
-    assert seo_subscriber.report_type == SeoSubscriber.ReportType.SEO
 
 
 def test_staff_cannot_use_the_seo_account_endpoint(client, seo_subscriber, staff_user):

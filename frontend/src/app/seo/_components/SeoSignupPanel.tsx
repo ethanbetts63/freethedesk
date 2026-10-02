@@ -31,13 +31,7 @@ import {
   selectionPanelClassName,
 } from '@/components/forms/selectionFormClassNames';
 import { cn } from '@/lib/utils';
-import {
-  buildSeoPlans,
-  REPORT_TYPES,
-  reportTypeLabel,
-  type SeoPlanCode,
-  type SeoReportType,
-} from '../_lib/plans';
+import { buildSeoPlans, type SignupPlanCode } from '../_lib/plans';
 
 const initialState: SignupState = { status: 'idle' };
 
@@ -51,9 +45,8 @@ export function SeoSignupPanel({
   heading: React.ReactNode;
 }) {
   const router = useRouter();
-  const [reportType, setReportType] = useState<SeoReportType>('both');
-  const [selectedCode, setSelectedCode] = useState<SeoPlanCode>('quarterly');
-  const plans = useMemo(() => buildSeoPlans(settings, reportType), [settings, reportType]);
+  const [selectedCode, setSelectedCode] = useState<SignupPlanCode>('monthly');
+  const plans = useMemo(() => buildSeoPlans(settings), [settings]);
   const selected = planByCode(plans, selectedCode) ?? plans[0];
   const [state, dispatch, isPending] = useActionState(submitSeoSignup, initialState);
 
@@ -62,109 +55,43 @@ export function SeoSignupPanel({
     router.push('/seo/payment');
   }, [state, router]);
 
-  useEffect(() => {
-    const selectLinkedProduct = () => {
-      if (window.location.hash === '#google-business-profile-audit') {
-        setReportType('gbp');
-        setSelectedCode('oneoff');
-      }
-    };
-    selectLinkedProduct();
-    window.addEventListener('hashchange', selectLinkedProduct);
-    return () => window.removeEventListener('hashchange', selectLinkedProduct);
-  }, []);
-
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     formData.set('plan', selectedCode);
-    formData.set('report_type', reportType);
     dispatch(formData);
   };
 
-  function selectReportType(nextReportType: SeoReportType) {
-    setReportType(nextReportType);
-    setSelectedCode(nextReportType === 'gbp' ? 'oneoff' : 'quarterly');
-  }
-
-  const recommendedFrequency: SeoPlanCode = reportType === 'gbp' ? 'oneoff' : 'quarterly';
-
   return (
     <div className={cn(selectionPanelClassName, 'mt-0')}>
-      <aside
-        className={`${chooserClassName} [scroll-margin-top:24px]`}
-        id="google-business-profile-audit"
-      >
+      <aside className={chooserClassName}>
         {heading}
 
         <div>
-          <p className={choiceGroupHeadingClassName}>What do you want?</p>
+          <p className={choiceGroupHeadingClassName}>One-off or ongoing?</p>
           <div
-            className={cn(choiceGridClassName, 'grid-cols-1 sm:grid-cols-3')}
+            className={cn(choiceGridClassName, 'grid-cols-1 sm:grid-cols-2')}
             role="radiogroup"
-            aria-label="Report type"
+            aria-label="Plan"
           >
-            {REPORT_TYPES.map((option) => (
+            {plans.map((plan) => (
               <label
                 className={choiceCardVariants({
-                  selected: reportType === option.code,
-                  recommended: option.code === 'both',
+                  selected: selectedCode === plan.code,
+                  recommended: plan.recommended,
                 })}
-                key={option.code}
+                key={plan.code}
               >
                 <input
                   className={choiceInputClassName}
                   type="radio"
-                  name="seo-report-type"
-                  value={option.code}
-                  checked={reportType === option.code}
-                  onChange={() => selectReportType(option.code)}
+                  name="seo-plan"
+                  value={plan.code}
+                  checked={selectedCode === plan.code}
+                  onChange={() => setSelectedCode(plan.code)}
                 />
-                <span>{option.name}</span>
-                {option.code === 'both' && (
-                  <small className="moving-colour-text">Recommended</small>
-                )}
-              </label>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-xl">
-          <p className={choiceGroupHeadingClassName}>
-            {reportType === 'gbp' ? 'Payment schedule' : 'How often?'}
-          </p>
-          <div
-            className={cn(choiceGridClassName, 'grid-cols-2 sm:grid-cols-4')}
-            role="radiogroup"
-            aria-label="Report frequency"
-          >
-            {plans.map((frequency) => (
-              <label
-                className={cn(
-                  choiceCardVariants({ selected: selectedCode === frequency.code }),
-                  // Not the moving-colour treatment the report-type cards use:
-                  // the recommended frequency is marked with an accent rule
-                  // under the card instead, so two recommendations on one panel
-                  // do not compete for attention.
-                  recommendedFrequency === frequency.code &&
-                    // Not elevation: an inset rule drawn as a shadow, so the selected
-                    // card gains an underline without a border box that would shift the
-                    // two unselected ones beside it.
-                    // eslint-disable-next-line no-restricted-syntax
-                    'border-action-primary shadow-[inset_0_-3px_0_var(--action-primary)]',
-                )}
-                key={frequency.code}
-              >
-                <input
-                  className={choiceInputClassName}
-                  type="radio"
-                  name="seo-report-frequency"
-                  value={frequency.code}
-                  checked={selectedCode === frequency.code}
-                  onChange={() => setSelectedCode(frequency.code)}
-                />
-                <span>{frequency.name}</span>
-                {recommendedFrequency === frequency.code && <small>Recommended</small>}
+                <span>{plan.name}</span>
+                {plan.recommended && <small className="moving-colour-text">Recommended</small>}
               </label>
             ))}
           </div>
@@ -177,9 +104,7 @@ export function SeoSignupPanel({
             </strong>
             <small className={totalCadenceClassName}>{selected.cadence}</small>
           </div>
-          <span className={totalSummaryClassName}>
-            {reportTypeLabel(reportType)} · {selected.name}
-          </span>
+          <span className={totalSummaryClassName}>{selected.summary}</span>
         </div>
       </aside>
 

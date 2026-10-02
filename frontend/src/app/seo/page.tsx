@@ -15,8 +15,9 @@ import { buildRecurringOffer } from '@/lib/seo';
 import { numberSections } from '@/lib/sectionNumbers';
 import { getSiteSettingsServer } from '@/lib/serverApi';
 
-import { GoogleBusinessProfileAudit } from './_components/GoogleBusinessProfileAudit';
+import { SeoAccess } from './_components/SeoAccess';
 import { SeoAnalysis } from './_components/SeoAnalysis';
+import { SeoCadence } from './_components/SeoCadence';
 import { SeoImprovement } from './_components/SeoImprovement';
 import { SeoIntroduction } from './_components/SeoIntroduction';
 import { SeoSignup } from './_components/SeoSignup';
@@ -25,11 +26,12 @@ import { seoServices } from './_components/seoServices';
 import { SEO_FAQS } from './_lib/copy';
 
 const sections = numberSections([
-  'Discover',
+  'Analyse',
   'Recommend',
-  'Measure',
-  'Google Business Profile audit',
-  'What we inspect',
+  'Experiment',
+  'How often',
+  'What we need',
+  'What we look for',
   'Proof this works',
   'Choose your plan',
   'Common questions',
@@ -51,9 +53,10 @@ export default async function SeoPage() {
   const settings = await getSiteSettingsServer();
 
   // The Service node itself is declared in STATIC_PAGES; only the price is dynamic.
+  // A subscription starts monthly, so that is the cadence the offer states.
   const serviceOffers = buildRecurringOffer({
-    price: settings.seo_quarterly_price,
-    unitText: 'QUARTER',
+    price: settings.seo_subscription_price,
+    unitText: 'MONTH',
   });
 
   return (
@@ -61,45 +64,47 @@ export default async function SeoPage() {
       <PageSchema path="/seo" serviceOffers={serviceOffers} />
       <Hero
         path="/seo"
-        eyebrow="SEO reports Perth"
+        eyebrow="SEO Perth"
         titleLines={['Be the Perth business']}
         accentTitle="Google"
         accentAlternates={['ChatGPT', 'Claude', 'Gemini', 'Perplexity']}
         titleSuffix="recommends first."
         lead="We find where Perth customers search and don't find you, rank the fixes by value, then measure what changed. Every click you earn is one you stop buying from Google Ads."
         primaryHref="#signup"
-        primaryLabel="Choose a Report"
-        secondaryHref="#report"
+        primaryLabel="Choose a plan"
+        secondaryHref="#recommend"
         secondaryLabel="See what you get"
-        trustLine="Perth-based · reports for Perth and WA businesses"
+        trustLine="Perth-based · built for Perth and WA businesses"
       />
 
       <SeoStepsBar />
 
       <SeoIntroduction />
 
-      <SeoAnalysis eyebrow={sections['Discover']} />
+      <SeoAnalysis eyebrow={sections['Analyse']} />
 
       <SeoReportOverview
-        id="report"
+        id="recommend"
         eyebrow={sections['Recommend']}
         title="Ranked by value."
         accentTitle="Ready to hand over."
-        description="Each report turns fresh search data into a plain-English action plan: what improved, what is holding you back, and the next changes ranked by the clicks they could earn. Written so you, your IT person or we can make the changes."
+        description="Every recommendation says what to change, why the data points to it, how to do it, and what should happen if it works, with its impact and cost marked. Written so you, your IT person or we can make the change, and every claim traced back to its source."
         spacing="joined"
         textSide="right"
       />
 
-      <SeoImprovement eyebrow={sections['Measure']} />
+      <SeoImprovement eyebrow={sections['Experiment']} />
 
-      <GoogleBusinessProfileAudit eyebrow={sections['Google Business Profile audit']} />
+      <SeoCadence eyebrow={sections['How often']} />
+
+      <SeoAccess eyebrow={sections['What we need']} />
 
       <ExpandableServiceList
         id="issues-we-check"
         services={seoServices}
-        eyebrow={sections['What we inspect']}
-        title="What we inspect in every SEO report."
-        description="These are examples of the issues and opportunities we look for. Open a category to see the kinds of checks that can appear in your report."
+        eyebrow={sections['What we look for']}
+        title="What we look for, every cycle."
+        description="A few of the questions behind the findings. Open one to see the kinds of checks that can turn into a recommendation."
       />
 
       <CaseStudyTeaser
@@ -107,7 +112,7 @@ export default async function SeoPage() {
         title="A Perth website that grew organic clicks 300%."
         points={casePoints}
         primaryHref="#signup"
-        primaryLabel="Choose a Report"
+        primaryLabel="Choose a plan"
         showPrimaryAction={false}
       >
         <p>
@@ -128,7 +133,7 @@ export default async function SeoPage() {
       <ClickValueModal />
 
       <FloatingPageCta
-        label="Choose a Report"
+        label="Choose a plan"
         href="#signup"
         showAfterId="seo-hero-end"
         hideAtId="signup"
@@ -137,7 +142,7 @@ export default async function SeoPage() {
       <FaqSection
         emitSchema
         eyebrow={sections['Common questions']}
-        title="SEO report and audit questions."
+        title="SEO questions."
         items={SEO_FAQS}
       />
 
@@ -145,11 +150,11 @@ export default async function SeoPage() {
         eyebrow="Stop renting your traffic"
         title="Google Ads is SEO you pay for, click by click."
         href="#signup"
-        buttonLabel="Choose a Report"
+        buttonLabel="Choose a plan"
       >
         An ad click stops the day the budget does. A click you earn in search keeps arriving.
-        Connect Google Search Console and your first report arrives within the week—ranked,
-        plain-English, and honest about whether you should keep paying us.
+        Connect your data and your first findings arrive within the week—ranked, plain-English, and
+        honest about whether you should keep paying us.
       </ManualAdminCta>
     </main>
   );

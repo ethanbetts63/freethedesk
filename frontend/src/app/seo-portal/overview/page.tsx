@@ -74,19 +74,16 @@ export default function SeoPortalOverviewPage() {
   if (!account) return null;
 
   const hasPaid = account.payment_status === 'active' || account.payment_status === 'paid';
-  const isGbpAudit = account.report_type === 'gbp';
   const copy =
     account.payment_status === 'payment_pending'
       ? {
           heading: 'Your account is saved.',
-          body: `Your selected ${isGbpAudit ? 'audit' : 'plan'} has not been paid yet. Continue when you are ready; you will not need to enter these signup details again.`,
+          body: 'Your selected plan has not been paid yet. Continue when you are ready; you will not need to enter these signup details again.',
         }
       : hasPaid && account.status === 'pending'
         ? {
-            heading: `Payment confirmed. ${isGbpAudit ? 'Send us your profile.' : 'Connect your data.'}`,
-            body: isGbpAudit
-              ? 'Add your Google Business Profile link and any local-search context we should know. We can then begin the audit.'
-              : 'Add your Search Console property and tell us what to focus on. Your first report follows once we have reviewed the account.',
+            heading: 'Payment confirmed. Connect your data.',
+            body: 'Add your Search Console property and Google Business Profile, and tell us what to focus on. Your first round of findings follows once we have reviewed the account.',
           }
         : statusCopy[account.status];
   const firstName = account.contact_name.trim().split(/\s+/)[0] || account.contact_name;
@@ -111,8 +108,7 @@ export default function SeoPortalOverviewPage() {
           <section className={cn(cardClassName, cardWideClassName)}>
             <h2 className={cardTitleClassName}>Finish secure payment</h2>
             <p className={messageBodyClassName}>
-              Your account is saved. Complete payment to unlock your{' '}
-              {isGbpAudit ? 'audit' : 'reporting setup'}.
+              Your account is saved. Complete payment to unlock your setup.
             </p>
             <Button href="/seo/payment">Continue to payment →</Button>
           </section>
@@ -140,23 +136,18 @@ export default function SeoPortalOverviewPage() {
           <section className={cn(cardClassName, cardWideClassName)}>
             <h2 className={cardTitleClassName}>What happens next</h2>
             <PortalSteps>
-              <PortalStep title={isGbpAudit ? 'Send your profile' : 'Connect your data'}>
-                {isGbpAudit
-                  ? 'Add your Google Business Profile link and primary service location.'
-                  : 'Grant access to Search Console and, if relevant, Analytics and your Google Business Profile.'}
+              <PortalStep title="Connect your data">
+                Grant read-only access to Search Console, your Google Business Profile and your
+                analytics.
               </PortalStep>
-              <PortalStep title={isGbpAudit ? 'We review it' : 'Tell us the focus'}>
-                {isGbpAudit
-                  ? 'We check visibility, completeness, categories, content, reviews and local-search signals.'
-                  : 'Target locations, the searches you care about and who you compete with.'}
+              <PortalStep title="Tell us the focus">
+                Target locations, the searches you care about and who you compete with.
               </PortalStep>
-              <PortalStep title={isGbpAudit ? 'Your audit arrives' : 'Your first report'}>
-                A plain-English, ranked action list lands in your inbox.
+              <PortalStep title="Your first findings">
+                Plain-English, ranked recommendations land in your inbox.
               </PortalStep>
             </PortalSteps>
-            <Button href="/seo-portal/connect">
-              {isGbpAudit ? 'Add profile details' : 'Connect your data'} →
-            </Button>
+            <Button href="/seo-portal/connect">Connect your data →</Button>
           </section>
         )}
 
@@ -177,7 +168,6 @@ export default function SeoPortalOverviewPage() {
         <section className={cardClassName}>
           <h2 className={cardTitleClassName}>Account</h2>
           <dl className={detailListClassName}>
-            <DetailItem term="Report">{account.report_type_label}</DetailItem>
             <DetailItem term="Plan">{account.plan_label}</DetailItem>
             <DetailItem term="Payment">{account.payment_status_label}</DetailItem>
             <DetailItem term="Status">{account.status_label}</DetailItem>

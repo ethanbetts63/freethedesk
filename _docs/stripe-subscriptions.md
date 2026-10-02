@@ -47,7 +47,7 @@ failure alerting.
 
 | Concern                                                      | Owner                                                            |
 | ------------------------------------------------------------ | ---------------------------------------------------------------- |
-| Prices, plans, report types, agreement wording               | `payments/utils/services.py`, `seo_services.py`, `agreements.py` |
+| Prices, plans, SEO cadences, agreement wording               | `payments/utils/services.py`, `seo_services.py`, `agreements.py` |
 | What a paid dealer or subscriber becomes                     | `payments/flows.py`                                              |
 | Telling staff a webhook is stuck                             | `payments/utils/alerts.py`                                       |
 | Verifying, recording and dispatching an event                | the package                                                      |
@@ -72,6 +72,15 @@ Django is the pricing authority. For each new Checkout Session it sends Stripe
 inline recurring `price_data` containing the current model price in cents. Existing subscriptions retain the price that
 was accepted when they were created; changing Licensing settings affects only
 future subscriptions.
+
+SEO is sold as one of two plans: a one-off (`seo_oneoff_price`, charged once)
+or a subscription (`seo_subscription_price`, charged per cycle). Signup only
+accepts `monthly` or `oneoff`. A subscription starts monthly and is slowed by
+staff as its easy wins run out — `bimonthly`, then `quarterly`, then
+`biannual` — at the same per-cycle price. There is no tooling for that move
+yet: change the Stripe subscription's billing interval in the Stripe dashboard
+and set the subscriber's `plan` to match in Django admin, after telling the
+customer, as the SEO subscription terms require.
 
 Before creating the session, FTD publishes the configured legal document through
 `freetheplatform.agreements` and records an immutable acceptance against the

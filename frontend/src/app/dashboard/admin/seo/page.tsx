@@ -122,10 +122,7 @@ function SeoSubscribersContent() {
                     <CellTitle>{subscriber.contact_name}</CellTitle>
                     <CellNote>{subscriber.email}</CellNote>
                   </td>
-                  <td className={adminTdClassName}>
-                    {subscriber.report_type_label}
-                    <CellNote>{subscriber.plan_label}</CellNote>
-                  </td>
+                  <td className={adminTdClassName}>{subscriber.plan_label}</td>
                   <td className={adminTdClassName}>{subscriber.payment_status_label}</td>
                   <td className={adminTdClassName}>{subscriber.phone || '—'}</td>
                   <td className={adminTdClassName}>

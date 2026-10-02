@@ -44,7 +44,6 @@ def dealer_offer_context(quote):
 def seo_offer_context(subscriber, quote):
     return {
         "plan": subscriber.plan,
-        "report_type": subscriber.report_type,
         "price": str(quote.price),
         "currency": quote.currency.upper(),
         "billing_mode": quote.mode,
@@ -55,7 +54,7 @@ def seo_offer_context(subscriber, quote):
 def seo_acceptance_statement(quote):
     payment_kind = "payment" if quote.mode == "payment" else "recurring subscription"
     return (
-        "I agree to the SEO Reporting & Audit Terms, acknowledge the Privacy Policy, "
+        "I agree to the SEO Subscription Terms, acknowledge the Privacy Policy, "
         f"and authorise this {payment_kind}."
     )
 

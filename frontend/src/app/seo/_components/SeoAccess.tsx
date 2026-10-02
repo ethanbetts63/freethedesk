@@ -2,25 +2,24 @@ import { GoogleLogo } from '@/components/GoogleLogo';
 import { ChecklistCard } from '@/components/visuals/ChecklistCard';
 import { SectionNumber } from '@/components/SectionNumber';
 
-const AUDIT_AREAS = [
-  ['Business details', 'Contact information, opening hours and attributes'],
-  ['Categories', 'Primary and supporting category fit'],
-  ['Services', 'Service groups, products and descriptions'],
-  ['Reviews', 'Request process and response quality'],
-  ['Photos', 'Logo, cover, premises, team and product imagery'],
-  ['Customer actions', 'Website, booking and social links'],
+/** The sources a cycle reads, as a customer would name them. */
+const ACCESS = [
+  [
+    'Google Search Console',
+    'Searches, clicks, the pages Google has and has not added, and AI results',
+  ],
+  ['Google Business Profile', 'Searches, calls, directions and the details customers see'],
+  ['Website analytics', 'What visitors do after they land, from GA4, Clarity or your host'],
+  ['Your enquiries', 'How many came in, so changes are judged by what they earn'],
+  ['A short brief', 'What you sell, the suburbs you serve and who you compete with'],
 ] as const;
 
-export function GoogleBusinessProfileAudit({
-  eyebrow = 'Your local search presence',
-}: {
-  eyebrow?: string;
-}) {
+export function SeoAccess({ eyebrow }: { eyebrow: string }) {
   return (
     <section
       className="relative mt-section overflow-hidden bg-surface-dark py-section text-text-on-dark before:absolute before:inset-0 before:content-[''] before:[background-image:linear-gradient(var(--tint-grid-on-dark)_1px,transparent_1px),linear-gradient(90deg,var(--tint-grid-on-dark)_1px,transparent_1px)] before:[background-size:42px_42px] before:[mask-image:linear-gradient(90deg,var(--text-primary),transparent_82%)]"
-      aria-labelledby="gbp-audit-title"
-      id="gbp-audit"
+      aria-labelledby="seo-access-title"
+      id="access"
     >
       <div className="site-shell relative z-1 grid grid-cols-1 gap-split lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
         <div>
@@ -30,23 +29,23 @@ export function GoogleBusinessProfileAudit({
             </span>
             <span>
               <small className="mb-3xs block text-label font-black tracking-label-tight text-accent uppercase">
-                One-time audit · available alone or with SEO
+                Read-only · nothing installed
               </small>
-              <strong className="block text-body-sm">Google Business Profile</strong>
+              <strong className="block text-body-sm">What we need from you</strong>
             </span>
           </div>
 
           <SectionNumber onDark>{eyebrow}</SectionNumber>
           <h3
-            id="gbp-audit-title"
+            id="seo-access-title"
             className="m-0 max-w-[680px] text-display leading-[0.98] tracking-[-0.06em] lg:max-w-[520px]"
           >
-            A one-time Google Business Profile audit.
+            Five things, connected once.
           </h3>
-          <p className="mt-xl mb-m max-w-[680px] text-lead leading-[1.72] text-text-on-dark-muted lg:max-w-[570px]">
-            We review the parts of your profile that decide whether you appear in Google Maps when
-            Perth customers search near them, then send you a prioritised list of what to correct or
-            improve. One audit, one action list, no recurring subscription.
+          <p className="mt-xl mb-m max-w-[680px] text-lead leading-relaxed text-text-on-dark-muted lg:max-w-[570px]">
+            After payment you connect your data and fill in a short brief. We read; we never change
+            your site, your profile or your ads. Anything you can&apos;t share just narrows what the
+            findings can say, and they say so.
           </p>
         </div>
 
@@ -54,15 +53,15 @@ export function GoogleBusinessProfileAudit({
           layout="framed"
           className="shadow-contrast-l"
           mark={<GoogleLogo size={24} />}
-          eyebrow="Profile audit"
+          eyebrow="Onboarding"
           title="Your business"
-          countLabel={`${AUDIT_AREAS.length} review areas`}
-          items={AUDIT_AREAS.map(([title, description]) => ({
+          countLabel={`${ACCESS.length} sources`}
+          items={ACCESS.map(([title, description]) => ({
             title,
             description,
-            tag: 'Reviewed',
+            tag: 'Read',
           }))}
-          ariaLabel="Example Google Business Profile audit coverage"
+          ariaLabel="The data an SEO subscription reads"
           footer={
             <footer className="moving-colour-fill flex flex-col items-start justify-between gap-xs px-ml py-m sm:flex-row sm:items-center sm:gap-0">
               <span className="flex items-center gap-2xs text-label font-heavy text-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] uppercase">
@@ -70,9 +69,9 @@ export function GoogleBusinessProfileAudit({
                   aria-hidden="true"
                   className="h-[var(--size-dot)] w-[var(--size-dot)] rounded-circle bg-surface-page"
                 />{' '}
-                Delivered as
+                Access level
               </span>
-              <strong className="text-caption text-text-on-dark">Prioritised action list</strong>
+              <strong className="text-caption text-text-on-dark">Read-only</strong>
             </footer>
           }
         />

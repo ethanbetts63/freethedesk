@@ -14,13 +14,14 @@ import { useAuth } from '@/context/AuthContext';
 import { createSeoCheckout, getSeoAccount, type SeoAccount } from '@/lib/seoApi';
 import { getSiteSettings } from '@/lib/api';
 import { stripeConfigured, stripePromise, STRIPE_ELEMENTS_OPTIONS } from '@/lib/stripe';
-import { buildSeoPlans, planByCode, reportTypeLabel, type SeoPlan } from '../_lib/plans';
+import { buildSeoPlans, planByCode, signupPlanFor, type SeoPlan } from '../_lib/plans';
 import { formatMoney } from '@/lib/formatting';
 
 const RETURN_PATH = '/seo/payment/complete';
 
 const DUE_LABELS: Record<string, string> = {
-  monthly: 'Due monthly',
+  monthly: 'Due monthly, then less often as growth matures',
+  bimonthly: 'Due every 2 months',
   quarterly: 'Due every 3 months',
   biannual: 'Due every 6 months',
   oneoff: 'One-time payment',
@@ -34,7 +35,6 @@ export function SeoPaymentPage() {
   const [plans, setPlans] = useState<SeoPlan[]>([]);
   const [clientSecret, setClientSecret] = useState('');
   const [quotedPrice, setQuotedPrice] = useState('');
-  const [recurringPrice, setRecurringPrice] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export function SeoPaymentPage() {
     Promise.all([getSeoAccount(), getSiteSettings()])
       .then(([seoAccount, settings]) => {
         setAccount(seoAccount);
-        setPlans(buildSeoPlans(settings, seoAccount.report_type));
+        setPlans(buildSeoPlans(settings));
         if (seoAccount.payment_status === 'active' || seoAccount.payment_status === 'paid') {
           router.replace('/seo-portal/overview');
           return;
@@ -62,20 +62,16 @@ export function SeoPaymentPage() {
       );
   }, [authLoading, router, user]);
 
-  const plan = account ? planByCode(plans, account.plan) : undefined;
-  const isAudit = account?.report_type === 'gbp';
+  const plan = account ? planByCode(plans, signupPlanFor(account.plan)) : undefined;
   const oneOff = account?.plan === 'oneoff';
-  const productName =
-    account && plan ? `${reportTypeLabel(account.report_type)} · ${plan.name}` : 'Your report';
+  const productName = plan ? `SEO ${plan.name.toLowerCase()}` : 'Your plan';
   const displayedPrice = quotedPrice ? formatMoney(quotedPrice) : plan?.price;
-  const displayedRecurringPrice = recurringPrice ? formatMoney(recurringPrice) : '';
 
   async function prepareCheckout() {
     setError('');
     try {
       const checkout = await createSeoCheckout();
       setQuotedPrice(checkout.price);
-      setRecurringPrice(checkout.recurring_price ?? '');
       setClientSecret(checkout.client_secret);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : 'Unable to prepare payment.');
@@ -84,7 +80,7 @@ export function SeoPaymentPage() {
 
   return (
     <CheckoutShell
-      productLabel={`Selected ${isAudit ? 'product' : 'plan'}`}
+      productLabel="Selected plan"
       productName={productName}
       productSummary={plan?.summary ?? 'Preparing your secure checkout.'}
       order={
@@ -92,10 +88,7 @@ export function SeoPaymentPage() {
           ? {
               lineLabel: productName,
               price: displayedPrice,
-              dueLabel:
-                account?.report_type === 'both' && displayedRecurringPrice
-                  ? `First payment; then ${displayedRecurringPrice} ${(DUE_LABELS[account.plan] ?? 'recurring').toLowerCase()}`
-                  : (DUE_LABELS[account?.plan ?? 'quarterly'] ?? 'Due on checkout'),
+              dueLabel: DUE_LABELS[account?.plan ?? 'monthly'] ?? 'Due on checkout',
             }
           : undefined
       }
@@ -114,9 +107,7 @@ export function SeoPaymentPage() {
         >
           <CheckoutPaymentForm
             heading={oneOff ? `Pay for ${productName}.` : `Start ${productName}.`}
-            submitLabel={
-              isAudit ? 'Pay for audit' : oneOff ? 'Pay for report' : 'Start subscription'
-            }
+            submitLabel={oneOff ? 'Pay now' : 'Start subscription'}
             returnPath={RETURN_PATH}
           />
         </CheckoutElementsProvider>
@@ -124,7 +115,7 @@ export function SeoPaymentPage() {
         <CheckoutTermsForm
           priceNote="Your price and the exact terms accepted are saved with this checkout."
           termsHref="/legal/seo-subscription-terms"
-          termsLabel="SEO Reporting & Audit Terms"
+          termsLabel="SEO Subscription Terms"
           authorisation={`authorise this ${oneOff ? 'payment' : 'recurring subscription'}.`}
           onConfirm={prepareCheckout}
         />

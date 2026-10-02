@@ -5,11 +5,11 @@ import { SeoImprovementVisual } from './SeoImprovementVisual';
 export function SeoImprovement({ eyebrow }: { eyebrow: string }) {
   return (
     <SplitFeatureSection
-      id="improve"
+      id="experiment"
       eyebrow={eyebrow}
-      title="Make the change."
-      accentTitle="Measure what it earned."
-      description="SEO compounds through iteration. Once a change is live, fresh data shows whether it worked and which clicks it brought in. The next report starts from there, so every cycle builds on the last."
+      title="Every change is"
+      accentTitle="an experiment."
+      description="Each recommendation comes with a hypothesis, a metric and a target. Once a change ships it gets a baseline and a date, and the next cycle says whether it worked. What earns is kept and built on; what doesn't is dropped. Nobody has to guess whether the SEO is doing anything."
       visual={<SeoImprovementVisual />}
       textSide="left"
       background="white"

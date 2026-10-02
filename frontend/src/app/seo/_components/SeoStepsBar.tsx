@@ -5,7 +5,7 @@ export function SeoStepsBar() {
     <ProcessStepsBar
       id="seo-hero-end"
       ariaLabel="Our three-step SEO process"
-      steps={['Discover', 'Implement', 'Measure']}
+      steps={['Analyse', 'Recommend', 'Experiment']}
     />
   );
 }

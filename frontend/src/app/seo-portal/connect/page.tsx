@@ -4,7 +4,6 @@ import { useActionState, useEffect, useState } from 'react';
 
 import {
   getSeoOnboarding,
-  getSeoAccount,
   type SeoOnboardingChanges,
   type SeoOnboardingProfile,
 } from '@/lib/seoApi';
@@ -45,7 +44,7 @@ const fields: [keyof SeoOnboardingChanges, string, string, 'input' | 'textarea']
     'textarea',
   ],
   ['competitors', 'Competitors', 'One per line — who shows up where you want to.', 'textarea'],
-  ['notes', 'Anything else', 'Context that would help us focus the report.', 'textarea'],
+  ['notes', 'Anything else', 'Context that would help us focus the work.', 'textarea'],
 ];
 
 export default function SeoPortalConnectPage() {
@@ -53,13 +52,11 @@ export default function SeoPortalConnectPage() {
   const [form, setForm] = useState<SeoOnboardingChanges>({});
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
-  const [isGbpAudit, setIsGbpAudit] = useState(false);
   const [state, dispatch, saving] = useActionState(submitSeoConnect, initialState);
 
   useEffect(() => {
-    Promise.all([getSeoOnboarding(), getSeoAccount()])
-      .then(([result, account]) => {
-        setIsGbpAudit(account.report_type === 'gbp');
+    getSeoOnboarding()
+      .then((result) => {
         setLoadedProfile(result);
         setForm({
           website_url: result.website_url,
@@ -82,7 +79,7 @@ export default function SeoPortalConnectPage() {
   const notice =
     state.status === 'success' && !saving
       ? state.intent === 'submit'
-        ? `Thanks — your ${isGbpAudit ? 'audit details have' : 'reporting brief has'} been submitted.`
+        ? 'Thanks — your brief has been submitted.'
         : 'Draft saved.'
       : '';
 
@@ -109,12 +106,8 @@ export default function SeoPortalConnectPage() {
     <div className={pageClassName}>
       <PageHeader
         kicker="Onboarding"
-        title={isGbpAudit ? 'Add your profile details' : 'Connect your data'}
-        subtitle={
-          isGbpAudit
-            ? 'Send us the profile and location we should review.'
-            : 'Tell us where to look and what matters. We use this to focus every report.'
-        }
+        title="Connect your data"
+        subtitle="Tell us where to look and what matters. We use this to focus every cycle."
       />
       <Notice tone="success">
         Status: <strong>{profile.onboarding_status_label}</strong>
@@ -123,25 +116,9 @@ export default function SeoPortalConnectPage() {
       {notice && <Notice tone="success">{notice}</Notice>}
 
       <form className={portalFormClassName} onSubmit={onSubmit}>
-        <PortalFieldset
-          disabled={locked || saving}
-          legend={isGbpAudit ? 'Audit brief' : 'Reporting brief'}
-        >
+        <PortalFieldset disabled={locked || saving} legend="Your brief">
           <div className={portalFieldGridClassName}>
             {fields.map(([name, label, hint, kind]) => {
-              const shown =
-                !isGbpAudit ||
-                [
-                  'website_url',
-                  'google_business_profile_url',
-                  'primary_location',
-                  'notes',
-                ].includes(name);
-              // Fields hidden for this account type still round-trip their
-              // last-saved value via a hidden input, so saving doesn't blank
-              // them out just because they aren't shown right now.
-              if (!shown)
-                return <input key={name} type="hidden" name={name} value={form[name] ?? ''} />;
               return kind === 'textarea' ? (
                 <PortalField
                   key={name}

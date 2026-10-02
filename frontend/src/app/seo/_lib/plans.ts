@@ -1,76 +1,47 @@
 import { type PublicSiteSettings } from '@/lib/api';
 import { planByCode, type Plan } from '@/lib/plans';
-import type { SeoPlanCode, SeoReportType } from '@/lib/seoApi';
+import type { SeoPlanCode } from '@/lib/seoApi';
 import { formatMoney } from '@/lib/formatting';
 
-export type { SeoPlanCode, SeoReportType };
-export type SeoPlan = Plan<SeoPlanCode>;
+export type { SeoPlanCode };
+export type SignupPlanCode = Extract<SeoPlanCode, 'monthly' | 'oneoff'>;
+export type SeoPlan = Plan<SignupPlanCode>;
 export { planByCode };
 
-export const REPORT_TYPES: { code: SeoReportType; name: string }[] = [
-  { code: 'gbp', name: 'One-time GBP audit' },
-  { code: 'seo', name: 'Recurring SEO reports' },
-  { code: 'both', name: 'GBP audit + recurring SEO' },
+const FEATURES = [
+  'Search Console, Business Profile and analytics read together',
+  '23 foundation checks, pass, warn or fail',
+  'Ranked recommendations with impact and cost',
 ];
 
-export function reportTypeLabel(reportType: SeoReportType): string {
-  return REPORT_TYPES.find(({ code }) => code === reportType)?.name ?? 'Report';
+/**
+ * The two things a customer can buy. A subscription always starts monthly and
+ * slows as the easy wins run out; the price of each cycle stays the same, so
+ * one card covers every cadence.
+ */
+export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
+  return [
+    {
+      code: 'monthly',
+      name: 'Subscription',
+      price: formatMoney(settings.seo_subscription_price, { cents: 'auto' }),
+      cadence: 'per cycle, starting monthly',
+      summary: 'Analyse, recommend and experiment every cycle, measuring what each change earned.',
+      features: [...FEATURES, 'Every change tracked as an experiment'],
+      recommended: true,
+    },
+    {
+      code: 'oneoff',
+      name: 'One-off',
+      price: formatMoney(settings.seo_oneoff_price, { cents: 'auto' }),
+      cadence: 'once, no subscription',
+      summary: 'One full round of analysis and ranked recommendations.',
+      features: FEATURES,
+    },
+  ];
 }
 
-export function buildSeoPlans(
-  settings: PublicSiteSettings,
-  reportType: SeoReportType = 'both',
-): SeoPlan[] {
-  const gbpPrice = Number(settings.gbp_audit_price);
-  const reportSummary = {
-    gbp: 'A one-time Google Business Profile audit and local-search action list.',
-    seo: 'Recurring website SEO reports with a fresh prioritised action list each cycle.',
-    both: 'A one-time Google Business Profile audit followed by recurring website SEO reports.',
-  }[reportType];
-  const features = {
-    gbp: ['Google Business Profile review', 'Local-search action list'],
-    seo: ['Website SEO review', 'Human-written action plan'],
-    both: [
-      'Recurring website SEO review',
-      'One-time Google Business Profile audit',
-      'Prioritised action plans',
-    ],
-  }[reportType];
-
-  const recurringFrequencies = [
-    ['monthly', 'Monthly', settings.seo_monthly_price, '/ report, billed monthly'],
-    ['quarterly', 'Quarterly', settings.seo_quarterly_price, '/ report, billed quarterly'],
-    ['biannual', 'Bi-annual', settings.seo_biannual_price, '/ report, billed every 6 months'],
-  ] as const;
-
-  if (reportType === 'gbp') {
-    return [
-      {
-        code: 'oneoff',
-        name: 'One-time audit',
-        price: formatMoney(String(gbpPrice), { cents: 'auto' }),
-        cadence: 'once, no subscription',
-        summary: reportSummary,
-        features,
-        recommended: true,
-      },
-    ];
-  }
-
-  return recurringFrequencies.map(([code, name, seoPrice, cadence]) => {
-    const numericSeoPrice = Number(seoPrice);
-    const price = reportType === 'seo' ? numericSeoPrice : numericSeoPrice + gbpPrice;
-    return {
-      code,
-      name,
-      price: formatMoney(String(price), { cents: 'auto' }),
-      cadence:
-        reportType === 'both'
-          ? `first payment, then ${formatMoney(String(numericSeoPrice), { cents: 'auto' })} ${cadence}`
-          : cadence,
-      summary: reportSummary,
-      features,
-      recommended: code === 'quarterly',
-    };
-  });
+/** The signup card a stored plan belongs to: every recurring cadence is the subscription. */
+export function signupPlanFor(plan: SeoPlanCode): SignupPlanCode {
+  return plan === 'oneoff' ? 'oneoff' : 'monthly';
 }

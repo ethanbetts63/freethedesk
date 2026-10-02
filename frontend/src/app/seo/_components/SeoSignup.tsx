@@ -2,7 +2,7 @@ import { SectionNumber } from '@/components/SectionNumber';
 import { type PublicSiteSettings } from '@/lib/api';
 import { SeoSignupPanel } from './SeoSignupPanel';
 
-/* Server shell: only the report chooser and the form need to hydrate. */
+/* Server shell: only the plan chooser and the form need to hydrate. */
 export function SeoSignup({
   settings,
   eyebrow,
@@ -21,7 +21,7 @@ export function SeoSignup({
           <>
             <SectionNumber>{eyebrow}</SectionNumber>
             <h2 className="m-0 max-w-[780px] text-display leading-[1.06] tracking-[-0.058em]">
-              Choose your report.
+              Choose your plan.
             </h2>
           </>
         }

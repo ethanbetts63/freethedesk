@@ -54,10 +54,10 @@ const actionIcon = (
 );
 
 const reportSections: readonly ReportCardItem[] = [
-  { title: 'Last period tracked', description: "What moved, what didn't.", icon: trendIcon },
-  { title: 'Issues', description: "What's broken or holding you back.", icon: issueIcon },
+  { title: 'Recommendations', description: 'Ranked by impact and cost.', icon: actionIcon },
+  { title: 'Experiments', description: 'What each change earned.', icon: trendIcon },
+  { title: 'Foundations', description: '23 checks: pass, warn or fail.', icon: issueIcon },
   { title: 'Opportunities', description: "Searches you're missing.", icon: targetIcon },
-  { title: 'What to do next', description: 'Ranked, with effort estimates.', icon: actionIcon },
 ];
 
 const improvementSections: readonly ReportCardItem[] = [
@@ -73,7 +73,7 @@ const improvementSections: readonly ReportCardItem[] = [
   },
   {
     title: 'What to improve next',
-    description: 'Rewrite the title and compare the result in the next report.',
+    description: 'Rewrite the title and compare the result next cycle.',
     icon: actionIcon,
   },
 ];
@@ -83,16 +83,16 @@ export function SeoReportVisual({ mode }: { mode: 'report' | 'improvement' }) {
 
   return (
     <ReportCardVisual
-      title={improvement ? 'SEO improvement report' : 'Quarterly SEO report'}
-      subtitle={improvement ? 'Real search data · this quarter' : 'Your business · this quarter'}
-      badge={improvement ? 'Next actions' : 'Action plan'}
+      title={improvement ? 'SEO findings' : 'Your SEO findings'}
+      subtitle={improvement ? 'Real search data · this cycle' : 'Your business · this cycle'}
+      badge={improvement ? 'Next actions' : 'Ranked'}
       items={improvement ? improvementSections : reportSections}
       footerItems={
         improvement
           ? ['Evidence first', 'Plain English', 'Tracked over time']
-          : ['Plain English', 'Ranked by impact', 'Effort estimate on every item']
+          : ['Plain English', 'Impact and cost on every item', 'Every claim sourced']
       }
-      ariaLabel={improvement ? 'Example SEO improvement report' : 'Example quarterly SEO report'}
+      ariaLabel={improvement ? 'Example SEO findings' : 'Example SEO findings for one cycle'}
     />
   );
 }

@@ -1,31 +1,27 @@
-# SEO Reporting & Audit Terms
+# SEO Subscription Terms
 
-Effective date: 9 September 2026
+Effective date: 2 October 2026
 
 > Draft for launch preparation. Free the Desk's legal entity name and service address must be added and these terms should receive Australian legal review before paid subscriptions are enabled.
 
 ## 1. These terms
 
-These terms govern a customer's purchase of recurring Free the Desk website SEO reports, a one-time Google Business Profile audit, or the combined option. They form an agreement between Free the Desk (we, us or our) and the business identified during signup (Customer, you or your).
+These terms govern a customer's purchase of a Free the Desk SEO subscription or a one-off SEO review. They form an agreement between Free the Desk (we, us or our) and the business identified during signup (Customer, you or your).
 
 The person accepting these terms confirms that they are authorised to enter the agreement for the Customer. These are business service terms.
 
 ## 2. The service
 
-The reporting service is a recurring website SEO report, a one-time Google Business Profile audit, or both, according to the selections shown before payment. Each delivered report or audit is a human-written, plain-English document that identifies issues and opportunities and gives a prioritised list of recommended next steps. The free AI readiness check is available separately and does not require a purchase.
-
-A Google Business Profile report is a focused review of the Customer's profile and local-search signals. It does not include a website SEO report unless the combined option is selected.
+The service is run in cycles. In each cycle we analyse the Customer's website, search data and Google Business Profile, and deliver a human-written, plain-English set of findings: what changed, what is holding the site back, and a prioritised list of recommended changes. On a subscription, changes the Customer makes are tracked from cycle to cycle so that later findings can say whether they worked. The free AI readiness check is available separately and does not require a purchase.
 
 The service is analysis and recommendations. Implementing the recommendations, whether by us under a separate proposal or by the Customer, is not included in a standard subscription unless expressly stated in writing.
 
 ## 3. Plans
 
-- Monthly SEO report: one website SEO report each month.
-- Quarterly SEO report: one website SEO report every three months.
-- Bi-annual SEO report: one website SEO report every six months.
-- Google Business Profile audit: one audit with no ongoing subscription.
+- SEO subscription: one cycle at a time, charged per cycle, starting monthly.
+- One-off SEO review: a single cycle with no ongoing subscription.
 
-The combined option adds one Google Business Profile audit to the first payment of a recurring website SEO plan. The audit does not recur. The checkout shows the first payment and the lower recurring SEO price separately.
+A subscription starts with a cycle every month. As the most valuable early opportunities are used up, we may move it to a cycle every two months, then every three months, and, once the site's growth has matured, every six months. The price of each cycle does not change when the cadence changes; only how often it is charged. We will tell you before a change of cadence takes effect, and you may ask to stay on, or return to, a faster cadence.
 
 The selected plan, current price and billing frequency are displayed before payment. The displayed price is the total payable; no amount is added at checkout. If there is a conflict between these terms and a signed custom proposal, the custom proposal prevails to the extent of the conflict.
 
@@ -33,7 +29,7 @@ The selected plan, current price and billing frequency are displayed before paym
 
 A paid service begins when Stripe confirms payment. You authorise Stripe to charge the payment method supplied for the displayed fee at the billing frequency shown for the selected product.
 
-Recurring website SEO plans renew automatically at their billing frequency until cancelled. A standalone Google Business Profile audit is charged once and does not renew. When the combined option is selected, the Google Business Profile audit is charged only on the first invoice and later renewals contain only the recurring website SEO report. There is no fixed minimum term unless a separate written proposal says otherwise. Invoices and payment records may be issued electronically.
+A subscription renews automatically at its current cadence until cancelled. A one-off SEO review is charged once and does not renew. There is no fixed minimum term unless a separate written proposal says otherwise. Invoices and payment records may be issued electronically.
 
 If payment fails, we may retry the payment and may pause report delivery until the account is brought up to date. We will not charge a new or increased recurring fee without giving at least 30 days' notice and an opportunity to cancel before the new fee applies.
 
@@ -41,7 +37,7 @@ If payment fails, we may retry the payment and may pause report delivery until t
 
 You may cancel a recurring plan at any time by emailing hello@freethedesk.com.au from an authorised account address. Cancellation takes effect at the end of the already-paid billing period; the report for that period is still delivered.
 
-Fees already paid are not refundable for a change of mind or unused time, except where required by law or where we agree to a refund. A one-off report or audit that has not yet been delivered may be refunded at our discretion.
+Fees already paid are not refundable for a change of mind or unused time, except where required by law or where we agree to a refund. A one-off SEO review that has not yet been delivered may be refunded at our discretion.
 
 ## 6. What we need from you
 

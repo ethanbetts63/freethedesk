@@ -11,8 +11,7 @@ PAYLOAD = {
     "email": "jo@peakdigital.com.au",
     "phone": "0400 000 000",
     "website": "https://peakdigital.com.au",
-    "report_type": "both",
-    "plan": "quarterly",
+    "plan": "monthly",
 }
 
 
@@ -27,8 +26,7 @@ def test_signup_creates_pending_subscriber_and_user(client):
 
     subscriber = SeoSubscriber.objects.get()
     assert subscriber.status == SeoSubscriber.Status.PENDING
-    assert subscriber.plan == SeoSubscriber.Plan.QUARTERLY
-    assert subscriber.report_type == SeoSubscriber.ReportType.BOTH
+    assert subscriber.plan == SeoSubscriber.Plan.MONTHLY
     assert subscriber.payment_status == SeoSubscriber.PaymentStatus.PAYMENT_PENDING
     assert subscriber.business_name == "peakdigital.com.au"
     assert subscriber.contact_name == "Account owner"
@@ -39,39 +37,26 @@ def test_signup_creates_pending_subscriber_and_user(client):
     assert response.cookies["freethedesk_refresh"].value
 
 
-def test_signup_defaults_plan_to_quarterly(client):
+def test_signup_defaults_plan_to_monthly(client):
     payload = {key: value for key, value in PAYLOAD.items() if key != "plan"}
     response = client.post(reverse("seo-signup"), payload, content_type="application/json")
     assert response.status_code == 201
-    assert SeoSubscriber.objects.get().plan == SeoSubscriber.Plan.QUARTERLY
+    assert SeoSubscriber.objects.get().plan == SeoSubscriber.Plan.MONTHLY
 
 
-def test_signup_rejects_one_off_website_seo(client):
+def test_signup_accepts_a_one_off(client):
     response = client.post(
         reverse("seo-signup"), {**PAYLOAD, "plan": "oneoff"}, content_type="application/json"
     )
-    assert response.status_code == 400
-    assert not SeoSubscriber.objects.exists()
-
-
-def test_signup_accepts_standalone_google_business_profile_audit(client):
-    response = client.post(
-        reverse("seo-signup"),
-        {**PAYLOAD, "plan": "oneoff", "report_type": "gbp"},
-        content_type="application/json",
-    )
     assert response.status_code == 201
-    subscriber = SeoSubscriber.objects.get()
-    assert subscriber.plan == SeoSubscriber.Plan.ONEOFF
-    assert subscriber.report_type == SeoSubscriber.ReportType.GBP
-    assert subscriber.is_one_off
+    assert SeoSubscriber.objects.get().is_one_off
 
 
-def test_signup_rejects_recurring_google_business_profile_audit(client):
+@pytest.mark.parametrize("plan", ["bimonthly", "quarterly", "biannual"])
+def test_signup_rejects_the_slower_cadences(client, plan):
+    # A subscription always starts monthly; slower cadences come later.
     response = client.post(
-        reverse("seo-signup"),
-        {**PAYLOAD, "plan": "quarterly", "report_type": "gbp"},
-        content_type="application/json",
+        reverse("seo-signup"), {**PAYLOAD, "plan": plan}, content_type="application/json"
     )
     assert response.status_code == 400
     assert not SeoSubscriber.objects.exists()

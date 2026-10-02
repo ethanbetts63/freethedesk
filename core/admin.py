@@ -7,7 +7,7 @@ from .models import Enquiry, SiteSettings
 class SiteSettingsAdmin(admin.ModelAdmin):
     list_display = (
         "licensing_price", "contracts_price", "complete_price",
-        "seo_quarterly_price", "gbp_audit_price",
+        "seo_subscription_price", "seo_oneoff_price",
         "updated_at",
     )
     readonly_fields = ("updated_at",)

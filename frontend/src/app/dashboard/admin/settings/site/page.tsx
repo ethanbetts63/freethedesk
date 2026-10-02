@@ -32,11 +32,8 @@ const LICENSING_FIELDS: { field: PriceField; label: string }[] = [
 ];
 
 const SEO_FIELDS: { field: PriceField; label: string }[] = [
-  { field: 'seo_monthly_price', label: 'SEO report — monthly ($ / report)' },
-  { field: 'seo_quarterly_price', label: 'SEO report — quarterly ($ / report)' },
-  { field: 'seo_biannual_price', label: 'SEO report — bi-annual ($ / report)' },
-  { field: 'seo_oneoff_price', label: 'SEO report — one-off ($ once)' },
-  { field: 'gbp_audit_price', label: 'Google Business Profile report ($ / report)' },
+  { field: 'seo_subscription_price', label: 'SEO subscription ($ / cycle, any cadence)' },
+  { field: 'seo_oneoff_price', label: 'SEO one-off ($ once)' },
 ];
 
 const ALL_FIELDS = [...LICENSING_FIELDS, ...SEO_FIELDS];

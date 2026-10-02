@@ -1,15 +1,13 @@
 import { authedFetch, type AccountBase, type OnboardingStatus } from './api';
 import { handleResponse } from '@freetheplatform/web-security';
 
-export type SeoPlanCode = 'monthly' | 'quarterly' | 'biannual' | 'oneoff';
-export type SeoReportType = 'gbp' | 'seo' | 'both';
+/** Signup offers monthly or oneoff; the slower cadences are reached later. */
+export type SeoPlanCode = 'monthly' | 'bimonthly' | 'quarterly' | 'biannual' | 'oneoff';
 export type SeoPaymentStatus = 'payment_pending' | 'active' | 'past_due' | 'cancelled' | 'paid';
 
 export interface SeoAccount extends AccountBase {
   website: string;
   plan: SeoPlanCode;
-  report_type: SeoReportType;
-  report_type_label: string;
   payment_status: SeoPaymentStatus;
   has_usable_password: boolean;
 }
@@ -17,7 +15,6 @@ export interface SeoAccount extends AccountBase {
 export interface SeoCheckout {
   client_secret: string;
   price: string;
-  recurring_price: string | null;
   currency: string;
   cadence_label: string;
   mode: 'subscription' | 'payment';

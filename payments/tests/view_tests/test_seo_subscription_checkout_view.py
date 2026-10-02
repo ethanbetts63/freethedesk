@@ -29,7 +29,7 @@ def ftp_stripe():
 @stripe_settings
 def test_quarterly_checkout_is_a_three_month_subscription(ftp_stripe, client, logged_in_seo_subscriber):
     settings = SiteSettings.load()
-    settings.seo_quarterly_price = Decimal("150.00")
+    settings.seo_subscription_price = Decimal("150.00")
     settings.save()
 
     response = client.post(
@@ -88,16 +88,23 @@ def test_one_off_checkout_is_a_single_payment(ftp_stripe, client, seo_subscriber
     assert create_kwargs["payment_intent_data"]["metadata"]["ftp_flow"] == "seo.oneoff"
 
 
+@pytest.mark.parametrize(
+    ("plan", "months"),
+    [
+        (SeoSubscriber.Plan.MONTHLY, 1),
+        (SeoSubscriber.Plan.BIMONTHLY, 2),
+        (SeoSubscriber.Plan.BIANNUAL, 6),
+    ],
+)
 @stripe_settings
-def test_google_business_profile_audit_uses_its_own_one_off_price(
-    ftp_stripe, client, seo_subscriber
+def test_every_cadence_bills_the_same_per_cycle_price(
+    ftp_stripe, client, seo_subscriber, plan, months
 ):
-    seo_subscriber.plan = SeoSubscriber.Plan.ONEOFF
-    seo_subscriber.report_type = SeoSubscriber.ReportType.GBP
-    seo_subscriber.save(update_fields=["plan", "report_type"])
+    seo_subscriber.plan = plan
+    seo_subscriber.save(update_fields=["plan"])
     client.sign_in(seo_subscriber.user)
     settings = SiteSettings.load()
-    settings.gbp_audit_price = Decimal("110.00")
+    settings.seo_subscription_price = Decimal("225.00")
     settings.save()
 
     response = client.post(
@@ -107,43 +114,12 @@ def test_google_business_profile_audit_uses_its_own_one_off_price(
     )
 
     assert response.status_code == 200
-    assert response.json()["price"] == "110.00"
-    assert response.json()["mode"] == "payment"
-    price_data = ftp_stripe.last_session["line_items"][0]["price_data"]
-    assert price_data["unit_amount"] == 11000
-    assert price_data["product_data"]["name"] == "One-time Google Business Profile audit"
-    assert "recurring" not in price_data
-
-
-@stripe_settings
-def test_combined_report_charges_gbp_once_and_only_recurs_the_seo_price(
-    ftp_stripe, client, seo_subscriber
-):
-    seo_subscriber.report_type = SeoSubscriber.ReportType.BOTH
-    seo_subscriber.save(update_fields=["report_type"])
-    client.sign_in(seo_subscriber.user)
-    settings = SiteSettings.load()
-    settings.seo_quarterly_price = Decimal("150.00")
-    settings.gbp_audit_price = Decimal("100.00")
-    settings.save()
-
-    response = client.post(
-        reverse("payments:seo-subscription-checkout"),
-        {"accepted_terms": True},
-        content_type="application/json",
-    )
-
-    assert response.status_code == 200
-    assert response.json()["price"] == "250.00"
+    assert response.json()["price"] == "225.00"
     line_items = ftp_stripe.last_session["line_items"]
-    assert len(line_items) == 2
-    seo_price_data = line_items[0]["price_data"]
-    assert seo_price_data["unit_amount"] == 15000
-    assert seo_price_data["recurring"] == {"interval": "month", "interval_count": 3}
-    gbp_price_data = line_items[1]["price_data"]
-    assert gbp_price_data["unit_amount"] == 10000
-    assert "recurring" not in gbp_price_data
-    assert gbp_price_data["product_data"]["name"] == "One-time Google Business Profile audit"
+    assert len(line_items) == 1
+    price_data = line_items[0]["price_data"]
+    assert price_data["unit_amount"] == 22500
+    assert price_data["recurring"] == {"interval": "month", "interval_count": months}
 
 
 @stripe_settings

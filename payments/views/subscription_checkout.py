@@ -77,7 +77,7 @@ class SeoSubscriptionCheckoutView(APIView):
     def post(self, request):
         if request.data.get("accepted_terms") is not True:
             return Response(
-                {"detail": "Accept the SEO reporting and audit terms before continuing."},
+                {"detail": "Accept the SEO subscription terms before continuing."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         try:
@@ -94,7 +94,6 @@ class SeoSubscriptionCheckoutView(APIView):
         return Response({
             "client_secret": client_secret,
             "price": str(quote.price),
-            "recurring_price": str(quote.recurring_price) if quote.recurring_price is not None else None,
             "currency": quote.currency.upper(),
             "cadence_label": quote.name,
             "mode": quote.mode,

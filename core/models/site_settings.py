@@ -32,24 +32,14 @@ class SiteSettings(models.Model):
         max_digits=8, decimal_places=2, default=Decimal("199.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
-    seo_monthly_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=Decimal("99.00"),
-        validators=[MinValueValidator(Decimal("0.01"))],
-    )
-    seo_quarterly_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=Decimal("150.00"),
-        validators=[MinValueValidator(Decimal("0.01"))],
-    )
-    seo_biannual_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=Decimal("200.00"),
+    # Per cycle, at whatever cadence the subscriber is on: a subscription
+    # starts monthly and slows, and the price of each cycle does not change.
+    seo_subscription_price = models.DecimalField(
+        max_digits=8, decimal_places=2, default=Decimal("225.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
     seo_oneoff_price = models.DecimalField(
         max_digits=8, decimal_places=2, default=Decimal("250.00"),
-        validators=[MinValueValidator(Decimal("0.01"))],
-    )
-    gbp_audit_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=Decimal("100.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
     updated_at = models.DateTimeField(auto_now=True)

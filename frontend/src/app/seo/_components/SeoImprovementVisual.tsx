@@ -3,25 +3,25 @@ import { FlowCardVisual } from '@/components/visuals/FlowCardVisual';
 export function SeoImprovementVisual() {
   return (
     <FlowCardVisual
-      browserLabel="improvement cycle"
+      browserLabel="experiment"
       inputs={[
         {
-          label: 'Current report',
-          title: 'Best opportunity',
-          description: 'Chosen from live data',
+          label: 'This cycle',
+          title: 'A ranked recommendation',
+          description: 'With a hypothesis and a target',
         },
       ]}
       steps={[
-        { title: 'Change', description: 'Apply the highest-value action' },
-        { title: 'Collect', description: 'Let fresh search data arrive' },
-        { title: 'Compare', description: 'See whether the change worked' },
+        { title: 'Ship', description: 'You, your IT person or we make the change' },
+        { title: 'Measure', description: 'Fresh data against the baseline' },
+        { title: 'Judge', description: 'Kept and built on, or dropped' },
       ]}
       result={{
-        label: 'Next report',
-        title: 'A better decision',
-        description: 'Backed by fresh evidence',
+        label: 'Next cycle',
+        title: 'Proven, not assumed',
+        description: 'Every change tracked as an experiment',
       }}
-      ariaLabel="The recurring SEO improvement cycle"
+      ariaLabel="How a recommendation becomes an experiment"
     />
   );
 }

@@ -35,11 +35,8 @@ const PRICE_FIELDS = [
   'licensing_price',
   'contracts_price',
   'complete_price',
-  'seo_monthly_price',
-  'seo_quarterly_price',
-  'seo_biannual_price',
+  'seo_subscription_price',
   'seo_oneoff_price',
-  'gbp_audit_price',
 ] as const satisfies readonly (keyof PublicSiteSettings)[];
 
 /**

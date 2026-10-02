@@ -101,12 +101,12 @@ export const STATIC_PAGES = {
   },
   '/seo': {
     updated: '2026-10-02',
-    label: 'SEO reports',
-    title: 'SEO Reports Perth | Find the clicks you are missing',
+    label: 'SEO',
+    title: 'SEO Perth | Analyse, recommend, experiment, grow',
     description:
-      'Recurring SEO reports for Perth businesses: what to fix, ranked by value, then measured. Every click you earn in search is one you stop buying from Google Ads.',
+      'SEO for Perth businesses: we analyse your search data, rank what to change by value, and measure every change as an experiment. Every click you earn is one you stop buying from Google Ads.',
     service: {
-      name: 'SEO Reports Perth',
+      name: 'SEO Perth',
       serviceType: 'SEO consulting and reporting',
       areaServed: { type: 'City', name: 'Perth' },
     },
@@ -161,10 +161,10 @@ export const STATIC_PAGES = {
     description: 'Terms for freethedesk dealer licensing and contract subscriptions.',
   },
   '/legal/seo-subscription-terms': {
-    updated: '2026-09-19',
-    label: 'SEO reporting terms',
-    title: 'SEO Reporting & Audit Terms',
-    description: 'Terms for freethedesk SEO reporting and audit services.',
+    updated: '2026-10-02',
+    label: 'SEO subscription terms',
+    title: 'SEO Subscription Terms',
+    description: 'Terms for freethedesk SEO subscriptions and one-off SEO reviews.',
   },
 } as const satisfies Record<string, StaticPage>;
 

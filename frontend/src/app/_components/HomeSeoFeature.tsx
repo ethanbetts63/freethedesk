@@ -6,18 +6,18 @@ export function HomeSeoFeature() {
     <SeoReportOverview
       id="seo-reporting"
       className="my-3xl mb-2xl bg-surface-tint py-section"
-      eyebrow="SEO reporting"
+      eyebrow="SEO Perth"
       title="A ranked SEO action plan."
       accentTitle="Written for humans."
       description={
         <div className="flex flex-col gap-l [&>span]:block">
           <span>
-            Human-written reports that show where Perth customers search and don&apos;t find you,
-            then rank the fixes by value. Choose an ongoing SEO report, a one-time Google Business
-            Profile audit, or both. The AI readiness check is free.
+            We find where Perth customers search and don&apos;t find you, rank what to change by
+            value, and measure every change as an experiment. One-off or ongoing; the AI readiness
+            check is free.
           </span>
           <CtaButton className="self-start tracking-label-tight" href="/seo" size="compact">
-            Explore SEO reports
+            Explore SEO
           </CtaButton>
         </div>
       }

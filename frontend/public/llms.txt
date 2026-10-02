@@ -1,13 +1,13 @@
 # freethedesk
 
-> freethedesk builds websites and operational systems for Australian small and medium businesses and vehicle dealerships: connected sites, online licensing and business automation rather than template brochureware.
+> freethedesk builds websites, SEO and operational systems for Perth small and medium businesses and vehicle dealerships: connected sites, online licensing and business automation rather than template brochureware.
 
-Perth-based, working with businesses across Australia. The differentiator is the admin side. Supplier stock syncs, instant staff notifications, precomposed transactional emails and booking-system integrations sit behind every site built, not just the public-facing pages.
+Perth-based, working with Perth and WA businesses. The differentiator is the admin side. Supplier stock syncs, instant staff notifications, precomposed transactional emails and booking-system integrations sit behind every site built, not just the public-facing pages.
 
 ## Services
 - [Website development](https://www.freethedesk.com.au/website-development): Custom websites and web applications for small and medium businesses, built around automation that saves staff time rather than a marketing site alone.
 - [Business automation](https://www.freethedesk.com.au/automation): Workflow automation and custom integrations connecting the systems a business already runs.
-- [SEO reports and audits](https://www.freethedesk.com.au/seo): Human-written quarterly SEO reporting and audits covering technical health, content and search opportunities. Not AI-generated.
+- [SEO](https://www.freethedesk.com.au/seo): A one-off or ongoing SEO subscription for Perth businesses: analyse search data, rank recommended changes by value, and measure each change as an experiment. Starts monthly, slowing as growth matures. Human-reviewed, not AI-generated.
 - [Dealer websites](https://www.freethedesk.com.au/dealers): Inventory, parts, service and hire websites built specifically for vehicle and equipment dealerships.
 - [Online vehicle licensing](https://www.freethedesk.com.au/licensing): Online vehicle licensing and contract signing so customers can complete paperwork without a dealership visit.
 - [Dealership website builder](https://www.freethedesk.com.au/dealership-website-builder): An interactive configurator for specifying a dealership website around how a business sells, books and grows.
@@ -17,17 +17,17 @@ Perth-based, working with businesses across Australia. The differentiator is the
 - [Bloomprint](https://www.freethedesk.com.au/portfolio/bloomprint): A two-sided flower delivery marketplace with brief-led ordering for customers and paid local orders for independent florists.
 
 ## Guides
-- [Guides and articles](https://www.freethedesk.com.au/guides): Practical field notes for Australian dealerships on websites, search visibility, online sales, licensing and operational systems.
+- [Guides and articles](https://www.freethedesk.com.au/guides): Practical field notes for Perth and WA dealerships on websites, search visibility, online sales, licensing and operational systems.
 
 ## Company
-- [Contact](https://www.freethedesk.com.au/contact): Start a conversation about a website, licensing or automation project.
+- [Contact](https://www.freethedesk.com.au/contact): Start a conversation about a website, SEO, licensing or automation project.
 - [Privacy policy](https://www.freethedesk.com.au/legal/privacy)
 - [Dealer subscription terms](https://www.freethedesk.com.au/legal/dealer-subscription-terms)
-- [SEO reporting and audit terms](https://www.freethedesk.com.au/legal/seo-subscription-terms)
+- [SEO subscription terms](https://www.freethedesk.com.au/legal/seo-subscription-terms)
 
 ## Key facts
 - Trading name: freethedesk
 - ABN: 11 493 753 896
-- Based in Dianella, Western Australia 6059; serves clients Australia-wide
+- Based in Dianella, Western Australia 6059; serves Perth and WA businesses
 - Contact: hello@freethedesk.com.au
 - Industries served: vehicle, equipment and leisure dealerships, plus small and medium businesses generally

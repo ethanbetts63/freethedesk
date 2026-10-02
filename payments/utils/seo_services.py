@@ -32,85 +32,40 @@ class SeoQuote:
     name: str
     price: Decimal
     recurring: dict | None
-    one_off_addon: Decimal = Decimal("0")
-    recurring_name: str | None = None
     currency: str = "aud"
-
-    @property
-    def unit_amount(self) -> int:
-        return int((self.price * Decimal("100")).quantize(Decimal("1")))
 
     @property
     def mode(self) -> str:
         return "payment" if self.recurring is None else "subscription"
 
-    @property
-    def recurring_price(self) -> Decimal | None:
-        if self.recurring is None:
-            return None
-        return self.price - self.one_off_addon
+
+def _every(months):
+    return {"interval": "month", "interval_count": months}
 
 
-# field on SiteSettings, customer-facing name, Stripe recurring config (None = one-off)
+# Customer-facing name and Stripe recurring config (None = one-off). Every
+# recurring plan bills the same per-cycle price; only the interval differs.
 SEO_PLAN_DETAILS = {
-    SeoSubscriber.Plan.MONTHLY: ("seo_monthly_price", "Monthly SEO report", {"interval": "month", "interval_count": 1}),
-    SeoSubscriber.Plan.QUARTERLY: ("seo_quarterly_price", "Quarterly SEO report", {"interval": "month", "interval_count": 3}),
-    SeoSubscriber.Plan.BIANNUAL: ("seo_biannual_price", "Bi-annual SEO report", {"interval": "month", "interval_count": 6}),
-    SeoSubscriber.Plan.ONEOFF: ("seo_oneoff_price", "One-off SEO report", None),
+    SeoSubscriber.Plan.MONTHLY: ("Monthly SEO subscription", _every(1)),
+    SeoSubscriber.Plan.BIMONTHLY: ("SEO subscription, every two months", _every(2)),
+    SeoSubscriber.Plan.QUARTERLY: ("Quarterly SEO subscription", _every(3)),
+    SeoSubscriber.Plan.BIANNUAL: ("SEO subscription, every six months", _every(6)),
+    SeoSubscriber.Plan.ONEOFF: ("One-off SEO opportunity review", None),
 }
 
 
-def seo_quote_for_plan(plan, report_type) -> SeoQuote:
+def seo_quote_for_plan(plan) -> SeoQuote:
     details = SEO_PLAN_DETAILS.get(plan)
     if not details:
         raise PaymentConfigurationError("This SEO plan is unavailable.", code="invalid_plan")
-    field_name, seo_name, recurring = details
+    name, recurring = details
     site_settings = SiteSettings.load()
-    seo_price = getattr(site_settings, field_name)
-    gbp_price = site_settings.gbp_audit_price
-    cadence = {
-        SeoSubscriber.Plan.MONTHLY: "Monthly",
-        SeoSubscriber.Plan.QUARTERLY: "Quarterly",
-        SeoSubscriber.Plan.BIANNUAL: "Bi-annual",
-        SeoSubscriber.Plan.ONEOFF: "One-off",
-    }[plan]
-    if report_type == SeoSubscriber.ReportType.GBP:
-        if plan != SeoSubscriber.Plan.ONEOFF:
-            raise PaymentConfigurationError(
-                "The Google Business Profile audit is a one-time product.", code="invalid_plan"
-            )
-        name = "One-time Google Business Profile audit"
-        price = gbp_price
-        one_off_addon = Decimal("0")
-        recurring_name = None
-    elif report_type == SeoSubscriber.ReportType.SEO:
-        name = seo_name
-        price = seo_price
-        one_off_addon = Decimal("0")
-        recurring_name = seo_name if recurring else None
-    elif report_type == SeoSubscriber.ReportType.BOTH:
-        name = (
-            f"{cadence} SEO report + one-time Google Business Profile audit"
-            if recurring
-            else "One-off SEO report + Google Business Profile audit"
-        )
-        price = seo_price + gbp_price
-        one_off_addon = gbp_price if recurring else Decimal("0")
-        recurring_name = seo_name if recurring else None
-    else:
-        raise PaymentConfigurationError("This report type is unavailable.", code="invalid_report_type")
-    return SeoQuote(
-        plan=plan,
-        name=name,
-        price=price,
-        recurring=recurring,
-        one_off_addon=one_off_addon,
-        recurring_name=recurring_name,
-    )
+    price = site_settings.seo_subscription_price if recurring else site_settings.seo_oneoff_price
+    return SeoQuote(plan=plan, name=name, price=price, recurring=recurring)
 
 
 def accept_current_seo_offer(*, subscriber, user, accepted_ip, user_agent=""):
-    quote = seo_quote_for_plan(subscriber.plan, subscriber.report_type)
+    quote = seo_quote_for_plan(subscriber.plan)
     try:
         agreement_version = publish_configured_agreement(
             SEO_AGREEMENT_KEY
@@ -132,28 +87,18 @@ def accept_current_seo_offer(*, subscriber, user, accepted_ip, user_agent=""):
 def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
     """Prepare the SEO checkout and return its client secret.
 
-    A recurring plan bought alongside a one-off audit is two line items,
-    exactly as Stripe bills it, so the recorded quote and the charge cannot
-    drift apart.
+    One line item built from the recorded quote, so the agreed price and the
+    charge cannot drift apart.
     """
     if subscriber.payment_status in {
         SeoSubscriber.PaymentStatus.ACTIVE, SeoSubscriber.PaymentStatus.PAID,
     }:
         raise PaymentConfigurationError("This SEO plan is already paid.", code="active")
 
-    items = [{
-        "key": f"seo.{subscriber.plan}",
-        "name": quote.recurring_name or quote.name,
-        "unit_amount": quote.recurring_price if quote.recurring else quote.price,
-    }]
+    item = {"key": f"seo.{subscriber.plan}", "name": quote.name, "unit_amount": quote.price}
     if quote.recurring:
-        items[0]["recurring"] = quote.recurring
-    if quote.one_off_addon:
-        items.append({
-            "key": "seo.gbp_audit",
-            "name": "One-time Google Business Profile audit",
-            "unit_amount": quote.one_off_addon,
-        })
+        item["recurring"] = quote.recurring
+    items = [item]
 
     try:
         billing_customer = ensure_billing_customer(
