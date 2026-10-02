@@ -20,7 +20,7 @@ import { formatMoney } from '@/lib/formatting';
 const RETURN_PATH = '/seo/payment/complete';
 
 const DUE_LABELS: Record<string, string> = {
-  monthly: 'Due monthly, then less often as growth matures',
+  monthly: 'Due monthly to start',
   bimonthly: 'Due every 2 months',
   quarterly: 'Due every 3 months',
   biannual: 'Due every 6 months',

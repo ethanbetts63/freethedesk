@@ -16,7 +16,7 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
 
     {
       question: 'How much does SEO cost in Perth?',
-      answer: `An SEO audit is ${audit}, once. A subscription is ${cycle} a cycle: it starts monthly and slows as the easy wins are used up, so it costs less as your site matures. Either way, it's a fraction of a typical agency retainer.`,
+      answer: `An SEO audit is ${audit}, once. A subscription is ${cycle} a cycle: monthly while you're making changes, less often when there's less new to measure. Either way, it's a fraction of a typical agency retainer.`,
     },
 
     {
@@ -46,7 +46,7 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
     {
       question: 'How often does it run?',
       answer:
-        "A subscription starts monthly, while the quick wins are worth chasing every few weeks. As they run out we slow it down: every two months, then quarterly, and every six months once the site's growth has matured. The price of each cycle stays the same, and we tell you before the cadence changes.",
+        "Monthly while you're making changes, because that's how often there's new data to judge them. When results need longer to show, we'll suggest every two months, quarterly or every six months. The price per cycle stays the same, and we tell you before the cadence changes.",
     },
 
     {
@@ -64,7 +64,7 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
     {
       question: 'Do you ever run out of things to improve?',
       answer:
-        "No. There are always more opportunities, but as the low-hanging fruit is used up we recommend less frequent cycles. At every six months, there's enough new data between decisions to keep finding the next ones.",
+        'No. What runs short is new data: a change needs weeks in search results before it can be judged. When there\'s less to measure, we suggest a longer gap rather than send a report that says "still measuring".',
     },
   ];
 }

@@ -96,8 +96,7 @@ export function SeoSignupPanel({
               ))}
             </div>
             <p className="mt-l mb-0 max-w-[46ch] text-body-sm leading-relaxed text-text-muted">
-              Subscriptions start monthly, and we recommend less frequent reports as growth settles.
-              Cancel any time.
+              Monthly to start, less often when there&apos;s less new to measure. Cancel any time.
             </p>
           </div>
 

@@ -16,8 +16,8 @@ const FEATURES = [
 
 /**
  * The two things a customer can buy. A subscription always starts monthly and
- * slows as the easy wins run out; the price of each cycle stays the same, so
- * one card covers every cadence.
+ * slows when there's less new data to judge changes by; the price of each cycle
+ * stays the same, so one card covers every cadence.
  */
 export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
   return [

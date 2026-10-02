@@ -20,8 +20,8 @@ class SeoSubscriber(models.Model):
         """How often a subscriber's cycle runs, or a single one-off cycle.
 
         Signup only offers MONTHLY or ONEOFF. A subscription starts monthly and
-        slows as the low-hanging fruit is used up - every two months, then
-        quarterly, then every six months once growth matures - so the slower
+        slows when there's less new data to judge changes by - every two
+        months, then quarterly, then every six months - so the slower
         cadences are reached by moving an existing subscriber, never chosen.
         The price per cycle is the same at every cadence.
         """

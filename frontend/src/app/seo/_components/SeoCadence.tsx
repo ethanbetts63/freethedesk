@@ -6,7 +6,7 @@ const CADENCES = [
   ['Monthly', 'Start'],
   ['Every two months', 'Then'],
   ['Quarterly', 'Then'],
-  ['Every six months', 'Mature'],
+  ['Every six months', 'Steady'],
 ] as const;
 
 export function SeoCadence({ eyebrow }: { eyebrow: string }) {
@@ -14,9 +14,9 @@ export function SeoCadence({ eyebrow }: { eyebrow: string }) {
     <SplitFeatureSection
       id="cadence"
       eyebrow={eyebrow}
-      title="Fast while it pays."
-      accentTitle="Slower when it doesn't."
-      description="Every subscription starts monthly, when the easy opportunities are worth chasing every few weeks. As they run out, we slow it down: every two months, then quarterly, and every six months once the site's growth has matured. The price of a cycle never changes, so slowing down only ever costs you less."
+      title="Paced by your data."
+      accentTitle="Not our invoice."
+      description="A cycle needs new data to judge your last changes. While you're making changes, that's monthly. When results need longer to show, we'll suggest a longer gap, at the same price per cycle."
       visual={
         <ChecklistCard
           mark={<LiveDot />}
@@ -24,7 +24,7 @@ export function SeoCadence({ eyebrow }: { eyebrow: string }) {
           title="Same price per cycle"
           countLabel={`${CADENCES.length} stages`}
           items={CADENCES.map(([title, tag]) => ({ title, tag }))}
-          ariaLabel="How a subscription's cadence slows as growth matures"
+          ariaLabel="How a subscription's cadence follows how much there is to measure"
         />
       }
       textSide="right"

@@ -69,7 +69,7 @@ export default async function SeoPage() {
         accentTitle="Google"
         accentAlternates={['ChatGPT', 'Claude', 'Gemini', 'Perplexity']}
         titleSuffix="recommends first."
-        lead={`Each month we find the searches you're losing, tell you what to fix first, and show what last month's fixes earned. ${cyclePrice} a month to start, less often as your site matures.`}
+        lead={`Each month we find the searches you're losing, recommend solutions, and show what last month's fixes earned. ${cyclePrice} a month to start, less often when there's less new to measure.`}
         primaryHref="#signup"
         primaryLabel={`Start for ${cyclePrice} a month`}
         secondaryHref="#recommend"
@@ -88,7 +88,7 @@ export default async function SeoPage() {
         eyebrow={sections['Recommend']}
         title="Ranked by value."
         accentTitle="Ready to hand over."
-        description="Every recommendation says what to change, why the data points to it, how to do it, and what should happen if it works, with its impact and cost marked. Written so you, your IT person or we can make the change, and every claim traced back to its source."
+        description="Every recommendation says what to change, why the data points to it and how to do it. Written so you, or your IT person can quickly make the change."
         spacing="joined"
         textSide="right"
       />
