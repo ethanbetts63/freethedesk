@@ -15,7 +15,6 @@ import { buildRecurringOffer } from '@/lib/seo';
 import { numberSections } from '@/lib/sectionNumbers';
 import { getSiteSettingsServer } from '@/lib/serverApi';
 
-import { SeoAccess } from './_components/SeoAccess';
 import { SeoAnalysis } from './_components/SeoAnalysis';
 import { SeoCadence } from './_components/SeoCadence';
 import { SeoImprovement } from './_components/SeoImprovement';
@@ -30,7 +29,6 @@ const sections = numberSections([
   'Recommend',
   'Experiment',
   'How often',
-  'What we need',
   'What we look for',
   'Proof this works',
   'Choose your plan',
@@ -96,8 +94,6 @@ export default async function SeoPage() {
       <SeoImprovement eyebrow={sections['Experiment']} />
 
       <SeoCadence eyebrow={sections['How often']} />
-
-      <SeoAccess eyebrow={sections['What we need']} />
 
       <ExpandableServiceList
         id="issues-we-check"

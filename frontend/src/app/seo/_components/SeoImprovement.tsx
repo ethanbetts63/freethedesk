@@ -9,7 +9,7 @@ export function SeoImprovement({ eyebrow }: { eyebrow: string }) {
       eyebrow={eyebrow}
       title="Every change is"
       accentTitle="an experiment."
-      description="Each recommendation comes with a hypothesis, a metric and a target. Once a change ships it gets a baseline and a date, and the next cycle says whether it worked. What earns is kept and built on; what doesn't is dropped. Nobody has to guess whether the SEO is doing anything."
+      description="Every recommendation you implement becomes an experiment. It gets a baseline and a ship date, and the next cycle shows whether it worked. What earns is kept and built on; what doesn't is dropped."
       visual={<SeoExperimentCard />}
       textSide="left"
       background="white"
