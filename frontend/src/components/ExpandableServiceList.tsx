@@ -42,7 +42,7 @@ export function ExpandableServiceList({
   services: readonly Service[];
   eyebrow: string;
   title: string;
-  description: string;
+  description?: string;
   id?: string;
 }) {
   return (
@@ -56,9 +56,11 @@ export function ExpandableServiceList({
           size="display-lg"
           titleClassName="max-w-[850px] sm:col-start-1"
         />
-        <p className="m-0 max-w-[680px] leading-[1.7] text-text-muted sm:col-start-2 sm:row-span-2 sm:row-start-1 sm:self-end">
-          {description}
-        </p>
+        {description && (
+          <p className="m-0 max-w-[680px] leading-[1.7] text-text-muted sm:col-start-2 sm:row-span-2 sm:row-start-1 sm:self-end">
+            {description}
+          </p>
+        )}
       </header>
       <div className="border-b border-border-default">
         {services.map((service, index) => (

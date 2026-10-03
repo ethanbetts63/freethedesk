@@ -15,7 +15,7 @@ type ChecklistCardProps = {
   mark?: ReactNode;
   eyebrow: string;
   title: string;
-  countLabel: string;
+  countLabel?: string;
   items: readonly ChecklistItem[];
   /** A band across the bottom. Only the framed layout has room for one. */
   footer?: ReactNode;
@@ -80,7 +80,9 @@ export function ChecklistCard({
             <strong className="block text-body-sm">{title}</strong>
           </span>
         </div>
-        <span className="moving-colour-text text-label font-black uppercase">{countLabel}</span>
+        {countLabel && (
+          <span className="moving-colour-text text-label font-black uppercase">{countLabel}</span>
+        )}
       </header>
 
       <ol className={cn('m-0 list-none p-0', framed ? 'px-ml' : 'grid gap-s pt-xl')}>

@@ -4,7 +4,6 @@ import { ExpandableServiceList } from '@/components/ExpandableServiceList';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
-import { AiReadinessBanner } from '@/components/marketing/AiReadinessBanner';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { AdsSavingsModal } from '@/components/marketing/AdsSavingsModal';
 import { Hero } from '@/components/marketing/Hero';
@@ -69,9 +68,9 @@ export default async function SeoPage() {
         accentTitle="Google"
         accentAlternates={['ChatGPT', 'Claude', 'Gemini', 'Perplexity']}
         titleSuffix="recommends first."
-        lead={`Each month we find the searches you're losing, recommend solutions, and show what last month's fixes earned. ${cyclePrice} a month to start, less often when there's less new to measure.`}
+        lead="Each month we find the searches you're losing, recommend solutions, and show what last month's fixes earned."
         primaryHref="#signup"
-        primaryLabel={`Start for ${cyclePrice} a month`}
+        primaryLabel={`First report from ${cyclePrice}`}
         secondaryHref="#recommend"
         secondaryLabel="See what you get"
         trustLine="Cancel any time · Refund if nothing improves · Perth-based"
@@ -102,7 +101,6 @@ export default async function SeoPage() {
         services={seoServices}
         eyebrow={sections['What we look for']}
         title="What we look for, every cycle."
-        description="A few of the questions behind the findings. Open one to see the kinds of checks that can turn into a recommendation."
       />
 
       <CaseStudyTeaser
@@ -125,7 +123,6 @@ export default async function SeoPage() {
         </p>
       </CaseStudyTeaser>
 
-      <AiReadinessBanner id="ai-readiness" />
       <SeoSignup settings={settings} eyebrow={sections['Choose your plan']} />
 
       <AdsSavingsModal />

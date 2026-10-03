@@ -16,7 +16,6 @@ export function SeoAnalysisVisual() {
       mark={<LiveDot />}
       eyebrow="Foundations"
       title="23 checks, every cycle"
-      countLabel={`${questions.length} questions`}
       items={questions.map((title) => ({ title, tag: 'Checked' }))}
       ariaLabel="The five questions the foundation checks answer"
     />

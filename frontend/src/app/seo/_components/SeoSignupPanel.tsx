@@ -96,7 +96,7 @@ export function SeoSignupPanel({
               ))}
             </div>
             <p className="mt-l mb-0 max-w-[46ch] text-body-sm leading-relaxed text-text-muted">
-              Monthly to start, less often when there&apos;s less new to measure. Cancel any time.
+              Cancel any time.
             </p>
           </div>
 

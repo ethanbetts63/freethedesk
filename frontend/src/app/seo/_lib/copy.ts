@@ -16,7 +16,7 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
 
     {
       question: 'How much does SEO cost in Perth?',
-      answer: `An SEO audit is ${audit}, once. A subscription is ${cycle} a cycle: monthly while you're making changes, less often when there's less new to measure. Either way, it's a fraction of a typical agency retainer.`,
+      answer: `An SEO audit is ${audit}, once. A subscription is ${cycle} a report. Either way, it's a fraction of a typical agency retainer.`,
     },
 
     {
@@ -28,7 +28,7 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
     {
       question: 'Is SEO still worth it now AI answers questions?',
       answer:
-        "Yes. AI answers are built from the same pages search ranks, and they cite the sites that are clear, fast and easy to read. Every cycle checks whether AI crawlers can read your site and whether AI answers mention you. The four-point AI readiness check is free for anyone—enter your website and email and we'll send the result.",
+        'Yes. AI answers are built from the same pages search ranks, and they cite the sites that are clear, fast and easy to read. Every cycle checks whether AI crawlers can read your site and whether AI answers mention you.',
     },
 
     {
@@ -44,12 +44,6 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
     },
 
     {
-      question: 'How often does it run?',
-      answer:
-        "Monthly while you're making changes, because that's how often there's new data to judge them. When results need longer to show, we'll suggest every two months, quarterly or every six months. The price per cycle stays the same, and we tell you before the cadence changes.",
-    },
-
-    {
       question: 'Should we keep paying for Google Ads?',
       answer:
         "Ads are useful while your rankings catch up, but every ad click is rented: it stops when the budget does. Each cycle shows the searches you're closest to winning organically. If you're also paying for clicks on those searches, they're the first places to earn the click instead of buying it.",
@@ -59,12 +53,6 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
       question: 'Do you only work with Perth businesses?',
       answer:
         'No. We work primarily in Perth, and we also have clients in cities across Australia. Local results, Google Maps and the suburbs or regions you serve are part of every cycle, wherever you are.',
-    },
-
-    {
-      question: 'Do you ever run out of things to improve?',
-      answer:
-        'No. What runs short is new data: a change needs weeks in search results before it can be judged. When there\'s less to measure, we suggest a longer gap rather than send a report that says "still measuring".',
     },
   ];
 }

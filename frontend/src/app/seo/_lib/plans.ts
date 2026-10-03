@@ -25,7 +25,7 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
       code: 'monthly',
       name: 'Subscription',
       price: formatMoney(settings.seo_subscription_price, { cents: 'auto' }),
-      cadence: 'per cycle, starting monthly',
+      cadence: 'per report',
       summary: 'Analyse, recommend and experiment every cycle, measuring what each change earned.',
       features: [...FEATURES, 'Every change tracked as an experiment'],
       recommended: true,
