@@ -49,7 +49,9 @@ export function SubscriptionPaymentPage() {
   }, [authLoading, router, user]);
 
   const plan = dealer ? planByCode(plans, dealer.plan) : undefined;
-  const displayedPrice = quotedMonthlyPrice ? formatMoney(quotedMonthlyPrice) : plan?.price;
+  const displayedPrice = quotedMonthlyPrice
+    ? formatMoney(quotedMonthlyPrice, { cents: 'auto' })
+    : plan?.price;
 
   async function prepareCheckout() {
     setError('');

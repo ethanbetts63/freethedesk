@@ -59,7 +59,7 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
   const plan = checkout ? planByCode(plans, signupPlanFor(checkout.plan)) : undefined;
   const oneOff = checkout?.plan === 'oneoff';
   const productName = plan ? (oneOff ? 'SEO audit' : 'SEO subscription') : 'Your plan';
-  const displayedPrice = quotedPrice ? formatMoney(quotedPrice) : plan?.price;
+  const displayedPrice = quotedPrice ? formatMoney(quotedPrice, { cents: 'auto' }) : plan?.price;
 
   async function prepareCheckout() {
     setError('');
