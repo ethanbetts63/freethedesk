@@ -161,7 +161,7 @@ export function ProjectEnquiryPanel({
                   Your budget
                 </span>
                 <input
-                  className="min-h-[48px] w-full border border-border-default bg-surface-page px-s text-lead text-text-primary outline-none [font:inherit] placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus"
+                  className="min-h-[48px] w-full border border-border-default bg-surface-page px-s text-lead font-normal text-text-primary outline-none placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus"
                   value={customBudget}
                   onChange={(event) => setCustomBudget(event.target.value.replace(/\D/g, ''))}
                   inputMode="numeric"

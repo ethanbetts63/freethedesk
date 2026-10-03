@@ -21,7 +21,10 @@
  * states its own.
  */
 export const formControlClassName =
-  'w-full rounded-xs border border-border-strong bg-surface-page text-text-primary outline-none ' +
+  // The size and weight are the control's own: inherited, a control takes its
+  // wrapping label's small heavy type. Under `sm` it holds iOS Safari's 16px
+  // floor, below which the page zooms on focus.
+  'w-full rounded-xs border border-border-strong bg-surface-page text-lead font-normal text-text-primary outline-none sm:text-body ' +
   'focus:border-border-focus focus:shadow-focus';
 
 /** The padding the majority of controls take: a dense single-line box. */

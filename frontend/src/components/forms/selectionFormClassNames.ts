@@ -98,7 +98,7 @@ export const totalCadenceClassName = 'text-caption text-text-muted';
 export const totalSummaryClassName = 'text-body-sm leading-normal font-strong text-text-control';
 
 export const formClassName =
-  'flex flex-col justify-center border-t border-border-subtle bg-surface-tint p-xl [--selection-input-font-size:0.9rem]';
+  'flex flex-col justify-center border-t border-border-subtle bg-surface-tint p-xl';
 export const formTitleClassName =
   'mb-l flex flex-wrap items-baseline justify-between gap-s gap-x-m border-b border-border-subtle pb-ml';
 export const formTitleHeadingClassName = 'm-0 text-title-sm tracking-[-0.04em]';
@@ -108,9 +108,9 @@ export const fieldRowClassName = 'grid grid-cols-[minmax(0,1fr)] gap-m sm:grid-c
 export const fieldLabelClassName = 'mb-m block text-caption font-control text-text-control';
 export const fieldLabelSpanClassName = 'mb-xs block';
 export const fieldInputClassName =
-  'min-h-[50px] w-full rounded-none border border-border-default bg-surface-page px-s text-[length:var(--selection-input-font-size)] text-text-primary outline-none [font:inherit] placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus';
+  'min-h-[50px] w-full rounded-none border border-border-default bg-surface-page px-s text-[length:var(--selection-input-font-size)] font-normal text-text-primary outline-none placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus';
 export const fieldTextareaClassName =
-  'min-h-[82px] w-full resize-y rounded-none border border-border-default bg-surface-page p-s text-[length:var(--selection-input-font-size)] text-text-primary outline-none [font:inherit] placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus';
+  'min-h-[82px] w-full resize-y rounded-none border border-border-default bg-surface-page p-s text-[length:var(--selection-input-font-size)] font-normal text-text-primary outline-none placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus';
 export const fieldHintClassName = 'mt-2xs block text-caption font-normal text-text-subtle';
 export const submitClassName = 'mt-xs min-h-[58px] text-left [&>span]:text-lead';
 export const formErrorClassName =
