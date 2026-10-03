@@ -40,9 +40,8 @@ type SectionHeaderProps = {
  * The eyebrow and heading that open a marketing section.
  *
  * Emitted as a fragment rather than wrapped in an element, because the sections
- * place these two in their own grids — `ExpandableServiceList` puts them in
- * separate columns from the lead paragraph, and `CaseStudyTeaser` follows them
- * with arbitrary children.
+ * place these two in their own grids — `CaseStudyTeaser` follows them with
+ * arbitrary children.
  *
  * The lead paragraph is deliberately not here: the three sections that have one
  * disagree on element, width and type size, so there is nothing yet to share.

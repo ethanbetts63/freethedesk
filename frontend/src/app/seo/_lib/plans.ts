@@ -23,7 +23,7 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
   return [
     {
       code: 'monthly',
-      name: 'Subscription',
+      name: 'Monthly reports, ongoing',
       price: formatMoney(settings.seo_subscription_price, { cents: 'auto' }),
       cadence: 'per report',
       summary: 'Analyse, recommend and experiment every cycle, measuring what each change earned.',
@@ -32,7 +32,7 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
     },
     {
       code: 'oneoff',
-      name: 'SEO audit',
+      name: 'One-off SEO audit',
       price: formatMoney(settings.seo_oneoff_price, { cents: 'auto' }),
       cadence: 'once, no subscription',
       summary: 'One full round of analysis and ranked recommendations.',

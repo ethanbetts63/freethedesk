@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 
-import { ExpandableServiceList } from '@/components/ExpandableServiceList';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
@@ -21,7 +20,6 @@ import { SeoImprovement } from './_components/SeoImprovement';
 import { SeoIntroduction } from './_components/SeoIntroduction';
 import { SeoSignup } from './_components/SeoSignup';
 import { SeoStepsBar } from './_components/SeoStepsBar';
-import { seoServices } from './_components/seoServices';
 import { seoFaqs } from './_lib/copy';
 
 const sections = numberSections([
@@ -29,7 +27,6 @@ const sections = numberSections([
   'Recommend',
   'Experiment',
   'How often',
-  'What we look for',
   'Proof this works',
   'Choose your plan',
   'Common questions',
@@ -96,13 +93,6 @@ export default async function SeoPage() {
 
       <SeoCadence eyebrow={sections['How often']} />
 
-      <ExpandableServiceList
-        id="issues-we-check"
-        services={seoServices}
-        eyebrow={sections['What we look for']}
-        title="What we look for, every cycle."
-      />
-
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
         title="A Perth website that grew organic clicks 300%."
@@ -116,10 +106,6 @@ export default async function SeoPage() {
           purchasing and service journeys in one connected experience. Fast structured pages and
           search content aimed at what Perth riders search for helped organic clicks grow by 300% in
           six months.
-        </p>
-        <p>
-          It is a practical example of what happens when the public website and the work behind it
-          are designed as one system.
         </p>
       </CaseStudyTeaser>
 
