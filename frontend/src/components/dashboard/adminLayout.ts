@@ -4,7 +4,7 @@
  * stylesheet outside `styles/`.
  *
  * The furniture these used to sit beside — the page rail, the kicker, the back
- * link, the wordmark — moved to `components/ui/layout.ts`, because the
+ * link — moved to `components/ui/layout.ts`, because the
  * customer's own sale pages render it and it is not admin anything. What is
  * left is genuinely one screen each.
  */

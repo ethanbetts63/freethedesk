@@ -1,7 +1,6 @@
-import Image from 'next/image';
-
 import { DeferredSignalFlow } from '@/components/visuals/DeferredSignalFlow';
 import { PhoneFrame } from '@/components/visuals/PhoneFrame';
+import { Wordmark } from '@/components/Wordmark';
 
 /* No "use client": SignalFlow carries its own boundary, so the phone markup
    around it renders on the server. */
@@ -16,18 +15,7 @@ export function LoginPreviewPhone() {
           --tint-grid so the miniature cannot drift from the thing it depicts. */}
       <div className="absolute inset-0 [background-image:linear-gradient(var(--tint-grid)_1px,transparent_1px),linear-gradient(90deg,var(--tint-grid)_1px,transparent_1px)] [background-size:18px_18px]" />
       <div className="absolute top-[68px] right-[14px] left-[14px] rounded-md border border-[color-mix(in_srgb,var(--border-strong)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_94%,transparent)] px-s py-m shadow-contrast-s">
-        <p className="m-0 mb-s flex items-center gap-2xs">
-          <Image
-            className="block h-[16px] w-[16px]"
-            src="/logo-192x192.png"
-            alt=""
-            width={16}
-            height={16}
-          />
-          <span className="text-caption font-black tracking-[-0.06em] text-text-primary [&>span]:text-text-action [&>b]:font-black [&>b]:text-action-primary">
-            free<span>the</span>desk<b>.</b>
-          </span>
-        </p>
+        <Wordmark size="mini" className="mb-s" />
         <p className="m-0 mb-s text-lead font-heavy tracking-[-0.04em] text-surface-inverse">
           Welcome back
         </p>

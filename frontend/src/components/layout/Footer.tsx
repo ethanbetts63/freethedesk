@@ -1,9 +1,7 @@
-import Image from 'next/image';
-import Link from 'next/link';
-
 import { FOOTER_NAVIGATION, PORTFOLIO_NAVIGATION } from '@/lib/siteConfig';
 import { DeferredSignalFlow } from '@/components/visuals/DeferredSignalFlow';
 import { SiteFooter, type FooterColumn } from '@/components/layout/SiteFooter';
+import { Wordmark } from '@/components/Wordmark';
 
 /**
  * The graph-paper backdrop plus the signal-flow canvas, the two things that
@@ -57,22 +55,7 @@ export function Footer() {
       }
       brand={
         <>
-          <Link
-            className="wordmark flex items-center gap-xs"
-            href="/"
-            aria-label="freethedesk home"
-          >
-            <Image
-              className="nav-logo-image"
-              src="/logo-192x192.png"
-              alt=""
-              width={40}
-              height={40}
-            />
-            <span className="nav-logo-text">
-              free<span>the</span>desk<span className="wordmark-dot">.</span>
-            </span>
-          </Link>
+          <Wordmark href="/" />
           <p className="mt-l mb-0 max-w-[360px] text-body leading-relaxed text-text-muted">
             Websites, SEO and automation for Perth businesses, built by a Perth development team
             with years of hands-on experience.

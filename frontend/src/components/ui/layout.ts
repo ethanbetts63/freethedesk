@@ -1,6 +1,6 @@
 /**
  * The page furniture every signed-in-or-not app route opens with: the rail, the
- * kicker, the back link, the wordmark.
+ * kicker, the back link.
  *
  * In `components/ui` rather than `components/dashboard` because the customer's
  * own sale pages render these, and a member of the public with no account
@@ -26,11 +26,3 @@ export const kickerClassName =
   'm-0 mb-s text-caption font-black tracking-label-wide text-text-action uppercase';
 
 export const backClassName = 'mb-l inline-block text-label font-heavy text-text-muted';
-
-/**
- * The wordmark in the sidebar and on the sign-in screen. 1.45rem is a logotype
- * size, deliberately off the type scale.
- */
-export const brandClassName =
-  // eslint-disable-next-line no-restricted-syntax -- 1.45rem is the logotype size, deliberately off the type scale.
-  'text-[1.45rem] font-black not-italic tracking-[-0.085em] [&>span]:text-text-action [&>i]:not-italic [&>i]:text-action-primary';

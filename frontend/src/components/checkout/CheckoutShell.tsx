@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { PaymentElement, useCheckoutElements } from '@stripe/react-stripe-js/checkout';
 
 import { SignalFlow } from '@/components/visuals/SignalFlow';
+import { Wordmark } from '@/components/Wordmark';
 import { cn } from '@/lib/utils';
 
 import { CheckoutButton } from './CheckoutButton';
@@ -55,17 +56,7 @@ export function CheckoutShell({
           <SignalFlow />
         </div>
         <div className="relative z-2 flex min-h-[540px] flex-col px-ml py-xl sm:min-h-[620px] sm:p-2xl lg:min-h-screen">
-          <Link
-            className="w-fit text-lead font-black tracking-[-0.07em] text-surface-inverse"
-            href="/"
-          >
-            free
-            {/* eslint-disable-next-line no-restricted-syntax -- em, not rem: "the" is set
-          relative to the wordmark it sits inside, at whatever size that is. */}
-            <span className="mx-4xs text-[0.73em] font-strong text-text-subtle">the</span>
-            desk
-            <i className="text-action-primary not-italic">.</i>
-          </Link>
+          <Wordmark href="/" />
           <div className="mx-0 mt-auto mb-xl max-w-[610px] sm:mb-2xl">
             <p className="m-0 mb-ml text-caption font-black tracking-label-wide text-action-primary uppercase">
               {productLabel}

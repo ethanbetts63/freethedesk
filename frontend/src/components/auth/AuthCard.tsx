@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { SignalFlow } from '@/components/visuals/SignalFlow';
-import { brandClassName, kickerClassName } from '@/components/ui/layout';
+import { kickerClassName } from '@/components/ui/layout';
+import { Wordmark } from '@/components/Wordmark';
 import { gridPaperBeforeClassName } from '@/lib/gridSurface';
 
 /**
@@ -35,9 +35,7 @@ export function AuthCard({
         <SignalFlow />
       </div>
       <section className="relative z-1 w-full max-w-[450px] border border-[color-mix(in_srgb,var(--border-strong)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] px-ml py-xl shadow-l backdrop-blur-[13px] sm:p-xl">
-        <Link className={brandClassName} href="/">
-          free<span>the</span>desk<i>.</i>
-        </Link>
+        <Wordmark size="card" href="/" />
         <p className={cn(kickerClassName, 'mt-xl')}>{kicker}</p>
         <h1 className="m-0 text-title tracking-[-0.06em]">{heading}</h1>
         {intro && <p className="mt-s mb-xl text-body-sm leading-normal text-text-muted">{intro}</p>}
