@@ -4,7 +4,7 @@ import { cardLinkClassName } from '@/components/ui/Card';
 import type { SeoSetupKey } from '@/lib/seoApi';
 
 /** The service account Search Console and Analytics are shared with. */
-export const SERVICE_ACCOUNT = 'freetheplatform@freethedesk.iam.gserviceaccount.com';
+export const SERVICE_ACCOUNT = 'analytics@freethedesk.iam.gserviceaccount.com';
 /** The address the tools without service-account support invite. */
 export const TEAM_ADDRESS = 'hello@freethedesk.com.au';
 
