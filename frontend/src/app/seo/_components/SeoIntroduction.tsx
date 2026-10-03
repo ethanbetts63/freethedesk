@@ -1,29 +1,23 @@
-import { ProcessIntroduction } from '@/components/ProcessIntroduction';
-
-const steps = [
-  {
-    title: 'Analyse',
-    description: 'Find the searches you are missing.',
-  },
-  {
-    title: 'Recommend',
-    description: 'Rank the fixes by value.',
-  },
-  {
-    title: 'Experiment',
-    description: 'Measure each change. Keep what works.',
-  },
-] as const;
+import { SectionHeader } from '@/components/SectionHeader';
 
 export function SeoIntroduction() {
   return (
-    <ProcessIntroduction
+    <section
+      className="site-shell pb-xl pt-section"
       id="seo-overview"
-      eyebrow="How it works"
-      title="Data-driven SEO."
-      accentTitle="Not guesswork."
-      description="Every recommendation starts in your own search data and ends with a measurement. You see what we found, what to change, and what each change earned."
-      items={steps}
-    />
+      aria-labelledby="seo-overview-title"
+    >
+      <SectionHeader
+        eyebrow="How it works"
+        title="Data-driven SEO."
+        accentTitle="Not guesswork."
+        titleId="seo-overview-title"
+        titleClassName="mb-m"
+      />
+      <p className="m-0 max-w-[62ch] text-lead leading-relaxed text-text-muted">
+        Every recommendation starts in your own search data and ends with a measurement. You see
+        what we found, what to change, and what each change earned.
+      </p>
+    </section>
   );
 }

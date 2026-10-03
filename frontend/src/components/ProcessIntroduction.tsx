@@ -9,15 +9,12 @@ export function ProcessIntroduction({
   eyebrow,
   title,
   accentTitle,
-  description,
   items,
   id,
 }: {
   eyebrow: string;
   title: string;
   accentTitle: string;
-  /** A short paragraph between the heading and the steps. */
-  description?: string;
   items: readonly ProcessIntroductionItem[];
   id: string;
 }) {
@@ -28,13 +25,8 @@ export function ProcessIntroduction({
         title={title}
         accentTitle={accentTitle}
         titleId={`${id}-title`}
-        titleClassName={description ? 'mb-m' : 'mb-xl'}
+        titleClassName="mb-xl"
       />
-      {description && (
-        <p className="mt-0 mb-xl max-w-[62ch] text-lead leading-relaxed text-text-muted">
-          {description}
-        </p>
-      )}
       <div className="grid gap-l lg:grid-cols-3 lg:gap-0">
         {items.map((item) => (
           <div
