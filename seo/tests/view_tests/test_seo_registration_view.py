@@ -20,7 +20,7 @@ def _clear_throttle_cache():
     cache.clear()
 
 
-def test_signup_creates_pending_subscriber_and_user(client):
+def test_signup_records_the_details_and_makes_no_login(client):
     response = client.post(reverse("seo-signup"), PAYLOAD, content_type="application/json")
     assert response.status_code == 201
 
@@ -30,11 +30,22 @@ def test_signup_creates_pending_subscriber_and_user(client):
     assert subscriber.payment_status == SeoSubscriber.PaymentStatus.PAYMENT_PENDING
     assert subscriber.business_name == "peakdigital.com.au"
     assert subscriber.contact_name == "Account owner"
-    assert not subscriber.user.is_staff
-    assert not subscriber.user.has_usable_password()
-    assert response.json()["role"] == "seo"
-    assert response.cookies["freethedesk_access"].value
-    assert response.cookies["freethedesk_refresh"].value
+    assert subscriber.email == PAYLOAD["email"]
+    assert subscriber.user is None
+    assert not get_user_model().objects.exists()
+    assert response.json() == {"reference": subscriber.checkout_reference}
+    assert "freethedesk_access" not in response.cookies
+
+
+def test_signing_up_twice_keeps_both_signups(client):
+    # Someone who leaves checkout and comes back fills the form in again; both
+    # attempts are worth knowing about.
+    first = client.post(reverse("seo-signup"), PAYLOAD, content_type="application/json")
+    second = client.post(reverse("seo-signup"), PAYLOAD, content_type="application/json")
+
+    assert first.status_code == second.status_code == 201
+    assert SeoSubscriber.objects.filter(email=PAYLOAD["email"]).count() == 2
+    assert first.json()["reference"] != second.json()["reference"]
 
 
 def test_signup_defaults_plan_to_monthly(client):
@@ -89,27 +100,27 @@ def test_signup_tells_staff_but_not_the_customer(client, outbox):
     assert all(message.content_object == subscriber for message in outbox)
 
 
-def test_signup_rejects_duplicate_email(client):
+def test_signup_sends_an_existing_account_to_sign_in(client):
     get_user_model().objects.create_user(username="existing", email=PAYLOAD["email"], password="x")
     response = client.post(reverse("seo-signup"), PAYLOAD, content_type="application/json")
     assert response.status_code == 400
+    assert response.json()["code"] == "account_exists"
+    assert response.json()["detail"] == "You already have an account with this email."
     assert not SeoSubscriber.objects.exists()
 
 
-def test_signup_rejects_email_colliding_with_an_existing_username(client):
-    # Signup accounts use username == email, so a taken username blocks reuse
-    # even when no row has that address in the email column.
+def test_signup_matches_an_existing_account_by_username_too(client):
+    # Signup accounts use username == email, so a taken username is the same
+    # account even when no row has that address in the email column.
     get_user_model().objects.create_user(username=PAYLOAD["email"], email="", password="x")
     response = client.post(reverse("seo-signup"), PAYLOAD, content_type="application/json")
     assert response.status_code == 400
-    assert not SeoSubscriber.objects.exists()
+    assert response.json()["code"] == "account_exists"
 
 
-def test_signup_rejects_weak_password(client):
-    response = client.post(
-        reverse("seo-signup"), {**PAYLOAD, "password": "password"}, content_type="application/json"
-    )
-    assert response.status_code == 400
-    assert not SeoSubscriber.objects.exists()
-
-
+def test_signup_ignores_a_login_nobody_can_use(client):
+    # The old flow made a passwordless login at signup. It is no account to
+    # sign in to, so it does not block a fresh signup.
+    get_user_model().objects.create_user(username=PAYLOAD["email"], email=PAYLOAD["email"])
+    response = client.post(reverse("seo-signup"), PAYLOAD, content_type="application/json")
+    assert response.status_code == 201

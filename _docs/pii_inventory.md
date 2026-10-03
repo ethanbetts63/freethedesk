@@ -109,12 +109,14 @@ post-payment onboarding.
 | Model           | File                       | PII fields                                                                                              |
 | --------------- | -------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `Dealer`        | `dealers/models/dealer.py` | `business_name`, `contact_name`, `phone`, `state`, `staff_notes`; email lives on the linked `auth.User` |
-| `SeoSubscriber` | `seo/models/subscriber.py` | `business_name`, `contact_name`, `phone`, `website`, `staff_notes`; email likewise on `auth.User`       |
+| `SeoSubscriber` | `seo/models/subscriber.py` | `business_name`, `contact_name`, `email`, `phone`, `website`, `staff_notes`; email also on `auth.User`  |
 | `SeoProfile`    | `seo/models/profile.py`    | `website_url`, `search_console_property`, `primary_location`, `target_keywords`, `competitors`, `notes` |
 | `SeoSetupStep`  | `seo/models/setup_step.py` | `detail` (the Search Console or Analytics property a check matched): business data, not personal        |
 
 Both customer models are 1:1 with an `auth.User` whose `username` **is** the
-email address, so an account row is itself a contact record.
+email address, so an account row is itself a contact record. An SEO signup has
+no `auth.User` until it is paid: the unpaid row holds the email itself, and is
+kept as a lead to follow up on an abandoned checkout.
 
 ### Tier 3: Enquiry and marketing data
 
@@ -280,6 +282,7 @@ together rather than twice.
    | `Message.body_text` / `body_html`                   | 90 days after `sent_at`                  | blank the bodies, keep `to`/type/status/times |
    | `Enquiry`                                           | 12 months after `status` is terminal     | delete the row                                |
    | Cancelled `Dealer` / `SeoSubscriber` records        | subscription ends + the statutory period | delete or de-identify                         |
+   | Unpaid `SeoSubscriber` signups (abandoned checkout) | 12 months after `created_at`             | delete the row                                |
 
    One command, with `--dry-run`, wired to a daily schedule.
 

@@ -5,6 +5,7 @@ from .views import (
     AdminSeoSubscriberDetailView,
     AdminSeoSubscriberListView,
     SeoAccountView,
+    SeoCheckoutStatusView,
     SeoOnboardingView,
     SeoRegistrationView,
     SeoSetupCheckView,
@@ -15,6 +16,11 @@ from .views import (
 
 urlpatterns = [
     path("seo/signup/", SeoRegistrationView.as_view(), name="seo-signup"),
+    path(
+        "seo/checkout/<str:reference>/",
+        SeoCheckoutStatusView.as_view(),
+        name="seo-checkout-status",
+    ),
     path("seo/me/", SeoAccountView.as_view(), name="seo-account"),
     path("seo/onboarding/", SeoOnboardingView.as_view(), name="seo-onboarding"),
     path("seo/setup/", SeoSetupView.as_view(), name="seo-setup"),

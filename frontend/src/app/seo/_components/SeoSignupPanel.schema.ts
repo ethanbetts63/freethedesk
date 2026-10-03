@@ -5,8 +5,8 @@ import { z } from 'zod';
 import { normaliseWebsiteUrl } from '@/lib/api';
 
 /**
- * Track B under the forms standard. No password: this endpoint starts the
- * session itself, so there is no credential to collect or validate.
+ * Track B under the forms standard. No password: signup makes no login, and
+ * the one made at payment is sent a temporary password.
  *
  * `plan` is set by the panel rather than typed. Its radio group carries its own
  * `name` attribute, which used to travel to Django alongside the real fields; a

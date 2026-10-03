@@ -10,7 +10,6 @@ class SeoSelfSerializer(serializers.ModelSerializer):
     flow with its own confirmation rather than a field on a settings form.
     """
 
-    email = serializers.EmailField(source="user.email", read_only=True)
     status_label = serializers.CharField(source="get_status_display", read_only=True)
     plan_label = serializers.CharField(source="get_plan_display", read_only=True)
     payment_status_label = serializers.CharField(source="get_payment_status_display", read_only=True)

@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { CheckoutElementsProvider } from '@stripe/react-stripe-js/checkout';
+import { ApiError } from '@freetheplatform/web-security';
 
 import {
   CheckoutPaymentForm,
@@ -10,14 +10,13 @@ import {
   CheckoutState,
   CheckoutTermsForm,
 } from '@/components/checkout/CheckoutShell';
-import { useAuth } from '@/context/AuthContext';
-import { createSeoCheckout, getSeoAccount, type SeoAccount } from '@/lib/seoApi';
+import { createSeoCheckout, getSeoCheckoutStatus, type SeoCheckoutStatus } from '@/lib/seoApi';
 import { getSiteSettings } from '@/lib/api';
 import { stripeConfigured, stripePromise, STRIPE_ELEMENTS_OPTIONS } from '@/lib/stripe';
 import { buildSeoPlans, planByCode, signupPlanFor, type SeoPlan } from '../_lib/plans';
 import { formatMoney } from '@/lib/formatting';
 
-const RETURN_PATH = '/seo/payment/complete';
+const SIGN_IN = { href: '/login', label: 'Sign in' };
 
 const DUE_LABELS: Record<string, string> = {
   monthly: 'Due monthly to start',
@@ -27,53 +26,58 @@ const DUE_LABELS: Record<string, string> = {
   oneoff: 'One-time payment',
 };
 
-export function SeoPaymentPage() {
-  const router = useRouter();
-  const { user, loading: authLoading } = useAuth();
+/**
+ * Checkout for an SEO signup, found by the reference the signup form handed
+ * back. Nobody is signed in here: the login is made once payment lands, and
+ * the email with its temporary password follows.
+ */
+export function SeoPaymentPage({ reference }: { reference: string }) {
   const started = useRef(false);
-  const [account, setAccount] = useState<SeoAccount | null>(null);
+  const [checkout, setCheckout] = useState<SeoCheckoutStatus | null>(null);
   const [plans, setPlans] = useState<SeoPlan[]>([]);
   const [clientSecret, setClientSecret] = useState('');
   const [quotedPrice, setQuotedPrice] = useState('');
   const [error, setError] = useState('');
+  const [accountExists, setAccountExists] = useState(false);
 
   useEffect(() => {
-    if (authLoading) return;
-    if (!user || user.role !== 'seo') {
-      router.replace(`/login?next=${encodeURIComponent('/seo/payment')}`);
-      return;
-    }
-    if (started.current) return;
+    if (started.current || !reference) return;
     started.current = true;
 
-    Promise.all([getSeoAccount(), getSiteSettings()])
-      .then(([seoAccount, settings]) => {
-        setAccount(seoAccount);
+    Promise.all([getSeoCheckoutStatus(reference), getSiteSettings()])
+      .then(([status, settings]) => {
+        setCheckout(status);
         setPlans(buildSeoPlans(settings));
-        if (seoAccount.payment_status === 'active' || seoAccount.payment_status === 'paid') {
-          router.replace('/seo-portal/overview');
-          return;
-        }
         if (!stripeConfigured)
           throw new Error('Stripe is not configured yet. Add the publishable key to continue.');
       })
       .catch((reason) =>
-        setError(reason instanceof Error ? reason.message : 'Unable to prepare payment.'),
+        setError(
+          reason instanceof ApiError && reason.status === 404
+            ? 'This payment link has expired or is incomplete. Start again from the SEO page.'
+            : reason instanceof Error
+              ? reason.message
+              : 'Unable to prepare payment.',
+        ),
       );
-  }, [authLoading, router, user]);
+  }, [reference]);
 
-  const plan = account ? planByCode(plans, signupPlanFor(account.plan)) : undefined;
-  const oneOff = account?.plan === 'oneoff';
+  const plan = checkout ? planByCode(plans, signupPlanFor(checkout.plan)) : undefined;
+  const oneOff = checkout?.plan === 'oneoff';
   const productName = plan ? (oneOff ? 'SEO audit' : 'SEO subscription') : 'Your plan';
   const displayedPrice = quotedPrice ? formatMoney(quotedPrice) : plan?.price;
 
   async function prepareCheckout() {
     setError('');
     try {
-      const checkout = await createSeoCheckout();
-      setQuotedPrice(checkout.price);
-      setClientSecret(checkout.client_secret);
+      const session = await createSeoCheckout(reference);
+      setQuotedPrice(session.price);
+      setClientSecret(session.client_secret);
     } catch (reason) {
+      if (reason instanceof ApiError && reason.payload?.code === 'account_exists') {
+        setAccountExists(true);
+        return;
+      }
       setError(reason instanceof Error ? reason.message : 'Unable to prepare payment.');
     }
   }
@@ -88,12 +92,33 @@ export function SeoPaymentPage() {
           ? {
               lineLabel: productName,
               price: displayedPrice,
-              dueLabel: DUE_LABELS[account?.plan ?? 'monthly'] ?? 'Due on checkout',
+              dueLabel: DUE_LABELS[checkout?.plan ?? 'monthly'] ?? 'Due on checkout',
             }
           : undefined
       }
     >
-      {error ? (
+      {!reference ? (
+        <CheckoutState
+          eyebrow="Secure checkout"
+          title="Start from the SEO page."
+          body="This link is missing your signup. Choose a plan and enter your details to reach payment."
+          link={{ href: '/seo#signup', label: 'Choose a plan' }}
+        />
+      ) : accountExists ? (
+        <CheckoutState
+          eyebrow="Already signed up"
+          title="You already have an account."
+          body="This email already has a freethedesk account, so there is nothing to pay here. Sign in to see it."
+          link={SIGN_IN}
+        />
+      ) : checkout?.paid ? (
+        <CheckoutState
+          eyebrow="Already paid"
+          title="This plan is paid."
+          body="Your sign-in details were emailed to you when the payment went through."
+          link={SIGN_IN}
+        />
+      ) : error ? (
         <CheckoutState
           eyebrow="Checkout unavailable"
           title="We could not load payment."
@@ -108,10 +133,10 @@ export function SeoPaymentPage() {
           <CheckoutPaymentForm
             heading={oneOff ? `Pay for ${productName}.` : `Start ${productName}.`}
             submitLabel={oneOff ? 'Pay now' : 'Start subscription'}
-            returnPath={RETURN_PATH}
+            returnPath={`/seo/payment/complete?ref=${encodeURIComponent(reference)}`}
           />
         </CheckoutElementsProvider>
-      ) : account && plan ? (
+      ) : checkout && plan ? (
         <CheckoutTermsForm
           priceNote="Your price and the exact terms accepted are saved with this checkout."
           termsHref="/legal/seo-subscription-terms"
@@ -123,7 +148,7 @@ export function SeoPaymentPage() {
         <CheckoutState
           eyebrow="Secure checkout"
           title="Preparing payment…"
-          body="Connecting your SEO account to Stripe."
+          body="Connecting your order to Stripe."
         />
       )}
     </CheckoutShell>

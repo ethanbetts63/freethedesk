@@ -1,23 +1,21 @@
-from django.middleware.csrf import get_token
-from freetheplatform.auth.cookies import set_auth_cookies
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import RefreshToken
 
-from core.principal import principal
 from core.utils.throttles import SeoSignupRateThrottle
 
 from ..serializers import SeoRegistrationSerializer
+from ..serializers.registration import ACCOUNT_EXISTS
 from ..utils.notifications import notify_staff_of_seo_signup
 
 
 class SeoRegistrationView(APIView):
-    """Create the basic SEO login before paid checkout.
+    """Record an SEO signup and hand back the reference its checkout runs on.
 
-    The customer hears from us once payment lands (``activate_paid_subscriber``);
-    until then they are still on the checkout page.
+    No login and no session: the account is made when payment lands
+    (``activate_paid_subscriber``). Staff hear about every signup, paid or not,
+    so an abandoned checkout can be followed up.
     """
 
     authentication_classes = []
@@ -26,12 +24,16 @@ class SeoRegistrationView(APIView):
 
     def post(self, request):
         serializer = SeoRegistrationSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        if not serializer.is_valid():
+            email_errors = serializer.errors.get("email", [])
+            if email_errors and getattr(email_errors[0], "code", "") == ACCOUNT_EXISTS:
+                return Response(
+                    {"detail": str(email_errors[0]), "code": ACCOUNT_EXISTS},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         subscriber = serializer.save()
         notify_staff_of_seo_signup(subscriber)
-        # Registering signs them in on the same cookies login uses; CSRF token issued alongside.
-        refresh = RefreshToken.for_user(subscriber.user)
-        get_token(request)
-        response = Response(principal(subscriber.user), status=status.HTTP_201_CREATED)
-        set_auth_cookies(response, refresh.access_token, refresh)
-        return response
+        return Response(
+            {"reference": subscriber.checkout_reference}, status=status.HTTP_201_CREATED
+        )

@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { SignalFlow } from '@/components/visuals/SignalFlow';
 import { cn } from '@/lib/utils';
 
 import { CheckoutButton } from './CheckoutButton';
@@ -11,8 +10,9 @@ import { gridPaperAfterClassName } from '@/lib/gridSurface';
 
 type ConfirmationState = 'checking' | 'active' | 'failed' | 'delayed';
 
+/** `next` redirects once active; without it the screen stays and offers `activeLink`. */
 export type ConfirmationResult =
-  { status: 'active'; next: string } | { status: 'failed' } | { status: 'pending' };
+  { status: 'active'; next?: string } | { status: 'failed' } | { status: 'pending' };
 
 const POLL_INTERVAL_MS = 2000;
 const MAX_ATTEMPTS = 15;
@@ -28,12 +28,14 @@ export function PaymentConfirmation({
   retryHref,
   portalHref,
   portalLabel,
+  activeLink,
 }: {
   check: () => Promise<ConfirmationResult>;
   copy: Record<ConfirmationState, readonly [string, string]>;
   retryHref: string;
   portalHref: string;
   portalLabel: string;
+  activeLink?: { href: string; label: string };
 }) {
   const router = useRouter();
   const [state, setState] = useState<ConfirmationState>('checking');
@@ -53,7 +55,8 @@ export function PaymentConfirmation({
         if (cancelled) return;
         if (result.status === 'active') {
           setState('active');
-          timeout = setTimeout(() => router.replace(result.next), REDIRECT_DELAY_MS);
+          const next = result.next;
+          if (next) timeout = setTimeout(() => router.replace(next), REDIRECT_DELAY_MS);
           return;
         }
         if (result.status === 'failed') {
@@ -84,15 +87,17 @@ export function PaymentConfirmation({
         gridPaperAfterClassName,
       )}
     >
-      <div className="absolute inset-0 opacity-[0.72] [&>canvas]:h-full [&>canvas]:w-full">
-        <SignalFlow />
-      </div>
       <section className="relative z-2 w-full max-w-[650px] border border-border-default bg-[color-mix(in_srgb,var(--surface-page)_91%,transparent)] p-2xl text-center shadow-xl backdrop-blur-[14px]">
         <span className="mb-xl inline-flex h-[50px] w-[50px] items-center justify-center rounded-circle bg-action-primary text-title-sm text-text-on-dark">
           {state === 'active' ? '✓' : '···'}
         </span>
         <h1 className="m-0 mb-m text-hero leading-[0.94] tracking-[-0.07em]">{title}</h1>
         <p className="mx-auto my-0 max-w-[480px] text-lead leading-[1.7] text-text-muted">{body}</p>
+        {state === 'active' && activeLink && (
+          <CheckoutButton variant="link" className="mt-xl" href={activeLink.href}>
+            {activeLink.label}
+          </CheckoutButton>
+        )}
         {state === 'failed' && (
           <CheckoutButton variant="link" className="mt-xl" href={retryHref}>
             Return to payment

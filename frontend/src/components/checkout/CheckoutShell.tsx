@@ -4,7 +4,6 @@ import { type FormEvent, type ReactNode, useState } from 'react';
 import Link from 'next/link';
 import { PaymentElement, useCheckoutElements } from '@stripe/react-stripe-js/checkout';
 
-import { SignalFlow } from '@/components/visuals/SignalFlow';
 import { Wordmark } from '@/components/Wordmark';
 import { cn } from '@/lib/utils';
 
@@ -52,9 +51,6 @@ export function CheckoutShell({
           gridPaperAfterClassName,
         )}
       >
-        <div className="absolute inset-0 opacity-85 [&>canvas]:h-full [&>canvas]:w-full">
-          <SignalFlow />
-        </div>
         <div className="relative z-2 flex min-h-[540px] flex-col px-ml py-xl sm:min-h-[620px] sm:p-2xl lg:min-h-screen">
           <Wordmark href="/" />
           <div className="mx-0 mt-auto mb-xl max-w-[610px] sm:mb-2xl">
@@ -97,17 +93,25 @@ export function CheckoutState({
   title,
   body,
   onRetry,
+  link,
 }: {
   eyebrow: string;
   title: string;
   body: string;
   onRetry?: () => void;
+  /** Somewhere to go instead, such as sign-in for an email that already has an account. */
+  link?: { href: string; label: string };
 }) {
   return (
     <div className="w-full max-w-copy">
       <span className={eyebrowClassName}>{eyebrow}</span>
       <h2 className={headingClassName}>{title}</h2>
       <p className={bodyClassName}>{body}</p>
+      {link && (
+        <CheckoutButton variant="link" className="mt-xl" href={link.href}>
+          {link.label}
+        </CheckoutButton>
+      )}
       {onRetry && (
         <CheckoutButton variant="retry" className="mt-xl" onClick={onRetry}>
           Try again

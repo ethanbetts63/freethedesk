@@ -1,7 +1,8 @@
 from decimal import Decimal
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import pytest
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from freetheplatform.agreements import Acceptance
 
@@ -10,6 +11,7 @@ from payments.tests.conftest import stripe_settings
 from payments.tests.stripe_fake import FakeStripe
 from payments.utils.agreements import SEO_AGREEMENT_KEY
 from seo.models import SeoSubscriber
+from seo.tests.factories import SeoSubscriberFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -26,18 +28,28 @@ def ftp_stripe():
         yield fake
 
 
+@pytest.fixture
+def signup():
+    """An unpaid signup: details and a reference, no login."""
+    return SeoSubscriberFactory(user=None, email="jo@peakdigital.com.au")
+
+
+def _checkout(client, signup, **extra):
+    return client.post(
+        reverse("payments:seo-subscription-checkout"),
+        {"accepted_terms": True, "reference": signup.checkout_reference},
+        content_type="application/json",
+        **extra,
+    )
+
+
 @stripe_settings
-def test_quarterly_checkout_is_a_three_month_subscription(ftp_stripe, client, logged_in_seo_subscriber):
+def test_quarterly_checkout_is_a_three_month_subscription(ftp_stripe, client, signup):
     settings = SiteSettings.load()
     settings.seo_subscription_price = Decimal("150.00")
     settings.save()
 
-    response = client.post(
-        reverse("payments:seo-subscription-checkout"),
-        {"accepted_terms": True},
-        content_type="application/json",
-        HTTP_X_FORWARDED_FOR="203.0.113.99, 198.51.100.24",
-    )
+    response = _checkout(client, signup, HTTP_X_FORWARDED_FOR="203.0.113.99, 198.51.100.24")
 
     assert response.status_code == 200
     body = response.json()
@@ -55,26 +67,24 @@ def test_quarterly_checkout_is_a_three_month_subscription(ftp_stripe, client, lo
     )
     assert acceptance.context["price"] == "150.00"
     assert str(acceptance.accepted_ip) == "198.51.100.24"
+    # No login exists yet, so the acceptance names the email typed at signup.
+    assert acceptance.accepted_by is None
+    assert acceptance.actor_snapshot == {"email": signup.email}
     metadata = create_kwargs["metadata"]
-    assert metadata["ftp_reference"] == str(logged_in_seo_subscriber.pk)
+    assert metadata["ftp_reference"] == str(signup.pk)
     assert metadata["ftp_agreement_acceptance"] == str(acceptance.pk)
     assert metadata["ftp_flow"] == "seo.subscription"
 
 
 @stripe_settings
-def test_one_off_checkout_is_a_single_payment(ftp_stripe, client, seo_subscriber):
-    seo_subscriber.plan = SeoSubscriber.Plan.ONEOFF
-    seo_subscriber.save(update_fields=["plan"])
-    client.sign_in(seo_subscriber.user)
+def test_one_off_checkout_is_a_single_payment(ftp_stripe, client, signup):
+    signup.plan = SeoSubscriber.Plan.ONEOFF
+    signup.save(update_fields=["plan"])
     settings = SiteSettings.load()
     settings.seo_oneoff_price = Decimal("250.00")
     settings.save()
 
-    response = client.post(
-        reverse("payments:seo-subscription-checkout"),
-        {"accepted_terms": True},
-        content_type="application/json",
-    )
+    response = _checkout(client, signup)
 
     assert response.status_code == 200
     assert response.json()["mode"] == "payment"
@@ -98,20 +108,15 @@ def test_one_off_checkout_is_a_single_payment(ftp_stripe, client, seo_subscriber
 )
 @stripe_settings
 def test_every_cadence_bills_the_same_per_cycle_price(
-    ftp_stripe, client, seo_subscriber, plan, months
+    ftp_stripe, client, signup, plan, months
 ):
-    seo_subscriber.plan = plan
-    seo_subscriber.save(update_fields=["plan"])
-    client.sign_in(seo_subscriber.user)
+    signup.plan = plan
+    signup.save(update_fields=["plan"])
     settings = SiteSettings.load()
     settings.seo_subscription_price = Decimal("225.00")
     settings.save()
 
-    response = client.post(
-        reverse("payments:seo-subscription-checkout"),
-        {"accepted_terms": True},
-        content_type="application/json",
-    )
+    response = _checkout(client, signup)
 
     assert response.status_code == 200
     assert response.json()["price"] == "225.00"
@@ -123,8 +128,12 @@ def test_every_cadence_bills_the_same_per_cycle_price(
 
 
 @stripe_settings
-def test_checkout_requires_terms_acceptance(client, logged_in_seo_subscriber):
-    response = client.post(reverse("payments:seo-subscription-checkout"), {}, content_type="application/json")
+def test_checkout_requires_terms_acceptance(client, signup):
+    response = client.post(
+        reverse("payments:seo-subscription-checkout"),
+        {"reference": signup.checkout_reference},
+        content_type="application/json",
+    )
     assert response.status_code == 400
     assert not Acceptance.objects.filter(
         agreement_version__agreement__key=SEO_AGREEMENT_KEY
@@ -132,10 +141,35 @@ def test_checkout_requires_terms_acceptance(client, logged_in_seo_subscriber):
 
 
 @stripe_settings
-def test_dealer_cannot_use_seo_checkout(client, logged_in_dealer):
+def test_an_unknown_reference_finds_nothing(client):
     response = client.post(
         reverse("payments:seo-subscription-checkout"),
-        {"accepted_terms": True},
+        {"accepted_terms": True, "reference": "not-a-real-reference"},
         content_type="application/json",
     )
-    assert response.status_code == 403
+    assert response.status_code == 404
+
+
+@stripe_settings
+def test_a_paid_signup_cannot_pay_again(ftp_stripe, client, signup):
+    signup.payment_status = SeoSubscriber.PaymentStatus.ACTIVE
+    signup.save(update_fields=["payment_status"])
+
+    response = _checkout(client, signup)
+
+    assert response.status_code == 409
+    assert response.json()["code"] == "active"
+    assert ftp_stripe.session_count == 0
+
+
+@stripe_settings
+def test_an_email_with_an_account_is_sent_to_sign_in(ftp_stripe, client, signup):
+    # Signed up, then the same email became a paid account through another
+    # signup: this reference must not take a second payment.
+    get_user_model().objects.create_user(username=signup.email, email=signup.email, password="x")
+
+    response = _checkout(client, signup)
+
+    assert response.status_code == 409
+    assert response.json()["code"] == "account_exists"
+    assert ftp_stripe.session_count == 0

@@ -3,20 +3,24 @@ from urllib.parse import urlsplit
 from freetheplatform.security import bounds
 from rest_framework import serializers
 
-from core.serializers import BaseAccountRegistrationSerializer
-
 from ..models import SeoSubscriber
+from ..utils.existing_account import find_existing_account
+
+ACCOUNT_EXISTS = "account_exists"
 
 
-class SeoRegistrationSerializer(BaseAccountRegistrationSerializer):
-    """Low-friction purchase signup; full account details follow payment."""
+class SeoRegistrationSerializer(serializers.Serializer):
+    """The signup form: a record of who wants to buy, and no login.
 
-    tenant_model = SeoSubscriber
-    tenant_defaults = {"payment_status": SeoSubscriber.PaymentStatus.PAYMENT_PENDING}
+    The login is made when payment lands. Signing up twice is fine and leaves
+    two rows; signing up with the email of an account that already exists is
+    not, and the error carries ``ACCOUNT_EXISTS`` so the page can offer sign-in.
+    """
 
     business_name = bounds.char("business_name", required=False, allow_blank=True)
     contact_name = bounds.char("name", required=False, allow_blank=True)
-    password = bounds.password(required=False, allow_blank=True, allow_null=True)
+    email = bounds.email()
+    phone = bounds.char("phone", required=False, allow_blank=True)
     website = bounds.url(required=False, allow_blank=True)
     # A subscription always starts monthly; the slower cadences are reached
     # later by moving the subscriber, so they are not offered here.
@@ -25,10 +29,22 @@ class SeoRegistrationSerializer(BaseAccountRegistrationSerializer):
         default=SeoSubscriber.Plan.MONTHLY,
     )
 
+    def validate_email(self, value: str) -> str:
+        value = value.strip().lower()
+        if find_existing_account(value):
+            raise serializers.ValidationError(
+                "You already have an account with this email.",
+                code=ACCOUNT_EXISTS,
+            )
+        return value
+
     def create(self, validated_data):
         email = validated_data["email"]
         hostname = urlsplit(validated_data.get("website", "")).hostname or email.partition("@")[2]
-        validated_data.setdefault("business_name", hostname.removeprefix("www."))
-        validated_data.setdefault("contact_name", "Account owner")
-        validated_data.setdefault("password", None)
-        return super().create(validated_data)
+        if not validated_data.get("business_name"):
+            validated_data["business_name"] = hostname.removeprefix("www.")
+        if not validated_data.get("contact_name"):
+            validated_data["contact_name"] = "Account owner"
+        return SeoSubscriber.objects.create(
+            payment_status=SeoSubscriber.PaymentStatus.PAYMENT_PENDING, **validated_data
+        )

@@ -82,12 +82,30 @@ for that move yet: change the Stripe subscription's billing interval in the
 Stripe dashboard and set the subscriber's `plan` to match in Django admin, after
 telling the customer, as the SEO subscription terms require.
 
-Payment is what opens an SEO account; there is no approval step after it. The
+No payment, no account. The SEO signup form records a `SeoSubscriber` with no
+login: the details typed, the plan, and a random `checkout_reference`. The
+payment page (`/seo/payment?ref=…`), the public status endpoint
+(`/api/seo/checkout/<reference>/`) and the checkout endpoint all find the
+signup by that reference, and Stripe returns to
+`/seo/payment/complete?ref=…`. Signing up twice leaves two rows; the unpaid
+ones are the list of abandoned checkouts to follow up, and staff are emailed
+about every signup.
+
+Paid accounts are unique by email. Signup and checkout both refuse an email
+that already has a real account (`seo/utils/existing_account.py`) and send the
+person to sign in, so a paid customer cannot pay twice. That tells anyone who
+types an email whether it has an account, which is accepted.
+
+Payment is what opens the account; there is no approval step after it. The
 first payment event for a pending subscriber (`seo/utils/services.py`,
-`activate_paid_subscriber`) makes it `active`, gives the login a temporary
-password with `must_change_password` set if signup left it without one, and
-emails the sign-in details once the webhook transaction commits. Later events
-for the same purchase change nothing, so a second password is never minted.
+`activate_paid_subscriber`) creates the login (or reuses a passwordless one the
+old signup flow left for that email), makes the subscriber `active`, gives the
+login a temporary password with `must_change_password` set, and emails the
+sign-in details once the webhook transaction commits. Later events for the same
+purchase change nothing, so a second password is never minted. If the email has
+gained a real account between checkout and payment, no login is made: the
+signup stays pending, a note goes on it, and staff are emailed once to refund
+or merge by hand.
 Reporting then waits on setup (`seo/utils/setup.py`): it starts once the Search
 Console step is confirmed, by the service-account check or by staff.
 

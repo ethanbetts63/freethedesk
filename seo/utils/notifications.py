@@ -18,7 +18,7 @@ def notify_staff_of_seo_signup(subscriber: SeoSubscriber):
         "A new SEO customer has signed up.\n\n"
         f"Business: {subscriber.business_name}\n"
         f"Contact: {subscriber.contact_name}\n"
-        f"Email: {subscriber.user.email}\n"
+        f"Email: {subscriber.email}\n"
         f"Phone: {subscriber.phone or 'Not supplied'}\n"
         f"Website: {subscriber.website or 'Not supplied'}\n"
         f"Plan: {subscriber.get_plan_display()}\n"
@@ -59,10 +59,10 @@ def send_seo_welcome(subscriber: SeoSubscriber, password: str | None):
     login_url = f"{site_url()}/login"
     setup_url = f"{site_url()}/seo-portal/setup"
     sign_in = (
-        f"Email: {subscriber.user.email}\nTemporary password: {password}\n\n"
+        f"Email: {subscriber.email}\nTemporary password: {password}\n\n"
         "You'll choose your own password the first time you sign in."
         if password
-        else f"Email: {subscriber.user.email}, with the password you already use."
+        else f"Email: {subscriber.email}, with the password you already use."
     )
     body = (
         f"Thanks, payment for {subscriber.business_name} is confirmed.\n\n"
@@ -73,7 +73,7 @@ def send_seo_welcome(subscriber: SeoSubscriber, password: str | None):
         f"Setup: {setup_url}"
     )
     return send(
-        to=subscriber.user.email,
+        to=subscriber.email,
         channel="email",
         message_type="seo.welcome",
         subject="Your freethedesk SEO dashboard is ready",
@@ -85,6 +85,30 @@ def send_seo_welcome(subscriber: SeoSubscriber, password: str | None):
             "login_url": login_url,
             "setup_url": setup_url,
         },
+        related=subscriber,
+    )
+
+
+def notify_staff_of_duplicate_payment(subscriber: SeoSubscriber):
+    """Money arrived for an email that already has an account.
+
+    Checkout refuses such an email, so this is a race: the account appeared
+    after checkout opened. There is no login to hand the purchase to, so it
+    waits for a person to refund it or move it onto the existing account.
+    """
+    subscriber_url = _subscriber_url(subscriber)
+    body = (
+        f"A payment for {subscriber.business_name} has landed, but {subscriber.email} "
+        "already has an account, so no new login was made and the signup is still pending.\n\n"
+        "Refund it in Stripe, or move the purchase onto the existing account.\n"
+        f"Open this signup: {subscriber_url}"
+    )
+    return send(
+        to=settings.ADMIN_EMAIL,
+        channel="email",
+        message_type="seo.staff_duplicate_payment",
+        subject=f"Payment needs sorting — {subscriber.business_name}",
+        body=body,
         related=subscriber,
     )
 

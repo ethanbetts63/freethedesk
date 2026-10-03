@@ -61,7 +61,7 @@ def seo_acceptance_statement(quote):
 
 def record_checkout_acceptance(
     *, agreement_version, accepted_by, related, accepted_ip, user_agent,
-    statement, context,
+    statement, context, actor_snapshot=None,
 ):
     acceptance, _ = accept(
         agreement=agreement_version,
@@ -72,5 +72,6 @@ def record_checkout_acceptance(
         statement=statement,
         context=context,
         source="web.checkout",
+        actor_snapshot=actor_snapshot,
     )
     return acceptance

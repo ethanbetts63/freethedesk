@@ -13,6 +13,7 @@ from freetheplatform.payments import (
 
 from core.models import SiteSettings
 from seo.models import SeoSubscriber
+from seo.utils.existing_account import find_existing_account
 
 from ..flows import SEO_ONEOFF, SEO_SUBSCRIPTION
 from .agreements import (
@@ -64,7 +65,10 @@ def seo_quote_for_plan(plan) -> SeoQuote:
     return SeoQuote(plan=plan, name=name, price=price, recurring=recurring)
 
 
-def accept_current_seo_offer(*, subscriber, user, accepted_ip, user_agent=""):
+def accept_current_seo_offer(*, subscriber, accepted_ip, user_agent=""):
+    """Record the terms accepted for this signup. There is no login yet, so
+    the acceptance names the signup and the email typed into it."""
+    _refuse_paid_or_existing(subscriber)
     quote = seo_quote_for_plan(subscriber.plan)
     try:
         agreement_version = publish_configured_agreement(
@@ -74,7 +78,8 @@ def accept_current_seo_offer(*, subscriber, user, accepted_ip, user_agent=""):
         raise PaymentConfigurationError(str(error)) from error
     acceptance = record_checkout_acceptance(
         agreement_version=agreement_version,
-        accepted_by=user,
+        accepted_by=None,
+        actor_snapshot={"email": subscriber.email},
         related=subscriber,
         accepted_ip=accepted_ip,
         user_agent=user_agent,
@@ -84,16 +89,25 @@ def accept_current_seo_offer(*, subscriber, user, accepted_ip, user_agent=""):
     return acceptance, quote
 
 
+def _refuse_paid_or_existing(subscriber):
+    """No second payment: not for this signup, and not for an email that
+    already has an account (a paid customer signing up again)."""
+    if subscriber.has_paid:
+        raise PaymentConfigurationError("This SEO plan is already paid.", code="active")
+    if find_existing_account(subscriber.email):
+        raise PaymentConfigurationError(
+            "You already have an account with this email.",
+            code="account_exists",
+        )
+
+
 def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
     """Prepare the SEO checkout and return its client secret.
 
     One line item built from the recorded quote, so the agreed price and the
     charge cannot drift apart.
     """
-    if subscriber.payment_status in {
-        SeoSubscriber.PaymentStatus.ACTIVE, SeoSubscriber.PaymentStatus.PAID,
-    }:
-        raise PaymentConfigurationError("This SEO plan is already paid.", code="active")
+    _refuse_paid_or_existing(subscriber)
 
     item = {"key": f"seo.{subscriber.plan}", "name": quote.name, "unit_amount": quote.price}
     if quote.recurring:
@@ -103,7 +117,7 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
     try:
         billing_customer = ensure_billing_customer(
             related=subscriber,
-            email=subscriber.user.email,
+            email=subscriber.email,
             name=subscriber.business_name,
             label=subscriber.business_name,
             phone=subscriber.phone or "",
@@ -117,7 +131,7 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
             items=items,
             # See the note in services.py: not registered for GST.
             tax_mode="none",
-            return_path="/seo/payment/complete",
+            return_path=f"/seo/payment/complete?ref={subscriber.checkout_reference}",
             agreement_acceptance_id=str(acceptance.pk),
             # Non-sensitive, and the thing support looks for when
             # reading a Stripe object from the other end.

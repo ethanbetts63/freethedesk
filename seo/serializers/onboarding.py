@@ -13,7 +13,7 @@ class SeoOnboardingSerializer(serializers.ModelSerializer):
     """
 
     business_name = serializers.CharField(source="subscriber.business_name", read_only=True)
-    email = serializers.EmailField(source="subscriber.user.email", read_only=True)
+    email = serializers.EmailField(source="subscriber.email", read_only=True)
 
     class Meta:
         model = SeoProfile

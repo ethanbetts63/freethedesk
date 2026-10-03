@@ -4,7 +4,7 @@ New SEO signup
 
 Business: {{ subscriber.business_name }}
 Contact:  {{ subscriber.contact_name }}
-Email:    {{ subscriber.user.email }}
+Email:    {{ subscriber.email }}
 Phone:    {{ subscriber.phone|default:"Not supplied" }}
 Website:  {{ subscriber.website|default:"Not supplied" }}
 Plan:     {{ subscriber.get_plan_display }}

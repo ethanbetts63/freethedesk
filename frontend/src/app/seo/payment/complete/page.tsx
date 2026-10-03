@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function CompletePage() {
-  return <PaymentComplete />;
+export default async function CompletePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ ref?: string }>;
+}) {
+  const { ref } = await searchParams;
+  return <PaymentComplete reference={ref ?? ''} />;
 }

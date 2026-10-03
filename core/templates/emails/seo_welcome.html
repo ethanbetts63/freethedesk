@@ -10,11 +10,11 @@
 
 <p style="margin: 0 0 8px;">Sign in to <a href="{{ login_url }}">your dashboard</a>:</p>
 {% if password %}
-<p style="margin: 0 0 20px;">Email: <strong>{{ subscriber.user.email }}</strong><br>
+<p style="margin: 0 0 20px;">Email: <strong>{{ subscriber.email }}</strong><br>
 Temporary password: <strong>{{ password }}</strong></p>
 <p style="margin: 0 0 20px;">You'll choose your own password the first time you sign in.</p>
 {% else %}
-<p style="margin: 0 0 20px;">Email: <strong>{{ subscriber.user.email }}</strong>, with the password you already use.</p>
+<p style="margin: 0 0 20px;">Email: <strong>{{ subscriber.email }}</strong>, with the password you already use.</p>
 {% endif %}
 
 <p style="margin: 0 0 24px;"><a href="{{ setup_url }}" style="background-color: #16201a; color: #ffffff; padding: 12px 22px; border-radius: 4px; text-decoration: none; font-weight: 700; display: inline-block;">Start setup</a></p>

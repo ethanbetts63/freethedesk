@@ -7,6 +7,13 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function PaymentPage() {
-  return <SeoPaymentPage />;
+/* `ref` is the signup's checkout reference. There is no login before payment,
+   so the link the signup form sends here is what finds the purchase. */
+export default async function PaymentPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ ref?: string }>;
+}) {
+  const { ref } = await searchParams;
+  return <SeoPaymentPage reference={ref ?? ''} />;
 }

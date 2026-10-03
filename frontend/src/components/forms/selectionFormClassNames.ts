@@ -114,4 +114,4 @@ export const fieldTextareaClassName =
 export const fieldHintClassName = 'mt-2xs block text-caption font-normal text-text-subtle';
 export const submitClassName = 'mt-xs min-h-[58px] text-left [&>span]:text-lead';
 export const formErrorClassName =
-  'm-0 mb-s border-l-[3px] border-border-danger bg-surface-danger p-s text-caption leading-normal text-text-danger';
+  'm-0 mb-s border-l-[3px] border-border-danger bg-surface-danger p-s text-body leading-normal text-text-danger';

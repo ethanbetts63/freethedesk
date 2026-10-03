@@ -1,13 +1,26 @@
+import secrets
+
 from django.conf import settings
 from django.db import models
 
 
+def new_checkout_reference() -> str:
+    return secrets.token_urlsafe(24)
+
+
 class SeoSubscriber(models.Model):
-    """An SEO reporting customer account.
+    """An SEO customer, from the moment they fill in the signup form.
+
+    Signup records the details and nothing else: there is no login until
+    payment lands, when ``activate_paid_subscriber`` creates or attaches one.
+    So ``user`` is empty on every unpaid signup, a visitor can sign up as often
+    as they like, and the unpaid rows are the list of people to follow up.
+    ``checkout_reference`` is what the payment page and Stripe know the signup
+    by in the meantime.
 
     Mirrors ``dealers.models.Dealer`` as the tenant root for the SEO product.
-    Signup collects the minimum; the reporting inputs (Search Console property,
-    target keywords, competitors) belong to the post-payment onboarding flow.
+    The reporting inputs (Search Console property, target keywords,
+    competitors) belong to the post-payment setup flow.
     """
 
     class Status(models.TextChoices):
@@ -45,6 +58,12 @@ class SeoSubscriber(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="seo_subscriber",
+        null=True,
+        blank=True,
+    )
+    email = models.EmailField()
+    checkout_reference = models.CharField(
+        max_length=64, unique=True, default=new_checkout_reference, editable=False
     )
     business_name = models.CharField(max_length=180)
     contact_name = models.CharField(max_length=120)

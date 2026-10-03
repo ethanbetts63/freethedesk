@@ -3,10 +3,10 @@ Payment confirmed.
 Thanks — your SEO dashboard for {{ subscriber.business_name }} is ready.
 
 Sign in: {{ login_url }}
-{% if password %}Email: {{ subscriber.user.email }}
+{% if password %}Email: {{ subscriber.email }}
 Temporary password: {{ password }}
 
-You'll choose your own password the first time you sign in.{% else %}Email: {{ subscriber.user.email }}, with the password you already use.{% endif %}
+You'll choose your own password the first time you sign in.{% else %}Email: {{ subscriber.email }}, with the password you already use.{% endif %}
 
 The setup page walks you through giving us read-only access to Search Console and your other tools. Reporting starts once Search Console is connected.
 

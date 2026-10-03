@@ -1,6 +1,7 @@
 'use client';
 
 import { type FormEvent, useActionState, useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { CtaButton } from '@/components/CtaButton';
@@ -22,7 +23,7 @@ import {
 } from '@/components/forms/selectionFormClassNames';
 import { type PublicSiteSettings } from '@/lib/api';
 import { planByCode } from '@/lib/plans';
-import { submitSeoSignup, type SignupState } from './SeoSignupPanel.actions';
+import { submitSeoSignup, type SeoSignupState } from './SeoSignupPanel.actions';
 import {
   choiceCardVariants,
   choiceGridClassName,
@@ -31,7 +32,7 @@ import {
 import { cn } from '@/lib/utils';
 import { buildSeoPlans, type SignupPlanCode } from '../_lib/plans';
 
-const initialState: SignupState = { status: 'idle' };
+const initialState: SeoSignupState = { status: 'idle' };
 
 /** The stateful half of the signup section. `heading` arrives already rendered
     from the server so its markup stays out of the client bundle. */
@@ -49,8 +50,8 @@ export function SeoSignupPanel({
   const [state, dispatch, isPending] = useActionState(submitSeoSignup, initialState);
 
   useEffect(() => {
-    if (state.status !== 'success') return;
-    router.push('/seo/payment');
+    if (state.status !== 'success' || !state.reference) return;
+    router.push(`/seo/payment?ref=${encodeURIComponent(state.reference)}`);
   }, [state, router]);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -152,6 +153,14 @@ export function SeoSignupPanel({
       {state.status === 'error' && (
         <p className={formErrorClassName} role="alert">
           {state.error}
+          {state.accountExists && (
+            <>
+              {' '}
+              <Link className="font-heavy underline" href="/login">
+                Sign in instead.
+              </Link>
+            </>
+          )}
         </p>
       )}
       <CtaButton
@@ -162,7 +171,7 @@ export function SeoSignupPanel({
         fullWidth
         disabled={isPending}
       >
-        {isPending ? 'Creating your account…' : 'Continue to payment'}
+        {isPending ? 'Saving…' : 'Continue to payment'}
       </CtaButton>
     </SelectionFormPanel>
   );

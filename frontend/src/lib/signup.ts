@@ -9,9 +9,6 @@ export interface SignupState {
 
 export interface SignupConfig {
   endpoint: string;
-  /** Set when `endpoint` itself establishes the session (its own Set-Cookie),
-   *  so this skips the separate login call a plain account-creation endpoint needs. */
-  sessionFromSignup?: boolean;
 }
 
 const GENERIC_FAILURE = 'Unable to create your account.';
@@ -25,9 +22,10 @@ const GENERIC_FAILURE = 'Unable to create your account.';
  * and forward whatever it found, so the UI-only radio groups that drive the
  * plan chooser travelled to Django alongside the real fields, and a blank
  * email cost a round trip to discover. Each product's own action owns its
- * schema; see `SignupPlansPanel.actions.ts` and `SeoSignupPanel.actions.ts`.
+ * schema; see `SignupPlansPanel.actions.ts`. SEO signup makes no account at all
+ * until payment, so it has its own action and does not come through here.
  *
- * Deliberately not a Server Action itself: the two callers are, and an extra
+ * Deliberately not a Server Action itself: its caller is, and an extra
  * exported action is an extra endpoint for no gain.
  */
 export async function completeSignup(
@@ -52,11 +50,6 @@ export async function completeSignup(
 
   // Signing up on a marketing page must not drag the auth context onto it, so
   // the session is only established once the account is confirmed created.
-  if (config.sessionFromSignup) {
-    await relaySetCookies(response);
-    return { status: 'success' };
-  }
-
   let loginResponse: Response;
   const credentials = { username: values.email, password: values.password };
   try {

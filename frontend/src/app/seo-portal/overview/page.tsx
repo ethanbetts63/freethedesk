@@ -89,17 +89,6 @@ export default function SeoPortalOverviewPage() {
           </div>
         </section>
 
-        {account.payment_status === 'payment_pending' && (
-          <section className={cn(cardClassName, cardWideClassName)}>
-            <h2 className={cardTitleClassName}>Finish secure payment</h2>
-            <p className={messageBodyClassName}>
-              Your selected plan has not been paid yet. Continue when you are ready; you will not
-              need to enter your signup details again.
-            </p>
-            <Button href="/seo/payment">Continue to payment →</Button>
-          </section>
-        )}
-
         {message && (
           <section className={cn(cardClassName, cardWideClassName)}>
             <h2 className={cardTitleClassName}>{message.heading}</h2>

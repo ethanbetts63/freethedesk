@@ -35,7 +35,7 @@ class AdminSeoSubscriberListView(ListAPIView):
             queryset = queryset.filter(
                 Q(business_name__icontains=search)
                 | Q(contact_name__icontains=search)
-                | Q(user__email__icontains=search)
+                | Q(email__icontains=search)
                 | Q(phone__icontains=search)
             )
         return apply_ordering(queryset, params, SEO_ORDERING)

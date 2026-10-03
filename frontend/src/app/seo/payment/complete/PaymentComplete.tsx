@@ -1,25 +1,27 @@
 'use client';
 
+import { useCallback } from 'react';
+
 import {
   PaymentConfirmation,
   type ConfirmationResult,
 } from '@/components/checkout/PaymentConfirmation';
-import { getSeoAccount } from '@/lib/seoApi';
+import { getSeoCheckoutStatus } from '@/lib/seoApi';
 
-async function check(): Promise<ConfirmationResult> {
-  const account = await getSeoAccount();
-  if (account.payment_status === 'active' || account.payment_status === 'paid') {
-    return {
-      status: 'active',
-      next: '/seo-portal/setup',
-    };
-  }
-  if (account.payment_status === 'past_due' || account.payment_status === 'cancelled')
-    return { status: 'failed' };
-  return { status: 'pending' };
-}
+/**
+ * Back from Stripe. Nobody is signed in yet: the login is made when the
+ * payment lands and its temporary password is emailed, so success points at
+ * sign-in rather than redirecting into a portal that would bounce them.
+ */
+export function PaymentComplete({ reference }: { reference: string }) {
+  const check = useCallback(async (): Promise<ConfirmationResult> => {
+    const status = await getSeoCheckoutStatus(reference);
+    if (status.paid) return { status: 'active' };
+    if (status.payment_status === 'past_due' || status.payment_status === 'cancelled')
+      return { status: 'failed' };
+    return { status: 'pending' };
+  }, [reference]);
 
-export function PaymentComplete() {
   return (
     <PaymentConfirmation
       check={check}
@@ -30,7 +32,7 @@ export function PaymentComplete() {
         ],
         active: [
           'Payment confirmed.',
-          'Your SEO account is open. Taking you to the next step now.',
+          'We have emailed you a temporary password. Sign in with it to set up your SEO dashboard.',
         ],
         failed: [
           'Payment needs attention.',
@@ -38,12 +40,13 @@ export function PaymentComplete() {
         ],
         delayed: [
           'Confirmation is taking longer than usual.',
-          'Your payment may still be successful. Open the portal to check the latest account status.',
+          'Your payment may still go through. If it does, your sign-in details arrive by email.',
         ],
       }}
-      retryHref="/seo/payment"
-      portalHref="/seo-portal/overview"
-      portalLabel="Open SEO portal"
+      retryHref={`/seo/payment?ref=${encodeURIComponent(reference)}`}
+      activeLink={{ href: '/login', label: 'Sign in' }}
+      portalHref="/login"
+      portalLabel="Sign in"
     />
   );
 }

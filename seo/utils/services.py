@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.utils import timezone
 from freetheplatform.auth import lockout
@@ -5,7 +6,13 @@ from freetheplatform.auth import lockout
 from core.utils.temporary_password import generate_temporary_password
 
 from ..models import SeoProfile, SeoSubscriber
-from .notifications import send_seo_welcome
+from .existing_account import find_existing_account
+from .find_login import find_login
+from .notifications import notify_staff_of_duplicate_payment, send_seo_welcome
+
+DUPLICATE_PAYMENT_NOTE = (
+    "Paid, but this email already had an account: refund it or move it onto that account."
+)
 
 
 def ensure_seo_profile(subscriber: SeoSubscriber) -> SeoProfile:
@@ -18,19 +25,38 @@ def ensure_seo_profile(subscriber: SeoSubscriber) -> SeoProfile:
 
 
 def activate_paid_subscriber(subscriber: SeoSubscriber) -> None:
-    """Open the dashboard for a subscriber whose payment has just landed.
+    """Make the login for a signup whose payment has just landed.
 
     Runs inside the payment webhook's transaction, on a row it has locked, and
     more than one payment event can call it for the same purchase. So it acts
-    only on the first: a pending account becomes active, gets a temporary
-    password if it has none, and is sent the welcome email once the transaction
-    commits. Signup creates the login without a password, so the welcome email
-    is the only way back in on another device. ``must_change_password`` makes
-    the first sign-in replace it.
+    only on the first: the signup gets a login (a new one, or the passwordless
+    one an unpaid signup made under the old flow), becomes active, and is sent
+    a temporary password once the transaction commits. ``must_change_password``
+    makes the first sign-in replace it.
+
+    Checkout refuses an email that already has an account, but one can appear
+    between checkout and payment. Then the money is in and there is no login
+    to give it to, so staff are told to refund or merge by hand and the signup
+    stays pending.
     """
     ensure_seo_profile(subscriber)
     if subscriber.status != SeoSubscriber.Status.PENDING:
         return
+    if subscriber.user is None:
+        if find_existing_account(subscriber.email):
+            # The note doubles as the record that staff were told, so a second
+            # event for the same purchase does not tell them again.
+            if DUPLICATE_PAYMENT_NOTE not in subscriber.staff_notes:
+                subscriber.staff_notes = "\n".join(
+                    filter(None, [subscriber.staff_notes, DUPLICATE_PAYMENT_NOTE])
+                )
+                subscriber.save(update_fields=["staff_notes", "updated_at"])
+                transaction.on_commit(lambda: notify_staff_of_duplicate_payment(subscriber))
+            return
+        subscriber.user = find_login(subscriber.email) or get_user_model().objects.create_user(
+            username=subscriber.email[:150], email=subscriber.email, password=None
+        )
+        subscriber.save(update_fields=["user", "updated_at"])
 
     subscriber.status = SeoSubscriber.Status.ACTIVE
     subscriber.status_changed_at = timezone.now()

@@ -1,5 +1,5 @@
-import { authedFetch, type AccountBase } from './api';
-import { handleResponse } from '@freetheplatform/web-security';
+import { authedFetch, postJson, type AccountBase } from './api';
+import { apiFetch, handleResponse } from '@freetheplatform/web-security';
 
 /** Signup offers monthly or oneoff; the slower cadences are reached later. */
 export type SeoPlanCode = 'monthly' | 'bimonthly' | 'quarterly' | 'biannual' | 'oneoff';
@@ -9,6 +9,13 @@ export interface SeoAccount extends AccountBase {
   website: string;
   plan: SeoPlanCode;
   payment_status: SeoPaymentStatus;
+}
+
+/** Where a signup's payment stands, read by its checkout reference before any login exists. */
+export interface SeoCheckoutStatus {
+  plan: SeoPlanCode;
+  payment_status: SeoPaymentStatus;
+  paid: boolean;
 }
 
 export interface SeoCheckout {
@@ -82,13 +89,13 @@ export async function getSeoAccount(): Promise<SeoAccount> {
   return handleResponse(await authedFetch('/api/seo/me/'));
 }
 
-export async function createSeoCheckout(): Promise<SeoCheckout> {
-  return handleResponse(
-    await authedFetch('/api/payments/seo-subscription/', {
-      method: 'POST',
-      body: JSON.stringify({ accepted_terms: true }),
-    }),
-  );
+export async function getSeoCheckoutStatus(reference: string): Promise<SeoCheckoutStatus> {
+  return handleResponse(await apiFetch(`/api/seo/checkout/${encodeURIComponent(reference)}/`));
+}
+
+/** Throws an `ApiError` whose payload `code` is `account_exists` for an email that already has an account. */
+export async function createSeoCheckout(reference: string): Promise<SeoCheckout> {
+  return postJson('/api/payments/seo-subscription/', { accepted_terms: true, reference });
 }
 
 export async function getSeoOnboarding(): Promise<SeoOnboardingProfile> {
