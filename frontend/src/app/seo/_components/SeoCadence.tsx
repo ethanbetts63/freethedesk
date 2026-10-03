@@ -1,7 +1,6 @@
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 import { ChecklistCard, LiveDot } from '@/components/visuals/ChecklistCard';
 
-/** Mirrors SeoSubscriber.Plan: every cadence is the same price per cycle. */
 const CADENCES = [
   ['Monthly', 'Start'],
   ['Every two months', 'Then'],
@@ -16,7 +15,7 @@ export function SeoCadence({ eyebrow }: { eyebrow: string }) {
       eyebrow={eyebrow}
       title="Paced by your data."
       accentTitle="Not our invoice."
-      description="A cycle needs new data to judge your last changes. While you're making changes, that's monthly. When results need longer to show, we'll suggest a longer gap, at the same price per cycle."
+      description="A cycle needs new data to judge your last changes. Initially, that's monthly. When results need longer to show, we'll suggest a longer gap."
       visual={
         <ChecklistCard
           mark={<LiveDot />}
