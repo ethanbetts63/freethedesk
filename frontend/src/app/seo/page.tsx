@@ -70,7 +70,7 @@ export default async function SeoPage() {
         primaryLabel={`First report from ${cyclePrice}`}
         secondaryHref="#recommend"
         secondaryLabel="See what you get"
-        trustLine="Cancel any time · Refund if nothing improves · Perth-based"
+        trustLine="Cancel any time · Fixed prices, no lock-in · Perth-based"
       />
 
       <SeoStepsBar />
@@ -134,8 +134,6 @@ export default async function SeoPage() {
         buttonLabel="Choose a plan"
       >
         An ad click stops the day the budget does. A click you earn in search keeps arriving.
-        Connect your data and your first findings arrive within the week—ranked, plain-English, and
-        honest about whether you should keep paying us.
       </ManualAdminCta>
     </main>
   );
