@@ -1,18 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { CheckoutElementsProvider } from '@stripe/react-stripe-js/checkout';
 import { ApiError } from '@freetheplatform/web-security';
 
-import {
-  CheckoutPaymentForm,
-  CheckoutShell,
-  CheckoutState,
-  CheckoutTermsForm,
-} from '@/components/checkout/CheckoutShell';
+import { CheckoutForm, CheckoutShell, CheckoutState } from '@/components/checkout/CheckoutShell';
 import { createSeoCheckout, getSeoCheckoutStatus, type SeoCheckoutStatus } from '@/lib/seoApi';
 import { getSiteSettings } from '@/lib/api';
-import { stripeConfigured, stripePromise, STRIPE_ELEMENTS_OPTIONS } from '@/lib/stripe';
+import { stripeConfigured } from '@/lib/stripe';
 import { buildSeoPlans, planByCode, signupPlanFor, type SeoPlan } from '../_lib/plans';
 import { formatMoney } from '@/lib/formatting';
 
@@ -125,24 +119,16 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
           body={error}
           onRetry={() => window.location.reload()}
         />
-      ) : clientSecret && plan ? (
-        <CheckoutElementsProvider
-          stripe={stripePromise}
-          options={{ clientSecret, elementsOptions: STRIPE_ELEMENTS_OPTIONS }}
-        >
-          <CheckoutPaymentForm
-            heading={oneOff ? `Pay for ${productName}.` : `Start ${productName}.`}
-            submitLabel={oneOff ? 'Pay now' : 'Start subscription'}
-            returnPath={`/seo/payment/complete?ref=${encodeURIComponent(reference)}`}
-          />
-        </CheckoutElementsProvider>
       ) : checkout && plan ? (
-        <CheckoutTermsForm
-          priceNote="Your price and the exact terms accepted are saved with this checkout."
+        <CheckoutForm
+          heading={oneOff ? `Pay for ${productName}.` : `Start ${productName}.`}
+          submitLabel={oneOff ? 'Pay now' : 'Start subscription'}
+          returnPath={`/seo/payment/complete?ref=${encodeURIComponent(reference)}`}
           termsHref="/legal/seo-subscription-terms"
           termsLabel="SEO Subscription Terms"
           authorisation={`authorise this ${oneOff ? 'payment' : 'recurring subscription'}.`}
-          onConfirm={prepareCheckout}
+          clientSecret={clientSecret}
+          onAccept={prepareCheckout}
         />
       ) : (
         <CheckoutState

@@ -2,18 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { CheckoutElementsProvider } from '@stripe/react-stripe-js/checkout';
 
-import {
-  CheckoutPaymentForm,
-  CheckoutShell,
-  CheckoutState,
-  CheckoutTermsForm,
-} from '@/components/checkout/CheckoutShell';
+import { CheckoutForm, CheckoutShell, CheckoutState } from '@/components/checkout/CheckoutShell';
 import { useAuth } from '@/context/AuthContext';
 import { createSubscriptionCheckout, getDealerAccount, type DealerAccount } from '@/lib/dealerApi';
 import { getSiteSettings } from '@/lib/api';
-import { stripeConfigured, stripePromise, STRIPE_ELEMENTS_OPTIONS } from '@/lib/stripe';
+import { stripeConfigured } from '@/lib/stripe';
 import { buildDealerPlans, planByCode, type DealerPlan } from '../_lib/plans';
 import { formatMoney } from '@/lib/formatting';
 
@@ -86,24 +80,16 @@ export function SubscriptionPaymentPage() {
           body={error}
           onRetry={() => window.location.reload()}
         />
-      ) : clientSecret && plan ? (
-        <CheckoutElementsProvider
-          stripe={stripePromise}
-          options={{ clientSecret, elementsOptions: STRIPE_ELEMENTS_OPTIONS }}
-        >
-          <CheckoutPaymentForm
-            heading={`Start ${plan.name}.`}
-            submitLabel="Start subscription"
-            returnPath={RETURN_PATH}
-          />
-        </CheckoutElementsProvider>
       ) : dealer && plan ? (
-        <CheckoutTermsForm
-          priceNote="Your monthly price and the exact terms accepted are saved with this checkout."
+        <CheckoutForm
+          heading={`Start ${plan.name}.`}
+          submitLabel="Start subscription"
+          returnPath={RETURN_PATH}
           termsHref="/legal/dealer-subscription-terms"
           termsLabel="Dealer Subscription Terms"
           authorisation="authorise this monthly subscription."
-          onConfirm={prepareCheckout}
+          clientSecret={clientSecret}
+          onAccept={prepareCheckout}
         />
       ) : (
         <CheckoutState

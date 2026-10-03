@@ -2,9 +2,14 @@
 
 import { type FormEvent, type ReactNode, useState } from 'react';
 import Link from 'next/link';
-import { PaymentElement, useCheckoutElements } from '@stripe/react-stripe-js/checkout';
+import {
+  CheckoutElementsProvider,
+  PaymentElement,
+  useCheckoutElements,
+} from '@stripe/react-stripe-js/checkout';
 
 import { Wordmark } from '@/components/Wordmark';
+import { stripePromise, STRIPE_ELEMENTS_OPTIONS } from '@/lib/stripe';
 import { cn } from '@/lib/utils';
 
 import { CheckoutButton } from './CheckoutButton';
@@ -121,47 +126,63 @@ export function CheckoutState({
   );
 }
 
-/** Step one: accept the terms before any card details are collected. */
-export function CheckoutTermsForm({
-  priceNote,
+/**
+ * The whole payment step on one screen: the terms box, then Stripe's card
+ * fields, then the pay button.
+ *
+ * Stripe's checkout is only opened once the terms are accepted, because the
+ * acceptance is recorded with it. So ticking the box is what calls
+ * `onAccept`; the card fields appear under it when that returns a client
+ * secret. Unticking afterwards disables the pay button again.
+ */
+export function CheckoutForm({
+  heading,
+  submitLabel,
+  returnPath,
   termsHref,
   termsLabel,
   authorisation,
-  onConfirm,
+  clientSecret,
+  onAccept,
 }: {
-  priceNote: string;
+  heading: string;
+  submitLabel: string;
+  returnPath: string;
   termsHref: string;
   termsLabel: string;
   authorisation: string;
-  onConfirm: () => Promise<void>;
+  clientSecret: string;
+  onAccept: () => Promise<void>;
 }) {
   const [accepted, setAccepted] = useState(false);
   const [preparing, setPreparing] = useState(false);
 
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!accepted || preparing) return;
+  async function toggle(checked: boolean) {
+    setAccepted(checked);
+    if (!checked || clientSecret || preparing) return;
     setPreparing(true);
     try {
-      await onConfirm();
+      await onAccept();
     } finally {
       setPreparing(false);
     }
   }
 
   return (
-    <form className="w-full max-w-copy" onSubmit={submit}>
+    <div className="w-full max-w-copy">
       <div className="mb-xl border-b border-border-default pb-xl">
-        <span className={eyebrowClassName}>Before payment</span>
-        <h2 className={headingClassName}>Confirm the offer.</h2>
-        <p className={bodyClassName}>{priceNote}</p>
+        <span className={eyebrowClassName}>Secure payment</span>
+        <h2 className={headingClassName}>{heading}</h2>
+        <p className={bodyClassName}>
+          Your card details are encrypted and handled directly by Stripe.
+        </p>
       </div>
-      <label className="mt-l mr-0 mb-m ml-0 flex cursor-pointer items-start gap-s text-label leading-normal text-text-muted">
+      <label className="mb-l flex cursor-pointer items-start gap-s text-label leading-normal text-text-muted">
         <input
           type="checkbox"
           checked={accepted}
-          onChange={(event) => setAccepted(event.target.checked)}
-          className="mt-4xs mr-0 mb-0 ml-0 h-[17px] w-[17px] flex-none accent-action-primary"
+          onChange={(event) => toggle(event.target.checked)}
+          className="mt-4xs h-[17px] w-[17px] flex-none accent-action-primary"
         />
         <span>
           I agree to the{' '}
@@ -185,21 +206,41 @@ export function CheckoutTermsForm({
           , and {authorisation}
         </span>
       </label>
-      <CheckoutButton type="submit" busy={preparing} disabled={!accepted || preparing}>
-        <span>{preparing ? 'Preparing secure payment…' : 'Payment'}</span>
-        <b aria-hidden="true">→</b>
-      </CheckoutButton>
-    </form>
+      {clientSecret ? (
+        <CheckoutElementsProvider
+          stripe={stripePromise}
+          options={{ clientSecret, elementsOptions: STRIPE_ELEMENTS_OPTIONS }}
+        >
+          <PaymentFields accepted={accepted} submitLabel={submitLabel} returnPath={returnPath} />
+        </CheckoutElementsProvider>
+      ) : (
+        <>
+          <p className="my-l text-body-sm text-text-muted">
+            {preparing
+              ? 'Loading secure card entry…'
+              : 'Tick the box above and your card details go here.'}
+          </p>
+          <CheckoutButton type="button" disabled>
+            <span>{submitLabel}</span>
+            <b aria-hidden="true">→</b>
+          </CheckoutButton>
+        </>
+      )}
+      <p className={fineprintClassName}>
+        The price shown is the total payable. Your account opens immediately after Stripe confirms
+        payment.
+      </p>
+    </div>
   );
 }
 
-/** Step two: the Stripe Payment Element and its confirmation. */
-export function CheckoutPaymentForm({
-  heading,
+/** Stripe's card fields and the pay button, once checkout is open. */
+function PaymentFields({
+  accepted,
   submitLabel,
   returnPath,
 }: {
-  heading: string;
+  accepted: boolean;
   submitLabel: string;
   returnPath: string;
 }) {
@@ -209,7 +250,7 @@ export function CheckoutPaymentForm({
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (result.type !== 'success' || !result.checkout.canConfirm) return;
+    if (!accepted || result.type !== 'success' || !result.checkout.canConfirm) return;
     setSubmitting(true);
     setError('');
     try {
@@ -231,18 +272,8 @@ export function CheckoutPaymentForm({
     return <p className={paymentErrorClassName}>{result.error.message}</p>;
 
   return (
-    <form className="w-full max-w-copy" onSubmit={submit}>
-      <div className="mb-xl border-b border-border-default pb-xl">
-        <span className={eyebrowClassName}>Secure payment</span>
-        <h2 className={headingClassName}>{heading}</h2>
-        <p className={bodyClassName}>
-          Your card details are encrypted and handled directly by Stripe.
-        </p>
-      </div>
+    <form onSubmit={submit}>
       <PaymentElement />
-      <p className={fineprintClassName}>
-        The selected offer and accepted terms are recorded with this checkout.
-      </p>
       {error && (
         <p className={paymentErrorClassName} role="alert">
           {error}
@@ -250,16 +281,13 @@ export function CheckoutPaymentForm({
       )}
       <CheckoutButton
         type="submit"
+        className="mt-l"
         busy={submitting}
-        disabled={!result.checkout.canConfirm || submitting}
+        disabled={!accepted || !result.checkout.canConfirm || submitting}
       >
         <span>{submitting ? 'Confirming…' : submitLabel}</span>
         <b aria-hidden="true">→</b>
       </CheckoutButton>
-      <p className={fineprintClassName}>
-        The price shown is the total payable. Your account opens immediately after Stripe confirms
-        payment.
-      </p>
     </form>
   );
 }
