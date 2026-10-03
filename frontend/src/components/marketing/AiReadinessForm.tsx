@@ -8,7 +8,7 @@ import { submitAiReadiness, type AiReadinessState } from './AiReadinessForm.acti
 
 const initialState: AiReadinessState = { status: 'idle' };
 
-/** A text field on the navy prompt surface; the click-value calculator shares it. */
+/** A text field on the navy prompt surface; the ads savings calculator shares it. */
 export const onDarkFieldClassName = cn(
   'w-full rounded-none border px-s py-0 outline-none',
   'border-[color-mix(in_srgb,var(--accent-on-dark-soft)_32%,transparent)]',

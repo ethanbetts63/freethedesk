@@ -6,7 +6,7 @@ import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { AiReadinessBanner } from '@/components/marketing/AiReadinessBanner';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
-import { ClickValueModal } from '@/components/marketing/ClickValueModal';
+import { AdsSavingsModal } from '@/components/marketing/AdsSavingsModal';
 import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
@@ -128,7 +128,7 @@ export default async function SeoPage() {
       <AiReadinessBanner id="ai-readiness" />
       <SeoSignup settings={settings} eyebrow={sections['Choose your plan']} />
 
-      <ClickValueModal />
+      <AdsSavingsModal />
 
       <FloatingPageCta
         label="Choose a plan"

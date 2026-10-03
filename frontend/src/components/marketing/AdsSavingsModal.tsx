@@ -6,8 +6,8 @@ import { useTimedPrompt } from './useTimedPrompt';
 
 /* Fetched only when the timer fires, so the calculator stays out of the SEO
    page's initial download. */
-const ClickValueDialog = dynamic(
-  () => import('./ClickValueDialog').then((m) => m.ClickValueDialog),
+const AdsSavingsDialog = dynamic(
+  () => import('./AdsSavingsDialog').then((m) => m.AdsSavingsDialog),
   { ssr: false },
 );
 
@@ -16,11 +16,11 @@ const ClickValueDialog = dynamic(
  * AI readiness prompt off this page so the two never compete for the same
  * minute.
  */
-export function ClickValueModal() {
+export function AdsSavingsModal() {
   const { open, close } = useTimedPrompt({
     storageKey: 'freethedesk-click-value',
     delayMs: 60_000,
   });
 
-  return open ? <ClickValueDialog onClose={close} /> : null;
+  return open ? <AdsSavingsDialog onClose={close} /> : null;
 }

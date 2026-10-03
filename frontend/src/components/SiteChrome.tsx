@@ -27,7 +27,7 @@ export function SiteChrome({
       {!standalone && header}
       {children}
       {!standalone && footer}
-      {/* /seo has its own one-minute prompt, the click-value calculator. */}
+      {/* /seo has its own one-minute prompt, the ads savings calculator. */}
       {!standalone && !applicationArea && pathname !== '/seo' && <AiReadinessModal />}
     </>
   );
