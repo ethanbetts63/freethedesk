@@ -73,14 +73,15 @@ inline recurring `price_data` containing the current model price in cents. Exist
 was accepted when they were created; changing Licensing settings affects only
 future subscriptions.
 
-SEO is sold as one of two plans: a one-off (`seo_oneoff_price`, charged once)
-or a subscription (`seo_subscription_price`, charged per cycle). Signup only
-accepts `monthly` or `oneoff`. A subscription starts monthly and is slowed by
-staff when there's less new data to judge changes by — `bimonthly`, then
-`quarterly`, then `biannual` — at the same per-cycle price. There is no tooling
-for that move yet: change the Stripe subscription's billing interval in the
-Stripe dashboard and set the subscriber's `plan` to match in Django admin, after
-telling the customer, as the SEO subscription terms require.
+SEO is sold as four plans, each with its own price in site settings: `monthly`
+(`seo_monthly_price`), `quarterly` (`seo_quarterly_price`), `yearly`
+(`seo_yearly_price`), each one report per billing period, and `oneoff`
+(`seo_oneoff_price`, charged once). The customer picks at signup, by how fast
+they can act on a report. A customer who wants a different cadence asks; there
+is no tooling for the move yet: change the Stripe subscription's price and
+interval in the Stripe dashboard and set the subscriber's `plan` to match in
+Django admin, after confirming with the customer, as the SEO subscription terms
+require.
 
 No payment, no account. The SEO signup form records a `SeoSubscriber` with no
 login: the details typed, the plan, and a random `checkout_reference`. The

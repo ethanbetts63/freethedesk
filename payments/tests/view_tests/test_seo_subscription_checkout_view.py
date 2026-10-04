@@ -46,7 +46,7 @@ def _checkout(client, signup, **extra):
 @stripe_settings
 def test_quarterly_checkout_is_a_three_month_subscription(ftp_stripe, client, signup):
     settings = SiteSettings.load()
-    settings.seo_subscription_price = Decimal("150.00")
+    settings.seo_quarterly_price = Decimal("150.00")
     settings.save()
 
     response = _checkout(client, signup, HTTP_X_FORWARDED_FOR="203.0.113.99, 198.51.100.24")
@@ -99,31 +99,34 @@ def test_one_off_checkout_is_a_single_payment(ftp_stripe, client, signup):
 
 
 @pytest.mark.parametrize(
-    ("plan", "months"),
+    ("plan", "price_field", "months"),
     [
-        (SeoSubscriber.Plan.MONTHLY, 1),
-        (SeoSubscriber.Plan.BIMONTHLY, 2),
-        (SeoSubscriber.Plan.BIANNUAL, 6),
+        (SeoSubscriber.Plan.MONTHLY, "seo_monthly_price", 1),
+        (SeoSubscriber.Plan.QUARTERLY, "seo_quarterly_price", 3),
+        (SeoSubscriber.Plan.YEARLY, "seo_yearly_price", 12),
     ],
 )
 @stripe_settings
-def test_every_cadence_bills_the_same_per_cycle_price(
-    ftp_stripe, client, signup, plan, months
+def test_each_cadence_bills_its_own_price(
+    ftp_stripe, client, signup, plan, price_field, months
 ):
     signup.plan = plan
     signup.save(update_fields=["plan"])
     settings = SiteSettings.load()
-    settings.seo_subscription_price = Decimal("225.00")
+    settings.seo_monthly_price = Decimal("111.00")
+    settings.seo_quarterly_price = Decimal("222.00")
+    settings.seo_yearly_price = Decimal("333.00")
     settings.save()
+    price = getattr(settings, price_field)
 
     response = _checkout(client, signup)
 
     assert response.status_code == 200
-    assert response.json()["price"] == "225.00"
+    assert response.json()["price"] == str(price)
     line_items = ftp_stripe.last_session["line_items"]
     assert len(line_items) == 1
     price_data = line_items[0]["price_data"]
-    assert price_data["unit_amount"] == 22500
+    assert price_data["unit_amount"] == int(price * 100)
     assert price_data["recurring"] == {"interval": "month", "interval_count": months}
 
 

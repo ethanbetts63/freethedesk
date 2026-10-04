@@ -1,8 +1,8 @@
 import { authedFetch, postJson, type AccountBase } from './api';
 import { apiFetch, handleResponse } from '@freetheplatform/web-security';
 
-/** Signup offers monthly or oneoff; the slower cadences are reached later. */
-export type SeoPlanCode = 'monthly' | 'bimonthly' | 'quarterly' | 'biannual' | 'oneoff';
+/** The customer picks one at signup; staff move them between them on request. */
+export type SeoPlanCode = 'monthly' | 'quarterly' | 'yearly' | 'oneoff';
 export type SeoPaymentStatus = 'payment_pending' | 'active' | 'past_due' | 'cancelled' | 'paid';
 
 export interface SeoAccount extends AccountBase {

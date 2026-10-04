@@ -50,10 +50,21 @@ export default async function SeoPage() {
   // The Service node itself is declared in STATIC_PAGES; only the price is dynamic.
   // A subscription starts monthly, so that is the cadence the offer states.
   const serviceOffers = buildRecurringOffer({
-    price: settings.seo_subscription_price,
+    price: settings.seo_monthly_price,
     unitText: 'MONTH',
   });
-  const cyclePrice = formatMoney(settings.seo_subscription_price, { cents: 'auto' });
+  // "From": the cheapest report on offer, whichever plan that is.
+  const fromPrice = formatMoney(
+    Math.min(
+      ...[
+        settings.seo_monthly_price,
+        settings.seo_quarterly_price,
+        settings.seo_yearly_price,
+        settings.seo_oneoff_price,
+      ].map(Number),
+    ),
+    { cents: 'auto' },
+  );
 
   return (
     <main className="bg-surface-page text-text-secondary">
@@ -65,9 +76,9 @@ export default async function SeoPage() {
         accentTitle="Google"
         accentAlternates={['ChatGPT', 'Claude', 'Gemini', 'Perplexity']}
         titleSuffix="recommends first."
-        lead="Each month we find the searches you're losing, recommend solutions, and show what last month's fixes earned."
+        lead="Every report finds the searches you're losing, recommends solutions, and shows what your last fixes earned."
         primaryHref="#signup"
-        primaryLabel={`First report from ${cyclePrice}`}
+        primaryLabel={`First report from ${fromPrice}`}
         secondaryHref="#recommend"
         secondaryLabel="See what you get"
         trustLine="Cancel any time · Fixed prices, no lock-in · Perth-based"

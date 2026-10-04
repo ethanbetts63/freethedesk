@@ -32,7 +32,9 @@ const LICENSING_FIELDS: { field: PriceField; label: string }[] = [
 ];
 
 const SEO_FIELDS: { field: PriceField; label: string }[] = [
-  { field: 'seo_subscription_price', label: 'SEO subscription ($ / cycle, any cadence)' },
+  { field: 'seo_monthly_price', label: 'SEO monthly ($ / report)' },
+  { field: 'seo_quarterly_price', label: 'SEO quarterly ($ / report)' },
+  { field: 'seo_yearly_price', label: 'SEO yearly ($ / report)' },
   { field: 'seo_oneoff_price', label: 'SEO one-off ($ once)' },
 ];
 

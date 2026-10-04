@@ -44,14 +44,13 @@ def _every(months):
     return {"interval": "month", "interval_count": months}
 
 
-# Customer-facing name and Stripe recurring config (None = one-off). Every
-# recurring plan bills the same per-cycle price; only the interval differs.
+# Customer-facing name, the SiteSettings field holding its price, and the
+# Stripe recurring config (None = one-off).
 SEO_PLAN_DETAILS = {
-    SeoSubscriber.Plan.MONTHLY: ("Monthly SEO subscription", _every(1)),
-    SeoSubscriber.Plan.BIMONTHLY: ("SEO subscription, every two months", _every(2)),
-    SeoSubscriber.Plan.QUARTERLY: ("Quarterly SEO subscription", _every(3)),
-    SeoSubscriber.Plan.BIANNUAL: ("SEO subscription, every six months", _every(6)),
-    SeoSubscriber.Plan.ONEOFF: ("SEO audit", None),
+    SeoSubscriber.Plan.MONTHLY: ("Monthly SEO subscription", "seo_monthly_price", _every(1)),
+    SeoSubscriber.Plan.QUARTERLY: ("Quarterly SEO subscription", "seo_quarterly_price", _every(3)),
+    SeoSubscriber.Plan.YEARLY: ("Yearly SEO subscription", "seo_yearly_price", _every(12)),
+    SeoSubscriber.Plan.ONEOFF: ("SEO audit", "seo_oneoff_price", None),
 }
 
 
@@ -59,9 +58,8 @@ def seo_quote_for_plan(plan) -> SeoQuote:
     details = SEO_PLAN_DETAILS.get(plan)
     if not details:
         raise PaymentConfigurationError("This SEO plan is unavailable.", code="invalid_plan")
-    name, recurring = details
-    site_settings = SiteSettings.load()
-    price = site_settings.seo_subscription_price if recurring else site_settings.seo_oneoff_price
+    name, price_field, recurring = details
+    price = getattr(SiteSettings.load(), price_field)
     return SeoQuote(plan=plan, name=name, price=price, recurring=recurring)
 
 

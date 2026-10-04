@@ -30,7 +30,7 @@ import {
   choiceInputClassName,
 } from '@/components/forms/selectionFormClassNames';
 import { cn } from '@/lib/utils';
-import { buildSeoPlans, type SignupPlanCode } from '../_lib/plans';
+import { buildSeoPlans, type SeoPlanCode } from '../_lib/plans';
 
 const initialState: SeoSignupState = { status: 'idle' };
 
@@ -44,7 +44,7 @@ export function SeoSignupPanel({
   heading: React.ReactNode;
 }) {
   const router = useRouter();
-  const [selectedCode, setSelectedCode] = useState<SignupPlanCode>('monthly');
+  const [selectedCode, setSelectedCode] = useState<SeoPlanCode>('monthly');
   const plans = useMemo(() => buildSeoPlans(settings), [settings]);
   const selected = planByCode(plans, selectedCode) ?? plans[0];
   const [state, dispatch, isPending] = useActionState(submitSeoSignup, initialState);
@@ -69,7 +69,7 @@ export function SeoSignupPanel({
           {heading}
 
           <div>
-            <p className={choiceGroupHeadingClassName}>Audit or ongoing?</p>
+            <p className={choiceGroupHeadingClassName}>How often can you act on a report?</p>
             <div
               className={cn(choiceGridClassName, 'grid-cols-1 sm:grid-cols-2')}
               role="radiogroup"
@@ -114,7 +114,7 @@ export function SeoSignupPanel({
       }
     >
       <div className={formTitleClassName}>
-        <h3 className={formTitleHeadingClassName}>Create your account.</h3>
+        <h3 className={formTitleHeadingClassName}>Your details.</h3>
       </div>
       <label className={fieldLabelClassName}>
         <span className={fieldLabelSpanClassName}>Email</span>

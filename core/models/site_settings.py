@@ -15,9 +15,8 @@ class SiteSettings(models.Model):
 
     Licensing prices are per month and are the source of truth sent to Stripe
     for new subscriptions; existing subscriptions retain their accepted price.
-    SEO report prices are per report at each cadence. The Google Business
-    Profile report has its own per-report price and can be purchased alone or
-    combined with an SEO report at the selected cadence.
+    SEO prices are per report: the customer picks monthly, quarterly or yearly
+    at signup, or a one-off audit, and each has its own price.
     """
 
     licensing_price = models.DecimalField(
@@ -32,9 +31,15 @@ class SiteSettings(models.Model):
         max_digits=8, decimal_places=2, default=Decimal("199.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
-    # Per cycle, at whatever cadence the subscriber is on: a subscription
-    # starts monthly and slows, and the price of each cycle does not change.
-    seo_subscription_price = models.DecimalField(
+    seo_monthly_price = models.DecimalField(
+        max_digits=8, decimal_places=2, default=Decimal("499.00"),
+        validators=[MinValueValidator(Decimal("0.01"))],
+    )
+    seo_quarterly_price = models.DecimalField(
+        max_digits=8, decimal_places=2, default=Decimal("499.00"),
+        validators=[MinValueValidator(Decimal("0.01"))],
+    )
+    seo_yearly_price = models.DecimalField(
         max_digits=8, decimal_places=2, default=Decimal("499.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )

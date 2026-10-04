@@ -23,8 +23,7 @@ export const seoSignupSchema = z.object({
     .min(1, 'Website is required.')
     .max(FIELD_MAX.url)
     .transform(normaliseWebsiteUrl),
-  // A subscription always starts monthly; the slower cadences come later.
-  plan: z.enum(['monthly', 'oneoff'], { message: 'Choose a plan.' }),
+  plan: z.enum(['monthly', 'quarterly', 'yearly', 'oneoff'], { message: 'Choose a plan.' }),
 });
 
 export type SeoSignupValues = z.infer<typeof seoSignupSchema>;

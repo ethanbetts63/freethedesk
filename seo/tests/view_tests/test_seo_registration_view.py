@@ -63,9 +63,18 @@ def test_signup_accepts_a_one_off(client):
     assert SeoSubscriber.objects.get().is_one_off
 
 
-@pytest.mark.parametrize("plan", ["bimonthly", "quarterly", "biannual"])
-def test_signup_rejects_the_slower_cadences(client, plan):
-    # A subscription always starts monthly; slower cadences come later.
+@pytest.mark.parametrize("plan", ["quarterly", "yearly"])
+def test_signup_accepts_the_slower_cadences(client, plan):
+    # The customer picks the pace they can act on.
+    response = client.post(
+        reverse("seo-signup"), {**PAYLOAD, "plan": plan}, content_type="application/json"
+    )
+    assert response.status_code == 201
+    assert SeoSubscriber.objects.get().plan == plan
+
+
+@pytest.mark.parametrize("plan", ["bimonthly", "biannual"])
+def test_signup_rejects_the_retired_cadences(client, plan):
     response = client.post(
         reverse("seo-signup"), {**PAYLOAD, "plan": plan}, content_type="application/json"
     )

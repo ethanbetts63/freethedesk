@@ -1,11 +1,12 @@
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 import { ChecklistCard, LiveDot } from '@/components/visuals/ChecklistCard';
 
+/** Mirrors SeoSubscriber.Plan, by who each pace suits. */
 const CADENCES = [
-  ['Monthly', 'Start'],
-  ['Every two months', 'Then'],
-  ['Quarterly', 'Then'],
-  ['Every six months', 'Steady'],
+  ['Monthly', 'Changes in weeks'],
+  ['Quarterly', 'Agency or IT queue'],
+  ['Yearly', 'Annual check-up'],
+  ['One-off', 'A single audit'],
 ] as const;
 
 export function SeoCadence({ eyebrow }: { eyebrow: string }) {
@@ -13,17 +14,16 @@ export function SeoCadence({ eyebrow }: { eyebrow: string }) {
     <SplitFeatureSection
       id="cadence"
       eyebrow={eyebrow}
-      title="Paced by your data."
+      title="Paced by how fast you act."
       accentTitle="Not our invoice."
-      description="A cycle needs new data to judge your last changes. Initially, that's monthly. When results need longer to show, we'll suggest a longer gap."
+      description="A report is only worth the changes it leads to. Monthly suits a business that can make changes within weeks. Quarterly suits changes that go through an agency or an IT queue. Yearly is an annual check-up."
       visual={
         <ChecklistCard
           mark={<LiveDot />}
           eyebrow="Cadence"
-          title="Same price per cycle"
-          countLabel={`${CADENCES.length} stages`}
+          title="Pick the pace you can keep"
           items={CADENCES.map(([title, tag]) => ({ title, tag }))}
-          ariaLabel="How a subscription's cadence follows how much there is to measure"
+          ariaLabel="Which reporting pace suits which business"
         />
       }
       textSide="right"

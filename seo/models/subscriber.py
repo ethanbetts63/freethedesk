@@ -30,22 +30,20 @@ class SeoSubscriber(models.Model):
         DENIED = "denied", "Denied"
 
     class Plan(models.TextChoices):
-        """How often a subscriber's cycle runs, or a single one-off cycle.
+        """How often a subscriber gets a report, or a single one-off report.
 
-        Signup only offers MONTHLY or ONEOFF. A subscription starts monthly and
-        slows when there's less new data to judge changes by - every two
-        months, then quarterly, then every six months - so the slower
-        cadences are reached by moving an existing subscriber, never chosen.
-        The price per cycle is the same at every cadence.
+        The customer picks at signup, by how fast they can act on a report:
+        monthly if changes can go in within weeks, quarterly if they go through
+        an agency or an IT queue, yearly as an annual check-up. Each has its
+        own price. Staff move a subscriber between them on request.
         """
 
         MONTHLY = "monthly", "Monthly"
-        BIMONTHLY = "bimonthly", "Every two months"
         QUARTERLY = "quarterly", "Quarterly"
-        BIANNUAL = "biannual", "Every six months"
+        YEARLY = "yearly", "Yearly"
         ONEOFF = "oneoff", "SEO audit"
 
-    SIGNUP_PLANS = (Plan.MONTHLY, Plan.ONEOFF)
+    SIGNUP_PLANS = (Plan.MONTHLY, Plan.QUARTERLY, Plan.YEARLY, Plan.ONEOFF)
 
     class PaymentStatus(models.TextChoices):
         PAYMENT_PENDING = "payment_pending", "Payment pending"

@@ -4,8 +4,8 @@ import type { FaqItem } from '@/types/FaqItem';
 
 /** Built per request so the cost answer quotes the prices the admin has set. */
 export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
-  const audit = formatMoney(settings.seo_oneoff_price, { cents: 'auto' });
-  const cycle = formatMoney(settings.seo_subscription_price, { cents: 'auto' });
+  const price = (value: string) => formatMoney(value, { cents: 'auto' });
+  const audit = price(settings.seo_oneoff_price);
 
   return [
     {
@@ -16,7 +16,7 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
 
     {
       question: 'How much does SEO cost in Perth?',
-      answer: `An SEO audit is ${audit}, once. A subscription is ${cycle} a report. Either way, it's a fraction of a typical agency retainer.`,
+      answer: `An SEO audit is ${audit}, once. A subscription is ${price(settings.seo_monthly_price)} a month, ${price(settings.seo_quarterly_price)} a quarter or ${price(settings.seo_yearly_price)} a year, one report each time. Either way, it's a fraction of a typical agency retainer.`,
     },
 
     {
@@ -34,7 +34,7 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
     {
       question: "What's the difference between an SEO audit and a subscription?",
       answer:
-        'An SEO audit is a single full round: the analysis, the foundation checks and ranked recommendations. A subscription repeats it, and every recommendation you implement becomes an experiment, so each cycle shows what worked and what to drop. It also costs less per cycle.',
+        'An SEO audit is a single full round: the analysis, the foundation checks and ranked recommendations. A subscription repeats it, and every recommendation you implement becomes an experiment, so each report shows what worked and what to drop.',
     },
 
     {

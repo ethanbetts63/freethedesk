@@ -100,7 +100,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-10-03',
+    updated: '2026-10-04',
     label: 'SEO',
     title: 'SEO Perth | Analyse, recommend, experiment, grow',
     description:
@@ -161,7 +161,7 @@ export const STATIC_PAGES = {
     description: 'Terms for freethedesk dealer licensing and contract subscriptions.',
   },
   '/legal/seo-subscription-terms': {
-    updated: '2026-10-02',
+    updated: '2026-10-04',
     label: 'SEO subscription terms',
     title: 'SEO Subscription Terms',
     description: 'Terms for freethedesk SEO subscriptions and one-off SEO reviews.',

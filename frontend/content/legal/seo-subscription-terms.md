@@ -1,6 +1,6 @@
 # SEO Subscription Terms
 
-Effective date: 2 October 2026
+Effective date: 4 October 2026
 
 > Draft for launch preparation. Free the Desk's legal entity name and service address must be added and these terms should receive Australian legal review before paid subscriptions are enabled.
 
@@ -18,10 +18,10 @@ The service is analysis and recommendations. Implementing the recommendations, w
 
 ## 3. Plans
 
-- SEO subscription: one cycle at a time, charged per cycle, starting monthly.
-- SEO audit: a single cycle with no ongoing subscription.
+- SEO subscription: one report each cycle, charged per cycle, at the cadence you choose: monthly, quarterly or yearly.
+- SEO audit: a single report with no ongoing subscription.
 
-A subscription starts with a cycle every month. As the most valuable early opportunities are used up, we may move it to a cycle every two months, then every three months, and, once the site's growth has matured, every six months. The price of each cycle does not change when the cadence changes; only how often it is charged. We will tell you before a change of cadence takes effect, and you may ask to stay on, or return to, a faster cadence.
+You choose the cadence when you sign up, and each cadence has its own price. You may ask us to move your subscription to a different cadence; the new cadence and its price apply from the next billing period, and we will confirm the change with you before it takes effect.
 
 The selected plan, current price and billing frequency are displayed before payment. The displayed price is the total payable; no amount is added at checkout. If there is a conflict between these terms and a signed custom proposal, the custom proposal prevails to the extent of the conflict.
 

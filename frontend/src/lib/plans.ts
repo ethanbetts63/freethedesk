@@ -8,9 +8,6 @@ export interface Plan<Code extends string> {
   recommended?: boolean;
 }
 
-export function planByCode<Code extends string>(
-  plans: Plan<Code>[],
-  code: string,
-): Plan<Code> | undefined {
+export function planByCode<P extends Plan<string>>(plans: P[], code: string): P | undefined {
   return plans.find((plan) => plan.code === code);
 }

@@ -7,16 +7,15 @@ import { CheckoutForm, CheckoutShell, CheckoutState } from '@/components/checkou
 import { createSeoCheckout, getSeoCheckoutStatus, type SeoCheckoutStatus } from '@/lib/seoApi';
 import { getSiteSettings } from '@/lib/api';
 import { stripeConfigured } from '@/lib/stripe';
-import { buildSeoPlans, planByCode, signupPlanFor, type SeoPlan } from '../_lib/plans';
+import { buildSeoPlans, planByCode, type SeoPlan } from '../_lib/plans';
 import { formatMoney } from '@/lib/formatting';
 
 const SIGN_IN = { href: '/login', label: 'Sign in' };
 
 const DUE_LABELS: Record<string, string> = {
-  monthly: 'Due monthly to start',
-  bimonthly: 'Due every 2 months',
+  monthly: 'Due monthly',
   quarterly: 'Due every 3 months',
-  biannual: 'Due every 6 months',
+  yearly: 'Due yearly',
   oneoff: 'One-time payment',
 };
 
@@ -56,9 +55,9 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
       );
   }, [reference]);
 
-  const plan = checkout ? planByCode(plans, signupPlanFor(checkout.plan)) : undefined;
+  const plan = checkout ? planByCode(plans, checkout.plan) : undefined;
   const oneOff = checkout?.plan === 'oneoff';
-  const productName = plan ? (oneOff ? 'SEO audit' : 'SEO subscription') : 'Your plan';
+  const productName = plan?.productName ?? 'Your plan';
   const displayedPrice = quotedPrice ? formatMoney(quotedPrice, { cents: 'auto' }) : plan?.price;
 
   async function prepareCheckout() {
@@ -121,7 +120,9 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
         />
       ) : checkout && plan ? (
         <CheckoutForm
-          heading={oneOff ? `Pay for ${productName}.` : `Start ${productName}.`}
+          heading={
+            oneOff ? `Pay for your ${productName}.` : `Start your ${plan.name.toLowerCase()}.`
+          }
           submitLabel={oneOff ? 'Pay now' : 'Start subscription'}
           returnPath={`/seo/payment/complete?ref=${encodeURIComponent(reference)}`}
           termsHref="/legal/seo-subscription-terms"

@@ -7,7 +7,9 @@ export const siteSettingsSchema = z.object({
   licensing_price: price,
   contracts_price: price,
   complete_price: price,
-  seo_subscription_price: price,
+  seo_monthly_price: price,
+  seo_quarterly_price: price,
+  seo_yearly_price: price,
   seo_oneoff_price: price,
 });
 
