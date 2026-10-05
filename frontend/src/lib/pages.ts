@@ -100,7 +100,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-10-04',
+    updated: '2026-10-05',
     label: 'SEO',
     title: 'SEO Perth | Analyse, recommend, experiment, grow',
     description:

@@ -12,8 +12,8 @@ from dealers.utils.permissions import IsDealer
 from seo.models import SeoSubscriber
 
 from ..utils.seo_services import (
-    accept_current_seo_offer,
     create_or_reuse_seo_checkout_session,
+    signup_seo_acceptance,
 )
 from ..utils.services import (
     PaymentConfigurationError,
@@ -28,6 +28,7 @@ _CHECKOUT_ERROR_STATUS = {
     "account_exists": status.HTTP_409_CONFLICT,
     "confirmed": status.HTTP_409_CONFLICT,
     "invalid_plan": status.HTTP_400_BAD_REQUEST,
+    "offer_changed": status.HTTP_409_CONFLICT,
 }
 
 
@@ -77,6 +78,8 @@ class SeoSubscriptionCheckoutView(APIView):
 
     No login exists before payment, so the reference the signup handed back is
     what identifies the purchase; the account is made once Stripe confirms it.
+    The terms were accepted on the signup form, so there is nothing to accept
+    here: checkout charges against that acceptance.
     """
 
     # Creates a Stripe session per call, so this is a spend limit.
@@ -85,20 +88,11 @@ class SeoSubscriptionCheckoutView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        if request.data.get("accepted_terms") is not True:
-            return Response(
-                {"detail": "Accept the SEO subscription terms before continuing."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
         subscriber = get_object_or_404(
             SeoSubscriber, checkout_reference=str(request.data.get("reference", ""))
         )
         try:
-            acceptance, quote = accept_current_seo_offer(
-                subscriber=subscriber,
-                accepted_ip=client_ip(request),
-                user_agent=request.META.get("HTTP_USER_AGENT", ""),
-            )
+            acceptance, quote = signup_seo_acceptance(subscriber)
             client_secret = create_or_reuse_seo_checkout_session(subscriber, acceptance, quote)
         except (PaymentConfigurationError, stripe.StripeError) as error:
             return checkout_failure_response(error)

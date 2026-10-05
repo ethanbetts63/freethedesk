@@ -118,6 +118,12 @@ email address, so an account row is itself a contact record. An SEO signup has
 no `auth.User` until it is paid: the unpaid row holds the email itself, and is
 kept as a lead to follow up on an abandoned checkout.
 
+`SeoSubscriber.password_claim_hash` is a credential, not PII: the SHA-256 of
+the single-use token that lets the signup browser choose the first password
+after paying. The token itself lives only in that browser's httpOnly
+`seo-claim-<reference>` cookie (path `/seo/payment`, seven days), and the hash
+is emptied once used.
+
 ### Tier 3: Enquiry and marketing data
 
 | Model     | File                     | PII fields                                                                              | Consent / opt-out |
@@ -244,7 +250,9 @@ on both sides of it.
 **G10 — The SEO welcome email carries a temporary password in the clear.** The
 same shape as G8, accepted deliberately on 2 October 2026: the account holds
 nothing personal beyond the signup email until the owner signs in, and the
-first sign-in forces a new password (`must_change_password`). `Message.body_text`
+first sign-in forces a new password (`must_change_password`). Since 5 October
+2026 most customers replace it on the payment confirmation page before it is
+ever used, which ends the emailed one there and then. `Message.body_text`
 still keeps the temporary one indefinitely, so the same two ways out apply.
 
 ---

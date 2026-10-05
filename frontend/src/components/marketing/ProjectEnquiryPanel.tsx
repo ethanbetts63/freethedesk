@@ -1,6 +1,6 @@
 'use client';
 
-import { type FormEvent, useActionState, useId, useState } from 'react';
+import { type FormEvent, startTransition, useActionState, useId, useState } from 'react';
 
 import { SelectionFormPanel } from '@/components/forms/SelectionFormPanel';
 import {
@@ -85,7 +85,7 @@ export function ProjectEnquiryPanel({
     const formData = new FormData(event.currentTarget);
     formData.set('project_type', projectType);
     formData.set('budget', budget === 'custom' ? customBudget.trim() : budget);
-    dispatch(formData);
+    startTransition(() => dispatch(formData));
   };
 
   return (

@@ -60,7 +60,9 @@ def send_seo_welcome(subscriber: SeoSubscriber, password: str | None):
     setup_url = f"{site_url()}/seo-portal/setup"
     sign_in = (
         f"Email: {subscriber.email}\nTemporary password: {password}\n\n"
-        "You'll choose your own password the first time you sign in."
+        "If you already chose a password after paying, sign in with that one; this "
+        "temporary password no longer works. Otherwise you'll choose your own the "
+        "first time you sign in."
         if password
         else f"Email: {subscriber.email}, with the password you already use."
     )

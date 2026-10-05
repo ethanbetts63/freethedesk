@@ -84,7 +84,7 @@ export function Hero({
                 {line} <br />
               </span>
             ))}
-            <em className="not-italic text-[var(--action-primary)]">
+            <em className="inline-block pt-s not-italic text-[var(--action-primary)]">
               <HeroRotatingWord words={[accentTitle, ...accentAlternates]} />
             </em>
             {titleSuffix ? (

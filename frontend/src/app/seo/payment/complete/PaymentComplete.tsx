@@ -7,13 +7,21 @@ import {
   type ConfirmationResult,
 } from '@/components/checkout/PaymentConfirmation';
 import { getSeoCheckoutStatus } from '@/lib/seoApi';
+import { ChoosePasswordForm } from './ChoosePasswordForm';
 
 /**
  * Back from Stripe. Nobody is signed in yet: the login is made when the
- * payment lands and its temporary password is emailed, so success points at
- * sign-in rather than redirecting into a portal that would bounce them.
+ * payment lands and its temporary password is emailed. The browser that signed
+ * up (`canChoosePassword`) chooses the account's own password here, which signs
+ * it in and opens the dashboard; any other browser is pointed at sign-in.
  */
-export function PaymentComplete({ reference }: { reference: string }) {
+export function PaymentComplete({
+  reference,
+  canChoosePassword,
+}: {
+  reference: string;
+  canChoosePassword: boolean;
+}) {
   const check = useCallback(async (): Promise<ConfirmationResult> => {
     const status = await getSeoCheckoutStatus(reference);
     if (status.paid) return { status: 'active' };
@@ -30,10 +38,12 @@ export function PaymentComplete({ reference }: { reference: string }) {
           'Confirming your payment.',
           'Stripe is securely completing the payment. This usually takes only a few seconds.',
         ],
-        active: [
-          'Payment confirmed.',
-          'We have emailed you a temporary password. Sign in with it to set up your SEO dashboard.',
-        ],
+        active: canChoosePassword
+          ? ['Payment confirmed.', 'Choose a password to open your SEO dashboard.']
+          : [
+              'Payment confirmed.',
+              'We have emailed you a temporary password. Sign in with it to set up your SEO dashboard.',
+            ],
         failed: [
           'Payment needs attention.',
           'Stripe could not confirm the payment. You can return to secure payment and try again.',
@@ -45,6 +55,7 @@ export function PaymentComplete({ reference }: { reference: string }) {
       }}
       retryHref={`/seo/payment?ref=${encodeURIComponent(reference)}`}
       activeLink={{ href: '/login', label: 'Sign in' }}
+      activeContent={canChoosePassword ? <ChoosePasswordForm reference={reference} /> : undefined}
       portalHref="/login"
       portalLabel="Sign in"
     />

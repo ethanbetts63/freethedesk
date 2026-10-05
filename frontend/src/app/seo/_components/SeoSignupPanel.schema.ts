@@ -24,6 +24,10 @@ export const seoSignupSchema = z.object({
     .max(FIELD_MAX.url)
     .transform(normaliseWebsiteUrl),
   plan: z.enum(['monthly', 'quarterly', 'yearly', 'oneoff'], { message: 'Choose a plan.' }),
+  // An unticked checkbox sends nothing; a ticked one sends "on".
+  accepted_terms: z
+    .literal('on', { message: 'Accept the SEO Subscription Terms to continue.' })
+    .transform(() => true),
 });
 
 export type SeoSignupValues = z.infer<typeof seoSignupSchema>;

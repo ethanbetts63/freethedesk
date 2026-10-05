@@ -1,6 +1,13 @@
 'use client';
 
-import { type FormEvent, useActionState, useEffect, useMemo, useState } from 'react';
+import {
+  type FormEvent,
+  startTransition,
+  useActionState,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useRouter } from 'next/navigation';
 
 import { SelectionFormPanel } from '@/components/forms/SelectionFormPanel';
@@ -60,7 +67,7 @@ export function SignupPlansPanel({
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     formData.set('plan', selectedCode);
-    dispatch(formData);
+    startTransition(() => dispatch(formData));
   };
 
   return (

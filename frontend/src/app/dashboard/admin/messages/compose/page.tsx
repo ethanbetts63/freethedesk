@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { type FormEvent, Suspense, useActionState, useRef, useState } from 'react';
+import { type FormEvent, Suspense, startTransition, useActionState, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { submitComposeMessage, type ComposeMessageState } from './ComposeMessage.actions';
 import { Button } from '@/components/ui/Button';
@@ -56,7 +56,7 @@ function ComposeMessageContent() {
     formData.set('body', body);
     if (relatedEnquiry) formData.set('relatedEnquiry', String(relatedEnquiry));
     attachments.forEach((file) => formData.append('attachments', file));
-    dispatch(formData);
+    startTransition(() => dispatch(formData));
   }
 
   return (

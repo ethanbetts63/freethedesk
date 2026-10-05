@@ -2,6 +2,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.urls import reverse
+from freetheplatform.agreements import Acceptance
 
 from seo.models import SeoSubscriber
 
@@ -12,6 +13,7 @@ PAYLOAD = {
     "phone": "0400 000 000",
     "website": "https://peakdigital.com.au",
     "plan": "monthly",
+    "accepted_terms": True,
 }
 
 
@@ -33,8 +35,46 @@ def test_signup_records_the_details_and_makes_no_login(client):
     assert subscriber.email == PAYLOAD["email"]
     assert subscriber.user is None
     assert not get_user_model().objects.exists()
-    assert response.json() == {"reference": subscriber.checkout_reference}
+    body = response.json()
+    assert body["reference"] == subscriber.checkout_reference
+    # Only its hash is kept; the plain value goes to the signup's Server Action.
+    assert body["password_claim"]
+    assert subscriber.password_claim_hash
+    assert body["password_claim"] not in subscriber.password_claim_hash
     assert "freethedesk_access" not in response.cookies
+
+
+def test_signup_records_the_terms_ticked_on_the_form(client):
+    client.post(
+        reverse("seo-signup"),
+        PAYLOAD,
+        content_type="application/json",
+        HTTP_X_FORWARDED_FOR="203.0.113.99, 198.51.100.24",
+        HTTP_USER_AGENT="Mozilla/5.0 test",
+    )
+
+    subscriber = SeoSubscriber.objects.get()
+    acceptance = Acceptance.objects.for_related(subscriber).get()
+    assert acceptance.context["plan"] == "monthly"
+    assert str(acceptance.accepted_ip) == "198.51.100.24"
+    assert acceptance.user_agent == "Mozilla/5.0 test"
+    # No login exists yet, so the acceptance names the email typed at signup.
+    assert acceptance.accepted_by is None
+    assert acceptance.actor_snapshot == {"email": subscriber.email}
+
+
+@pytest.mark.parametrize("accepted", [False, None])
+def test_signup_without_the_terms_is_refused(client, accepted):
+    payload = {**PAYLOAD, "accepted_terms": accepted}
+    if accepted is None:
+        del payload["accepted_terms"]
+
+    response = client.post(reverse("seo-signup"), payload, content_type="application/json")
+
+    assert response.status_code == 400
+    assert "accepted_terms" in response.json()
+    assert not SeoSubscriber.objects.exists()
+    assert not Acceptance.objects.exists()
 
 
 def test_signing_up_twice_keeps_both_signups(client):

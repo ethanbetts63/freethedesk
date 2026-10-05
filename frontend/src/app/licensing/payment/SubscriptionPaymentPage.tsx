@@ -11,8 +11,6 @@ import { stripeConfigured } from '@/lib/stripe';
 import { buildDealerPlans, planByCode, type DealerPlan } from '../_lib/plans';
 import { formatMoney } from '@/lib/formatting';
 
-const RETURN_PATH = '/licensing/payment/complete';
-
 export function SubscriptionPaymentPage() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
@@ -66,14 +64,9 @@ export function SubscriptionPaymentPage() {
 
   return (
     <CheckoutShell
-      productLabel="Selected product"
       productName={plan?.name ?? 'Your subscription'}
-      productSummary={plan?.summary ?? 'Preparing your secure checkout.'}
-      order={
-        plan && displayedPrice
-          ? { lineLabel: 'Monthly subscription', price: displayedPrice, dueLabel: 'Due monthly' }
-          : undefined
-      }
+      order={plan && displayedPrice ? { price: displayedPrice, dueLabel: 'per month' } : undefined}
+      features={plan?.features}
     >
       {error ? (
         <CheckoutState
@@ -86,7 +79,6 @@ export function SubscriptionPaymentPage() {
         <CheckoutForm
           heading={`Start ${plan.name}.`}
           submitLabel="Start subscription"
-          returnPath={RETURN_PATH}
           termsHref="/legal/dealer-subscription-terms"
           termsLabel="Dealer Subscription Terms"
           authorisation="authorise this monthly subscription."

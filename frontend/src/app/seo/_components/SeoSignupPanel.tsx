@@ -1,13 +1,20 @@
 'use client';
 
-import { type FormEvent, useActionState, useEffect, useMemo, useState } from 'react';
+import {
+  type FormEvent,
+  startTransition,
+  useActionState,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import { TermsAgreement } from '@/components/checkout/TermsAgreement';
 import { CtaButton } from '@/components/CtaButton';
 import { SelectionFormPanel } from '@/components/forms/SelectionFormPanel';
 import {
-  choiceGroupHeadingClassName,
   fieldInputClassName,
   fieldLabelClassName,
   fieldLabelSpanClassName,
@@ -19,7 +26,6 @@ import {
   totalClassName,
   totalFigureClassName,
   totalPriceClassName,
-  totalSummaryClassName,
 } from '@/components/forms/selectionFormClassNames';
 import { type PublicSiteSettings } from '@/lib/api';
 import { planByCode } from '@/lib/plans';
@@ -58,7 +64,7 @@ export function SeoSignupPanel({
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     formData.set('plan', selectedCode);
-    dispatch(formData);
+    startTransition(() => dispatch(formData));
   };
 
   return (
@@ -68,47 +74,46 @@ export function SeoSignupPanel({
         <>
           {heading}
 
-          <div>
-            <p className={choiceGroupHeadingClassName}>How often can you act on a report?</p>
-            <div
-              className={cn(choiceGridClassName, 'grid-cols-1 sm:grid-cols-2')}
-              role="radiogroup"
-              aria-label="Plan"
-            >
-              {plans.map((plan) => (
-                <label
-                  className={choiceCardVariants({
-                    selected: selectedCode === plan.code,
-                    recommended: plan.recommended,
-                  })}
-                  key={plan.code}
-                >
-                  <input
-                    className={choiceInputClassName}
-                    type="radio"
-                    name="seo-plan"
-                    value={plan.code}
-                    checked={selectedCode === plan.code}
-                    onChange={() => setSelectedCode(plan.code)}
-                  />
-                  <span>{plan.name}</span>
-                  {plan.recommended && <small className="moving-colour-text">Recommended</small>}
-                </label>
-              ))}
-            </div>
-            <p className="mt-l mb-0 max-w-[46ch] text-body-sm leading-relaxed text-text-muted">
-              Cancel any time.
-            </p>
+          <div
+            className={cn(choiceGridClassName, 'mt-xl grid-cols-1 sm:grid-cols-2')}
+            role="radiogroup"
+            aria-label="Plan"
+          >
+            {plans.map((plan) => (
+              <label
+                className={choiceCardVariants({
+                  selected: selectedCode === plan.code,
+                  recommended: plan.recommended,
+                })}
+                key={plan.code}
+              >
+                <input
+                  className={choiceInputClassName}
+                  type="radio"
+                  name="seo-plan"
+                  value={plan.code}
+                  checked={selectedCode === plan.code}
+                  onChange={() => setSelectedCode(plan.code)}
+                />
+                <span>{plan.name}</span>
+                {plan.recommended && <small className="moving-colour-text">Recommended</small>}
+              </label>
+            ))}
           </div>
 
-          <div className={totalClassName} aria-live="polite">
-            <div className={totalFigureClassName}>
+          <div
+            className={cn(totalClassName, 'justify-items-center sm:grid-cols-1')}
+            aria-live="polite"
+          >
+            <div className={cn(totalFigureClassName, 'text-center')}>
               <strong className={`${totalPriceClassName} moving-colour-text`}>
                 {selected.price}
               </strong>
               <small className={totalCadenceClassName}>{selected.cadence}</small>
+              {selected.code !== 'oneoff' && (
+                <small className={totalCadenceClassName}>Cancel any time.</small>
+              )}
             </div>
-            <span className={totalSummaryClassName}>{selected.summary}</span>
           </div>
         </>
       }
@@ -150,6 +155,14 @@ export function SeoSignupPanel({
           required
         />
       </label>
+      <TermsAgreement
+        className="mb-l"
+        name="accepted_terms"
+        required
+        termsHref="/legal/seo-subscription-terms"
+        termsLabel="SEO Subscription Terms"
+        authorisation={`authorise this ${selected.code === 'oneoff' ? 'payment' : 'recurring subscription'}.`}
+      />
       {state.status === 'error' && (
         <p className={formErrorClassName} role="alert">
           {state.error}

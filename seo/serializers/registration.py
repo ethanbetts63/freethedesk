@@ -28,6 +28,14 @@ class SeoRegistrationSerializer(serializers.Serializer):
         choices=[(plan.value, plan.label) for plan in SeoSubscriber.SIGNUP_PLANS],
         default=SeoSubscriber.Plan.MONTHLY,
     )
+    # The terms are agreed to here, on the form, and recorded by the view;
+    # checkout then charges against that acceptance.
+    accepted_terms = serializers.BooleanField()
+
+    def validate_accepted_terms(self, value: bool) -> bool:
+        if not value:
+            raise serializers.ValidationError("Accept the SEO Subscription Terms to continue.")
+        return value
 
     def validate_email(self, value: str) -> str:
         value = value.strip().lower()
@@ -39,6 +47,7 @@ class SeoRegistrationSerializer(serializers.Serializer):
         return value
 
     def create(self, validated_data):
+        validated_data.pop("accepted_terms")
         email = validated_data["email"]
         hostname = urlsplit(validated_data.get("website", "")).hostname or email.partition("@")[2]
         if not validated_data.get("business_name"):

@@ -1,18 +1,18 @@
 'use client';
 
 import { type FormEvent, type ReactNode, useState } from 'react';
-import Link from 'next/link';
 import {
   CheckoutElementsProvider,
   PaymentElement,
   useCheckoutElements,
 } from '@stripe/react-stripe-js/checkout';
+import Link from 'next/link';
 
-import { Wordmark } from '@/components/Wordmark';
 import { stripePromise, STRIPE_ELEMENTS_OPTIONS } from '@/lib/stripe';
 import { cn } from '@/lib/utils';
 
 import { CheckoutButton } from './CheckoutButton';
+import { TermsAgreement } from './TermsAgreement';
 import { gridPaperAfterClassName } from '@/lib/gridSurface';
 
 /**
@@ -30,65 +30,99 @@ const paymentErrorClassName =
   'my-m border-l-[3px] border-border-danger bg-surface-danger p-s text-label leading-[1.55] text-text-danger';
 
 export type CheckoutOrder = {
-  lineLabel: string;
   price: string;
+  /** What the price buys, e.g. "per report, every month". */
   dueLabel: string;
 };
 
+const summaryListItemClassName =
+  'relative my-xs pl-ml text-body-sm font-strong text-text-control before:absolute before:left-0 before:font-black before:text-action-primary';
+
+/**
+ * The order on the left, held in view while the card fields on the right are
+ * filled in: what is being bought, its price once, what it includes, and what
+ * happens after paying.
+ */
 export function CheckoutShell({
-  productLabel,
   productName,
-  productSummary,
   order,
+  features,
+  nextSteps,
+  changeHref,
   children,
 }: {
-  productLabel: string;
   productName: string;
-  productSummary: string;
   order?: CheckoutOrder;
+  features?: readonly string[];
+  nextSteps?: readonly string[];
+  /** Back to the plan chooser, for a customer who picked the wrong one. */
+  changeHref?: string;
   children: ReactNode;
 }) {
   return (
-    <main className="grid min-h-screen grid-cols-[minmax(0,1fr)] bg-surface-page text-surface-inverse lg:grid-cols-[minmax(390px,0.92fr)_minmax(520px,1.08fr)]">
-      <section
+    <main className="grid grid-cols-[minmax(0,1fr)] overflow-clip bg-surface-page text-surface-inverse lg:grid-cols-[minmax(360px,0.8fr)_minmax(520px,1.2fr)]">
+      <aside
         className={cn(
-          'relative min-h-[540px] overflow-hidden bg-surface-tint sm:min-h-[620px] lg:min-h-screen',
+          'relative border-b border-border-default bg-surface-tint lg:border-r lg:border-b-0',
           gridPaperAfterClassName,
         )}
       >
-        <div className="relative z-2 flex min-h-[540px] flex-col px-ml py-xl sm:min-h-[620px] sm:p-2xl lg:min-h-screen">
-          <Wordmark href="/" />
-          <div className="mx-0 mt-auto mb-xl max-w-[610px] sm:mb-2xl">
-            <p className="m-0 mb-ml text-caption font-black tracking-label-wide text-action-primary uppercase">
-              {productLabel}
-            </p>
-            <h1 className="m-0 mb-xl max-w-[690px] text-hero leading-[0.87] tracking-[-0.075em] sm:text-hero">
-              {productName}
-            </h1>
-            <span className="block max-w-[430px] text-lead leading-relaxed text-text-muted">
-              {productSummary}
-            </span>
-          </div>
+        <div className="relative z-2 mx-auto max-w-[460px] px-ml py-xl sm:p-2xl lg:sticky lg:top-[var(--header-height-lg)]">
+          <p className={cn(eyebrowClassName, 'm-0')}>Your order</p>
+          <h1 className="m-0 mt-s text-title leading-tight tracking-[-0.045em]">{productName}</h1>
           {order && (
-            <div className="border border-[color-mix(in_srgb,var(--border-strong)_68%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_82%,transparent)] p-m backdrop-blur-[12px] sm:p-l">
-              <div className="flex items-center justify-between py-2xs text-label">
-                <span className="text-text-muted">{order.lineLabel}</span>
-                <strong className="text-body-sm">{order.price}</strong>
-              </div>
-              <div className="mt-xs flex items-center justify-between border-t border-border-default pt-m pb-2xs text-label">
-                <span className="text-text-muted">{order.dueLabel}</span>
-                <strong className="text-title-sm tracking-[-0.04em] text-action-primary">
-                  {order.price}
-                </strong>
-              </div>
+            <div className="mt-l flex flex-wrap items-baseline gap-x-s gap-y-2xs border-y border-border-default py-m">
+              <strong className="text-display leading-none tracking-[-0.06em] text-action-primary">
+                {order.price}
+              </strong>
+              <span className="text-label text-text-muted">{order.dueLabel}</span>
             </div>
           )}
+          {changeHref && (
+            <Link
+              className="mt-s inline-block text-label font-heavy text-action-primary underline underline-offset-2"
+              href={changeHref}
+            >
+              Change plan
+            </Link>
+          )}
+          {features && features.length > 0 && (
+            <section className="mt-xl">
+              <h2 className={cn(eyebrowClassName, 'm-0 mb-s')}>Included</h2>
+              <ul className="m-0 list-none p-0">
+                {features.map((feature) => (
+                  <li
+                    key={feature}
+                    className={cn(summaryListItemClassName, "before:content-['↳']")}
+                  >
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+          {nextSteps && nextSteps.length > 0 && (
+            <section className="mt-xl">
+              <h2 className={cn(eyebrowClassName, 'm-0 mb-s')}>What happens next</h2>
+              <ol className="m-0 list-none p-0 [counter-reset:step]">
+                {nextSteps.map((step) => (
+                  <li
+                    key={step}
+                    className={cn(
+                      summaryListItemClassName,
+                      '[counter-increment:step] before:content-[counter(step)]',
+                    )}
+                  >
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
         </div>
-      </section>
+      </aside>
 
-      <section className="flex min-h-auto items-center justify-center overflow-y-auto px-ml py-3xl sm:p-3xl lg:min-h-screen lg:py-3xl">
-        {children}
-      </section>
+      <section className="flex justify-center px-ml py-2xl sm:p-2xl lg:px-3xl">{children}</section>
     </main>
   );
 }
@@ -138,7 +172,6 @@ export function CheckoutState({
 export function CheckoutForm({
   heading,
   submitLabel,
-  returnPath,
   termsHref,
   termsLabel,
   authorisation,
@@ -147,7 +180,6 @@ export function CheckoutForm({
 }: {
   heading: string;
   submitLabel: string;
-  returnPath: string;
   termsHref: string;
   termsLabel: string;
   authorisation: string;
@@ -170,48 +202,21 @@ export function CheckoutForm({
 
   return (
     <div className="w-full max-w-copy">
-      <div className="mb-xl border-b border-border-default pb-xl">
-        <span className={eyebrowClassName}>Secure payment</span>
-        <h2 className={headingClassName}>{heading}</h2>
-        <p className={bodyClassName}>
-          Your card details are encrypted and handled directly by Stripe.
-        </p>
-      </div>
-      <label className="mb-l flex cursor-pointer items-start gap-s text-label leading-normal text-text-muted">
-        <input
-          type="checkbox"
-          checked={accepted}
-          onChange={(event) => toggle(event.target.checked)}
-          className="mt-4xs h-[17px] w-[17px] flex-none accent-action-primary"
-        />
-        <span>
-          I agree to the{' '}
-          <Link
-            className="font-heavy text-action-primary underline underline-offset-2"
-            href={termsHref}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {termsLabel}
-          </Link>
-          , acknowledge the{' '}
-          <Link
-            className="font-heavy text-action-primary underline underline-offset-2"
-            href="/legal/privacy"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Privacy Policy
-          </Link>
-          , and {authorisation}
-        </span>
-      </label>
+      <PaymentHeading heading={heading} />
+      <TermsAgreement
+        className="mb-l"
+        termsHref={termsHref}
+        termsLabel={termsLabel}
+        authorisation={authorisation}
+        checked={accepted}
+        onChange={(event) => toggle(event.target.checked)}
+      />
       {clientSecret ? (
         <CheckoutElementsProvider
           stripe={stripePromise}
           options={{ clientSecret, elementsOptions: STRIPE_ELEMENTS_OPTIONS }}
         >
-          <PaymentFields accepted={accepted} submitLabel={submitLabel} returnPath={returnPath} />
+          <PaymentFields accepted={accepted} submitLabel={submitLabel} />
         </CheckoutElementsProvider>
       ) : (
         <>
@@ -226,24 +231,62 @@ export function CheckoutForm({
           </CheckoutButton>
         </>
       )}
-      <p className={fineprintClassName}>
-        The price shown is the total payable. Your account opens immediately after Stripe confirms
-        payment.
+      <PaymentFineprint />
+    </div>
+  );
+}
+
+/**
+ * The payment step when the terms were already agreed to on an earlier form:
+ * the card fields show as soon as there is a client secret, with no box to
+ * tick first.
+ */
+export function CheckoutPayment({
+  heading,
+  submitLabel,
+  clientSecret,
+}: {
+  heading: string;
+  submitLabel: string;
+  clientSecret: string;
+}) {
+  return (
+    <div className="w-full max-w-copy">
+      <PaymentHeading heading={heading} />
+      <CheckoutElementsProvider
+        stripe={stripePromise}
+        options={{ clientSecret, elementsOptions: STRIPE_ELEMENTS_OPTIONS }}
+      >
+        <PaymentFields accepted submitLabel={submitLabel} />
+      </CheckoutElementsProvider>
+      <PaymentFineprint />
+    </div>
+  );
+}
+
+function PaymentHeading({ heading }: { heading: string }) {
+  return (
+    <div className="mb-l">
+      <span className={eyebrowClassName}>Secure payment</span>
+      <h2 className="my-xs text-title leading-tight tracking-[-0.045em]">{heading}</h2>
+      <p className="m-0 text-body-sm leading-relaxed text-text-muted">
+        Your card details are encrypted and handled directly by Stripe.
       </p>
     </div>
   );
 }
 
+function PaymentFineprint() {
+  return (
+    <p className={fineprintClassName}>
+      The price shown is the total payable. Your account opens immediately after Stripe confirms
+      payment.
+    </p>
+  );
+}
+
 /** Stripe's card fields and the pay button, once checkout is open. */
-function PaymentFields({
-  accepted,
-  submitLabel,
-  returnPath,
-}: {
-  accepted: boolean;
-  submitLabel: string;
-  returnPath: string;
-}) {
+function PaymentFields({ accepted, submitLabel }: { accepted: boolean; submitLabel: string }) {
   const result = useCheckoutElements();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -254,9 +297,9 @@ function PaymentFields({
     setSubmitting(true);
     setError('');
     try {
-      const confirmed = await result.checkout.confirm({
-        returnUrl: `${window.location.origin}${returnPath}`,
-      });
+      // No returnUrl: Django sets it when it creates the session, and Stripe
+      // refuses a second one.
+      const confirmed = await result.checkout.confirm();
       if (confirmed.type === 'error')
         setError(confirmed.error.message || 'Payment could not be confirmed.');
     } catch (reason) {

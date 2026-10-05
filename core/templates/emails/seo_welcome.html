@@ -12,7 +12,7 @@
 {% if password %}
 <p style="margin: 0 0 20px;">Email: <strong>{{ subscriber.email }}</strong><br>
 Temporary password: <strong>{{ password }}</strong></p>
-<p style="margin: 0 0 20px;">You'll choose your own password the first time you sign in.</p>
+<p style="margin: 0 0 20px;">If you already chose a password after paying, sign in with that one; this temporary password no longer works. Otherwise you'll choose your own the first time you sign in.</p>
 {% else %}
 <p style="margin: 0 0 20px;">Email: <strong>{{ subscriber.email }}</strong>, with the password you already use.</p>
 {% endif %}

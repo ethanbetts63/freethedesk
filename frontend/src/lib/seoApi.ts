@@ -93,9 +93,13 @@ export async function getSeoCheckoutStatus(reference: string): Promise<SeoChecko
   return handleResponse(await apiFetch(`/api/seo/checkout/${encodeURIComponent(reference)}/`));
 }
 
-/** Throws an `ApiError` whose payload `code` is `account_exists` for an email that already has an account. */
+/**
+ * Opens checkout against the terms accepted at signup. Throws an `ApiError`
+ * whose payload `code` is `account_exists` for an email that already has an
+ * account, or `offer_changed` when the price or terms moved since signup.
+ */
 export async function createSeoCheckout(reference: string): Promise<SeoCheckout> {
-  return postJson('/api/payments/seo-subscription/', { accepted_terms: true, reference });
+  return postJson('/api/payments/seo-subscription/', { reference });
 }
 
 export async function getSeoOnboarding(): Promise<SeoOnboardingProfile> {

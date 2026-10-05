@@ -107,13 +107,41 @@ purchase change nothing, so a second password is never minted. If the email has
 gained a real account between checkout and payment, no login is made: the
 signup stays pending, a note goes on it, and staff are emailed once to refund
 or merge by hand.
+
+The customer chooses their own password on the confirmation page, not at a
+later sign-in (`seo/utils/password_claim.py`). Signup hands the browser a
+single-use token in an httpOnly cookie scoped to `/seo/payment`; Django keeps
+only its SHA-256 (`SeoSubscriber.password_claim_hash`). Once payment lands, the
+confirmation page shows a password form to the browser holding the cookie, and
+its Server Action posts the token to `/api/seo/checkout/<reference>/password/`.
+Django sets the password only if the token matches, the login was made by
+payment less than an hour ago, and the account is still on the temporary
+password. Setting it clears `must_change_password`, empties the hash, and signs
+the customer in, so the next page is the dashboard. Nobody is signed in on the
+temporary password alone. The reference by itself sets nothing: it sits in the
+URL, browser history and Stripe's records. Anyone without the cookie, or after
+the hour, signs in with the emailed temporary password and is held on
+`/change-password` as before. Whoever filled in the form and paid gets the
+account without proving they own the email address; the owner of the address
+still gets the welcome email, and that is accepted for a paid SEO plan.
+
 Reporting then waits on setup (`seo/utils/setup.py`): it starts once the Search
 Console step is confirmed, by the service-account check or by staff.
 
 Before creating the session, FTD publishes the configured legal document through
 `freetheplatform.agreements` and records an immutable acceptance against the
 dealer or SEO subscriber. The acceptance ID and document hash are copied into
-Stripe metadata. A version label cannot be reused after its document content
+Stripe metadata.
+
+The two products take the acceptance at different moments. A dealer ticks the
+terms on the payment page, and the tick is what opens checkout. An SEO customer
+ticks them on the signup form, and the signup view records the acceptance there,
+so the payment page loads Stripe's card fields straight away. SEO checkout
+records nothing itself: it finds the signup's acceptance for the current
+document version, price and statement (`signup_seo_acceptance`). If the price or
+document changed after signup, no acceptance matches. Checkout then returns
+`409 offer_changed` and the page sends the customer back to the form, so they
+are never charged a price they did not agree to. A version label cannot be reused after its document content
 changes; update the document's `VERSION` in `FTP_AGREEMENTS` whenever its
 Markdown changes.
 

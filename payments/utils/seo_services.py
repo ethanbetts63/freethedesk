@@ -7,6 +7,7 @@ SEO payment succeeds is in ``payments/flows.py``.
 from dataclasses import dataclass
 from decimal import Decimal
 
+from freetheplatform.agreements import Acceptance
 from freetheplatform.payments import (
     CheckoutError, ensure_billing_customer, start_checkout,
 )
@@ -63,17 +64,19 @@ def seo_quote_for_plan(plan) -> SeoQuote:
     return SeoQuote(plan=plan, name=name, price=price, recurring=recurring)
 
 
+def _current_seo_agreement():
+    try:
+        return publish_configured_agreement(SEO_AGREEMENT_KEY)
+    except AgreementConfigurationError as error:
+        raise PaymentConfigurationError(str(error)) from error
+
+
 def accept_current_seo_offer(*, subscriber, accepted_ip, user_agent=""):
-    """Record the terms accepted for this signup. There is no login yet, so
+    """Record the terms accepted on the signup form. There is no login yet, so
     the acceptance names the signup and the email typed into it."""
     _refuse_paid_or_existing(subscriber)
     quote = seo_quote_for_plan(subscriber.plan)
-    try:
-        agreement_version = publish_configured_agreement(
-            SEO_AGREEMENT_KEY
-        )
-    except AgreementConfigurationError as error:
-        raise PaymentConfigurationError(str(error)) from error
+    agreement_version = _current_seo_agreement()
     acceptance = record_checkout_acceptance(
         agreement_version=agreement_version,
         accepted_by=None,
@@ -85,6 +88,30 @@ def accept_current_seo_offer(*, subscriber, accepted_ip, user_agent=""):
         context=seo_offer_context(subscriber, quote),
     )
     return acceptance, quote
+
+
+def signup_seo_acceptance(subscriber):
+    """The acceptance made on the signup form, and the quote it covers.
+
+    Checkout charges only what was agreed to: if the price or the terms have
+    changed since the signup, there is no acceptance to charge against, and
+    the customer is sent back to the form to agree to the new ones.
+    """
+    _refuse_paid_or_existing(subscriber)
+    quote = seo_quote_for_plan(subscriber.plan)
+    context = seo_offer_context(subscriber, quote)
+    statement = seo_acceptance_statement(quote)
+    acceptances = Acceptance.objects.for_related(subscriber).filter(
+        agreement_version=_current_seo_agreement()
+    )
+    for acceptance in acceptances:
+        if acceptance.context == context and acceptance.statement == statement:
+            return acceptance, quote
+    raise PaymentConfigurationError(
+        "The price or terms have changed since you signed up. "
+        "Choose your plan again to agree to the current ones.",
+        code="offer_changed",
+    )
 
 
 def _refuse_paid_or_existing(subscriber):

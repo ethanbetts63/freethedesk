@@ -6,7 +6,7 @@ Sign in: {{ login_url }}
 {% if password %}Email: {{ subscriber.email }}
 Temporary password: {{ password }}
 
-You'll choose your own password the first time you sign in.{% else %}Email: {{ subscriber.email }}, with the password you already use.{% endif %}
+If you already chose a password after paying, sign in with that one; this temporary password no longer works. Otherwise you'll choose your own the first time you sign in.{% else %}Email: {{ subscriber.email }}, with the password you already use.{% endif %}
 
 The setup page walks you through giving us read-only access to Search Console and your other tools. Reporting starts once Search Console is connected.
 
