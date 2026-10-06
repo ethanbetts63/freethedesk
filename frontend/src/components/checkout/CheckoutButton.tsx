@@ -15,8 +15,8 @@ import { cn } from '@/lib/utils';
  *
  * It is deliberately not `CtaButton`. The marketing CTA is a justify-between
  * box with an uppercase label, a tracked letterspacing, a hover fill and a
- * sliding arrow; this one is a flush-left bar with a sentence-case label and an
- * oversized arrow beside it, and converging them would be a redesign of the
+ * sliding arrow; this one is a bar with a sentence-case label and an oversized
+ * arrow beside it, centred together, and converging them would be a redesign of the
  * checkout rather than a migration of it (principle 4). What is removed is the
  * duplication: the same declarations were written out three times across two
  * files, once per shape.
@@ -38,8 +38,8 @@ const checkoutButtonVariants = cva(
   {
     variants: {
       variant: {
-        /** The pay bar: full width, 60px tall, label and arrow flush left. */
-        submit: 'flex min-h-[60px] w-full items-center px-ml',
+        /** The pay bar: full width, 60px tall, label and arrow centred together. */
+        submit: 'flex min-h-[60px] w-full items-center justify-center gap-s px-ml',
         /** The same bar, capped and centred, for a one-word recovery action. */
         retry: 'flex min-h-[60px] w-full max-w-[190px] items-center justify-center px-ml',
         /** Sits in a centred column of text on the confirmation screen. */
