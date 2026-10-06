@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
   // until they came back. Remove one only once Search Console no longer has it.
   async redirects() {
     return [
+      // Moved under /dashboard; a signed-in page, so temporary.
+      { source: '/change-password', destination: '/dashboard/change-password', permanent: false },
       { source: '/websites', destination: '/', permanent: true },
       { source: '/dealer-websites', destination: '/', permanent: true },
       { source: '/website-builder', destination: '/dealership-website-builder', permanent: true },

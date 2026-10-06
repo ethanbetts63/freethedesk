@@ -44,7 +44,6 @@ const GA_EXCLUDED_ROUTES = [
   '/seo-portal',
   '/login',
   '/account',
-  '/change-password',
   '/reset-password',
   '/sale',
 ];

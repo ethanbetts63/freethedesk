@@ -28,7 +28,7 @@ export interface Principal {
 }
 
 /** Where somebody with `must_change_password` is held until they have. */
-export const CHANGE_PASSWORD_PATH = '/change-password';
+export const CHANGE_PASSWORD_PATH = '/dashboard/change-password';
 
 export interface Paginated<T> {
   count: number;

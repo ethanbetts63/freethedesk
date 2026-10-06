@@ -4,7 +4,7 @@ import { useActionState, useEffect } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { homeFor } from '@/lib/api';
+import { CHANGE_PASSWORD_PATH, homeFor } from '@/lib/api';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import { adminLoadingClassName } from '@/components/dashboard/dashboardChrome';
@@ -31,7 +31,7 @@ export default function ChangePasswordPage() {
   const [state, formAction] = useActionState(submitChangePassword, initialState);
 
   useEffect(() => {
-    if (!loading && !user) router.replace('/login?next=/change-password');
+    if (!loading && !user) router.replace(`/login?next=${CHANGE_PASSWORD_PATH}`);
   }, [loading, router, user]);
 
   useEffect(() => {

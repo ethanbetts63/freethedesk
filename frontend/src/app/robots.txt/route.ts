@@ -41,7 +41,6 @@ const DISALLOWED_ROUTES = [
   '/login',
   // Session plumbing, not pages. A reset link is single use and account
   // specific, so a crawler following one would only spend it.
-  '/change-password',
   '/reset-password',
   '/licensing/payment',
   '/seo/payment',
