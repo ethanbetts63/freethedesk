@@ -36,11 +36,7 @@ def test_signup_records_the_details_and_makes_no_login(client):
     assert subscriber.user is None
     assert not get_user_model().objects.exists()
     body = response.json()
-    assert body["reference"] == subscriber.checkout_reference
-    # Only its hash is kept; the plain value goes to the signup's Server Action.
-    assert body["password_claim"]
-    assert subscriber.password_claim_hash
-    assert body["password_claim"] not in subscriber.password_claim_hash
+    assert body == {"reference": subscriber.checkout_reference}
     assert "freethedesk_access" not in response.cookies
 
 

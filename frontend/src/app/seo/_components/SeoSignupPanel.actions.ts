@@ -1,14 +1,9 @@
 'use server';
 
-import { cookies, headers } from 'next/headers';
+import { headers } from 'next/headers';
 
 import { firstError } from '@/lib/api';
 import { serverApiFetch } from '@/lib/serverApi';
-import {
-  PASSWORD_CLAIM_MAX_AGE,
-  PASSWORD_CLAIM_PATH,
-  passwordClaimCookie,
-} from '../_lib/passwordClaim';
 import { seoSignupSchema } from './SeoSignupPanel.schema';
 
 export interface SeoSignupState {
@@ -53,16 +48,6 @@ export async function submitSeoSignup(
       error: firstError(data, GENERIC_FAILURE),
       accountExists: data?.code === 'account_exists',
     };
-  }
-  // Lets this browser choose the account's password straight after paying.
-  if (data.password_claim) {
-    (await cookies()).set(passwordClaimCookie(data.reference), data.password_claim, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: PASSWORD_CLAIM_PATH,
-      maxAge: PASSWORD_CLAIM_MAX_AGE,
-    });
   }
   return { status: 'success', reference: data.reference };
 }

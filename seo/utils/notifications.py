@@ -52,23 +52,24 @@ def notify_staff_of_seo_signup(subscriber: SeoSubscriber):
 def send_seo_welcome(subscriber: SeoSubscriber, password: str | None):
     """Payment is in: the customer's sign-in details and where setup lives.
 
-    ``password`` is the temporary one minted at payment, or None when the account
-    already had a password of its own. It reaches this function once; the
-    account asks for a new one at first sign-in.
+    ``password`` is the account's first password, minted at payment and
+    presented as a verification code, or None when the account already had a
+    password of its own. Entering it on the payment confirmation page verifies
+    the address and replaces it (``lib/verifyEmailCode`` in the frontend). It
+    reaches this function once.
     """
     login_url = f"{site_url()}/login"
     setup_url = f"{site_url()}/seo-portal/setup"
+    verify_url = f"{site_url()}/seo/payment/complete?ref={subscriber.checkout_reference}"
     sign_in = (
-        f"Email: {subscriber.email}\nTemporary password: {password}\n\n"
-        "If you already chose a password after paying, sign in with that one; this "
-        "temporary password no longer works. Otherwise you'll choose your own the "
-        "first time you sign in."
+        f"VERIFY YOUR EMAIL\n\nYour verification code: {password}\n\n"
+        f"Enter it to verify your email, then choose a password:\n{verify_url}\n\n"
+        f"After that, log in any time:\nUsername: {subscriber.email}\nLog in at: {login_url}"
         if password
-        else f"Email: {subscriber.email}, with the password you already use."
+        else f"Log in at: {login_url}\nUsername: {subscriber.email}, with the password you already use."
     )
     body = (
         f"Thanks, payment for {subscriber.business_name} is confirmed.\n\n"
-        f"Sign in to your SEO dashboard: {login_url}\n"
         f"{sign_in}\n\n"
         "The setup page walks you through giving us read-only access to Search Console and "
         "your other tools. Reporting starts once Search Console is connected.\n\n"
@@ -86,6 +87,7 @@ def send_seo_welcome(subscriber: SeoSubscriber, password: str | None):
             "password": password,
             "login_url": login_url,
             "setup_url": setup_url,
+            "verify_url": verify_url,
         },
         related=subscriber,
     )

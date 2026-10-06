@@ -212,7 +212,7 @@ def test_a_paid_seo_subscription_emails_a_temporary_password(
     seo_subscriber.refresh_from_db()
     assert seo_subscriber.status == SeoSubscriber.Status.ACTIVE
     [welcome] = [m for m in outbox if m.to == "seo@example.com"]
-    password = re.search(r"Temporary password: (\S+)", welcome.body_text).group(1)
+    password = re.search(r"Your verification code: (\S+)", welcome.body_text).group(1)
     assert seo_subscriber.user.check_password(password)
     assert lockout.state_for(seo_subscriber.user).must_change_password
 

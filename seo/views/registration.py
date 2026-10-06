@@ -12,7 +12,6 @@ from payments.utils.services import PaymentConfigurationError
 from ..serializers import SeoRegistrationSerializer
 from ..serializers.registration import ACCOUNT_EXISTS
 from ..utils.notifications import notify_staff_of_seo_signup
-from ..utils.password_claim import issue_password_claim
 
 
 class SeoRegistrationView(APIView):
@@ -46,16 +45,12 @@ class SeoRegistrationView(APIView):
                     accepted_ip=client_ip(request),
                     user_agent=request.META.get("HTTP_USER_AGENT", ""),
                 )
-                password_claim = issue_password_claim(subscriber)
         except PaymentConfigurationError as error:
             return Response(
                 {"detail": str(error), "code": error.code},
                 status=status.HTTP_503_SERVICE_UNAVAILABLE,
             )
         notify_staff_of_seo_signup(subscriber)
-        # The claim goes to the signup's Server Action, which keeps it in an
-        # httpOnly cookie; it never reaches page script.
         return Response(
-            {"reference": subscriber.checkout_reference, "password_claim": password_claim},
-            status=status.HTTP_201_CREATED,
+            {"reference": subscriber.checkout_reference}, status=status.HTTP_201_CREATED
         )

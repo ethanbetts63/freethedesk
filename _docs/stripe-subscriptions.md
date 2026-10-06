@@ -101,29 +101,22 @@ Payment is what opens the account; there is no approval step after it. The
 first payment event for a pending subscriber (`seo/utils/services.py`,
 `activate_paid_subscriber`) creates the login (or reuses a passwordless one the
 old signup flow left for that email), makes the subscriber `active`, gives the
-login a temporary password with `must_change_password` set, and emails the
-sign-in details once the webhook transaction commits. Later events for the same
+login a first password with `must_change_password` set, and emails it as a
+verification code once the webhook transaction commits. Later events for the same
 purchase change nothing, so a second password is never minted. If the email has
 gained a real account between checkout and payment, no login is made: the
 signup stays pending, a note goes on it, and staff are emailed once to refund
 or merge by hand.
 
-The customer chooses their own password on the confirmation page, not at a
-later sign-in (`seo/utils/password_claim.py`). Signup hands the browser a
-single-use token in an httpOnly cookie scoped to `/seo/payment`; Django keeps
-only its SHA-256 (`SeoSubscriber.password_claim_hash`). Once payment lands, the
-confirmation page shows a password form to the browser holding the cookie, and
-its Server Action posts the token to `/api/seo/checkout/<reference>/password/`.
-Django sets the password only if the token matches, the login was made by
-payment less than an hour ago, and the account is still on the temporary
-password. Setting it clears `must_change_password`, empties the hash, and signs
-the customer in, so the next page is the dashboard. Nobody is signed in on the
-temporary password alone. The reference by itself sets nothing: it sits in the
-URL, browser history and Stripe's records. Anyone without the cookie, or after
-the hour, signs in with the emailed temporary password and is held on
-`/change-password` as before. Whoever filled in the form and paid gets the
-account without proving they own the email address; the owner of the address
-still gets the welcome email, and that is accepted for a paid SEO plan.
+The customer verifies the email and chooses their own password on the
+confirmation page (`/seo/payment/complete`), which the welcome email also links
+to. The form takes the email, the verification code and a new password; its
+Server Action uses the registry's `lib/verifyEmailCode.ts`, which signs in with
+the code and then changes the password on that session, so nobody is ever
+signed in on the code alone. This is the family standard in
+`freetheplatform/_docs/apps/payments.md`, "Accounts a payment opens". A
+mistyped email is caught here: the code never arrives. Signing in at `/login`
+with the code instead holds the customer on `/dashboard/change-password`.
 
 Reporting then waits on setup (`seo/utils/setup.py`): it starts once the Search
 Console step is confirmed, by the service-account check or by staff.

@@ -1,20 +1,24 @@
 {% extends "emails/base.html" %}
 
 {% block title %}Your SEO dashboard is ready — freethedesk{% endblock %}
-{% block preheader %}Payment confirmed. Sign in and connect Search Console to start reporting.{% endblock %}
+{% block preheader %}Payment confirmed. Verify your email, then connect Search Console to start reporting.{% endblock %}
 
 {% block content %}
 <p style="margin: 0 0 20px; font-size: 18px; font-weight: 700;">Payment confirmed.</p>
 
 <p style="margin: 0 0 20px;">Thanks — your SEO dashboard for <strong>{{ subscriber.business_name }}</strong> is ready.</p>
 
-<p style="margin: 0 0 8px;">Sign in to <a href="{{ login_url }}">your dashboard</a>:</p>
 {% if password %}
-<p style="margin: 0 0 20px;">Email: <strong>{{ subscriber.email }}</strong><br>
-Temporary password: <strong>{{ password }}</strong></p>
-<p style="margin: 0 0 20px;">If you already chose a password after paying, sign in with that one; this temporary password no longer works. Otherwise you'll choose your own the first time you sign in.</p>
+<p style="margin: 0 0 8px; font-weight: 700;">Verify your email</p>
+<p style="margin: 0 0 8px;">Your verification code:</p>
+<p style="margin: 0 0 20px; font-size: 22px; letter-spacing: 2px;"><strong>{{ password }}</strong></p>
+<p style="margin: 0 0 20px;"><a href="{{ verify_url }}">Enter it to verify your email</a>, then choose a password.</p>
+<p style="margin: 0 0 20px;">After that, log in any time:<br>
+Username: <strong>{{ subscriber.email }}</strong><br>
+Log in at: <a href="{{ login_url }}">{{ login_url }}</a></p>
 {% else %}
-<p style="margin: 0 0 20px;">Email: <strong>{{ subscriber.email }}</strong>, with the password you already use.</p>
+<p style="margin: 0 0 20px;">Log in at <a href="{{ login_url }}">{{ login_url }}</a><br>
+Username: <strong>{{ subscriber.email }}</strong>, with the password you already use.</p>
 {% endif %}
 
 <p style="margin: 0 0 24px;"><a href="{{ setup_url }}" style="background-color: #16201a; color: #ffffff; padding: 12px 22px; border-radius: 4px; text-decoration: none; font-weight: 700; display: inline-block;">Start setup</a></p>

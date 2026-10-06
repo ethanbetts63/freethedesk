@@ -31,8 +31,8 @@ def activate_paid_subscriber(subscriber: SeoSubscriber) -> None:
     more than one payment event can call it for the same purchase. So it acts
     only on the first: the signup gets a login (a new one, or the passwordless
     one an unpaid signup made under the old flow), becomes active, and is sent
-    a temporary password once the transaction commits. ``must_change_password``
-    makes the first sign-in replace it.
+    a verification code (its first password) once the transaction commits.
+    ``must_change_password`` makes using it replace it.
 
     Checkout refuses an email that already has an account, but one can appear
     between checkout and payment. Then the money is in and there is no login

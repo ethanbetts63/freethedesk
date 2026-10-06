@@ -26,7 +26,7 @@ checkFormLedger({
     { file: 'app/sale/_components/SaleFill.tsx', track: 'A' },
 
     // Track B — useActionState + a Server Action validating the same schema.
-    { file: 'app/change-password/page.tsx', track: 'B' },
+    { file: 'app/dashboard/change-password/page.tsx', track: 'B' },
     { file: 'app/dashboard/admin/messages/compose/page.tsx', track: 'B' },
     { file: 'app/dashboard/admin/settings/site/page.tsx', track: 'B' },
     { file: 'app/dashboard/admin/users/[userId]/AccountForm.tsx', track: 'B' },
@@ -37,7 +37,7 @@ checkFormLedger({
     { file: 'app/portal/setup/page.tsx', track: 'B' },
     { file: 'app/portal/setup/_components/TradingDetails.tsx', track: 'B' },
     { file: 'app/reset-password/page.tsx', track: 'B' },
-    { file: 'app/seo/payment/complete/ChoosePasswordForm.tsx', track: 'B' },
+    { file: 'app/seo/payment/complete/VerifyEmailForm.tsx', track: 'B' },
     { file: 'app/reset-password/[uid]/[token]/page.tsx', track: 'B' },
     { file: 'app/seo-portal/account/page.tsx', track: 'B' },
     { file: 'app/seo-portal/setup/_components/SetupBrief.tsx', track: 'B' },

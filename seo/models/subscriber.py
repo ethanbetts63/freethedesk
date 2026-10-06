@@ -79,10 +79,6 @@ class SeoSubscriber(models.Model):
         max_length=20, choices=Status.choices, default=Status.PENDING, db_index=True
     )
     staff_notes = models.TextField(blank=True)
-    # SHA-256 of the single-use token the signup browser holds, which lets it
-    # choose the account's first password on the payment confirmation page.
-    # Emptied once used. See ``seo.utils.password_claim``.
-    password_claim_hash = models.CharField(max_length=64, blank=True, editable=False)
     status_changed_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

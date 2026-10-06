@@ -29,7 +29,7 @@ def test_payment_makes_the_login_and_hands_over_a_password(
     [welcome] = outbox
     assert welcome.message_type == "seo.welcome"
     assert welcome.to == "jo@peakdigital.com.au"
-    assert "Temporary password:" in welcome.body_text
+    assert "Your verification code:" in welcome.body_text
     assert "/seo-portal/setup" in welcome.body_text
 
 
@@ -97,4 +97,4 @@ def test_an_account_with_its_own_password_keeps_it(
     assert seo_subscriber.user.check_password("Sturdy-Passphrase-42")
     assert not lockout.state_for(seo_subscriber.user).must_change_password
     [welcome] = outbox
-    assert "Temporary password" not in welcome.body_text
+    assert "verification code" not in welcome.body_text

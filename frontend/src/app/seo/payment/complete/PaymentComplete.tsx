@@ -7,21 +7,15 @@ import {
   type ConfirmationResult,
 } from '@/components/checkout/PaymentConfirmation';
 import { getSeoCheckoutStatus } from '@/lib/seoApi';
-import { ChoosePasswordForm } from './ChoosePasswordForm';
+import { VerifyEmailForm } from './VerifyEmailForm';
 
 /**
- * Back from Stripe. Nobody is signed in yet: the login is made when the
- * payment lands and its temporary password is emailed. The browser that signed
- * up (`canChoosePassword`) chooses the account's own password here, which signs
- * it in and opens the dashboard; any other browser is pointed at sign-in.
+ * Back from Stripe. Nobody is signed in yet: the login is made when the payment lands and its
+ * verification code is emailed. Entering the code here with a new password verifies the email,
+ * signs the customer in and opens the dashboard. See "Accounts a payment opens" in
+ * freetheplatform/_docs/apps/payments.md.
  */
-export function PaymentComplete({
-  reference,
-  canChoosePassword,
-}: {
-  reference: string;
-  canChoosePassword: boolean;
-}) {
+export function PaymentComplete({ reference }: { reference: string }) {
   const check = useCallback(async (): Promise<ConfirmationResult> => {
     const status = await getSeoCheckoutStatus(reference);
     if (status.paid) return { status: 'active' };
@@ -38,24 +32,22 @@ export function PaymentComplete({
           'Confirming your payment.',
           'Stripe is securely completing the payment. This usually takes only a few seconds.',
         ],
-        active: canChoosePassword
-          ? ['Payment confirmed.', 'Choose a password to open your SEO dashboard.']
-          : [
-              'Payment confirmed.',
-              'We have emailed you a temporary password. Sign in with it to set up your SEO dashboard.',
-            ],
+        active: [
+          'Payment confirmed.',
+          'We have emailed you a verification code. Enter it below with a password of your choice to open your SEO dashboard.',
+        ],
         failed: [
           'Payment needs attention.',
           'Stripe could not confirm the payment. You can return to secure payment and try again.',
         ],
         delayed: [
           'Confirmation is taking longer than usual.',
-          'Your payment may still go through. If it does, your sign-in details arrive by email.',
+          'Your payment may still go through. If it does, your verification code arrives by email.',
         ],
       }}
       retryHref={`/seo/payment?ref=${encodeURIComponent(reference)}`}
       activeLink={{ href: '/login', label: 'Sign in' }}
-      activeContent={canChoosePassword ? <ChoosePasswordForm reference={reference} /> : undefined}
+      activeContent={<VerifyEmailForm />}
       portalHref="/login"
       portalLabel="Sign in"
     />
