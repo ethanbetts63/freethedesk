@@ -14,7 +14,7 @@ export function SeoCadence({ eyebrow }: { eyebrow: string }) {
     <SplitFeatureSection
       id="cadence"
       eyebrow={eyebrow}
-      title="Paced by how fast you act."
+      title="Paced by your speed."
       accentTitle="Not our invoice."
       description="A report is only worth the changes it leads to. Monthly suits a business that can make changes within weeks. Quarterly suits changes that go through an agency or an IT queue. Yearly is an annual check-up."
       visual={

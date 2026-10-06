@@ -47,7 +47,7 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-10-02',
+    updated: '2026-10-04',
     label: 'Dealer websites',
     title: 'Dealership Websites Perth | Online Licensing for WA Dealers',
     description:
@@ -66,7 +66,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-10-02',
+    updated: '2026-10-04',
     label: 'Website development',
     title: 'Website Development Perth | Make your website work harder',
     description:
@@ -119,7 +119,7 @@ export const STATIC_PAGES = {
       'Practical guides for Perth and WA dealerships on websites, search visibility, online sales, licensing and better operational systems.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-10-02',
+    updated: '2026-10-04',
     label: 'Scooter Shop',
     title: 'Perth Dealer Website Case Study | Organic Clicks Up 300%',
     description:
@@ -127,7 +127,7 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {
-    updated: '2026-10-01',
+    updated: '2026-10-04',
     label: 'Bloomprint',
     title: 'Marketplace Website Case Study | Bloomprint Flowers',
     description:
