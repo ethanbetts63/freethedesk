@@ -54,9 +54,13 @@ if echo "$staged" | grep -q '^frontend/'; then
         echo "pre-commit: formatting"
         # --ignore-unknown so a staged image or lockfile is skipped rather than
         # failing; the paths are repo-relative and prettier finds
-        # frontend/.prettierrc.json from each file's own directory.
+        # frontend/.prettierrc.json from each file's own directory. The ignore
+        # file is not found that way, so it is named: without it the hook
+        # rejected machine-managed files like next-env.d.ts that
+        # `npm run format:check` skips.
         # shellcheck disable=SC2086
-        ./frontend/node_modules/.bin/prettier --check --ignore-unknown $formattable \
+        ./frontend/node_modules/.bin/prettier --check --ignore-unknown \
+            --ignore-path frontend/.prettierignore $formattable \
             || fail "Prettier would reformat a staged file. Run 'npm run format' in frontend/."
     fi
 fi
