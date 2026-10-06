@@ -56,8 +56,8 @@ def send_password_reset(user, uid, token, request=None):
         "Somebody asked to reset the password on your freethedesk account. "
         "Open the link below to choose a new one:\n\n"
         f"{link}\n\n"
-        "The link works once and expires within the hour. If you did not ask "
-        "for this, you can ignore this email — your password has not changed."
+        "The link works once. If you did not ask for this, you can ignore this "
+        "email — your password has not changed."
     )
     return send(
         channel="email",

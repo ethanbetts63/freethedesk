@@ -40,8 +40,7 @@ export default function ResetPasswordPage() {
     >
       {state.status === 'sent' ? (
         <Notice tone="success" size="field">
-          If that address has an account, a reset link is on its way. It works once and expires
-          within the hour.
+          If that address has an account, a reset link is on its way. It works once.
         </Notice>
       ) : (
         <form className="flex flex-col gap-m" action={formAction}>

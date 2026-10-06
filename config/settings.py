@@ -261,7 +261,8 @@ FTP_SECURITY = {"PROXY_SECRET": os.getenv("FTP_PROXY_SECRET", "")}
 FTP_ARCHIVE = {"ROOT": BASE_DIR / "db_backups"}
 
 # Django's token generator reads this directly, so it can't live inside FTP_AUTH.
-PASSWORD_RESET_TIMEOUT = 60 * 60
+# Three days, the family setting: staff send these to people slow to their inbox.
+PASSWORD_RESET_TIMEOUT = 60 * 60 * 24 * 3
 
 # Derived from FTP_AUTH so token lifetimes and cookie max-ages can't drift apart.
 SIMPLE_JWT = ftp_auth_conf.simple_jwt(FTP_AUTH)
