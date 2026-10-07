@@ -23,7 +23,7 @@ import { JourneySection } from '@/components/marketing/JourneySection';
 
 import { WEB_DESIGN_JOURNEY, websiteDevFaqs } from './_lib/copy';
 import { websiteServices } from './_lib/websiteServices';
-import { SCOOTER_SHOP_BASELINE, SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
+import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 /* Section eyebrows in page order. */
 const sections = numberSections([
@@ -109,7 +109,7 @@ export default async function WebsiteDevelopmentPage() {
           Scooter Shop is a Perth scooter dealership. Its website combines inventory, parts,
           purchasing and service journeys in one connected experience. Fast structured pages and
           focused search content grew its organic clicks {SCOOTER_SHOP_GROWTH.percent}% in
-          {SCOOTER_SHOP_GROWTH.span}, {SCOOTER_SHOP_BASELINE}.
+          {SCOOTER_SHOP_GROWTH.span}.
         </p>
         <p>
           It is a practical example of what happens when the public website and the work behind it

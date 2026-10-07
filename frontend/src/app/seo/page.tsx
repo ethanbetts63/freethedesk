@@ -21,7 +21,7 @@ import { SeoIntroduction } from './_components/SeoIntroduction';
 import { SeoSignup } from './_components/SeoSignup';
 import { SeoStepsBar } from './_components/SeoStepsBar';
 import { seoFaqs } from './_lib/copy';
-import { SCOOTER_SHOP_BASELINE, SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
+import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 const sections = numberSections([
   'Analyse',
@@ -117,7 +117,7 @@ export default async function SeoPage() {
           Scooter Shop is a Perth scooter dealership. Its website combines inventory, parts,
           purchasing and service journeys in one connected experience. Fast structured pages and
           search content aimed at what Perth riders search for grew its organic clicks{' '}
-          {SCOOTER_SHOP_GROWTH.percent}% in {SCOOTER_SHOP_GROWTH.span}, {SCOOTER_SHOP_BASELINE}.
+          {SCOOTER_SHOP_GROWTH.percent}% in {SCOOTER_SHOP_GROWTH.span}.
         </p>
       </CaseStudyTeaser>
 

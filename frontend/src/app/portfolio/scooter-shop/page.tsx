@@ -6,7 +6,7 @@ import {
 } from '@/app/portfolio/_components/PortfolioCaseStudy';
 import { PORTFOLIO_FAQS } from '@/app/portfolio/_lib/copy';
 import { metadataFor } from '@/lib/pages';
-import { SCOOTER_SHOP_BASELINE, SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
+import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 export const metadata: Metadata = metadataFor('/portfolio/scooter-shop');
 
@@ -256,7 +256,7 @@ const config = {
     eyebrow: 'SEO growth',
     title: `${SCOOTER_SHOP_GROWTH.percent}% growth.`,
     accentTitle: '5 months.',
-    description: `Across ${SCOOTER_SHOP_GROWTH.period}, organic clicks grew ${SCOOTER_SHOP_GROWTH.percent}%, ${SCOOTER_SHOP_BASELINE}. Indexable stock, focused landing pages and useful guides created more ways for ready-to-buy customers to find the dealership.`,
+    description: `Across ${SCOOTER_SHOP_GROWTH.period}, organic clicks grew ${SCOOTER_SHOP_GROWTH.percent}%. Indexable stock, focused landing pages and useful guides created more ways for ready-to-buy customers to find the dealership.`,
   },
   faq: { eyebrow: 'Common questions', items: PORTFOLIO_FAQS },
 } satisfies PortfolioCaseStudyConfig;

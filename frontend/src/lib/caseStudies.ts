@@ -5,8 +5,10 @@
  * Australia, read 2026-10-07. The measurement period is 1 May to 5 October
  * 2026. Growth compares its first four weeks (1 to 28 May) with its last four
  * (8 September to 5 October): equal windows of whole weeks, so neither month
- * length nor the weekly cycle can inflate it. Clicks per week sat at 130 to 150
- * through May and June and passed 300 in September.
+ * length nor the weekly cycle can inflate it.
+ *
+ * Only the percentage is published. The click counts behind it are the
+ * client's private figures and stay out of this repo.
  *
  * Re-read Search Console before changing a number here, and change all of them
  * together: a page that says one figure and a heading that says another is
@@ -15,11 +17,6 @@
 export const SCOOTER_SHOP_GROWTH = {
   percent: 116,
   stat: '+116%',
-  clicksBefore: 557,
-  clicksAfter: 1205,
   period: '1 May to 5 October 2026',
   span: 'five months',
 } as const;
-
-/** "557 clicks in its first four weeks to 1,205 in its last four" — the baseline in words. */
-export const SCOOTER_SHOP_BASELINE = `from ${SCOOTER_SHOP_GROWTH.clicksBefore.toLocaleString('en-AU')} clicks in the first four weeks to ${SCOOTER_SHOP_GROWTH.clicksAfter.toLocaleString('en-AU')} in the last four`;
