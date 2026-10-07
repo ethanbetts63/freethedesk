@@ -81,6 +81,19 @@ export const STATIC_PAGES = {
       areaServed: { type: 'City', name: 'Perth' },
     },
   },
+  '/web-design-subiaco': {
+    updated: '2026-10-07',
+    label: 'Web design Subiaco',
+    title: 'Web Design Subiaco | Websites for Subiaco businesses',
+    description:
+      'Web design and development for Subiaco businesses: custom websites priced per page, built to show up in local search and to automate the admin behind them.',
+    absoluteTitle: true,
+    service: {
+      name: 'Web Design Subiaco',
+      serviceType: 'Web design, website development and web application development',
+      areaServed: { type: 'Place', name: 'Subiaco, Western Australia' },
+    },
+  },
   '/pricing': {
     updated: '2026-10-07',
     label: 'Pricing',

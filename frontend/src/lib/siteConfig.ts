@@ -29,6 +29,8 @@ export const PRIMARY_NAVIGATION = [
 
 export const FOOTER_NAVIGATION = [
   { href: '/website-development', label: 'Website development' },
+  // A trial suburb page; the footer is its only link (2026-10-07).
+  { href: '/web-design-subiaco', label: 'Web design Subiaco' },
   { href: '/automation', label: 'Automation' },
   { href: '/seo', label: 'SEO audits' },
   { href: '/pricing', label: 'Pricing' },

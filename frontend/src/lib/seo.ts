@@ -101,7 +101,8 @@ export function buildOrganizationSchema(): object {
 export interface ServiceDefinition {
   name: string;
   serviceType: string;
-  areaServed: { type: 'Country' | 'City'; name: string };
+  /** `Place` for a suburb, which schema.org has no narrower type for. */
+  areaServed: { type: 'Country' | 'City' | 'Place'; name: string };
 
   /** Optional catalogue of individually named offers under this service. */
   catalog?: { name: string; itemListElement: { name: string; description?: string }[] };

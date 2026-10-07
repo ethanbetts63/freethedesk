@@ -1,155 +1,15 @@
 import type { Metadata } from 'next';
 
-import { AiReadinessBanner } from '@/components/marketing/AiReadinessBanner';
-import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSection';
-import { Hero } from '@/components/marketing/Hero';
-import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
-import { SubscriptionSwap } from '@/components/marketing/SubscriptionSwap';
-import { WebsiteIntroduction } from '@/components/marketing/WebsiteIntroduction';
-import { WebsiteJobsBar } from '@/components/marketing/WebsiteJobsBar';
-import { FaqSection } from '@/components/marketing/FaqSection';
-import { FloatingPageCta } from '@/components/FloatingPageCta';
-import { ManualAdminCta } from '@/components/ManualAdminCta';
-import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
-import { PageSchema } from '@/components/PageSchema';
-import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { metadataFor } from '@/lib/pages';
-import { buildOneOffOffer } from '@/lib/seo';
-import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
-import { servicePrices } from '@/lib/servicePricing';
-import { numberSections } from '@/lib/sectionNumbers';
 
-import { FeatureScrollSection } from '@/components/marketing/FeatureScrollSection';
-import { JourneySection } from '@/components/marketing/JourneySection';
-
-import { PackagesSection } from './_components/PackagesSection';
-import { WEB_DESIGN_JOURNEY, websiteDevFaqs } from './_lib/copy';
-import { websiteServices } from './_lib/websiteServices';
-import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
-
-/* Section eyebrows in page order. */
-const sections = numberSections([
-  'Packages',
-  'SEO',
-  'Web Design',
-  'Admin Automation',
-  "What you're paying for",
-  'Features and integrations',
-  'Proof this works',
-  'Common questions',
-] as const);
+import { WebDesignPage } from './_components/WebDesignPage';
+import { PERTH_WEB_DESIGN } from './_lib/copy';
 
 export const metadata: Metadata = metadataFor('/website-development');
 
 /* The packages and the cost answer quote the admin's prices, so this page renders per request. */
 export const dynamic = 'force-dynamic';
 
-const casePoints = [
-  'Indexable stock',
-  'Intent-focused pages',
-  'Structured data',
-  'Measured in Search Console',
-];
-
-export default async function WebsiteDevelopmentPage() {
-  const prices = servicePrices(await getSiteSettingsServer(SERVICE_PRICE_FIELDS));
-  const offers = prices.packages
-    .map((item) => buildOneOffOffer({ price: item.price, name: item.name }))
-    .filter(Boolean) as object[];
-
-  return (
-    <main className="bg-surface-page text-text-secondary">
-      <PageSchema path="/website-development" serviceOffers={offers.length ? offers : undefined} />
-      <AiReadinessBanner />
-      <Hero
-        path="/website-development"
-        eyebrow="Web design & development Perth"
-        titleLines={['Websites should']}
-        accentTitle="work harder."
-        accentAlternates={['be faster.', 'grow faster.', 'be easier.', 'sell more.']}
-        lead="Custom web design and development for Perth businesses: websites that turn visitors into customers and automate the repetitive work behind them."
-        primaryHref="#packages"
-        primaryLabel="See the packages"
-        secondaryHref="/portfolio/scooter-shop"
-        secondaryLabel="Read the full case study"
-      />
-
-      <WebsiteJobsBar />
-
-      <PackagesSection eyebrow={sections['Packages']} packages={prices.packages} />
-
-      <WebsiteIntroduction designDescription="Web design with clear layouts and simple steps that guide visitors towards a purchase, booking or enquiry, on mobile and desktop." />
-
-      <SeoReportOverview
-        id="seo"
-        eyebrow={sections['SEO']}
-        title="Launch SEO Strong."
-        accentTitle="Improve with data."
-        mode="improvement"
-        description="Every website launches with strong SEO foundations, but ranking in Perth takes iteration. We analyse live data as it arrives and give you ranked, plain-English opportunities with implementation costs."
-      />
-
-      <JourneySection eyebrow={sections['Web Design']} content={WEB_DESIGN_JOURNEY} />
-
-      <AdminAutomationSection
-        id="website-automation"
-        eyebrow={sections['Admin Automation']}
-        spacing="joined"
-      />
-
-      <SubscriptionSwap eyebrow={sections["What you're paying for"]} showCta={false} />
-
-      <FeatureScrollSection
-        eyebrow={sections['Features and integrations']}
-        services={websiteServices}
-        ctaLabel="Discuss your website"
-      />
-
-      <CaseStudyTeaser
-        eyebrow={sections['Proof this works']}
-        title={`A Perth website that grew organic clicks ${SCOOTER_SHOP_GROWTH.percent}%.`}
-        points={casePoints}
-        primaryHref="#enquiry"
-        primaryLabel="Discuss your website"
-        showPrimaryAction={false}
-      >
-        <p>
-          Scooter Shop is a Perth scooter dealership. Its website combines inventory, parts,
-          purchasing and service journeys in one connected experience. Fast structured pages and
-          focused search content grew its organic clicks {SCOOTER_SHOP_GROWTH.percent}% in
-          {SCOOTER_SHOP_GROWTH.span}.
-        </p>
-        <p>
-          It is a practical example of what happens when the public website and the work behind it
-          are designed as one system.
-        </p>
-      </CaseStudyTeaser>
-
-      <ProjectEnquiry id="enquiry" eyebrow={null} showProjectType={false} />
-
-      <FloatingPageCta
-        label="Discuss your website"
-        href="#enquiry"
-        // After the packages, so it never sits over a Buy now button.
-        showAfterId="packages-end"
-        hideAtId="enquiry"
-      />
-
-      <FaqSection
-        emitSchema
-        eyebrow={sections['Common questions']}
-        title="Website development questions."
-        items={websiteDevFaqs(prices)}
-      />
-
-      <ManualAdminCta
-        eyebrow="Start with the useful part"
-        title="What should your website make easier?"
-        href="#enquiry"
-        buttonLabel="Discuss your website"
-      >
-        Tell us what you sell, who the site is for and where the current process gets in the way.
-      </ManualAdminCta>
-    </main>
-  );
+export default function WebsiteDevelopmentPage() {
+  return <WebDesignPage path="/website-development" copy={PERTH_WEB_DESIGN} />;
 }
