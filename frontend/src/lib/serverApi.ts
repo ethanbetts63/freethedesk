@@ -31,7 +31,8 @@ export async function serverApiFetch(path: string, init: RequestInit = {}): Prom
   });
 }
 
-const PRICE_FIELDS = [
+/** What /licensing and /seo sell online. */
+const CHECKOUT_PRICE_FIELDS = [
   'licensing_price',
   'contracts_price',
   'complete_price',
@@ -39,6 +40,24 @@ const PRICE_FIELDS = [
   'seo_quarterly_price',
   'seo_yearly_price',
   'seo_oneoff_price',
+] as const satisfies readonly (keyof PublicSiteSettings)[];
+
+/**
+ * What the pricing pages quote. Separate from the checkout prices so a frontend
+ * that reaches production before the backend migration fails only the pages
+ * that need these, not the two that take payments.
+ */
+export const SERVICE_PRICE_FIELDS = [
+  'hourly_rate',
+  'discovery_hours',
+  'website_launch_pages',
+  'website_launch_page_price',
+  'website_grow_pages',
+  'website_grow_page_price',
+  'website_connect_pages',
+  'website_connect_page_price',
+  'web_app_from_price',
+  'automation_from_price',
 ] as const satisfies readonly (keyof PublicSiteSettings)[];
 
 /**
@@ -54,7 +73,9 @@ const PRICE_FIELDS = [
  * Google caches them. A failed render is visible and recoverable; a $0.00 price
  * quoted to a customer is neither.
  */
-export async function getSiteSettingsServer(): Promise<PublicSiteSettings> {
+export async function getSiteSettingsServer(
+  required: readonly (keyof PublicSiteSettings)[] = CHECKOUT_PRICE_FIELDS,
+): Promise<PublicSiteSettings> {
   const response = await fetch(`${SERVER_API_BASE_URL}/api/site-settings/`, {
     cache: 'no-store',
     signal: AbortSignal.timeout(5000),
@@ -66,7 +87,7 @@ export async function getSiteSettingsServer(): Promise<PublicSiteSettings> {
   const settings = (await response.json()) as PublicSiteSettings;
   // A partial payload would otherwise render as "undefined" - the same class of
   // silently-wrong price the fallback used to cause.
-  const missing = PRICE_FIELDS.filter((field) => !settings[field]);
+  const missing = required.filter((field) => !settings[field]);
   if (missing.length) {
     throw new Error(`Site settings response is missing pricing: ${missing.join(', ')}.`);
   }

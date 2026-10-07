@@ -4,7 +4,7 @@ export const HOME_FAQS: FaqItem[] = [
   {
     question: 'What does freethedesk actually build?',
     answer:
-      'Custom websites, workflow automations, SEO and online systems for dealerships. Each can stand alone, or connect into one larger system around how your business works.',
+      'Custom websites, web applications, workflow automation and SEO audits. Each can stand alone, or connect into one system around how your business works. We also build specialised websites and online licensing for vehicle dealerships.',
   },
 
   {

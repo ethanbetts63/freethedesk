@@ -116,11 +116,28 @@ export interface PublicSiteSettings {
   seo_quarterly_price: string;
   seo_yearly_price: string;
   seo_oneoff_price: string;
+  hourly_rate: string;
+  discovery_hours: number;
+  website_launch_pages: number;
+  website_launch_page_price: string;
+  website_grow_pages: number;
+  website_grow_page_price: string;
+  website_connect_pages: number;
+  website_connect_page_price: string;
+  web_app_from_price: string;
+  automation_from_price: string;
   updated_at: string;
 }
 
-/** Every SiteSettings key holding a price (all but the timestamp). */
-export type PriceField = Exclude<keyof PublicSiteSettings, 'updated_at'>;
+/** The SiteSettings keys holding a whole number of hours or pages rather than a price. */
+export type CountField =
+  'discovery_hours' | 'website_launch_pages' | 'website_grow_pages' | 'website_connect_pages';
+
+/** Every SiteSettings key holding a price (all but the counts and the timestamp). */
+export type PriceField = Exclude<keyof PublicSiteSettings, 'updated_at' | CountField>;
+
+/** Every SiteSettings key staff can edit. */
+export type SettingsField = PriceField | CountField;
 
 /** Unauthenticated; powers the public licensing and SEO pricing pages. */
 export async function getSiteSettings(): Promise<PublicSiteSettings> {

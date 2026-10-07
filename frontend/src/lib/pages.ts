@@ -44,7 +44,7 @@ export const STATIC_PAGES = {
     label: 'Home',
     title: 'Websites, SEO & Business Automation Perth | freethedesk',
     description:
-      'Perth websites, SEO audits and business automation for WA businesses, plus dealership websites and online vehicle licensing.',
+      'Perth websites, web applications, business automation and SEO audits for WA businesses, plus dealership websites and online vehicle licensing.',
     absoluteTitle: true,
   },
   '/dealers': {
@@ -81,6 +81,40 @@ export const STATIC_PAGES = {
       areaServed: { type: 'City', name: 'Perth' },
     },
   },
+  '/web-application-development': {
+    updated: '2026-10-07',
+    label: 'Web applications',
+    title: 'Web Application Development Perth | Software that fits',
+    description:
+      'Custom web application development for Perth businesses: customer portals, bookings, payments, online signing and the staff dashboards behind them.',
+    absoluteTitle: true,
+    service: {
+      name: 'Web Application Development Perth',
+      serviceType: 'Web application development and custom software',
+      areaServed: { type: 'City', name: 'Perth' },
+    },
+  },
+  '/website-packages': {
+    updated: '2026-10-07',
+    label: 'Website packages',
+    title: 'Website Packages Perth | Fixed prices, priced per page',
+    description:
+      'Three website packages for Perth businesses, each priced per page and agreed before we start. Compare what each includes, or tell us your budget.',
+    absoluteTitle: true,
+    service: {
+      name: 'Website Packages Perth',
+      serviceType: 'Website design and development packages',
+      areaServed: { type: 'City', name: 'Perth' },
+    },
+  },
+  '/pricing': {
+    updated: '2026-10-07',
+    label: 'Pricing',
+    title: 'Web Development Pricing Perth | Our prices, published',
+    description:
+      'What freethedesk costs: one hourly rate, paid discovery, website packages priced per page, and from prices for web applications, automation and SEO audits.',
+    absoluteTitle: true,
+  },
   '/dealership-website-builder': {
     updated: '2026-10-07',
     label: 'Website builder',
@@ -113,11 +147,11 @@ export const STATIC_PAGES = {
     },
   },
   '/guides': {
-    updated: '2026-10-02',
+    updated: '2026-10-07',
     label: 'Guides',
-    title: 'Steal our playbook | Dealership Website & Automation Guides',
+    title: 'Steal our playbook | Website, SEO & Automation Guides',
     description:
-      'Practical guides for Perth and WA dealerships on websites, search visibility, online sales, licensing and better operational systems.',
+      'Practical guides for Perth businesses on websites, web applications, search visibility, automation and the systems behind them.',
   },
   '/portfolio/scooter-shop': {
     updated: '2026-10-07',

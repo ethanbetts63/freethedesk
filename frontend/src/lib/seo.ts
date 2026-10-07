@@ -43,11 +43,11 @@ export function buildOrganizationSchema(): object {
     telephone: CONTACT_PHONE,
     /*
      * One entity-level sentence: what this company is, not what any page sells.
-     * Web development and automation lead because that is the business; the
-     * dealership work is one line of it, not the headline.
+     * Web development, web applications, automation and SEO audits lead because
+     * that is the business; the dealership work is one line of it, not the headline.
      */
     description:
-      'Perth web development, SEO and digital automation company, building custom websites, SEO and workflow automation for businesses in Perth and across Australia — including dealership websites and online vehicle licensing.',
+      'Perth web development company building custom websites, web applications and business automation, and running SEO audits, for businesses in Perth and across Australia. It also builds dealership websites and online vehicle licensing.',
     logo: {
       '@type': 'ImageObject',
       url: `${SITE_URL}/logo-512x512.png`,
@@ -130,6 +130,39 @@ export function buildRecurringOffer(options: {
       price: options.price,
       priceCurrency: 'AUD',
       unitText: options.unitText,
+    },
+  };
+}
+
+/**
+ * A one-off price, such as a website package. Same rule as the recurring offer:
+ * a missing or non-positive price emits nothing rather than a free offer.
+ */
+export function buildOneOffOffer(options: { price: number; name: string }): object | undefined {
+  if (!Number.isFinite(options.price) || options.price <= 0) return undefined;
+  return {
+    '@type': 'Offer',
+    name: options.name,
+    price: options.price.toFixed(2),
+    priceCurrency: 'AUD',
+    availability: 'https://schema.org/InStock',
+  };
+}
+
+/**
+ * A "from" price for work quoted after discovery. `minPrice` states the floor
+ * without claiming the job costs exactly that.
+ */
+export function buildFromOffer(price: string | number): object | undefined {
+  const amount = Number(price);
+  if (!Number.isFinite(amount) || amount <= 0) return undefined;
+  return {
+    '@type': 'Offer',
+    priceCurrency: 'AUD',
+    priceSpecification: {
+      '@type': 'PriceSpecification',
+      minPrice: amount.toFixed(2),
+      priceCurrency: 'AUD',
     },
   };
 }

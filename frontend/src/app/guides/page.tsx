@@ -28,7 +28,7 @@ export default function GuidesPage() {
         <div className="site-shell relative z-1">
           <div className="mb-xl [--eyebrow-accent:var(--accent)]">
             <Eyebrow dot size="sm" tone="accent">
-              Field notes for dealers
+              Field notes for Perth businesses
             </Eyebrow>
           </div>
           <h1 className="m-0 max-w-[930px] text-hero leading-[0.88] tracking-[-0.075em] sm:text-hero">
@@ -57,12 +57,12 @@ export default function GuidesPage() {
             <div>
               <SectionNumber>The guide library</SectionNumber>
               <h2 id="latest-guides" className="m-0 text-hero leading-[0.95] tracking-[-0.065em]">
-                Dealership guides you can use.
+                Guides you can use.
               </h2>
             </div>
             <p className="mt-0 mb-3xs max-w-[440px] text-lead leading-[1.7] text-text-muted">
-              Clear, practical thinking drawn from building and running dealership software in the
-              real world.
+              Clear, practical thinking drawn from building websites, web applications and
+              automation for real businesses.
             </p>
           </header>
 
@@ -116,8 +116,8 @@ export default function GuidesPage() {
                   The first field note is on the way.
                 </h3>
                 <p className="m-0 text-body leading-relaxed text-text-muted">
-                  We are assembling practical guides for dealers who want clearer websites and less
-                  administration.
+                  We are assembling practical guides for businesses that want clearer websites and
+                  less administration.
                 </p>
               </div>
               <Link

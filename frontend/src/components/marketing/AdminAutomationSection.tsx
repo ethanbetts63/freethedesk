@@ -13,6 +13,8 @@ export function AdminAutomationSection({
   jobs,
   panelEyebrow,
   panelTitle,
+  title = 'Let your website',
+  accentTitle = 'automate the admin.',
 }: {
   eyebrow: string;
   id?: string;
@@ -21,13 +23,15 @@ export function AdminAutomationSection({
   jobs?: readonly string[];
   panelEyebrow?: string;
   panelTitle?: string;
+  title?: string;
+  accentTitle?: string;
 }) {
   return (
     <SplitFeatureSection
       id={id}
       eyebrow={eyebrow}
-      title="Let your website"
-      accentTitle="automate the admin."
+      title={title}
+      accentTitle={accentTitle}
       description={description}
       visual={<AdminAutomationVisual jobs={jobs} eyebrow={panelEyebrow} title={panelTitle} />}
       textSide="left"

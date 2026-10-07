@@ -14,24 +14,35 @@ export const PORTFOLIO_NAVIGATION = [
   { href: '/portfolio/bloomprint', label: 'Bloomprint' },
 ] as const;
 
+/*
+ * Services lead; the dealership products share one item. Dealers are one line of
+ * the business, not half the menu.
+ */
 export const PRIMARY_NAVIGATION = [
   { href: '/website-development', label: 'Websites' },
+  { href: '/web-application-development', label: 'Web apps' },
   { href: '/automation', label: 'Automation' },
   { href: '/seo', label: 'SEO' },
-  { href: '/dealers', label: 'Dealers' },
-  { href: '/licensing', label: 'Online licensing' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/dealers', label: 'Dealerships' },
   { href: '/contact', label: 'Contact' },
 ] as const;
 
 export const FOOTER_NAVIGATION = [
-  { href: '/website-development', label: 'Website Development' },
-  { href: '/dealers', label: 'Dealer websites' },
-  { href: '/guides', label: 'Guides & articles' },
-  { href: '/licensing', label: 'Online licensing' },
+  { href: '/website-development', label: 'Website development' },
+  { href: '/website-packages', label: 'Website packages' },
+  { href: '/web-application-development', label: 'Web applications' },
   { href: '/automation', label: 'Automation' },
-  { href: '/seo', label: 'SEO' },
+  { href: '/seo', label: 'SEO audits' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/guides', label: 'Guides & articles' },
   { href: '/contact', label: 'Contact' },
   { href: '/login', label: 'Login' },
+] as const;
+
+export const DEALER_NAVIGATION = [
+  { href: '/dealers', label: 'Dealer websites' },
+  { href: '/licensing', label: 'Online licensing' },
 ] as const;
 
 /**

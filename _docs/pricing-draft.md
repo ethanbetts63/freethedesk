@@ -7,6 +7,24 @@
 > 7 (hosting options). Update that file if the numbers below change in a way
 > that affects contract language.
 
+## What the site publishes (2026-10-07)
+
+The public pages now carry prices, all editable in the admin dashboard under
+Site settings, so none needs a deploy to change:
+
+| Setting                            | Default        | Shown on                                |
+| ---------------------------------- | -------------- | --------------------------------------- |
+| Hourly rate                        | $150           | /pricing, every service page's cost FAQ |
+| Discovery hours, paid upfront      | 3 ($450)       | /pricing, /web-application-development  |
+| Launch / Grow / Connect pages      | 5 / 10 / 15    | /website-packages, /pricing             |
+| Launch / Grow / Connect $ per page | $500/$600/$700 | /website-packages, /pricing             |
+| Web applications, from             | $9,000         | /pricing, /web-application-development  |
+| Automation, from                   | $1,200         | /pricing                                |
+
+The defaults were a starting proposal, set in migration `core.0018`. What
+each package includes is copy in `frontend/src/lib/servicePricing.ts`.
+Discovery replaces the free call in Step 1 below for any custom work.
+
 ## Step 1 — Discovery: free
 
 A short call (**cap at 30–45 min**) to understand what the client actually
@@ -23,8 +41,8 @@ this doesn't quietly become unpaid consulting.
 ## Step 2 — Development
 
 - **Range:** $2,500–$50,000 AUD. **Average project: ~$7,500 AUD.**
-- **Public-facing number:** show *"from $2,500 — most projects land around
-  $7,500"*. Don't publish the $50k ceiling on the site itself; a 20x public
+- **Public-facing number:** show _"from $2,500 — most projects land around
+  $7,500"_. Don't publish the $50k ceiling on the site itself; a 20x public
   range anchors badly in both directions (small clients assume they can't
   afford you, larger clients anchor low). The real number comes out of
   discovery once scope is known.

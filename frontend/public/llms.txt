@@ -1,13 +1,18 @@
 # freethedesk
 
-> freethedesk builds websites, SEO and operational systems for Perth small and medium businesses and vehicle dealerships: connected sites, online licensing and business automation rather than template brochureware.
+> freethedesk is a Perth web development company building custom websites, web applications and business automation, and running SEO audits, for Perth and Western Australian businesses. It also builds specialised websites and online vehicle licensing for dealerships.
 
-Perth-based, working primarily in Perth with clients in cities across Australia. The differentiator is the admin side. Supplier stock syncs, instant staff notifications, precomposed transactional emails and booking-system integrations sit behind every site built, not just the public-facing pages.
+Perth-based, working primarily in Perth with clients in cities across Australia. The differentiator is the admin side. Supplier stock syncs, instant staff notifications, precomposed transactional emails and booking-system integrations sit behind every site built, not just the public-facing pages. Prices are published: one hourly rate, paid discovery for custom work, and website packages priced per page.
 
 ## Services
-- [Website development](https://www.freethedesk.com.au/website-development): Custom websites and web applications for small and medium businesses, built around automation that saves staff time rather than a marketing site alone.
+- [Web application development](https://www.freethedesk.com.au/web-application-development): Custom web applications: customer portals, bookings, payments, identity checks and online signing, and the staff dashboards behind them. Scoped in a paid discovery, built in stages.
+- [Website development](https://www.freethedesk.com.au/website-development): Custom web design and development for small and medium businesses, built around automation that saves staff time rather than a marketing site alone.
+- [Website packages](https://www.freethedesk.com.au/website-packages): Three fixed website packages, each priced per page, with what each includes.
 - [Business automation](https://www.freethedesk.com.au/automation): Workflow automation and custom integrations connecting the systems a business already runs.
-- [SEO](https://www.freethedesk.com.au/seo): An SEO audit or an ongoing SEO subscription for Perth businesses: analyse search data, rank recommended changes by value, and measure each change as an experiment. Human-reviewed, not AI-generated.
+- [SEO audits](https://www.freethedesk.com.au/seo): An SEO audit or an ongoing SEO subscription for Perth businesses: analyse search data, rank recommended changes by value, and measure each change as an experiment. Human-reviewed, not AI-generated.
+- [Pricing](https://www.freethedesk.com.au/pricing): The hourly rate, what discovery costs, and a price for every service.
+
+## For dealerships
 - [Dealer websites](https://www.freethedesk.com.au/dealers): Inventory, parts, service and hire websites built specifically for vehicle and equipment dealerships.
 - [Online vehicle licensing](https://www.freethedesk.com.au/licensing): Online vehicle licensing and contract signing so customers can complete paperwork without a dealership visit.
 - [Dealership website builder](https://www.freethedesk.com.au/dealership-website-builder): An interactive configurator for specifying a dealership website around how a business sells, books and grows.
@@ -17,10 +22,10 @@ Perth-based, working primarily in Perth with clients in cities across Australia.
 - [Bloomprint](https://www.freethedesk.com.au/portfolio/bloomprint): A two-sided flower delivery marketplace with brief-led ordering for customers and paid local orders for independent florists.
 
 ## Guides
-- [Guides and articles](https://www.freethedesk.com.au/guides): Practical field notes for Perth and WA dealerships on websites, search visibility, online sales, licensing and operational systems.
+- [Guides and articles](https://www.freethedesk.com.au/guides): Practical guides for Perth businesses on websites, web applications, search visibility, automation and operational systems.
 
 ## Company
-- [Contact](https://www.freethedesk.com.au/contact): Start a conversation about a website, SEO, licensing or automation project.
+- [Contact](https://www.freethedesk.com.au/contact): Start a conversation about a website, web application, automation or SEO project, by form, phone or email.
 - [Privacy policy](https://www.freethedesk.com.au/legal/privacy)
 - [Dealer subscription terms](https://www.freethedesk.com.au/legal/dealer-subscription-terms)
 - [SEO subscription terms](https://www.freethedesk.com.au/legal/seo-subscription-terms)
@@ -29,5 +34,5 @@ Perth-based, working primarily in Perth with clients in cities across Australia.
 - Trading name: freethedesk
 - ABN: 11 493 753 896
 - Based in Dianella, Western Australia 6059; works primarily in Perth, with clients across Australia
-- Contact: hello@freethedesk.com.au
-- Industries served: vehicle, equipment and leisure dealerships, plus small and medium businesses generally
+- Contact: hello@freethedesk.com.au, 0423 853 830
+- Industries served: small and medium businesses generally, plus vehicle, equipment and leisure dealerships

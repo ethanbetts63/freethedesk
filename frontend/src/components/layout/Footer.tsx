@@ -1,4 +1,4 @@
-import { FOOTER_NAVIGATION, PORTFOLIO_NAVIGATION } from '@/lib/siteConfig';
+import { DEALER_NAVIGATION, FOOTER_NAVIGATION, PORTFOLIO_NAVIGATION } from '@/lib/siteConfig';
 import { DeferredSignalFlow } from '@/components/visuals/DeferredSignalFlow';
 import { SiteFooter, type FooterColumn } from '@/components/layout/SiteFooter';
 import { Wordmark } from '@/components/Wordmark';
@@ -18,6 +18,7 @@ const gridBackdropClassName = [
 
 const COLUMNS: FooterColumn[] = [
   { label: 'Explore', links: [...FOOTER_NAVIGATION] },
+  { label: 'Dealerships', links: [...DEALER_NAVIGATION] },
   { label: 'Portfolio', links: [...PORTFOLIO_NAVIGATION] },
   {
     label: 'Based in',
@@ -59,8 +60,8 @@ export function Footer() {
         <>
           <Wordmark href="/" />
           <p className="mt-l mb-0 max-w-[360px] text-body leading-relaxed text-text-muted">
-            Websites, SEO and automation for Perth businesses, built by a Perth development team
-            with years of hands-on experience.
+            Websites, web applications, automation and SEO audits for Perth businesses, built by a
+            Perth development team with years of hands-on experience.
           </p>
         </>
       }

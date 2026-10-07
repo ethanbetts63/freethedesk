@@ -14,11 +14,15 @@ import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { metadataFor } from '@/lib/pages';
+import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
+import { servicePrices } from '@/lib/servicePricing';
 import { numberSections } from '@/lib/sectionNumbers';
 
-import { WEBSITE_DEV_FAQS } from './_lib/copy';
-import { ConversionFunnel } from './_components/ConversionFunnel';
-import { WebsiteFeatures } from './_components/WebsiteFeatures';
+import { FeatureScrollSection } from '@/components/marketing/FeatureScrollSection';
+import { JourneySection } from '@/components/marketing/JourneySection';
+
+import { WEB_DESIGN_JOURNEY, websiteDevFaqs } from './_lib/copy';
+import { websiteServices } from './_lib/websiteServices';
 import { SCOOTER_SHOP_BASELINE, SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 /* Section eyebrows in page order. */
@@ -34,6 +38,9 @@ const sections = numberSections([
 
 export const metadata: Metadata = metadataFor('/website-development');
 
+/* The cost answer quotes the admin's prices, so this page renders per request. */
+export const dynamic = 'force-dynamic';
+
 const casePoints = [
   'Indexable stock',
   'Intent-focused pages',
@@ -41,7 +48,9 @@ const casePoints = [
   'Measured in Search Console',
 ];
 
-export default function WebsiteDevelopmentPage() {
+export default async function WebsiteDevelopmentPage() {
+  const prices = servicePrices(await getSiteSettingsServer(SERVICE_PRICE_FIELDS));
+
   return (
     <main className="bg-surface-page text-text-secondary">
       <PageSchema path="/website-development" />
@@ -72,7 +81,7 @@ export default function WebsiteDevelopmentPage() {
         description="Every website launches with strong SEO foundations, but ranking in Perth takes iteration. We analyse live data as it arrives and give you ranked, plain-English opportunities with implementation costs."
       />
 
-      <ConversionFunnel eyebrow={sections['Web Design']} />
+      <JourneySection eyebrow={sections['Web Design']} content={WEB_DESIGN_JOURNEY} />
 
       <AdminAutomationSection
         id="website-automation"
@@ -82,7 +91,11 @@ export default function WebsiteDevelopmentPage() {
 
       <SubscriptionSwap eyebrow={sections["What you're paying for"]} showCta={false} />
 
-      <WebsiteFeatures eyebrow={sections['Features and integrations']} />
+      <FeatureScrollSection
+        eyebrow={sections['Features and integrations']}
+        services={websiteServices}
+        ctaLabel="Discuss your website"
+      />
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
@@ -117,7 +130,7 @@ export default function WebsiteDevelopmentPage() {
         emitSchema
         eyebrow={sections['Common questions']}
         title="Website development questions."
-        items={WEBSITE_DEV_FAQS}
+        items={websiteDevFaqs(prices)}
       />
 
       <ManualAdminCta

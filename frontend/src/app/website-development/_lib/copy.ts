@@ -1,12 +1,31 @@
+import type { JourneyContent } from '@/components/marketing/JourneySection';
+import type { ServicePrices } from '@/lib/servicePricing';
 import type { FaqItem } from '@/types/FaqItem';
 
-export const WEBSITE_DEV_FAQS: FaqItem[] = [
-  {
-    question: 'How much does web design cost in Perth?',
-    answer:
-      'It depends on whether you need a focused marketing site, ecommerce, custom workflows or integrations. We define the useful first release and give you a clear scope before development begins.',
+export const WEB_DESIGN_JOURNEY: JourneyContent = {
+  title: 'Websites designed to',
+  accentTitle: 'be obvious.',
+  description:
+    'Good web design means visitors never have to work out what to do next. We create clear paths from their first click to a purchase, booking or enquiry.',
+  bullets: [
+    'One clear action at every stage',
+    'Fewer fields, choices and dead ends',
+    'A clear confirmation and handoff at the end',
+  ],
+  flow: {
+    browserLabel: 'customer journey',
+    start: { label: 'Point A', title: 'Interested visitor', description: 'Intent captured' },
+    steps: [
+      { title: 'Find the path', description: 'One clear route forward' },
+      { title: 'Understand the offer', description: 'The right detail, in the right order' },
+      { title: 'Take action', description: 'Only the essential effort' },
+    ],
+    end: { label: 'Point B', title: 'Action complete', description: 'Next step confirmed' },
+    ariaLabel: 'A clear customer journey from interest to completed action',
   },
+};
 
+const WEBSITE_DEV_FAQS: FaqItem[] = [
   {
     question: 'Do you design the website as well as build it?',
     answer:
@@ -25,3 +44,25 @@ export const WEBSITE_DEV_FAQS: FaqItem[] = [
       'Yes. We design mobile-first, then use the extra room on larger screens deliberately. Forms, navigation, product pages and conversion paths are tested across practical viewport sizes.',
   },
 ];
+
+/** Prices come from the admin, so the cost answer is built per request. */
+export function websiteDevFaqs(prices: ServicePrices): FaqItem[] {
+  const [launch] = prices.packages;
+  return [
+    {
+      question: 'How much does web design cost in Perth?',
+      answer: `Our website packages start at ${prices.websiteFrom} for ${launch.pages} pages, and every page is priced up front, from ${prices.pagePriceFrom} a page. Work outside a package is ${prices.hourlyRate} an hour. Or tell us your budget and we will tell you what it buys.`,
+      links: [
+        { phrase: 'website packages', href: '/website-packages' },
+        { phrase: `${prices.hourlyRate} an hour`, href: '/pricing' },
+      ],
+    },
+    ...WEBSITE_DEV_FAQS,
+    {
+      question: 'Do you build web applications as well as websites?',
+      answer:
+        'Yes. Customer portals, booking and ordering systems, marketplaces and internal tools are web application development, which we price after a short paid discovery.',
+      links: [{ phrase: 'web application development', href: '/web-application-development' }],
+    },
+  ];
+}
