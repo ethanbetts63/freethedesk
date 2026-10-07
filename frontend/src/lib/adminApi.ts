@@ -14,16 +14,8 @@ export type { Paginated, Principal as StaffUser } from './api';
 export { authedFetch, logout, getProfile } from './api';
 export { formatDateTime } from './formatting';
 
-export interface WebsiteEnquiryConfiguration {
-  version?: number;
-  appearance?: {
-    brand_name?: string;
-    current_url?: string;
-  };
-  capabilities?: Array<{ key: string; name: string; selected: boolean }>;
-  inventory_options?: Array<{ key: string; name: string; selected: boolean }>;
-  custom_capability?: string;
-
+/** What the project enquiry form records beside the message. */
+export interface EnquiryConfiguration {
   project_type?: 'website' | 'automation' | 'both';
   budget?: string;
 }
@@ -38,7 +30,7 @@ export interface Enquiry {
   help_with: string;
   help_with_label: string;
   message: string;
-  configuration: WebsiteEnquiryConfiguration;
+  configuration: EnquiryConfiguration;
   status: string;
   status_label: string;
   created_at: string;

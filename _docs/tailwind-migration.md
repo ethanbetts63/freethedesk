@@ -979,6 +979,10 @@ which only orders them), `prose.css` and its two rich-content modules
 `flowCompare`). Every one is classifiable under an allowed exception, which was
 the exit criterion.
 
+On 2026-10-07 the dealership website builder was deleted, and
+`preview.module.css` with it. Ten stylesheets remain, 1,449 lines, and there is
+no second design system left in the repo.
+
 ## Verification for every phase
 
 Run, at minimum:

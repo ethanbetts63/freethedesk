@@ -34,13 +34,7 @@ import {
 import { cn } from '@/lib/utils';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { backClassName, pageClassName } from '@/components/ui/layout';
-import {
-  adminConfigBasicsClassName,
-  adminConfigGroupClassName,
-  adminConfigLabelClassName,
-  adminConfigRequestClassName,
-  adminRelatedMessagesClassName,
-} from '@/components/dashboard/adminLayout';
+import { adminRelatedMessagesClassName } from '@/components/dashboard/adminLayout';
 import { newInvoiceHref } from '@/app/dashboard/admin/invoices/_lib/invoiceStatus';
 
 export default function EnquiryDetailPage() {
@@ -110,9 +104,6 @@ export default function EnquiryDetailPage() {
 
   const configuration = enquiry.configuration ?? {};
   const websiteHref = safeWebsiteHref(enquiry.website);
-  const chosenCapabilities = configuration.capabilities?.filter((item) => item.selected) ?? [];
-  const chosenInventoryOptions =
-    configuration.inventory_options?.filter((item) => item.selected) ?? [];
 
   return (
     <div className={pageClassName}>
@@ -191,49 +182,6 @@ export default function EnquiryDetailPage() {
             )}
           </dl>
         </section>
-        {enquiry.help_with === 'website_builder' && (
-          <section className={cn(cardClassName, cardWideClassName)}>
-            <div className={cardHeadingClassName}>
-              <h2 className={cardTitleClassName}>Website configuration</h2>
-              <span className={adminConfigLabelClassName}>Interactive builder</span>
-            </div>
-            <dl className={cn(detailListClassName, adminConfigBasicsClassName)}>
-              <DetailItem term="Brand name">
-                {configuration.appearance?.brand_name || enquiry.business}
-              </DetailItem>
-              <DetailItem term="Current URL">
-                {configuration.appearance?.current_url || 'Not supplied'}
-              </DetailItem>
-              <DetailItem term="Build version">{configuration.version ?? '—'}</DetailItem>
-            </dl>
-            <div className={adminConfigGroupClassName}>
-              <strong>Selected capabilities</strong>
-              <div>
-                {chosenCapabilities.length ? (
-                  chosenCapabilities.map((item) => <span key={item.key}>{item.name}</span>)
-                ) : (
-                  <em>Base website only</em>
-                )}
-              </div>
-            </div>
-            {chosenInventoryOptions.length > 0 && (
-              <div className={adminConfigGroupClassName}>
-                <strong>Inventory options</strong>
-                <div>
-                  {chosenInventoryOptions.map((item) => (
-                    <span key={item.key}>{item.name}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-            {configuration.custom_capability && (
-              <div className={adminConfigRequestClassName}>
-                <strong>Custom capability</strong>
-                <p>{configuration.custom_capability}</p>
-              </div>
-            )}
-          </section>
-        )}
         <section className={cn(cardClassName, cardWideClassName)}>
           <h2 className={cardTitleClassName}>What they said</h2>
           <p className={messageBodyClassName}>{enquiry.message}</p>

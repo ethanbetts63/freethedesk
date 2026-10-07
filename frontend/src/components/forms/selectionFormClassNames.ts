@@ -111,7 +111,6 @@ export const fieldInputClassName =
   'min-h-[50px] w-full rounded-none border border-border-default bg-surface-page px-s text-[length:var(--selection-input-font-size)] font-normal text-text-primary outline-none placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus';
 export const fieldTextareaClassName =
   'min-h-[82px] w-full resize-y rounded-none border border-border-default bg-surface-page p-s text-[length:var(--selection-input-font-size)] font-normal text-text-primary outline-none placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus';
-export const fieldHintClassName = 'mt-2xs block text-caption font-normal text-text-subtle';
 export const submitClassName = 'mt-xs min-h-[58px] text-left [&>span]:text-lead';
 export const formErrorClassName =
   'm-0 mb-s border-l-[3px] border-border-danger bg-surface-danger p-s text-body leading-normal text-text-danger';

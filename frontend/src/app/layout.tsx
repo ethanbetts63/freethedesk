@@ -30,9 +30,8 @@ const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? '';
  *
  * Neither CLARITY_EXCLUDED_ROUTES nor APPLICATION_ROUTES, though it overlaps
  * both. Clarity's list is a security decision about what a third party gets a
- * picture of, and APPLICATION_ROUTES is about which chrome a page wears -- it
- * held the customer-facing dealership builder, exactly what
- * this property is being installed to measure. The portals are excluded for a
+ * picture of, and APPLICATION_ROUTES is about which chrome a page wears;
+ * neither is a measurement decision. The portals are excluded for a
  * measurement reason: staff live in these three for hours a day, and left in
  * they sit on top of every engagement, retention and landing-page number on the
  * property. The rest are excluded because GA never receives a secret

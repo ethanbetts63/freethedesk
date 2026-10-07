@@ -9,24 +9,12 @@ from ..models import Enquiry
 from ..serializers import (
     AdminEnquirySerializer,
     AiReadinessEnquirySerializer,
-    EnquirySerializer,
     ProjectEnquirySerializer,
 )
 from ..utils.notifications import notify_admin_of_enquiry
 from ..utils.ordering import apply_ordering
 from ..utils.pagination import DashboardPagination
 from ..utils.throttles import EnquiryRateThrottle
-
-
-@api_view(["POST"])
-@permission_classes([AllowAny])
-@throttle_classes([EnquiryRateThrottle])
-def create_enquiry(request):
-    serializer = EnquirySerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    enquiry = serializer.save()
-    notify_admin_of_enquiry(enquiry)
-    return Response({"status": "received"}, status=status.HTTP_201_CREATED)
 
 
 @api_view(["POST"])

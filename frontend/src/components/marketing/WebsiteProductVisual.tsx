@@ -30,7 +30,7 @@ export function WebsiteProductVisual() {
             yourdealership.com.au
           </span>
           <b className="hidden justify-self-end text-caption tracking-label-tight text-text-action uppercase sm:block">
-            Live preview
+            Live site
           </b>
         </div>
         <div className="flex items-center justify-between px-xl py-l">

@@ -6,29 +6,6 @@ from rest_framework import serializers
 from ..models import Enquiry
 
 
-class EnquirySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Enquiry
-        fields = [
-            "name", "business", "email", "phone", "website", "help_with", "message",
-            "configuration",
-        ]
-        # `message` is a TextField column, which DRF maps to a CharField with
-        # no maximum. This one is posted by anybody, from a public form.
-        extra_kwargs = {"message": {"max_length": bounds.FIELD_MAX["note"]}}
-
-    def validate_message(self, value: str) -> str:
-        value = value.strip()
-        if len(value) < 10:
-            raise serializers.ValidationError("Please provide a little more detail.")
-        return value
-
-    def validate_configuration(self, value: dict) -> dict:
-        if not isinstance(value, dict):
-            raise serializers.ValidationError("Configuration must be a JSON object.")
-        return value
-
-
 class AiReadinessEnquirySerializer(serializers.Serializer):
     """The intentionally small lead form for the free automated site check."""
 

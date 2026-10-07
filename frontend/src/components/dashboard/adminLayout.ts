@@ -18,33 +18,6 @@ export const adminComposeCardClassName =
 export const adminComposeBadgeClassName =
   'rounded-xs bg-surface-tint-strong px-xs py-2xs text-caption font-heavy text-text-muted';
 
-export const adminConfigLabelClassName =
-  'rounded-pill bg-surface-tint-strong px-xs py-2xs text-caption font-control text-text-muted';
-
-/** The dl of brand/URL/version above the capability groups. */
-export const adminConfigBasicsClassName = 'mb-ml border-b border-border-default pb-ml';
-
-/**
- * A labelled row of capability pills. The margin is on every group rather than
- * only on the ones that follow another, which is what the adjacent-sibling
- * selector said: the groups are always preceded by the basics block, which is
- * separated by its own border, so the first group wants the gap too.
- */
-export const adminConfigGroupClassName = [
-  'mt-ml',
-  '[&>strong]:mb-xs [&>strong]:block [&>strong]:text-caption [&>strong]:tracking-label-tight [&>strong]:text-text-subtle [&>strong]:uppercase',
-  '[&>div]:flex [&>div]:flex-wrap [&>div]:gap-2xs',
-  '[&_span]:rounded-pill [&_span]:border [&_span]:border-border-default [&_span]:bg-surface-tint-strong [&_span]:px-xs [&_span]:py-2xs [&_span]:text-label [&_span]:font-strong',
-  '[&_em]:text-label [&_em]:not-italic [&_em]:text-text-subtle',
-].join(' ');
-
-/** Free text the customer typed, quoted back with a rule beside it. */
-export const adminConfigRequestClassName = [
-  'mt-ml border-l-[3px] border-l-action-primary bg-surface-tint px-m py-s',
-  '[&>strong]:mb-xs [&>strong]:block [&>strong]:text-caption [&>strong]:tracking-label-tight [&>strong]:text-text-subtle [&>strong]:uppercase',
-  '[&>p]:m-0 [&>p]:text-body-sm [&>p]:leading-relaxed [&>p]:whitespace-pre-wrap',
-].join(' ');
-
 /**
  * The list of messages sent about one enquiry. Stacks on a phone; from `sm`
  * the channel, subject and timestamp take fixed outer columns so the dates

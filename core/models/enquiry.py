@@ -3,13 +3,12 @@ from django.db import models
 
 class Enquiry(models.Model):
     class HelpWith(models.TextChoices):
-        WEBSITE = "website", "Dealer website"
-        WEBSITE_BUILDER = "website_builder", "Dealer web enquiry"
-        INVENTORY = "inventory", "Inventory, parts, service or hire"
+        """What the enquiry is about: the project form's three scopes, or the AI check."""
+
+        WEBSITE = "website", "Website"
         AUTOMATION = "automation", "Business automation"
         AI_READINESS = "ai_readiness", "AI readiness check"
-        EVERYTHING = "everything", "All of the above"
-        UNSURE = "unsure", "Not sure yet"
+        EVERYTHING = "everything", "Website and automation"
 
     class Status(models.TextChoices):
         NEW = "new", "New"

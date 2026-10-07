@@ -13,120 +13,6 @@ def _clear_throttle_cache():
     cache.clear()
 
 
-def test_enquiry_can_be_created(api_client, outbox):
-    response = api_client.post(
-        "/api/enquiries/",
-        {
-            "name": "Jane Dealer",
-            "business": "Example Equipment",
-            "email": "jane@example.com",
-            "phone": "0400 000 000",
-            "website": "https://example.com",
-            "help_with": "website",
-            "message": "Our inventory and parts enquiries need a better system.",
-        },
-        format="json",
-    )
-
-    assert response.status_code == 201
-    assert Enquiry.objects.count() == 1
-    assert Enquiry.objects.get().business == "Example Equipment"
-    assert [message.channel for message in outbox] == ["email", "sms"]
-    assert "Example Equipment" in outbox[0].subject
-    assert "Our inventory and parts enquiries need a better system." in outbox[0].body_text
-    assert outbox[0].content_object == Enquiry.objects.get()
-
-
-def test_enquiry_can_be_created_without_business_or_phone(api_client, outbox):
-    response = api_client.post(
-        "/api/enquiries/",
-        {
-            "name": "Alex Owner",
-            "email": "alex@example.com",
-            "help_with": "automation",
-            "message": "We want to automate our repeated order entry process.",
-        },
-        format="json",
-    )
-
-    assert response.status_code == 201
-    enquiry = Enquiry.objects.get()
-    assert enquiry.business == ""
-    assert enquiry.phone == ""
-    assert [message.channel for message in outbox] == ["email", "sms"]
-
-
-def test_short_enquiry_message_is_rejected(api_client):
-    response = api_client.post(
-        "/api/enquiries/",
-        {
-            "name": "Jane Dealer",
-            "business": "Example Equipment",
-            "email": "jane@example.com",
-            "help_with": "automation",
-            "message": "Help",
-        },
-        format="json",
-    )
-
-    assert response.status_code == 400
-    assert Enquiry.objects.count() == 0
-
-
-def test_all_of_the_above_is_a_valid_enquiry_type(api_client):
-    response = api_client.post(
-        "/api/enquiries/",
-        {
-            "name": "Sam Dealer",
-            "business": "Complete Dealer Group",
-            "email": "sam@example.com",
-            "help_with": "everything",
-            "message": "We need the website and our internal workflows improved.",
-        },
-        format="json",
-    )
-
-    assert response.status_code == 201
-    assert Enquiry.objects.get().help_with == "everything"
-
-
-def test_website_builder_enquiry_stores_full_configuration(api_client):
-    configuration = {
-        "version": 1,
-        "appearance": {
-            "brand_name": "Northline",
-            "current_url": "www.example.com.au",
-        },
-        "capabilities": [
-            {"key": "inventory", "name": "Inventory catalogue", "selected": True},
-            {"key": "service", "name": "Service bookings", "selected": False},
-        ],
-        "inventory_options": [
-            {"key": "purchase", "name": "Buy online", "selected": True},
-        ],
-        "custom_capability": "Connect our existing stock feed.",
-    }
-    response = api_client.post(
-        "/api/enquiries/",
-        {
-            "name": "Jane Dealer",
-            "business": "Northline",
-            "email": "jane@example.com",
-            "phone": "0400 000 000",
-            "website": "https://www.example.com.au",
-            "help_with": "website_builder",
-            "message": "Connect our existing stock feed.",
-            "configuration": configuration,
-        },
-        format="json",
-    )
-
-    assert response.status_code == 201
-    enquiry = Enquiry.objects.get()
-    assert enquiry.get_help_with_display() == "Dealer web enquiry"
-    assert enquiry.configuration == configuration
-
-
 def test_free_ai_readiness_check_creates_a_tagged_enquiry(api_client, outbox):
     response = api_client.post(
         "/api/ai-readiness/",
@@ -187,6 +73,9 @@ def test_project_enquiry_records_the_scope_and_budget(api_client, outbox):
     assert "Budget: $3,000." in enquiry.message
     assert "Notes:\nWe want enquiries routed to different teams by location." in enquiry.message
     assert [message.channel for message in outbox] == ["email", "sms"]
+    assert "example.com.au" in outbox[0].subject
+    assert "We want enquiries routed to different teams by location." in outbox[0].body_text
+    assert outbox[0].content_object == enquiry
 
 
 def test_project_enquiry_accepts_a_custom_budget_without_a_phone_number(api_client):
@@ -273,3 +162,15 @@ def test_staff_can_list_and_update_enquiries(api_client, staff_user):
     assert response.status_code == 200
     enquiry.refresh_from_db()
     assert enquiry.status == "contacted"
+
+
+def test_the_retired_free_form_enquiry_endpoint_is_gone(api_client):
+    """The dealership builder was its last caller, and it took any JSON from anyone."""
+    response = api_client.post(
+        "/api/enquiries/",
+        {"email": "a@example.com", "help_with": "website", "message": "Hello there, friend"},
+        format="json",
+    )
+
+    assert response.status_code == 404
+    assert not Enquiry.objects.exists()

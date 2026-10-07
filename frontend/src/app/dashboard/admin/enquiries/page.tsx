@@ -39,14 +39,12 @@ import { pageClassName } from '@/components/ui/layout';
 const SORT_FIELDS = ['created_at', 'business', 'help_with', 'status'] as const;
 const FILTER_KEYS = ['status', 'help_with'] as const;
 
+/** Mirrors Enquiry.HelpWith: the project form's three scopes and the AI readiness check. */
 const HELP_WITH_OPTIONS = [
-  { value: 'website', label: 'Dealer website' },
-  { value: 'website_builder', label: 'Dealer web enquiry' },
-  { value: 'inventory', label: 'Inventory, parts, service or hire' },
+  { value: 'website', label: 'Website' },
   { value: 'automation', label: 'Business automation' },
+  { value: 'everything', label: 'Website and automation' },
   { value: 'ai_readiness', label: 'AI readiness check' },
-  { value: 'everything', label: 'All of the above' },
-  { value: 'unsure', label: 'Not sure yet' },
 ];
 
 const COLUMNS = 5;
