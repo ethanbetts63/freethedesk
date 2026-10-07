@@ -2,9 +2,15 @@ import type { FaqItem } from '@/types/FaqItem';
 
 export const WEBSITE_DEV_FAQS: FaqItem[] = [
   {
-    question: 'How much does a website cost?',
+    question: 'How much does web design cost in Perth?',
     answer:
       'It depends on whether you need a focused marketing site, ecommerce, custom workflows or integrations. We define the useful first release and give you a clear scope before development begins.',
+  },
+
+  {
+    question: 'Do you design the website as well as build it?',
+    answer:
+      'Yes. Web design and development happen together here, so the layout is planned around what the site has to do: the pages people search for, the action you want them to take and the admin it should save.',
   },
 
   {

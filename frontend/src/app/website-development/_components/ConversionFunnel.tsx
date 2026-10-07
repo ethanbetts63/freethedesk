@@ -16,7 +16,7 @@ export function ConversionFunnel({ eyebrow }: { eyebrow: string }) {
       title="Websites designed to"
       accentTitle="be obvious."
       titleBreak="desktop"
-      description="Visitors shouldn’t have to work out what to do next. We create clear paths from their first click to a purchase, booking or enquiry."
+      description="Good web design means visitors never have to work out what to do next. We create clear paths from their first click to a purchase, booking or enquiry."
       bullets={bullets}
       visual={<ConversionFunnelVisual />}
       textSide="right"

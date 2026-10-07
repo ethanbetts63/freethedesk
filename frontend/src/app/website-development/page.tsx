@@ -23,7 +23,7 @@ import { WebsiteFeatures } from './_components/WebsiteFeatures';
 /* Section eyebrows in page order. */
 const sections = numberSections([
   'SEO',
-  'Website Design',
+  'Web Design',
   'Admin Automation',
   "What you're paying for",
   'Features and integrations',
@@ -47,11 +47,11 @@ export default function WebsiteDevelopmentPage() {
       <AiReadinessBanner />
       <Hero
         path="/website-development"
-        eyebrow="Website development Perth"
+        eyebrow="Web design & development Perth"
         titleLines={['Websites should']}
         accentTitle="work harder."
         accentAlternates={['be faster.', 'grow faster.', 'be easier.', 'sell more.']}
-        lead="Custom websites for Perth businesses that turn visitors into customers and automate the repetitive work behind them."
+        lead="Custom web design and development for Perth businesses: websites that turn visitors into customers and automate the repetitive work behind them."
         primaryHref="#enquiry"
         primaryLabel="Discuss your website"
         secondaryHref="/portfolio/scooter-shop"
@@ -60,7 +60,7 @@ export default function WebsiteDevelopmentPage() {
 
       <WebsiteJobsBar />
 
-      <WebsiteIntroduction />
+      <WebsiteIntroduction designDescription="Web design with clear layouts and simple steps that guide visitors towards a purchase, booking or enquiry, on mobile and desktop." />
 
       <SeoReportOverview
         id="seo"
@@ -71,7 +71,7 @@ export default function WebsiteDevelopmentPage() {
         description="Every website launches with strong SEO foundations, but ranking in Perth takes iteration. We analyse live data as it arrives and give you ranked, plain-English opportunities with implementation costs."
       />
 
-      <ConversionFunnel eyebrow={sections['Website Design']} />
+      <ConversionFunnel eyebrow={sections['Web Design']} />
 
       <AdminAutomationSection
         id="website-automation"

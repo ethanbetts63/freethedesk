@@ -13,7 +13,7 @@ export function WebsiteDevelopmentFeature() {
   return (
     <SplitFeatureSection
       id="websites"
-      eyebrow="Website development Perth"
+      eyebrow="Web design & development Perth"
       title="Websites should"
       accentTitle="work harder."
       description="Custom websites that convert users and automate the repetitive work behind your business."

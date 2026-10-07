@@ -39,7 +39,7 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-10-02',
+    updated: '2026-10-07',
     label: 'Home',
     title: 'Websites, SEO & Business Automation Perth | freethedesk',
     description:
@@ -66,17 +66,17 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-10-04',
+    updated: '2026-10-07',
     label: 'Website development',
-    title: 'Website Development Perth | Make your website work harder',
+    title: 'Web Design & Development Perth | Websites that work harder',
     description:
-      'Website development for Perth businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.',
+      'Web design and development for Perth businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.',
     absoluteTitle: true,
-    // Perth rather than Australia, matching the page's own "Website development
-    // Perth" eyebrow and the local intent the title targets.
+    // Perth rather than Australia, matching the page's own "Web design &
+    // development Perth" eyebrow and the local intent the title targets.
     service: {
-      name: 'Website Development Perth',
-      serviceType: 'Website development and web application development',
+      name: 'Web Design & Development Perth',
+      serviceType: 'Web design, website development and web application development',
       areaServed: { type: 'City', name: 'Perth' },
     },
   },
