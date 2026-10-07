@@ -27,15 +27,7 @@ const ARTWORK_EXCEPTIONS = [
 export default {
   ...stylelintBaseConfig,
 
-  ignoreFiles: [
-    '**/node_modules/**',
-    '.next/**',
-    // A live preview of a *generated customer website* - a different design
-    // system that happens to live in this repo, drawn inside `.browser` and
-    // sized by its own --demo-text-* scale. Holding it to freethedesk's tokens
-    // would be wrong, not just noisy. Still two thirds of all the CSS here.
-    'src/app/dealership-website-builder/_styles/**',
-  ],
+  ignoreFiles: ['**/node_modules/**', '.next/**'],
 
   rules: {
     ...stylelintBaseConfig.rules,

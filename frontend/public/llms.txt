@@ -15,7 +15,6 @@ Perth-based, working primarily in Perth with clients in cities across Australia.
 ## For dealerships
 - [Dealer websites](https://www.freethedesk.com.au/dealers): Inventory, parts, service and hire websites built specifically for vehicle and equipment dealerships.
 - [Online vehicle licensing](https://www.freethedesk.com.au/licensing): Online vehicle licensing and contract signing so customers can complete paperwork without a dealership visit.
-- [Dealership website builder](https://www.freethedesk.com.au/dealership-website-builder): An interactive configurator for specifying a dealership website around how a business sells, books and grows.
 
 ## Case studies
 - [Scooter Shop](https://www.freethedesk.com.au/portfolio/scooter-shop): A live dealership website covering inventory, online purchasing, licensing, parts, service and hire, and the organic growth that followed.

@@ -12,7 +12,9 @@ const nextConfig: NextConfig = {
       { source: '/change-password', destination: '/dashboard/change-password', permanent: false },
       { source: '/websites', destination: '/', permanent: true },
       { source: '/dealer-websites', destination: '/', permanent: true },
-      { source: '/website-builder', destination: '/dealership-website-builder', permanent: true },
+      { source: '/website-builder', destination: '/dealers', permanent: true },
+      // The interactive builder was retired on 2026-10-07; dealers land on the overview.
+      { source: '/dealership-website-builder', destination: '/dealers', permanent: true },
       {
         source: '/website-development-perth',
         destination: '/website-development',

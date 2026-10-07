@@ -55,7 +55,7 @@ export const STATIC_PAGES = {
       'One connected system for Perth and WA dealerships: a website built to be found, online licensing, and the admin automation behind it, priced against the tools it replaces.',
   },
   '/licensing': {
-    updated: '2026-10-02',
+    updated: '2026-10-07',
     label: 'Online licensing',
     title: 'Online Vehicle Licensing for Perth & WA Dealers',
     description:
@@ -114,13 +114,6 @@ export const STATIC_PAGES = {
     description:
       'What freethedesk costs: one hourly rate, paid discovery, website packages priced per page, and from prices for web applications, automation and SEO audits.',
     absoluteTitle: true,
-  },
-  '/dealership-website-builder': {
-    updated: '2026-10-07',
-    label: 'Website builder',
-    title: 'Dealership Website Builder | Custom Dealer Websites Perth',
-    description:
-      'Configure a dealership website around the way your Perth dealership sells, books and grows.',
   },
   '/automation': {
     updated: '2026-10-02',

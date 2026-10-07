@@ -25,9 +25,9 @@ export function SignupPlans({ settings, eyebrow }: { settings: LicensingPrices; 
         Want this built into a custom dealership website instead?{' '}
         <Link
           className="border-b border-action-primary font-heavy text-action-primary"
-          href="/dealership-website-builder"
+          href="/dealers"
         >
-          See the website builder ↗
+          See dealer websites ↗
         </Link>
       </p>
     </section>

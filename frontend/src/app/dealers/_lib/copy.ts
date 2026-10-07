@@ -10,13 +10,23 @@ export const DEALER_FAQS: FaqItem[] = [
   {
     question: 'Do you work outside Perth?',
     answer:
-      'Yes. We work primarily in Perth, and we also have clients in cities across Australia. Online licensing and the website builder work for dealers in every state.',
+      'Yes. We work primarily in Perth, and we also have clients in cities across Australia. Online licensing works for dealers in every state.',
   },
 
   {
-    question: 'Can I try it before talking to anyone?',
+    question: 'Which features can a dealership website include?',
     answer:
-      'Yes. The interactive builder lets you configure a complete dealership website and explore every page before you get in touch.',
+      'Live stock with search, accessories and visual parts catalogues, service bookings, hire and fleet, guides and articles, online purchasing with deposits, online sales contracts and online licensing, a new stock newsletter, and integrations with your stock system and CRM.',
+  },
+
+  {
+    question: 'How much does a dealership website cost?',
+    answer:
+      'The pages are priced like any of our websites, per page, from our website packages. Dealer features such as stock feeds, online purchasing and licensing are scoped in a paid discovery and priced before we start.',
+    links: [
+      { phrase: 'website packages', href: '/website-packages' },
+      { phrase: 'paid discovery', href: '/pricing' },
+    ],
   },
 
   {

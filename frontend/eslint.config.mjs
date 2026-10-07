@@ -26,9 +26,6 @@ export default defineConfig([
       // Emits a JSON manifest, so it cannot read a CSS variable. Its two
       // colours are kept in step with the tokens by hand.
       'src/app/manifest.ts',
-      // The generated dealership website: a second design system with its own
-      // scale, drawn inside .browser. See _styles/preview.module.css.
-      'src/app/dealership-website-builder/_components/previews/**',
     ],
     rules: {
       'no-restricted-syntax': designSystemNoRestrictedSyntax(),
@@ -42,10 +39,6 @@ export default defineConfig([
     name: 'freethedesk/css-module-boundary',
     files: ['src/**/*.{ts,tsx}'],
     ignores: [
-      // A live preview of a *generated customer website*: a second design
-      // system that happens to live in this repo, drawn against its own type
-      // scale. Holding it to these tokens would be wrong, not just noisy.
-      'src/app/dealership-website-builder/_components/**',
       // The two uncontrolled-rich-content sheets (the article body and the
       // legal source documents) are excused on their import lines instead, so
       // the reason sits next to the import rather than in a glob here.

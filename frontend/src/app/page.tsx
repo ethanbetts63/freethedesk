@@ -11,7 +11,7 @@ import { HOME_FAQS } from './_lib/copy';
 import { AiReadinessBanner } from '@/components/marketing/AiReadinessBanner';
 import { AutomationFeature } from './_components/AutomationFeature';
 import { HomeSeoFeature } from './_components/HomeSeoFeature';
-import { DealerWebsiteBuilderSection } from '@/components/marketing/DealerWebsiteBuilderSection';
+import { DealerWebsiteSection } from '@/components/marketing/DealerWebsiteSection';
 import { FlagshipCheckout } from '@/components/marketing/FlagshipCheckout';
 import { Hero } from '@/components/marketing/Hero';
 import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
@@ -46,10 +46,7 @@ export default function Home() {
       <AutomationFeature />
       <FlagshipCheckout />
       <HomeSeoFeature />
-      <DealerWebsiteBuilderSection
-        eyebrow="Interactive dealership builder"
-        id="dealership-builder"
-      />
+      <DealerWebsiteSection eyebrow="For dealerships" id="dealerships" overview />
       <ProjectEnquiry />
       <FaqSection
         emitSchema

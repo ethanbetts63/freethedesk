@@ -34,7 +34,6 @@ checkFormLedger({
     { file: 'app/dashboard/admin/invoices/[invoiceId]/email/page.tsx', track: 'B' },
     { file: 'app/dashboard/admin/users/[userId]/AccountForm.tsx', track: 'B' },
     { file: 'app/dashboard/admin/users/[userId]/SetPasswordForm.tsx', track: 'B' },
-    { file: 'app/dealership-website-builder/_components/ConfiguratorControls.tsx', track: 'B' },
     { file: 'app/login/page.tsx', track: 'B' },
     { file: 'app/portal/account/page.tsx', track: 'B' },
     { file: 'app/portal/setup/page.tsx', track: 'B' },
@@ -67,31 +66,6 @@ checkFormLedger({
       file: 'components/dashboard/AdminList.tsx',
       track: 'excluded',
       why: 'Filter/search (AdminFilterBar), no network write.',
-    },
-    {
-      file: 'app/dealership-website-builder/_components/previews/ContactPage.tsx',
-      track: 'excluded',
-      why: 'Configurator preview of a generated customer site. Submits nowhere.',
-    },
-    {
-      file: 'app/dealership-website-builder/_components/previews/HirePage.tsx',
-      track: 'excluded',
-      why: 'Configurator preview. Submits nowhere.',
-    },
-    {
-      file: 'app/dealership-website-builder/_components/previews/InventoryPage.tsx',
-      track: 'excluded',
-      why: 'Configurator preview. Submits nowhere.',
-    },
-    {
-      file: 'app/dealership-website-builder/_components/previews/VehicleDetailsPage.tsx',
-      track: 'excluded',
-      why: 'Configurator preview. Submits nowhere.',
-    },
-    {
-      file: 'app/dealership-website-builder/_components/previews/shared.tsx',
-      track: 'excluded',
-      why: 'Configurator preview building blocks. Submits nowhere.',
     },
   ],
 });

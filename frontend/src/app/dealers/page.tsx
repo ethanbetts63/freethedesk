@@ -5,7 +5,7 @@ import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSection';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
-import { DealerWebsiteBuilderSection } from '@/components/marketing/DealerWebsiteBuilderSection';
+import { DealerWebsiteSection } from '@/components/marketing/DealerWebsiteSection';
 import { Hero } from '@/components/marketing/Hero';
 import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
 import { SubscriptionSwap } from '@/components/marketing/SubscriptionSwap';
@@ -16,7 +16,6 @@ import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { metadataFor } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
 
-import { DealerDemoAlternative } from './_components/DealerDemoAlternative';
 import { DealershipAutomation } from './_components/DealershipAutomation';
 import { DEALER_FAQS } from './_lib/copy';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
@@ -74,8 +73,8 @@ export default function Dealers() {
         accentTitle="dealerships."
         accentAlternates={['licensing.', 'contracts.', 'handovers.']}
         lead="Connected websites and operational systems for Perth and WA dealerships, built for the way they sell, service and work."
-        primaryHref="/dealership-website-builder"
-        primaryLabel="Try the free demo"
+        primaryHref="#project-enquiry"
+        primaryLabel="Discuss your dealership"
         secondaryHref="/portfolio/scooter-shop"
         secondaryLabel="See it in action"
       />
@@ -98,7 +97,7 @@ export default function Dealers() {
         description="Every dealership website launches with strong SEO foundations. As search data arrives, we rank the best opportunities across stock, service and the Perth suburbs you sell into."
       />
 
-      <DealerWebsiteBuilderSection eyebrow={sections['Website Design']} />
+      <DealerWebsiteSection eyebrow={sections['Website Design']} />
 
       <AdminAutomationSection
         id="website-automation"
@@ -143,7 +142,6 @@ export default function Dealers() {
       <ProjectEnquiry
         eyebrow={null}
         lead="Give us the constraint, and we'll tell you the most valuable dealership system we can build within it."
-        footer={<DealerDemoAlternative />}
       />
 
       <FloatingPageCta

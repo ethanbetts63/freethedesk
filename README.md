@@ -107,7 +107,7 @@ lockfile and are covered.
 | `dealers/`  | Dealer accounts and dealer-facing domain behaviour                     |
 | `payments/` | Stripe subscriptions, checkout, and agreement capture                  |
 | `seo/`      | SEO product behaviour and supporting APIs                              |
-| `frontend/` | Public site, checkout, generated-site builder, and staff portal        |
+| `frontend/` | Public site, checkout, and staff portal                                |
 
 ## Documentation
 

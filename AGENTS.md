@@ -39,8 +39,6 @@ directory.
   services, and legal source documents remain site-owned.
 - Use FreeThePlatform public APIs for shared agreement and messaging behaviour;
   do not reintroduce local substitutes.
-- The dealership website builder previews a generated customer site and is a
-  scoped second design system. Its exception is defined by the shared lint policy.
 - The frontend follows the shared Tailwind v4 architecture. Remaining CSS files
   are foundations or named exceptions; `_docs/tailwind-migration.md` records how
   it got there rather than what is still planned.
