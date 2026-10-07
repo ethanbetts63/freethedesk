@@ -18,12 +18,12 @@ class SiteSettings(models.Model):
     SEO prices are per report: the customer picks monthly, quarterly or yearly
     at signup, or a one-off audit, and each has its own price.
 
-    The rest price the services that are quoted rather than bought online, and
-    only ever appear on the public pricing pages. Work is billed at the hourly
-    rate, and discovery is a fixed number of those hours paid upfront. A website
-    is priced per page: each of the three packages is a page count at its own
-    per-page price, and an extra page costs the same. Web applications and
-    automation have a "from" price, the smallest job of each worth starting.
+    The rest price the website development packages and the quoted work. Work
+    is billed at the hourly rate. Two website packages are each a page count at
+    a per-page price, and an extra page costs the same. The web application
+    package is bought as its discovery: that many hours at the hourly rate,
+    paid upfront. Web applications and automation also carry a "from"
+    price, the smallest project of each worth starting.
     """
 
     licensing_price = models.DecimalField(
@@ -61,25 +61,18 @@ class SiteSettings(models.Model):
     discovery_hours = models.PositiveSmallIntegerField(
         default=3, validators=[MinValueValidator(1)],
     )
-    website_launch_pages = models.PositiveSmallIntegerField(
-        default=5, validators=[MinValueValidator(1)],
+    website_small_pages = models.PositiveSmallIntegerField(
+        default=6, validators=[MinValueValidator(1)],
     )
-    website_launch_page_price = models.DecimalField(
+    website_small_page_price = models.DecimalField(
         max_digits=8, decimal_places=2, default=Decimal("500.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
-    website_grow_pages = models.PositiveSmallIntegerField(
+    website_large_pages = models.PositiveSmallIntegerField(
         default=10, validators=[MinValueValidator(1)],
     )
-    website_grow_page_price = models.DecimalField(
+    website_large_page_price = models.DecimalField(
         max_digits=8, decimal_places=2, default=Decimal("600.00"),
-        validators=[MinValueValidator(Decimal("0.01"))],
-    )
-    website_connect_pages = models.PositiveSmallIntegerField(
-        default=15, validators=[MinValueValidator(1)],
-    )
-    website_connect_page_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=Decimal("700.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
     web_app_from_price = models.DecimalField(

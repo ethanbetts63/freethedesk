@@ -9,6 +9,7 @@ from ..models import Enquiry
 from ..serializers import (
     AdminEnquirySerializer,
     AiReadinessEnquirySerializer,
+    PackageOrderSerializer,
     ProjectEnquirySerializer,
 )
 from ..utils.notifications import notify_admin_of_enquiry
@@ -33,6 +34,17 @@ def create_ai_readiness_enquiry(request):
 @throttle_classes([EnquiryRateThrottle])
 def create_project_enquiry(request):
     serializer = ProjectEnquirySerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    enquiry = serializer.save()
+    notify_admin_of_enquiry(enquiry)
+    return Response({"status": "received"}, status=status.HTTP_201_CREATED)
+
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+@throttle_classes([EnquiryRateThrottle])
+def create_package_order(request):
+    serializer = PackageOrderSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     enquiry = serializer.save()
     notify_admin_of_enquiry(enquiry)

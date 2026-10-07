@@ -14,6 +14,7 @@ import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { metadataFor } from '@/lib/pages';
+import { buildOneOffOffer } from '@/lib/seo';
 import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
 import { servicePrices } from '@/lib/servicePricing';
 import { numberSections } from '@/lib/sectionNumbers';
@@ -21,12 +22,14 @@ import { numberSections } from '@/lib/sectionNumbers';
 import { FeatureScrollSection } from '@/components/marketing/FeatureScrollSection';
 import { JourneySection } from '@/components/marketing/JourneySection';
 
+import { PackagesSection } from './_components/PackagesSection';
 import { WEB_DESIGN_JOURNEY, websiteDevFaqs } from './_lib/copy';
 import { websiteServices } from './_lib/websiteServices';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 /* Section eyebrows in page order. */
 const sections = numberSections([
+  'Packages',
   'SEO',
   'Web Design',
   'Admin Automation',
@@ -38,7 +41,7 @@ const sections = numberSections([
 
 export const metadata: Metadata = metadataFor('/website-development');
 
-/* The cost answer quotes the admin's prices, so this page renders per request. */
+/* The packages and the cost answer quote the admin's prices, so this page renders per request. */
 export const dynamic = 'force-dynamic';
 
 const casePoints = [
@@ -50,10 +53,13 @@ const casePoints = [
 
 export default async function WebsiteDevelopmentPage() {
   const prices = servicePrices(await getSiteSettingsServer(SERVICE_PRICE_FIELDS));
+  const offers = prices.packages
+    .map((item) => buildOneOffOffer({ price: item.price, name: item.name }))
+    .filter(Boolean) as object[];
 
   return (
     <main className="bg-surface-page text-text-secondary">
-      <PageSchema path="/website-development" />
+      <PageSchema path="/website-development" serviceOffers={offers.length ? offers : undefined} />
       <AiReadinessBanner />
       <Hero
         path="/website-development"
@@ -62,13 +68,15 @@ export default async function WebsiteDevelopmentPage() {
         accentTitle="work harder."
         accentAlternates={['be faster.', 'grow faster.', 'be easier.', 'sell more.']}
         lead="Custom web design and development for Perth businesses: websites that turn visitors into customers and automate the repetitive work behind them."
-        primaryHref="#enquiry"
-        primaryLabel="Discuss your website"
+        primaryHref="#packages"
+        primaryLabel="See the packages"
         secondaryHref="/portfolio/scooter-shop"
         secondaryLabel="Read the full case study"
       />
 
       <WebsiteJobsBar />
+
+      <PackagesSection eyebrow={sections['Packages']} packages={prices.packages} />
 
       <WebsiteIntroduction designDescription="Web design with clear layouts and simple steps that guide visitors towards a purchase, booking or enquiry, on mobile and desktop." />
 
@@ -122,7 +130,8 @@ export default async function WebsiteDevelopmentPage() {
       <FloatingPageCta
         label="Discuss your website"
         href="#enquiry"
-        showAfterId="website-hero-end"
+        // After the packages, so it never sits over a Buy now button.
+        showAfterId="packages-end"
         hideAtId="enquiry"
       />
 

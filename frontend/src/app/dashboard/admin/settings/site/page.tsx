@@ -47,12 +47,10 @@ const HOURLY_FIELDS: FieldSpec[] = [
 ];
 
 const WEBSITE_FIELDS: FieldSpec[] = [
-  { field: 'website_launch_pages', label: 'Launch package (pages)', count: true },
-  { field: 'website_launch_page_price', label: 'Launch package ($ / page)' },
-  { field: 'website_grow_pages', label: 'Grow package (pages)', count: true },
-  { field: 'website_grow_page_price', label: 'Grow package ($ / page)' },
-  { field: 'website_connect_pages', label: 'Connect package (pages)', count: true },
-  { field: 'website_connect_page_price', label: 'Connect package ($ / page)' },
+  { field: 'website_small_pages', label: 'Package 1 (pages)', count: true },
+  { field: 'website_small_page_price', label: 'Package 1 ($ / page)' },
+  { field: 'website_large_pages', label: 'Package 2 (pages)', count: true },
+  { field: 'website_large_page_price', label: 'Package 2 ($ / page)' },
 ];
 
 const PROJECT_FIELDS: FieldSpec[] = [
@@ -171,8 +169,8 @@ export default function SiteSettingsPage() {
         <section className={cn(cardClassName, cardWideClassName)}>
           <h2 className={cardTitleClassName}>Hourly work</h2>
           <p className="text-label text-text-subtle">
-            Shown on the pricing page. Discovery is this many hours at the hourly rate, paid before
-            any scoping starts.
+            Discovery is this many hours at the hourly rate, paid upfront. It is what the web
+            application package (package 3) costs to buy.
           </p>
           <div className={adminFormClassName}>{HOURLY_FIELDS.map(renderField)}</div>
         </section>
@@ -180,8 +178,8 @@ export default function SiteSettingsPage() {
         <section className={cn(cardClassName, cardWideClassName)}>
           <h2 className={cardTitleClassName}>Website packages</h2>
           <p className="text-label text-text-subtle">
-            Each package is a number of pages at a price per page, and an extra page costs the same.
-            Shown on the website packages and pricing pages.
+            The two website packages on the website development page. Each is a number of pages at a
+            price per page, and an extra page costs the same.
           </p>
           <div className={adminFormClassName}>{WEBSITE_FIELDS.map(renderField)}</div>
         </section>

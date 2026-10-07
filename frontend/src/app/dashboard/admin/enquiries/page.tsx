@@ -39,9 +39,10 @@ import { pageClassName } from '@/components/ui/layout';
 const SORT_FIELDS = ['created_at', 'business', 'help_with', 'status'] as const;
 const FILTER_KEYS = ['status', 'help_with'] as const;
 
-/** Mirrors Enquiry.HelpWith: the project form's three scopes and the AI readiness check. */
+/** Mirrors Enquiry.HelpWith: the project form's scopes, the web application package and the AI check. */
 const HELP_WITH_OPTIONS = [
   { value: 'website', label: 'Website' },
+  { value: 'web_application', label: 'Web application' },
   { value: 'automation', label: 'Business automation' },
   { value: 'everything', label: 'Website and automation' },
   { value: 'ai_readiness', label: 'AI readiness check' },
@@ -143,6 +144,9 @@ function EnquiriesContent() {
                     <CellTitle>{enquiry.help_with_label}</CellTitle>
                     {enquiry.configuration?.budget && (
                       <CellNote>Budget: {enquiry.configuration.budget}</CellNote>
+                    )}
+                    {enquiry.configuration?.package_name && (
+                      <CellNote>Bought: {enquiry.configuration.package_name}</CellNote>
                     )}
                   </td>
                   <td className={adminTdClassName}>

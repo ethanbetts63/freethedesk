@@ -12,17 +12,22 @@
 The public pages now carry prices, all editable in the admin dashboard under
 Site settings, so none needs a deploy to change:
 
-| Setting                            | Default        | Shown on                                |
-| ---------------------------------- | -------------- | --------------------------------------- |
-| Hourly rate                        | $150           | /pricing, every service page's cost FAQ |
-| Discovery hours, paid upfront      | 3 ($450)       | /pricing, /web-application-development  |
-| Launch / Grow / Connect pages      | 5 / 10 / 15    | /website-packages, /pricing             |
-| Launch / Grow / Connect $ per page | $500/$600/$700 | /website-packages, /pricing             |
-| Web applications, from             | $9,000         | /pricing, /web-application-development  |
-| Automation, from                   | $1,200         | /pricing                                |
+| Setting                       | Default   | Shown on                                   |
+| ----------------------------- | --------- | ------------------------------------------ |
+| Hourly rate                   | $150      | /pricing, the website development cost FAQ |
+| Discovery hours, paid upfront | 3 ($450)  | Package 3 (web application), /pricing      |
+| Package 1 and 2 pages         | 6 / 10    | /website-development packages, /pricing    |
+| Package 1 and 2 $ per page    | $500/$600 | /website-development packages, /pricing    |
+| Web applications, from        | $9,000    | Package 3, /pricing                        |
+| Automation, from              | $1,200    | /pricing                                   |
 
-The defaults were a starting proposal, set in migration `core.0018`. What
-each package includes is copy in `frontend/src/lib/servicePricing.ts`.
+The three packages on /website-development can be bought there: a 6-page and
+a 10-page website at their per-page totals, and a web application bought as
+its discovery. Until checkout exists, a purchase is saved as an enquiry
+(`/api/package-orders/`) at the admin's current price and staff invoice it.
+The defaults were a starting proposal (migrations `core.0018` and
+`core.0020`). What each package includes is copy in
+`frontend/src/lib/servicePricing.ts`.
 Discovery replaces the free call in Step 1 below for any custom work.
 
 ## Step 1 — Discovery: free

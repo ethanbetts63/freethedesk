@@ -22,7 +22,7 @@ const NEXT_STEPS = [
     body: (
       <>
         A website usually fits one of our{' '}
-        <Link className={linkClassName} href="/website-packages">
+        <Link className={linkClassName} href="/website-development#packages">
           website packages
         </Link>
         . Custom work starts with a{' '}

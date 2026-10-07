@@ -118,20 +118,17 @@ export interface PublicSiteSettings {
   seo_oneoff_price: string;
   hourly_rate: string;
   discovery_hours: number;
-  website_launch_pages: number;
-  website_launch_page_price: string;
-  website_grow_pages: number;
-  website_grow_page_price: string;
-  website_connect_pages: number;
-  website_connect_page_price: string;
+  website_small_pages: number;
+  website_small_page_price: string;
+  website_large_pages: number;
+  website_large_page_price: string;
   web_app_from_price: string;
   automation_from_price: string;
   updated_at: string;
 }
 
 /** The SiteSettings keys holding a whole number of hours or pages rather than a price. */
-export type CountField =
-  'discovery_hours' | 'website_launch_pages' | 'website_grow_pages' | 'website_connect_pages';
+export type CountField = 'discovery_hours' | 'website_small_pages' | 'website_large_pages';
 
 /** Every SiteSettings key holding a price (all but the counts and the timestamp). */
 export type PriceField = Exclude<keyof PublicSiteSettings, 'updated_at' | CountField>;

@@ -1,5 +1,6 @@
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
-import { FlowCardVisual, type FlowCardNode } from '@/components/visuals/FlowCardVisual';
+import type { FlowCardNode } from '@/components/visuals/FlowCardVisual';
+import { JourneyTrackVisual } from '@/components/visuals/JourneyTrackVisual';
 
 export type JourneyContent = {
   title: string;
@@ -7,7 +8,7 @@ export type JourneyContent = {
   description: string;
   bullets: readonly string[];
   flow: {
-    browserLabel: string;
+    label: string;
     start: FlowCardNode;
     steps: readonly Omit<FlowCardNode, 'label'>[];
     end: FlowCardNode;
@@ -16,8 +17,8 @@ export type JourneyContent = {
 };
 
 /**
- * A customer's path from first click to finished task: copy on the right, a
- * flow card on the left. The section id is what each service page's
+ * A customer's path from first click to finished task: copy on the right, the
+ * journey track on the left. The section id is what each service page's
  * introduction scrolls to, so it is fixed here.
  */
 export function JourneySection({ eyebrow, content }: { eyebrow: string; content: JourneyContent }) {
@@ -32,11 +33,11 @@ export function JourneySection({ eyebrow, content }: { eyebrow: string; content:
       description={content.description}
       bullets={content.bullets}
       visual={
-        <FlowCardVisual
-          browserLabel={flow.browserLabel}
-          inputs={[flow.start]}
+        <JourneyTrackVisual
+          label={flow.label}
+          start={flow.start}
           steps={flow.steps}
-          result={flow.end}
+          end={flow.end}
           ariaLabel={flow.ariaLabel}
         />
       }

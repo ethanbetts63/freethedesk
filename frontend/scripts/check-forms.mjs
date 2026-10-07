@@ -55,7 +55,7 @@ checkFormLedger({
     {
       file: 'components/forms/SelectionFormPanel.tsx',
       track: 'excluded',
-      why: 'Presentational {chooser, children, onSubmit} wrapper. Holds the <form> for SignupPlansPanel, ProjectEnquiryPanel and SeoSignupPanel, whose schemas and actions sit beside those panels.',
+      why: 'Presentational {chooser, children, onSubmit} wrapper. Holds the <form> for SignupPlansPanel, ProjectEnquiryPanel, PackageOrderPanel and SeoSignupPanel, whose schemas and actions sit beside those panels.',
     },
     {
       file: 'components/checkout/CheckoutShell.tsx',

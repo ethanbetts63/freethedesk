@@ -1,7 +1,7 @@
 import pytest
 from django.core.cache import cache
 
-from core.models import Enquiry
+from core.models import Enquiry, SiteSettings
 from core.tests.factories import EnquiryFactory
 
 pytestmark = pytest.mark.django_db
@@ -173,4 +173,77 @@ def test_the_retired_free_form_enquiry_endpoint_is_gone(api_client):
     )
 
     assert response.status_code == 404
+    assert not Enquiry.objects.exists()
+
+
+def test_buying_a_website_package_records_the_admin_price(api_client, outbox):
+    response = api_client.post(
+        "/api/package-orders/",
+        {
+            "package": "website_small",
+            "email": "owner@example.com.au",
+            "phone": "0400 000 000",
+            "website": "https://www.example.com.au",
+            "notes": "We sell outdoor furniture.",
+            # Ignored: the price comes from the admin, never the browser.
+            "price": "1.00",
+        },
+        format="json",
+    )
+
+    assert response.status_code == 201
+    enquiry = Enquiry.objects.get()
+    assert enquiry.help_with == Enquiry.HelpWith.WEBSITE
+    assert enquiry.configuration == {
+        "package": "website_small",
+        "package_name": "6-page website",
+        "price": "3000.00",
+    }
+    assert enquiry.message.startswith("Bought the 6-page website package: $3,000, 6 pages at $500 a page.")
+    assert "Notes:\nWe sell outdoor furniture." in enquiry.message
+    assert [message.channel for message in outbox] == ["email", "sms"]
+
+
+def test_the_large_package_follows_the_admin_settings(api_client):
+    settings = SiteSettings.load()
+    settings.website_large_pages = 12
+    settings.website_large_page_price = "550.00"
+    settings.save()
+
+    response = api_client.post(
+        "/api/package-orders/",
+        {"package": "website_large", "email": "owner@example.com.au"},
+        format="json",
+    )
+
+    assert response.status_code == 201
+    enquiry = Enquiry.objects.get()
+    assert enquiry.configuration["package_name"] == "12-page website"
+    assert enquiry.configuration["price"] == "6600.00"
+    assert enquiry.website == ""
+
+
+def test_a_web_application_is_bought_as_its_discovery(api_client):
+    response = api_client.post(
+        "/api/package-orders/",
+        {"package": "web_application", "email": "owner@example.com.au"},
+        format="json",
+    )
+
+    assert response.status_code == 201
+    enquiry = Enquiry.objects.get()
+    assert enquiry.help_with == Enquiry.HelpWith.WEB_APPLICATION
+    assert enquiry.configuration["price"] == "450.00"
+    assert "discovery, 3 hours at $150 an hour" in enquiry.message
+
+
+def test_an_unknown_package_is_refused(api_client):
+    response = api_client.post(
+        "/api/package-orders/",
+        {"package": "website_connect", "email": "owner@example.com.au"},
+        format="json",
+    )
+
+    assert response.status_code == 400
+    assert "package" in response.json()
     assert not Enquiry.objects.exists()

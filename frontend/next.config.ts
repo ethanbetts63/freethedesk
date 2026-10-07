@@ -14,6 +14,13 @@ const nextConfig: NextConfig = {
       { source: '/dealer-websites', destination: '/', permanent: true },
       { source: '/website-builder', destination: '/dealers', permanent: true },
       // The interactive builder was retired on 2026-10-07; dealers land on the overview.
+      // Folded into the packages on /website-development on 2026-10-07.
+      {
+        source: '/web-application-development',
+        destination: '/website-development',
+        permanent: true,
+      },
+      { source: '/website-packages', destination: '/website-development', permanent: true },
       { source: '/dealership-website-builder', destination: '/dealers', permanent: true },
       {
         source: '/website-development-perth',

@@ -14,10 +14,14 @@ export type { Paginated, Principal as StaffUser } from './api';
 export { authedFetch, logout, getProfile } from './api';
 export { formatDateTime } from './formatting';
 
-/** What the project enquiry form records beside the message. */
+/** What the project form or a package order records beside the message. */
 export interface EnquiryConfiguration {
   project_type?: 'website' | 'automation' | 'both';
   budget?: string;
+  /** A package order: which package, and the price it was bought at. */
+  package?: 'website_small' | 'website_large' | 'web_application';
+  package_name?: string;
+  price?: string;
 }
 
 export interface Enquiry {

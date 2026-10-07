@@ -1,5 +1,5 @@
 import type { JourneyContent } from '@/components/marketing/JourneySection';
-import type { ServicePrices } from '@/lib/servicePricing';
+import { money, type ServicePrices } from '@/lib/servicePricing';
 import type { FaqItem } from '@/types/FaqItem';
 
 export const WEB_DESIGN_JOURNEY: JourneyContent = {
@@ -13,7 +13,7 @@ export const WEB_DESIGN_JOURNEY: JourneyContent = {
     'A clear confirmation and handoff at the end',
   ],
   flow: {
-    browserLabel: 'customer journey',
+    label: 'Customer journey',
     start: { label: 'Point A', title: 'Interested visitor', description: 'Intent captured' },
     steps: [
       { title: 'Find the path', description: 'One clear route forward' },
@@ -47,22 +47,21 @@ const WEBSITE_DEV_FAQS: FaqItem[] = [
 
 /** Prices come from the admin, so the cost answer is built per request. */
 export function websiteDevFaqs(prices: ServicePrices): FaqItem[] {
-  const [launch] = prices.packages;
+  const [small, large, webApp] = prices.packages;
   return [
     {
       question: 'How much does web design cost in Perth?',
-      answer: `Our website packages start at ${prices.websiteFrom} for ${launch.pages} pages, and every page is priced up front, from ${prices.pagePriceFrom} a page. Work outside a package is ${prices.hourlyRate} an hour. Or tell us your budget and we will tell you what it buys.`,
+      answer: `Our ${small.name} is ${money(small.price)} and our ${large.name} is ${money(large.price)}, each priced per page, and you can buy either on this page. Work outside a package is ${prices.hourlyRate} an hour. Or tell us your budget and we will tell you what it buys.`,
       links: [
-        { phrase: 'website packages', href: '/website-packages' },
         { phrase: `${prices.hourlyRate} an hour`, href: '/pricing' },
+        { phrase: 'tell us your budget', href: '#enquiry' },
       ],
     },
     ...WEBSITE_DEV_FAQS,
     {
       question: 'Do you build web applications as well as websites?',
-      answer:
-        'Yes. Customer portals, booking and ordering systems, marketplaces and internal tools are web application development, which we price after a short paid discovery.',
-      links: [{ phrase: 'web application development', href: '/web-application-development' }],
+      answer: `Yes: customer portals, booking and ordering systems, marketplaces and internal tools. The web application package starts with discovery, ${webApp.priceNote}, ${money(webApp.price)} paid upfront, and ends with a written scope and a price for the first release. Projects start from ${prices.webAppFrom}.`,
+      links: [{ phrase: 'web application package', href: '#packages' }],
     },
   ];
 }

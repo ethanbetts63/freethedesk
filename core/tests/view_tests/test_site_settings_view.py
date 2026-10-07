@@ -16,10 +16,11 @@ def test_site_settings_are_publicly_readable(api_client):
     assert data["seo_oneoff_price"] == "550.00"
     assert data["hourly_rate"] == "150.00"
     assert data["discovery_hours"] == 3
-    assert data["website_launch_pages"] == 5
-    assert data["website_launch_page_price"] == "500.00"
-    assert data["website_grow_pages"] == 10
-    assert data["website_connect_page_price"] == "700.00"
+    assert data["website_small_pages"] == 6
+    assert data["website_small_page_price"] == "500.00"
+    assert data["website_large_pages"] == 10
+    assert data["website_large_page_price"] == "600.00"
+    assert "website_connect_pages" not in data
     assert data["web_app_from_price"] == "9000.00"
     assert data["automation_from_price"] == "1200.00"
 
@@ -59,7 +60,7 @@ def test_staff_can_update_service_prices(api_client, staff_user):
 
     response = api_client.patch(
         "/api/admin/site-settings/",
-        {"hourly_rate": "165.00", "discovery_hours": 4, "website_grow_pages": 12},
+        {"hourly_rate": "165.00", "discovery_hours": 4, "website_large_pages": 12},
         format="json",
     )
     assert response.status_code == 200
@@ -67,10 +68,10 @@ def test_staff_can_update_service_prices(api_client, staff_user):
     public = api_client.get("/api/site-settings/").json()
     assert public["hourly_rate"] == "165.00"
     assert public["discovery_hours"] == 4
-    assert public["website_grow_pages"] == 12
+    assert public["website_large_pages"] == 12
 
 
-@pytest.mark.parametrize("field", ["discovery_hours", "website_launch_pages"])
+@pytest.mark.parametrize("field", ["discovery_hours", "website_small_pages"])
 def test_a_count_must_be_at_least_one(api_client, staff_user, field):
     api_client.force_authenticate(staff_user)
 

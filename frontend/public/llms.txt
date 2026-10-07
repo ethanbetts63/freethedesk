@@ -5,9 +5,7 @@
 Perth-based, working primarily in Perth with clients in cities across Australia. The differentiator is the admin side. Supplier stock syncs, instant staff notifications, precomposed transactional emails and booking-system integrations sit behind every site built, not just the public-facing pages. Prices are published: one hourly rate, paid discovery for custom work, and website packages priced per page.
 
 ## Services
-- [Web application development](https://www.freethedesk.com.au/web-application-development): Custom web applications: customer portals, bookings, payments, identity checks and online signing, and the staff dashboards behind them. Scoped in a paid discovery, built in stages.
-- [Website development](https://www.freethedesk.com.au/website-development): Custom web design and development for small and medium businesses, built around automation that saves staff time rather than a marketing site alone.
-- [Website packages](https://www.freethedesk.com.au/website-packages): Three fixed website packages, each priced per page, with what each includes.
+- [Website development](https://www.freethedesk.com.au/website-development): Custom web design and development for small and medium businesses. Three packages bought online: a 6-page and a 10-page website priced per page, and a web application package that starts with paid discovery.
 - [Business automation](https://www.freethedesk.com.au/automation): Workflow automation and custom integrations connecting the systems a business already runs.
 - [SEO audits](https://www.freethedesk.com.au/seo): An SEO audit or an ongoing SEO subscription for Perth businesses: analyse search data, rank recommended changes by value, and measure each change as an experiment. Human-reviewed, not AI-generated.
 - [Pricing](https://www.freethedesk.com.au/pricing): The hourly rate, what discovery costs, and a price for every service.

@@ -1,26 +1,25 @@
 import type { IndexedFeature } from '@/components/marketing/IndexedFeatureSection';
-import type { ServicePrices } from '@/lib/servicePricing';
+import { money, type ServicePrices } from '@/lib/servicePricing';
 import type { FaqItem } from '@/types/FaqItem';
 
 import type { ServicePriceRow } from '../_components/ServicePriceList';
 
 export function priceRows(prices: ServicePrices): readonly ServicePriceRow[] {
-  const [launch] = prices.packages;
+  const [small, large, webApp] = prices.packages;
   return [
     {
       service: 'Websites',
-      price: `from ${prices.websiteFrom}`,
-      basis: `Three packages priced per page, from ${launch.pages} pages at ${prices.pagePriceFrom} a page.`,
-      href: '/website-packages',
-      linkLabel: 'Compare packages',
+      price: `from ${money(small.price)}`,
+      basis: `A ${small.name} or a ${large.name}, priced per page from ${prices.pagePriceFrom} a page. Buy either online.`,
+      href: '/website-development#packages',
+      linkLabel: 'Website packages',
     },
     {
       service: 'Web applications',
-      price: `from ${prices.webAppFrom}`,
-      basis:
-        'Portals, bookings, payments and staff dashboards. Scoped in discovery, built in stages.',
-      href: '/web-application-development',
-      linkLabel: 'Web applications',
+      price: `${money(webApp.price)} to start`,
+      basis: `${webApp.priceNote}, paid upfront. Projects from ${prices.webAppFrom}, built in stages.`,
+      href: '/website-development#packages',
+      linkLabel: 'Web application package',
     },
     {
       service: 'Business automation',
@@ -61,7 +60,7 @@ export function pricingPrinciples(prices: ServicePrices): readonly IndexedFeatur
     ],
     [
       'Packages, priced per page',
-      `Websites come in three fixed packages from ${prices.websiteFrom}, so you know the total before we start.`,
+      `Websites come in two fixed packages from ${prices.websiteFrom}, so you know the total before we start.`,
     ],
     [
       'Or start from your budget',
@@ -75,7 +74,7 @@ export function pricingFaqs(prices: ServicePrices): FaqItem[] {
     {
       question: 'How much does a website cost in Perth?',
       answer: `Our website packages start at ${prices.websiteFrom} and are priced per page, from ${prices.pagePriceFrom} a page. Web applications start from ${prices.webAppFrom} and automation from ${prices.automationFrom}.`,
-      links: [{ phrase: 'website packages', href: '/website-packages' }],
+      links: [{ phrase: 'website packages', href: '/website-development#packages' }],
     },
     {
       question: 'Why is discovery paid upfront?',

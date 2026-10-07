@@ -58,7 +58,7 @@ export default async function PricingPage() {
         lead={`Most developers make you book a call before they mention a number. Ours are on this page: ${prices.hourlyRate} an hour, website packages from ${prices.websiteFrom}, and a budget-first option if you would rather start there.`}
         primaryHref="#services"
         primaryLabel="See every price"
-        secondaryHref="/website-packages"
+        secondaryHref="/website-development#packages"
         secondaryLabel="Compare website packages"
       />
 

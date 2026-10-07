@@ -20,7 +20,6 @@ export const PORTFOLIO_NAVIGATION = [
  */
 export const PRIMARY_NAVIGATION = [
   { href: '/website-development', label: 'Websites' },
-  { href: '/web-application-development', label: 'Web apps' },
   { href: '/automation', label: 'Automation' },
   { href: '/seo', label: 'SEO' },
   { href: '/pricing', label: 'Pricing' },
@@ -30,8 +29,6 @@ export const PRIMARY_NAVIGATION = [
 
 export const FOOTER_NAVIGATION = [
   { href: '/website-development', label: 'Website development' },
-  { href: '/website-packages', label: 'Website packages' },
-  { href: '/web-application-development', label: 'Web applications' },
   { href: '/automation', label: 'Automation' },
   { href: '/seo', label: 'SEO audits' },
   { href: '/pricing', label: 'Pricing' },

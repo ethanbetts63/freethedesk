@@ -43,19 +43,17 @@ const CHECKOUT_PRICE_FIELDS = [
 ] as const satisfies readonly (keyof PublicSiteSettings)[];
 
 /**
- * What the pricing pages quote. Separate from the checkout prices so a frontend
+ * What the pricing and website development pages quote. Separate from the checkout prices so a frontend
  * that reaches production before the backend migration fails only the pages
  * that need these, not the two that take payments.
  */
 export const SERVICE_PRICE_FIELDS = [
   'hourly_rate',
   'discovery_hours',
-  'website_launch_pages',
-  'website_launch_page_price',
-  'website_grow_pages',
-  'website_grow_page_price',
-  'website_connect_pages',
-  'website_connect_page_price',
+  'website_small_pages',
+  'website_small_page_price',
+  'website_large_pages',
+  'website_large_page_price',
   'web_app_from_price',
   'automation_from_price',
 ] as const satisfies readonly (keyof PublicSiteSettings)[];

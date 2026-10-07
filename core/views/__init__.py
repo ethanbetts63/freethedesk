@@ -2,6 +2,7 @@ from .enquiry import (
     AdminEnquiryDetailView,
     AdminEnquiryListView,
     create_ai_readiness_enquiry,
+    create_package_order,
     create_project_enquiry,
 )
 from .health import health_check
@@ -14,6 +15,7 @@ __all__ = [
     "AdminInvoiceSettingsView",
     "AdminSiteSettingsView",
     "create_ai_readiness_enquiry",
+    "create_package_order",
     "create_project_enquiry",
     "health_check",
     "site_settings",

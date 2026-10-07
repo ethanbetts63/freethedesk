@@ -3,9 +3,10 @@ from django.db import models
 
 class Enquiry(models.Model):
     class HelpWith(models.TextChoices):
-        """What the enquiry is about: the project form's three scopes, or the AI check."""
+        """What the enquiry is about: a project form scope, a package, or the AI check."""
 
         WEBSITE = "website", "Website"
+        WEB_APPLICATION = "web_application", "Web application"
         AUTOMATION = "automation", "Business automation"
         AI_READINESS = "ai_readiness", "AI readiness check"
         EVERYTHING = "everything", "Website and automation"
