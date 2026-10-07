@@ -10,7 +10,7 @@ const nav = [
 
 export function SeoPortalShell({ children }: { children: React.ReactNode }) {
   return (
-    <PortalShell role="seo" label="SEO portal" nav={nav} homeHref="/seo-portal/overview">
+    <PortalShell role="seo" label="SEO portal" nav={nav}>
       {children}
     </PortalShell>
   );

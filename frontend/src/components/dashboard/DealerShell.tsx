@@ -12,7 +12,7 @@ const nav = [
 
 export function DealerShell({ children }: { children: React.ReactNode }) {
   return (
-    <PortalShell role="dealer" label="Dealer portal" nav={nav} homeHref="/portal/overview">
+    <PortalShell role="dealer" label="Dealer portal" nav={nav}>
       {children}
     </PortalShell>
   );

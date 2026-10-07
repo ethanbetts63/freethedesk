@@ -14,7 +14,7 @@ const sizes = {
     image: 'h-[46px] w-[46px] lg:h-[40px] lg:w-[40px]',
     px: 40,
   },
-  /** The dashboard sidebar and the sign-in card. */
+  /** The sign-in card. */
   // eslint-disable-next-line no-restricted-syntax -- 1.45rem is the logotype size, deliberately off the type scale.
   card: { text: 'text-[1.45rem]', image: 'h-[32px] w-[32px]', px: 32 },
   /** The quarter-size phone mock-ups. */
@@ -22,8 +22,8 @@ const sizes = {
 } as const;
 
 /**
- * The freethedesk logo and wordmark. With `href` it is a link (home, or the
- * portal's home); without, a plain mark for previews and mock-ups.
+ * The freethedesk logo and wordmark. With `href` it is a link home; without, a
+ * plain mark for previews and mock-ups.
  */
 export function Wordmark({
   size = 'nav',

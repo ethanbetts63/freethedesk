@@ -7,7 +7,6 @@ import { useAuth } from '@/context/AuthContext';
 import { CHANGE_PASSWORD_PATH, homeFor, type Role } from '@/lib/api';
 import { adminLoadingClassName, chromeHairlineClassName } from './dashboardChrome';
 import { cn } from '@/lib/utils';
-import { Wordmark } from '@/components/Wordmark';
 
 export interface NavItem {
   href: string;
@@ -18,11 +17,12 @@ export interface NavItem {
  * The shell is a top bar on a phone and a left rail from `lg`. That is one
  * layout change, not two: below `lg` the sidebar is a grid whose second row is
  * the nav, and from `lg` it is a sticky flex column. Everything else — the
- * brand, the label, the account block — keeps its order in both.
+ * label and the account block — keeps its order in both. No wordmark: the
+ * site header above already carries it on every portal page.
  */
 const sidebarClassName = cn(
   'relative top-0 grid min-h-0 grid-cols-[minmax(0,1fr)_auto] items-center border-b border-border-strong bg-surface-tint-strong px-m py-s',
-  'sm:grid-cols-[auto_minmax(0,1fr)_auto]',
+  'sm:grid-cols-[minmax(0,1fr)_auto]',
   'lg:sticky lg:flex lg:min-h-screen lg:flex-[0_0_244px] lg:flex-col lg:items-stretch lg:border-r lg:border-b-0 lg:border-r-border-strong lg:px-m lg:pt-l lg:pb-ml',
 );
 
@@ -40,13 +40,11 @@ export function PortalShell({
   role,
   label,
   nav,
-  homeHref,
   children,
 }: {
   role: Role;
   label: string;
   nav: NavItem[];
-  homeHref: string;
   children: React.ReactNode;
 }) {
   const { user, loading, logout } = useAuth();
@@ -69,7 +67,6 @@ export function PortalShell({
   return (
     <div className="block min-h-screen bg-surface-tint lg:flex">
       <aside className={sidebarClassName}>
-        <Wordmark size="card" href={homeHref} />
         {/* The section name only earns its line once the rail is vertical. */}
         <div
           className={cn(
@@ -100,6 +97,8 @@ export function PortalShell({
         <div
           className={cn(
             'block gap-s lg:flex lg:flex-col lg:border-t lg:pt-m',
+            // On a phone the nav takes the second row, so this keeps the right of the first.
+            'col-start-2 sm:col-start-auto',
             chromeHairlineClassName,
           )}
         >

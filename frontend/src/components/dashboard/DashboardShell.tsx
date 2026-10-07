@@ -15,12 +15,7 @@ const nav = [
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   return (
-    <PortalShell
-      role="staff"
-      label="Admin dashboard"
-      nav={nav}
-      homeHref="/dashboard/admin/enquiries"
-    >
+    <PortalShell role="staff" label="Admin dashboard" nav={nav}>
       {children}
     </PortalShell>
   );
