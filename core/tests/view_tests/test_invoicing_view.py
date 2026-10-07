@@ -104,3 +104,10 @@ def test_emailing_goes_through_messaging_related_to_the_invoice(staff_client, ou
     assert (message.to, message.message_type) == ("jordan@example.com", "invoice")
     assert message.content_object.pk == invoice["id"]
     assert InvoiceSettings.load().business_name == "freethedesk"
+
+
+def test_a_fresh_install_pays_into_the_business_account():
+    settings = InvoiceSettings.load()
+    assert settings.bank_account_name == "Ethan Daniel Betts-Ingram"
+    assert settings.bank_bsb == "067872"
+    assert settings.bank_account_number == "74596050"

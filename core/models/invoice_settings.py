@@ -25,9 +25,11 @@ class InvoiceSettings(models.Model):
     phone = models.CharField(max_length=40, blank=True)
     website = models.CharField(max_length=200, blank=True, default="freethedesk.com.au")
 
-    bank_account_name = models.CharField(max_length=180, blank=True)
-    bank_bsb = models.CharField(max_length=7, blank=True, verbose_name="BSB")
-    bank_account_number = models.CharField(max_length=20, blank=True)
+    # The business account invoices are paid into. Defaults, so a fresh install prints them;
+    # the BSB is stored as six digits, as the admin form saves it.
+    bank_account_name = models.CharField(max_length=180, blank=True, default="Ethan Daniel Betts-Ingram")
+    bank_bsb = models.CharField(max_length=7, blank=True, default="067872", verbose_name="BSB")
+    bank_account_number = models.CharField(max_length=20, blank=True, default="74596050")
     payment_note = models.CharField(
         max_length=255, blank=True,
         help_text="Printed under the bank details, e.g. another way to pay.",
