@@ -24,11 +24,9 @@ export function newInvoiceValues(
     customer_abn: '',
     customer_address: '',
     ...prefill?.customer,
-    customer_reference: '',
     issue_date: formatDayMonthYear(config.default_issue_date),
     due_date: formatDayMonthYear(config.default_due_date),
     prices_include_tax: config.prices_include_tax,
-    notes: config.default_notes,
     lines,
   };
 }
@@ -42,11 +40,9 @@ export function draftValues(invoice: Invoice): InvoiceFormInput {
     customer_phone: invoice.customer_phone,
     customer_abn: invoice.customer_abn,
     customer_address: invoice.customer_address,
-    customer_reference: invoice.customer_reference,
     issue_date: formatDayMonthYear(invoice.issue_date),
     due_date: formatDayMonthYear(invoice.due_date),
     prices_include_tax: invoice.prices_include_tax,
-    notes: invoice.notes,
     lines: invoice.lines.map((line) => ({
       item_code: line.item_code,
       description: line.description,

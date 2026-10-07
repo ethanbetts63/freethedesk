@@ -33,7 +33,6 @@ export interface Invoice extends InvoiceCustomer {
   number: string;
   status: InvoiceStatus;
   is_overdue: boolean;
-  customer_reference: string;
   issue_date: string;
   due_date: string;
   prices_include_tax: boolean;
@@ -46,7 +45,6 @@ export interface Invoice extends InvoiceCustomer {
   paid_on: string | null;
   payment_method: string;
   payment_reference: string;
-  notes: string;
   related: RelatedRecord | null;
   lines: InvoiceLine[];
   issued_at: string | null;
@@ -92,7 +90,6 @@ export interface InvoiceConfig {
   default_issue_date: string;
   default_due_date: string;
   default_due_days: number;
-  default_notes: string;
   seller_name: string;
   seller_problems: string[];
   can_email: boolean;
@@ -124,11 +121,9 @@ export interface CustomerCandidate {
 
 /** What the editor sends. Lines replace the draft's lines wholesale. */
 export interface InvoiceInput extends InvoiceCustomer {
-  customer_reference: string;
   issue_date: string;
   due_date: string;
   prices_include_tax: boolean;
-  notes: string;
   related_type: string;
   related_id: number | null;
   lines: Omit<InvoiceLine, 'id' | 'amount'>[];

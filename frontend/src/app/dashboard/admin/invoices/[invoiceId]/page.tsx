@@ -343,7 +343,6 @@ export default function InvoiceDetailPage() {
           <dl className={detailListClassName}>
             <DetailItem term="Issued">{formatDate(invoice.issue_date)}</DetailItem>
             <DetailItem term="Due">{formatDate(invoice.due_date)}</DetailItem>
-            <DetailItem term="Their reference">{invoice.customer_reference || '—'}</DetailItem>
             <DetailItem term="Balance due">{formatMoney(invoice.balance_due)}</DetailItem>
             <DetailItem term="Paid">
               {invoice.paid_on
@@ -396,11 +395,6 @@ export default function InvoiceDetailPage() {
             <span>Total {config.currency}</span>
             <span>{formatMoney(invoice.total)}</span>
           </p>
-          {invoice.notes && (
-            <p className="mt-m mb-0 text-body-sm whitespace-pre-line text-text-subtle">
-              {invoice.notes}
-            </p>
-          )}
         </section>
 
         <section className={cn(cardClassName, cardWideClassName)}>

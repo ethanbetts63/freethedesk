@@ -37,11 +37,9 @@ export const invoiceFormSchema = z
     customer_phone: z.string().trim().max(FIELD_MAX.phone).default(''),
     customer_abn: z.string().trim().max(FIELD_MAX.token).default(''),
     customer_address: z.string().trim().max(FIELD_MAX.note).default(''),
-    customer_reference: z.string().trim().max(FIELD_MAX.reference).default(''),
     issue_date: z.string().trim().max(FIELD_MAX.token).regex(DATE, 'Use DD/MM/YYYY.'),
     due_date: z.string().trim().max(FIELD_MAX.token).regex(DATE, 'Use DD/MM/YYYY.'),
     prices_include_tax: z.boolean().default(true),
-    notes: z.string().trim().max(FIELD_MAX.note).default(''),
     lines: z.array(lineSchema).min(1, 'Add at least one line.').max(100),
   })
   .refine((values) => dateInputValue(values.due_date) >= dateInputValue(values.issue_date), {

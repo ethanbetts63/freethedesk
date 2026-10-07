@@ -155,7 +155,7 @@ export default function InvoiceForm({
             error={errors.customer_company?.message}
           />
           <Field
-            label="Email (needed to email the invoice)"
+            label="Email"
             type="email"
             field={register('customer_email')}
             error={errors.customer_email?.message}
@@ -174,18 +174,11 @@ export default function InvoiceForm({
               {...register('customer_address')}
             />
           </label>
-          <div className="flex flex-col gap-m">
-            <Field
-              label="Customer ABN"
-              field={register('customer_abn')}
-              error={errors.customer_abn?.message}
-            />
-            <Field
-              label="Their reference (PO number)"
-              field={register('customer_reference')}
-              error={errors.customer_reference?.message}
-            />
-          </div>
+          <Field
+            label="Customer ABN"
+            field={register('customer_abn')}
+            error={errors.customer_abn?.message}
+          />
         </div>
       </section>
 
@@ -298,7 +291,7 @@ export default function InvoiceForm({
 
       <section className="grid grid-cols-[minmax(0,1fr)] gap-l sm:grid-cols-2">
         <div className={cn(cardClassName, 'flex flex-col gap-m')}>
-          <h2 className={cn(cardTitleClassName, 'mb-0')}>Dates and notes</h2>
+          <h2 className={cn(cardTitleClassName, 'mb-0')}>Dates</h2>
           <div className="grid grid-cols-2 gap-m">
             <Field
               label="Issue date"
@@ -315,18 +308,6 @@ export default function InvoiceForm({
               inputMode="numeric"
             />
           </div>
-          <label className={adminFormLabelClassName}>
-            Notes on the invoice
-            <textarea
-              className={cn(adminFormControlClassName, 'resize-y')}
-              rows={4}
-              placeholder="Thanks for your business."
-              {...register('notes')}
-            />
-            {errors.notes?.message && (
-              <span className={errorClassName}>{errors.notes.message}</span>
-            )}
-          </label>
         </div>
 
         <div className={cn(cardClassName, 'self-start')}>
