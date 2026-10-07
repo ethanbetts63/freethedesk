@@ -2,6 +2,8 @@
 
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
+import type { CtaDirection } from './CtaButton';
+
 import { MovingColourButton } from './MovingColourButton';
 
 export function FloatingPageCta({
@@ -9,11 +11,14 @@ export function FloatingPageCta({
   href,
   showAfterId,
   hideAtId,
+  direction = 'down',
 }: {
   label: string;
   href: string;
   showAfterId: string;
   hideAtId: string;
+  /** Up where the form it leads to is above it, as on the package pages. */
+  direction?: Extract<CtaDirection, 'up' | 'down'>;
 }) {
   const visible = useScrollReveal({ showAfterId, hideBeforeId: hideAtId });
 
@@ -29,7 +34,7 @@ export function FloatingPageCta({
       <MovingColourButton
         className="w-full shadow-contrast-s sm:w-auto"
         href={href}
-        direction="down"
+        direction={direction}
       >
         {label}
       </MovingColourButton>

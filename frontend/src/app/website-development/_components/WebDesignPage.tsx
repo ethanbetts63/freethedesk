@@ -6,7 +6,6 @@ import { FeatureScrollSection } from '@/components/marketing/FeatureScrollSectio
 import { Hero } from '@/components/marketing/Hero';
 import { JourneySection } from '@/components/marketing/JourneySection';
 import { PackagesSection } from '@/components/marketing/PackagesSection';
-import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
 import { SubscriptionSwap } from '@/components/marketing/SubscriptionSwap';
 import { WebsiteIntroduction } from '@/components/marketing/WebsiteIntroduction';
 import { WebsiteJobsBar } from '@/components/marketing/WebsiteJobsBar';
@@ -88,7 +87,17 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
 
       <WebsiteJobsBar />
 
-      <PackagesSection packages={prices.packages} />
+      <PackagesSection
+        packages={prices.packages}
+        budget={{
+          projectType: 'website',
+          includes: [
+            'Give us a number and what you need',
+            'We reply with what it builds',
+            'Free to ask',
+          ],
+        }}
+      />
 
       <WebsiteIntroduction designDescription={copy.designDescription} />
 
@@ -109,20 +118,19 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
         spacing="joined"
       />
 
-      <SubscriptionSwap eyebrow={sections["What you're paying for"]} showCta={false} />
+      <SubscriptionSwap eyebrow={sections["What you're paying for"]} />
 
       <FeatureScrollSection
         eyebrow={sections['Features and integrations']}
         services={websiteServices}
-        ctaLabel="Discuss your website"
       />
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
         title={`A Perth website that grew organic clicks ${SCOOTER_SHOP_GROWTH.percent}%.`}
         points={casePoints}
-        primaryHref="#enquiry"
-        primaryLabel="Discuss your website"
+        primaryHref="#packages"
+        primaryLabel="Choose your package"
         showPrimaryAction={false}
       >
         <p>
@@ -137,14 +145,13 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
         </p>
       </CaseStudyTeaser>
 
-      <ProjectEnquiry id="enquiry" eyebrow={null} showProjectType={false} />
-
       <FloatingPageCta
-        label="Discuss your website"
-        href="#enquiry"
+        label="Choose your package"
+        href="#packages"
+        direction="up"
         // After the packages, so it never sits over a Buy now button.
         showAfterId="packages-end"
-        hideAtId="enquiry"
+        hideAtId="page-cta"
       />
 
       <FaqSection
@@ -155,10 +162,11 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
       />
 
       <ManualAdminCta
+        id="page-cta"
         eyebrow="Start with the useful part"
         title={copy.ctaTitle}
-        href="#enquiry"
-        buttonLabel="Discuss your website"
+        href="#packages"
+        buttonLabel="Choose your package"
       >
         Tell us what you sell, who the site is for and where the current process gets in the way.
       </ManualAdminCta>

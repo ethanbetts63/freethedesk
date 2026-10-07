@@ -1,4 +1,3 @@
-import { CtaButton } from '@/components/CtaButton';
 import { SectionHeader } from '@/components/SectionHeader';
 
 export type Service = {
@@ -26,24 +25,15 @@ const customService = {
 
 export function ServiceScroll({
   services,
-  customHref,
   eyebrow,
   title,
-  ctaLabel = 'Tell us about it',
   showCustomService = true,
-  showCustomCta = true,
 }: {
   services: Service[];
-  customHref: string;
   eyebrow: string;
   title: string;
-  ctaLabel?: string;
   showCustomService?: boolean;
-  showCustomCta?: boolean;
 }) {
-  // The form is below this list, so in-page links scroll down.
-  const ctaDirection = customHref.startsWith('#') ? 'down' : 'page';
-
   return (
     // "service-scroll" carries no styling of its own - it's a marker class so
     // base.css's `main:has(.service-scroll)` can let sticky content escape
@@ -98,7 +88,7 @@ export function ServiceScroll({
         </div>
       ))}
       {showCustomService && (
-        <div className="relative grid grid-cols-[minmax(0,1fr)] items-center gap-2xl border-t border-border-default px-0 py-3xl text-text-primary sm:grid-cols-[auto_minmax(0,1fr)] lg:grid-cols-[auto_minmax(0,1fr)_auto]">
+        <div className="relative grid grid-cols-[minmax(0,1fr)] items-center gap-2xl border-t border-border-default px-0 py-3xl text-text-primary sm:grid-cols-[auto_minmax(0,1fr)]">
           <div
             className="relative z-1 flex h-[82px] w-[82px] items-center justify-center border border-[color-mix(in_srgb,var(--text-action)_30%,transparent)] bg-[color-mix(in_srgb,var(--text-action)_8%,transparent)] text-text-action sm:h-[112px] sm:w-[112px] [&>svg]:h-[44px] [&>svg]:w-[44px] sm:[&>svg]:h-[58px] sm:[&>svg]:w-[58px]"
             aria-hidden="true"
@@ -119,15 +109,6 @@ export function ServiceScroll({
               {customService.body}
             </p>
           </div>
-          {showCustomCta && (
-            <CtaButton
-              className="relative z-1 flex-none justify-self-start sm:col-start-2 lg:col-auto lg:justify-self-auto"
-              href={customHref}
-              direction={ctaDirection}
-            >
-              {ctaLabel}
-            </CtaButton>
-          )}
         </div>
       )}
     </div>

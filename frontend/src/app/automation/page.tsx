@@ -5,7 +5,6 @@ import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSection';
 import { Hero } from '@/components/marketing/Hero';
-import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
 import { PageSchema } from '@/components/PageSchema';
 import { PackagesSection } from '@/components/marketing/PackagesSection';
 import { metadataFor } from '@/lib/pages';
@@ -50,7 +49,7 @@ export default async function AutomationPage() {
         accentTitle="More progress."
         accentAlternates={['More selling.', 'Fewer errors.', 'More weekends.']}
         lead="We connect the systems your Perth business already uses and build the missing pieces, so information moves while your team stays focused on customers."
-        primaryHref="#enquiry"
+        primaryHref="#packages"
         primaryLabel="Automate your admin"
         secondaryHref="#workflows"
         secondaryLabel="Explore workflows"
@@ -60,12 +59,13 @@ export default async function AutomationPage() {
 
       <PackagesSection
         packages={[discovery]}
-        budgetCard={{
-          name: 'Tell us your budget',
-          summary:
-            "Give us a number and the work that eats your week. We'll reply with what it automates, free.",
-          href: '#enquiry',
-          ctaLabel: 'Tell us your budget',
+        budget={{
+          projectType: 'automation',
+          includes: [
+            'Give us a number and the work that eats your week',
+            'We reply with what it automates',
+            'Free to ask',
+          ],
         }}
       />
 
@@ -76,14 +76,13 @@ export default async function AutomationPage() {
       <AdminAutomationSection id="automate" eyebrow={sections['Automate']} spacing="joined" />
       <AutomationWorkflowList eyebrow={sections['Examples']} />
 
-      <ProjectEnquiry id="enquiry" defaultProjectType="automation" />
-
       <FloatingPageCta
         label="Automate your admin"
-        href="#enquiry"
+        href="#packages"
+        direction="up"
         // After the pricing, so it never sits over the Buy now button.
         showAfterId="packages-end"
-        hideAtId="enquiry"
+        hideAtId="page-cta"
       />
 
       <FaqSection
@@ -92,7 +91,7 @@ export default async function AutomationPage() {
         title="Business automation questions."
         items={AUTOMATION_FAQS}
       />
-      <ManualAdminCta href="#enquiry" buttonLabel="Automate your admin" />
+      <ManualAdminCta id="page-cta" href="#packages" buttonLabel="Automate your admin" />
     </main>
   );
 }

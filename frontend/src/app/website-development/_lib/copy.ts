@@ -59,7 +59,7 @@ function webDesignFaqs(prices: ServicePrices, place: string, local: FaqItem[] = 
       answer: `Our ${small.name} is ${money(small.price)} and our ${large.name} is ${money(large.price)}, each priced per page, and you can buy either on this page. Work outside a package is ${prices.hourlyRate} an hour. Or tell us your budget and we will tell you what it buys.`,
       links: [
         { phrase: `${prices.hourlyRate} an hour`, href: '/pricing' },
-        { phrase: 'tell us your budget', href: '#enquiry' },
+        { phrase: 'tell us your budget', href: '#packages' },
       ],
     },
     ...local,

@@ -7,11 +7,8 @@ export function DealershipAutomation({ eyebrow }: { eyebrow: string }) {
     <section className="site-shell" id="services">
       <ServiceScroll
         services={dealerServices}
-        customHref="#project-enquiry"
-        ctaLabel="Discuss your dealership"
         eyebrow={eyebrow}
         title="Features we can build in."
-        showCustomCta={false}
       />
     </section>
   );

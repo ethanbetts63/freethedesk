@@ -111,7 +111,6 @@ export default function Dealers() {
 
       <SubscriptionSwap
         eyebrow={sections["What you're paying for"]}
-        showCta={false}
         lead="Most dealerships pay for four or five tools every month and use one feature from each. We add up what those dealership systems cost, work out which parts your team actually uses, and price a connected build against the bill. Stop renting. Own the tools you use."
         steps={dealerSubscriptionSteps}
       />

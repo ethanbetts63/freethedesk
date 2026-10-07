@@ -1,7 +1,6 @@
 'use client';
 
 import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
 import {
   type FormEvent,
   startTransition,
@@ -26,28 +25,52 @@ import {
 } from '@/components/forms/selectionFormClassNames';
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { CURRENCY, trackEvent } from '@/lib/analytics';
+import type { ProjectType } from '@/lib/api';
 import { focusRingClassName } from '@/lib/controlState';
 import { money, type PackageCode, type PurchasePackage } from '@/lib/servicePricing';
 import { cn } from '@/lib/utils';
 
 import { submitPackageOrder, type PackageOrderState } from './PackageOrderPanel.actions';
+import { submitProjectEnquiry } from './ProjectEnquiryPanel.actions';
+
+/**
+ * The last option, for anyone who would rather start from a budget than buy a package. It is
+ * sent as a free project enquiry, so the form asks for the budget and charges nothing.
+ */
+export interface BudgetOption {
+  projectType: ProjectType;
+  includes: readonly string[];
+}
+
+type ChoiceCode = PackageCode | 'budget';
+
+/** One card in the row: a package, or the budget option drawn the same way. */
+interface Choice {
+  code: ChoiceCode;
+  label: string;
+  name: string;
+  /** What the price buys, in small capitals over it. */
+  priceLabel: string;
+  price: string;
+  priceNote: string;
+  includes: readonly string[];
+  recommended?: boolean;
+}
 
 const initialState: PackageOrderState = { status: 'idle' };
 
-/** A last card for anyone who would rather start from a budget than buy a package. */
-export interface BudgetCard {
-  name: string;
-  summary: string;
-  /** The enquiry form further down the page. */
-  href: string;
-  ctaLabel: string;
+/** An order goes to the package endpoint, a budget to the free enquiry. Both answer the same way. */
+function submitChoice(previous: PackageOrderState, formData: FormData) {
+  return formData.get('package') === 'budget'
+    ? submitProjectEnquiry(previous, formData)
+    : submitPackageOrder(previous, formData);
 }
 
 /** Every card is the same width, so the row scrolls in whole cards. */
 const cardClassName =
-  'group flex w-[256px] shrink-0 snap-start flex-col border bg-surface-page p-l text-left transition-colors duration-200';
+  'group flex w-[256px] shrink-0 cursor-pointer snap-start flex-col border bg-surface-page p-l text-left transition-colors duration-200 has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-[-3px] has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)]';
 
-/** Small capitals: the package's position, and what its price buys. */
+/** Small capitals: the card's position, and what its price buys. */
 const cardKickerClassName =
   'block text-caption font-heavy tracking-label text-text-subtle uppercase';
 
@@ -91,24 +114,46 @@ function ScrollArrow({ direction, onClick }: { direction: 'left' | 'right'; onCl
 }
 
 /**
- * The order form. Left, the packages as a row of cards that fills the column and scrolls sideways
- * (arrows, swipe or trackpad; no scrollbar); right, exactly what the free enquiry asks and the Buy
- * now button, which carries the chosen package's price, or reads Book discovery when discovery is
- * all the price buys. Packages arrive
- * priced from the server, so nothing here computes money.
+ * The order form. Left, the packages (and optionally the budget option) as a row of cards that
+ * fills the column and scrolls sideways (arrows, swipe or trackpad; no scrollbar); right, exactly
+ * what the free enquiry asks and the button. The button carries the chosen package's price, reads
+ * Book discovery when discovery is all the price buys, and for the budget option asks for the
+ * budget and sends it free. Packages arrive priced from the server, so nothing here computes money.
  */
 export function PackageOrderPanel({
   packages,
-  budgetCard,
+  budget,
 }: {
   packages: readonly PurchasePackage[];
-  budgetCard?: BudgetCard;
+  budget?: BudgetOption;
 }) {
-  const [selectedCode, setSelectedCode] = useState<PackageCode>(
+  const choices: Choice[] = packages.map((item) => ({
+    code: item.code,
+    label: item.label,
+    name: item.name,
+    priceLabel: item.discovery ? 'Discovery, paid upfront' : 'Fixed price',
+    price: money(item.price),
+    priceNote: item.priceNote,
+    includes: item.includes,
+    recommended: item.recommended,
+  }));
+  if (budget) {
+    choices.push({
+      code: 'budget',
+      label: 'Or',
+      name: 'Tell us your budget',
+      priceLabel: 'Your number',
+      price: 'Free',
+      priceNote: 'We tell you what it buys',
+      includes: budget.includes,
+    });
+  }
+
+  const [selectedCode, setSelectedCode] = useState<ChoiceCode>(
     (packages.find((item) => item.recommended) ?? packages[0]).code,
   );
-  const selected = packages.find((item) => item.code === selectedCode) ?? packages[0];
-  const [state, dispatch, isPending] = useActionState(submitPackageOrder, initialState);
+  const selectedPackage = packages.find((item) => item.code === selectedCode);
+  const [state, dispatch, isPending] = useActionState(submitChoice, initialState);
   const rowRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -134,35 +179,46 @@ export function PackageOrderPanel({
     };
   }, [updateArrows]);
 
-  // A new state object per submission, so one event per order sent.
+  // A new state object per submission, so one event per order or enquiry sent.
   useEffect(() => {
     if (state.status !== 'success') return;
-    trackEvent('generate_lead', {
-      lead_source: 'package_order',
-      package: selected.code,
-      value: selected.price,
-      currency: CURRENCY,
-    });
+    trackEvent(
+      'generate_lead',
+      selectedPackage
+        ? {
+            lead_source: 'package_order',
+            package: selectedPackage.code,
+            value: selectedPackage.price,
+            currency: CURRENCY,
+          }
+        : { lead_source: 'project_enquiry', project_type: budget?.projectType },
+    );
     // Only the submission should fire this, not a later change of package.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
-  const choose = (code: PackageCode) => {
+  const choose = (code: ChoiceCode) => {
     setSelectedCode(code);
     trackEvent('select_plan', {
-      item_category: code === 'automation_discovery' ? 'automation' : 'website',
+      item_category:
+        code === 'budget'
+          ? budget?.projectType
+          : code === 'automation_discovery'
+            ? 'automation'
+            : 'website',
       plan: code,
     });
   };
 
   /** One card width and its gap, so an arrow press lands on the next card's edge. */
   const scrollRow = (direction: -1 | 1) =>
-    rowRef.current?.scrollBy({ left: direction * 260, behavior: 'smooth' });
+    rowRef.current?.scrollBy({ left: direction * 268, behavior: 'smooth' });
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    formData.set('package', selected.code);
+    formData.set('package', selectedCode);
+    if (budget) formData.set('project_type', budget.projectType);
     startTransition(() => dispatch(formData));
   };
 
@@ -190,14 +246,13 @@ export function PackageOrderPanel({
               role="radiogroup"
               aria-label="Package"
             >
-              {packages.map((item) => {
-                const isSelected = item.code === selected.code;
+              {choices.map((item) => {
+                const isSelected = item.code === selectedCode;
                 return (
                   <label
                     key={item.code}
                     className={cn(
                       cardClassName,
-                      'cursor-pointer has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-[-3px] has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)]',
                       isSelected
                         ? 'border-action-primary'
                         : 'border-border-default hover:border-border-strong-hover',
@@ -219,11 +274,9 @@ export function PackageOrderPanel({
                       {item.name}
                     </strong>
 
-                    <span className={cn(cardKickerClassName, 'mt-l')}>
-                      {item.discovery ? 'Discovery, paid upfront' : 'Fixed price'}
-                    </span>
+                    <span className={cn(cardKickerClassName, 'mt-l')}>{item.priceLabel}</span>
                     <span className="mt-2xs block text-title leading-none font-heavy tracking-[-0.05em] text-text-primary">
-                      {money(item.price)}
+                      {item.price}
                     </span>
                     <span className="mt-xs block text-body-sm text-text-muted">
                       {item.priceNote}
@@ -263,33 +316,6 @@ export function PackageOrderPanel({
                   </label>
                 );
               })}
-
-              {budgetCard && (
-                <Link
-                  href={budgetCard.href}
-                  className={cn(
-                    cardClassName,
-                    'border-border-default hover:border-border-strong-hover',
-                    focusRingClassName,
-                  )}
-                >
-                  <span className={cardKickerClassName}>Or</span>
-                  <strong className="mt-s block text-lead leading-tight tracking-[-0.025em] text-text-secondary">
-                    {budgetCard.name}
-                  </strong>
-                  <span className="mt-l mb-xl block text-body-sm leading-snug text-text-muted">
-                    {budgetCard.summary}
-                  </span>
-                  <span
-                    className={cn(
-                      cardFootClassName,
-                      'border-border-strong text-text-action group-hover:border-action-primary',
-                    )}
-                  >
-                    {budgetCard.ctaLabel} <span aria-hidden="true">↓</span>
-                  </span>
-                </Link>
-              )}
             </div>
             {canScrollRight && <ScrollArrow direction="right" onClick={() => scrollRow(1)} />}
           </div>
@@ -310,10 +336,27 @@ export function PackageOrderPanel({
           >
             ✓
           </span>
-          <strong className="block text-lead tracking-[-0.03em]">Thanks, your order is in.</strong>
-          <p className="mt-xs text-body leading-relaxed text-text-muted">
-            We&apos;ll email you the invoice for the {selected.name} package and the next steps.
-          </p>
+          {selectedPackage ? (
+            <>
+              <strong className="block text-lead tracking-[-0.03em]">
+                Thanks, your order is in.
+              </strong>
+              <p className="mt-xs text-body leading-relaxed text-text-muted">
+                We&apos;ll email you the invoice for the {selectedPackage.name} package and the next
+                steps.
+              </p>
+            </>
+          ) : (
+            <>
+              <strong className="block text-lead tracking-[-0.03em]">
+                Thanks, that&apos;s with us.
+              </strong>
+              <p className="mt-xs text-body leading-relaxed text-text-muted">
+                We&apos;ll come back with what we&apos;d suggest building for that budget, and what
+                it would take.
+              </p>
+            </>
+          )}
         </div>
       ) : (
         <>
@@ -349,6 +392,19 @@ export function PackageOrderPanel({
               autoComplete="url"
             />
           </label>
+          {!selectedPackage && (
+            <label className={fieldLabelClassName}>
+              <span className={fieldLabelSpanClassName}>Budget</span>
+              <input
+                className={fieldInputClassName}
+                name="budget"
+                type="text"
+                placeholder="e.g. $5,000"
+                maxLength={120}
+                required
+              />
+            </label>
+          )}
           <label className={fieldLabelClassName}>
             <span className={fieldLabelSpanClassName}>Notes (optional)</span>
             <textarea
@@ -374,7 +430,9 @@ export function PackageOrderPanel({
           >
             {isPending
               ? 'Sending…'
-              : `${selected.discovery ? 'Book discovery' : 'Buy now'} · ${money(selected.price)}`}
+              : selectedPackage
+                ? `${selectedPackage.discovery ? 'Book discovery' : 'Buy now'} · ${money(selectedPackage.price)}`
+                : 'Send my budget'}
           </MovingColourButton>
         </>
       )}

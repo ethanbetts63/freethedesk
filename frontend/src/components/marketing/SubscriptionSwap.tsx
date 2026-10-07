@@ -1,4 +1,3 @@
-import { CtaButton } from '@/components/CtaButton';
 import { IndexedFeatureSection, type IndexedFeature } from './IndexedFeatureSection';
 
 const defaultSteps: readonly IndexedFeature[] = [
@@ -21,12 +20,10 @@ const defaultLead =
 
 export function SubscriptionSwap({
   eyebrow,
-  showCta = true,
   lead = defaultLead,
   steps = defaultSteps,
 }: {
   eyebrow: string;
-  showCta?: boolean;
   lead?: string;
   steps?: readonly IndexedFeature[];
 }) {
@@ -38,13 +35,6 @@ export function SubscriptionSwap({
       accentTitle="****ing subscription."
       lead={lead}
       items={steps}
-      footer={
-        showCta ? (
-          <CtaButton className="mt-2xl" href="#enquiry" direction="down">
-            Discuss your website
-          </CtaButton>
-        ) : undefined
-      }
     />
   );
 }
