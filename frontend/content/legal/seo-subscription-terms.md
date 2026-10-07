@@ -1,6 +1,6 @@
 # SEO Subscription Terms
 
-Effective date: 4 October 2026
+Effective date: 7 October 2026
 
 > Draft for launch preparation. Free the Desk's legal entity name and service address must be added and these terms should receive Australian legal review before paid subscriptions are enabled.
 
@@ -18,8 +18,8 @@ The service is analysis and recommendations. Implementing the recommendations, w
 
 ## 3. Plans
 
-- SEO subscription: one report each cycle, charged per cycle, at the cadence you choose: monthly, quarterly or yearly.
-- SEO audit: a single report with no ongoing subscription.
+- SEO subscription: one audit each cycle, charged per cycle, at the cadence you choose: monthly, quarterly or yearly.
+- One-off SEO audit: a single audit with no ongoing subscription.
 
 You choose the cadence when you sign up, and each cadence has its own price. You may ask us to move your subscription to a different cadence; the new cadence and its price apply from the next billing period, and we will confirm the change with you before it takes effect.
 
@@ -31,25 +31,25 @@ A paid service begins when Stripe confirms payment. You authorise Stripe to char
 
 A subscription renews automatically at its current cadence until cancelled. An SEO audit is charged once and does not renew. There is no fixed minimum term unless a separate written proposal says otherwise. Invoices and payment records may be issued electronically.
 
-If payment fails, we may retry the payment and may pause report delivery until the account is brought up to date. We will not charge a new or increased recurring fee without giving at least 30 days' notice and an opportunity to cancel before the new fee applies.
+If payment fails, we may retry the payment and may pause audit delivery until the account is brought up to date. We will not charge a new or increased recurring fee without giving at least 30 days' notice and an opportunity to cancel before the new fee applies.
 
 ## 5. Cancellation
 
-You may cancel a recurring plan at any time by emailing hello@freethedesk.com.au from an authorised account address. Cancellation takes effect at the end of the already-paid billing period; the report for that period is still delivered.
+You may cancel a recurring plan at any time by emailing hello@freethedesk.com.au from an authorised account address. Cancellation takes effect at the end of the already-paid billing period; the audit for that period is still delivered.
 
 Fees already paid are not refundable for a change of mind or unused time, except where required by law or where we agree to a refund. An SEO audit that has not yet been delivered may be refunded at our discretion.
 
 ## 6. What we need from you
 
-To produce a useful report you must give us accurate access to the relevant data, which may include Google Search Console, Google Analytics and the Google Business Profile for the site being reported on, along with the site URL, target locations and the searches you care about.
+To produce a useful audit you must give us accurate access to the relevant data, which may include Google Search Console, Google Analytics and the Google Business Profile for the site being audited, along with the site URL, target locations and the searches you care about.
 
-You are responsible for having authority to grant that access and to share that information with us. We will use it only to produce and support the reporting service and as otherwise permitted by the Privacy Policy or law.
+You are responsible for having authority to grant that access and to share that information with us. We will use it only to produce and support the audit service and as otherwise permitted by the Privacy Policy or law.
 
 ## 7. Customer responsibilities
 
 You are responsible for:
 
-- providing accurate access to the data sources the report relies on;
+- providing accurate access to the data sources the audit relies on;
 - deciding whether and how to act on any recommendation;
 - ensuring changes made to your website are lawful and appropriate for your business;
 - keeping account and authorised-user access current; and
@@ -59,7 +59,7 @@ You must not use the service unlawfully, submit misleading information, interfer
 
 ## 8. Nature of the advice
 
-The report is professional analysis, not a guarantee of search ranking, traffic or revenue outcomes. Search engines, their algorithms and third-party platforms change outside our control. We use reasonable care and skill in preparing each report, but results depend on factors including your market, competitors and how recommendations are implemented.
+The audit is professional analysis, not a guarantee of search ranking, traffic or revenue outcomes. Search engines, their algorithms and third-party platforms change outside our control. We use reasonable care and skill in preparing each audit, but results depend on factors including your market, competitors and how recommendations are implemented.
 
 ## 9. Privacy
 
@@ -71,11 +71,11 @@ The service relies on third parties such as Stripe, Google services, hosting and
 
 ## 11. Availability, support and changes
 
-We aim to deliver each report within a reasonable time of the end of its tracked period and to provide support through hello@freethedesk.com.au during our published support hours. We may improve or change the service. If a change materially removes a paid core part of the report, we will give reasonable notice where practicable and provide an appropriate remedy, which may include a workaround, plan change, credit or the right to cancel.
+We aim to deliver each audit within a reasonable time of the end of its tracked period and to provide support through hello@freethedesk.com.au during our published support hours. We may improve or change the service. If a change materially removes a paid core part of the audit, we will give reasonable notice where practicable and provide an appropriate remedy, which may include a workaround, plan change, credit or the right to cancel.
 
 ## 12. Intellectual property
 
-We and our licensors retain ownership of the platform, methods, templates and service materials. The Customer receives ownership of the delivered report document and may use it for its own business purposes. The Customer retains ownership of its data and content and grants us the limited rights needed to host, process and analyse that material to provide the service.
+We and our licensors retain ownership of the platform, methods, templates and service materials. The Customer receives ownership of the delivered audit document and may use it for its own business purposes. The Customer retains ownership of its data and content and grants us the limited rights needed to host, process and analyse that material to provide the service.
 
 Feedback may be used to improve the service without payment or attribution, provided we do not identify the Customer publicly without permission.
 
@@ -85,7 +85,7 @@ Each party must protect the other's confidential information and use it only for
 
 ## 14. Suspension and termination
 
-We may pause report delivery or suspend access where reasonably necessary to address non-payment, a security threat, unlawful use or material breach. Either party may terminate for a material breach that is not remedied within 14 days after written notice, or immediately if the breach cannot be remedied or involves fraud. Accrued rights and payment obligations continue after termination.
+We may pause audit delivery or suspend access where reasonably necessary to address non-payment, a security threat, unlawful use or material breach. Either party may terminate for a material breach that is not remedied within 14 days after written notice, or immediately if the breach cannot be remedied or involves fraud. Accrued rights and payment obligations continue after termination.
 
 ## 15. Consumer guarantees and warranties
 

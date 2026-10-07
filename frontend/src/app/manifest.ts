@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'freethedesk',
     short_name: 'freethedesk',
     description:
-      'Websites, SEO reports and business automation for Perth businesses, plus dealership websites and online vehicle licensing.',
+      'Websites, SEO audits and business automation for Perth businesses, plus dealership websites and online vehicle licensing.',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',

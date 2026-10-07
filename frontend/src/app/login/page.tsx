@@ -121,7 +121,7 @@ function LoginContent() {
           </Link>
         </p>
         <p className="mt-ml text-label text-text-muted">
-          Looking for SEO reports?{' '}
+          Looking for SEO audits?{' '}
           <Link
             className="font-heavy text-text-action underline underline-offset-[3px]"
             href="/seo#signup"

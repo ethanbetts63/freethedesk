@@ -28,7 +28,7 @@ import { formatDateTime } from '@/lib/formatting';
 const statusCopy: Partial<Record<SeoAccount['status'], { heading: string; body: string }>> = {
   suspended: {
     heading: 'This account is suspended.',
-    body: 'You can still sign in, but reporting is paused. Get in touch and we will sort out what happened.',
+    body: 'You can still sign in, but audits are paused. Get in touch and we will sort out what happened.',
   },
   denied: {
     heading: 'We could not approve this account.',
@@ -101,8 +101,8 @@ export default function SeoPortalOverviewPage() {
             <h2 className={cardTitleClassName}>Setup</h2>
             <p className={messageBodyClassName}>
               {setup.complete
-                ? 'Search Console is connected, so reporting has started.'
-                : 'Reporting starts once Search Console is connected.'}{' '}
+                ? 'Search Console is connected, so your first audit is under way.'
+                : 'Your first audit starts once Search Console is connected.'}{' '}
               {done} of {setup.steps.length} tools set up.
             </p>
             <Button href="/seo-portal/setup">

@@ -15,7 +15,7 @@ const SIGN_IN = { href: '/login', label: 'Sign in' };
 const NEXT_STEPS = [
   'Pay securely through Stripe.',
   'Your sign-in details arrive by email.',
-  'Connect Search Console and your first report begins.',
+  'Connect Search Console and your first audit begins.',
 ];
 
 /**

@@ -43,7 +43,7 @@ export const STATIC_PAGES = {
     label: 'Home',
     title: 'Websites, SEO & Business Automation Perth | freethedesk',
     description:
-      'Perth websites, SEO reports and business automation for WA businesses, plus dealership websites and online vehicle licensing.',
+      'Perth websites, SEO audits and business automation for WA businesses, plus dealership websites and online vehicle licensing.',
     absoluteTitle: true,
   },
   '/dealers': {
@@ -100,14 +100,14 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-10-05',
+    updated: '2026-10-07',
     label: 'SEO',
-    title: 'SEO Perth | Analyse, recommend, experiment, grow',
+    title: "SEO Audit Perth | Find the searches you're losing",
     description:
-      'SEO for Perth businesses: we analyse your search data, rank what to change by value, and measure every change as an experiment. Every click you earn is one you stop buying from Google Ads.',
+      'SEO audits for Perth businesses: we analyse your search data, rank what to change by value, and measure every change as an experiment. Every click you earn is one you stop buying from Google Ads.',
     service: {
-      name: 'SEO Perth',
-      serviceType: 'SEO consulting and reporting',
+      name: 'SEO Audit Perth',
+      serviceType: 'SEO audits and consulting',
       areaServed: { type: 'City', name: 'Perth' },
     },
   },
@@ -135,11 +135,11 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
   '/contact': {
-    updated: '2026-10-02',
+    updated: '2026-10-07',
     label: 'Contact',
     title: 'Website, SEO & Automation Developers Perth | Contact',
     description:
-      'Talk to freethedesk, a Perth team, about a custom website, SEO report, online licensing, web application or business automation project.',
+      'Talk to freethedesk, a Perth team, about a custom website, SEO audit, online licensing, web application or business automation project.',
   },
   '/legal/privacy': {
     updated: '2026-09-19',
@@ -161,7 +161,7 @@ export const STATIC_PAGES = {
     description: 'Terms for freethedesk dealer licensing and contract subscriptions.',
   },
   '/legal/seo-subscription-terms': {
-    updated: '2026-10-04',
+    updated: '2026-10-07',
     label: 'SEO subscription terms',
     title: 'SEO Subscription Terms',
     description: 'Terms for freethedesk SEO subscriptions and one-off SEO reviews.',

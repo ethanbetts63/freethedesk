@@ -72,7 +72,7 @@ def send_seo_welcome(subscriber: SeoSubscriber, password: str | None):
         f"Thanks, payment for {subscriber.business_name} is confirmed.\n\n"
         f"{sign_in}\n\n"
         "The setup page walks you through giving us read-only access to Search Console and "
-        "your other tools. Reporting starts once Search Console is connected.\n\n"
+        "your other tools. Your first audit starts once Search Console is connected.\n\n"
         f"Setup: {setup_url}"
     )
     return send(

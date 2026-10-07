@@ -44,8 +44,8 @@ export function SeoSetupCard({
       <h2 className={cardTitleClassName}>Setup</h2>
       <p className="m-0 mb-m text-body-sm text-text-muted">
         {setup.complete
-          ? 'Search Console is confirmed, so reporting can start.'
-          : 'Reporting starts once Search Console is confirmed.'}
+          ? 'Search Console is confirmed, so the first audit can start.'
+          : 'The first audit starts once Search Console is confirmed.'}
       </p>
       {error && <Notice tone="danger">{error}</Notice>}
       <ul className="m-0 grid list-none gap-s p-0">

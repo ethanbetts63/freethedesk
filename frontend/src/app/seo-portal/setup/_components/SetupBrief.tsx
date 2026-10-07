@@ -17,7 +17,7 @@ import { submitSetupBrief, type SetupBriefState } from './SetupBrief.actions';
 const initialState: SetupBriefState = { status: 'idle' };
 
 const fields: [keyof SeoOnboardingChanges, string, string, 'input' | 'textarea'][] = [
-  ['website_url', 'Website URL', 'The site the reporting covers.', 'input'],
+  ['website_url', 'Website URL', 'The site the audit covers.', 'input'],
   [
     'google_business_profile_url',
     'Google Business Profile',

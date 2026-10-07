@@ -15,6 +15,6 @@ Log in at: {{ login_url }}{% else %}
 Log in at: {{ login_url }}
 Username: {{ subscriber.email }}, with the password you already use.{% endif %}
 
-The setup page walks you through giving us read-only access to Search Console and your other tools. Reporting starts once Search Console is connected.
+The setup page walks you through giving us read-only access to Search Console and your other tools. Your first audit starts once Search Console is connected.
 
 Start setup: {{ setup_url }}

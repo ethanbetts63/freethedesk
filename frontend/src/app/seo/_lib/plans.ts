@@ -21,37 +21,37 @@ const price = (value: string) => formatMoney(value, { cents: 'auto' });
 
 /**
  * What a customer can buy. The pace is theirs to pick, by how fast they can
- * act on a report; each plan has its own price.
+ * act on an audit; each plan has its own price.
  */
 export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
   return [
     {
       code: 'monthly',
-      name: 'Monthly reports',
+      name: 'Monthly audits',
       productName: 'Monthly SEO subscription',
       price: price(settings.seo_monthly_price),
-      cadence: 'per report, every month',
+      cadence: 'per audit, every month',
       summary:
-        'For a business that can make changes within weeks. Each report measures what last month’s changes earned.',
+        'For a business that can make changes within weeks. Each audit measures what last month’s changes earned.',
       features: RECURRING_FEATURES,
       recommended: true,
     },
     {
       code: 'quarterly',
-      name: 'Quarterly reports',
+      name: 'Quarterly audits',
       productName: 'Quarterly SEO subscription',
       price: price(settings.seo_quarterly_price),
-      cadence: 'per report, every 3 months',
+      cadence: 'per audit, every 3 months',
       summary:
-        'For changes that go through an agency or an IT queue: time to act on one report before the next.',
+        'For changes that go through an agency or an IT queue: time to act on one audit before the next.',
       features: RECURRING_FEATURES,
     },
     {
       code: 'yearly',
-      name: 'Yearly report',
+      name: 'Yearly audit',
       productName: 'Yearly SEO subscription',
       price: price(settings.seo_yearly_price),
-      cadence: 'per report, every year',
+      cadence: 'per audit, every year',
       summary: 'An annual check-up, measuring what the year’s changes earned.',
       features: RECURRING_FEATURES,
     },

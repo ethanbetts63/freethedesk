@@ -31,7 +31,7 @@ function Link({ href, children }: { href: string; children: ReactNode }) {
  */
 export const SETUP_GUIDE: Record<SeoSetupKey, SetupGuide> = {
   search_console: {
-    why: 'Which Google searches bring people to your site. Reporting starts once this is connected.',
+    why: 'Which Google searches bring people to your site. Your first audit starts once this is connected.',
     address: SERVICE_ACCOUNT,
     steps: (
       <>

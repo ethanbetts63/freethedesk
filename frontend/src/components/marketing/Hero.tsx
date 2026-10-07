@@ -75,7 +75,7 @@ export function Hero({
               {eyebrow}
             </Eyebrow>
           </div>
-          <h1 className="m-0 max-w-[1000px] text-hero leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] lg:leading-[0.83]">
+          <h1 className="m-0 max-w-[1000px] text-balance text-hero leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] lg:leading-[0.83]">
             {titleLines.map((line, index) => (
               /* The trailing space collapses to nothing on screen, but it keeps
                  the lines separate words for anything that flattens the heading

@@ -94,17 +94,17 @@ export default function SeoPortalSetupPage() {
       <PageHeader
         kicker="SEO portal"
         title="Setup"
-        subtitle="Give us read-only access to your tools. Search Console is all we need to start; the rest make the report better."
+        subtitle="Give us read-only access to your tools. Search Console is all we need to start; the rest make the audit better."
       />
 
       {error && <Notice tone="danger">{error}</Notice>}
       {setup.complete ? (
         <Notice tone="success">
-          Search Console is connected, so reporting has started. Anything else you add below goes
-          into the next report.
+          Search Console is connected, so your first audit is under way. Anything else you add below
+          goes into the next audit.
         </Notice>
       ) : (
-        <Notice tone="warning">Reporting starts once Search Console is connected.</Notice>
+        <Notice tone="warning">Your first audit starts once Search Console is connected.</Notice>
       )}
 
       <h2 className={sectionHeadingClassName}>Required</h2>

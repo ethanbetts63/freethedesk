@@ -16,7 +16,7 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
 
     {
       question: 'How much does SEO cost in Perth?',
-      answer: `An SEO audit is ${audit}, once. A subscription is ${price(settings.seo_monthly_price)} a month, ${price(settings.seo_quarterly_price)} a quarter or ${price(settings.seo_yearly_price)} a year, one report each time. Either way, it's a fraction of a typical agency retainer.`,
+      answer: `A one-off audit is ${audit}. A subscription is ${price(settings.seo_monthly_price)} a month, ${price(settings.seo_quarterly_price)} a quarter or ${price(settings.seo_yearly_price)} a year, one audit each time. Either way, it's a fraction of a typical agency retainer.`,
     },
 
     {
@@ -32,9 +32,9 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
     },
 
     {
-      question: "What's the difference between an SEO audit and a subscription?",
+      question: "What's the difference between a one-off audit and a subscription?",
       answer:
-        'An SEO audit is a single full round: the analysis, the foundation checks and ranked recommendations. A subscription repeats it, and every recommendation you implement becomes an experiment, so each report shows what worked and what to drop.',
+        'A one-off audit is a single full round: the analysis, the foundation checks and ranked recommendations. A subscription repeats it, and every recommendation you implement becomes an experiment, so each audit shows what worked and what to drop.',
     },
 
     {

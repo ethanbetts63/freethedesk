@@ -32,9 +32,9 @@ const LICENSING_FIELDS: { field: PriceField; label: string }[] = [
 ];
 
 const SEO_FIELDS: { field: PriceField; label: string }[] = [
-  { field: 'seo_monthly_price', label: 'SEO monthly ($ / report)' },
-  { field: 'seo_quarterly_price', label: 'SEO quarterly ($ / report)' },
-  { field: 'seo_yearly_price', label: 'SEO yearly ($ / report)' },
+  { field: 'seo_monthly_price', label: 'SEO monthly ($ / audit)' },
+  { field: 'seo_quarterly_price', label: 'SEO quarterly ($ / audit)' },
+  { field: 'seo_yearly_price', label: 'SEO yearly ($ / audit)' },
   { field: 'seo_oneoff_price', label: 'SEO one-off ($ once)' },
 ];
 
@@ -128,10 +128,10 @@ export default function SiteSettingsPage() {
         </section>
 
         <section className={cn(cardClassName, cardWideClassName)}>
-          <h2 className={cardTitleClassName}>SEO report prices</h2>
+          <h2 className={cardTitleClassName}>SEO audit prices</h2>
           <p className="text-label text-text-subtle">
             Prices shown on the public SEO page. Each subscription price is what a customer pays per
-            report at that cadence. The Google Business Profile report can be selected alone or
+            audit at that cadence. The Google Business Profile audit can be selected alone or
             combined with SEO at the same frequency. The AI readiness check is free, so it has no
             price setting.
           </p>

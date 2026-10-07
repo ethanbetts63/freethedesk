@@ -53,7 +53,7 @@ export default async function SeoPage() {
     price: settings.seo_monthly_price,
     unitText: 'MONTH',
   });
-  // "From": the cheapest report on offer, whichever plan that is.
+  // "From": the cheapest audit on offer, whichever plan that is.
   const fromPrice = formatMoney(
     Math.min(
       ...[
@@ -71,14 +71,14 @@ export default async function SeoPage() {
       <PageSchema path="/seo" serviceOffers={serviceOffers} />
       <Hero
         path="/seo"
-        eyebrow="SEO Perth"
-        titleLines={['Be the Perth business']}
-        accentTitle="Google"
-        accentAlternates={['ChatGPT', 'Claude', 'Gemini', 'Perplexity']}
-        titleSuffix="recommends first."
-        lead="Every report finds the searches you're losing, recommends solutions, and shows what your last fixes earned."
+        eyebrow="SEO audit Perth"
+        titleLines={['Perth SEO audits that make you']}
+        accentTitle="Google's"
+        accentAlternates={["ChatGPT's", "Claude's", "Gemini's", "Perplexity's"]}
+        titleSuffix="first pick."
+        lead="Every audit finds the searches you're losing, recommends solutions, and shows what your last fixes earned."
         primaryHref="#signup"
-        primaryLabel={`First report from ${fromPrice}`}
+        primaryLabel={`First audit from ${fromPrice}`}
         secondaryHref="#recommend"
         secondaryLabel="See what you get"
         trustLine="Cancel any time · Fixed prices, no lock-in · Perth-based"
