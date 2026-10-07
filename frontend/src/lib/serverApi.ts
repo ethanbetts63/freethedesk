@@ -54,7 +54,6 @@ export const SERVICE_PRICE_FIELDS = [
   'website_small_page_price',
   'website_large_pages',
   'website_large_page_price',
-  'web_app_from_price',
   'automation_from_price',
 ] as const satisfies readonly (keyof PublicSiteSettings)[];
 

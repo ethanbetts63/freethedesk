@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import {
   type FormEvent,
@@ -45,7 +45,25 @@ export interface BudgetCard {
 
 /** Every card is the same width, so the row scrolls in whole cards. */
 const cardClassName =
-  'flex w-[248px] shrink-0 snap-start flex-col border p-m text-left transition-[border-color,background-color] duration-200';
+  'group flex w-[256px] shrink-0 snap-start flex-col border bg-surface-page p-l text-left transition-colors duration-200';
+
+/** Small capitals: the package's position, and what its price buys. */
+const cardKickerClassName =
+  'block text-caption font-heavy tracking-label text-text-subtle uppercase';
+
+/**
+ * The foot of every card, pushed to the bottom: where a card is chosen, and what fills
+ * the height the form beside the row gives it.
+ */
+const cardFootClassName =
+  'mt-auto flex items-center justify-center gap-2xs border py-s text-label font-heavy tracking-label uppercase transition-colors duration-200 [&>svg]:size-[16px]';
+
+/** How far the row fades out under an arrow, so a cut-off card reads as more to scroll to. */
+const ROW_FADE: Record<'left' | 'right' | 'both', string> = {
+  left: '[mask-image:linear-gradient(to_left,#000_calc(100%-64px),transparent)]',
+  right: '[mask-image:linear-gradient(to_right,#000_calc(100%-64px),transparent)]',
+  both: '[mask-image:linear-gradient(to_right,transparent,#000_64px,#000_calc(100%-64px),transparent)]',
+};
 
 /** A round button over one edge of the row, as scootershop's card carousels draw it. */
 function ScrollArrow({ direction, onClick }: { direction: 'left' | 'right'; onClick: () => void }) {
@@ -62,7 +80,7 @@ function ScrollArrow({ direction, onClick }: { direction: 'left' | 'right'; onCl
     >
       <span
         className={cn(
-          'flex size-[40px] items-center justify-center rounded-full border border-border-default bg-surface-page text-text-primary shadow-l transition-colors group-hover:border-surface-dark group-hover:bg-surface-dark group-hover:text-text-on-dark [&>svg]:size-[20px]',
+          'flex size-[40px] items-center justify-center rounded-full border border-border-default bg-surface-page text-text-primary shadow-s transition-colors group-hover:border-surface-dark group-hover:bg-surface-dark group-hover:text-text-on-dark [&>svg]:size-[20px]',
           focusRingClassName,
         )}
       >
@@ -75,7 +93,8 @@ function ScrollArrow({ direction, onClick }: { direction: 'left' | 'right'; onCl
 /**
  * The order form. Left, the packages as a row of cards that fills the column and scrolls sideways
  * (arrows, swipe or trackpad; no scrollbar); right, exactly what the free enquiry asks and the Buy
- * now button, which carries the chosen package's price. Packages arrive
+ * now button, which carries the chosen package's price, or reads Book discovery when discovery is
+ * all the price buys. Packages arrive
  * priced from the server, so nothing here computes money.
  */
 export function PackageOrderPanel({
@@ -160,7 +179,14 @@ export function PackageOrderPanel({
             {canScrollLeft && <ScrollArrow direction="left" onClick={() => scrollRow(-1)} />}
             <div
               ref={rowRef}
-              className="flex min-w-0 flex-1 snap-x snap-mandatory gap-s overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className={cn(
+                'flex min-w-0 flex-1 snap-x snap-mandatory gap-s overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+                canScrollLeft && canScrollRight
+                  ? ROW_FADE.both
+                  : canScrollLeft
+                    ? ROW_FADE.left
+                    : canScrollRight && ROW_FADE.right,
+              )}
               role="radiogroup"
               aria-label="Package"
             >
@@ -171,10 +197,10 @@ export function PackageOrderPanel({
                     key={item.code}
                     className={cn(
                       cardClassName,
-                      'relative cursor-pointer has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)]',
+                      'cursor-pointer has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-[-3px] has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)]',
                       isSelected
-                        ? 'border-action-primary bg-surface-page'
-                        : 'border-border-default bg-surface-tint hover:border-action-primary',
+                        ? 'border-action-primary'
+                        : 'border-border-default hover:border-border-strong-hover',
                     )}
                   >
                     <input
@@ -185,36 +211,55 @@ export function PackageOrderPanel({
                       checked={isSelected}
                       onChange={() => choose(item.code)}
                     />
-                    <span className="flex items-center justify-between gap-xs text-caption font-heavy tracking-label text-text-subtle uppercase">
+                    <span className={cn(cardKickerClassName, 'flex justify-between gap-xs')}>
                       <span>{item.label}</span>
-                      {isSelected ? (
-                        <span className="rounded-pill bg-action-primary px-xs py-4xs text-text-on-dark">
-                          Selected
-                        </span>
-                      ) : (
-                        item.recommended && <span className="moving-colour-text">Recommended</span>
-                      )}
+                      {item.recommended && <span className="moving-colour-text">Recommended</span>}
                     </span>
-                    <strong className="mt-s block text-lead tracking-[-0.025em] text-text-secondary">
+                    <strong className="mt-s block text-lead leading-tight tracking-[-0.025em] text-text-secondary">
                       {item.name}
                     </strong>
-                    <span className="mt-xs block text-title font-heavy tracking-[-0.05em] text-text-primary">
+
+                    <span className={cn(cardKickerClassName, 'mt-l')}>
+                      {item.discovery ? 'Discovery, paid upfront' : 'Fixed price'}
+                    </span>
+                    <span className="mt-2xs block text-title leading-none font-heavy tracking-[-0.05em] text-text-primary">
                       {money(item.price)}
                     </span>
-                    <span className="block text-caption text-text-muted">{item.priceNote}</span>
-                    <ul className="m-0 mt-m grid list-none gap-2xs p-0">
+                    <span className="mt-xs block text-body-sm text-text-muted">
+                      {item.priceNote}
+                    </span>
+
+                    <ul className="m-0 mt-l mb-xl grid list-none gap-xs border-t border-border-subtle p-0 pt-l">
                       {item.includes.map((line) => (
                         <li
                           key={line}
                           className="grid grid-cols-[auto_minmax(0,1fr)] gap-xs text-body-sm leading-snug text-text-muted"
                         >
-                          <span aria-hidden="true" className="font-heavy text-action-primary">
-                            ✓
-                          </span>
+                          <Check
+                            aria-hidden="true"
+                            className="mt-4xs size-[14px] text-action-primary"
+                          />
                           {line}
                         </li>
                       ))}
                     </ul>
+
+                    <span
+                      className={cn(
+                        cardFootClassName,
+                        isSelected
+                          ? 'border-action-primary bg-action-primary text-text-on-dark'
+                          : 'border-border-strong text-text-action group-hover:border-action-primary',
+                      )}
+                    >
+                      {isSelected ? (
+                        <>
+                          <Check aria-hidden="true" /> Selected
+                        </>
+                      ) : (
+                        'Choose'
+                      )}
+                    </span>
                   </label>
                 );
               })}
@@ -224,20 +269,23 @@ export function PackageOrderPanel({
                   href={budgetCard.href}
                   className={cn(
                     cardClassName,
-                    'border-border-default bg-surface-tint hover:border-action-primary',
+                    'border-border-default hover:border-border-strong-hover',
                     focusRingClassName,
                   )}
                 >
-                  <span className="text-caption font-heavy tracking-label text-text-subtle uppercase">
-                    Or
-                  </span>
-                  <strong className="mt-s block text-lead tracking-[-0.025em] text-text-secondary">
+                  <span className={cardKickerClassName}>Or</span>
+                  <strong className="mt-s block text-lead leading-tight tracking-[-0.025em] text-text-secondary">
                     {budgetCard.name}
                   </strong>
-                  <span className="mt-xs block text-body-sm leading-snug text-text-muted">
+                  <span className="mt-l mb-xl block text-body-sm leading-snug text-text-muted">
                     {budgetCard.summary}
                   </span>
-                  <span className="mt-auto pt-m text-body-sm font-strong text-text-action">
+                  <span
+                    className={cn(
+                      cardFootClassName,
+                      'border-border-strong text-text-action group-hover:border-action-primary',
+                    )}
+                  >
                     {budgetCard.ctaLabel} <span aria-hidden="true">↓</span>
                   </span>
                 </Link>
@@ -324,7 +372,9 @@ export function PackageOrderPanel({
             fullWidth
             disabled={isPending}
           >
-            {isPending ? 'Sending…' : `Buy now · ${money(selected.price)}`}
+            {isPending
+              ? 'Sending…'
+              : `${selected.discovery ? 'Book discovery' : 'Buy now'} · ${money(selected.price)}`}
           </MovingColourButton>
         </>
       )}

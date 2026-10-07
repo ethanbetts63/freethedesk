@@ -19,7 +19,7 @@ import type { PagePath } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
 import { buildOneOffOffer } from '@/lib/seo';
 import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
-import { servicePrices, type ServicePrices } from '@/lib/servicePricing';
+import { offerName, servicePrices, type ServicePrices } from '@/lib/servicePricing';
 import type { FaqItem } from '@/types/FaqItem';
 
 import { WEB_DESIGN_JOURNEY } from '../_lib/copy';
@@ -66,7 +66,7 @@ const casePoints = [
 export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebDesignCopy }) {
   const prices = servicePrices(await getSiteSettingsServer(SERVICE_PRICE_FIELDS));
   const offers = prices.packages
-    .map((item) => buildOneOffOffer({ price: item.price, name: item.name }))
+    .map((item) => buildOneOffOffer({ price: item.price, name: offerName(item) }))
     .filter(Boolean) as object[];
 
   return (

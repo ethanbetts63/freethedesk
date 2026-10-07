@@ -54,7 +54,6 @@ const WEBSITE_FIELDS: FieldSpec[] = [
 ];
 
 const PROJECT_FIELDS: FieldSpec[] = [
-  { field: 'web_app_from_price', label: 'Web applications (from $)' },
   { field: 'automation_from_price', label: 'Automation (from $)' },
 ];
 
@@ -170,7 +169,7 @@ export default function SiteSettingsPage() {
           <h2 className={cardTitleClassName}>Hourly work</h2>
           <p className="text-label text-text-subtle">
             Discovery is this many hours at the hourly rate, paid upfront. It is what the web
-            application package (package 3) costs to buy.
+            application package (package 3) and automation discovery cost to buy.
           </p>
           <div className={adminFormClassName}>{HOURLY_FIELDS.map(renderField)}</div>
         </section>
@@ -185,10 +184,11 @@ export default function SiteSettingsPage() {
         </section>
 
         <section className={cn(cardClassName, cardWideClassName)}>
-          <h2 className={cardTitleClassName}>Web applications and automation</h2>
+          <h2 className={cardTitleClassName}>Automation</h2>
           <p className="text-label text-text-subtle">
-            The smallest job of each worth starting, shown as a &ldquo;from&rdquo; price. The real
-            figure is quoted after discovery.
+            The smallest automation job worth starting, shown as a &ldquo;from&rdquo; price on the
+            pricing page. Web applications have no such price: after discovery, the build is priced
+            to the customer&rsquo;s budget.
           </p>
           <div className={adminFormClassName}>
             {PROJECT_FIELDS.map(renderField)}

@@ -21,7 +21,6 @@ def test_site_settings_are_publicly_readable(api_client):
     assert data["website_large_pages"] == 10
     assert data["website_large_page_price"] == "600.00"
     assert "website_connect_pages" not in data
-    assert data["web_app_from_price"] == "9000.00"
     assert data["automation_from_price"] == "1200.00"
 
 

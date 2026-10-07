@@ -122,7 +122,6 @@ export interface PublicSiteSettings {
   website_small_page_price: string;
   website_large_pages: number;
   website_large_page_price: string;
-  web_app_from_price: string;
   automation_from_price: string;
   updated_at: string;
 }

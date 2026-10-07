@@ -66,7 +66,7 @@ function webDesignFaqs(prices: ServicePrices, place: string, local: FaqItem[] = 
     ...WEBSITE_DEV_FAQS,
     {
       question: 'Do you build web applications as well as websites?',
-      answer: `Yes: customer portals, booking and ordering systems, marketplaces and internal tools. The web application package starts with discovery, ${webApp.priceNote}, ${money(webApp.price)} paid upfront, and ends with a written scope and a price for the first release. Projects start from ${prices.webAppFrom}.`,
+      answer: `Yes: customer portals, booking and ordering systems, marketplaces and internal tools. The web application package starts with discovery, ${webApp.priceNote}, ${money(webApp.price)} paid upfront, and ends with a written scope. The build is then priced to your budget.`,
       links: [{ phrase: 'web application package', href: '#packages' }],
     },
   ];

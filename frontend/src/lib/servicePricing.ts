@@ -7,9 +7,10 @@ import { formatMoney } from './formatting';
  *
  * Packages 1 and 2 are websites priced per page: a page count at a per-page
  * price. Package 3 is a web application, bought as its discovery: that many
- * hours at the hourly rate, paid upfront. What each package includes is copy
- * and lives here; the counts and prices belong to the admin. The codes match
- * the backend's PackageOrderSerializer.PACKAGES.
+ * hours at the hourly rate, paid upfront, with the build then priced to the
+ * customer's budget. What each package includes is copy and lives here; the
+ * counts and prices belong to the admin. The codes match the backend's
+ * PackageOrderSerializer.PACKAGES.
  */
 
 export type PackageCode =
@@ -26,6 +27,13 @@ export interface PurchasePackage {
   priceNote: string;
   includes: readonly string[];
   recommended?: boolean;
+  /** The price buys discovery, not the build: the card, the button and the schema offer say so. */
+  discovery?: true;
+}
+
+/** What the customer is buying, in the schema offer and anywhere else the card isn't beside it. */
+export function offerName(item: PurchasePackage): string {
+  return item.discovery ? `${item.name} discovery` : item.name;
 }
 
 /** Display money: whole dollars when there are no cents. */
@@ -74,12 +82,13 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
       label: 'Package 3',
       name: 'Web application',
       price: hourly * hours,
-      priceNote: `${hours} hours of discovery at ${money(hourly)} an hour`,
+      priceNote: `${hours} hours at ${money(hourly)} an hour`,
       includes: [
         'Your process and tools mapped',
-        'A written scope and price',
-        `Projects from ${money(settings.web_app_from_price)}`,
+        'A written scope for the build',
+        'The build priced to your budget',
       ],
+      discovery: true,
     },
   ];
 }
@@ -94,14 +103,15 @@ export function automationDiscovery(settings: PublicSiteSettings): PurchasePacka
   return {
     code: 'automation_discovery',
     label: 'Start here',
-    name: 'Automation discovery',
+    name: 'Automation',
     price: hourly * hours,
     priceNote: `${hours} hours at ${money(hourly)} an hour`,
     includes: [
       'Your repetitive work mapped',
-      'A written scope and price',
-      `Projects from ${money(settings.automation_from_price)}`,
+      'A written scope for the build',
+      'The build priced to your budget',
     ],
+    discovery: true,
   };
 }
 
@@ -131,7 +141,6 @@ export function servicePrices(settings: PublicSiteSettings) {
         Number(settings.website_large_page_price),
       ),
     ),
-    webAppFrom: money(settings.web_app_from_price),
     automationFrom: money(settings.automation_from_price),
     seoFrom: money(seoFrom),
     licensingFrom: money(

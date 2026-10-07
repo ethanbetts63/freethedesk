@@ -67,7 +67,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-10-07',
+    updated: '2026-10-08',
     label: 'Website development',
     title: 'Web Design & Development Perth | Websites that work harder',
     description:
@@ -82,7 +82,7 @@ export const STATIC_PAGES = {
     },
   },
   '/web-design-subiaco': {
-    updated: '2026-10-07',
+    updated: '2026-10-08',
     label: 'Web design Subiaco',
     title: 'Web Design Subiaco | Websites for Subiaco businesses',
     description:
@@ -95,7 +95,7 @@ export const STATIC_PAGES = {
     },
   },
   '/pricing': {
-    updated: '2026-10-07',
+    updated: '2026-10-08',
     label: 'Pricing',
     title: 'Web Development Pricing Perth | Our prices, published',
     description:
@@ -103,7 +103,7 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/automation': {
-    updated: '2026-10-07',
+    updated: '2026-10-08',
     label: 'Automation',
     title: 'Business Automation Perth | Stop paying for copy-paste',
     description:

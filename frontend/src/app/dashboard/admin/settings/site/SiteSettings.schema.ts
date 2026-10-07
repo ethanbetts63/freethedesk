@@ -18,7 +18,6 @@ export const siteSettingsSchema = z.object({
   website_small_page_price: price,
   website_large_pages: price,
   website_large_page_price: price,
-  web_app_from_price: price,
   automation_from_price: price,
 });
 

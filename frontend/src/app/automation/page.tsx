@@ -12,7 +12,7 @@ import { metadataFor } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
 import { buildOneOffOffer } from '@/lib/seo';
 import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
-import { automationDiscovery } from '@/lib/servicePricing';
+import { automationDiscovery, offerName } from '@/lib/servicePricing';
 
 import { AutomationBudgetSplit } from './_components/AutomationBudgetSplit';
 import { AutomationIdentify } from './_components/AutomationIdentify';
@@ -41,7 +41,7 @@ export default async function AutomationPage() {
     <main>
       <PageSchema
         path="/automation"
-        serviceOffers={buildOneOffOffer({ price: discovery.price, name: discovery.name })}
+        serviceOffers={buildOneOffOffer({ price: discovery.price, name: offerName(discovery) })}
       />
       <Hero
         path="/automation"

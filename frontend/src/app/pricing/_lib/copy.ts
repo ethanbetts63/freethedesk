@@ -17,7 +17,7 @@ export function priceRows(prices: ServicePrices): readonly ServicePriceRow[] {
     {
       service: 'Web applications',
       price: `${money(webApp.price)} to start`,
-      basis: `${webApp.priceNote}, paid upfront. Projects from ${prices.webAppFrom}, built in stages.`,
+      basis: `Discovery first: ${webApp.priceNote}, paid upfront. Then the build, priced to your budget and built in stages.`,
       href: '/website-development#packages',
       linkLabel: 'Web application package',
     },
@@ -73,7 +73,7 @@ export function pricingFaqs(prices: ServicePrices): FaqItem[] {
   return [
     {
       question: 'How much does a website cost in Perth?',
-      answer: `Our website packages start at ${prices.websiteFrom} and are priced per page, from ${prices.pagePriceFrom} a page. Web applications start from ${prices.webAppFrom} and automation from ${prices.automationFrom}.`,
+      answer: `Our website packages start at ${prices.websiteFrom} and are priced per page, from ${prices.pagePriceFrom} a page. Web applications start with ${prices.discoveryTotal} of discovery and are then priced to your budget. Automation starts from ${prices.automationFrom}.`,
       links: [{ phrase: 'website packages', href: '/website-development#packages' }],
     },
     {

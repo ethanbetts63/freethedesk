@@ -75,10 +75,6 @@ class SiteSettings(models.Model):
         max_digits=8, decimal_places=2, default=Decimal("600.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
-    web_app_from_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=Decimal("9000.00"),
-        validators=[MinValueValidator(Decimal("0.01"))],
-    )
     automation_from_price = models.DecimalField(
         max_digits=8, decimal_places=2, default=Decimal("1200.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
