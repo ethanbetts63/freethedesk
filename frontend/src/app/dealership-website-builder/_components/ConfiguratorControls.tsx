@@ -1,10 +1,11 @@
 'use client';
 
-import { useActionState, useState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { fieldHintClassName } from '@/components/forms/selectionFormClassNames';
 import { MovingColourButton } from '@/components/MovingColourButton';
+import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 
 import { CapabilityOption, CapabilityRow } from './CapabilityOption';
@@ -82,6 +83,10 @@ type ConfiguratorControlsProps = {
 export function ConfiguratorControls(props: ConfiguratorControlsProps) {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const [state, formAction] = useActionState(submitConfiguratorEnquiry, initialState);
+
+  useEffect(() => {
+    if (state.status === 'success') trackEvent('generate_lead', { lead_source: 'website_builder' });
+  }, [state]);
   const {
     brandName,
     currentUrl,

@@ -1,8 +1,9 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
 import { useFormStatus } from 'react-dom';
 import { MovingColourButton } from '@/components/MovingColourButton';
+import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 import { submitAiReadiness, type AiReadinessState } from './AiReadinessForm.actions';
 
@@ -44,6 +45,11 @@ function SubmitButton() {
     heading can render on the server wherever the banner is used inline. */
 export function AiReadinessForm() {
   const [state, formAction] = useActionState(submitAiReadiness, initialState);
+
+  useEffect(() => {
+    if (state.status === 'success')
+      trackEvent('generate_lead', { lead_source: 'ai_readiness_check' });
+  }, [state]);
 
   if (state.status === 'success') {
     return (

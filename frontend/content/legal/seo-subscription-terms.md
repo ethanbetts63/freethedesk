@@ -2,8 +2,6 @@
 
 Effective date: 7 October 2026
 
-> Draft for launch preparation. Free the Desk's legal entity name and service address must be added and these terms should receive Australian legal review before paid subscriptions are enabled.
-
 ## 1. These terms
 
 These terms govern a customer's purchase of a Free the Desk SEO subscription or a one-off SEO audit. They form an agreement between Free the Desk (we, us or our) and the business identified during signup (Customer, you or your).

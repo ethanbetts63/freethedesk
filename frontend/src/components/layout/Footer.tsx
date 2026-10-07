@@ -22,6 +22,7 @@ const COLUMNS: FooterColumn[] = [
   {
     label: 'Based in',
     links: [
+      { href: 'tel:+61423853830', label: '0423 853 830', external: true },
       {
         href: 'mailto:hello@freethedesk.com.au',
         label: 'hello@freethedesk.com.au',
@@ -36,6 +37,7 @@ const COLUMNS: FooterColumn[] = [
       { href: '/legal/privacy', label: 'Privacy policy' },
       { href: '/legal/dealer-subscription-terms', label: 'Dealer subscription terms' },
       { href: '/legal/customer-terms', label: 'Customer terms' },
+      { href: '/legal/seo-subscription-terms', label: 'SEO subscription terms' },
     ],
   },
 ];

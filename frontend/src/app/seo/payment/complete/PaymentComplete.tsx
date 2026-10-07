@@ -6,6 +6,7 @@ import {
   PaymentConfirmation,
   type ConfirmationResult,
 } from '@/components/checkout/PaymentConfirmation';
+import { trackPurchaseOnce } from '@/lib/analytics';
 import { getSeoCheckoutStatus } from '@/lib/seoApi';
 import { VerifyEmailForm } from './VerifyEmailForm';
 
@@ -18,7 +19,14 @@ import { VerifyEmailForm } from './VerifyEmailForm';
 export function PaymentComplete({ reference }: { reference: string }) {
   const check = useCallback(async (): Promise<ConfirmationResult> => {
     const status = await getSeoCheckoutStatus(reference);
-    if (status.paid) return { status: 'active' };
+    if (status.paid) {
+      trackPurchaseOnce(reference, `seo-${reference}`, {
+        items: [
+          { item_id: `seo_${status.plan}`, item_name: `SEO ${status.plan}`, item_category: 'seo' },
+        ],
+      });
+      return { status: 'active' };
+    }
     if (status.payment_status === 'past_due' || status.payment_status === 'cancelled')
       return { status: 'failed' };
     return { status: 'pending' };

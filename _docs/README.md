@@ -11,6 +11,7 @@ not override implemented behaviour or shared policy.
 
 | Document                                           | Type              | Purpose                                                          |
 | -------------------------------------------------- | ----------------- | ---------------------------------------------------------------- |
+| [analytics-events.md](analytics-events.md)         | Reference         | GA4 events the site sends and which are key events               |
 | [deployment.md](deployment.md)                     | Runbook           | PythonAnywhere virtualenv and product deployment sequence        |
 | [invoicing.md](invoicing.md)                       | Reference         | Staff-written invoices, their PDF and the invoice settings       |
 | [pii_inventory.md](pii_inventory.md)               | Reference         | Personal-data locations and handling                             |

@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { ClarityAnalytics } from '@/components/analytics/ClarityAnalytics';
+import { ContactClickTracking } from '@/components/analytics/ContactClickTracking';
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import { ScrollToTop } from '@/components/common/ScrollToTop';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
@@ -83,7 +84,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SpeedInsights />
         {CLARITY_PROJECT_ID && <ClarityAnalytics projectId={CLARITY_PROJECT_ID} />}
         {GA_MEASUREMENT_ID && (
-          <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} excludedRoutes={GA_EXCLUDED_ROUTES} />
+          <>
+            <GoogleAnalytics
+              measurementId={GA_MEASUREMENT_ID}
+              excludedRoutes={GA_EXCLUDED_ROUTES}
+            />
+            <ContactClickTracking excludedRoutes={GA_EXCLUDED_ROUTES} />
+          </>
         )}
       </body>
     </html>

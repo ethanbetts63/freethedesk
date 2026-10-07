@@ -4,11 +4,23 @@ import {
   PaymentConfirmation,
   type ConfirmationResult,
 } from '@/components/checkout/PaymentConfirmation';
+import { trackPurchaseOnce } from '@/lib/analytics';
 import { getDealerAccount } from '@/lib/dealerApi';
 
 async function check(): Promise<ConfirmationResult> {
   const dealer = await getDealerAccount();
-  if (dealer.payment_status === 'active') return { status: 'active', next: '/portal/overview' };
+  if (dealer.payment_status === 'active') {
+    trackPurchaseOnce('dealer', `dealer-${dealer.id}`, {
+      items: [
+        {
+          item_id: `licensing_${dealer.plan}`,
+          item_name: dealer.plan_label,
+          item_category: 'licensing',
+        },
+      ],
+    });
+    return { status: 'active', next: '/portal/overview' };
+  }
   if (dealer.payment_status === 'past_due' || dealer.payment_status === 'cancelled')
     return { status: 'failed' };
   return { status: 'pending' };

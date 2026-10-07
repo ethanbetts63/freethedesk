@@ -2,8 +2,6 @@
 
 Last updated: 19 September 2026
 
-> Draft for launch preparation. Free the Desk's legal entity name, ABN and business address must be added, and the policy reviewed against the final hosting, identity-verification and data-retention setup before production use.
-
 ## 1. About this policy
 
 Free the Desk (we, us or our) provides dealer websites, online vehicle licensing and contracting workflows, dealer and customer portals, and related support services.

@@ -81,7 +81,7 @@ export const STATIC_PAGES = {
     },
   },
   '/dealership-website-builder': {
-    updated: '2026-10-02',
+    updated: '2026-10-07',
     label: 'Website builder',
     title: 'Dealership Website Builder | Custom Dealer Websites Perth',
     description:
@@ -142,20 +142,20 @@ export const STATIC_PAGES = {
       'Talk to freethedesk, a Perth team, about a custom website, SEO audit, online licensing, web application or business automation project.',
   },
   '/legal/privacy': {
-    updated: '2026-09-19',
+    updated: '2026-10-07',
     label: 'Privacy policy',
     title: 'Privacy Policy',
     description: 'How freethedesk collects, uses, stores and discloses personal information.',
   },
   '/legal/customer-terms': {
-    updated: '2026-09-19',
+    updated: '2026-10-07',
     label: 'Customer terms',
     title: 'Customer Terms',
     description:
       'Terms for a customer completing vehicle paperwork through a dealership on freethedesk.',
   },
   '/legal/dealer-subscription-terms': {
-    updated: '2026-09-19',
+    updated: '2026-10-07',
     label: 'Dealer subscription terms',
     title: 'Dealer Subscription Terms',
     description: 'Terms for freethedesk dealer licensing and contract subscriptions.',

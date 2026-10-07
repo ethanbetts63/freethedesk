@@ -17,6 +17,9 @@ import {
 
 const CONTACT_EMAIL = 'hello@freethedesk.com.au';
 
+/** The same number as the Business Profile, so the two agree. */
+const CONTACT_PHONE = '+61 423 853 830';
+
 /** Our ABN, published as `taxID` and used to build the ABR lookup URL below. */
 const ABN = '11493753896';
 
@@ -24,9 +27,10 @@ const ABN = '11493753896';
  * The single business entity every other node points at via `@id`.
  *
  * Typed `ProfessionalService` (a LocalBusiness subtype) rather than a bare
- * Organization so the Perth address carries local weight, while `areaServed`
- * stays national: the work is mostly in Perth, with clients across Australia. Only verifiable facts belong here -
- * no phone or opening hours until there is a real one to publish.
+ * Organization so the Perth address carries local weight. `areaServed` is
+ * Western Australia: the service pages narrow it to Perth, and a national area
+ * told Google this was a company with no home. Only verifiable facts belong
+ * here - no opening hours until there are real ones to publish.
  */
 export function buildOrganizationSchema(): object {
   return {
@@ -36,6 +40,7 @@ export function buildOrganizationSchema(): object {
     name: SITE_NAME,
     url: SITE_URL,
     email: CONTACT_EMAIL,
+    telephone: CONTACT_PHONE,
     /*
      * One entity-level sentence: what this company is, not what any page sells.
      * Web development and automation lead because that is the business; the
@@ -73,7 +78,7 @@ export function buildOrganizationSchema(): object {
      * none of. Social profiles belong here too, once there are live ones.
      */
     sameAs: [`https://abr.business.gov.au/ABN/View?id=${ABN}`],
-    areaServed: { '@type': 'Country', name: 'Australia' },
+    areaServed: { '@type': 'State', name: 'Western Australia' },
     /*
      * Spelled identically to the Person node on the other sites, and carrying
      * the same profile URL — one profile is what ties three sites' references

@@ -2,8 +2,6 @@
 
 Last updated: 19 September 2026
 
-> Draft for launch preparation. Free the Desk's legal entity name, ABN and business address must be added, and these terms reviewed by a Western Australian lawyer, before a real customer transacts under them.
-
 These terms apply to you when a vehicle dealership sends you a link to complete the paperwork for a vehicle through Free the Desk.
 
 They cover **our** relationship with you — the platform you are using. They are not the contract for the vehicle. That contract is between you and the dealership, and you will read and sign it separately.

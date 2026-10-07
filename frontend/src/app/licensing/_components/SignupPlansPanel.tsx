@@ -30,10 +30,16 @@ import {
 } from '@/components/forms/selectionFormClassNames';
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { DEALER_STATES } from '@/lib/dealerStates';
+import { priceValue, trackBeginCheckout, trackEvent } from '@/lib/analytics';
 import { planByCode } from '@/lib/plans';
 import { submitDealerSignup, type SignupState } from './SignupPlansPanel.actions';
 
-import { buildDealerPlans, type DealerPlanCode, type LicensingPrices } from '../_lib/plans';
+import {
+  buildDealerPlans,
+  PRICE_FIELD,
+  type DealerPlanCode,
+  type LicensingPrices,
+} from '../_lib/plans';
 import {
   choiceCardVariants,
   choiceGridClassName,
@@ -56,13 +62,27 @@ export function SignupPlansPanel({
   const plans = useMemo(() => buildDealerPlans(settings), [settings]);
   const [selectedCode, setSelectedCode] = useState<DealerPlanCode>('complete');
   const [state, dispatch, isPending] = useActionState(submitDealerSignup, initialState);
+  const selected = planByCode(plans, selectedCode) ?? plans[0];
 
   useEffect(() => {
     if (state.status !== 'success') return;
+    const price = priceValue(settings[PRICE_FIELD[selected.code]]);
+    trackBeginCheckout('dealer', {
+      value: price,
+      items: [
+        {
+          item_id: `licensing_${selected.code}`,
+          item_name: selected.name,
+          item_category: 'licensing',
+          price,
+        },
+      ],
+    });
     router.push('/licensing/payment');
+    // Only the submission should fire this, not a later change of plan.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, router]);
 
-  const selected = planByCode(plans, selectedCode) ?? plans[0];
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -98,7 +118,10 @@ export function SignupPlansPanel({
                     name="dealer-plan"
                     value={plan.code}
                     checked={selectedCode === plan.code}
-                    onChange={() => setSelectedCode(plan.code)}
+                    onChange={() => {
+                      setSelectedCode(plan.code);
+                      trackEvent('select_plan', { item_category: 'licensing', plan: plan.code });
+                    }}
                   />
                   <span>{plan.name}</span>
                   {plan.recommended && <small className="moving-colour-text">Recommended</small>}

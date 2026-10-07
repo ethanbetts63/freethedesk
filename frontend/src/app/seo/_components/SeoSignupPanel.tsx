@@ -27,6 +27,7 @@ import {
   totalFigureClassName,
   totalPriceClassName,
 } from '@/components/forms/selectionFormClassNames';
+import { priceValue, trackBeginCheckout, trackEvent } from '@/lib/analytics';
 import { type PublicSiteSettings } from '@/lib/api';
 import { planByCode } from '@/lib/plans';
 import { submitSeoSignup, type SeoSignupState } from './SeoSignupPanel.actions';
@@ -39,6 +40,13 @@ import { cn } from '@/lib/utils';
 import { buildSeoPlans, type SeoPlanCode } from '../_lib/plans';
 
 const initialState: SeoSignupState = { status: 'idle' };
+
+const PRICE_FIELD = {
+  monthly: 'seo_monthly_price',
+  quarterly: 'seo_quarterly_price',
+  yearly: 'seo_yearly_price',
+  oneoff: 'seo_oneoff_price',
+} as const satisfies Record<SeoPlanCode, keyof PublicSiteSettings>;
 
 /** The stateful half of the signup section. `heading` arrives already rendered
     from the server so its markup stays out of the client bundle. */
@@ -57,7 +65,21 @@ export function SeoSignupPanel({
 
   useEffect(() => {
     if (state.status !== 'success' || !state.reference) return;
+    const price = priceValue(settings[PRICE_FIELD[selected.code]]);
+    trackBeginCheckout(state.reference, {
+      value: price,
+      items: [
+        {
+          item_id: `seo_${selected.code}`,
+          item_name: selected.productName,
+          item_category: 'seo',
+          price,
+        },
+      ],
+    });
     router.push(`/seo/payment?ref=${encodeURIComponent(state.reference)}`);
+    // Only the submission should fire this, not a later change of plan.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, router]);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -93,7 +115,10 @@ export function SeoSignupPanel({
                   name="seo-plan"
                   value={plan.code}
                   checked={selectedCode === plan.code}
-                  onChange={() => setSelectedCode(plan.code)}
+                  onChange={() => {
+                    setSelectedCode(plan.code);
+                    trackEvent('select_plan', { item_category: 'seo', plan: plan.code });
+                  }}
                 />
                 <span>{plan.name}</span>
                 {plan.recommended && <small className="moving-colour-text">Recommended</small>}

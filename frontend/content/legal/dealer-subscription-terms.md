@@ -1,8 +1,6 @@
 # Dealer Subscription Terms
 
-Effective date: 5 September 2026
-
-> Draft for launch preparation. Free the Desk's legal entity name, ABN and service address must be added and these terms should receive Australian legal review before paid subscriptions are enabled.
+Effective date: 7 October 2026
 
 ## 1. These terms
 

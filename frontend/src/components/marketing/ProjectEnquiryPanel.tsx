@@ -1,6 +1,6 @@
 'use client';
 
-import { type FormEvent, startTransition, useActionState, useId, useState } from 'react';
+import { type FormEvent, startTransition, useActionState, useEffect, useId, useState } from 'react';
 
 import { SelectionFormPanel } from '@/components/forms/SelectionFormPanel';
 import {
@@ -19,6 +19,7 @@ import {
   totalSummaryClassName,
 } from '@/components/forms/selectionFormClassNames';
 import { MovingColourButton } from '@/components/MovingColourButton';
+import { trackEvent } from '@/lib/analytics';
 import { type ProjectType } from '@/lib/api';
 import { submitProjectEnquiry, type ProjectEnquiryState } from './ProjectEnquiryPanel.actions';
 import {
@@ -79,6 +80,18 @@ export function ProjectEnquiryPanel({
   // Once a submission succeeds the form fields are replaced by a thank-you
   // message (below), so there's no need to separately reset `customBudget`.
   const [state, dispatch, isPending] = useActionState(submitProjectEnquiry, initialState);
+
+  // A new state object per submission, so one event per enquiry sent.
+  useEffect(() => {
+    if (state.status !== 'success') return;
+    trackEvent('generate_lead', {
+      lead_source: 'project_enquiry',
+      project_type: projectType,
+      budget: budgetLabel,
+    });
+    // Only the submission should fire this, not a later change of choice.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
