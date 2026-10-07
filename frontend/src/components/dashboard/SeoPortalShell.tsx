@@ -1,16 +1,24 @@
 'use client';
 
+import { Gauge, Settings, UserRound } from 'lucide-react';
+
+import type { DashboardNavSection } from '@/components/layout/DashboardLayout';
+
 import { PortalShell } from './PortalShell';
 
-const nav = [
-  { href: '/seo-portal/overview', label: 'Overview' },
-  { href: '/seo-portal/setup', label: 'Setup' },
-  { href: '/seo-portal/account', label: 'Account' },
+const sections: DashboardNavSection[] = [
+  {
+    items: [
+      { href: '/seo-portal/overview', label: 'Overview', icon: <Gauge /> },
+      { href: '/seo-portal/setup', label: 'Setup', icon: <Settings /> },
+      { href: '/seo-portal/account', label: 'Account', icon: <UserRound /> },
+    ],
+  },
 ];
 
 export function SeoPortalShell({ children }: { children: React.ReactNode }) {
   return (
-    <PortalShell role="seo" label="SEO portal" nav={nav}>
+    <PortalShell role="seo" label="SEO portal" sections={sections}>
       {children}
     </PortalShell>
   );

@@ -47,14 +47,13 @@
   --tracking-label-wide: var(--label-tracking-wide);
   --tracking-label-eyebrow: var(--label-tracking-eyebrow);
 
-  /* Tints, as `bg-tint-wash`, `border-tint-rule` and so on. --tint-grid has no
+  /* Tints, as `bg-tint-wash`, `border-tint-edge` and so on. --tint-grid has no
      entry here on purpose: its only consumers draw it into a repeating
      `linear-gradient`, which no colour utility can express. Same reason the
      --status-*, --purple-* and --line-strong families are read as var() and
      have no mirror: a utility nobody can use is vocabulary nobody can find. */
   --color-tint-wash: var(--tint-wash);
   --color-tint-edge: var(--tint-edge);
-  --color-tint-rule: var(--tint-rule);
 
   --color-surface-page: var(--surface-page);
   --color-surface-muted: var(--surface-muted);
@@ -83,6 +82,10 @@
   --color-border-subtle: var(--border-subtle);
   --color-border-on-dark: var(--border-on-dark);
   --color-border-on-dark-strong: var(--border-on-dark-strong);
+  /* The dashboard rail (registry DashboardLayout). Each site sets the values. */
+  --color-surface-sidebar: var(--surface-sidebar);
+  --color-border-sidebar: var(--border-sidebar);
+  --color-accent-sidebar: var(--accent-sidebar);
   --color-border-on-accent: var(--border-on-accent);
   --color-action-primary: var(--action-primary);
   --color-accent: var(--accent);
@@ -261,6 +264,10 @@
   --action-primary: var(--blue-600);
   --accent: var(--sky-300);
   --accent-on-dark: var(--sky-500);
+  /* The dashboard rail, read by the registry's DashboardLayout. The dark navy band, with the sky accent. */
+  --surface-sidebar: var(--surface-dark);
+  --border-sidebar: var(--border-on-dark);
+  --accent-sidebar: var(--accent-on-dark);
   --accent-on-dark-soft: var(--sky-400);
   --surface-accent-soft: var(--blue-400);
   --section-number-on-dark: var(--accent-on-dark);
@@ -555,9 +562,6 @@
   /* The bottom edge of a translucent sticky surface, where a solid border
      would show its own colour through the blur. */
   --tint-edge: color-mix(in srgb, var(--blue-950) 10%, transparent);
-  /* A hairline between blocks inside tinted chrome, where --border-default
-     reads as a hard rule. */
-  --tint-rule: color-mix(in srgb, var(--blue-950) 12%, transparent);
 
   /* ---------------------------------------------------------------
      ELEVATION
