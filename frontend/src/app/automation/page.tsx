@@ -7,8 +7,12 @@ import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSe
 import { Hero } from '@/components/marketing/Hero';
 import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
 import { PageSchema } from '@/components/PageSchema';
+import { PackagesSection } from '@/components/marketing/PackagesSection';
 import { metadataFor } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
+import { buildOneOffOffer } from '@/lib/seo';
+import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
+import { automationDiscovery } from '@/lib/servicePricing';
 
 import { AutomationBudgetSplit } from './_components/AutomationBudgetSplit';
 import { AutomationIdentify } from './_components/AutomationIdentify';
@@ -27,10 +31,18 @@ const sections = numberSections([
 
 export const metadata: Metadata = metadataFor('/automation');
 
-export default function AutomationPage() {
+/* Discovery is priced from the admin's hourly rate, so this page renders per request. */
+export const dynamic = 'force-dynamic';
+
+export default async function AutomationPage() {
+  const discovery = automationDiscovery(await getSiteSettingsServer(SERVICE_PRICE_FIELDS));
+
   return (
     <main>
-      <PageSchema path="/automation" />
+      <PageSchema
+        path="/automation"
+        serviceOffers={buildOneOffOffer({ price: discovery.price, name: discovery.name })}
+      />
       <Hero
         path="/automation"
         eyebrow="Business automation Perth"
@@ -46,6 +58,17 @@ export default function AutomationPage() {
 
       <AutomationStepsBar />
 
+      <PackagesSection
+        packages={[discovery]}
+        budgetCard={{
+          name: 'Tell us your budget',
+          summary:
+            "Give us a number and the work that eats your week. We'll reply with what it automates, free.",
+          href: '#enquiry',
+          ctaLabel: 'Tell us your budget',
+        }}
+      />
+
       <AutomationIntroduction />
 
       <AutomationIdentify eyebrow={sections['Identify']} />
@@ -58,7 +81,8 @@ export default function AutomationPage() {
       <FloatingPageCta
         label="Automate your admin"
         href="#enquiry"
-        showAfterId="automation-hero-end"
+        // After the pricing, so it never sits over the Buy now button.
+        showAfterId="packages-end"
         hideAtId="enquiry"
       />
 

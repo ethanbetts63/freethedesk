@@ -12,19 +12,18 @@ import { formatMoney } from './formatting';
  * the backend's PackageOrderSerializer.PACKAGES.
  */
 
-export type PackageCode = 'website_small' | 'website_large' | 'web_application';
+export type PackageCode =
+  'website_small' | 'website_large' | 'web_application' | 'automation_discovery';
 
 export interface PurchasePackage {
   code: PackageCode;
   /** "Package 1": the position, shown above the name. */
   label: string;
   name: string;
-  summary: string;
   /** What the customer pays when they buy. */
   price: number;
   /** The sum behind the price, so "per page" or "per hour" is visible rather than claimed. */
   priceNote: string;
-  includesHeading: string;
   includes: readonly string[];
   recommended?: boolean;
 }
@@ -47,10 +46,8 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
       code: 'website_small',
       label: 'Package 1',
       name: `${smallPages}-page website`,
-      summary: 'Get found. Get enquiries.',
       price: smallPages * smallPagePrice,
       priceNote: `${smallPages} pages at ${money(smallPagePrice)} a page`,
-      includesHeading: 'Includes',
       includes: [
         'Custom, mobile-first design',
         'Enquiry form to your inbox',
@@ -62,12 +59,11 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
       code: 'website_large',
       label: 'Package 2',
       name: `${largePages}-page website`,
-      summary: 'More pages. More searches.',
       price: largePages * largePagePrice,
       priceNote: `${largePages} pages at ${money(largePagePrice)} a page`,
-      includesHeading: 'Everything in package 1, plus',
       includes: [
-        'Service and suburb pages from keyword research',
+        `Everything in the ${smallPages}-page website`,
+        'Pages planned from keyword research',
         'Google Business Profile set up',
         'An SEO audit at three months',
       ],
@@ -77,10 +73,8 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
       code: 'web_application',
       label: 'Package 3',
       name: 'Web application',
-      summary: 'Portals, bookings, payments and dashboards.',
       price: hourly * hours,
       priceNote: `${hours} hours of discovery at ${money(hourly)} an hour`,
-      includesHeading: 'Today you get',
       includes: [
         'Your process and tools mapped',
         'A written scope and price',
@@ -88,6 +82,27 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
       ],
     },
   ];
+}
+
+/**
+ * The automation page's one package: discovery, bought like the web application
+ * package and priced the same way, from the hourly rate.
+ */
+export function automationDiscovery(settings: PublicSiteSettings): PurchasePackage {
+  const hourly = Number(settings.hourly_rate);
+  const hours = settings.discovery_hours;
+  return {
+    code: 'automation_discovery',
+    label: 'Start here',
+    name: 'Automation discovery',
+    price: hourly * hours,
+    priceNote: `${hours} hours at ${money(hourly)} an hour`,
+    includes: [
+      'Your repetitive work mapped',
+      'A written scope and price',
+      `Projects from ${money(settings.automation_from_price)}`,
+    ],
+  };
 }
 
 /** The figures most pages quote, already formatted. */

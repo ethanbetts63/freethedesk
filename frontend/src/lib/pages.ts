@@ -103,7 +103,7 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/automation': {
-    updated: '2026-10-02',
+    updated: '2026-10-07',
     label: 'Automation',
     title: 'Business Automation Perth | Stop paying for copy-paste',
     description:

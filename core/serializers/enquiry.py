@@ -85,7 +85,7 @@ class PackageOrderSerializer(serializers.Serializer):
     price change cannot rewrite what this customer was quoted.
     """
 
-    PACKAGES = ("website_small", "website_large", "web_application")
+    PACKAGES = ("website_small", "website_large", "web_application", "automation_discovery")
 
     package = serializers.ChoiceField(choices=PACKAGES)
     # Optional: the people most likely to want a first website have none to give.
@@ -97,13 +97,18 @@ class PackageOrderSerializer(serializers.Serializer):
     @staticmethod
     def quote(code: str, settings: SiteSettings) -> tuple[str, Decimal, str, str]:
         """(name, price due now, what the price covers, enquiry type) for a package."""
-        if code == "web_application":
+        discovery = {
+            "web_application": ("Web application", Enquiry.HelpWith.WEB_APPLICATION),
+            "automation_discovery": ("Automation discovery", Enquiry.HelpWith.AUTOMATION),
+        }
+        if code in discovery:
+            name, help_with = discovery[code]
             hours = settings.discovery_hours
             return (
-                "Web application",
+                name,
                 settings.hourly_rate * hours,
                 f"discovery, {hours} hours at {_dollars(settings.hourly_rate)} an hour",
-                Enquiry.HelpWith.WEB_APPLICATION,
+                help_with,
             )
         if code == "website_small":
             pages, page_price = settings.website_small_pages, settings.website_small_page_price

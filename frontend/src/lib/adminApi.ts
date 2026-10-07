@@ -19,7 +19,7 @@ export interface EnquiryConfiguration {
   project_type?: 'website' | 'automation' | 'both';
   budget?: string;
   /** A package order: which package, and the price it was bought at. */
-  package?: 'website_small' | 'website_large' | 'web_application';
+  package?: 'website_small' | 'website_large' | 'web_application' | 'automation_discovery';
   package_name?: string;
   price?: string;
 }

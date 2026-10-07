@@ -5,6 +5,7 @@ import { FaqSection } from '@/components/marketing/FaqSection';
 import { FeatureScrollSection } from '@/components/marketing/FeatureScrollSection';
 import { Hero } from '@/components/marketing/Hero';
 import { JourneySection } from '@/components/marketing/JourneySection';
+import { PackagesSection } from '@/components/marketing/PackagesSection';
 import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
 import { SubscriptionSwap } from '@/components/marketing/SubscriptionSwap';
 import { WebsiteIntroduction } from '@/components/marketing/WebsiteIntroduction';
@@ -23,7 +24,6 @@ import type { FaqItem } from '@/types/FaqItem';
 
 import { WEB_DESIGN_JOURNEY } from '../_lib/copy';
 import { websiteServices } from '../_lib/websiteServices';
-import { PackagesSection } from './PackagesSection';
 
 /**
  * The words that change between the web design pages. Everything else (the
@@ -43,7 +43,6 @@ export interface WebDesignCopy {
 
 /* Section eyebrows in page order. */
 const sections = numberSections([
-  'Packages',
   'SEO',
   'Web Design',
   'Admin Automation',
@@ -89,7 +88,7 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
 
       <WebsiteJobsBar />
 
-      <PackagesSection eyebrow={sections['Packages']} packages={prices.packages} />
+      <PackagesSection packages={prices.packages} />
 
       <WebsiteIntroduction designDescription={copy.designDescription} />
 

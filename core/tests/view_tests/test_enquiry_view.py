@@ -247,3 +247,17 @@ def test_an_unknown_package_is_refused(api_client):
     assert response.status_code == 400
     assert "package" in response.json()
     assert not Enquiry.objects.exists()
+
+
+def test_automation_discovery_is_an_automation_enquiry(api_client):
+    response = api_client.post(
+        "/api/package-orders/",
+        {"package": "automation_discovery", "email": "owner@example.com.au"},
+        format="json",
+    )
+
+    assert response.status_code == 201
+    enquiry = Enquiry.objects.get()
+    assert enquiry.help_with == Enquiry.HelpWith.AUTOMATION
+    assert enquiry.configuration["package_name"] == "Automation discovery"
+    assert enquiry.configuration["price"] == "450.00"
