@@ -41,36 +41,35 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
   const largePagePrice = Number(settings.website_large_page_price);
   const hourly = Number(settings.hourly_rate);
   const hours = settings.discovery_hours;
-  const smallName = `${smallPages}-page website`;
 
   return [
     {
       code: 'website_small',
       label: 'Package 1',
-      name: smallName,
-      summary: 'A site that gets found and turns visits into enquiries.',
+      name: `${smallPages}-page website`,
+      summary: 'Get found. Get enquiries.',
       price: smallPages * smallPagePrice,
       priceNote: `${smallPages} pages at ${money(smallPagePrice)} a page`,
       includesHeading: 'Includes',
       includes: [
-        'Custom design, planned mobile-first',
-        'An enquiry form that lands in your inbox',
-        'SEO foundations: titles, descriptions, structured data and a sitemap',
-        'Search Console and Google Analytics set up from day one',
+        'Custom, mobile-first design',
+        'Enquiry form to your inbox',
+        'SEO foundations built in',
+        'Search Console and Analytics set up',
       ],
     },
     {
       code: 'website_large',
       label: 'Package 2',
       name: `${largePages}-page website`,
-      summary: 'More pages, each built to rank for something your customers search.',
+      summary: 'More pages. More searches.',
       price: largePages * largePagePrice,
       priceNote: `${largePages} pages at ${money(largePagePrice)} a page`,
-      includesHeading: `Everything in the ${smallName}, plus`,
+      includesHeading: 'Everything in package 1, plus',
       includes: [
-        'Service and suburb pages planned from keyword research',
-        'Your Google Business Profile set up or tidied to match',
-        'An SEO audit three months after launch, ranked by what each fix is worth',
+        'Service and suburb pages from keyword research',
+        'Google Business Profile set up',
+        'An SEO audit at three months',
       ],
       recommended: true,
     },
@@ -78,14 +77,14 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
       code: 'web_application',
       label: 'Package 3',
       name: 'Web application',
-      summary: 'Portals, bookings, payments and the staff dashboards behind them.',
+      summary: 'Portals, bookings, payments and dashboards.',
       price: hourly * hours,
       priceNote: `${hours} hours of discovery at ${money(hourly)} an hour`,
-      includesHeading: 'What you buy today',
+      includesHeading: 'Today you get',
       includes: [
-        'Discovery: we map your process, your tools and what to build first',
-        'A written scope and a price for the first release',
-        `Projects from ${money(settings.web_app_from_price)}, built in stages you sign off`,
+        'Your process and tools mapped',
+        'A written scope and price',
+        `Projects from ${money(settings.web_app_from_price)}`,
       ],
     },
   ];

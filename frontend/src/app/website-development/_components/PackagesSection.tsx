@@ -22,8 +22,7 @@ export function PackagesSection({
             size="display-md"
           />
           <p className="mt-l max-w-[720px] text-lead leading-[1.75] text-text-muted">
-            Two websites priced per page, and a web application that starts with paid discovery.
-            Every price is on the page, and you can buy any of them now.
+            Two websites priced per page, and a web app that starts with paid discovery.
           </p>
         </div>
 
