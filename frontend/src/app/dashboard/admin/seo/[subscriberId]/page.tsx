@@ -23,6 +23,7 @@ import { Notice } from '@/components/ui/Notice';
 import { detailGridClassName } from '@/components/ui/Card';
 import { backClassName, pageClassName } from '@/components/ui/layout';
 import { SeoSetupCard } from './_components/SeoSetupCard';
+import { newInvoiceHref } from '@/app/dashboard/admin/invoices/_lib/invoiceStatus';
 
 export default function SeoSubscriberDetailPage() {
   const id = Number(useParams<{ subscriberId: string }>().subscriberId);
@@ -64,6 +65,7 @@ export default function SeoSubscriberDetailPage() {
         subtitle={`${account.contact_name} · signed up ${formatDateTime(account.created_at)}`}
         actionHref={replyHref}
         actionLabel="Email customer →"
+        invoiceHref={newInvoiceHref(SEO_SUBSCRIBER_TYPE, account.id)}
       />
 
       {error && <Notice tone="danger">{error}</Notice>}

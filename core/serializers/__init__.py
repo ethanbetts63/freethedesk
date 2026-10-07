@@ -5,6 +5,7 @@ from .enquiry import (
     EnquirySerializer,
     ProjectEnquirySerializer,
 )
+from .invoice_settings import InvoiceSettingsSerializer
 from .site_settings import SiteSettingsSerializer
 
 __all__ = [
@@ -12,6 +13,7 @@ __all__ = [
     "AiReadinessEnquirySerializer",
     "BaseAccountRegistrationSerializer",
     "EnquirySerializer",
+    "InvoiceSettingsSerializer",
     "ProjectEnquirySerializer",
     "SiteSettingsSerializer",
 ]

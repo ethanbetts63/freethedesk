@@ -106,12 +106,13 @@ post-payment onboarding.
 
 ### Tier 2: Account and contact data
 
-| Model           | File                       | PII fields                                                                                              |
-| --------------- | -------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `Dealer`        | `dealers/models/dealer.py` | `business_name`, `contact_name`, `phone`, `state`, `staff_notes`; email lives on the linked `auth.User` |
-| `SeoSubscriber` | `seo/models/subscriber.py` | `business_name`, `contact_name`, `email`, `phone`, `website`, `staff_notes`; email also on `auth.User`  |
-| `SeoProfile`    | `seo/models/profile.py`    | `website_url`, `search_console_property`, `primary_location`, `target_keywords`, `competitors`, `notes` |
-| `SeoSetupStep`  | `seo/models/setup_step.py` | `detail` (the Search Console or Analytics property a check matched): business data, not personal        |
+| Model           | File                                                  | PII fields                                                                                                                                                                                                                                                                                            |
+| --------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Dealer`        | `dealers/models/dealer.py`                            | `business_name`, `contact_name`, `phone`, `state`, `staff_notes`; email lives on the linked `auth.User`                                                                                                                                                                                               |
+| `SeoSubscriber` | `seo/models/subscriber.py`                            | `business_name`, `contact_name`, `email`, `phone`, `website`, `staff_notes`; email also on `auth.User`                                                                                                                                                                                                |
+| `SeoProfile`    | `seo/models/profile.py`                               | `website_url`, `search_console_property`, `primary_location`, `target_keywords`, `competitors`, `notes`                                                                                                                                                                                               |
+| `SeoSetupStep`  | `seo/models/setup_step.py`                            | `detail` (the Search Console or Analytics property a check matched): business data, not personal                                                                                                                                                                                                      |
+| `Invoice`       | `freetheplatform.invoicing` (`ftp_invoicing_invoice`) | `customer_name`, `customer_company`, `customer_email`, `customer_phone`, `customer_abn`, `customer_address`, `customer_reference`, `last_sent_to`: copied from the record it was raised from and kept so an issued invoice never changes. The PDF is rendered on request, not stored. Staff-only API. |
 
 Both customer models are 1:1 with an `auth.User` whose `username` **is** the
 email address, so an account row is itself a contact record. An SEO signup has

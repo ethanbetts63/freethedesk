@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "freetheplatform.payments",
     "freetheplatform.readapi",  # Read-only access by token for the reporting agents.
     "freetheplatform.archive",  # `manage.py archive dump|restore` for development data.
+    "freetheplatform.invoicing",  # Staff-written invoices; the seller and sender are core/invoicing.py.
     "freetheplatform.messaging",  # Last, so our template overrides the package's default.
 ]
 
@@ -325,6 +326,17 @@ FTP_MESSAGING = {
         "MESSAGING_SERVICE_SID": os.getenv("TWILIO_MESSAGING_SERVICE_SID", ""),
         "FROM_NUMBER": os.getenv("TWILIO_PHONE_NUMBER", ""),
     },
+    "PAGINATION_CLASS": "core.utils.pagination.DashboardPagination",
+}
+
+# Not registered for GST, so no invoice may present any part of a price as tax:
+# the PDF reads "Invoice", not "Tax invoice", and no tax row exists anywhere.
+FTP_INVOICING = {
+    "TAX_REGISTERED": False,
+    "SELLER": "core.invoicing.seller",
+    "SENDER": "core.invoicing.send_invoice",
+    "PREFILL": "core.invoicing.prefill",
+    "CUSTOMER_SEARCH": "core.invoicing.customer_search",
     "PAGINATION_CLASS": "core.utils.pagination.DashboardPagination",
 }
 

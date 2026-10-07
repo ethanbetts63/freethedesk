@@ -22,6 +22,7 @@ checkFormLedger({
   ledger: [
     // Track A — react-hook-form + a Zod resolver.
     { file: 'app/portal/sales/new/page.tsx', track: 'A' },
+    { file: 'app/dashboard/admin/invoices/_components/InvoiceForm.tsx', track: 'A' },
     { file: 'app/portal/sales/[reference]/SaleDetailsForm.tsx', track: 'A' },
     { file: 'app/sale/_components/SaleFill.tsx', track: 'A' },
 
@@ -29,6 +30,8 @@ checkFormLedger({
     { file: 'app/dashboard/change-password/page.tsx', track: 'B' },
     { file: 'app/dashboard/admin/messages/compose/page.tsx', track: 'B' },
     { file: 'app/dashboard/admin/settings/site/page.tsx', track: 'B' },
+    { file: 'app/dashboard/admin/settings/invoicing/page.tsx', track: 'B' },
+    { file: 'app/dashboard/admin/invoices/[invoiceId]/email/page.tsx', track: 'B' },
     { file: 'app/dashboard/admin/users/[userId]/AccountForm.tsx', track: 'B' },
     { file: 'app/dashboard/admin/users/[userId]/SetPasswordForm.tsx', track: 'B' },
     { file: 'app/dealership-website-builder/_components/ConfiguratorControls.tsx', track: 'B' },

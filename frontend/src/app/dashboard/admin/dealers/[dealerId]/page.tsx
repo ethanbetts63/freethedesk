@@ -17,6 +17,7 @@ import { DEALER_TYPE, formatDateTime, getDealer, updateDealer, type Dealer } fro
 import { Notice } from '@/components/ui/Notice';
 import { detailGridClassName } from '@/components/ui/Card';
 import { backClassName, pageClassName } from '@/components/ui/layout';
+import { newInvoiceHref } from '@/app/dashboard/admin/invoices/_lib/invoiceStatus';
 
 export default function DealerDetailPage() {
   const id = Number(useParams<{ dealerId: string }>().dealerId);
@@ -58,6 +59,7 @@ export default function DealerDetailPage() {
         subtitle={`${account.contact_name} · signed up ${formatDateTime(account.created_at)}`}
         actionHref={replyHref}
         actionLabel="Email dealer →"
+        invoiceHref={newInvoiceHref(DEALER_TYPE, account.id)}
       />
 
       {error && <Notice tone="danger">{error}</Notice>}

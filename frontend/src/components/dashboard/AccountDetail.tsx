@@ -250,6 +250,7 @@ export function AccountDetailHeader({
   subtitle,
   actionHref,
   actionLabel,
+  invoiceHref,
 }: {
   backHref: string;
   backLabel: string;
@@ -258,6 +259,8 @@ export function AccountDetailHeader({
   subtitle: string;
   actionHref: string;
   actionLabel: string;
+  /** A new invoice that starts from this account. */
+  invoiceHref?: string;
 }) {
   return (
     <>
@@ -265,7 +268,14 @@ export function AccountDetailHeader({
         ← {backLabel}
       </Link>
       <PageHeader align="center" kicker={kicker} title={title} subtitle={subtitle}>
-        <Button href={actionHref}>{actionLabel}</Button>
+        <div className="flex flex-wrap gap-xs">
+          {invoiceHref && (
+            <Button variant="secondary" href={invoiceHref}>
+              Create invoice
+            </Button>
+          )}
+          <Button href={actionHref}>{actionLabel}</Button>
+        </div>
       </PageHeader>
     </>
   );

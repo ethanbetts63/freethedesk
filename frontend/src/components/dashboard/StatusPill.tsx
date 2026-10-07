@@ -66,6 +66,13 @@ const STATUS: StatusMap = {
   payment_confirmed: { label: 'Payment confirmed', tone: 'var(--status-qualified)' },
   completed: { label: 'Completed', tone: 'var(--status-won)' },
 
+  // Invoices. `draft` is shared with sales above. Overdue takes the urgent
+  // orange: it is the one an operator has to chase.
+  issued: { label: 'Awaiting payment', tone: 'var(--status-contacted)' },
+  overdue: { label: 'Overdue', tone: 'var(--status-suspended)' },
+  paid: { label: 'Paid', tone: 'var(--status-won)' },
+  void: { label: 'Void', tone: 'var(--status-closed)' },
+
   // SEO setup steps. Marked done is waiting on us to confirm the access, so it
   // takes the colour of the other "waiting on someone" states.
   not_started: { label: 'Not started', tone: 'var(--status-closed)' },

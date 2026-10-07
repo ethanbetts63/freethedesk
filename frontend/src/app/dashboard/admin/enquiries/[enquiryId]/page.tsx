@@ -41,6 +41,7 @@ import {
   adminConfigRequestClassName,
   adminRelatedMessagesClassName,
 } from '@/components/dashboard/adminLayout';
+import { newInvoiceHref } from '@/app/dashboard/admin/invoices/_lib/invoiceStatus';
 
 export default function EnquiryDetailPage() {
   const id = Number(useParams<{ enquiryId: string }>().enquiryId);
@@ -124,7 +125,12 @@ export default function EnquiryDetailPage() {
         title={enquiry.business}
         subtitle={`${enquiry.name} · received ${formatDateTime(enquiry.created_at)}`}
       >
-        <Button href={replyHref}>Reply by email →</Button>
+        <div className="flex flex-wrap gap-xs">
+          <Button variant="secondary" href={newInvoiceHref(ENQUIRY_TYPE, enquiry.id)}>
+            Create invoice
+          </Button>
+          <Button href={replyHref}>Reply by email →</Button>
+        </div>
       </PageHeader>
       {error && <Notice tone="danger">{error}</Notice>}
       <div className={detailGridClassName}>
