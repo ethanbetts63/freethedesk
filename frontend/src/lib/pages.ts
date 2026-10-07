@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import { SCOOTER_SHOP_GROWTH } from './caseStudies';
 import { buildBreadcrumbItems, buildMetadata, type ServiceDefinition } from './seo';
 
 export interface StaticPage {
@@ -47,7 +48,7 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-10-04',
+    updated: '2026-10-07',
     label: 'Dealer websites',
     title: 'Dealership Websites Perth | Online Licensing for WA Dealers',
     description:
@@ -119,9 +120,9 @@ export const STATIC_PAGES = {
       'Practical guides for Perth and WA dealerships on websites, search visibility, online sales, licensing and better operational systems.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-10-04',
+    updated: '2026-10-07',
     label: 'Scooter Shop',
-    title: 'Perth Dealer Website Case Study | Organic Clicks Up 300%',
+    title: `Perth Dealer Website Case Study | Organic Clicks Up ${SCOOTER_SHOP_GROWTH.percent}%`,
     description:
       'A connected website for a Perth scooter dealership: sales, online purchasing, licensing, parts, service, hire and long-term organic growth.',
     ogImage: '/case-studies/scooter-shop/home-desktop.png',

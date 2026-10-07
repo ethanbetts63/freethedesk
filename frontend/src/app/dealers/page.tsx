@@ -19,6 +19,7 @@ import { numberSections } from '@/lib/sectionNumbers';
 import { DealerDemoAlternative } from './_components/DealerDemoAlternative';
 import { DealershipAutomation } from './_components/DealershipAutomation';
 import { DEALER_FAQS } from './_lib/copy';
+import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 const sections = numberSections([
   'SEO',
@@ -122,7 +123,8 @@ export default function Dealers() {
         eyebrow={sections['Proof this works']}
         title={
           <>
-            Organic clicks grew <span className="moving-colour-text">300%.</span>
+            Organic clicks grew{' '}
+            <span className="moving-colour-text">{SCOOTER_SHOP_GROWTH.percent}%.</span>
           </>
         }
         points={casePoints}
@@ -133,7 +135,7 @@ export default function Dealers() {
         <p>
           Scooter Shop, a Perth scooter dealership, connects inventory, parts, purchasing and
           service journeys in one website. Fast structured pages and focused search content helped
-          organic clicks grow by 300% in six months.
+          organic clicks grow {SCOOTER_SHOP_GROWTH.percent}% in {SCOOTER_SHOP_GROWTH.span}.
         </p>
         <p>The same dealership system keeps customer actions and admin moving together.</p>
       </CaseStudyTeaser>

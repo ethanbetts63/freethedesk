@@ -21,6 +21,7 @@ import { SeoIntroduction } from './_components/SeoIntroduction';
 import { SeoSignup } from './_components/SeoSignup';
 import { SeoStepsBar } from './_components/SeoStepsBar';
 import { seoFaqs } from './_lib/copy';
+import { SCOOTER_SHOP_BASELINE, SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 const sections = numberSections([
   'Analyse',
@@ -106,7 +107,7 @@ export default async function SeoPage() {
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
-        title="A Perth website that grew organic clicks 300%."
+        title={`A Perth website that grew organic clicks ${SCOOTER_SHOP_GROWTH.percent}%.`}
         points={casePoints}
         primaryHref="#signup"
         primaryLabel="Choose a plan"
@@ -115,8 +116,8 @@ export default async function SeoPage() {
         <p>
           Scooter Shop is a Perth scooter dealership. Its website combines inventory, parts,
           purchasing and service journeys in one connected experience. Fast structured pages and
-          search content aimed at what Perth riders search for helped organic clicks grow by 300% in
-          six months.
+          search content aimed at what Perth riders search for grew its organic clicks{' '}
+          {SCOOTER_SHOP_GROWTH.percent}% in {SCOOTER_SHOP_GROWTH.span}, {SCOOTER_SHOP_BASELINE}.
         </p>
       </CaseStudyTeaser>
 

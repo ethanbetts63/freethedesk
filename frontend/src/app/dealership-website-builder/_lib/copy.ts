@@ -1,4 +1,5 @@
 import type { FaqItem } from '@/types/FaqItem';
+import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 export const BUILDER_FAQS: FaqItem[] = [
   {
@@ -21,8 +22,7 @@ export const BUILDER_FAQS: FaqItem[] = [
 
   {
     question: 'Will the website help us get found on Google?',
-    answer:
-      'Yes. Every stock item gets its own indexable page with structured data, and the site launches with strong SEO foundations. Scooter Shop, a Perth dealership we built for, grew organic clicks 300% in six months.',
+    answer: `Yes. Every stock item gets its own indexable page with structured data, and the site launches with strong SEO foundations. Scooter Shop, a Perth dealership we built for, grew organic clicks ${SCOOTER_SHOP_GROWTH.percent}% in ${SCOOTER_SHOP_GROWTH.span}.`,
   },
 
   {

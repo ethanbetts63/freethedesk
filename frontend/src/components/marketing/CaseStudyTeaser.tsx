@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { CtaButton } from '@/components/CtaButton';
 import { SectionHeader } from '@/components/SectionHeader';
 import { PhoneFrame } from '@/components/visuals/PhoneFrame';
+import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 type CaseStudyTeaserProps = {
   eyebrow: string;
@@ -33,7 +34,7 @@ export function CaseStudyTeaser({
               Google Search Console
             </small>
             <strong className="mt-xs mb-4xs block text-display leading-none font-strong tracking-[-0.06em]">
-              +300%
+              {SCOOTER_SHOP_GROWTH.stat}
             </strong>
             <span className="whitespace-nowrap text-body text-[var(--text-on-dark-muted)]">
               organic clicks

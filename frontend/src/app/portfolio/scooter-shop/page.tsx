@@ -6,6 +6,7 @@ import {
 } from '@/app/portfolio/_components/PortfolioCaseStudy';
 import { PORTFOLIO_FAQS } from '@/app/portfolio/_lib/copy';
 import { metadataFor } from '@/lib/pages';
+import { SCOOTER_SHOP_BASELINE, SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 export const metadata: Metadata = metadataFor('/portfolio/scooter-shop');
 
@@ -50,9 +51,9 @@ const config = {
     id: 'results',
     stats: [
       {
-        value: '+300%',
+        value: SCOOTER_SHOP_GROWTH.stat,
         label: 'Organic clicks',
-        description: 'Recorded in Google Search Console over 6 months.',
+        description: `Google Search Console, ${SCOOTER_SHOP_GROWTH.period}.`,
       },
       {
         value: '08',
@@ -253,10 +254,9 @@ const config = {
   },
   seo: {
     eyebrow: 'SEO growth',
-    title: '200% growth.',
-    accentTitle: '6 months.',
-    description:
-      'Organic clicks grew 300% in six months. Indexable stock, focused landing pages and useful guides created more ways for ready-to-buy customers to find the dealership.',
+    title: `${SCOOTER_SHOP_GROWTH.percent}% growth.`,
+    accentTitle: '5 months.',
+    description: `Across ${SCOOTER_SHOP_GROWTH.period}, organic clicks grew ${SCOOTER_SHOP_GROWTH.percent}%, ${SCOOTER_SHOP_BASELINE}. Indexable stock, focused landing pages and useful guides created more ways for ready-to-buy customers to find the dealership.`,
   },
   faq: { eyebrow: 'Common questions', items: PORTFOLIO_FAQS },
 } satisfies PortfolioCaseStudyConfig;

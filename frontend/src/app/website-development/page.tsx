@@ -19,6 +19,7 @@ import { numberSections } from '@/lib/sectionNumbers';
 import { WEBSITE_DEV_FAQS } from './_lib/copy';
 import { ConversionFunnel } from './_components/ConversionFunnel';
 import { WebsiteFeatures } from './_components/WebsiteFeatures';
+import { SCOOTER_SHOP_BASELINE, SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 /* Section eyebrows in page order. */
 const sections = numberSections([
@@ -85,7 +86,7 @@ export default function WebsiteDevelopmentPage() {
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
-        title="A Perth website that grew organic clicks 300%."
+        title={`A Perth website that grew organic clicks ${SCOOTER_SHOP_GROWTH.percent}%.`}
         points={casePoints}
         primaryHref="#enquiry"
         primaryLabel="Discuss your website"
@@ -94,7 +95,8 @@ export default function WebsiteDevelopmentPage() {
         <p>
           Scooter Shop is a Perth scooter dealership. Its website combines inventory, parts,
           purchasing and service journeys in one connected experience. Fast structured pages and
-          focused search content helped organic clicks grow by 300% in six months.
+          focused search content grew its organic clicks {SCOOTER_SHOP_GROWTH.percent}% in
+          {SCOOTER_SHOP_GROWTH.span}, {SCOOTER_SHOP_BASELINE}.
         </p>
         <p>
           It is a practical example of what happens when the public website and the work behind it
