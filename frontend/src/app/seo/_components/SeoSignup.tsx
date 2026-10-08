@@ -1,31 +1,19 @@
-import { SectionNumber } from '@/components/SectionNumber';
 import { type PublicSiteSettings } from '@/lib/api';
 import { SeoSignupPanel } from './SeoSignupPanel';
 
-/* Server shell: only the plan chooser and the form need to hydrate. */
-export function SeoSignup({
-  settings,
-  eyebrow,
-}: {
-  settings: PublicSiteSettings;
-  eyebrow: string;
-}) {
+/**
+ * The SEO order form, straight under the hero bar as on the other service pages. Top padding
+ * only: the section after it opens with its own `pt-section`, so the form sits one section's
+ * space from the bar above and from what follows. Server shell: only the panel hydrates.
+ */
+export function SeoSignup({ settings }: { settings: PublicSiteSettings }) {
   return (
-    <section
-      className="site-shell pt-2xl pb-section [scroll-margin-top:28px] sm:pt-section sm:[scroll-margin-top:24px]"
-      id="signup"
-    >
-      <SeoSignupPanel
-        settings={settings}
-        heading={
-          <>
-            <SectionNumber>{eyebrow}</SectionNumber>
-            <h2 className="m-0 max-w-[780px] text-display leading-[1.06] tracking-[-0.058em]">
-              Choose your plan.
-            </h2>
-          </>
-        }
-      />
+    <section className="pt-section [scroll-margin-top:24px]" id="signup" aria-label="Plans">
+      <div className="site-shell">
+        <SeoSignupPanel settings={settings} />
+      </div>
+      {/* Where the page's floating call to action may appear: past the whole order form. */}
+      <div id="signup-end" aria-hidden="true" />
     </section>
   );
 }

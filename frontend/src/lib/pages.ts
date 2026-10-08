@@ -115,7 +115,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-10-07',
+    updated: '2026-10-08',
     label: 'SEO',
     title: "SEO Audit Perth | Find the searches you're losing",
     description:

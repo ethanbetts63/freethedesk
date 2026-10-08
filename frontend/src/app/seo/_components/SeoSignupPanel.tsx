@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { TermsAgreement } from '@/components/checkout/TermsAgreement';
-import { CtaButton } from '@/components/CtaButton';
+import { MovingColourButton } from '@/components/MovingColourButton';
 import { SelectionFormPanel } from '@/components/forms/SelectionFormPanel';
 import {
   fieldInputClassName,
@@ -22,21 +22,12 @@ import {
   formTitleClassName,
   formTitleHeadingClassName,
   submitClassName,
-  totalCadenceClassName,
-  totalClassName,
-  totalFigureClassName,
-  totalPriceClassName,
 } from '@/components/forms/selectionFormClassNames';
+import { PackageChooser, type PackageCard } from '@/components/marketing/PackageChooser';
 import { priceValue, trackBeginCheckout, trackEvent } from '@/lib/analytics';
 import { type PublicSiteSettings } from '@/lib/api';
 import { planByCode } from '@/lib/plans';
 import { submitSeoSignup, type SeoSignupState } from './SeoSignupPanel.actions';
-import {
-  choiceCardVariants,
-  choiceGridClassName,
-  choiceInputClassName,
-} from '@/components/forms/selectionFormClassNames';
-import { cn } from '@/lib/utils';
 import { buildSeoPlans, type SeoPlanCode } from '../_lib/plans';
 
 const initialState: SeoSignupState = { status: 'idle' };
@@ -48,15 +39,19 @@ const PRICE_FIELD = {
   oneoff: 'seo_oneoff_price',
 } as const satisfies Record<SeoPlanCode, keyof PublicSiteSettings>;
 
-/** The stateful half of the signup section. `heading` arrives already rendered
-    from the server so its markup stays out of the client bundle. */
-export function SeoSignupPanel({
-  settings,
-  heading,
-}: {
-  settings: PublicSiteSettings;
-  heading: React.ReactNode;
-}) {
+/** Under each card's price: how often it recurs, and whether it can be stopped. */
+const CADENCE_NOTE: Record<SeoPlanCode, string> = {
+  monthly: 'Every month. Cancel any time.',
+  quarterly: 'Every 3 months. Cancel any time.',
+  yearly: 'Once a year. Cancel any time.',
+  oneoff: 'Once. No subscription.',
+};
+
+/**
+ * The SEO order form, drawn like the service pages' package forms: the plans as cards on the
+ * left (see PackageChooser), the details, terms and payment on the right.
+ */
+export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
   const router = useRouter();
   const [selectedCode, setSelectedCode] = useState<SeoPlanCode>('monthly');
   const plans = useMemo(() => buildSeoPlans(settings), [settings]);
@@ -89,62 +84,36 @@ export function SeoSignupPanel({
     startTransition(() => dispatch(formData));
   };
 
+  const cards: PackageCard<SeoPlanCode>[] = plans.map((plan) => ({
+    code: plan.code,
+    label: plan.code === 'oneoff' ? 'One-off' : 'Subscription',
+    name: plan.name,
+    priceLabel: 'Per audit',
+    price: plan.price,
+    priceNote: CADENCE_NOTE[plan.code],
+    includes: plan.features,
+    recommended: plan.recommended,
+  }));
+
   return (
     <SelectionFormPanel
       onSubmit={onSubmit}
       chooser={
-        <>
-          {heading}
-
-          <div
-            className={cn(choiceGridClassName, 'mt-xl grid-cols-1 sm:grid-cols-2')}
-            role="radiogroup"
-            aria-label="Plan"
-          >
-            {plans.map((plan) => (
-              <label
-                className={choiceCardVariants({
-                  selected: selectedCode === plan.code,
-                  recommended: plan.recommended,
-                })}
-                key={plan.code}
-              >
-                <input
-                  className={choiceInputClassName}
-                  type="radio"
-                  name="seo-plan"
-                  value={plan.code}
-                  checked={selectedCode === plan.code}
-                  onChange={() => {
-                    setSelectedCode(plan.code);
-                    trackEvent('select_plan', { item_category: 'seo', plan: plan.code });
-                  }}
-                />
-                <span>{plan.name}</span>
-                {plan.recommended && <small className="moving-colour-text">Recommended</small>}
-              </label>
-            ))}
-          </div>
-
-          <div
-            className={cn(totalClassName, 'justify-items-center sm:grid-cols-1')}
-            aria-live="polite"
-          >
-            <div className={cn(totalFigureClassName, 'text-center')}>
-              <strong className={`${totalPriceClassName} moving-colour-text`}>
-                {selected.price}
-              </strong>
-              <small className={totalCadenceClassName}>{selected.cadence}</small>
-              {selected.code !== 'oneoff' && (
-                <small className={totalCadenceClassName}>Cancel any time.</small>
-              )}
-            </div>
-          </div>
-        </>
+        <PackageChooser
+          noun="plan"
+          cards={cards}
+          selectedCode={selectedCode}
+          onChoose={(code) => {
+            setSelectedCode(code);
+            trackEvent('select_plan', { item_category: 'seo', plan: code });
+          }}
+        />
       }
     >
       <div className={formTitleClassName}>
-        <h3 className={formTitleHeadingClassName}>Your details.</h3>
+        <h3 className={formTitleHeadingClassName}>
+          Your <span className="moving-colour-text">details.</span>
+        </h3>
       </div>
       <label className={fieldLabelClassName}>
         <span className={fieldLabelSpanClassName}>Email</span>
@@ -201,7 +170,7 @@ export function SeoSignupPanel({
           )}
         </p>
       )}
-      <CtaButton
+      <MovingColourButton
         type="submit"
         className={submitClassName}
         direction="right"
@@ -210,7 +179,7 @@ export function SeoSignupPanel({
         disabled={isPending}
       >
         {isPending ? 'Saving…' : 'Continue to payment'}
-      </CtaButton>
+      </MovingColourButton>
     </SelectionFormPanel>
   );
 }

@@ -11,11 +11,11 @@ export type SeoPlan = Plan<SeoPlanCode> & {
 export { planByCode };
 
 const FEATURES = [
-  'Search Console, Business Profile and analytics read together',
-  '23 foundation checks, pass, warn or fail',
-  'Ranked recommendations with impact and cost',
+  'Search Console, Profile and analytics',
+  '23 foundation checks',
+  'Fixes ranked by value',
 ];
-const RECURRING_FEATURES = [...FEATURES, 'Every change tracked as an experiment'];
+const RECURRING_FEATURES = [...FEATURES, 'Every change measured'];
 
 const price = (value: string) => formatMoney(value, { cents: 'auto' });
 

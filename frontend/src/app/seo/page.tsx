@@ -29,7 +29,6 @@ const sections = numberSections([
   'Experiment',
   'How often',
   'Proof this works',
-  'Choose your plan',
   'Common questions',
 ] as const);
 
@@ -87,6 +86,8 @@ export default async function SeoPage() {
 
       <SeoStepsBar />
 
+      <SeoSignup settings={settings} />
+
       <SeoIntroduction />
 
       <SeoAnalysis eyebrow={sections['Analyse']} />
@@ -121,15 +122,15 @@ export default async function SeoPage() {
         </p>
       </CaseStudyTeaser>
 
-      <SeoSignup settings={settings} eyebrow={sections['Choose your plan']} />
-
       <AdsSavingsModal />
 
       <FloatingPageCta
         label="Choose a plan"
         href="#signup"
-        showAfterId="seo-hero-end"
-        hideAtId="signup"
+        direction="up"
+        // After the plans, so it never sits over the payment button.
+        showAfterId="signup-end"
+        hideAtId="page-cta"
       />
 
       <FaqSection
@@ -140,6 +141,7 @@ export default async function SeoPage() {
       />
 
       <ManualAdminCta
+        id="page-cta"
         eyebrow="Stop renting your traffic"
         title="Google Ads is SEO you pay for, click by click."
         href="#signup"
