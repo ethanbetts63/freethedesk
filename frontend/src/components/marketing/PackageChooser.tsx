@@ -36,13 +36,6 @@ const cardKickerClassName =
 const cardFootClassName =
   'mt-auto flex items-center justify-center gap-2xs border py-s text-label font-heavy tracking-label uppercase transition-colors duration-200 [&>svg]:size-[16px]';
 
-/** How far the row fades out under an arrow, so a cut-off card reads as more to scroll to. */
-const ROW_FADE: Record<'left' | 'right' | 'both', string> = {
-  left: '[mask-image:linear-gradient(to_left,#000_calc(100%-64px),transparent)]',
-  right: '[mask-image:linear-gradient(to_right,#000_calc(100%-64px),transparent)]',
-  both: '[mask-image:linear-gradient(to_right,transparent,#000_64px,#000_calc(100%-64px),transparent)]',
-};
-
 /** One card width and its gap, so an arrow press lands on the next card's edge. */
 const CARD_STEP = 268;
 
@@ -143,11 +136,6 @@ export function PackageChooser<Code extends string>({
           className={cn(
             'flex min-w-0 flex-1 snap-x snap-mandatory gap-s overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
             single && 'justify-center',
-            canScrollLeft && canScrollRight
-              ? ROW_FADE.both
-              : canScrollLeft
-                ? ROW_FADE.left
-                : canScrollRight && ROW_FADE.right,
           )}
           role="radiogroup"
           aria-label={noun.charAt(0).toUpperCase() + noun.slice(1)}
