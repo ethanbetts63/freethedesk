@@ -87,17 +87,7 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
 
       <WebsiteJobsBar />
 
-      <PackagesSection
-        packages={prices.packages}
-        budget={{
-          projectType: 'website',
-          includes: [
-            'Give us a number and what you need',
-            'We reply with what it builds',
-            'Free to ask',
-          ],
-        }}
-      />
+      <PackagesSection packages={prices.packages} />
 
       <WebsiteIntroduction designDescription={copy.designDescription} />
 

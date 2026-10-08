@@ -25,52 +25,19 @@ import {
 } from '@/components/forms/selectionFormClassNames';
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { CURRENCY, trackEvent } from '@/lib/analytics';
-import type { ProjectType } from '@/lib/api';
 import { focusRingClassName } from '@/lib/controlState';
 import { money, type PackageCode, type PurchasePackage } from '@/lib/servicePricing';
 import { cn } from '@/lib/utils';
 
 import { submitPackageOrder, type PackageOrderState } from './PackageOrderPanel.actions';
-import { submitProjectEnquiry } from './ProjectEnquiryPanel.actions';
-
-/**
- * The last option, for anyone who would rather start from a budget than buy a package. It is
- * sent as a free project enquiry, so the form asks for the budget and charges nothing.
- */
-export interface BudgetOption {
-  projectType: ProjectType;
-  includes: readonly string[];
-}
-
-type ChoiceCode = PackageCode | 'budget';
-
-/** One card in the row: a package, or the budget option drawn the same way. */
-interface Choice {
-  code: ChoiceCode;
-  label: string;
-  name: string;
-  /** What the price buys, in small capitals over it. */
-  priceLabel: string;
-  price: string;
-  priceNote: string;
-  includes: readonly string[];
-  recommended?: boolean;
-}
 
 const initialState: PackageOrderState = { status: 'idle' };
 
-/** An order goes to the package endpoint, a budget to the free enquiry. Both answer the same way. */
-function submitChoice(previous: PackageOrderState, formData: FormData) {
-  return formData.get('package') === 'budget'
-    ? submitProjectEnquiry(previous, formData)
-    : submitPackageOrder(previous, formData);
-}
-
 /** Every card is the same width, so the row scrolls in whole cards. */
 const cardClassName =
-  'group flex w-[256px] shrink-0 cursor-pointer snap-start flex-col border bg-surface-page p-l text-left transition-colors duration-200 has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-[-3px] has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)]';
+  'group flex w-[256px] shrink-0 cursor-pointer snap-start flex-col bg-surface-page p-l text-left transition-colors duration-200 has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-[-3px] has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)]';
 
-/** Small capitals: the card's position, and what its price buys. */
+/** Small capitals: the package's position, and what its price buys. */
 const cardKickerClassName =
   'block text-caption font-heavy tracking-label text-text-subtle uppercase';
 
@@ -114,46 +81,21 @@ function ScrollArrow({ direction, onClick }: { direction: 'left' | 'right'; onCl
 }
 
 /**
- * The order form. Left, the packages (and optionally the budget option) as a row of cards that
- * fills the column and scrolls sideways (arrows, swipe or trackpad; no scrollbar); right, exactly
- * what the free enquiry asks and the button. The button carries the chosen package's price, reads
- * Book discovery when discovery is all the price buys, and for the budget option asks for the
- * budget and sends it free. Packages arrive priced from the server, so nothing here computes money.
+ * The order form. Left, the packages as a row of cards that fills the column and scrolls sideways
+ * (arrows, swipe or trackpad; no scrollbar); right, exactly what the free enquiry asks and the
+ * button, which carries the chosen package's price and reads Book discovery when discovery is all
+ * the price buys. Packages arrive priced from the server, so nothing here computes money.
+ *
+ * A single package is not a choice: the heading drops "Choose" and the card sits centred in the
+ * moving border a recommended choice wears elsewhere.
  */
-export function PackageOrderPanel({
-  packages,
-  budget,
-}: {
-  packages: readonly PurchasePackage[];
-  budget?: BudgetOption;
-}) {
-  const choices: Choice[] = packages.map((item) => ({
-    code: item.code,
-    label: item.label,
-    name: item.name,
-    priceLabel: item.discovery ? 'Discovery, paid upfront' : 'Fixed price',
-    price: money(item.price),
-    priceNote: item.priceNote,
-    includes: item.includes,
-    recommended: item.recommended,
-  }));
-  if (budget) {
-    choices.push({
-      code: 'budget',
-      label: 'Or',
-      name: 'Tell us your budget',
-      priceLabel: 'Your number',
-      price: 'Free',
-      priceNote: 'We tell you what it buys',
-      includes: budget.includes,
-    });
-  }
-
-  const [selectedCode, setSelectedCode] = useState<ChoiceCode>(
+export function PackageOrderPanel({ packages }: { packages: readonly PurchasePackage[] }) {
+  const [selectedCode, setSelectedCode] = useState<PackageCode>(
     (packages.find((item) => item.recommended) ?? packages[0]).code,
   );
-  const selectedPackage = packages.find((item) => item.code === selectedCode);
-  const [state, dispatch, isPending] = useActionState(submitChoice, initialState);
+  const selected = packages.find((item) => item.code === selectedCode) ?? packages[0];
+  const single = packages.length === 1;
+  const [state, dispatch, isPending] = useActionState(submitPackageOrder, initialState);
   const rowRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -179,33 +121,23 @@ export function PackageOrderPanel({
     };
   }, [updateArrows]);
 
-  // A new state object per submission, so one event per order or enquiry sent.
+  // A new state object per submission, so one event per order sent.
   useEffect(() => {
     if (state.status !== 'success') return;
-    trackEvent(
-      'generate_lead',
-      selectedPackage
-        ? {
-            lead_source: 'package_order',
-            package: selectedPackage.code,
-            value: selectedPackage.price,
-            currency: CURRENCY,
-          }
-        : { lead_source: 'project_enquiry', project_type: budget?.projectType },
-    );
+    trackEvent('generate_lead', {
+      lead_source: 'package_order',
+      package: selected.code,
+      value: selected.price,
+      currency: CURRENCY,
+    });
     // Only the submission should fire this, not a later change of package.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
-  const choose = (code: ChoiceCode) => {
+  const choose = (code: PackageCode) => {
     setSelectedCode(code);
     trackEvent('select_plan', {
-      item_category:
-        code === 'budget'
-          ? budget?.projectType
-          : code === 'automation_discovery'
-            ? 'automation'
-            : 'website',
+      item_category: code === 'automation_discovery' ? 'automation' : 'website',
       plan: code,
     });
   };
@@ -217,8 +149,7 @@ export function PackageOrderPanel({
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    formData.set('package', selectedCode);
-    if (budget) formData.set('project_type', budget.projectType);
+    formData.set('package', selected.code);
     startTransition(() => dispatch(formData));
   };
 
@@ -228,7 +159,7 @@ export function PackageOrderPanel({
       chooser={
         <>
           <h3 className="m-0 text-display leading-[1.02] tracking-[-0.058em] text-text-secondary">
-            Choose your <span className="moving-colour-text">package.</span>
+            {single ? 'Your' : 'Choose your'} <span className="moving-colour-text">package.</span>
           </h3>
 
           <div className="relative mt-xl flex flex-1">
@@ -237,6 +168,7 @@ export function PackageOrderPanel({
               ref={rowRef}
               className={cn(
                 'flex min-w-0 flex-1 snap-x snap-mandatory gap-s overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+                single && 'justify-center',
                 canScrollLeft && canScrollRight
                   ? ROW_FADE.both
                   : canScrollLeft
@@ -246,16 +178,18 @@ export function PackageOrderPanel({
               role="radiogroup"
               aria-label="Package"
             >
-              {choices.map((item) => {
-                const isSelected = item.code === selectedCode;
+              {packages.map((item) => {
+                const isSelected = item.code === selected.code;
                 return (
                   <label
                     key={item.code}
                     className={cn(
                       cardClassName,
-                      isSelected
-                        ? 'border-action-primary'
-                        : 'border-border-default hover:border-border-strong-hover',
+                      single
+                        ? 'moving-colour-border'
+                        : isSelected
+                          ? 'border border-action-primary'
+                          : 'border border-border-default hover:border-border-strong-hover',
                     )}
                   >
                     <input
@@ -274,9 +208,11 @@ export function PackageOrderPanel({
                       {item.name}
                     </strong>
 
-                    <span className={cn(cardKickerClassName, 'mt-l')}>{item.priceLabel}</span>
+                    <span className={cn(cardKickerClassName, 'mt-l')}>
+                      {item.discovery ? 'Discovery, paid upfront' : 'Fixed price'}
+                    </span>
                     <span className="mt-2xs block text-title leading-none font-heavy tracking-[-0.05em] text-text-primary">
-                      {item.price}
+                      {money(item.price)}
                     </span>
                     <span className="mt-xs block text-body-sm text-text-muted">
                       {item.priceNote}
@@ -336,27 +272,10 @@ export function PackageOrderPanel({
           >
             ✓
           </span>
-          {selectedPackage ? (
-            <>
-              <strong className="block text-lead tracking-[-0.03em]">
-                Thanks, your order is in.
-              </strong>
-              <p className="mt-xs text-body leading-relaxed text-text-muted">
-                We&apos;ll email you the invoice for the {selectedPackage.name} package and the next
-                steps.
-              </p>
-            </>
-          ) : (
-            <>
-              <strong className="block text-lead tracking-[-0.03em]">
-                Thanks, that&apos;s with us.
-              </strong>
-              <p className="mt-xs text-body leading-relaxed text-text-muted">
-                We&apos;ll come back with what we&apos;d suggest building for that budget, and what
-                it would take.
-              </p>
-            </>
-          )}
+          <strong className="block text-lead tracking-[-0.03em]">Thanks, your order is in.</strong>
+          <p className="mt-xs text-body leading-relaxed text-text-muted">
+            We&apos;ll email you the invoice for the {selected.name} package and the next steps.
+          </p>
         </div>
       ) : (
         <>
@@ -392,19 +311,6 @@ export function PackageOrderPanel({
               autoComplete="url"
             />
           </label>
-          {!selectedPackage && (
-            <label className={fieldLabelClassName}>
-              <span className={fieldLabelSpanClassName}>Budget</span>
-              <input
-                className={fieldInputClassName}
-                name="budget"
-                type="text"
-                placeholder="e.g. $5,000"
-                maxLength={120}
-                required
-              />
-            </label>
-          )}
           <label className={fieldLabelClassName}>
             <span className={fieldLabelSpanClassName}>Notes (optional)</span>
             <textarea
@@ -430,9 +336,7 @@ export function PackageOrderPanel({
           >
             {isPending
               ? 'Sending…'
-              : selectedPackage
-                ? `${selectedPackage.discovery ? 'Book discovery' : 'Buy now'} · ${money(selectedPackage.price)}`
-                : 'Send my budget'}
+              : `${selected.discovery ? 'Book discovery' : 'Buy now'} · ${money(selected.price)}`}
           </MovingColourButton>
         </>
       )}

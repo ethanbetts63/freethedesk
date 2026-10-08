@@ -57,17 +57,7 @@ export default async function AutomationPage() {
 
       <AutomationStepsBar />
 
-      <PackagesSection
-        packages={[discovery]}
-        budget={{
-          projectType: 'automation',
-          includes: [
-            'Give us a number and the work that eats your week',
-            'We reply with what it automates',
-            'Free to ask',
-          ],
-        }}
-      />
+      <PackagesSection packages={[discovery]} />
 
       <AutomationIntroduction />
 
