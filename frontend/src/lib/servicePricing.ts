@@ -8,7 +8,9 @@ import { formatMoney } from './formatting';
  * Packages 1 and 2 are websites priced per page: a page count at a per-page
  * price. Package 3 is a web application, bought as its discovery: that many
  * hours at the hourly rate, paid upfront, with the build then priced to the
- * customer's budget. What each package includes is copy and lives here; the
+ * customer's budget. A website is paid half when bought and half before
+ * launch; discovery is paid in full. The backend's PackageOrderSerializer
+ * works out the same split. What each package includes is copy and lives here; the
  * counts and prices belong to the admin. The codes match the backend's
  * PackageOrderSerializer.PACKAGES.
  */
@@ -21,8 +23,10 @@ export interface PurchasePackage {
   /** "Package 1": the position, shown above the name. */
   label: string;
   name: string;
-  /** What the customer pays when they buy. */
+  /** The package's full price. */
   price: number;
+  /** What the customer pays when they buy: half of a website, all of discovery. */
+  dueNow: number;
   /** The sum behind the price, so "per page" or "per hour" is visible rather than claimed. */
   priceNote: string;
   includes: readonly string[];
@@ -55,6 +59,7 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
       label: 'Package 1',
       name: `${smallPages}-page website`,
       price: smallPages * smallPagePrice,
+      dueNow: (smallPages * smallPagePrice) / 2,
       priceNote: `${smallPages} pages at ${money(smallPagePrice)} a page`,
       includes: [
         'Custom, mobile-first design',
@@ -68,11 +73,12 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
       label: 'Package 2',
       name: `${largePages}-page website`,
       price: largePages * largePagePrice,
+      dueNow: (largePages * largePagePrice) / 2,
       priceNote: `${largePages} pages at ${money(largePagePrice)} a page`,
       includes: [
         `Everything in the ${smallPages}-page website`,
         'Pages planned from keyword research',
-        'Google Business Profile set up',
+        'Google Business Profile review',
         'An SEO audit at three months',
       ],
       recommended: true,
@@ -82,6 +88,7 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
       label: 'Package 3',
       name: 'Web application',
       price: hourly * hours,
+      dueNow: hourly * hours,
       priceNote: `${hours} hours at ${money(hourly)} an hour`,
       includes: [
         'Your process and tools mapped',
@@ -105,6 +112,7 @@ export function automationDiscovery(settings: PublicSiteSettings): PurchasePacka
     label: 'Start here',
     name: 'Automation',
     price: hourly * hours,
+    dueNow: hourly * hours,
     priceNote: `${hours} hours at ${money(hourly)} an hour`,
     includes: [
       'Your repetitive work mapped',

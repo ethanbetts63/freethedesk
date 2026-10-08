@@ -83,6 +83,10 @@ class PackageOrderSerializer(serializers.Serializer):
     invoice. The price is read from the admin's settings at the moment of
     purchase, never taken from the browser, and kept on the enquiry so a later
     price change cannot rewrite what this customer was quoted.
+
+    A website package is paid half when bought and half before launch, as the
+    web development terms set out; discovery is paid in full. `due_now` is the
+    first invoice.
     """
 
     PACKAGES = ("website_small", "website_large", "web_application", "automation_discovery")
@@ -95,8 +99,8 @@ class PackageOrderSerializer(serializers.Serializer):
     notes = serializers.CharField(max_length=2000, required=False, allow_blank=True, default="")
 
     @staticmethod
-    def quote(code: str, settings: SiteSettings) -> tuple[str, Decimal, str, str]:
-        """(name, price due now, what the price covers, enquiry type) for a package."""
+    def quote(code: str, settings: SiteSettings) -> tuple[str, Decimal, Decimal, str, str]:
+        """(name, price, due now, what the price covers, enquiry type) for a package."""
         discovery = {
             "web_application": ("Web application", Enquiry.HelpWith.WEB_APPLICATION),
             "automation_discovery": ("Automation discovery", Enquiry.HelpWith.AUTOMATION),
@@ -104,9 +108,11 @@ class PackageOrderSerializer(serializers.Serializer):
         if code in discovery:
             name, help_with = discovery[code]
             hours = settings.discovery_hours
+            price = settings.hourly_rate * hours
             return (
                 name,
-                settings.hourly_rate * hours,
+                price,
+                price,
                 f"discovery, {hours} hours at {_dollars(settings.hourly_rate)} an hour",
                 help_with,
             )
@@ -114,18 +120,22 @@ class PackageOrderSerializer(serializers.Serializer):
             pages, page_price = settings.website_small_pages, settings.website_small_page_price
         else:
             pages, page_price = settings.website_large_pages, settings.website_large_page_price
+        price = page_price * pages
         return (
             f"{pages}-page website",
-            page_price * pages,
+            price,
+            (price / 2).quantize(Decimal("0.01")),
             f"{pages} pages at {_dollars(page_price)} a page",
             Enquiry.HelpWith.WEBSITE,
         )
 
     def create(self, validated_data):
         code = validated_data["package"]
-        name, price, covers, help_with = self.quote(code, SiteSettings.load())
+        name, price, due_now, covers, help_with = self.quote(code, SiteSettings.load())
         notes = validated_data["notes"].strip()
         message = f"Bought the {name} package: {_dollars(price)}, {covers}."
+        if due_now != price:
+            message = f"{message} Due now: {_dollars(due_now)}; the rest before launch."
         if notes:
             message = f"{message}\n\nNotes:\n{notes}"
         hostname = urlsplit(validated_data["website"]).hostname or ""
@@ -137,7 +147,12 @@ class PackageOrderSerializer(serializers.Serializer):
             website=validated_data["website"],
             help_with=help_with,
             message=message,
-            configuration={"package": code, "package_name": name, "price": str(price)},
+            configuration={
+                "package": code,
+                "package_name": name,
+                "price": str(price),
+                "due_now": str(due_now),
+            },
         )
 
 

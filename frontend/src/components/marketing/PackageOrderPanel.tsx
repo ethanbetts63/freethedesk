@@ -41,6 +41,8 @@ export function PackageOrderPanel({ packages }: { packages: readonly PurchasePac
     priceLabel: item.discovery ? 'Discovery, paid upfront' : 'Fixed price',
     price: money(item.price),
     priceNote: item.priceNote,
+    dueNote:
+      item.dueNow < item.price ? `${money(item.dueNow)} today, the rest before launch` : undefined,
     includes: item.includes,
     recommended: item.recommended,
   }));
@@ -163,7 +165,9 @@ export function PackageOrderPanel({ packages }: { packages: readonly PurchasePac
           >
             {isPending
               ? 'Sending…'
-              : `${selected.discovery ? 'Book discovery' : 'Buy now'} · ${money(selected.price)}`}
+              : selected.discovery
+                ? `Book discovery · ${money(selected.price)}`
+                : `Buy now · ${money(selected.dueNow)} today`}
           </MovingColourButton>
         </>
       )}

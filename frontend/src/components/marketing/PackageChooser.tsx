@@ -17,6 +17,8 @@ export interface PackageCard<Code extends string> {
   priceLabel: string;
   price: string;
   priceNote: string;
+  /** When only part is paid upfront: what is due today, highlighted under the price. */
+  dueNote?: string;
   includes: readonly string[];
   recommended?: boolean;
 }
@@ -175,6 +177,11 @@ export function PackageChooser<Code extends string>({
                   {item.price}
                 </span>
                 <span className="mt-xs block text-body-sm text-text-muted">{item.priceNote}</span>
+                {item.dueNote && (
+                  <span className="mt-xs block text-body-sm font-strong text-text-action">
+                    {item.dueNote}
+                  </span>
+                )}
 
                 <ul className="m-0 mt-l mb-xl grid list-none gap-xs border-t border-border-subtle p-0 pt-l">
                   {item.includes.map((line) => (

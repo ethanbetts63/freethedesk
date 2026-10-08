@@ -198,8 +198,12 @@ def test_buying_a_website_package_records_the_admin_price(api_client, outbox):
         "package": "website_small",
         "package_name": "6-page website",
         "price": "3000.00",
+        "due_now": "1500.00",
     }
-    assert enquiry.message.startswith("Bought the 6-page website package: $3,000, 6 pages at $500 a page.")
+    assert enquiry.message.startswith(
+        "Bought the 6-page website package: $3,000, 6 pages at $500 a page."
+        " Due now: $1,500; the rest before launch."
+    )
     assert "Notes:\nWe sell outdoor furniture." in enquiry.message
     assert [message.channel for message in outbox] == ["email", "sms"]
 
@@ -220,6 +224,7 @@ def test_the_large_package_follows_the_admin_settings(api_client):
     enquiry = Enquiry.objects.get()
     assert enquiry.configuration["package_name"] == "12-page website"
     assert enquiry.configuration["price"] == "6600.00"
+    assert enquiry.configuration["due_now"] == "3300.00"
     assert enquiry.website == ""
 
 
@@ -234,7 +239,10 @@ def test_a_web_application_is_bought_as_its_discovery(api_client):
     enquiry = Enquiry.objects.get()
     assert enquiry.help_with == Enquiry.HelpWith.WEB_APPLICATION
     assert enquiry.configuration["price"] == "450.00"
+    # Discovery is paid in full, not half.
+    assert enquiry.configuration["due_now"] == "450.00"
     assert "discovery, 3 hours at $150 an hour" in enquiry.message
+    assert "Due now" not in enquiry.message
 
 
 def test_an_unknown_package_is_refused(api_client):

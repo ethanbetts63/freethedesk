@@ -10,7 +10,7 @@ export function priceRows(prices: ServicePrices): readonly ServicePriceRow[] {
     {
       service: 'Websites',
       price: `from ${money(small.price)}`,
-      basis: `A ${small.name} or a ${large.name}, priced per page from ${prices.pagePriceFrom} a page. Buy either online.`,
+      basis: `A ${small.name} or a ${large.name}, priced per page from ${prices.pagePriceFrom} a page. Buy either online, paying half upfront.`,
       href: '/website-development#packages',
       linkLabel: 'Website packages',
     },
