@@ -3,9 +3,11 @@
 > **Status: draft for internal review.** Structure agreed in conversation on
 > 2026-09-05. This maps to the payment/ownership terms in
 > [`webdev-contract-draft-terms.md`](./webdev-contract-draft-terms.md) —
-> Section 2 (checkpoints), Section 3 (fees), Section 6 (license), and Section
-> 7 (hosting options). Update that file if the numbers below change in a way
-> that affects contract language.
+> section 3 (payment), section 4 (how the project runs), section 6 (accounts
+> and hosting) and section 7 (ownership). Those terms were rewritten on
+> 2026-10-08; where this draft's hosting options or payment splits disagree
+> with them, the terms are the decision. Update that file if the numbers below
+> change in a way that affects contract language.
 
 ## What the site publishes (2026-10-07)
 

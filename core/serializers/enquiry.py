@@ -48,8 +48,8 @@ class ProjectEnquirySerializer(serializers.Serializer):
     # Optional: the people most likely to want a first website have none to give.
     website = bounds.url(required=False, allow_blank=True, default="")
     email = bounds.email()
-    phone = serializers.CharField(max_length=40, required=False, allow_blank=True, default="")
-    notes = serializers.CharField(max_length=2000, required=False, allow_blank=True, default="")
+    phone = bounds.char("phone", required=False, allow_blank=True, default="")
+    notes = bounds.text("note", required=False, allow_blank=True, default="")
 
     def create(self, validated_data):
         project_type = validated_data["project_type"]
@@ -95,8 +95,8 @@ class PackageOrderSerializer(serializers.Serializer):
     # Optional: the people most likely to want a first website have none to give.
     website = bounds.url(required=False, allow_blank=True, default="")
     email = bounds.email()
-    phone = serializers.CharField(max_length=40, required=False, allow_blank=True, default="")
-    notes = serializers.CharField(max_length=2000, required=False, allow_blank=True, default="")
+    phone = bounds.char("phone", required=False, allow_blank=True, default="")
+    notes = bounds.text("note", required=False, allow_blank=True, default="")
 
     @staticmethod
     def quote(code: str, settings: SiteSettings) -> tuple[str, Decimal, Decimal, str, str]:
