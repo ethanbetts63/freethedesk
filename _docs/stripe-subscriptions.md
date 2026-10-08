@@ -121,6 +121,22 @@ with the code instead holds the customer on `/dashboard/change-password`.
 Reporting then waits on setup (`seo/utils/setup.py`): it starts once the Search
 Console step is confirmed, by the service-account check or by staff.
 
+Package orders are the fourth flow (`package.order`). The order form on
+`/website-development`, `/web-design-subiaco` and `/automation` makes a
+`PackageOrder` (`core/models/package_order.py`) with the price and the share
+due now read from site settings (`core/utils/package_pricing.py`): half of a
+website, all of discovery, as the
+[Web Development Terms](../frontend/content/legal/web-development-terms.md)
+set out. The terms are ticked on the form and recorded there under
+`webdev.services`; the payment page (`/order/payment?ref=…`) charges what is
+due now through `POST /api/payments/package-order/`, and refuses with
+`offer_changed` if the price, the split or the terms moved since the order.
+`checkout.session.completed` marks the order paid and emails staff (with an
+SMS) and the customer a receipt; no account is opened. A website's second half
+is invoiced from the order's dashboard page (`/dashboard/admin/orders/<id>`),
+whose **Invoice the second half** opens the invoice editor with the balance
+filled in.
+
 Before creating the session, FTD publishes the configured legal document through
 `freetheplatform.agreements` and records an immutable acceptance against the
 dealer or SEO subscriber. The acceptance ID and document hash are copied into

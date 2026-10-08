@@ -1,4 +1,4 @@
-import { DEALER_TYPE, ENQUIRY_TYPE, SEO_SUBSCRIBER_TYPE } from '@/lib/adminApi';
+import { DEALER_TYPE, ENQUIRY_TYPE, PACKAGE_ORDER_TYPE, SEO_SUBSCRIBER_TYPE } from '@/lib/adminApi';
 import type { InvoiceListItem, RelatedRecord } from './invoiceTypes';
 
 /** `overdue` is not stored: an issued invoice past its due date, shown as its own state because it is the one to chase. */
@@ -21,6 +21,7 @@ const RELATED: Record<string, { name: string; href: (id: number) => string }> = 
   [ENQUIRY_TYPE]: { name: 'Enquiry', href: (id) => `/dashboard/admin/enquiries/${id}` },
   [DEALER_TYPE]: { name: 'Dealer', href: (id) => `/dashboard/admin/dealers/${id}` },
   [SEO_SUBSCRIBER_TYPE]: { name: 'SEO customer', href: (id) => `/dashboard/admin/seo/${id}` },
+  [PACKAGE_ORDER_TYPE]: { name: 'Order', href: (id) => `/dashboard/admin/orders/${id}` },
 };
 
 export function relatedHref(record: RelatedRecord): string | null {

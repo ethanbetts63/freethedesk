@@ -373,5 +373,11 @@ FTP_AGREEMENTS = {
             "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "seo-subscription-terms.md",
             "FORMAT": "markdown",
         },
+        "webdev.services": {
+            "TITLE": "Web Development Terms",
+            "VERSION": "2026-10-08",
+            "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "web-development-terms.md",
+            "FORMAT": "markdown",
+        },
     },
 }

@@ -3,11 +3,12 @@ anywhere, messaging as the sender, and our enquiries as customers. The invoice r
 the package's and are tested there."""
 
 import io
+from decimal import Decimal
 
 import pytest
 from pypdf import PdfReader
 
-from core.models import InvoiceSettings
+from core.models import InvoiceSettings, PackageOrder
 from core.tests.factories import EnquiryFactory
 
 pytestmark = pytest.mark.django_db
@@ -81,6 +82,28 @@ def test_an_enquiry_prefills_the_customer(staff_client):
     assert body["customer"]["customer_company"] == "Owner Motors"
     assert body["customer"]["customer_email"] == "sam@owner.example"
     assert body["related"]["type"] == "core.enquiry"
+
+
+def test_a_package_order_prefills_its_balance(staff_client):
+    order = PackageOrder.objects.create(
+        package=PackageOrder.Package.WEBSITE_LARGE,
+        package_name="10-page website",
+        price=Decimal("6000.00"),
+        due_now=Decimal("3000.00"),
+        email="owner@example.com.au",
+        business_name="example.com.au",
+    )
+    body = staff_client.get(
+        f"{URL}prefill/", {"related_type": "core.packageorder", "related_id": order.pk}
+    ).json()
+    assert body["customer"]["customer_email"] == "owner@example.com.au"
+    assert body["lines"] == [
+        {
+            "description": "10-page website: second half, due before launch",
+            "quantity": 1,
+            "unit_price": "3000.00",
+        }
+    ]
 
 
 def test_customer_search_finds_enquiries(staff_client):

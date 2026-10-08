@@ -19,6 +19,7 @@ const APPLICATION_ROUTES = [
   '/portal',
   '/seo-portal',
   '/seo/payment',
+  '/order',
 ] as const;
 
 export function usesStandaloneChrome(pathname: string): boolean {

@@ -121,9 +121,10 @@ kept as a lead to follow up on an abandoned checkout.
 
 ### Tier 3: Enquiry and marketing data
 
-| Model     | File                     | PII fields                                                                              | Consent / opt-out |
-| --------- | ------------------------ | --------------------------------------------------------------------------------------- | ----------------- |
-| `Enquiry` | `core/models/enquiry.py` | `name`, `business`, `email`, `phone`, `website`, `message` (free text), `configuration` | none              |
+| Model          | File                           | PII fields                                                                              | Consent / opt-out |
+| -------------- | ------------------------------ | --------------------------------------------------------------------------------------- | ----------------- |
+| `Enquiry`      | `core/models/enquiry.py`       | `name`, `business`, `email`, `phone`, `website`, `message` (free text), `configuration` | none              |
+| `PackageOrder` | `core/models/package_order.py` | `email`, `phone`, `website`, `business_name`, `notes` (free text), `stripe_customer_id` | none              |
 
 `message` is free text on a public form, so it can contain anything the sender
 chose to put in it. Bounded at 2,000 characters, not filtered.
@@ -286,7 +287,10 @@ together rather than twice.
    | Cancelled `Dealer` / `SeoSubscriber` records        | subscription ends + the statutory period | delete or de-identify                         |
    | Unpaid `SeoSubscriber` signups (abandoned checkout) | 12 months after `created_at`             | delete the row                                |
 
-   One command, with `--dry-run`, wired to a daily schedule.
+| Unpaid `PackageOrder` rows (abandoned checkout) | 12 months after `created_at` | delete the row |
+| Paid `PackageOrder` rows | the tax-record period | de-identify `phone`, `website` and `notes` |
+
+One command, with `--dry-run`, wired to a daily schedule.
 
 2. **Gate or remove Microsoft Clarity.** Either drop it, or add a consent banner
    and inject only after opt-in, and confirm masking is set to mask-all with the

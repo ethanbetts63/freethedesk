@@ -44,6 +44,7 @@ const DISALLOWED_ROUTES = [
   '/reset-password',
   '/licensing/payment',
   '/seo/payment',
+  '/order',
 ];
 
 const AI_USER_AGENTS = [

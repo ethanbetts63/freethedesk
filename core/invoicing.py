@@ -13,7 +13,7 @@ from freetheplatform.messaging import Message, send
 from dealers.models import Dealer
 from seo.models import SeoSubscriber
 
-from .models import Enquiry, InvoiceSettings
+from .models import Enquiry, InvoiceSettings, PackageOrder
 
 LOGO = settings.BASE_DIR / "frontend" / "public" / "logo-mark.png"
 #: `--blue-600`, the brand's action blue.
@@ -101,7 +101,32 @@ def _seo_subscriber(subscriber):
     }
 
 
-PREFILLERS = {Enquiry: _enquiry, Dealer: _dealer, SeoSubscriber: _seo_subscriber}
+def _package_order(order):
+    """A package order's invoice is its balance: a website's second half, due before launch."""
+    lines = []
+    if order.balance:
+        lines.append({
+            "description": f"{order.package_name}: second half, due before launch",
+            "quantity": 1,
+            "unit_price": str(order.balance),
+        })
+    return {
+        "customer": {
+            "customer_name": "",
+            "customer_company": order.business_name,
+            "customer_email": order.email,
+            "customer_phone": order.phone,
+        },
+        "lines": lines,
+    }
+
+
+PREFILLERS = {
+    Enquiry: _enquiry,
+    Dealer: _dealer,
+    SeoSubscriber: _seo_subscriber,
+    PackageOrder: _package_order,
+}
 
 
 def prefill(obj):
@@ -111,11 +136,12 @@ def prefill(obj):
 
 
 def customer_search(query):
-    """Enquiries, dealers and SEO customers whose name, business or email matches."""
+    """Enquiries, dealers, SEO customers and package orders whose name, business or email matches."""
     sources = (
         ("Enquiry", Enquiry.objects.filter(Q(name__icontains=query) | Q(business__icontains=query) | Q(email__icontains=query)), lambda e: (e.business or e.name, e.email)),
         ("Dealer", Dealer.objects.select_related("user", "profile").filter(Q(business_name__icontains=query) | Q(contact_name__icontains=query) | Q(user__email__icontains=query)), lambda d: (d.business_name, d.contact_name)),
         ("SEO customer", SeoSubscriber.objects.filter(Q(business_name__icontains=query) | Q(contact_name__icontains=query) | Q(email__icontains=query)), lambda s: (s.business_name, s.email)),
+        ("Order", PackageOrder.objects.filter(Q(business_name__icontains=query) | Q(email__icontains=query)), lambda o: (o.business_name or o.email, o.package_name)),
     )
     results = []
     for source, queryset, describe in sources:

@@ -15,7 +15,7 @@ export const CURRENCY = 'AUD';
 export type AnalyticsItem = {
   item_id: string;
   item_name: string;
-  item_category: 'seo' | 'licensing';
+  item_category: 'seo' | 'licensing' | 'website' | 'automation';
   price?: number;
 };
 

@@ -1,10 +1,11 @@
 from django.conf import settings
 
-from freetheplatform.messaging import send_many
+from freetheplatform.messaging import send, send_many
 
 from core.utils.urls import site_url
 
-from ..models import Enquiry
+from ..models import Enquiry, PackageOrder
+from .package_pricing import dollars
 
 
 def notify_admin_of_enquiry(enquiry: Enquiry):
@@ -43,4 +44,88 @@ def notify_admin_of_enquiry(enquiry: Enquiry):
         ],
         message_type="enquiry.admin_new",
         related=enquiry,
+    )
+
+
+def _order_url(order: PackageOrder) -> str:
+    return f"{site_url()}/dashboard/admin/orders/{order.pk}"
+
+
+def _order_summary(order: PackageOrder) -> str:
+    return (
+        f"Package: {order.package_name}\n"
+        f"Price: {dollars(order.price)}, {dollars(order.due_now)} due upfront\n"
+        f"Email: {order.email}\n"
+        f"Phone: {order.phone or 'Not supplied'}\n"
+        f"Website: {order.website or 'Not supplied'}\n"
+        f"Notes: {order.notes or 'None'}\n"
+    )
+
+
+def notify_staff_of_package_order(order: PackageOrder):
+    """Tell staff an order was placed, before it is paid, so an abandoned checkout can be chased.
+
+    Email only: the SMS waits for the payment, which is the part worth interrupting someone for.
+    """
+    customer = order.business_name or order.email
+    return send(
+        channel="email",
+        to=settings.ADMIN_EMAIL,
+        subject=f"New order, awaiting payment — {order.package_name}, {customer}",
+        body=(
+            "A package was ordered and the customer has gone to pay.\n\n"
+            f"{_order_summary(order)}\n"
+            f"Open this order: {_order_url(order)}"
+        ),
+        message_type="package_order.staff_new",
+        related=order,
+    )
+
+
+def notify_of_paid_package_order(order: PackageOrder):
+    """Payment is in: staff by email and SMS, the customer by email, with what happens next."""
+    order_url = _order_url(order)
+    customer = order.business_name or order.email
+    if order.balance:
+        next_step = (
+            "We'll be in touch to plan your site. The other half, "
+            f"{dollars(order.balance)}, is invoiced before your site goes live."
+        )
+    else:
+        next_step = "We'll be in touch to book your discovery session."
+    return send_many(
+        [
+            {
+                "channel": "email",
+                "to": settings.ADMIN_EMAIL,
+                "subject": f"Order paid — {order.package_name}, {customer}",
+                "body": (
+                    f"{dollars(order.due_now)} was paid for an order.\n\n"
+                    f"{_order_summary(order)}\n"
+                    f"Open this order: {order_url}"
+                ),
+            },
+            {
+                "channel": "sms",
+                "to": settings.ADMIN_NUMBER,
+                "body": (
+                    f"freethedesk order paid: {order.package_name}, "
+                    f"{dollars(order.due_now)}, {customer}. {order_url}"
+                ),
+            },
+            {
+                "channel": "email",
+                "to": order.email,
+                "subject": f"Payment received — your {order.package_name}",
+                "body": (
+                    "Thanks for your order.\n\n"
+                    f"We've received {dollars(order.due_now)} for your {order.package_name}. "
+                    f"{next_step}\n\n"
+                    "Questions? Reply to this email.\n\n"
+                    "freethedesk"
+                ),
+            },
+        ],
+        message_type="package_order.paid",
+        related=order,
     )

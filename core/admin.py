@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Enquiry, SiteSettings
+from .models import Enquiry, PackageOrder, SiteSettings
 
 
 @admin.register(SiteSettings)
@@ -25,3 +25,11 @@ class EnquiryAdmin(admin.ModelAdmin):
     list_filter = ("status", "help_with", "created_at")
     search_fields = ("business", "name", "email", "message")
     readonly_fields = ("created_at", "updated_at")
+
+
+@admin.register(PackageOrder)
+class PackageOrderAdmin(admin.ModelAdmin):
+    list_display = ("package_name", "business_name", "email", "price", "payment_status", "created_at")
+    list_filter = ("payment_status", "package", "created_at")
+    search_fields = ("business_name", "email", "phone", "website", "notes")
+    readonly_fields = ("checkout_reference", "price", "due_now", "paid_at", "created_at", "updated_at")

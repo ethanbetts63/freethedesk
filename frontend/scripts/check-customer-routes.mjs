@@ -60,6 +60,7 @@ const required = [
   '/login',
   '/licensing/payment',
   '/seo/payment',
+  '/order',
 ];
 failures.push(...clarityExclusionFailures({ root, required }));
 

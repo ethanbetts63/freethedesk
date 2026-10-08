@@ -18,4 +18,5 @@ export const CLARITY_EXCLUDED_ROUTES = [
   '/login',
   '/licensing/payment',
   '/seo/payment',
+  '/order',
 ] as const;

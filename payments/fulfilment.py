@@ -2,8 +2,9 @@
 
 ``freetheplatform.payments`` owns the Stripe conversation, the ``Payment`` row
 and the guarantee that one event is applied once. What being paid *entitles
-somebody to* — a dealer listed, an SEO profile provisioned, and how long
-either survives a failed renewal — is this site's business and lives here.
+somebody to* — a dealer listed, an SEO profile provisioned, a package order
+marked paid, and how long a subscription survives a failed renewal — is this
+site's business and lives here.
 
 **Two rules, both from the package's contract.** A callback runs inside the
 webhook's transaction, so:
@@ -19,14 +20,17 @@ webhook's transaction, so:
 import logging
 
 from django.db import transaction
+from django.utils import timezone
 from freetheplatform.payments import register_handler
 
+from core.models import PackageOrder
+from core.utils.notifications import notify_of_paid_package_order
 from dealers.models import Dealer
 from dealers.utils.services import ensure_dealer_profile
 from seo.models import SeoSubscriber
 from seo.utils.services import activate_paid_subscriber, ensure_seo_profile
 
-from .flows import DEALER_SUBSCRIPTION, SEO_ONEOFF, SEO_SUBSCRIPTION
+from .flows import DEALER_SUBSCRIPTION, PACKAGE_ORDER, SEO_ONEOFF, SEO_SUBSCRIPTION
 
 
 logger = logging.getLogger(__name__)
@@ -220,6 +224,34 @@ def seo_refunded(*, payment, related):
 
 
 # --------------------------------------------------------------------------
+# Package orders
+# --------------------------------------------------------------------------
+
+def package_payment_succeeded(*, payment, related):
+    order = _locked(PackageOrder, related)
+    if order is None:
+        logger.error("Payment %s succeeded for a package order that no longer exists.", payment.pk)
+        return
+    if order.has_paid:
+        # A new event about an order already paid: nothing more to record or say.
+        return
+    order.payment_status = PackageOrder.PaymentStatus.PAID
+    order.paid_at = timezone.now()
+    order.save(update_fields=["payment_status", "paid_at", "updated_at"])
+    transaction.on_commit(lambda: notify_of_paid_package_order(order))
+
+
+def package_refunded(*, payment, related):
+    order = _locked(PackageOrder, related)
+    if order is None:
+        return
+    logger.warning(
+        "Package order %s was refunded %s on payment %s; the order is unchanged.",
+        order.pk, payment.refunded_amount, payment.pk,
+    )
+
+
+# --------------------------------------------------------------------------
 
 def register():
     """Tell the shared payments app what each of this site's flows means.
@@ -245,3 +277,9 @@ def register():
             renewal_paid=seo_renewal_paid,
             refunded=seo_refunded,
         )
+    # One payment and no subscription, so success and refund are the whole story.
+    register_handler(
+        PACKAGE_ORDER,
+        payment_succeeded=package_payment_succeeded,
+        refunded=package_refunded,
+    )

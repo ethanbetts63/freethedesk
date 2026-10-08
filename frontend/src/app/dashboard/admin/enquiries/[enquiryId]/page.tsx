@@ -5,7 +5,6 @@ import { useParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { enquiryStatuses, StatusPill } from '@/components/dashboard/StatusPill';
 import { safeWebsiteHref } from '@/lib/api';
-import { formatMoney } from '@/lib/formatting';
 import { Button } from '@/components/ui/Button';
 import {
   ENQUIRY_TYPE,
@@ -180,11 +179,6 @@ export default function EnquiryDetailPage() {
             <DetailItem term="Interested in">{enquiry.help_with_label}</DetailItem>
             {configuration.budget && (
               <DetailItem term="Stated budget">{configuration.budget}</DetailItem>
-            )}
-            {configuration.package_name && (
-              <DetailItem term="Package bought">
-                {configuration.package_name}, {formatMoney(configuration.price, { cents: 'auto' })}
-              </DetailItem>
             )}
           </dl>
         </section>

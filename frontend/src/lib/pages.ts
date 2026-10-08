@@ -181,6 +181,13 @@ export const STATIC_PAGES = {
     title: 'SEO Subscription Terms',
     description: 'Terms for freethedesk SEO subscriptions and one-off SEO reviews.',
   },
+  '/legal/web-development-terms': {
+    updated: '2026-10-08',
+    label: 'Web development terms',
+    title: 'Web Development Terms',
+    description:
+      'Terms for freethedesk website packages, web application and automation discovery, and builds.',
+  },
 } as const satisfies Record<string, StaticPage>;
 
 export type PagePath = keyof typeof STATIC_PAGES;

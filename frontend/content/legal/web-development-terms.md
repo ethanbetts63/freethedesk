@@ -1,17 +1,6 @@
-# Web Development Terms — Draft
-
-> **Status: draft for review.** Written from the clause list approved on
-> 8 October 2026; it replaces the earlier template-based draft. To publish it:
-> copy it to `frontend/content/legal/`, add a legal page for it, register it as
-> its own `FTP_AGREEMENTS` document, and take the acceptance on the package
-> order form. Bracketed text (`[like this]`) is a placeholder still to fill in.
-> It is not legal advice.
-
----
-
 # Web Development Terms
 
-Effective date: [date published]
+Effective date: 8 October 2026
 
 ## 1. About these terms
 
@@ -22,8 +11,9 @@ that buys from us (**you**, **your**). They are business terms.
 1.2 The person buying confirms they are authorised to agree to these terms on
 behalf of the business.
 
-1.3 These terms cover our website packages, web application discovery, any
-build we quote after discovery, and work charged at our hourly rate.
+1.3 These terms cover our website packages, web application and automation
+discovery, any build we quote after discovery, and work charged at our hourly
+rate.
 
 1.4 A web application build is set out in a written quote, giving its scope,
 price and payment stages. The quote and these terms together form the

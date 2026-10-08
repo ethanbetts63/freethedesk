@@ -17,7 +17,8 @@ import { gridPaperAfterClassName } from '@/lib/gridSurface';
 
 /**
  * Layout and lifecycle chrome shared by the checkout flows (dealer
- * subscriptions, SEO reports) so the two cannot visually drift apart.
+ * subscriptions, SEO reports, package orders) so they cannot visually drift
+ * apart.
  */
 
 const eyebrowClassName =
@@ -49,6 +50,7 @@ export function CheckoutShell({
   features,
   nextSteps,
   changeHref,
+  changeLabel = 'Change plan',
   children,
 }: {
   productName: string;
@@ -57,6 +59,7 @@ export function CheckoutShell({
   nextSteps?: readonly string[];
   /** Back to the plan chooser, for a customer who picked the wrong one. */
   changeHref?: string;
+  changeLabel?: string;
   children: ReactNode;
 }) {
   return (
@@ -83,7 +86,7 @@ export function CheckoutShell({
               className="mt-s inline-block text-label font-heavy text-action-primary underline underline-offset-2"
               href={changeHref}
             >
-              Change plan
+              {changeLabel}
             </Link>
           )}
           {features && features.length > 0 && (
@@ -245,10 +248,12 @@ export function CheckoutPayment({
   heading,
   submitLabel,
   clientSecret,
+  fineprint,
 }: {
   heading: string;
   submitLabel: string;
   clientSecret: string;
+  fineprint?: string;
 }) {
   return (
     <div className="w-full max-w-copy">
@@ -259,7 +264,7 @@ export function CheckoutPayment({
       >
         <PaymentFields accepted submitLabel={submitLabel} />
       </CheckoutElementsProvider>
-      <PaymentFineprint />
+      <PaymentFineprint>{fineprint}</PaymentFineprint>
     </div>
   );
 }
@@ -276,13 +281,12 @@ function PaymentHeading({ heading }: { heading: string }) {
   );
 }
 
-function PaymentFineprint() {
-  return (
-    <p className={fineprintClassName}>
-      The price shown is the total payable. Your account opens immediately after Stripe confirms
-      payment.
-    </p>
-  );
+/** What paying opens: an account for a subscription or SEO report, nothing for a package order. */
+const DEFAULT_FINEPRINT =
+  'The price shown is the total payable. Your account opens immediately after Stripe confirms payment.';
+
+function PaymentFineprint({ children = DEFAULT_FINEPRINT }: { children?: string }) {
+  return <p className={fineprintClassName}>{children}</p>;
 }
 
 /** Stripe's card fields and the pay button, once checkout is open. */

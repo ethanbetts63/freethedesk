@@ -66,6 +66,9 @@ const STATUS: StatusMap = {
   payment_confirmed: { label: 'Payment confirmed', tone: 'var(--status-qualified)' },
   completed: { label: 'Completed', tone: 'var(--status-won)' },
 
+  // Package orders: paid once the upfront payment lands; `paid` is shared with invoices below.
+  payment_pending: { label: 'Awaiting payment', tone: 'var(--status-contacted)' },
+
   // Invoices. `draft` is shared with sales above. Overdue takes the urgent
   // orange: it is the one an operator has to chase.
   issued: { label: 'Awaiting payment', tone: 'var(--status-contacted)' },
@@ -94,6 +97,7 @@ export function StatusPill({ status }: { status: string }) {
 }
 
 export const enquiryStatuses = ['new', 'contacted', 'qualified', 'won', 'closed', 'spam'] as const;
+export const orderStatuses = ['payment_pending', 'paid'] as const;
 export const dealerStatuses = ['pending', 'active', 'suspended', 'denied'] as const;
 export const saleStatuses = [
   'draft',

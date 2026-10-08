@@ -20,3 +20,9 @@ Shared transport, persistence, retry, and provider behaviour is owned by
 FreeThePlatform and documented in
 `freetheplatform/_docs/apps/messaging.md`. FreeTheDesk owns enquiry recipients,
 message wording, templates, and the domain events that trigger them.
+
+A package order sends two kinds of message (`core/utils/notifications.py`):
+`package_order.staff_new`, an email to staff when an order is placed, before it
+is paid, so an abandoned checkout can be chased; and `package_order.paid`, an
+email and SMS to staff and a receipt email to the customer once Stripe
+confirms the payment.

@@ -6,6 +6,7 @@ import {
   ReceiptText,
   Search,
   Settings,
+  ShoppingBag,
   SlidersHorizontal,
   Store,
   Users,
@@ -19,6 +20,7 @@ const sections: DashboardNavSection[] = [
   {
     items: [
       { href: '/dashboard/admin/enquiries', label: 'Enquiries', icon: <Inbox /> },
+      { href: '/dashboard/admin/orders', label: 'Orders', icon: <ShoppingBag /> },
       { href: '/dashboard/admin/messages', label: 'Messages', icon: <Mail /> },
     ],
   },

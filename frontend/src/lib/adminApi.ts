@@ -7,6 +7,7 @@ import {
 } from './api';
 
 import type { DealerAccount } from './dealerApi';
+import type { PackageCode } from './servicePricing';
 import type { SeoAccount, SeoSetup, SeoSetupKey } from './seoApi';
 import { handleResponse } from '@freetheplatform/web-security';
 
@@ -14,14 +15,10 @@ export type { Paginated, Principal as StaffUser } from './api';
 export { authedFetch, logout, getProfile } from './api';
 export { formatDateTime } from './formatting';
 
-/** What the project form or a package order records beside the message. */
+/** What the project form records beside the message. */
 export interface EnquiryConfiguration {
   project_type?: 'website' | 'automation' | 'both';
   budget?: string;
-  /** A package order: which package, and the price it was bought at. */
-  package?: 'website_small' | 'website_large' | 'web_application' | 'automation_discovery';
-  package_name?: string;
-  price?: string;
 }
 
 export interface Enquiry {
@@ -84,6 +81,7 @@ export interface AdminMessage {
 
 /** Content type for an enquiry, qualified so it cannot collide with another app's model. */
 export const ENQUIRY_TYPE = 'core.enquiry';
+export const PACKAGE_ORDER_TYPE = 'core.packageorder';
 export const DEALER_TYPE = 'dealers.dealer';
 export const SEO_SUBSCRIBER_TYPE = 'seo.seosubscriber';
 
@@ -176,4 +174,36 @@ export async function getMessages(
 
 export async function getMessage(id: number): Promise<AdminMessage> {
   return handleResponse(await authedFetch(`/api/admin/messages/${id}/`));
+}
+
+/** A package order, as staff see it. */
+export interface AdminPackageOrder {
+  id: number;
+  package: PackageCode;
+  package_label: string;
+  package_name: string;
+  price: string;
+  due_now: string;
+  /** What is still owed: a website's second half, invoiced before launch. */
+  balance: string;
+  email: string;
+  phone: string;
+  website: string;
+  business_name: string;
+  notes: string;
+  payment_status: 'payment_pending' | 'paid';
+  payment_status_label: string;
+  paid_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function getPackageOrders(
+  params: Record<string, string | number | undefined>,
+): Promise<Paginated<AdminPackageOrder>> {
+  return handleResponse(await authedFetch(`/api/admin/package-orders/${queryString(params)}`));
+}
+
+export async function getPackageOrder(id: number): Promise<AdminPackageOrder> {
+  return handleResponse(await authedFetch(`/api/admin/package-orders/${id}/`));
 }

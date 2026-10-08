@@ -6,7 +6,7 @@ import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import { formControlClassName, formControlPaddingClassName } from '@/components/ui/formControl';
-import { statusTone } from './StatusPill';
+import { statusLabel, statusTone } from './StatusPill';
 
 /**
  * The list-table surface shared by the four dashboard list pages.
@@ -166,7 +166,7 @@ export function AdminFilterBar({
         </form>
       </div>
       {legend && legend.length > 0 && (
-        <div className="mt-m flex flex-wrap items-center gap-s text-label leading-[1.8] text-text-subtle capitalize sm:leading-[inherit]">
+        <div className="mt-m flex flex-wrap items-center gap-s text-label leading-[1.8] text-text-subtle sm:leading-[inherit]">
           <b>Row colour:</b>
           {legend.map((value) => (
             <span className="inline-flex items-center gap-3xs" key={value}>
@@ -174,7 +174,7 @@ export function AdminFilterBar({
                 className="inline-block h-[10px] w-[10px] rounded-2xs bg-[var(--status-tone)]"
                 style={statusTone(value)}
               />
-              {value}
+              {statusLabel(value)}
             </span>
           ))}
         </div>

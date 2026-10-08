@@ -1,6 +1,10 @@
 from django.urls import include, path
 
-from .views import SeoSubscriptionCheckoutView, SubscriptionCheckoutView
+from .views import (
+    PackageOrderCheckoutView,
+    SeoSubscriptionCheckoutView,
+    SubscriptionCheckoutView,
+)
 
 
 app_name = "payments"
@@ -14,4 +18,5 @@ urlpatterns = [
     path("", include("freetheplatform.payments.urls")),
     path("subscription/", SubscriptionCheckoutView.as_view(), name="subscription-checkout"),
     path("seo-subscription/", SeoSubscriptionCheckoutView.as_view(), name="seo-subscription-checkout"),
+    path("package-order/", PackageOrderCheckoutView.as_view(), name="package-order-checkout"),
 ]

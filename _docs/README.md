@@ -34,10 +34,9 @@ not override implemented behaviour or shared policy.
 
 ## Content, pricing, and legal drafts
 
-| Document                                                         | Type           | Purpose                                                        |
-| ---------------------------------------------------------------- | -------------- | -------------------------------------------------------------- |
-| [blog-index.md](blog-index.md)                                   | Content index  | FreeTheDesk article inventory                                  |
-| [omg-blog-index.md](omg-blog-index.md)                           | Research/index | OMG content inventory                                          |
-| [semrush-seo-blog-index.md](semrush-seo-blog-index.md)           | Research/index | Semrush SEO content inventory                                  |
-| [pricing-draft.md](pricing-draft.md)                             | Draft          | Pricing exploration; not an implemented contract               |
-| [webdev-contract-draft-terms.md](webdev-contract-draft-terms.md) | Draft          | Website-development terms; not final until versioned/published |
+| Document                                               | Type           | Purpose                                          |
+| ------------------------------------------------------ | -------------- | ------------------------------------------------ |
+| [blog-index.md](blog-index.md)                         | Content index  | FreeTheDesk article inventory                    |
+| [omg-blog-index.md](omg-blog-index.md)                 | Research/index | OMG content inventory                            |
+| [semrush-seo-blog-index.md](semrush-seo-blog-index.md) | Research/index | Semrush SEO content inventory                    |
+| [pricing-draft.md](pricing-draft.md)                   | Draft          | Pricing exploration; not an implemented contract |

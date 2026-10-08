@@ -17,7 +17,8 @@ from freetheplatform.auth import lockout
 from freetheplatform.payments import Payment, PaymentStatus, Subscription
 
 from dealers.models import Dealer, DealerProfile
-from payments.flows import DEALER_SUBSCRIPTION, SEO_ONEOFF, SEO_SUBSCRIPTION
+from core.models import PackageOrder
+from payments.flows import DEALER_SUBSCRIPTION, PACKAGE_ORDER, SEO_ONEOFF, SEO_SUBSCRIPTION
 from payments.tests.conftest import stripe_settings
 from seo.models import SeoSubscriber
 
@@ -229,6 +230,61 @@ def test_a_one_off_seo_purchase_is_marked_paid(client, seo_subscriber):
     seo_subscriber.refresh_from_db()
     assert seo_subscriber.payment_status == SeoSubscriber.PaymentStatus.PAID
     assert seo_subscriber.subscription_current_period_end is None
+
+
+# --------------------------------------------------------------------------
+# Package orders
+# --------------------------------------------------------------------------
+
+def _package_order():
+    return PackageOrder.objects.create(
+        package=PackageOrder.Package.WEBSITE_LARGE,
+        package_name="10-page website",
+        price=Decimal("6000.00"),
+        due_now=Decimal("3000.00"),
+        email="owner@example.com.au",
+        business_name="example.com.au",
+    )
+
+
+@stripe_settings
+def test_a_paid_package_order_is_marked_paid_and_everyone_is_told(
+    client, outbox, django_capture_on_commit_callbacks
+):
+    order = _package_order()
+    payment = make_payment(order, flow=PACKAGE_ORDER, mode="payment", total="3000.00")
+
+    with django_capture_on_commit_callbacks(execute=True):
+        post(client, completed(payment, payment_intent="pi_order"))
+
+    order.refresh_from_db()
+    assert order.payment_status == PackageOrder.PaymentStatus.PAID
+    assert order.paid_at is not None
+    assert [(message.channel, message.to) for message in outbox] == [
+        ("email", "staff@example.com"),
+        ("sms", "+61400000000"),
+        ("email", "owner@example.com.au"),
+    ]
+    receipt = outbox[2]
+    assert "$3,000" in receipt.body_text
+    assert "The other half, $3,000, is invoiced before your site goes live." in receipt.body_text
+
+
+@stripe_settings
+def test_a_second_event_for_a_paid_order_says_nothing_more(
+    client, outbox, django_capture_on_commit_callbacks
+):
+    order = _package_order()
+    payment = make_payment(order, flow=PACKAGE_ORDER, mode="payment", total="3000.00")
+    with django_capture_on_commit_callbacks(execute=True):
+        post(client, completed(payment, payment_intent="pi_order"))
+    assert len(outbox) == 3
+    outbox.clear()
+
+    with django_capture_on_commit_callbacks(execute=True):
+        post(client, completed(payment, payment_intent="pi_order", event_id="evt_2"))
+
+    assert not outbox
 
 
 @stripe_settings
