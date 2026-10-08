@@ -163,7 +163,7 @@ export const STATIC_PAGES = {
     description: 'How freethedesk collects, uses, stores and discloses personal information.',
   },
   '/legal/customer-terms': {
-    updated: '2026-10-07',
+    updated: '2026-10-08',
     label: 'Customer terms',
     title: 'Customer Terms',
     description:
@@ -176,7 +176,7 @@ export const STATIC_PAGES = {
     description: 'Terms for freethedesk dealer licensing and contract subscriptions.',
   },
   '/legal/seo-subscription-terms': {
-    updated: '2026-10-07',
+    updated: '2026-10-08',
     label: 'SEO subscription terms',
     title: 'SEO Subscription Terms',
     description: 'Terms for freethedesk SEO subscriptions and one-off SEO reviews.',

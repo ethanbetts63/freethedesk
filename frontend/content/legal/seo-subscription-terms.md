@@ -1,118 +1,220 @@
 # SEO Subscription Terms
 
-Effective date: 7 October 2026
+Effective date: 8 October 2026
 
-## 1. These terms
+## 1. About these terms
 
-These terms govern a customer's purchase of a Free the Desk SEO subscription or a one-off SEO audit. They form an agreement between Free the Desk (we, us or our) and the business identified during signup (Customer, you or your).
+1.1 These terms are an agreement between Free the Desk (**we**, **us**, **our**)
+and the business that signs up for an SEO audit or SEO subscription (**you**,
+**your**). They are business terms.
 
-The person accepting these terms confirms that they are authorised to enter the agreement for the Customer. These are business service terms.
+1.2 The person accepting these terms confirms they are authorised to agree to
+them on behalf of the business.
+
+1.3 Our details:
+
+- Business: Free the Desk
+- Legal name: Ethan Daniel Betts-Ingram, trading as freethedesk
+- ABN: 11 493 753 896
+- Location: Perth, Western Australia
+- Email: hello@freethedesk.com.au
 
 ## 2. The service
 
-The service is run in cycles. In each cycle we analyse the Customer's website, search data and Google Business Profile, and deliver a human-written, plain-English set of findings: what changed, what is holding the site back, and a prioritised list of recommended changes. On a subscription, changes the Customer makes are tracked from cycle to cycle so that later findings can say whether they worked. The free AI readiness check is available separately and does not require a purchase.
+2.1 Each audit analyses your search data, your website and your Google Business
+Profile, runs our foundation checks, and gives you written findings with
+recommendations ranked by their likely value.
 
-The service is analysis and recommendations. Implementing the recommendations, whether by us under a separate proposal or by the Customer, is not included in a standard subscription unless expressly stated in writing.
+2.2 On a subscription, we track changes that are likely to be measurable and
+impactful, chosen at our discretion, so that later audits can report what
+those changes achieved.
 
-## 3. Plans
+2.3 We prepare audits using our own tools and review them before delivery.
 
-- SEO subscription: one audit each cycle, charged per cycle, at the cadence you choose: monthly, quarterly or yearly.
-- One-off SEO audit: a single audit with no ongoing subscription.
+2.4 Our audits are iterative and change over time. What each audit covers,
+includes or leaves out is at our discretion.
 
-You choose the cadence when you sign up, and each cadence has its own price. You may ask us to move your subscription to a different cadence; the new cadence and its price apply from the next billing period, and we will confirm the change with you before it takes effect.
+2.5 The service is analysis and recommendations. It does not include
+implementing changes, writing content, link building, managing Google Ads or
+development work. We can quote any of these separately at our hourly rate.
 
-The selected plan, current price and billing frequency are displayed before payment. The displayed price is the total payable; no amount is added at checkout. If there is a conflict between these terms and a signed custom proposal, the custom proposal prevails to the extent of the conflict.
+## 3. Plans and prices
 
-## 4. Signup, payment and renewal
+3.1 You can choose:
 
-A paid service begins when Stripe confirms payment. You authorise Stripe to charge the payment method supplied for the displayed fee at the billing frequency shown for the selected product.
+- a monthly, quarterly or yearly subscription, with one audit each period; or
+- a one-off audit.
 
-A subscription renews automatically at its current cadence until cancelled. An SEO audit is charged once and does not renew. There is no fixed minimum term unless a separate written proposal says otherwise. Invoices and payment records may be issued electronically.
+3.2 Each plan has its own price. The price shown before you pay is the total
+you pay.
 
-If payment fails, we may retry the payment and may pause audit delivery until the account is brought up to date. We will not charge a new or increased recurring fee without giving at least 30 days' notice and an opportunity to cancel before the new fee applies.
+3.3 You keep the price you signed up at. If we increase it, we will give you at
+least 30 days' notice and the chance to cancel before the new price applies.
 
-## 5. Cancellation
+3.4 You can ask to change your subscription to a different cadence. The change
+takes effect from your next billing period.
 
-You may cancel a recurring plan at any time by emailing hello@freethedesk.com.au from an authorised account address. Cancellation takes effect at the end of the already-paid billing period; the audit for that period is still delivered.
+## 4. Payment and renewal
 
-Fees already paid are not refundable for a change of mind or unused time, except where required by law or where we agree to a refund. An SEO audit that has not yet been delivered may be refunded at our discretion.
+4.1 Payment is taken in advance through Stripe. Card details are entered into
+Stripe and are never stored by us.
 
-## 6. What we need from you
+4.2 A subscription renews automatically at its cadence until you cancel it. A
+one-off audit is charged once and does not renew.
 
-To produce a useful audit you must give us accurate access to the relevant data, which may include Google Search Console, Google Analytics and the Google Business Profile for the site being audited, along with the site URL, target locations and the searches you care about.
+4.3 If a payment fails, we may retry it and may pause audits until your account
+is paid up.
 
-You are responsible for having authority to grant that access and to share that information with us. We will use it only to produce and support the audit service and as otherwise permitted by the Privacy Policy or law.
+## 5. Getting started and access
 
-## 7. Customer responsibilities
+5.1 Payment opens your account. Your first audit starts once your data access is
+connected.
 
-You are responsible for:
+5.2 To produce audits we need read access to data sources such as Google Search
+Console, Google Analytics and your Google Business Profile. Where a data source
+cannot give read-only access and you give us wider access, you do so at your
+own risk. We only ever read your data; we never change it.
 
-- providing accurate access to the data sources the audit relies on;
-- deciding whether and how to act on any recommendation;
-- ensuring changes made to your website are lawful and appropriate for your business;
-- keeping account and authorised-user access current; and
-- promptly reporting suspected unauthorised access or errors.
+5.3 You confirm that you are allowed to give us access to every data source you
+connect.
 
-You must not use the service unlawfully, submit misleading information, interfere with security, or use the service to access another customer's information.
+5.4 You can remove our access at any time. Audits stop until access is
+restored.
 
-## 8. Nature of the advice
+5.5 If no data access is connected within 30 days of payment, we will remind
+you, and you can cancel and receive a full refund.
 
-The audit is professional analysis, not a guarantee of search ranking, traffic or revenue outcomes. Search engines, their algorithms and third-party platforms change outside our control. We use reasonable care and skill in preparing each audit, but results depend on factors including your market, competitors and how recommendations are implemented.
+## 6. Cancelling and refunds
 
-## 9. Privacy
+6.1 You can cancel a subscription at any time. There is no minimum term and no
+exit fee.
 
-Each party must comply with the privacy and data-protection laws applying to it. Our handling of personal information is described in the Free the Desk Privacy Policy. We will not sell your data or your customers' data. We may use aggregated or de-identified information to improve the service where it no longer identifies a customer or individual.
+6.2 To cancel, email hello@freethedesk.com.au from your account email, or use
+your portal once that option is available.
 
-## 10. Third-party services
+6.3 Cancellation takes effect at the end of the period you have paid for, and
+we still deliver that period's audit.
 
-The service relies on third parties such as Stripe, Google services, hosting and communications. Those services may have their own terms and availability. Card details are entered into Stripe's payment interface and are not stored by Free the Desk. We are not responsible for a third-party outage or decision outside our reasonable control, but we will take reasonable steps to restore our service or provide a practical workaround.
+6.4 Paid periods are not refunded for a change of mind or unused time.
 
-## 11. Availability, support and changes
+6.5 A one-off audit that we have not started is refunded in full.
 
-We aim to deliver each audit within a reasonable time of the end of its tracked period and to provide support through hello@freethedesk.com.au during our published support hours. We may improve or change the service. If a change materially removes a paid core part of the audit, we will give reasonable notice where practicable and provide an appropriate remedy, which may include a workaround, plan change, credit or the right to cancel.
+6.6 Nothing in these terms limits any right you have under the Australian
+Consumer Law.
 
-## 12. Intellectual property
+## 7. Results
 
-We and our licensors retain ownership of the platform, methods, templates and service materials. The Customer receives ownership of the delivered audit document and may use it for its own business purposes. The Customer retains ownership of its data and content and grants us the limited rights needed to host, process and analyse that material to provide the service.
+7.1 We do not guarantee rankings, traffic, enquiries or revenue. Search engines,
+AI tools and other platforms change in ways outside our control, and results
+also depend on your market, your competitors and how recommendations are put
+into practice.
 
-Feedback may be used to improve the service without payment or attribution, provided we do not identify the Customer publicly without permission.
+## 8. Your responsibilities
 
-## 13. Confidentiality
+8.1 You are responsible for:
 
-Each party must protect the other's confidential information and use it only for the agreement, except where disclosure is authorised or required by law. This does not cover information that is public without breach, already lawfully known, independently developed or lawfully received from another source.
+- giving us accurate information;
+- deciding whether and how to act on our recommendations;
+- making sure any changes made to your website are lawful; and
+- keeping your logins and data access current.
 
-## 14. Suspension and termination
+8.2 You must keep your logins private and tell us promptly about any
+unauthorised access to your account.
 
-We may pause audit delivery or suspend access where reasonably necessary to address non-payment, a security threat, unlawful use or material breach. Either party may terminate for a material breach that is not remedied within 14 days after written notice, or immediately if the breach cannot be remedied or involves fraud. Accrued rights and payment obligations continue after termination.
+8.3 You may share your audits with your staff, developer or agency. You may not
+resell them or present them as your own product.
 
-## 15. Consumer guarantees and warranties
+8.4 You must not use the service unlawfully, give us misleading information,
+interfere with its security, or try to access another customer's information.
 
-Nothing in these terms excludes, restricts or modifies a guarantee, right or remedy that cannot lawfully be excluded, including under the Australian Consumer Law. Subject to those non-excludable rights, the service is supplied with the level of care and skill reasonably expected of a professional provider. We do not guarantee any particular search, traffic or sales outcome.
+## 9. Your data
 
-## 16. Liability
+9.1 We use your data only to provide the service. We never sell your data or
+pass it on to anyone else, except to the service providers we need to run the
+service (such as hosting and payments), who may use it only for that purpose,
+or where the law requires.
 
-To the extent permitted by law, neither party is liable to the other for indirect or consequential loss, lost profit or lost opportunity that was not reasonably foreseeable when the agreement was made.
+9.2 We may use aggregated, de-identified information that cannot identify you
+or anyone else to improve the service.
 
-For claims that can lawfully be limited, our aggregate liability arising from the subscription is limited to the fees paid by the Customer for the affected service in the 12 months before the event giving rise to the claim. This limit does not apply to fraud, wilful misconduct, infringement of another party's intellectual property, breach of confidentiality, or liability that cannot lawfully be limited.
+9.3 Within 90 days after your account ends, we delete the data we collected
+from your connected data sources. We keep billing records for as long as tax
+law requires.
 
-Each party must take reasonable steps to reduce avoidable loss.
+9.4 We handle personal information in line with our
+[Privacy Policy](/legal/privacy) and Australian privacy law.
 
-## 17. Changes to these terms
+## 10. Ownership and confidentiality
 
-We may update these terms to reflect legal, security or service changes. We will give at least 30 days' notice of a material change that disadvantages an existing paid Customer. If the Customer does not agree, it may cancel before the change takes effect. Continued use after the notified effective date constitutes acceptance of the updated terms. We will retain the version accepted at subscription checkout.
+10.1 You own your audits and your data.
 
-## 18. Disputes and governing law
+10.2 We own our methods, checks, templates and software.
 
-A party should first give written notice of a dispute and allow the other party a reasonable opportunity to resolve it in good faith. These terms are governed by the laws of Western Australia, and the parties submit to the courts of Western Australia and courts entitled to hear appeals from them.
+10.3 We may use your feedback to improve the service, without naming you.
 
-## 19. General
+10.4 We will only name you or publish your results with your written
+permission.
 
-Neither party may transfer this agreement without the other's consent, which must not be unreasonably withheld, except that we may transfer it as part of a genuine business sale or restructure on written notice. If part of these terms is unenforceable, it is read down or removed only to the extent necessary and the rest continues. Notices may be sent electronically to the account email or to hello@freethedesk.com.au.
+10.5 Each of us will protect the other's confidential information and use it
+only for this agreement, unless disclosure is required by law. This does not
+apply to information that is already public, already lawfully known, or
+independently developed.
 
-## 20. Contact and provider details
+## 11. Third parties and events outside our control
 
-- Service: Free the Desk
-- ABN: 11 493 753 896
-- Email: hello@freethedesk.com.au
-- Location: Perth, Western Australia
-- Legal entity and service address: to be confirmed before production launch
+11.1 The service relies on third parties such as Stripe and Google, which have
+their own terms. We are not responsible for their outages or decisions, but we
+will take reasonable steps to work around them.
+
+11.2 Neither of us is liable for a delay or failure caused by events beyond our
+reasonable control.
+
+## 12. Suspension and termination
+
+12.1 We may pause the service where reasonably necessary because of
+non-payment, a security threat or unlawful use.
+
+12.2 Either of us may end this agreement if the other commits a material breach
+and does not fix it within 14 days of written notice, or immediately if the
+breach involves fraud.
+
+## 13. Liability
+
+13.1 Neither of us is liable to the other for indirect or consequential loss.
+
+13.2 Our total liability under this agreement is limited to the fees you paid
+us in the 6 months before the event giving rise to the claim. This limit does
+not apply to fraud, wilful misconduct, a breach of confidentiality, or any
+liability the law does not allow us to limit.
+
+13.3 Each of us must take reasonable steps to reduce any loss.
+
+## 14. Changes to these terms
+
+14.1 We may update these terms. If a change disadvantages you, we will give you
+at least 30 days' notice, and you may cancel before the change takes effect.
+
+14.2 We keep a record of the version you accepted.
+
+## 15. Disputes
+
+15.1 If a dispute arises, the party raising it must first give written notice,
+and both of us must try in good faith to resolve it.
+
+15.2 These terms are governed by the laws of Western Australia, and both of us
+submit to the courts of Western Australia.
+
+## 16. General
+
+16.1 Neither of us may transfer this agreement without the other's consent,
+except that we may transfer it as part of a genuine sale of our business, with
+notice to you.
+
+16.2 If any part of these terms is unenforceable, it is read down or removed
+only as far as necessary, and the rest continues to apply.
+
+16.3 Notices may be sent by email to your account email address or to
+hello@freethedesk.com.au.
+
+16.4 These terms are the entire agreement for the SEO service, unless a signed
+custom proposal says otherwise.

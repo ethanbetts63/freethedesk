@@ -41,7 +41,7 @@ Before a vehicle is licensed in your name, the dealership has to satisfy itself 
 
 Those images are stored outside any publicly reachable location and are visible only to the dealership handling your sale and to Free the Desk staff where they are needed to run or support the service.
 
-They are kept rather than deleted after a set time. They are the dealership's record that it checked who it was licensing a vehicle to, and that record has to last as long as the questions about the sale can be asked. How long that is is set by the Motor Vehicle Dealers Act 1973 (WA); section 9 of the [privacy policy](/legal/privacy-policy) sets out what we keep and why.
+They are kept rather than deleted after a set time. They are the dealership's record that it checked who it was licensing a vehicle to, and that record has to last as long as the questions about the sale can be asked. How long that is is set by the Motor Vehicle Dealers Act 1973 (WA); section 9 of the [privacy policy](/legal/privacy) sets out what we keep and why.
 
 A member of staff at the dealership reviews them. If one of them cannot be read, you will be asked for that one again — not for all of them — and you will be told why in plain words.
 
