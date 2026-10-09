@@ -1,5 +1,9 @@
 # Agent instructions
 
+Shorthand: FTD = freethedesk, FTP = freetheplatform.
+
+`_docs/to_do.md` holds open tasks. Append any you find; delete one once you know it's done.
+
 ## Repository role
 
 `freethedesk` is the FreeTheDesk dealer and operations product. It owns enquiries,
