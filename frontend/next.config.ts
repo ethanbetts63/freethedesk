@@ -66,11 +66,12 @@ const nextConfig: NextConfig = {
               'https://va.vercel-scripts.com',
               'https://api.stripe.com',
               // GA4 collection. Three hosts, not one: hits go to
-              // *.google-analytics.com, consent and server-side tagging to
-              // *.analytics.google.com, and the tag fetches its own remote
-              // config from googletagmanager.com after loading.
+              // *.google-analytics.com and to analytics.google.com and
+              // www.google.com (which `*.analytics.google.com` never matched: a
+              // wildcard skips the bare host), and the tag fetches its own
+              // remote config from googletagmanager.com after loading.
               'https://*.google-analytics.com',
-              'https://*.analytics.google.com',
+              'https://*.google.com',
               'https://www.googletagmanager.com',
             ],
             frame: ['https://js.stripe.com', 'https://hooks.stripe.com'],
