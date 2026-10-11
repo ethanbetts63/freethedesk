@@ -22,6 +22,8 @@ interface SiteHeaderProps {
   actions?: ReactNode;
   /** Extra rows at the foot of the mobile panel. */
   mobileExtra?: ReactNode;
+  /** Controls beside the menu button below the `nav` breakpoint — a call icon, an account button. */
+  mobileActions?: ReactNode;
   /** Announcement strip above the nav row, inside the sticky container. */
   banner?: ReactNode;
   /** Frosted rather than solid; load-bearing for the site that has one. */
@@ -40,6 +42,7 @@ export function SiteHeader({
   mobileCta,
   actions,
   mobileExtra,
+  mobileActions,
   banner,
   translucent = false,
   linkStyle = 'label',
@@ -82,9 +85,12 @@ export function SiteHeader({
           {actions}
         </nav>
 
-        <MobileNavPanel items={items} cta={mobileCta ?? cta}>
-          {mobileExtra}
-        </MobileNavPanel>
+        <div className="nav:hidden flex items-center gap-xs">
+          {mobileActions}
+          <MobileNavPanel items={items} cta={mobileCta ?? cta}>
+            {mobileExtra}
+          </MobileNavPanel>
+        </div>
       </div>
     </header>
   );
