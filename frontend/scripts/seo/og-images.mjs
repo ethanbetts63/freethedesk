@@ -5,13 +5,14 @@
  * Only `public/`-relative paths are checked; an imported asset's `.src` is hashed under `/_next/` and an absolute URL is not ours.
  *
  * Unlike the other two checks this scans source text, deliberately: an image path is worth validating wherever it appears,
- * including inside a function body no export exposes. The pattern is anchored at both ends on a quoted `'/….ext'`, so prose
- * cannot match, and a quoting style it misses skips a check rather than giving a wrong answer.
+ * including inside a function body no export exposes. The pattern is anchored at both ends on a quoted `'/….ext'` or
+ * `"/….ext"` (splitcart's TypeScript is double-quoted), so prose cannot match, and a quoting style it misses skips a check
+ * rather than giving a wrong answer. `.ico` is an image too: a manifest names one.
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const IMAGE_LITERAL = /'(\/[^']*\.(?:webp|png|jpe?g|svg|avif|gif))'/g;
+const IMAGE_LITERAL = /["'](\/[^"']*\.(?:webp|png|jpe?g|svg|avif|gif|ico))["']/g;
 
 /**
  * @param {object} options
@@ -31,7 +32,7 @@ export function checkOgImages({ root, sources }) {
 
   if (missing.length) {
     console.error('\ncheck-og-images failed:\n');
-    console.error(`• ${missing.length} image path(s) named in the registry do not exist:`);
+    console.error(`• ${missing.length} image path(s) named in the SEO modules do not exist:`);
     for (const path of missing) console.error(`    public${path}`);
     console.error(
       '\n  Make the file, point at an imported asset (`someImage.src`), or drop the' +
