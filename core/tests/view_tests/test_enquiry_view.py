@@ -29,7 +29,7 @@ def test_free_ai_readiness_check_creates_a_tagged_enquiry(api_client, outbox):
     assert enquiry.help_with == Enquiry.HelpWith.AI_READINESS
     assert enquiry.business == "example.com.au"
     assert enquiry.website == "https://www.example.com.au"
-    assert [message.channel for message in outbox] == ["email", "sms"]
+    assert [message.channel for message in outbox] == ["email"]
 
 
 def test_free_ai_readiness_check_accepts_a_submission_without_a_phone_number(api_client):
@@ -72,7 +72,7 @@ def test_project_enquiry_records_the_scope_and_budget(api_client, outbox):
     assert enquiry.configuration == {"project_type": "both", "budget": "$3,000"}
     assert "Budget: $3,000." in enquiry.message
     assert "Notes:\nWe want enquiries routed to different teams by location." in enquiry.message
-    assert [message.channel for message in outbox] == ["email", "sms"]
+    assert [message.channel for message in outbox] == ["email"]
     assert "example.com.au" in outbox[0].subject
     assert "We want enquiries routed to different teams by location." in outbox[0].body_text
     assert outbox[0].content_object == enquiry

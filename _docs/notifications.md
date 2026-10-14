@@ -3,7 +3,9 @@
 **Type:** FreeTheDesk configuration and operations runbook.
 
 The public enquiry form saves the enquiry before attempting notifications.
-Email and SMS attempts, including failures, remain visible in the dashboard.
+A new enquiry sends staff an email only, no SMS (decided 2026-10-14: most
+enquiries are spam). Message attempts, including failures, remain visible in
+the dashboard.
 
 Configure the Mailgun and Twilio settings in the local `.env`, including
 `ADMIN_EMAIL` and the E.164 `ADMIN_NUMBER`, then explicitly enable delivery:
