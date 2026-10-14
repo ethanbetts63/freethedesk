@@ -1,4 +1,4 @@
-import { DEALER_NAVIGATION, FOOTER_NAVIGATION, PORTFOLIO_NAVIGATION } from '@/lib/siteConfig';
+import { FOOTER_NAVIGATION, OPENING_HOURS } from '@/lib/siteConfig';
 import { DeferredSignalFlow } from '@/components/visuals/DeferredSignalFlow';
 import { SiteFooter, type FooterColumn } from '@/components/layout/SiteFooter';
 import { Wordmark } from '@/components/Wordmark';
@@ -18,8 +18,16 @@ const gridBackdropClassName = [
 
 const COLUMNS: FooterColumn[] = [
   { label: 'Explore', links: [...FOOTER_NAVIGATION] },
-  { label: 'Dealerships', links: [...DEALER_NAVIGATION] },
-  { label: 'Portfolio', links: [...PORTFOLIO_NAVIGATION] },
+  {
+    label: 'Hours',
+    children: (
+      <span className="text-body-sm text-text-muted">
+        {OPENING_HOURS.days}
+        <br />
+        {OPENING_HOURS.opens} to {OPENING_HOURS.closes}
+      </span>
+    ),
+  },
   {
     label: 'Based in',
     links: [

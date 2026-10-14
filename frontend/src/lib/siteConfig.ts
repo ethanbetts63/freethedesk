@@ -9,11 +9,6 @@ export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.freethedesk.com.au'
 ).replace(/\/$/, '');
 
-export const PORTFOLIO_NAVIGATION = [
-  { href: '/portfolio/scooter-shop', label: 'Scooter Shop' },
-  { href: '/portfolio/bloomprint', label: 'Bloomprint' },
-] as const;
-
 /*
  * Services lead; the dealership products share one item. Dealers are one line of
  * the business, not half the menu.
@@ -39,10 +34,21 @@ export const FOOTER_NAVIGATION = [
   { href: '/login', label: 'Login' },
 ] as const;
 
-export const DEALER_NAVIGATION = [
-  { href: '/dealers', label: 'Dealer websites' },
-  { href: '/licensing', label: 'Online licensing' },
-] as const;
+/**
+ * When someone answers. Printed in the footer and published in the business
+ * schema from this one record, and kept the same as the Business Profile's
+ * hours, so a searcher reads one answer everywhere.
+ */
+export const OPENING_HOURS = {
+  days: 'Monday to Friday',
+  opens: '9 am',
+  closes: '5 pm',
+  schema: {
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '09:00',
+    closes: '17:00',
+  },
+} as const;
 
 /**
  * The zone every timestamp is read in. A DRF `DateTimeField` arrives as UTC,

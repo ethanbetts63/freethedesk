@@ -5,6 +5,7 @@ import {
   DEFAULT_OG_HEIGHT,
   DEFAULT_OG_IMAGE,
   DEFAULT_OG_WIDTH,
+  OPENING_HOURS,
   SITE_NAME,
   SITE_URL,
 } from './siteConfig';
@@ -30,7 +31,8 @@ const ABN = '11493753896';
  * Organization so the Perth address carries local weight. `areaServed` is
  * Western Australia: the service pages narrow it to Perth, and a national area
  * told Google this was a company with no home. Only verifiable facts belong
- * here - no opening hours until there are real ones to publish.
+ * here; the opening hours are the ones the footer prints and the Business
+ * Profile shows.
  */
 export function buildOrganizationSchema(): object {
   return {
@@ -79,6 +81,12 @@ export function buildOrganizationSchema(): object {
      */
     sameAs: [`https://abr.business.gov.au/ABN/View?id=${ABN}`],
     areaServed: { '@type': 'State', name: 'Western Australia' },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [...OPENING_HOURS.schema.dayOfWeek],
+      opens: OPENING_HOURS.schema.opens,
+      closes: OPENING_HOURS.schema.closes,
+    },
     /*
      * Spelled identically to the Person node on the other sites, and carrying
      * the same profile URL — one profile is what ties three sites' references
