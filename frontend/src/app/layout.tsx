@@ -15,7 +15,14 @@ import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo';
 import { SITE_URL } from '@/lib/siteConfig';
 import './globals.css';
 
-const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? '';
+/**
+ * Clarity records only the production deployment. The id is public, so an env
+ * var alone could not keep a local or preview build out: with it set on a
+ * developer's machine, Clarity filed localhost sessions beside real ones for a
+ * month (the r3 search report, 2026-10-13). Vercel sets VERCEL_ENV at build.
+ */
+const CLARITY_PROJECT_ID =
+  process.env.VERCEL_ENV === 'production' ? (process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? '') : '';
 
 /**
  * GA4's measurement id. Public in the same way Clarity's is -- it ships in the
