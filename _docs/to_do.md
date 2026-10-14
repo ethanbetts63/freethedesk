@@ -19,14 +19,13 @@ Added 2026-10-14. Owner's decision. Section 7 of `frontend/content/legal/privacy
 
 Added 2026-10-14. Owner's step. On the Django deploy, run `migrate` for `core` 0024 (the enquiry "ignored" status). The dealer and SEO terms changed text, so `FTP_AGREEMENTS` now names version 2026-10-14 for both; deploy Django and the frontend together so the new terms and their version arrive at once. The homepage now renders per request and reads its prices from the site settings.
 
-## Google Ads: rec 2 of search report r3, and the Analytics link
+## Google Ads: rest of rec 2 from search report r3
 
-Added 2026-10-14. Owner's steps; the agent's browser changes to the live campaign were blocked. All in analytics@freethedesk.com.au, Ads account freethedesk 702-260-4011, campaign "Campaign #1" (Performance Max, A$5 a day):
-- Locations: replace Australia (country) with "Perth, Western Australia, Australia (city)", reach 2.71 million. Under Location options choose "Presence: people in or regularly in your included locations".
-- Campaign URL options: final URL suffix `utm_source=google&utm_medium=cpc&utm_campaign=seo-pmax`.
+Added 2026-10-14. Owner's steps. Done on 14 October: Analytics links to Ads account freethedesk 702-260-4011 (the mistaken link to 420-916-5972 is deleted), and Campaign #1 targets Perth, Western Australia (city) instead of all of Australia. Still to do, in analytics@freethedesk.com.au, account 702-260-4011, Campaign #1 (Performance Max, A$5 a day):
+- Campaign settings > Locations > Location options: check it says "Presence: people in or regularly in your included locations", not "Presence or interest".
+- Campaign settings > Campaign URL options: final URL suffix `utm_source=google&utm_medium=cpc&utm_campaign=seo-pmax`.
 - Performance Max cannot be limited to search results. To stop the in-app and display traffic, either add account-level placement exclusions (Admin > Account settings > Content suitability > Excluded placements: the apps and sites in the campaign's placement report for 7 to 13 October), or pause it and run a Search campaign on the SEO keywords instead.
-- Analytics > Admin > Product links > Google Ads links > Link > Choose Google Ads accounts: tick freethedesk 702-260-4011, Confirm, Next, Next, Submit (the defaults are fine). Then delete the link to 420-916-5972 (Ethan Betts, the Scooter Shop account), which was created by mistake on 14 October.
-- After the link has synced (up to a day), import `generate_lead` as the Ads conversion: Goals > Conversions > New conversion > website data source "freethedesk 555139588" > category "Submit lead form" > event generate_lead. Set it as the campaign's goal in place of "Purchases".
+- From 15 October, once the link has synced, import `generate_lead` as the Ads conversion: Goals > Conversions > New conversion > website data source "freethedesk 555139588" > category "Submit lead form" > event generate_lead. Set it as the campaign's goal in place of "Purchases".
 - Complete advertiser verification before 2026-11-11, or Google pauses the ads.
 
 ## Search Console and directories

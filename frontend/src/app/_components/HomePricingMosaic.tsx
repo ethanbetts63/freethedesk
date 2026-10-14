@@ -1,7 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
-import { SectionHeader } from '@/components/SectionHeader';
 import { focusRingClassName } from '@/lib/controlState';
 import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
 import { servicePrices } from '@/lib/servicePricing';
@@ -91,13 +90,12 @@ export async function HomePricingMosaic() {
   ];
 
   return (
-    <section className="site-shell pt-section [scroll-margin-top:24px]" id="pricing">
-      <SectionHeader eyebrow="Prices" title="What things" accentTitle="cost." size="display-md" />
-      <p className="mt-l mb-0 max-w-[560px] text-lead leading-[1.7] text-text-muted">
-        Every price is on the page, and it is the total you pay.
-      </p>
-
-      <ul className="m-0 mt-2xl grid list-none grid-cols-2 gap-s p-0 lg:grid-cols-4">
+    <section
+      className="site-shell pt-section [scroll-margin-top:24px]"
+      id="pricing"
+      aria-label="Prices"
+    >
+      <ul className="m-0 grid list-none grid-cols-2 gap-s p-0 lg:grid-cols-4">
         {tiles.map((tile) => (
           <li key={tile.label} className={cn('flex', tile.className)}>
             <Link
