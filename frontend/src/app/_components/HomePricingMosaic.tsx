@@ -26,6 +26,8 @@ type Tile = {
   /** Grid placement: websites and SEO are the business, so they take the room. */
   className: string;
   dark?: boolean;
+  /** The moving-colour border and price, as on the enquiry form. */
+  moving?: boolean;
 };
 
 const tileClassName =
@@ -71,11 +73,12 @@ export async function HomePricingMosaic() {
       line: 'One audit, or one every month, quarter or year. Cancel any time.',
       href: '/seo',
       className: 'col-span-2',
+      moving: true,
     },
     {
       label: 'Discovery',
       price: prices.discoveryTotal,
-      line: `${prices.discoveryHours} hours, paid upfront, to scope a custom build. Automation starts from ${prices.automationFrom}.`,
+      line: `${prices.discoveryHours} hours, paid upfront, to scope a custom build.`,
       href: '/automation#packages',
       className: 'col-span-2 sm:col-span-1',
     },
@@ -106,7 +109,9 @@ export async function HomePricingMosaic() {
                 focusRingClassName,
                 tile.dark
                   ? 'border-surface-dark bg-surface-dark text-text-on-dark hover:bg-surface-dark-hover'
-                  : 'border-border-default bg-surface-tint text-text-secondary hover:border-border-strong-hover',
+                  : tile.moving
+                    ? 'moving-colour-border text-text-secondary hover:[--moving-colour-inset:var(--surface-tint)]'
+                    : 'border-border-default bg-surface-tint text-text-secondary hover:border-border-strong-hover',
               )}
             >
               <span
@@ -133,7 +138,9 @@ export async function HomePricingMosaic() {
                 )}
                 <strong
                   className={cn(
-                    tile.dark ? 'text-hero text-accent-on-dark' : 'text-display text-text-action',
+                    tile.dark
+                      ? 'text-hero text-accent-on-dark'
+                      : cn('text-display', tile.moving ? 'moving-colour-text' : 'text-text-action'),
                     'leading-none font-heavy tracking-[-0.05em]',
                   )}
                 >

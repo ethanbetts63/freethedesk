@@ -4,7 +4,6 @@ import { FaqSection } from '@/components/marketing/FaqSection';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
-import { AdsSavingsModal } from '@/components/marketing/AdsSavingsModal';
 import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
@@ -121,8 +120,6 @@ export default async function SeoPage() {
           {SCOOTER_SHOP_GROWTH.percent}% in {SCOOTER_SHOP_GROWTH.span}.
         </p>
       </CaseStudyTeaser>
-
-      <AdsSavingsModal />
 
       <FloatingPageCta
         label="Choose a plan"

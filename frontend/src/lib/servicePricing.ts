@@ -143,7 +143,6 @@ export function servicePrices(settings: PublicSiteSettings) {
     discoveryHours: settings.discovery_hours,
     discoveryTotal: money(hourly * settings.discovery_hours),
     websiteFrom: money(Math.min(...websites.map((item) => item.price))),
-    automationFrom: money(settings.automation_from_price),
     seoFrom: money(seoFrom),
   };
 }

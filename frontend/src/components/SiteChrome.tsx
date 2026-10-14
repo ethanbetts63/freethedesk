@@ -27,7 +27,8 @@ export function SiteChrome({
       {!standalone && header}
       {children}
       {!standalone && footer}
-      {/* /seo has its own one-minute prompt, the ads savings calculator. */}
+      {/* /seo carries no timed prompt: the page is the audit's sales page, and a
+          pop-up there only gets between a buyer and the signup. */}
       {!standalone && !applicationArea && pathname !== '/seo' && <AiReadinessModal />}
     </>
   );
