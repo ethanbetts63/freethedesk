@@ -25,7 +25,7 @@ Added 2026-10-14. Owner's steps; the agent's browser changes to the live campaig
 - Locations: replace Australia (country) with "Perth, Western Australia, Australia (city)", reach 2.71 million. Under Location options choose "Presence: people in or regularly in your included locations".
 - Campaign URL options: final URL suffix `utm_source=google&utm_medium=cpc&utm_campaign=seo-pmax`.
 - Performance Max cannot be limited to search results. To stop the in-app and display traffic, either add account-level placement exclusions (Admin > Account settings > Content suitability > Excluded placements: the apps and sites in the campaign's placement report for 7 to 13 October), or pause it and run a Search campaign on the SEO keywords instead.
-- Analytics > Admin > Product links > Google Ads links: a link to 702-260-4011 was set up and is waiting at "Review and submit"; press Submit. Then delete the link to 420-916-5972 (Ethan Betts, the Scooter Shop account), which was created by mistake on 14 October.
+- Analytics > Admin > Product links > Google Ads links > Link > Choose Google Ads accounts: tick freethedesk 702-260-4011, Confirm, Next, Next, Submit (the defaults are fine). Then delete the link to 420-916-5972 (Ethan Betts, the Scooter Shop account), which was created by mistake on 14 October.
 - After the link has synced (up to a day), import `generate_lead` as the Ads conversion: Goals > Conversions > New conversion > website data source "freethedesk 555139588" > category "Submit lead form" > event generate_lead. Set it as the campaign's goal in place of "Purchases".
 - Complete advertiser verification before 2026-11-11, or Google pauses the ads.
 
