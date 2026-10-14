@@ -28,6 +28,8 @@ export const dynamicParams = false;
  */
 const GUIDE_CTA: Record<string, GuideCtaKind> = {
   'business-not-showing-up-on-google': 'seo',
+  'dealer-online-wa': 'licensing',
+  'how-to-show-up-in-ai-search': 'seo',
 };
 
 export function generateStaticParams() {

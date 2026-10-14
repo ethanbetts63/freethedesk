@@ -1,15 +1,18 @@
 import { CtaButton } from '@/components/CtaButton';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
+import { LicensingFillVisual } from '@/app/licensing/_components/LicensingFillVisual';
 import { WEB_DESIGN_JOURNEY } from '@/app/website-development/_lib/copy';
 
 import { JourneySection } from '@/components/marketing/JourneySection';
 
-export type GuideCtaKind = 'seo' | 'website';
+export type GuideCtaKind = 'seo' | 'website' | 'licensing';
 
 /**
  * What a guide ends on: the service the reader is closest to buying, with a
  * button to its page. The SEO one is the website page's "Launch SEO strong"
- * section; the website one is its "Websites designed to be obvious" journey.
+ * section; the website one is its "Websites designed to be obvious" journey;
+ * the licensing one, for the WA dealer guides, is /licensing's opening section.
  */
 export function GuideCta({ kind }: { kind: GuideCtaKind }) {
   if (kind === 'seo') {
@@ -32,6 +35,24 @@ export function GuideCta({ kind }: { kind: GuideCtaKind }) {
               Explore SEO audits
             </CtaButton>
           </div>
+        }
+      />
+    );
+  }
+  if (kind === 'licensing') {
+    return (
+      <SplitFeatureSection
+        id="licensing"
+        background="tint"
+        eyebrow="Online licensing WA"
+        title="Dealer starts it."
+        accentTitle="Customer finishes it."
+        description="Your team enters the vehicle details and sends a secure link. The customer fills in their own details online, without a trip to the dealership."
+        visual={<LicensingFillVisual />}
+        action={
+          <CtaButton href="/licensing" size="compact">
+            Explore online licensing
+          </CtaButton>
         }
       />
     );

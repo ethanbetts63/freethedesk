@@ -37,6 +37,7 @@ const WEBSITE_DEV_FAQS: FaqItem[] = [
     question: 'Can you replace or improve an existing site?',
     answer:
       'Yes. We can rebuild it, preserve useful content and search equity, or improve one high-value part without replacing everything at once.',
+    links: [{ phrase: 'rebuild it', href: '/website-redesign-perth' }],
   },
 
   {

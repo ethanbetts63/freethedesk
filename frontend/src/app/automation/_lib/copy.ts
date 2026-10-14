@@ -4,7 +4,8 @@ export const AUTOMATION_FAQS: FaqItem[] = [
   {
     question: 'What counts as something worth automating?',
     answer:
-      'Anything copied, chased or checked by hand every week—re-entering data between systems, manual status updates, or repeated follow-ups.',
+      'Anything copied, chased or checked by hand every week—re-entering data between systems, manual status updates, or repeated follow-ups. Our guide to what to automate first goes through the usual candidates.',
+    links: [{ phrase: 'what to automate first', href: '/what-to-automate-in-a-small-business' }],
   },
 
   {

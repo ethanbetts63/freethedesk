@@ -78,8 +78,8 @@ export default async function SeoPage() {
         lead="Every audit is a written SEO report of your site: it finds the searches you're losing, recommends solutions, and shows what your last fixes earned."
         primaryHref="#signup"
         primaryLabel={`First audit from ${fromPrice}`}
-        secondaryHref="#recommend"
-        secondaryLabel="See what you get"
+        secondaryHref="/seo/sample-report"
+        secondaryLabel="See a sample report"
         trustLine="Cancel any time · Fixed prices, no lock-in · Perth-based"
       />
 

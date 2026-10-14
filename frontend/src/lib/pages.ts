@@ -94,8 +94,21 @@ export const STATIC_PAGES = {
       areaServed: { type: 'Place', name: 'Subiaco, Western Australia' },
     },
   },
+  '/website-redesign-perth': {
+    updated: '2026-10-14',
+    label: 'Website redesign',
+    title: 'Website Redesign Perth | Rebuild without losing your rankings',
+    description:
+      'Website redesign for Perth businesses moving off WordPress: a custom-coded site with no plugins to update, moved across so your Google rankings come too.',
+    absoluteTitle: true,
+    service: {
+      name: 'Website Redesign Perth',
+      serviceType: 'Website redesign and WordPress migration',
+      areaServed: { type: 'City', name: 'Perth' },
+    },
+  },
   '/automation': {
-    updated: '2026-10-08',
+    updated: '2026-10-14',
     label: 'Automation',
     title: 'Business Automation Perth | Stop paying for copy-paste',
     description:
@@ -116,6 +129,13 @@ export const STATIC_PAGES = {
       serviceType: 'SEO audits and consulting',
       areaServed: { type: 'City', name: 'Perth' },
     },
+  },
+  '/seo/sample-report': {
+    updated: '2026-10-14',
+    label: 'Sample report',
+    title: 'Sample SEO Report | What a Website SEO Report Includes',
+    description:
+      'A sample SEO report for an invented Perth plumber: ranked recommendations with cost and impact, a running experiment, foundation checks and what the search data shows.',
   },
   '/guides': {
     updated: '2026-10-14',
@@ -282,5 +302,12 @@ export function metadataFor(path: PagePath): Metadata {
  */
 export function breadcrumbItemsFor(path: PagePath): { name: string; path: string }[] {
   const { title, label } = STATIC_PAGES[path];
-  return buildBreadcrumbItems(path, label ?? title).filter((item) => item.path in STATIC_PAGES);
+  return buildBreadcrumbItems(path, label ?? title)
+    .filter((item) => item.path in STATIC_PAGES)
+    .map((item) =>
+      // A parent crumb takes its page's label, so /seo reads "SEO", not "Seo".
+      item.path === '/' || item.path === path
+        ? item
+        : { ...item, name: STATIC_PAGES[item.path as PagePath].label ?? item.name },
+    );
 }

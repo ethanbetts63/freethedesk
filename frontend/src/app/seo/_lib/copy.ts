@@ -22,13 +22,20 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
     {
       question: "Why isn't my business showing up on Google?",
       answer:
-        "Usually one of a few things: Google can't reach or add the page, it can't tell your site and your Business Profile are the same business, or the page doesn't answer what people are searching. The 23 foundation checks look for exactly these, and the first cycle ranks what to fix first.",
+        "Usually one of a few things: Google can't reach or add the page, it can't tell your site and your Business Profile are the same business, or the page doesn't answer what people are searching. The 23 foundation checks look for exactly these, and the first cycle ranks what to fix first. Our guide to why a business isn't showing up on Google covers each one.",
+      links: [
+        {
+          phrase: "why a business isn't showing up on Google",
+          href: '/business-not-showing-up-on-google',
+        },
+      ],
     },
 
     {
       question: 'Is SEO still worth it now AI answers questions?',
       answer:
-        'Yes. AI answers are built from the same pages search ranks, and they cite the sites that are clear, fast and easy to read. Every cycle checks whether AI crawlers can read your site and whether AI answers mention you.',
+        'Yes. AI answers are built from the same pages search ranks, and they cite the sites that are clear, fast and easy to read. Every cycle checks whether AI crawlers can read your site and whether AI answers mention you. Our guide to showing up in AI search has the checklist.',
+      links: [{ phrase: 'showing up in AI search', href: '/how-to-show-up-in-ai-search' }],
     },
 
     {

@@ -29,7 +29,7 @@ When pages are missing, it is usually one of these:
 - **The site is new.** A brand new domain can take time to be discovered. Submitting a sitemap in Search Console helps Google find every page.
 - **Pages are hard to reach.** A page that nothing links to, or that only exists behind a form or a search box, may never be found.
 - **The pages are too thin.** If every service page has two sentences, or several pages say almost the same thing, Google may decide some are not worth adding.
-- **The site moved and the old addresses were not redirected.** After a rebuild or a domain change, old pages that ranked can vanish if they were not pointed at their new addresses.
+- **The site moved and the old addresses were not redirected.** After a rebuild or a domain change, old pages that ranked can vanish if they were not pointed at their new addresses. A [website redesign](/website-redesign-perth) should start from that list of addresses.
 
 Search Console will usually tell you which of these it is. The fix might be a single setting.
 

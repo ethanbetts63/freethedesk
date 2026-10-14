@@ -68,9 +68,9 @@ WordPress is often the better option when:
 
 A custom-coded site is built for your business, without a general-purpose platform underneath. It tends to be the better buy when:
 
-- **The site needs to do something specific.** Bookings that follow your rules, quotes that use your pricing, enquiries that go straight into the system you already use. On WordPress these often mean stacking plugins and hoping they agree.
+- **The site needs to do something specific.** Bookings that follow your rules, quotes that use your pricing, [enquiries that go straight into the system you already use](/what-to-automate-in-a-small-business). On WordPress these often mean stacking plugins and hoping they agree.
 - **You would rather not maintain plugins.** There is no plugin layer to keep updated, which removes the most common source of WordPress breakages and security fixes.
-- **Speed and search foundations matter to you.** A fast WordPress site is possible, but it takes care. A custom build can be fast and well structured for search from the start, rather than tuned afterwards.
+- **Speed and search foundations matter to you.** A fast WordPress site is possible, but it takes care. A custom build can be fast and [well structured for search](/business-not-showing-up-on-google) from the start, rather than tuned afterwards.
 - **Your content changes occasionally, not daily.** Most small business sites are updated a few times a year: new photos, a price change, a new service page.
 
 The trade-offs are real too. Fewer developers can pick up a custom codebase than a WordPress site, so ownership matters more. Make sure you own the code, the domain and the hosting account, and that the code is handed over in a form another developer could work with. Bigger changes, such as a new feature or a new section, go through a developer rather than a plugin you install yourself.
@@ -89,4 +89,4 @@ A good developer, WordPress or otherwise, will be glad you asked.
 
 ## Where freethedesk fits
 
-We build custom-coded websites for Perth businesses, at fixed prices published on the page: a 6-page website for $3,000 and a 10-page website for $6,000, half when you buy and the rest before launch. Running costs charged by other providers, such as hosting and your domain, are set out before you commit. If WordPress suits you better, we will say so, and our [SEO audits](/seo) work on WordPress sites as well as ours. You can see what a custom build includes on our [website development page](/website-development).
+We build custom-coded websites for Perth businesses, at fixed prices published on the page: a 6-page website for $3,000 and a 10-page website for $6,000, half when you buy and the rest before launch. Running costs charged by other providers, such as hosting and your domain, are set out before you commit. If WordPress suits you better, we will say so, and our [SEO audits](/seo) work on WordPress sites as well as ours. You can see what a custom build includes on our [website development page](/website-development), and how a move off WordPress keeps your Google rankings on our [website redesign page](/website-redesign-perth).
