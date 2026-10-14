@@ -12,19 +12,6 @@ export const metadata: Metadata = metadataFor('/portfolio/scooter-shop');
 
 const config = {
   path: '/portfolio/scooter-shop',
-  process: {
-    label: 'What this case study covers',
-    steps: [
-      { label: 'The brief', description: 'The dealership problem to solve', href: '#overview' },
-      { label: 'Customer journeys', description: 'Sales, service, parts and hire', href: '#tour' },
-      {
-        label: 'Dealership operations',
-        description: 'The system behind the website',
-        href: '#operations',
-      },
-      { label: 'Search growth', description: 'How more customers found it', href: '#seo-growth' },
-    ],
-  },
   hero: {
     eyebrow: 'Scooter Shop case study',
     title: { lines: ['One dealership.', 'One connected system.'], accentLine: 1 },

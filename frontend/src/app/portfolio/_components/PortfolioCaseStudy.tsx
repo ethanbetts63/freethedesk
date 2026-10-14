@@ -89,7 +89,8 @@ type IntentSection = SectionHeading & {
 
 export type PortfolioCaseStudyConfig = {
   path: PagePath;
-  process: {
+  /** The "what this covers" bar under the hero; left out, the page goes straight to its crumbs. */
+  process?: {
     label: string;
     steps: readonly ProcessBarStep[];
   };
@@ -636,7 +637,7 @@ export function PortfolioCaseStudy({ config: rawConfig }: { config: PortfolioCas
     <main className="case-page">
       <PageSchema path={config.path} />
       <PortfolioHero config={config.hero} />
-      <ProcessBar label={config.process.label} steps={config.process.steps} />
+      {config.process && <ProcessBar label={config.process.label} steps={config.process.steps} />}
 
       <Breadcrumbs path={config.path} />
       <PortfolioIntro config={config.intro} />

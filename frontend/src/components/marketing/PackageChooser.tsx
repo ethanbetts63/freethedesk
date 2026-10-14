@@ -41,7 +41,10 @@ const cardFootClassName =
 /** One card width and its gap, so an arrow press lands on the next card's edge. */
 const CARD_STEP = 268;
 
-/** A round button over one edge of the row, as scootershop's card carousels draw it. */
+/**
+ * A round button over one edge of the row, as scootershop's card carousels draw it. On every
+ * width: a phone's swipe row gave no cue that the cheapest card sat three swipes away.
+ */
 function ScrollArrow({
   direction,
   noun,
@@ -58,7 +61,7 @@ function ScrollArrow({
       onClick={onClick}
       aria-label={`Scroll the ${noun}s ${direction}`}
       className={cn(
-        'group absolute top-0 bottom-0 z-10 hidden w-[48px] cursor-pointer items-center justify-center border-0 bg-transparent p-0 sm:flex',
+        'group absolute top-0 bottom-0 z-10 flex w-[48px] cursor-pointer items-center justify-center border-0 bg-transparent p-0',
         direction === 'left' ? 'left-0' : 'right-0',
       )}
     >
@@ -123,6 +126,27 @@ export function PackageChooser<Code extends string>({
   const scrollRow = (direction: -1 | 1) =>
     rowRef.current?.scrollBy({ left: direction * CARD_STEP, behavior: 'smooth' });
 
+  // The row opens on the chosen card, so the card in view is the one the button prices.
+  useEffect(() => {
+    const row = rowRef.current;
+    const chosen = row?.querySelector<HTMLInputElement>('input:checked')?.closest('label');
+    if (!row || !chosen) return;
+    row.scrollLeft = Math.max(0, chosen.offsetLeft - row.offsetLeft);
+    updateArrows();
+    // Once, on mount: a later choice is the visitor's own scroll.
+  }, [updateArrows]);
+
+  // On a phone the form sits under the row, out of sight: a tap on a card, chosen already or
+  // not, takes the visitor to it. Beside the row, the form is in view and nothing moves.
+  const goToForm = () => {
+    const row = rowRef.current;
+    const form = row?.closest('[data-selection-panel]')?.querySelector('form');
+    if (!row || !form) return;
+    if (form.getBoundingClientRect().top < row.getBoundingClientRect().bottom) return;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    form.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+  };
+
   return (
     <>
       <h3 className="m-0 text-display leading-[1.02] tracking-[-0.058em] text-text-secondary">
@@ -147,6 +171,10 @@ export function PackageChooser<Code extends string>({
             return (
               <label
                 key={item.code}
+                // A label click reaches here twice, once more from the radio it forwards to.
+                onClick={(event) => {
+                  if (!(event.target instanceof HTMLInputElement)) goToForm();
+                }}
                 className={cn(
                   cardClassName,
                   single

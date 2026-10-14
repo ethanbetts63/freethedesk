@@ -25,6 +25,7 @@ export function SelectionFormPanel({
 }) {
   return (
     <div
+      data-selection-panel=""
       className={cn(
         selectionPanelClassName,
         // A negative page gutter, derived from --gutter itself: the panel bleeds to
@@ -37,7 +38,7 @@ export function SelectionFormPanel({
       <form
         className={classes(
           sharedFormClassName,
-          'lg:border-t-0 lg:border-l lg:border-l-border-subtle',
+          '[scroll-margin-top:24px] lg:border-t-0 lg:border-l lg:border-l-border-subtle',
           formClassNameProp,
         )}
         onSubmit={onSubmit}
