@@ -40,22 +40,22 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-10-07',
+    updated: '2026-10-14',
     label: 'Home',
     title: 'Websites, SEO & Business Automation Perth | freethedesk',
     description:
-      'Perth websites, web applications, business automation and SEO audits for WA businesses, plus dealership websites and online vehicle licensing.',
+      'Perth websites and SEO audits for WA businesses, with every price on the page, plus web applications and business automation.',
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-10-07',
+    updated: '2026-10-14',
     label: 'Dealer websites',
     title: 'Dealership Websites Perth | Online Licensing for WA Dealers',
     description:
-      'One connected system for Perth and WA dealerships: a website built to be found, online licensing, and the admin automation behind it, priced against the tools it replaces.',
+      'One connected system for Perth and WA dealerships: a website built to be found, online licensing, and the admin automation behind it.',
   },
   '/licensing': {
-    updated: '2026-10-07',
+    updated: '2026-10-14',
     label: 'Online licensing',
     title: 'Online Vehicle Licensing for Perth & WA Dealers',
     description:
@@ -67,7 +67,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-10-08',
+    updated: '2026-10-14',
     label: 'Website development',
     title: 'Web Design & Development Perth | Websites that work harder',
     description:
@@ -86,21 +86,13 @@ export const STATIC_PAGES = {
     label: 'Web design Subiaco',
     title: 'Web Design Subiaco | Websites for Subiaco businesses',
     description:
-      'Web design and development for Subiaco businesses: custom websites priced per page, built to show up in local search and to automate the admin behind them.',
+      'Web design and development for Subiaco businesses: custom websites priced per page, built to show up in local search and automate the admin behind them.',
     absoluteTitle: true,
     service: {
       name: 'Web Design Subiaco',
       serviceType: 'Web design, website development and web application development',
       areaServed: { type: 'Place', name: 'Subiaco, Western Australia' },
     },
-  },
-  '/pricing': {
-    updated: '2026-10-08',
-    label: 'Pricing',
-    title: 'Web Development Pricing Perth | Our prices, published',
-    description:
-      'What freethedesk costs: one hourly rate, website packages priced per page, a web application package that starts with paid discovery, and SEO audit prices.',
-    absoluteTitle: true,
   },
   '/automation': {
     updated: '2026-10-08',
@@ -115,11 +107,10 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-10-08',
+    updated: '2026-10-14',
     label: 'SEO',
     title: "SEO Audit Perth | Find the searches you're losing",
-    description:
-      'SEO audits for Perth businesses: we analyse your search data, rank what to change by value, and measure every change as an experiment. Every click you earn is one you stop buying from Google Ads.',
+    description: `Organic clicks up ${SCOOTER_SHOP_GROWTH.percent}% for a Perth dealer. Each audit is a written SEO report of your site: the searches you're losing and what to fix.`,
     service: {
       name: 'SEO Audit Perth',
       serviceType: 'SEO audits and consulting',
@@ -146,37 +137,37 @@ export const STATIC_PAGES = {
     label: 'Bloomprint',
     title: 'Marketplace Website Case Study | Bloomprint Flowers',
     description:
-      'A two-sided flower delivery marketplace: brief-led ordering for customers, paid local orders for independent florists, and a landing page system built to be found.',
+      'A two-sided flower delivery marketplace: brief-led ordering for customers, paid local orders for florists, and landing pages built to be found.',
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
   '/contact': {
-    updated: '2026-10-07',
+    updated: '2026-10-14',
     label: 'Contact',
     title: 'Website, SEO & Automation Developers Perth | Contact',
     description:
       'Talk to freethedesk, a Perth team, about a custom website, SEO audit, online licensing, web application or business automation project.',
   },
   '/legal/privacy': {
-    updated: '2026-10-07',
+    updated: '2026-10-14',
     label: 'Privacy policy',
     title: 'Privacy Policy',
     description: 'How freethedesk collects, uses, stores and discloses personal information.',
   },
   '/legal/customer-terms': {
-    updated: '2026-10-08',
+    updated: '2026-10-14',
     label: 'Customer terms',
     title: 'Customer Terms',
     description:
       'Terms for a customer completing vehicle paperwork through a dealership on freethedesk.',
   },
   '/legal/dealer-subscription-terms': {
-    updated: '2026-10-07',
+    updated: '2026-10-14',
     label: 'Dealer subscription terms',
     title: 'Dealer Subscription Terms',
     description: 'Terms for freethedesk dealer licensing and contract subscriptions.',
   },
   '/legal/seo-subscription-terms': {
-    updated: '2026-10-08',
+    updated: '2026-10-14',
     label: 'SEO subscription terms',
     title: 'SEO Subscription Terms',
     description: 'Terms for freethedesk SEO subscriptions and one-off SEO reviews.',

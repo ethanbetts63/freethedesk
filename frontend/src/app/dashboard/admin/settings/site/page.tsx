@@ -186,9 +186,9 @@ export default function SiteSettingsPage() {
         <section className={cn(cardClassName, cardWideClassName)}>
           <h2 className={cardTitleClassName}>Automation</h2>
           <p className="text-label text-text-subtle">
-            The smallest automation job worth starting, shown as a &ldquo;from&rdquo; price on the
-            pricing page. Web applications have no such price: after discovery, the build is priced
-            to the customer&rsquo;s budget.
+            The smallest automation job worth starting, shown as a &ldquo;from&rdquo; price in the
+            homepage&rsquo;s price list. Web applications have no such price: after discovery, the
+            build is priced to the customer&rsquo;s budget.
           </p>
           <div className={adminFormClassName}>
             {PROJECT_FIELDS.map(renderField)}

@@ -1,6 +1,7 @@
 import { SectionNumber } from '@/components/SectionNumber';
 import type { ProjectType } from '@/lib/api';
 import type { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 import { ProjectEnquiryPanel } from './ProjectEnquiryPanel';
 
 /* Server shell: only the budget chooser and the form need to hydrate. */
@@ -13,6 +14,7 @@ export function ProjectEnquiry({
   lead = 'You give us the constraint, and we tell you the most valuable thing we can build within it.',
   headingLevel = 'h2',
   title,
+  compact = false,
 }: {
   eyebrow?: string | null;
   id?: string;
@@ -24,10 +26,22 @@ export function ProjectEnquiry({
   headingLevel?: 'h1' | 'h2';
   /** Replaces "Tell us your budget." */
   title?: ReactNode;
+  /**
+   * Where the form is the page, as on /contact: the section starts just under
+   * the breadcrumb rather than a full section's air below it, and the form
+   * column sits level with the heading instead of centred beside it.
+   */
+  compact?: boolean;
 }) {
   const Heading = headingLevel;
   return (
-    <section className="site-shell py-section [scroll-margin-top:24px]" id={id}>
+    <section
+      className={cn(
+        'site-shell [scroll-margin-top:24px]',
+        compact ? 'pt-xl pb-section' : 'py-section',
+      )}
+      id={id}
+    >
       <ProjectEnquiryPanel
         heading={
           <>
@@ -46,6 +60,7 @@ export function ProjectEnquiry({
         }
         showProjectType={showProjectType}
         defaultProjectType={defaultProjectType}
+        formClassName={compact ? 'lg:justify-start' : undefined}
       />
       {footer}
     </section>

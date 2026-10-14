@@ -76,7 +76,7 @@ export default async function SeoPage() {
         accentTitle="Google's"
         accentAlternates={["ChatGPT's", "Claude's", "Gemini's", "Perplexity's"]}
         titleSuffix="first pick."
-        lead="Every audit finds the searches you're losing, recommends solutions, and shows what your last fixes earned."
+        lead="Every audit is a written SEO report of your site: it finds the searches you're losing, recommends solutions, and shows what your last fixes earned."
         primaryHref="#signup"
         primaryLabel={`First audit from ${fromPrice}`}
         secondaryHref="#recommend"

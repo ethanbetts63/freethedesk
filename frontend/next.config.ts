@@ -29,6 +29,8 @@ const nextConfig: NextConfig = {
       },
       { source: '/dealers/signup', destination: '/licensing#signup', permanent: true },
       { source: '/work/:path*', destination: '/portfolio/:path*', permanent: true },
+      // Retired on 2026-10-14; every price is on the homepage mosaic and its service page.
+      { source: '/pricing', destination: '/#pricing', permanent: true },
     ];
   },
   async headers() {

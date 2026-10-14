@@ -4,13 +4,7 @@ export const HOME_FAQS: FaqItem[] = [
   {
     question: 'What does freethedesk actually build?',
     answer:
-      'Custom websites, web applications, workflow automation and SEO audits. Each can stand alone, or connect into one system around how your business works. We also build specialised websites and online licensing for vehicle dealerships.',
-  },
-
-  {
-    question: 'Do you only work with dealerships?',
-    answer:
-      'No. Our dealership products are specialised, but we build websites, SEO and business automations for service, retail, equipment, trade and other Perth businesses.',
+      'Custom websites, web applications, workflow automation and SEO audits. Each can stand alone, or connect into one system around how your business works.',
   },
 
   {
@@ -22,7 +16,7 @@ export const HOME_FAQS: FaqItem[] = [
   {
     question: 'Can we choose just one service?',
     answer:
-      'Yes. A website, automation project, SEO subscription or licensing product can be bought on its own. We only connect services where the connection genuinely removes work or improves the customer journey.',
+      'Yes. A website, an SEO audit or an automation project can be bought on its own. We only connect services where the connection genuinely removes work or improves the customer journey.',
   },
 
   {

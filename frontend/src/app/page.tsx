@@ -10,14 +10,16 @@ import { HOME_FAQS } from './_lib/copy';
 
 import { AiReadinessBanner } from '@/components/marketing/AiReadinessBanner';
 import { AutomationFeature } from './_components/AutomationFeature';
+import { HomePricingMosaic } from './_components/HomePricingMosaic';
 import { HomeSeoFeature } from './_components/HomeSeoFeature';
-import { DealerWebsiteSection } from '@/components/marketing/DealerWebsiteSection';
-import { FlagshipCheckout } from '@/components/marketing/FlagshipCheckout';
 import { Hero } from '@/components/marketing/Hero';
 import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
 import { WebsiteDevelopmentFeature } from './_components/WebsiteDevelopmentFeature';
 
 export const metadata: Metadata = metadataFor('/');
+
+/* The price mosaic reads every figure from the admin, so this page renders per request. */
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
   return (
@@ -42,11 +44,10 @@ export default function Home() {
         steps={['Get found', 'Get customers', 'Get time back']}
       />
 
+      <HomePricingMosaic />
       <WebsiteDevelopmentFeature />
-      <AutomationFeature />
-      <FlagshipCheckout />
       <HomeSeoFeature />
-      <DealerWebsiteSection eyebrow="For dealerships" id="dealerships" overview />
+      <AutomationFeature />
       <ProjectEnquiry />
       <FaqSection
         emitSchema

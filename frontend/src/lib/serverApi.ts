@@ -43,7 +43,7 @@ const CHECKOUT_PRICE_FIELDS = [
 ] as const satisfies readonly (keyof PublicSiteSettings)[];
 
 /**
- * What the pricing and website development pages quote. Separate from the checkout prices so a frontend
+ * What the homepage price list and the website development pages quote. Separate from the checkout prices so a frontend
  * that reaches production before the backend migration fails only the pages
  * that need these, not the two that take payments.
  */

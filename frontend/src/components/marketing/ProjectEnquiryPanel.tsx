@@ -66,10 +66,12 @@ export function ProjectEnquiryPanel({
   heading,
   showProjectType = true,
   defaultProjectType = 'both',
+  formClassName,
 }: {
   heading: React.ReactNode;
   showProjectType?: boolean;
   defaultProjectType?: ProjectType;
+  formClassName?: string;
 }) {
   const groupId = useId().replaceAll(':', '');
   const [projectType, setProjectType] = useState<ProjectType>(defaultProjectType);
@@ -105,6 +107,7 @@ export function ProjectEnquiryPanel({
     <SelectionFormPanel
       onSubmit={onSubmit}
       chooserClassName={!showProjectType ? 'lg:justify-center' : undefined}
+      formClassName={formClassName}
       chooser={
         <>
           {heading}

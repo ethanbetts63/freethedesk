@@ -25,7 +25,7 @@ export const DEALER_FAQS: FaqItem[] = [
       'The pages are priced like any of our websites, per page, from our website packages. Dealer features such as stock feeds, online purchasing and licensing are scoped in a paid discovery and priced before we start.',
     links: [
       { phrase: 'website packages', href: '/website-development#packages' },
-      { phrase: 'paid discovery', href: '/pricing' },
+      { phrase: 'paid discovery', href: '/automation#packages' },
     ],
   },
 

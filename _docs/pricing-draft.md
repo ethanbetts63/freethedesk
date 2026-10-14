@@ -12,6 +12,9 @@
 
 ## What the site publishes (2026-10-07)
 
+> The /pricing page was removed on 2026-10-14; it 308-redirects to the homepage
+> price mosaic (`/#pricing`). Read "/pricing" below as that mosaic.
+
 The public pages now carry prices, all editable in the admin dashboard under
 Site settings, so none needs a deploy to change:
 

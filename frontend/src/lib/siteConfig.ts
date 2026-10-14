@@ -10,14 +10,13 @@ export const SITE_URL = (
 ).replace(/\/$/, '');
 
 /*
- * Services lead; the dealership products share one item. Dealers are one line of
- * the business, not half the menu.
+ * Websites and SEO lead: they are the business. The dealership products share one
+ * item; dealers are one line of the business, not half the menu.
  */
 export const PRIMARY_NAVIGATION = [
   { href: '/website-development', label: 'Websites' },
-  { href: '/automation', label: 'Automation' },
   { href: '/seo', label: 'SEO' },
-  { href: '/pricing', label: 'Pricing' },
+  { href: '/automation', label: 'Automation' },
   { href: '/dealers', label: 'Dealerships' },
   { href: '/contact', label: 'Contact' },
 ] as const;
@@ -26,9 +25,8 @@ export const FOOTER_NAVIGATION = [
   { href: '/website-development', label: 'Website development' },
   // A trial suburb page; the footer is its only link (2026-10-07).
   { href: '/web-design-subiaco', label: 'Web design Subiaco' },
-  { href: '/automation', label: 'Automation' },
   { href: '/seo', label: 'SEO audits' },
-  { href: '/pricing', label: 'Pricing' },
+  { href: '/automation', label: 'Automation' },
   { href: '/guides', label: 'Guides & articles' },
   { href: '/contact', label: 'Contact' },
   { href: '/login', label: 'Login' },

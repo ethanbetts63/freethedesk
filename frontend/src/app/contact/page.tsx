@@ -4,7 +4,9 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 import { PageSchema } from '@/components/PageSchema';
 import { SectionHeader } from '@/components/SectionHeader';
+import { AUTHOR } from '@/lib/author';
 import { metadataFor } from '@/lib/pages';
+import { OPENING_HOURS } from '@/lib/siteConfig';
 
 import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
 
@@ -26,7 +28,7 @@ const NEXT_STEPS = [
           website packages
         </Link>
         . Custom work starts with a{' '}
-        <Link className={linkClassName} href="/pricing">
+        <Link className={linkClassName} href="/automation#packages">
           paid discovery
         </Link>{' '}
         that ends in a written scope.
@@ -47,6 +49,7 @@ export default function ContactPage() {
       <Breadcrumbs path="/contact" />
       <ProjectEnquiry
         id="contact-form"
+        compact
         eyebrow="Contact"
         headingLevel="h1"
         title={
@@ -56,7 +59,7 @@ export default function ContactPage() {
         }
         lead="Tell us your budget and what you need, and we'll tell you the most valuable thing we can build within it. Or call, if that's quicker."
         footer={
-          <dl className="m-0 mt-2xl grid grid-cols-1 gap-l border-t border-border-default pt-xl sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="m-0 mt-2xl grid grid-cols-1 gap-l border-t border-border-default pt-xl sm:grid-cols-2 lg:grid-cols-3">
             <div>
               <dt className="text-label font-heavy tracking-label text-text-subtle uppercase">
                 Phone
@@ -82,6 +85,22 @@ export default function ContactPage() {
                 Based in
               </dt>
               <dd className="m-0 mt-xs text-lead text-text-secondary">Dianella, Perth WA</dd>
+            </div>
+            <div>
+              <dt className="text-label font-heavy tracking-label text-text-subtle uppercase">
+                Hours
+              </dt>
+              <dd className="m-0 mt-xs text-lead text-text-secondary">
+                {OPENING_HOURS.days}, {OPENING_HOURS.opens} to {OPENING_HOURS.closes}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-label font-heavy tracking-label text-text-subtle uppercase">
+                Who answers
+              </dt>
+              <dd className="m-0 mt-xs text-lead text-text-secondary">
+                {AUTHOR.givenName}, the developer who builds the sites
+              </dd>
             </div>
             <div>
               <dt className="text-label font-heavy tracking-label text-text-subtle uppercase">

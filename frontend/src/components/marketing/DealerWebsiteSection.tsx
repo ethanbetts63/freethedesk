@@ -9,38 +9,20 @@ const bullets = [
   'Service bookings, hire and a new-stock newsletter',
 ] as const;
 
-/**
- * What a dealership website includes. On /dealers it is the page's design
- * section and points at the live case study; elsewhere (`overview`) it is a
- * teaser that points at /dealers.
- */
-export function DealerWebsiteSection({
-  eyebrow,
-  id = 'customer-journeys',
-  overview = false,
-}: {
-  eyebrow: string;
-  id?: string;
-  overview?: boolean;
-}) {
+/** What a dealership website includes: the /dealers design section, pointing at the live case study. */
+export function DealerWebsiteSection({ eyebrow }: { eyebrow: string }) {
   return (
     <SplitFeatureSection
-      id={id}
+      id="customer-journeys"
       eyebrow={eyebrow}
       title="Dealership websites"
       accentTitle="built to sell."
       description="A complete dealership website around your brand: stock, parts, service and hire, with online sales and licensing, and the admin behind them built in."
       bullets={bullets}
       action={
-        overview ? (
-          <CtaButton href="/dealers" size="compact">
-            Dealer websites
-          </CtaButton>
-        ) : (
-          <CtaButton href="/portfolio/scooter-shop" size="compact">
-            See a live dealership
-          </CtaButton>
-        )
+        <CtaButton href="/portfolio/scooter-shop" size="compact">
+          See a live dealership
+        </CtaButton>
       }
       visual={<WebsiteProductVisual />}
       textSide="right"

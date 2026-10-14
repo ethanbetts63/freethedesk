@@ -143,21 +143,8 @@ export function servicePrices(settings: PublicSiteSettings) {
     discoveryHours: settings.discovery_hours,
     discoveryTotal: money(hourly * settings.discovery_hours),
     websiteFrom: money(Math.min(...websites.map((item) => item.price))),
-    pagePriceFrom: money(
-      Math.min(
-        Number(settings.website_small_page_price),
-        Number(settings.website_large_page_price),
-      ),
-    ),
     automationFrom: money(settings.automation_from_price),
     seoFrom: money(seoFrom),
-    licensingFrom: money(
-      Math.min(
-        ...[settings.licensing_price, settings.contracts_price, settings.complete_price].map(
-          Number,
-        ),
-      ),
-    ),
   };
 }
 
