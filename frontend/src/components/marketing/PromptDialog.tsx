@@ -90,7 +90,7 @@ export function PromptDialog({
     >
       <div
         ref={dialogRef}
-        className="relative max-h-[calc(100dvh-(var(--gutter)*2))] w-[min(100%,440px)] overflow-auto shadow-contrast-l"
+        className="relative max-h-[calc(100dvh-(var(--gutter)*2))] w-[min(100%,440px)] overflow-auto shadow-block-s"
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledBy}

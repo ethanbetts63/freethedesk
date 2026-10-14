@@ -20,7 +20,7 @@ export function JourneyTrackVisual({
   ariaLabel: string;
 }) {
   return (
-    <figure className="m-0 moving-colour-border p-ml shadow-l sm:p-xl" aria-label={ariaLabel}>
+    <figure className="m-0 moving-colour-border p-ml shadow-block-s sm:p-xl" aria-label={ariaLabel}>
       <figcaption className="mb-l flex items-center justify-between gap-s text-label font-heavy tracking-label text-text-subtle uppercase">
         <span>{label}</span>
         <span className="text-action-primary">{steps.length} steps, one action</span>

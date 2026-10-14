@@ -24,19 +24,19 @@ import { cn } from '@/lib/utils';
 const SIZES = {
   diagram: {
     frame:
-      'relative h-[340px] w-[175px] flex-none rounded-[26px] border-[6px] border-surface-inverse bg-surface-inverse shadow-contrast-l',
+      'relative h-[340px] w-[175px] flex-none rounded-[26px] border-[6px] border-surface-inverse bg-surface-inverse shadow-block-s',
     notch: 'z-3 h-[8px] w-[44px] rounded-b-md bg-surface-inverse',
     homeBar: true,
   },
   inset: {
     frame:
-      'absolute bottom-[10px] left-[-6px] z-3 w-[84px] rounded-[20px] border-4 border-surface-dark bg-surface-dark shadow-m sm:bottom-0 sm:left-0 sm:w-[105px] lg:w-[160px]',
+      'absolute bottom-[10px] left-[-6px] z-3 w-[84px] rounded-[20px] border-4 border-surface-dark bg-surface-dark shadow-block-s sm:bottom-0 sm:left-0 sm:w-[105px] lg:w-[160px]',
     notch: 'z-2 h-[10px] w-[55px] rounded-b-m bg-surface-dark',
     homeBar: false,
   },
   standalone: {
     frame:
-      'relative z-2 h-[410px] w-[218px] rounded-[29px] border-[7px] border-surface-inverse bg-surface-inverse shadow-contrast-l lg:h-[465px] lg:w-[250px]',
+      'relative z-2 h-[410px] w-[218px] rounded-[29px] border-[7px] border-surface-inverse bg-surface-inverse shadow-block-s lg:h-[465px] lg:w-[250px]',
     notch: 'z-2 h-[16px] w-[80px] rounded-b-l bg-surface-inverse',
     homeBar: false,
   },

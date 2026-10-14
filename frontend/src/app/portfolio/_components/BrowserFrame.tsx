@@ -22,7 +22,7 @@ export type PortfolioImage = {
  * indirection. What they genuinely shared — the three dots — is `TrafficLights`.
  */
 const caseBrowserClassName =
-  'overflow-hidden rounded-md border border-border-strong bg-surface-page shadow-l [&>img]:block [&>img]:h-auto [&>img]:w-full';
+  'overflow-hidden rounded-md border border-border-strong bg-surface-page shadow-block-s [&>img]:block [&>img]:h-auto [&>img]:w-full';
 
 export function BrowserFrame({
   image,

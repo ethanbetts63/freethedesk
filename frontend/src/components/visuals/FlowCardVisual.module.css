@@ -209,7 +209,7 @@
 .result {
   align-items: center;
   align-self: center;
-  box-shadow: var(--elevation-contrast-s);
+  box-shadow: var(--elevation-block-s);
   color: var(--text-on-dark);
   display: grid;
   gap: var(--space-4xs) var(--space-s);

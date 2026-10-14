@@ -21,7 +21,7 @@ export function WebsiteProductVisual() {
       {/* Turned very slightly away from the reader at desktop width, which is
           the whole reason this is a browser window and not a screenshot. */}
       <div
-        className="min-w-0 origin-right bg-surface-page text-text-primary shadow-contrast-l lg:[transform:perspective(1400px)_rotateY(-2deg)]"
+        className="min-w-0 origin-right border border-border-strong bg-surface-page text-text-primary shadow-block-s lg:[transform:perspective(1400px)_rotateY(-2deg)]"
         aria-hidden="true"
       >
         <div className="grid h-[var(--size-control)] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center border-b border-border-default bg-surface-tint-strong px-s text-caption text-text-muted">

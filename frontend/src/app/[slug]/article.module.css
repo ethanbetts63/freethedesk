@@ -1,13 +1,7 @@
 /* What an article changes about the shared prose surface in styles/prose.css:
-   it opens with a display heading, and it quotes as a pull quote. Everything
-   else - the type scale, the rule above an h2, lists, links, code, tables - is
-   the agreement, not this file's business. */
-.article h1 {
-  font-size: var(--display-2);
-  letter-spacing: -0.055em;
-  line-height: 1;
-  margin: 0 0 var(--space-xl);
-}
+   it quotes as a pull quote. Everything else - the heading sizes, the rule
+   above an h2, lists, links, code, tables - is the agreement, so a guide reads
+   the same as Scooter Shop's. */
 .article blockquote {
   background: var(--surface-tint);
   border-left: 4px solid var(--text-action);

@@ -69,7 +69,7 @@ export function WebsiteDevelopmentFeatureVisual() {
           <i />
         </div>
       </div>
-      <div className="absolute right-[8px] bottom-0 w-[82%] translate-y-[15px] border border-border-default bg-surface-page p-m text-surface-dark shadow-contrast-m sm:right-0 sm:w-[min(330px,72%)] sm:translate-x-[18px] sm:translate-y-[18px]">
+      <div className="absolute right-[8px] bottom-0 w-[82%] translate-y-[15px] border border-border-strong bg-surface-page p-m text-surface-dark shadow-block-s sm:right-0 sm:w-[min(330px,72%)] sm:translate-x-[18px] sm:translate-y-[18px]">
         <header className="mb-2xs flex items-center justify-between border-b border-border-subtle pb-s text-label font-black tracking-label-tight uppercase">
           <span>Behind the website</span>
           <b className="text-text-success">Working</b>

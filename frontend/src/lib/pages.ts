@@ -118,7 +118,7 @@ export const STATIC_PAGES = {
     },
   },
   '/guides': {
-    updated: '2026-10-07',
+    updated: '2026-10-14',
     label: 'Guides',
     title: 'Steal our playbook | Website, SEO & Automation Guides',
     description:

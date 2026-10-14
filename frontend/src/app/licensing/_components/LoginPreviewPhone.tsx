@@ -14,7 +14,7 @@ export function LoginPreviewPhone() {
           because this is a phone at a quarter size. Line colour comes from
           --tint-grid so the miniature cannot drift from the thing it depicts. */}
       <div className="absolute inset-0 [background-image:linear-gradient(var(--tint-grid)_1px,transparent_1px),linear-gradient(90deg,var(--tint-grid)_1px,transparent_1px)] [background-size:18px_18px]" />
-      <div className="absolute top-[68px] right-[14px] left-[14px] rounded-md border border-[color-mix(in_srgb,var(--border-strong)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_94%,transparent)] px-s py-m shadow-contrast-s">
+      <div className="absolute top-[68px] right-[14px] left-[14px] rounded-md border border-[color-mix(in_srgb,var(--border-strong)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_94%,transparent)] px-s py-m shadow-block-s">
         <Wordmark size="mini" className="mb-s" />
         <p className="m-0 mb-s text-lead font-heavy tracking-[-0.04em] text-surface-inverse">
           Welcome back

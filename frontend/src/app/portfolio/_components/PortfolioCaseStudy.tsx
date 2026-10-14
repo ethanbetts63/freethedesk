@@ -238,7 +238,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
               priority
             />
           </PhoneFrame>
-          <FloatingPill className="top-[9px] right-[-4px] shadow-s lg:right-[22px]">
+          <FloatingPill className="top-[9px] right-[-4px] shadow-block-s lg:right-[22px]">
             <LiveMark /> {config.liveLabel}
           </FloatingPill>
         </div>
@@ -331,7 +331,7 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
               height={config.image.height}
             />
           </PhoneFrame>
-          <FloatingPill className="top-[25%] right-[1%] shadow-contrast-s lg:right-[7%]">
+          <FloatingPill className="top-[25%] right-[1%] shadow-block-s lg:right-[7%]">
             <b className="text-label text-text-action">01</b>
             <span>{config.callout}</span>
           </FloatingPill>

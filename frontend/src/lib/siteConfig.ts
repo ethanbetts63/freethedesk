@@ -27,6 +27,7 @@ export const FOOTER_NAVIGATION = [
   { href: '/web-design-subiaco', label: 'Web design Subiaco' },
   { href: '/seo', label: 'SEO audits' },
   { href: '/automation', label: 'Automation' },
+  { href: '/licensing', label: 'Online licensing' },
   { href: '/guides', label: 'Guides & articles' },
   { href: '/contact', label: 'Contact' },
   { href: '/login', label: 'Login' },
@@ -41,6 +42,9 @@ export const OPENING_HOURS = {
   days: 'Monday to Friday',
   opens: '9 am',
   closes: '5 pm',
+  /** The footer's day-by-day list, written the way the Business Profile shows it. */
+  week: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+  dayHours: '9:00 AM – 5:00 PM',
   schema: {
     dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
     opens: '09:00',

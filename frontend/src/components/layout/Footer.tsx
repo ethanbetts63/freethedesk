@@ -1,4 +1,5 @@
 import { FOOTER_NAVIGATION, OPENING_HOURS } from '@/lib/siteConfig';
+import Eyebrow from '@/components/common/eyebrow';
 import { DeferredSignalFlow } from '@/components/visuals/DeferredSignalFlow';
 import { SiteFooter, type FooterColumn } from '@/components/layout/SiteFooter';
 import { Wordmark } from '@/components/Wordmark';
@@ -17,17 +18,7 @@ const gridBackdropClassName = [
 ].join(' ');
 
 const COLUMNS: FooterColumn[] = [
-  { label: 'Explore', links: [...FOOTER_NAVIGATION] },
-  {
-    label: 'Hours',
-    children: (
-      <span className="text-body-sm text-text-muted">
-        {OPENING_HOURS.days}
-        <br />
-        {OPENING_HOURS.opens} to {OPENING_HOURS.closes}
-      </span>
-    ),
-  },
+  /* Where and when in one column: the address, how to reach us, then the hours. */
   {
     label: 'Based in',
     links: [
@@ -38,8 +29,26 @@ const COLUMNS: FooterColumn[] = [
         external: true,
       },
     ],
-    children: <span className="text-body-sm text-text-muted">Perth, Western Australia</span>,
+    children: (
+      <>
+        <span className="text-body-sm text-text-muted">Perth, Western Australia</span>
+        <div className="mt-l mb-xs">
+          <Eyebrow size="sm" tone="muted">
+            Hours
+          </Eyebrow>
+        </div>
+        <dl className="m-0 grid grid-cols-[auto_1fr] gap-x-s gap-y-3xs text-body-sm text-text-muted">
+          {OPENING_HOURS.week.map((day) => (
+            <div key={day} className="contents">
+              <dt className="font-strong text-text-secondary">{day}</dt>
+              <dd className="m-0 whitespace-nowrap">{OPENING_HOURS.dayHours}</dd>
+            </div>
+          ))}
+        </dl>
+      </>
+    ),
   },
+  { label: 'Explore', links: [...FOOTER_NAVIGATION] },
   {
     label: 'Terms & policies',
     links: [

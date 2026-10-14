@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 import type { FlowCardNode } from '@/components/visuals/FlowCardVisual';
 import { JourneyTrackVisual } from '@/components/visuals/JourneyTrackVisual';
@@ -21,7 +23,16 @@ export type JourneyContent = {
  * journey track on the left. The section id is what each service page's
  * introduction scrolls to, so it is fixed here.
  */
-export function JourneySection({ eyebrow, content }: { eyebrow: string; content: JourneyContent }) {
+export function JourneySection({
+  eyebrow,
+  content,
+  action,
+}: {
+  eyebrow: string;
+  content: JourneyContent;
+  /** A button under the bullets, where the section points to another page. */
+  action?: ReactNode;
+}) {
   const { flow } = content;
   return (
     <SplitFeatureSection
@@ -32,6 +43,7 @@ export function JourneySection({ eyebrow, content }: { eyebrow: string; content:
       titleBreak="desktop"
       description={content.description}
       bullets={content.bullets}
+      action={action}
       visual={
         <JourneyTrackVisual
           label={flow.label}
