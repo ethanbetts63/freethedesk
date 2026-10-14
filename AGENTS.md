@@ -55,6 +55,8 @@ directory.
   reformat files outside the issue.
 - Do not spin up subagents (Task/Agent tool calls) unless the user explicitly
   asks for it.
+- Never run a subagent on the frontier model. Give every Agent call the
+  second-best model option, never the best one (today: `opus`, not `fable`).
 - Never create a branch, and never switch, rebase, or reset to escape a mistake.
   Work commits straight onto main. See
   [`../freetheplatform/_docs/agent-workflow.md`](../freetheplatform/_docs/agent-workflow.md#branching).
