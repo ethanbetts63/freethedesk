@@ -68,9 +68,12 @@ export function Hero({
           CTAs render as buttons (ScrollCtaButton), so buttons need it as much as links. */}
       <div className="site-shell pointer-events-none py-3xl [&_a]:pointer-events-auto [&_button]:pointer-events-auto">
         <div>
+          {/* The title's tight leading leaves about --space-xl-half under an accent
+              word, so this sits the eyebrow as far above the title as the lead is
+              below it. */}
           {/* eslint-disable-next-line no-restricted-syntax -- --ring-halo plus a second
               glow: the live dot is lit, not raised, and one ring does not draw it. */}
-          <div className="[--eyebrow-accent:var(--action-primary)] [&_span]:shadow-[var(--ring-halo),0_0_10px_2px_color-mix(in_srgb,var(--action-primary)_70%,transparent)]">
+          <div className="mb-xl-half [--eyebrow-accent:var(--action-primary)] [&_span]:shadow-[var(--ring-halo),0_0_10px_2px_color-mix(in_srgb,var(--action-primary)_70%,transparent)]">
             <Eyebrow dot tone="accent">
               {eyebrow}
             </Eyebrow>
@@ -95,7 +98,14 @@ export function Hero({
               </>
             ) : null}
           </h1>
-          <p className="my-xl max-w-[420px] text-lead leading-relaxed text-text-muted lg:max-w-[570px]">
+          {/* A title ending on a plain line has none of the accent word's overhang,
+              so its lead comes up by that much to sit the same distance under it. */}
+          <p
+            className={cn(
+              'mb-xl max-w-[420px] text-lead leading-relaxed text-text-muted lg:max-w-[570px]',
+              titleSuffix ? 'mt-xl-half' : 'mt-xl',
+            )}
+          >
             {lead}
           </p>
           <div className="flex flex-wrap items-center gap-m [&>*]:w-full sm:gap-xl sm:[&>*]:w-auto">

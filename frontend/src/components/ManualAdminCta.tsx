@@ -1,5 +1,6 @@
 import { CtaButton } from '@/components/CtaButton';
 import { SectionNumber } from '@/components/SectionNumber';
+import { cn } from '@/lib/utils';
 
 export function ManualAdminCta({
   id,
@@ -13,6 +14,7 @@ export function ManualAdminCta({
     </>
   ),
   buttonLabel = 'Find your first automation',
+  spacing = 'standard',
 }: {
   /** Where a page's floating button hides, so the two never show together. */
   id?: string;
@@ -21,12 +23,17 @@ export function ManualAdminCta({
   title?: React.ReactNode;
   children?: React.ReactNode;
   buttonLabel?: React.ReactNode;
+  /** `joined` where the sections either side bring their own half, as on the homepage. */
+  spacing?: 'standard' | 'joined';
 }) {
   return (
     // .site-shell already supplies the base left/right gutter padding; only the
     // >=640px override needs to be stated here.
     <section
-      className="site-shell my-section bg-surface-tint py-section text-center sm:px-xl sm:py-3xl"
+      className={cn(
+        'site-shell bg-surface-tint py-section text-center sm:px-xl sm:py-3xl',
+        spacing === 'joined' ? 'my-section-half' : 'my-section',
+      )}
       id={id}
     >
       <SectionNumber>{eyebrow}</SectionNumber>

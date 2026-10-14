@@ -25,6 +25,7 @@ export function WebsiteDevelopmentFeature() {
       }
       visual={<WebsiteDevelopmentFeatureVisual />}
       textSide="left"
+      spacing="joined"
     />
   );
 }

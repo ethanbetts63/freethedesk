@@ -5,7 +5,8 @@ export function HomeSeoFeature() {
   return (
     <SeoReportOverview
       id="seo-reporting"
-      className="my-3xl mb-2xl bg-surface-tint py-section"
+      className="bg-surface-tint"
+      spacing="standard"
       eyebrow="SEO Perth"
       title="A ranked SEO action plan."
       accentTitle="Written for humans."

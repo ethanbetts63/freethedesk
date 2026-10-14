@@ -48,14 +48,14 @@ export default function Home() {
       <WebsiteDevelopmentFeature />
       <HomeSeoFeature />
       <AutomationFeature />
-      <ProjectEnquiry />
+      <ProjectEnquiry spacing="joined" />
       <FaqSection
         emitSchema
         eyebrow="Common questions"
         title="Questions about working with us."
         items={HOME_FAQS}
       />
-      <ManualAdminCta buttonLabel="Get in touch" />
+      <ManualAdminCta buttonLabel="Get in touch" spacing="joined" />
     </main>
   );
 }

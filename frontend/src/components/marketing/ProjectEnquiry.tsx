@@ -15,6 +15,7 @@ export function ProjectEnquiry({
   headingLevel = 'h2',
   title,
   compact = false,
+  spacing = 'standard',
 }: {
   eyebrow?: string | null;
   id?: string;
@@ -32,13 +33,15 @@ export function ProjectEnquiry({
    * column sits level with the heading instead of centred beside it.
    */
   compact?: boolean;
+  /** `joined` where the sections either side bring their own half, as on the homepage. */
+  spacing?: 'standard' | 'joined';
 }) {
   const Heading = headingLevel;
   return (
     <section
       className={cn(
         'site-shell [scroll-margin-top:24px]',
-        compact ? 'pt-xl pb-section' : 'py-section',
+        compact ? 'pt-xl pb-section' : spacing === 'joined' ? 'py-section-half' : 'py-section',
       )}
       id={id}
     >

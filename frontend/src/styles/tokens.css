@@ -137,6 +137,7 @@
   --spacing-ml: var(--space-ml);
   --spacing-l: var(--space-l);
   --spacing-xl: var(--space-xl);
+  --spacing-xl-half: var(--space-xl-half);
   --spacing-2xl: var(--space-2xl);
   --spacing-3xl: var(--space-3xl);
 
@@ -457,6 +458,10 @@
   --space-ml: 20px;
   --space-l: 24px;
   --space-xl: clamp(28px, 4vw, 40px);
+  /* The hero's title spacing: what its tight leading leaves under an accent
+     word is about this much, so the gaps either side of the title are set
+     from it to read the same. */
+  --space-xl-half: calc(var(--space-xl) / 2);
   --space-2xl: clamp(36px, 6vw, 64px);
   --space-3xl: clamp(48px, 8vw, 96px);
 

@@ -18,6 +18,7 @@ export function AutomationFeature() {
       }
       visual={<AutomationFeatureVisual />}
       textSide="right"
+      spacing="joined"
     />
   );
 }

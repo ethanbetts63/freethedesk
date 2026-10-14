@@ -29,7 +29,7 @@ type Tile = {
 };
 
 const tileClassName =
-  'group flex min-h-[180px] flex-col rounded-md border p-l no-underline transition-colors duration-200 sm:p-xl';
+  'group relative flex flex-col overflow-hidden rounded-md border p-l no-underline transition-colors duration-200 sm:p-xl';
 
 /**
  * The homepage's price list, as a mosaic: every figure the service pages sell at,
@@ -91,11 +91,11 @@ export async function HomePricingMosaic() {
 
   return (
     <section
-      className="site-shell pt-section [scroll-margin-top:24px]"
+      className="site-shell py-section-half [scroll-margin-top:24px]"
       id="pricing"
       aria-label="Prices"
     >
-      <ul className="m-0 grid list-none grid-cols-2 gap-s p-0 lg:grid-cols-4">
+      <ul className="m-0 grid list-none auto-rows-[minmax(220px,auto)] grid-cols-2 gap-s p-0 lg:grid-cols-4">
         {tiles.map((tile) => (
           <li key={tile.label} className={cn('flex', tile.className)}>
             <Link
@@ -111,21 +111,20 @@ export async function HomePricingMosaic() {
             >
               <span
                 className={cn(
-                  'flex items-center justify-between gap-xs text-caption font-heavy tracking-label uppercase',
-                  tile.dark ? 'text-text-on-dark-muted' : 'text-text-subtle',
+                  'relative',
+                  tile.dark ? 'text-display text-text-on-dark' : 'text-title text-text-primary',
+                  // After the size: tailwind-merge drops a leading that comes before one.
+                  'leading-[1.02] font-heavy tracking-[-0.045em]',
                 )}
               >
                 {tile.label}
-                <ArrowRight
-                  aria-hidden="true"
-                  className="size-[16px] shrink-0 transition-transform duration-200 group-hover:translate-x-3xs"
-                />
               </span>
-              <span className="mt-auto flex flex-wrap items-baseline gap-x-xs pt-l">
+              {tile.dark && <BrowserSketch />}
+              <span className="relative mt-auto flex flex-wrap items-baseline gap-x-xs pt-xl">
                 {tile.from && (
                   <span
                     className={cn(
-                      'text-body',
+                      'text-lead',
                       tile.dark ? 'text-text-on-dark-muted' : 'text-text-muted',
                     )}
                   >
@@ -134,8 +133,8 @@ export async function HomePricingMosaic() {
                 )}
                 <strong
                   className={cn(
+                    tile.dark ? 'text-hero text-accent-on-dark' : 'text-display text-text-action',
                     'leading-none font-heavy tracking-[-0.05em]',
-                    tile.dark ? 'text-hero text-text-on-dark' : 'text-title text-text-primary',
                   )}
                 >
                   {tile.price}
@@ -143,17 +142,24 @@ export async function HomePricingMosaic() {
                 {tile.unit && (
                   <span
                     className={cn(
-                      'text-body',
+                      'text-lead',
                       tile.dark ? 'text-text-on-dark-muted' : 'text-text-muted',
                     )}
                   >
                     {tile.unit}
                   </span>
                 )}
+                <ArrowRight
+                  aria-hidden="true"
+                  className={cn(
+                    'ml-auto size-[24px] shrink-0 self-center transition-transform duration-200 group-hover:translate-x-3xs',
+                    tile.dark ? 'text-text-on-dark-muted' : 'text-text-subtle',
+                  )}
+                />
               </span>
               <span
                 className={cn(
-                  'mt-s block text-body leading-relaxed',
+                  'relative mt-s block max-w-[420px] text-body leading-relaxed',
                   tile.dark ? 'text-text-on-dark-muted' : 'text-text-muted',
                 )}
               >
@@ -163,17 +169,44 @@ export async function HomePricingMosaic() {
           </li>
         ))}
       </ul>
-
-      <p className="mt-xl mb-0 text-body leading-relaxed text-text-muted">
-        Not sure which? Tell us your budget on the{' '}
-        <Link
-          href="/contact"
-          className="font-strong text-text-action underline underline-offset-[3px] hover:opacity-70"
-        >
-          contact page
-        </Link>{' '}
-        and we&apos;ll say what fits.
-      </p>
     </section>
+  );
+}
+
+/**
+ * A website drawn in outline: the Websites tile's picture, cropped by the tile's
+ * edge so it reads as a page carrying on past it. Decoration only.
+ */
+function BrowserSketch() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 420 300"
+      fill="none"
+      className="pointer-events-none mt-l -mr-[40%] w-[115%] max-w-none self-start text-accent-on-dark opacity-60 transition-transform duration-300 group-hover:-translate-y-3xs sm:absolute sm:top-[22%] sm:-right-[6%] sm:m-0 sm:w-[58%]"
+    >
+      <g stroke="currentColor" strokeWidth="2">
+        <rect x="1" y="1" width="418" height="298" rx="14" />
+        <path d="M1 38h418" />
+        <rect x="140" y="13" width="200" height="13" rx="6.5" strokeOpacity="0.6" />
+        <rect x="32" y="62" width="64" height="9" rx="4.5" strokeOpacity="0.6" />
+        <path d="M250 66h40M306 66h40M362 66h28" strokeOpacity="0.6" strokeLinecap="round" />
+        <rect x="32" y="190" width="104" height="30" rx="15" />
+        <rect x="248" y="96" width="142" height="124" rx="10" strokeOpacity="0.6" />
+        <path d="m248 196 40-38 30 26 22-18 50 34" strokeOpacity="0.6" strokeLinejoin="round" />
+        <circle cx="356" cy="128" r="12" strokeOpacity="0.6" />
+        <rect x="32" y="244" width="110" height="40" rx="8" strokeOpacity="0.4" />
+        <rect x="156" y="244" width="110" height="40" rx="8" strokeOpacity="0.4" />
+        <rect x="280" y="244" width="110" height="40" rx="8" strokeOpacity="0.4" />
+      </g>
+      <g fill="currentColor">
+        <circle cx="22" cy="19.5" r="5" />
+        <circle cx="40" cy="19.5" r="5" fillOpacity="0.6" />
+        <circle cx="58" cy="19.5" r="5" fillOpacity="0.35" />
+        <rect x="32" y="98" width="180" height="20" rx="4" />
+        <rect x="32" y="128" width="140" height="20" rx="4" />
+        <rect x="32" y="162" width="160" height="8" rx="4" fillOpacity="0.5" />
+      </g>
+    </svg>
   );
 }
