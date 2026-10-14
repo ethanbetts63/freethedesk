@@ -1,6 +1,6 @@
 # Dealer Subscription Terms
 
-Effective date: 7 October 2026
+Effective date: 14 October 2026
 
 ## 1. These terms
 
@@ -144,4 +144,5 @@ These terms, the selected plan and any signed proposal form the agreement about 
 - Service: Free the Desk
 - Email: hello@freethedesk.com.au
 - Location: Perth, Western Australia
-- Legal entity, ABN and service address: to be confirmed before production launch
+- Legal name: Ethan Daniel Betts-Ingram, trading as freethedesk
+- ABN: 11 493 753 896

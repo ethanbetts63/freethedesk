@@ -15,8 +15,18 @@ class DealerRegistrationSerializer(BaseAccountRegistrationSerializer):
     contact_name = serializers.CharField(max_length=120, required=False, allow_blank=True)
     state = serializers.ChoiceField(choices=Dealer.State.choices)
     plan = serializers.ChoiceField(choices=Dealer.Plan.choices, default=Dealer.Plan.COMPLETE)
+    # Agreed to on the signup form, as SEO signup does. Nothing is recorded
+    # here: the acceptance that binds, with the plan's price, is recorded at
+    # subscription checkout.
+    accepted_terms = serializers.BooleanField()
+
+    def validate_accepted_terms(self, value: bool) -> bool:
+        if not value:
+            raise serializers.ValidationError("Accept the Dealer Subscription Terms to continue.")
+        return value
 
     def create(self, validated_data):
+        validated_data.pop("accepted_terms")
         email = validated_data["email"]
         email_domain = email.partition("@")[2] or "New dealer account"
         validated_data.setdefault("business_name", email_domain.removeprefix("www."))

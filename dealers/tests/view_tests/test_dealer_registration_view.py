@@ -14,6 +14,7 @@ PAYLOAD = {
     "phone": "0400 000 000",
     "state": "WA",
     "password": "Sturdy-Passphrase-42",
+    "accepted_terms": True,
 }
 
 
@@ -107,3 +108,14 @@ def test_signup_rejects_weak_password(client):
     assert not Dealer.objects.exists()
 
 
+@pytest.mark.parametrize("accepted", [False, None])
+def test_signup_without_the_terms_is_refused(client, accepted):
+    payload = {**PAYLOAD, "accepted_terms": accepted}
+    if accepted is None:
+        del payload["accepted_terms"]
+
+    response = client.post(reverse("dealer-signup"), payload, content_type="application/json")
+
+    assert response.status_code == 400
+    assert "accepted_terms" in response.json()
+    assert not Dealer.objects.exists()

@@ -1,6 +1,6 @@
 # Customer Terms
 
-Last updated: 19 September 2026
+Last updated: 14 October 2026
 
 These terms apply to you when a vehicle dealership sends you a link to complete the paperwork for a vehicle through Free the Desk.
 
@@ -87,6 +87,7 @@ We may update these terms. The version that applies to your sale is the version 
 
 - Email: hello@freethedesk.com.au
 - Business: Free the Desk, Perth, Western Australia
-- Legal entity, ABN and service address: to be confirmed before production launch
+- Legal name: Ethan Daniel Betts-Ingram, trading as freethedesk
+- ABN: 11 493 753 896
 
 Questions about your vehicle, your price, your delivery or your contract are for the dealership named on your sale, not for us.

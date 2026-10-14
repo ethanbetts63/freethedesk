@@ -23,6 +23,11 @@ export const dealerSignupSchema = z.object({
   password: password(),
   state: z.enum(DEALER_STATES, { message: 'Choose your state or territory.' }),
   plan: z.enum(['licensing', 'contracts', 'complete'], { message: 'Choose a plan.' }),
+  // An unticked checkbox sends nothing; a ticked one sends "on". Django checks
+  // it too; the binding acceptance, with the price, is recorded at payment.
+  accepted_terms: z
+    .literal('on', { message: 'Accept the Dealer Subscription Terms to continue.' })
+    .transform(() => true),
 });
 
 export type DealerSignupValues = z.infer<typeof dealerSignupSchema>;

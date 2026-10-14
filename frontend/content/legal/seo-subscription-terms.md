@@ -1,6 +1,8 @@
 # SEO Subscription Terms
 
-Effective date: 8 October 2026
+Looking for the SEO audit itself? [It is here.](/seo)
+
+Effective date: 14 October 2026
 
 ## 1. About these terms
 

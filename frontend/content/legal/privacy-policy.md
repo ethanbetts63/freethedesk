@@ -1,6 +1,6 @@
 # Privacy Policy
 
-Last updated: 19 September 2026
+Last updated: 14 October 2026
 
 ## 1. About this policy
 
@@ -137,4 +137,5 @@ Privacy enquiries, access or correction requests and complaints can be sent to:
 
 - Email: hello@freethedesk.com.au
 - Business: Free the Desk, Perth, Western Australia
-- Legal entity, ABN and service address: to be confirmed before production launch
+- Legal name: Ethan Daniel Betts-Ingram, trading as freethedesk
+- ABN: 11 493 753 896

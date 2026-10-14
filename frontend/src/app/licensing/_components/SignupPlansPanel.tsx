@@ -28,6 +28,7 @@ import {
   totalPriceClassName,
   totalSummaryClassName,
 } from '@/components/forms/selectionFormClassNames';
+import { TermsAgreement } from '@/components/checkout/TermsAgreement';
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { DEALER_STATES } from '@/lib/dealerStates';
 import { priceValue, trackBeginCheckout, trackEvent } from '@/lib/analytics';
@@ -204,6 +205,18 @@ export function SignupPlansPanel({
           </select>
         </label>
       </div>
+      <TermsAgreement
+        className="mb-s"
+        name="accepted_terms"
+        required
+        termsHref="/legal/dealer-subscription-terms"
+        termsLabel="Dealer Subscription Terms"
+        authorisation="understand the plan renews monthly until I cancel."
+      />
+      <p className="m-0 mb-l text-label leading-normal text-text-muted">
+        Cancel any time. There is no minimum term, and nothing is charged until you confirm payment
+        on the next step.
+      </p>
       {state.status === 'error' && (
         <p className={formErrorClassName} role="alert">
           {state.error}
