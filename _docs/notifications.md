@@ -7,6 +7,11 @@ A new enquiry sends staff an email only, no SMS (decided 2026-10-14: most
 enquiries are spam). Message attempts, including failures, remain visible in
 the dashboard.
 
+Each row on the dashboard's Enquiries list has **Details**, **Compose** (the
+composer, prefilled to reply and linked to the enquiry) and, while the enquiry
+is still New, **Ignore**: after a confirm it sets the status to `ignored`, so the
+enquiry leaves the New filter without a reply but stays on record.
+
 Configure the Mailgun and Twilio settings in the local `.env`, including
 `ADMIN_EMAIL` and the E.164 `ADMIN_NUMBER`, then explicitly enable delivery:
 

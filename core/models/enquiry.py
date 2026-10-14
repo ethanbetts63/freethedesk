@@ -17,6 +17,8 @@ class Enquiry(models.Model):
         WON = "won", "Won"
         CLOSED = "closed", "Closed"
         SPAM = "spam", "Spam"
+        # Dismissed without a reply: off the new list, kept for the record.
+        IGNORED = "ignored", "Ignored"
 
     name = models.CharField(max_length=120)
     business = models.CharField(max_length=180, blank=True)

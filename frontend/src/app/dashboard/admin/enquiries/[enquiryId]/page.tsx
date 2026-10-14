@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { enquiryStatuses, StatusPill } from '@/components/dashboard/StatusPill';
 import { safeWebsiteHref } from '@/lib/api';
 import { Button } from '@/components/ui/Button';
@@ -36,6 +36,7 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import { backClassName, pageClassName } from '@/components/ui/layout';
 import { adminRelatedMessagesClassName } from '@/components/dashboard/adminLayout';
 import { newInvoiceHref } from '@/app/dashboard/admin/invoices/_lib/invoiceStatus';
+import { enquiryReplyHref } from '../_lib/enquiryReply';
 
 export default function EnquiryDetailPage() {
   const id = Number(useParams<{ enquiryId: string }>().enquiryId);
@@ -59,18 +60,6 @@ export default function EnquiryDetailPage() {
       )
       .finally(() => setLoading(false));
   }, [id]);
-
-  const replyHref = useMemo(() => {
-    if (!enquiry) return '/dashboard/admin/messages/compose';
-    const firstName = enquiry.name.trim().split(/\s+/)[0] || enquiry.name;
-    const params = new URLSearchParams({
-      to: enquiry.email,
-      subject: `Re: Your freethedesk enquiry`,
-      body: `Hi ${firstName},\n\nThanks for getting in touch with freethedesk.\n\n`,
-      enquiry: String(enquiry.id),
-    });
-    return `/dashboard/admin/messages/compose?${params}`;
-  }, [enquiry]);
 
   async function changeStatus(status: string) {
     if (!enquiry) return;
@@ -104,6 +93,7 @@ export default function EnquiryDetailPage() {
 
   const configuration = enquiry.configuration ?? {};
   const websiteHref = safeWebsiteHref(enquiry.website);
+  const replyHref = enquiryReplyHref(enquiry);
 
   return (
     <div className={pageClassName}>

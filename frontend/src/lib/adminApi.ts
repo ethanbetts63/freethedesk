@@ -104,6 +104,11 @@ export async function updateEnquiryStatus(id: number, status: string): Promise<E
   );
 }
 
+/** Dismisses an enquiry without a reply: it leaves the New list but stays on record. */
+export async function ignoreEnquiry(id: number): Promise<Enquiry> {
+  return updateEnquiryStatus(id, 'ignored');
+}
+
 export async function getDealers(
   params: Record<string, string | number | undefined>,
 ): Promise<Paginated<Dealer>> {

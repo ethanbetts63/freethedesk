@@ -34,6 +34,7 @@ const STATUS: StatusMap = {
   won: { label: 'Won', tone: 'var(--status-won)' },
   closed: { label: 'Closed', tone: 'var(--status-closed)' },
   spam: { label: 'Spam', tone: 'var(--status-spam)' },
+  ignored: { label: 'Ignored', tone: 'var(--status-closed)' },
 
   pending: { label: 'Pending', tone: 'var(--status-new)' },
   active: { label: 'Active', tone: 'var(--status-won)' },
@@ -96,7 +97,15 @@ export function StatusPill({ status }: { status: string }) {
   return <StatusChip map={STATUS} status={status} />;
 }
 
-export const enquiryStatuses = ['new', 'contacted', 'qualified', 'won', 'closed', 'spam'] as const;
+export const enquiryStatuses = [
+  'new',
+  'contacted',
+  'qualified',
+  'won',
+  'closed',
+  'spam',
+  'ignored',
+] as const;
 export const orderStatuses = ['payment_pending', 'paid'] as const;
 export const dealerStatuses = ['pending', 'active', 'suspended', 'denied'] as const;
 export const saleStatuses = [

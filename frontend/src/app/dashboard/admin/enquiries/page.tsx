@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useCallback } from 'react';
+import { Suspense, useCallback, useState } from 'react';
 
 import {
   adminRowClassName,
@@ -28,13 +28,14 @@ import {
   statusLabel,
   statusTone,
 } from '@/components/dashboard/StatusPill';
-import { formatDateTime, getEnquiries, type Enquiry } from '@/lib/adminApi';
+import { formatDateTime, getEnquiries, ignoreEnquiry, type Enquiry } from '@/lib/adminApi';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import { cn } from '@/lib/utils';
 import { panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
+import { enquiryReplyHref } from './_lib/enquiryReply';
 
 const SORT_FIELDS = ['created_at', 'business', 'help_with', 'status'] as const;
 const FILTER_KEYS = ['status', 'help_with'] as const;
@@ -47,7 +48,7 @@ const HELP_WITH_OPTIONS = [
   { value: 'ai_readiness', label: 'AI readiness check' },
 ];
 
-const COLUMNS = 5;
+const COLUMNS = 6;
 
 function EnquiriesContent() {
   const fetchPage = useCallback((view: AdminListView) => getEnquiries(adminListParams(view)), []);
@@ -57,6 +58,24 @@ function EnquiriesContent() {
     sortFields: SORT_FIELDS,
     loadError: 'Enquiries could not be loaded.',
   });
+  const [actionError, setActionError] = useState('');
+
+  async function ignore(enquiry: Enquiry) {
+    if (
+      !confirm(
+        'Ignore this enquiry? It stays in the list, marked Ignored, but leaves the New filter.',
+      )
+    )
+      return;
+    setActionError('');
+    try {
+      list.replaceRow((row) => row.id === enquiry.id, await ignoreEnquiry(enquiry.id));
+    } catch (reason) {
+      setActionError(
+        reason instanceof Error ? reason.message : 'This enquiry could not be ignored.',
+      );
+    }
+  }
 
   return (
     <div className={pageClassName}>
@@ -92,6 +111,7 @@ function EnquiriesContent() {
         </AdminFilterBar>
 
         {list.error && <Notice tone="danger">{list.error}</Notice>}
+        {actionError && <Notice tone="danger">{actionError}</Notice>}
         <div className={adminTableWrapClassName}>
           <table className={adminTableClassName}>
             <thead>
@@ -109,6 +129,7 @@ function EnquiriesContent() {
                 <SortHeader field="status" ordering={list.ordering} onSort={list.toggleSort}>
                   Status
                 </SortHeader>
+                <th className={cn(adminThClassName, 'text-right')}>Actions</th>
               </tr>
             </thead>
             <AdminTableBody
@@ -147,6 +168,21 @@ function EnquiriesContent() {
                   </td>
                   <td className={adminTdClassName}>
                     <StatusPill status={enquiry.status} />
+                  </td>
+                  <td className={adminTdClassName}>
+                    <div className="flex justify-end gap-xs">
+                      <Button variant="quiet" href={`/dashboard/admin/enquiries/${enquiry.id}`}>
+                        Details
+                      </Button>
+                      <Button variant="quiet" href={enquiryReplyHref(enquiry)}>
+                        Compose
+                      </Button>
+                      {enquiry.status === 'new' && (
+                        <Button variant="quiet" onClick={() => ignore(enquiry)}>
+                          Ignore
+                        </Button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               )}

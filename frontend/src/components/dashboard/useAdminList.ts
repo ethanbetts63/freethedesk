@@ -105,6 +105,13 @@ export function useAdminList<Row>({
     [ordering, setQuery],
   );
 
+  /** Swaps in the row an action returned, so the table updates without a refetch. */
+  const replaceRow = useCallback(
+    (matches: (row: Row) => boolean, next: Row) =>
+      setRows((current) => current.map((row) => (matches(row) ? next : row))),
+    [],
+  );
+
   const setPage = useCallback(
     (next: number) => setQuery({ page: next > 1 ? String(next) : null }),
     [setQuery],
@@ -150,6 +157,7 @@ export function useAdminList<Row>({
     page,
     pageSize,
     setPage,
+    replaceRow,
   };
 }
 
