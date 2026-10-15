@@ -18,6 +18,9 @@ from .models import Enquiry, InvoiceSettings, PackageOrder
 LOGO = settings.BASE_DIR / "frontend" / "public" / "logo-mark.png"
 #: `--blue-600`, the brand's action blue.
 ACCENT = "#2473c6"
+#: The name as the nav's wordmark writes it: "the" in `--text-action` (`--blue-800`), the full stop in
+#: `--action-primary` (`--blue-600`).
+WORDMARK = [("free", None), ("the", "#1a5fa8"), ("desk", None), (".", ACCENT)]
 #: Results per record type in the customer picker, newest first.
 PER_SOURCE = 5
 
@@ -34,6 +37,8 @@ def seller():
         "website": details.website,
         "logo": str(LOGO),
         "logo_is_mark": True,
+        # Only while the name is the brand's: a renamed seller prints its new name plainly.
+        "wordmark": WORDMARK if details.business_name == "freethedesk" else None,
         "accent": ACCENT,
         "bank": {
             "account_name": details.bank_account_name,
