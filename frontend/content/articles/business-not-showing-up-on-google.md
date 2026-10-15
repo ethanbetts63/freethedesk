@@ -1,5 +1,6 @@
 ---
 published: 2026-10-14
+updated: 2026-10-15
 title: Why Isn't My Business Showing Up on Google?
 description: The usual reasons a small business is missing from Google search and Maps, how to check each one yourself, and what to fix first.
 ---
@@ -14,7 +15,7 @@ Before anything else, find out whether Google has your pages at all. Type this i
 
 `site:yourbusiness.com.au`
 
-If nothing comes back, Google has not added your site to its index, and no amount of tweaking words will help until that is fixed. If only some pages come back, the missing ones are the place to start.
+If nothing comes back, Google has not added your site to its index, and no amount of tweaking words will help until that is fixed. If only some pages come back, look the missing ones up in Search Console: Google says [`site:` doesn't always list every indexed page](https://developers.google.com/search/docs/monitor-debug/search-operators/all-search-site), so treat it as a quick first look.
 
 For a proper answer, set up [Google Search Console](https://search.google.com/search-console). It is free, and it is Google telling you directly what it can and cannot see. Two parts matter most here:
 
@@ -37,7 +38,7 @@ Search Console will usually tell you which of these it is. The fix might be a si
 
 Many small business owners mean the map when they say "Google". The map results come from your **Google Business Profile**, not your website, and they follow different rules.
 
-Google says local results are based mainly on three things: **relevance** (how well your profile matches the search), **distance** (how far you are from the person searching or the place they named) and **prominence** (how well known your business is, including reviews and how often it is mentioned across the web).
+Google says [local results are based mainly on three things](https://support.google.com/business/answer/7091): **relevance** (how well your profile matches the search), **distance** (how far you are from the person searching) and **prominence** (how well known your business is, including how many reviews you have and how many websites link to you).
 
 You cannot change distance. A business in Dianella will find it harder to appear on the map for someone searching from Rockingham, however good its profile is. You can work on the other two:
 

@@ -1,5 +1,6 @@
 ---
 published: 2026-10-14
+updated: 2026-10-15
 title: WordPress Website Costs in Perth: What You Really Pay
 description: What a WordPress site costs a Perth small business over time: hosting, plugins and upkeep, and when a custom-coded site is the better buy.
 ---
@@ -14,7 +15,7 @@ When people say "WordPress" they usually mean one of two things.
 
 **WordPress.org** is the free, open-source software. You put it on a hosting account you pay for, then add a theme for the design and plugins for extra features. The software costs nothing. Everything around it does.
 
-**WordPress.com** is a hosted service run by Automattic. You pay a plan fee and they look after the server. At the time of writing, its plans range from a free tier to about US$45 a month for the Commerce plan, billed yearly, and monthly billing costs more. It is simpler, but you work within what your plan allows.
+**WordPress.com** is a hosted service run by Automattic. You pay a plan fee and they look after the server. At the time of writing, its listed plans range from a free tier to about US$45 a month for the Commerce plan, billed yearly, with a custom-priced Enterprise tier above that, and monthly billing costs more. It is simpler, but you work within what your plan allows.
 
 Most small business sites built by a freelancer or agency are WordPress.org sites on separate hosting. The rest of this guide assumes that.
 
@@ -48,7 +49,7 @@ This is where WordPress budgets go wrong. A typical small business WordPress sit
 
 A WordPress site is WordPress itself plus a theme plus every plugin, each written by a different team and each releasing its own updates. Those updates fix bugs and close security holes, so they need to be applied. Sometimes an update conflicts with another plugin or the theme, and something on the site stops working.
 
-Most published WordPress security problems are found in plugins rather than in WordPress itself. The site that tends to get into trouble is the one built and then left alone for a couple of years: an old plugin, an abandoned theme, or a contact form that quietly stopped sending enquiries.
+Most published WordPress security problems are found in plugins rather than in WordPress itself. [Patchstack's 2026 report](https://patchstack.com/whitepaper/state-of-wordpress-security-in-2026/) put 91% of the new vulnerabilities it recorded in 2025 in plugins, 9% in themes and just six in WordPress core. The site that tends to get into trouble is the one built and then left alone for a couple of years: an old plugin, an abandoned theme, or a contact form that quietly stopped sending enquiries.
 
 So someone has to keep it current. That can be you, if you are comfortable logging in each month, applying updates, checking the site still works and keeping backups. Or it can be a developer or agency, who will usually sell it as a monthly care or maintenance plan. If you are offered one, ask what it actually covers. Applying updates is not the same as testing the site afterwards, and neither is the same as fixing what breaks.
 
@@ -69,7 +70,7 @@ WordPress is often the better option when:
 A custom-coded site is built for your business, without a general-purpose platform underneath. It tends to be the better buy when:
 
 - **The site needs to do something specific.** Bookings that follow your rules, quotes that use your pricing, [enquiries that go straight into the system you already use](/what-to-automate-in-a-small-business). On WordPress these often mean stacking plugins and hoping they agree.
-- **You would rather not maintain plugins.** There is no plugin layer to keep updated, which removes the most common source of WordPress breakages and security fixes.
+- **You would rather not maintain plugins.** There is no plugin layer to keep updated, which removes the most common source of WordPress breakages and security fixes, though the code still needs occasional updates of its own.
 - **Speed and search foundations matter to you.** A fast WordPress site is possible, but it takes care. A custom build can be fast and [well structured for search](/business-not-showing-up-on-google) from the start, rather than tuned afterwards.
 - **Your content changes occasionally, not daily.** Most small business sites are updated a few times a year: new photos, a price change, a new service page.
 
@@ -89,4 +90,4 @@ A good developer, WordPress or otherwise, will be glad you asked.
 
 ## Where freethedesk fits
 
-We build custom-coded websites for Perth businesses, at fixed prices published on the page: a 6-page website for $3,000 and a 10-page website for $6,000, half when you buy and the rest before launch. Running costs charged by other providers, such as hosting and your domain, are set out before you commit. If WordPress suits you better, we will say so, and our [SEO audits](/seo) work on WordPress sites as well as ours. You can see what a custom build includes on our [website development page](/website-development), and how a move off WordPress keeps your Google rankings on our [website redesign page](/website-redesign-perth).
+We build custom-coded websites for Perth businesses, at fixed prices published on the page: a 6-page website for $3,000 and a 10-page website for $6,000, half when you buy and the rest before launch. Running costs charged by other providers, such as hosting and your domain, are paid to them directly, and our terms list them before you commit. If WordPress suits you better, we will say so, and our [SEO audits](/seo) work on WordPress sites as well as ours. You can see what a custom build includes on our [website development page](/website-development), and how a move off WordPress keeps your Google rankings on our [website redesign page](/website-redesign-perth).

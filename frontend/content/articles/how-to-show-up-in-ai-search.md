@@ -1,5 +1,6 @@
 ---
 published: 2026-10-14
+updated: 2026-10-15
 title: How to Show Up in ChatGPT and AI Search Results
 description: How a small business gets its website read and cited by ChatGPT, Google's AI Overviews, Copilot and Perplexity, with a checklist to work through.
 ---
@@ -16,7 +17,7 @@ An AI tool has to find a page before it can quote it, and most lean on a search 
 
 - **Google's AI Overviews and AI Mode** use Google's own index. To be shown as a supporting link, a page must be indexed and eligible to appear in Google Search with a snippet.
 - **Microsoft Copilot** runs on Bing. Bing says its search and Copilot [rely on the same crawling, indexing and ranking foundation](https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a).
-- **ChatGPT search** has its own crawler, OAI-SearchBot, and OpenAI says it also uses third-party search providers. For its Enterprise and Edu workspaces, OpenAI names Bing as the search engine it sends searches to.
+- **ChatGPT search** has its own crawler, OAI-SearchBot, and OpenAI says it also uses third-party search providers. For its Enterprise and Edu workspaces, OpenAI [names Bing](https://help.openai.com/en/articles/10093903-chatgpt-search-for-enterprise-and-edu) as the search engine it sends searches to.
 - **Perplexity** has its own crawler, PerplexityBot, which it says exists to surface and link websites in its results.
 
 So if your site is in Google's and Bing's indexes, and the AI crawlers are allowed in, you have covered most of the ground.
@@ -29,7 +30,7 @@ As of October 2026 it checks:
 
 - **Accessibility tree is well-formed.** AI agents read a page the way a screen reader does, through the structure the browser builds from it. Buttons and links need names, form fields need labels, and images need descriptions. If a page is hard to use with a screen reader, it is likely hard for an agent too.
 - **Cumulative Layout Shift.** Whether things jump around while the page loads.
-- **llms.txt follows recommendations.** This only applies if you have an llms.txt file. No file means the check is marked not applicable. A file that errors or isn't proper Markdown fails.
+- **llms.txt follows recommendations.** This only applies if you have an llms.txt file. No file means the check is marked not applicable. A file that returns a server error, or has no Markdown heading or links, fails.
 - **WebMCP and ai-catalog.json checks.** These are for sites that let AI agents take actions, like booking or ordering, and are built on proposed standards. On most small business sites they show as not applicable, and that is fine for now.
 
 Then the **SEO** category, where most checks are about whether a machine can read the page at all: the page isn't blocked from indexing, it returns a successful status, robots.txt is valid, it has a title and a meta description, links are crawlable and have descriptive text, images have alt text, and the canonical tag is valid. It also lists "Structured data is valid" as something to check yourself, which we cover below.
@@ -44,7 +45,7 @@ Most AI companies run **separate crawlers for search and for training**, and you
 
 - **Google.** Googlebot crawls for Google Search, AI Overviews included. Google-Extended is a separate setting that controls whether your content is used to train and ground Google's Gemini models, and Google says it [does not affect inclusion or ranking in Google Search](https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers).
 - **OpenAI.** [OAI-SearchBot is for ChatGPT search; GPTBot is for training](https://developers.openai.com/api/docs/bots). A site that blocks OAI-SearchBot will not be shown in ChatGPT search answers. The two settings are independent, so you can block training and still appear in search.
-- **Anthropic (Claude).** Claude-SearchBot and Claude-User fetch pages for Claude's search answers, and [ClaudeBot collects training data](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler).
+- **Anthropic (Claude).** Claude-SearchBot crawls to improve Claude's search results, Claude-User fetches a page when someone asks Claude a question, and [ClaudeBot collects training data](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler).
 - **Perplexity.** [PerplexityBot](https://docs.perplexity.ai/guides/bots) is for its search results, and Perplexity says it is not used to train AI models.
 - **Bing.** Bingbot feeds Bing and Copilot. Bing lists blocking it in robots.txt as something to avoid.
 
@@ -65,11 +66,11 @@ The sites we [build](/website-development) are rendered on the server, so every 
 
 ## Get into Bing, not only Google
 
-Most small businesses set up Google Search Console and never look at Bing. With Copilot running on Bing, and OpenAI naming Bing as a search provider for ChatGPT, that gap matters more than it used to.
+Most small businesses set up Google Search Console and never look at Bing. With Copilot running on Bing, and OpenAI naming Bing as the search engine behind ChatGPT in its Enterprise and Edu workspaces, that gap matters more than it used to.
 
 - **Set up Bing Webmaster Tools.** It's free, and you can import your site and sitemaps straight from Google Search Console instead of verifying again.
-- **Turn on IndexNow if your platform supports it.** [IndexNow](https://www.indexnow.org/) tells Bing and a handful of other search engines when a page is added, changed or removed, so they don't wait to find out. Google doesn't use it.
-- **Claim Bing Places for Business.** Bing recommends it so your address, hours and contact details are current.
+- **Turn on IndexNow if your platform supports it.** [IndexNow](https://www.indexnow.org/) tells Bing and a handful of other search engines when a page is added, changed or removed, so they don't wait to find out. Google isn't one of them.
+- **Claim Bing Places for Business.** It's free, and it's where you keep the address, hours and contact details Bing shows for your business up to date.
 
 ## Tell machines who you are
 
@@ -84,7 +85,7 @@ Check it with Google's [Rich Results Test](https://search.google.com/test/rich-r
 
 ## Write pages that answer the question
 
-When an AI tool picks a source, it wants a passage that answers the question plainly. Bing's guidelines say it directly: put essential information near the top, avoid long introductions, and keep each page focused on one topic. It also suggests clear headings, tables and FAQ sections.
+When an AI tool picks a source, it wants a passage that answers the question plainly. Bing's guidelines say it directly: put essential information near the top, avoid long introductions, and keep each page focused on one topic. A Microsoft post on [optimising content for AI search answers](https://about.ads.microsoft.com/en/blog/post/october-2025/optimizing-your-content-for-inclusion-in-ai-search-answers) also suggests clear headings, comparison tables and question-and-answer sections.
 
 Google says you don't need to write specially for AI or break pages into tiny pieces. Its advice is to write for your customers and offer something of your own, not repeat what every other site says. The two fit together:
 

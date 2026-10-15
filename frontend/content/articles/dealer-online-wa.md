@@ -1,5 +1,6 @@
 ---
 published: 2026-10-14
+updated: 2026-10-15
 title: DoT Dealer Online in WA: What It Does and Who Can Join
 description: The WA Dealer Online login, what the DoT dealer portal lets licensed dealers do, who can apply, and the sale paperwork it still leaves at the yard.
 ---
@@ -49,7 +50,7 @@ Dealer Online is open to vehicle dealerships, auction houses and trailer manufac
 
 DoT may also require a site inspection of your premises.
 
-The Bulk Licensing Permit comes from DoT's [Bulk Licensing Scheme](https://www.transport.wa.gov.au/licensing/dealers-industry/dealers/bulk-licensing-scheme). It lets a dealer certify the details and fitness of standard new vehicles for licensing without a vehicle inspection. You join by sending in a Bulk Licensing Nomination/Permit form (E177), which lists the people authorised to sign bulk licensing applications for the dealership.
+The Bulk Licensing Permit comes from DoT's [Bulk Licensing Scheme](https://www.transport.wa.gov.au/licensing/dealers-industry/dealers/bulk-licensing-scheme). It lets a dealer certify the details and fitness of standard vehicles and trailers for licensing without a vehicle inspection. You join by sending in a Bulk Licensing Nomination/Permit form (E177), which lists the people authorised to sign bulk licensing applications for the dealership.
 
 ## How to apply
 
@@ -90,7 +91,7 @@ Dealer Online handles the licensing half of a sale: getting the vehicle onto, of
 
 That list is where most of the back-and-forth in a sale sits. It is why a buyer who has already agreed a price can still end up driving across Perth just to sign.
 
-This is the gap our [online licensing](/licensing) product is built for. Your team enters the vehicle details and sends the customer a secure link. The customer fills in their own details, verifies their identity with Stripe Identity (their licence matched to a live selfie) and signs the licensing and contract documents online, and the completed paperwork lands back in your dealer queue. It does not log into Dealer Online for you: your team still lodges the transaction the way it does now. You can use it as a hosted portal alongside the website you already have, or have it built into a [dealership website](/dealers) we make for you.
+This is the gap our [online licensing](/licensing) product is built for. Your team enters the vehicle details and sends the customer a secure link. The customer fills in their own details, uploads photos of their licence and a selfie for your team to check, and signs the licensing and contract documents online, and the completed paperwork lands back in your dealer queue. It does not log into Dealer Online for you: your team still lodges the transaction the way it does now. You can use it as a hosted portal alongside the website you already have, or have it built into a [dealership website](/dealers) we make for you.
 
 ## Common questions
 

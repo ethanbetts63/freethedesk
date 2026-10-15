@@ -1,5 +1,6 @@
 ---
 published: 2026-10-14
+updated: 2026-10-15
 title: What to Automate First in a Small Business
 description: How to spot the admin worth automating in a small business, the usual first candidates, and how to tell whether it will pay for itself.
 ---
@@ -28,7 +29,7 @@ Every business is different, but the same jobs come up again and again.
 
 **Enquiries from the website.** A form arrives in someone's inbox, gets copied into a spreadsheet or CRM, and someone replies to say thanks. All three steps can happen on their own: the enquiry goes straight into the system you use, the customer gets an immediate reply that tells them what happens next, and the right person is notified.
 
-**Quote follow-ups.** Quotes go out and nobody follows them up, because nobody has time. A follow-up that sends itself a few days after the quote, and stops when the customer replies or accepts, wins work that was otherwise quietly lost.
+**Quote follow-ups.** Quotes go out and nobody follows them up, because nobody has time. A follow-up that sends itself a few days after the quote, and stops when the customer replies or accepts, can win work that would otherwise be quietly lost.
 
 **Invoice reminders.** Chasing overdue invoices is unpleasant and easy to put off. Accounting software such as Xero can send reminders on a schedule. If yours is not set up, that is often the cheapest automation you will ever do.
 
