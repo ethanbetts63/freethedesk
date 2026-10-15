@@ -102,16 +102,17 @@ export function AnalysisIntro() {
         carried most of the rest.
       </Prose>
       <Prose>
-        Blocked drains is the opposite story. It is the line Google shows the site for most, and the
-        page sits near the top of the first page for most of those searches, yet few people click
-        it. The two plumbers above it answer the questions a searcher with a blocked drain is
-        asking, which are how much and how soon. This page answers neither.
+        Every part of the business drew more visitors than in August, but blocked drains grew far
+        less than it could. It is the line Google shows the site for most, and the page sits near
+        the top of the first page for most of those searches, yet few people click it. The two
+        plumbers above it answer the questions a searcher with a blocked drain is asking, which are
+        how much and how soon. This page answers neither.
       </Prose>
       <Prose>
         Away from the site, the Business Profile had its busiest month, with calls and clicks
         through to the website both up. On the site itself a caller has a harder time: on a phone,
-        the number sits inside the menu as plain text. The six suburb pages brought fewer visitors
-        than in August, and four of them were not shown for any search at all.
+        the number sits inside the menu as plain text. The gas fitting page, retitled on 16
+        September, has started to climb but is not yet on the first page.
       </Prose>
     </>
   );
@@ -174,11 +175,16 @@ export function AnalysisTiles() {
 
       <TileGroup label="Line by line">
         <Tile
-          line="Blocked drains"
-          title="Blocked drains is the line Google shows most, and the one searchers pass over"
+          line="Every line of the business"
+          title="Visitors from Google rose in every part of the business, and hot water more than doubled"
           figures={[
             {
-              label: 'Showings that became a click',
+              label: 'Hot water visitors from Google',
+              value: '+115%',
+              note: '1 Sep to 30 Sep against 2 Aug to 31 Aug 2026',
+            },
+            {
+              label: 'Blocked-drain showings clicked',
               value: '1.2%',
               note: 'Blocked-drain searches, 1 Sep to 30 Sep 2026',
             },
@@ -201,16 +207,17 @@ export function AnalysisTiles() {
             />
           </Exhibit>
           <Prose>
-            Visitors to the hot water pages more than doubled, blocked drains held flat, and the
-            suburb pages lost about a third. The blocked drains page sits around sixth for ‘blocked
-            drain plumber’ and the searches like it, close enough to the top that a better result
-            alone should earn clicks.
+            Hot water more than doubled once its prices moved to the top of the page. The homepage
+            rose by about a quarter and gas fitting by about a sixth, and the suburb pages barely
+            moved, which fits six pages Google treats as one.
           </Prose>
           <Prose>
-            The two businesses above it lead their result with a call-out price and ‘same day’. This
-            page leads with the year the business started. Its visitors also leave sooner than the
-            hot water page’s, which fits a page that opens on a photo and a history rather than on
-            what the job costs.
+            Blocked drains rose by about a sixth, and it is where the most is left. Google shows it
+            more than any other page, around sixth for ‘blocked drain plumber’ and the searches like
+            it, yet only about one showing in eighty becomes a click, against about one in
+            twenty-five across the rest of the site. The two businesses above it lead their result
+            with a call-out price and ‘same day’; this page leads with the year the business
+            started. Recommendation 2 is the change.
           </Prose>
         </Tile>
       </TileGroup>

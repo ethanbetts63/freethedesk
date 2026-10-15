@@ -1,6 +1,12 @@
 import { cn } from '@/lib/utils';
 
-import { EXPERIMENT, RECOMMENDATIONS, type Recommendation } from '../_lib/report';
+import {
+  EXPERIMENTS,
+  EXPERIMENT_WEEKS,
+  RECOMMENDATIONS,
+  type Experiment,
+  type Recommendation,
+} from '../_lib/report';
 import { LineChart } from './LineChart';
 import { Exhibit } from './Exhibits';
 import { ImpactCostTags, RunIn, cardClass, display } from './ReportPrimitives';
@@ -70,39 +76,49 @@ export function RecommendationList() {
   );
 }
 
+const weekLabels = EXPERIMENT_WEEKS.map((label, at) => ({ at, label }));
+
+function ExperimentCard({ exp, n }: { exp: Experiment; n: number }) {
+  const first = EXPERIMENT_WEEKS[0];
+  const last = EXPERIMENT_WEEKS[EXPERIMENT_WEEKS.length - 1];
+  return (
+    <Numbered n={n}>
+      <CardTitle>{exp.title}</CardTitle>
+      <RunIn label="What">{exp.what}</RunIn>
+      <RunIn label="Hypothesis">{exp.hypothesis}</RunIn>
+      <Exhibit caption={exp.label} window={exp.window}>
+        <LineChart
+          ariaLabel={`${exp.label}, weeks ending ${first} to ${last}: ${exp.experiment.join(', ')}. Adjusted for the site-wide trend alone: ${exp.adjusted.join(', ')}. The change shipped on ${exp.shipped}; the goal is ${exp.goal}.`}
+          series={[
+            { label: 'This experiment', values: exp.experiment, tone: 'now', dots: true },
+            {
+              label: 'Adjusted for site-wide trend',
+              values: exp.adjusted,
+              tone: 'compare',
+              dots: true,
+            },
+          ]}
+          xLabels={weekLabels}
+          xLabelsNarrow={weekLabels.filter(({ at }) => at % 2 === 0)}
+          xTitle="Week ending"
+          left={exp.axis}
+          invert={exp.axis.invert}
+          marker={{ at: exp.shippedAt, label: 'Shipped' }}
+          goal={{ value: exp.goal, label: `Goal ${exp.goal}` }}
+        />
+      </Exhibit>
+      <RunIn label="So far">{exp.soFar}</RunIn>
+      <RunIn label="Confounding variables">{exp.alongside}</RunIn>
+    </Numbered>
+  );
+}
+
 export function ExperimentList() {
-  const { weeks } = EXPERIMENT;
   return (
     <ol className="m-0 flex list-none flex-col gap-s p-0">
-      <Numbered n={1}>
-        <CardTitle>{EXPERIMENT.title}</CardTitle>
-        <RunIn label="What">{EXPERIMENT.what}</RunIn>
-        <RunIn label="Hypothesis">{EXPERIMENT.hypothesis}</RunIn>
-        <Exhibit caption={EXPERIMENT.label} window={EXPERIMENT.window}>
-          <LineChart
-            ariaLabel={`Clicks a week from hot water searches, weeks ending ${weeks[0]} to ${weeks[weeks.length - 1]}: ${EXPERIMENT.experiment.join(', ')}. Adjusted for the site-wide trend alone: ${EXPERIMENT.adjusted.join(', ')}. The change shipped on 9 September; the goal is ${EXPERIMENT.goal} a week.`}
-            series={[
-              { label: 'This experiment', values: EXPERIMENT.experiment, tone: 'now', dots: true },
-              {
-                label: 'Adjusted for site-wide trend',
-                values: EXPERIMENT.adjusted,
-                tone: 'compare',
-                dots: true,
-              },
-            ]}
-            xLabels={weeks.map((label, at) => ({ at, label }))}
-            xLabelsNarrow={weeks
-              .map((label, at) => ({ at, label }))
-              .filter(({ at }) => at % 2 === 0)}
-            xTitle="Week ending"
-            left={{ min: 0, max: 20, ticks: [0, 5, 10, 15, 20], title: 'Clicks a week' }}
-            marker={{ at: EXPERIMENT.shippedAt, label: 'Shipped' }}
-            goal={{ value: EXPERIMENT.goal, label: `Goal ${EXPERIMENT.goal}` }}
-          />
-        </Exhibit>
-        <RunIn label="So far">{EXPERIMENT.soFar}</RunIn>
-        <RunIn label="Confounding variables">{EXPERIMENT.alongside}</RunIn>
-      </Numbered>
+      {EXPERIMENTS.map((exp, index) => (
+        <ExperimentCard key={exp.title} exp={exp} n={index + 1} />
+      ))}
     </ol>
   );
 }

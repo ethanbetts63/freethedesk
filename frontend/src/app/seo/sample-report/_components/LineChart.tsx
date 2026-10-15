@@ -232,7 +232,7 @@ function Legend({ series, shade }: Pick<LineChartProps, 'series' | 'shade'>) {
         <li key={line.label} className="flex items-center gap-2xs">
           <span
             aria-hidden="true"
-            className={cn('h-4xs w-s rounded-pill bg-current', toneClass[line.tone])}
+            className={cn('h-4xs w-3 rounded-pill bg-current', toneClass[line.tone])}
           />
           {line.label}
         </li>

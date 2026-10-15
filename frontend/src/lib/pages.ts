@@ -131,7 +131,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo/sample-report': {
-    updated: '2026-10-14',
+    updated: '2026-10-15',
     label: 'Sample report',
     title: 'Sample SEO Report | What a Website SEO Report Includes',
     description:

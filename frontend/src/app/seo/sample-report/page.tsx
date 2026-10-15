@@ -35,9 +35,9 @@ function SampleNote() {
           </span>
           <p className="m-0 text-body-sm leading-relaxed text-text-muted">
             {BUSINESS.fullName} is an invented business, and every figure, page and review below is
-            made up. The kinds of findings, the experiment and the way each is written come from
-            real reports. A real report runs longer: every recommendation found, every foundation
-            check, and a chart for each line of the business.
+            made up. The kinds of findings, the experiments and the way each is written come from
+            real reports. A real report runs longer: every recommendation found, and a chart for
+            each line of the business.
           </p>
         </div>
       </div>
@@ -56,7 +56,7 @@ function Contents() {
               href={item.href}
               className="flex items-baseline gap-m py-xs text-body text-text-secondary no-underline hover:text-action-primary"
             >
-              <span className="w-l text-action-primary tabular-nums">{item.number}</span>
+              <span className="w-6 text-action-primary tabular-nums">{item.number}</span>
               {item.title}
             </a>
           </li>
@@ -66,7 +66,7 @@ function Contents() {
             href="#provenance"
             className="flex items-baseline gap-m py-xs text-body text-text-secondary no-underline hover:text-action-primary"
           >
-            <span className="w-l" />
+            <span className="w-6" />
             Provenance
           </a>
         </li>
