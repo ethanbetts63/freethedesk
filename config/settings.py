@@ -268,11 +268,23 @@ PASSWORD_RESET_TIMEOUT = 60 * 60 * 24 * 3
 # Derived from FTP_AUTH so token lifetimes and cookie max-ages can't drift apart.
 SIMPLE_JWT = ftp_auth_conf.simple_jwt(FTP_AUTH)
 
-CSRF_TRUSTED_ORIGINS = [
-    origin.strip()
-    for origin in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
-    if origin.strip()
-]
+# The site calls the API from its own origin, which differs from the API's host,
+# so Django's Origin check needs both site addresses listed. Built in rather than
+# left to the environment: unset, every cookie-authenticated write fails with
+# "CSRF Failed: Origin checking failed" (as it did on 2026-10-15).
+CSRF_TRUSTED_ORIGINS = list(
+    dict.fromkeys(
+        [
+            "https://www.freethedesk.com.au",
+            "https://freethedesk.com.au",
+            *(
+                origin.strip()
+                for origin in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
+                if origin.strip()
+            ),
+        ]
+    )
+)
 
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
