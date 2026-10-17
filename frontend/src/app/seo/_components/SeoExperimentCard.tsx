@@ -1,7 +1,7 @@
 /**
  * A real experiment, as a subscriber sees it: Scooter Shop's r7 findings,
  * "consolidate-service-satellites". The figures are the report's own chart
- * series (freetheplatform/_search/scootershop/reports/r7/report.html), not
+ * series (ftp_search/_search/scootershop/reports/r7/report.html), not
  * illustrative numbers - if this card is ever refreshed, take them from a
  * newer report rather than adjusting them by hand.
  */

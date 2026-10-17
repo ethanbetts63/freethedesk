@@ -26,7 +26,7 @@ function Link({ href, children }: { href: string; children: ReactNode }) {
 }
 
 /**
- * Mirrors freetheplatform/_search/onboarding.md, the instructions the reporting
+ * Mirrors ftp_search/_search/onboarding.md, the instructions the reporting
  * pipeline was built against. Change both together.
  */
 export const SETUP_GUIDE: Record<SeoSetupKey, SetupGuide> = {
