@@ -4,11 +4,16 @@ import {
   PortfolioCaseStudy,
   type PortfolioCaseStudyConfig,
 } from '@/app/portfolio/_components/PortfolioCaseStudy';
-import { PORTFOLIO_FAQS } from '@/app/portfolio/_lib/copy';
+import { portfolioFaqs } from '@/app/portfolio/_lib/copy';
 import { metadataFor } from '@/lib/pages';
+import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
+import { servicePrices } from '@/lib/servicePricing';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 export const metadata: Metadata = metadataFor('/portfolio/scooter-shop');
+
+// The FAQ quotes the admin's prices, read fresh on every request.
+export const dynamic = 'force-dynamic';
 
 const config = {
   path: '/portfolio/scooter-shop',
@@ -194,47 +199,75 @@ const config = {
         number: '01',
         title: 'Ready to buy',
         pages: [
-          'New Scooters',
-          'Used Scooters',
-          'Used Motorcycles',
-          'E-Scooters',
-          '50cc Scooters Perth',
-          '125cc Scooters Perth',
+          { label: 'New Scooters', href: 'https://www.scootershop.com.au/inventory/scooters/new' },
+          {
+            label: 'Used Scooters',
+            href: 'https://www.scootershop.com.au/inventory/scooters/used',
+          },
+          {
+            label: 'Used Motorcycles',
+            href: 'https://www.scootershop.com.au/inventory/motorcycles/used',
+          },
+          { label: 'E-Scooters', href: 'https://www.scootershop.com.au/escooters' },
+          {
+            label: '50cc Scooters Perth',
+            href: 'https://www.scootershop.com.au/50cc-scooters-perth',
+          },
+          {
+            label: '125cc Scooters Perth',
+            href: 'https://www.scootershop.com.au/125cc-scooters-perth',
+          },
+          {
+            label: '250cc Scooters Perth',
+            href: 'https://www.scootershop.com.au/250cc-scooters-perth',
+          },
         ],
       },
       {
         number: '02',
         title: 'Need the workshop',
         pages: [
-          'Servicing',
-          'Scooter Repairs',
-          'Vespa Service Perth',
-          'Motorcycle Service',
-          'Tyre Fitting',
+          { label: 'Servicing', href: 'https://www.scootershop.com.au/service' },
+          { label: 'Tyre Fitting', href: 'https://www.scootershop.com.au/tyre-fitting' },
+          {
+            label: 'Scooter Service North Perth',
+            href: 'https://www.scootershop.com.au/scooter-service-north-perth',
+          },
         ],
       },
       {
         number: '03',
         title: 'Brand, parts or hire',
         pages: [
-          'SYM Scooters',
-          'SYM Parts',
-          'Parts Enquiry',
-          'Patrol Mountain Bikes',
-          'Motorcycle Hire Perth',
+          { label: 'SYM Scooters', href: 'https://www.scootershop.com.au/sym' },
+          { label: 'SYM Parts', href: 'https://www.scootershop.com.au/parts/new/sym' },
+          { label: 'Electric Mopeds Perth', href: 'https://www.scootershop.com.au/segway' },
+          { label: 'Patrol Mountain Bikes', href: 'https://www.scootershop.com.au/patrol' },
+          { label: 'Motorcycle Hire Perth', href: 'https://www.scootershop.com.au/hire' },
         ],
       },
       {
         number: '04',
         title: 'Local and researching',
         pages: [
-          'Motorcycles Perth',
-          'Used Vespa Scooters Perth',
-          'SYM Scooters Perth',
-          'Scooters Morley',
-          'Scooters Mount Lawley',
-          'Scooter Service North Perth',
-          'Car vs Moped Cost Calculator',
+          { label: 'Motorcycles Perth', href: 'https://www.scootershop.com.au/motorcycles-perth' },
+          {
+            label: 'Used Vespa Scooters Perth',
+            href: 'https://www.scootershop.com.au/vespa-perth',
+          },
+          { label: 'Scooters Morley', href: 'https://www.scootershop.com.au/scooters-morley' },
+          {
+            label: 'Scooters Mount Lawley',
+            href: 'https://www.scootershop.com.au/scooters-mount-lawley',
+          },
+          {
+            label: 'Scooters Rockingham',
+            href: 'https://www.scootershop.com.au/scooters-rockingham',
+          },
+          {
+            label: 'Car vs Moped Cost Calculator',
+            href: 'https://www.scootershop.com.au/commute-cost-calculator',
+          },
         ],
       },
     ],
@@ -245,9 +278,13 @@ const config = {
     accentTitle: '5 months.',
     description: `Across ${SCOOTER_SHOP_GROWTH.period}, organic clicks grew ${SCOOTER_SHOP_GROWTH.percent}%. Indexable stock, focused landing pages and useful guides created more ways for ready-to-buy customers to find the dealership.`,
   },
-  faq: { eyebrow: 'Common questions', items: PORTFOLIO_FAQS },
-} satisfies PortfolioCaseStudyConfig;
+} satisfies Omit<PortfolioCaseStudyConfig, 'faq'>;
 
-export default function ScooterShopCaseStudy() {
-  return <PortfolioCaseStudy config={config} />;
+export default async function ScooterShopCaseStudy() {
+  const prices = servicePrices(await getSiteSettingsServer(SERVICE_PRICE_FIELDS));
+  return (
+    <PortfolioCaseStudy
+      config={{ ...config, faq: { eyebrow: 'Common questions', items: portfolioFaqs(prices) } }}
+    />
+  );
 }

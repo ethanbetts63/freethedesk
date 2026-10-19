@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 export function PortfolioEnquiryCta({ flush = false }: { flush?: boolean }) {
   return (
     <CtaButton className={cn(!flush && 'mt-xl')} href="#enquiry" direction="down">
-      See our options
+      Get a price for yours
     </CtaButton>
   );
 }

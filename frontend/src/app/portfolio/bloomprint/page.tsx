@@ -4,10 +4,15 @@ import {
   PortfolioCaseStudy,
   type PortfolioCaseStudyConfig,
 } from '@/app/portfolio/_components/PortfolioCaseStudy';
-import { PORTFOLIO_FAQS } from '@/app/portfolio/_lib/copy';
+import { portfolioFaqs } from '@/app/portfolio/_lib/copy';
 import { metadataFor } from '@/lib/pages';
+import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
+import { servicePrices } from '@/lib/servicePricing';
 
 export const metadata: Metadata = metadataFor('/portfolio/bloomprint');
+
+// The FAQ quotes the admin's prices, read fresh on every request.
+export const dynamic = 'force-dynamic';
 
 const config = {
   path: '/portfolio/bloomprint',
@@ -241,46 +246,59 @@ const config = {
     groups: [
       {
         number: '01',
-        title: 'Cities',
+        title: 'Perth and Australia-wide',
         pages: [
-          'Flower Delivery Perth',
-          'Flower Delivery Sydney',
-          'Flower Delivery Melbourne',
-          'Flower Delivery Brisbane',
-          'Flower Delivery Adelaide',
-          'Flower Delivery Hobart',
+          { label: 'Flower Delivery Perth', href: 'https://www.bloomprint.com.au/' },
+          {
+            label: 'Flower Delivery Australia',
+            href: 'https://www.bloomprint.com.au/flower-delivery-australia',
+          },
         ],
       },
       {
         number: '02',
         title: 'Occasions',
         pages: [
-          'Birthday Flowers',
-          "Valentine's Day Flowers",
-          "Mother's Day Flowers",
-          'Send Flowers from Overseas',
+          {
+            label: 'Birthday Flowers',
+            href: 'https://www.bloomprint.com.au/birthday-flower-delivery',
+          },
+          {
+            label: "Valentine's Day Flowers",
+            href: 'https://www.bloomprint.com.au/valentines-day-flower-delivery',
+          },
+          {
+            label: "Mother's Day Flowers",
+            href: 'https://www.bloomprint.com.au/mothers-day-flower-delivery',
+          },
         ],
       },
       {
         number: '03',
         title: 'Recurring & business',
         pages: [
-          'Flower Subscription',
-          'Corporate Flower Subscriptions',
-          'Pricing',
-          'For Florists',
-          'Affiliates',
+          {
+            label: 'Flower Subscription',
+            href: 'https://www.bloomprint.com.au/flower-subscription',
+          },
+          {
+            label: 'Corporate Flower Subscriptions',
+            href: 'https://www.bloomprint.com.au/corporate-flower-subscriptions',
+          },
+          { label: 'Pricing', href: 'https://www.bloomprint.com.au/pricing' },
+          { label: 'For Florists', href: 'https://www.bloomprint.com.au/florists' },
+          { label: 'Affiliates', href: 'https://www.bloomprint.com.au/affiliates' },
         ],
       },
       {
         number: '04',
         title: 'Guides',
         pages: [
-          'Best Flower Subscriptions Australia',
-          'Best Flower Delivery Perth',
-          'Best Flower Delivery Sydney',
-          'Best Flower Delivery Melbourne',
-          'All Articles',
+          {
+            label: 'Best Flower Delivery Perth',
+            href: 'https://www.bloomprint.com.au/articles/best-flower-delivery-perth',
+          },
+          { label: 'All Articles', href: 'https://www.bloomprint.com.au/articles' },
         ],
       },
     ],
@@ -292,9 +310,13 @@ const config = {
     description:
       'Organic clicks grew 68% in three months. City, occasion and guide pages gave a new brand more ways to meet customers already searching for flower delivery.',
   },
-  faq: { eyebrow: 'Common questions', items: PORTFOLIO_FAQS },
-} satisfies PortfolioCaseStudyConfig;
+} satisfies Omit<PortfolioCaseStudyConfig, 'faq'>;
 
-export default function BloomprintCaseStudy() {
-  return <PortfolioCaseStudy config={config} />;
+export default async function BloomprintCaseStudy() {
+  const prices = servicePrices(await getSiteSettingsServer(SERVICE_PRICE_FIELDS));
+  return (
+    <PortfolioCaseStudy
+      config={{ ...config, faq: { eyebrow: 'Common questions', items: portfolioFaqs(prices) } }}
+    />
+  );
 }

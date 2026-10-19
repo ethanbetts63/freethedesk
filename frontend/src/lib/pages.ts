@@ -55,7 +55,7 @@ export const STATIC_PAGES = {
       'One connected system for Perth and WA dealerships: a website built to be found, online licensing, and the admin automation behind it.',
   },
   '/licensing': {
-    updated: '2026-10-14',
+    updated: '2026-10-19',
     label: 'Online licensing',
     title: 'Online Vehicle Licensing for Perth & WA Dealers',
     description:
@@ -95,9 +95,9 @@ export const STATIC_PAGES = {
     },
   },
   '/website-redesign-perth': {
-    updated: '2026-10-14',
+    updated: '2026-10-19',
     label: 'Website redesign',
-    title: 'Website Redesign Perth | Rebuild without losing your rankings',
+    title: 'Website Redesign Perth | Rebuild without losing rankings',
     description:
       'Website redesign for Perth businesses moving off WordPress: a custom-coded site with no plugins to update, moved across so your Google rankings come too.',
     absoluteTitle: true,
@@ -131,11 +131,11 @@ export const STATIC_PAGES = {
     },
   },
   '/seo/sample-report': {
-    updated: '2026-10-15',
+    updated: '2026-10-19',
     label: 'Sample report',
     title: 'Sample SEO Report | What a Website SEO Report Includes',
     description:
-      'A sample SEO report for an invented Perth plumber: ranked recommendations with cost and impact, a running experiment, foundation checks and what the search data shows.',
+      'A sample SEO report for an invented Perth plumber: ranked fixes with cost and impact, a running experiment, foundation checks and what the search data shows.',
   },
   '/guides': {
     updated: '2026-10-14',
@@ -145,7 +145,7 @@ export const STATIC_PAGES = {
       'Practical guides for Perth businesses on websites, web applications, search visibility, automation and the systems behind them.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-10-07',
+    updated: '2026-10-19',
     label: 'Scooter Shop',
     title: `Perth Dealer Website Case Study | Organic Clicks Up ${SCOOTER_SHOP_GROWTH.percent}%`,
     description:
@@ -153,7 +153,7 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {
-    updated: '2026-10-04',
+    updated: '2026-10-19',
     label: 'Bloomprint',
     title: 'Marketplace Website Case Study | Bloomprint Flowers',
     description:

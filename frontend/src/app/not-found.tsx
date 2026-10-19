@@ -7,8 +7,10 @@
  * way onward, and nothing saying whose site it is. On a site whose main channel
  * is organic search, that page has real traffic.
  *
- * It renders inside the root layout, so the header and footer come with it.
+ * It renders inside the root layout, so the header and footer come with it. The
+ * layout's title is the homepage's, so this page names itself.
  */
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { CtaButton } from '@/components/CtaButton';
@@ -19,6 +21,10 @@ const DESTINATIONS = [
   { href: '/automation', label: 'Automation' },
   { href: '/portfolio/scooter-shop', label: 'Case study: Scooter Shop' },
 ];
+
+export const metadata: Metadata = {
+  title: { absolute: 'Page not found | freethedesk' },
+};
 
 export default function NotFound() {
   return (

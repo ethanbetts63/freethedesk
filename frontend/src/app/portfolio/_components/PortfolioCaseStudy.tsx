@@ -83,7 +83,8 @@ type IntentSection = SectionHeading & {
   groups: readonly {
     number: string;
     title: string;
-    pages: readonly string[];
+    /** Each one a live page on the client's site, so the arrow beside it is a real link. */
+    pages: readonly { label: string; href: string }[];
   }[];
 };
 
@@ -555,12 +556,16 @@ function PortfolioIntent({ config }: { config: IntentSection }) {
                   share a height and the headers are padded to match. */}
               <ul className="mx-0 mt-xl mb-0 list-none p-0 lg:mt-auto">
                 {group.pages.map((page) => (
-                  <li
-                    className="flex items-center justify-between border-t border-border-default py-s text-label font-strong leading-[1.35] text-text-muted"
-                    key={page}
-                  >
-                    {page}
-                    <span className="ml-xs text-label text-text-action">↗</span>
+                  <li className="border-t border-border-default" key={page.href}>
+                    <a
+                      className="flex items-center justify-between py-s text-label font-strong leading-[1.35] text-text-muted transition-colors hover:text-text-primary"
+                      href={page.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {page.label}
+                      <span className="ml-xs text-label text-text-action">↗</span>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -595,7 +600,7 @@ function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, 's
         title="Website project questions."
         items={config.faq.items}
       />
-      <ManualAdminCta href="#enquiry" buttonLabel="See our options" />
+      <ManualAdminCta href="#enquiry" buttonLabel="Get a price for yours" />
     </>
   );
 }

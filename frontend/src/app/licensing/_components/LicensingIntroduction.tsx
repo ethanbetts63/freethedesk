@@ -8,7 +8,7 @@ const items = [
   },
   {
     title: 'Verify',
-    description: 'User uploads license and verifies identity through Stripe Identity.',
+    description: 'User uploads licence and verifies identity through Stripe Identity.',
   },
   { title: 'Sign', description: 'User signs the licensing and contract documents online.' },
 ] as const;
