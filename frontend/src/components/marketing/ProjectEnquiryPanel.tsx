@@ -36,6 +36,7 @@ const PROJECT_TYPES: { code: ProjectType; name: string }[] = [
   { code: 'website', name: 'Website' },
   { code: 'automation', name: 'Automation' },
   { code: 'both', name: 'Both' },
+  { code: 'seo', name: 'SEO audit' },
 ];
 
 const BUDGETS = ['$3,000', '$5,000', '$10,000', 'custom'] as const;
@@ -58,6 +59,7 @@ const SUMMARY: Record<ProjectType, string> = {
   website: 'A website built around what your business actually needs to do.',
   automation: 'The repetitive work behind your business, handled without you.',
   both: 'A website and the automation behind it, designed as one system.',
+  seo: 'A report on how people find you on Google and what to change first, at a fixed price per report.',
 };
 
 /** The stateful half of the enquiry section. `heading` arrives already rendered
@@ -65,11 +67,14 @@ const SUMMARY: Record<ProjectType, string> = {
 export function ProjectEnquiryPanel({
   heading,
   showProjectType = true,
+  showSeo = false,
   defaultProjectType = 'both',
   formClassName,
 }: {
   heading: React.ReactNode;
   showProjectType?: boolean;
+  /** Offers an SEO audit beside the build scopes, as on /contact. */
+  showSeo?: boolean;
   defaultProjectType?: ProjectType;
   formClassName?: string;
 }) {
@@ -78,6 +83,11 @@ export function ProjectEnquiryPanel({
   const [budget, setBudget] = useState<Budget>('$5,000');
   const [customBudget, setCustomBudget] = useState('');
 
+  const projectTypes = showSeo
+    ? PROJECT_TYPES
+    : PROJECT_TYPES.filter((option) => option.code !== 'seo');
+  // An SEO audit has a fixed price, so it asks no budget.
+  const asksBudget = projectType !== 'seo';
   const budgetLabel = budget === 'custom' ? formatCustomBudget(customBudget) : budget;
   // Once a submission succeeds the form fields are replaced by a thank-you
   // message (below), so there's no need to separately reset `customBudget`.
@@ -89,7 +99,7 @@ export function ProjectEnquiryPanel({
     trackEvent('generate_lead', {
       lead_source: 'project_enquiry',
       project_type: projectType,
-      budget: budgetLabel,
+      ...(asksBudget && { budget: budgetLabel }),
     });
     // Only the submission should fire this, not a later change of choice.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -99,7 +109,7 @@ export function ProjectEnquiryPanel({
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     formData.set('project_type', projectType);
-    formData.set('budget', budget === 'custom' ? customBudget.trim() : budget);
+    formData.set('budget', !asksBudget ? '' : budget === 'custom' ? customBudget.trim() : budget);
     startTransition(() => dispatch(formData));
   };
 
@@ -118,11 +128,14 @@ export function ProjectEnquiryPanel({
                 What do you need?
               </p>
               <div
-                className={cn(choiceGridClassName, 'grid-cols-1 sm:grid-cols-3')}
+                className={cn(
+                  choiceGridClassName,
+                  showSeo ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-1 sm:grid-cols-3',
+                )}
                 role="radiogroup"
                 aria-labelledby={`${groupId}-type`}
               >
-                {PROJECT_TYPES.map((option) => (
+                {projectTypes.map((option) => (
                   <label
                     className={choiceCardVariants({
                       selected: projectType === option.code,
@@ -148,54 +161,61 @@ export function ProjectEnquiryPanel({
             </div>
           )}
 
-          <div className={showProjectType ? 'mt-xl' : undefined}>
-            <p id={`${groupId}-budget`} className={choiceGroupHeadingClassName}>
-              What&apos;s your budget?
-            </p>
-            <div
-              className={cn(choiceGridClassName, 'grid-cols-2 sm:grid-cols-4')}
-              role="radiogroup"
-              aria-labelledby={`${groupId}-budget`}
-            >
-              {BUDGETS.map((option) => (
-                <label className={choiceCardVariants({ selected: budget === option })} key={option}>
+          {asksBudget && (
+            <div className={showProjectType ? 'mt-xl' : undefined}>
+              <p id={`${groupId}-budget`} className={choiceGroupHeadingClassName}>
+                What&apos;s your budget?
+              </p>
+              <div
+                className={cn(choiceGridClassName, 'grid-cols-2 sm:grid-cols-4')}
+                role="radiogroup"
+                aria-labelledby={`${groupId}-budget`}
+              >
+                {BUDGETS.map((option) => (
+                  <label
+                    className={choiceCardVariants({ selected: budget === option })}
+                    key={option}
+                  >
+                    <input
+                      className={choiceInputClassName}
+                      type="radio"
+                      name={`${groupId}-budget-choice`}
+                      value={option}
+                      checked={budget === option}
+                      onChange={() => setBudget(option)}
+                    />
+                    <span>{option === 'custom' ? 'Custom' : option}</span>
+                  </label>
+                ))}
+              </div>
+              {budget === 'custom' && (
+                <label className="mt-xs block">
+                  <span className="mb-2xs block text-label font-strong tracking-label text-[var(--text-control)] uppercase">
+                    Your budget
+                  </span>
                   <input
-                    className={choiceInputClassName}
-                    type="radio"
-                    name={`${groupId}-budget-choice`}
-                    value={option}
-                    checked={budget === option}
-                    onChange={() => setBudget(option)}
+                    className="min-h-[48px] w-full border border-border-default bg-surface-page px-s text-lead font-normal text-text-primary outline-none placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus"
+                    value={customBudget}
+                    onChange={(event) => setCustomBudget(event.target.value.replace(/\D/g, ''))}
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength={60}
+                    placeholder="e.g. 12000"
+                    required
                   />
-                  <span>{option === 'custom' ? 'Custom' : option}</span>
                 </label>
-              ))}
+              )}
             </div>
-            {budget === 'custom' && (
-              <label className="mt-xs block">
-                <span className="mb-2xs block text-label font-strong tracking-label text-[var(--text-control)] uppercase">
-                  Your budget
-                </span>
-                <input
-                  className="min-h-[48px] w-full border border-border-default bg-surface-page px-s text-lead font-normal text-text-primary outline-none placeholder:text-body-sm placeholder:font-normal placeholder:text-[var(--text-on-dark-subtle)] focus:border-action-primary focus:shadow-focus"
-                  value={customBudget}
-                  onChange={(event) => setCustomBudget(event.target.value.replace(/\D/g, ''))}
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  maxLength={60}
-                  placeholder="e.g. 12000"
-                  required
-                />
-              </label>
-            )}
-          </div>
+          )}
 
           <div
             className={`${totalClassName} [--selection-total-size:2.4rem] ${!showProjectType ? 'lg:mt-xl' : ''}`}
             aria-live="polite"
           >
             <div className={totalFigureClassName}>
-              <strong className={`${totalPriceClassName} moving-colour-text`}>{budgetLabel}</strong>
+              <strong className={`${totalPriceClassName} moving-colour-text`}>
+                {asksBudget ? budgetLabel : 'SEO audit'}
+              </strong>
             </div>
             <span className={totalSummaryClassName}>{SUMMARY[projectType]}</span>
           </div>
@@ -220,8 +240,9 @@ export function ProjectEnquiryPanel({
             Thanks — that&apos;s with us.
           </strong>
           <p className="mt-xs text-body leading-relaxed text-text-muted">
-            We&apos;ll come back with what we&apos;d suggest building for that budget, and what it
-            would take.
+            {asksBudget
+              ? 'We’ll come back with what we’d suggest building for that budget, and what it would take.'
+              : 'We’ll come back with what the audit would cover for your site, and its price.'}
           </p>
         </div>
       ) : (
@@ -238,7 +259,7 @@ export function ProjectEnquiryPanel({
             />
           </label>
           <label className={fieldLabelClassName}>
-            <span className={fieldLabelSpanClassName}>Phone</span>
+            <span className={fieldLabelSpanClassName}>Phone (optional)</span>
             <input
               className={fieldInputClassName}
               name="phone"
@@ -281,7 +302,11 @@ export function ProjectEnquiryPanel({
             fullWidth
             disabled={isPending}
           >
-            {isPending ? 'Sending…' : 'Show me what you’d build'}
+            {isPending
+              ? 'Sending…'
+              : asksBudget
+                ? 'Show me what you’d build'
+                : 'Ask about an audit'}
           </MovingColourButton>
         </>
       )}

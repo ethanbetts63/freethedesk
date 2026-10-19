@@ -161,7 +161,7 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
   '/contact': {
-    updated: '2026-10-14',
+    updated: '2026-10-19',
     label: 'Contact',
     title: 'Website, SEO & Automation Developers Perth | Contact',
     description:

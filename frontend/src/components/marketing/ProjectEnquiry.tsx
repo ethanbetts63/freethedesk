@@ -9,8 +9,10 @@ export function ProjectEnquiry({
   eyebrow = 'Start here',
   id = 'project-enquiry',
   showProjectType = true,
+  showSeo = false,
   defaultProjectType = 'both',
   footer,
+  leadAction,
   lead = 'You give us the constraint, and we tell you the most valuable thing we can build within it.',
   headingLevel = 'h2',
   title,
@@ -20,9 +22,13 @@ export function ProjectEnquiry({
   eyebrow?: string | null;
   id?: string;
   showProjectType?: boolean;
+  /** Offers an SEO audit beside the build scopes, as on /contact. */
+  showSeo?: boolean;
   defaultProjectType?: ProjectType;
   footer?: ReactNode;
   lead?: string;
+  /** A control on its own line under the lead, such as /contact's call button. */
+  leadAction?: ReactNode;
   /** `h1` where the form is the page, as on /contact. */
   headingLevel?: 'h1' | 'h2';
   /** Replaces "Tell us your budget." */
@@ -56,12 +62,19 @@ export function ProjectEnquiry({
                 </>
               )}
             </Heading>
-            <p className="mt-m mb-xl max-w-[470px] text-lead leading-[1.7] text-text-muted">
+            <p
+              className={cn(
+                'mt-m max-w-[470px] text-lead leading-[1.7] text-text-muted',
+                leadAction ? 'mb-m' : 'mb-xl',
+              )}
+            >
               {lead}
             </p>
+            {leadAction && <div className="mb-xl">{leadAction}</div>}
           </>
         }
         showProjectType={showProjectType}
+        showSeo={showSeo}
         defaultProjectType={defaultProjectType}
         formClassName={compact ? 'lg:justify-start' : undefined}
       />

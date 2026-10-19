@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { CtaButton } from '@/components/CtaButton';
 
 import { PageSchema } from '@/components/PageSchema';
 import { SectionHeader } from '@/components/SectionHeader';
@@ -50,6 +51,7 @@ export default function ContactPage() {
       <ProjectEnquiry
         id="contact-form"
         compact
+        showSeo
         eyebrow="Contact"
         headingLevel="h1"
         title={
@@ -57,7 +59,12 @@ export default function ContactPage() {
             Talk to a Perth <span className="moving-colour-text">web developer.</span>
           </>
         }
-        lead="Tell us your budget and what you need, and we'll tell you the most valuable thing we can build within it. Or call, if that's quicker."
+        lead="Tell us your budget and what you need, and we'll tell you the most valuable thing we can build within it."
+        leadAction={
+          <CtaButton href="tel:+61423853830" size="compact" direction="none">
+            Or call 0423 853 830
+          </CtaButton>
+        }
         footer={
           <dl className="m-0 mt-2xl grid grid-cols-1 gap-l border-t border-border-default pt-xl sm:grid-cols-2 lg:grid-cols-3">
             <div>

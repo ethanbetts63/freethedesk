@@ -9,6 +9,7 @@ class Enquiry(models.Model):
         AUTOMATION = "automation", "Business automation"
         AI_READINESS = "ai_readiness", "AI readiness check"
         EVERYTHING = "everything", "Website and automation"
+        SEO = "seo", "SEO audit"
 
     class Status(models.TextChoices):
         NEW = "new", "New"

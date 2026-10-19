@@ -17,7 +17,7 @@ export { formatDateTime } from './formatting';
 
 /** What the project form records beside the message. */
 export interface EnquiryConfiguration {
-  project_type?: 'website' | 'automation' | 'both';
+  project_type?: 'website' | 'automation' | 'both' | 'seo';
   budget?: string;
 }
 

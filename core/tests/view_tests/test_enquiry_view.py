@@ -116,6 +116,32 @@ def test_project_enquiry_accepts_someone_with_no_website_yet(api_client):
     assert enquiry.business == ""
 
 
+def test_an_seo_audit_enquiry_needs_no_budget(api_client):
+    response = api_client.post(
+        "/api/project-enquiries/",
+        {"project_type": "seo", "website": "https://example.com.au", "email": "owner@example.com.au"},
+        format="json",
+    )
+
+    assert response.status_code == 201
+    enquiry = Enquiry.objects.get()
+    assert enquiry.help_with == Enquiry.HelpWith.SEO
+    assert enquiry.configuration == {"project_type": "seo"}
+    assert enquiry.message == "SEO audit enquiry."
+
+
+def test_a_project_enquiry_other_than_seo_needs_a_budget(api_client):
+    response = api_client.post(
+        "/api/project-enquiries/",
+        {"project_type": "website", "budget": " ", "email": "owner@example.com.au"},
+        format="json",
+    )
+
+    assert response.status_code == 400
+    assert "budget" in response.json()
+    assert not Enquiry.objects.exists()
+
+
 def test_project_enquiry_rejects_an_unknown_project_type(api_client):
     response = api_client.post(
         "/api/project-enquiries/",

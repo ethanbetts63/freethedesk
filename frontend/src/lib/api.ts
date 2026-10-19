@@ -182,7 +182,7 @@ export function safeWebsiteHref(value: string | null | undefined): string | null
   }
 }
 
-export type ProjectType = 'website' | 'automation' | 'both';
+export type ProjectType = 'website' | 'automation' | 'both' | 'seo';
 
 /**
  * Fetch a file and hand it to the browser as a download.

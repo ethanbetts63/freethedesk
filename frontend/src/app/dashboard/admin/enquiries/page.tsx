@@ -45,6 +45,7 @@ const HELP_WITH_OPTIONS = [
   { value: 'website', label: 'Website' },
   { value: 'automation', label: 'Business automation' },
   { value: 'everything', label: 'Website and automation' },
+  { value: 'seo', label: 'SEO audit' },
   { value: 'ai_readiness', label: 'AI readiness check' },
 ];
 
