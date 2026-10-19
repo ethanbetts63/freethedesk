@@ -21,8 +21,7 @@ import { gridPaperAfterClassName } from '@/lib/gridSurface';
  * apart.
  */
 
-const eyebrowClassName =
-  'text-caption font-black tracking-label-wide text-action-primary uppercase';
+const eyebrowClassName = 'text-label font-black tracking-label-wide text-action-primary uppercase';
 const headingClassName = 'my-s text-display leading-[0.96] tracking-[-0.065em]';
 const bodyClassName = 'm-0 text-body leading-relaxed text-text-muted';
 const fineprintClassName =

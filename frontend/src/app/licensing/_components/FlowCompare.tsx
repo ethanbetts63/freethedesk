@@ -65,7 +65,7 @@ function FlowColumn({
 export function FlowCompare() {
   return (
     <div className="mt-2xl">
-      <p className="m-0 mb-xl text-caption font-control tracking-label-wide text-accent-on-dark uppercase">
+      <p className="m-0 mb-xl text-label font-control tracking-label-wide text-accent-on-dark uppercase">
         What your team does
       </p>
       <div className="grid grid-cols-1 gap-ml lg:grid-cols-2">

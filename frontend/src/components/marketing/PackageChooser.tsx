@@ -28,8 +28,7 @@ const cardClassName =
   'group flex w-[256px] shrink-0 cursor-pointer snap-start flex-col bg-surface-page p-l text-left transition-colors duration-200 has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-[-3px] has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)]';
 
 /** Small capitals: the card's label, and what its price buys. */
-const cardKickerClassName =
-  'block text-caption font-heavy tracking-label text-text-subtle uppercase';
+const cardKickerClassName = 'block text-label font-heavy tracking-label text-text-subtle uppercase';
 
 /**
  * The foot of every card, pushed to the bottom: where a card is chosen, and what fills

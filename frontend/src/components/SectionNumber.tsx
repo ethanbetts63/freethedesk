@@ -22,7 +22,7 @@ export function SectionNumber({
   return (
     <p
       className={cn(
-        'section-number m-0 mb-l text-caption font-black uppercase tracking-label-wide',
+        'section-number m-0 mb-l text-label font-black uppercase tracking-label-wide',
         onDark ? 'text-section-number-on-dark' : 'text-action-primary',
         className,
       )}

@@ -48,7 +48,9 @@ export function Hero({
   trustLine = 'Perth-based · clients across Australia',
 }: HeroProps) {
   return (
-    <section className="relative isolate flex min-h-[calc(100svh-68px)] items-center overflow-hidden bg-surface-page lg:min-h-[calc(100vh-78px)]">
+    /* Full-screen from sm up. On a phone it hugs its content, so the next
+       section (the homepage's price tiles) starts in the first screen. */
+    <section className="relative isolate flex items-center overflow-hidden bg-surface-page sm:min-h-[calc(100svh-68px)] lg:min-h-[calc(100vh-78px)]">
       <div className="absolute inset-0 z-[-1] pointer-events-none [background:radial-gradient(circle_at_34%_48%,color-mix(in_srgb,var(--surface-page)_98%,transparent)_0_18%,color-mix(in_srgb,var(--surface-page)_78%,transparent)_36%,transparent_62%)]" />
       {/* Eager, unlike the footer backdrop: this one is above the fold, and
           deferring it only saves a phone 1.9kB gzipped while costing every
@@ -134,7 +136,7 @@ export function Hero({
             )}
           </div>
           {trustLine ? (
-            <p className="m-0 mt-xl text-caption font-strong tracking-label-tight text-text-muted uppercase">
+            <p className="m-0 mt-xl text-label font-strong tracking-label-tight text-text-muted uppercase">
               {trustLine}
             </p>
           ) : null}

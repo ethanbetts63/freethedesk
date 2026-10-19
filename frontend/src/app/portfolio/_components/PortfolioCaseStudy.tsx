@@ -211,7 +211,7 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
               Explore the build <span>↓</span>
             </ScrollCtaButton>
           </div>
-          <div className="mt-xl flex flex-wrap gap-x-l gap-y-s border-t border-border-default pt-m lg:mt-2xl [&>span]:text-caption [&>span]:font-heavy [&>span]:tracking-label-tight [&>span]:text-text-subtle [&>span]:uppercase">
+          <div className="mt-xl flex flex-wrap gap-x-l gap-y-s border-t border-border-default pt-m lg:mt-2xl [&>span]:text-label [&>span]:font-heavy [&>span]:tracking-label-tight [&>span]:text-text-subtle [&>span]:uppercase">
             {config.capabilities.map((capability) => (
               <span key={capability}>{capability}</span>
             ))}

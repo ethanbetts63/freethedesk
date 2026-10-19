@@ -11,7 +11,7 @@ import { PackageOrderPanel } from './PackageOrderPanel';
  */
 export function PackagesSection({ packages }: { packages: readonly PurchasePackage[] }) {
   return (
-    <section className="pt-section [scroll-margin-top:24px]" id="packages" aria-label="Packages">
+    <section className="pt-section" id="packages" aria-label="Packages">
       <div className="site-shell">
         <PackageOrderPanel packages={packages} />
       </div>

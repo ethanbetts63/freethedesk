@@ -36,7 +36,7 @@ export function ProcessBar({
           {steps.map((step, index) => {
             const content = (
               <>
-                <span className="text-caption font-black tracking-label text-[var(--accent-on-dark-soft)]">
+                <span className="text-label font-black tracking-label text-[var(--accent-on-dark-soft)]">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <span>

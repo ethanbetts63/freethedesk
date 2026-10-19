@@ -93,11 +93,7 @@ export async function HomePricingMosaic() {
   ];
 
   return (
-    <section
-      className="site-shell py-section-half [scroll-margin-top:24px]"
-      id="pricing"
-      aria-label="Prices"
-    >
+    <section className="site-shell py-section-half" id="pricing" aria-label="Prices">
       <ul className="m-0 grid list-none auto-rows-[minmax(220px,auto)] grid-cols-2 gap-s p-0 lg:grid-cols-4">
         {tiles.map((tile) => (
           <li key={tile.label} className={cn('flex', tile.className)}>

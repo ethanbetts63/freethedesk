@@ -8,7 +8,7 @@ import { SeoSignupPanel } from './SeoSignupPanel';
  */
 export function SeoSignup({ settings }: { settings: PublicSiteSettings }) {
   return (
-    <section className="pt-section [scroll-margin-top:24px]" id="signup" aria-label="Plans">
+    <section className="pt-section" id="signup" aria-label="Plans">
       <div className="site-shell">
         <SeoSignupPanel settings={settings} />
       </div>

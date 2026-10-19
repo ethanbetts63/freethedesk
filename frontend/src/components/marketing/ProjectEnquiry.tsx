@@ -40,7 +40,7 @@ export function ProjectEnquiry({
   return (
     <section
       className={cn(
-        'site-shell [scroll-margin-top:24px]',
+        'site-shell',
         compact ? 'pt-xl pb-section' : spacing === 'joined' ? 'py-section-half' : 'py-section',
       )}
       id={id}

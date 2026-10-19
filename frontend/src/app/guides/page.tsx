@@ -32,7 +32,7 @@ export default function GuidesPage() {
             <ol className="m-0 list-none p-0">
               {articles.map((article) => (
                 <li key={article.slug} className="border-b border-border-default py-xl first:pt-0">
-                  <p className="mb-xs text-caption font-heavy tracking-label text-text-subtle uppercase">
+                  <p className="mb-xs text-label font-heavy tracking-label text-text-subtle uppercase">
                     By {article.authorName} | Published{' '}
                     <time dateTime={article.publishedDate}>
                       {dateFormatter.format(new Date(`${article.publishedDate}T00:00:00+08:00`))}

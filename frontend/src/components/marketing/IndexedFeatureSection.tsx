@@ -20,7 +20,7 @@ export function IndexedFeatureSection({
   footer?: React.ReactNode;
 }) {
   return (
-    <section className="pt-0 pb-section [scroll-margin-top:24px]" id={id}>
+    <section className="pt-0 pb-section" id={id}>
       <div className="site-shell">
         <div className="max-w-[860px]">
           <SectionHeader

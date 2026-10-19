@@ -38,7 +38,7 @@ export function SelectionFormPanel({
       <form
         className={classes(
           sharedFormClassName,
-          '[scroll-margin-top:24px] lg:border-t-0 lg:border-l lg:border-l-border-subtle',
+          'lg:border-t-0 lg:border-l lg:border-l-border-subtle',
           formClassNameProp,
         )}
         onSubmit={onSubmit}
