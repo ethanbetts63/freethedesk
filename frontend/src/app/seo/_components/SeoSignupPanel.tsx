@@ -24,7 +24,7 @@ import {
   submitClassName,
 } from '@/components/forms/selectionFormClassNames';
 import { PackageChooser, type PackageCard } from '@/components/marketing/PackageChooser';
-import { priceValue, trackBeginCheckout, trackEvent } from '@/lib/analytics';
+import { priceValue, trackBeginCheckout, trackSelectPlanOnce } from '@/lib/analytics';
 import { type PublicSiteSettings } from '@/lib/api';
 import { planByCode } from '@/lib/plans';
 import { submitSeoSignup, type SeoSignupState } from './SeoSignupPanel.actions';
@@ -105,7 +105,7 @@ export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
           selectedCode={selectedCode}
           onChoose={(code) => {
             setSelectedCode(code);
-            trackEvent('select_plan', { item_category: 'seo', plan: code });
+            trackSelectPlanOnce('seo', code);
           }}
         />
       }

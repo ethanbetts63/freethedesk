@@ -6,7 +6,9 @@
  * events where one fits (`generate_lead`, `begin_checkout`, `purchase`), so the
  * reports that understand them light up without custom definitions.
  *
- * Key events in the GA4 property: `generate_lead`, `purchase`, `contact_click`.
+ * Key events in the GA4 property: `generate_lead`, `purchase`, `select_plan`
+ * (read from the Admin API on 2026-10-19). Google Ads should import only the
+ * first two: `select_plan` is a comparison tap, not a result.
  * Never put personal details (names, emails, phone numbers) in a parameter.
  */
 
@@ -35,6 +37,7 @@ export function priceValue(value: string | undefined): number | undefined {
 
 const CHECKOUT_KEY = 'ftd-checkout:';
 const PURCHASE_KEY = 'ftd-purchase:';
+const SELECT_PLAN_KEY = 'ftd-select-plan:';
 
 function storage(): Storage | null {
   try {
@@ -42,6 +45,23 @@ function storage(): Storage | null {
   } catch {
     return null;
   }
+}
+
+/**
+ * Sends `select_plan` once per visit for each row of plans. A phone visitor
+ * taps cards to compare them, and `select_plan` is a key event, so with the
+ * property linked to Google Ads every tap went to Ads as a conversion ping;
+ * five taps sent five. The plan finally bought rides on `begin_checkout`.
+ */
+export function trackSelectPlanOnce(category: AnalyticsItem['item_category'], plan: string) {
+  const store = storage();
+  try {
+    if (store?.getItem(SELECT_PLAN_KEY + category)) return;
+    store?.setItem(SELECT_PLAN_KEY + category, '1');
+  } catch {
+    // Without storage every tap sends, as before.
+  }
+  trackEvent('select_plan', { item_category: category, plan });
 }
 
 /**

@@ -31,7 +31,7 @@ import {
 import { TermsAgreement } from '@/components/checkout/TermsAgreement';
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { DEALER_STATES } from '@/lib/dealerStates';
-import { priceValue, trackBeginCheckout, trackEvent } from '@/lib/analytics';
+import { priceValue, trackBeginCheckout, trackSelectPlanOnce } from '@/lib/analytics';
 import { planByCode } from '@/lib/plans';
 import { submitDealerSignup, type SignupState } from './SignupPlansPanel.actions';
 
@@ -121,7 +121,7 @@ export function SignupPlansPanel({
                     checked={selectedCode === plan.code}
                     onChange={() => {
                       setSelectedCode(plan.code);
-                      trackEvent('select_plan', { item_category: 'licensing', plan: plan.code });
+                      trackSelectPlanOnce('licensing', plan.code);
                     }}
                   />
                   <span>{plan.name}</span>

@@ -62,6 +62,12 @@ const nextConfig: NextConfig = {
               // hit goes out as a pixel, so img-src is what carries it.
               'https://www.googletagmanager.com',
               'https://*.google-analytics.com',
+              // Google Ads, through the GA4 link: the audience and conversion
+              // pings go out as pixels to google.com, the visitor's country
+              // domain and doubleclick.
+              'https://www.google.com',
+              'https://www.google.com.au',
+              'https://googleads.g.doubleclick.net',
             ],
             connect: [
               'https://*.clarity.ms',
@@ -75,6 +81,10 @@ const nextConfig: NextConfig = {
               'https://*.google-analytics.com',
               'https://*.google.com',
               'https://www.googletagmanager.com',
+              // Google Ads, the same pings by fetch: *.google.com does not
+              // cover the .com.au domain.
+              'https://www.google.com.au',
+              'https://googleads.g.doubleclick.net',
             ],
             frame: ['https://js.stripe.com', 'https://hooks.stripe.com'],
           },

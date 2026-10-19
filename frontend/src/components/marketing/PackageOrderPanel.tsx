@@ -17,7 +17,7 @@ import {
   submitClassName,
 } from '@/components/forms/selectionFormClassNames';
 import { MovingColourButton } from '@/components/MovingColourButton';
-import { CURRENCY, trackBeginCheckout, trackEvent } from '@/lib/analytics';
+import { CURRENCY, trackBeginCheckout, trackEvent, trackSelectPlanOnce } from '@/lib/analytics';
 import { money, type PackageCode, type PurchasePackage } from '@/lib/servicePricing';
 
 import { PackageChooser, type PackageCard } from './PackageChooser';
@@ -78,10 +78,7 @@ export function PackageOrderPanel({ packages }: { packages: readonly PurchasePac
 
   const choose = (code: PackageCode) => {
     setSelectedCode(code);
-    trackEvent('select_plan', {
-      item_category: code === 'automation_discovery' ? 'automation' : 'website',
-      plan: code,
-    });
+    trackSelectPlanOnce(code === 'automation_discovery' ? 'automation' : 'website', code);
   };
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
