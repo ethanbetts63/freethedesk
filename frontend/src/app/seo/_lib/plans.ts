@@ -26,6 +26,15 @@ const price = (value: string) => formatMoney(value, { cents: 'auto' });
 export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
   return [
     {
+      code: 'oneoff',
+      name: 'One-off SEO audit',
+      productName: 'SEO audit',
+      price: price(settings.seo_oneoff_price),
+      cadence: 'once, no subscription',
+      summary: 'One full round of analysis and ranked recommendations.',
+      features: FEATURES,
+    },
+    {
       code: 'monthly',
       name: 'Monthly audits',
       productName: 'Monthly SEO subscription',
@@ -54,15 +63,6 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
       cadence: 'per audit, every year',
       summary: 'An annual check-up, measuring what the year’s changes earned.',
       features: RECURRING_FEATURES,
-    },
-    {
-      code: 'oneoff',
-      name: 'One-off SEO audit',
-      productName: 'SEO audit',
-      price: price(settings.seo_oneoff_price),
-      cadence: 'once, no subscription',
-      summary: 'One full round of analysis and ranked recommendations.',
-      features: FEATURES,
     },
   ];
 }

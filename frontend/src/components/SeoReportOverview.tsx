@@ -13,6 +13,7 @@ type SeoReportOverviewProps = {
   mode?: 'report' | 'improvement';
   spacing?: 'standard' | 'compact' | 'joined';
   textSide?: 'left' | 'right';
+  action?: ReactNode;
 };
 
 export function SeoReportOverview({
@@ -25,6 +26,7 @@ export function SeoReportOverview({
   mode = 'report',
   spacing = 'compact',
   textSide = 'left',
+  action,
 }: SeoReportOverviewProps) {
   return (
     <SplitFeatureSection
@@ -37,6 +39,7 @@ export function SeoReportOverview({
       textSide={textSide}
       spacing={spacing}
       className={className}
+      action={action}
     />
   );
 }

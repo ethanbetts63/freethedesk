@@ -1,5 +1,7 @@
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
+import { SampleReportLink } from './SampleReportLink';
+
 import { SeoAnalysisVisual } from './SeoAnalysisVisual';
 
 export function SeoAnalysis({ eyebrow }: { eyebrow: string }) {
@@ -14,6 +16,7 @@ export function SeoAnalysis({ eyebrow }: { eyebrow: string }) {
       textSide="left"
       background="white"
       spacing="joined"
+      action={<SampleReportLink />}
     />
   );
 }

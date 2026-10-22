@@ -10,7 +10,8 @@ import type { PagePath } from '@/lib/pages';
 import { heroGridClassName } from '@/lib/gridSurface';
 import { cn } from '@/lib/utils';
 
-const secondaryLinkClassName =
+/** The hero's second call to action: an underlined text link. Sections lower down reuse it. */
+export const secondaryLinkClassName =
   'inline-flex min-h-[var(--tap-min)] items-center justify-between gap-s border-b border-text-primary py-2xs text-body font-heavy sm:min-h-0';
 
 type HeroProps = {

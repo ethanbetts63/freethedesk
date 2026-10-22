@@ -1,5 +1,7 @@
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
+import { SampleReportLink } from './SampleReportLink';
+
 import { SeoExperimentCard } from './SeoExperimentCard';
 
 export function SeoImprovement({ eyebrow }: { eyebrow: string }) {
@@ -14,6 +16,7 @@ export function SeoImprovement({ eyebrow }: { eyebrow: string }) {
       textSide="left"
       background="white"
       spacing="joined"
+      action={<SampleReportLink />}
     />
   );
 }

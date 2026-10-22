@@ -120,7 +120,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-10-14',
+    updated: '2026-10-22',
     label: 'SEO',
     title: "SEO Audit Perth | Find the searches you're losing",
     description: `Organic clicks up ${SCOOTER_SHOP_GROWTH.percent}% for a Perth dealer. Each audit is a written SEO report of your site: the searches you're losing and what to fix.`,

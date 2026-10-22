@@ -15,6 +15,7 @@ import { getSiteSettingsServer } from '@/lib/serverApi';
 
 import { SeoAnalysis } from './_components/SeoAnalysis';
 import { SeoCadence } from './_components/SeoCadence';
+import { SampleReportLink } from './_components/SampleReportLink';
 import { SeoImprovement } from './_components/SeoImprovement';
 import { SeoIntroduction } from './_components/SeoIntroduction';
 import { SeoSignup } from './_components/SeoSignup';
@@ -99,6 +100,7 @@ export default async function SeoPage() {
         description="Every recommendation says what to change, why the data points to it and how to do it. Written so you, or your IT person can quickly make the change."
         spacing="joined"
         textSide="right"
+        action={<SampleReportLink />}
       />
 
       <SeoImprovement eyebrow={sections['Experiment']} />
