@@ -27,7 +27,7 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
   return [
     {
       code: 'oneoff',
-      name: 'One-off SEO audit',
+      name: 'One-off SEO Audit',
       productName: 'SEO audit',
       price: price(settings.seo_oneoff_price),
       cadence: 'once, no subscription',
@@ -36,7 +36,7 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
     },
     {
       code: 'monthly',
-      name: 'Monthly audits',
+      name: 'Monthly Audit Subscription',
       productName: 'Monthly SEO subscription',
       price: price(settings.seo_monthly_price),
       cadence: 'per audit, every month',
@@ -47,7 +47,7 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
     },
     {
       code: 'quarterly',
-      name: 'Quarterly audits',
+      name: 'Quarterly Audit Subscription',
       productName: 'Quarterly SEO subscription',
       price: price(settings.seo_quarterly_price),
       cadence: 'per audit, every 3 months',
@@ -57,7 +57,7 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
     },
     {
       code: 'yearly',
-      name: 'Yearly audit',
+      name: 'Yearly Audit Subscription',
       productName: 'Yearly SEO subscription',
       price: price(settings.seo_yearly_price),
       cadence: 'per audit, every year',

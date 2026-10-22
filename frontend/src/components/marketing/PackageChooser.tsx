@@ -10,8 +10,8 @@ import { cn } from '@/lib/utils';
 /** One card in the row, already priced and worded: a package, or a plan. */
 export interface PackageCard<Code extends string> {
   code: Code;
-  /** Small capitals above the name: the card's position or kind. */
-  label: string;
+  /** Small capitals above the name: the card's position or kind. Optional; the name may say it. */
+  label?: string;
   name: string;
   /** What the price buys, in small capitals over it. */
   priceLabel: string;
@@ -125,16 +125,6 @@ export function PackageChooser<Code extends string>({
   const scrollRow = (direction: -1 | 1) =>
     rowRef.current?.scrollBy({ left: direction * CARD_STEP, behavior: 'smooth' });
 
-  // The row opens on the chosen card, so the card in view is the one the button prices.
-  useEffect(() => {
-    const row = rowRef.current;
-    const chosen = row?.querySelector<HTMLInputElement>('input:checked')?.closest('label');
-    if (!row || !chosen) return;
-    row.scrollLeft = Math.max(0, chosen.offsetLeft - row.offsetLeft);
-    updateArrows();
-    // Once, on mount: a later choice is the visitor's own scroll.
-  }, [updateArrows]);
-
   // On a phone the form sits under the row, out of sight: a tap on a card, chosen already or
   // not, takes the visitor to it. Beside the row, the form is in view and nothing moves.
   const goToForm = () => {
@@ -191,11 +181,12 @@ export function PackageChooser<Code extends string>({
                   checked={isSelected}
                   onChange={() => onChoose(item.code)}
                 />
-                {/* Wraps: "Subscription" and "Recommended" side by side are wider than a card. */}
+                {/* Wraps rather than overflows if a long label sits beside "Recommended". A
+                    card without a label keeps the line, so every card's name starts level. */}
                 <span
                   className={cn(cardKickerClassName, 'flex flex-wrap justify-between gap-x-xs')}
                 >
-                  <span>{item.label}</span>
+                  <span>{item.label ?? <>&nbsp;</>}</span>
                   {item.recommended && <span className="moving-colour-text">Recommended</span>}
                 </span>
                 <strong className="mt-s block text-lead leading-tight tracking-[-0.025em] text-text-secondary">

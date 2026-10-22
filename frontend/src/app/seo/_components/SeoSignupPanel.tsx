@@ -86,7 +86,6 @@ export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
 
   const cards: PackageCard<SeoPlanCode>[] = plans.map((plan) => ({
     code: plan.code,
-    label: plan.code === 'oneoff' ? 'One-off' : 'Subscription',
     name: plan.name,
     priceLabel: 'Per audit',
     price: plan.price,
