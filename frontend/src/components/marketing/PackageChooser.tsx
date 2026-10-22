@@ -191,7 +191,10 @@ export function PackageChooser<Code extends string>({
                   checked={isSelected}
                   onChange={() => onChoose(item.code)}
                 />
-                <span className={cn(cardKickerClassName, 'flex justify-between gap-xs')}>
+                {/* Wraps: "Subscription" and "Recommended" side by side are wider than a card. */}
+                <span
+                  className={cn(cardKickerClassName, 'flex flex-wrap justify-between gap-x-xs')}
+                >
                   <span>{item.label}</span>
                   {item.recommended && <span className="moving-colour-text">Recommended</span>}
                 </span>
