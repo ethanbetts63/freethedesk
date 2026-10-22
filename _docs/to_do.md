@@ -25,7 +25,7 @@ Added 2026-10-14. Owner's steps. Done on 14 October: Analytics links to Ads acco
 - Campaign settings > Locations > Location options: check it says "Presence: people in or regularly in your included locations", not "Presence or interest".
 - Campaign settings > Campaign URL options: final URL suffix `utm_source=google&utm_medium=cpc&utm_campaign=seo-pmax`.
 - Performance Max cannot be limited to search results. To stop the in-app and display traffic, either add account-level placement exclusions (Admin > Account settings > Content suitability > Excluded placements: the apps and sites in the campaign's placement report for 7 to 13 October), or pause it and run a Search campaign on the SEO keywords instead.
-- From 15 October, once the link has synced, import `generate_lead` as the Ads conversion: Goals > Conversions > New conversion > website data source "freethedesk 555139588" > category "Submit lead form" > event generate_lead. Set it as the campaign's goal in place of "Purchases".
+- Imported on 21 October: Analytics `generate_lead` (goal "Submit lead forms") and `purchase` (goal "Purchases"), both Primary; `select_plan` left out. Still to do: on the old website "Purchase" action (Goals > Conversions > Purchase > Settings > Action optimization), Secondary is selected but not saved — click Save, or Ads counts each purchase twice. Then make "Submit lead forms" Campaign #1's goal in place of "Purchases".
 - Complete advertiser verification before 2026-11-11, or Google pauses the ads.
 
 ## Search Console and directories
@@ -39,6 +39,10 @@ Added 2026-10-14. Owner's steps. The mistyped /sitemaps.xml submission was remov
 - Four more WA dealer guides from `_docs/licensing/research/` and `wa_dealer_forms/`, one a week, each ending on /licensing or /dealers. Topics: whether a WA dealer can sell without the buyer coming in (which forms need DoT's consent to e-signing, Electronic Transactions Act 2011 s9–10); the MR9B change of ownership step by step (7-day deadline, $100 infringement, consignment, how it differs from the MR9); statutory warranty Forms 5A, 5 and 6 for cars and motorcycles; the Bulk Licensing Scheme. Check each figure against the live DoT or Consumer Protection page on the day of writing, and say "not legal advice".
 - MTA WA (Motor Trade Association of WA): ask about its business partner programme, an article for members, and a sundowner slot for online licensing. Separately, email WA motorcycle dealers one at a time.
 - Guide: "How to redesign a website without losing your Google rankings". Cover the redirect map, keeping titles that already rank, resubmitting the sitemap and watching Search Console for six weeks. Use the site's own case: /website-development-perth drew "perth website development" showings in early September, its redirect went missing from 9 September to 2 October, and the showings haven't come back. End on the website redesign page and /seo.
+
+## Push and check search report r4 recs 2, 12 and 13
+
+Added 2026-10-22. Owner's step. Commits 7909610, 2076f6e and e6e4418 are approved to push but not pushed: `git push origin e6e4418:main`, which leaves 15459f0 (the contact page) local. Analytics event retention is 14 months since 21 October. Once deployed, send one test enquiry from https://www.freethedesk.com.au/contact. Check that the staff email arrives, that `generate_lead` shows in Analytics (Reports > Realtime), and that within a day it appears under the "freethedesk (web) generate_lead" conversion in Ads.
 
 ## Deploy the contact page changes, then have Google read it
 
