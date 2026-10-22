@@ -19,14 +19,22 @@ Added 2026-10-14. Owner's decision. Section 7 of `frontend/content/legal/privacy
 
 Added 2026-10-14. Owner's step. On the Django deploy, run `migrate` for `core` 0024 (the enquiry "ignored" status). The dealer and SEO terms changed text, so `FTP_AGREEMENTS` now names version 2026-10-14 for both; deploy Django and the frontend together so the new terms and their version arrive at once. The homepage now renders per request and reads its prices from the site settings.
 
-## Google Ads: rest of rec 2 from search report r3
+## Google Ads: what is left after search report r4 rec 1
 
-Added 2026-10-14. Owner's steps. Done on 14 October: Analytics links to Ads account freethedesk 702-260-4011 (the mistaken link to 420-916-5972 is deleted), and Campaign #1 targets Perth, Western Australia (city) instead of all of Australia. Still to do, in analytics@freethedesk.com.au, account 702-260-4011, Campaign #1 (Performance Max, A$5 a day):
-- Campaign settings > Locations > Location options: check it says "Presence: people in or regularly in your included locations", not "Presence or interest".
-- Campaign settings > Campaign URL options: final URL suffix `utm_source=google&utm_medium=cpc&utm_campaign=seo-pmax`.
-- Performance Max cannot be limited to search results. To stop the in-app and display traffic, either add account-level placement exclusions (Admin > Account settings > Content suitability > Excluded placements: the apps and sites in the campaign's placement report for 7 to 13 October), or pause it and run a Search campaign on the SEO keywords instead.
-- Imported on 21 October: Analytics `generate_lead` (goal "Submit lead forms") and `purchase` (goal "Purchases"), both Primary; `select_plan` left out. The old website "Purchase" action is Secondary since 22 October. Still to do: make "Submit lead forms" Campaign #1's goal in place of "Purchases".
-- Complete advertiser verification before 2026-11-11, or Google pauses the ads.
+Added 2026-10-14, rewritten 2026-10-22. Account freethedesk 702-260-4011, signed in as analytics@freethedesk.com.au.
+
+Done on 22 October:
+- Campaign #1 (Performance Max) is paused. Before pausing, it was set to Presence only, and the account got 157 excluded placements (140 app categories and 17 sites).
+- New campaign "Search – Perth services" is live at A$5 a day. It runs on Google Search only, in Perth (city, Presence only), in English, on Maximise clicks with a A$4 max CPC. Its URL suffix is `utm_source=google&utm_medium=cpc&utm_campaign=search-perth`, and AI Max and broad match are off.
+- Ad group "SEO" is enabled and sends ads to /seo with 6 phrase-match keywords.
+- Ad group "Websites" is built but paused. It sends ads to /website-development with 5 phrase-match keywords.
+- Nine campaign negative keywords: course, training, beginner, tutorial, free, jobs, salary, "how to", "screaming frog".
+
+Still to do:
+- Complete advertiser verification before 2026-11-11, or Google pauses the ads (the "Get started" banner in Ads).
+- Once `generate_lead` records real enquiries in Ads, switch the Search campaign's bidding to Maximise conversions with "Submit lead forms" as its only goal. It now uses the account defaults, Purchases and Submit lead forms (search report r4, rec 2).
+- Turn on the Websites ad group when it should run. That splits the A$5, so raise the budget at the same time.
+- About a week after launch, read the search terms report and add negatives for searches that don't fit.
 
 ## Search Console and directories
 
