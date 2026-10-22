@@ -14,8 +14,8 @@ without importing each other.
 
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
+from freetheplatform.auth import generate_email_code
 
-from core.utils.temporary_password import generate_temporary_password
 from core.utils.urls import site_url
 
 COOKIE_PREFIX = "sale-access"
@@ -33,7 +33,7 @@ def set_access_password(sale, *, save=True) -> str:
     customer exactly once. It cannot be recovered afterwards, which is the
     point: a password we can read back is one a support conversation can leak.
     """
-    plain = generate_temporary_password()
+    plain = generate_email_code()
     sale.access_password_hash = make_password(plain)
     if save:
         sale.save(update_fields=["access_password_hash", "updated_at"])

@@ -47,3 +47,7 @@ Added 2026-10-22. Owner's step. Commits 7909610, 2076f6e and e6e4418 are approve
 ## Deploy the contact page changes, then have Google read it
 
 Added 2026-10-19. Owner's step. Search report r4, rec 9 (contact-page-call-and-content). /contact now has an "Or call 0423 853 830" button under its opening line and an "SEO audit" choice in "What do you need?", which sends no budget, and the phone field is labelled optional. On the Django deploy, run `migrate` for `core` 0025 (the enquiry "SEO audit" type). Deploy Django before the frontend: the old API refuses an SEO enquiry. Once it is live, in Search Console (analytics@freethedesk.com.au) run URL inspection on https://www.freethedesk.com.au/contact and click "Request indexing", once. Google lists the page as found but has never read it.
+
+## The read API test fails when the whole suite runs
+
+Added 2026-10-22. `core/tests/test_read_api.py::test_every_dealers_sales_are_read_and_their_credentials_are_not` passes on its own and fails with `KeyError: 'models'` when run after `sales seo payments core identity dealers`: `/api/read/models/` answers something other than the model list, most likely a throttle or cache left over from an earlier test. It fails the same way without the 2026-10-22 shared-code change, so it predates it.

@@ -1,9 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.utils import timezone
-from freetheplatform.auth import lockout
-
-from core.utils.temporary_password import generate_temporary_password
+from freetheplatform.auth import issue_email_code
 
 from ..models import SeoProfile, SeoSubscriber
 from .existing_account import find_existing_account
@@ -65,11 +63,6 @@ def activate_paid_subscriber(subscriber: SeoSubscriber) -> None:
     user = subscriber.user
     password = None
     if not user.has_usable_password():
-        password = generate_temporary_password()
-        user.set_password(password)
-        user.save(update_fields=["password"])
-        state = lockout.state_for(user)
-        state.must_change_password = True
-        state.save(update_fields=["must_change_password"])
+        password = issue_email_code(user)
 
     transaction.on_commit(lambda: send_seo_welcome(subscriber, password))

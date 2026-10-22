@@ -18,7 +18,7 @@ deliberately share this shape.
 
 from django.contrib.auth import get_user_model
 
-from freetheplatform.auth import lockout
+from freetheplatform.auth import issue_email_code
 
 
 def ensure_customer_account(sale, *, password=None):
@@ -46,18 +46,13 @@ def ensure_customer_account(sale, *, password=None):
             email=email,
             first_name=(sale.customer_name or "").strip()[:150],
         )
-        if password:
-            user.set_password(password)
-        else:
-            # No password to hand over (backfill): the account exists to be
-            # claimed through a reset email.
-            user.set_unusable_password()
+        # Replaced by the sale password below. With none to hand over
+        # (backfill), the account exists to be claimed through a reset email.
+        user.set_unusable_password()
         user.save()
         created = True
         if password:
-            state = lockout.state_for(user)
-            state.must_change_password = True
-            state.save(update_fields=["must_change_password"])
+            issue_email_code(user, code=password)
 
     if sale.account_id != user.pk:
         sale.account = user

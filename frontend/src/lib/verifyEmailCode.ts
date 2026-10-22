@@ -34,8 +34,8 @@ async function withIssuedCookies(response: Response): Promise<ReadableCookies> {
 }
 
 /**
- * Verify a paid signup's email with the code we sent it, and replace the code with the
- * customer's own password. See `_docs/apps/payments.md`, "Accounts a payment opens".
+ * Verify a new account's email with the code we sent it, and replace the code with the
+ * owner's own password. See `_docs/apps/auth.md`, "Accounts opened by an emailed code".
  *
  * The code is the account's first password, flagged `must_change_password`. Signing in with
  * it proves the address; the shared change-password endpoint then replaces it on the session
