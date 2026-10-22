@@ -25,7 +25,7 @@ Added 2026-10-14. Owner's steps. Done on 14 October: Analytics links to Ads acco
 - Campaign settings > Locations > Location options: check it says "Presence: people in or regularly in your included locations", not "Presence or interest".
 - Campaign settings > Campaign URL options: final URL suffix `utm_source=google&utm_medium=cpc&utm_campaign=seo-pmax`.
 - Performance Max cannot be limited to search results. To stop the in-app and display traffic, either add account-level placement exclusions (Admin > Account settings > Content suitability > Excluded placements: the apps and sites in the campaign's placement report for 7 to 13 October), or pause it and run a Search campaign on the SEO keywords instead.
-- Imported on 21 October: Analytics `generate_lead` (goal "Submit lead forms") and `purchase` (goal "Purchases"), both Primary; `select_plan` left out. Still to do: on the old website "Purchase" action (Goals > Conversions > Purchase > Settings > Action optimization), Secondary is selected but not saved — click Save, or Ads counts each purchase twice. Then make "Submit lead forms" Campaign #1's goal in place of "Purchases".
+- Imported on 21 October: Analytics `generate_lead` (goal "Submit lead forms") and `purchase` (goal "Purchases"), both Primary; `select_plan` left out. The old website "Purchase" action is Secondary since 22 October. Still to do: make "Submit lead forms" Campaign #1's goal in place of "Purchases".
 - Complete advertiser verification before 2026-11-11, or Google pauses the ads.
 
 ## Search Console and directories
