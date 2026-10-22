@@ -39,14 +39,6 @@ const PRICE_FIELD = {
   oneoff: 'seo_oneoff_price',
 } as const satisfies Record<SeoPlanCode, keyof PublicSiteSettings>;
 
-/** Under each card's price: how often it recurs, and whether it can be stopped. */
-const CADENCE_NOTE: Record<SeoPlanCode, string> = {
-  monthly: 'Every month. Cancel any time.',
-  quarterly: 'Every 3 months. Cancel any time.',
-  yearly: 'Once a year. Cancel any time.',
-  oneoff: 'Once. No subscription.',
-};
-
 /**
  * The SEO order form, drawn like the service pages' package forms: the plans as cards on the
  * left (see PackageChooser), the details, terms and payment on the right.
@@ -89,9 +81,7 @@ export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
     name: plan.name,
     priceLabel: 'Per audit',
     price: plan.price,
-    priceNote: CADENCE_NOTE[plan.code],
     includes: plan.features,
-    recommended: plan.recommended,
   }));
 
   return (

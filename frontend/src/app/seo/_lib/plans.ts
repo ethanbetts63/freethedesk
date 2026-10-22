@@ -43,7 +43,6 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
       summary:
         'For a business that can make changes within weeks. Each audit measures what last month’s changes earned.',
       features: RECURRING_FEATURES,
-      recommended: true,
     },
     {
       code: 'quarterly',

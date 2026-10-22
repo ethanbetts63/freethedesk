@@ -16,7 +16,7 @@ export interface PackageCard<Code extends string> {
   /** What the price buys, in small capitals over it. */
   priceLabel: string;
   price: string;
-  priceNote: string;
+  priceNote?: string;
   /** When only part is paid upfront: what is due today, highlighted under the price. */
   dueNote?: string;
   includes: readonly string[];
@@ -97,6 +97,8 @@ export function PackageChooser<Code extends string>({
   onChoose: (code: Code) => void;
 }) {
   const single = cards.length === 1;
+  // The kicker line shows on every card or none, so the names start level.
+  const hasKicker = cards.some((item) => item.label || item.recommended);
   const rowRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -181,15 +183,19 @@ export function PackageChooser<Code extends string>({
                   checked={isSelected}
                   onChange={() => onChoose(item.code)}
                 />
-                {/* Wraps rather than overflows if a long label sits beside "Recommended". A
-                    card without a label keeps the line, so every card's name starts level. */}
-                <span
-                  className={cn(cardKickerClassName, 'flex flex-wrap justify-between gap-x-xs')}
-                >
-                  <span>{item.label ?? <>&nbsp;</>}</span>
-                  {item.recommended && <span className="moving-colour-text">Recommended</span>}
-                </span>
-                <strong className="mt-s block text-lead leading-tight tracking-[-0.025em] text-text-secondary">
+                {/* Wraps rather than overflows if a long label sits beside "Recommended". */}
+                {hasKicker && (
+                  <span
+                    className={cn(
+                      cardKickerClassName,
+                      'mb-s flex flex-wrap justify-between gap-x-xs',
+                    )}
+                  >
+                    <span>{item.label ?? <>&nbsp;</>}</span>
+                    {item.recommended && <span className="moving-colour-text">Recommended</span>}
+                  </span>
+                )}
+                <strong className="block text-lead leading-tight tracking-[-0.025em] text-text-secondary">
                   {item.name}
                 </strong>
 
@@ -197,7 +203,9 @@ export function PackageChooser<Code extends string>({
                 <span className="mt-2xs block text-title leading-none font-heavy tracking-[-0.05em] text-text-primary">
                   {item.price}
                 </span>
-                <span className="mt-xs block text-body-sm text-text-muted">{item.priceNote}</span>
+                {item.priceNote && (
+                  <span className="mt-xs block text-body-sm text-text-muted">{item.priceNote}</span>
+                )}
                 {item.dueNote && (
                   <span className="mt-xs block text-body-sm font-strong text-text-action">
                     {item.dueNote}
