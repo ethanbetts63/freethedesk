@@ -1,11 +1,11 @@
 ---
 published: 2026-10-14
-updated: 2026-10-15
-title: WordPress Website Costs in Perth: What You Really Pay
+updated: 2026-10-24
+title: WordPress Website Cost in Perth: What You Pay
 description: What a WordPress site costs a Perth small business over time: hosting, plugins and upkeep, and when a custom-coded site is the better buy.
 ---
 
-# WordPress website costs in Perth: what you really pay
+# WordPress website cost in Perth: what you pay
 
 WordPress is the most widely used website platform in the world, and for plenty of Perth small businesses it is a sensible choice. But the price of a WordPress website is rarely the number on the first quote. This guide sets out what you pay to build one, what you keep paying each year, and how to tell whether WordPress or a custom-coded site suits your business better.
 

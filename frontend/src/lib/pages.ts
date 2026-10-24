@@ -50,14 +50,14 @@ export const STATIC_PAGES = {
   '/dealers': {
     updated: '2026-10-24',
     label: 'Dealer websites',
-    title: 'Dealership Websites & Online Licensing for WA Dealers',
+    title: 'Dealership Websites & Online Licensing, WA',
     description:
       'One connected system for Perth and WA dealerships: a website built to be found, online licensing, and the admin automation behind it.',
   },
   '/licensing': {
     updated: '2026-10-24',
     label: 'Online licensing',
-    title: 'Online Vehicle Licensing for Perth & WA Dealers',
+    title: 'Online Vehicle Licensing for WA Dealers',
     description:
       'Let Perth customers verify their identity, complete vehicle licensing and sign paperwork online, without another trip across town to the dealership.',
     service: {
@@ -81,12 +81,11 @@ export const STATIC_PAGES = {
     },
   },
   '/web-design-subiaco': {
-    updated: '2026-10-08',
+    updated: '2026-10-24',
     label: 'Web design Subiaco',
-    title: 'Web Design Subiaco | Websites for Subiaco businesses',
+    title: 'Web Design Subiaco',
     description:
       'Web design and development for Subiaco businesses: custom websites priced per page, built to show up in local search and automate the admin behind them.',
-    absoluteTitle: true,
     service: {
       name: 'Web Design Subiaco',
       serviceType: 'Web design, website development and web application development',
@@ -131,7 +130,7 @@ export const STATIC_PAGES = {
   '/seo/sample-report': {
     updated: '2026-10-24',
     label: 'Sample report',
-    title: 'Sample SEO Report: What a Website Report Includes',
+    title: 'Sample SEO Report: What an Audit Includes',
     description:
       'A sample SEO report for an invented Perth plumber: ranked fixes with cost and impact, a running experiment, foundation checks and what the search data shows.',
   },
@@ -145,7 +144,7 @@ export const STATIC_PAGES = {
   '/portfolio/scooter-shop': {
     updated: '2026-10-24',
     label: 'Scooter Shop',
-    title: `Perth Dealer Website Case Study: Organic Clicks Up ${SCOOTER_SHOP_GROWTH.percent}%`,
+    title: 'Perth Dealer Website Case Study: Scooter Shop',
     description:
       'A connected website for a Perth scooter dealership: sales, online purchasing, licensing, parts, service, hire and long-term organic growth.',
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
@@ -153,7 +152,7 @@ export const STATIC_PAGES = {
   '/portfolio/bloomprint': {
     updated: '2026-10-24',
     label: 'Bloomprint',
-    title: 'Marketplace Website Case Study: Bloomprint Flowers',
+    title: 'Marketplace Website Case Study: Bloomprint',
     description:
       'A two-sided flower delivery marketplace: brief-led ordering for customers, paid local orders for florists, and landing pages built to be found.',
     ogImage: '/case-studies/bloomprint/home-desktop.png',
@@ -161,7 +160,7 @@ export const STATIC_PAGES = {
   '/contact': {
     updated: '2026-10-24',
     label: 'Contact',
-    title: 'Contact Perth Website, SEO & Automation Developers',
+    title: 'Contact Us: Perth Websites, SEO & Automation',
     description:
       'Talk to freethedesk, a Perth team, about a custom website, SEO audit, online licensing, web application or business automation project.',
   },

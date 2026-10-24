@@ -1,11 +1,11 @@
 ---
 published: 2026-10-14
 updated: 2026-10-24
-title: DoT Dealer Online in WA: What It Does and Who Can Join
+title: Dealer Online WA: Login and Who Can Join
 description: The WA Dealer Online login, what the DoT dealer portal lets licensed dealers do, who can apply, and the sale paperwork it still leaves at the yard.
 ---
 
-# DoT Dealer Online in WA: what it does and who can join
+# Dealer Online WA: login and who can join
 
 Dealer Online is the Western Australian Department of Transport's portal for licensed vehicle dealers. The member login is at [online.transport.wa.gov.au/dealerNetwork/dealer](https://online.transport.wa.gov.au/dealerNetwork/dealer/), and it asks for your site code first. DoT's information page for the system is [Dealer Online on Transport WA](https://www.transport.wa.gov.au/licensing/dealers-industry/dealers/dealer-online).
 

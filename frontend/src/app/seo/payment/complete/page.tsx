@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { PaymentComplete } from './PaymentComplete';
 
 export const metadata: Metadata = {
-  title: 'Confirming SEO Subscription',
+  title: 'Confirming Your SEO Order',
   robots: { index: false, follow: false },
 };
 
