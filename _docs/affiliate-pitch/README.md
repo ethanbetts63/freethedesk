@@ -26,8 +26,9 @@ pointed at `core/templates` and the context below; images resolve against
   bought once, so there is nothing to repeat.
 - A 20% listener discount, passed as `discount`.
 - One next step: sign up on the partner page, /partners. No audit is written and no code issued until they have.
-- A footer with the postal address, where the address came from (their podcast
-  feed), a one-click unsubscribe, and a promise of at most one more email.
+- A footer with a one-click unsubscribe. A's also gives the postal address and
+  says where the email address came from (their podcast feed); B's is just the
+  unsubscribe line.
 
 ## What changes
 

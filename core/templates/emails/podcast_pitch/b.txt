@@ -13,7 +13,7 @@ HOW IT WORKS
 2. Get your free audit. We write one for your business, on us.
 3. Advertise. Share your code. Listeners get {{ discount }} off, you get half of every sale ({{ commission_low }} to {{ commission_high }} an audit, paid through Stripe).
 
-A FREE SAMPLE REPORT
+SAMPLE REPORT
 
 See what you'd be recommending:
 - Where they show up on Google and in AI answers
@@ -28,6 +28,5 @@ Sign up as a partner: {{ site_url }}/partners
 It takes a minute, and your audit is the first thing we do.
 
 --
-Free the Desk · Perth, Western Australia · {{ postal_address }}
-You're receiving this because {{ podcast }} lists this address as its contact in its podcast feed. We'll email about this once more at most.
+Free the Desk · Perth, Western Australia
 Unsubscribe and we won't write again: {{ unsubscribe_url }}

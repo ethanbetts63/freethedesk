@@ -71,7 +71,7 @@ Added 2026-10-22. `core/tests/test_read_api.py::test_every_dealers_sales_are_rea
 
 ## A marketing email address for the podcast partner outreach
 
-Added 2026-10-24. Owner's step. The podcast partner pitch templates (`core/templates/emails/podcast_pitch/`, explained in `_docs/affiliate-pitch/README.md`) need a dedicated sending address on the freethedesk.com.au domain, not the Gmail account Bloomprint's outreach used, with SPF and DKIM set up so cold email lands in inboxes. The footer of every version also needs a postal address, which overseas spam law (US CAN-SPAM) requires. The listener discount is decided: 20%, passed to the templates as `discount`. The commission needs no decision: audits are bought once, so half of each sale is paid once.
+Added 2026-10-24. Owner's step. The podcast partner pitch templates (`core/templates/emails/podcast_pitch/`, explained in `_docs/affiliate-pitch/README.md`) need a dedicated sending address on the freethedesk.com.au domain, not the Gmail account Bloomprint's outreach used, with SPF and DKIM set up so cold email lands in inboxes. Version A's footer takes a postal address (`postal_address`), which US spam law (CAN-SPAM) requires; B's footer was cut to the unsubscribe line only on 2026-10-24, the owner's call. The listener discount is decided: 20%, passed to the templates as `discount`. The commission needs no decision: audits are bought once, so half of each sale is paid once.
 
 ## Deploy the podcast partner page, then build the code behind it
 
