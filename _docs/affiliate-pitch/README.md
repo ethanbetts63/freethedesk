@@ -25,7 +25,7 @@ pointed at `core/templates` and the context below; images resolve against
   $700 an audit across the three tiers, paid out through Stripe. Audits are
   bought once, so there is nothing to repeat.
 - A listener discount, `discount`, still to decide ($50 suggested).
-- One next step: reply with your website.
+- One next step: sign up on the partner page, /partners. No audit is written and no code issued until they have.
 - A footer with the postal address, where the address came from (their podcast
   feed), a one-click unsubscribe, and a promise of at most one more email.
 
@@ -34,7 +34,7 @@ pointed at `core/templates` and the context below; images resolve against
 | Version | Sounds like | The visual | Subject lines |
 | --- | --- | --- | --- |
 | A | One person writing to one host; opens with a line about the show | The report cover, one small image | A free SEO audit for {business} · Quick one about {podcast} · $700 an audit for {podcast} |
-| B | Free the Desk announcing a partner program | Navy hero, three figures, three steps, report preview | The Free the Desk podcast partner program · An invitation for {podcast} · {podcast} × Free the Desk |
+| B | Free the Desk announcing a partner program | Navy hero, three figures, three steps, the free sample report | The Free the Desk podcast partner program · An invitation for {podcast} · {podcast} × Free the Desk |
 
 ## Context
 
@@ -47,8 +47,6 @@ pointed at `core/templates` and the context below; images resolve against
 | `discount` | $50 | The listener discount |
 | `commission_low`, `commission_high` | $275, $700 | Half of the cheapest and dearest audit |
 | `free_audit_price` | $850 | The tier the host gets free |
-| `partner_url` | …/partners | The affiliate page, not built yet |
-| `sample_url` | …/seo/sample-report | |
 | `unsubscribe_url` | per recipient | Must suppress the address in messaging |
 | `postal_address` | | Required by US CAN-SPAM |
 | `sender_name` | Ethan Betts | A only |

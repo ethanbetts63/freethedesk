@@ -6,13 +6,13 @@ I'm Ethan Betts. I run Free the Desk in Perth, Western Australia. We write SEO a
 
 I'd like to offer you two things:
 
-1. A free audit of your business. Reply with your website and I'll write one, no strings. It's the same audit customers pay $850 for.
+1. A free audit of your business. Sign up on the partner page and I'll write one, no strings. It's the same audit customers pay $850 for.
 
 2. Half of every audit your listeners buy. You get a code, your listeners get $50 off, and you get 50% of each sale: $275 to $700 an audit, paid out through Stripe.
 
-See a full sample: https://www.freethedesk.com.au/seo/sample-report
+Read a free sample report: ../../../frontend/public/seo/sample-report
 
-If you're keen, just reply with your website and I'll get started. Everything else is on the partner page: https://www.freethedesk.com.au/partners
+If you're keen, sign up on the partner page and I'll get started on your audit. The whole process is explained there, and it takes a minute: ../../../frontend/public/partners
 
 Ethan Betts
 Free the Desk · Perth, Western Australia · ../../../frontend/public

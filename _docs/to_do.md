@@ -72,3 +72,13 @@ Added 2026-10-22. `core/tests/test_read_api.py::test_every_dealers_sales_are_rea
 ## A marketing email address for the podcast partner outreach
 
 Added 2026-10-24. Owner's step. The podcast partner pitch templates (`core/templates/emails/podcast_pitch/`, explained in `_docs/affiliate-pitch/README.md`) need a dedicated sending address on the freethedesk.com.au domain, not the Gmail account Bloomprint's outreach used, with SPF and DKIM set up so cold email lands in inboxes. The footer of every version also needs a postal address, which overseas spam law (US CAN-SPAM) requires. Still to decide before sending: the listener discount (`discount`, $50 suggested). The commission no longer needs a decision: audits are bought once, so half of each sale is paid once.
+
+## Deploy the podcast partner page, then build the code behind it
+
+Added 2026-10-24. Owner's steps. `/partners` and its sign-up (`core` 0028, the "Podcast partner" enquiry type, `POST /api/partner-signups/`) are committed and not pushed. On deploy: `migrate` for `core` 0028, then open https://www.freethedesk.com.au/partners and send one test sign-up; it should arrive as an enquiry on the dashboard and as the staff email.
+
+Nothing yet issues a partner a code or counts a sale against it. The page promises a code entered at checkout, a listener discount and a 50% payout through Stripe, so before the first pitch email goes out:
+
+- Decide the listener discount. The page says "a discount" without a figure; the pitch emails take it as `discount`. $50 was the suggestion.
+- A partner record (name, email, podcast, code, Stripe account for payouts), created when a sign-up is accepted, and a Stripe promotion code per partner on the SEO checkout (`allow_promotion_codes` on the one-off session).
+- A commission row per paid audit carrying a partner's code, half the price, and a monthly Stripe transfer. Bloomprint's `partners` app (discount codes, commissions) is the model.

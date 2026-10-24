@@ -81,6 +81,36 @@ class ProjectEnquirySerializer(serializers.Serializer):
         )
 
 
+class PartnerSignupSerializer(serializers.Serializer):
+    """A podcast host joining the partner program on /partners.
+
+    It lands as an enquiry rather than a partner record because the program is
+    run by hand for now: staff write the free audit, set up the code and reply.
+    The podcast is the ``business`` and the site to audit is the ``website``.
+    """
+
+    name = bounds.char("name")
+    email = bounds.email()
+    podcast = bounds.char("business_name")
+    website = bounds.url()
+    notes = bounds.text("note", required=False, allow_blank=True, default="")
+
+    def create(self, validated_data):
+        notes = validated_data["notes"].strip()
+        message = "Podcast partner signup."
+        if notes:
+            message = f"{message}\n\nNotes:\n{notes}"
+        return Enquiry.objects.create(
+            name=validated_data["name"],
+            business=validated_data["podcast"],
+            email=validated_data["email"],
+            website=validated_data["website"],
+            help_with=Enquiry.HelpWith.PARTNER,
+            message=message,
+            configuration={"podcast": validated_data["podcast"]},
+        )
+
+
 class AdminEnquirySerializer(serializers.ModelSerializer):
     help_with_label = serializers.CharField(source="get_help_with_display", read_only=True)
     status_label = serializers.CharField(source="get_status_display", read_only=True)

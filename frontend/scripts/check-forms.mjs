@@ -44,6 +44,7 @@ checkFormLedger({
     { file: 'app/seo-portal/account/page.tsx', track: 'B' },
     { file: 'app/seo-portal/setup/_components/SetupBrief.tsx', track: 'B' },
     { file: 'components/marketing/AiReadinessForm.tsx', track: 'B' },
+    { file: 'app/partners/_components/PartnerSignupForm.tsx', track: 'B' },
 
     // Excluded, with the argument. Re-opening one means disagreeing with the
     // reason, not noticing a gap.

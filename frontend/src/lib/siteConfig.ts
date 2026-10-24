@@ -39,6 +39,7 @@ export const FOOTER_NAVIGATION = [
   { href: '/automation', label: 'Automation' },
   { href: '/licensing', label: 'Online licensing' },
   { href: '/guides', label: 'Guides & articles' },
+  { href: '/partners', label: 'Podcast partners' },
   { href: '/contact', label: 'Contact' },
   { href: '/login', label: 'Login' },
 ] as const;

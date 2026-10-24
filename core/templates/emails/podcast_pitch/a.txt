@@ -6,13 +6,13 @@ Hi {{ first_name|default:"there" }},
 
 I'd like to offer you two things:
 
-1. A free audit of your business. Reply with your website and I'll write one, no strings. It's the same audit customers pay {{ free_audit_price }} for.
+1. A free audit of your business. Sign up on the partner page and I'll write one, no strings. It's the same audit customers pay {{ free_audit_price }} for.
 
 2. Half of every audit your listeners buy. You get a code, your listeners get {{ discount }} off, and you get 50% of each sale: {{ commission_low }} to {{ commission_high }} an audit, paid out through Stripe.
 
-See a full sample: {{ sample_url }}
+Read a free sample report: {{ site_url }}/seo/sample-report
 
-If you're keen, just reply with your website and I'll get started. Everything else is on the partner page: {{ partner_url }}
+If you're keen, sign up on the partner page and I'll get started on your audit. The whole process is explained there, and it takes a minute: {{ site_url }}/partners
 
 {{ sender_name }}
 Free the Desk · Perth, Western Australia · {{ site_url }}

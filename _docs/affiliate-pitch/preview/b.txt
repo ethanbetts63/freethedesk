@@ -10,23 +10,23 @@ Your listeners run businesses. Our audits show a business where it appears on Go
 
 HOW IT WORKS
 
-1. We audit your business. Send us your website and we'll write you a full audit, free, so you know exactly what you're recommending.
+1. We audit your business. Sign up and we'll write you a full audit, free, so you know exactly what you're recommending.
 2. Share your code. Mention it on air or put it in your show notes. Your listeners get $50 off.
 3. Get paid. Half of every audit bought with your code: $275 to $700 each, paid out through Stripe.
 
-WHAT YOUR LISTENERS GET
+A FREE SAMPLE REPORT
 
-An audit they can act on:
+See what you'd be recommending:
 - Where they show up on Google and in AI answers
 - Who's beating them, and why
 - The changes worth making first, in order
 
-See a full sample audit: https://www.freethedesk.com.au/seo/sample-report
+Read the free sample report: ../../../frontend/public/seo/sample-report
 
-START WITH YOUR FREE AUDIT
+SIGN UP AND START WITH YOUR FREE AUDIT
 
-Become a partner: https://www.freethedesk.com.au/partners
-Or just reply to this email with your website.
+Sign up as a partner: ../../../frontend/public/partners
+It takes a minute, and your audit is the first thing we do.
 
 --
 Free the Desk · Perth, Western Australia · PO Box 000, Perth WA 6000
