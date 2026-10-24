@@ -16,6 +16,8 @@ Added 2026-10-09. Owner's step. Everything up to f3d3853 was pushed on 2026-10-0
 
 Added 2026-10-24. Owner's step. On the Django deploy, run `migrate` for `core` 0026 (the one-page website package, $750 by default). The dealer and SEO terms now say "freethedesk", so `FTP_AGREEMENTS` names version 2026-10-24 for both; deploy Django and the frontend together so the new terms and their version arrive at once. The dealer page, the sample report and every guide now render per request and read their prices from the site settings. The AI-check pop-up is gone; the inline AI-check strip stays on wide screens.
 
+Once it is live, change the Business Profile's Website design, Website development and Website redesign services from "From $3,000" to "From $750" (Edit services, in Google Search signed in as nahte12321). They quote the live site's $3,000 until the one-page package ships.
+
 ## Deploy the 14 October site changes
 
 Added 2026-10-14. Owner's step. On the Django deploy, run `migrate` for `core` 0024 (the enquiry "ignored" status). The dealer and SEO terms changed text, so `FTP_AGREEMENTS` now names version 2026-10-14 for both; deploy Django and the frontend together so the new terms and their version arrive at once. The homepage now renders per request and reads its prices from the site settings.
@@ -34,7 +36,8 @@ Done on 22 October:
 
 Still to do:
 
-- Complete advertiser verification before 2026-11-11, or Google pauses the ads (the "Get started" banner in Ads).
+- The account is paused until a payment is made ("make a payment which will be added to your account balance"). Nothing serves until then.
+- Advertiser verification was submitted on 2026-10-24 and is pending; until it clears both ads stay "limited by policy".
 - Once `generate_lead` records real enquiries in Ads, switch the Search campaign's bidding to Maximise conversions with "Submit lead forms" as its only goal. It now uses the account defaults, Purchases and Submit lead forms (search report r4, rec 2).
 - Turn on the Websites ad group when it should run. That splits the A$5, so raise the budget at the same time.
 - About a week after launch, read the search terms report and add negatives for searches that don't fit.
