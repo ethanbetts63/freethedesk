@@ -50,6 +50,7 @@ const CHECKOUT_PRICE_FIELDS = [
 export const SERVICE_PRICE_FIELDS = [
   'hourly_rate',
   'discovery_hours',
+  'website_one_page_price',
   'website_small_pages',
   'website_small_page_price',
   'website_large_pages',

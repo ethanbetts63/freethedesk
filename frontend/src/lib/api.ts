@@ -118,6 +118,7 @@ export interface PublicSiteSettings {
   seo_oneoff_price: string;
   hourly_rate: string;
   discovery_hours: number;
+  website_one_page_price: string;
   website_small_pages: number;
   website_small_page_price: string;
   website_large_pages: number;

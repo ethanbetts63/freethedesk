@@ -16,6 +16,7 @@ def test_site_settings_are_publicly_readable(api_client):
     assert data["seo_oneoff_price"] == "550.00"
     assert data["hourly_rate"] == "150.00"
     assert data["discovery_hours"] == 3
+    assert data["website_one_page_price"] == "750.00"
     assert data["website_small_pages"] == 6
     assert data["website_small_page_price"] == "500.00"
     assert data["website_large_pages"] == 10

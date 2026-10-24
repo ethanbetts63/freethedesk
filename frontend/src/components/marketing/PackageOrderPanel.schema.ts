@@ -11,7 +11,13 @@ import { normaliseWebsiteUrl } from '@/lib/api';
  * travel too, and a `z.object` strips what it does not declare.
  */
 export const packageOrderSchema = z.object({
-  package: z.enum(['website_small', 'website_large', 'web_application', 'automation_discovery']),
+  package: z.enum([
+    'website_one_page',
+    'website_small',
+    'website_large',
+    'web_application',
+    'automation_discovery',
+  ]),
   // Optional, so someone with no website yet can still buy one. Bounded before
   // `normaliseWebsiteUrl` rather than after: the transform adds a scheme, so
   // checking the result would let a longer input through.

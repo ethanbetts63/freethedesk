@@ -50,7 +50,9 @@ def quote_package(package: str, settings: SiteSettings | None = None) -> Package
             due_now=price,
             basis=f"{hours} hours at {dollars(settings.hourly_rate)} an hour",
         )
-    if package == PackageOrder.Package.WEBSITE_SMALL:
+    if package == PackageOrder.Package.WEBSITE_ONE_PAGE:
+        pages, page_price = 1, settings.website_one_page_price
+    elif package == PackageOrder.Package.WEBSITE_SMALL:
         pages, page_price = settings.website_small_pages, settings.website_small_page_price
     elif package == PackageOrder.Package.WEBSITE_LARGE:
         pages, page_price = settings.website_large_pages, settings.website_large_page_price
@@ -59,8 +61,8 @@ def quote_package(package: str, settings: SiteSettings | None = None) -> Package
     price = page_price * pages
     return PackageQuote(
         package=package,
-        name=f"{pages}-page website",
+        name="One-page website" if pages == 1 else f"{pages}-page website",
         price=price,
         due_now=(price / 2).quantize(Decimal("0.01")),
-        basis=f"{pages} pages at {dollars(page_price)} a page",
+        basis=f"{pages} {'page' if pages == 1 else 'pages'} at {dollars(page_price)} a page",
     )

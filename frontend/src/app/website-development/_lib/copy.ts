@@ -1,6 +1,6 @@
 import type { JourneyContent } from '@/components/marketing/JourneySection';
 import type { WebDesignCopy } from '../_components/WebDesignPage';
-import { money, type ServicePrices } from '@/lib/servicePricing';
+import { packageByCode, money, type ServicePrices } from '@/lib/servicePricing';
 import type { FaqItem } from '@/types/FaqItem';
 
 export const WEB_DESIGN_JOURNEY: JourneyContent = {
@@ -53,11 +53,13 @@ const WEBSITE_DEV_FAQS: FaqItem[] = [
  * questions straight after it.
  */
 function webDesignFaqs(prices: ServicePrices, place: string, local: FaqItem[] = []): FaqItem[] {
-  const [small, large, webApp] = prices.packages;
+  const [one, small, large, webApp] = (
+    ['website_one_page', 'website_small', 'website_large', 'web_application'] as const
+  ).map((code) => packageByCode(prices.packages, code));
   return [
     {
       question: `How much does web design cost in ${place}?`,
-      answer: `Our ${small.name} is ${money(small.price)} and our ${large.name} is ${money(large.price)}, each priced per page, and you can buy either on this page: half when you buy, the rest before launch. Work outside a package is ${prices.hourlyRate} an hour.`,
+      answer: `Our ${one.name} is ${money(one.price)}, our ${small.name} ${money(small.price)} and our ${large.name} ${money(large.price)}, each priced per page, and you can buy any of them on this page: half when you buy, the rest before launch. Work outside a package is ${prices.hourlyRate} an hour.`,
       links: [{ phrase: `${prices.hourlyRate} an hour`, href: '/#pricing' }],
     },
     ...local,

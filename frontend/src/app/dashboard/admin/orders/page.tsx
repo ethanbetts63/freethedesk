@@ -41,6 +41,7 @@ const FILTER_KEYS = ['payment_status', 'package'] as const;
 
 /** Mirrors PackageOrder.Package. */
 const PACKAGE_OPTIONS = [
+  { value: 'website_one_page', label: 'One-page website' },
   { value: 'website_small', label: 'Website package 1' },
   { value: 'website_large', label: 'Website package 2' },
   { value: 'web_application', label: 'Web application discovery' },

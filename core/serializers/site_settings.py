@@ -10,6 +10,7 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
             "licensing_price", "contracts_price", "complete_price",
             "seo_monthly_price", "seo_quarterly_price", "seo_yearly_price", "seo_oneoff_price",
             "hourly_rate", "discovery_hours",
+            "website_one_page_price",
             "website_small_pages", "website_small_page_price",
             "website_large_pages", "website_large_page_price",
             "automation_from_price",

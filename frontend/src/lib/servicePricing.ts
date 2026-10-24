@@ -5,8 +5,8 @@ import { formatMoney } from './formatting';
  * The website development packages and the quoted services' prices, worked out
  * once from the admin's settings so every page that states one agrees.
  *
- * Packages 1 and 2 are websites priced per page: a page count at a per-page
- * price. Package 3 is a web application, bought as its discovery: that many
+ * The websites are priced per page: the one-page website is one page at its
+ * own price, the other two a page count at a per-page price. The web application is bought as its discovery: that many
  * hours at the hourly rate, paid upfront, with the build then priced to the
  * customer's budget. A website is paid half when bought and half before
  * launch; discovery is paid in full. The backend's PackageOrderSerializer
@@ -16,7 +16,11 @@ import { formatMoney } from './formatting';
  */
 
 export type PackageCode =
-  'website_small' | 'website_large' | 'web_application' | 'automation_discovery';
+  | 'website_one_page'
+  | 'website_small'
+  | 'website_large'
+  | 'web_application'
+  | 'automation_discovery';
 
 export interface PurchasePackage {
   code: PackageCode;
@@ -45,6 +49,7 @@ export function money(value: string | number): string {
 }
 
 export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[] {
+  const onePagePrice = Number(settings.website_one_page_price);
   const smallPages = settings.website_small_pages;
   const smallPagePrice = Number(settings.website_small_page_price);
   const largePages = settings.website_large_pages;
@@ -53,6 +58,19 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
   const hours = settings.discovery_hours;
 
   return [
+    {
+      code: 'website_one_page',
+      name: 'One-page website',
+      price: onePagePrice,
+      dueNow: onePagePrice / 2,
+      priceNote: 'A single page',
+      includes: [
+        'One custom, mobile-first page',
+        'Enquiry form to your inbox',
+        'SEO foundations built in',
+        'Search Console and Analytics set up',
+      ],
+    },
     {
       code: 'website_small',
       name: `${smallPages}-page website`,
@@ -116,6 +134,16 @@ export function automationDiscovery(settings: PublicSiteSettings): PurchasePacka
     ],
     discovery: true,
   };
+}
+
+/** One package by its code, for copy that names a particular one. */
+export function packageByCode(
+  packages: readonly PurchasePackage[],
+  code: PackageCode,
+): PurchasePackage {
+  const found = packages.find((item) => item.code === code);
+  if (!found) throw new Error(`No package ${code}.`);
+  return found;
 }
 
 /** The figures most pages quote, already formatted. */

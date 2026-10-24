@@ -1,5 +1,5 @@
 import type { IndexedFeature } from '@/components/marketing/IndexedFeatureSection';
-import { money, type ServicePrices } from '@/lib/servicePricing';
+import { packageByCode, money, type ServicePrices } from '@/lib/servicePricing';
 import type { FaqItem } from '@/types/FaqItem';
 
 /* Why a rebuild off WordPress, in the terms the WordPress cost guide sets out. */
@@ -36,11 +36,13 @@ export const RANKING_STEPS: readonly IndexedFeature[] = [
 
 /** Prices come from the admin, so the cost answer is built per request. */
 export function redesignFaqs(prices: ServicePrices): FaqItem[] {
-  const [small, large] = prices.packages;
+  const [one, small, large] = (['website_one_page', 'website_small', 'website_large'] as const).map(
+    (code) => packageByCode(prices.packages, code),
+  );
   return [
     {
       question: 'How much does a website redesign cost in Perth?',
-      answer: `A redesign is priced like a new build: our ${small.name} is ${money(small.price)} and our ${large.name} is ${money(large.price)}, each priced per page, half when you buy and the rest before launch. Moving your existing pages across and redirecting the old addresses is part of the build.`,
+      answer: `A redesign is priced like a new build: our ${one.name} is ${money(one.price)}, our ${small.name} ${money(small.price)} and our ${large.name} ${money(large.price)}, each priced per page, half when you buy and the rest before launch. Moving your existing pages across and redirecting the old addresses is part of the build.`,
       links: [{ phrase: 'priced like a new build', href: '#packages' }],
     },
     {

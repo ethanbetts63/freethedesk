@@ -47,6 +47,7 @@ const HOURLY_FIELDS: FieldSpec[] = [
 ];
 
 const WEBSITE_FIELDS: FieldSpec[] = [
+  { field: 'website_one_page_price', label: 'One-page website ($)' },
   { field: 'website_small_pages', label: 'Package 1 (pages)', count: true },
   { field: 'website_small_page_price', label: 'Package 1 ($ / page)' },
   { field: 'website_large_pages', label: 'Package 2 (pages)', count: true },

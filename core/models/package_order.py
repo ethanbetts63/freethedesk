@@ -20,6 +20,7 @@ class PackageOrder(models.Model):
     """
 
     class Package(models.TextChoices):
+        WEBSITE_ONE_PAGE = "website_one_page", "One-page website"
         WEBSITE_SMALL = "website_small", "Website package 1"
         WEBSITE_LARGE = "website_large", "Website package 2"
         WEB_APPLICATION = "web_application", "Web application discovery"

@@ -61,6 +61,11 @@ class SiteSettings(models.Model):
     discovery_hours = models.PositiveSmallIntegerField(
         default=3, validators=[MinValueValidator(1)],
     )
+    #: The one-page website: one page at this price, so it is a package priced per page like the others.
+    website_one_page_price = models.DecimalField(
+        max_digits=8, decimal_places=2, default=Decimal("750.00"),
+        validators=[MinValueValidator(Decimal("0.01"))],
+    )
     website_small_pages = models.PositiveSmallIntegerField(
         default=6, validators=[MinValueValidator(1)],
     )

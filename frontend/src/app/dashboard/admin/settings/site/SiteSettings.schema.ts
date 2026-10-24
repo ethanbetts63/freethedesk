@@ -14,6 +14,7 @@ export const siteSettingsSchema = z.object({
   seo_oneoff_price: price,
   hourly_rate: price,
   discovery_hours: price,
+  website_one_page_price: price,
   website_small_pages: price,
   website_small_page_price: price,
   website_large_pages: price,

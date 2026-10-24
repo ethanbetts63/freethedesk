@@ -1,9 +1,11 @@
-import { money, type ServicePrices } from '@/lib/servicePricing';
+import { packageByCode, money, type ServicePrices } from '@/lib/servicePricing';
 import type { FaqItem } from '@/types/FaqItem';
 
 /** Built per request so the cost answer quotes the prices the admin has set. */
 export function portfolioFaqs(prices: ServicePrices): FaqItem[] {
-  const [small, large] = prices.packages;
+  const [one, large] = (['website_one_page', 'website_large'] as const).map((code) =>
+    packageByCode(prices.packages, code),
+  );
 
   return [
     {
@@ -23,7 +25,7 @@ export function portfolioFaqs(prices: ServicePrices): FaqItem[] {
     },
     {
       question: 'How much does a project like this cost?',
-      answer: `Website packages start at ${prices.websiteFrom} for a ${small.name} and ${money(large.price)} for a ${large.name}. A connected system like this one starts with discovery: ${prices.discoveryHours} hours for ${prices.discoveryTotal} that map how your business runs and end in a written scope, with the build priced to your budget.`,
+      answer: `Website packages start at ${money(one.price)} for a ${one.name} and ${money(large.price)} for a ${large.name}. A connected system like this one starts with discovery: ${prices.discoveryHours} hours for ${prices.discoveryTotal} that map how your business runs and end in a written scope, with the build priced to your budget.`,
       links: [{ phrase: 'Website packages', href: '/website-development#packages' }],
     },
   ];

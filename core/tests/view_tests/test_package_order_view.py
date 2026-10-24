@@ -53,6 +53,19 @@ def test_a_website_order_records_the_admin_price_and_half_due_now(api_client, ou
     assert "awaiting payment" in outbox[0].subject
 
 
+def test_a_one_page_website_is_one_page_at_the_admin_price_half_due_now(api_client):
+    settings = SiteSettings.load()
+    settings.website_one_page_price = Decimal("800.00")
+    settings.save()
+
+    assert order(api_client, package="website_one_page").status_code == 201
+
+    placed = PackageOrder.objects.get()
+    assert placed.package_name == "One-page website"
+    assert placed.price == Decimal("800.00")
+    assert placed.due_now == Decimal("400.00")
+
+
 def test_the_order_records_the_web_development_terms_it_was_placed_under(api_client):
     order(api_client, package="website_large")
 
