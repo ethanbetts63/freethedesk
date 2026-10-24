@@ -33,7 +33,7 @@ pointed at `core/templates` and the context below; images resolve against
 | Version | Sounds like | The visual | Subject lines |
 | --- | --- | --- | --- |
 | A | One person writing to one host; opens with a line about the show | The report cover, one small image | A free SEO audit for {business} · Quick one about {podcast} · $700 an audit for {podcast} |
-| B | Free the Desk announcing a partner program | Navy hero with the earnings hook, a one-line figures strip, three steps, the sample report | The Free the Desk podcast partner program · An invitation for {podcast} · {podcast} × Free the Desk |
+| B | freethedesk announcing a partner program | Navy hero with the earnings hook, a one-line figures strip, three steps, the sample report | The freethedesk podcast partner program · An invitation for {podcast} · {podcast} × freethedesk |
 
 ## Context
 

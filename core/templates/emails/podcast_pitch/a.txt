@@ -2,7 +2,7 @@ Hi {{ first_name|default:"there" }},
 
 {% if opener %}{{ opener }}
 
-{% endif %}I'm {{ sender_name }}. I run Free the Desk in Perth, Western Australia. We write SEO audits for small businesses: where they show up on Google and in AI answers, who's beating them, and the few changes worth making first. Your listeners are exactly who they're for.
+{% endif %}I'm {{ sender_name }}. I run freethedesk in Perth, Western Australia. We write SEO audits for small businesses: where they show up on Google and in AI answers, who's beating them, and the few changes worth making first. Your listeners are exactly who they're for.
 
 I'd like to offer you two things:
 
@@ -15,7 +15,7 @@ Read a free sample report: {{ site_url }}/seo/sample-report
 If you're keen, sign up on the partner page and I'll get started on your audit. The whole process is explained there, and it takes a minute: {{ site_url }}/partners
 
 {{ sender_name }}
-Free the Desk · Perth, Western Australia · {{ site_url }}
+freethedesk · Perth, Western Australia · {{ site_url }}
 
 --
 Unsubscribe and we won't write again: {{ unsubscribe_url }}
