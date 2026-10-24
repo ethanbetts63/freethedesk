@@ -19,7 +19,7 @@ See what you'd be recommending:
 - Who's beating them, and why
 - The changes worth making first, in order
 
-Read the free sample report: ../../../frontend/public/seo/sample-report
+Read the sample report: ../../../frontend/public/seo/sample-report
 
 SIGN UP AND GET A FREE AUDIT
 
