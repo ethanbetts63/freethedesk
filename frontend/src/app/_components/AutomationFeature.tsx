@@ -17,7 +17,7 @@ export function AutomationFeature() {
         </CtaButton>
       }
       visual={<AutomationFeatureVisual />}
-      textSide="right"
+      textSide="left"
       spacing="joined"
     />
   );

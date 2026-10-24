@@ -6,6 +6,7 @@ import { FaqSection } from '@/components/marketing/FaqSection';
 import { Hero } from '@/components/marketing/Hero';
 import { IndexedFeatureSection } from '@/components/marketing/IndexedFeatureSection';
 import { PackagesSection } from '@/components/marketing/PackagesSection';
+import { WebsiteJobsBar } from '@/components/marketing/WebsiteJobsBar';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
@@ -29,6 +30,9 @@ const sections = numberSections([
   'Proof this works',
   'Common questions',
 ] as const);
+
+/** The bar under the hero: how the old site becomes the new one. */
+const REDESIGN_STEPS = ['Map what ranks', 'Rebuild custom', 'Redirect every page'] as const;
 
 const casePoints = [
   'Indexable stock',
@@ -71,6 +75,12 @@ export default async function WebsiteRedesignPage() {
         secondaryHref="#rankings"
         secondaryLabel="How rankings are kept"
         trustLine="Fixed prices · Every old address redirected · Perth-based"
+      />
+
+      <WebsiteJobsBar
+        id="redesign-hero-end"
+        steps={REDESIGN_STEPS}
+        ariaLabel="How a redesign moves your site across"
       />
 
       <PackagesSection packages={prices.packages.filter((item) => !item.discovery)} redesign />

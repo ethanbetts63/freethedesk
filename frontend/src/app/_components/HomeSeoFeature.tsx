@@ -7,6 +7,7 @@ export function HomeSeoFeature() {
       id="seo-reporting"
       className="bg-surface-tint"
       spacing="standard"
+      textSide="right"
       eyebrow="SEO Perth"
       title="A ranked SEO action plan."
       accentTitle="Written for humans."
