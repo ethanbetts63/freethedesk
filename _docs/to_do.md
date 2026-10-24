@@ -71,4 +71,8 @@ Added 2026-10-22. `core/tests/test_read_api.py::test_every_dealers_sales_are_rea
 
 ## A marketing email address for the podcast partner outreach
 
-Added 2026-10-24. Owner's step. The podcast partner pitch drafts (`_docs/affiliate-pitch/podcast-partner-pitch-drafts.pdf`, source `drafts.html`) need a dedicated sending address on the freethedesk.com.au domain, not the Gmail account Bloomprint's outreach used, with SPF and DKIM set up so cold email lands in inboxes. The footer of every draft also needs a postal address, which overseas spam law (US CAN-SPAM) requires. Still to decide before sending: whether the $250 commission repeats on every report a referred customer buys, and the listener discount.
+Added 2026-10-24. Owner's step. The podcast partner pitch templates (`core/templates/emails/podcast_pitch/`, explained in `_docs/affiliate-pitch/README.md`) need a dedicated sending address on the freethedesk.com.au domain, not the Gmail account Bloomprint's outreach used, with SPF and DKIM set up so cold email lands in inboxes. The footer of every version also needs a postal address, which overseas spam law (US CAN-SPAM) requires. Still to decide before sending: the listener discount (`discount`, $50 suggested). The commission no longer needs a decision: audits are bought once, so half of each sale is paid once.
+
+## The transactional email base template still wears the old green brand
+
+Added 2026-10-24. `core/templates/emails/base.html` has a `#16201a` header with `#c9f45b` accents, the palette before the blue one in `frontend/src/styles/tokens.css`, so the SEO welcome and dealer emails look like a different company from the site. The podcast pitch templates use the blue brand directly; move base.html onto it too.

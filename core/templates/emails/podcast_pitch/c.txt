@@ -1,0 +1,39 @@
+PARTNERSHIP REPORT · P1 · {{ podcast_url }}
+
+{{ podcast|upper }} PARTNERSHIP REPORT.
+
+What a partnership with Free the Desk would look like, prepared for {{ first_name|default:podcast }} on {{ sent_date }}.
+
+  50%          of every audit sold
+  {{ discount }}          off for listeners
+  $0           your own audit
+
+Report written by Free the Desk · {{ site_url }}
+
+01 · WHAT WE FOUND
+
+1. Your listeners are who our audits are for [High fit]
+   What we found. {% if opener %}{{ opener }}{% else %}{{ podcast }} talks to people who run a business.{% endif %}
+   Why it matters. People who run a business need to be found on Google, and most don't have time to work out why they aren't.
+
+2. A recommendation you can be paid for [High impact]
+   What we found. We pay partners half of every audit bought with their code: {{ commission_low }} to {{ commission_high }} an audit, depending on which one the listener picks.
+   Why it matters. One mention in the show notes keeps working for as long as the episode does.
+
+3. There's an episode in this [Cost: low]
+   What we found. Most business owners have never seen what a search audit says about their own business.
+   How. Pick one listener's business. We write their audit for free, and you go through it with them on the show.
+
+02 · WHAT TO DO
+
+01. Reply with your website. We write your own audit, free. It's the same audit customers pay {{ free_audit_price }} for.
+02. Read it. If it's something you'd recommend, we set up your code.
+03. Share the code. On air or in the show notes. We pay out through Stripe.
+
+Claim your free audit: {{ partner_url }}
+Or reply with your website. See a full sample audit: {{ sample_url }}
+
+--
+Free the Desk · Perth, Western Australia · {{ postal_address }}
+You're receiving this because {{ podcast }} lists this address as its contact in its podcast feed. We'll email about this once more at most.
+Unsubscribe and we won't write again: {{ unsubscribe_url }}

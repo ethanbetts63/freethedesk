@@ -1,0 +1,34 @@
+FREE THE DESK PODCAST PARTNER PROGRAM
+
+Free the Desk is looking for podcast partners.
+
+Your listeners run businesses. Our audits show a business where it appears on Google and in AI answers, who's beating it, and what to fix first. Recommend them to your audience and earn half of every sale.
+
+  50%          of every audit sold
+  {{ discount }}          off for your listeners
+  $0           your own audit
+
+HOW IT WORKS
+
+1. We audit your business. Send us your website and we'll write you a full audit, free, so you know exactly what you're recommending.
+2. Share your code. Mention it on air or put it in your show notes. Your listeners get {{ discount }} off.
+3. Get paid. Half of every audit bought with your code: {{ commission_low }} to {{ commission_high }} each, paid out through Stripe.
+
+WHAT YOUR LISTENERS GET
+
+An audit they can act on:
+- Where they show up on Google and in AI answers
+- Who's beating them, and why
+- The changes worth making first, in order
+
+See a full sample audit: {{ sample_url }}
+
+START WITH YOUR FREE AUDIT
+
+Become a partner: {{ partner_url }}
+Or just reply to this email with your website.
+
+--
+Free the Desk · Perth, Western Australia · {{ postal_address }}
+You're receiving this because {{ podcast }} lists this address as its contact in its podcast feed. We'll email about this once more at most.
+Unsubscribe and we won't write again: {{ unsubscribe_url }}
