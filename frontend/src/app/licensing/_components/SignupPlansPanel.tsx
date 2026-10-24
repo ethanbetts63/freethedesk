@@ -125,6 +125,9 @@ export function SignupPlansPanel({
                     }}
                   />
                   <span>{plan.name}</span>
+                  <small>
+                    {plan.price} {plan.cadence}
+                  </small>
                   {plan.recommended && <small className="moving-colour-text">Recommended</small>}
                 </label>
               ))}
@@ -171,7 +174,7 @@ export function SignupPlansPanel({
           />
         </label>
         <label className={fieldLabelClassName}>
-          <span className={fieldLabelSpanClassName}>Phone</span>
+          <span className={fieldLabelSpanClassName}>Phone (optional)</span>
           <input
             className={fieldInputClassName}
             name="phone"

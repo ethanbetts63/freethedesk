@@ -2,11 +2,11 @@
 
 Looking for the SEO audit itself? [It is here.](/seo)
 
-Effective date: 14 October 2026
+Effective date: 24 October 2026
 
 ## 1. About these terms
 
-1.1 These terms are an agreement between Free the Desk (**we**, **us**, **our**)
+1.1 These terms are an agreement between freethedesk (**we**, **us**, **our**)
 and the business that signs up for an SEO audit or SEO subscription (**you**,
 **your**). They are business terms.
 
@@ -15,7 +15,7 @@ them on behalf of the business.
 
 1.3 Our details:
 
-- Business: Free the Desk
+- Business: freethedesk
 - Legal name: Ethan Daniel Betts-Ingram, trading as freethedesk
 - ABN: 11 493 753 896
 - Location: Perth, Western Australia

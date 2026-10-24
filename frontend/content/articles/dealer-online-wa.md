@@ -1,17 +1,19 @@
 ---
 published: 2026-10-14
-updated: 2026-10-15
+updated: 2026-10-24
 title: DoT Dealer Online in WA: What It Does and Who Can Join
 description: The WA Dealer Online login, what the DoT dealer portal lets licensed dealers do, who can apply, and the sale paperwork it still leaves at the yard.
 ---
 
 # DoT Dealer Online in WA: what it does and who can join
 
-Dealer Online is the Western Australian Department of Transport's portal for licensed vehicle dealers. Approved dealerships use it to process licensing transactions themselves, online, instead of mailing forms or queueing at a counter. The department now goes by the Department of Transport and Major Infrastructure (DTMI), though the Dealer Online login still carries the DoT name, and this guide uses DoT throughout.
+Dealer Online is the Western Australian Department of Transport's portal for licensed vehicle dealers. The member login is at [online.transport.wa.gov.au/dealerNetwork/dealer](https://online.transport.wa.gov.au/dealerNetwork/dealer/), and it asks for your site code first. DoT's information page for the system is [Dealer Online on Transport WA](https://www.transport.wa.gov.au/licensing/dealers-industry/dealers/dealer-online).
 
-If you just need to log in, the member login is here: [online.transport.wa.gov.au/dealerNetwork/dealer](https://online.transport.wa.gov.au/dealerNetwork/dealer/). It asks for your site code first. DoT's information page for the system is [Dealer Online on Transport WA](https://www.transport.wa.gov.au/licensing/dealers-industry/dealers/dealer-online).
+It is open to licensed WA dealerships, auction houses and trailer manufacturers. A dealership needs a current dealer licence and licensed premises, at least 3 months of trading in WA and at least 25 transactions a month; new vehicle dealers also need a Bulk Licensing Permit. The full list is under Who can join, below.
 
-The rest of this guide covers what the portal does, who can join, and the part of a sale it leaves on paper. It is current as at October 2026 and is general information, not legal advice. DoT and Consumer Protection change their requirements from time to time, so check the linked pages before you rely on any of it.
+Approved dealers lodge licensing transactions themselves, online, instead of mailing forms or queueing at a counter. What Dealer Online doesn't do is reach the customer: their details, ID and signatures still come in on paper, usually at the yard. Our [online licensing](/licensing) sends the buyer a secure link to do that part from their phone, so a sale doesn't wait on a visit just to sign. [See the three plans](/licensing#signup).
+
+The rest of this guide covers the login hours, what the portal does, who can join and how to apply, and the part of a sale it leaves on paper. The department now goes by the Department of Transport and Major Infrastructure (DTMI), though the Dealer Online login still carries the DoT name, and this guide uses DoT throughout. It is current as at October 2026 and is general information, not legal advice. DoT and Consumer Protection change their requirements from time to time, so check the linked pages before you rely on any of it.
 
 ## Logging in: hours and authentication
 

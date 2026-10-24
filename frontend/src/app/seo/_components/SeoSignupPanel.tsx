@@ -28,16 +28,9 @@ import { priceValue, trackBeginCheckout, trackSelectPlanOnce } from '@/lib/analy
 import { type PublicSiteSettings } from '@/lib/api';
 import { planByCode } from '@/lib/plans';
 import { submitSeoSignup, type SeoSignupState } from './SeoSignupPanel.actions';
-import { buildSeoPlans, type SeoPlanCode } from '../_lib/plans';
+import { buildSeoPlans, PRICE_FIELD, type SeoPlanCode } from '../_lib/plans';
 
 const initialState: SeoSignupState = { status: 'idle' };
-
-const PRICE_FIELD = {
-  monthly: 'seo_monthly_price',
-  quarterly: 'seo_quarterly_price',
-  yearly: 'seo_yearly_price',
-  oneoff: 'seo_oneoff_price',
-} as const satisfies Record<SeoPlanCode, keyof PublicSiteSettings>;
 
 /**
  * The SEO order form, drawn like the service pages' package forms: the plans as cards on the
@@ -116,7 +109,7 @@ export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
         />
       </label>
       <label className={fieldLabelClassName}>
-        <span className={fieldLabelSpanClassName}>Phone</span>
+        <span className={fieldLabelSpanClassName}>Phone (optional)</span>
         <input
           className={fieldInputClassName}
           name="phone"

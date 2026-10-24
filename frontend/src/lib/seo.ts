@@ -124,7 +124,7 @@ export interface ServiceDefinition {
  */
 export function buildRecurringOffer(options: {
   price: string;
-  unitText: 'MONTH' | 'QUARTER';
+  unitText: 'MONTH' | 'QUARTER' | 'YEAR';
   name?: string;
 }): object | undefined {
   if (!options.price.trim()) return undefined;

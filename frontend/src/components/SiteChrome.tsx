@@ -2,8 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
-import { AiReadinessModal } from '@/components/marketing/AiReadinessModal';
-import { isApplicationRoute, usesStandaloneChrome } from '@/lib/chromeRoutes';
+import { usesStandaloneChrome } from '@/lib/chromeRoutes';
 
 /**
  * Picks which chrome a route gets. Header and footer arrive as already-rendered
@@ -21,15 +20,11 @@ export function SiteChrome({
 }) {
   const pathname = usePathname();
   const standalone = usesStandaloneChrome(pathname);
-  const applicationArea = isApplicationRoute(pathname);
   return (
     <>
       {!standalone && header}
       {children}
       {!standalone && footer}
-      {/* /seo carries no timed prompt: the page is the audit's sales page, and a
-          pop-up there only gets between a buyer and the signup. */}
-      {!standalone && !applicationArea && pathname !== '/seo' && <AiReadinessModal />}
     </>
   );
 }

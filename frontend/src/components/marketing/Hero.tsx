@@ -18,6 +18,11 @@ type HeroProps = {
   /** Set to float the breadcrumb trail over the top-right of the hero. */
   path?: PagePath;
   eyebrow: string;
+  /**
+   * Make the eyebrow the page's h1, and the big title the line under it: for a page whose title
+   * is a slogan, so its main heading still says the words people search for.
+   */
+  eyebrowIsHeading?: boolean;
 
   titleLines: readonly string[];
 
@@ -37,6 +42,7 @@ type HeroProps = {
 export function Hero({
   path,
   eyebrow,
+  eyebrowIsHeading = false,
   titleLines,
   accentTitle,
   accentAlternates = [],
@@ -48,6 +54,7 @@ export function Hero({
   secondaryLabel,
   trustLine = 'Perth-based · clients across Australia',
 }: HeroProps) {
+  const Title = eyebrowIsHeading ? 'p' : 'h1';
   return (
     /* Full-screen from sm up. On a phone it hugs its content, so the next
        section (the homepage's price tiles) starts in the first screen. */
@@ -77,11 +84,19 @@ export function Hero({
           {/* eslint-disable-next-line no-restricted-syntax -- --ring-halo plus a second
               glow: the live dot is lit, not raised, and one ring does not draw it. */}
           <div className="mb-xl-half [--eyebrow-accent:var(--action-primary)] [&_span]:shadow-[var(--ring-halo),0_0_10px_2px_color-mix(in_srgb,var(--action-primary)_70%,transparent)]">
-            <Eyebrow dot tone="accent">
-              {eyebrow}
-            </Eyebrow>
+            {eyebrowIsHeading ? (
+              // Eyebrow draws a <p>, which cannot sit in an h1: the same look, as the heading.
+              <h1 className="m-0 flex items-center gap-s text-body-sm font-bold tracking-label-eyebrow text-[var(--eyebrow-accent,var(--text-action))] uppercase">
+                <span aria-hidden="true" className="h-[7px] w-[7px] rounded-full bg-current" />
+                {eyebrow}
+              </h1>
+            ) : (
+              <Eyebrow dot tone="accent">
+                {eyebrow}
+              </Eyebrow>
+            )}
           </div>
-          <h1 className="m-0 max-w-[1000px] text-balance text-hero leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] lg:leading-[0.83]">
+          <Title className="m-0 max-w-[1000px] text-balance text-hero leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] lg:leading-[0.83]">
             {titleLines.map((line, index) => (
               /* The trailing space collapses to nothing on screen, but it keeps
                  the lines separate words for anything that flattens the heading
@@ -100,7 +115,7 @@ export function Hero({
                 {titleSuffix}
               </>
             ) : null}
-          </h1>
+          </Title>
           {/* A title ending on a plain line has none of the accent word's overhang,
               so its lead comes up by that much to sit the same distance under it. */}
           <p

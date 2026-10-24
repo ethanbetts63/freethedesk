@@ -72,7 +72,7 @@ export default async function WebsiteRedesignPage() {
         trustLine="Fixed prices · Every old address redirected · Perth-based"
       />
 
-      <PackagesSection packages={prices.packages.filter((item) => !item.discovery)} />
+      <PackagesSection packages={prices.packages.filter((item) => !item.discovery)} redesign />
 
       <div className="pt-section">
         <IndexedFeatureSection

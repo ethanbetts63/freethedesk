@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
 import { AdminAutomationVisual } from './AdminAutomationVisual';
@@ -17,7 +19,7 @@ export function AdminAutomationSection({
   eyebrow: string;
   id?: string;
   spacing?: 'standard' | 'joined';
-  description?: string;
+  description?: ReactNode;
   jobs?: readonly string[];
   panelEyebrow?: string;
   panelTitle?: string;

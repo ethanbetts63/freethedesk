@@ -31,6 +31,8 @@ import { websiteServices } from '../_lib/websiteServices';
  */
 export interface WebDesignCopy {
   heroEyebrow: string;
+  /** The eyebrow is the h1; Subiaco's slogan title already names the place, and the trial stays as it was. */
+  heroEyebrowIsHeading?: boolean;
   heroTitleLines: readonly string[];
   heroLead: string;
   designDescription: string;
@@ -75,6 +77,7 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
       <Hero
         path={path}
         eyebrow={copy.heroEyebrow}
+        eyebrowIsHeading={copy.heroEyebrowIsHeading}
         titleLines={copy.heroTitleLines}
         accentTitle="work harder."
         accentAlternates={['be faster.', 'grow faster.', 'be easier.', 'sell more.']}

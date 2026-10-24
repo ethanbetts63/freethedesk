@@ -40,22 +40,22 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-10-14',
+    updated: '2026-10-24',
     label: 'Home',
-    title: 'Websites, SEO & Business Automation Perth | freethedesk',
+    title: 'Websites, SEO & Business Automation Perth - freethedesk',
     description:
       'Perth websites and SEO audits for WA businesses, with every price on the page, plus web applications and business automation.',
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-10-14',
+    updated: '2026-10-24',
     label: 'Dealer websites',
-    title: 'Dealership Websites Perth | Online Licensing for WA Dealers',
+    title: 'Dealership Websites & Online Licensing for WA Dealers',
     description:
       'One connected system for Perth and WA dealerships: a website built to be found, online licensing, and the admin automation behind it.',
   },
   '/licensing': {
-    updated: '2026-10-19',
+    updated: '2026-10-24',
     label: 'Online licensing',
     title: 'Online Vehicle Licensing for Perth & WA Dealers',
     description:
@@ -67,12 +67,11 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-10-14',
+    updated: '2026-10-24',
     label: 'Website development',
-    title: 'Web Design & Development Perth | Websites that work harder',
+    title: 'Web Design & Development Perth',
     description:
       'Web design and development for Perth businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.',
-    absoluteTitle: true,
     // Perth rather than Australia, matching the page's own "Web design &
     // development Perth" eyebrow and the local intent the title targets.
     service: {
@@ -95,12 +94,11 @@ export const STATIC_PAGES = {
     },
   },
   '/website-redesign-perth': {
-    updated: '2026-10-19',
+    updated: '2026-10-24',
     label: 'Website redesign',
-    title: 'Website Redesign Perth | Rebuild without losing rankings',
+    title: 'Website Redesign Perth, Without Losing Rankings',
     description:
       'Website redesign for Perth businesses moving off WordPress: a custom-coded site with no plugins to update, moved across so your Google rankings come too.',
-    absoluteTitle: true,
     service: {
       name: 'Website Redesign Perth',
       serviceType: 'Website redesign and WordPress migration',
@@ -108,9 +106,9 @@ export const STATIC_PAGES = {
     },
   },
   '/automation': {
-    updated: '2026-10-14',
+    updated: '2026-10-24',
     label: 'Automation',
-    title: 'Business Automation Perth | Stop paying for copy-paste',
+    title: 'Business & AI Automation Perth',
     description:
       'Practical workflow automation and custom integrations for Perth small and medium businesses.',
     service: {
@@ -120,9 +118,9 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-10-22',
+    updated: '2026-10-24',
     label: 'SEO',
-    title: "SEO Audit Perth | Find the searches you're losing",
+    title: "SEO Audit Perth: Find the Searches You're Losing",
     description: `Organic clicks up ${SCOOTER_SHOP_GROWTH.percent}% for a Perth dealer. Each audit is a written SEO report of your site: the searches you're losing and what to fix.`,
     service: {
       name: 'SEO Audit Perth',
@@ -131,69 +129,69 @@ export const STATIC_PAGES = {
     },
   },
   '/seo/sample-report': {
-    updated: '2026-10-19',
+    updated: '2026-10-24',
     label: 'Sample report',
-    title: 'Sample SEO Report | What a Website SEO Report Includes',
+    title: 'Sample SEO Report: What a Website Report Includes',
     description:
       'A sample SEO report for an invented Perth plumber: ranked fixes with cost and impact, a running experiment, foundation checks and what the search data shows.',
   },
   '/guides': {
-    updated: '2026-10-14',
+    updated: '2026-10-24',
     label: 'Guides',
-    title: 'Steal our playbook | Website, SEO & Automation Guides',
+    title: 'Website, SEO & Automation Guides',
     description:
       'Practical guides for Perth businesses on websites, web applications, search visibility, automation and the systems behind them.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-10-19',
+    updated: '2026-10-24',
     label: 'Scooter Shop',
-    title: `Perth Dealer Website Case Study | Organic Clicks Up ${SCOOTER_SHOP_GROWTH.percent}%`,
+    title: `Perth Dealer Website Case Study: Organic Clicks Up ${SCOOTER_SHOP_GROWTH.percent}%`,
     description:
       'A connected website for a Perth scooter dealership: sales, online purchasing, licensing, parts, service, hire and long-term organic growth.',
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {
-    updated: '2026-10-19',
+    updated: '2026-10-24',
     label: 'Bloomprint',
-    title: 'Marketplace Website Case Study | Bloomprint Flowers',
+    title: 'Marketplace Website Case Study: Bloomprint Flowers',
     description:
       'A two-sided flower delivery marketplace: brief-led ordering for customers, paid local orders for florists, and landing pages built to be found.',
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
   '/contact': {
-    updated: '2026-10-19',
+    updated: '2026-10-24',
     label: 'Contact',
-    title: 'Website, SEO & Automation Developers Perth | Contact',
+    title: 'Contact Perth Website, SEO & Automation Developers',
     description:
       'Talk to freethedesk, a Perth team, about a custom website, SEO audit, online licensing, web application or business automation project.',
   },
   '/legal/privacy': {
-    updated: '2026-10-14',
+    updated: '2026-10-24',
     label: 'Privacy policy',
     title: 'Privacy Policy',
     description: 'How freethedesk collects, uses, stores and discloses personal information.',
   },
   '/legal/customer-terms': {
-    updated: '2026-10-14',
+    updated: '2026-10-24',
     label: 'Customer terms',
     title: 'Customer Terms',
     description:
       'Terms for a customer completing vehicle paperwork through a dealership on freethedesk.',
   },
   '/legal/dealer-subscription-terms': {
-    updated: '2026-10-14',
+    updated: '2026-10-24',
     label: 'Dealer subscription terms',
     title: 'Dealer Subscription Terms',
     description: 'Terms for freethedesk dealer licensing and contract subscriptions.',
   },
   '/legal/seo-subscription-terms': {
-    updated: '2026-10-14',
+    updated: '2026-10-24',
     label: 'SEO subscription terms',
     title: 'SEO Subscription Terms',
     description: 'Terms for freethedesk SEO subscriptions and one-off SEO reviews.',
   },
   '/legal/web-development-terms': {
-    updated: '2026-10-08',
+    updated: '2026-10-24',
     label: 'Web development terms',
     title: 'Web Development Terms',
     description:

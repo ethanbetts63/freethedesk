@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
@@ -15,9 +16,11 @@ import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { metadataFor } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
+import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
+import { servicePrices } from '@/lib/servicePricing';
 
 import { DealershipAutomation } from './_components/DealershipAutomation';
-import { DEALER_FAQS } from './_lib/copy';
+import { dealerFaqs } from './_lib/copy';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 const sections = numberSections([
@@ -60,15 +63,30 @@ const casePoints = [
   'Measured in Search Console',
 ];
 
+const inlineLinkClassName =
+  'text-text-action underline underline-offset-[3px] transition-opacity hover:opacity-70';
+
 export const metadata: Metadata = metadataFor('/dealers');
 
-export default function Dealers() {
+/* The cost answer quotes the admin's prices, so this page renders per request. */
+export const dynamic = 'force-dynamic';
+
+export default async function Dealers() {
+  const settings = await getSiteSettingsServer([
+    ...SERVICE_PRICE_FIELDS,
+    'licensing_price',
+    'contracts_price',
+    'complete_price',
+  ]);
+  const faqs = dealerFaqs(servicePrices(settings), settings);
+
   return (
     <main className="bg-surface-page text-text-primary">
       <PageSchema path="/dealers" />
       <Hero
         path="/dealers"
-        eyebrow="Dealership websites Perth"
+        eyebrow="Dealership websites and online licensing for WA dealers"
+        eyebrowIsHeading
         titleLines={['Digital']}
         accentTitle="dealerships."
         accentAlternates={['licensing.', 'contracts.', 'handovers.']}
@@ -103,7 +121,26 @@ export default function Dealers() {
         id="website-automation"
         eyebrow={sections['Admin Automation']}
         spacing="joined"
-        description="Your dealership website can move the admin behind each sale—routing leads, preparing contracts, starting online licensing and keeping payment and handover steps moving."
+        description={
+          <>
+            <p>
+              Your dealership website can move the admin behind each sale—routing leads, preparing
+              contracts, starting online licensing and keeping payment and handover steps moving.
+            </p>
+            <p className="mt-m">
+              Your team still lodges each transaction in DoT&apos;s Dealer Online.{' '}
+              <Link className={inlineLinkClassName} href="/licensing">
+                Online licensing
+              </Link>{' '}
+              collects what comes before it: the customer&apos;s details, ID and signatures, with no
+              visit to the yard. Our{' '}
+              <Link className={inlineLinkClassName} href="/dealer-online-wa">
+                guide to DoT Dealer Online
+              </Link>{' '}
+              covers the login, who can join and what it leaves on paper.
+            </p>
+          </>
+        }
         jobs={dealerAdminJobs}
         panelEyebrow="Runs across the dealership"
         panelTitle="Your dealership website"
@@ -154,7 +191,7 @@ export default function Dealers() {
         emitSchema
         eyebrow={sections['Common questions']}
         title="Dealership website and automation questions."
-        items={DEALER_FAQS}
+        items={faqs}
       />
       <ManualAdminCta
         eyebrow="Start with the dealership admin"

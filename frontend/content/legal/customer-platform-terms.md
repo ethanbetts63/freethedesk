@@ -1,14 +1,14 @@
 # Customer Terms
 
-Last updated: 14 October 2026
+Last updated: 24 October 2026
 
-These terms apply to you when a vehicle dealership sends you a link to complete the paperwork for a vehicle through Free the Desk.
+These terms apply to you when a vehicle dealership sends you a link to complete the paperwork for a vehicle through freethedesk.
 
 They cover **our** relationship with you — the platform you are using. They are not the contract for the vehicle. That contract is between you and the dealership, and you will read and sign it separately.
 
-## 1. What Free the Desk is, and what it is not
+## 1. What freethedesk is, and what it is not
 
-Free the Desk provides the software the dealership uses to prepare, present, sign and store the paperwork for your purchase, and to lodge your vehicle licensing application with the Department of Transport on your behalf if you authorise that.
+freethedesk provides the software the dealership uses to prepare, present, sign and store the paperwork for your purchase, and to lodge your vehicle licensing application with the Department of Transport on your behalf if you authorise that.
 
 **We are not a party to your purchase.** We do not sell you the vehicle, we do not take your money, and we do not decide anything about your transaction. The dealership does all of that.
 
@@ -39,7 +39,7 @@ When you sign a document here, you type your full name and confirm a declaration
 
 Before a vehicle is licensed in your name, the dealership has to satisfy itself that you are the person being licensed. You will be asked to upload a photograph of the front and back of your driver's licence, and a photograph of your face.
 
-Those images are stored outside any publicly reachable location and are visible only to the dealership handling your sale and to Free the Desk staff where they are needed to run or support the service.
+Those images are stored outside any publicly reachable location and are visible only to the dealership handling your sale and to freethedesk staff where they are needed to run or support the service.
 
 They are kept rather than deleted after a set time. They are the dealership's record that it checked who it was licensing a vehicle to, and that record has to last as long as the questions about the sale can be asked. How long that is is set by the Motor Vehicle Dealers Act 1973 (WA); section 9 of the [privacy policy](/legal/privacy) sets out what we keep and why.
 
@@ -55,7 +55,7 @@ If you change a detail after signing something, the signature no longer matches 
 
 ## 6. Payment
 
-Any money you pay for the vehicle goes to the dealership, by bank transfer to the account details they give you. **Free the Desk never receives, holds or handles your money**, and we cannot see whether a transfer has arrived.
+Any money you pay for the vehicle goes to the dealership, by bank transfer to the account details they give you. **freethedesk never receives, holds or handles your money**, and we cannot see whether a transfer has arrived.
 
 When you tell us you have paid, that is a claim we pass to the dealership to check against their own bank. The dealership confirms receipt, and only then does the licensing step continue. A screenshot or a receipt you upload is kept with the sale, but it does not move anything on its own — it proves a file arrived, not that money did.
 
@@ -86,7 +86,7 @@ We may update these terms. The version that applies to your sale is the version 
 ## 11. Contact
 
 - Email: hello@freethedesk.com.au
-- Business: Free the Desk, Perth, Western Australia
+- Business: freethedesk, Perth, Western Australia
 - Legal name: Ethan Daniel Betts-Ingram, trading as freethedesk
 - ABN: 11 493 753 896
 

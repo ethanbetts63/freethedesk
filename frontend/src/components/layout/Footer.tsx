@@ -18,9 +18,9 @@ const gridBackdropClassName = [
 ].join(' ');
 
 const COLUMNS: FooterColumn[] = [
-  /* Where and when in one column: the address, how to reach us, then the hours. */
+  /* Where and when in one column: how to reach us, where we are, then the hours. */
   {
-    label: 'Based in',
+    label: 'Contact',
     links: [
       { href: 'tel:+61423853830', label: '0423 853 830', external: true },
       {
@@ -31,6 +31,11 @@ const COLUMNS: FooterColumn[] = [
     ],
     children: (
       <>
+        <div className="mt-l mb-xs">
+          <Eyebrow size="sm" tone="muted">
+            Based in
+          </Eyebrow>
+        </div>
         <span className="text-body-sm text-text-muted">Perth, Western Australia</span>
         <div className="mt-l mb-xs">
           <Eyebrow size="sm" tone="muted">

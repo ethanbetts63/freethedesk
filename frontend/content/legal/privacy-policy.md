@@ -1,10 +1,10 @@
 # Privacy Policy
 
-Last updated: 14 October 2026
+Last updated: 24 October 2026
 
 ## 1. About this policy
 
-Free the Desk (we, us or our) provides dealer websites, online vehicle licensing and contracting workflows, dealer and customer portals, and related support services.
+freethedesk (we, us or our) builds websites and web applications, runs SEO audits and subscriptions, and builds business automation. For vehicle dealers it also provides dealer websites, online vehicle licensing and contracting workflows, and dealer and customer portals.
 
 This policy explains how we collect, hold, use and disclose personal information. We intend to handle personal information in accordance with the Privacy Act 1988 (Cth) and the Australian Privacy Principles where they apply to us.
 
@@ -21,6 +21,7 @@ Depending on how you use our website and services, we may collect:
 - communications, enquiries, support requests and records of consents or electronic signatures;
 - account, authentication and security information;
 - payment status, subscription and transaction metadata supplied by our payment provider, but not complete card details;
+- for SEO audit clients, data from the Google Search Console, Google Analytics and Google Business Profile accounts they give us access to, such as the searches their site appears for and aggregated visitor and enquiry counts;
 - device, browser, IP address, cookie, analytics and service-usage information; and
 - any other information a person chooses to give us.
 
@@ -61,11 +62,11 @@ We do not sell personal information.
 
 ## 5. Dealership and customer responsibilities
 
-For customer information processed through a dealership's workflow, Free the Desk may act as the dealership's service provider while the dealership remains responsible for its own customer relationship, collection notices and legal obligations. A customer may therefore need to read both this policy and the relevant dealership's privacy policy.
+For customer information processed through a dealership's workflow, freethedesk may act as the dealership's service provider while the dealership remains responsible for its own customer relationship, collection notices and legal obligations. A customer may therefore need to read both this policy and the relevant dealership's privacy policy.
 
 **Everything a customer enters or uploads for a sale is visible to the dealership named on that sale**, including the identity photographs and the driver's licence number. That is the purpose of collecting it: the dealership has to satisfy itself who it is licensing a vehicle to, and it has to lodge the application. A customer who is not willing for the dealership to hold that information should deal with the dealership directly rather than through this service. The dealership's own handling of it is theirs and is not governed by this policy.
 
-Questions about a dealership's decision, contract, vehicle or use of customer information should usually be directed to that dealership. Questions about the Free the Desk platform can be directed to us.
+Questions about a dealership's decision, contract, vehicle or use of customer information should usually be directed to that dealership. Questions about the freethedesk platform can be directed to us.
 
 ## 6. Who we disclose information to
 
@@ -78,13 +79,24 @@ We may disclose information where reasonably necessary to:
 - a purchaser or successor as part of a genuine business restructure or sale; and
 - regulators, courts, law-enforcement bodies or other parties where required or authorised by law.
 
-Our current or planned providers may include Stripe for payments and identity services, hosting infrastructure providers, and email or SMS delivery providers. Their handling of information is also governed by their own terms and privacy practices.
+The providers we use are listed in section 7. Their handling of information is also governed by their own terms and privacy practices.
 
 ## 7. Overseas disclosures
 
-Some service providers may store or process information outside Australia. Overseas recipients are likely to be located in the United States and may also be located in other countries in which our providers or their subprocessors operate.
+Some service providers store or process information outside Australia. These are the providers we use, what each does and where it processes information:
 
-Before production launch we will publish a current subprocessor list or update this section where it is practical to identify additional countries. We take reasonable steps required by law when using overseas providers.
+| Provider          | What it does for us                                                | Where it processes information        |
+| ----------------- | ------------------------------------------------------------------ | ------------------------------------- |
+| Stripe            | Payments, subscriptions and identity services                      | United States and Australia           |
+| PythonAnywhere    | Hosts our application and its database                             | United States                         |
+| Vercel            | Hosts our website and measures page requests                       | United States, with servers worldwide |
+| Mailgun           | Sends our emails                                                   | United States                         |
+| Twilio            | Sends our text messages                                            | United States                         |
+| Google Analytics  | Measures how visitors use our website                              | United States                         |
+| Microsoft Clarity | Records how visitors use our website                               | United States                         |
+| Anthropic         | Runs the AI tools we use to read our own records and write reports | United States                         |
+
+Each provider may also use subprocessors of its own in other countries. We will update this list when a provider changes, and we take reasonable steps required by law when using overseas providers.
 
 ## 8. How we hold and protect information
 
@@ -113,7 +125,13 @@ When information is no longer required, we take reasonable steps to delete it or
 
 ## 10. Cookies and analytics
 
-Our websites and portals may use essential cookies for login, security and preferences, and analytics tools to understand service performance and usage. Browser controls can block some cookies, but doing so may prevent secure account features from working correctly.
+Our websites and portals use essential cookies for login, security and preferences. Browser controls can block some cookies, but doing so may prevent secure account features from working correctly.
+
+Our public website also uses three analytics tools. The signed-in portals and dashboards are left out of the first two.
+
+- **Google Analytics** records the pages you visit, how you arrived, your device and browser, your approximate location, and actions such as sending an enquiry or starting a checkout. It sets cookies to recognise a returning browser. You can opt out with Google's [Analytics opt-out browser add-on](https://tools.google.com/dlpage/gaoptout).
+- **Microsoft Clarity** records how you move through a page: clicks, scrolling, mouse movement and the page as you saw it. It sets cookies to link the pages of one visit. You can block it by blocking cookies from clarity.ms in your browser, or with a content blocker.
+- **Vercel Analytics** counts page requests without cookies, using information such as the page, the referring site, your device type and your country.
 
 ## 11. Access and correction
 
@@ -136,6 +154,6 @@ We may update this policy when our services, providers or legal obligations chan
 Privacy enquiries, access or correction requests and complaints can be sent to:
 
 - Email: hello@freethedesk.com.au
-- Business: Free the Desk, Perth, Western Australia
+- Business: freethedesk, Perth, Western Australia
 - Legal name: Ethan Daniel Betts-Ingram, trading as freethedesk
 - ABN: 11 493 753 896

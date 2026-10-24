@@ -31,24 +31,27 @@ const initialState: PackageOrderState = { status: 'idle' };
  * discovery when discovery is all the price buys. Sending it records the order and the terms, then
  * goes to payment. Packages arrive priced from the server, so nothing here computes money.
  */
-export function PackageOrderPanel({ packages }: { packages: readonly PurchasePackage[] }) {
+export function PackageOrderPanel({
+  packages,
+  redesign = false,
+}: {
+  packages: readonly PurchasePackage[];
+  /** A redesign: the current website is the job, so it is asked for rather than optional. */
+  redesign?: boolean;
+}) {
   const [selectedCode, setSelectedCode] = useState<PackageCode>(
     (packages.find((item) => item.recommended) ?? packages[0]).code,
   );
   const router = useRouter();
   const selected = packages.find((item) => item.code === selectedCode) ?? packages[0];
   const [state, dispatch, isPending] = useActionState(submitPackageOrder, initialState);
+  // Built as the SEO plans' cards are: the name, what the price buys, the price, what it includes.
   const cards: PackageCard<PackageCode>[] = packages.map((item) => ({
     code: item.code,
-    label: item.label,
     name: item.name,
     priceLabel: item.discovery ? 'Discovery, paid upfront' : 'Fixed price',
     price: money(item.price),
-    priceNote: item.priceNote,
-    dueNote:
-      item.dueNow < item.price ? `${money(item.dueNow)} today, the rest before launch` : undefined,
     includes: item.includes,
-    recommended: item.recommended,
   }));
 
   // A new state object per submission, so one event and one redirect per order sent.
@@ -119,7 +122,7 @@ export function PackageOrderPanel({ packages }: { packages: readonly PurchasePac
           />
         </label>
         <label className={fieldLabelClassName}>
-          <span className={fieldLabelSpanClassName}>Phone</span>
+          <span className={fieldLabelSpanClassName}>Phone (optional)</span>
           <input
             className={fieldInputClassName}
             name="phone"
@@ -129,14 +132,19 @@ export function PackageOrderPanel({ packages }: { packages: readonly PurchasePac
           />
         </label>
         <label className={fieldLabelClassName}>
-          <span className={fieldLabelSpanClassName}>Website (optional)</span>
+          <span className={fieldLabelSpanClassName}>
+            {redesign ? 'Your current website' : 'Website (optional)'}
+          </span>
           <input
             className={fieldInputClassName}
             name="website"
             type="text"
             inputMode="url"
-            placeholder="Leave blank if you don't have one yet"
+            placeholder={
+              redesign ? 'e.g. www.yourbusiness.com.au' : "Leave blank if you don't have one yet"
+            }
             autoComplete="url"
+            required={redesign}
           />
         </label>
         <label className={fieldLabelClassName}>
@@ -146,7 +154,11 @@ export function PackageOrderPanel({ packages }: { packages: readonly PurchasePac
             name="notes"
             rows={3}
             maxLength={2000}
-            placeholder="e.g. We sell outdoor furniture and want our range online."
+            placeholder={
+              redesign
+                ? 'e.g. Our WordPress site is slow and the plugins keep breaking.'
+                : 'e.g. We sell outdoor furniture and want our range online.'
+            }
           />
         </label>
         <TermsAgreement

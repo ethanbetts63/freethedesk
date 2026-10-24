@@ -57,7 +57,8 @@ const GA_EXCLUDED_ROUTES = [
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: STATIC_PAGES['/'].title,
+  // Every page's title ends on the business name after a dash; the homepage's says it itself.
+  title: { default: STATIC_PAGES['/'].title, template: '%s - freethedesk' },
   description: STATIC_PAGES['/'].description,
   verification: {
     google: 'NPT1jo_98rxtDYj63w_sk4NePShMgItyKEdFQdigwOk',

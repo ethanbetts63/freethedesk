@@ -72,7 +72,8 @@ function webDesignFaqs(prices: ServicePrices, place: string, local: FaqItem[] = 
 
 /** /website-development: web design for Perth. */
 export const PERTH_WEB_DESIGN: WebDesignCopy = {
-  heroEyebrow: 'Web design & development Perth',
+  heroEyebrow: 'Web design and development in Perth',
+  heroEyebrowIsHeading: true,
   heroTitleLines: ['Websites should'],
   heroLead:
     'Custom web design and development for Perth businesses: websites that turn visitors into customers and automate the repetitive work behind them.',

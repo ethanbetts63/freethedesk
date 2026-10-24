@@ -1,10 +1,10 @@
 # Dealer Subscription Terms
 
-Effective date: 14 October 2026
+Effective date: 24 October 2026
 
 ## 1. These terms
 
-These terms govern a dealership's subscription to the Free the Desk online licensing and contracting services. They form an agreement between Free the Desk (we, us or our) and the business identified during signup (Dealer, you or your).
+These terms govern a dealership's subscription to the freethedesk online licensing and contracting services. They form an agreement between freethedesk (we, us or our) and the business identified during signup (Dealer, you or your).
 
 The person accepting these terms confirms that they are authorised to enter the agreement for the Dealer. These are business service terms; they are not the sale contract between a Dealer and its customer.
 
@@ -67,7 +67,7 @@ You must tell us promptly if a generated form, calculation or workflow appears w
 
 ## 9. Customer information and privacy
 
-Each party must comply with the privacy and data-protection laws applying to it. Our handling of personal information is described in the Free the Desk Privacy Policy.
+Each party must comply with the privacy and data-protection laws applying to it. Our handling of personal information is described in the freethedesk Privacy Policy.
 
 For customer transaction information, the Dealer controls the customer relationship and instructs us to process information to provide the service. The Dealer must have authority to collect and provide that information. We will use it to operate, secure and support the service and as otherwise permitted by the Privacy Policy or law.
 
@@ -77,7 +77,7 @@ We will not sell Dealer customer information. We may use aggregated or de-identi
 
 The service relies on third parties such as Stripe, hosting, communications and government systems. Those services may have their own terms, availability windows and verification requirements. We are not responsible for a third-party outage or decision outside our reasonable control, but we will take reasonable steps to restore our service or provide a practical workaround.
 
-Card details are entered into Stripe's payment interface and are not stored by Free the Desk. Payment, identity or government services may require users to accept additional terms.
+Card details are entered into Stripe's payment interface and are not stored by freethedesk. Payment, identity or government services may require users to accept additional terms.
 
 ## 11. Availability, support and changes
 
@@ -141,7 +141,7 @@ These terms, the selected plan and any signed proposal form the agreement about 
 
 ## 20. Contact and provider details
 
-- Service: Free the Desk
+- Service: freethedesk
 - Email: hello@freethedesk.com.au
 - Location: Perth, Western Australia
 - Legal name: Ethan Daniel Betts-Ingram, trading as freethedesk

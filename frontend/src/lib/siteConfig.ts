@@ -14,7 +14,14 @@ export const SITE_URL = (
  * item; dealers are one line of the business, not half the menu.
  */
 export const PRIMARY_NAVIGATION = [
-  { href: '/website-development', label: 'Websites' },
+  {
+    href: '/website-development',
+    label: 'Websites',
+    items: [
+      { href: '/website-development', label: 'Website development' },
+      { href: '/website-redesign-perth', label: 'Website redesign' },
+    ],
+  },
   { href: '/seo', label: 'SEO' },
   { href: '/automation', label: 'Automation' },
   { href: '/dealers', label: 'Dealerships' },
@@ -25,6 +32,7 @@ export const PRIMARY_NAVIGATION = [
 
 export const FOOTER_NAVIGATION = [
   { href: '/website-development', label: 'Website development' },
+  { href: '/website-redesign-perth', label: 'Website redesign' },
   // A trial suburb page; the footer is its only link (2026-10-07).
   { href: '/web-design-subiaco', label: 'Web design Subiaco' },
   { href: '/seo', label: 'SEO audits' },

@@ -20,8 +20,6 @@ export type PackageCode =
 
 export interface PurchasePackage {
   code: PackageCode;
-  /** "Package 1": the position, shown above the name. */
-  label: string;
   name: string;
   /** The package's full price. */
   price: number;
@@ -30,6 +28,7 @@ export interface PurchasePackage {
   /** The sum behind the price, so "per page" or "per hour" is visible rather than claimed. */
   priceNote: string;
   includes: readonly string[];
+  /** The package the order form opens on. */
   recommended?: boolean;
   /** The price buys discovery, not the build: the card, the button and the schema offer say so. */
   discovery?: true;
@@ -56,7 +55,6 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
   return [
     {
       code: 'website_small',
-      label: 'Package 1',
       name: `${smallPages}-page website`,
       price: smallPages * smallPagePrice,
       dueNow: (smallPages * smallPagePrice) / 2,
@@ -70,7 +68,6 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
     },
     {
       code: 'website_large',
-      label: 'Package 2',
       name: `${largePages}-page website`,
       price: largePages * largePagePrice,
       dueNow: (largePages * largePagePrice) / 2,
@@ -85,7 +82,6 @@ export function purchasePackages(settings: PublicSiteSettings): PurchasePackage[
     },
     {
       code: 'web_application',
-      label: 'Package 3',
       name: 'Web application',
       price: hourly * hours,
       dueNow: hourly * hours,
@@ -109,7 +105,6 @@ export function automationDiscovery(settings: PublicSiteSettings): PurchasePacka
   const hours = settings.discovery_hours;
   return {
     code: 'automation_discovery',
-    label: 'Start here',
     name: 'Automation',
     price: hourly * hours,
     dueNow: hourly * hours,

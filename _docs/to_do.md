@@ -5,15 +5,16 @@ Open tasks for this repository. Append any you find; delete one once you know it
 ## Deploy invoicing and package checkout
 
 Added 2026-10-09. Owner's step. Everything up to f3d3853 was pushed on 2026-10-08: invoicing, the package order checkout and the Web Development Terms. On deploy:
+
 - pip installs freetheplatform v0.35.0.
 - Run `migrate` for `ftp_invoicing` 0001–0003 and `core` 0017–0023, Django before the frontend.
 - Confirm `FTP_PROXY_SECRET` is set in production on both Django and the frontend.
 - Order emails and SMS need `NOTIFICATIONS_ENABLED` plus Mailgun and Twilio configured.
 - Set the legal entity at /dashboard/admin/settings/invoicing. Bank details are already model defaults (core 0021).
 
-## Privacy policy: the subprocessor promise
+## Deploy the 24 October site changes
 
-Added 2026-10-14. Owner's decision. Section 7 of `frontend/content/legal/privacy-policy.md` still says "Before production launch we will publish a current subprocessor list or update this section". The site is live, so either publish the list (Stripe, hosting, Mailgun, Twilio and the countries they process in) or reword the sentence. Bump the "Last updated" line and `/legal/privacy` in `frontend/src/lib/pages.ts` with it.
+Added 2026-10-24. Owner's step. The dealer and SEO terms now say "freethedesk", so `FTP_AGREEMENTS` names version 2026-10-24 for both; deploy Django and the frontend together so the new terms and their version arrive at once. The dealer page, the sample report and every guide now render per request and read their prices from the site settings. The AI-check pop-up is gone; the inline AI-check strip stays on wide screens.
 
 ## Deploy the 14 October site changes
 
@@ -24,6 +25,7 @@ Added 2026-10-14. Owner's step. On the Django deploy, run `migrate` for `core` 0
 Added 2026-10-14, rewritten 2026-10-22. Account freethedesk 702-260-4011, signed in as analytics@freethedesk.com.au.
 
 Done on 22 October:
+
 - Campaign #1 (Performance Max) is paused. Before pausing, it was set to Presence only, and the account got 157 excluded placements (140 app categories and 17 sites).
 - New campaign "Search – Perth services" is live at A$5 a day. It runs on Google Search only, in Perth (city, Presence only), in English, on Maximise clicks with a A$4 max CPC. Its URL suffix is `utm_source=google&utm_medium=cpc&utm_campaign=search-perth`, and AI Max and broad match are off.
 - Ad group "SEO" is enabled and sends ads to /seo with 6 phrase-match keywords.
@@ -31,6 +33,7 @@ Done on 22 October:
 - Nine campaign negative keywords: course, training, beginner, tutorial, free, jobs, salary, "how to", "screaming frog".
 
 Still to do:
+
 - Complete advertiser verification before 2026-11-11, or Google pauses the ads (the "Get started" banner in Ads).
 - Once `generate_lead` records real enquiries in Ads, switch the Search campaign's bidding to Maximise conversions with "Submit lead forms" as its only goal. It now uses the account defaults, Purchases and Submit lead forms (search report r4, rec 2).
 - Turn on the Websites ad group when it should run. That splits the A$5, so raise the budget at the same time.
@@ -39,6 +42,7 @@ Still to do:
 ## Search Console and directories
 
 Added 2026-10-14. Owner's steps. The mistyped /sitemaps.xml submission was removed on 14 October.
+
 - GoodFirms: "Post a project" (myaccount.goodfirms.co/users/projects/post) is the buyer side, for hiring an agency, so skip it. List the business instead with GoodFirms' "Get Listed" as a service provider: name freethedesk, phone 0423 853 830, Perth WA, https://www.freethedesk.com.au/, web development and SEO. Do the same on DesignRush, Oneflare and Bark (search report r3, card 4).
 - Claim the business on Bing Places (bingplaces.com, which can import the Google Business Profile) and Apple Business Connect (businessconnect.apple.com), with exactly the Business Profile's name, phone and service area, so the three map listings agree with the site (search report r3, earn-outside-links).
 

@@ -44,7 +44,8 @@ export default async function AutomationPage() {
       />
       <Hero
         path="/automation"
-        eyebrow="Business automation Perth"
+        eyebrow="Business and AI automation for Perth businesses"
+        eyebrowIsHeading
         titleLines={['Less repetition.']}
         accentTitle="More progress."
         accentAlternates={['More selling.', 'Fewer errors.', 'More weekends.']}

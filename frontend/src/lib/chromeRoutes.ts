@@ -12,20 +12,6 @@ import { matchesAnyRoute } from '@/lib/routePolicy';
 /** Pages that carry no header or footer at all. */
 const STANDALONE_CHROME_ROUTES = ['/login', '/licensing/payment'] as const;
 
-const APPLICATION_ROUTES = [
-  '/dashboard',
-  // Chrome-wise it is an application screen, even though nobody signs in to it.
-  '/sale',
-  '/portal',
-  '/seo-portal',
-  '/seo/payment',
-  '/order',
-] as const;
-
 export function usesStandaloneChrome(pathname: string): boolean {
   return matchesAnyRoute(pathname, STANDALONE_CHROME_ROUTES);
-}
-
-export function isApplicationRoute(pathname: string): boolean {
-  return matchesAnyRoute(pathname, APPLICATION_ROUTES);
 }

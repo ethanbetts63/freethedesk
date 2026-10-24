@@ -9,7 +9,7 @@ import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { metadataFor } from '@/lib/pages';
 import { formatMoney } from '@/lib/formatting';
-import { buildRecurringOffer } from '@/lib/seo';
+import { buildOneOffOffer, buildRecurringOffer } from '@/lib/seo';
 import { numberSections } from '@/lib/sectionNumbers';
 import { getSiteSettingsServer } from '@/lib/serverApi';
 
@@ -21,6 +21,7 @@ import { SeoIntroduction } from './_components/SeoIntroduction';
 import { SeoSignup } from './_components/SeoSignup';
 import { SeoStepsBar } from './_components/SeoStepsBar';
 import { seoFaqs } from './_lib/copy';
+import { buildSeoPlans, PRICE_FIELD } from './_lib/plans';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 const sections = numberSections([
@@ -33,6 +34,9 @@ const sections = numberSections([
 ] as const);
 
 export const metadata: Metadata = metadataFor('/seo');
+
+/** What each subscription's price is per: one audit each time. */
+const OFFER_UNIT = { monthly: 'MONTH', quarterly: 'QUARTER', yearly: 'YEAR' } as const;
 
 /* Pricing comes from the admin, so this page renders per request. */
 export const dynamic = 'force-dynamic';
@@ -47,11 +51,15 @@ const casePoints = [
 export default async function SeoPage() {
   const settings = await getSiteSettingsServer();
 
-  // The Service node itself is declared in STATIC_PAGES; only the price is dynamic.
-  // A subscription starts monthly, so that is the cadence the offer states.
-  const serviceOffers = buildRecurringOffer({
-    price: settings.seo_monthly_price,
-    unitText: 'MONTH',
+  // The Service node itself is declared in STATIC_PAGES; only the prices are dynamic.
+  // One offer per plan, the one-off audit included, priced as the plan cards are.
+  const serviceOffers = buildSeoPlans(settings).flatMap((plan) => {
+    const amount = settings[PRICE_FIELD[plan.code]];
+    const offer =
+      plan.code === 'oneoff'
+        ? buildOneOffOffer({ price: Number(amount), name: plan.name })
+        : buildRecurringOffer({ price: amount, unitText: OFFER_UNIT[plan.code], name: plan.name });
+    return offer ? [offer] : [];
   });
   // "From": the cheapest audit on offer, whichever plan that is.
   const fromPrice = formatMoney(

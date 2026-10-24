@@ -6,6 +6,7 @@ import { PageSchema } from '@/components/PageSchema';
 import { SectionNumber } from '@/components/SectionNumber';
 import { Wordmark } from '@/components/Wordmark';
 import { metadataFor } from '@/lib/pages';
+import { getSiteSettingsServer } from '@/lib/serverApi';
 import { cn } from '@/lib/utils';
 
 import { AnalysisIntro, AnalysisTiles, Provenance } from './_components/Analysis';
@@ -14,9 +15,13 @@ import { ExperimentList, RecommendationList } from './_components/Recommendation
 import { ReportCover } from './_components/ReportCover';
 import { ReportSection, cardClass, display, labelClass } from './_components/ReportPrimitives';
 import { reportSerif } from './_lib/fonts';
+import { seoAuditPrices, type SeoAuditPrices } from '../_lib/plans';
 import { BUSINESS } from './_lib/report';
 
 export const metadata: Metadata = metadataFor('/seo/sample-report');
+
+/* The button's prices come from the admin, so this page renders per request. */
+export const dynamic = 'force-dynamic';
 
 const contents = [
   { number: '01', title: 'Recommendations', href: '#recommendations' },
@@ -75,7 +80,7 @@ function Contents() {
   );
 }
 
-function SampleCta() {
+function SampleCta({ prices }: { prices: SeoAuditPrices }) {
   return (
     <section className="site-shell my-section bg-surface-tint py-section text-center sm:px-xl sm:py-3xl">
       <SectionNumber>Your business next</SectionNumber>
@@ -84,14 +89,21 @@ function SampleCta() {
         The same report, written about your site from your own search data: what to fix first, why
         it matters and how to do it, then what each change earned the time after.
       </p>
-      <CtaButton href="/seo" size="large">
-        Get a report for your business
-      </CtaButton>
+      <div className="flex flex-col items-center gap-s">
+        <CtaButton href="/seo" size="large">
+          Get a report for your business
+        </CtaButton>
+        <p className="m-0 text-body-sm font-strong text-text-muted">
+          {prices.oneOff} one-off, or {prices.subscription} an audit on a subscription
+        </p>
+      </div>
     </section>
   );
 }
 
-export default function SampleReportPage() {
+export default async function SampleReportPage() {
+  const prices = seoAuditPrices(await getSiteSettingsServer());
+
   return (
     <main className="bg-surface-page text-text-secondary">
       <PageSchema path="/seo/sample-report" />
@@ -150,9 +162,7 @@ export default function SampleReportPage() {
               'mt-l flex flex-wrap items-center justify-between gap-m border-t border-border-subtle pt-s pb-s',
             )}
           >
-            <span className="text-body-sm text-text-subtle">
-              {BUSINESS.fullName} search report · {BUSINESS.version}
-            </span>
+            <span className="text-body-sm text-text-subtle">{BUSINESS.fullName} search report</span>
             <span className="flex items-center gap-s">
               <span className={cn(labelClass, 'tracking-label-wide')}>Report written by</span>
               <Wordmark size="mini" className="text-body" />
@@ -161,7 +171,7 @@ export default function SampleReportPage() {
         </article>
       </div>
 
-      <SampleCta />
+      <SampleCta prices={prices} />
     </main>
   );
 }

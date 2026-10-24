@@ -16,20 +16,21 @@ export function ReportCover() {
       <div className={cn(display, 'site-shell')}>
         <div className="mx-auto max-w-4xl pt-2xl pb-xl">
           <div className="flex flex-wrap items-center justify-between gap-m">
-            <span className="inline-flex items-center gap-xs text-caption font-strong tracking-label-eyebrow text-action-primary uppercase">
+            {/* The page's h1 says what it is; the cover's big title is the sample's own. */}
+            <h1 className="m-0 inline-flex items-center gap-xs text-caption font-strong tracking-label-eyebrow text-action-primary uppercase">
               <span
                 aria-hidden="true"
                 className="size-2xs rounded-circle bg-action-primary shadow-halo"
               />
-              Search report · {BUSINESS.version}
-            </span>
+              Sample SEO report
+            </h1>
             <span className="text-body-sm font-strong text-text-secondary">{BUSINESS.host}</span>
           </div>
 
-          <h1 className="m-0 mt-2xl text-hero leading-none font-black tracking-tighter text-text-primary">
+          <p className="m-0 mt-2xl text-hero leading-none font-black tracking-tighter text-text-primary">
             {BUSINESS.name}
             <span className="block text-action-primary">search report.</span>
-          </h1>
+          </p>
           <p className="m-0 mt-ml max-w-copy text-lead leading-normal text-text-muted">
             How people found and used {BUSINESS.host} in search,{' '}
             <strong className="font-semibold text-text-secondary">{BUSINESS.period}</strong>.

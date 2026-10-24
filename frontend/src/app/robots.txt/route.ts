@@ -18,8 +18,8 @@ interface RobotsGroup {
 /**
  * The signed-in application and the API proxy.
  *
- * These are the same trees `isApplicationRoute` and the Clarity exclusions in
- * `lib/routePolicy.ts` already treat as private. Every one of them is behind
+ * These are the same trees the Clarity exclusions in `lib/routePolicy.ts`
+ * already treat as private. Every one of them is behind
  * auth, so a crawler gets a login redirect rather than content — but a
  * disallowed URL is one Google will not spend crawl budget on, and one it will
  * not surface as a bare title in results either.

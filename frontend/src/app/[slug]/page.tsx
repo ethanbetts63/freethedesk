@@ -4,8 +4,10 @@ import { notFound } from 'next/navigation';
 
 import Eyebrow from '@/components/common/eyebrow';
 import { GuideCta, type GuideCtaKind } from '@/app/guides/_components/GuideCta';
+import { GuideOffer, type GuideOfferKind } from '@/app/guides/_components/GuideOffer';
 import { GuideHero, GuideTrail } from '@/components/marketing/GuideHero';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
+import type { PublicSiteSettings } from '@/lib/api';
 import { getAllArticleSlugs, getArticleBySlug, type Article } from '@/lib/articles';
 import {
   buildArticleSchema,
@@ -13,6 +15,7 @@ import {
   buildWebPageSchema,
   buildMetadata,
 } from '@/lib/seo';
+import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
 
 // Uncontrolled rich content: the markup comes from the article body, so the
 // rules cannot be put on elements by hand.
@@ -21,6 +24,9 @@ import styles from './article.module.css';
 import { cn } from '@/lib/utils';
 
 export const dynamicParams = false;
+
+/* The box after the first section quotes the admin's prices, so a guide renders per request. */
+export const dynamic = 'force-dynamic';
 
 /**
  * Which service each guide ends on. A guide about being found ends on SEO;
@@ -31,6 +37,31 @@ const GUIDE_CTA: Record<string, GuideCtaKind> = {
   'dealer-online-wa': 'licensing',
   'how-to-show-up-in-ai-search': 'seo',
 };
+
+/** Which service a guide's opening box offers. Anything not listed offers websites. */
+const GUIDE_OFFER: Record<string, GuideOfferKind> = {
+  'business-not-showing-up-on-google': 'seo',
+  'dealer-online-wa': 'licensing',
+  'how-to-show-up-in-ai-search': 'seo',
+  'what-to-automate-in-a-small-business': 'automation',
+  'wordpress-website-cost-perth': 'redesign',
+};
+
+const OFFER_PRICE_FIELDS = [
+  ...SERVICE_PRICE_FIELDS,
+  'seo_monthly_price',
+  'seo_quarterly_price',
+  'seo_yearly_price',
+  'seo_oneoff_price',
+  'licensing_price',
+] as const;
+
+/** The guide's html cut after its first section: before its second `<h2>`, or whole if it has none. */
+function splitAfterFirstSection(html: string): [string, string] {
+  const first = html.indexOf('<h2');
+  const second = first === -1 ? -1 : html.indexOf('<h2', first + 3);
+  return second === -1 ? [html, ''] : [html.slice(0, second), html.slice(second)];
+}
 
 export function generateStaticParams() {
   return getAllArticleSlugs().map((slug) => ({ slug }));
@@ -72,15 +103,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     ]),
   ];
 
+  const settings = await getSiteSettingsServer(OFFER_PRICE_FIELDS);
+
   return (
     <main>
       <StructuredDataScript structuredData={structuredData} />
-      <ArticleView article={article} />
+      <ArticleView article={article} settings={settings} />
     </main>
   );
 }
 
-function ArticleView({ article }: { article: Article }) {
+function ArticleView({ article, settings }: { article: Article; settings: PublicSiteSettings }) {
+  const [opening, rest] = splitAfterFirstSection(article.html);
+
   const publishedDate = new Intl.DateTimeFormat('en-AU', {
     day: 'numeric',
     month: 'long',
@@ -108,10 +143,20 @@ function ArticleView({ article }: { article: Article }) {
                 <time dateTime={article.publishedDate}>{publishedDate}</time>
               </Eyebrow>
             </div>
-            <article
-              className={cn('prose-article', styles.article)}
-              dangerouslySetInnerHTML={{ __html: article.html }}
-            />
+            {/* Two prose blocks with the box between them, outside the prose rules. */}
+            <article>
+              <div
+                className={cn('prose-article', styles.article)}
+                dangerouslySetInnerHTML={{ __html: opening }}
+              />
+              <GuideOffer kind={GUIDE_OFFER[article.slug] ?? 'website'} settings={settings} />
+              {rest && (
+                <div
+                  className={cn('prose-article', styles.article)}
+                  dangerouslySetInnerHTML={{ __html: rest }}
+                />
+              )}
+            </article>
             <div className="mt-2xl border-t border-border-default pt-xl">
               <Link
                 href="/guides"

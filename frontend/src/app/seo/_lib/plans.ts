@@ -19,6 +19,26 @@ const RECURRING_FEATURES = [...FEATURES, 'Every change measured'];
 
 const price = (value: string) => formatMoney(value, { cents: 'auto' });
 
+/** The admin setting each plan is priced from. */
+export const PRICE_FIELD = {
+  monthly: 'seo_monthly_price',
+  quarterly: 'seo_quarterly_price',
+  yearly: 'seo_yearly_price',
+  oneoff: 'seo_oneoff_price',
+} as const satisfies Record<SeoPlanCode, keyof PublicSiteSettings>;
+
+/** The two prices quoted beside a call to buy: one audit, and an audit on the cheapest subscription. */
+export function seoAuditPrices(settings: PublicSiteSettings) {
+  const subscription = Math.min(
+    ...[settings.seo_monthly_price, settings.seo_quarterly_price, settings.seo_yearly_price].map(
+      Number,
+    ),
+  );
+  return { oneOff: price(settings.seo_oneoff_price), subscription: price(String(subscription)) };
+}
+
+export type SeoAuditPrices = ReturnType<typeof seoAuditPrices>;
+
 /**
  * What a customer can buy. The pace is theirs to pick, by how fast they can
  * act on an audit; each plan has its own price.

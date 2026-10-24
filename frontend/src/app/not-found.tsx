@@ -23,7 +23,7 @@ const DESTINATIONS = [
 ];
 
 export const metadata: Metadata = {
-  title: { absolute: 'Page not found | freethedesk' },
+  title: { absolute: 'Page not found - freethedesk' },
 };
 
 export default function NotFound() {

@@ -7,27 +7,21 @@ import { choiceInputClassName } from '@/components/forms/selectionFormClassNames
 import { focusRingClassName } from '@/lib/controlState';
 import { cn } from '@/lib/utils';
 
-/** One card in the row, already priced and worded: a package, or a plan. */
+/** One card in the row, already priced and worded: a package, or a plan. Only what tells cards apart. */
 export interface PackageCard<Code extends string> {
   code: Code;
-  /** Small capitals above the name: the card's position or kind. Optional; the name may say it. */
-  label?: string;
   name: string;
   /** What the price buys, in small capitals over it. */
   priceLabel: string;
   price: string;
-  priceNote?: string;
-  /** When only part is paid upfront: what is due today, highlighted under the price. */
-  dueNote?: string;
   includes: readonly string[];
-  recommended?: boolean;
 }
 
 /** Every card is the same width, so the row scrolls in whole cards. */
 const cardClassName =
   'group flex w-[256px] shrink-0 cursor-pointer snap-start flex-col bg-surface-page p-l text-left transition-colors duration-200 has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-[-3px] has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)]';
 
-/** Small capitals: the card's label, and what its price buys. */
+/** Small capitals: what a card's price buys. */
 const cardKickerClassName = 'block text-label font-heavy tracking-label text-text-subtle uppercase';
 
 /**
@@ -97,8 +91,6 @@ export function PackageChooser<Code extends string>({
   onChoose: (code: Code) => void;
 }) {
   const single = cards.length === 1;
-  // The kicker line shows on every card or none, so the names start level.
-  const hasKicker = cards.some((item) => item.label || item.recommended);
   const rowRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -183,18 +175,6 @@ export function PackageChooser<Code extends string>({
                   checked={isSelected}
                   onChange={() => onChoose(item.code)}
                 />
-                {/* Wraps rather than overflows if a long label sits beside "Recommended". */}
-                {hasKicker && (
-                  <span
-                    className={cn(
-                      cardKickerClassName,
-                      'mb-s flex flex-wrap justify-between gap-x-xs',
-                    )}
-                  >
-                    <span>{item.label ?? <>&nbsp;</>}</span>
-                    {item.recommended && <span className="moving-colour-text">Recommended</span>}
-                  </span>
-                )}
                 <strong className="block text-lead leading-tight tracking-[-0.025em] text-text-secondary">
                   {item.name}
                 </strong>
@@ -203,14 +183,6 @@ export function PackageChooser<Code extends string>({
                 <span className="mt-2xs block text-title leading-none font-heavy tracking-[-0.05em] text-text-primary">
                   {item.price}
                 </span>
-                {item.priceNote && (
-                  <span className="mt-xs block text-body-sm text-text-muted">{item.priceNote}</span>
-                )}
-                {item.dueNote && (
-                  <span className="mt-xs block text-body-sm font-strong text-text-action">
-                    {item.dueNote}
-                  </span>
-                )}
 
                 <ul className="m-0 mt-l mb-xl grid list-none gap-xs border-t border-border-subtle p-0 pt-l">
                   {item.includes.map((line) => (
