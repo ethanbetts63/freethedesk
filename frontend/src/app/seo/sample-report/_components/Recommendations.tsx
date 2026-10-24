@@ -68,18 +68,17 @@ function RecommendationCard({ rec, n }: { rec: Recommendation; n: number }) {
         {rec.title}
       </CardTitle>
       {rec.shot ? (
-        // The screenshot sits beside the text on a wide screen, as the report sets it, and above
-        // it on a phone; a phone screenshot takes a narrower column than a browser one.
-        <div
-          className={cn(
-            'flex flex-col-reverse md:grid md:items-start md:gap-m',
-            rec.shot === 'phone-header'
-              ? 'md:grid-cols-[minmax(0,1fr)_11rem]'
-              : 'md:grid-cols-[minmax(0,1fr)_minmax(0,21rem)]',
-          )}
-        >
-          <div className="min-w-0">{body}</div>
-          <RecShot kind={rec.shot} />
+        // Floated right with the text wrapping round it, as the report sets it (.rec__shot):
+        // 44% wide for a browser shot, 24% for a phone. On a phone it sits above the text.
+        <div className="flow-root">
+          <RecShot
+            kind={rec.shot}
+            className={cn(
+              'md:float-right md:mt-4xs md:mb-m md:ml-l',
+              rec.shot === 'phone-header' ? 'md:w-6/25' : 'md:w-11/25',
+            )}
+          />
+          {body}
         </div>
       ) : (
         body

@@ -417,10 +417,10 @@ const SHOTS: Record<ShotKind, () => React.JSX.Element> = {
   'profile-services': ProfileServicesShot,
 };
 
-export function RecShot({ kind }: { kind: ShotKind }) {
+export function RecShot({ kind, className }: { kind: ShotKind; className?: string }) {
   const Shot = SHOTS[kind];
   return (
-    <figure className="m-0 mb-s md:mb-0">
+    <figure className={cn('m-0 mb-m', className)}>
       <Shot />
     </figure>
   );
