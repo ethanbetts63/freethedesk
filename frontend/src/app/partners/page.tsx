@@ -46,7 +46,7 @@ export default async function PartnersPage() {
     },
     {
       title: 'Share your code',
-      body: 'On air, in the show notes, in your newsletter. Your listeners get a discount at checkout, and every audit bought with the code is yours.',
+      body: 'On air, in the show notes, in your newsletter. Your listeners get 20% off at checkout, and every audit bought with the code is yours.',
     },
     {
       title: 'Get paid',

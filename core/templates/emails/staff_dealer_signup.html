@@ -10,22 +10,22 @@
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0 0 28px; font-size: 15px;">
     <tr>
-        <td style="padding: 8px 0; color: #64748b; width: 140px;">Business</td>
+        <td style="padding: 8px 0; color: #718498; width: 140px;">Business</td>
         <td style="padding: 8px 0;">{{ dealer.business_name }}</td>
     </tr>
     <tr>
-        <td style="padding: 8px 0; color: #64748b;">Contact</td>
+        <td style="padding: 8px 0; color: #718498;">Contact</td>
         <td style="padding: 8px 0;">{{ dealer.contact_name }}</td>
     </tr>
     <tr>
-        <td style="padding: 8px 0; color: #64748b;">Email</td>
-        <td style="padding: 8px 0;"><a href="mailto:{{ dealer.email }}" style="color: #0f172a;">{{ dealer.email }}</a></td>
+        <td style="padding: 8px 0; color: #718498;">Email</td>
+        <td style="padding: 8px 0;"><a href="mailto:{{ dealer.email }}" style="color: #09121b;">{{ dealer.email }}</a></td>
     </tr>
     <tr>
-        <td style="padding: 8px 0; color: #64748b;">Phone</td>
+        <td style="padding: 8px 0; color: #718498;">Phone</td>
         <td style="padding: 8px 0;">{{ dealer.phone|default:"Not supplied" }}</td>
     </tr>
 </table>
 
-<a href="{{ dealer_url }}" target="_blank" style="background-color: #2563eb; border-radius: 5px; color: #ffffff; display: inline-block; font-size: 14px; font-weight: 700; padding: 13px 22px; text-decoration: none;">Review this dealer</a>
+<a href="{{ dealer_url }}" target="_blank" style="background-color: #2473c6; border-radius: 5px; color: #ffffff; display: inline-block; font-size: 14px; font-weight: 700; padding: 13px 22px; text-decoration: none;">Review this dealer</a>
 {% endblock %}

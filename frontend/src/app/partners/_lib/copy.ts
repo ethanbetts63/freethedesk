@@ -58,7 +58,7 @@ export function partnerFaqs(settings: PublicSiteSettings): FaqItem[] {
     {
       question: 'How do you know a sale came from me?',
       answer:
-        'Your listeners enter your code at checkout. It gives them a discount and marks the audit as yours, so every one bought with it counts, whenever they buy it.',
+        'Your listeners enter your code at checkout. It gives them 20% off and marks the audit as yours, so every one bought with it counts, whenever they buy it.',
     },
     {
       question: 'Do my listeners have to be in Australia?',

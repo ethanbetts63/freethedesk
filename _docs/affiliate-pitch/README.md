@@ -24,7 +24,7 @@ pointed at `core/templates` and the context below; images resolve against
 - Half of every audit a listener buys with the host's code: 50%, so $275 to
   $700 an audit across the three tiers, paid out through Stripe. Audits are
   bought once, so there is nothing to repeat.
-- A listener discount, `discount`, still to decide ($50 suggested).
+- A 20% listener discount, passed as `discount`.
 - One next step: sign up on the partner page, /partners. No audit is written and no code issued until they have.
 - A footer with the postal address, where the address came from (their podcast
   feed), a one-click unsubscribe, and a promise of at most one more email.
@@ -34,7 +34,7 @@ pointed at `core/templates` and the context below; images resolve against
 | Version | Sounds like | The visual | Subject lines |
 | --- | --- | --- | --- |
 | A | One person writing to one host; opens with a line about the show | The report cover, one small image | A free SEO audit for {business} · Quick one about {podcast} · $700 an audit for {podcast} |
-| B | Free the Desk announcing a partner program | Navy hero, three figures, three steps, the free sample report | The Free the Desk podcast partner program · An invitation for {podcast} · {podcast} × Free the Desk |
+| B | Free the Desk announcing a partner program | Navy hero with the wordmark, two figures, three steps, the free sample report | The Free the Desk podcast partner program · An invitation for {podcast} · {podcast} × Free the Desk |
 
 ## Context
 
@@ -44,7 +44,7 @@ pointed at `core/templates` and the context below; images resolve against
 | `podcast` | The Tradie Show | From the feed |
 | `first_name` | Sam | Optional; A says "there" without it |
 | `opener` | Came across your episode on pricing jobs… | Optional one true line about the show; A's second paragraph. Never claim to have listened when nobody has |
-| `discount` | $50 | The listener discount |
+| `discount` | 20% | The listener discount |
 | `commission_low`, `commission_high` | $275, $700 | Half of the cheapest and dearest audit |
 | `free_audit_price` | $850 | The tier the host gets free |
 | `unsubscribe_url` | per recipient | Must suppress the address in messaging |
