@@ -33,7 +33,8 @@ export type Impact = 'high' | 'medium' | 'low';
 export type Cost = 'low' | 'medium' | 'high';
 
 /** The drawn screenshots a few recommendations carry, as a delivered report's do. */
-export type ShotKind = 'phone-header' | 'search-results' | 'reviews';
+export type ShotKind =
+  'phone-header' | 'search-results' | 'reviews' | 'quote-thanks' | 'profile-services';
 
 export type Recommendation = {
   title: string;
@@ -112,6 +113,7 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     title: 'Say on the quote form how soon you reply, and confirm every request',
     impact: 'medium',
     cost: 'low',
+    shot: 'quote-thanks',
     what: "The quote form ends on 'Thanks, we'll be in touch' and sends the customer nothing. The contact page promises a call back 'within the hour', the footer says 'same business day', and the form says neither.",
     why: 'Someone who asked two plumbers for a quote rings the one who answers first. A customer told nothing waits, then asks someone else; one promise, kept, sets the wait they expect.',
     how: [
@@ -147,6 +149,7 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     title: 'List every service on the Business Profile, and post a recent job each month',
     impact: 'low',
     cost: 'low',
+    shot: 'profile-services',
     what: "The profile lists three services, all under 'Plumber', and has never had a post. Its photos are all of the vans.",
     why: 'The searches that show the profile most are for hot water and blocked drains, ahead of the business name. A searcher who opens it finds nothing about either job, and no sign the business is busy.',
     how: [
