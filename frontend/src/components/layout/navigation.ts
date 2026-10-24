@@ -7,7 +7,7 @@ export interface NavMenuItem {
 }
 
 export interface NavItem extends NavMenuItem {
-  /** Present: this entry opens a dropdown on desktop and flattens on mobile. */
+  /** Present: this entry opens a dropdown on desktop and an expanding section on mobile. */
   items?: readonly NavMenuItem[];
 }
 
@@ -29,10 +29,14 @@ export const NAV_LINK: Record<NavLinkStyle, string> = {
 export const navCtaClassName =
   'inline-flex items-center bg-action-primary px-m py-s text-label font-strong tracking-label-eyebrow text-text-on-dark uppercase transition-[background,transform] duration-200 hover:-translate-y-px';
 
-/** A row in the mobile panel. */
+/** A row in the full-screen mobile menu: a link, or the summary of an expanding section. */
 export const mobileNavRowClassName =
-  'flex min-h-[var(--tap-min)] items-center justify-between border-b border-border-default px-s text-body font-heavy text-text-primary';
+  'flex min-h-[var(--tap-min)] items-center justify-between border-b border-border-default px-s py-s text-lead font-heavy text-text-primary';
+
+/** A link inside an expanded mobile section, set in under its heading. */
+export const mobileNavSubRowClassName =
+  'flex min-h-[var(--tap-min)] items-center pr-s pl-l text-body font-strong text-text-secondary transition-colors hover:text-text-primary';
 
 /** The CTA row that closes the mobile panel. */
 export const mobileNavCtaClassName =
-  'mt-xs flex min-h-[var(--tap-min)] items-center justify-between border-0 bg-action-primary px-s text-body font-heavy text-text-on-dark';
+  'mt-m flex min-h-[var(--tap-min)] items-center justify-between border-0 bg-action-primary px-s py-s text-lead font-heavy text-text-on-dark';

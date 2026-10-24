@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Phone } from 'lucide-react';
 
 import { PRIMARY_NAVIGATION } from '@/lib/siteConfig';
 import { SiteHeader } from '@/components/layout/SiteHeader';
@@ -11,9 +12,16 @@ import {
 
 const NAV: NavItem[] = [...PRIMARY_NAVIGATION];
 
-/** Beside the menu button on phones, where the forms can be ten screens down the page. */
+const PHONE_HREF = 'tel:+61423853830';
+const PHONE_NUMBER = '0423 853 830';
+
+/** Beside the menu button on phones, where the forms can be ten screens down the page. Icon only: the number
+    beside the wordmark needs 424px, wider than most phones, so it is spelled out in the menu instead. */
 const callClassName =
-  'inline-flex min-h-[var(--tap-min)] items-center bg-action-primary px-s text-label font-strong tracking-label-eyebrow text-text-on-dark uppercase';
+  'inline-flex size-[var(--tap-min)] items-center justify-center bg-action-primary text-text-on-dark';
+
+const callRowClassName =
+  'mt-s flex min-h-[var(--tap-min)] items-center gap-xs px-s text-lead font-heavy text-text-primary';
 
 export function Header() {
   return (
@@ -33,8 +41,14 @@ export function Header() {
         </Link>
       }
       mobileActions={
-        <a href="tel:+61423853830" className={callClassName}>
-          Call
+        <a href={PHONE_HREF} className={callClassName} aria-label={`Call ${PHONE_NUMBER}`}>
+          <Phone className="size-5" aria-hidden="true" />
+        </a>
+      }
+      mobileExtra={
+        <a href={PHONE_HREF} className={callRowClassName}>
+          <Phone className="size-5 shrink-0 text-text-action" aria-hidden="true" />
+          {PHONE_NUMBER}
         </a>
       }
     />
