@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { FaqSection } from '@/components/marketing/FaqSection';
+import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
@@ -156,6 +157,7 @@ export default async function SeoPage() {
       >
         An ad click stops the day the budget does. A click you earn in search keeps arriving.
       </ManualAdminCta>
+      <RelatedPages path="/seo" />
     </main>
   );
 }

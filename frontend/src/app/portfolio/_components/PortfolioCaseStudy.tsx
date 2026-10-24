@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 
 import Eyebrow from '@/components/common/eyebrow';
 import { FaqSection } from '@/components/marketing/FaqSection';
+import { RelatedPages } from '@/components/marketing/RelatedPages';
 import type { FaqItem } from '@/types/FaqItem';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
@@ -655,6 +656,7 @@ export function PortfolioCaseStudy({ config: rawConfig }: { config: PortfolioCas
       ))}
       <PortfolioIntent config={config.intent} />
       <PortfolioEnding config={config} />
+      <RelatedPages path={config.path} />
     </main>
   );
 }

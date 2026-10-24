@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { FaqSection } from '@/components/marketing/FaqSection';
+import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
 import { ProcessStepsBar } from '@/components/ProcessStepsBar';
@@ -56,6 +57,7 @@ export default function Home() {
         items={HOME_FAQS}
       />
       <ManualAdminCta buttonLabel="Get in touch" spacing="joined" />
+      <RelatedPages path="/" />
     </main>
   );
 }

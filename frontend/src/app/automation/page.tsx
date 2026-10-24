@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { FaqSection } from '@/components/marketing/FaqSection';
+import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSection';
@@ -83,6 +84,7 @@ export default async function AutomationPage() {
         items={AUTOMATION_FAQS}
       />
       <ManualAdminCta id="page-cta" href="#packages" buttonLabel="Automate your admin" />
+      <RelatedPages path="/automation" />
     </main>
   );
 }

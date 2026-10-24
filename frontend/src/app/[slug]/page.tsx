@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import Eyebrow from '@/components/common/eyebrow';
 import { GuideCta, type GuideCtaKind } from '@/app/guides/_components/GuideCta';
 import { GuideOffer, type GuideOfferKind } from '@/app/guides/_components/GuideOffer';
+import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { GuideHero, GuideTrail } from '@/components/marketing/GuideHero';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import type { PublicSiteSettings } from '@/lib/api';
@@ -16,6 +17,7 @@ import {
   buildMetadata,
 } from '@/lib/seo';
 import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
+import { servicePrices } from '@/lib/servicePricing';
 
 // Uncontrolled rich content: the markup comes from the article body, so the
 // rules cannot be put on elements by hand.
@@ -36,6 +38,7 @@ const GUIDE_CTA: Record<string, GuideCtaKind> = {
   'business-not-showing-up-on-google': 'seo',
   'dealer-online-wa': 'licensing',
   'how-to-show-up-in-ai-search': 'seo',
+  'what-to-automate-in-a-small-business': 'automation',
 };
 
 /** Which service a guide's opening box offers. Anything not listed offers websites. */
@@ -169,7 +172,11 @@ function ArticleView({ article, settings }: { article: Article; settings: Public
         </div>
       </section>
 
-      <GuideCta kind={GUIDE_CTA[article.slug] ?? 'website'} />
+      <RelatedPages path={`/${article.slug}`} />
+      <GuideCta
+        kind={GUIDE_CTA[article.slug] ?? 'website'}
+        discoveryTotal={servicePrices(settings).discoveryTotal}
+      />
     </>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { FaqSection } from '@/components/marketing/FaqSection';
+import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSection';
@@ -202,6 +203,7 @@ export default async function Dealers() {
         Tell us where leads, contracts, licensing or handovers slow down. We&apos;ll find the
         simplest worthwhile place to begin.
       </ManualAdminCta>
+      <RelatedPages path="/dealers" />
     </main>
   );
 }

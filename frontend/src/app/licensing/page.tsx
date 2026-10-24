@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { FaqSection } from '@/components/marketing/FaqSection';
+import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { Hero } from '@/components/marketing/Hero';
@@ -101,6 +102,7 @@ export default async function LicensingPage() {
         Let customers fill, verify and sign from anywhere in Perth or regional WA. The paperwork
         travels—not the customer.
       </ManualAdminCta>
+      <RelatedPages path="/licensing" />
     </main>
   );
 }

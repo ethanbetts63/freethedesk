@@ -1,5 +1,8 @@
 import { AiReadinessBanner } from '@/components/marketing/AiReadinessBanner';
+import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSection';
+import Link from 'next/link';
+
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { FeatureScrollSection } from '@/components/marketing/FeatureScrollSection';
@@ -134,7 +137,14 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
         </p>
         <p>
           It is a practical example of what happens when the public website and the work behind it
-          are designed as one system.
+          are designed as one system. For a different build, see{' '}
+          <Link
+            className="text-text-action underline underline-offset-[3px]"
+            href="/portfolio/bloomprint"
+          >
+            Bloomprint
+          </Link>
+          , a flower marketplace with customers on one side and florists on the other.
         </p>
       </CaseStudyTeaser>
 
@@ -163,6 +173,7 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
       >
         Tell us what you sell, who the site is for and where the current process gets in the way.
       </ManualAdminCta>
+      <RelatedPages path={path} />
     </main>
   );
 }

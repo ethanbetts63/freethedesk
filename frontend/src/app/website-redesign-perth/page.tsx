@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
+import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { Hero } from '@/components/marketing/Hero';
 import { IndexedFeatureSection } from '@/components/marketing/IndexedFeatureSection';
@@ -165,6 +166,7 @@ export default async function WebsiteRedesignPage() {
         Send us its address and we&apos;ll tell you what it ranks for today and what a move would
         need to keep.
       </ManualAdminCta>
+      <RelatedPages path="/website-redesign-perth" />
     </main>
   );
 }
