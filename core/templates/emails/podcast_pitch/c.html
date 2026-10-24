@@ -1,0 +1,22 @@
+{% extends "emails/base.html" %}
+{# Podcast partner pitch, version C: A without links or an image. The host is told to search for the partner page instead. Context: see _docs/affiliate-pitch/README.md. #}
+
+{% block title %}A free SEO audit for {{ podcast }}{% endblock %}
+{% block preheader %}A free audit of your website, and half of every audit your listeners buy.{% endblock %}
+
+{% block content %}
+<p style="margin: 0 0 18px;">Hi {{ first_name|default:"there" }},</p>
+{% if opener %}<p style="margin: 0 0 18px;">{{ opener }}</p>{% endif %}
+<p style="margin: 0 0 18px;">I'm {{ sender_name }}. I run freethedesk in Perth, Western Australia. We write SEO audits for small businesses: where they show up on Google and in AI answers, who's beating them, and the few changes worth making first. Your listeners are exactly who they're for.</p>
+<p style="margin: 0 0 14px;">I'd like to offer you two things:</p>
+
+<p style="margin: 0 0 18px;">A free audit of your website, so you can recommend us from experience. Sign up on the partner page and I'll write one, no strings. It's the same audit customers pay {{ free_audit_price }} for.</p>
+<p style="margin: 0 0 18px;">Half of every audit your listeners buy. You get a code, your listeners get {{ discount }} off, and you get 50% of each sale: {{ commission_low }} to {{ commission_high }} an audit, paid out through Stripe.</p>
+
+<p style="margin: 0 0 18px;">If you're keen, search <strong>freethedesk partners</strong> and sign up on the page that comes up. I'd put a link here, but you really shouldn't click links in strange emails. The whole process is explained on the page, it takes a minute, and there's a sample report on the site so you can see what you'd be recommending.</p>
+
+<p style="margin: 0;">{{ sender_name }}<br>
+<span style="font-size: 13px; color: #718498;">freethedesk</span></p>
+{% endblock %}
+
+{% block unsubscribe %}<br>Reply "no thanks" and we won't write again.{% endblock %}

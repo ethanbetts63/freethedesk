@@ -1,13 +1,13 @@
 # Podcast partner pitch
 
-Two email templates that put the same offer to a podcast host. Each goes to half
-the list and the one with the most positive replies stays. Drafted 24 October
-2026; the live offer is in the templates, not here. A third version, the pitch
-laid out as a report about the podcast, was dropped the same day.
+Three email templates that put the same offer to a podcast host. Each goes to a
+third of the list and the one with the most positive replies stays. Drafted 24
+October 2026; the live offer is in the templates, not here. An earlier third
+version, the pitch laid out as a report about the podcast, was dropped the same day.
 
-Templates: `core/templates/emails/podcast_pitch/{a,b}.html` with a `.txt`
+Templates: `core/templates/emails/podcast_pitch/{a,b,c}.html` with a `.txt`
 twin each, sent through `freetheplatform.messaging.send(template="emails/podcast_pitch/a", ...)`.
-A extends the standard `emails/base.html` frame (wordmark header, Perth
+A and C extend the standard `emails/base.html` frame (wordmark header, Perth
 footer); B is its own 600px layout and `_footer.html` is its legal footer. The report image is
 `frontend/public/images/partners/report-cover.png`, referenced as
 `{{ site_url }}/images/partners/report-cover.png`, so it has to be deployed
@@ -25,14 +25,15 @@ pointed at `core/templates` and the context below; images resolve against
   $700 an audit across the three tiers, paid out through Stripe. Audits are
   bought once, so there is nothing to repeat.
 - A 20% listener discount, passed as `discount`.
-- One next step: sign up on the partner page, /partners. No audit is written and no code issued until they have.
-- The same footer: the wordmark, Perth, and a one-click unsubscribe line.
+- One next step: sign up on the partner page, /partners. No audit is written and no code issued until they have. C has no links at all and tells the host to search "freethedesk partners" instead.
+- The same footer: the wordmark, Perth, and a one-click unsubscribe line. C's says to reply "no thanks" instead, so those replies have to be added to the suppression list by hand.
 
 ## What changes
 
 | Version | Sounds like | The visual | Subject lines |
 | --- | --- | --- | --- |
 | A | One person writing to one host; opens with a line about the show | The report cover, one small image | A free SEO audit for {business} · Quick one about {podcast} · $700 an audit for {podcast} |
+| C | A, with no links and no image: "search freethedesk partners", and a line about not clicking links in strange emails | None | A's subject lines |
 | B | freethedesk announcing a partner program | Navy hero with the earnings hook, a one-line figures strip, three steps, the sample report | The freethedesk podcast partner program · An invitation for {podcast} · {podcast} × freethedesk |
 
 ## Context
