@@ -62,6 +62,7 @@ export default async function WebsiteRedesignPage() {
       <Hero
         path="/website-redesign-perth"
         eyebrow="Website redesign Perth"
+        eyebrowIsHeading
         titleLines={['A new website that keeps your']}
         accentTitle="rankings."
         lead="Website redesign for Perth businesses outgrowing WordPress: a custom-coded site with no plugins to update, moved across page by page so the searches that find you now still find you after launch."

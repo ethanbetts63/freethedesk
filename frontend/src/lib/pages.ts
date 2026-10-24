@@ -71,7 +71,7 @@ export const STATIC_PAGES = {
     label: 'Website development',
     title: 'Web Design & Development Perth',
     description:
-      'Web design and development for Perth businesses that need more than a template: custom websites, ecommerce, integrations and practical web applications.',
+      'Fixed-price web design and development for Perth businesses that need more than a template: custom websites, ecommerce, integrations and web applications.',
     // Perth rather than Australia, matching the page's own "Web design &
     // development Perth" eyebrow and the local intent the title targets.
     service: {
@@ -95,7 +95,7 @@ export const STATIC_PAGES = {
   '/website-redesign-perth': {
     updated: '2026-10-24',
     label: 'Website redesign',
-    title: 'Website Redesign Perth, Without Losing Rankings',
+    title: 'Website Redesign Perth: Moving Off WordPress',
     description:
       'Website redesign for Perth businesses moving off WordPress: a custom-coded site with no plugins to update, moved across so your Google rankings come too.',
     service: {
@@ -119,7 +119,7 @@ export const STATIC_PAGES = {
   '/seo': {
     updated: '2026-10-24',
     label: 'SEO',
-    title: "SEO Audit Perth: Find the Searches You're Losing",
+    title: 'SEO Audit & Reporting Perth',
     description: `Organic clicks up ${SCOOTER_SHOP_GROWTH.percent}% for a Perth dealer. Each audit is a written SEO report of your site: the searches you're losing and what to fix.`,
     service: {
       name: 'SEO Audit Perth',
