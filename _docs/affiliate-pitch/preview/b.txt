@@ -21,7 +21,7 @@ See what you'd be recommending:
 
 Read the free sample report: ../../../frontend/public/seo/sample-report
 
-SIGN UP AND START WITH YOUR FREE AUDIT
+SIGN UP AND GET A FREE AUDIT
 
 Sign up as a partner: ../../../frontend/public/partners
 It takes a minute, and your audit is the first thing we do.
