@@ -9,8 +9,8 @@ import { metadataFor } from '@/lib/pages';
 import { getSiteSettingsServer } from '@/lib/serverApi';
 import { cn } from '@/lib/utils';
 
-import { AnalysisIntro, AnalysisTiles, Provenance } from './_components/Analysis';
-import { FoundationGroups } from './_components/Foundations';
+import { AnalysisOverview, AnalysisQuestions, Provenance } from './_components/Analysis';
+import { HowItWorks } from './_components/HowItWorks';
 import { ExperimentList, RecommendationList } from './_components/Recommendations';
 import { ReportCover } from './_components/ReportCover';
 import { ReportSection, cardClass, display, labelClass } from './_components/ReportPrimitives';
@@ -26,8 +26,7 @@ export const dynamic = 'force-dynamic';
 const contents = [
   { number: '01', title: 'Recommendations', href: '#recommendations' },
   { number: '02', title: 'What changed, and what it did', href: '#experiments' },
-  { number: '03', title: 'What holds the site up, and what does not', href: '#foundations' },
-  { number: '04', title: 'What the data shows', href: '#analysis' },
+  { number: '03', title: 'What the data shows', href: '#analysis' },
 ] as const;
 
 function SampleNote() {
@@ -73,7 +72,7 @@ function Contents() {
             className="flex items-baseline gap-m py-xs text-body text-text-secondary no-underline hover:text-action-primary"
           >
             <span className="w-6" />
-            Provenance
+            Where the data came from
           </a>
         </li>
       </ol>
@@ -119,6 +118,10 @@ export default async function SampleReportPage() {
           <Contents />
 
           <div className="mt-2xl">
+            <HowItWorks />
+          </div>
+
+          <div className="mt-xl">
             <ReportSection
               id="recommendations"
               number="01"
@@ -132,29 +135,20 @@ export default async function SampleReportPage() {
           <ReportSection
             id="experiments"
             number="02"
-            kicker="Running experiments"
+            kicker="Changes"
             title="What changed, and what it did"
           >
             <ExperimentList />
           </ReportSection>
 
           <ReportSection
-            id="foundations"
-            number="03"
-            kicker="Foundations"
-            title="What holds the site up, and what does not"
-          >
-            <FoundationGroups />
-          </ReportSection>
-
-          <ReportSection
             id="analysis"
-            number="04"
+            number="03"
             kicker="Data analysis"
             title="What the data shows"
           >
-            <AnalysisIntro />
-            <AnalysisTiles />
+            <AnalysisOverview />
+            <AnalysisQuestions />
           </ReportSection>
 
           <Provenance />

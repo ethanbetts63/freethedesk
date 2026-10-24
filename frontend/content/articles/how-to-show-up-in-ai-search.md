@@ -1,6 +1,6 @@
 ---
 published: 2026-10-14
-updated: 2026-10-15
+updated: 2026-10-24
 title: How to Show Up in ChatGPT and AI Search Results
 description: How a small business gets its website read and cited by ChatGPT, Google's AI Overviews, Copilot and Perplexity, with a checklist to work through.
 ---
@@ -163,4 +163,4 @@ Work through these in order. The first two groups are usually the quickest to fi
 
 ## If you would like it checked for you
 
-Our [SEO audits](/seo) run 23 foundation checks across your site, Search Console, Business Profile and analytics, including whether AI crawlers can reach you, and look at what AI answers say about your business. A one-off audit is $550. If you just want a quick read first, the free AI readiness check on our home page takes your website and email, and we send you the result.
+Our [SEO audits](/seo) check your site against the SEO fundamentals the research backs, including whether AI crawlers can reach you, read your Search Console and, from the Plus audit up, your Business Profile and analytics, and look at what AI answers say about your business. Audits start at $550, paid once. If you just want a quick read first, the free AI readiness check on our home page takes your website and email, and we send you the result.

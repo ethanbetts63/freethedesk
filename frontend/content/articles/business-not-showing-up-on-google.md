@@ -1,6 +1,6 @@
 ---
 published: 2026-10-14
-updated: 2026-10-15
+updated: 2026-10-24
 title: Why Isn't My Business Showing Up on Google?
 description: The usual reasons a small business is missing from Google search and Maps, how to check each one yourself, and what to fix first.
 ---
@@ -84,4 +84,4 @@ Most small businesses that are missing from Google have a problem in the first t
 
 ## If you would like a second pair of eyes
 
-Our [SEO audits](/seo) check these foundations for you, using your own Search Console, Business Profile and analytics data with read-only access, and rank what to fix first in plain English. A one-off audit is $550, and the recommendations work whichever platform your site is built on. If you would rather just ask a question first, you can [get in touch](/contact).
+Our [SEO audits](/seo) check these foundations for you, using your own Search Console, Business Profile and analytics data with read-only access, and rank what to fix first in plain English. Audits start at $550, paid once, and the recommendations work whichever platform your site is built on. If you would rather just ask a question first, you can [get in touch](/contact).

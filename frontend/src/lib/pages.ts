@@ -132,7 +132,7 @@ export const STATIC_PAGES = {
     label: 'Sample report',
     title: 'Sample SEO Report: What an Audit Includes',
     description:
-      'A sample SEO report for an invented Perth plumber: ranked fixes with cost and impact, a running experiment, foundation checks and what the search data shows.',
+      'A sample SEO report for an invented Perth plumber: ranked fixes with cost and impact, what each change did, and the questions its data answers.',
   },
   '/guides': {
     updated: '2026-10-24',

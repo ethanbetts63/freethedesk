@@ -56,12 +56,12 @@ const actionIcon = (
 const reportSections: readonly ReportCardItem[] = [
   { title: 'Recommendations', description: 'Ranked by impact and cost.', icon: actionIcon },
   { title: 'Experiments', description: 'What each change earned.', icon: trendIcon },
-  { title: 'Foundations', description: '23 checks: pass, warn or fail.', icon: issueIcon },
   {
-    title: 'Trend analysis',
-    description: 'Where your search traffic is heading.',
+    title: 'Data analysis',
+    description: 'What your data says about your customers.',
     icon: targetIcon,
   },
+  { title: 'Sources', description: 'Where every figure came from.', icon: issueIcon },
 ];
 
 const improvementSections: readonly ReportCardItem[] = [

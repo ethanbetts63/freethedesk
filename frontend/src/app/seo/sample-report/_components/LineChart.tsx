@@ -3,32 +3,29 @@ import { cn } from '@/lib/utils';
 import { display } from './ReportPrimitives';
 
 /**
- * The report's line chart, drawn as inline SVG in the house colours: blue is
- * this experiment or this period, grey is the comparison, purple the second
- * measure. The renderer draws these with Vega; this reproduces its look
- * (dotted grid, axis titles, the shaded reporting period, the dashed goal and
- * the "Shipped" rule) without shipping a chart library for one page.
+ * The experiments' line chart, drawn as inline SVG in the house colours: blue
+ * is this experiment, grey where it would be on the site-wide trend alone. The
+ * renderer draws these with Vega; this reproduces its look (dotted grid, axis
+ * titles, the dashed goal and the "Shipped" rule) without shipping a chart
+ * library for one page.
  *
  * SVG text scales with the drawing, so each chart is drawn twice, at a wide
  * and a narrow viewBox, and the breakpoint shows one: a single wide drawing
  * shrank its labels to a few pixels on a phone.
  */
 
-export type Tone = 'now' | 'compare' | 'second' | 'soft';
+export type Tone = 'now' | 'compare';
 
 /** Complete class strings, one per tone (Tailwind only sees literal names). */
 const toneClass: Record<Tone, string> = {
   now: 'text-action-primary',
   compare: 'text-text-subtle',
-  second: 'text-[var(--purple-accent)]',
-  soft: 'text-surface-accent-soft',
 };
 
 export type LineSeries = {
   label: string;
   values: readonly number[];
   tone: Tone;
-  axis?: 'left' | 'right';
   dots?: boolean;
 };
 
@@ -43,10 +40,8 @@ export type LineChartProps = {
   xLabelsNarrow?: readonly { at: number; label: string }[];
   xTitle?: string;
   left: Axis;
-  right?: Axis;
   /** Ranked axes run downwards: first place at the top. */
   invert?: boolean;
-  shade?: { from: number; to: number; label: string };
   marker?: { at: number; label: string };
   goal?: { value: number; label: string };
 };
@@ -58,25 +53,23 @@ const NARROW: Frame = { width: 300, height: 220, font: 11 };
 
 function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
   const { width, height, font } = frame;
-  const { series, left, right, invert, shade, marker, goal, xTitle } = props;
+  const { series, left, invert, marker, goal, xTitle } = props;
   const labels = frame === NARROW && props.xLabelsNarrow ? props.xLabelsNarrow : props.xLabels;
   const count = series[0]?.values.length ?? 0;
 
   const plotLeft = left.title ? 46 : 32;
-  const plotRight = width - (right ? (right.title ? 50 : 38) : 10);
+  const plotRight = width - 10;
   const plotTop = 10;
   const plotBottom = height - (xTitle ? 40 : 24);
 
   const x = (index: number) =>
     plotLeft + (count <= 1 ? 0 : (index / (count - 1)) * (plotRight - plotLeft));
-  const scale = (axis: Axis) => (value: number) => {
-    const share = (value - axis.min) / (axis.max - axis.min);
+  const yLeft = (value: number) => {
+    const share = (value - left.min) / (left.max - left.min);
     return invert
       ? plotTop + share * (plotBottom - plotTop)
       : plotBottom - share * (plotBottom - plotTop);
   };
-  const yLeft = scale(left);
-  const yRight = right ? scale(right) : yLeft;
 
   return (
     <svg
@@ -85,16 +78,6 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
       role="img"
       aria-label={props.ariaLabel}
     >
-      {shade && (
-        <rect
-          x={x(shade.from)}
-          y={plotTop}
-          width={x(shade.to) - x(shade.from)}
-          height={plotBottom - plotTop}
-          className="fill-surface-accent-soft/40"
-        />
-      )}
-
       <g className="text-border-default">
         {left.ticks.map((tick) => (
           <line
@@ -116,11 +99,6 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
             {tick.toLocaleString('en-AU')}
           </text>
         ))}
-        {right?.ticks.map((tick) => (
-          <text key={tick} x={plotRight + 6} y={yRight(tick) + 4} textAnchor="start">
-            {tick.toLocaleString('en-AU')}
-          </text>
-        ))}
         {labels.map(({ at, label }) => (
           <text key={label} x={x(at)} y={plotBottom + 16} textAnchor="middle">
             {label}
@@ -135,14 +113,6 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
             textAnchor="middle"
           >
             {left.title}
-          </text>
-        )}
-        {right?.title && (
-          <text
-            transform={`translate(${width - 10} ${(plotTop + plotBottom) / 2}) rotate(90)`}
-            textAnchor="middle"
-          >
-            {right.title}
           </text>
         )}
         {xTitle && (
@@ -192,8 +162,7 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
       )}
 
       {series.map((line) => {
-        const y = line.axis === 'right' ? yRight : yLeft;
-        const points = line.values.map((value, index) => `${x(index)},${y(value)}`).join(' ');
+        const points = line.values.map((value, index) => `${x(index)},${yLeft(value)}`).join(' ');
         return (
           <g key={line.label} className={toneClass[line.tone]}>
             <polyline
@@ -205,7 +174,7 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
             />
             {line.dots &&
               line.values.map((value, index) => (
-                <circle key={index} cx={x(index)} cy={y(value)} r="2.8" fill="currentColor" />
+                <circle key={index} cx={x(index)} cy={yLeft(value)} r="2.8" fill="currentColor" />
               ))}
           </g>
         );
@@ -214,7 +183,7 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
   );
 }
 
-function Legend({ series, shade }: Pick<LineChartProps, 'series' | 'shade'>) {
+function Legend({ series }: Pick<LineChartProps, 'series'>) {
   return (
     <ul
       className={cn(
@@ -222,12 +191,6 @@ function Legend({ series, shade }: Pick<LineChartProps, 'series' | 'shade'>) {
         'm-0 mb-xs flex list-none flex-wrap gap-x-m gap-y-3xs p-0 text-body-sm text-text-secondary',
       )}
     >
-      {shade && (
-        <li className="flex items-center gap-2xs">
-          <span aria-hidden="true" className="size-s bg-surface-accent-soft/40" />
-          {shade.label}
-        </li>
-      )}
       {series.map((line) => (
         <li key={line.label} className="flex items-center gap-2xs">
           <span
@@ -244,7 +207,7 @@ function Legend({ series, shade }: Pick<LineChartProps, 'series' | 'shade'>) {
 export function LineChart(props: LineChartProps) {
   return (
     <div className={display}>
-      <Legend series={props.series} shade={props.shade} />
+      <Legend series={props.series} />
       <div className="hidden sm:block">
         <Drawing frame={WIDE} props={props} />
       </div>

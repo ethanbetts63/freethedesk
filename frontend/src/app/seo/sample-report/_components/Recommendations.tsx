@@ -9,7 +9,7 @@ import {
 } from '../_lib/report';
 import { LineChart } from './LineChart';
 import { Exhibit } from './Exhibits';
-import { ImpactCostTags, RunIn, cardClass, display } from './ReportPrimitives';
+import { ExperimentTag, ImpactCostTags, RunIn, cardClass, display } from './ReportPrimitives';
 
 /** The numeral in the card's left gutter, level with its title. */
 function Numbered({ n, children }: { n: number; children: React.ReactNode }) {
@@ -83,7 +83,7 @@ function ExperimentCard({ exp, n }: { exp: Experiment; n: number }) {
   const last = EXPERIMENT_WEEKS[EXPERIMENT_WEEKS.length - 1];
   return (
     <Numbered n={n}>
-      <CardTitle>{exp.title}</CardTitle>
+      <CardTitle tags={<ExperimentTag impact={exp.impact} />}>{exp.title}</CardTitle>
       <RunIn label="What">{exp.what}</RunIn>
       <RunIn label="Hypothesis">{exp.hypothesis}</RunIn>
       <Exhibit caption={exp.label} window={exp.window}>
@@ -108,7 +108,7 @@ function ExperimentCard({ exp, n }: { exp: Experiment; n: number }) {
         />
       </Exhibit>
       <RunIn label="So far">{exp.soFar}</RunIn>
-      <RunIn label="Confounding variables">{exp.alongside}</RunIn>
+      <RunIn label="Other changes at the same time">{exp.alongside}</RunIn>
     </Numbered>
   );
 }

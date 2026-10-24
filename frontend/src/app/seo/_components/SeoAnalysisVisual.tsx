@@ -1,7 +1,6 @@
 import { ChecklistCard, LiveDot } from '@/components/visuals/ChecklistCard';
 
-/** The five groups the foundation checks are filed under, in the order a
-    finding reads them. */
+/** What the SEO fundamentals checks ask of a site, in the order a finding reads them. */
 const questions = [
   'Is this one business?',
   'Can Google reach it?',
@@ -14,10 +13,10 @@ export function SeoAnalysisVisual() {
   return (
     <ChecklistCard
       mark={<LiveDot />}
-      eyebrow="Foundations"
-      title="23 checks, every cycle"
+      eyebrow="SEO fundamentals"
+      title="Checked against the research"
       items={questions.map((title) => ({ title, tag: 'Checked' }))}
-      ariaLabel="The five questions the foundation checks answer"
+      ariaLabel="The questions the SEO fundamentals checks answer"
     />
   );
 }

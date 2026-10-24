@@ -46,10 +46,10 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
       cadence: 'paid once',
       summary: 'Your site, your rivals and your Search Console data.',
       features: [
-        'Your site, on a computer and a phone',
+        'How your site looks and works to a visitor',
         'Your Search Console data',
         'The sites that outrank you',
-        'Page speed and 23 foundation checks',
+        'Page speed and data-backed SEO checks',
       ],
     },
     {

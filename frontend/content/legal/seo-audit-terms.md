@@ -32,7 +32,8 @@ audit you buy:
 
 - **Essentials**: your website on a computer and a phone, its speed, the
   search results for your searches, the websites of the businesses that rank
-  above you, our foundation checks, and your Google Search Console data.
+  above you, our checks of the SEO fundamentals, and your Google Search Console
+  data.
 - **Plus**: everything in Essentials, and your Google Business Profile, your
   Google reviews and your main competitors' reviews, and your website
   analytics.

@@ -3,12 +3,9 @@
  * figure here are invented: Wattle & Wrench Plumbing does not exist, the
  * domain uses the reserved `.example` suffix, and the phone number is from
  * the range ACMA sets aside for fiction. What is real is the shape: the kinds
- * of recommendation, the experiment, the foundation checks and the way the
- * analysis explains a month, all modelled on delivered reports. No client's
- * figures, names or documents are used.
- *
- * The daily series below were generated once and fixed, so the headline
- * figures on the cover are computed from them rather than typed beside them.
+ * of recommendation, the experiments, and the questions the data analysis
+ * asks, all modelled on delivered reports. It is a Complete audit, so it reads
+ * every source. No client's figures, names or documents are used.
  */
 
 export const BUSINESS = {
@@ -164,8 +161,12 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
   },
 ];
 
+/** How much an experiment moved what it measures so far: the pill beside its title. */
+export type ExperimentImpact = 'high' | 'low' | 'none' | 'negative' | 'unclear';
+
 export type Experiment = {
   title: string;
+  impact: ExperimentImpact;
   what: string;
   hypothesis: string;
   label: string;
@@ -199,6 +200,7 @@ const TREND_NOTE =
 export const EXPERIMENTS: readonly Experiment[] = [
   {
     title: 'The hot water page leads with its prices',
+    impact: 'high',
     what: "On 9 September the hot water page's title, description and opening line were rewritten to lead with 'Hot water repairs and replacements, from $1,490 installed', and the price table moved from the foot of the page to the top.",
     hypothesis:
       'If the hot water page shows a price in Google’s results and at the top of the page, more of the people shown it will click, because a searcher comparing plumbers is choosing on price before anything else.',
@@ -218,6 +220,7 @@ export const EXPERIMENTS: readonly Experiment[] = [
   },
   {
     title: 'The gas fitting page names the jobs people search for',
+    impact: 'unclear',
     what: "On 16 September the gas fitting page's title changed from 'Gas Services' to 'Gas Fitter Perth: Leaks, Cooktops and Heater Installs', its description was rewritten to name the same three jobs, and each job got a heading of its own on the page.",
     hypothesis:
       'If the title and headings use the words people search with, Google will rank the page higher for gas fitter searches, because today nothing on it says which jobs it covers.',
@@ -237,176 +240,121 @@ export const EXPERIMENTS: readonly Experiment[] = [
   },
 ];
 
-export type CheckState = 'pass' | 'warn' | 'fail';
-
-export type Check = { id: string; state: CheckState; name: string; what?: string; why?: string };
-
-export type CheckGroup = {
-  id: string;
-  question: string;
-  meaning: string;
-  checks: readonly Check[];
-};
-
-export const FOUNDATIONS: readonly CheckGroup[] = [
-  {
-    id: 'A',
-    question: 'Is this one business?',
-    meaning:
-      'Whether a search engine can tell that the business, the map listing and the directories are all the same place.',
-    checks: [
-      {
-        id: 'A1',
-        state: 'pass',
-        name: 'A canonical name, address and phone are derivable from the site',
-      },
-      { id: 'A2', state: 'pass', name: 'Site NAP matches the Business Profile exactly' },
-      { id: 'A3', state: 'pass', name: 'Exactly one Business Profile for the premises' },
-      {
-        id: 'A4',
-        state: 'fail',
-        name: 'Referring domains carry the same name, address and phone',
-        what: 'Three directory listings still give the old Osborne Park workshop.',
-        why: 'They are most of the links pointing at the site, and they tell Google the business is somewhere it no longer is.',
-      },
-      {
-        id: 'A5',
-        state: 'warn',
-        name: 'One phone number across site, profile and citations',
-        what: 'The site and the profile give the landline; two listings give an old mobile.',
-        why: 'Calls split across a number the business answers and one it does not.',
-      },
-    ],
-  },
-  {
-    id: 'B',
-    question: 'Can Google reach it and agree with it?',
-    meaning:
-      'Whether every page can be crawled, indexed, and reached at one address the site and Google both agree on.',
-    checks: [
-      { id: 'B1', state: 'pass', name: 'One canonical host, resolved permanently' },
-      {
-        id: 'B2',
-        state: 'pass',
-        name: 'Permanent redirects are permanent; chains at most one hop',
-      },
-      { id: 'B3', state: 'pass', name: 'robots.txt disallows nothing commercial' },
-      {
-        id: 'B4',
-        state: 'pass',
-        name: 'A sitemap exists, is linked from robots.txt, parses, and its URLs serve',
-      },
-      { id: 'B5', state: 'pass', name: 'Sampled URLs are indexed under their own canonical' },
-      {
-        id: 'B6',
-        state: 'warn',
-        name: 'Canonical tags are self-consistent; no indexable duplicates',
-        what: 'The six suburb pages carry the same text with only the suburb changed.',
-        why: 'Google treats them as one page said six times, and two of them compete with the blocked drains page.',
-      },
-    ],
-  },
-  {
-    id: 'C',
-    question: 'Can a machine read it?',
-    meaning:
-      'Whether the titles, descriptions and structured data tell a search engine what each page is.',
-    checks: [
-      {
-        id: 'C1',
-        state: 'warn',
-        name: 'Unique, present, untruncated titles and descriptions',
-        what: 'The blocked drains page’s description is the year the business started, and the six suburb pages share one title.',
-        why: 'The result a searcher reads says nothing about price or speed, which is what they are choosing on.',
-      },
-      { id: 'C2', state: 'pass', name: 'Valid LocalBusiness or Organization markup' },
-      { id: 'C3', state: 'pass', name: 'Sellable things carry Product with a complete Offer' },
-      { id: 'C4', state: 'pass', name: 'No contradictory duplicate entity blocks' },
-      { id: 'C5', state: 'pass', name: 'AI crawlers are not disallowed' },
-    ],
-  },
-  {
-    id: 'D',
-    question: 'Does the click survive?',
-    meaning: 'Whether a visitor who arrives gets a page that loads, fits their screen and is safe.',
-    checks: [
-      {
-        id: 'D1',
-        state: 'warn',
-        name: 'Core Web Vitals on each customer-facing template',
-        what: 'The homepage photo takes about four seconds to appear on a mid-range phone.',
-        why: 'Someone with a burst pipe who waits on a blank screen goes back to the results.',
-      },
-      { id: 'D2', state: 'pass', name: 'Mobile viewport declared, no horizontal scroll' },
-      { id: 'D3', state: 'pass', name: 'Valid certificate, no mixed content' },
-      { id: 'D4', state: 'pass', name: 'A URL that does not exist returns 404' },
-    ],
-  },
-  {
-    id: 'E',
-    question: 'Can any of this be judged by value?',
-    meaning:
-      'Whether anything on the site measures what a visit was worth, rather than only that it happened.',
-    checks: [
-      { id: 'E1', state: 'pass', name: 'All four measurement sources are recording' },
-      {
-        id: 'E2',
-        state: 'fail',
-        name: 'At least one conversion action defined and firing',
-        what: 'Neither a tapped phone number nor a sent quote form is counted.',
-        why: 'No page or search can be judged by the jobs it brought, only by its visits.',
-      },
-      {
-        id: 'E3',
-        state: 'pass',
-        name: 'Search Console verified on the canonical property, sitemap submitted',
-      },
-    ],
-  },
-];
-
-/** 3 July to 30 September 2026, one value a day; the reporting period is the last 30. */
-export const DAILY_CLICKS = [
-  6, 6, 5, 5, 4, 5, 7, 5, 6, 6, 9, 9, 5, 6, 5, 6, 5, 5, 8, 6, 7, 8, 4, 5, 8, 9, 6, 5, 5, 6, 7, 8, 7,
-  9, 7, 5, 6, 7, 6, 4, 5, 5, 5, 5, 4, 7, 9, 6, 6, 10, 4, 5, 8, 5, 7, 11, 8, 7, 8, 11, 8, 6, 6, 7, 6,
-  4, 6, 6, 11, 8, 9, 10, 8, 7, 10, 14, 7, 11, 9, 9, 15, 9, 9, 12, 10, 11, 12, 15, 10, 11,
-] as const;
-
-export const DAILY_IMPRESSIONS = [
-  232, 182, 200, 260, 255, 228, 285, 238, 236, 202, 224, 243, 230, 284, 266, 200, 181, 237, 254,
-  266, 244, 275, 213, 232, 243, 230, 280, 259, 273, 213, 197, 267, 256, 294, 272, 275, 239, 195,
-  273, 257, 230, 282, 243, 236, 210, 299, 299, 264, 304, 246, 204, 222, 260, 274, 288, 301, 296,
-  200, 251, 317, 301, 324, 272, 283, 220, 229, 307, 358, 289, 311, 290, 303, 264, 293, 311, 302,
-  384, 304, 235, 315, 366, 333, 377, 379, 322, 324, 312, 383, 360, 310,
-] as const;
-
-/** Day indexes into the daily series: 1 August, 1 September and the first day of the period. */
-export const DAILY_MONTHS = [
-  { index: 29, label: 'Aug' },
-  { index: 60, label: 'Sep' },
-] as const;
-export const PERIOD_START_INDEX = 60;
-
 export type PairedRow = { label: string; now: number; before: number };
 
-export const VISITORS_BY_LINE: readonly PairedRow[] = [
-  { label: 'Homepage', now: 104, before: 82 },
-  { label: 'Hot water', now: 58, before: 27 },
-  { label: 'Blocked drains', now: 46, before: 40 },
-  { label: 'Contact and quotes', now: 24, before: 20 },
-  { label: 'Gas fitting', now: 21, before: 18 },
-  { label: 'Suburb pages', now: 13, before: 12 },
+/** "What the data shows" opens on the month, as the overview a delivered report carries. */
+export const OVERVIEW: readonly string[] = [
+  'Google sent the site 276 clicks from 1 to 30 September, against 202 in August, and showed it a fifth more often. It was not showing for new searches: on the searches it was shown for in both months, it moved up about three places. The hot water page did the most of it. After it began leading with its prices on 9 September, its clicks from hot water searches more than doubled.',
+  'The work followed. The job book has 74 jobs booked in September against 61 in August, and 31 of them from people who said they found the business on Google. Calls from the Business Profile rose to 61, its busiest month this year.',
+  'Blocked drains is where the most is left. Google shows that page more than any other, near the top of the first page, yet about one showing in eighty becomes a click, against one in twenty-five across the rest of the site. The two plumbers above it say how much and how soon; it says neither.',
 ];
 
-export const PROFILE_MONTHS = ['May', 'Jun', 'Jul', 'Aug', 'Sep'] as const;
-export const PROFILE_ACTIONS = {
-  website: [72, 70, 81, 88, 104],
-  calls: [38, 41, 44, 52, 61],
-  directions: [12, 10, 14, 13, 15],
-} as const;
+export type BarRow = { label: string; value: number };
 
-export type Source = { source: string; status: 'present' | 'partial'; detail: string };
+export type Chart =
+  | {
+      kind: 'paired';
+      rows: readonly PairedRow[];
+      nowLabel: string;
+      beforeLabel: string;
+      valueTitle: string;
+    }
+  | { kind: 'bars'; rows: readonly BarRow[]; highlight: string; valueTitle: string };
 
+/**
+ * A question the data answers, as a delivered report asks it: one chart, then
+ * what it shows, then the likeliest reading of why. Each joins two or more
+ * sources over all the history there is, not one month.
+ */
+export type Question = {
+  id: string;
+  title: string;
+  caption: string;
+  window: string;
+  chart: Chart;
+  paragraphs: readonly string[];
+};
+
+export const QUESTIONS: readonly Question[] = [
+  {
+    id: 'after-five',
+    title: 'When do the urgent jobs come in?',
+    caption: 'Share of burst-pipe, leak and blocked-drain jobs, by the hour they were booked',
+    window: '2 January to 30 September 2026, 212 jobs; the business’s own job book',
+    chart: {
+      kind: 'bars',
+      rows: [
+        { label: 'Before 7am', value: 6 },
+        { label: '7am to 9am', value: 14 },
+        { label: '9am to noon', value: 19 },
+        { label: 'Noon to 3pm', value: 15 },
+        { label: '3pm to 5pm', value: 12 },
+        { label: 'After 5pm', value: 34 },
+      ],
+      highlight: 'After 5pm',
+      valueTitle: 'Share of urgent jobs (%)',
+    },
+    paragraphs: [
+      'After five. Two in five of the urgent jobs since January were booked after 5pm or before 7am, and on weekends the share is higher still. The planned work, a new hot water system or a bathroom, is booked almost entirely in working hours.',
+      'The Business Profile tells a searcher the business is closed from 5pm and all weekend, and the site gives no after-hours number. The jobs that came in anyway came from customers who rang the landline regardless, which diverts to whoever is on call.',
+      'The likeliest reading is that an urgent customer rings whoever answers, and does it when the water is on the floor, which is often at night. Those jobs carry a call-out fee and are the best paid of the week. The business already takes them; its listing tells most of the people who would ring that it will not.',
+    ],
+  },
+  {
+    id: 'what-reviews-praise',
+    title: 'What do customers praise, and what do they hold against a plumber?',
+    caption:
+      'Share of Google reviews that mention each thing, this business against its two nearest rivals',
+    window:
+      'Every review on the three listings, read 3 October 2026; 64 for this business and 151 for the two rivals together',
+    chart: {
+      kind: 'paired',
+      rows: [
+        { label: 'A fixed quote before work', now: 41, before: 18 },
+        { label: 'Tidy afterwards', now: 33, before: 29 },
+        { label: 'Explained the problem', now: 27, before: 22 },
+        { label: 'Arrived when they said', now: 9, before: 24 },
+      ],
+      nowLabel: 'Wattle & Wrench',
+      beforeLabel: 'The two nearest rivals',
+      valueTitle: 'Share of reviews (%)',
+    },
+    paragraphs: [
+      'The price. Two in five of this business’s reviews mention being told a fixed price before any work began, more than twice the rivals’ share. Punctuality runs the other way: the rivals are praised for arriving when they said far more often, and the three complaints here are all about a plumber who was late without a call.',
+      'None of this reaches the site. The service pages say ‘competitive rates’ and give no price, and nothing mentions a fixed quote. The hot water page is the exception since September, and it is the page whose clicks doubled.',
+      'The likeliest reading is that customers choose this business for certainty about the bill, and say so when they review it, while the site asks them to trust it before telling them anything. What reviewers praise most is the one thing the pages leave out.',
+    ],
+  },
+  {
+    id: 'ai-answers',
+    title: 'What do AI answers use the site for?',
+    caption: 'Times a page of the site was shown in Google’s AI answers',
+    window: '1 July to 30 September 2026; Google Search Console, AI answers only',
+    chart: {
+      kind: 'bars',
+      rows: [
+        { label: 'Hot water', value: 46 },
+        { label: 'Blocked drains', value: 9 },
+        { label: 'Gas fitting', value: 7 },
+        { label: 'Homepage', value: 5 },
+        { label: 'Suburb pages', value: 0 },
+      ],
+      highlight: 'Hot water',
+      valueTitle: 'Times shown in AI answers',
+    },
+    paragraphs: [
+      'For a price. Since its price table moved to the top of the page, the hot water page has been shown in AI answers more than twice as often as every other page together, for questions such as ‘how much does a hot water system cost in Perth’. The suburb pages have never been shown.',
+      'The answers quote the page’s prices and link it as the source. Questions about blocked drains and gas work bring the site up rarely, and when they do, the answer cites a rival that states its call-out fee.',
+      'The likeliest reading is that an AI answer lifts a plain fact it can repeat: a price, a licence number, a suburb list. A page that states one gets cited; a page that tells the business’s history does not. The same change that lifts a page in the results, a price at the top, is what puts it in the answers.',
+    ],
+  },
+];
+
+export type SourceStatus = 'present' | 'partial' | 'absent' | 'not configured';
+
+export type Source = { source: string; status: SourceStatus; detail: string };
+
+/** What the sample's Complete audit read, as "Where the data came from" lists it. */
 export const SOURCES: readonly Source[] = [
   {
     source: 'Google Search Console',
@@ -414,31 +362,69 @@ export const SOURCES: readonly Source[] = [
     detail: '1 September 2026 to 30 September 2026',
   },
   {
+    source: 'Google’s AI answers',
+    status: 'present',
+    detail: '1 September 2026 to 30 September 2026',
+  },
+  {
     source: 'Google Analytics',
     status: 'partial',
-    detail: 'Visits recorded; no enquiry counts as a conversion.',
+    detail: 'Visits are recorded; no call or quote form counts as an enquiry.',
+  },
+  {
+    source: 'Microsoft Clarity',
+    status: 'not configured',
+    detail: 'The site does not run Clarity.',
+  },
+  {
+    source: 'Google Ads',
+    status: 'not configured',
+    detail: 'The business does not advertise on Google.',
   },
   {
     source: 'Google Business Profile',
-    status: 'partial',
-    detail: 'Whole calendar months, May to September 2026.',
-  },
-  { source: 'PageSpeed Insights', status: 'present', detail: 'Read 3 October 2026' },
-  { source: 'Foundations checks', status: 'present', detail: 'Read 3 October 2026' },
-  {
-    source: 'Live search results',
     status: 'present',
-    detail: 'Desktop and phone results for 24 searches, read 3 October 2026',
+    detail: 'Whole calendar months, January to September 2026',
   },
   {
-    source: 'Google reviews, the business’s and its two nearest rivals’',
+    source: 'The sitemap and Google’s index view',
     status: 'present',
-    detail: 'Read 3 October 2026',
+    detail: 'Read 2 October 2026',
   },
+  { source: 'SEO fundamentals checks', status: 'present', detail: 'Read 3 October 2026' },
+  { source: 'Live site checks', status: 'present', detail: 'Read 3 October 2026' },
+  {
+    source: 'The site’s own change log',
+    status: 'present',
+    detail: '1 September 2026 to 30 September 2026',
+  },
+  { source: 'A walk of the public site', status: 'present', detail: 'Read 3 October 2026' },
   {
     source: 'A walk of the public site on a phone',
     status: 'present',
     detail: 'Read 3 October 2026',
   },
+  {
+    source: 'Live search results',
+    status: 'present',
+    detail: 'Desktop and phone results for 24 searches, read 3 October 2026',
+  },
   { source: 'Competitors’ sites', status: 'present', detail: 'Read 3 October 2026' },
+  {
+    source: 'Real-visitor speed (Chrome)',
+    status: 'partial',
+    detail: 'Too few visits on a computer for Google’s real-visitor figures; phones are measured.',
+  },
+  { source: 'PageSpeed Insights', status: 'present', detail: 'Read 3 October 2026' },
+  {
+    source: 'The business’s own records',
+    status: 'present',
+    detail: 'The job book, January to September 2026',
+  },
+  {
+    source: 'Google reviews, the business’s and its two main rivals’',
+    status: 'present',
+    detail: 'Read 3 October 2026',
+  },
+  { source: 'The law that applies to the site', status: 'present', detail: 'Read 3 October 2026' },
 ];

@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 
-import type { PairedRow } from '../_lib/report';
+import type { BarRow, PairedRow } from '../_lib/report';
 import { display } from './ReportPrimitives';
 
 /** A chart's heading and its window line, as every exhibit in the report carries them. */
@@ -80,6 +80,58 @@ export function PairedBars({
             </dd>
           </div>
         ))}
+      </dl>
+      <p className="m-0 mt-xs text-center text-body-sm font-semibold text-text-subtle">
+        {valueTitle}
+      </p>
+    </div>
+  );
+}
+
+/**
+ * One bar per row, the row the text is about in blue and the rest grey, so the
+ * answer is the bar that stands out.
+ */
+export function Bars({
+  rows,
+  highlight,
+  valueTitle,
+}: {
+  rows: readonly BarRow[];
+  highlight: string;
+  valueTitle: string;
+}) {
+  const max = Math.max(...rows.map((row) => row.value));
+  const width = (value: number) => ({ width: `calc((100% - 2.5rem) * ${value / max})` });
+
+  return (
+    <div className={display}>
+      <dl className="m-0 grid grid-cols-[minmax(0,7.5rem)_minmax(0,1fr)] items-center gap-x-s gap-y-xs sm:grid-cols-[minmax(0,10rem)_minmax(0,1fr)]">
+        {rows.map((row) => {
+          const lit = row.label === highlight;
+          return (
+            <div key={row.label} className="contents">
+              <dt
+                className={cn(
+                  'text-right text-body-sm leading-tight',
+                  lit ? 'font-strong text-text-secondary' : 'text-text-muted',
+                )}
+              >
+                {row.label}
+              </dt>
+              <dd className="m-0 flex items-center gap-2xs">
+                <span
+                  className={cn(
+                    'h-m flex-none',
+                    lit ? 'bg-action-primary' : 'bg-surface-accent-soft',
+                  )}
+                  style={width(row.value)}
+                />
+                <span className="text-caption text-text-secondary tabular-nums">{row.value}</span>
+              </dd>
+            </div>
+          );
+        })}
       </dl>
       <p className="m-0 mt-xs text-center text-body-sm font-semibold text-text-subtle">
         {valueTitle}

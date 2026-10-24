@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 
 import { reportDisplay } from '../_lib/fonts';
-import type { Cost, Impact } from '../_lib/report';
+import type { Cost, ExperimentImpact, Impact } from '../_lib/report';
 
 /** Archivo, for anything that is a reading or a label rather than an argument. */
 export const display = reportDisplay.className;
@@ -16,11 +16,29 @@ export const labelClass = cn(
 export const cardClass =
   'rounded-md border border-border-default bg-surface-page px-m py-ml sm:px-ml';
 
+/** The report's pill colours: one colour means one thing across recommendations and experiments. */
 const impactTone: Record<Impact, string> = {
-  // High impact is the good news, so it is solid ink rather than a warning colour.
-  high: 'bg-surface-inverse text-text-on-dark',
-  medium: 'bg-transparent text-text-secondary ring-1 ring-inset ring-border-strong-hover',
-  low: 'bg-surface-tint-strong text-text-chrome',
+  high: 'bg-fill-danger text-text-on-dark',
+  medium: 'bg-fill-warning text-text-secondary',
+  low: 'bg-fill-success text-text-on-dark',
+};
+
+const costTone = 'bg-text-subtle text-text-on-dark';
+
+const experimentTone: Record<ExperimentImpact, string> = {
+  high: impactTone.high,
+  low: impactTone.low,
+  none: costTone,
+  negative: 'bg-text-chrome text-text-on-dark',
+  unclear: 'bg-transparent text-text-chrome ring-[1.5px] ring-inset ring-border-strong-hover',
+};
+
+const experimentLabel: Record<ExperimentImpact, string> = {
+  high: 'High impact',
+  low: 'Low impact',
+  none: 'No impact',
+  negative: 'Negative impact',
+  unclear: 'Impact unclear',
 };
 
 /** A value from a controlled vocabulary, set in the mono face as the PDF sets it. */
@@ -28,7 +46,7 @@ export function Tag({ children, className }: { children: React.ReactNode; classN
   return (
     <span
       className={cn(
-        'inline-block rounded-xs px-2xs py-4xs font-mono text-caption font-medium tracking-wide whitespace-nowrap uppercase',
+        'inline-block rounded-full px-xs py-4xs font-mono text-caption font-bold tracking-wide whitespace-nowrap uppercase',
         className,
       )}
     >
@@ -41,10 +59,24 @@ export function ImpactCostTags({ impact, cost }: { impact: Impact; cost: Cost })
   return (
     <span className="inline-flex gap-xs whitespace-nowrap">
       <Tag className={impactTone[impact]}>{impact} impact</Tag>
-      <Tag className={impactTone.low}>Cost: {cost}</Tag>
+      <Tag className={costTone}>Cost: {cost}</Tag>
     </span>
   );
 }
+
+export function ImpactTag({ impact }: { impact: Impact }) {
+  return <Tag className={impactTone[impact]}>{impact} impact</Tag>;
+}
+
+export function CostTag({ cost }: { cost: Cost }) {
+  return <Tag className={costTone}>Cost: {cost}</Tag>;
+}
+
+export function ExperimentTag({ impact }: { impact: ExperimentImpact }) {
+  return <Tag className={experimentTone[impact]}>{experimentLabel[impact]}</Tag>;
+}
+
+export const EXPERIMENT_IMPACTS = Object.keys(experimentLabel) as ExperimentImpact[];
 
 /** A section opens with its number in a navy box and its kicker on a rule. */
 export function ReportSection({
@@ -92,14 +124,5 @@ export function RunIn({ label, children }: { label: string; children: React.Reac
     <p className="m-0 mb-s">
       <strong className="font-strong text-text-primary">{label}.</strong> {children}
     </p>
-  );
-}
-
-/** The aside a tile closes with when a limit changes how a figure should be read. */
-export function LimitCallout({ children }: { children: React.ReactNode }) {
-  return (
-    <aside className="my-ml rounded-r-md border-l-4 border-fill-warning bg-surface-warning px-m py-m">
-      <p className="m-0">{children}</p>
-    </aside>
   );
 }
