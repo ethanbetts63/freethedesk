@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<title>Podcast partner pitch</title>
+<style>
+  @font-face { font-family: Archivo; src: url('../../frontend/src/app/seo/sample-report/_fonts/archivo-latin.woff2') format('woff2'); font-weight: 100 900; }
+  @font-face { font-family: 'Source Serif 4'; src: url('../../frontend/src/app/seo/sample-report/_fonts/source-serif-4-latin.woff2') format('woff2'); font-weight: 200 900; }
+
+  :root {
+    --blue: #2563eb;
+    --navy: #172554;
+    --ink: #0f172a;
+    --muted: #475569;
+    --line: #e2e8f0;
+    --wash: #f8fafc;
+    --sky: #7dd3fc;
+    --display: Archivo, 'Helvetica Neue', Arial, sans-serif;
+    --serif: 'Source Serif 4', Georgia, serif;
+  }
+  @page { size: A4; margin: 14mm 14mm 16mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--display); color: var(--ink); background: #fff; font-size: 10pt; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { break-before: page; }
+  .page:first-child { break-before: auto; }
+  .ph { background: #fef3c7; color: #92400e; border-radius: 3px; padding: 0 3px; font-family: var(--display); font-size: .92em; white-space: nowrap; }
+
+  /* Brief pages around the emails */
+  .eyebrow { font-size: 7.5pt; letter-spacing: .16em; text-transform: uppercase; color: var(--blue); font-weight: 700; }
+  .wordmark { font-weight: 900; letter-spacing: -.045em; font-size: 15pt; color: #000; display: inline-flex; align-items: center; gap: 6px; }
+  .wordmark img { width: 16px; height: 16px; }
+  .wordmark b { color: var(--blue); font-weight: 900; }
+  h1.cover { font-size: 38pt; line-height: .98; letter-spacing: -.035em; margin: 12mm 0 4mm; font-weight: 900; }
+  h1.cover span { color: var(--blue); display: block; }
+  .lede { font-size: 12pt; color: var(--muted); max-width: 150mm; margin: 0 0 9mm; }
+  .box { border: 1px solid var(--line); border-radius: 8px; padding: 4mm 6mm; margin-bottom: 5mm; }
+  .box h2 { font-size: 11pt; margin: 0 0 3mm; }
+  .box ul { margin: 0; padding-left: 5mm; }
+  .box li { margin-bottom: 1.5mm; }
+  table.cmp { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+  table.cmp th, table.cmp td { text-align: left; vertical-align: top; padding: 2.5mm 3mm; border-bottom: 1px solid var(--line); }
+  table.cmp th { font-size: 7.5pt; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  table.cmp td:first-child { font-weight: 800; white-space: nowrap; }
+  .tag { display: inline-block; font-size: 7pt; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; background: var(--navy); color: #fff; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+
+  .vhead { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid var(--ink); padding-bottom: 3mm; margin-bottom: 4mm; }
+  .vhead h2 { font-size: 22pt; letter-spacing: -.03em; margin: 1mm 0 0; font-weight: 900; }
+  .vhead .num { font-size: 40pt; font-weight: 900; color: var(--blue); line-height: .8; }
+  .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 8mm; font-size: 8.8pt; margin-bottom: 5mm; }
+  .notes h3 { font-size: 7.5pt; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 1mm; }
+  .notes p, .notes ol { margin: 0; }
+  .notes ol { padding-left: 4mm; }
+
+  /* Email chrome, so each draft reads as it lands in an inbox */
+  .client { border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; max-width: 160mm; margin: 0 auto; }
+  .client-bar { background: #f1f5f9; border-bottom: 1px solid #cbd5e1; padding: 2.5mm 4mm; font-size: 8.5pt; color: var(--muted); }
+  .client-bar div { margin: .6mm 0; }
+  .client-bar strong { color: var(--ink); }
+  .client-bar .dots { margin-bottom: 1.5mm; }
+  .client-bar .dots i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 3px; background: #cbd5e1; }
+
+  /* A: personal */
+  .personal { padding: 5mm 8mm; font-family: Arial, Helvetica, sans-serif; font-size: 10.5pt; line-height: 1.55; color: #222; }
+  .personal p { margin: 0 0 3mm; }
+  .personal .offer { border-left: 3px solid var(--blue); padding-left: 4mm; margin: 0 0 3.5mm; }
+  .personal .offer strong { color: #000; }
+  .personal img { width: 28%; border: 1px solid var(--line); border-radius: 6px; display: block; margin: 1mm 0 1.5mm; }
+  .personal a { color: var(--blue); }
+  .personal .sig { margin-top: 3mm; }
+  .personal .sig small { color: #777; display: block; font-size: 8.5pt; }
+  .personal .foot { border-top: 1px solid #eee; margin-top: 3mm; padding-top: 2mm; font-size: 7.8pt; color: #888; }
+
+  /* B: corporate */
+  .corp { background: #eef2f7; padding: 6mm 0; zoom: .74; }
+  .corp .mail { width: 600px; margin: 0 auto; background: #fff; }
+  .corp .pre { width: 600px; margin: 0 auto 2mm; font-size: 7.5pt; color: #94a3b8; }
+  .corp header { display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; border-bottom: 1px solid var(--line); }
+  .corp header .prog { font-size: 7.5pt; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  .corp .hero { background: var(--navy); color: #fff; padding: 34px 32px 30px;
+    background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 28px 28px; }
+  .corp .hero .eyebrow { color: var(--sky); }
+  .corp .hero h1 { font-size: 30px; line-height: 1.04; letter-spacing: -.03em; margin: 10px 0 12px; font-weight: 900; }
+  .corp .hero h1 span { color: var(--sky); }
+  .corp .hero p { font-size: 13.5px; color: #cbd5e1; margin: 0 0 20px; max-width: 470px; }
+  .btn { display: inline-block; background: var(--blue); color: #fff; font-weight: 800; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding: 12px 20px; border-radius: 4px; text-decoration: none; }
+  .corp .stats { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+  .corp .stat { padding: 20px 18px 18px 32px; border-right: 1px solid var(--line); }
+  .corp .stat:last-child { border-right: 0; }
+  .corp .stat .big { font-size: 30px; font-weight: 900; letter-spacing: -.04em; line-height: 1; }
+  .corp .stat .lab { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-top: 6px; }
+  .corp section { padding: 26px 32px; }
+  .corp h2 { font-size: 19px; letter-spacing: -.02em; margin: 6px 0 16px; font-weight: 800; }
+  .corp .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .corp .step { border: 1px solid var(--line); border-radius: 8px; padding: 14px; }
+  .corp .step .n { display: inline-block; background: var(--navy); color: #fff; font-weight: 900; font-size: 13px; padding: 3px 7px; border-radius: 4px; }
+  .corp .step h3 { font-size: 13px; margin: 10px 0 5px; }
+  .corp .step p { font-size: 11.5px; color: var(--muted); margin: 0; font-family: var(--serif); line-height: 1.45; }
+  .corp .listeners { background: var(--wash); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 250px 1fr; gap: 22px; align-items: center; }
+  .corp .listeners img { width: 250px; border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 6px 18px rgba(15,23,42,.12); display: block; }
+  .corp .listeners ul { list-style: none; padding: 0; margin: 0 0 14px; }
+  .corp .listeners li { font-size: 12.5px; padding: 7px 0 7px 22px; border-bottom: 1px solid var(--line); position: relative; }
+  .corp .listeners li::before { content: '✓'; position: absolute; left: 0; color: var(--blue); font-weight: 900; }
+  .corp .listeners a { font-size: 11.5px; color: var(--blue); font-weight: 700; text-decoration: none; }
+  .corp .cta { text-align: center; padding: 30px 32px; }
+  .corp .cta h2 { margin-bottom: 8px; }
+  .corp .cta p { font-size: 12px; color: var(--muted); margin: 12px 0 0; }
+  .corp footer, .rep footer.legal { font-size: 9.5px; color: #94a3b8; padding: 16px 32px 20px; border-top: 1px solid var(--line); line-height: 1.5; }
+  .corp footer a, .rep footer.legal a { color: #64748b; }
+
+  /* C: the pitch as a report */
+  .rep-wrap { background: #eef2f7; padding: 6mm 0; zoom: .74; }
+  .corp header, .corp .hero, .corp .stats, .corp section, .corp .cta, .rep .inner, .rep .card, .rep .sechead, .rep .todo, .rep .cta { break-inside: avoid; }
+  .rep .sechead, .rep .sec h2 { break-after: avoid; }
+  .rep { width: 600px; margin: 0 auto; background: #fff;
+    background-image: linear-gradient(#f1f5f9 1px, transparent 1px), linear-gradient(90deg, #f1f5f9 1px, transparent 1px);
+    background-size: 26px 26px; }
+  .rep .inner { padding: 26px 32px 6px; }
+  .rep .top { display: flex; justify-content: space-between; font-size: 9px; font-weight: 700; }
+  .rep .top .eyebrow { font-size: 9px; }
+  .rep .top .eyebrow::before { content: '●'; margin-right: 5px; }
+  .rep h1 { font-size: 40px; line-height: .98; letter-spacing: -.045em; font-weight: 900; margin: 26px 0 12px; }
+  .rep h1 span { color: var(--blue); display: block; }
+  .rep .sub { font-size: 13px; color: var(--muted); margin: 0 0 22px; }
+  .rep .sub b { color: var(--ink); }
+  .rep .figs { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--ink); padding-top: 12px; gap: 12px; }
+  .rep .fig .big { font-size: 28px; font-weight: 900; letter-spacing: -.04em; line-height: 1; }
+  .rep .fig .big small { font-size: 9px; letter-spacing: .14em; color: var(--muted); font-weight: 700; margin-left: 3px; }
+  .rep .fig .lab { font-size: 9px; letter-spacing: .14em; color: var(--blue); font-weight: 700; margin-top: 6px; text-transform: uppercase; }
+  .rep .by { display: flex; justify-content: space-between; align-items: center; margin: 18px 0 0; font-size: 8.5px; letter-spacing: .16em; color: var(--muted); font-weight: 700; }
+  .rep .by .wordmark { font-size: 12px; letter-spacing: -.04em; }
+  .rep .by .wordmark img { width: 11px; height: 11px; }
+  .rep .sec { background: #fff; padding: 22px 32px 8px; border-top: 1px solid var(--line); margin-top: 22px; }
+  .rep .sechead { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+  .rep .sechead .n { background: var(--navy); color: #fff; font-weight: 900; font-size: 15px; padding: 5px 8px; border-radius: 4px; }
+  .rep .sec h2 { font-size: 20px; letter-spacing: -.02em; margin: 12px 0 12px; }
+  .rep .card { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px 12px 46px; margin-bottom: 12px; position: relative; }
+  .rep .card .k { position: absolute; left: 16px; top: 12px; font-size: 19px; font-weight: 800; color: var(--blue); }
+  .rep .card h3 { font-size: 13px; margin: 0 0 7px; }
+  .rep .pill { font-size: 8px; font-weight: 700; letter-spacing: .06em; font-family: 'Courier New', monospace; padding: 2px 5px; border-radius: 3px; margin-left: 5px; vertical-align: 1px; text-transform: uppercase; }
+  .rep .pill.dark { background: #000; color: #fff; }
+  .rep .pill.light { background: #f1f5f9; color: var(--muted); border: 1px solid var(--line); }
+  .rep .card p { font-family: var(--serif); font-size: 12px; margin: 0 0 6px; line-height: 1.5; }
+  .rep .card p b { font-family: var(--serif); font-weight: 700; }
+  .rep .todo { counter-reset: t; list-style: none; padding: 0; margin: 0 0 14px; }
+  .rep .todo li { counter-increment: t; display: grid; grid-template-columns: 30px 1fr; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; }
+  .rep .todo li::before { content: counter(t, decimal-leading-zero); color: var(--blue); font-weight: 800; }
+  .rep .todo li span { font-family: var(--serif); color: var(--muted); display: block; font-size: 11.5px; }
+  .rep .cta { padding: 4px 0 24px; }
+  .rep .cta p { font-size: 11.5px; color: var(--muted); margin: 10px 0 0; }
+</style>
+</head>
+<body>
+
+<!-- ============================ Cover ============================ -->
+<div class="page">
+  <span class="wordmark"><img src="../../frontend/public/logo-mark.png" alt="">free<b>the</b>desk.</span>
+  <h1 class="cover">Podcast partner pitch<span>three drafts.</span></h1>
+  <p class="lede">Three ways of putting the same offer to a podcast host. We send each to an even share of the list and keep the one that gets the most replies. Drafted 24 October 2026.</p>
+
+  <div class="box">
+    <h2>The same in all three</h2>
+    <ul>
+      <li><b>A free report on their business.</b> The same report customers pay $499 for.</li>
+      <li><b>Half of every report their listeners buy:</b> $250 a report, paid out through Stripe.</li>
+      <li><b>A code for their listeners</b>, worth <span class="ph">{discount}</span> off.</li>
+      <li><b>One next step:</b> reply with your website.</li>
+      <li><b>The footer:</b> an unsubscribe link, our postal address, and where we found their email (their podcast feed).</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h2>What changes</h2>
+    <table class="cmp">
+      <tr><th>Version</th><th>Sounds like</th><th>The visual</th></tr>
+      <tr><td>A · Personal</td><td>Ethan writing to one host. It opens with a line about their show.</td><td>One image: the cover of the sample report.</td></tr>
+      <tr><td>B · Corporate</td><td>Free the Desk announcing a partner program. It leads with the brand and the numbers.</td><td>A designed email: hero, figures, three steps, report preview.</td></tr>
+      <tr><td>C · The report</td><td>A report written about their podcast, laid out like one of ours.</td><td>The email is the sample. It shows the product while pitching it.</td></tr>
+    </table>
+  </div>
+
+  <div class="box">
+    <h2>Still to settle</h2>
+    <ul>
+      <li><b>Does the $250 repeat?</b> These drafts follow "every report sold", so a listener on monthly reports pays the host every month. If it is the first report only, versions B and C change one line each.</li>
+      <li><b>The listener discount.</b> Shown as <span class="ph">{discount}</span>. $50 was the suggestion.</li>
+      <li><b>The sending address and the postal address</b> for the footer: the marketing email from the side note.</li>
+    </ul>
+  </div>
+
+  <p style="font-size:8.5pt;color:var(--muted)"><span class="ph">{yellow}</span> marks a field filled per podcast. The report images are the live sample report at freethedesk.com.au/seo/sample-report.</p>
+</div>
+
+<!-- ============================ A ============================ -->
+<div class="page">
+  <div class="vhead">
+    <div><span class="eyebrow">Version A</span><h2>Personal</h2></div>
+    <div class="num">A</div>
+  </div>
+  <div class="notes">
+    <div><h3>Subject lines</h3><ol><li>A free SEO report for <span class="ph">{business}</span></li><li>Quick one about <span class="ph">{podcast}</span></li><li>$250 a report for <span class="ph">{podcast}</span></li></ol></div>
+    <div><h3>Why it might win</h3><p>It reads like one person writing to another, and people reply to people. The free report comes before the money, so it doesn't open like an ad.</p></div>
+  </div>
+
+  <div class="client">
+    <div class="client-bar">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <div><strong>Ethan Betts</strong> &lt;<span class="ph">{sending address}</span>&gt;</div>
+      <div>To: <span class="ph">{feed email}</span></div>
+      <div>Subject: <strong>A free SEO report for <span class="ph">{business}</span></strong></div>
+    </div>
+    <div class="personal">
+      <p>Hi <span class="ph">{first name}</span>,</p>
+      <p><span class="ph">{One true line about their show}</span>, e.g. Came across your episode on pricing jobs. The bit about quoting by the hour stuck with me.</p>
+      <p>I'm Ethan. I run Free the Desk in Perth. We make SEO reports for small businesses: where they show up on Google and in AI answers, who's beating them, and the few changes worth making first. Your listeners are exactly who they're for.</p>
+      <p>I'd like to offer you two things:</p>
+      <div class="offer">
+        <p><strong>A free report on your business.</strong> Send me your website and I'll make one, no strings. It's the same report customers pay $499 for.</p>
+        <p style="margin:0"><strong>$250 for every report your listeners buy.</strong> You get a code, your listeners get <span class="ph">{discount}</span> off, and you get half of every report. Paid out through Stripe.</p>
+      </div>
+      <img src="report-cover.png" alt="The cover of a Free the Desk search report">
+      <p><a href="#">See a full sample →</a></p>
+      <p>If you're keen, just reply with your website and I'll get started. Everything else is on the <a href="#">affiliate page</a>.</p>
+      <div class="sig">Ethan<small>Free the Desk · Perth, Western Australia · freethedesk.com.au</small></div>
+      <div class="foot">I found this address in <span class="ph">{podcast}</span>'s podcast feed. Not for you? Reply "no thanks" and I won't email again, or <a href="#">unsubscribe</a>. <span class="ph">{postal address}</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ B ============================ -->
+<div class="page">
+  <div class="vhead">
+    <div><span class="eyebrow">Version B</span><h2>Corporate</h2></div>
+    <div class="num">B</div>
+  </div>
+  <div class="notes">
+    <div><h3>Subject lines</h3><ol><li>The Free the Desk podcast partner program</li><li>An invitation for <span class="ph">{podcast}</span></li><li><span class="ph">{podcast}</span> × Free the Desk</li></ol></div>
+    <div><h3>Why it might win</h3><p>A program sounds established and safe to put your name to. The numbers are visible before anyone reads a sentence. Sent from Free the Desk, not from a person.</p></div>
+  </div>
+
+  <div class="corp">
+    <div class="pre">Preview text: A free SEO report for <span class="ph">{podcast}</span>, and $250 for every report your listeners buy.</div>
+    <div class="mail">
+      <header>
+        <span class="wordmark"><img src="../../frontend/public/logo-mark.png" alt="">free<b>the</b>desk.</span>
+        <span class="prog">Podcast partner program</span>
+      </header>
+      <div class="hero">
+        <span class="eyebrow">Podcast partner program</span>
+        <h1>Free the Desk is looking for <span>podcast partners.</span></h1>
+        <p>Your listeners run businesses. Our reports show a business where it appears on Google and in AI answers, who's beating it, and what to fix first. Share them with your audience and earn half of every sale.</p>
+        <a class="btn" href="#">Become a partner →</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="big">$250</div><div class="lab">Per report sold</div></div>
+        <div class="stat"><div class="big"><span class="ph" style="font-size:18px">{discount}</span></div><div class="lab">Off for your listeners</div></div>
+        <div class="stat"><div class="big">$0</div><div class="lab">Your own report</div></div>
+      </div>
+      <section>
+        <span class="eyebrow">How it works</span>
+        <h2>Three steps, and the first one is on us.</h2>
+        <div class="steps">
+          <div class="step"><span class="n">01</span><h3>We make your report</h3><p>Send us your website and we'll make you a full search report, free, so you know exactly what you're recommending.</p></div>
+          <div class="step"><span class="n">02</span><h3>Share your code</h3><p>Mention it on air or put it in your show notes. Your listeners get <span class="ph">{discount}</span> off.</p></div>
+          <div class="step"><span class="n">03</span><h3>Get paid</h3><p>$250 for every report bought with your code, paid out through Stripe.</p></div>
+        </div>
+      </section>
+      <section class="listeners">
+        <img src="report-cover.png" alt="The cover of a Free the Desk search report">
+        <div>
+          <span class="eyebrow">What your listeners get</span>
+          <h2 style="margin-bottom:10px">A report they can act on.</h2>
+          <ul>
+            <li>Where they show up on Google and in AI answers</li>
+            <li>Who's beating them, and why</li>
+            <li>The changes worth making first, in order</li>
+          </ul>
+          <a href="#">See a full sample report →</a>
+        </div>
+      </section>
+      <div class="cta">
+        <h2>Start with your free report.</h2>
+        <a class="btn" href="#">Claim your free report →</a>
+        <p>Or just reply to this email with your website.</p>
+      </div>
+      <footer>
+        Free the Desk · Perth, Western Australia · <span class="ph">{postal address}</span><br>
+        You're receiving this because <span class="ph">{podcast}</span> lists this address as its contact in its podcast feed. <a href="#">Unsubscribe</a>.
+      </footer>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ C ============================ -->
+<div class="page">
+  <div class="vhead">
+    <div><span class="eyebrow">Version C</span><h2>The report</h2></div>
+    <div class="num">C</div>
+  </div>
+  <div class="notes">
+    <div><h3>Subject lines</h3><ol><li>We wrote a report on <span class="ph">{podcast}</span></li><li><span class="ph">{podcast}</span>: partnership report</li><li>3 findings for <span class="ph">{podcast}</span></li></ol></div>
+    <div><h3>Why it might win</h3><p>Nobody else pitches like this. The subject line is hard not to open, and the layout is the product, so the host has seen a report before they've read a word about one. It also adds the episode idea.</p></div>
+  </div>
+
+  <div class="rep-wrap">
+    <div class="rep">
+      <div class="inner">
+        <div class="top"><span class="eyebrow">Partnership report · P1</span><span class="ph">{podcast website}</span></div>
+        <h1><span class="ph" style="font-size:30px">{Podcast name}</span><span>partnership report.</span></h1>
+        <p class="sub">What a partnership with Free the Desk would look like, prepared for <b><span class="ph">{first name}</span></b> on <b><span class="ph">{date}</span></b>.</p>
+        <div class="figs">
+          <div class="fig"><div class="big">$250</div><div class="lab">Per report sold</div></div>
+          <div class="fig"><div class="big"><span class="ph" style="font-size:16px">{discount}</span></div><div class="lab">Off for listeners</div></div>
+          <div class="fig"><div class="big">$0<small>FREE</small></div><div class="lab">Your own report</div></div>
+        </div>
+        <div class="by"><span>REPORT WRITTEN BY</span><span class="wordmark"><img src="../../frontend/public/logo-mark.png" alt="">free<b>the</b>desk.</span></div>
+      </div>
+
+      <div class="sec">
+        <div class="sechead"><span class="n">01</span><span class="eyebrow">What we found</span></div>
+        <h2>Findings</h2>
+        <div class="card"><span class="k">1</span>
+          <h3>Your listeners are who our reports are for <span class="pill dark">High fit</span></h3>
+          <p><b>What we found.</b> <span class="ph">{One true line about the show}</span>, e.g. your latest episode was about pricing jobs in a trade business.</p>
+          <p><b>Why it matters.</b> People who run a business need to be found on Google, and most don't have time to work out why they aren't.</p>
+        </div>
+        <div class="card"><span class="k">2</span>
+          <h3>A recommendation you can be paid for <span class="pill dark">High impact</span></h3>
+          <p><b>What we found.</b> We pay partners half of every report sold with their code: $250 a report.</p>
+          <p><b>Why it matters.</b> One mention keeps paying, because every report a listener buys counts, not just the first.</p>
+        </div>
+        <div class="card"><span class="k">3</span>
+          <h3>There's an episode in this <span class="pill light">Cost: low</span></h3>
+          <p><b>What we found.</b> Most business owners have never seen what a search report says about their own business.</p>
+          <p><b>How.</b> Pick one listener's business. We make their report for free, and you go through it with them on the show.</p>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sechead"><span class="n">02</span><span class="eyebrow">What to do</span></div>
+        <h2>Recommendations</h2>
+        <ol class="todo">
+          <li><div>Reply with your website<span>We make your own report, free. It's the same report customers pay $499 for.</span></div></li>
+          <li><div>Read it<span>If it's something you'd recommend, we set up your code.</span></div></li>
+          <li><div>Share the code<span>On air or in the show notes. We pay out through Stripe.</span></div></li>
+        </ol>
+        <div class="cta">
+          <a class="btn" href="#">Claim your free report →</a>
+          <p>Or reply with your website. <a href="#" style="color:var(--blue)">See a full sample report →</a></p>
+        </div>
+      </div>
+      <footer class="legal">
+        Free the Desk · Perth, Western Australia · <span class="ph">{postal address}</span><br>
+        You're receiving this because <span class="ph">{podcast}</span> lists this address as its contact in its podcast feed. <a href="#">Unsubscribe</a>.
+      </footer>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

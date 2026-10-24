@@ -66,3 +66,7 @@ Added 2026-10-19. Owner's step. Search report r4, rec 9 (contact-page-call-and-c
 ## The read API test fails when the whole suite runs
 
 Added 2026-10-22. `core/tests/test_read_api.py::test_every_dealers_sales_are_read_and_their_credentials_are_not` passes on its own and fails with `KeyError: 'models'` when run after `sales seo payments core identity dealers`: `/api/read/models/` answers something other than the model list, most likely a throttle or cache left over from an earlier test. It fails the same way without the 2026-10-22 shared-code change, so it predates it.
+
+## A marketing email address for the podcast partner outreach
+
+Added 2026-10-24. Owner's step. The podcast partner pitch drafts (`_docs/affiliate-pitch/podcast-partner-pitch-drafts.pdf`, source `drafts.html`) need a dedicated sending address on the freethedesk.com.au domain, not the Gmail account Bloomprint's outreach used, with SPF and DKIM set up so cold email lands in inboxes. The footer of every draft also needs a postal address, which overseas spam law (US CAN-SPAM) requires. Still to decide before sending: whether the $250 commission repeats on every report a referred customer buys, and the listener discount.
