@@ -28,7 +28,4 @@
 <span style="font-size: 13px; color: #718498;">Free the Desk</span></p>
 {% endblock %}
 
-{% block unsubscribe %}
-<br>{{ postal_address }}<br>
-I found this address in {{ podcast }}'s podcast feed. Not for you? Reply "no thanks" and I won't email again, or <a href="{{ unsubscribe_url }}" style="color: #718498;">unsubscribe</a>.
-{% endblock %}
+{% block unsubscribe %}<br><a href="{{ unsubscribe_url }}" style="color: #718498;">Unsubscribe</a> and we won't write again.{% endblock %}

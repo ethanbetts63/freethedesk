@@ -18,5 +18,4 @@ Ethan Betts
 Free the Desk · Perth, Western Australia · ../../../frontend/public
 
 --
-I found this address in The Tradie Show's podcast feed. Not for you? Reply "no thanks" and I won't email again, or unsubscribe: https://www.freethedesk.com.au/unsubscribe/abc123
-PO Box 000, Perth WA 6000
+Unsubscribe and we won't write again: https://www.freethedesk.com.au/unsubscribe/abc123

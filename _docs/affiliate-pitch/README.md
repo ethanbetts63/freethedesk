@@ -26,9 +26,7 @@ pointed at `core/templates` and the context below; images resolve against
   bought once, so there is nothing to repeat.
 - A 20% listener discount, passed as `discount`.
 - One next step: sign up on the partner page, /partners. No audit is written and no code issued until they have.
-- A footer with a one-click unsubscribe. A's also gives the postal address and
-  says where the email address came from (their podcast feed); B's is just the
-  unsubscribe line.
+- The same footer: the wordmark, Perth, and a one-click unsubscribe line.
 
 ## What changes
 
@@ -49,7 +47,6 @@ pointed at `core/templates` and the context below; images resolve against
 | `commission_low`, `commission_high` | $275, $700 | Half of the cheapest and dearest audit |
 | `free_audit_price` | $850 | The tier the host gets free |
 | `unsubscribe_url` | per recipient | Must suppress the address in messaging |
-| `postal_address` | | Required by US CAN-SPAM |
 | `sender_name` | Ethan Betts | A only |
 
 ## Testing

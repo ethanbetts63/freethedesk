@@ -18,5 +18,4 @@ If you're keen, sign up on the partner page and I'll get started on your audit. 
 Free the Desk · Perth, Western Australia · {{ site_url }}
 
 --
-I found this address in {{ podcast }}'s podcast feed. Not for you? Reply "no thanks" and I won't email again, or unsubscribe: {{ unsubscribe_url }}
-{{ postal_address }}
+Unsubscribe and we won't write again: {{ unsubscribe_url }}
