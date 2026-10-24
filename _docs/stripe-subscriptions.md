@@ -73,15 +73,21 @@ inline recurring `price_data` containing the current model price in cents. Exist
 was accepted when they were created; changing Licensing settings affects only
 future subscriptions.
 
-SEO is sold as four plans, each with its own price in site settings: `monthly`
-(`seo_monthly_price`), `quarterly` (`seo_quarterly_price`), `yearly`
-(`seo_yearly_price`), each one report per billing period, and `oneoff`
-(`seo_oneoff_price`, charged once). The customer picks at signup, by how fast
-they can act on a report. A customer who wants a different cadence asks; there
-is no tooling for the move yet: change the Stripe subscription's price and
-interval in the Stripe dashboard and set the subscriber's `plan` to match in
-Django admin, after confirming with the customer, as the SEO subscription terms
-require.
+SEO is sold as one audit, paid once, in three tiers by what it reads, each
+with its own price in site settings: `essentials` (`seo_essentials_price`:
+public data and Search Console), `plus` (`seo_plus_price`: adds the Business
+Profile, reviews and analytics) and `complete` (`seo_complete_price`: adds
+Google Ads, the legal check, business records and a second look three months
+on). Every one is a Stripe one-off payment on the `seo.oneoff` flow; nothing
+renews. The customer who wants more buys another audit.
+
+The monthly, quarterly and yearly subscriptions and the one-off audit were
+sold until 24 October 2026. Their plan values stay on `SeoSubscriber` as
+retired choices, and the `seo.subscription` flow's handlers stay registered,
+so a subscription bought before then still renews, fails and cancels
+correctly. To end one, cancel it in the Stripe dashboard; the webhook updates
+the subscriber. Once no SEO subscription is left in Stripe, the subscription
+callbacks in `payments/fulfilment.py` can go.
 
 No payment, no account. The SEO signup form records a `SeoSubscriber` with no
 login: the details typed, the plan, and a random `checkout_reference`. The

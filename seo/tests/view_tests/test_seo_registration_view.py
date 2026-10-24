@@ -12,7 +12,7 @@ PAYLOAD = {
     "email": "jo@peakdigital.com.au",
     "phone": "0400 000 000",
     "website": "https://peakdigital.com.au",
-    "plan": "monthly",
+    "plan": "plus",
     "accepted_terms": True,
 }
 
@@ -28,7 +28,7 @@ def test_signup_records_the_details_and_makes_no_login(client):
 
     subscriber = SeoSubscriber.objects.get()
     assert subscriber.status == SeoSubscriber.Status.PENDING
-    assert subscriber.plan == SeoSubscriber.Plan.MONTHLY
+    assert subscriber.plan == SeoSubscriber.Plan.PLUS
     assert subscriber.payment_status == SeoSubscriber.PaymentStatus.PAYMENT_PENDING
     assert subscriber.business_name == "peakdigital.com.au"
     assert subscriber.contact_name == "Account owner"
@@ -51,7 +51,7 @@ def test_signup_records_the_terms_ticked_on_the_form(client):
 
     subscriber = SeoSubscriber.objects.get()
     acceptance = Acceptance.objects.for_related(subscriber).get()
-    assert acceptance.context["plan"] == "monthly"
+    assert acceptance.context["plan"] == "plus"
     assert str(acceptance.accepted_ip) == "198.51.100.24"
     assert acceptance.user_agent == "Mozilla/5.0 test"
     # No login exists yet, so the acceptance names the email typed at signup.
@@ -84,24 +84,15 @@ def test_signing_up_twice_keeps_both_signups(client):
     assert first.json()["reference"] != second.json()["reference"]
 
 
-def test_signup_defaults_plan_to_monthly(client):
+def test_signup_defaults_plan_to_essentials(client):
     payload = {key: value for key, value in PAYLOAD.items() if key != "plan"}
     response = client.post(reverse("seo-signup"), payload, content_type="application/json")
     assert response.status_code == 201
-    assert SeoSubscriber.objects.get().plan == SeoSubscriber.Plan.MONTHLY
+    assert SeoSubscriber.objects.get().plan == SeoSubscriber.Plan.ESSENTIALS
 
 
-def test_signup_accepts_a_one_off(client):
-    response = client.post(
-        reverse("seo-signup"), {**PAYLOAD, "plan": "oneoff"}, content_type="application/json"
-    )
-    assert response.status_code == 201
-    assert SeoSubscriber.objects.get().is_one_off
-
-
-@pytest.mark.parametrize("plan", ["quarterly", "yearly"])
-def test_signup_accepts_the_slower_cadences(client, plan):
-    # The customer picks the pace they can act on.
+@pytest.mark.parametrize("plan", ["essentials", "plus", "complete"])
+def test_signup_accepts_each_report(client, plan):
     response = client.post(
         reverse("seo-signup"), {**PAYLOAD, "plan": plan}, content_type="application/json"
     )
@@ -109,8 +100,8 @@ def test_signup_accepts_the_slower_cadences(client, plan):
     assert SeoSubscriber.objects.get().plan == plan
 
 
-@pytest.mark.parametrize("plan", ["bimonthly", "biannual"])
-def test_signup_rejects_the_retired_cadences(client, plan):
+@pytest.mark.parametrize("plan", ["monthly", "quarterly", "yearly", "oneoff", "bimonthly"])
+def test_signup_rejects_the_retired_plans(client, plan):
     response = client.post(
         reverse("seo-signup"), {**PAYLOAD, "plan": plan}, content_type="application/json"
     )

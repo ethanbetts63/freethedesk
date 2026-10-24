@@ -183,11 +183,11 @@ export const STATIC_PAGES = {
     title: 'Dealer Subscription Terms',
     description: 'Terms for freethedesk dealer licensing and contract subscriptions.',
   },
-  '/legal/seo-subscription-terms': {
+  '/legal/seo-audit-terms': {
     updated: '2026-10-24',
-    label: 'SEO subscription terms',
-    title: 'SEO Subscription Terms',
-    description: 'Terms for freethedesk SEO subscriptions and one-off SEO reviews.',
+    label: 'SEO audit terms',
+    title: 'SEO Audit Terms',
+    description: 'Terms for freethedesk SEO audits: Essentials, Plus and Complete, each paid once.',
   },
   '/legal/web-development-terms': {
     updated: '2026-10-24',

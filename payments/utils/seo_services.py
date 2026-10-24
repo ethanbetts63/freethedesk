@@ -16,13 +16,13 @@ from core.models import SiteSettings
 from seo.models import SeoSubscriber
 from seo.utils.existing_account import find_existing_account
 
-from ..flows import SEO_ONEOFF, SEO_SUBSCRIPTION
+from ..flows import SEO_ONEOFF
 from .agreements import (
     AgreementConfigurationError,
+    SEO_ACCEPTANCE_STATEMENT,
     SEO_AGREEMENT_KEY,
     publish_configured_agreement,
     record_checkout_acceptance,
-    seo_acceptance_statement,
     seo_offer_context,
 )
 from .services import PaymentConfigurationError
@@ -33,25 +33,15 @@ class SeoQuote:
     plan: str
     name: str
     price: Decimal
-    recurring: dict | None
     currency: str = "aud"
 
-    @property
-    def mode(self) -> str:
-        return "payment" if self.recurring is None else "subscription"
 
-
-def _every(months):
-    return {"interval": "month", "interval_count": months}
-
-
-# Customer-facing name, the SiteSettings field holding its price, and the
-# Stripe recurring config (None = one-off).
+# Each report on sale: its customer-facing name and the SiteSettings field
+# holding its price. Every one is paid once; nothing here renews.
 SEO_PLAN_DETAILS = {
-    SeoSubscriber.Plan.MONTHLY: ("Monthly SEO subscription", "seo_monthly_price", _every(1)),
-    SeoSubscriber.Plan.QUARTERLY: ("Quarterly SEO subscription", "seo_quarterly_price", _every(3)),
-    SeoSubscriber.Plan.YEARLY: ("Yearly SEO subscription", "seo_yearly_price", _every(12)),
-    SeoSubscriber.Plan.ONEOFF: ("SEO audit", "seo_oneoff_price", None),
+    SeoSubscriber.Plan.ESSENTIALS: ("Essentials SEO audit", "seo_essentials_price"),
+    SeoSubscriber.Plan.PLUS: ("Plus SEO audit", "seo_plus_price"),
+    SeoSubscriber.Plan.COMPLETE: ("Complete SEO audit", "seo_complete_price"),
 }
 
 
@@ -59,9 +49,9 @@ def seo_quote_for_plan(plan) -> SeoQuote:
     details = SEO_PLAN_DETAILS.get(plan)
     if not details:
         raise PaymentConfigurationError("This SEO plan is unavailable.", code="invalid_plan")
-    name, price_field, recurring = details
+    name, price_field = details
     price = getattr(SiteSettings.load(), price_field)
-    return SeoQuote(plan=plan, name=name, price=price, recurring=recurring)
+    return SeoQuote(plan=plan, name=name, price=price)
 
 
 def _current_seo_agreement():
@@ -84,7 +74,7 @@ def accept_current_seo_offer(*, subscriber, accepted_ip, user_agent=""):
         related=subscriber,
         accepted_ip=accepted_ip,
         user_agent=user_agent,
-        statement=seo_acceptance_statement(quote),
+        statement=SEO_ACCEPTANCE_STATEMENT,
         context=seo_offer_context(subscriber, quote),
     )
     return acceptance, quote
@@ -100,7 +90,7 @@ def signup_seo_acceptance(subscriber):
     _refuse_paid_or_existing(subscriber)
     quote = seo_quote_for_plan(subscriber.plan)
     context = seo_offer_context(subscriber, quote)
-    statement = seo_acceptance_statement(quote)
+    statement = SEO_ACCEPTANCE_STATEMENT
     acceptances = Acceptance.objects.for_related(subscriber).filter(
         agreement_version=_current_seo_agreement()
     )
@@ -134,10 +124,7 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
     """
     _refuse_paid_or_existing(subscriber)
 
-    item = {"key": f"seo.{subscriber.plan}", "name": quote.name, "unit_amount": quote.price}
-    if quote.recurring:
-        item["recurring"] = quote.recurring
-    items = [item]
+    items = [{"key": f"seo.{subscriber.plan}", "name": quote.name, "unit_amount": quote.price}]
 
     try:
         billing_customer = ensure_billing_customer(
@@ -148,7 +135,7 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
             phone=subscriber.phone or "",
         )
         payment, client_secret = start_checkout(
-            flow=SEO_SUBSCRIPTION if quote.recurring else SEO_ONEOFF,
+            flow=SEO_ONEOFF,
             related=subscriber,
             related_label=subscriber.business_name,
             billing_customer=billing_customer,

@@ -55,7 +55,7 @@ def test_subscriber_cannot_change_own_status_or_plan(client, seo_subscriber):
     )
     seo_subscriber.refresh_from_db()
     assert seo_subscriber.status == SeoSubscriber.Status.PENDING
-    assert seo_subscriber.plan == SeoSubscriber.Plan.QUARTERLY
+    assert seo_subscriber.plan == SeoSubscriber.Plan.PLUS
 
 
 def test_staff_cannot_use_the_seo_account_endpoint(client, seo_subscriber, staff_user):

@@ -41,8 +41,9 @@ function SampleNote() {
           <p className="m-0 text-body-sm leading-relaxed text-text-muted">
             {BUSINESS.fullName} is an invented business, and every figure, page and review below is
             made up. The kinds of findings, the experiments and the way each is written come from
-            real reports. A real report runs longer: every recommendation found, and a chart for
-            each line of the business.
+            real reports. It is a Complete audit: the experiments come from its second look, three
+            months on. A real report runs longer: every recommendation found, and a chart for each
+            line of the business.
           </p>
         </div>
       </div>
@@ -87,14 +88,16 @@ function SampleCta({ prices }: { prices: SeoAuditPrices }) {
       <h2 className="m-0 text-display tracking-tighter">Get a report for your business.</h2>
       <p className="mx-auto my-xl max-w-copy text-lead leading-relaxed text-text-muted">
         The same report, written about your site from your own search data: what to fix first, why
-        it matters and how to do it, then what each change earned the time after.
+        it matters and how to do it. A Complete audit then looks again to show what each change
+        earned.
       </p>
       <div className="flex flex-col items-center gap-s">
         <CtaButton href="/seo" size="large">
           Get a report for your business
         </CtaButton>
         <p className="m-0 text-body-sm font-strong text-text-muted">
-          {prices.oneOff} one-off, or {prices.subscription} an audit on a subscription
+          Essentials {prices.essentials}, Plus {prices.plus}, Complete {prices.complete}, each paid
+          once
         </p>
       </div>
     </section>

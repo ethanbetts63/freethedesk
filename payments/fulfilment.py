@@ -268,6 +268,8 @@ def register():
         renewal_paid=dealer_renewal_paid,
         refunded=dealer_refunded,
     )
+    # Every SEO report is now paid once (SEO_ONEOFF); the subscription
+    # callbacks stay for subscriptions sold before 24 October 2026.
     for flow in (SEO_SUBSCRIPTION, SEO_ONEOFF):
         register_handler(
             flow,

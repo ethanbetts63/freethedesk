@@ -52,10 +52,9 @@ const GUIDE_OFFER: Record<string, GuideOfferKind> = {
 
 const OFFER_PRICE_FIELDS = [
   ...SERVICE_PRICE_FIELDS,
-  'seo_monthly_price',
-  'seo_quarterly_price',
-  'seo_yearly_price',
-  'seo_oneoff_price',
+  'seo_essentials_price',
+  'seo_plus_price',
+  'seo_complete_price',
   'licensing_price',
 ] as const;
 

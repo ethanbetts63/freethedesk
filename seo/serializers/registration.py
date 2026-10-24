@@ -22,11 +22,9 @@ class SeoRegistrationSerializer(serializers.Serializer):
     email = bounds.email()
     phone = bounds.char("phone", required=False, allow_blank=True)
     website = bounds.url(required=False, allow_blank=True)
-    # A subscription always starts monthly; the slower cadences are reached
-    # later by moving the subscriber, so they are not offered here.
     plan = serializers.ChoiceField(
         choices=[(plan.value, plan.label) for plan in SeoSubscriber.SIGNUP_PLANS],
-        default=SeoSubscriber.Plan.MONTHLY,
+        default=SeoSubscriber.Plan.ESSENTIALS,
     )
     # The terms are agreed to here, on the form, and recorded by the view;
     # checkout then charges against that acceptance.
@@ -34,7 +32,7 @@ class SeoRegistrationSerializer(serializers.Serializer):
 
     def validate_accepted_terms(self, value: bool) -> bool:
         if not value:
-            raise serializers.ValidationError("Accept the SEO Subscription Terms to continue.")
+            raise serializers.ValidationError("Accept the SEO Audit Terms to continue.")
         return value
 
     def validate_email(self, value: str) -> str:

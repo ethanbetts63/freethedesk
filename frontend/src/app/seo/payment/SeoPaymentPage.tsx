@@ -15,7 +15,7 @@ const SIGN_IN = { href: '/login', label: 'Sign in' };
 const NEXT_STEPS = [
   'Pay securely through Stripe.',
   'Your sign-in details arrive by email.',
-  'Connect Search Console and your first audit begins.',
+  'Connect your data and your audit begins.',
 ];
 
 /**
@@ -67,8 +67,7 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
   }, [reference]);
 
   const plan = checkout ? planByCode(plans, checkout.plan) : undefined;
-  const oneOff = checkout?.plan === 'oneoff';
-  const productName = plan?.productName ?? 'Your plan';
+  const productName = plan?.productName ?? 'Your SEO audit';
   const displayedPrice = quotedPrice ? formatMoney(quotedPrice, { cents: 'auto' }) : plan?.price;
 
   return (
@@ -83,8 +82,8 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
         <CheckoutState
           eyebrow="Secure checkout"
           title="Start from the SEO page."
-          body="This link is missing your signup. Choose a plan and enter your details to reach payment."
-          link={{ href: '/seo#signup', label: 'Choose a plan' }}
+          body="This link is missing your signup. Choose an audit and enter your details to reach payment."
+          link={{ href: '/seo#signup', label: 'Choose an audit' }}
         />
       ) : accountExists ? (
         <CheckoutState
@@ -97,13 +96,13 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
         <CheckoutState
           eyebrow="Terms updated"
           title="Our price or terms have changed."
-          body="They changed after you signed up, so nothing can be charged on this link. Choose your plan again to see and agree to the current ones."
-          link={{ href: '/seo#signup', label: 'Choose a plan' }}
+          body="They changed after you signed up, so nothing can be charged on this link. Choose your audit again to see and agree to the current ones."
+          link={{ href: '/seo#signup', label: 'Choose an audit' }}
         />
       ) : checkout?.paid ? (
         <CheckoutState
           eyebrow="Already paid"
-          title="This plan is paid."
+          title="This audit is paid."
           body="Your sign-in details were emailed to you when the payment went through."
           link={SIGN_IN}
         />
@@ -116,10 +115,8 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
         />
       ) : checkout && plan && clientSecret ? (
         <CheckoutPayment
-          heading={
-            oneOff ? `Pay for your ${productName}.` : `Start your ${plan.name.toLowerCase()}.`
-          }
-          submitLabel={oneOff ? 'Pay now' : 'Start subscription'}
+          heading={`Pay for your ${productName}.`}
+          submitLabel="Pay now"
           clientSecret={clientSecret}
         />
       ) : (

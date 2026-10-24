@@ -1,19 +1,21 @@
 import { authedFetch, postJson, type AccountBase } from './api';
 import { apiFetch, handleResponse } from '@freetheplatform/web-security';
 
-/** The customer picks one at signup; staff move them between them on request. */
-export type SeoPlanCode = 'monthly' | 'quarterly' | 'yearly' | 'oneoff';
+/** The audit the customer buys: one report, at one of three tiers. */
+export type SeoPlanCode = 'essentials' | 'plus' | 'complete';
+/** Sold before 24 October 2026; an older account may still carry one. */
+export type RetiredSeoPlanCode = 'monthly' | 'quarterly' | 'yearly' | 'oneoff';
 export type SeoPaymentStatus = 'payment_pending' | 'active' | 'past_due' | 'cancelled' | 'paid';
 
 export interface SeoAccount extends AccountBase {
   website: string;
-  plan: SeoPlanCode;
+  plan: SeoPlanCode | RetiredSeoPlanCode;
   payment_status: SeoPaymentStatus;
 }
 
 /** Where a signup's payment stands, read by its checkout reference before any login exists. */
 export interface SeoCheckoutStatus {
-  plan: SeoPlanCode;
+  plan: SeoPlanCode | RetiredSeoPlanCode;
   payment_status: SeoPaymentStatus;
   paid: boolean;
 }
@@ -22,8 +24,8 @@ export interface SeoCheckout {
   client_secret: string;
   price: string;
   currency: string;
-  cadence_label: string;
-  mode: 'subscription' | 'payment';
+  /** What checkout calls it: "Plus SEO audit". */
+  product_name: string;
 }
 
 export interface SeoOnboardingProfile {
@@ -99,7 +101,7 @@ export async function getSeoCheckoutStatus(reference: string): Promise<SeoChecko
  * account, or `offer_changed` when the price or terms moved since signup.
  */
 export async function createSeoCheckout(reference: string): Promise<SeoCheckout> {
-  return postJson('/api/payments/seo-subscription/', { reference });
+  return postJson('/api/payments/seo-checkout/', { reference });
 }
 
 export async function getSeoOnboarding(): Promise<SeoOnboardingProfile> {

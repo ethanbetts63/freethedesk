@@ -3,6 +3,7 @@ from decimal import Decimal
 from freetheplatform.agreements import accept
 
 from payments.utils.agreements import (
+    SEO_ACCEPTANCE_STATEMENT,
     SEO_AGREEMENT_KEY,
     publish_configured_agreement,
 )
@@ -18,17 +19,15 @@ def SeoAgreementAcceptanceFactory(
     subscriber = subscriber or SeoSubscriberFactory()
     accepted_by = accepted_by or subscriber.user
     plan = plan or subscriber.plan
-    mode = "payment" if plan == SeoSubscriber.Plan.ONEOFF else "subscription"
-    statement = (
-        "I agree to the SEO Subscription Terms, acknowledge the Privacy Policy, "
-        f"and authorise this {'payment' if mode == 'payment' else 'recurring subscription'}."
-    )
+    # The retired subscriptions still renew, so webhook tests use them too.
+    recurring = {SeoSubscriber.Plan.MONTHLY, SeoSubscriber.Plan.QUARTERLY, SeoSubscriber.Plan.YEARLY}
+    mode = "subscription" if plan in recurring else "payment"
     version = publish_configured_agreement(SEO_AGREEMENT_KEY)
     acceptance, _ = accept(
         agreement=version,
         accepted_by=accepted_by,
         related=subscriber,
-        statement=statement,
+        statement=SEO_ACCEPTANCE_STATEMENT,
         context={
             "plan": plan,
             "price": str(price),

@@ -2,7 +2,7 @@ from django.urls import include, path
 
 from .views import (
     PackageOrderCheckoutView,
-    SeoSubscriptionCheckoutView,
+    SeoCheckoutView,
     SubscriptionCheckoutView,
 )
 
@@ -17,6 +17,6 @@ urlpatterns = [
     # up as a 404 nobody went looking for.
     path("", include("freetheplatform.payments.urls")),
     path("subscription/", SubscriptionCheckoutView.as_view(), name="subscription-checkout"),
-    path("seo-subscription/", SeoSubscriptionCheckoutView.as_view(), name="seo-subscription-checkout"),
+    path("seo-checkout/", SeoCheckoutView.as_view(), name="seo-checkout"),
     path("package-order/", PackageOrderCheckoutView.as_view(), name="package-order-checkout"),
 ]

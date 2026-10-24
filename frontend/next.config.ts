@@ -31,6 +31,11 @@ const nextConfig: NextConfig = {
       { source: '/work/:path*', destination: '/portfolio/:path*', permanent: true },
       // Retired on 2026-10-14; every price is on the homepage mosaic and its service page.
       { source: '/pricing', destination: '/#pricing', permanent: true },
+      {
+        source: '/legal/seo-subscription-terms',
+        destination: '/legal/seo-audit-terms',
+        permanent: true,
+      },
     ];
   },
   async headers() {

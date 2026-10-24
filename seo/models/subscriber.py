@@ -30,20 +30,25 @@ class SeoSubscriber(models.Model):
         DENIED = "denied", "Denied"
 
     class Plan(models.TextChoices):
-        """How often a subscriber gets a report, or a single one-off report.
+        """Which report the customer bought.
 
-        The customer picks at signup, by how fast they can act on a report:
-        monthly if changes can go in within weeks, quarterly if they go through
-        an agency or an IT queue, yearly as an annual check-up. Each has its
-        own price. Staff move a subscriber between them on request.
+        One report, bought once, in three tiers by what it reads: Essentials
+        the public data and Search Console, Plus the Business Profile and
+        analytics as well, Complete everything, with a second look three
+        months on. The subscriptions and the one-off audit sold before
+        24 October 2026 stay so their rows and renewals still mean something;
+        they are no longer sold.
         """
 
-        MONTHLY = "monthly", "Monthly"
-        QUARTERLY = "quarterly", "Quarterly"
-        YEARLY = "yearly", "Yearly"
-        ONEOFF = "oneoff", "SEO audit"
+        ESSENTIALS = "essentials", "Essentials SEO audit"
+        PLUS = "plus", "Plus SEO audit"
+        COMPLETE = "complete", "Complete SEO audit"
+        MONTHLY = "monthly", "Monthly subscription (retired)"
+        QUARTERLY = "quarterly", "Quarterly subscription (retired)"
+        YEARLY = "yearly", "Yearly subscription (retired)"
+        ONEOFF = "oneoff", "One-off audit (retired)"
 
-    SIGNUP_PLANS = (Plan.MONTHLY, Plan.QUARTERLY, Plan.YEARLY, Plan.ONEOFF)
+    SIGNUP_PLANS = (Plan.ESSENTIALS, Plan.PLUS, Plan.COMPLETE)
 
     class PaymentStatus(models.TextChoices):
         PAYMENT_PENDING = "payment_pending", "Payment pending"
@@ -67,7 +72,7 @@ class SeoSubscriber(models.Model):
     contact_name = models.CharField(max_length=120)
     phone = models.CharField(max_length=40, blank=True)
     website = models.URLField(blank=True)
-    plan = models.CharField(max_length=20, choices=Plan.choices, default=Plan.MONTHLY, db_index=True)
+    plan = models.CharField(max_length=20, choices=Plan.choices, default=Plan.ESSENTIALS, db_index=True)
     payment_status = models.CharField(
         max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.PAYMENT_PENDING, db_index=True
     )
@@ -88,10 +93,6 @@ class SeoSubscriber(models.Model):
 
     def __str__(self) -> str:
         return f"{self.business_name} ({self.get_status_display()})"
-
-    @property
-    def is_one_off(self) -> bool:
-        return self.plan == self.Plan.ONEOFF
 
     @property
     def has_paid(self) -> bool:

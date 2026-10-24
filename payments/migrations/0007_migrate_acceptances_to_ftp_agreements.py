@@ -19,8 +19,9 @@ DEALER_STATEMENT = (
 SEO_KEY = "seo.reporting"
 SEO_TITLE = "SEO Reporting & Audit Terms"
 SEO_CONFIGURED_VERSION = "2026-09-09"
+# The file was seo-subscription-terms.md when this ran; renamed 2026-10-24.
 SEO_SOURCE_PARTS = (
-    "frontend", "content", "legal", "seo-subscription-terms.md",
+    "frontend", "content", "legal", "seo-audit-terms.md",
 )
 
 

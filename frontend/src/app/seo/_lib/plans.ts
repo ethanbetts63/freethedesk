@@ -5,83 +5,81 @@ import { formatMoney } from '@/lib/formatting';
 
 export type { SeoPlanCode };
 export type SeoPlan = Plan<SeoPlanCode> & {
-  /** What checkout calls it: "Quarterly SEO subscription", "SEO audit". */
+  /** What checkout calls it: "Plus SEO audit". */
   productName: string;
 };
 export { planByCode };
 
-const FEATURES = [
-  'Search Console, Profile and analytics',
-  '23 foundation checks',
-  'Fixes ranked by value',
-];
-const RECURRING_FEATURES = [...FEATURES, 'Every change measured'];
-
 const price = (value: string) => formatMoney(value, { cents: 'auto' });
 
-/** The admin setting each plan is priced from. */
+/** The admin setting each audit is priced from. */
 export const PRICE_FIELD = {
-  monthly: 'seo_monthly_price',
-  quarterly: 'seo_quarterly_price',
-  yearly: 'seo_yearly_price',
-  oneoff: 'seo_oneoff_price',
+  essentials: 'seo_essentials_price',
+  plus: 'seo_plus_price',
+  complete: 'seo_complete_price',
 } as const satisfies Record<SeoPlanCode, keyof PublicSiteSettings>;
 
-/** The two prices quoted beside a call to buy: one audit, and an audit on the cheapest subscription. */
+/** Each audit's price, for copy that names all three beside a call to buy. */
 export function seoAuditPrices(settings: PublicSiteSettings) {
-  const subscription = Math.min(
-    ...[settings.seo_monthly_price, settings.seo_quarterly_price, settings.seo_yearly_price].map(
-      Number,
-    ),
-  );
-  return { oneOff: price(settings.seo_oneoff_price), subscription: price(String(subscription)) };
+  return {
+    essentials: price(settings.seo_essentials_price),
+    plus: price(settings.seo_plus_price),
+    complete: price(settings.seo_complete_price),
+  };
 }
 
 export type SeoAuditPrices = ReturnType<typeof seoAuditPrices>;
 
 /**
- * What a customer can buy. The pace is theirs to pick, by how fast they can
- * act on an audit; each plan has its own price.
+ * What a customer can buy: one audit, paid once, in three tiers by what it
+ * reads. Essentials reads what is public and Search Console; Plus adds the
+ * Business Profile, reviews and analytics; Complete reads everything and looks
+ * again three months on. Mirrors SeoSubscriber.Plan and the SEO Audit Terms.
  */
 export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
   return [
     {
-      code: 'oneoff',
-      name: 'One-off SEO Audit',
-      productName: 'SEO audit',
-      price: price(settings.seo_oneoff_price),
-      cadence: 'once, no subscription',
-      summary: 'One full round of analysis and ranked recommendations.',
-      features: FEATURES,
+      code: 'essentials',
+      name: 'Essentials',
+      productName: 'Essentials SEO audit',
+      price: price(settings.seo_essentials_price),
+      cadence: 'paid once',
+      summary: 'Your site, your rivals and your Search Console data.',
+      features: [
+        'Your site on computer and phone',
+        'Search Console data',
+        'The sites that outrank you',
+        'Fixes ranked by value',
+      ],
     },
     {
-      code: 'monthly',
-      name: 'Monthly Audit Subscription',
-      productName: 'Monthly SEO subscription',
-      price: price(settings.seo_monthly_price),
-      cadence: 'per audit, every month',
-      summary:
-        'For a business that can make changes within weeks. Each audit measures what last month’s changes earned.',
-      features: RECURRING_FEATURES,
+      code: 'plus',
+      name: 'Plus',
+      productName: 'Plus SEO audit',
+      price: price(settings.seo_plus_price),
+      cadence: 'paid once',
+      summary: 'Essentials, with your Business Profile, reviews and visitor analytics.',
+      features: [
+        'Everything in Essentials',
+        'Google Business Profile',
+        'Your reviews and your rivals’',
+        'Visitor analytics',
+      ],
+      recommended: true,
     },
     {
-      code: 'quarterly',
-      name: 'Quarterly Audit Subscription',
-      productName: 'Quarterly SEO subscription',
-      price: price(settings.seo_quarterly_price),
-      cadence: 'per audit, every 3 months',
-      summary:
-        'For changes that go through an agency or an IT queue: time to act on one audit before the next.',
-      features: RECURRING_FEATURES,
-    },
-    {
-      code: 'yearly',
-      name: 'Yearly Audit Subscription',
-      productName: 'Yearly SEO subscription',
-      price: price(settings.seo_yearly_price),
-      cadence: 'per audit, every year',
-      summary: 'An annual check-up, measuring what the year’s changes earned.',
-      features: RECURRING_FEATURES,
+      code: 'complete',
+      name: 'Complete',
+      productName: 'Complete SEO audit',
+      price: price(settings.seo_complete_price),
+      cadence: 'paid once',
+      summary: 'Everything we read, and a second look three months on.',
+      features: [
+        'Everything in Plus',
+        'Google Ads account',
+        'Legal check of your site',
+        'A second look at three months',
+      ],
     },
   ];
 }

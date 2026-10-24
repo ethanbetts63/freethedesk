@@ -112,10 +112,9 @@ export interface PublicSiteSettings {
   licensing_price: string;
   contracts_price: string;
   complete_price: string;
-  seo_monthly_price: string;
-  seo_quarterly_price: string;
-  seo_yearly_price: string;
-  seo_oneoff_price: string;
+  seo_essentials_price: string;
+  seo_plus_price: string;
+  seo_complete_price: string;
   hourly_rate: string;
   discovery_hours: number;
   website_one_page_price: string;

@@ -35,10 +35,9 @@ const LICENSING_FIELDS: FieldSpec[] = [
 ];
 
 const SEO_FIELDS: FieldSpec[] = [
-  { field: 'seo_monthly_price', label: 'SEO monthly ($ / audit)' },
-  { field: 'seo_quarterly_price', label: 'SEO quarterly ($ / audit)' },
-  { field: 'seo_yearly_price', label: 'SEO yearly ($ / audit)' },
-  { field: 'seo_oneoff_price', label: 'SEO one-off ($ once)' },
+  { field: 'seo_essentials_price', label: 'SEO audit, Essentials ($ once)' },
+  { field: 'seo_plus_price', label: 'SEO audit, Plus ($ once)' },
+  { field: 'seo_complete_price', label: 'SEO audit, Complete ($ once)' },
 ];
 
 const HOURLY_FIELDS: FieldSpec[] = [

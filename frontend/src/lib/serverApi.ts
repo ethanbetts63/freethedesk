@@ -36,10 +36,9 @@ const CHECKOUT_PRICE_FIELDS = [
   'licensing_price',
   'contracts_price',
   'complete_price',
-  'seo_monthly_price',
-  'seo_quarterly_price',
-  'seo_yearly_price',
-  'seo_oneoff_price',
+  'seo_essentials_price',
+  'seo_plus_price',
+  'seo_complete_price',
 ] as const satisfies readonly (keyof PublicSiteSettings)[];
 
 /**

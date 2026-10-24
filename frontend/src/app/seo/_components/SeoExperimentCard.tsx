@@ -1,5 +1,5 @@
 /**
- * A real experiment, as a subscriber sees it: Scooter Shop's r7 findings,
+ * A real experiment, as a customer sees it: Scooter Shop's r7 findings,
  * "consolidate-service-satellites". The figures are the report's own chart
  * series (ftp_search/_search/scootershop/reports/r7/report.html), not
  * illustrative numbers - if this card is ever refreshed, take them from a

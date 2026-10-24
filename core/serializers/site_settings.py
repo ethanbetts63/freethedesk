@@ -8,7 +8,7 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
         model = SiteSettings
         fields = [
             "licensing_price", "contracts_price", "complete_price",
-            "seo_monthly_price", "seo_quarterly_price", "seo_yearly_price", "seo_oneoff_price",
+            "seo_essentials_price", "seo_plus_price", "seo_complete_price",
             "hourly_rate", "discovery_hours",
             "website_one_page_price",
             "website_small_pages", "website_small_page_price",

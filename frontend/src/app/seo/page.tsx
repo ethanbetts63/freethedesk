@@ -10,17 +10,17 @@ import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { metadataFor } from '@/lib/pages';
 import { formatMoney } from '@/lib/formatting';
-import { buildOneOffOffer, buildRecurringOffer } from '@/lib/seo';
+import { buildOneOffOffer } from '@/lib/seo';
 import { numberSections } from '@/lib/sectionNumbers';
 import { getSiteSettingsServer } from '@/lib/serverApi';
 
 import { SeoAnalysis } from './_components/SeoAnalysis';
-import { SeoCadence } from './_components/SeoCadence';
 import { SampleReportLink } from './_components/SampleReportLink';
 import { SeoImprovement } from './_components/SeoImprovement';
 import { SeoIntroduction } from './_components/SeoIntroduction';
 import { SeoSignup } from './_components/SeoSignup';
 import { SeoStepsBar } from './_components/SeoStepsBar';
+import { SeoTiers } from './_components/SeoTiers';
 import { seoFaqs } from './_lib/copy';
 import { buildSeoPlans, PRICE_FIELD } from './_lib/plans';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
@@ -29,15 +29,12 @@ const sections = numberSections([
   'Analyse',
   'Recommend',
   'Experiment',
-  'How often',
+  'What we read',
   'Proof this works',
   'Common questions',
 ] as const);
 
 export const metadata: Metadata = metadataFor('/seo');
-
-/** What each subscription's price is per: one audit each time. */
-const OFFER_UNIT = { monthly: 'MONTH', quarterly: 'QUARTER', yearly: 'YEAR' } as const;
 
 /* Pricing comes from the admin, so this page renders per request. */
 export const dynamic = 'force-dynamic';
@@ -53,25 +50,18 @@ export default async function SeoPage() {
   const settings = await getSiteSettingsServer();
 
   // The Service node itself is declared in STATIC_PAGES; only the prices are dynamic.
-  // One offer per plan, the one-off audit included, priced as the plan cards are.
-  const serviceOffers = buildSeoPlans(settings).flatMap((plan) => {
-    const amount = settings[PRICE_FIELD[plan.code]];
-    const offer =
-      plan.code === 'oneoff'
-        ? buildOneOffOffer({ price: Number(amount), name: plan.name })
-        : buildRecurringOffer({ price: amount, unitText: OFFER_UNIT[plan.code], name: plan.name });
+  // One offer per audit, priced as the cards are.
+  const plans = buildSeoPlans(settings);
+  const serviceOffers = plans.flatMap((plan) => {
+    const offer = buildOneOffOffer({
+      price: Number(settings[PRICE_FIELD[plan.code]]),
+      name: plan.productName,
+    });
     return offer ? [offer] : [];
   });
-  // "From": the cheapest audit on offer, whichever plan that is.
+  // "From": the cheapest audit, whichever that is.
   const fromPrice = formatMoney(
-    Math.min(
-      ...[
-        settings.seo_monthly_price,
-        settings.seo_quarterly_price,
-        settings.seo_yearly_price,
-        settings.seo_oneoff_price,
-      ].map(Number),
-    ),
+    Math.min(...plans.map((plan) => Number(settings[PRICE_FIELD[plan.code]]))),
     { cents: 'auto' },
   );
 
@@ -85,12 +75,12 @@ export default async function SeoPage() {
         accentTitle="Google's"
         accentAlternates={["ChatGPT's", "Claude's", "Gemini's", "Perplexity's"]}
         titleSuffix="first pick."
-        lead="Every audit is a written SEO report of your site: it finds the searches you're losing, recommends solutions, and shows what your last fixes earned."
+        lead="Every audit is a written SEO report of your site: it finds the searches you're losing and recommends solutions, ranked by what they're worth."
         primaryHref="#signup"
-        primaryLabel={`First audit from ${fromPrice}`}
+        primaryLabel={`Audits from ${fromPrice}`}
         secondaryHref="/seo/sample-report"
         secondaryLabel="See a sample report"
-        trustLine="Cancel any time · Fixed prices, no lock-in · Perth-based"
+        trustLine="Paid once, no subscription · Fixed prices · Perth-based"
       />
 
       <SeoStepsBar />
@@ -114,14 +104,14 @@ export default async function SeoPage() {
 
       <SeoImprovement eyebrow={sections['Experiment']} />
 
-      <SeoCadence eyebrow={sections['How often']} />
+      <SeoTiers eyebrow={sections['What we read']} />
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
         title={`A Perth website that grew organic clicks ${SCOOTER_SHOP_GROWTH.percent}%.`}
         points={casePoints}
         primaryHref="#signup"
-        primaryLabel="Choose a plan"
+        primaryLabel="Choose an audit"
         showPrimaryAction={false}
       >
         <p>
@@ -133,10 +123,10 @@ export default async function SeoPage() {
       </CaseStudyTeaser>
 
       <FloatingPageCta
-        label="Choose a plan"
+        label="Choose an audit"
         href="#signup"
         direction="up"
-        // After the plans, so it never sits over the payment button.
+        // After the audits, so it never sits over the payment button.
         showAfterId="signup-end"
         hideAtId="page-cta"
       />
@@ -153,7 +143,7 @@ export default async function SeoPage() {
         eyebrow="Stop renting your traffic"
         title="Google Ads is SEO you pay for, click by click."
         href="#signup"
-        buttonLabel="Choose a plan"
+        buttonLabel="Choose an audit"
       >
         An ad click stops the day the budget does. A click you earn in search keeps arriving.
       </ManualAdminCta>

@@ -73,7 +73,7 @@ class SubscriptionCheckoutView(APIView):
         })
 
 
-class SeoSubscriptionCheckoutView(APIView):
+class SeoCheckoutView(APIView):
     """Open checkout for an SEO signup, found by its checkout reference.
 
     No login exists before payment, so the reference the signup handed back is
@@ -100,6 +100,5 @@ class SeoSubscriptionCheckoutView(APIView):
             "client_secret": client_secret,
             "price": str(quote.price),
             "currency": quote.currency.upper(),
-            "cadence_label": quote.name,
-            "mode": quote.mode,
+            "product_name": quote.name,
         })

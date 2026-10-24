@@ -116,6 +116,20 @@ export function PackageChooser<Code extends string>({
     };
   }, [updateArrows]);
 
+  // The row opens on the card already chosen, so a recommended card past the first is not left
+  // out of sight on a phone. Only the row scrolls, never the page.
+  useEffect(() => {
+    const row = rowRef.current;
+    const card = row?.querySelector('input:checked')?.closest('label');
+    if (!row || !card) return;
+    const rowBox = row.getBoundingClientRect();
+    const cardBox = card.getBoundingClientRect();
+    if (cardBox.left < rowBox.left || cardBox.right > rowBox.right) {
+      row.scrollLeft += cardBox.left - rowBox.left;
+    }
+    // Only where the row opens; a later choice is made with the card in view.
+  }, []);
+
   const scrollRow = (direction: -1 | 1) =>
     rowRef.current?.scrollBy({ left: direction * CARD_STEP, behavior: 'smooth' });
 

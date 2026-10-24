@@ -151,12 +151,9 @@ export function servicePrices(settings: PublicSiteSettings) {
   const packages = purchasePackages(settings);
   const hourly = Number(settings.hourly_rate);
   const seoFrom = Math.min(
-    ...[
-      settings.seo_monthly_price,
-      settings.seo_quarterly_price,
-      settings.seo_yearly_price,
-      settings.seo_oneoff_price,
-    ].map(Number),
+    ...[settings.seo_essentials_price, settings.seo_plus_price, settings.seo_complete_price].map(
+      Number,
+    ),
   );
   const websites = packages.filter((item) => item.code !== 'web_application');
 

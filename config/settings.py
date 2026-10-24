@@ -380,9 +380,9 @@ FTP_AGREEMENTS = {
             "FORMAT": "markdown",
         },
         "seo.reporting": {
-            "TITLE": "SEO Subscription Terms",
+            "TITLE": "SEO Audit Terms",
             "VERSION": "2026-10-24",
-            "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "seo-subscription-terms.md",
+            "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "seo-audit-terms.md",
             "FORMAT": "markdown",
         },
         "webdev.services": {

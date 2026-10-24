@@ -33,12 +33,12 @@ import { buildSeoPlans, PRICE_FIELD, type SeoPlanCode } from '../_lib/plans';
 const initialState: SeoSignupState = { status: 'idle' };
 
 /**
- * The SEO order form, drawn like the service pages' package forms: the plans as cards on the
+ * The SEO order form, drawn like the service pages' package forms: the audits as cards on the
  * left (see PackageChooser), the details, terms and payment on the right.
  */
 export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
   const router = useRouter();
-  const [selectedCode, setSelectedCode] = useState<SeoPlanCode>('monthly');
+  const [selectedCode, setSelectedCode] = useState<SeoPlanCode>('plus');
   const plans = useMemo(() => buildSeoPlans(settings), [settings]);
   const selected = planByCode(plans, selectedCode) ?? plans[0];
   const [state, dispatch, isPending] = useActionState(submitSeoSignup, initialState);
@@ -72,7 +72,7 @@ export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
   const cards: PackageCard<SeoPlanCode>[] = plans.map((plan) => ({
     code: plan.code,
     name: plan.name,
-    priceLabel: 'Per audit',
+    priceLabel: 'One audit',
     price: plan.price,
     includes: plan.features,
   }));
@@ -82,7 +82,7 @@ export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
       onSubmit={onSubmit}
       chooser={
         <PackageChooser
-          noun="plan"
+          noun="audit"
           cards={cards}
           selectedCode={selectedCode}
           onChoose={(code) => {
@@ -135,9 +135,9 @@ export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
         className="mb-l"
         name="accepted_terms"
         required
-        termsHref="/legal/seo-subscription-terms"
-        termsLabel="SEO Subscription Terms"
-        authorisation={`authorise this ${selected.code === 'oneoff' ? 'payment' : 'recurring subscription'}.`}
+        termsHref="/legal/seo-audit-terms"
+        termsLabel="SEO Audit Terms"
+        authorisation="authorise this payment."
       />
       {state.status === 'error' && (
         <p className={formErrorClassName} role="alert">

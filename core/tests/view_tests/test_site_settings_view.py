@@ -10,10 +10,9 @@ def test_site_settings_are_publicly_readable(api_client):
     assert data["licensing_price"] == "149.00"
     assert data["contracts_price"] == "99.00"
     assert data["complete_price"] == "199.00"
-    assert data["seo_monthly_price"] == "499.00"
-    assert data["seo_quarterly_price"] == "499.00"
-    assert data["seo_yearly_price"] == "499.00"
-    assert data["seo_oneoff_price"] == "550.00"
+    assert data["seo_essentials_price"] == "550.00"
+    assert data["seo_plus_price"] == "850.00"
+    assert data["seo_complete_price"] == "1400.00"
     assert data["hourly_rate"] == "150.00"
     assert data["discovery_hours"] == 3
     assert data["website_one_page_price"] == "750.00"
@@ -43,13 +42,13 @@ def test_staff_can_view_and_update_site_settings(api_client, staff_user):
             "licensing_price": "163.90",
             "contracts_price": "108.90",
             "complete_price": "218.90",
-            "seo_yearly_price": "199.00",
+            "seo_complete_price": "1500.00",
         },
         format="json",
     )
     assert response.status_code == 200
     assert response.json()["licensing_price"] == "163.90"
-    assert response.json()["seo_yearly_price"] == "199.00"
+    assert response.json()["seo_complete_price"] == "1500.00"
 
     public_response = api_client.get("/api/site-settings/")
     assert public_response.json()["complete_price"] == "218.90"

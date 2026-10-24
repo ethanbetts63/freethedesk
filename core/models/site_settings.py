@@ -15,8 +15,9 @@ class SiteSettings(models.Model):
 
     Licensing prices are per month and are the source of truth sent to Stripe
     for new subscriptions; existing subscriptions retain their accepted price.
-    SEO prices are per report: the customer picks monthly, quarterly or yearly
-    at signup, or a one-off audit, and each has its own price.
+    SEO is one report, bought once, at one of three prices: Essentials reads
+    the public data and Search Console, Plus adds the Business Profile and
+    analytics, and Complete reads everything and checks again three months on.
 
     The rest price the website development packages and the quoted work. Work
     is billed at the hourly rate. Two website packages are each a page count at
@@ -38,20 +39,16 @@ class SiteSettings(models.Model):
         max_digits=8, decimal_places=2, default=Decimal("199.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
-    seo_monthly_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=Decimal("499.00"),
-        validators=[MinValueValidator(Decimal("0.01"))],
-    )
-    seo_quarterly_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=Decimal("499.00"),
-        validators=[MinValueValidator(Decimal("0.01"))],
-    )
-    seo_yearly_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=Decimal("499.00"),
-        validators=[MinValueValidator(Decimal("0.01"))],
-    )
-    seo_oneoff_price = models.DecimalField(
+    seo_essentials_price = models.DecimalField(
         max_digits=8, decimal_places=2, default=Decimal("550.00"),
+        validators=[MinValueValidator(Decimal("0.01"))],
+    )
+    seo_plus_price = models.DecimalField(
+        max_digits=8, decimal_places=2, default=Decimal("850.00"),
+        validators=[MinValueValidator(Decimal("0.01"))],
+    )
+    seo_complete_price = models.DecimalField(
+        max_digits=8, decimal_places=2, default=Decimal("1400.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
     hourly_rate = models.DecimalField(

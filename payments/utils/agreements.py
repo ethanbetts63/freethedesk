@@ -52,17 +52,15 @@ def seo_offer_context(subscriber, quote):
         "plan": subscriber.plan,
         "price": str(quote.price),
         "currency": quote.currency.upper(),
-        "billing_mode": quote.mode,
+        "billing_mode": "payment",
         "tax_inclusive": True,
     }
 
 
-def seo_acceptance_statement(quote):
-    payment_kind = "payment" if quote.mode == "payment" else "recurring subscription"
-    return (
-        "I agree to the SEO Subscription Terms, acknowledge the Privacy Policy, "
-        f"and authorise this {payment_kind}."
-    )
+SEO_ACCEPTANCE_STATEMENT = (
+    "I agree to the SEO Audit Terms, acknowledge the Privacy Policy, "
+    "and authorise this payment."
+)
 
 
 def record_checkout_acceptance(

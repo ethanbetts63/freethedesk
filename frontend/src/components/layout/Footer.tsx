@@ -60,7 +60,7 @@ const COLUMNS: FooterColumn[] = [
       { href: '/legal/privacy', label: 'Privacy policy' },
       { href: '/legal/dealer-subscription-terms', label: 'Dealer subscription terms' },
       { href: '/legal/customer-terms', label: 'Customer terms' },
-      { href: '/legal/seo-subscription-terms', label: 'SEO subscription terms' },
+      { href: '/legal/seo-audit-terms', label: 'SEO audit terms' },
       { href: '/legal/web-development-terms', label: 'Web development terms' },
     ],
   },

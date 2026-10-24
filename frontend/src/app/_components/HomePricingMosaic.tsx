@@ -6,13 +6,12 @@ import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
 import { servicePrices } from '@/lib/servicePricing';
 import { cn } from '@/lib/utils';
 
-/* The service prices plus the SEO plans, which the "from" figure is the cheapest of. */
+/* The service prices plus the three SEO audits, which the "from" figure is the cheapest of. */
 const REQUIRED = [
   ...SERVICE_PRICE_FIELDS,
-  'seo_monthly_price',
-  'seo_quarterly_price',
-  'seo_yearly_price',
-  'seo_oneoff_price',
+  'seo_essentials_price',
+  'seo_plus_price',
+  'seo_complete_price',
 ] as const;
 
 type Tile = {
@@ -70,7 +69,7 @@ export async function HomePricingMosaic() {
       from: true,
       price: prices.seoFrom,
       unit: 'an audit',
-      line: 'One audit, or one every month, quarter or year. Cancel any time.',
+      line: 'One written report, paid once. Pick what it reads: Essentials, Plus or Complete.',
       href: '/seo',
       className: 'col-span-2',
       moving: true,
