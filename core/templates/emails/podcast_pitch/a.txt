@@ -2,7 +2,7 @@ Hi {{ first_name|default:"there" }},
 
 {% if opener %}{{ opener }}
 
-{% endif %}I'm {{ sender_name }}. I run Free the Desk in Perth. We write SEO audits for small businesses: where they show up on Google and in AI answers, who's beating them, and the few changes worth making first. Your listeners are exactly who they're for.
+{% endif %}I'm {{ sender_name }}. I run Free the Desk in Perth, Western Australia. We write SEO audits for small businesses: where they show up on Google and in AI answers, who's beating them, and the few changes worth making first. Your listeners are exactly who they're for.
 
 I'd like to offer you two things:
 
