@@ -32,6 +32,9 @@ export const HIGHLIGHTS: readonly Highlight[] = [
 export type Impact = 'high' | 'medium' | 'low';
 export type Cost = 'low' | 'medium' | 'high';
 
+/** The drawn screenshots a few recommendations carry, as a delivered report's do. */
+export type ShotKind = 'phone-header' | 'search-results' | 'reviews';
+
 export type Recommendation = {
   title: string;
   impact: Impact;
@@ -39,6 +42,7 @@ export type Recommendation = {
   what: string;
   why: string;
   how: readonly string[];
+  shot?: ShotKind;
 };
 
 export const RECOMMENDATIONS: readonly Recommendation[] = [
@@ -46,6 +50,7 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     title: 'Make the phone number in the header tap to call on every page',
     impact: 'high',
     cost: 'low',
+    shot: 'phone-header',
     what: 'On a phone the header shows the logo and a menu button. The number sits inside the menu as plain text, and the only number that dials when tapped is in the footer, below the reviews.',
     why: 'Seven in ten visitors from Google arrive on a phone, and someone with water coming through the ceiling wants to ring, not fill in a form. A caller who has to open a menu and copy a number is a caller who goes back to the results and rings the next plumber.',
     how: [
@@ -58,6 +63,7 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     title: 'Lead the blocked drains page with its price and a same-day promise',
     impact: 'high',
     cost: 'low',
+    shot: 'search-results',
     what: "Google shows the blocked drains page more than any other page on the site, near the top of the first page, but few of the people shown it click. Its description in the results is the year the business started, and the page opens on a stock photo and the company's history.",
     why: "The two plumbers above it both lead with a call-out price and 'same day'. A searcher with a drain backing up is choosing on speed and price, and this result answers neither. The hot water page made the same change in September and drew twice the clicks.",
     how: [
@@ -93,6 +99,7 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     title: 'Reply to your Google reviews, starting with the three complaints',
     impact: 'medium',
     cost: 'low',
+    shot: 'reviews',
     what: 'The profile holds a 4.6 rating, and nobody from the business has replied to a review this year. Three one- and two-star reviews describe an arrival window that was missed, with no call to say so.',
     why: 'People compare plumbers on the map before they open a website. The praise repeats a fixed quote and a tidy job; the complaints repeat lateness, not the work. A short reply that says what changed is read by every later customer.',
     how: [

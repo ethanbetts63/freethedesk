@@ -8,6 +8,7 @@ import {
   type Recommendation,
 } from '../_lib/report';
 import { LineChart } from './LineChart';
+import { RecShot } from './RecShots';
 import { Exhibit } from './Exhibits';
 import { ExperimentTag, ImpactCostTags, RunIn, cardClass, display } from './ReportPrimitives';
 
@@ -44,12 +45,8 @@ function CardTitle({ children, tags }: { children: React.ReactNode; tags?: React
 }
 
 function RecommendationCard({ rec, n }: { rec: Recommendation; n: number }) {
-  return (
-    <Numbered n={n}>
-      <CardTitle tags={<ImpactCostTags impact={rec.impact} cost={rec.cost} />}>
-        <span className="sr-only">{n}. </span>
-        {rec.title}
-      </CardTitle>
+  const body = (
+    <>
       <RunIn label="What we found">{rec.what}</RunIn>
       <RunIn label="Why">{rec.why}</RunIn>
       <p className="m-0 mb-3xs">
@@ -62,6 +59,31 @@ function RecommendationCard({ rec, n }: { rec: Recommendation; n: number }) {
           </li>
         ))}
       </ul>
+    </>
+  );
+  return (
+    <Numbered n={n}>
+      <CardTitle tags={<ImpactCostTags impact={rec.impact} cost={rec.cost} />}>
+        <span className="sr-only">{n}. </span>
+        {rec.title}
+      </CardTitle>
+      {rec.shot ? (
+        // The screenshot sits beside the text on a wide screen, as the report sets it, and above
+        // it on a phone; a phone screenshot takes a narrower column than a browser one.
+        <div
+          className={cn(
+            'flex flex-col-reverse md:grid md:items-start md:gap-m',
+            rec.shot === 'phone-header'
+              ? 'md:grid-cols-[minmax(0,1fr)_11rem]'
+              : 'md:grid-cols-[minmax(0,1fr)_minmax(0,21rem)]',
+          )}
+        >
+          <div className="min-w-0">{body}</div>
+          <RecShot kind={rec.shot} />
+        </div>
+      ) : (
+        body
+      )}
     </Numbered>
   );
 }

@@ -8,7 +8,7 @@ import { BUSINESS } from '../_lib/report';
  * menu button and no call button.
  */
 
-function Logo({ x, y, scale = 1 }: { x: number; y: number; scale?: number }) {
+export function Logo({ x, y, scale = 1 }: { x: number; y: number; scale?: number }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
       <path
@@ -39,7 +39,7 @@ function Logo({ x, y, scale = 1 }: { x: number; y: number; scale?: number }) {
   );
 }
 
-function Stars({ x, y, size = 11 }: { x: number; y: number; size?: number }) {
+export function Stars({ x, y, size = 11 }: { x: number; y: number; size?: number }) {
   const star = 'M5 0l1.5 3.3 3.5.4-2.6 2.4.7 3.5L5 7.9 1.9 9.6l.7-3.5L0 3.7l3.5-.4z';
   return (
     <g transform={`translate(${x} ${y})`} className="fill-fill-warning">
