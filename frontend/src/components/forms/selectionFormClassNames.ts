@@ -83,6 +83,10 @@ export const choiceCardVariants = cva(
 
 export const chooserClassName = 'flex flex-col px-ml py-xl text-text-secondary sm:p-2xl';
 
+/** The two halves' headings, "Choose your package." and "Your details.", at one size. */
+export const selectionHeadingClassName =
+  'm-0 text-display leading-[1.02] tracking-[-0.058em] text-text-secondary';
+
 export const choiceGroupHeadingClassName =
   'm-0 mb-s border-b border-border-subtle pb-xs text-label font-strong tracking-label text-action-primary uppercase';
 

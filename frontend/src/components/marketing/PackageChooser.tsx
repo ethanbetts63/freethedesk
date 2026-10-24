@@ -3,7 +3,10 @@
 import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { choiceInputClassName } from '@/components/forms/selectionFormClassNames';
+import {
+  choiceInputClassName,
+  selectionHeadingClassName,
+} from '@/components/forms/selectionFormClassNames';
 import { focusRingClassName } from '@/lib/controlState';
 import { cn } from '@/lib/utils';
 
@@ -11,18 +14,20 @@ import { cn } from '@/lib/utils';
 export interface PackageCard<Code extends string> {
   code: Code;
   name: string;
-  /** What the price buys, in small capitals over it. */
-  priceLabel: string;
+  /** What the price buys, in small capitals over it, where that tells the cards apart. */
+  priceLabel?: string;
   price: string;
+  /** Small capitals over the ticks, saying what they are: "Recommendations based on". */
+  includesLabel?: string;
   includes: readonly string[];
 }
 
 /** Every card is the same width, so the row scrolls in whole cards. */
 const cardClassName =
-  'group flex w-[256px] shrink-0 cursor-pointer snap-start flex-col bg-surface-page p-l text-left transition-colors duration-200 has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-[-3px] has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)]';
+  'group flex w-[256px] shrink-0 cursor-pointer snap-start flex-col p-l text-left transition-colors duration-200 has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-[-3px] has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)]';
 
-/** Small capitals: what a card's price buys. */
-const cardKickerClassName = 'block text-label font-heavy tracking-label text-text-subtle uppercase';
+/** Small capitals: what a card's price buys, and what its ticks are. */
+const cardKickerClassName = 'block text-label font-heavy tracking-label uppercase';
 
 /**
  * The foot of every card, pushed to the bottom: where a card is chosen, and what fills
@@ -146,7 +151,7 @@ export function PackageChooser<Code extends string>({
 
   return (
     <>
-      <h3 className="m-0 text-display leading-[1.02] tracking-[-0.058em] text-text-secondary">
+      <h3 className={selectionHeadingClassName}>
         {single ? 'Your' : 'Choose your'} <span className="moving-colour-text">{noun}.</span>
       </h3>
 
@@ -172,13 +177,14 @@ export function PackageChooser<Code extends string>({
                 onClick={(event) => {
                   if (!(event.target instanceof HTMLInputElement)) goToForm();
                 }}
+                // The chosen card turns dark, as a chosen card does across the site's forms.
                 className={cn(
                   cardClassName,
                   single
                     ? 'moving-colour-border'
                     : isSelected
-                      ? 'border border-action-primary'
-                      : 'border border-border-default hover:border-border-strong-hover',
+                      ? 'border border-surface-dark bg-surface-dark'
+                      : 'border border-border-default bg-surface-page hover:border-action-primary',
                 )}
               >
                 <input
@@ -189,36 +195,81 @@ export function PackageChooser<Code extends string>({
                   checked={isSelected}
                   onChange={() => onChoose(item.code)}
                 />
-                <strong className="block text-lead leading-tight tracking-[-0.025em] text-text-secondary">
+                <strong
+                  className={cn(
+                    'block text-lead leading-tight tracking-[-0.025em]',
+                    isSelected ? 'text-text-on-dark' : 'text-text-secondary',
+                  )}
+                >
                   {item.name}
                 </strong>
 
-                <span className={cn(cardKickerClassName, 'mt-l')}>{item.priceLabel}</span>
-                <span className="mt-2xs block text-title leading-none font-heavy tracking-[-0.05em] text-text-primary">
+                {item.priceLabel && (
+                  <span
+                    className={cn(
+                      cardKickerClassName,
+                      'mt-l',
+                      isSelected ? 'text-text-on-dark-muted' : 'text-text-subtle',
+                    )}
+                  >
+                    {item.priceLabel}
+                  </span>
+                )}
+                <span
+                  className={cn(
+                    'block text-title leading-none font-heavy tracking-[-0.05em]',
+                    item.priceLabel ? 'mt-2xs' : 'mt-s',
+                    isSelected ? 'text-text-on-dark' : 'text-text-primary',
+                  )}
+                >
                   {item.price}
                 </span>
 
-                <ul className="m-0 mt-l mb-xl grid list-none gap-xs border-t border-border-subtle p-0 pt-l">
-                  {item.includes.map((line) => (
-                    <li
-                      key={line}
-                      className="grid grid-cols-[auto_minmax(0,1fr)] gap-xs text-body-sm leading-snug text-text-muted"
+                <div
+                  className={cn(
+                    'mt-l mb-xl border-t pt-l',
+                    isSelected ? 'border-border-on-dark' : 'border-border-subtle',
+                  )}
+                >
+                  {item.includesLabel && (
+                    <span
+                      className={cn(
+                        cardKickerClassName,
+                        'mb-s',
+                        isSelected ? 'text-accent-on-dark' : 'text-text-action',
+                      )}
                     >
-                      <Check
-                        aria-hidden="true"
-                        className="mt-4xs size-[14px] text-action-primary"
-                      />
-                      {line}
-                    </li>
-                  ))}
-                </ul>
+                      {item.includesLabel}
+                    </span>
+                  )}
+                  <ul className="m-0 grid list-none gap-xs p-0">
+                    {item.includes.map((line) => (
+                      <li
+                        key={line}
+                        className={cn(
+                          'grid grid-cols-[auto_minmax(0,1fr)] gap-xs text-body-sm leading-snug',
+                          isSelected ? 'text-text-on-dark-muted' : 'text-text-muted',
+                        )}
+                      >
+                        <Check
+                          aria-hidden="true"
+                          className={cn(
+                            'mt-4xs size-[14px]',
+                            isSelected ? 'text-accent-on-dark' : 'text-action-primary',
+                          )}
+                        />
+                        {line}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
                 <span
                   className={cn(
                     cardFootClassName,
                     isSelected
-                      ? 'border-action-primary bg-action-primary text-text-on-dark'
-                      : 'border-border-strong text-text-action group-hover:border-action-primary',
+                      ? 'border-border-on-dark-strong text-text-on-dark'
+                      : 'border-border-strong text-text-action group-hover:border-action-primary group-hover:bg-action-primary group-hover:text-text-on-dark',
                   )}
                 >
                   {isSelected ? (

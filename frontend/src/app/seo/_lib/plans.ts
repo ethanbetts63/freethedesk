@@ -46,10 +46,10 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
       cadence: 'paid once',
       summary: 'Your site, your rivals and your Search Console data.',
       features: [
-        'Your site on computer and phone',
-        'Search Console data',
+        'Your site, on a computer and a phone',
+        'Your Search Console data',
         'The sites that outrank you',
-        'Fixes ranked by value',
+        'Page speed and 23 foundation checks',
       ],
     },
     {
@@ -61,9 +61,9 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
       summary: 'Essentials, with your Business Profile, reviews and visitor analytics.',
       features: [
         'Everything in Essentials',
-        'Google Business Profile',
+        'Your Google Business Profile',
         'Your reviews and your rivals’',
-        'Visitor analytics',
+        'Your visitor analytics',
       ],
       recommended: true,
     },
@@ -76,9 +76,9 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
       summary: 'Everything we read, and a second look three months on.',
       features: [
         'Everything in Plus',
-        'Google Ads account',
-        'Legal check of your site',
-        'A second look at three months',
+        'Your Google Ads account',
+        'A legal check of your site',
+        'A second look three months on',
       ],
     },
   ];

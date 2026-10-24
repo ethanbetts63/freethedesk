@@ -13,7 +13,7 @@ import {
   fieldTextareaClassName,
   formErrorClassName,
   formTitleClassName,
-  formTitleHeadingClassName,
+  selectionHeadingClassName,
   submitClassName,
 } from '@/components/forms/selectionFormClassNames';
 import { MovingColourButton } from '@/components/MovingColourButton';
@@ -104,7 +104,7 @@ export function PackageOrderPanel({
       }
     >
       <div className={formTitleClassName}>
-        <h3 className={formTitleHeadingClassName}>
+        <h3 className={selectionHeadingClassName}>
           Your <span className="moving-colour-text">details.</span>
         </h3>
       </div>

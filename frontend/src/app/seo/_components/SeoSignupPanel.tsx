@@ -20,7 +20,7 @@ import {
   fieldLabelSpanClassName,
   formErrorClassName,
   formTitleClassName,
-  formTitleHeadingClassName,
+  selectionHeadingClassName,
   submitClassName,
 } from '@/components/forms/selectionFormClassNames';
 import { PackageChooser, type PackageCard } from '@/components/marketing/PackageChooser';
@@ -72,8 +72,8 @@ export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
   const cards: PackageCard<SeoPlanCode>[] = plans.map((plan) => ({
     code: plan.code,
     name: plan.name,
-    priceLabel: 'One audit',
     price: plan.price,
+    includesLabel: 'Recommendations based on',
     includes: plan.features,
   }));
 
@@ -93,7 +93,7 @@ export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
       }
     >
       <div className={formTitleClassName}>
-        <h3 className={formTitleHeadingClassName}>
+        <h3 className={selectionHeadingClassName}>
           Your <span className="moving-colour-text">details.</span>
         </h3>
       </div>
