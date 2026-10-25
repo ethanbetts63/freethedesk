@@ -31,11 +31,7 @@ export function FloatingPageCta({
       }`}
       aria-hidden={!visible}
     >
-      <MovingColourButton
-        className="w-full shadow-block-s sm:w-auto"
-        href={href}
-        direction={direction}
-      >
+      <MovingColourButton className="w-full sm:w-auto" href={href} direction={direction}>
         {label}
       </MovingColourButton>
     </div>

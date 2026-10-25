@@ -101,10 +101,11 @@ export const totalPriceClassName =
 export const totalCadenceClassName = 'text-body-sm text-text-muted';
 export const totalSummaryClassName = 'text-body-sm leading-normal font-strong text-text-control';
 
+/** The chooser's padding, top-aligned, so the two halves' headings sit on one line. */
 export const formClassName =
-  'flex flex-col justify-center border-t border-border-subtle bg-surface-tint p-xl';
+  'flex flex-col border-t border-border-subtle bg-surface-tint px-ml py-xl sm:p-2xl';
 export const formTitleClassName =
-  'mb-l flex flex-wrap items-baseline justify-between gap-s gap-x-m border-b border-border-subtle pb-ml';
+  'mb-l flex flex-wrap items-baseline justify-between gap-s gap-x-m';
 export const formTitleHeadingClassName = 'm-0 text-title-sm tracking-[-0.04em]';
 export const pillClassName =
   'flex-none bg-surface-tint-strong px-xs py-2xs text-label font-strong tracking-label-tight text-text-action uppercase whitespace-nowrap';
