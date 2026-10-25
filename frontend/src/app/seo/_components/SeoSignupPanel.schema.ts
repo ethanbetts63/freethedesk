@@ -23,6 +23,8 @@ export const seoSignupSchema = z.object({
     .min(1, 'Website is required.')
     .max(FIELD_MAX.url)
     .transform(normaliseWebsiteUrl),
+  // An affiliate's code, checked by Django against the shared payments app.
+  discount_code: z.string().trim().max(60).optional().default(''),
   plan: z.enum(['essentials', 'plus', 'complete'], { message: 'Choose an audit.' }),
   // An unticked checkbox sends nothing; a ticked one sends "on".
   accepted_terms: z

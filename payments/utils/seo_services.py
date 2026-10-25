@@ -9,7 +9,7 @@ from decimal import Decimal
 
 from freetheplatform.agreements import Acceptance
 from freetheplatform.payments import (
-    CheckoutError, ensure_billing_customer, start_checkout,
+    CheckoutError, ensure_billing_customer, preview_discount, start_checkout,
 )
 
 from core.models import SiteSettings
@@ -116,11 +116,32 @@ def _refuse_paid_or_existing(subscriber):
         )
 
 
+def check_seo_discount_code(subscriber):
+    """Refuse a code the signup carries that could not be used at checkout.
+
+    A preview, not a reservation: it consumes nothing, and checkout re-runs
+    every rule under a lock. Raises ``DiscountError`` with the sentence the
+    customer should read. A signup with no code passes.
+    """
+    if not subscriber.discount_code:
+        return None
+    quote = seo_quote_for_plan(subscriber.plan)
+    return preview_discount(
+        code=subscriber.discount_code,
+        flow=SEO_ONEOFF,
+        related=subscriber,
+        subtotal=quote.price,
+        currency=quote.currency,
+    )
+
+
 def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
-    """Prepare the SEO checkout and return its client secret.
+    """Prepare the SEO checkout. Returns the payment row and its client secret.
 
     One line item built from the recorded quote, so the agreed price and the
-    charge cannot drift apart.
+    charge cannot drift apart. The signup's discount code, if any, goes to the
+    package as the code itself: the saving is recomputed and the coupon
+    applied there, and an unusable code raises ``DiscountError``.
     """
     _refuse_paid_or_existing(subscriber)
 
@@ -145,6 +166,7 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
             tax_mode="none",
             return_path=f"/seo/payment/complete?ref={subscriber.checkout_reference}",
             agreement_acceptance_id=str(acceptance.pk),
+            discount_code=subscriber.discount_code,
             # Non-sensitive, and the thing support looks for when
             # reading a Stripe object from the other end.
             reference=str(subscriber.pk),
@@ -154,4 +176,4 @@ def create_or_reuse_seo_checkout_session(subscriber, acceptance, quote):
 
     subscriber.stripe_customer_id = billing_customer.stripe_customer_id
     subscriber.save(update_fields=["stripe_customer_id", "updated_at"])
-    return client_secret
+    return payment, client_secret

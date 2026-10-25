@@ -10,7 +10,7 @@ import { CHANGE_PASSWORD_PATH, homeFor, type Role } from '@/lib/api';
 import { adminLoadingClassName } from './dashboardChrome';
 
 /**
- * The three signed-in portals (staff, dealer, SEO): who may enter, then the shared dashboard rail
+ * The signed-in portals (staff, dealer, SEO, affiliate): who may enter, then the shared dashboard rail
  * from the component registry. Each portal passes its own sections; the rail itself is the one
  * allbikes and bloomprint use.
  */
@@ -48,7 +48,11 @@ export function PortalShell({
       subtitle={label}
       sections={sections}
       accountName={
-        user.dealer?.business_name || user.seo?.business_name || user.email || user.username
+        user.dealer?.business_name ||
+        user.affiliate?.business_name ||
+        user.seo?.business_name ||
+        user.email ||
+        user.username
       }
       onLogout={async () => {
         await logout();

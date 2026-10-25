@@ -130,39 +130,6 @@ def test_an_seo_audit_enquiry_needs_no_budget(api_client):
     assert enquiry.message == "SEO audit enquiry."
 
 
-def test_an_affiliate_signup_is_an_enquiry_from_the_business(api_client, outbox):
-    response = api_client.post(
-        "/api/affiliate-signups/",
-        {
-            "name": "Sam Host",
-            "email": "sam@example.com.au",
-            "business": "The Tradie Show",
-            "website": "https://www.thetradieshow.com.au",
-        },
-        format="json",
-    )
-
-    assert response.status_code == 201
-    enquiry = Enquiry.objects.get()
-    assert enquiry.help_with == Enquiry.HelpWith.AFFILIATE
-    assert enquiry.name == "Sam Host"
-    assert enquiry.business == "The Tradie Show"
-    assert enquiry.website == "https://www.thetradieshow.com.au"
-    assert enquiry.message == "Podcast affiliate signup."
-    assert len(outbox) == 1
-
-
-def test_an_affiliate_signup_needs_a_business_name_but_not_a_website(api_client):
-    response = api_client.post(
-        "/api/affiliate-signups/",
-        {"name": "Sam Host", "email": "sam@example.com.au", "business": "", "website": ""},
-        format="json",
-    )
-
-    assert response.status_code == 400
-    assert set(response.json()) == {"business"}
-
-
 def test_a_project_enquiry_other_than_seo_needs_a_budget(api_client):
     response = api_client.post(
         "/api/project-enquiries/",

@@ -1,4 +1,5 @@
 from django.db import transaction
+from freetheplatform.payments import DiscountError
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -6,7 +7,7 @@ from rest_framework.views import APIView
 
 from core.utils.security import client_ip
 from core.utils.throttles import SeoSignupRateThrottle
-from payments.utils.seo_services import accept_current_seo_offer
+from payments.utils.seo_services import accept_current_seo_offer, check_seo_discount_code
 from payments.utils.services import PaymentConfigurationError
 
 from ..serializers import SeoRegistrationSerializer
@@ -40,11 +41,19 @@ class SeoRegistrationView(APIView):
         try:
             with transaction.atomic():
                 subscriber = serializer.save()
+                # Inside the transaction: a refused code rolls the signup back,
+                # so the form can say so and nothing is left to follow up.
+                check_seo_discount_code(subscriber)
                 accept_current_seo_offer(
                     subscriber=subscriber,
                     accepted_ip=client_ip(request),
                     user_agent=request.META.get("HTTP_USER_AGENT", ""),
                 )
+        except DiscountError as error:
+            return Response(
+                {"discount_code": [str(error)], "code": "discount"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         except PaymentConfigurationError as error:
             return Response(
                 {"detail": str(error), "code": error.code},

@@ -1,0 +1,9 @@
+A sale with your code.
+
+Someone bought a {{ commission.description }} with your code {{ affiliate.code }}.
+
+To you: {{ amount }}
+
+Owed now, and paid out through Stripe.
+
+See every sale: {{ portal_url }}

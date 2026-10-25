@@ -19,6 +19,7 @@ class FakeStripe:
         self.session_params = []
         self.customer_params = []
         self.sessions = {}
+        self.coupons_by_id = {}
 
         self.checkout = Mock()
         self.checkout.sessions.create.side_effect = self._create_session
@@ -26,6 +27,9 @@ class FakeStripe:
         self.checkout.sessions.expire.side_effect = self._expire_session
         self.customers = Mock()
         self.customers.create.side_effect = self._create_customer
+        self.coupons = Mock()
+        self.coupons.create.side_effect = self._create_coupon
+        self.coupon_params = []
 
     def _create_session(self, params=None, options=None):
         self.session_params.append(params)
@@ -39,18 +43,32 @@ class FakeStripe:
         self.sessions[session_id] = session
         return session
 
-    @staticmethod
-    def _total(params):
-        """What Stripe would charge for these line items.
+    def _total(self, params):
+        """What Stripe would charge for these line items, less any coupon.
 
         Stripe does this sum, not the quote, and the package refuses a session
         whose total disagrees with what it quoted. A fake that left the total
         to a ``Mock`` would pass that check by accident and prove nothing.
         """
-        return sum(
+        subtotal = sum(
             line["price_data"]["unit_amount"] * line["quantity"]
             for line in (params or {}).get("line_items", [])
         )
+        for discount in (params or {}).get("discounts", []):
+            coupon = self.coupons_by_id.get(discount.get("coupon"))
+            if coupon is None:
+                continue
+            if coupon.get("percent_off"):
+                subtotal -= round(subtotal * coupon["percent_off"] / 100)
+            elif coupon.get("amount_off"):
+                subtotal -= coupon["amount_off"]
+        return subtotal
+
+    def _create_coupon(self, params=None, options=None):
+        self.coupon_params.append(params)
+        coupon = {"id": f"coupon_test_{len(self.coupon_params)}", **(params or {})}
+        self.coupons_by_id[coupon["id"]] = coupon
+        return Mock(id=coupon["id"])
 
     def _retrieve_session(self, session_id, **kwargs):
         if session_id not in self.sessions:

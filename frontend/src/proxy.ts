@@ -1,9 +1,9 @@
 import { createProxy } from '@freetheplatform/web-security/proxy';
 
-// One entry per portal shell (PortalShell, DashboardShell, SeoPortalShell).
+// One entry per portal shell (PortalShell, DashboardShell, SeoPortalShell, AffiliatePortalShell).
 // Role/wrong-portal routing stays client-side -- it needs the JWT decoded,
 // which this only checks for presence of.
-const PROTECTED_PREFIXES = ['/dashboard', '/portal', '/seo-portal'];
+const PROTECTED_PREFIXES = ['/dashboard', '/portal', '/seo-portal', '/affiliate-portal'];
 
 export const proxy = createProxy({
   accessCookie: 'freethedesk_access',
@@ -12,5 +12,10 @@ export const proxy = createProxy({
 });
 
 export const config = {
-  matcher: ['/dashboard/admin/:path*', '/portal/:path*', '/seo-portal/:path*'],
+  matcher: [
+    '/dashboard/admin/:path*',
+    '/portal/:path*',
+    '/seo-portal/:path*',
+    '/affiliate-portal/:path*',
+  ],
 };

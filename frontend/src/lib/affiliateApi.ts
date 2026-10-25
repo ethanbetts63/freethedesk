@@ -1,0 +1,61 @@
+import { handleResponse } from '@freetheplatform/web-security';
+
+import { authedFetch, type DealerStatus } from './api';
+
+export type CommissionStatus = 'owed' | 'paid' | 'void';
+
+/** One audit bought with the affiliate's code, as the affiliate and staff both see it. */
+export interface AffiliateCommission {
+  id: number;
+  /** The audit, as the customer bought it: "Plus SEO audit". */
+  description: string;
+  /** The list price the audit sold for, before the listener's discount. */
+  sale_amount: string;
+  /** The affiliate's share of it. */
+  amount: string;
+  currency: string;
+  status: CommissionStatus;
+  status_label: string;
+  note: string;
+  paid_at: string | null;
+  voided_at: string | null;
+  created_at: string;
+}
+
+export interface AffiliateEarnings {
+  /** Audits that earned something: owed or paid, never void. */
+  sales: number;
+  owed: string;
+  paid: string;
+}
+
+/** The signed-in affiliate's own account. */
+export interface AffiliateAccount {
+  id: number;
+  business_name: string;
+  contact_name: string;
+  email: string;
+  website: string;
+  status: DealerStatus;
+  status_label: string;
+  /** What listeners type at checkout; empty if it was removed. */
+  code: string;
+  /** The code's own percentage off, fixed when it was made. */
+  discount_percent: number;
+  /** The affiliate's share of each audit's list price. */
+  share_percent: number;
+  /** The SEO page with the code filled in. */
+  share_link: string;
+  earnings: AffiliateEarnings;
+  commissions: AffiliateCommission[];
+  created_at: string;
+  updated_at: string;
+}
+
+export type AffiliateAccountChanges = Partial<
+  Pick<AffiliateAccount, 'business_name' | 'contact_name' | 'website'>
+>;
+
+export async function getAffiliateAccount(): Promise<AffiliateAccount> {
+  return handleResponse(await authedFetch('/api/affiliates/me/'));
+}

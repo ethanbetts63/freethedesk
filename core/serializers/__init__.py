@@ -2,7 +2,6 @@ from .account_registration import BaseAccountRegistrationSerializer
 from .enquiry import (
     AdminEnquirySerializer,
     AiReadinessEnquirySerializer,
-    AffiliateSignupSerializer,
     ProjectEnquirySerializer,
 )
 from .invoice_settings import InvoiceSettingsSerializer
@@ -21,7 +20,6 @@ __all__ = [
     "InvoiceSettingsSerializer",
     "PackageOrderSerializer",
     "PackageOrderStatusSerializer",
-    "AffiliateSignupSerializer",
     "ProjectEnquirySerializer",
     "SiteSettingsSerializer",
 ]

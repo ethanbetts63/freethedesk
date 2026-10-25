@@ -5,7 +5,14 @@ import { apiFetch, handleResponse } from '@freetheplatform/web-security';
 export type SeoPlanCode = 'essentials' | 'plus' | 'complete';
 /** Sold before 24 October 2026; an older account may still carry one. */
 export type RetiredSeoPlanCode = 'monthly' | 'quarterly' | 'yearly' | 'oneoff';
-export type SeoPaymentStatus = 'payment_pending' | 'active' | 'past_due' | 'cancelled' | 'paid';
+export type SeoPaymentStatus =
+  | 'payment_pending'
+  | 'active'
+  | 'past_due'
+  | 'cancelled'
+  | 'paid'
+  /** An affiliate's free audit: nothing to pay, counts as paid for access. */
+  | 'complimentary';
 
 export interface SeoAccount extends AccountBase {
   website: string;
@@ -26,6 +33,11 @@ export interface SeoCheckout {
   currency: string;
   /** What checkout calls it: "Plus SEO audit". */
   product_name: string;
+  /** The affiliate code the signup carries, or empty. */
+  discount_code: string;
+  /** What the code takes off `price`, and what Stripe charges after it. */
+  discount_amount: string;
+  total: string;
 }
 
 export interface SeoOnboardingProfile {

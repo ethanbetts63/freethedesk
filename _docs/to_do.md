@@ -73,15 +73,16 @@ Added 2026-10-22. `core/tests/test_read_api.py::test_every_dealers_sales_are_rea
 
 Added 2026-10-24. Owner's step. The podcast affiliate pitch templates (`core/templates/emails/podcast_pitch/`, explained in `_docs/affiliate-pitch/README.md`) need a dedicated sending address on the freethedesk.com.au domain, not the Gmail account Bloomprint's outreach used, with SPF and DKIM set up so cold email lands in inboxes. Neither footer carries a postal address, which US spam law (CAN-SPAM) asks for; cut on 2026-10-24, the owner's call. The listener discount is decided: 20%, passed to the templates as `discount`. The commission needs no decision: audits are bought once, so half of each sale is paid once.
 
-## Deploy the podcast affiliate page, then build the code behind it
+## Deploy the affiliate program, then pay the first commission by hand
 
-Added 2026-10-24. Owner's steps. `/affiliates` and its sign-up (`core` 0028, the "Podcast affiliate" enquiry type, `POST /api/affiliate-signups/`) are committed and not pushed. On deploy: `migrate` for `core` 0028, then open https://www.freethedesk.com.au/affiliates and send one test sign-up; it should arrive as an enquiry on the dashboard and as the staff email.
+Added 2026-10-24, rewritten 2026-10-25. Owner's steps. The program is built and documented in `_docs/affiliate-program.md`: sign-up opens the account, the code and the free audit; a code at the SEO checkout earns a commission when the audit is paid. On deploy:
 
-Nothing yet issues an affiliate a code or counts a sale against it. The page promises a code entered at checkout, a listener discount and a 50% payout through Stripe, so before the first pitch email goes out:
+- `migrate` for `affiliates` 0001, `core` 0029 (the two affiliate percentages; the enquiry type is gone) and `seo` 0015 (complimentary audits, the signup's discount code).
+- `FTP_AGREEMENTS` names the Affiliate Program Terms, version 2026-10-25, so deploy Django and the frontend together.
+- `DISCOUNTS_ENABLED` is on in settings; nothing else to set. Each affiliate's Stripe coupon is created the first time their code is used.
+- Then open https://www.freethedesk.com.au/affiliates, sign up with a test address, verify it with the emailed code, and check the portal shows the code. Buy a test audit on /seo with that code (Stripe test mode is not available on production, so use a real card and refund it) and check the commission appears on /dashboard/admin/affiliates.
 
-- The listener discount is 20% (decided 2026-10-24); the page and the pitch emails say so, so the Stripe promotion code must match.
-- An affiliate record (name, email, podcast, code, Stripe account for payouts), created when a sign-up is accepted, and a Stripe promotion code per affiliate on the SEO checkout (`allow_promotion_codes` on the one-off session).
-- A commission row per paid audit carrying an affiliate's code, half the price, and a monthly Stripe transfer. Bloomprint's `partners` app (discount codes, commissions) is the model.
+Paying out is not built. Commissions sit as "Owed" on the affiliate's staff page; settle the first ones by bank transfer and note it there. The build is Stripe Connect Express per affiliate and a transfer per commission, as Bloomprint's `partners` app does; it needs Connect enabled on the freethedesk Stripe account first.
 
 ## Podcast outreach: owner's steps before the cron is enabled
 

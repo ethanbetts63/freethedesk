@@ -4,8 +4,29 @@ import type { FaqItem } from '@/types/FaqItem';
 
 import { buildSeoPlans } from '@/app/seo/_lib/plans';
 
-/** The share an affiliate keeps of each audit sold with their code. */
+/**
+ * The share an affiliate keeps of each audit sold with their code, as a fraction. The live
+ * number is the admin's `affiliate_share_percent`; this is what the copy assumes when the
+ * settings have not loaded, and what "Keep half" is written around.
+ */
 export const AFFILIATE_SHARE = 0.5;
+
+/** The affiliate's share as a fraction, from the admin's setting. */
+export function shareFraction(settings: PublicSiteSettings): number {
+  const percent = Number(settings.affiliate_share_percent);
+  return Number.isFinite(percent) && percent > 0 ? percent / 100 : AFFILIATE_SHARE;
+}
+
+/** "Half" when the share is half, else the percentage, for sentences that name it. */
+export function shareWord(settings: PublicSiteSettings): string {
+  const fraction = shareFraction(settings);
+  return fraction === 0.5 ? 'Half' : `${Math.round(fraction * 100)}%`;
+}
+
+/** The listener's discount off an audit bought with a code, a whole percentage. */
+export function discountPercent(settings: PublicSiteSettings): number {
+  return Number(settings.affiliate_discount_percent) || 20;
+}
 
 /** The audit an affiliate gets free: the recommended one. */
 export const FREE_AUDIT_CODE = 'plus';
@@ -25,7 +46,7 @@ export function affiliateEarnings(settings: PublicSiteSettings): AffiliateEarnin
     code: plan.code,
     name: plan.name,
     price: plan.price,
-    share: formatMoney(Number(settings[`seo_${plan.code}_price`]) * AFFILIATE_SHARE, {
+    share: formatMoney(Number(settings[`seo_${plan.code}_price`]) * shareFraction(settings), {
       cents: 'auto',
     }),
   }));
@@ -41,7 +62,7 @@ export function affiliateFaqs(settings: PublicSiteSettings): FaqItem[] {
   return [
     {
       question: 'How much do I earn?',
-      answer: `Half of every audit bought with your code: ${earnings
+      answer: `${shareWord(settings)} of every audit bought with your code: ${earnings
         .map((earning) => `${earning.share} for ${earning.name}`)
         .join(', ')}. It's paid out through Stripe once the audit is paid for.`,
     },
@@ -57,8 +78,7 @@ export function affiliateFaqs(settings: PublicSiteSettings): FaqItem[] {
     },
     {
       question: 'How do you know a sale came from me?',
-      answer:
-        'Your listeners enter your code at checkout. It gives them 20% off and marks the audit as yours, so every one bought with it counts, whenever they buy it.',
+      answer: `Your listeners enter your code at checkout. It gives them ${discountPercent(settings)}% off and marks the audit as yours, so every one bought with it counts, whenever they buy it.`,
     },
     {
       question: 'Do my listeners have to be in Australia?',

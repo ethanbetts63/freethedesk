@@ -23,6 +23,7 @@ from django.db import transaction
 from django.utils import timezone
 from freetheplatform.payments import register_handler
 
+from affiliates.utils.commissions import record_commission, void_commission
 from core.models import PackageOrder
 from core.utils.notifications import notify_of_paid_package_order
 from dealers.models import Dealer
@@ -162,6 +163,9 @@ def seo_payment_succeeded(*, payment, related):
         subscriber.save(update_fields=[
             "payment_status", "subscription_current_period_end", "updated_at",
         ])
+        # Bought with an affiliate's code: the affiliate is owed their share.
+        # A no-op for a payment with no code, and for a second event.
+        record_commission(payment, description=subscriber.get_plan_display())
     else:
         subscriber.stripe_subscription_id = (
             payment.stripe_subscription_id or subscriber.stripe_subscription_id
@@ -221,6 +225,8 @@ def seo_refunded(*, payment, related):
         "SEO subscriber %s was refunded %s on payment %s; access is unchanged.",
         subscriber.pk, payment.refunded_amount, payment.pk,
     )
+    # The affiliate's share goes with the money, if it has not been paid out.
+    void_commission(payment, reason=f"Refunded {payment.refunded_amount} on {timezone.now():%Y-%m-%d}.")
 
 
 # --------------------------------------------------------------------------

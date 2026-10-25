@@ -56,6 +56,9 @@ class SeoSubscriber(models.Model):
         PAST_DUE = "past_due", "Past due"
         CANCELLED = "cancelled", "Cancelled"
         PAID = "paid", "Paid"
+        # Nothing to pay: an affiliate's free audit (see ``affiliates``). Counts
+        # as paid everywhere access is decided, and never as revenue.
+        COMPLIMENTARY = "complimentary", "Complimentary"
 
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
@@ -72,6 +75,9 @@ class SeoSubscriber(models.Model):
     contact_name = models.CharField(max_length=120)
     phone = models.CharField(max_length=40, blank=True)
     website = models.URLField(blank=True)
+    #: An affiliate's code typed on the signup form, as typed. Checkout passes it
+    #: to the shared payments app, which re-validates it and applies the coupon.
+    discount_code = models.CharField(max_length=60, blank=True)
     plan = models.CharField(max_length=20, choices=Plan.choices, default=Plan.ESSENTIALS, db_index=True)
     payment_status = models.CharField(
         max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.PAYMENT_PENDING, db_index=True
@@ -96,4 +102,6 @@ class SeoSubscriber(models.Model):
 
     @property
     def has_paid(self) -> bool:
-        return self.payment_status in {self.PaymentStatus.ACTIVE, self.PaymentStatus.PAID}
+        return self.payment_status in {
+            self.PaymentStatus.ACTIVE, self.PaymentStatus.PAID, self.PaymentStatus.COMPLIMENTARY,
+        }

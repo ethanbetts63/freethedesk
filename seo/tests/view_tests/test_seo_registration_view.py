@@ -160,3 +160,49 @@ def test_signup_ignores_a_login_nobody_can_use(client):
     get_user_model().objects.create_user(username=PAYLOAD["email"], email=PAYLOAD["email"])
     response = client.post(reverse("seo-signup"), PAYLOAD, content_type="application/json")
     assert response.status_code == 201
+
+
+def test_signup_keeps_an_affiliates_code_for_checkout(client):
+    from affiliates.tests.factories import AffiliateFactory
+
+    affiliate = AffiliateFactory()
+
+    response = client.post(
+        reverse("seo-signup"),
+        {**PAYLOAD, "discount_code": f" {affiliate.code.lower()} "},
+        content_type="application/json",
+    )
+
+    assert response.status_code == 201
+    assert SeoSubscriber.objects.get().discount_code == affiliate.code.lower()
+
+
+def test_signup_with_a_code_nobody_holds_is_refused_and_leaves_nothing(client):
+    response = client.post(
+        reverse("seo-signup"),
+        {**PAYLOAD, "discount_code": "NOSUCHSHOW20"},
+        content_type="application/json",
+    )
+
+    assert response.status_code == 400
+    assert response.json()["code"] == "discount"
+    assert "discount_code" in response.json()
+    assert not SeoSubscriber.objects.exists()
+    assert not Acceptance.objects.exists()
+
+
+def test_signup_with_a_suspended_affiliates_code_is_refused(client):
+    from affiliates.tests.factories import AffiliateFactory
+
+    affiliate = AffiliateFactory()
+    affiliate.discount.is_active = False
+    affiliate.discount.save(update_fields=["is_active"])
+
+    response = client.post(
+        reverse("seo-signup"),
+        {**PAYLOAD, "discount_code": affiliate.code},
+        content_type="application/json",
+    )
+
+    assert response.status_code == 400
+    assert response.json()["code"] == "discount"

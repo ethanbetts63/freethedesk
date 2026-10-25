@@ -57,12 +57,18 @@ const PROJECT_FIELDS: FieldSpec[] = [
   { field: 'automation_from_price', label: 'Automation (from $)' },
 ];
 
+const AFFILIATE_FIELDS: FieldSpec[] = [
+  { field: 'affiliate_discount_percent', label: 'Listener discount (% off an audit)', count: true },
+  { field: 'affiliate_share_percent', label: 'Affiliate share (% of the list price)', count: true },
+];
+
 const ALL_FIELDS = [
   ...LICENSING_FIELDS,
   ...SEO_FIELDS,
   ...HOURLY_FIELDS,
   ...WEBSITE_FIELDS,
   ...PROJECT_FIELDS,
+  ...AFFILIATE_FIELDS,
 ];
 
 function toForm(settings: SiteSettings): FormState {
@@ -181,6 +187,17 @@ export default function SiteSettingsPage() {
             price per page, and an extra page costs the same.
           </p>
           <div className={adminFormClassName}>{WEBSITE_FIELDS.map(renderField)}</div>
+        </section>
+
+        <section className={cn(cardClassName, cardWideClassName)}>
+          <h2 className={cardTitleClassName}>Podcast affiliate program</h2>
+          <p className="text-label text-text-subtle">
+            The discount a listener gets off an SEO audit with an affiliate&rsquo;s code, and the
+            share of the audit&rsquo;s list price the affiliate earns. The affiliate page quotes
+            both. A new affiliate&rsquo;s code is made with the discount as it stands; codes already
+            issued keep theirs, because listeners were told that number.
+          </p>
+          <div className={adminFormClassName}>{AFFILIATE_FIELDS.map(renderField)}</div>
         </section>
 
         <section className={cn(cardClassName, cardWideClassName)}>

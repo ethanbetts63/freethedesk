@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { TermsAgreement } from '@/components/checkout/TermsAgreement';
 import { MovingColourButton } from '@/components/MovingColourButton';
@@ -42,6 +42,10 @@ export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
   const plans = useMemo(() => buildSeoPlans(settings), [settings]);
   const selected = planByCode(plans, selectedCode) ?? plans[0];
   const [state, dispatch, isPending] = useActionState(submitSeoSignup, initialState);
+  // An affiliate's link (/seo?code=XXX) arrives with the code filled in. The page
+  // renders per request, so the server sees the same params and nothing mismatches.
+  const searchParams = useSearchParams();
+  const [code, setCode] = useState(() => (searchParams.get('code') ?? '').toUpperCase());
 
   useEffect(() => {
     if (state.status !== 'success' || !state.reference) return;
@@ -129,6 +133,19 @@ export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
           placeholder="e.g. www.yoursite.com"
           autoComplete="url"
           required
+        />
+      </label>
+      <label className={fieldLabelClassName}>
+        <span className={fieldLabelSpanClassName}>Affiliate code (optional)</span>
+        <input
+          className={fieldInputClassName}
+          name="discount_code"
+          type="text"
+          autoComplete="off"
+          spellCheck={false}
+          placeholder="From a podcast you listen to"
+          value={code}
+          onChange={(event) => setCode(event.target.value.toUpperCase())}
         />
       </label>
       <TermsAgreement

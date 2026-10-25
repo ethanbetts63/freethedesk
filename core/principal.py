@@ -2,12 +2,13 @@
 
 Supplied to `freetheplatform.auth` through `FTP_AUTH["PRINCIPAL"]`, and the only
 part of the session that is ours: the package owns cookies, rotation and
-revocation, but `role` is computed from dealers and SEO subscribers, which no
-shared package can know about.
+revocation, but `role` is computed from dealers, SEO subscribers and affiliates,
+which no shared package can know about.
 
-One shape for both portals rather than a staff endpoint and a near-identical
-dealer one. The frontend routes on `role` alone; `dealer` and `seo` are null for
-anyone who is not one. `is_staff` stays a Django-internal flag — it drives the
+One shape for every portal rather than a staff endpoint and a near-identical
+dealer one. The frontend routes on `role` alone; `dealer`, `seo` and `affiliate`
+are null for anyone who is not one. An affiliate also has an SEO subscriber (the
+free audit on the same login), so `affiliate` is decided before `seo`. `is_staff` stays a Django-internal flag — it drives the
 `role` computation below and nothing else crosses the wire.
 """
 
@@ -31,7 +32,7 @@ def principal(user):
     """Describe `user`, or refuse an account with no portal to enter.
 
     Authenticating correctly and belonging somewhere are different questions.
-    An account that is none of staff, dealer, subscriber or sale customer has
+    An account that is none of staff, dealer, affiliate, subscriber or sale customer has
     answered the first and failed the second, so this raises rather than
     returning a payload the frontend would have to check — a 403, not a 401.
 
@@ -40,9 +41,11 @@ def principal(user):
     """
     dealer = getattr(user, "dealer", None)
     seo = getattr(user, "seo_subscriber", None)
+    affiliate = getattr(user, "affiliate", None)
     role = (
         "staff" if user.is_staff
         else "dealer" if dealer is not None
+        else "affiliate" if affiliate is not None
         else "seo" if seo is not None
         else "customer" if _is_customer(user)
         else "none"
@@ -68,5 +71,12 @@ def principal(user):
             "contact_name": seo.contact_name,
             "status": seo.status,
             "status_label": seo.get_status_display(),
+        },
+        "affiliate": None if affiliate is None else {
+            "id": affiliate.pk,
+            "business_name": affiliate.business_name,
+            "contact_name": affiliate.contact_name,
+            "status": affiliate.status,
+            "status_label": affiliate.get_status_display(),
         },
     }

@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from django.core.validators import MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -25,6 +25,9 @@ class SiteSettings(models.Model):
     package is bought as its discovery: that many hours at the hourly rate,
     paid upfront. Web applications and automation also carry a "from"
     price, the smallest project of each worth starting.
+
+    The last two are the affiliate program's percentages, which the affiliate
+    page, the portal and the pitch emails all quote.
     """
 
     licensing_price = models.DecimalField(
@@ -80,6 +83,16 @@ class SiteSettings(models.Model):
     automation_from_price = models.DecimalField(
         max_digits=8, decimal_places=2, default=Decimal("1200.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
+    )
+    #: The podcast affiliate program (/affiliates). The listener's discount off
+    #: an SEO audit bought with an affiliate's code, and the affiliate's share
+    #: of the audit's list price. Whole percentages. A new affiliate's code is
+    #: made with the discount as it stands; existing codes keep theirs.
+    affiliate_discount_percent = models.PositiveSmallIntegerField(
+        default=20, validators=[MinValueValidator(1), MaxValueValidator(90)],
+    )
+    affiliate_share_percent = models.PositiveSmallIntegerField(
+        default=50, validators=[MinValueValidator(1), MaxValueValidator(100)],
     )
     updated_at = models.DateTimeField(auto_now=True)
 

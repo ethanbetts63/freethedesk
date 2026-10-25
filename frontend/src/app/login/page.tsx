@@ -48,9 +48,11 @@ function LoginContent() {
         ? '/dashboard/admin'
         : user.role === 'seo'
           ? '/seo-portal'
-          : user.role === 'customer'
-            ? '/dashboard/user'
-            : '/portal';
+          : user.role === 'affiliate'
+            ? '/affiliate-portal'
+            : user.role === 'customer'
+              ? '/dashboard/user'
+              : '/portal';
     router.replace(next && next.startsWith(prefix) ? next : home);
   }, [loading, router, search, user]);
 

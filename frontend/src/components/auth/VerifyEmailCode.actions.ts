@@ -2,7 +2,7 @@
 
 import { serverApiFetch } from '@/lib/serverApi';
 import { verifyEmailWithCode } from '@/lib/verifyEmailCode';
-import { verifyEmailSchema } from './VerifyEmail.schema';
+import { verifyEmailSchema } from './VerifyEmailCode.schema';
 
 export interface VerifyEmailState {
   status: 'idle' | 'success' | 'error';
@@ -13,7 +13,7 @@ const WRONG_CODE =
   'That email and code do not match. Copy the code from your most recent email from us.';
 const FAILURE_MESSAGE = 'That password could not be saved. Please try again.';
 
-/** The emailed code proves the address, then becomes the customer's own password, which signs them in. */
+/** The emailed code proves the address, then becomes the owner's own password, which signs them in. */
 export async function submitVerifyEmail(
   _prev: VerifyEmailState,
   formData: FormData,

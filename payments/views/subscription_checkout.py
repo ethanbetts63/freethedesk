@@ -2,6 +2,7 @@ import logging
 
 import stripe
 from django.shortcuts import get_object_or_404
+from freetheplatform.payments import DiscountError
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -93,7 +94,15 @@ class SeoCheckoutView(APIView):
         )
         try:
             acceptance, quote = signup_seo_acceptance(subscriber)
-            client_secret = create_or_reuse_seo_checkout_session(subscriber, acceptance, quote)
+            payment, client_secret = create_or_reuse_seo_checkout_session(
+                subscriber, acceptance, quote
+            )
+        except DiscountError as error:
+            # The code worked at signup and does not now: used up, switched
+            # off, or expired in between. The page sends them back to the form.
+            return Response(
+                {"detail": str(error), "code": "discount"}, status=status.HTTP_400_BAD_REQUEST
+            )
         except (PaymentConfigurationError, stripe.StripeError) as error:
             return checkout_failure_response(error)
         return Response({
@@ -101,4 +110,8 @@ class SeoCheckoutView(APIView):
             "price": str(quote.price),
             "currency": quote.currency.upper(),
             "product_name": quote.name,
+            # What Stripe will actually charge, after the code if there is one.
+            "discount_code": subscriber.discount_code,
+            "discount_amount": str(payment.discount_amount),
+            "total": str(payment.total_amount),
         })

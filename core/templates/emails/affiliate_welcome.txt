@@ -1,0 +1,22 @@
+You're in.
+
+Thanks — {{ affiliate.business_name }} is in the freethedesk affiliate program.
+{% if password %}
+VERIFY YOUR EMAIL
+
+Your verification code: {{ password }}
+
+Enter it to verify your email, then choose a password:
+{{ verify_url }}
+
+After that, log in any time:
+Username: {{ affiliate.email }}
+Log in at: {{ login_url }}{% else %}
+Log in at: {{ login_url }}
+Username: {{ affiliate.email }}, with the password you already use.{% endif %}
+
+Your code: {{ affiliate.code }}
+
+The portal has your code with a link your listeners can use, words for the show and the show notes, and the steps for your free audit. The audit starts once you connect Search Console.
+
+Open your portal: {{ portal_url }}

@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "identity",
     "sales",
     "seo",
+    "affiliates",
     "payments",
     "freetheplatform.agreements",
     "freetheplatform.payments",
@@ -178,6 +179,7 @@ REST_FRAMEWORK = {
         "enquiry": "10/hour",
         "dealer-signup": "5/hour",
         "seo-signup": "5/hour",
+        "affiliate-signup": "5/hour",
         # Each accepted request mints a password and sends an email.
         "sale-link": "60/hour",
         # Redeeming a token the caller already holds grants nothing new, so this
@@ -370,6 +372,9 @@ FTP_PAYMENTS = {
     # Stripe stops retrying a failing event after about three days. Without
     # this, the first report of one is a dealer who paid and got nothing.
     "ALERT_HANDLER": "payments.alerts.alert_failed_event",
+    # Affiliate codes on the SEO audit. Off by default in the package; the
+    # SEO signup form is the only place a code is accepted.
+    "DISCOUNTS_ENABLED": True,
 }
 FTP_AGREEMENTS = {
     "DOCUMENTS": {
@@ -389,6 +394,12 @@ FTP_AGREEMENTS = {
             "TITLE": "Web Development Terms",
             "VERSION": "2026-10-08",
             "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "web-development-terms.md",
+            "FORMAT": "markdown",
+        },
+        "affiliate.program": {
+            "TITLE": "Affiliate Program Terms",
+            "VERSION": "2026-10-25",
+            "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "affiliate-program-terms.md",
             "FORMAT": "markdown",
         },
     },

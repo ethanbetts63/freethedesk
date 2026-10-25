@@ -24,7 +24,7 @@ pointed at `core/templates` and the context below; images resolve against
 - Half of every audit a listener buys with the host's code: 50%, so $275 to
   $700 an audit across the three tiers, paid out through Stripe. Audits are
   bought once, so there is nothing to repeat.
-- A 20% listener discount, passed as `discount`.
+- A listener discount, passed as `discount`: the site setting `affiliate_discount_percent` (20% when written), which is what each affiliate's code is made with. See `../affiliate-program.md`.
 - One next step: sign up on the affiliate page, /affiliates. No audit is written and no code issued until they have. C has no links at all and tells the host to search "freethedesk affiliates" instead.
 - The same footer: the wordmark, Perth, and a one-click unsubscribe line. C's says to reply "no thanks" instead, so those replies have to be added to the suppression list by hand.
 

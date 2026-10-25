@@ -81,31 +81,6 @@ class ProjectEnquirySerializer(serializers.Serializer):
         )
 
 
-class AffiliateSignupSerializer(serializers.Serializer):
-    """A podcast host joining the affiliate program on /affiliates.
-
-    It lands as an enquiry rather than an affiliate record because the program is
-    run by hand for now: staff write the free audit, set up the code and reply.
-    The website is optional: the free audit is a bonus, and a host without a
-    site of their own can still sell audits.
-    """
-
-    name = bounds.char("name")
-    email = bounds.email()
-    business = bounds.char("business_name")
-    website = bounds.url(required=False, allow_blank=True, default="")
-
-    def create(self, validated_data):
-        return Enquiry.objects.create(
-            name=validated_data["name"],
-            business=validated_data["business"],
-            email=validated_data["email"],
-            website=validated_data["website"],
-            help_with=Enquiry.HelpWith.AFFILIATE,
-            message="Podcast affiliate signup.",
-        )
-
-
 class AdminEnquirySerializer(serializers.ModelSerializer):
     help_with_label = serializers.CharField(source="get_help_with_display", read_only=True)
     status_label = serializers.CharField(source="get_status_display", read_only=True)

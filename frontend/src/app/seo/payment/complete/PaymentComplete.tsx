@@ -8,7 +8,7 @@ import {
 } from '@/components/checkout/PaymentConfirmation';
 import { trackPurchaseOnce } from '@/lib/analytics';
 import { getSeoCheckoutStatus } from '@/lib/seoApi';
-import { VerifyEmailForm } from './VerifyEmailForm';
+import { VerifyEmailCodeForm } from '@/components/auth/VerifyEmailCodeForm';
 
 /**
  * Back from Stripe. Nobody is signed in yet: the login is made when the payment lands and its
@@ -55,7 +55,7 @@ export function PaymentComplete({ reference }: { reference: string }) {
       }}
       retryHref={`/seo/payment?ref=${encodeURIComponent(reference)}`}
       activeLink={{ href: '/login', label: 'Sign in' }}
-      activeContent={<VerifyEmailForm />}
+      activeContent={<VerifyEmailCodeForm destination="/seo-portal" />}
       portalHref="/login"
       portalLabel="Sign in"
     />

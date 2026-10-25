@@ -168,3 +168,61 @@ def test_an_email_with_an_account_is_sent_to_sign_in(ftp_stripe, client, signup)
     assert response.status_code == 409
     assert response.json()["code"] == "account_exists"
     assert ftp_stripe.session_count == 0
+
+
+@stripe_settings
+def test_an_affiliates_code_takes_the_discount_off_at_stripe(ftp_stripe, client, signup):
+    from affiliates.tests.factories import AffiliateFactory
+    from freetheplatform.payments import DiscountRedemption
+
+    affiliate = AffiliateFactory()
+    signup.plan = SeoSubscriber.Plan.ESSENTIALS
+    signup.discount_code = affiliate.code
+    signup.save(update_fields=["plan", "discount_code"])
+    settings = SiteSettings.load()
+    settings.seo_essentials_price = Decimal("550.00")
+    settings.save()
+    _accept(signup)
+
+    response = client.post(
+        reverse("payments:seo-checkout"),
+        {"reference": signup.checkout_reference},
+        content_type="application/json",
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    # The agreed list price, and what the listener actually pays.
+    assert body["price"] == "550.00"
+    assert body["discount_code"] == affiliate.code
+    assert body["discount_amount"] == "110.00"
+    assert body["total"] == "440.00"
+    session = ftp_stripe.last_session
+    assert session["line_items"][0]["price_data"]["unit_amount"] == 55000
+    assert session["discounts"] == [{"coupon": "coupon_test_1"}]
+    assert ftp_stripe.coupon_params[0]["percent_off"] == 20.0
+    reservation = DiscountRedemption.objects.get()
+    assert reservation.discount == affiliate.discount
+    assert reservation.amount == Decimal("110.00")
+
+
+@stripe_settings
+def test_a_code_switched_off_after_signup_sends_the_customer_back(ftp_stripe, client, signup):
+    from affiliates.tests.factories import AffiliateFactory
+
+    affiliate = AffiliateFactory()
+    signup.discount_code = affiliate.code
+    signup.save(update_fields=["discount_code"])
+    _accept(signup)
+    affiliate.discount.is_active = False
+    affiliate.discount.save(update_fields=["is_active"])
+
+    response = client.post(
+        reverse("payments:seo-checkout"),
+        {"reference": signup.checkout_reference},
+        content_type="application/json",
+    )
+
+    assert response.status_code == 400
+    assert response.json()["code"] == "discount"
+    assert ftp_stripe.session_count == 0

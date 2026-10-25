@@ -61,6 +61,7 @@ const COLUMNS: FooterColumn[] = [
       { href: '/legal/dealer-subscription-terms', label: 'Dealer subscription terms' },
       { href: '/legal/customer-terms', label: 'Customer terms' },
       { href: '/legal/seo-audit-terms', label: 'SEO audit terms' },
+      { href: '/legal/affiliate-program-terms', label: 'Affiliate program terms' },
       { href: '/legal/web-development-terms', label: 'Web development terms' },
     ],
   },

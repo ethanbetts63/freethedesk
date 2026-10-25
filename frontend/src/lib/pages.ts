@@ -196,6 +196,13 @@ export const STATIC_PAGES = {
     title: 'SEO Audit Terms',
     description: 'Terms for freethedesk SEO audits: Essentials, Plus and Complete, each paid once.',
   },
+  '/legal/affiliate-program-terms': {
+    updated: '2026-10-25',
+    label: 'Affiliate program terms',
+    title: 'Affiliate Program Terms',
+    description:
+      'Terms for the freethedesk podcast affiliate program: your code, the listener discount, and how half of every audit is paid to you.',
+  },
   '/legal/web-development-terms': {
     updated: '2026-10-24',
     label: 'Web development terms',

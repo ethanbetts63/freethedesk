@@ -17,6 +17,11 @@ DEALER_ACCEPTANCE_STATEMENT = (
 
 SEO_AGREEMENT_KEY = "seo.reporting"
 
+AFFILIATE_AGREEMENT_KEY = "affiliate.program"
+AFFILIATE_ACCEPTANCE_STATEMENT = (
+    "I agree to the Affiliate Program Terms and acknowledge the Privacy Policy."
+)
+
 PACKAGE_AGREEMENT_KEY = "webdev.services"
 PACKAGE_ACCEPTANCE_STATEMENT = (
     "I agree to the Web Development Terms, acknowledge the Privacy Policy, "
@@ -57,6 +62,18 @@ def seo_offer_context(subscriber, quote):
     }
 
 
+def affiliate_offer_context(affiliate):
+    """The offer as it stood when the host joined: their code and its two numbers."""
+    from core.models import SiteSettings
+
+    site = SiteSettings.load()
+    return {
+        "code": affiliate.code,
+        "discount_percent": site.affiliate_discount_percent,
+        "share_percent": site.affiliate_share_percent,
+    }
+
+
 SEO_ACCEPTANCE_STATEMENT = (
     "I agree to the SEO Audit Terms, acknowledge the Privacy Policy, "
     "and authorise this payment."
@@ -65,7 +82,7 @@ SEO_ACCEPTANCE_STATEMENT = (
 
 def record_checkout_acceptance(
     *, agreement_version, accepted_by, related, accepted_ip, user_agent,
-    statement, context, actor_snapshot=None,
+    statement, context, actor_snapshot=None, source="web.checkout",
 ):
     acceptance, _ = accept(
         agreement=agreement_version,
@@ -75,7 +92,7 @@ def record_checkout_acceptance(
         user_agent=user_agent,
         statement=statement,
         context=context,
-        source="web.checkout",
+        source=source,
         actor_snapshot=actor_snapshot,
     )
     return acceptance

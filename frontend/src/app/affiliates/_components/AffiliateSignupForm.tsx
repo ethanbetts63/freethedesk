@@ -1,7 +1,10 @@
 'use client';
 
 import { type FormEvent, type ReactNode, startTransition, useActionState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
+import { TermsAgreement } from '@/components/checkout/TermsAgreement';
 import { SelectionFormPanel } from '@/components/forms/SelectionFormPanel';
 import {
   fieldInputClassName,
@@ -20,15 +23,19 @@ const initialState: AffiliateSignupState = { status: 'idle' };
 
 /**
  * The affiliate sign-up, drawn like the service pages' order forms: the pitch on the left where
- * the packages would be, the details on the right. Four fields, one submit.
+ * the packages would be, the details on the right. Submitting opens the account at once (the
+ * code, the free audit, the terms) and sends the host to the verify page, where the emailed code
+ * becomes their password.
  */
 export function AffiliateSignupForm({ pitch }: { pitch: ReactNode }) {
+  const router = useRouter();
   const [state, dispatch, isPending] = useActionState(submitAffiliateSignup, initialState);
 
   useEffect(() => {
-    if (state.status === 'success')
-      trackEvent('generate_lead', { lead_source: 'affiliate_signup' });
-  }, [state]);
+    if (state.status !== 'success') return;
+    trackEvent('generate_lead', { lead_source: 'affiliate_signup' });
+    router.push(`/affiliates/verify?email=${encodeURIComponent(state.email ?? '')}`);
+  }, [router, state]);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -38,89 +45,87 @@ export function AffiliateSignupForm({ pitch }: { pitch: ReactNode }) {
 
   return (
     <SelectionFormPanel onSubmit={onSubmit} chooser={pitch}>
-      {state.status === 'success' ? (
-        <div role="status">
-          <span
-            aria-hidden="true"
-            className="mb-m flex h-[34px] w-[34px] items-center justify-center rounded-full bg-action-primary text-text-on-dark"
-          >
-            ✓
-          </span>
-          <strong className="block text-lead tracking-[-0.03em]">Thanks, you&apos;re in.</strong>
-          <p className="mt-xs text-body leading-relaxed text-text-muted">
-            We&apos;ll email you within two working days to start your free audit. Your code and
-            link follow once it&apos;s written.
-          </p>
-        </div>
-      ) : (
-        <>
-          <div className={formTitleClassName}>
-            <h3 className={selectionHeadingClassName}>
-              Your <span className="moving-colour-text">details.</span>
-            </h3>
-          </div>
-          <label className={fieldLabelClassName}>
-            <span className={fieldLabelSpanClassName}>Your name</span>
-            <input
-              className={fieldInputClassName}
-              name="name"
-              type="text"
-              autoComplete="name"
-              placeholder="e.g. Sam Taylor"
-              required
-            />
-          </label>
-          <label className={fieldLabelClassName}>
-            <span className={fieldLabelSpanClassName}>Email</span>
-            <input
-              className={fieldInputClassName}
-              name="email"
-              type="email"
-              autoComplete="email"
-              placeholder="e.g. email@example.com"
-              required
-            />
-          </label>
-          <label className={fieldLabelClassName}>
-            <span className={fieldLabelSpanClassName}>Business name</span>
-            <input
-              className={fieldInputClassName}
-              name="business"
-              type="text"
-              autoComplete="organization"
-              placeholder="e.g. The Tradie Show"
-              required
-            />
-          </label>
-          <label className={fieldLabelClassName}>
-            <span className={fieldLabelSpanClassName}>Your website (optional)</span>
-            {/* Not type="url": it rejects a scheme-less host before the schema adds one. */}
-            <input
-              className={fieldInputClassName}
-              name="website"
-              type="text"
-              inputMode="url"
-              autoComplete="url"
-              placeholder="e.g. www.yoursite.com"
-            />
-          </label>
-          {state.status === 'error' && (
-            <p className={formErrorClassName} role="alert">
-              {state.error}
-            </p>
+      <div className={formTitleClassName}>
+        <h3 className={selectionHeadingClassName}>
+          Your <span className="moving-colour-text">details.</span>
+        </h3>
+      </div>
+      <label className={fieldLabelClassName}>
+        <span className={fieldLabelSpanClassName}>Your name</span>
+        <input
+          className={fieldInputClassName}
+          name="contact_name"
+          type="text"
+          autoComplete="name"
+          placeholder="e.g. Sam Taylor"
+          required
+        />
+      </label>
+      <label className={fieldLabelClassName}>
+        <span className={fieldLabelSpanClassName}>Email</span>
+        <input
+          className={fieldInputClassName}
+          name="email"
+          type="email"
+          autoComplete="email"
+          placeholder="e.g. email@example.com"
+          required
+        />
+      </label>
+      <label className={fieldLabelClassName}>
+        <span className={fieldLabelSpanClassName}>Podcast or business name</span>
+        <input
+          className={fieldInputClassName}
+          name="business_name"
+          type="text"
+          autoComplete="organization"
+          placeholder="e.g. The Tradie Show"
+          required
+        />
+      </label>
+      <label className={fieldLabelClassName}>
+        <span className={fieldLabelSpanClassName}>Your website (optional)</span>
+        {/* Not type="url": it rejects a scheme-less host before the schema adds one. */}
+        <input
+          className={fieldInputClassName}
+          name="website"
+          type="text"
+          inputMode="url"
+          autoComplete="url"
+          placeholder="e.g. www.yoursite.com"
+        />
+      </label>
+      <TermsAgreement
+        className="mb-l"
+        name="accepted_terms"
+        required
+        termsHref="/legal/affiliate-program-terms"
+        termsLabel="Affiliate Program Terms"
+        authorisation="will say I earn a commission wherever I share my code."
+      />
+      {state.status === 'error' && (
+        <p className={formErrorClassName} role="alert">
+          {state.error}
+          {state.accountExists && (
+            <>
+              {' '}
+              <Link className="font-heavy underline" href="/login">
+                Sign in instead.
+              </Link>
+            </>
           )}
-          <MovingColourButton
-            type="submit"
-            className={submitClassName}
-            direction="right"
-            size="large"
-            fullWidth
-            disabled={isPending}
-          >
-            {isPending ? 'Sending…' : 'Claim my free audit'}
-          </MovingColourButton>
-        </>
+        </p>
       )}
+      <MovingColourButton
+        type="submit"
+        className={submitClassName}
+        direction="right"
+        size="large"
+        fullWidth
+        disabled={isPending || state.status === 'success'}
+      >
+        {isPending || state.status === 'success' ? 'Opening your account…' : 'Claim my free audit'}
+      </MovingColourButton>
     </SelectionFormPanel>
   );
 }

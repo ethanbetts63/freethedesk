@@ -13,3 +13,7 @@ class DealerSignupRateThrottle(ScopedAnonThrottle):
 
 class SeoSignupRateThrottle(ScopedAnonThrottle):
     scope = "seo-signup"
+
+
+class AffiliateSignupRateThrottle(ScopedAnonThrottle):
+    scope = "affiliate-signup"

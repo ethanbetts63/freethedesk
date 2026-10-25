@@ -1,11 +1,13 @@
 import {
   authedFetch,
   queryString,
+  type DealerStatus,
   type Paginated,
   type PublicSiteSettings,
   type StaffAccountFields,
 } from './api';
 
+import type { AffiliateCommission, AffiliateEarnings } from './affiliateApi';
 import type { DealerAccount } from './dealerApi';
 import type { PackageCode } from './servicePricing';
 import type { SeoAccount, SeoSetup, SeoSetupKey } from './seoApi';
@@ -46,6 +48,25 @@ export type SeoSubscriber = SeoAccount &
     setup?: SeoSetup | null;
   };
 
+/** An affiliate as staff see them: the podcast, the code and what it has earned. */
+export interface Affiliate extends StaffAccountFields {
+  id: number;
+  business_name: string;
+  contact_name: string;
+  email: string;
+  website: string;
+  code: string;
+  earnings: AffiliateEarnings;
+  status: DealerStatus;
+  status_label: string;
+  created_at: string;
+  updated_at: string;
+  /** Only on the detail endpoint. */
+  commissions?: AffiliateCommission[];
+  /** The free audit's SEO account, on the detail endpoint. */
+  seo_subscriber_id?: number | null;
+}
+
 export type SiteSettings = PublicSiteSettings;
 
 /** What a message is about. One field for any model, rather than a pair per relation. */
@@ -84,6 +105,7 @@ export const ENQUIRY_TYPE = 'core.enquiry';
 export const PACKAGE_ORDER_TYPE = 'core.packageorder';
 export const DEALER_TYPE = 'dealers.dealer';
 export const SEO_SUBSCRIBER_TYPE = 'seo.seosubscriber';
+export const AFFILIATE_TYPE = 'affiliates.affiliate';
 
 export async function getEnquiries(
   params: Record<string, string | number | undefined>,
@@ -163,6 +185,28 @@ export async function updateSeoSetupStep(
     await authedFetch(`/api/admin/seo/${id}/setup/${key}/`, {
       method: 'POST',
       body: JSON.stringify({ action }),
+    }),
+  );
+}
+
+export async function getAffiliates(
+  params: Record<string, string | number | undefined>,
+): Promise<Paginated<Affiliate>> {
+  return handleResponse(await authedFetch(`/api/admin/affiliates/${queryString(params)}`));
+}
+
+export async function getAffiliate(id: number): Promise<Affiliate> {
+  return handleResponse(await authedFetch(`/api/admin/affiliates/${id}/`));
+}
+
+export async function updateAffiliate(
+  id: number,
+  changes: Partial<Pick<Affiliate, 'status' | 'staff_notes'>>,
+): Promise<Affiliate> {
+  return handleResponse(
+    await authedFetch(`/api/admin/affiliates/${id}/`, {
+      method: 'PATCH',
+      body: JSON.stringify(changes),
     }),
   );
 }

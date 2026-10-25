@@ -1,0 +1,30 @@
+{% extends "emails/base.html" %}
+
+{% block title %}Your affiliate account is ready — freethedesk{% endblock %}
+{% block preheader %}Verify your email, then your code, your link and the words for your show are in the portal.{% endblock %}
+
+{% block content %}
+<p style="margin: 0 0 20px; font-size: 18px; font-weight: 700;">You&rsquo;re in.</p>
+
+<p style="margin: 0 0 20px;">Thanks — <strong>{{ affiliate.business_name }}</strong> is in the freethedesk affiliate program.</p>
+
+{% if password %}
+<p style="margin: 0 0 8px; font-weight: 700;">Verify your email</p>
+<p style="margin: 0 0 8px;">Your verification code:</p>
+<p style="margin: 0 0 20px; font-size: 22px; letter-spacing: 2px;"><strong>{{ password }}</strong></p>
+<p style="margin: 0 0 20px;"><a href="{{ verify_url }}">Enter it to verify your email</a>, then choose a password.</p>
+<p style="margin: 0 0 20px;">After that, log in any time:<br>
+Username: <strong>{{ affiliate.email }}</strong><br>
+Log in at: <a href="{{ login_url }}">{{ login_url }}</a></p>
+{% else %}
+<p style="margin: 0 0 20px;">Log in at <a href="{{ login_url }}">{{ login_url }}</a><br>
+Username: <strong>{{ affiliate.email }}</strong>, with the password you already use.</p>
+{% endif %}
+
+<p style="margin: 0 0 8px; font-weight: 700;">Your code</p>
+<p style="margin: 0 0 20px; font-size: 22px; letter-spacing: 2px;"><strong>{{ affiliate.code }}</strong></p>
+
+<p style="margin: 0 0 24px;"><a href="{{ portal_url }}" style="background-color: #2473c6; color: #ffffff; padding: 12px 22px; border-radius: 4px; text-decoration: none; font-weight: 700; display: inline-block;">Open your portal</a></p>
+
+<p style="margin: 0;">The portal has your code with a link your listeners can use, words for the show and the show notes, and the steps for your free audit. The audit starts once you connect Search Console.</p>
+{% endblock %}

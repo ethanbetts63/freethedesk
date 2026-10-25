@@ -2,7 +2,7 @@ import { apiFetch, createAuthedFetch, handleResponse } from '@freetheplatform/we
 
 export const AUTH_FAILURE_EVENT = 'auth-failure';
 
-export type Role = 'staff' | 'dealer' | 'seo' | 'customer' | 'none';
+export type Role = 'staff' | 'dealer' | 'seo' | 'affiliate' | 'customer' | 'none';
 export type DealerStatus = 'pending' | 'active' | 'suspended' | 'denied';
 
 export interface PrincipalDealer {
@@ -22,6 +22,7 @@ export interface Principal {
   role: Role;
   dealer: PrincipalDealer | null;
   seo: PrincipalSeo | null;
+  affiliate: PrincipalSeo | null;
   /** Set when the password was chosen by somebody other than its owner. The API
    * computes it; every portal sends them here until they have changed it. */
   must_change_password: boolean;
@@ -104,6 +105,7 @@ export function homeFor(user: Principal): string {
   if (user.must_change_password) return CHANGE_PASSWORD_PATH;
   if (user.role === 'staff') return '/dashboard/admin/enquiries';
   if (user.role === 'seo') return '/seo-portal';
+  if (user.role === 'affiliate') return '/affiliate-portal';
   if (user.role === 'customer') return '/dashboard/user';
   return '/portal';
 }
@@ -123,11 +125,19 @@ export interface PublicSiteSettings {
   website_large_pages: number;
   website_large_page_price: string;
   automation_from_price: string;
+  /** The podcast affiliate program: the listener's discount and the affiliate's share, whole percentages. */
+  affiliate_discount_percent: number;
+  affiliate_share_percent: number;
   updated_at: string;
 }
 
 /** The SiteSettings keys holding a whole number of hours or pages rather than a price. */
-export type CountField = 'discovery_hours' | 'website_small_pages' | 'website_large_pages';
+export type CountField =
+  | 'discovery_hours'
+  | 'website_small_pages'
+  | 'website_large_pages'
+  | 'affiliate_discount_percent'
+  | 'affiliate_share_percent';
 
 /** Every SiteSettings key holding a price (all but the counts and the timestamp). */
 export type PriceField = Exclude<keyof PublicSiteSettings, 'updated_at' | CountField>;

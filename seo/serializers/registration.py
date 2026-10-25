@@ -22,6 +22,11 @@ class SeoRegistrationSerializer(serializers.Serializer):
     email = bounds.email()
     phone = bounds.char("phone", required=False, allow_blank=True)
     website = bounds.url(required=False, allow_blank=True)
+    # An affiliate's code. Checked against the shared payments app by the view,
+    # once the signup exists to check it for.
+    discount_code = serializers.CharField(
+        max_length=60, required=False, allow_blank=True, default="", trim_whitespace=True
+    )
     plan = serializers.ChoiceField(
         choices=[(plan.value, plan.label) for plan in SeoSubscriber.SIGNUP_PLANS],
         default=SeoSubscriber.Plan.ESSENTIALS,

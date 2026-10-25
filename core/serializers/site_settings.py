@@ -14,6 +14,7 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
             "website_small_pages", "website_small_page_price",
             "website_large_pages", "website_large_page_price",
             "automation_from_price",
+            "affiliate_discount_percent", "affiliate_share_percent",
             "updated_at",
         ]
         read_only_fields = ["updated_at"]

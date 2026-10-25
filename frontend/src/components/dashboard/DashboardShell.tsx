@@ -3,6 +3,7 @@
 import {
   Inbox,
   Mail,
+  Mic,
   ReceiptText,
   Search,
   Settings,
@@ -29,6 +30,7 @@ const sections: DashboardNavSection[] = [
     items: [
       { href: '/dashboard/admin/dealers', label: 'Dealers', icon: <Store /> },
       { href: '/dashboard/admin/seo', label: 'SEO', icon: <Search /> },
+      { href: '/dashboard/admin/affiliates', label: 'Affiliates', icon: <Mic /> },
       { href: '/dashboard/admin/users', label: 'Users', icon: <Users /> },
     ],
   },

@@ -1,0 +1,11 @@
+New affiliate
+
+{{ affiliate.business_name }} has joined the affiliate program. Their free Plus audit is on the SEO list; it starts once they connect Search Console.
+
+Podcast:  {{ affiliate.business_name }}
+Host:     {{ affiliate.contact_name }}
+Email:    {{ affiliate.email }}
+Website:  {{ affiliate.website|default:"Not supplied" }}
+Code:     {{ affiliate.code }}
+
+Open this affiliate: {{ affiliate_url }}

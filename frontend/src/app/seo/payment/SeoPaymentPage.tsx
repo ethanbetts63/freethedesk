@@ -33,6 +33,8 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
   const [error, setError] = useState('');
   const [accountExists, setAccountExists] = useState(false);
   const [offerChanged, setOfferChanged] = useState(false);
+  const [discount, setDiscount] = useState<{ code: string; amount: string } | null>(null);
+  const [codeRefused, setCodeRefused] = useState('');
 
   useEffect(() => {
     if (started.current || !reference) return;
@@ -46,7 +48,10 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
         if (!stripeConfigured)
           throw new Error('Stripe is not configured yet. Add the publishable key to continue.');
         const session = await createSeoCheckout(reference);
-        setQuotedPrice(session.price);
+        // What Stripe charges: the list price less the affiliate code, if one applied.
+        setQuotedPrice(session.total || session.price);
+        if (session.discount_code && Number(session.discount_amount) > 0)
+          setDiscount({ code: session.discount_code, amount: session.discount_amount });
         setClientSecret(session.client_secret);
       })
       .catch((reason) => {
@@ -54,6 +59,8 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
           setAccountExists(true);
         } else if (reason instanceof ApiError && reason.payload?.code === 'offer_changed') {
           setOfferChanged(true);
+        } else if (reason instanceof ApiError && reason.payload?.code === 'discount') {
+          setCodeRefused(reason.message);
         } else {
           setError(
             reason instanceof ApiError && reason.status === 404
@@ -73,7 +80,16 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
   return (
     <CheckoutShell
       productName={productName}
-      order={plan && displayedPrice ? { price: displayedPrice, dueLabel: plan.cadence } : undefined}
+      order={
+        plan && displayedPrice
+          ? {
+              price: displayedPrice,
+              dueLabel: discount
+                ? `${plan.cadence} · ${discount.code} takes ${formatMoney(discount.amount, { cents: 'auto' })} off`
+                : plan.cadence,
+            }
+          : undefined
+      }
       features={plan?.features}
       nextSteps={NEXT_STEPS}
       changeHref="/seo#signup"
@@ -97,6 +113,13 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
           eyebrow="Terms updated"
           title="Our price or terms have changed."
           body="They changed after you signed up, so nothing can be charged on this link. Choose your audit again to see and agree to the current ones."
+          link={{ href: '/seo#signup', label: 'Choose an audit' }}
+        />
+      ) : codeRefused ? (
+        <CheckoutState
+          eyebrow="Code not accepted"
+          title="That affiliate code can't be used now."
+          body={`${codeRefused} Choose your audit again to continue without it.`}
           link={{ href: '/seo#signup', label: 'Choose an audit' }}
         />
       ) : checkout?.paid ? (
