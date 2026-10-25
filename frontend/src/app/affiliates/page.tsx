@@ -19,7 +19,6 @@ const sections = numberSections([
   'How it works',
   'What you earn',
   'What you recommend',
-  'Sign up',
   'Common questions',
 ] as const);
 
@@ -75,6 +74,8 @@ export default async function AffiliatesPage() {
         ariaLabel="The four steps of the affiliate program"
         steps={['Sign up', 'Read your audit', 'Share your code', 'Get paid']}
       />
+
+      <AffiliateSignup share={`${lowest.share} to ${highest.share}`} />
 
       <section className="py-section" aria-labelledby="how-title">
         <div className="site-shell">
@@ -147,16 +148,16 @@ export default async function AffiliatesPage() {
         action={<SampleReportLink />}
       />
 
-      <AffiliateSignup eyebrow={sections['Sign up']} />
-
       <FloatingPageCta
         label="Become an affiliate"
         href="#signup"
-        direction="down"
-        showAfterId="affiliates-hero-end"
-        hideAtId="signup-end"
+        direction="up"
+        // After the form, so it never sits over the submit button.
+        showAfterId="signup-end"
+        hideAtId="faq"
       />
 
+      <div id="faq" aria-hidden="true" />
       <FaqSection
         emitSchema
         eyebrow={sections['Common questions']}
