@@ -14,6 +14,19 @@ export type PitchVariant = 'payouts' | 'versus' | 'studio';
 
 const labelClassName = 'text-label font-strong tracking-label text-action-primary uppercase';
 
+function StudioImage() {
+  return (
+    <Image
+      src="/images/affiliates/studio.webp"
+      alt="A podcast studio: three microphones around a table, under an On Air sign"
+      width={1200}
+      height={800}
+      sizes="(min-width: 1024px) 60vw, 100vw"
+      className="block h-auto w-full"
+    />
+  );
+}
+
 /** A stack of payouts as they'd land: the money, made concrete. */
 function Payouts({ settings }: { settings: PublicSiteSettings }) {
   const earnings = affiliateEarnings(settings);
@@ -25,8 +38,9 @@ function Payouts({ settings }: { settings: PublicSiteSettings }) {
   ].filter((payout) => payout.code);
   return (
     <div className="flex flex-1 flex-col justify-center">
-      <p className={labelClassName}>What lands in your account</p>
-      <ul className="m-0 mt-m grid list-none gap-xs p-0">
+      <StudioImage />
+      <p className={`${labelClassName} mt-l`}>What lands in your account</p>
+      <ul className="m-0 mt-s grid list-none gap-xs p-0">
         {payouts.map((payout) => (
           <li
             key={payout.code}
@@ -66,8 +80,9 @@ function Versus({ settings }: { settings: PublicSiteSettings }) {
   const highest = earnings[earnings.length - 1];
   return (
     <div className="flex flex-1 flex-col justify-center">
-      <div className="grid grid-cols-1 gap-4xs bg-border-default sm:grid-cols-2">
-        <div className="bg-surface-page py-l pr-l">
+      <StudioImage />
+      <div className="mt-l grid grid-cols-1 gap-4xs bg-border-default sm:grid-cols-2">
+        <div className="bg-surface-page py-m pr-l">
           <Radio className="size-6 text-text-subtle" aria-hidden="true" />
           <p className="m-0 mt-m text-lead tracking-[-0.03em] text-text-muted">A sponsor read</p>
           <p className="m-0 mt-2xs text-body text-text-subtle">Paid once, per episode.</p>
@@ -75,7 +90,7 @@ function Versus({ settings }: { settings: PublicSiteSettings }) {
             <Coins className="size-7 text-text-subtle" />
           </div>
         </div>
-        <div className="bg-surface-page py-l sm:pl-l">
+        <div className="bg-surface-page py-m sm:pl-l">
           <Repeat className="size-6 text-text-action" aria-hidden="true" />
           <p className="m-0 mt-m text-lead tracking-[-0.03em] text-text-secondary">Your code</p>
           <p className="m-0 mt-2xs text-body text-text-muted">
@@ -105,14 +120,7 @@ function Studio({ settings }: { settings: PublicSiteSettings }) {
   const highest = earnings[earnings.length - 1];
   return (
     <div className="flex flex-1 flex-col justify-center">
-      <Image
-        src="/images/affiliates/studio.webp"
-        alt="A podcast studio: three microphones around a table, under an On Air sign"
-        width={1200}
-        height={800}
-        sizes="(min-width: 1024px) 60vw, 100vw"
-        className="block h-auto w-full"
-      />
+      <StudioImage />
       <h3 className={`${selectionHeadingClassName} mt-l`}>
         One mention. <span className="moving-colour-text">{highest.share}.</span>
       </h3>
