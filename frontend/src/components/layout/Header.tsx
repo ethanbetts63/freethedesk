@@ -5,8 +5,10 @@ import { PRIMARY_NAVIGATION } from '@/lib/siteConfig';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { Wordmark } from '@/components/Wordmark';
 import {
+  NAV_LINK,
   navCtaClassName,
   mobileNavCtaClassName,
+  mobileNavRowClassName,
   type NavItem,
 } from '@/components/layout/navigation';
 
@@ -40,16 +42,30 @@ export function Header() {
           Contact<span aria-hidden="true">&rarr;</span>
         </Link>
       }
+      // After the Contact button, plain: a new visitor has no account.
+      actions={
+        <Link href="/login" className={NAV_LINK.body}>
+          Login
+        </Link>
+      }
       mobileActions={
         <a href={PHONE_HREF} className={callClassName} aria-label={`Call ${PHONE_NUMBER}`}>
           <Phone className="size-5" aria-hidden="true" />
         </a>
       }
       mobileExtra={
-        <a href={PHONE_HREF} className={callRowClassName}>
-          <Phone className="size-5 shrink-0 text-text-action" aria-hidden="true" />
-          {PHONE_NUMBER}
-        </a>
+        <>
+          <Link href="/login" className={mobileNavRowClassName}>
+            Login
+            <span aria-hidden="true" className="text-text-action">
+              &rarr;
+            </span>
+          </Link>
+          <a href={PHONE_HREF} className={callRowClassName}>
+            <Phone className="size-5 shrink-0 text-text-action" aria-hidden="true" />
+            {PHONE_NUMBER}
+          </a>
+        </>
       }
     />
   );

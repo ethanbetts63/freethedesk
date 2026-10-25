@@ -25,9 +25,8 @@ export const PRIMARY_NAVIGATION = [
   { href: '/seo', label: 'SEO' },
   { href: '/automation', label: 'Automation' },
   { href: '/dealers', label: 'Dealerships' },
-  // Plain, not the filled button: a new visitor has no account. Contact is the
-  // header's CTA instead.
-  { href: '/login', label: 'Login' },
+  // Login is not here: the header puts it after the Contact button, plain, since
+  // a new visitor has no account and Contact is the CTA.
 ] as const;
 
 export const FOOTER_NAVIGATION = [
