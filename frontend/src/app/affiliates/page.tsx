@@ -12,6 +12,7 @@ import { numberSections } from '@/lib/sectionNumbers';
 import { getSiteSettingsServer } from '@/lib/serverApi';
 
 import { SampleReportLink } from '@/app/seo/_components/SampleReportLink';
+import { AffiliatePitch } from './_components/AffiliatePitch';
 import { AffiliateSignup } from './_components/AffiliateSignup';
 import { FREE_AUDIT_CODE, affiliateEarnings, affiliateFaqs } from './_lib/copy';
 
@@ -75,7 +76,18 @@ export default async function AffiliatesPage() {
         steps={['Sign up', 'Read your audit', 'Share your code', 'Get paid']}
       />
 
-      <AffiliateSignup share={`${lowest.share} to ${highest.share}`} />
+      {/* Three candidate left halves, side by side to compare; one stays. */}
+      <AffiliateSignup pitch={<AffiliatePitch variant="figure" settings={settings} />} />
+      <AffiliateSignup
+        id="signup-ladder"
+        endId="signup-ladder-end"
+        pitch={<AffiliatePitch variant="ladder" settings={settings} />}
+      />
+      <AffiliateSignup
+        id="signup-code"
+        endId="signup-code-end"
+        pitch={<AffiliatePitch variant="code" settings={settings} />}
+      />
 
       <section className="py-section" aria-labelledby="how-title">
         <div className="site-shell">

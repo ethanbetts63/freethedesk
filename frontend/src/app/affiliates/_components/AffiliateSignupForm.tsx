@@ -1,6 +1,6 @@
 'use client';
 
-import { type FormEvent, startTransition, useActionState, useEffect } from 'react';
+import { type FormEvent, type ReactNode, startTransition, useActionState, useEffect } from 'react';
 
 import { SelectionFormPanel } from '@/components/forms/SelectionFormPanel';
 import {
@@ -18,59 +18,11 @@ import { submitAffiliateSignup, type AffiliateSignupState } from './AffiliateSig
 
 const initialState: AffiliateSignupState = { status: 'idle' };
 
-/** The left half of the panel: there is nothing to choose, so it sells the sign-up instead. */
-const AFTER_SIGNUP = [
-  {
-    title: 'We email you',
-    body: 'Within two working days, with the one or two things we need to start your audit.',
-  },
-  {
-    title: 'You read your audit',
-    body: 'The same report your listeners would get, about your own site. Decide if it’s something you’d put your name to.',
-  },
-  {
-    title: 'You get your code',
-    body: 'A code and a link to share however suits your show. Every audit bought with it is yours.',
-  },
-];
-
-function Pitch({ share }: { share: string }) {
-  return (
-    <>
-      <h3 className={selectionHeadingClassName}>
-        Your audit is <span className="moving-colour-text">on us.</span>
-      </h3>
-      <p className="m-0 mt-m text-body leading-relaxed text-text-muted">
-        Sign up and we write your audit free, so you know exactly what you&apos;re recommending.
-        Then every audit a listener buys with your code pays you {share}.
-      </p>
-      <ol className="m-0 mt-xl list-none p-0">
-        {AFTER_SIGNUP.map((step, index) => (
-          <li
-            key={step.title}
-            className="grid grid-cols-[auto_minmax(0,1fr)] gap-m border-t border-border-subtle py-m"
-          >
-            <span className="text-label font-black tracking-label-wide text-action-primary">
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <div>
-              <h4 className="m-0 mb-4xs text-lead tracking-[-0.025em] text-text-secondary">
-                {step.title}
-              </h4>
-              <p className="m-0 text-body leading-relaxed text-text-muted">{step.body}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </>
-  );
-}
-
 /**
  * The affiliate sign-up, drawn like the service pages' order forms: the pitch on the left where
- * the packages would be, the details on the right. Five fields, one submit.
+ * the packages would be, the details on the right. Four fields, one submit.
  */
-export function AffiliateSignupForm({ share }: { share: string }) {
+export function AffiliateSignupForm({ pitch }: { pitch: ReactNode }) {
   const [state, dispatch, isPending] = useActionState(submitAffiliateSignup, initialState);
 
   useEffect(() => {
@@ -85,7 +37,7 @@ export function AffiliateSignupForm({ share }: { share: string }) {
   };
 
   return (
-    <SelectionFormPanel onSubmit={onSubmit} chooser={<Pitch share={share} />}>
+    <SelectionFormPanel onSubmit={onSubmit} chooser={pitch}>
       {state.status === 'success' ? (
         <div role="status">
           <span
