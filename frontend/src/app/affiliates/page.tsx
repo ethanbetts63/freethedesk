@@ -77,16 +77,16 @@ export default async function AffiliatesPage() {
       />
 
       {/* Three candidate left halves, side by side to compare; one stays. */}
-      <AffiliateSignup pitch={<AffiliatePitch variant="figure" settings={settings} />} />
+      <AffiliateSignup pitch={<AffiliatePitch variant="payouts" settings={settings} />} />
       <AffiliateSignup
-        id="signup-ladder"
-        endId="signup-ladder-end"
-        pitch={<AffiliatePitch variant="ladder" settings={settings} />}
+        id="signup-versus"
+        endId="signup-versus-end"
+        pitch={<AffiliatePitch variant="versus" settings={settings} />}
       />
       <AffiliateSignup
-        id="signup-code"
-        endId="signup-code-end"
-        pitch={<AffiliatePitch variant="code" settings={settings} />}
+        id="signup-studio"
+        endId="signup-studio-end"
+        pitch={<AffiliatePitch variant="studio" settings={settings} />}
       />
 
       <section className="py-section" aria-labelledby="how-title">
