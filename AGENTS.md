@@ -32,6 +32,7 @@ its agreements and messaging capabilities.
 | Personal data                                                    | `_docs/pii_inventory.md`                                                    |
 | Any form (new, edited, or converted)                             | `../freetheplatform/_docs/forms-standard.md` and `_docs/forms-migration.md` |
 | Metadata, structured data, sitemap, robots, or indexation policy | `../freetheplatform/_docs/seo-standard.md` — read its sourcing rule first   |
+| Podcast affiliate outreach (scrape, upload, pitch cron, dashboard)   | `_docs/affiliate-outreach.md` and `_docs/affiliate-pitch/README.md`         |
 | Files under `frontend/`                                          | `frontend/AGENTS.md` in addition to this file                               |
 
 Read only the documents relevant to the issue; do not load the whole `_docs`

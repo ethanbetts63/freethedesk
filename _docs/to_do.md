@@ -82,3 +82,12 @@ Nothing yet issues an affiliate a code or counts a sale against it. The page pro
 - The listener discount is 20% (decided 2026-10-24); the page and the pitch emails say so, so the Stripe promotion code must match.
 - An affiliate record (name, email, podcast, code, Stripe account for payouts), created when a sign-up is accepted, and a Stripe promotion code per affiliate on the SEO checkout (`allow_promotion_codes` on the one-off session).
 - A commission row per paid audit carrying an affiliate's code, half the price, and a monthly Stripe transfer. Bloomprint's `partners` app (discount codes, commissions) is the model.
+
+## Podcast outreach: owner's steps before the cron is enabled
+
+Added 2026-10-25. The plan is `_docs/affiliate-outreach.md`; nothing is built yet. When it is:
+
+- Set `INTERNAL_API_KEY` (32 or more random characters) in the PythonAnywhere environment and the local `.env`, and `API_SERVER_URL=https://www.freethedesk.com.au` locally. The upload command posts prospects with it.
+- Add two hourly PythonAnywhere scheduled tasks: `python manage.py send_due_messages` (not yet scheduled for freethedesk as far as the docs record) and `python manage.py send_podcast_pitches --count 5`.
+- Upload one test prospect addressed to yourself, read all three versions in a mail client, then enable the cron.
+
