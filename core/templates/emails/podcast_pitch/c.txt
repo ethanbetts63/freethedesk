@@ -6,11 +6,11 @@ Hi {{ first_name|default:"there" }},
 
 I'd like to offer you two things:
 
-1. A free audit of your website, so you can recommend us from experience. Sign up on the partner page and I'll write one, no strings. It's the same audit customers pay {{ free_audit_price }} for.
+1. A free audit of your website, so you can recommend us from experience. Sign up on the affiliate page and I'll write one, no strings. It's the same audit customers pay {{ free_audit_price }} for.
 
 2. Half of every audit your listeners buy. You get a code, your listeners get {{ discount }} off, and you get 50% of each sale: {{ commission_low }} to {{ commission_high }} an audit, paid out through Stripe.
 
-If you're keen, search "freethedesk partners" and sign up on the page that comes up. I'd put a link here, but you really shouldn't click links in strange emails. The whole process is explained on the page, it takes a minute, and there's a sample report on the site so you can see what you'd be recommending.
+If you're keen, search "freethedesk affiliates" and sign up on the page that comes up. I'd put a link here, but you really shouldn't click links in strange emails. The whole process is explained on the page, it takes a minute, and there's a sample report on the site so you can see what you'd be recommending.
 
 {{ sender_name }}
 

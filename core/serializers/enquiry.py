@@ -81,10 +81,10 @@ class ProjectEnquirySerializer(serializers.Serializer):
         )
 
 
-class PartnerSignupSerializer(serializers.Serializer):
-    """A podcast host joining the partner program on /partners.
+class AffiliateSignupSerializer(serializers.Serializer):
+    """A podcast host joining the affiliate program on /affiliates.
 
-    It lands as an enquiry rather than a partner record because the program is
+    It lands as an enquiry rather than an affiliate record because the program is
     run by hand for now: staff write the free audit, set up the code and reply.
     The podcast is the ``business`` and the site to audit is the ``website``.
     """
@@ -97,7 +97,7 @@ class PartnerSignupSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         notes = validated_data["notes"].strip()
-        message = "Podcast partner signup."
+        message = "Podcast affiliate signup."
         if notes:
             message = f"{message}\n\nNotes:\n{notes}"
         return Enquiry.objects.create(
@@ -105,7 +105,7 @@ class PartnerSignupSerializer(serializers.Serializer):
             business=validated_data["podcast"],
             email=validated_data["email"],
             website=validated_data["website"],
-            help_with=Enquiry.HelpWith.PARTNER,
+            help_with=Enquiry.HelpWith.AFFILIATE,
             message=message,
             configuration={"podcast": validated_data["podcast"]},
         )

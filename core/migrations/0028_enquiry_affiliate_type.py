@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='enquiry',
             name='help_with',
-            field=models.CharField(choices=[('website', 'Website'), ('automation', 'Business automation'), ('ai_readiness', 'AI readiness check'), ('everything', 'Website and automation'), ('seo', 'SEO audit'), ('partner', 'Podcast partner')], max_length=20),
+            field=models.CharField(choices=[('website', 'Website'), ('automation', 'Business automation'), ('ai_readiness', 'AI readiness check'), ('everything', 'Website and automation'), ('seo', 'SEO audit'), ('affiliate', 'Podcast affiliate')], max_length=20),
         ),
     ]

@@ -1,4 +1,4 @@
-FREETHEDESK PODCAST PARTNER PROGRAM
+FREETHEDESK PODCAST AFFILIATE PROGRAM
 
 Earn {{ commission_low }} or more every time a listener buys an audit.
 
@@ -8,7 +8,7 @@ Your listeners run businesses. Our audits show a business where it appears on Go
 
 HOW IT WORKS
 
-1. Sign up. On the partner page, it takes a minute.
+1. Sign up. On the affiliate page, it takes a minute.
 2. Get your free audit. We write one for your business, on us.
 3. Advertise. Listeners get {{ discount }} off, you get half of every sale ({{ commission_low }} to {{ commission_high }} an audit, paid through Stripe).
 
@@ -23,7 +23,7 @@ Read the sample report: {{ site_url }}/seo/sample-report
 
 SIGN UP AND GET A FREE AUDIT
 
-Sign up as a partner: {{ site_url }}/partners
+Sign up as an affiliate: {{ site_url }}/affiliates
 It takes a minute, and your audit is the first thing we do.
 
 --

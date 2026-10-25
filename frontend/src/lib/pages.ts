@@ -157,10 +157,10 @@ export const STATIC_PAGES = {
       'A two-sided flower delivery marketplace: brief-led ordering for customers, paid local orders for florists, and landing pages built to be found.',
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
-  '/partners': {
-    updated: '2026-10-24',
-    label: 'Podcast partners',
-    title: 'Podcast Partner Program: Earn Half of Every SEO Audit',
+  '/affiliates': {
+    updated: '2026-10-25',
+    label: 'Podcast affiliates',
+    title: 'Podcast Affiliate Program: Earn Half of Every SEO Audit',
     description:
       'Recommend freethedesk SEO audits to your listeners and earn 50% of every audit sold with your code. Your own audit is free. Sign up in a minute.',
   },

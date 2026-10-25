@@ -13,9 +13,9 @@ import {
 } from '@/components/forms/selectionFormClassNames';
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { trackEvent } from '@/lib/analytics';
-import { submitPartnerSignup, type PartnerSignupState } from './PartnerSignupForm.actions';
+import { submitAffiliateSignup, type AffiliateSignupState } from './AffiliateSignupForm.actions';
 
-const initialState: PartnerSignupState = { status: 'idle' };
+const initialState: AffiliateSignupState = { status: 'idle' };
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -33,12 +33,13 @@ function SubmitButton() {
   );
 }
 
-/** The podcast partner sign-up: five fields, one submit. The section around it renders on the server. */
-export function PartnerSignupForm() {
-  const [state, formAction] = useActionState(submitPartnerSignup, initialState);
+/** The podcast affiliate sign-up: five fields, one submit. The section around it renders on the server. */
+export function AffiliateSignupForm() {
+  const [state, formAction] = useActionState(submitAffiliateSignup, initialState);
 
   useEffect(() => {
-    if (state.status === 'success') trackEvent('generate_lead', { lead_source: 'partner_signup' });
+    if (state.status === 'success')
+      trackEvent('generate_lead', { lead_source: 'affiliate_signup' });
   }, [state]);
 
   if (state.status === 'success') {

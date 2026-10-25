@@ -1,6 +1,6 @@
 import { SectionHeader } from '@/components/SectionHeader';
 
-import { PartnerSignupForm } from './PartnerSignupForm';
+import { AffiliateSignupForm } from './AffiliateSignupForm';
 
 const AFTER_SIGNUP = [
   {
@@ -18,7 +18,7 @@ const AFTER_SIGNUP = [
 ];
 
 /** The sign-up section: what happens next on the left, the form on the right. */
-export function PartnerSignup({ eyebrow }: { eyebrow: string }) {
+export function AffiliateSignup({ eyebrow }: { eyebrow: string }) {
   return (
     <section
       id="signup"
@@ -55,7 +55,7 @@ export function PartnerSignup({ eyebrow }: { eyebrow: string }) {
           </ol>
         </div>
         <div className="border border-border-default bg-surface-page p-xl sm:p-2xl">
-          <PartnerSignupForm />
+          <AffiliateSignupForm />
         </div>
       </div>
       <span id="signup-end" aria-hidden="true" className="block" />

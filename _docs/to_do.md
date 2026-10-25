@@ -69,16 +69,16 @@ Added 2026-10-19. Owner's step. Search report r4, rec 9 (contact-page-call-and-c
 
 Added 2026-10-22. `core/tests/test_read_api.py::test_every_dealers_sales_are_read_and_their_credentials_are_not` passes on its own and fails with `KeyError: 'models'` when run after `sales seo payments core identity dealers`: `/api/read/models/` answers something other than the model list, most likely a throttle or cache left over from an earlier test. It fails the same way without the 2026-10-22 shared-code change, so it predates it.
 
-## A marketing email address for the podcast partner outreach
+## A marketing email address for the podcast affiliate outreach
 
-Added 2026-10-24. Owner's step. The podcast partner pitch templates (`core/templates/emails/podcast_pitch/`, explained in `_docs/affiliate-pitch/README.md`) need a dedicated sending address on the freethedesk.com.au domain, not the Gmail account Bloomprint's outreach used, with SPF and DKIM set up so cold email lands in inboxes. Neither footer carries a postal address, which US spam law (CAN-SPAM) asks for; cut on 2026-10-24, the owner's call. The listener discount is decided: 20%, passed to the templates as `discount`. The commission needs no decision: audits are bought once, so half of each sale is paid once.
+Added 2026-10-24. Owner's step. The podcast affiliate pitch templates (`core/templates/emails/podcast_pitch/`, explained in `_docs/affiliate-pitch/README.md`) need a dedicated sending address on the freethedesk.com.au domain, not the Gmail account Bloomprint's outreach used, with SPF and DKIM set up so cold email lands in inboxes. Neither footer carries a postal address, which US spam law (CAN-SPAM) asks for; cut on 2026-10-24, the owner's call. The listener discount is decided: 20%, passed to the templates as `discount`. The commission needs no decision: audits are bought once, so half of each sale is paid once.
 
-## Deploy the podcast partner page, then build the code behind it
+## Deploy the podcast affiliate page, then build the code behind it
 
-Added 2026-10-24. Owner's steps. `/partners` and its sign-up (`core` 0028, the "Podcast partner" enquiry type, `POST /api/partner-signups/`) are committed and not pushed. On deploy: `migrate` for `core` 0028, then open https://www.freethedesk.com.au/partners and send one test sign-up; it should arrive as an enquiry on the dashboard and as the staff email.
+Added 2026-10-24. Owner's steps. `/affiliates` and its sign-up (`core` 0028, the "Podcast affiliate" enquiry type, `POST /api/affiliate-signups/`) are committed and not pushed. On deploy: `migrate` for `core` 0028, then open https://www.freethedesk.com.au/affiliates and send one test sign-up; it should arrive as an enquiry on the dashboard and as the staff email.
 
-Nothing yet issues a partner a code or counts a sale against it. The page promises a code entered at checkout, a listener discount and a 50% payout through Stripe, so before the first pitch email goes out:
+Nothing yet issues an affiliate a code or counts a sale against it. The page promises a code entered at checkout, a listener discount and a 50% payout through Stripe, so before the first pitch email goes out:
 
 - The listener discount is 20% (decided 2026-10-24); the page and the pitch emails say so, so the Stripe promotion code must match.
-- A partner record (name, email, podcast, code, Stripe account for payouts), created when a sign-up is accepted, and a Stripe promotion code per partner on the SEO checkout (`allow_promotion_codes` on the one-off session).
-- A commission row per paid audit carrying a partner's code, half the price, and a monthly Stripe transfer. Bloomprint's `partners` app (discount codes, commissions) is the model.
+- An affiliate record (name, email, podcast, code, Stripe account for payouts), created when a sign-up is accepted, and a Stripe promotion code per affiliate on the SEO checkout (`allow_promotion_codes` on the one-off session).
+- A commission row per paid audit carrying an affiliate's code, half the price, and a monthly Stripe transfer. Bloomprint's `partners` app (discount codes, commissions) is the model.

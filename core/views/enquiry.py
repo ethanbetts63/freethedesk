@@ -9,7 +9,7 @@ from ..models import Enquiry
 from ..serializers import (
     AdminEnquirySerializer,
     AiReadinessEnquirySerializer,
-    PartnerSignupSerializer,
+    AffiliateSignupSerializer,
     ProjectEnquirySerializer,
 )
 from ..utils.notifications import notify_admin_of_enquiry
@@ -43,8 +43,8 @@ def create_project_enquiry(request):
 @api_view(["POST"])
 @permission_classes([AllowAny])
 @throttle_classes([EnquiryRateThrottle])
-def create_partner_signup(request):
-    serializer = PartnerSignupSerializer(data=request.data)
+def create_affiliate_signup(request):
+    serializer = AffiliateSignupSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     enquiry = serializer.save()
     notify_admin_of_enquiry(enquiry)

@@ -12,8 +12,8 @@ import { numberSections } from '@/lib/sectionNumbers';
 import { getSiteSettingsServer } from '@/lib/serverApi';
 
 import { SampleReportLink } from '@/app/seo/_components/SampleReportLink';
-import { PartnerSignup } from './_components/PartnerSignup';
-import { FREE_AUDIT_CODE, partnerEarnings, partnerFaqs } from './_lib/copy';
+import { AffiliateSignup } from './_components/AffiliateSignup';
+import { FREE_AUDIT_CODE, affiliateEarnings, affiliateFaqs } from './_lib/copy';
 
 const sections = numberSections([
   'How it works',
@@ -23,14 +23,14 @@ const sections = numberSections([
   'Common questions',
 ] as const);
 
-export const metadata: Metadata = metadataFor('/partners');
+export const metadata: Metadata = metadataFor('/affiliates');
 
 /* The earnings come from the admin's prices, so this page renders per request. */
 export const dynamic = 'force-dynamic';
 
-export default async function PartnersPage() {
+export default async function AffiliatesPage() {
   const settings = await getSiteSettingsServer();
-  const earnings = partnerEarnings(settings);
+  const earnings = affiliateEarnings(settings);
   const free = earnings.find((earning) => earning.code === FREE_AUDIT_CODE) ?? earnings[0];
   const lowest = earnings[0];
   const highest = earnings[earnings.length - 1];
@@ -56,23 +56,23 @@ export default async function PartnersPage() {
 
   return (
     <main className="bg-surface-page text-text-secondary">
-      <PageSchema path="/partners" />
+      <PageSchema path="/affiliates" />
       <Hero
-        path="/partners"
-        eyebrow="Podcast partner program"
+        path="/affiliates"
+        eyebrow="Podcast affiliate program"
         titleLines={['Recommend an SEO audit.']}
         accentTitle="Keep half."
         lead="Your listeners run businesses. Recommend our SEO audits with your code and keep 50% of every one sold. Your own audit is free, so you know exactly what you're recommending."
         primaryHref="#signup"
-        primaryLabel="Become a partner"
+        primaryLabel="Become an affiliate"
         secondaryHref="/seo/sample-report"
         secondaryLabel="See a free sample report"
         trustLine="Free audit for you · 50% of every sale · Paid through Stripe"
       />
 
       <ProcessStepsBar
-        id="partners-hero-end"
-        ariaLabel="The four steps of the partner program"
+        id="affiliates-hero-end"
+        ariaLabel="The four steps of the affiliate program"
         steps={['Sign up', 'Read your audit', 'Share your code', 'Get paid']}
       />
 
@@ -147,21 +147,21 @@ export default async function PartnersPage() {
         action={<SampleReportLink />}
       />
 
-      <PartnerSignup eyebrow={sections['Sign up']} />
+      <AffiliateSignup eyebrow={sections['Sign up']} />
 
       <FloatingPageCta
-        label="Become a partner"
+        label="Become an affiliate"
         href="#signup"
         direction="down"
-        showAfterId="partners-hero-end"
+        showAfterId="affiliates-hero-end"
         hideAtId="signup-end"
       />
 
       <FaqSection
         emitSchema
         eyebrow={sections['Common questions']}
-        title="Partner questions."
-        items={partnerFaqs(settings)}
+        title="Affiliate questions."
+        items={affiliateFaqs(settings)}
       />
     </main>
   );

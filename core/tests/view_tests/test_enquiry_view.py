@@ -130,9 +130,9 @@ def test_an_seo_audit_enquiry_needs_no_budget(api_client):
     assert enquiry.message == "SEO audit enquiry."
 
 
-def test_a_partner_signup_is_an_enquiry_about_the_podcast(api_client, outbox):
+def test_a_affiliate_signup_is_an_enquiry_about_the_podcast(api_client, outbox):
     response = api_client.post(
-        "/api/partner-signups/",
+        "/api/affiliate-signups/",
         {
             "name": "Sam Host",
             "email": "sam@example.com.au",
@@ -145,18 +145,18 @@ def test_a_partner_signup_is_an_enquiry_about_the_podcast(api_client, outbox):
 
     assert response.status_code == 201
     enquiry = Enquiry.objects.get()
-    assert enquiry.help_with == Enquiry.HelpWith.PARTNER
+    assert enquiry.help_with == Enquiry.HelpWith.AFFILIATE
     assert enquiry.name == "Sam Host"
     assert enquiry.business == "The Tradie Show"
     assert enquiry.website == "https://www.thetradieshow.com.au"
     assert enquiry.configuration == {"podcast": "The Tradie Show"}
-    assert enquiry.message == "Podcast partner signup.\n\nNotes:\nShow notes and a mention each episode."
+    assert enquiry.message == "Podcast affiliate signup.\n\nNotes:\nShow notes and a mention each episode."
     assert len(outbox) == 1
 
 
-def test_a_partner_signup_needs_the_podcast_and_a_site_to_audit(api_client):
+def test_a_affiliate_signup_needs_the_podcast_and_a_site_to_audit(api_client):
     response = api_client.post(
-        "/api/partner-signups/",
+        "/api/affiliate-signups/",
         {"name": "Sam Host", "email": "sam@example.com.au", "podcast": "", "website": ""},
         format="json",
     )

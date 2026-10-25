@@ -4,35 +4,35 @@ import type { FaqItem } from '@/types/FaqItem';
 
 import { buildSeoPlans } from '@/app/seo/_lib/plans';
 
-/** The share a partner keeps of each audit sold with their code. */
-export const PARTNER_SHARE = 0.5;
+/** The share an affiliate keeps of each audit sold with their code. */
+export const AFFILIATE_SHARE = 0.5;
 
-/** The audit a partner gets free: the recommended one. */
+/** The audit an affiliate gets free: the recommended one. */
 export const FREE_AUDIT_CODE = 'plus';
 
-export interface PartnerEarning {
+export interface AffiliateEarning {
   code: string;
   name: string;
   /** What the listener pays. */
   price: string;
-  /** What the partner keeps of it. */
+  /** What the affiliate keeps of it. */
   share: string;
 }
 
-/** Each audit beside the partner's half of it, from the prices the admin has set. */
-export function partnerEarnings(settings: PublicSiteSettings): PartnerEarning[] {
+/** Each audit beside the affiliate's half of it, from the prices the admin has set. */
+export function affiliateEarnings(settings: PublicSiteSettings): AffiliateEarning[] {
   return buildSeoPlans(settings).map((plan) => ({
     code: plan.code,
     name: plan.name,
     price: plan.price,
-    share: formatMoney(Number(settings[`seo_${plan.code}_price`]) * PARTNER_SHARE, {
+    share: formatMoney(Number(settings[`seo_${plan.code}_price`]) * AFFILIATE_SHARE, {
       cents: 'auto',
     }),
   }));
 }
 
-export function partnerFaqs(settings: PublicSiteSettings): FaqItem[] {
-  const earnings = partnerEarnings(settings);
+export function affiliateFaqs(settings: PublicSiteSettings): FaqItem[] {
+  const earnings = affiliateEarnings(settings);
   const byCode = Object.fromEntries(earnings.map((earning) => [earning.code, earning]));
   const lowest = earnings[0];
   const highest = earnings[earnings.length - 1];

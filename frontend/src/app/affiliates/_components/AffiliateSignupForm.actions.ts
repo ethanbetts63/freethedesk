@@ -1,26 +1,26 @@
 'use server';
 
 import { SERVER_API_BASE_URL } from '@/lib/serverApi';
-import { partnerSignupSchema } from './PartnerSignupForm.schema';
+import { affiliateSignupSchema } from './AffiliateSignupForm.schema';
 
-export interface PartnerSignupState {
+export interface AffiliateSignupState {
   status: 'idle' | 'success' | 'error';
   error?: string;
 }
 
 const FAILURE_MESSAGE = 'We could not send that. Please try again.';
 
-export async function submitPartnerSignup(
-  _prev: PartnerSignupState,
+export async function submitAffiliateSignup(
+  _prev: AffiliateSignupState,
   formData: FormData,
-): Promise<PartnerSignupState> {
-  const parsed = partnerSignupSchema.safeParse(Object.fromEntries(formData));
+): Promise<AffiliateSignupState> {
+  const parsed = affiliateSignupSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
     return { status: 'error', error: parsed.error.issues[0]?.message ?? FAILURE_MESSAGE };
   }
 
   try {
-    const response = await fetch(`${SERVER_API_BASE_URL}/api/partner-signups/`, {
+    const response = await fetch(`${SERVER_API_BASE_URL}/api/affiliate-signups/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(parsed.data),

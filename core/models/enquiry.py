@@ -10,8 +10,8 @@ class Enquiry(models.Model):
         AI_READINESS = "ai_readiness", "AI readiness check"
         EVERYTHING = "everything", "Website and automation"
         SEO = "seo", "SEO audit"
-        # A podcast host signing up to the partner program on /partners.
-        PARTNER = "partner", "Podcast partner"
+        # A podcast host signing up to the affiliate program on /affiliates.
+        AFFILIATE = "affiliate", "Podcast affiliate"
 
     class Status(models.TextChoices):
         NEW = "new", "New"

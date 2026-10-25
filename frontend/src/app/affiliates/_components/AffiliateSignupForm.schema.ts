@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { normaliseWebsiteUrl } from '@/lib/api';
 
-export const partnerSignupSchema = z.object({
+export const affiliateSignupSchema = z.object({
   name: requiredString('name', 'Your name is required.'),
   email: email({ required: 'Email is required.' }),
   podcast: requiredString('business_name', "Your podcast's name is required."),
@@ -20,4 +20,4 @@ export const partnerSignupSchema = z.object({
   notes: z.string().trim().max(FIELD_MAX.note).optional().default(''),
 });
 
-export type PartnerSignupValues = z.infer<typeof partnerSignupSchema>;
+export type AffiliateSignupValues = z.infer<typeof affiliateSignupSchema>;
