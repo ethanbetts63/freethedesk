@@ -15,7 +15,6 @@ Read a free sample report: {{ site_url }}/seo/sample-report
 If you're keen, sign up on the partner page and I'll get started on your audit. The whole process is explained there, and it takes a minute: {{ site_url }}/partners
 
 {{ sender_name }}
-freethedesk · Perth, Western Australia · {{ site_url }}
 
 --
 Unsubscribe and we won't write again: {{ unsubscribe_url }}
