@@ -7,7 +7,6 @@ import {
   fieldInputClassName,
   fieldLabelClassName,
   fieldLabelSpanClassName,
-  fieldTextareaClassName,
   formErrorClassName,
   formTitleClassName,
   selectionHeadingClassName,
@@ -131,10 +130,10 @@ export function AffiliateSignupForm({ share }: { share: string }) {
             />
           </label>
           <label className={fieldLabelClassName}>
-            <span className={fieldLabelSpanClassName}>Your podcast</span>
+            <span className={fieldLabelSpanClassName}>Business name</span>
             <input
               className={fieldInputClassName}
-              name="podcast"
+              name="business"
               type="text"
               autoComplete="organization"
               placeholder="e.g. The Tradie Show"
@@ -142,7 +141,7 @@ export function AffiliateSignupForm({ share }: { share: string }) {
             />
           </label>
           <label className={fieldLabelClassName}>
-            <span className={fieldLabelSpanClassName}>The website to audit</span>
+            <span className={fieldLabelSpanClassName}>Your website (optional)</span>
             {/* Not type="url": it rejects a scheme-less host before the schema adds one. */}
             <input
               className={fieldInputClassName}
@@ -150,18 +149,7 @@ export function AffiliateSignupForm({ share }: { share: string }) {
               type="text"
               inputMode="url"
               autoComplete="url"
-              placeholder="Your business, or the podcast's own site"
-              required
-            />
-          </label>
-          <label className={fieldLabelClassName}>
-            <span className={fieldLabelSpanClassName}>Notes (optional)</span>
-            <textarea
-              className={fieldTextareaClassName}
-              name="notes"
-              rows={3}
-              maxLength={2000}
-              placeholder="e.g. Who listens, and where you'd mention the code."
+              placeholder="e.g. www.yoursite.com"
             />
           </label>
           {state.status === 'error' && (
