@@ -120,14 +120,6 @@ export default function AffiliatePortalAccountPage() {
               </small>
             </label>
             <label className={adminFormLabelClassName}>
-              Code
-              <input className={adminFormControlClassName} value={account.code} disabled />
-              <small className="mt-2xs block text-label leading-normal font-normal text-text-subtle">
-                Made from your podcast&apos;s name when you joined. Listeners already have it, so it
-                stays as it is.
-              </small>
-            </label>
-            <label className={adminFormLabelClassName}>
               Email
               <input className={adminFormControlClassName} value={account.email} disabled />
               <small className="mt-2xs block text-label leading-normal font-normal text-text-subtle">
