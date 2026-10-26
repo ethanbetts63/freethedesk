@@ -1,13 +1,3 @@
-/**
- * The sample report's content. The business, its address, its site and every
- * figure here are invented: Wattle & Wrench Plumbing does not exist, the
- * domain uses the reserved `.example` suffix, and the phone number is from
- * the range ACMA sets aside for fiction. What is real is the shape: the kinds
- * of recommendation, the experiments, and the questions the data analysis
- * asks, all modelled on delivered reports. It is a Complete audit, so it reads
- * every source. No client's figures, names or documents are used.
- */
-
 export const BUSINESS = {
   name: 'Wattle & Wrench',
   fullName: 'Wattle & Wrench Plumbing',

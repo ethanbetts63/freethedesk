@@ -23,7 +23,7 @@ export function SetupChecklist({
 }: {
   kicker?: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   /** Anything to say between the status notice and the steps. */
   intro?: ReactNode;
 }) {

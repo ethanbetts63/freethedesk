@@ -86,7 +86,7 @@ export default function AffiliatePortalAccountPage() {
           <h2 className={cardTitleClassName}>Your podcast</h2>
           <form className={adminFormClassName} action={formAction}>
             <label className={adminFormLabelClassName}>
-              Podcast or business name
+              Podcast or Socials
               <input
                 className={adminFormControlClassName}
                 name="business_name"

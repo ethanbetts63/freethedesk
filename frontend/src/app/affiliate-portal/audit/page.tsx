@@ -13,9 +13,8 @@ export default function AffiliatePortalAuditPage() {
   return (
     <SetupChecklist
       title="Your free audit"
-      subtitle="The Plus audit, about your own website, free. Give us read-only access to your tools and we write it. Search Console is all we need to start; the rest make it better."
       intro={
-        <p className="m-0 text-body-sm text-text-muted">
+        <p className="mb-l text-body text-text-muted">
           Someone else looks after your site? Send them{' '}
           <a
             className={cardLinkClassName}

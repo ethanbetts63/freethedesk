@@ -16,7 +16,7 @@ export function AffiliateIntroduction() {
       />
       <p className="m-0 max-w-[62ch] lg:mx-auto text-lead leading-relaxed text-text-muted">
         A plumber, a florist, a physio: each one has a website that could do more. Your code gets
-        them an audit at 20% off, and half of what they pay comes to you.
+        them an audit at 20% off.
       </p>
     </section>
   );
