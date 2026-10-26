@@ -7,7 +7,7 @@ from django.core.management import call_command
 from freetheplatform.messaging import Message, Suppression, suppress
 
 from affiliates.tests.factories import AffiliateFactory
-from affiliates.management.commands import send_podcast_pitches as command
+from affiliates.management.commands import send_affiliate_outreach as command
 from affiliates.models import PodcastProspect
 from affiliates.tests.factories import ProspectFactory
 
@@ -25,7 +25,7 @@ def run(*args, now=None, monkeypatch=None):
     if now is not None:
         monkeypatch.setattr(command.timezone, "now", lambda: now)
     out = StringIO()
-    call_command("send_podcast_pitches", *args, stdout=out, stderr=out)
+    call_command("send_affiliate_outreach", *args, stdout=out, stderr=out)
     return out.getvalue()
 
 

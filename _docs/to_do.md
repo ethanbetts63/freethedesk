@@ -92,7 +92,7 @@ The upload needs migration `affiliates.0003_prospect_relevance` deployed first, 
 server rejects every entry's `relevance`. Then:
 
 - Set `INTERNAL_API_KEY` (32 or more random characters) in the PythonAnywhere environment and the local `.env`, and `API_SERVER_URL=https://www.freethedesk.com.au` locally. The upload command posts prospects with it.
-- Add two hourly PythonAnywhere scheduled tasks: `python manage.py send_due_messages` (not yet scheduled for freethedesk as far as the docs record) and `python manage.py send_podcast_pitches` (three an hour by default).
+- Add two hourly PythonAnywhere scheduled tasks: `python manage.py send_due_messages` (not yet scheduled for freethedesk as far as the docs record) and `python manage.py send_affiliate_outreach` (three an hour by default).
 - Upload one test prospect addressed to yourself, read all three versions in a mail client, then enable the cron.
 
 

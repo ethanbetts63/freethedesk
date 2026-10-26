@@ -142,7 +142,7 @@ new setting must not trip a deploy check.
 
 ## Stage 4 — The hourly send
 
-**Command** `send_podcast_pitches` (three an hour by default; `--count` overrides),
+**Command** `send_affiliate_outreach` (three an hour by default; `--count` overrides),
 scheduled hourly on PythonAnywhere next to `send_due_messages`, which freethedesk
 needs scheduled too if it is not already (owner's step, in `to_do.md`).
 
@@ -238,7 +238,7 @@ Into `to_do.md` as they arise. Known now:
 - The sending address on freethedesk.com.au with SPF and DKIM (already listed).
 - `INTERNAL_API_KEY` in the PythonAnywhere environment and the local `.env`;
   `API_SERVER_URL` locally.
-- Two hourly scheduled tasks: `send_due_messages` and `send_podcast_pitches`.
+- Two hourly scheduled tasks: `send_due_messages` and `send_affiliate_outreach`.
 - The report cover image deployed before the first B send (pitch README).
 - After deploy: upload one test prospect with `--dev` first, then one to
   production addressed to the owner, and read it in a mail client before the
@@ -279,10 +279,10 @@ On the server, two hourly PythonAnywhere tasks:
 
 ```bash
 python manage.py send_due_messages
-python manage.py send_podcast_pitches
+python manage.py send_affiliate_outreach
 ```
 
-`send_podcast_pitches` sends only 8am to 6pm Perth time on weekdays and exits
+`send_affiliate_outreach` sends only 8am to 6pm Perth time on weekdays and exits
 otherwise; `--ignore-window` sends at once, for the owner's test. A prospect is
 pitched exactly once: a failed send leaves the row claimed and the failure in
 the message log, where staff resend it from the Messages page rather than the
