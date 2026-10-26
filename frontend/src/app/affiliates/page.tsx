@@ -23,8 +23,8 @@ import { affiliateEarnings, affiliateFaqs } from './_lib/copy';
 
 const sections = numberSections([
   'What you sell',
-  'Share',
   'Get paid',
+  'Share',
   'Proof this works',
   'Common questions',
 ] as const);
@@ -75,9 +75,9 @@ export default async function AffiliatesPage() {
 
       <AffiliateAudit eyebrow={sections['What you sell']} />
 
-      <AffiliateShare eyebrow={sections['Share']} />
-
       <AffiliatePayout eyebrow={sections['Get paid']} settings={settings} />
+
+      <AffiliateShare eyebrow={sections['Share']} />
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}

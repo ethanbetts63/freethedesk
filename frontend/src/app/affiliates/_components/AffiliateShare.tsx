@@ -26,7 +26,7 @@ export function AffiliateShare({ eyebrow }: { eyebrow: string }) {
           ariaLabel="Where an affiliate code can be shared"
         />
       }
-      textSide="right"
+      textSide="left"
       background="white"
       spacing="joined"
     />

@@ -30,7 +30,7 @@ export function AffiliatePayout({
       accentTitle="Through Stripe."
       description="Every audit bought with your code is listed against it the day it's paid for. At the start of each month, half of the month's sales goes to your bank account through Stripe, with a statement of which audits it came from. No invoices to send and no minimum to reach."
       visual={<AffiliatePayoutCard earnings={earnings} total={total} />}
-      textSide="left"
+      textSide="right"
       background="white"
       spacing="joined"
     />
