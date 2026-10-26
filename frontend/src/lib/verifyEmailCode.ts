@@ -61,7 +61,7 @@ export async function verifyEmailWithCode(
   let change: Response;
   try {
     change = await fetchApi(
-      '/api/password/change/',
+      '/api/auth/password/change/',
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
