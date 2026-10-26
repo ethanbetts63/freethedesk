@@ -12,7 +12,6 @@ import { Hero } from '@/components/marketing/Hero';
 import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
 import { SubscriptionSwap } from '@/components/marketing/SubscriptionSwap';
 import { WebsiteIntroduction } from '@/components/marketing/WebsiteIntroduction';
-import { WebsiteJobsBar } from '@/components/marketing/WebsiteJobsBar';
 import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { metadataFor } from '@/lib/pages';
@@ -86,6 +85,7 @@ export default async function Dealers() {
       <PageSchema path="/dealers" />
       <Hero
         path="/dealers"
+        endId="dealers-hero-end"
         eyebrow="Dealership websites and online licensing for WA dealers"
         eyebrowIsHeading
         titleLines={['Digital']}
@@ -97,8 +97,6 @@ export default async function Dealers() {
         secondaryHref="/portfolio/scooter-shop"
         secondaryLabel="See it in action"
       />
-
-      <WebsiteJobsBar id="dealers-hero-end" />
 
       <WebsiteIntroduction
         id="dealer-overview"

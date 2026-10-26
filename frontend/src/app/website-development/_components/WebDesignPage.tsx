@@ -11,7 +11,6 @@ import { JourneySection } from '@/components/marketing/JourneySection';
 import { PackagesSection } from '@/components/marketing/PackagesSection';
 import { SubscriptionSwap } from '@/components/marketing/SubscriptionSwap';
 import { WebsiteIntroduction } from '@/components/marketing/WebsiteIntroduction';
-import { WebsiteJobsBar } from '@/components/marketing/WebsiteJobsBar';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
@@ -90,8 +89,6 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
         secondaryHref="/portfolio/scooter-shop"
         secondaryLabel="Read the full case study"
       />
-
-      <WebsiteJobsBar />
 
       <PackagesSection packages={prices.packages} />
 

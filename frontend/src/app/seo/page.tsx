@@ -19,7 +19,6 @@ import { SampleReportLink } from './_components/SampleReportLink';
 import { SeoImprovement } from './_components/SeoImprovement';
 import { SeoIntroduction } from './_components/SeoIntroduction';
 import { SeoSignup } from './_components/SeoSignup';
-import { SeoStepsBar } from './_components/SeoStepsBar';
 import { seoFaqs } from './_lib/copy';
 import { buildSeoPlans, PRICE_FIELD } from './_lib/plans';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
@@ -81,8 +80,6 @@ export default async function SeoPage() {
         secondaryNewTab
         trustLine="Paid once, no subscription · Fixed prices · Perth-based"
       />
-
-      <SeoStepsBar />
 
       <SeoSignup settings={settings} />
 

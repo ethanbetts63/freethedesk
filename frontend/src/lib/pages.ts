@@ -40,7 +40,7 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-10-24',
+    updated: '2026-10-26',
     label: 'Home',
     title: 'Websites, SEO & Business Automation Perth - freethedesk',
     description:
@@ -48,14 +48,14 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-10-24',
+    updated: '2026-10-26',
     label: 'Dealer websites',
     title: 'Dealership Websites & Online Licensing, WA',
     description:
       'One connected system for Perth and WA dealerships: a website built to be found, online licensing, and the admin automation behind it.',
   },
   '/licensing': {
-    updated: '2026-10-24',
+    updated: '2026-10-26',
     label: 'Online licensing',
     title: 'Online Vehicle Licensing for WA Dealers',
     description:
@@ -67,7 +67,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-10-24',
+    updated: '2026-10-26',
     label: 'Website development',
     title: 'Web Design & Development Perth',
     description:
@@ -81,7 +81,7 @@ export const STATIC_PAGES = {
     },
   },
   '/web-design-subiaco': {
-    updated: '2026-10-24',
+    updated: '2026-10-26',
     label: 'Web design Subiaco',
     title: 'Web Design Subiaco',
     description:
@@ -93,7 +93,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-redesign-perth': {
-    updated: '2026-10-24',
+    updated: '2026-10-26',
     label: 'Website redesign',
     title: 'Website Redesign Perth: Moving Off WordPress',
     description:
@@ -105,7 +105,7 @@ export const STATIC_PAGES = {
     },
   },
   '/automation': {
-    updated: '2026-10-24',
+    updated: '2026-10-26',
     label: 'Automation',
     title: 'Business & AI Automation Perth',
     description:

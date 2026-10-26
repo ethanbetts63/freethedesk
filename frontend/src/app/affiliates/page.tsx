@@ -7,7 +7,6 @@ import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
-import { ProcessStepsBar } from '@/components/ProcessStepsBar';
 import { metadataFor } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
 import { getSiteSettingsServer } from '@/lib/serverApi';
@@ -55,12 +54,6 @@ export default async function AffiliatesPage() {
         secondaryLabel="See a sample report"
         secondaryNewTab
         trustLine="50% of every sale · 20% off for your audience · Complimentary Audit"
-      />
-
-      <ProcessStepsBar
-        id="affiliates-hero-end"
-        ariaLabel="The three steps of the affiliate program"
-        steps={['Sign up', 'Share your code', 'Get paid']}
       />
 
       <AffiliateSignup pitch={<AffiliatePitch settings={settings} />} />

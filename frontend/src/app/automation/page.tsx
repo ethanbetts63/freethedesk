@@ -17,7 +17,6 @@ import { automationDiscovery, offerName } from '@/lib/servicePricing';
 import { AutomationBudgetSplit } from './_components/AutomationBudgetSplit';
 import { AutomationIdentify } from './_components/AutomationIdentify';
 import { AutomationIntroduction } from './_components/AutomationIntroduction';
-import { AutomationStepsBar } from './_components/AutomationStepsBar';
 import { AutomationWorkflowList } from './_components/AutomationWorkflowList';
 import { AUTOMATION_FAQS } from './_lib/copy';
 
@@ -56,8 +55,6 @@ export default async function AutomationPage() {
         secondaryHref="#workflows"
         secondaryLabel="Explore workflows"
       />
-
-      <AutomationStepsBar />
 
       <PackagesSection packages={[discovery]} />
 

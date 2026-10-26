@@ -4,7 +4,6 @@ import { FaqSection } from '@/components/marketing/FaqSection';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
-import { ProcessStepsBar } from '@/components/ProcessStepsBar';
 import { metadataFor } from '@/lib/pages';
 
 import { HOME_FAQS } from './_lib/copy';
@@ -37,12 +36,6 @@ export default function Home() {
         primaryLabel="Get in touch"
         secondaryHref="/portfolio/scooter-shop"
         secondaryLabel="See it in action"
-      />
-
-      <ProcessStepsBar
-        id="home-hero-end"
-        ariaLabel="How we make your website work harder"
-        steps={['Get found', 'Get customers', 'Get time back']}
       />
 
       <HomePricingMosaic />

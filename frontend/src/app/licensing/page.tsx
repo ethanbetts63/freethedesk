@@ -16,7 +16,6 @@ import { LicensingConfigurationOptions } from './_components/LicensingConfigurat
 import { LicensingFill } from './_components/LicensingFill';
 import { LicensingIntroduction } from './_components/LicensingIntroduction';
 import { LicensingSign } from './_components/LicensingSign';
-import { LicensingStepsBar } from './_components/LicensingStepsBar';
 import { LicensingVerify } from './_components/LicensingVerify';
 import { SignupPlans } from './_components/SignupPlans';
 import { LICENSING_FAQS } from './_lib/copy';
@@ -56,6 +55,7 @@ export default async function LicensingPage() {
       />
       <Hero
         path="/licensing"
+        endId="licensing-hero-end"
         eyebrow="Online vehicle licensing Perth"
         titleLines={['License online.']}
         accentTitle="Lose the visit."
@@ -66,8 +66,6 @@ export default async function LicensingPage() {
         secondaryHref="/contact"
         secondaryLabel="Talk to us"
       />
-
-      <LicensingStepsBar />
 
       <LicensingIntroduction />
 
