@@ -17,11 +17,7 @@ const NAV: NavItem[] = [...PRIMARY_NAVIGATION];
 const PHONE_HREF = 'tel:+61423853830';
 const PHONE_NUMBER = '0423 853 830';
 
-/** Beside the menu button on phones, where the forms can be ten screens down the page. Icon only: the number
-    beside the wordmark needs 424px, wider than most phones, so it is spelled out in the menu instead. */
-const callClassName =
-  'inline-flex size-[var(--tap-min)] items-center justify-center bg-action-primary text-text-on-dark';
-
+/** The number is a row in the menu, not a button beside it: the header on a phone is the wordmark and the menu. */
 const callRowClassName =
   'mt-s flex min-h-[var(--tap-min)] items-center gap-xs px-s text-lead font-heavy text-text-primary';
 
@@ -47,11 +43,6 @@ export function Header() {
         <Link href="/login" className={NAV_LINK.body}>
           Login
         </Link>
-      }
-      mobileActions={
-        <a href={PHONE_HREF} className={callClassName} aria-label={`Call ${PHONE_NUMBER}`}>
-          <Phone className="size-5" aria-hidden="true" />
-        </a>
       }
       mobileExtra={
         <>
