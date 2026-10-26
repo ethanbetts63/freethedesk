@@ -68,6 +68,23 @@ def test_sends_the_oldest_eligible_prospects_and_claims_them(outbox, monkeypatch
     assert [m.to for m in outbox] == [first.email, second.email, third.email]
 
 
+def test_each_run_takes_one_of_each_version_in_turn(outbox, monkeypatch):
+    # Four A's queued before a single C: a run of three still sends A, C, A, not A, A, A.
+    a_first = ProspectFactory(version="a")
+    ProspectFactory(version="a")
+    ProspectFactory(version="a")
+    a_fourth = ProspectFactory(version="a")
+    c = ProspectFactory(version="c")
+
+    run("--count", "3", now=perth(26, 10), monkeypatch=monkeypatch)
+
+    assert [m.message_type for m in outbox] == ["podcast_pitch.a", "podcast_pitch.c", "podcast_pitch.a"]
+    assert outbox[0].to == a_first.email
+    assert outbox[1].to == c.email
+    a_fourth.refresh_from_db()
+    assert a_fourth.pitched_at is None
+
+
 def test_skips_the_excluded_the_signed_up_and_the_suppressed(outbox, monkeypatch):
     ProspectFactory(excluded_reason="Asked us not to.")
     ProspectFactory(affiliate=AffiliateFactory())

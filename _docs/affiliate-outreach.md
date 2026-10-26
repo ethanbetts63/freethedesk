@@ -142,18 +142,21 @@ new setting must not trip a deploy check.
 
 ## Stage 4 — The hourly send
 
-**Command** `send_podcast_pitches --count 5`,
+**Command** `send_podcast_pitches` (three an hour by default; `--count` overrides),
 scheduled hourly on PythonAnywhere next to `send_due_messages`, which freethedesk
 needs scheduled too if it is not already (owner's step, in `to_do.md`).
 
 Each run:
 
 1. Only between 8am and 6pm Perth time (`BUSINESS_TIME_ZONE`), weekdays. Outside
-   that window it exits. Five an hour over that window is about 50 a day, which
-   is a pace a fresh Mailgun domain can hold; `--count` is there to lower it in
-   the first week.
-2. Picks the oldest `count` prospects with `pitched_at` null, blank
-   `excluded_reason`, no `affiliate`, and an address not suppressed.
+   that window it exits. Three an hour over that window is about 30 a day, the
+   owner's pace (2026-10-26) and well under the Mailgun Free plan's 100 a day;
+   `--count` changes it.
+2. Takes the oldest eligible prospect of each version in turn (a, b, c, a, b,
+   c...) until it has `count`, so a run of three sends one of each and the
+   A/B/C test stays even hour by hour. Eligible means `pitched_at` null, blank
+   `excluded_reason`, no `affiliate`, and an address not suppressed. A version
+   with nothing left gives its turns to the others.
 3. Claims each with a conditional update,
    `filter(pk=..., pitched_at__isnull=True).update(pitched_at=now)`, and sends
    only if the update hit a row. Two overlapping runs cannot double-send, and no
@@ -276,7 +279,7 @@ On the server, two hourly PythonAnywhere tasks:
 
 ```bash
 python manage.py send_due_messages
-python manage.py send_podcast_pitches --count 5
+python manage.py send_podcast_pitches
 ```
 
 `send_podcast_pitches` sends only 8am to 6pm Perth time on weekdays and exits

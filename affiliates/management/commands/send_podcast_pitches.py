@@ -7,12 +7,12 @@ from django.utils import timezone
 from freetheplatform.messaging import Suppression
 
 from affiliates.models import PodcastProspect
-from affiliates.utils.pitching import pitch_figures, send_pitch
+from affiliates.utils.pitching import VERSIONS, pitch_figures, send_pitch
 
 logger = logging.getLogger(__name__)
 
-# Perth business hours, weekdays. About fifty a day at the default count, which
-# is a pace a fresh sending domain can hold.
+# Perth business hours, weekdays. About thirty a day at the default count, which
+# is a pace a fresh sending domain can hold (owner's number, 2026-10-26).
 WINDOW_START = 8
 WINDOW_END = 18
 
@@ -32,6 +32,24 @@ def eligible_prospects():
     )
 
 
+def candidates(count):
+    """The oldest eligible prospect of each version in turn: a, b, c, a, b, c...
+
+    A run of three therefore sends one of each, and the A/B/C test stays even
+    hour by hour rather than only over the whole queue. A version with nothing
+    left gives its turns to the others. Each version is over-fetched to `count`
+    because a prospect claimed by a concurrent run is skipped, not counted.
+    """
+    pending = {version: iter(list(eligible_prospects().filter(version=version)[:count])) for version in VERSIONS}
+    while pending:
+        for version in list(pending):
+            prospect = next(pending[version], None)
+            if prospect is None:
+                del pending[version]
+            else:
+                yield prospect
+
+
 def claim(prospect, now):
     """True for exactly one of any number of concurrent runs."""
     return (
@@ -46,7 +64,7 @@ class Command(BaseCommand):
     )
 
     def add_arguments(self, parser):
-        parser.add_argument("--count", type=int, default=5, help="Pitches to send this run (default 5).")
+        parser.add_argument("--count", type=int, default=3, help="Pitches to send this run (default 3).")
         parser.add_argument(
             "--ignore-window", action="store_true", help="Send now, whatever the hour. For a test send."
         )
@@ -59,8 +77,7 @@ class Command(BaseCommand):
 
         figures = pitch_figures()
         sent = 0
-        # Over-fetch a little: a prospect claimed by a concurrent run is skipped, not counted.
-        for prospect in eligible_prospects()[: options["count"] * 2]:
+        for prospect in candidates(options["count"]):
             if sent >= options["count"]:
                 break
             if not claim(prospect, now):

@@ -92,7 +92,7 @@ The upload needs migration `affiliates.0003_prospect_relevance` deployed first, 
 server rejects every entry's `relevance`. Then:
 
 - Set `INTERNAL_API_KEY` (32 or more random characters) in the PythonAnywhere environment and the local `.env`, and `API_SERVER_URL=https://www.freethedesk.com.au` locally. The upload command posts prospects with it.
-- Add two hourly PythonAnywhere scheduled tasks: `python manage.py send_due_messages` (not yet scheduled for freethedesk as far as the docs record) and `python manage.py send_podcast_pitches --count 5`.
+- Add two hourly PythonAnywhere scheduled tasks: `python manage.py send_due_messages` (not yet scheduled for freethedesk as far as the docs record) and `python manage.py send_podcast_pitches` (three an hour by default).
 - Upload one test prospect addressed to yourself, read all three versions in a mail client, then enable the cron.
 
 
@@ -110,9 +110,9 @@ Added 2026-10-26. The scraper has run for real (127 terms, 302 shows queued in `
 
 ## Podcast outreach: the second Mailgun domain, parked
 
-Added 2026-10-26, rewritten the same day after the records were done. **Parked the same day: the owner decided not to upgrade the Mailgun plan, so the pitches go from the site's own address and domain, and the Free plan's 100 a day is the ceiling the hourly cron must stay under (5 an hour over the ten-hour window leaves room for the site's own mail). The steps below are what to do if that changes.** In Cloudflare, `mail.freethedesk.com.au` now has its two Mailgun MX records and `_dmarc.freethedesk.com.au` reports to hello@freethedesk.com.au; with the SPF and DKIM that were already there, the current domain is fully set up.
+Added 2026-10-26, rewritten the same day after the records were done. **Parked the same day: the owner decided not to upgrade the Mailgun plan, so the pitches go from the site's own address and domain, and the Free plan's 100 a day is the ceiling the hourly cron must stay under (3 an hour over the ten-hour window leaves room for the site's own mail). The steps below are what to do if that changes.** In Cloudflare, `mail.freethedesk.com.au` now has its two Mailgun MX records and `_dmarc.freethedesk.com.au` reports to hello@freethedesk.com.au; with the SPF and DKIM that were already there, the current domain is fully set up.
 
-The separate outreach domain is decided (owner, 2026-10-26) but blocked: the freethedesk Mailgun account is on the Free plan (13 of 3,000 sends used in October), and "Add new domain" silently does nothing at that plan's one-custom-domain limit. The Free plan also caps sending at 100 a day, which the hourly pitch at 5 an hour plus the site's own mail sits just under. Owner's steps:
+The separate outreach domain is decided (owner, 2026-10-26) but blocked: the freethedesk Mailgun account is on the Free plan (13 of 3,000 sends used in October), and "Add new domain" silently does nothing at that plan's one-custom-domain limit. The Free plan also caps sending at 100 a day, which the hourly pitch at 3 an hour plus the site's own mail sits well under. Owner's steps:
 
 1. Upgrade the freethedesk Mailgun account (Upgrade, top bar) to a plan that allows a second custom sending domain; check the domain allowance on the plan page before paying.
 2. Add the domain `outreach.freethedesk.com.au` (Send, Domains, Add new domain, US region, 2048-bit DKIM, no Red Sift DMARC), then in Cloudflare add the SPF TXT, the `pic._domainkey` DKIM TXT and the two MX records it lists, all DNS only.
