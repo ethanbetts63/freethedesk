@@ -105,11 +105,13 @@ Added 2026-10-26. `_complete_test_schema` depends on `django_db_setup`, but pyte
 
 Added 2026-10-26. The scraper has run for real (terms aa and ab, five shows queued in `affiliates/data/podcasts.jsonl`). The upload has only been exercised through the test client: `upload_prospects --dev` needs `INTERNAL_API_KEY` in `.env` and the Django server on :8010 restarted to read it, then `py manage.py upload_prospects --dev` should answer five created and the five appear at /dashboard/admin/outreach.
 
-## Podcast outreach: the DNS records, in Cloudflare
+## Podcast outreach: a Mailgun plan for the second domain
 
-Added 2026-10-26, from a check of the live records. SPF and DKIM for the Mailgun domain `mail.freethedesk.com.au` and DMARC on the root are already in place; the mail authenticates. Two records are missing and one is pointed at nobody:
+Added 2026-10-26, rewritten the same day after the records were done. In Cloudflare, `mail.freethedesk.com.au` now has its two Mailgun MX records and `_dmarc.freethedesk.com.au` reports to hello@freethedesk.com.au; with the SPF and DKIM that were already there, the current domain is fully set up.
 
-1. Two MX records on `mail.freethedesk.com.au`, DNS only (grey cloud): `mxa.mailgun.org` priority 10 and `mxb.mailgun.org` priority 10. Without them, bounces and replies addressed to the envelope domain have nowhere to go, and Mailgun lists the domain as not fully verified.
-2. Edit the TXT at `_dmarc.freethedesk.com.au` so the reports reach an inbox you read: `v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:hello@freethedesk.com.au;` (today's `rua` is a GoDaddy default address).
-3. Recommended, not required: a separate sending identity for the cold pitches so complaints on them cannot hurt receipts and sign-in codes. In Mailgun add the domain `outreach.freethedesk.com.au`, then add in Cloudflare the SPF TXT, the `pic._domainkey` DKIM TXT and the two MX records it shows. The code side (a per-message sender in freetheplatform messaging, and the pitch using it) is a small change to make once the domain is verified.
+The separate outreach domain is decided (owner, 2026-10-26) but blocked: the freethedesk Mailgun account is on the Free plan (13 of 3,000 sends used in October), and "Add new domain" silently does nothing at that plan's one-custom-domain limit. The Free plan also caps sending at 100 a day, which the hourly pitch at 5 an hour plus the site's own mail sits just under. Owner's steps:
 
+1. Upgrade the freethedesk Mailgun account (Upgrade, top bar) to a plan that allows a second custom sending domain; check the domain allowance on the plan page before paying.
+2. Add the domain `outreach.freethedesk.com.au` (Send, Domains, Add new domain, US region, 2048-bit DKIM, no Red Sift DMARC), then in Cloudflare add the SPF TXT, the `pic._domainkey` DKIM TXT and the two MX records it lists, all DNS only.
+3. In Mailgun, make a domain sending key for the new domain and a delivery webhook pointed at `https://www.freethedesk.com.au/api/webhooks/messaging/mailgun/` (the same signing key as the main domain).
+4. Set on PythonAnywhere: `OUTREACH_FROM_EMAIL="Ethan Betts <ethan@outreach.freethedesk.com.au>"`, `OUTREACH_MAILGUN_DOMAIN=outreach.freethedesk.com.au`, `OUTREACH_MAILGUN_API_KEY=<that sending key>`. The pitch then goes from the new domain (freetheplatform v0.38.0 named senders); unset, it goes from the site's own address as it does today.
