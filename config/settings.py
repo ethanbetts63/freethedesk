@@ -60,7 +60,6 @@ INSTALLED_APPS = [
     "sales",
     "seo",
     "affiliates",
-    "outreach",  # Podcast affiliate outreach: prospects, the hourly pitch, the upload endpoint.
     "payments",
     "freetheplatform.agreements",
     "freetheplatform.payments",

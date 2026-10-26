@@ -26,7 +26,7 @@ that hurt taken out, and splitcart's local-to-server upload shape
 | iTunes Search API, AU store, every two-letter term aa to zz, 200 a term    | Kept as is. The AU store is a proxy for Australian shows and a foreign host who signs up is still a client (owner, 2026-10-25). The country review step goes. |
 | 100 episodes or fewer, an episode in the last 30 days, English, DNS check  | Kept.                                                                                                                                                        |
 | RSS gives owner email, host, website, latest episode title and description | Kept. The feed URL is recorded as the address's published source: the Spam Act's inferred-consent evidence, as `FloristProspect.email_source` is.             |
-| Claude writes a subject and "I just listened to..." per show               | Claude writes only the optional `opener`: one true line from the episode description, or nothing. Never a claim to have listened. Subjects are the templates'. |
+| Claude writes a subject and "I just listened to..." per show               | Claude writes the `opener` to the same "I just listened to..." brief (owner's call 2026-10-26; the plan's "never claim to have listened" was reversed). Subjects are the templates', several a version, rotated. |
 | State in gitignored files, split between laptop and server, since lost     | The server database is the only record of who exists and who was emailed. Locally only the search cursor (terms and feeds tried) is kept, and it is committed. |
 | Gmail SMTP from a personal account, no unsubscribe                         | `freetheplatform.messaging` through Mailgun from a freethedesk.com.au address, with the suppression list, bounce webhook and a one-click unsubscribe page.    |
 | One-off `send_outreach --count N` bursts, 30 seconds apart                 | An hourly cron sends the next 5 (stage 4).                                                                                                                   |
@@ -34,23 +34,26 @@ that hurt taken out, and splitcart's local-to-server upload shape
 
 ## Where it lives
 
-A new Django app, `outreach`. The affiliate agents are building accounts,
-codes and commissions in their own files, and this app must not collide with
-them; the two meet only through the prospect's email (stage 6). Their sign-up
-is `POST /api/affiliates/signup/` into `affiliates.Affiliate`; the "Podcast
-affiliate" enquiry type that `_docs/to_do.md` still describes is being removed. Frontend files
+The `affiliates` app, beside the accounts, codes and commissions (decided
+2026-10-26; it began as its own `outreach` app and was folded in the same day).
+The outreach half is the `PodcastProspect` model, `utils/scraper.py`,
+`utils/pitching.py`, `utils/unsubscribe.py`, `utils/prospects.py`, the four
+management commands, `receivers.py`, and `outreach_urls.py`, which config
+mounts beside the app's own `urls.py`. The two halves meet through the
+prospect's email (stage 6). Frontend files
 go under `frontend/src/app/dashboard/admin/outreach/` and
 `frontend/src/app/unsubscribe/[token]/`.
 
-Local data files live in `outreach/data/`: `podcasts.jsonl` (the queue being
+Local data files live in `affiliates/data/`: `podcasts.jsonl` (the queue being
 prepared, gitignored), `archive/` (uploaded lines, gitignored),
 `searched_terms.json` and `searched_feeds.json` (the cursor, committed).
+The one prompt that runs the pipeline is `affiliates/outreach_instructions.md`.
 
 ---
 
 ## Stage 1 — Prospect table
 
-**Model** `outreach/models/podcast_prospect.py`, `PodcastProspect`:
+**Model** `affiliates/models/podcast_prospect.py`, `PodcastProspect`:
 
 | Field                                                              | Type                                        | Notes                                                                                        |
 | ------------------------------------------------------------------ | ------------------------------------------- | -------------------------------------------------------------------------------------------- |
@@ -86,9 +89,9 @@ opener written about their show.
 
 ## Stage 2 — Scrape and write, locally
 
-**Command** `outreach/management/commands/scrape_podcasts.py --batch N`. A port
+**Command** `scrape_podcasts --batch N`. A port
 of `bloomprint/marketing/utils/scraper.py` with the same filters and the same
-term-by-term loop, writing to `outreach/data/podcasts.jsonl`. Changes:
+term-by-term loop, writing to `affiliates/data/podcasts.jsonl`. Changes:
 
 - The cursor files are JSON, not Python modules loaded with `exec`.
 - No `planned_emails` file. The server is the dedupe, at upload (stage 3). The
@@ -96,11 +99,13 @@ term-by-term loop, writing to `outreach/data/podcasts.jsonl`. Changes:
 - Each entry carries `scraped_on` and an empty `opener`; no `subject`,
   `custom_intro` or `country`.
 
-**Writing** `outreach/opener_instructions.md`, the brief Claude works to, batch
-by batch, one agent at a time as Bloomprint's `spinup_instructions.md` warns.
-The rules, from the pitch README: one line, true, taken from the episode title
-or description, never "I listened"; blank when the description gives nothing
-honest to say. `promote` is not needed: an entry is ready when it has been
+**Writing** is Phase 2 of `affiliates/outreach_instructions.md`, the one prompt
+that runs scrape, write and upload in a single session (decided 2026-10-26: no
+batches of ten, no subagents). The rules are Bloomprint's `ai_instructions.md`
+with the subject removed: "I just listened to...", name the episode naturally,
+react to one thing in its description, short and casual (the plan's "never
+claim to have listened" was reversed the same day). `promote` is not needed: an
+entry is ready when it has been
 looked at, and a blank opener is a valid outcome, so the upload takes the whole
 file.
 
@@ -113,13 +118,13 @@ table to write into and no reason to stage files in an inbox.
 (default `http://127.0.0.1:8010`, the port the frontend expects Django on), all
 from the environment. `INTERNAL_API_KEY` is set on both machines.
 
-**Command** `outreach/management/commands/upload_prospects.py [--dev] [--count N]`.
+**Command** `upload_prospects [--dev] [--count N]`.
 Reads `podcasts.jsonl`, posts in batches of 50 to the endpoint with the
 `X-Internal-API-Key` header and a timeout, moves accepted lines to
 `archive/<date>.jsonl`, leaves rejected lines in the queue and prints the
 server's counts: created, already known, suppressed, invalid.
 
-**Endpoint** `POST /api/outreach/upload/`, `outreach/views/upload.py`:
+**Endpoint** `POST /api/outreach/upload/`, `affiliates/views/prospect_upload.py`:
 
 - Permission `IsInternalApiRequest`, comparing the header to the setting with
   `hmac.compare_digest`, denying when the setting is unset.
@@ -136,7 +141,7 @@ new setting must not trip a deploy check.
 
 ## Stage 4 — The hourly send
 
-**Command** `outreach/management/commands/send_podcast_pitches.py --count 5`,
+**Command** `send_podcast_pitches --count 5`,
 scheduled hourly on PythonAnywhere next to `send_due_messages`, which freethedesk
 needs scheduled too if it is not already (owner's step, in `to_do.md`).
 
@@ -188,8 +193,8 @@ logged in freetheplatform's `to_do.md`, not done here.
 
 The affiliate build (`affiliates/`, in progress 2026-10-25) creates an
 `Affiliate` row with an `email` when a host registers at `/affiliates`. The
-outreach app listens for it with a `post_save` receiver on `affiliates.Affiliate`
-in `outreach/receivers.py`, so the affiliates app never imports outreach:
+outreach half listens for it with a `post_save` receiver on `Affiliate` in
+`affiliates/receivers.py`:
 `PodcastProspect.objects.filter(email__iexact=affiliate.email, affiliate__isnull=True).update(affiliate=affiliate)`.
 A prospect with an affiliate is never pitched (stage 4) and shows "Signed up" on
 the dashboard, linking to `/dashboard/admin/affiliates/<id>`. A one-off command
@@ -201,7 +206,7 @@ flag, `link_prospects`, does the same for accounts that already exist.
 Messages, built from the `AdminList` components the Enquiries and Messages pages
 use.
 
-**API** `outreach/views/admin.py`, `IsAdminUser`, throttle scope `staff`:
+**API** `affiliates/views/prospects.py`, `IsAdminUser`, throttle scope `staff`:
 
 | Method | Path                                   | Purpose                                                                 |
 | ------ | -------------------------------------- | ----------------------------------------------------------------------- |
@@ -253,15 +258,17 @@ Into `to_do.md` as they arise. Known now:
 Locally, from the repository root, with `INTERNAL_API_KEY` and `API_SERVER_URL`
 in `.env`:
 
+Hand `affiliates/outreach_instructions.md` to a Claude session, with a target
+if 50 is not the number. It scrapes the shortfall, writes every opener by hand,
+checks the file, uploads, and commits the cursor. The commands it runs:
+
 ```powershell
-py manage.py scrape_podcasts --batch 50        # appends to outreach/data/podcasts.jsonl
-# Hand batches of ~10 entries (by email) to an agent with outreach/opener_instructions.md,
-# one agent at a time; they share the file.
+py manage.py scrape_podcasts --batch 50        # appends to affiliates/data/podcasts.jsonl
 py manage.py upload_prospects --dev            # to the local Django server on :8010
 py manage.py upload_prospects                  # to production; accepted lines move to data/archive/
 ```
 
-The cursor files `outreach/data/searched_terms.json` and `searched_feeds.json`
+The cursor files `affiliates/data/searched_terms.json` and `searched_feeds.json`
 change with every scrape and are committed; the queue and archive are not.
 
 On the server, two hourly PythonAnywhere tasks:

@@ -43,7 +43,7 @@ pointed at `core/templates` and the context below; images resolve against
 | `site_url` | `https://www.freethedesk.com.au` | Added by messaging from `SITE_URL` |
 | `podcast` | The Tradie Show | From the feed |
 | `first_name` | Sam | Optional; A says "there" without it |
-| `opener` | Came across your episode on pricing jobs… | Optional one true line about the show; A's second paragraph. Never claim to have listened when nobody has |
+| `opener` | I just listened to the quoting episode. Great ep, I'm with you on walking away from the cheap jobs. | A's (and C's) second paragraph, written by hand per host from the show notes to Bloomprint's "I just listened to..." brief (`affiliates/outreach_instructions.md`, owner's call 2026-10-26). B has none |
 | `discount` | 20% | The listener discount |
 | `commission_low`, `commission_high` | $275, $700 | Half of the cheapest and dearest audit |
 | `free_audit_price` | $850 | The tier the host gets free |

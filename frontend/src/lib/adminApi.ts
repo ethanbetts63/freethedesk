@@ -148,7 +148,7 @@ export const PACKAGE_ORDER_TYPE = 'core.packageorder';
 export const DEALER_TYPE = 'dealers.dealer';
 export const SEO_SUBSCRIBER_TYPE = 'seo.seosubscriber';
 export const AFFILIATE_TYPE = 'affiliates.affiliate';
-export const PROSPECT_TYPE = 'outreach.podcastprospect';
+export const PROSPECT_TYPE = 'affiliates.podcastprospect';
 
 export async function getEnquiries(
   params: Record<string, string | number | undefined>,

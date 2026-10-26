@@ -12,5 +12,5 @@ out/
 *.log
 /db_backups/
 # Local queue and archive; the server is the record.
-outreach/data/podcasts.jsonl
-outreach/data/archive/
+affiliates/data/podcasts.jsonl
+affiliates/data/archive/
