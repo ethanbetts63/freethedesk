@@ -105,9 +105,9 @@ Added 2026-10-26. `_complete_test_schema` depends on `django_db_setup`, but pyte
 
 Added 2026-10-26. The scraper has run for real (terms aa and ab, five shows queued in `affiliates/data/podcasts.jsonl`). The upload has only been exercised through the test client: `upload_prospects --dev` needs `INTERNAL_API_KEY` in `.env` and the Django server on :8010 restarted to read it, then `py manage.py upload_prospects --dev` should answer five created and the five appear at /dashboard/admin/outreach.
 
-## Podcast outreach: a Mailgun plan for the second domain
+## Podcast outreach: the second Mailgun domain, parked
 
-Added 2026-10-26, rewritten the same day after the records were done. In Cloudflare, `mail.freethedesk.com.au` now has its two Mailgun MX records and `_dmarc.freethedesk.com.au` reports to hello@freethedesk.com.au; with the SPF and DKIM that were already there, the current domain is fully set up.
+Added 2026-10-26, rewritten the same day after the records were done. **Parked the same day: the owner decided not to upgrade the Mailgun plan, so the pitches go from the site's own address and domain, and the Free plan's 100 a day is the ceiling the hourly cron must stay under (5 an hour over the ten-hour window leaves room for the site's own mail). The steps below are what to do if that changes.** In Cloudflare, `mail.freethedesk.com.au` now has its two Mailgun MX records and `_dmarc.freethedesk.com.au` reports to hello@freethedesk.com.au; with the SPF and DKIM that were already there, the current domain is fully set up.
 
 The separate outreach domain is decided (owner, 2026-10-26) but blocked: the freethedesk Mailgun account is on the Free plan (13 of 3,000 sends used in October), and "Add new domain" silently does nothing at that plan's one-custom-domain limit. The Free plan also caps sending at 100 a day, which the hourly pitch at 5 an hour plus the site's own mail sits just under. Owner's steps:
 
