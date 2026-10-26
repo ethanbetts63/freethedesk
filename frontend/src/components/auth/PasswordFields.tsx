@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils';
 import { formControlClassName } from '@/components/ui/formControl';
 import { authFieldLabelClassName } from './AuthCard';
+import { PasswordInput } from './PasswordInput';
 
 /**
  * One password input, styled once.
@@ -26,10 +27,10 @@ export function PasswordField({
   return (
     <label className={authFieldLabelClassName}>
       {label}
-      <input
-        className={cn(formControlClassName, 'mt-2xs block bg-surface-tint p-s')}
+      <PasswordInput
+        wrapperClassName="mt-2xs"
+        className={cn(formControlClassName, 'block bg-surface-tint p-s')}
         name={name}
-        type="password"
         autoComplete={autoComplete}
         minLength={minLength}
         required

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { homeFor } from '@/lib/api';
+import { PasswordInput } from '@/components/auth/PasswordInput';
 import { SignalFlow } from '@/components/visuals/SignalFlow';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
@@ -90,10 +91,10 @@ function LoginContent() {
           </label>
           <label className="text-label font-heavy">
             Password
-            <input
-              className={cn(formControlClassName, 'mt-2xs block bg-surface-tint p-s')}
+            <PasswordInput
+              wrapperClassName="mt-2xs"
+              className={cn(formControlClassName, 'block bg-surface-tint p-s')}
               name="password"
-              type="password"
               autoComplete="current-password"
               required
             />

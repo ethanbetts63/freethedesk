@@ -4,6 +4,7 @@ import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { MINIMUM_PASSWORD_LENGTH } from '@/components/auth/PasswordFields';
+import { PasswordInput } from '@/components/auth/PasswordInput';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import {
@@ -11,6 +12,7 @@ import {
   adminFormControlClassName,
   adminFormLabelClassName,
 } from '@/components/ui/formControl';
+import { cn } from '@/lib/utils';
 import { submitSetPassword, type SetPasswordState } from './SetPasswordForm.actions';
 
 const initialState: SetPasswordState = { status: 'idle' };
@@ -36,10 +38,10 @@ export default function SetPasswordForm({ accountId }: { accountId: number }) {
       <input type="hidden" name="id" value={accountId} />
       <label className={adminFormLabelClassName}>
         New password
-        <input
-          className={adminFormControlClassName}
+        <PasswordInput
+          wrapperClassName="mt-2xs"
+          className={cn(adminFormControlClassName, 'mt-0')}
           name="new_password"
-          type="password"
           autoComplete="new-password"
           minLength={MINIMUM_PASSWORD_LENGTH}
           required
@@ -47,10 +49,10 @@ export default function SetPasswordForm({ accountId }: { accountId: number }) {
       </label>
       <label className={adminFormLabelClassName}>
         Type it again
-        <input
-          className={adminFormControlClassName}
+        <PasswordInput
+          wrapperClassName="mt-2xs"
+          className={cn(adminFormControlClassName, 'mt-0')}
           name="confirm_password"
-          type="password"
           autoComplete="new-password"
           required
         />

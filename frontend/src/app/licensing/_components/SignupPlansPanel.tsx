@@ -28,6 +28,7 @@ import {
   totalPriceClassName,
   totalSummaryClassName,
 } from '@/components/forms/selectionFormClassNames';
+import { PasswordInput } from '@/components/auth/PasswordInput';
 import { TermsAgreement } from '@/components/checkout/TermsAgreement';
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { DEALER_STATES } from '@/lib/dealerStates';
@@ -189,10 +190,9 @@ export function SignupPlansPanel({
       <div className={fieldRowClassName}>
         <label className={fieldLabelClassName}>
           <span className={fieldLabelSpanClassName}>Password</span>
-          <input
+          <PasswordInput
             className={fieldInputClassName}
             name="password"
-            type="password"
             placeholder="At least 12 characters"
             autoComplete="new-password"
             minLength={12}
