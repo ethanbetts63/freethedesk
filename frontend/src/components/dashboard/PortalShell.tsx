@@ -42,18 +42,20 @@ export function PortalShell({
   if (loading || !user || user.must_change_password || user.role !== role)
     return <div className={adminLoadingClassName}>Loading…</div>;
 
+  const accountName =
+    user.dealer?.business_name ||
+    user.affiliate?.business_name ||
+    user.seo?.business_name ||
+    user.email ||
+    user.username;
+
   return (
     <DashboardLayout
-      title="freethedesk"
-      subtitle={label}
+      // The portal's name heads the rail; the site's name is the header above it.
+      title={label}
+      subtitle={accountName}
       sections={sections}
-      accountName={
-        user.dealer?.business_name ||
-        user.affiliate?.business_name ||
-        user.seo?.business_name ||
-        user.email ||
-        user.username
-      }
+      accountName={accountName}
       onLogout={async () => {
         await logout();
         router.replace('/login');
