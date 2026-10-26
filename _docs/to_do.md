@@ -86,7 +86,10 @@ Paying out is not built. Commissions sit as "Owed" on the affiliate's staff page
 
 ## Podcast outreach: owner's steps before the cron is enabled
 
-Added 2026-10-25. The plan is `_docs/affiliate-outreach.md`; nothing is built yet. When it is:
+Added 2026-10-25, updated 2026-10-26. The pipeline is built and 302 prospects sit in
+`affiliates/data/podcasts.jsonl` with openers and relevance ratings, not yet uploaded.
+The upload needs migration `affiliates.0003_prospect_relevance` deployed first, or the
+server rejects every entry's `relevance`. Then:
 
 - Set `INTERNAL_API_KEY` (32 or more random characters) in the PythonAnywhere environment and the local `.env`, and `API_SERVER_URL=https://www.freethedesk.com.au` locally. The upload command posts prospects with it.
 - Add two hourly PythonAnywhere scheduled tasks: `python manage.py send_due_messages` (not yet scheduled for freethedesk as far as the docs record) and `python manage.py send_podcast_pitches --count 5`.
@@ -103,7 +106,7 @@ Added 2026-10-26. `_complete_test_schema` depends on `django_db_setup`, but pyte
 
 ## Podcast outreach: try one `--dev` upload
 
-Added 2026-10-26. The scraper has run for real (terms aa and ab, five shows queued in `affiliates/data/podcasts.jsonl`). The upload has only been exercised through the test client: `upload_prospects --dev` needs `INTERNAL_API_KEY` in `.env` and the Django server on :8010 restarted to read it, then `py manage.py upload_prospects --dev` should answer five created and the five appear at /dashboard/admin/outreach.
+Added 2026-10-26. The scraper has run for real (127 terms, 302 shows queued in `affiliates/data/podcasts.jsonl`). The upload has only been exercised through the test client: `upload_prospects --dev` needs `INTERNAL_API_KEY` in `.env` and the Django server on :8010 restarted to read it, then `py manage.py upload_prospects --dev` with a one-line copy of the queue should answer one created and it appears at /dashboard/admin/outreach.
 
 ## Podcast outreach: the second Mailgun domain, parked
 
