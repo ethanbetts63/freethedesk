@@ -30,7 +30,8 @@ export function CaseStudyTeaser({
     <section className="mt-section bg-surface-dark py-section text-text-on-dark sm:mt-xl">
       <div className="site-shell grid grid-cols-1 items-center gap-split lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
         <div className="relative row-start-2 mx-auto w-[250px] lg:row-auto lg:mx-0">
-          <div className="absolute bottom-[34px] left-[70px] z-2 px-m pt-s pb-m [backdrop-filter:blur(9px)] [background:color-mix(in_srgb,var(--text-secondary)_88%,transparent)] [border:1px_solid_color-mix(in_srgb,var(--surface-page)_15%,transparent)] [box-shadow:0_26px_60px_color-mix(in_srgb,var(--text-primary)_50%,transparent)] sm:bottom-[52px] sm:left-[112px] sm:px-l sm:pt-m sm:pb-ml">
+          {/* Centred on the phone below sm, where an offset ran it past the screen's edge. */}
+          <div className="absolute bottom-[34px] left-1/2 z-2 -translate-x-1/2 px-m pt-s pb-m [backdrop-filter:blur(9px)] [background:color-mix(in_srgb,var(--text-secondary)_88%,transparent)] [border:1px_solid_color-mix(in_srgb,var(--surface-page)_15%,transparent)] [box-shadow:0_26px_60px_color-mix(in_srgb,var(--text-primary)_50%,transparent)] sm:bottom-[52px] sm:left-[112px] sm:translate-x-0 sm:px-l sm:pt-m sm:pb-ml">
             <small className="block whitespace-nowrap text-label font-strong tracking-label text-[var(--accent-on-dark)] uppercase">
               Google Search Console
             </small>
