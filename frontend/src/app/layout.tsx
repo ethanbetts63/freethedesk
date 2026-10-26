@@ -83,7 +83,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             server and SiteChrome only decides which routes show it. AuthProvider
             is deliberately NOT here: it belongs to the signed-in areas, and in
             the root layout it hydrated on every marketing page and fired a
-            profile request per view. */}
+            profile request per view. The header's Login / Log out comes from
+            cookie presence on the server instead (lib/session), which is also
+            why every route renders per request. */}
         <SiteChrome header={<Header />} footer={<Footer />}>
           {children}
         </SiteChrome>

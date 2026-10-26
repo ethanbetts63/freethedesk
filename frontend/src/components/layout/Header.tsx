@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Phone } from 'lucide-react';
 
 import { PRIMARY_NAVIGATION } from '@/lib/siteConfig';
+import { SessionLink } from '@/components/layout/SessionLink';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { Wordmark } from '@/components/Wordmark';
 import {
@@ -38,20 +39,21 @@ export function Header() {
           Contact<span aria-hidden="true">&rarr;</span>
         </Link>
       }
-      // After the Contact button, plain: a new visitor has no account.
-      actions={
-        <Link href="/login" className={NAV_LINK.body}>
-          Login
-        </Link>
-      }
+      // After the Contact button, plain: a new visitor has no account. Reads
+      // Login or Log out from the session cookies on the server, so the word
+      // is right on first paint with no profile request behind it.
+      actions={<SessionLink className={NAV_LINK.body} loginLabel="Login" />}
       mobileExtra={
         <>
-          <Link href="/login" className={mobileNavRowClassName}>
-            Login
-            <span aria-hidden="true" className="text-text-action">
-              &rarr;
-            </span>
-          </Link>
+          <SessionLink
+            className={mobileNavRowClassName}
+            loginLabel="Login"
+            trailing={
+              <span aria-hidden="true" className="text-text-action">
+                &rarr;
+              </span>
+            }
+          />
           <a href={PHONE_HREF} className={callRowClassName}>
             <Phone className="size-5 shrink-0 text-text-action" aria-hidden="true" />
             {PHONE_NUMBER}

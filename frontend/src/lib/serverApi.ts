@@ -5,6 +5,7 @@ import {
 } from '@freetheplatform/web-security';
 import { cookies, headers } from 'next/headers';
 import type { PublicSiteSettings } from './api';
+import { SESSION_COOKIES } from './sessionCookies';
 
 export const SERVER_API_BASE_URL = process.env.DJANGO_API_URL ?? 'http://127.0.0.1:8000';
 
@@ -12,15 +13,6 @@ export const SERVER_API_BASE_URL = process.env.DJANGO_API_URL ?? 'http://127.0.0
  * The authenticated reader for a Server Action. The request policy is the
  * shared one; what is local is the base URL and reading Next's cookie store.
  */
-/**
- * Django's session cookies, and nothing else.
- *
- * Without this the whole jar goes: analytics, consent flags, and anything else
- * the origin holds, none of which Django reads. `csrftoken` is always
- * forwarded by the shared helper.
- */
-const SESSION_COOKIES = ['freethedesk_access', 'freethedesk_refresh'];
-
 export async function serverApiFetch(
   path: string,
   init: RequestInit = {},
@@ -35,6 +27,9 @@ export async function serverApiFetch(
     cookieStore ?? (await cookies()),
     init,
     {
+      // The session cookies and nothing else. Without this the whole jar goes:
+      // analytics, consent flags, and anything else the origin holds, none of
+      // which Django reads. `csrftoken` is always forwarded by the shared helper.
       forwardCookies: SESSION_COOKIES,
       // Without it, Django's CSRF check refuses every HTTPS write (no Origin, no Referer).
       origin: incoming.get('origin'),
