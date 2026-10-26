@@ -17,6 +17,7 @@ urlpatterns += [
     path("api/", include("sales.urls")),
     path("api/", include("seo.urls")),
     path("api/", include("affiliates.urls")),
+    path("api/", include("outreach.urls")),
     path("api/payments/", include("payments.urls")),
     # Staff management of accounts, the same API on all three sites.
     path("api/admin/users/", include("freetheplatform.auth.staff.urls")),

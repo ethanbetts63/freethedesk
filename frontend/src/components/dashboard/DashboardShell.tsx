@@ -6,6 +6,7 @@ import {
   Mic,
   ReceiptText,
   Search,
+  Send,
   Settings,
   ShoppingBag,
   SlidersHorizontal,
@@ -23,6 +24,7 @@ const sections: DashboardNavSection[] = [
       { href: '/dashboard/admin/enquiries', label: 'Enquiries', icon: <Inbox /> },
       { href: '/dashboard/admin/orders', label: 'Orders', icon: <ShoppingBag /> },
       { href: '/dashboard/admin/messages', label: 'Messages', icon: <Mail /> },
+      { href: '/dashboard/admin/outreach', label: 'Outreach', icon: <Send /> },
     ],
   },
   {

@@ -11,7 +11,7 @@ not override implemented behaviour or shared policy.
 
 | Document                                           | Type              | Purpose                                                          |
 | -------------------------------------------------- | ----------------- | ---------------------------------------------------------------- |
-| [affiliate-outreach.md](affiliate-outreach.md)     | Plan              | Podcast affiliate outreach: scrape, hand-written openers, upload, hourly pitch cron, dashboard |
+| [affiliate-outreach.md](affiliate-outreach.md)     | Reference/runbook | Podcast affiliate outreach: scrape, hand-written openers, upload, hourly pitch cron, dashboard |
 | [affiliate-program.md](affiliate-program.md)       | Reference         | The podcast affiliate program: sign-up, codes, commissions, portal |
 | [analytics-events.md](analytics-events.md)         | Reference         | GA4 events the site sends and which are key events               |
 | [deployment.md](deployment.md)                     | Runbook           | PythonAnywhere virtualenv and product deployment sequence        |

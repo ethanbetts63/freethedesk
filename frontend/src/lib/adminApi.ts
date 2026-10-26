@@ -67,6 +67,48 @@ export interface Affiliate extends StaffAccountFields {
   seo_subscriber_id?: number | null;
 }
 
+/** A podcast host the outreach cron pitches once. See _docs/affiliate-outreach.md. */
+export type ProspectStatus =
+  'queued' | 'sent' | 'delivered' | 'failed' | 'bounced' | 'suppressed' | 'signed_up' | 'excluded';
+export type PitchVersion = 'a' | 'b' | 'c';
+export type ProspectReply = 'none' | 'positive' | 'negative';
+
+export interface Prospect {
+  id: number;
+  email: string;
+  email_source: string;
+  podcast_name: string;
+  host_name: string;
+  first_name: string;
+  website: string;
+  apple_url: string;
+  genre: string;
+  episode_count: number;
+  latest_episode_title: string;
+  latest_episode_description: string;
+  last_release_date: string | null;
+  opener: string;
+  version: PitchVersion;
+  version_label: string;
+  pitched_at: string | null;
+  reply: ProspectReply;
+  reply_label: string;
+  affiliate: number | null;
+  affiliate_name: string;
+  excluded_reason: string;
+  status: ProspectStatus;
+  scraped_on: string;
+  created_at: string;
+  updated_at: string;
+}
+
+/** One pitch version's tallies on the outreach page. */
+export interface OutreachVersionSummary extends Record<ProspectStatus, number> {
+  version: PitchVersion;
+  total: number;
+  positive: number;
+}
+
 export type SiteSettings = PublicSiteSettings;
 
 /** What a message is about. One field for any model, rather than a pair per relation. */
@@ -106,6 +148,7 @@ export const PACKAGE_ORDER_TYPE = 'core.packageorder';
 export const DEALER_TYPE = 'dealers.dealer';
 export const SEO_SUBSCRIBER_TYPE = 'seo.seosubscriber';
 export const AFFILIATE_TYPE = 'affiliates.affiliate';
+export const PROSPECT_TYPE = 'outreach.podcastprospect';
 
 export async function getEnquiries(
   params: Record<string, string | number | undefined>,
@@ -209,6 +252,39 @@ export async function updateAffiliate(
       body: JSON.stringify(changes),
     }),
   );
+}
+
+export async function getProspects(
+  params: Record<string, string | number | undefined>,
+): Promise<Paginated<Prospect>> {
+  return handleResponse(await authedFetch(`/api/admin/outreach/prospects/${queryString(params)}`));
+}
+
+export async function getProspect(id: number): Promise<Prospect> {
+  return handleResponse(await authedFetch(`/api/admin/outreach/prospects/${id}/`));
+}
+
+export async function updateProspect(
+  id: number,
+  changes: Partial<Pick<Prospect, 'reply' | 'excluded_reason'>>,
+): Promise<Prospect> {
+  return handleResponse(
+    await authedFetch(`/api/admin/outreach/prospects/${id}/`, {
+      method: 'PATCH',
+      body: JSON.stringify(changes),
+    }),
+  );
+}
+
+/** The "no thanks" replies to version C: the address goes on the suppression list. */
+export async function unsubscribeProspect(id: number): Promise<Prospect> {
+  return handleResponse(
+    await authedFetch(`/api/admin/outreach/prospects/${id}/unsubscribe/`, { method: 'POST' }),
+  );
+}
+
+export async function getOutreachSummary(): Promise<{ versions: OutreachVersionSummary[] }> {
+  return handleResponse(await authedFetch('/api/admin/outreach/summary/'));
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {

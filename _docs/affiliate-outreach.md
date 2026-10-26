@@ -1,6 +1,8 @@
 # Podcast affiliate outreach
 
-Plan, agreed 2026-10-25. Not built. The pitch emails themselves are in
+Agreed 2026-10-25, built 2026-10-26. The stages below are the plan as agreed;
+"Running it" and "As built" at the end are what shipped and how to use it. The
+pitch emails themselves are in
 [`affiliate-pitch/README.md`](affiliate-pitch/README.md); the affiliate
 accounts, codes and commissions are being built separately and this plan only
 touches them at one point (the sign-up link, stage 6).
@@ -245,3 +247,67 @@ Into `to_do.md` as they arise. Known now:
   is 400, the address is never echoed.
 - Sign-up linking: a matching affiliate sets `affiliate`; a non-matching one does not.
 - Admin API: filters, the PATCH whitelist, the summary counts.
+
+## Running it
+
+Locally, from the repository root, with `INTERNAL_API_KEY` and `API_SERVER_URL`
+in `.env`:
+
+```powershell
+py manage.py scrape_podcasts --batch 50        # appends to outreach/data/podcasts.jsonl
+# Hand batches of ~10 entries (by email) to an agent with outreach/opener_instructions.md,
+# one agent at a time; they share the file.
+py manage.py upload_prospects --dev            # to the local Django server on :8010
+py manage.py upload_prospects                  # to production; accepted lines move to data/archive/
+```
+
+The cursor files `outreach/data/searched_terms.json` and `searched_feeds.json`
+change with every scrape and are committed; the queue and archive are not.
+
+On the server, two hourly PythonAnywhere tasks:
+
+```bash
+python manage.py send_due_messages
+python manage.py send_podcast_pitches --count 5
+```
+
+`send_podcast_pitches` sends only 8am to 6pm Perth time on weekdays and exits
+otherwise; `--ignore-window` sends at once, for the owner's test. A prospect is
+pitched exactly once: a failed send leaves the row claimed and the failure in
+the message log, where staff resend it from the Messages page rather than the
+cron pitching again. `link_prospects` points prospects at affiliate accounts
+that existed before they were uploaded; sign-ups after that link themselves.
+
+The dashboard page is `/dashboard/admin/outreach`: three version cards (queued,
+reached, bounced or failed, positive replies, signed up), then the table with
+status, version and reply filters. A prospect's page records the reply, excludes
+them with a reason, suppresses the address for a version C "no thanks", and
+shows the episode the opener was written from and every message sent.
+
+## As built
+
+Where the code differs from the stages above:
+
+- **Episode descriptions are entity-decoded** (`&amp;` becomes `&`) as well
+  as stripped of tags, since the opener is written from them. Bloomprint's
+  scraper did not.
+- **`first_name`** is taken from `host_name` only when it is one to three
+  words, none of them a show or company word (podcast, media, network, team,
+  the, and so on), and the first is alphabetic. Anything else sends "Hi there".
+- **The sending window** reads `settings.TIME_ZONE` (Australia/Perth); there is
+  no separate business time zone setting in this repository.
+- **Version B's third subject** keeps the pitch README's multiplication sign.
+- **The upload endpoint** has no authentication class at all; the shared
+  secret, compared in constant time, is the whole credential. Fifty entries a
+  request, each validated on its own so one bad line is reported and the rest
+  are taken.
+- **The dashboard's "unsubscribe" action** also records a negative reply when
+  none was recorded, since a "no thanks" is one.
+- **Actions live on the prospect's page**, not as row buttons in the table: the
+  reply as three buttons, the exclusion as a textarea, the suppression behind a
+  confirm.
+- **`link_prospects`** is its own command rather than a flag.
+- **The frontend's forms ledger** gained the unsubscribe form as Track B.
+  `check:forms` also reports two affiliate-portal forms and a renamed verify
+  form from the affiliate build as unledgered; that is that build's to fix.
+

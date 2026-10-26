@@ -37,6 +37,8 @@ const DISALLOWED_ROUTES = [
   '/affiliate-portal',
   // Spends an emailed verification code; nothing there for a crawler.
   '/affiliates/verify',
+  // The unsubscribe button behind the link in every podcast pitch; a signed token, nothing to index.
+  '/unsubscribe',
   // Customer sale pages. Not private in the sign-in sense - access is a
   // capability carried in a link - which is exactly why a crawler has to be
   // told to stay away rather than left to find one in a forwarded email.

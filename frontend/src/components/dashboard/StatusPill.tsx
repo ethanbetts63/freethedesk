@@ -49,6 +49,14 @@ const STATUS: StatusMap = {
   cancelled: { label: 'Cancelled', tone: 'var(--status-closed)' },
   suppressed: { label: 'Suppressed', tone: 'var(--status-closed)' },
 
+  // Podcast outreach. A prospect takes the message statuses above once pitched;
+  // these are the two the row itself decides, and the reply column's pair.
+  signed_up: { label: 'Signed up', tone: 'var(--status-qualified)' },
+  excluded: { label: 'Excluded', tone: 'var(--status-closed)' },
+  positive: { label: 'Positive', tone: 'var(--status-won)' },
+  negative: { label: 'Negative', tone: 'var(--status-spam)' },
+  none: { label: 'No reply', tone: 'var(--status-closed)' },
+
   // Sale statuses, coloured by who the sale is waiting on rather than by how
   // far through it is: amber where the dealer has something to do, blue where
   // the customer does, purple once it is binding, green when it is finished.
@@ -120,6 +128,17 @@ export const saleStatuses = [
   'completed',
   'cancelled',
 ] as const;
+export const prospectStatuses = [
+  'queued',
+  'sent',
+  'delivered',
+  'failed',
+  'bounced',
+  'suppressed',
+  'signed_up',
+  'excluded',
+] as const;
+export const prospectReplies = ['none', 'positive', 'negative'] as const;
 export const messageStatuses = [
   'queued',
   'sent',

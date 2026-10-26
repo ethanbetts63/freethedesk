@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "sales",
     "seo",
     "affiliates",
+    "outreach",  # Podcast affiliate outreach: prospects, the hourly pitch, the upload endpoint.
     "payments",
     "freetheplatform.agreements",
     "freetheplatform.payments",
@@ -180,6 +181,10 @@ REST_FRAMEWORK = {
         "dealer-signup": "5/hour",
         "seo-signup": "5/hour",
         "affiliate-signup": "5/hour",
+        # The local machine uploading prospects, by shared secret. A load limit.
+        "internal": "120/hour",
+        # The unsubscribe link in every pitch: a token check and one row written.
+        "unsubscribe": "30/hour",
         # Each accepted request mints a password and sends an email.
         "sale-link": "60/hour",
         # Redeeming a token the caller already holds grants nothing new, so this
@@ -316,6 +321,15 @@ SILENCED_SYSTEM_CHECKS = [
 SITE_URL = _required("SITE_URL").rstrip("/")
 # Staff alert destination, read directly by senders in core, dealers and seo.
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "")
+
+# Podcast affiliate outreach (_docs/affiliate-outreach.md). The upload endpoint
+# accepts the local machine by this shared secret, set on both; the two URLs are
+# where the local `upload_prospects` command posts to.
+INTERNAL_API_KEY = os.getenv("INTERNAL_API_KEY", "")
+API_SERVER_URL = os.getenv("API_SERVER_URL", "")
+DEV_API_SERVER_URL = os.getenv("DEV_API_SERVER_URL", "http://127.0.0.1:8010")
+# Who signs pitch A.
+OUTREACH_SENDER_NAME = os.getenv("OUTREACH_SENDER_NAME", "Ethan Betts")
 ADMIN_NUMBER = os.getenv("ADMIN_NUMBER", "")
 
 # Path to the Google service-account key SEO customers add to Search Console
