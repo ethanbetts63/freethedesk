@@ -67,6 +67,7 @@ def test_build_entry_lowercases_the_address_and_leaves_the_opener_blank():
     assert built["podcast_name"] == "The Tradie Show"
     assert built["last_release_date"] == "2026-10-20"
     assert built["opener"] == ""
+    assert built["relevance"] == ""
     assert "subject" not in built
     assert scraper.urls_fit(built)
     assert not scraper.urls_fit({**built, "website": "https://x.example/" + "a" * 500})

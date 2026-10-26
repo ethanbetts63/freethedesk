@@ -42,14 +42,27 @@ import { cardClassName, cardTitleClassName, panelClassName } from '@/components/
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
 
-const SORT_FIELDS = ['created_at', 'pitched_at', 'podcast_name', 'version', 'status'] as const;
-const FILTER_KEYS = ['status', 'version', 'reply'] as const;
-const COLUMNS = 7;
+const SORT_FIELDS = [
+  'created_at',
+  'pitched_at',
+  'podcast_name',
+  'version',
+  'relevance',
+  'status',
+] as const;
+const FILTER_KEYS = ['status', 'version', 'reply', 'relevance'] as const;
+const COLUMNS = 8;
 
 const VERSION_OPTIONS = [
   { value: 'a', label: 'Version A' },
   { value: 'b', label: 'Version B' },
   { value: 'c', label: 'Version C' },
+];
+
+const RELEVANCE_OPTIONS = [
+  { value: 'high', label: 'High relevance' },
+  { value: 'medium', label: 'Medium relevance' },
+  { value: 'low', label: 'Low relevance' },
 ];
 
 /** What each version has done so far: the numbers the A/B/C test is read from. */
@@ -145,6 +158,13 @@ function OutreachContent() {
             options={VERSION_OPTIONS}
           />
           <FilterSelect
+            label="Filter prospects by audience relevance"
+            value={list.filters.relevance}
+            onChange={(value) => list.setFilter('relevance', value)}
+            allLabel="Any relevance"
+            options={RELEVANCE_OPTIONS}
+          />
+          <FilterSelect
             label="Filter prospects by reply"
             value={list.filters.reply}
             onChange={(value) => list.setFilter('reply', value)}
@@ -167,6 +187,9 @@ function OutreachContent() {
                 <th className={adminThClassName}>Host</th>
                 <SortHeader field="version" ordering={list.ordering} onSort={list.toggleSort}>
                   Version
+                </SortHeader>
+                <SortHeader field="relevance" ordering={list.ordering} onSort={list.toggleSort}>
+                  Relevance
                 </SortHeader>
                 <SortHeader field="status" ordering={list.ordering} onSort={list.toggleSort}>
                   Status
@@ -204,6 +227,7 @@ function OutreachContent() {
                     <CellNote>{prospect.email}</CellNote>
                   </td>
                   <td className={adminTdClassName}>{prospect.version_label}</td>
+                  <td className={adminTdClassName}>{prospect.relevance_label || '—'}</td>
                   <td className={adminTdClassName}>
                     <StatusPill status={prospect.status} />
                     {prospect.affiliate_name && <CellNote>{prospect.affiliate_name}</CellNote>}

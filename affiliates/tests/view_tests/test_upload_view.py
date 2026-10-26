@@ -28,6 +28,7 @@ def test_a_batch_creates_prospects_and_assigns_versions_in_rotation(api_client, 
     prospect = PodcastProspect.objects.get(email="host0@example.com")
     assert prospect.first_name == "Sam"
     assert prospect.opener == "Came across your episode on quoting jobs."
+    assert prospect.relevance == "high"
     assert str(prospect.last_release_date) == "2026-10-20"
     assert prospect.pitched_at is None
 
@@ -42,14 +43,18 @@ def test_the_server_decides_what_is_new(api_client, internal_key):
             entry(email="sam@thetradieshow.com.au", opener="A different opener."),
             entry(email="gone@example.com", email_source="https://f.example/gone.rss"),
             entry(email="not an address"),
+            entry(email="rated@example.com", email_source="https://f.example/rated.rss", relevance="very"),
             entry(email="new@example.com", email_source="https://f.example/new.rss"),
         ],
         internal_key,
     )
 
     body = response.json()
-    assert [r["outcome"] for r in body["results"]] == ["already_known", "suppressed", "invalid", "created"]
+    assert [r["outcome"] for r in body["results"]] == [
+        "already_known", "suppressed", "invalid", "invalid", "created"
+    ]
     assert "email" in body["results"][2]["errors"]
+    assert "relevance" in body["results"][3]["errors"]
     assert PodcastProspect.objects.count() == 2
     # Already known means untouched: the server's row is the record.
     assert PodcastProspect.objects.get(email="sam@thetradieshow.com.au").opener == entry()["opener"]

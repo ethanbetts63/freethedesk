@@ -31,6 +31,9 @@ class ProspectEntrySerializer(serializers.Serializer):
     latest_episode_description = bounds.text("note", required=False, allow_blank=True, default="")
     last_release_date = serializers.DateField(required=False, allow_null=True, default=None)
     opener = bounds.text("note", required=False, allow_blank=True, default="")
+    relevance = serializers.ChoiceField(
+        choices=PodcastProspect.Relevance.choices, required=False, allow_blank=True, default=""
+    )
     scraped_on = serializers.DateField()
 
 

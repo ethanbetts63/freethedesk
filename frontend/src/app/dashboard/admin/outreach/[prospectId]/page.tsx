@@ -163,6 +163,7 @@ export default function ProspectDetailPage() {
           rows={[
             ['Status', <StatusPill key="status" status={prospect.status} />],
             ['Version', prospect.version_label],
+            ['Audience relevance', prospect.relevance_label || 'Not rated'],
             ['Pitched', prospect.pitched_at ? formatDateTime(prospect.pitched_at) : 'Queued'],
             ['Reply', prospect.reply_label],
             [

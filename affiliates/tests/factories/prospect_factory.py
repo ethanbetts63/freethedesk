@@ -20,6 +20,7 @@ def entry(**overrides) -> dict:
         "latest_episode_description": "Mick and Dave on pricing a job so materials don't eat the margin.",
         "last_release_date": "2026-10-20",
         "opener": "Came across your episode on quoting jobs.",
+        "relevance": "high",
         "scraped_on": "2026-10-25",
         **overrides,
     }

@@ -72,6 +72,8 @@ export type ProspectStatus =
   'queued' | 'sent' | 'delivered' | 'failed' | 'bounced' | 'suppressed' | 'signed_up' | 'excluded';
 export type PitchVersion = 'a' | 'b' | 'c';
 export type ProspectReply = 'none' | 'positive' | 'negative';
+/** The writer's guess at how well an SEO audit fits the show's audience; '' is unrated. */
+export type ProspectRelevance = 'high' | 'medium' | 'low' | '';
 
 export interface Prospect {
   id: number;
@@ -88,6 +90,8 @@ export interface Prospect {
   latest_episode_description: string;
   last_release_date: string | null;
   opener: string;
+  relevance: ProspectRelevance;
+  relevance_label: string;
   version: PitchVersion;
   version_label: string;
   pitched_at: string | null;

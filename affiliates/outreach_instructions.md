@@ -37,10 +37,10 @@ searched`.
 The scrape moves the cursor files `affiliates/data/searched_terms.json` and
 `searched_feeds.json`; those are committed with the run (Phase 3).
 
-## Phase 2 — Write the openers
+## Phase 2 — Write the openers and rate the fit
 
-Every entry with `"opener": ""` needs one. Entries that already have an opener
-are done; leave them.
+Every entry with `"opener": ""` needs one, and every entry with
+`"relevance": ""` needs a rating. Entries that have both are done; leave them.
 
 The opener is the second paragraph of the pitch email, straight after
 "Hi {first name}," and before "I'm Ethan. I run freethedesk in Perth". The
@@ -73,6 +73,13 @@ aren't rewriting the description. Make the language natural and casual.
 Emphasis on the casual: it stops you sounding like AI. No exclamation marks, no
 flattery about the show as a whole, no "as a Perth business owner myself".
 
+While you are on the entry, set `relevance` to `"high"`, `"medium"` or `"low"`:
+how relevant you would expect a pitch for a free SEO audit (for the listener's
+own business website) to be to this show's audience. A show for tradies, small
+business owners, marketers or founders is high; a general-interest show whose
+listeners might run a business is medium; true crime, fiction, sport fandom,
+kids and the like are low. Rate the audience, not the host.
+
 Do not write it programmatically. Write to the file one entry at a time and do
 it by hand, keeping each line valid JSON. If an entry's description is too thin
 to react to, still name the episode and react to the title. If even that is
@@ -90,6 +97,7 @@ Before uploading, read the whole queue back and check every line:
 
 - Valid JSON, one object per line.
 - Every opener either starts with "I just listened to" or is blank.
+- Every `relevance` is `high`, `medium` or `low`.
 - No placeholder or template text, no two entries for the same show.
 
 **Upload is the last reversible step.** Once an entry reaches the server it is

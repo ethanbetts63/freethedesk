@@ -67,6 +67,7 @@ The one prompt that runs the pipeline is `affiliates/outreach_instructions.md`.
 | `latest_episode_title`, `latest_episode_description`               | `CharField`, `TextField`                    | What the opener was written from                                                             |
 | `last_release_date`                                                | `DateField(null)`                           |                                                                                              |
 | `opener`                                                           | `TextField(blank)`                          | The one hand-written line. Blank is allowed and sends without it                             |
+| `relevance`                                                        | `CharField(choices high/medium/low, blank)` | The writer's guess at how well an SEO audit fits the audience; added 2026-10-26 so replies can be read against fit |
 | `version`                                                          | `CharField(choices a/b/c)`                  | Assigned on upload by rotation: the version with the fewest prospects gets the next one      |
 | `pitched_at`                                                       | `DateTimeField(null)`                       | Set by the cron's claim before the send (stage 4). Null means queued                         |
 | `reply`                                                            | `CharField(choices none/positive/negative)` | Set by hand on the dashboard; replies land in the owner's inbox                              |
@@ -96,8 +97,8 @@ term-by-term loop, writing to `affiliates/data/podcasts.jsonl`. Changes:
 - The cursor files are JSON, not Python modules loaded with `exec`.
 - No `planned_emails` file. The server is the dedupe, at upload (stage 3). The
   scraper only dedupes within the local queue and the feeds already tried.
-- Each entry carries `scraped_on` and an empty `opener`; no `subject`,
-  `custom_intro` or `country`.
+- Each entry carries `scraped_on`, an empty `opener` and an empty `relevance`;
+  no `subject`, `custom_intro` or `country`.
 
 **Writing** is Phase 2 of `affiliates/outreach_instructions.md`, the one prompt
 that runs scrape, write and upload in a single session (decided 2026-10-26: no

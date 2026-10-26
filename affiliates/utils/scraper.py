@@ -233,6 +233,7 @@ def build_entry(result, rss, feed_url):
         "latest_episode_description": rss["latest_episode_description"],
         "last_release_date": release_date(result.get("releaseDate", "")),
         "opener": "",
+        "relevance": "",
         "scraped_on": date.today().isoformat(),
     }
 

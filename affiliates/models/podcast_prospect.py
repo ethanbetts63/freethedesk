@@ -20,6 +20,13 @@ class PodcastProspect(models.Model):
         B = "b", "B"
         C = "c", "C"
 
+    class Relevance(models.TextChoices):
+        """The writer's guess at how well an SEO audit fits the show's audience."""
+
+        HIGH = "high", "High"
+        MEDIUM = "medium", "Medium"
+        LOW = "low", "Low"
+
     class Reply(models.TextChoices):
         NONE = "none", "No reply"
         POSITIVE = "positive", "Positive"
@@ -44,6 +51,9 @@ class PodcastProspect(models.Model):
     last_release_date = models.DateField(null=True, blank=True)
     # The one hand-written line. Blank sends without it.
     opener = models.TextField(blank=True)
+    # Rated by the writer alongside the opener, so replies can be read against
+    # how good a fit the audience looked. Blank means never rated.
+    relevance = models.CharField(max_length=6, choices=Relevance.choices, blank=True, default="")
     version = models.CharField(max_length=1, choices=Version.choices, db_index=True)
     # Set by the cron's claim before the send. Null means still queued.
     pitched_at = models.DateTimeField(null=True, blank=True, db_index=True)

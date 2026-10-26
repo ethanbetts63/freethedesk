@@ -18,6 +18,7 @@ PROSPECT_ORDERING = {
     "pitched_at": ("pitched_at",),
     "podcast_name": ("podcast_name",),
     "version": ("version",),
+    "relevance": ("relevance",),
     "status": ("status",),
 }
 
@@ -35,7 +36,7 @@ class AdminProspectListView(ListAPIView):
     def get_queryset(self):
         params = self.request.query_params
         queryset = with_status(PodcastProspect.objects.select_related("affiliate"))
-        for field in ("status", "version", "reply"):
+        for field in ("status", "version", "reply", "relevance"):
             values = _csv(params, field)
             if values:
                 queryset = queryset.filter(**{f"{field}__in": values})
