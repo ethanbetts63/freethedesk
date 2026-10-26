@@ -76,7 +76,7 @@ export default function AffiliatePortalAccountPage() {
 
   return (
     <div className={pageClassName}>
-      <PageHeader kicker="Affiliate portal" title="Account details" />
+      <PageHeader title="Account details" />
 
       {error && <Notice tone="danger">{error}</Notice>}
       {notice && <Notice tone="success">{notice}</Notice>}

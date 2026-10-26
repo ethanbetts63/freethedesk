@@ -1,6 +1,6 @@
 A sale with your code.
 
-Someone bought a {{ commission.description }} with your code {{ affiliate.code }}.
+Someone bought the {{ commission.description }} with your code {{ affiliate.code }}.
 
 To you: {{ amount }}
 

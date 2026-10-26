@@ -12,6 +12,7 @@ manager's refusal does not apply (see `core.models.tenancy`).
 from freetheplatform.auth.staff import AccountDirectory
 from freetheplatform.messaging.models import Message
 
+from affiliates.models import Affiliate
 from core.models import Enquiry
 from dealers.models import Dealer
 from sales.models import Sale
@@ -34,6 +35,7 @@ class FreeTheDeskAccountDirectory(AccountDirectory):
     roles = (
         ("staff", "Staff"),
         ("dealer", "Dealer"),
+        ("affiliate", "Affiliate"),
         ("seo", "SEO subscriber"),
         ("customer", "Customer"),
         ("none", "No portal"),
@@ -44,6 +46,9 @@ class FreeTheDeskAccountDirectory(AccountDirectory):
             return "staff"
         if Dealer.objects.filter(user=user).exists():
             return "dealer"
+        # Before SEO, as in `core.principal`: an affiliate also holds the free audit's subscriber row.
+        if Affiliate.objects.filter(user=user).exists():
+            return "affiliate"
         if SeoSubscriber.objects.filter(user=user).exists():
             return "seo"
         if Sale.all_objects.filter(account=user).exists():
@@ -53,17 +58,30 @@ class FreeTheDeskAccountDirectory(AccountDirectory):
     def filter_role(self, queryset, role):
         non_staff = queryset.filter(is_staff=False)
         dealers = Dealer.objects.values("user_id")
+        affiliates = Affiliate.objects.values("user_id")
         seo = SeoSubscriber.objects.values("user_id")
         customers = Sale.all_objects.filter(account__isnull=False).values("account_id")
         if role == "staff":
             return queryset.filter(is_staff=True)
         if role == "dealer":
             return non_staff.filter(pk__in=dealers)
+        if role == "affiliate":
+            return non_staff.filter(pk__in=affiliates).exclude(pk__in=dealers)
         if role == "seo":
-            return non_staff.filter(pk__in=seo).exclude(pk__in=dealers)
+            return non_staff.filter(pk__in=seo).exclude(pk__in=dealers).exclude(pk__in=affiliates)
         if role == "customer":
-            return non_staff.filter(pk__in=customers).exclude(pk__in=dealers).exclude(pk__in=seo)
-        return non_staff.exclude(pk__in=dealers).exclude(pk__in=seo).exclude(pk__in=customers)
+            return (
+                non_staff.filter(pk__in=customers)
+                .exclude(pk__in=dealers)
+                .exclude(pk__in=affiliates)
+                .exclude(pk__in=seo)
+            )
+        return (
+            non_staff.exclude(pk__in=dealers)
+            .exclude(pk__in=affiliates)
+            .exclude(pk__in=seo)
+            .exclude(pk__in=customers)
+        )
 
     def activity(self, user):
         email = (user.email or "").strip()
@@ -80,7 +98,17 @@ class FreeTheDeskAccountDirectory(AccountDirectory):
                 },
             ),
             _section(
-                "seo", "SEO subscription", SeoSubscriber.objects.filter(user=user),
+                "affiliate", "Affiliate account", Affiliate.objects.filter(user=user),
+                lambda a: {
+                    "reference": a.business_name,
+                    "summary": a.code,
+                    "status": a.status,
+                    "date": a.created_at,
+                    "href": f"{ADMIN}/affiliates/{a.pk}",
+                },
+            ),
+            _section(
+                "seo", "SEO audit", SeoSubscriber.objects.filter(user=user),
                 lambda s: {
                     "reference": s.business_name,
                     "summary": s.get_plan_display(),

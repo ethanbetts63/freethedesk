@@ -11,10 +11,10 @@ commissions out is not built yet (see the end).
 Set on the admin's site settings page (`/dashboard/admin/settings/site`) and
 read everywhere from `SiteSettings`:
 
-| Setting                      | Default | What it does                                                                                              |
-| ---------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| Setting                      | Default | What it does                                                                                             |
+| ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
 | `affiliate_discount_percent` | 20      | What a listener gets off an SEO audit with an affiliate's code. Baked into each code the day it is made. |
-| `affiliate_share_percent`    | 50      | The affiliate's share of **what the listener paid**, after the discount. Read when the audit is paid.     |
+| `affiliate_share_percent`    | 50      | The affiliate's share of **what the listener paid**, after the discount. Read when the audit is paid.    |
 
 The share is of the sale price, a straight split of what arrived: on a $550
 Essentials audit with 20% off, the listener pays $440, the affiliate is owed
@@ -63,13 +63,14 @@ decided before `seo` because the affiliate also has the subscriber row.
 
 `/affiliate-portal`, `AffiliatePortalShell`, `GET/PATCH /api/affiliates/me/`.
 
-| Page       | What it shows                                                                                                                                                   |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Overview   | Status, the code and the share link (`/seo?code=CODE`, both with copy buttons), earnings (sales, owed, paid), the free audit's next step, recent sales.         |
-| Codes      | A table of every code they hold: copy the code or its link, delete one, or make one the primary. The primary (`Affiliate.discount`) is what the marketing material and `share_link` carry and cannot be deleted; deleting a code switches it off and hides it, and adding the name again brings it back. |
-| Promote    | Marketing material around the primary code and the live prices (`_lib/promotion.ts`): an on-air read, show notes, a newsletter paragraph, a social post, a one-liner. Every piece discloses the commission. |
-| Your free audit | The SEO portal's `SetupChecklist` with affiliate wording, plus a link to `/documents/seo-report-onboarding.pdf`, the one-page instructions for whoever runs their site. |
-| Account    | Podcast name, host name, website; the code and email are read-only. Password change links to the shared page.                                                 |
+| Page            | What it shows                                                                                                                                                                                                                                                                                            |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sales           | What they earned each month (a line chart, 12 months) and every sale: date, audit, what the listener paid, their share, status, note.                                                                                                                                                                    |
+| Payments        | Owed and paid so far, payouts by month and a table of every payout. Empty until payouts are built (see the end).                                                                                                                                                                                         |
+| Codes           | A table of every code they hold: copy the code or its link, delete one, or make one the primary. The primary (`Affiliate.discount`) is what the marketing material and `share_link` carry and cannot be deleted; deleting a code switches it off and hides it, and adding the name again brings it back. |
+| Promote         | Marketing material around the primary code and the live prices (`_lib/promotion.ts`): an on-air read, show notes, a newsletter paragraph, a social post, a one-liner. Every piece discloses the commission.                                                                                              |
+| Your free audit | The SEO portal's `SetupChecklist` with affiliate wording, plus a link to `/documents/seo-report-onboarding.pdf`, the one-page instructions for whoever runs their site.                                                                                                                                  |
+| Account         | Podcast name, host name, website; the code and email are read-only. Password change links to the shared page.                                                                                                                                                                                            |
 
 ## The listener's purchase
 

@@ -1,3 +1,5 @@
+from urllib.parse import urlencode
+
 from django.conf import settings
 from freetheplatform.messaging import send, send_many
 
@@ -55,7 +57,8 @@ def send_affiliate_welcome(affiliate: Affiliate, password: str | None):
     """
     login_url = f"{site_url()}/login"
     portal_url = f"{site_url()}{PORTAL_PATH}"
-    verify_url = f"{site_url()}{VERIFY_PATH}?email={affiliate.email}"
+    # Encoded: a "+" in an address would otherwise arrive on the verify page as a space.
+    verify_url = f"{site_url()}{VERIFY_PATH}?{urlencode({'email': affiliate.email})}"
     sign_in = (
         f"VERIFY YOUR EMAIL\n\nYour verification code: {password}\n\n"
         f"Enter it to verify your email, then choose a password:\n{verify_url}\n\n"
@@ -101,7 +104,7 @@ def notify_of_commission(commission: Commission):
                 "to": affiliate.email,
                 "subject": f"A listener bought an audit with {affiliate.code}",
                 "body": (
-                    f"Someone bought a {commission.description} with your code {affiliate.code}.\n\n"
+                    f"Someone bought the {commission.description} with your code {affiliate.code}.\n\n"
                     f"That is {amount} to you, owed now and paid out through Stripe.\n\n"
                     f"Your portal lists every sale: {portal_url}"
                 ),

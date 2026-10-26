@@ -66,7 +66,7 @@ def test_signing_up_emails_a_verification_code_and_tells_staff(client, outbox):
     welcome = [m for m in outbox if m.to == affiliate.email]
     assert len(welcome) == 1
     assert "Your verification code:" in welcome[0].body_text
-    assert "/affiliates/verify?email=sam@thetradieshow.com.au" in welcome[0].body_text
+    assert "/affiliates/verify?email=sam%40thetradieshow.com.au" in welcome[0].body_text
     assert "THETRADIESHOW20" in welcome[0].body_text
     staff = [m for m in outbox if m.to != affiliate.email]
     assert any("THETRADIESHOW20" in m.body_text for m in staff)

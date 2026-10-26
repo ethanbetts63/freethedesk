@@ -167,10 +167,8 @@ export default function SiteSettingsPage() {
         <section className={cn(cardClassName, cardWideClassName)}>
           <h2 className={cardTitleClassName}>SEO audit prices</h2>
           <p className="text-label text-text-subtle">
-            Prices shown on the public SEO page. Each subscription price is what a customer pays per
-            audit at that cadence. The Google Business Profile audit can be selected alone or
-            combined with SEO at the same frequency. The AI readiness check is free, so it has no
-            price setting.
+            Prices shown on the public SEO page and at checkout. Each audit is bought once; an
+            affiliate&apos;s code takes the listener discount below off these.
           </p>
           <div className={adminFormClassName}>{SEO_FIELDS.map(renderField)}</div>
         </section>
