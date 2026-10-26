@@ -6,6 +6,7 @@ from core.models import SiteSettings
 from core.utils.urls import site_url
 
 from ..models import Affiliate, Commission
+from ..utils.codes import affiliate_codes
 from .commission import CommissionSerializer
 
 #: Where a listener lands with the code already filled in.
@@ -34,12 +35,15 @@ def earnings(affiliate: Affiliate) -> dict:
 class AffiliateSelfSerializer(serializers.ModelSerializer):
     """What an affiliate may see and change about their own account.
 
-    Email is read-only: it is the login identity. The code is read-only too; it
-    was made from the podcast's name at sign-up and listeners already have it.
+    Email is read-only: it is the login identity. ``code`` is the sign-up code,
+    made from the podcast's name; ``codes`` is every code they hold, that one
+    first, and the ones they added are made and removed through their own
+    endpoint rather than by writing here.
     """
 
     status_label = serializers.CharField(source="get_status_display", read_only=True)
     code = serializers.CharField(read_only=True)
+    codes = serializers.SerializerMethodField()
     discount_percent = serializers.SerializerMethodField()
     share_percent = serializers.SerializerMethodField()
     share_link = serializers.SerializerMethodField()
@@ -50,12 +54,26 @@ class AffiliateSelfSerializer(serializers.ModelSerializer):
         model = Affiliate
         fields = [
             "id", "business_name", "contact_name", "email", "website",
-            "status", "status_label", "code", "discount_percent", "share_percent",
+            "status", "status_label", "code", "codes", "discount_percent", "share_percent",
             "share_link", "earnings", "commissions", "created_at", "updated_at",
         ]
         read_only_fields = [
-            "id", "email", "status", "status_label", "code", "discount_percent",
+            "id", "email", "status", "status_label", "code", "codes", "discount_percent",
             "share_percent", "share_link", "earnings", "commissions", "created_at", "updated_at",
+        ]
+
+    def get_codes(self, obj) -> list[dict]:
+        return [
+            {
+                "id": str(code.pk),
+                "code": code.code,
+                "share_link": share_link(code.code),
+                "is_active": code.is_active,
+                # The sign-up code cannot be removed; listeners already have it.
+                "removable": code.pk != obj.discount_id,
+                "created_at": code.created_at,
+            }
+            for code in affiliate_codes(obj)
         ]
 
     def get_discount_percent(self, obj) -> int:

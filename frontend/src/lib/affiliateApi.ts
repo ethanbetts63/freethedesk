@@ -29,6 +29,18 @@ export interface AffiliateEarnings {
   paid: string;
 }
 
+/** One of the affiliate's codes: the sign-up one, or one they added. */
+export interface AffiliateCode {
+  id: string;
+  code: string;
+  /** The SEO page with this code filled in. */
+  share_link: string;
+  is_active: boolean;
+  /** False for the sign-up code, which listeners already have. */
+  removable: boolean;
+  created_at: string;
+}
+
 /** The signed-in affiliate's own account. */
 export interface AffiliateAccount {
   id: number;
@@ -38,8 +50,10 @@ export interface AffiliateAccount {
   website: string;
   status: DealerStatus;
   status_label: string;
-  /** What listeners type at checkout; empty if it was removed. */
+  /** The sign-up code, what the welcome email said; empty if it was removed. */
   code: string;
+  /** Every code they hold, the sign-up one first. */
+  codes: AffiliateCode[];
   /** The code's own percentage off, fixed when it was made. */
   discount_percent: number;
   /** The affiliate's share of each audit's list price. */
@@ -58,4 +72,11 @@ export type AffiliateAccountChanges = Partial<
 
 export async function getAffiliateAccount(): Promise<AffiliateAccount> {
   return handleResponse(await authedFetch('/api/affiliates/me/'));
+}
+
+/** Switch one of the affiliate's added codes off. Returns the account as it now stands. */
+export async function removeAffiliateCode(id: string): Promise<AffiliateAccount> {
+  return handleResponse(
+    await authedFetch(`/api/affiliates/codes/${encodeURIComponent(id)}/`, { method: 'DELETE' }),
+  );
 }

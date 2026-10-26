@@ -12,18 +12,24 @@ from django.utils import timezone
 
 from core.models import SiteSettings
 
-from ..models import Commission
+from ..models import Affiliate, Commission
 from .notifications import notify_of_commission
 
 OWN_PURCHASE_NOTE = "The affiliate bought this audit with their own code, so it earns nothing."
 
 
 def affiliate_for_payment(payment):
-    """The affiliate whose code this payment redeemed, or ``None``."""
+    """The affiliate whose code this payment redeemed, or ``None``.
+
+    Every code an affiliate holds names them as its owner, the sign-up one and
+    the ones they added alike; the ``Affiliate.discount`` link is only the
+    sign-up code.
+    """
     redemption = getattr(payment, "discount_redemption", None)
     if redemption is None:
         return None
-    return getattr(redemption.discount, "affiliate", None)
+    owner = redemption.discount.owner
+    return owner if isinstance(owner, Affiliate) else None
 
 
 def share_of(sale_amount: Decimal) -> Decimal:

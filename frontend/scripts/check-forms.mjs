@@ -41,6 +41,7 @@ checkFormLedger({
     { file: 'app/reset-password/page.tsx', track: 'B' },
     { file: 'app/seo/payment/complete/VerifyEmailForm.tsx', track: 'B' },
     { file: 'app/reset-password/[uid]/[token]/page.tsx', track: 'B' },
+    { file: 'app/affiliate-portal/_components/AffiliateCodes.tsx', track: 'B' },
     { file: 'app/seo-portal/account/page.tsx', track: 'B' },
     { file: 'components/marketing/AiReadinessForm.tsx', track: 'B' },
     { file: 'app/unsubscribe/[token]/_components/UnsubscribeForm.tsx', track: 'B' },

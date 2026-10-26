@@ -1,18 +1,14 @@
 'use client';
 
-import { StatusPill } from '@/components/dashboard/StatusPill';
 import { Button } from '@/components/ui/Button';
 import {
   DetailItem,
   cardClassName,
-  cardLabelClassName,
   cardTitleClassName,
   cardWideClassName,
   detailGridClassName,
   detailListClassName,
   messageBodyClassName,
-  statusCardClassName,
-  statusCardLabelGroupClassName,
 } from '@/components/ui/Card';
 import { Notice } from '@/components/ui/Notice';
 import { PageHeader } from '@/components/ui/PageHeader';
@@ -22,7 +18,7 @@ import type { AffiliateAccount } from '@/lib/affiliateApi';
 import { formatDateTime, formatMoney } from '@/lib/formatting';
 import { cn } from '@/lib/utils';
 
-import { CopyValue } from '../_components/CopyValue';
+import { AffiliateCodes } from '../_components/AffiliateCodes';
 import { useAffiliateAccount } from '../_lib/useAffiliateAccount';
 
 /** Only the statuses that need explaining; an active affiliate just gets on with it. */
@@ -41,7 +37,7 @@ const money = (value: string) => formatMoney(value, { cents: 'auto' });
 
 export default function AffiliatePortalOverviewPage() {
   const { user } = useAuth();
-  const { account, error, loading } = useAffiliateAccount();
+  const { account, setAccount, error, loading } = useAffiliateAccount();
 
   if (loading)
     return (
@@ -65,13 +61,6 @@ export default function AffiliatePortalOverviewPage() {
       <PageHeader title={account.business_name} subtitle={`Signed in as ${user?.email}`} />
 
       <div className={detailGridClassName}>
-        <section className={statusCardClassName}>
-          <div className={statusCardLabelGroupClassName}>
-            <p className={cardLabelClassName}>Account status</p>
-            <StatusPill status={account.status} />
-          </div>
-        </section>
-
         {message && (
           <section className={cn(cardClassName, cardWideClassName)}>
             <h2 className={cardTitleClassName}>{message.heading}</h2>
@@ -79,20 +68,9 @@ export default function AffiliatePortalOverviewPage() {
           </section>
         )}
 
-        <section className={cn(cardClassName, cardWideClassName)}>
-          <h2 className={cardTitleClassName}>Your code</h2>
-          <p className={messageBodyClassName}>
-            Listeners enter it at checkout for {account.discount_percent}% off, and every audit
-            bought with it is yours. The link opens the SEO page with the code already filled in.
-          </p>
-          <div className="mt-m flex flex-col gap-m">
-            <CopyValue value={account.code} label="Copy code" />
-            <CopyValue value={account.share_link} label="Copy link" />
-          </div>
-          <div className="mt-l">
-            <Button href="/affiliate-portal/promote">Words for the show →</Button>
-          </div>
-        </section>
+        <div className={cardWideClassName}>
+          <AffiliateCodes account={account} onChange={setAccount} />
+        </div>
 
         <section className={cardClassName}>
           <h2 className={cardTitleClassName}>Earnings</h2>
