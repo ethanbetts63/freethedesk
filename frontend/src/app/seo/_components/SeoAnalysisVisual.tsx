@@ -16,7 +16,7 @@ import {
 
 import { cn } from '@/lib/utils';
 
-type Size = 'large' | 'wide' | 'small';
+type Size = 'large' | 'wide' | 'tall' | 'small';
 
 type Tone = 'plain' | 'tint' | 'blue' | 'dark' | 'moving';
 
@@ -33,16 +33,17 @@ type Source = {
  * customer would use. Keep it in step with the SEO Audit Terms.
  *
  * The order is the layout. On four columns the sizes pack into five full rows
- * (4+4+4+4+4 cells); on two they pack into ten. Move a tile and check both.
+ * (4+4+4+4+4 cells); on two they pack into ten, with dense placement filling
+ * the cell the tall tile leaves beside it. Move a tile and check both.
  *
- * The site itself is read twice, on a desktop and on a phone, so it is two
- * tiles in the one colour rather than one large tile.
+ * The site itself is read twice, on a phone and on a desktop: the phone tile
+ * carries the colour, the desktop one stands two rows tall in the top right.
  */
 const sources: readonly Source[] = [
-  { name: 'Your site on desktop', icon: Monitor, size: 'wide', tone: 'moving' },
-  { name: 'Your site on a phone', icon: Smartphone, size: 'wide', tone: 'moving' },
-  { name: 'Search Console', icon: ChartColumn, size: 'wide', tone: 'blue' },
+  { name: 'Mobile pass', icon: Smartphone, size: 'wide', tone: 'moving' },
   { name: 'Page speed', icon: Gauge, size: 'small', tone: 'plain' },
+  { name: 'Desktop pass', icon: Monitor, size: 'tall', tone: 'blue' },
+  { name: 'Search Console', icon: ChartColumn, size: 'wide', tone: 'blue' },
   { name: 'Search results', icon: Search, size: 'small', tone: 'tint' },
   { name: 'Competitors', icon: Swords, size: 'small', tone: 'plain' },
   { name: 'Business Profile', icon: MapPin, size: 'small', tone: 'blue' },
@@ -64,16 +65,18 @@ const toneClassName: Record<Tone, string> = {
 const sizeClassName: Record<Size, string> = {
   large: 'col-span-2 row-span-2',
   wide: 'col-span-2',
+  tall: 'row-span-2',
   small: '',
 };
 
 const nameClassName: Record<Size, string> = {
   large: 'text-title',
   wide: 'text-lead',
+  tall: 'text-lead',
   small: 'text-body',
 };
 
-const iconSize: Record<Size, number> = { large: 48, wide: 36, small: 28 };
+const iconSize: Record<Size, number> = { large: 48, wide: 36, tall: 36, small: 28 };
 
 /** The sources an audit reads, as a mosaic: a symbol and a name a tile, sized by how much it reads, wall to wall inside the border. */
 export function SeoAnalysisVisual() {
@@ -82,7 +85,7 @@ export function SeoAnalysisVisual() {
       className="moving-colour-border mx-auto w-full max-w-[620px] min-w-0 overflow-hidden lg:mx-0 lg:w-auto lg:max-w-none"
       aria-label="The sources an SEO audit reads"
     >
-      <ul className="m-0 grid list-none auto-rows-[96px] grid-cols-2 gap-4xs bg-border-default p-0 sm:auto-rows-[108px] sm:grid-cols-4">
+      <ul className="m-0 grid list-none auto-rows-[96px] grid-flow-dense grid-cols-2 gap-4xs bg-border-default p-0 sm:auto-rows-[108px] sm:grid-cols-4">
         {sources.map(({ name, icon: Icon, size, tone }) => (
           <li
             key={name}
