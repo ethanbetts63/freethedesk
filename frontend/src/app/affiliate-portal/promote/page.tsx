@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { cardClassName, cardTitleClassName, messageBodyClassName } from '@/components/ui/Card';
+import { cardClassName, cardTitleClassName } from '@/components/ui/Card';
 import { Notice } from '@/components/ui/Notice';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
@@ -54,7 +54,6 @@ export default function AffiliatePortalPromotePage() {
         {pieces.map((piece) => (
           <section key={piece.title} className={cardClassName}>
             <h2 className={cardTitleClassName}>{piece.title}</h2>
-            <p className={`${messageBodyClassName} mb-m text-text-subtle`}>{piece.note}</p>
             <CopyValue value={piece.text} label="Copy text" block />
           </section>
         ))}
