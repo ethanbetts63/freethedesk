@@ -113,12 +113,12 @@ export default async function AffiliatesPage() {
 
       <ManualAdminCta
         id="page-cta"
-        eyebrow="Every episode is a referral"
-        title="Your listeners already ask you who to use."
+        eyebrow="Affiliate program"
+        title="Half the audit. All the credit."
         href="#signup"
         buttonLabel="Become an affiliate"
       >
-        Give them a code and an answer. Half of every audit they buy comes back to the show.
+        They get 20% off and a real report. You get {lowest.share} to {highest.share}.
       </ManualAdminCta>
       <RelatedPages path="/affiliates" />
     </main>

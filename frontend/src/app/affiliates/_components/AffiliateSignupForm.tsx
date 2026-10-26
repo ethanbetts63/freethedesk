@@ -47,7 +47,7 @@ export function AffiliateSignupForm({ pitch }: { pitch: ReactNode }) {
     <SelectionFormPanel onSubmit={onSubmit} chooser={pitch}>
       <div className={formTitleClassName}>
         <h3 className={selectionHeadingClassName}>
-          Your <span className="moving-colour-text">details.</span>
+          <span className="moving-colour-text">Your details.</span>
         </h3>
       </div>
       <label className={fieldLabelClassName}>
@@ -73,7 +73,7 @@ export function AffiliateSignupForm({ pitch }: { pitch: ReactNode }) {
         />
       </label>
       <label className={fieldLabelClassName}>
-        <span className={fieldLabelSpanClassName}>Podcast or business name</span>
+        <span className={fieldLabelSpanClassName}>Podcast or Socials</span>
         <input
           className={fieldInputClassName}
           name="business_name"
