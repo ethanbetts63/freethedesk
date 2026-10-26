@@ -46,8 +46,8 @@ export default function AffiliatePortalPromotePage() {
   return (
     <div className={pageClassName}>
       <PageHeader
-        title="Words for the show"
-        subtitle="Written around your code and today's prices. Edit them for your show; keep them true."
+        title="Marketing material"
+        subtitle="Written around your code and today's prices. Edit it for your audience; keep it true."
       />
 
       <div className="grid gap-ml">

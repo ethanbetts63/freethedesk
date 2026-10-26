@@ -66,7 +66,7 @@ decided before `seo` because the affiliate also has the subscriber row.
 | Page       | What it shows                                                                                                                                                   |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Overview   | Status, the code and the share link (`/seo?code=CODE`, both with copy buttons), earnings (sales, owed, paid), the free audit's next step, recent sales.         |
-| Promote    | Words for the show around the code and the live prices (`_lib/promotion.ts`): an on-air read, show notes, a newsletter paragraph, a social post, a one-liner. Every piece discloses the commission. |
+| Promote    | Marketing material around the code and the live prices (`_lib/promotion.ts`): an on-air read, show notes, a newsletter paragraph, a social post, a one-liner. Every piece discloses the commission. |
 | Your free audit | The SEO portal's `SetupChecklist` with affiliate wording, plus a link to `/documents/seo-report-onboarding.pdf`, the one-page instructions for whoever runs their site. |
 | Account    | Podcast name, host name, website; the code and email are read-only. Password change links to the shared page.                                                 |
 
