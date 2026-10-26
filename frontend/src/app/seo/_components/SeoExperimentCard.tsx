@@ -140,14 +140,16 @@ export function SeoExperimentCard() {
       className="border border-border-strong bg-surface-page p-l text-body-sm leading-relaxed text-text-secondary shadow-block-s sm:p-xl sm:shadow-block-l"
       aria-labelledby="seo-experiment-card-title"
     >
-      {/* The title carries its verdict pill, as an experiment's does in the report. */}
-      <h3
-        id="seo-experiment-card-title"
-        className="m-0 mb-m flex flex-wrap items-baseline gap-x-xs gap-y-2xs text-lead leading-snug font-heavy tracking-[-0.02em] text-text-primary"
-      >
-        <span>Workshop pages folded into /service</span>
+      {/* The verdict pill is the report's own, at the card's top right beside the title. */}
+      <header className="mb-m flex flex-wrap items-center justify-between gap-s">
+        <h3
+          id="seo-experiment-card-title"
+          className="m-0 text-lead leading-snug font-heavy tracking-[-0.02em] text-text-primary"
+        >
+          Workshop pages folded into /service
+        </h3>
         <ExperimentTag impact="high" />
-      </h3>
+      </header>
 
       <p className="m-0">
         <strong className={labelClassName}>What.</strong> Three workshop pages were retired into
