@@ -40,9 +40,9 @@ type Source = {
  * carries the colour, the desktop one stands two rows tall in the top right.
  */
 const sources: readonly Source[] = [
-  { name: 'Mobile pass', icon: Smartphone, size: 'wide', tone: 'moving' },
+  { name: 'Mobile check', icon: Smartphone, size: 'wide', tone: 'moving' },
   { name: 'Page speed', icon: Gauge, size: 'small', tone: 'plain' },
-  { name: 'Desktop pass', icon: Monitor, size: 'tall', tone: 'blue' },
+  { name: 'Desktop check', icon: Monitor, size: 'tall', tone: 'blue' },
   { name: 'Search Console', icon: ChartColumn, size: 'wide', tone: 'blue' },
   { name: 'Search results', icon: Search, size: 'small', tone: 'tint' },
   { name: 'Competitors', icon: Swords, size: 'small', tone: 'plain' },
