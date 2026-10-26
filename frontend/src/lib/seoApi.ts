@@ -56,8 +56,6 @@ export interface SeoSetupStep {
   state: SeoSetupState;
   state_label: string;
   required: boolean;
-  /** Our service account can verify this one itself. */
-  checkable: boolean;
   detail: string;
   marked_done_at: string | null;
   confirmed_at: string | null;
@@ -68,9 +66,6 @@ export interface SeoSetup {
   /** Every required step confirmed: reporting has started. */
   complete: boolean;
 }
-
-/** `unavailable`: the check couldn't run, which says nothing about the setup. */
-export type SeoSetupCheckResult = 'confirmed' | 'not_found' | 'unavailable';
 
 export async function getSeoAccount(): Promise<SeoAccount> {
   return handleResponse(await authedFetch('/api/seo/me/'));
@@ -100,10 +95,4 @@ export async function markSeoSetupStep(key: SeoSetupKey, done: boolean): Promise
       body: JSON.stringify({ done }),
     }),
   );
-}
-
-export async function checkSeoSetupStep(
-  key: SeoSetupKey,
-): Promise<SeoSetup & { result: SeoSetupCheckResult }> {
-  return handleResponse(await authedFetch(`/api/seo/setup/${key}/check/`, { method: 'POST' }));
 }

@@ -3,36 +3,23 @@
 import { StatusPill } from '@/components/dashboard/StatusPill';
 import { Button } from '@/components/ui/Button';
 import { cardClassName, cardLabelClassName } from '@/components/ui/Card';
-import type { SeoSetupCheckResult, SeoSetupStep } from '@/lib/seoApi';
+import type { SeoSetupStep } from '@/lib/seoApi';
 import { cn } from '@/lib/utils';
 import { SETUP_GUIDE } from '../_lib/guide';
 import { CopyAddress } from './CopyAddress';
 
-const CHECK_MESSAGES: Record<SeoSetupCheckResult, string> = {
-  confirmed: 'Connected.',
-  not_found:
-    "We can't see it yet. Check the address and role above, then try again — Google can take a minute to pass it on.",
-  unavailable:
-    "We couldn't check automatically just now. Mark it as done and we'll confirm it for you.",
-};
-
 /**
  * One tool on the setup page: what it gives the report, how to grant access,
- * and where it stands. The customer can only ever mark a step done; confirmed
- * comes from an access check or from us.
+ * and where it stands. The customer can only ever mark a step done; we confirm it.
  */
 export function SetupStepCard({
   step,
   busy,
-  checkResult,
   onMark,
-  onCheck,
 }: {
   step: SeoSetupStep;
   busy: boolean;
-  checkResult?: SeoSetupCheckResult;
   onMark: (done: boolean) => void;
-  onCheck: () => void;
 }) {
   const guide = SETUP_GUIDE[step.key];
   const confirmed = step.state === 'confirmed';
@@ -83,30 +70,14 @@ export function SetupStepCard({
         </p>
       )}
 
-      {checkResult && checkResult !== 'confirmed' && !confirmed && (
-        <p className="m-0 text-body-sm" role="status">
-          {CHECK_MESSAGES[checkResult]}
-        </p>
-      )}
-
       {!confirmed && (
         <div className="flex flex-wrap gap-s">
-          {step.checkable && (
-            <Button type="button" disabled={busy} onClick={onCheck}>
-              {busy ? 'Checking…' : 'Check connection'}
-            </Button>
-          )}
           {step.state === 'marked_done' ? (
             <Button variant="quiet" type="button" disabled={busy} onClick={() => onMark(false)}>
               Undo
             </Button>
           ) : (
-            <Button
-              variant={step.checkable ? 'quiet' : 'secondary'}
-              type="button"
-              disabled={busy}
-              onClick={() => onMark(true)}
-            >
+            <Button variant="secondary" type="button" disabled={busy} onClick={() => onMark(true)}>
               Mark as done
             </Button>
           )}

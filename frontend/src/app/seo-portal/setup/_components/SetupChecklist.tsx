@@ -5,14 +5,7 @@ import { type ReactNode, useEffect, useState } from 'react';
 import { Notice } from '@/components/ui/Notice';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
-import {
-  checkSeoSetupStep,
-  getSeoSetup,
-  markSeoSetupStep,
-  type SeoSetup,
-  type SeoSetupCheckResult,
-  type SeoSetupKey,
-} from '@/lib/seoApi';
+import { getSeoSetup, markSeoSetupStep, type SeoSetup, type SeoSetupKey } from '@/lib/seoApi';
 import { SetupStepCard } from './SetupStepCard';
 
 const stepListClassName = 'grid gap-m';
@@ -38,9 +31,6 @@ export function SetupChecklist({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [busyKey, setBusyKey] = useState<SeoSetupKey | null>(null);
-  const [checkResults, setCheckResults] = useState<
-    Partial<Record<SeoSetupKey, SeoSetupCheckResult>>
-  >({});
 
   useEffect(() => {
     getSeoSetup()
@@ -64,12 +54,6 @@ export function SetupChecklist({
   };
 
   const mark = (key: SeoSetupKey, done: boolean) => act(key, () => markSeoSetupStep(key, done));
-  const check = (key: SeoSetupKey) =>
-    act(key, async () => {
-      const { result, ...updated } = await checkSeoSetupStep(key);
-      setCheckResults((current) => ({ ...current, [key]: result }));
-      return updated;
-    });
 
   if (loading)
     return (
@@ -91,9 +75,7 @@ export function SetupChecklist({
       key={step.key}
       step={step}
       busy={busyKey === step.key}
-      checkResult={checkResults[step.key]}
       onMark={(done) => mark(step.key, done)}
-      onCheck={() => check(step.key)}
     />
   );
 

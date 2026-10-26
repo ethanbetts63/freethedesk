@@ -8,7 +8,6 @@ from .views import (
     SeoCheckoutStatusView,
     SeoOnboardingView,
     SeoRegistrationView,
-    SeoSetupCheckView,
     SeoSetupMarkView,
     SeoSetupView,
 )
@@ -25,7 +24,6 @@ urlpatterns = [
     path("seo/onboarding/", SeoOnboardingView.as_view(), name="seo-onboarding"),
     path("seo/setup/", SeoSetupView.as_view(), name="seo-setup"),
     path("seo/setup/<str:key>/mark/", SeoSetupMarkView.as_view(), name="seo-setup-mark"),
-    path("seo/setup/<str:key>/check/", SeoSetupCheckView.as_view(), name="seo-setup-check"),
     path("admin/seo/", AdminSeoSubscriberListView.as_view(), name="admin-seo-list"),
     path("admin/seo/<int:pk>/", AdminSeoSubscriberDetailView.as_view(), name="admin-seo-detail"),
     path(

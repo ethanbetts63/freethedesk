@@ -8,7 +8,6 @@ from rest_framework.views import APIView
 from ..models import SeoSetupStep, SeoSubscriber
 from ..serializers import SeoSetupStepSerializer
 from ..utils import setup
-from ..utils.google_access import AccessCheckUnavailable
 from ..utils.permissions import IsSeoSubscriber
 
 
@@ -60,33 +59,6 @@ class SeoSetupMarkView(APIView):
         with transaction.atomic():
             setup.mark_step(_step(subscriber, key, lock=True), done=done)
         return Response(_setup_payload(subscriber))
-
-
-class SeoSetupCheckView(APIView):
-    """Ask Google whether a step's access works, confirming it if it does.
-
-    ``result`` is ``confirmed``, ``not_found`` (we looked, it isn't there yet) or
-    ``unavailable`` (the check couldn't run; nothing was learned about the
-    customer's setup and the step is left for staff).
-    """
-
-    throttle_scope = "seo-access-check"
-    permission_classes = [IsSeoSubscriber]
-
-    def post(self, request, key):
-        subscriber = _paid_subscriber(request)
-        if key not in setup.CHECKS:
-            raise NotFound("This step has no automatic check.")
-        try:
-            # Outside the transaction: a row lock held across Google's API
-            # would turn their slow day into ours.
-            found = setup.look_up_access(subscriber, key)
-        except AccessCheckUnavailable:
-            return Response({"result": "unavailable", **_setup_payload(subscriber)})
-        if found:
-            with transaction.atomic():
-                setup.confirm_step(_step(subscriber, key, lock=True), detail=found)
-        return Response({"result": "confirmed" if found else "not_found", **_setup_payload(subscriber)})
 
 
 class AdminSeoSetupStepView(APIView):

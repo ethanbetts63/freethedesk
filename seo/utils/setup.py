@@ -5,15 +5,13 @@ it is confirmed. Every other step is optional and simply stays unticked if the
 customer doesn't use that tool.
 
 A step moves not started → marked done → confirmed. The customer can mark and
-unmark; only a passing access check or staff can confirm, and the customer can't
-take a confirmation back.
+unmark; only staff can confirm, and the customer can't take a confirmation back.
 """
 
 from django.db import transaction
 from django.utils import timezone
 
 from ..models import SeoSetupStep, SeoSubscriber
-from . import google_access
 from .notifications import notify_staff_of_marked_step, notify_staff_reporting_can_start
 from .services import ensure_seo_profile
 
@@ -31,13 +29,6 @@ STEP_ORDER = (
     Key.ENQUIRIES,
 )
 REQUIRED_STEPS = frozenset({Key.SEARCH_CONSOLE})
-
-#: The steps our service account can verify for itself, and how.
-CHECKS = {
-    Key.SEARCH_CONSOLE: google_access.find_search_console_property,
-    Key.GOOGLE_ANALYTICS: google_access.find_analytics_property,
-}
-
 
 def setup_steps(subscriber: SeoSubscriber) -> list[SeoSetupStep]:
     """Every step for this subscriber, in page order, creating any missing."""
@@ -101,16 +92,3 @@ def reset_step(step: SeoSetupStep) -> SeoSetupStep:
     step.detail = ""
     step.save(update_fields=["state", "marked_done_at", "confirmed_at", "detail", "updated_at"])
     return step
-
-
-def look_up_access(subscriber: SeoSubscriber, key: str) -> str:
-    """Ask Google what our service account can read for this step, or ``""``.
-
-    Makes network calls, so callers keep it outside any transaction and confirm
-    afterwards. Raises ``google_access.AccessCheckUnavailable`` when the check
-    couldn't run, which says nothing about the customer's setup.
-    """
-    if key not in CHECKS:
-        raise ValueError(f"{key} has no automatic check.")
-    profile = ensure_seo_profile(subscriber)
-    return CHECKS[key](profile.website_url or subscriber.website)

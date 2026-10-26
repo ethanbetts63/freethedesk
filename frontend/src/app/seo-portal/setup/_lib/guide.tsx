@@ -37,7 +37,7 @@ export const SETUP_GUIDE: Record<SeoSetupKey, SetupGuide> = {
       <>
         In <Link href="https://search.google.com/search-console">Search Console</Link>, pick your
         site, go to <strong>Settings → Users and permissions → Add user</strong>, and add the
-        address below as <strong>Restricted</strong>. Then press <strong>Check connection</strong>.
+        address below as <strong>Restricted</strong>.
       </>
     ),
     notSetUp: (
@@ -56,7 +56,7 @@ export const SETUP_GUIDE: Record<SeoSetupKey, SetupGuide> = {
         In <Link href="https://analytics.google.com">Google Analytics</Link>, pick your property, go
         to <strong>Admin → Property access management → + → Add users</strong>, untick{' '}
         <strong>Notify new users by email</strong>, and add the address below as{' '}
-        <strong>Viewer</strong>. Then press <strong>Check connection</strong>.
+        <strong>Viewer</strong>.
       </>
     ),
     notSetUp: (

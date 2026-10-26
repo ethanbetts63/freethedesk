@@ -8,10 +8,8 @@ from dotenv import load_dotenv
 
 from freetheplatform.auth import conf as ftp_auth_conf
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
-
 
 def _required(name):
     """An environment variable with no sensible default.
@@ -24,7 +22,6 @@ def _required(name):
     if not value:
         raise ImproperlyConfigured(f"{name} must be set.")
     return value
-
 
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 SECRET_KEY = os.getenv("SECRET_KEY")
@@ -205,10 +202,6 @@ REST_FRAMEWORK = {
         "portal": "600/hour",
         "public": "600/hour",
         "checkout": "20/hour",
-        # Each check signs a Google token and pages Google's APIs on the
-        # customer's behalf. Enough for someone retrying while they fix their
-        # access; a loop on the button should not spend our API quota.
-        "seo-access-check": "30/hour",
         # A customer working through their own sale. Set where a runaway client
         # stops and a person filling in a form never notices.
         "sale-customer": "600/hour",
@@ -331,12 +324,6 @@ DEV_API_SERVER_URL = os.getenv("DEV_API_SERVER_URL", "http://127.0.0.1:8010")
 # Who signs pitch A.
 OUTREACH_SENDER_NAME = os.getenv("OUTREACH_SENDER_NAME", "Ethan Betts")
 ADMIN_NUMBER = os.getenv("ADMIN_NUMBER", "")
-
-# Path to the Google service-account key SEO customers add to Search Console
-# and Analytics; the same variable the freetheplatform reporting CLI reads.
-# Unset, the setup page's access checks say they can't run and staff confirm by
-# hand instead.
-SEO_GOOGLE_CREDENTIALS = os.getenv("FTP_SEARCHCONSOLE_CREDENTIALS", "")
 
 # No on/off switch: with no provider credentials, sends fail and are recorded
 # with the missing setting named on the row.
