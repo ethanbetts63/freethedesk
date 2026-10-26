@@ -40,7 +40,8 @@ export const FOOTER_NAVIGATION = [
   { href: '/guides', label: 'Guides & articles' },
   { href: '/affiliates', label: 'Affiliate program' },
   { href: '/contact', label: 'Contact' },
-  { href: '/login', label: 'Login' },
+  // No Login row: the header's entry reads the session and says Log out when
+  // there is one, and a second copy here would have to do the same.
 ] as const;
 
 /**
