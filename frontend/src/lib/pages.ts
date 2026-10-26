@@ -158,7 +158,7 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
   '/affiliates': {
-    updated: '2026-10-25',
+    updated: '2026-10-26',
     label: 'Podcast affiliates',
     title: 'Podcast Affiliate Program: Earn Half of Every SEO Audit',
     description:

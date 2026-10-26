@@ -89,7 +89,6 @@ export function AffiliateSignupForm({ pitch }: { pitch: ReactNode }) {
         required
         termsHref="/legal/affiliate-program-terms"
         termsLabel="Affiliate Program Terms"
-        linksInline
       />
       {state.status === 'error' && (
         <p className={formErrorClassName} role="alert">
