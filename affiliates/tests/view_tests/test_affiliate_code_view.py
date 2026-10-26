@@ -84,7 +84,7 @@ def test_a_suspended_affiliate_cannot_add_codes(client, affiliate):
     assert "active" in response.json()["code"][0]
 
 
-def test_an_added_code_can_be_switched_off_but_the_signup_code_cannot(client, affiliate):
+def test_a_deleted_code_is_switched_off_and_leaves_the_list_but_the_primary_cannot_be(client, affiliate):
     added = create_named_code(affiliate, "SPARKY")
     client.sign_in(affiliate.user)
 
@@ -93,12 +93,71 @@ def test_an_added_code_can_be_switched_off_but_the_signup_code_cannot(client, af
     assert response.status_code == 200
     added.refresh_from_db()
     assert added.is_active is False
-    [entry] = [c for c in response.json()["codes"] if c["code"] == "SPARKY"]
-    assert entry["is_active"] is False
+    assert _codes(response.json()) == ["THETRADIESHOW20"]
 
     refused = client.delete(reverse("affiliate-code", args=[affiliate.discount.pk]))
     assert refused.status_code == 400
-    assert "sign-up code" in refused.json()["code"][0]
+    assert "primary code" in refused.json()["code"][0]
+
+
+def test_adding_a_deleted_name_again_brings_the_same_code_back(client, affiliate):
+    added = create_named_code(affiliate, "SPARKY")
+    client.sign_in(affiliate.user)
+    client.delete(reverse("affiliate-code", args=[added.pk]))
+
+    response = client.post(reverse("affiliate-codes"), {"code": "sparky"}, format="json")
+
+    assert response.status_code == 201
+    assert _codes(response.json()) == ["THETRADIESHOW20", "SPARKY"]
+    added.refresh_from_db()
+    assert added.is_active is True
+    assert affiliate_codes(affiliate).count() == 2
+
+
+def test_an_affiliate_moves_the_primary_to_another_code(client, affiliate):
+    signup = affiliate.discount
+    added = create_named_code(affiliate, "SPARKY")
+    client.sign_in(affiliate.user)
+
+    response = client.patch(
+        reverse("affiliate-code", args=[added.pk]),
+        {"primary": True},
+        content_type="application/json",
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["code"] == "SPARKY"
+    assert body["share_link"].endswith("/seo?code=SPARKY")
+    primary = {entry["code"]: entry["is_primary"] for entry in body["codes"]}
+    assert primary == {"THETRADIESHOW20": False, "SPARKY": True}
+    removable = {entry["code"]: entry["removable"] for entry in body["codes"]}
+    assert removable == {"THETRADIESHOW20": True, "SPARKY": False}
+
+    # The old primary can now go, and the new one cannot.
+    assert client.delete(reverse("affiliate-code", args=[signup.pk])).status_code == 200
+    assert client.delete(reverse("affiliate-code", args=[added.pk])).status_code == 400
+
+
+def test_a_deleted_or_foreign_code_cannot_be_made_primary(client, affiliate):
+    added = create_named_code(affiliate, "SPARKY")
+    other = AffiliateFactory(user__username="other@example.com", business_name="Other Show")
+    theirs = create_named_code(other, "THEIRS")
+    client.sign_in(affiliate.user)
+    client.delete(reverse("affiliate-code", args=[added.pk]))
+
+    for pk in (added.pk, theirs.pk):
+        response = client.patch(
+            reverse("affiliate-code", args=[pk]), {"primary": True}, content_type="application/json"
+        )
+        assert response.status_code == 400
+    affiliate.refresh_from_db()
+    assert affiliate.code == "THETRADIESHOW20"
+
+    missing_flag = client.patch(
+        reverse("affiliate-code", args=[affiliate.discount.pk]), {}, content_type="application/json"
+    )
+    assert missing_flag.status_code == 400
 
 
 def test_an_affiliate_cannot_touch_another_affiliates_code(client, affiliate):

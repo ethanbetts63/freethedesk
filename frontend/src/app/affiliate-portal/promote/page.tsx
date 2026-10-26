@@ -47,7 +47,7 @@ export default function AffiliatePortalPromotePage() {
     <div className={pageClassName}>
       <PageHeader
         title="Marketing material"
-        subtitle="Written around your code and today's prices. Edit it for your audience; keep it true."
+        subtitle="Written around your primary code and today's prices. Edit it for your audience; keep it true."
       />
 
       <div className="grid gap-ml">

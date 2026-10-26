@@ -12,7 +12,7 @@ export interface PromotionPiece {
 const money = (value: string) => formatMoney(value, { cents: 'auto' });
 
 /**
- * Marketing material, written around the affiliate's own code and the live prices. Plain text
+ * Marketing material, written around the affiliate's primary code and the live prices. Plain text
  * so it pastes anywhere.
  */
 export function promotionPieces(

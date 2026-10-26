@@ -26,10 +26,7 @@ export default function AffiliatePortalCodesPage() {
 
   return (
     <div className={pageClassName}>
-      <PageHeader
-        title="Your codes"
-        subtitle="What listeners type at checkout. Add as many as you like, one for each place you share."
-      />
+      <PageHeader title="Your codes" />
       <AffiliateCodes account={account} onChange={setAccount} />
     </div>
   );

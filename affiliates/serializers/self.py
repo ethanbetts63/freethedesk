@@ -6,7 +6,7 @@ from core.models import SiteSettings
 from core.utils.urls import site_url
 
 from ..models import Affiliate, Commission
-from ..utils.codes import affiliate_codes
+from ..utils.codes import listed_codes
 from .commission import CommissionSerializer
 
 #: Where a listener lands with the code already filled in.
@@ -35,10 +35,10 @@ def earnings(affiliate: Affiliate) -> dict:
 class AffiliateSelfSerializer(serializers.ModelSerializer):
     """What an affiliate may see and change about their own account.
 
-    Email is read-only: it is the login identity. ``code`` is the sign-up code,
-    made from the podcast's name; ``codes`` is every code they hold, that one
-    first, and the ones they added are made and removed through their own
-    endpoint rather than by writing here.
+    Email is read-only: it is the login identity. ``code`` is the primary code,
+    the one the marketing material and ``share_link`` carry; ``codes`` is every
+    code they hold today, oldest first. Codes are added, deleted and made
+    primary through their own endpoint rather than by writing here.
     """
 
     status_label = serializers.CharField(source="get_status_display", read_only=True)
@@ -69,11 +69,12 @@ class AffiliateSelfSerializer(serializers.ModelSerializer):
                 "code": code.code,
                 "share_link": share_link(code.code),
                 "is_active": code.is_active,
-                # The sign-up code cannot be removed; listeners already have it.
+                "is_primary": code.pk == obj.discount_id,
+                # The primary cannot be deleted; another has to be made primary first.
                 "removable": code.pk != obj.discount_id,
                 "created_at": code.created_at,
             }
-            for code in affiliate_codes(obj)
+            for code in listed_codes(obj)
         ]
 
     def get_discount_percent(self, obj) -> int:

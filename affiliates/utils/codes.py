@@ -7,12 +7,21 @@ host's show at once. The affiliate can add more of their own choosing, up to
 ``CODE_LIMIT``, each worth the same discount and earning the same commission.
 Codes are matched with case and spaces ignored (``normalise_code``), so
 uniqueness is checked on that form, across every code the site has ever
-issued: a removed code stays on the payments that redeemed it.
+issued: a deleted code stays on the payments that redeemed it.
+
+One code is the primary: the one the affiliate's marketing material and share
+link carry (``Affiliate.discount``). It starts as the sign-up code and the
+affiliate can move it to any active code of theirs. The primary cannot be
+deleted; another has to be made primary first.
+
+Deleting a code switches it off and takes it out of the list. Adding the same
+name again switches it back on rather than refusing it as taken.
 """
 
 import re
 
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
 from freetheplatform.payments import DiscountApplication, DiscountCode, DiscountKind
 from freetheplatform.payments.models.discount import normalise_code
 
@@ -55,11 +64,23 @@ def unused_code(business_name: str, percent: int) -> str:
 
 
 def affiliate_codes(affiliate):
-    """Every code the affiliate holds, oldest first: the sign-up one, then their own."""
+    """Every code the affiliate has ever held, oldest first, deleted ones included."""
     return DiscountCode.objects.filter(
         owner_content_type=ContentType.objects.get_for_model(affiliate),
         owner_object_id=str(affiliate.pk),
     ).order_by("created_at")
+
+
+def active_codes(affiliate):
+    """The codes the affiliate holds today, which is what the limit counts."""
+    return affiliate_codes(affiliate).filter(is_active=True)
+
+
+def listed_codes(affiliate):
+    """What the portal shows: the active codes, and the primary even when staff
+    have switched it off with the account, so a suspended affiliate still sees
+    which code is theirs."""
+    return affiliate_codes(affiliate).filter(Q(is_active=True) | Q(pk=affiliate.discount_id))
 
 
 def _make_code(affiliate, code: str, percent) -> DiscountCode:
@@ -90,6 +111,9 @@ def create_affiliate_discount(affiliate) -> DiscountCode:
 def create_named_code(affiliate, code: str) -> DiscountCode:
     """A code the affiliate chose, worth what their sign-up code is worth.
 
+    A name they deleted earlier comes back switched on instead of being made
+    again, so the payments it was redeemed on keep pointing at the one record.
+
     Raises ``CodeError`` with the reason when it cannot be made: the account
     is not active, the name breaks the rule, it is taken, or they hold the
     limit already.
@@ -100,8 +124,13 @@ def create_named_code(affiliate, code: str) -> DiscountCode:
     code = normalise_code(code)
     if not CODE_PATTERN.match(code):
         raise CodeError(CODE_RULE)
-    if affiliate_codes(affiliate).count() >= CODE_LIMIT:
+    if active_codes(affiliate).count() >= CODE_LIMIT:
         raise CodeError(f"You already hold {CODE_LIMIT} codes, which is the most one account can.")
+    deleted = affiliate_codes(affiliate).filter(normalised_code=code, is_active=False).first()
+    if deleted is not None:
+        deleted.is_active = True
+        deleted.save(update_fields=["is_active", "updated_at"])
+        return deleted
     if code_is_taken(code):
         raise CodeError("That code is taken. Try another.")
     percent = (
@@ -113,17 +142,31 @@ def create_named_code(affiliate, code: str) -> DiscountCode:
 
 
 def remove_code(affiliate, code_id) -> DiscountCode:
-    """Switch one of the affiliate's own codes off. The sign-up code stays.
+    """Delete one of the affiliate's codes. The primary stays.
 
     Off rather than deleted: the payments it was redeemed on keep pointing at
-    it. Raises ``CodeError`` when the code is not theirs to remove.
+    it, and adding the name again brings it back. Raises ``CodeError`` when the
+    code is not theirs or is the primary.
     """
     code = affiliate_codes(affiliate).filter(pk=code_id).first()
     if code is None:
         raise CodeError("That code is not one of yours.")
     if affiliate.discount_id == code.pk:
-        raise CodeError("Your sign-up code stays; listeners already have it.")
+        raise CodeError("Your primary code stays. Make another code primary first.")
     if code.is_active:
         code.is_active = False
         code.save(update_fields=["is_active", "updated_at"])
+    return code
+
+
+def set_primary_code(affiliate, code_id) -> DiscountCode:
+    """Make one of the affiliate's active codes the primary: the one the
+    marketing material and share link carry. Raises ``CodeError`` when the code
+    is not theirs or has been deleted."""
+    code = active_codes(affiliate).filter(pk=code_id).first()
+    if code is None:
+        raise CodeError("That code is not one of yours.")
+    if affiliate.discount_id != code.pk:
+        affiliate.discount = code
+        affiliate.save(update_fields=["discount", "updated_at"])
     return code

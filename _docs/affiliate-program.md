@@ -66,7 +66,8 @@ decided before `seo` because the affiliate also has the subscriber row.
 | Page       | What it shows                                                                                                                                                   |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Overview   | Status, the code and the share link (`/seo?code=CODE`, both with copy buttons), earnings (sales, owed, paid), the free audit's next step, recent sales.         |
-| Promote    | Marketing material around the code and the live prices (`_lib/promotion.ts`): an on-air read, show notes, a newsletter paragraph, a social post, a one-liner. Every piece discloses the commission. |
+| Codes      | A table of every code they hold: copy the code or its link, delete one, or make one the primary. The primary (`Affiliate.discount`) is what the marketing material and `share_link` carry and cannot be deleted; deleting a code switches it off and hides it, and adding the name again brings it back. |
+| Promote    | Marketing material around the primary code and the live prices (`_lib/promotion.ts`): an on-air read, show notes, a newsletter paragraph, a social post, a one-liner. Every piece discloses the commission. |
 | Your free audit | The SEO portal's `SetupChecklist` with affiliate wording, plus a link to `/documents/seo-report-onboarding.pdf`, the one-page instructions for whoever runs their site. |
 | Account    | Podcast name, host name, website; the code and email are read-only. Password change links to the shared page.                                                 |
 

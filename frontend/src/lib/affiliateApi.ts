@@ -35,8 +35,11 @@ export interface AffiliateCode {
   code: string;
   /** The SEO page with this code filled in. */
   share_link: string;
+  /** False only for a primary staff have switched off with the account. */
   is_active: boolean;
-  /** False for the sign-up code, which listeners already have. */
+  /** The one the marketing material and the account's `share_link` carry. */
+  is_primary: boolean;
+  /** False for the primary: another has to be made primary first. */
   removable: boolean;
   created_at: string;
 }
@@ -50,9 +53,9 @@ export interface AffiliateAccount {
   website: string;
   status: DealerStatus;
   status_label: string;
-  /** The sign-up code, what the welcome email said; empty if it was removed. */
+  /** The primary code: what the marketing material carries. */
   code: string;
-  /** Every code they hold, the sign-up one first. */
+  /** Every code they hold, oldest first. */
   codes: AffiliateCode[];
   /** The code's own percentage off, fixed when it was made. */
   discount_percent: number;
@@ -74,9 +77,19 @@ export async function getAffiliateAccount(): Promise<AffiliateAccount> {
   return handleResponse(await authedFetch('/api/affiliates/me/'));
 }
 
-/** Switch one of the affiliate's added codes off. Returns the account as it now stands. */
+/** Delete one of the affiliate's codes. Returns the account as it now stands. */
 export async function removeAffiliateCode(id: string): Promise<AffiliateAccount> {
   return handleResponse(
     await authedFetch(`/api/affiliates/codes/${encodeURIComponent(id)}/`, { method: 'DELETE' }),
+  );
+}
+
+/** Make one of the affiliate's codes the primary. Returns the account as it now stands. */
+export async function setPrimaryAffiliateCode(id: string): Promise<AffiliateAccount> {
+  return handleResponse(
+    await authedFetch(`/api/affiliates/codes/${encodeURIComponent(id)}/`, {
+      method: 'PATCH',
+      body: JSON.stringify({ primary: true }),
+    }),
   );
 }

@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ..serializers import AffiliateSelfSerializer
-from ..utils.codes import CodeError, create_named_code, remove_code
+from ..utils.codes import CodeError, create_named_code, remove_code, set_primary_code
 from ..utils.permissions import IsAffiliate
 
 
@@ -30,10 +30,25 @@ class AffiliateCodeListView(APIView):
 
 
 class AffiliateCodeDetailView(APIView):
-    """An affiliate switching one of their own added codes off."""
+    """One of the affiliate's own codes: delete it, or make it the primary.
+
+    Both answer with the whole account, as the list view does.
+    """
 
     throttle_scope = "portal"
     permission_classes = [IsAffiliate]
+
+    def patch(self, request, pk):
+        """``{"primary": true}``: this code is the one the marketing material carries."""
+        if request.data.get("primary") is not True:
+            raise ValidationError({"primary": ["Send primary: true to make this code primary."]})
+        affiliate = request.user.affiliate
+        try:
+            with transaction.atomic():
+                set_primary_code(affiliate, pk)
+        except CodeError as error:
+            raise ValidationError({"code": [str(error)]}) from error
+        return Response(AffiliateSelfSerializer(affiliate).data)
 
     def delete(self, request, pk):
         affiliate = request.user.affiliate

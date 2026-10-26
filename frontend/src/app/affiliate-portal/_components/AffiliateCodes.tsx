@@ -1,24 +1,63 @@
 'use client';
 
-import { useActionState, useEffect, useRef, useState } from 'react';
+import { useActionState, useEffect, useRef, useState, type ReactNode } from 'react';
 
+import {
+  adminTableClassName,
+  adminTableWrapClassName,
+  adminTdClassName,
+  adminThClassName,
+  CellNote,
+  CellTitle,
+} from '@/components/dashboard/AdminList';
 import { Button } from '@/components/ui/Button';
 import { cardClassName, cardTitleClassName, messageBodyClassName } from '@/components/ui/Card';
 import { Notice } from '@/components/ui/Notice';
 import { adminFormControlClassName, adminFormLabelClassName } from '@/components/ui/formControl';
-import { removeAffiliateCode, type AffiliateAccount } from '@/lib/affiliateApi';
+import {
+  removeAffiliateCode,
+  setPrimaryAffiliateCode,
+  type AffiliateAccount,
+  type AffiliateCode,
+} from '@/lib/affiliateApi';
+import { formatDate } from '@/lib/formatting';
 import { cn } from '@/lib/utils';
 
 import { submitAffiliateCode, type AffiliateCodeState } from './AffiliateCodes.actions';
-import { CopyValue } from './CopyValue';
 
 const initialState: AffiliateCodeState = { status: 'idle' };
 
+/** A quiet button that copies `value` and says so for two seconds. */
+function CopyButton({ value, children }: { value: string; children: ReactNode }) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard refused (permissions, insecure origin): the value is on screen to select by hand.
+    }
+  };
+  return (
+    <Button variant="quiet" type="button" onClick={copy}>
+      {copied ? 'Copied' : children}
+      <span className="sr-only" aria-live="polite">
+        {copied ? 'Copied' : ''}
+      </span>
+    </Button>
+  );
+}
+
+type Pending = { id: string; action: 'primary' | 'delete' } | null;
+
 /**
- * The affiliate's codes: the sign-up one and any they have added, each with its link, and a
- * field to add another. An added code can be switched off; the sign-up one cannot, because
- * listeners already have it. Every change hands the account back up, so the rest of the page
- * follows.
+ * The affiliate's codes as a table, drawn like the admin list pages: each row is a code with
+ * its link, and the actions sit in the last column. One code is the primary, the one the
+ * marketing material and the share link carry; it cannot be deleted until another is made
+ * primary. Deleting a code takes it out of the table and stops it at checkout; adding the
+ * same name again brings it back. Every change hands the account back up, so the rest of the
+ * portal follows.
  */
 export function AffiliateCodes({
   account,
@@ -28,8 +67,8 @@ export function AffiliateCodes({
   onChange: (account: AffiliateAccount) => void;
 }) {
   const [state, formAction, adding] = useActionState(submitAffiliateCode, initialState);
-  const [removing, setRemoving] = useState<string | null>(null);
-  const [removeError, setRemoveError] = useState('');
+  const [pending, setPending] = useState<Pending>(null);
+  const [actionError, setActionError] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -40,59 +79,106 @@ export function AffiliateCodes({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
-  const remove = async (id: string) => {
-    setRemoving(id);
-    setRemoveError('');
+  const run = async (
+    code: AffiliateCode,
+    action: NonNullable<Pending>['action'],
+    request: (id: string) => Promise<AffiliateAccount>,
+    failure: string,
+  ) => {
+    setPending({ id: code.id, action });
+    setActionError('');
     try {
-      onChange(await removeAffiliateCode(id));
+      onChange(await request(code.id));
     } catch (reason) {
-      setRemoveError(reason instanceof Error ? reason.message : 'That code could not be removed.');
+      setActionError(reason instanceof Error ? reason.message : failure);
     } finally {
-      setRemoving(null);
+      setPending(null);
     }
   };
+
+  const isPending = (code: AffiliateCode, action: NonNullable<Pending>['action']) =>
+    pending?.id === code.id && pending.action === action;
 
   return (
     <section className={cardClassName}>
       <h2 className={cardTitleClassName}>Your codes</h2>
       <p className={messageBodyClassName}>
-        Listeners enter a code at checkout for {account.discount_percent}% off, and every audit
-        bought with one of yours is yours. A link opens the SEO page with that code filled in.
+        Add as many codes as you like, one for each place you share. Set one as primary: it is the
+        code filled into the copy-and-paste text on the Promote page.
       </p>
 
-      <ul className="m-0 mt-m flex list-none flex-col gap-l p-0">
-        {account.codes.map((code) => (
-          <li
-            key={code.id}
-            className={cn(
-              'flex flex-col gap-s border-t border-border-default pt-m',
-              !code.is_active && 'opacity-60',
-            )}
-          >
-            <CopyValue value={code.code} label="Copy code" />
-            <CopyValue value={code.share_link} label="Copy link" />
-            {!code.is_active ? (
-              <p className="m-0 text-label text-text-subtle">
-                Switched off. It no longer works at checkout.
-              </p>
-            ) : code.removable ? (
-              <div>
-                <Button
-                  variant="quiet"
-                  type="button"
-                  disabled={removing === code.id}
-                  onClick={() => remove(code.id)}
-                >
-                  {removing === code.id ? 'Removing…' : 'Remove this code'}
-                </Button>
-              </div>
-            ) : null}
-          </li>
-        ))}
-      </ul>
-      {removeError && (
+      <div className={cn(adminTableWrapClassName, 'mt-m')}>
+        <table className={cn(adminTableClassName, 'min-w-[760px]')}>
+          <thead>
+            <tr>
+              <th className={adminThClassName}>Code</th>
+              <th className={adminThClassName}>Link</th>
+              <th className={adminThClassName}>Added</th>
+              <th className={adminThClassName}>
+                <span className="sr-only">Actions</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {account.codes.map((code) => (
+              <tr key={code.id} className={cn(!code.is_active && 'opacity-60')}>
+                <td className={adminTdClassName}>
+                  <CellTitle>{code.code}</CellTitle>
+                  {code.is_primary && <CellNote>Primary</CellNote>}
+                  {!code.is_active && <CellNote>Switched off with the account</CellNote>}
+                </td>
+                <td className={cn(adminTdClassName, 'break-all')}>{code.share_link}</td>
+                <td className={cn(adminTdClassName, 'whitespace-nowrap')}>
+                  {formatDate(code.created_at)}
+                </td>
+                <td className={adminTdClassName}>
+                  <div className="flex flex-wrap justify-end gap-xs">
+                    <CopyButton value={code.code}>Copy code</CopyButton>
+                    <CopyButton value={code.share_link}>Copy link</CopyButton>
+                    {!code.is_primary && code.is_active && (
+                      <Button
+                        variant="quiet"
+                        type="button"
+                        disabled={pending !== null}
+                        onClick={() =>
+                          run(
+                            code,
+                            'primary',
+                            setPrimaryAffiliateCode,
+                            'That code could not be made primary.',
+                          )
+                        }
+                      >
+                        {isPending(code, 'primary') ? 'Setting…' : 'Set primary'}
+                      </Button>
+                    )}
+                    {code.removable && (
+                      <Button
+                        variant="quiet"
+                        type="button"
+                        disabled={pending !== null}
+                        onClick={() =>
+                          run(
+                            code,
+                            'delete',
+                            removeAffiliateCode,
+                            'That code could not be deleted.',
+                          )
+                        }
+                      >
+                        {isPending(code, 'delete') ? 'Deleting…' : 'Delete'}
+                      </Button>
+                    )}
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {actionError && (
         <Notice tone="danger" size="field">
-          {removeError}
+          {actionError}
         </Notice>
       )}
 
