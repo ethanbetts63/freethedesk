@@ -59,7 +59,7 @@ return it.
 business you own or work for, or an audit bought with a code other than yours.
 
 3.4 Commissions are paid out through Stripe to the payout account you set up
-with us. We pay what you are owed at least monthly once you have set that
+with us. We pay what you are owed at least fortnightly once you have set that
 account up, in Australian dollars. Stripe may charge fees on the transfer, and
 you need to meet Stripe's own requirements to receive one.
 
