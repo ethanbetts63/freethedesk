@@ -76,8 +76,12 @@ def test_signing_up_records_the_terms(client):
     signup(client)
 
     affiliate = Affiliate.objects.get()
-    acceptance = Acceptance.objects.for_related(affiliate).get()
-    assert acceptance.agreement_version.agreement.key == "affiliate.program"
+    acceptances = Acceptance.objects.for_related(affiliate)
+    assert sorted(a.agreement_version.agreement.key for a in acceptances) == [
+        "affiliate.program",
+        "seo.reporting",
+    ]
+    acceptance = acceptances.get(agreement_version__agreement__key="affiliate.program")
     assert acceptance.context["code"] == "THETRADIESHOW20"
     assert acceptance.context["discount_percent"] == 20
     assert acceptance.context["share_percent"] == 50

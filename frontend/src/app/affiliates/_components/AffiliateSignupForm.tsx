@@ -89,6 +89,8 @@ export function AffiliateSignupForm({ pitch }: { pitch: ReactNode }) {
         required
         termsHref="/legal/affiliate-program-terms"
         termsLabel="Affiliate Program Terms"
+        secondTermsHref="/legal/seo-audit-terms"
+        secondTermsLabel="SEO Audit Terms"
       />
       {state.status === 'error' && (
         <p className={formErrorClassName} role="alert">

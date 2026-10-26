@@ -14,6 +14,7 @@ from freetheplatform.auth import issue_email_code
 from payments.utils.agreements import (
     AFFILIATE_ACCEPTANCE_STATEMENT,
     AFFILIATE_AGREEMENT_KEY,
+    SEO_AGREEMENT_KEY,
     affiliate_offer_context,
     publish_configured_agreement,
     record_checkout_acceptance,
@@ -100,16 +101,25 @@ def register_affiliate(*, contact_name, email, business_name, website, accepted_
 
 
 def accept_affiliate_terms(affiliate: Affiliate, *, accepted_ip, user_agent=""):
-    """Record the terms ticked on the sign-up form against the new account."""
-    agreement_version = publish_configured_agreement(AFFILIATE_AGREEMENT_KEY)
-    return record_checkout_acceptance(
-        agreement_version=agreement_version,
-        accepted_by=None,
-        actor_snapshot={"email": affiliate.email},
-        related=affiliate,
-        accepted_ip=accepted_ip,
-        user_agent=user_agent,
-        statement=AFFILIATE_ACCEPTANCE_STATEMENT,
-        context=affiliate_offer_context(affiliate),
-        source="web.signup",
-    )
+    """Record the terms ticked on the sign-up form against the new account.
+
+    One sentence, two agreements: the program's own terms, and the SEO Audit
+    Terms the free audit is written under. Each is recorded against its own
+    version, so a later change to either is a new acceptance.
+    """
+    context = affiliate_offer_context(affiliate)
+    acceptance = None
+    for key in (AFFILIATE_AGREEMENT_KEY, SEO_AGREEMENT_KEY):
+        recorded = record_checkout_acceptance(
+            agreement_version=publish_configured_agreement(key),
+            accepted_by=None,
+            actor_snapshot={"email": affiliate.email},
+            related=affiliate,
+            accepted_ip=accepted_ip,
+            user_agent=user_agent,
+            statement=AFFILIATE_ACCEPTANCE_STATEMENT,
+            context=context,
+            source="web.signup",
+        )
+        acceptance = acceptance or recorded
+    return acceptance

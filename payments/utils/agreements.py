@@ -19,7 +19,8 @@ SEO_AGREEMENT_KEY = "seo.reporting"
 
 AFFILIATE_AGREEMENT_KEY = "affiliate.program"
 AFFILIATE_ACCEPTANCE_STATEMENT = (
-    "I agree to the Affiliate Program Terms and acknowledge the Privacy Policy."
+    "I agree to the Affiliate Program Terms and the SEO Audit Terms, "
+    "and acknowledge the Privacy Policy."
 )
 
 PACKAGE_AGREEMENT_KEY = "webdev.services"
