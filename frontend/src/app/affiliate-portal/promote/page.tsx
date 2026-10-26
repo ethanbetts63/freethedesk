@@ -50,14 +50,6 @@ export default function AffiliatePortalPromotePage() {
         subtitle="Written around your code and today's prices. Edit them for your show; keep them true."
       />
 
-      <section className={cardClassName}>
-        <h2 className={cardTitleClassName}>Your code and link</h2>
-        <div className="flex flex-col gap-m">
-          <CopyValue value={account.code} label="Copy code" />
-          <CopyValue value={account.share_link} label="Copy link" />
-        </div>
-      </section>
-
       <div className="grid gap-ml">
         {pieces.map((piece) => (
           <section key={piece.title} className={cardClassName}>
