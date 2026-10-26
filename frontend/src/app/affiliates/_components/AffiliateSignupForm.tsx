@@ -83,18 +83,6 @@ export function AffiliateSignupForm({ pitch }: { pitch: ReactNode }) {
           required
         />
       </label>
-      <label className={fieldLabelClassName}>
-        <span className={fieldLabelSpanClassName}>Your website (optional)</span>
-        {/* Not type="url": it rejects a scheme-less host before the schema adds one. */}
-        <input
-          className={fieldInputClassName}
-          name="website"
-          type="text"
-          inputMode="url"
-          autoComplete="url"
-          placeholder="e.g. www.yoursite.com"
-        />
-      </label>
       <TermsAgreement
         className="mb-l"
         name="accepted_terms"

@@ -104,6 +104,10 @@ const RELATED: Record<string, { title: string; links: readonly Key[] }> = {
     title: 'The sample report and our search guides',
     links: ['sampleReport', 'notShowing', 'aiSearch', 'scooterShop'],
   },
+  '/affiliates': {
+    title: 'The audits you would be recommending',
+    links: ['seo', 'sampleReport', 'scooterShop'],
+  },
   '/automation': {
     title: 'An automation guide and a case study',
     links: ['whatToAutomate', 'scooterShop', 'websites'],

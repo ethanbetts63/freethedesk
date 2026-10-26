@@ -8,22 +8,14 @@ import { AffiliateSignupForm } from './AffiliateSignupForm';
  * only the panel hydrates. `pitch` fills the left half, where the service pages put their
  * packages.
  */
-export function AffiliateSignup({
-  pitch,
-  id = 'signup',
-  endId = 'signup-end',
-}: {
-  pitch: ReactNode;
-  id?: string;
-  endId?: string;
-}) {
+export function AffiliateSignup({ pitch }: { pitch: ReactNode }) {
   return (
-    <section className="pt-section" id={id} aria-label="Sign up">
+    <section className="pt-section" id="signup" aria-label="Sign up">
       <div className="site-shell">
         <AffiliateSignupForm pitch={pitch} />
       </div>
       {/* Where the page's floating call to action may appear: past the whole form. */}
-      <div id={endId} aria-hidden="true" />
+      <div id="signup-end" aria-hidden="true" />
     </section>
   );
 }
