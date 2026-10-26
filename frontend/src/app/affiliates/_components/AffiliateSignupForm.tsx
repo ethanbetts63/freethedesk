@@ -113,8 +113,14 @@ export function AffiliateSignupForm({ pitch }: { pitch: ReactNode }) {
         fullWidth
         disabled={isPending || state.status === 'success'}
       >
-        {isPending || state.status === 'success' ? 'Opening your account…' : 'Claim my free audit'}
+        {isPending || state.status === 'success' ? 'Opening your account…' : 'Sign up'}
       </MovingColourButton>
+      <p className="mt-s mb-0 text-center text-body-sm text-text-secondary">
+        or{' '}
+        <Link className="font-heavy text-action-primary underline underline-offset-2" href="/login">
+          log in
+        </Link>
+      </p>
     </SelectionFormPanel>
   );
 }
