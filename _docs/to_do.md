@@ -105,3 +105,11 @@ Added 2026-10-26. `_complete_test_schema` depends on `django_db_setup`, but pyte
 
 Added 2026-10-26. The scraper has run for real (terms aa and ab, five shows queued in `affiliates/data/podcasts.jsonl`). The upload has only been exercised through the test client: `upload_prospects --dev` needs `INTERNAL_API_KEY` in `.env` and the Django server on :8010 restarted to read it, then `py manage.py upload_prospects --dev` should answer five created and the five appear at /dashboard/admin/outreach.
 
+## Podcast outreach: the DNS records, in Cloudflare
+
+Added 2026-10-26, from a check of the live records. SPF and DKIM for the Mailgun domain `mail.freethedesk.com.au` and DMARC on the root are already in place; the mail authenticates. Two records are missing and one is pointed at nobody:
+
+1. Two MX records on `mail.freethedesk.com.au`, DNS only (grey cloud): `mxa.mailgun.org` priority 10 and `mxb.mailgun.org` priority 10. Without them, bounces and replies addressed to the envelope domain have nowhere to go, and Mailgun lists the domain as not fully verified.
+2. Edit the TXT at `_dmarc.freethedesk.com.au` so the reports reach an inbox you read: `v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:hello@freethedesk.com.au;` (today's `rua` is a GoDaddy default address).
+3. Recommended, not required: a separate sending identity for the cold pitches so complaints on them cannot hurt receipts and sign-in codes. In Mailgun add the domain `outreach.freethedesk.com.au`, then add in Cloudflare the SPF TXT, the `pic._domainkey` DKIM TXT and the two MX records it shows. The code side (a per-message sender in freetheplatform messaging, and the pitch using it) is a small change to make once the domain is verified.
+
