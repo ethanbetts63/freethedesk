@@ -78,6 +78,7 @@ export default async function SeoPage() {
         primaryLabel={`Audits from ${fromPrice}`}
         secondaryHref="/seo/sample-report"
         secondaryLabel="See a sample report"
+        secondaryNewTab
         trustLine="Paid once, no subscription · Fixed prices · Perth-based"
       />
 

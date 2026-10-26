@@ -17,7 +17,8 @@ function range(settings: PublicSiteSettings) {
 export function AffiliatePitch({ settings }: { settings: PublicSiteSettings }) {
   const { lowest, highest } = range(settings);
   return (
-    <div className="relative -m-ml flex flex-1 flex-col justify-end sm:-m-2xl">
+    // Bleeds to the panel's edges; the foot stays clear below lg, where the open button follows.
+    <div className="relative -mx-ml -mt-ml flex flex-1 flex-col justify-end sm:-mx-2xl sm:-mt-2xl lg:-mb-2xl">
       <Image
         src="/images/affiliates/studio.webp"
         alt=""

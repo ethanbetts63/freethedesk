@@ -36,6 +36,8 @@ type HeroProps = {
   primaryLabel: string;
   secondaryHref: string;
   secondaryLabel: string;
+  /** Open the secondary link in a new tab: for a page the reader looks at and comes back from. */
+  secondaryNewTab?: boolean;
   trustLine?: string;
 };
 
@@ -52,6 +54,7 @@ export function Hero({
   primaryLabel,
   secondaryHref,
   secondaryLabel,
+  secondaryNewTab = false,
   trustLine = 'Perth-based · clients across Australia',
 }: HeroProps) {
   const Title = eyebrowIsHeading ? 'p' : 'h1';
@@ -146,7 +149,12 @@ export function Hero({
                 {secondaryLabel} <span>↓</span>
               </ScrollCtaButton>
             ) : (
-              <Link className={secondaryLinkClassName} href={secondaryHref}>
+              <Link
+                className={secondaryLinkClassName}
+                href={secondaryHref}
+                target={secondaryNewTab ? '_blank' : undefined}
+                rel={secondaryNewTab ? 'noopener noreferrer' : undefined}
+              >
                 {secondaryLabel} <span>↗</span>
               </Link>
             )}

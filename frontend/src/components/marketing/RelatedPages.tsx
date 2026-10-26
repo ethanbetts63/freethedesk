@@ -22,6 +22,8 @@ export function RelatedPages({ path }: { path: string }) {
           <li key={link.href} className="flex">
             <Link
               href={link.href}
+              target={link.newTab ? '_blank' : undefined}
+              rel={link.newTab ? 'noopener noreferrer' : undefined}
               className={cn(
                 'group flex flex-1 flex-col gap-xs border border-border-default bg-surface-page p-l no-underline transition-colors duration-200 hover:border-action-primary',
                 focusRingClassName,

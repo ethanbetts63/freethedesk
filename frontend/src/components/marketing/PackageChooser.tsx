@@ -22,9 +22,9 @@ export interface PackageCard<Code extends string> {
   includes: readonly string[];
 }
 
-/** Every card is the same width, so the row scrolls in whole cards. */
+/** Stacked full-width below `lg`; from `lg` every card is one width, so the row scrolls in whole cards. */
 const cardClassName =
-  'group flex w-[256px] shrink-0 cursor-pointer snap-start flex-col p-l text-left transition-colors duration-200 has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-[-3px] has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)]';
+  'group flex cursor-pointer flex-col p-l text-left transition-colors duration-200 has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-[-3px] has-[:focus-visible]:outline-[color-mix(in_srgb,var(--action-primary)_25%,transparent)] lg:w-[256px] lg:shrink-0 lg:snap-start';
 
 /** Small capitals: what a card's price buys, and what its ticks are. */
 const cardKickerClassName = 'block text-label font-heavy tracking-label uppercase';
@@ -76,7 +76,8 @@ function ScrollArrow({
 }
 
 /**
- * The left half of an order form: "Choose your {noun}." over a row of cards that fills the
+ * The left half of an order form: "Choose your {noun}." over the cards. Below `lg` they stack,
+ * one under the other, the way a phone reads a list; from `lg` they are a row that fills the
  * column and scrolls sideways (arrows, swipe or trackpad; no scrollbar). The cards are radios;
  * the form beside them owns what is chosen.
  *
@@ -138,17 +139,6 @@ export function PackageChooser<Code extends string>({
   const scrollRow = (direction: -1 | 1) =>
     rowRef.current?.scrollBy({ left: direction * CARD_STEP, behavior: 'smooth' });
 
-  // On a phone the form sits under the row, out of sight: a tap on a card, chosen already or
-  // not, takes the visitor to it. Beside the row, the form is in view and nothing moves.
-  const goToForm = () => {
-    const row = rowRef.current;
-    const form = row?.closest('[data-selection-panel]')?.querySelector('form');
-    if (!row || !form) return;
-    if (form.getBoundingClientRect().top < row.getBoundingClientRect().bottom) return;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    form.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
-  };
-
   return (
     <>
       <h3 className={selectionHeadingClassName}>
@@ -162,8 +152,8 @@ export function PackageChooser<Code extends string>({
         <div
           ref={rowRef}
           className={cn(
-            'flex min-w-0 flex-1 snap-x snap-mandatory gap-s overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
-            single && 'justify-center',
+            'grid min-w-0 flex-1 gap-s lg:flex lg:snap-x lg:snap-mandatory lg:overflow-x-auto lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden',
+            single && 'lg:justify-center',
           )}
           role="radiogroup"
           aria-label={noun.charAt(0).toUpperCase() + noun.slice(1)}
@@ -173,10 +163,6 @@ export function PackageChooser<Code extends string>({
             return (
               <label
                 key={item.code}
-                // A label click reaches here twice, once more from the radio it forwards to.
-                onClick={(event) => {
-                  if (!(event.target instanceof HTMLInputElement)) goToForm();
-                }}
                 // The chosen card turns dark, as a chosen card does across the site's forms.
                 className={cn(
                   cardClassName,

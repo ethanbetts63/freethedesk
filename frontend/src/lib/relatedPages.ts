@@ -9,6 +9,8 @@ export interface RelatedLink {
   label: string;
   /** One line on what the reader finds there. */
   line: string;
+  /** Opens in a new tab: a page the reader looks at and comes back from. */
+  newTab?: boolean;
 }
 
 const LINKS = {
@@ -27,6 +29,7 @@ const LINKS = {
     href: '/seo/sample-report',
     label: 'Sample SEO report',
     line: 'Read a whole audit before you buy one.',
+    newTab: true,
   },
   automation: {
     href: '/automation',

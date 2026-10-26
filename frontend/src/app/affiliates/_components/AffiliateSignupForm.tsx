@@ -44,7 +44,7 @@ export function AffiliateSignupForm({ pitch }: { pitch: ReactNode }) {
   };
 
   return (
-    <SelectionFormPanel onSubmit={onSubmit} chooser={pitch}>
+    <SelectionFormPanel onSubmit={onSubmit} chooser={pitch} openLabel="Become an affiliate">
       <div className={formTitleClassName}>
         <h3 className={selectionHeadingClassName}>
           <span className="moving-colour-text">Your details.</span>

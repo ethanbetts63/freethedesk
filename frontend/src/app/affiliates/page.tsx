@@ -60,6 +60,7 @@ export default async function AffiliatesPage() {
         primaryLabel="Become an affiliate"
         secondaryHref="/seo/sample-report"
         secondaryLabel="See a sample report"
+        secondaryNewTab
         trustLine="50% of every sale · 20% off for your audience · Complimentary Audit"
       />
 
