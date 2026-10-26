@@ -28,7 +28,7 @@ export function SetupChecklist({
   subtitle,
   intro,
 }: {
-  kicker: string;
+  kicker?: string;
   title: string;
   subtitle: string;
   /** Anything to say between the status notice and the steps. */

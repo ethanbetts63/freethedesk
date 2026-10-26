@@ -22,7 +22,7 @@ export function PageHeader({
   className,
   children,
 }: {
-  kicker: ReactNode;
+  kicker?: ReactNode;
   title: ReactNode;
   subtitle?: ReactNode;
   /**
@@ -43,7 +43,7 @@ export function PageHeader({
       )}
     >
       <div>
-        <p className={kickerClassName}>{kicker}</p>
+        {kicker && <p className={kickerClassName}>{kicker}</p>}
         <h1 className="m-0 text-display leading-none tracking-[-0.06em]">{title}</h1>
         {subtitle ? <p className="mt-xs mb-0 text-body-sm text-text-muted">{subtitle}</p> : null}
       </div>

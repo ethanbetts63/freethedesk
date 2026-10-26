@@ -62,11 +62,7 @@ export default function AffiliatePortalOverviewPage() {
 
   return (
     <div className={pageClassName}>
-      <PageHeader
-        kicker="Affiliate portal"
-        title={account.business_name}
-        subtitle={`Signed in as ${user?.email}`}
-      />
+      <PageHeader title={account.business_name} subtitle={`Signed in as ${user?.email}`} />
 
       <div className={detailGridClassName}>
         <section className={statusCardClassName}>

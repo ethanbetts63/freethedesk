@@ -46,16 +46,9 @@ export default function AffiliatePortalPromotePage() {
   return (
     <div className={pageClassName}>
       <PageHeader
-        kicker="Affiliate portal"
         title="Words for the show"
         subtitle="Written around your code and today's prices. Edit them for your show; keep them true."
       />
-
-      <Notice tone="warning">
-        Wherever you share the code, say that you earn a commission. Every piece below does. It is
-        what the Affiliate Program Terms ask, and what Australian consumer law expects of a paid
-        recommendation.
-      </Notice>
 
       <section className={cardClassName}>
         <h2 className={cardTitleClassName}>Your code and link</h2>
@@ -74,16 +67,6 @@ export default function AffiliatePortalPromotePage() {
           </section>
         ))}
       </div>
-
-      <section className={cardClassName}>
-        <h2 className={cardTitleClassName}>What to point people at</h2>
-        <p className={messageBodyClassName}>
-          The sample report shows a whole audit, written for an invented Perth plumber. It is the
-          quickest way for a listener to see what they would get:
-          freethedesk.com.au/seo/sample-report. Your own audit, once it is written, is the best
-          proof of all, and you are welcome to talk about what it found.
-        </p>
-      </section>
     </div>
   );
 }
