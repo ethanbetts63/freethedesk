@@ -159,10 +159,10 @@ export const STATIC_PAGES = {
   },
   '/affiliates': {
     updated: '2026-10-26',
-    label: 'Podcast affiliates',
-    title: 'Podcast Affiliate Program: Earn Half of Every SEO Audit',
+    label: 'Affiliates',
+    title: 'SEO Audit Affiliate Program: 50% Commission',
     description:
-      'Recommend freethedesk SEO audits to your listeners and earn 50% of every audit sold with your code. Your own audit is free. Sign up in a minute.',
+      'Earn 50% of every freethedesk SEO audit sold with your code, $275 to $700 a sale. Your audience gets 20% off, your own audit is free, and you are paid monthly.',
   },
   '/contact': {
     updated: '2026-10-24',

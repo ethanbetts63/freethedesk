@@ -53,15 +53,15 @@ export default async function AffiliatesPage() {
       <PageSchema path="/affiliates" />
       <Hero
         path="/affiliates"
-        eyebrow="Podcast affiliate program"
+        eyebrow="SEO affiliate program"
         titleLines={['Recommend an SEO audit.']}
         accentTitle="Keep half."
-        lead={`Your listeners run businesses. Recommend our SEO audits with your code and keep ${lowest.share} to ${highest.share} of every one sold. Your own audit is free, so you know exactly what you're recommending.`}
+        lead={`Podcasters, consultants, web designers, bookkeepers: anyone business owners listen to. Recommend our SEO audits with your code and keep ${lowest.share} to ${highest.share} of every one sold. Your own audit is free, so you know exactly what you're recommending.`}
         primaryHref="#signup"
         primaryLabel="Become an affiliate"
         secondaryHref="/seo/sample-report"
         secondaryLabel="See a sample report"
-        trustLine="50% of every sale · 20% off for your listeners · Paid through Stripe"
+        trustLine="50% of every sale · 20% off for your audience · Paid through Stripe"
       />
 
       <ProcessStepsBar
