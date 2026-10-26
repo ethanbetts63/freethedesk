@@ -1,3 +1,5 @@
+import { ExperimentTag } from '@/app/seo/sample-report/_components/ReportPrimitives';
+
 /**
  * A real experiment, as a customer sees it: Scooter Shop's r7 findings,
  * "consolidate-service-satellites". The figures are the report's own chart
@@ -138,17 +140,14 @@ export function SeoExperimentCard() {
       className="border border-border-strong bg-surface-page p-l text-body-sm leading-relaxed text-text-secondary shadow-block-s sm:p-xl sm:shadow-block-l"
       aria-labelledby="seo-experiment-card-title"
     >
-      <header className="mb-m flex flex-wrap items-start justify-between gap-s">
-        <h3
-          id="seo-experiment-card-title"
-          className="m-0 text-lead leading-snug font-heavy tracking-[-0.02em] text-text-primary"
-        >
-          Workshop pages folded into /service
-        </h3>
-        <span className="rounded-xs bg-surface-tint px-xs py-3xs font-mono text-caption tracking-label-tight text-text-muted uppercase">
-          Shipped 13/9/2026
-        </span>
-      </header>
+      {/* The title carries its verdict pill, as an experiment's does in the report. */}
+      <h3
+        id="seo-experiment-card-title"
+        className="m-0 mb-m flex flex-wrap items-baseline gap-x-xs gap-y-2xs text-lead leading-snug font-heavy tracking-[-0.02em] text-text-primary"
+      >
+        <span>Workshop pages folded into /service</span>
+        <ExperimentTag impact="high" />
+      </h3>
 
       <p className="m-0">
         <strong className={labelClassName}>What.</strong> Three workshop pages were retired into

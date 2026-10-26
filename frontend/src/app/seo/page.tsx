@@ -20,7 +20,6 @@ import { SeoImprovement } from './_components/SeoImprovement';
 import { SeoIntroduction } from './_components/SeoIntroduction';
 import { SeoSignup } from './_components/SeoSignup';
 import { SeoStepsBar } from './_components/SeoStepsBar';
-import { SeoTiers } from './_components/SeoTiers';
 import { seoFaqs } from './_lib/copy';
 import { buildSeoPlans, PRICE_FIELD } from './_lib/plans';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
@@ -29,7 +28,6 @@ const sections = numberSections([
   'Analyse',
   'Recommend',
   'Experiment',
-  'What we read',
   'Proof this works',
   'Common questions',
 ] as const);
@@ -103,8 +101,6 @@ export default async function SeoPage() {
       />
 
       <SeoImprovement eyebrow={sections['Experiment']} />
-
-      <SeoTiers eyebrow={sections['What we read']} />
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
