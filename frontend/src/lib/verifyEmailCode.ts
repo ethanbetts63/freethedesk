@@ -41,10 +41,18 @@ async function withIssuedCookies(response: Response): Promise<ReadableCookies> {
  * it proves the address; the shared change-password endpoint then replaces it on the session
  * that sign-in issued. The browser receives cookies only once both calls succeed, so nobody
  * ever holds a session on the code alone. For a Server Action only.
+ *
+ * `changePasswordPath` is where the site mounts `freetheplatform.auth.urls`: `/api/` for
+ * allbikes and bloomprint, `/api/auth/` for freethedesk. A per-site value, so a parameter.
  */
 export async function verifyEmailWithCode(
   fetchApi: ServerApiFetch,
-  { email, code, newPassword }: { email: string; code: string; newPassword: string },
+  {
+    email,
+    code,
+    newPassword,
+    changePasswordPath = '/api/password/change/',
+  }: { email: string; code: string; newPassword: string; changePasswordPath?: string },
 ): Promise<VerifyEmailResult> {
   let login: Response;
   try {
@@ -61,7 +69,7 @@ export async function verifyEmailWithCode(
   let change: Response;
   try {
     change = await fetchApi(
-      '/api/auth/password/change/',
+      changePasswordPath,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

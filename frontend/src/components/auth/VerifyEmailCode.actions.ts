@@ -28,6 +28,8 @@ export async function submitVerifyEmail(
     email,
     code: verification_code,
     newPassword: new_password,
+    // freethedesk mounts freetheplatform.auth.urls under /api/auth/.
+    changePasswordPath: '/api/auth/password/change/',
   });
   if (result.ok) return { status: 'success' };
   if (result.reason === 'wrong_code') return { status: 'error', error: WRONG_CODE };
