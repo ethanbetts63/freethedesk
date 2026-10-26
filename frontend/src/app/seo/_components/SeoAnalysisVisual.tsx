@@ -15,8 +15,6 @@ import {
 
 import { cn } from '@/lib/utils';
 
-import { LiveDot } from '@/components/visuals/ChecklistCard';
-
 type Tier = 'Essentials' | 'Plus' | 'Complete';
 
 type Size = 'large' | 'wide' | 'small';
@@ -79,22 +77,7 @@ export function SeoAnalysisVisual() {
       className="moving-colour-border mx-auto w-full max-w-[620px] min-w-0 p-xl text-text-secondary lg:mx-0 lg:w-auto lg:max-w-none"
       aria-label="The sources an SEO audit reads"
     >
-      <header className="flex items-center justify-between gap-s border-b border-border-subtle pb-m">
-        <div className="flex items-center gap-s">
-          <LiveDot />
-          <span>
-            <small className="mb-4xs block text-caption font-black tracking-label text-text-muted uppercase">
-              What we read
-            </small>
-            <strong className="block text-body-sm">Eleven sources, one report</strong>
-          </span>
-        </div>
-        <span className="moving-colour-text text-label font-black uppercase">
-          {sources.length} sources
-        </span>
-      </header>
-
-      <ul className="m-0 mt-xl grid list-none auto-rows-[96px] grid-cols-2 gap-4xs bg-border-default p-0 sm:auto-rows-[108px] sm:grid-cols-4">
+      <ul className="m-0 grid list-none auto-rows-[96px] grid-cols-2 gap-4xs bg-border-default p-0 sm:auto-rows-[108px] sm:grid-cols-4">
         {sources.map(({ name, icon: Icon, tier, size }) => (
           <li
             key={name}
