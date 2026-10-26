@@ -14,8 +14,8 @@ pytestmark = pytest.mark.django_db
 def test_figures_come_from_the_site_settings():
     assert pitching.pitch_figures() == {
         "discount": "20%",
-        "commission_low": "$275",
-        "commission_high": "$700",
+        "commission_low": "$220",
+        "commission_high": "$560",
         "free_audit_price": "$850",
     }
 
@@ -25,7 +25,7 @@ def test_figures_come_from_the_site_settings():
     site_settings.save()
 
     figures = pitching.pitch_figures()
-    assert figures["commission_low"] == "$275.50"
+    assert figures["commission_low"] == "$234.18"
     assert figures["discount"] == "15%"
 
 
@@ -91,11 +91,30 @@ def test_send_pitch_renders_the_version_template_with_the_opener(outbox):
     text = outbox[0].body_text
     assert text.startswith("Hi Sam,")
     assert "Came across your episode on quoting jobs." in text
-    assert "$275 to $700 an audit" in text
+    assert "$220 to $560 an audit" in text
     assert "20% off" in text
     assert "/unsubscribe/" in text
     assert "/affiliates" in outbox[0].body_html
     assert outbox[0].content_object == prospect
+
+
+def test_the_pitch_goes_from_the_outreach_sender_when_one_is_configured(settings, outbox):
+    settings.OUTREACH_SENDER = "outreach"
+    settings.FTP_MESSAGING = {
+        **settings.FTP_MESSAGING,
+        "SENDERS": {"outreach": {"FROM_EMAIL": "Ethan <ethan@outreach.example.com>"}},
+    }
+    prospect = ProspectFactory()
+
+    message = pitching.send_pitch(prospect)
+
+    assert message.meta == {"sender": "outreach"}
+    assert message.status == "sent"
+
+
+def test_without_an_outreach_sender_the_pitch_goes_from_the_site(outbox):
+    message = pitching.send_pitch(ProspectFactory())
+    assert message.meta == {}
 
 
 def test_version_c_has_no_links_and_the_blank_opener_is_dropped(outbox):

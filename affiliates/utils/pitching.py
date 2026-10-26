@@ -6,7 +6,7 @@ here from the site settings, so a price change reaches the next send without
 a deploy.
 """
 
-from decimal import Decimal
+from decimal import ROUND_HALF_UP, Decimal
 
 from django.conf import settings
 from django.db.models import Count
@@ -67,10 +67,16 @@ def pitch_figures(site_settings=None) -> dict:
     """The offer as the site settings state it today."""
     site_settings = site_settings or SiteSettings.load()
     share = Decimal(site_settings.affiliate_share_percent) / 100
+    paid = (100 - Decimal(site_settings.affiliate_discount_percent)) / 100
+
+    def commission(price):
+        # Half of what the listener pays after their discount, to the cent.
+        return money((Decimal(price) * paid * share).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+
     return {
         "discount": f"{site_settings.affiliate_discount_percent}%",
-        "commission_low": money(site_settings.seo_essentials_price * share),
-        "commission_high": money(site_settings.seo_complete_price * share),
+        "commission_low": commission(site_settings.seo_essentials_price),
+        "commission_high": commission(site_settings.seo_complete_price),
         "free_audit_price": money(site_settings.seo_plus_price),
     }
 
@@ -102,4 +108,6 @@ def send_pitch(prospect: PodcastProspect, figures: dict | None = None):
         template=f"emails/podcast_pitch/{prospect.version}",
         context=context,
         related=prospect,
+        # The outreach address and domain when they are configured; the site's own otherwise.
+        sender=settings.OUTREACH_SENDER,
     )

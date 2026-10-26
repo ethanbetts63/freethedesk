@@ -322,6 +322,13 @@ API_SERVER_URL = os.getenv("API_SERVER_URL", "")
 DEV_API_SERVER_URL = os.getenv("DEV_API_SERVER_URL", "http://127.0.0.1:8010")
 # Who signs pitch A.
 OUTREACH_SENDER_NAME = os.getenv("OUTREACH_SENDER_NAME", "Ethan Betts")
+# The pitches go out from their own address and Mailgun domain, so complaints
+# on cold email never count against receipts and sign-in codes. All three unset
+# means the pitch goes from the site's own address, which is development.
+OUTREACH_FROM_EMAIL = os.getenv("OUTREACH_FROM_EMAIL", "")
+OUTREACH_MAILGUN_DOMAIN = os.getenv("OUTREACH_MAILGUN_DOMAIN", "")
+OUTREACH_MAILGUN_API_KEY = os.getenv("OUTREACH_MAILGUN_API_KEY", "")
+OUTREACH_SENDER = "outreach" if OUTREACH_FROM_EMAIL else None
 ADMIN_NUMBER = os.getenv("ADMIN_NUMBER", "")
 
 # No on/off switch: with no provider credentials, sends fail and are recorded
@@ -334,6 +341,16 @@ FTP_MESSAGING = {
         "DOMAIN": os.getenv("MAILGUN_DOMAIN", ""),
         "WEBHOOK_SIGNING_KEY": os.getenv("MAILGUN_WEBHOOK_SIGNING_KEY", ""),
     },
+    "SENDERS": (
+        {
+            "outreach": {
+                "FROM_EMAIL": OUTREACH_FROM_EMAIL,
+                "MAILGUN": {"DOMAIN": OUTREACH_MAILGUN_DOMAIN, "API_KEY": OUTREACH_MAILGUN_API_KEY},
+            }
+        }
+        if OUTREACH_SENDER
+        else {}
+    ),
     "TWILIO": {
         "ACCOUNT_SID": os.getenv("TWILIO_ACCOUNT_SID", ""),
         "AUTH_TOKEN": os.getenv("TWILIO_AUTH_TOKEN", ""),
