@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import { AuthCard, authLinkClassName } from '@/components/auth/AuthCard';
-import { MINIMUM_PASSWORD_LENGTH, PasswordField } from '@/components/auth/PasswordFields';
+import { PasswordField } from '@/components/auth/PasswordFields';
+import { MINIMUM_PASSWORD_LENGTH } from '@/lib/passwordPolicy';
 import { submitResetConfirm, type ResetConfirmState } from './ResetPasswordConfirm.actions';
 
 const initialState: ResetConfirmState = { status: 'idle' };

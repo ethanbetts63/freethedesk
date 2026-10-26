@@ -2,7 +2,7 @@ import { FIELD_MAX } from '@freetheplatform/web-security';
 import { password } from '@freetheplatform/web-security/schema';
 import { z } from 'zod';
 
-import { MINIMUM_PASSWORD_LENGTH } from '@/components/auth/PasswordFields';
+import { MINIMUM_PASSWORD_LENGTH } from '@/lib/passwordPolicy';
 
 /**
  * Track B. The `.refine()` is a confirm-field match, which is one rule over two

@@ -2,7 +2,7 @@ import { FIELD_MAX } from '@freetheplatform/web-security';
 import { email, password } from '@freetheplatform/web-security/schema';
 import { z } from 'zod';
 
-import { MINIMUM_PASSWORD_LENGTH } from '@/components/auth/PasswordFields';
+import { MINIMUM_PASSWORD_LENGTH } from '@/lib/passwordPolicy';
 
 /**
  * Track B. `verification_code` is the account's first password, so it is bounded but not

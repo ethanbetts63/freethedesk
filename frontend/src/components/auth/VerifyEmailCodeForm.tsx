@@ -5,7 +5,8 @@ import { useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
 
 import { authFieldLabelClassName } from '@/components/auth/AuthCard';
-import { MINIMUM_PASSWORD_LENGTH, PasswordField } from '@/components/auth/PasswordFields';
+import { PasswordField } from '@/components/auth/PasswordFields';
+import { MINIMUM_PASSWORD_LENGTH } from '@/lib/passwordPolicy';
 import { CheckoutButton } from '@/components/checkout/CheckoutButton';
 import { Notice } from '@/components/ui/Notice';
 import { formControlClassName } from '@/components/ui/formControl';

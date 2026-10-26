@@ -9,7 +9,8 @@ import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import { adminLoadingClassName } from '@/components/dashboard/dashboardChrome';
 import { AuthCard } from '@/components/auth/AuthCard';
-import { MINIMUM_PASSWORD_LENGTH, PasswordField } from '@/components/auth/PasswordFields';
+import { PasswordField } from '@/components/auth/PasswordFields';
+import { MINIMUM_PASSWORD_LENGTH } from '@/lib/passwordPolicy';
 import { submitChangePassword, type ChangePasswordState } from './ChangePassword.actions';
 
 const initialState: ChangePasswordState = { status: 'idle' };

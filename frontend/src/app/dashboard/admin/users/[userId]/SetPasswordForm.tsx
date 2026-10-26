@@ -3,7 +3,7 @@
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 
-import { MINIMUM_PASSWORD_LENGTH } from '@/components/auth/PasswordFields';
+import { MINIMUM_PASSWORD_LENGTH } from '@/lib/passwordPolicy';
 import { PasswordInput } from '@/components/auth/PasswordInput';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';

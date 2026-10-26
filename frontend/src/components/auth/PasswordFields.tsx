@@ -38,10 +38,3 @@ export function PasswordField({
     </label>
   );
 }
-
-/**
- * The minimum the API enforces. Stated here so the field rejects a short
- * password before a round trip; the server is still what decides, because a
- * browser check is a convenience and never a control.
- */
-export const MINIMUM_PASSWORD_LENGTH = 12;

@@ -2,7 +2,7 @@ import { password } from '@freetheplatform/web-security/schema';
 import { FIELD_MAX } from '@freetheplatform/web-security';
 import { z } from 'zod';
 
-import { MINIMUM_PASSWORD_LENGTH } from '@/components/auth/PasswordFields';
+import { MINIMUM_PASSWORD_LENGTH } from '@/lib/passwordPolicy';
 
 /**
  * Track B despite the `.refine()`.
