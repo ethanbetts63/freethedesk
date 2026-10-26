@@ -62,14 +62,19 @@ def save_searched_feeds(feeds):
     _save_json(FEEDS_PATH, sorted(feeds))
 
 
-def load_queue(path=QUEUE_PATH):
+def load_queue(path=None):
+    # Resolved at call time, not bound as a default: tests point QUEUE_PATH at a
+    # temporary directory, and a default bound at import would ignore that and
+    # write test entries into the real queue.
+    path = path or QUEUE_PATH
     if not path.exists():
         return []
     with open(path, encoding="utf-8") as handle:
         return [json.loads(line) for line in handle if line.strip()]
 
 
-def save_queue(entries, path=QUEUE_PATH):
+def save_queue(entries, path=None):
+    path = path or QUEUE_PATH
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as handle:
         for entry in entries:
