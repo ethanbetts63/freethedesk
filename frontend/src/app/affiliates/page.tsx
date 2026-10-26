@@ -34,13 +34,6 @@ export const metadata: Metadata = metadataFor('/affiliates');
 /* The earnings come from the admin's prices, so this page renders per request. */
 export const dynamic = 'force-dynamic';
 
-const casePoints = [
-  'A real Perth business',
-  'Recommendations shipped',
-  'Measured in Search Console',
-  `${SCOOTER_SHOP_GROWTH.stat} organic clicks`,
-];
-
 export default async function AffiliatesPage() {
   const settings = await getSiteSettingsServer();
   const earnings = affiliateEarnings(settings);
@@ -83,16 +76,14 @@ export default async function AffiliatesPage() {
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
         title={`A Perth website that grew organic clicks ${SCOOTER_SHOP_GROWTH.percent}%.`}
-        points={casePoints}
         primaryHref="#signup"
         primaryLabel="Become an affiliate"
         showPrimaryAction={false}
       >
         <p>
-          Scooter Shop is a Perth scooter dealership. The changes its audit recommended, fast
-          structured pages and search content aimed at what Perth riders search for, grew its
-          organic clicks {SCOOTER_SHOP_GROWTH.percent}% in {SCOOTER_SHOP_GROWTH.span}. That is the
-          kind of result your listeners would be buying.
+          The changes its audit recommended, fast structured pages and search content aimed at what
+          Perth riders search for, grew its organic clicks {SCOOTER_SHOP_GROWTH.percent}% in{' '}
+          {SCOOTER_SHOP_GROWTH.span}.
         </p>
       </CaseStudyTeaser>
 

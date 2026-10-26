@@ -10,7 +10,8 @@ type CaseStudyTeaserProps = {
   eyebrow: string;
   title?: React.ReactNode;
   children: React.ReactNode;
-  points: readonly string[];
+  /** Tag-like facts under the copy; none when the page has nothing to add to the paragraph. */
+  points?: readonly string[];
   primaryHref: string;
   primaryLabel: string;
   showPrimaryAction?: boolean;
@@ -20,7 +21,7 @@ export function CaseStudyTeaser({
   eyebrow,
   title = 'Scooter Shop, Perth.',
   children,
-  points,
+  points = [],
   primaryHref,
   primaryLabel,
   showPrimaryAction = true,
@@ -60,17 +61,19 @@ export function CaseStudyTeaser({
             titleClassName="mb-ml tracking-[-0.05em]"
           />
           {children}
-          <div className="mt-l mb-xl flex flex-wrap gap-xs">
-            {points.map((point) => (
-              <span
-                key={point}
-                className="border border-[color-mix(in_srgb,var(--surface-page)_22%,transparent)] px-s py-2xs text-label font-strong text-[var(--border-subtle)]"
-              >
-                {point}
-              </span>
-            ))}
-          </div>
-          <div className="flex flex-wrap items-center gap-ml">
+          {points.length > 0 && (
+            <div className="mt-l mb-xl flex flex-wrap gap-xs">
+              {points.map((point) => (
+                <span
+                  key={point}
+                  className="border border-[color-mix(in_srgb,var(--surface-page)_22%,transparent)] px-s py-2xs text-label font-strong text-[var(--border-subtle)]"
+                >
+                  {point}
+                </span>
+              ))}
+            </div>
+          )}
+          <div className="mt-l flex flex-wrap items-center gap-ml">
             {showPrimaryAction && (
               <CtaButton href={primaryHref} direction="down" size="compact">
                 {primaryLabel}
