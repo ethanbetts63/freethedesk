@@ -1,14 +1,15 @@
 import {
   ChartColumn,
   Gauge,
-  Globe,
   ListChecks,
   type LucideIcon,
   MapPin,
   Megaphone,
+  Monitor,
   MousePointerClick,
   Scale,
   Search,
+  Smartphone,
   Star,
   Swords,
 } from 'lucide-react';
@@ -33,9 +34,13 @@ type Source = {
  *
  * The order is the layout. On four columns the sizes pack into five full rows
  * (4+4+4+4+4 cells); on two they pack into ten. Move a tile and check both.
+ *
+ * The site itself is read twice, on a desktop and on a phone, so it is two
+ * tiles in the one colour rather than one large tile.
  */
 const sources: readonly Source[] = [
-  { name: 'Your website', icon: Globe, size: 'large', tone: 'moving' },
+  { name: 'Your site on desktop', icon: Monitor, size: 'wide', tone: 'moving' },
+  { name: 'Your site on a phone', icon: Smartphone, size: 'wide', tone: 'moving' },
   { name: 'Search Console', icon: ChartColumn, size: 'wide', tone: 'blue' },
   { name: 'Page speed', icon: Gauge, size: 'small', tone: 'plain' },
   { name: 'Search results', icon: Search, size: 'small', tone: 'tint' },
