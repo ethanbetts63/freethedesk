@@ -20,7 +20,8 @@ const layoutVariants = cva(
   [
     'group site-shell grid grid-cols-1 items-center gap-split',
     'lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]',
-    'lg:group-data-[text-side=right]:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]',
+    // The grid's own attribute, not an ancestor's: a group variant here never matched.
+    'lg:data-[text-side=right]:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]',
   ],
   {
     variants: {
