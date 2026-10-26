@@ -40,33 +40,6 @@ export interface SeoCheckout {
   total: string;
 }
 
-export interface SeoOnboardingProfile {
-  business_name: string;
-  email: string;
-  website_url: string;
-  /** Written by the Search Console check, never by the customer. */
-  search_console_property: string;
-  primary_location: string;
-  target_keywords: string;
-  competitors: string;
-  google_business_profile_url: string;
-  notes: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export type SeoOnboardingChanges = Partial<
-  Pick<
-    SeoOnboardingProfile,
-    | 'website_url'
-    | 'primary_location'
-    | 'target_keywords'
-    | 'competitors'
-    | 'google_business_profile_url'
-    | 'notes'
-  >
->;
-
 export type SeoSetupKey =
   | 'search_console'
   | 'google_analytics'
@@ -114,10 +87,6 @@ export async function getSeoCheckoutStatus(reference: string): Promise<SeoChecko
  */
 export async function createSeoCheckout(reference: string): Promise<SeoCheckout> {
   return postJson('/api/payments/seo-checkout/', { reference });
-}
-
-export async function getSeoOnboarding(): Promise<SeoOnboardingProfile> {
-  return handleResponse(await authedFetch('/api/seo/onboarding/'));
 }
 
 export async function getSeoSetup(): Promise<SeoSetup> {

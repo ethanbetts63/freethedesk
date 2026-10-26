@@ -18,7 +18,6 @@ class SeoProfile(models.Model):
     primary_location = models.CharField(max_length=180, blank=True)
     target_keywords = models.TextField(blank=True)
     competitors = models.TextField(blank=True)
-    google_business_profile_url = models.URLField(blank=True)
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

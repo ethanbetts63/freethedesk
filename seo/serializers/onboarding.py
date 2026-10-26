@@ -20,7 +20,7 @@ class SeoOnboardingSerializer(serializers.ModelSerializer):
         fields = [
             "business_name", "email",
             "website_url", "search_console_property", "primary_location",
-            "target_keywords", "competitors", "google_business_profile_url", "notes",
+            "target_keywords", "competitors", "notes",
             "created_at", "updated_at",
         ]
         read_only_fields = ["search_console_property", "created_at", "updated_at"]

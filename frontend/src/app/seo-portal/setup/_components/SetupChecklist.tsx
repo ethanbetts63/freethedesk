@@ -7,23 +7,19 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
 import {
   checkSeoSetupStep,
-  getSeoOnboarding,
   getSeoSetup,
   markSeoSetupStep,
-  type SeoOnboardingProfile,
   type SeoSetup,
   type SeoSetupCheckResult,
   type SeoSetupKey,
 } from '@/lib/seoApi';
-import { SetupBrief } from './SetupBrief';
 import { SetupStepCard } from './SetupStepCard';
 
-const sectionHeadingClassName = 'm-0 text-lead';
 const stepListClassName = 'grid gap-m';
 
 /**
- * The setup checklist a subscriber works through: each tool, how to grant access, and the
- * optional brief. The SEO portal's setup page is this with its own words; so is the affiliate
+ * The setup checklist a subscriber works through: each tool, how to grant access, and where it
+ * stands. The SEO portal's setup page is this with its own words; so is the affiliate
  * portal's free-audit page, because an affiliate's audit is an SEO account on the same login.
  */
 export function SetupChecklist({
@@ -39,7 +35,6 @@ export function SetupChecklist({
   intro?: ReactNode;
 }) {
   const [setup, setSetup] = useState<SeoSetup | null>(null);
-  const [profile, setProfile] = useState<SeoOnboardingProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [busyKey, setBusyKey] = useState<SeoSetupKey | null>(null);
@@ -48,11 +43,8 @@ export function SetupChecklist({
   >({});
 
   useEffect(() => {
-    Promise.all([getSeoSetup(), getSeoOnboarding()])
-      .then(([loadedSetup, loadedProfile]) => {
-        setSetup(loadedSetup);
-        setProfile(loadedProfile);
-      })
+    getSeoSetup()
+      .then(setSetup)
       .catch((reason) =>
         setError(reason instanceof Error ? reason.message : 'Your setup could not be loaded.'),
       )
@@ -85,15 +77,15 @@ export function SetupChecklist({
         <p className="text-text-subtle">Loading your setup…</p>
       </div>
     );
-  if (!setup || !profile)
+  if (!setup)
     return (
       <div className={pageClassName}>
         <Notice tone="danger">{error}</Notice>
       </div>
     );
 
-  const required = setup.steps.filter((step) => step.required);
-  const optional = setup.steps.filter((step) => !step.required);
+  // Required first; each card says which it is.
+  const steps = [...setup.steps].sort((a, b) => Number(b.required) - Number(a.required));
   const card = (step: SeoSetup['steps'][number]) => (
     <SetupStepCard
       key={step.key}
@@ -110,33 +102,16 @@ export function SetupChecklist({
       <PageHeader kicker={kicker} title={title} subtitle={subtitle} />
 
       {error && <Notice tone="danger">{error}</Notice>}
-      {setup.complete ? (
+      {setup.complete && (
         <Notice tone="success">
           Search Console is connected, so your audit is under way. Anything else you add below goes
           into it.
         </Notice>
-      ) : (
-        <Notice tone="warning">Your audit starts once Search Console is connected.</Notice>
       )}
 
       {intro}
 
-      <h2 className={sectionHeadingClassName}>Required</h2>
-      <div className={stepListClassName}>{required.map(card)}</div>
-
-      <h2 className={sectionHeadingClassName}>Optional</h2>
-      <p className="m-0 text-body-sm text-text-muted">
-        Skip any you don&apos;t use. Every role is read-only, except the Business Profile, which has
-        none; we don&apos;t change your listing.
-      </p>
-      <div className={stepListClassName}>{optional.map(card)}</div>
-
-      <SetupBrief profile={profile} />
-
-      <p className="m-0 text-label text-text-subtle">
-        We also browse your site as a customer would. We fill in forms with test values but never
-        send them, and never reach a payment page.
-      </p>
+      <div className={stepListClassName}>{steps.map(card)}</div>
     </div>
   );
 }
