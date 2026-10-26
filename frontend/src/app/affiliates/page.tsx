@@ -15,7 +15,6 @@ import { getSiteSettingsServer } from '@/lib/serverApi';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 import { SampleReportLink } from '@/app/seo/_components/SampleReportLink';
-import { AffiliateEarnings } from './_components/AffiliateEarnings';
 import { AffiliateIntroduction } from './_components/AffiliateIntroduction';
 import { AffiliatePayout } from './_components/AffiliatePayout';
 import { AffiliatePitch } from './_components/AffiliatePitch';
@@ -27,7 +26,6 @@ const sections = numberSections([
   'Share',
   'What you recommend',
   'Get paid',
-  'What you earn',
   'Proof this works',
   'Common questions',
 ] as const);
@@ -90,8 +88,6 @@ export default async function AffiliatesPage() {
       />
 
       <AffiliatePayout eyebrow={sections['Get paid']} settings={settings} />
-
-      <AffiliateEarnings eyebrow={sections['What you earn']} settings={settings} />
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
