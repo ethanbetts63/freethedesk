@@ -18,7 +18,6 @@ import type { AffiliateAccount } from '@/lib/affiliateApi';
 import { formatDateTime, formatMoney } from '@/lib/formatting';
 import { cn } from '@/lib/utils';
 
-import { AffiliateCodes } from '../_components/AffiliateCodes';
 import { useAffiliateAccount } from '../_lib/useAffiliateAccount';
 
 /** Only the statuses that need explaining; an active affiliate just gets on with it. */
@@ -37,7 +36,7 @@ const money = (value: string) => formatMoney(value, { cents: 'auto' });
 
 export default function AffiliatePortalOverviewPage() {
   const { user } = useAuth();
-  const { account, setAccount, error, loading } = useAffiliateAccount();
+  const { account, error, loading } = useAffiliateAccount();
 
   if (loading)
     return (
@@ -67,10 +66,6 @@ export default function AffiliatePortalOverviewPage() {
             <p className={messageBodyClassName}>{message.body}</p>
           </section>
         )}
-
-        <div className={cardWideClassName}>
-          <AffiliateCodes account={account} onChange={setAccount} />
-        </div>
 
         <section className={cardClassName}>
           <h2 className={cardTitleClassName}>Earnings</h2>
