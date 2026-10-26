@@ -38,7 +38,7 @@ export function AffiliatePayout({
       accentTitle="Through Stripe."
       description="Every sale with your code is listed the day it's paid for. Every second Friday, half goes to your bank through Stripe. No invoices, no minimum."
       visual={<AffiliatePayoutCard rows={rows} total={total} />}
-      textSide="right"
+      textSide="left"
       background="white"
       spacing="joined"
     />

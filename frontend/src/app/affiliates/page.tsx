@@ -17,14 +17,14 @@ import { AffiliateAudit } from './_components/AffiliateAudit';
 import { AffiliateIntroduction } from './_components/AffiliateIntroduction';
 import { AffiliatePayout } from './_components/AffiliatePayout';
 import { AffiliatePitch } from './_components/AffiliatePitch';
-import { AffiliateShare } from './_components/AffiliateShare';
+import { AffiliateExperience } from './_components/AffiliateExperience';
 import { AffiliateSignup } from './_components/AffiliateSignup';
 import { affiliateEarnings, affiliateFaqs } from './_lib/copy';
 
 const sections = numberSections([
+  'What to say',
   'What you sell',
   'Get paid',
-  'Share',
   'Proof this works',
   'Common questions',
 ] as const);
@@ -73,11 +73,11 @@ export default async function AffiliatesPage() {
 
       <AffiliateIntroduction />
 
+      <AffiliateExperience eyebrow={sections['What to say']} />
+
       <AffiliateAudit eyebrow={sections['What you sell']} />
 
       <AffiliatePayout eyebrow={sections['Get paid']} settings={settings} />
-
-      <AffiliateShare eyebrow={sections['Share']} />
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}

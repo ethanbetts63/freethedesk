@@ -13,7 +13,7 @@ export function AffiliateAudit({ eyebrow }: { eyebrow: string }) {
       accentTitle="Growth."
       description="Many data sources go in. One ranked list of recommendations comes out. Every call backed by data, third-party studies and experience."
       visual={<SeoAnalysisVisual />}
-      textSide="left"
+      textSide="right"
       background="white"
       spacing="joined"
       action={<SampleReportLink />}
