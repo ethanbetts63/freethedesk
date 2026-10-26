@@ -8,13 +8,12 @@ import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
 import { ProcessStepsBar } from '@/components/ProcessStepsBar';
-import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { metadataFor } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
 import { getSiteSettingsServer } from '@/lib/serverApi';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
-import { SampleReportLink } from '@/app/seo/_components/SampleReportLink';
+import { AffiliateAudit } from './_components/AffiliateAudit';
 import { AffiliateIntroduction } from './_components/AffiliateIntroduction';
 import { AffiliatePayout } from './_components/AffiliatePayout';
 import { AffiliatePitch } from './_components/AffiliatePitch';
@@ -23,8 +22,8 @@ import { AffiliateSignup } from './_components/AffiliateSignup';
 import { affiliateEarnings, affiliateFaqs } from './_lib/copy';
 
 const sections = numberSections([
+  'What you sell',
   'Share',
-  'What you recommend',
   'Get paid',
   'Proof this works',
   'Common questions',
@@ -56,12 +55,12 @@ export default async function AffiliatesPage() {
         eyebrow="SEO affiliate program"
         titleLines={['Recommend an SEO audit.']}
         accentTitle="Keep half."
-        lead={`Podcasters, consultants, web designers, bookkeepers: anyone business owners listen to. Recommend our SEO audits with your code and keep ${lowest.share} to ${highest.share} of every one sold. Your own audit is free, so you know exactly what you're recommending.`}
+        lead={`Recommend our SEO audits and get ${lowest.share} to ${highest.share} of every sale, 20% off for your followers and a free audit for your own website.`}
         primaryHref="#signup"
         primaryLabel="Become an affiliate"
         secondaryHref="/seo/sample-report"
         secondaryLabel="See a sample report"
-        trustLine="50% of every sale · 20% off for your audience · Paid through Stripe"
+        trustLine="50% of every sale · 20% off for your audience · Complimentary Audit"
       />
 
       <ProcessStepsBar
@@ -74,18 +73,9 @@ export default async function AffiliatesPage() {
 
       <AffiliateIntroduction />
 
-      <AffiliateShare eyebrow={sections['Share']} />
+      <AffiliateAudit eyebrow={sections['What you sell']} />
 
-      <SeoReportOverview
-        id="recommend"
-        eyebrow={sections['What you recommend']}
-        title="A written report."
-        accentTitle="Not a sales call."
-        description="What your listener gets is a report about their own site: where it shows up on Google and in AI answers, who's beating it, and the changes worth making first, ranked by what they're worth. Read the sample before you put your name to it."
-        spacing="joined"
-        textSide="right"
-        action={<SampleReportLink />}
-      />
+      <AffiliateShare eyebrow={sections['Share']} />
 
       <AffiliatePayout eyebrow={sections['Get paid']} settings={settings} />
 

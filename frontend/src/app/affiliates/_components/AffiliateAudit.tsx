@@ -1,0 +1,22 @@
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
+
+import { SampleReportLink } from '@/app/seo/_components/SampleReportLink';
+import { SeoAnalysisVisual } from '@/app/seo/_components/SeoAnalysisVisual';
+
+/** What the affiliate is selling: the SEO page's own picture of what an audit reads. */
+export function AffiliateAudit({ eyebrow }: { eyebrow: string }) {
+  return (
+    <SplitFeatureSection
+      id="audit"
+      eyebrow={eyebrow}
+      title="What you're selling."
+      accentTitle="A real audit."
+      description="We read what Google reads: their Search Console, the sites outranking them, what AI answers say about them, their ads."
+      visual={<SeoAnalysisVisual />}
+      textSide="left"
+      background="white"
+      spacing="joined"
+      action={<SampleReportLink />}
+    />
+  );
+}
