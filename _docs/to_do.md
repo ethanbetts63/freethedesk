@@ -92,3 +92,7 @@ Added 2026-10-25. The plan is `_docs/affiliate-outreach.md`; nothing is built ye
 - Add two hourly PythonAnywhere scheduled tasks: `python manage.py send_due_messages` (not yet scheduled for freethedesk as far as the docs record) and `python manage.py send_podcast_pitches --count 5`.
 - Upload one test prospect addressed to yourself, read all three versions in a mail client, then enable the cron.
 
+
+## Forms ledger after the affiliate program commit
+
+Added 2026-10-26. `npm run check` fails on `check:forms` since 91e5089: `app/affiliate-portal/account/page.tsx` and `components/auth/VerifyEmailCodeForm.tsx` render a form and are not in `frontend/scripts/check-forms.mjs`, and `app/seo/payment/complete/VerifyEmailForm.tsx` is in the ledger but no longer renders one. Add the two rows with their track and repoint or drop the third. Separately, the affiliate sign-up's checkbox sentence ends ", acknowledge the Privacy Policy, and will say I earn a commission wherever I share my code." while `AFFILIATE_ACCEPTANCE_STATEMENT` in `payments/utils/agreements.py` ends "and acknowledge the Privacy Policy."; the shared `TermsAgreement` component cannot produce the recorded sentence, so one of them should change.
