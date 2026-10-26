@@ -15,45 +15,45 @@ import {
 
 import { cn } from '@/lib/utils';
 
-type Tier = 'Essentials' | 'Plus' | 'Complete';
-
 type Size = 'large' | 'wide' | 'small';
+
+type Tone = 'plain' | 'tint' | 'blue' | 'dark' | 'moving';
 
 type Source = {
   name: string;
   icon: LucideIcon;
-  /** The cheapest audit that reads it. */
-  tier: Tier;
   size: Size;
+  tone: Tone;
 };
 
 /**
  * Every source an audit reads, one tile each: the reporting pipeline's
  * collectors (ftp_search/_search/prompts/0[3-5]_collect-*.md) under the names a
- * customer would use. Mirrors the tiers in `_lib/plans.ts` and the SEO Audit
- * Terms: change those and this together.
+ * customer would use. Keep it in step with the SEO Audit Terms.
  *
  * The order is the layout. On four columns the sizes pack into five full rows
  * (4+4+4+4+4 cells); on two they pack into ten. Move a tile and check both.
  */
 const sources: readonly Source[] = [
-  { name: 'Your website', icon: Globe, tier: 'Essentials', size: 'large' },
-  { name: 'Search Console', icon: ChartColumn, tier: 'Essentials', size: 'wide' },
-  { name: 'Page speed', icon: Gauge, tier: 'Essentials', size: 'small' },
-  { name: 'Search results', icon: Search, tier: 'Essentials', size: 'small' },
-  { name: 'Competitors', icon: Swords, tier: 'Essentials', size: 'small' },
-  { name: 'Business Profile', icon: MapPin, tier: 'Plus', size: 'small' },
-  { name: 'SEO fundamentals', icon: ListChecks, tier: 'Essentials', size: 'wide' },
-  { name: 'Reviews', icon: Star, tier: 'Plus', size: 'small' },
-  { name: 'Google Ads', icon: Megaphone, tier: 'Complete', size: 'small' },
-  { name: 'Visitor behaviour', icon: MousePointerClick, tier: 'Plus', size: 'large' },
-  { name: 'Legal', icon: Scale, tier: 'Complete', size: 'wide' },
+  { name: 'Your website', icon: Globe, size: 'large', tone: 'moving' },
+  { name: 'Search Console', icon: ChartColumn, size: 'wide', tone: 'blue' },
+  { name: 'Page speed', icon: Gauge, size: 'small', tone: 'plain' },
+  { name: 'Search results', icon: Search, size: 'small', tone: 'tint' },
+  { name: 'Competitors', icon: Swords, size: 'small', tone: 'plain' },
+  { name: 'Business Profile', icon: MapPin, size: 'small', tone: 'blue' },
+  { name: 'SEO fundamentals', icon: ListChecks, size: 'wide', tone: 'tint' },
+  { name: 'Reviews', icon: Star, size: 'small', tone: 'plain' },
+  { name: 'Google Ads', icon: Megaphone, size: 'small', tone: 'dark' },
+  { name: 'Visitor behaviour', icon: MousePointerClick, size: 'large', tone: 'dark' },
+  { name: 'Legal', icon: Scale, size: 'wide', tone: 'blue' },
 ];
 
-const tierClassName: Record<Tier, string> = {
-  Essentials: 'bg-surface-page text-text-primary',
-  Plus: 'bg-surface-tint text-text-primary',
-  Complete: 'bg-surface-dark text-text-on-dark',
+const toneClassName: Record<Tone, string> = {
+  plain: 'bg-surface-page text-text-primary',
+  tint: 'bg-surface-tint text-text-primary',
+  blue: 'bg-action-primary text-text-on-dark',
+  dark: 'bg-surface-dark text-text-on-dark',
+  moving: 'moving-colour-fill text-text-on-dark',
 };
 
 const sizeClassName: Record<Size, string> = {
@@ -70,20 +70,20 @@ const nameClassName: Record<Size, string> = {
 
 const iconSize: Record<Size, number> = { large: 48, wide: 36, small: 28 };
 
-/** The sources an audit reads, as a mosaic: a symbol and a name a tile, sized by how much it reads. */
+/** The sources an audit reads, as a mosaic: a symbol and a name a tile, sized by how much it reads, wall to wall inside the border. */
 export function SeoAnalysisVisual() {
   return (
     <div
-      className="moving-colour-border mx-auto w-full max-w-[620px] min-w-0 p-xl text-text-secondary lg:mx-0 lg:w-auto lg:max-w-none"
+      className="moving-colour-border mx-auto w-full max-w-[620px] min-w-0 overflow-hidden lg:mx-0 lg:w-auto lg:max-w-none"
       aria-label="The sources an SEO audit reads"
     >
       <ul className="m-0 grid list-none auto-rows-[96px] grid-cols-2 gap-4xs bg-border-default p-0 sm:auto-rows-[108px] sm:grid-cols-4">
-        {sources.map(({ name, icon: Icon, tier, size }) => (
+        {sources.map(({ name, icon: Icon, size, tone }) => (
           <li
             key={name}
             className={cn(
               'flex flex-col justify-between p-s',
-              tierClassName[tier],
+              toneClassName[tone],
               sizeClassName[size],
             )}
           >
