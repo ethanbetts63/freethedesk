@@ -35,8 +35,9 @@ export interface DashboardNavSection {
  * admin. The rail carries a text title rather than the logo, which the site header above already
  * shows. Below `md` the rail becomes a bar whose menu opens the same links.
  *
- * Colours come from three tokens each site sets (`--surface-sidebar`, `--border-sidebar`,
- * `--accent-sidebar`), plus the shared on-dark text and the danger fill. The active link is marked by
+ * Colours come from four tokens each site sets (`--surface-sidebar`, `--border-sidebar`,
+ * `--accent-sidebar`, `--heading-sidebar` behind the title block), plus the shared on-dark text
+ * and the danger fill. The active link is marked by
  * weight, a wash and an accent bar rather than by hue alone.
  */
 export function DashboardLayout({
@@ -148,14 +149,16 @@ export function DashboardLayout({
       <p className="m-0 text-body font-black tracking-widest text-text-on-dark uppercase">
         {title}
       </p>
-      <p className="m-0 mt-4xs text-body-sm text-text-on-dark-muted/50">{subtitle}</p>
+      <p className="m-0 mt-4xs text-body-sm text-text-on-dark">{subtitle}</p>
     </>
   );
 
   return (
     <div className="flex min-h-screen flex-col md:flex-row">
       <aside className="hidden w-[240px] shrink-0 flex-col border-r border-border-sidebar bg-surface-sidebar text-text-on-dark md:flex">
-        <div className="border-b border-text-on-dark/10 px-m py-ml">{heading}</div>
+        <div className="border-b border-text-on-dark/10 bg-heading-sidebar px-m py-ml">
+          {heading}
+        </div>
         {links}
         {account}
       </aside>
@@ -163,12 +166,12 @@ export function DashboardLayout({
       <details className="group border-b border-border-sidebar bg-surface-sidebar text-text-on-dark md:hidden">
         <summary
           className={cn(
-            'flex cursor-pointer list-none items-center justify-between gap-m px-m py-s [&::-webkit-details-marker]:hidden',
+            'flex cursor-pointer list-none items-center justify-between gap-m bg-heading-sidebar px-m py-s [&::-webkit-details-marker]:hidden',
             focusRingClassName,
           )}
         >
           <span>{heading}</span>
-          <span className="text-label font-control tracking-widest text-text-on-dark-muted uppercase">
+          <span className="text-label font-control tracking-widest text-text-on-dark/80 uppercase">
             <span className="group-open:hidden">Menu</span>
             <span className="hidden group-open:inline">Close</span>
           </span>

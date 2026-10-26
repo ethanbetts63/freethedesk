@@ -83,6 +83,7 @@
   --color-surface-sidebar: var(--surface-sidebar);
   --color-border-sidebar: var(--border-sidebar);
   --color-accent-sidebar: var(--accent-sidebar);
+  --color-heading-sidebar: var(--heading-sidebar);
   --color-border-on-accent: var(--border-on-accent);
   --color-action-primary: var(--action-primary);
   --color-accent: var(--accent);
@@ -270,6 +271,8 @@
   --surface-sidebar: var(--surface-dark);
   --border-sidebar: var(--border-on-dark);
   --accent-sidebar: var(--accent-on-dark);
+  /* The title block is the brand blue, the horizontal nav's Contact button. */
+  --heading-sidebar: var(--action-primary);
   --accent-on-dark-soft: var(--sky-400);
   --surface-accent-soft: var(--blue-400);
   --section-number-on-dark: var(--accent-on-dark);
