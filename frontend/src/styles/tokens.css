@@ -363,6 +363,20 @@
   --status-spam: var(--fill-danger);
   --status-suspended: #dd8a2e;
 
+  /* Dashboard charts, as allbikes draws them: eight categorical series, the
+     total in ink, the grid in a hairline. Slots 3-5 sit under 3:1 on white,
+     so every chart offers a table view. */
+  --chart-series-1: #2a78d6;
+  --chart-series-2: #eb6834;
+  --chart-series-3: #1baf7a;
+  --chart-series-4: #eda100;
+  --chart-series-5: #e87ba4;
+  --chart-series-6: #008300;
+  --chart-series-7: #6250d6;
+  --chart-series-8: #e34948;
+  --chart-total: var(--slate-800);
+  --chart-grid: var(--slate-200);
+
   /* Hero background grid pattern */
   --hero-grid-color: 17, 70, 126;
   --hero-grid-opacity: 0.035;
