@@ -29,8 +29,8 @@ export function promotionPieces(
     {
       title: 'The on-air read',
       text:
-        `If you run a business, here's something worth a look. freethedesk writes SEO audits: a written report on where your website shows up on Google and in AI answers, who's beating you and why, and the changes worth making first, in order. Every recommendation is written so you or your IT person can make the change.\n\n` +
-        `Listeners of this show get ${discount}% off with the code ${code}. That's ${code} at freethedesk.com.au.`,
+        `Ever searched for what you sell and found a competitor above you? freethedesk writes audits that explain why. It's a written report on where your website ranks on Google and in AI answers, who's beating you, and what to change first. Every fix is written so you can do it yourself.\n\n` +
+        `My audience gets ${discount}% off with the code ${code}. That's ${code} at freethedesk.com.au.`,
     },
     {
       title: 'Show notes',
