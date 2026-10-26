@@ -76,7 +76,7 @@ export default function AffiliatePortalOverviewPage() {
           <h2 className={cardTitleClassName}>Earnings</h2>
           <dl className={detailListClassName}>
             <DetailItem term="Audits sold">{account.earnings.sales}</DetailItem>
-            <DetailItem term="Your share">{account.share_percent}% of the list price</DetailItem>
+            <DetailItem term="Your share">{account.share_percent}% of what they pay</DetailItem>
             <DetailItem term="Owed to you">{money(account.earnings.owed)}</DetailItem>
             <DetailItem term="Paid out">{money(account.earnings.paid)}</DetailItem>
           </dl>

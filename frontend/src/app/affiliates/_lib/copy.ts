@@ -40,15 +40,21 @@ export interface AffiliateEarning {
   share: string;
 }
 
-/** Each audit beside the affiliate's half of it, from the prices the admin has set. */
+/** What the listener pays for an audit with a code: the price less the discount. */
+export function paidWithCode(settings: PublicSiteSettings, price: number): number {
+  return price * (1 - discountPercent(settings) / 100);
+}
+
+/** Each audit beside the affiliate's half of what the listener pays for it, from the admin's prices. */
 export function affiliateEarnings(settings: PublicSiteSettings): AffiliateEarning[] {
   return buildSeoPlans(settings).map((plan) => ({
     code: plan.code,
     name: plan.name,
     price: plan.price,
-    share: formatMoney(Number(settings[`seo_${plan.code}_price`]) * shareFraction(settings), {
-      cents: 'auto',
-    }),
+    share: formatMoney(
+      paidWithCode(settings, Number(settings[`seo_${plan.code}_price`])) * shareFraction(settings),
+      { cents: 'auto' },
+    ),
   }));
 }
 
@@ -62,7 +68,7 @@ export function affiliateFaqs(settings: PublicSiteSettings): FaqItem[] {
   return [
     {
       question: 'How much do I earn?',
-      answer: `${shareWord(settings)} of every audit bought with your code: ${earnings
+      answer: `${shareWord(settings)} of what they pay for every audit bought with your code, after their ${discountPercent(settings)}% off: ${earnings
         .map((earning) => `${earning.share} for ${earning.name}`)
         .join(', ')}. It's paid out through Stripe once the audit is paid for.`,
     },

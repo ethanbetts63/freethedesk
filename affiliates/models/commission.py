@@ -7,7 +7,7 @@ class Commission(models.Model):
 
     One per payment, made inside the payment webhook's transaction when the
     audit is paid, so it exists only for money that arrived. The amounts are
-    snapshots: the list price the audit sold for and the share it earned, as
+    snapshots: the price the audit sold for and the share it earned, as
     both stood on the day. Nothing recomputes them when the prices or the share
     change afterwards.
 
@@ -31,8 +31,8 @@ class Commission(models.Model):
     )
     #: The audit, as the customer bought it: "Plus SEO audit".
     description = models.CharField(max_length=120)
-    #: The list price the audit sold for, before the listener's discount. The
-    #: share is half of this, which is what the affiliate page promises.
+    #: What the listener paid for the audit, after their discount. The share
+    #: is half of this, which is what the affiliate page promises.
     sale_amount = models.DecimalField(max_digits=12, decimal_places=2)
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     currency = models.CharField(max_length=3, default="aud")

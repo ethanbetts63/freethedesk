@@ -59,7 +59,11 @@ const PROJECT_FIELDS: FieldSpec[] = [
 
 const AFFILIATE_FIELDS: FieldSpec[] = [
   { field: 'affiliate_discount_percent', label: 'Listener discount (% off an audit)', count: true },
-  { field: 'affiliate_share_percent', label: 'Affiliate share (% of the list price)', count: true },
+  {
+    field: 'affiliate_share_percent',
+    label: 'Affiliate share (% of what the listener pays)',
+    count: true,
+  },
 ];
 
 const ALL_FIELDS = [
@@ -193,7 +197,7 @@ export default function SiteSettingsPage() {
           <h2 className={cardTitleClassName}>Podcast affiliate program</h2>
           <p className="text-label text-text-subtle">
             The discount a listener gets off an SEO audit with an affiliate&rsquo;s code, and the
-            share of the audit&rsquo;s list price the affiliate earns. The affiliate page quotes
+            share of what the listener pays that the affiliate earns. The affiliate page quotes
             both. A new affiliate&rsquo;s code is made with the discount as it stands; codes already
             issued keep theirs, because listeners were told that number.
           </p>

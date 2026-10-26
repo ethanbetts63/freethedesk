@@ -14,12 +14,13 @@ read everywhere from `SiteSettings`:
 | Setting                      | Default | What it does                                                                                              |
 | ---------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
 | `affiliate_discount_percent` | 20      | What a listener gets off an SEO audit with an affiliate's code. Baked into each code the day it is made. |
-| `affiliate_share_percent`    | 50      | The affiliate's share of the audit's **list price**, before the discount. Read when the audit is paid.    |
+| `affiliate_share_percent`    | 50      | The affiliate's share of **what the listener paid**, after the discount. Read when the audit is paid.     |
 
-The share is of the list price because that is what the affiliate page and the
-pitch emails promise ("$275 to $700 an audit"). On a $550 Essentials audit with
-20% off, the listener pays $440, the affiliate is owed $275 and freethedesk keeps
-$165. Decided 2026-10-25; change the copy and the rule together if it changes.
+The share is of the sale price, a straight split of what arrived: on a $550
+Essentials audit with 20% off, the listener pays $440, the affiliate is owed
+$220 and freethedesk keeps $220. The affiliate page and the pitch emails quote
+"$220 to $560 an audit" from the same rule. Decided 2026-10-26 (it was the list
+price before); change the copy and the rule together if it changes.
 
 The free audit is the Plus tier (`FREE_AUDIT_CODE` in the page's `_lib/copy.ts`).
 
@@ -90,8 +91,8 @@ place a code is accepted.
 `payments/fulfilment.py`, inside the webhook's transaction:
 
 - `payment_succeeded` on a one-off audit whose payment redeemed an affiliate's
-  code makes one `Commission`: the audit's name, the list price
-  (`subtotal_amount`), the share, status `owed`. Idempotent per payment. The
+  code makes one `Commission`: the audit's name, what was paid
+  (`total_amount`), the share, status `owed`. Idempotent per payment. The
   affiliate and staff are emailed on commit.
 - The affiliate buying with their own code makes a `void` commission for $0
   with a note, so staff see it.

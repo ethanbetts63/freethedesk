@@ -415,7 +415,7 @@ FTP_AGREEMENTS = {
         },
         "affiliate.program": {
             "TITLE": "Affiliate Program Terms",
-            "VERSION": "2026-10-26",
+            "VERSION": "2026-10-26.1",
             "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "affiliate-program-terms.md",
             "FORMAT": "markdown",
         },

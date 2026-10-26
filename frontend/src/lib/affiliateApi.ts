@@ -9,7 +9,7 @@ export interface AffiliateCommission {
   id: number;
   /** The audit, as the customer bought it: "Plus SEO audit". */
   description: string;
-  /** The list price the audit sold for, before the listener's discount. */
+  /** What the listener paid for the audit, after their discount. */
   sale_amount: string;
   /** The affiliate's share of it. */
   amount: string;
@@ -56,7 +56,7 @@ export interface AffiliateAccount {
   codes: AffiliateCode[];
   /** The code's own percentage off, fixed when it was made. */
   discount_percent: number;
-  /** The affiliate's share of each audit's list price. */
+  /** The affiliate's share of what each listener pays. */
   share_percent: number;
   /** The SEO page with the code filled in. */
   share_link: string;

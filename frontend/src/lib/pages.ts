@@ -162,7 +162,7 @@ export const STATIC_PAGES = {
     label: 'Affiliates',
     title: 'SEO Audit Affiliate Program: 50% Commission',
     description:
-      'Earn 50% of every freethedesk SEO audit sold with your code, $275 to $700 a sale. Your audience gets 20% off, your own audit is free, and you are paid fortnightly.',
+      'Earn 50% of every freethedesk SEO audit sold with your code, $220 to $560 a sale. Your audience gets 20% off, your own audit is free, and you are paid fortnightly.',
   },
   '/contact': {
     updated: '2026-10-24',

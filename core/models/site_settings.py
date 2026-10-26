@@ -86,7 +86,7 @@ class SiteSettings(models.Model):
     )
     #: The podcast affiliate program (/affiliates). The listener's discount off
     #: an SEO audit bought with an affiliate's code, and the affiliate's share
-    #: of the audit's list price. Whole percentages. A new affiliate's code is
+    #: of what the listener pays. Whole percentages. A new affiliate's code is
     #: made with the discount as it stands; existing codes keep theirs.
     affiliate_discount_percent = models.PositiveSmallIntegerField(
         default=20, validators=[MinValueValidator(1), MaxValueValidator(90)],

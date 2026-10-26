@@ -40,10 +40,10 @@ def share_of(sale_amount: Decimal) -> Decimal:
 def record_commission(payment, *, description: str):
     """One commission per paid payment that carried an affiliate's code.
 
-    The share is half of the list price (``subtotal_amount``, before the
-    listener's discount), which is what the affiliate page and the pitch
-    emails promise. A second event for the same payment finds the row and
-    leaves it.
+    The share is half of what the listener paid (``total_amount``, after
+    their discount): a straight split of the sale, which is what the affiliate
+    page and the pitch emails promise. A second event for the same payment
+    finds the row and leaves it.
     """
     affiliate = affiliate_for_payment(payment)
     if affiliate is None:
@@ -57,8 +57,8 @@ def record_commission(payment, *, description: str):
         affiliate=affiliate,
         payment=payment,
         description=description,
-        sale_amount=payment.subtotal_amount,
-        amount=Decimal("0.00") if own_purchase else share_of(payment.subtotal_amount),
+        sale_amount=payment.total_amount,
+        amount=Decimal("0.00") if own_purchase else share_of(payment.total_amount),
         currency=payment.currency,
         status=Commission.Status.VOID if own_purchase else Commission.Status.OWED,
         note=OWN_PURCHASE_NOTE if own_purchase else "",

@@ -3,7 +3,7 @@ import { type PublicSiteSettings } from '@/lib/api';
 import { formatMoney } from '@/lib/formatting';
 
 import { buildSeoPlans, PRICE_FIELD } from '@/app/seo/_lib/plans';
-import { shareFraction } from '../_lib/copy';
+import { paidWithCode, shareFraction } from '../_lib/copy';
 import { AffiliatePayoutCard, type PayoutRow } from './AffiliatePayoutCard';
 
 /** The example fortnight: how many of each audit the code sold. */
@@ -17,18 +17,23 @@ export function AffiliatePayout({
   settings: PublicSiteSettings;
 }) {
   const share = shareFraction(settings);
-  let sum = 0;
-  const rows: PayoutRow[] = buildSeoPlans(settings).map((plan) => {
+  // One row per audit: how many sold, and the affiliate's half of what those listeners paid.
+  const amounts = buildSeoPlans(settings).map((plan) => {
     const quantity = QUANTITY[plan.code] ?? 1;
-    const amount = Number(settings[PRICE_FIELD[plan.code]]) * share * quantity;
-    sum += amount;
     return {
       name: `${plan.name} audit`,
       quantity,
-      amount: formatMoney(amount, { cents: 'auto' }),
+      amount: paidWithCode(settings, Number(settings[PRICE_FIELD[plan.code]])) * share * quantity,
     };
   });
-  const total = formatMoney(sum, { cents: 'auto' });
+  const rows: PayoutRow[] = amounts.map(({ amount, ...row }) => ({
+    ...row,
+    amount: formatMoney(amount, { cents: 'auto' }),
+  }));
+  const total = formatMoney(
+    amounts.reduce((sum, { amount }) => sum + amount, 0),
+    { cents: 'auto' },
+  );
 
   return (
     <SplitFeatureSection

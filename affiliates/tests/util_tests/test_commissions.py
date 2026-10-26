@@ -1,4 +1,4 @@
-"""A paid audit bought with an affiliate's code owes the affiliate half its list price.
+"""A paid audit bought with an affiliate's code owes the affiliate half of what was paid.
 
 Driven through the Stripe webhook, because that is the only place a commission
 is ever made: the SEO payment callback runs inside the event's transaction.
@@ -59,13 +59,13 @@ def test_a_paid_audit_with_the_code_owes_half_the_list_price(
     assert commission.affiliate == affiliate
     assert commission.payment == payment
     assert commission.description == "Essentials SEO audit"
-    assert commission.sale_amount == Decimal("550.00")
-    # Half of the list price, not of the $440 the listener paid.
-    assert commission.amount == Decimal("275.00")
+    assert commission.sale_amount == Decimal("440.00")
+    # Half of the $440 the listener paid, not of the $550 list price.
+    assert commission.amount == Decimal("220.00")
     assert commission.status == Commission.Status.OWED
     buyer.refresh_from_db()
     assert buyer.payment_status == SeoSubscriber.PaymentStatus.PAID
-    assert any(m.to == affiliate.email and "275.00" in m.body_text for m in outbox)
+    assert any(m.to == affiliate.email and "220.00" in m.body_text for m in outbox)
 
 
 @stripe_settings
@@ -87,7 +87,8 @@ def test_the_share_follows_the_setting(client, affiliate):
 
     post(client, completed(payment))
 
-    assert Commission.objects.get().amount == Decimal("220.00")
+    # 40% of the $440 paid.
+    assert Commission.objects.get().amount == Decimal("176.00")
 
 
 @stripe_settings

@@ -51,8 +51,8 @@ applies to audits paid for after we have told you about it.
 ## 3. What you earn
 
 3.1 For every SEO audit bought with your code and paid in full, you earn the
-share shown on the affiliate page on the day it was paid, worked out on the
-audit's list price before the listener's discount.
+share shown on the affiliate page on the day it was paid, worked out on what
+the listener paid for the audit after their discount.
 
 3.2 A commission is pending once the audit is paid, and owed once we have
 started writing the audit, which is when the buyer's right to a refund under
