@@ -10,8 +10,8 @@ export function AffiliateAudit({ eyebrow }: { eyebrow: string }) {
       id="audit"
       eyebrow={eyebrow}
       title="What you're selling."
-      accentTitle="A real audit."
-      description="We read what Google reads: their Search Console, the sites outranking them, what AI answers say about them, their ads."
+      accentTitle="Growth."
+      description="Many data sources go in. One ranked list of recommendations comes out. Every call backed by data, third-party studies and experience."
       visual={<SeoAnalysisVisual />}
       textSide="left"
       background="white"
