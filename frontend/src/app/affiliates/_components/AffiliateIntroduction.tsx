@@ -15,8 +15,8 @@ export function AffiliateIntroduction() {
         titleClassName="mb-m"
       />
       <p className="m-0 max-w-[62ch] lg:mx-auto text-lead leading-relaxed text-text-muted">
-        You get a code. Your listeners get a discount on an SEO audit. You get half of every audit
-        they buy with it, paid through Stripe, for as long as the episode is listened to.
+        A plumber, a florist, a physio: each one has a website that could do more. Your code gets
+        them an audit at 20% off, and half of what they pay comes to you.
       </p>
     </section>
   );
