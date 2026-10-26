@@ -32,13 +32,13 @@ export function AffiliatePitch({ settings }: { settings: PublicSiteSettings }) {
       <div className="relative min-h-[420px] px-ml pt-3xl pb-xl sm:px-2xl sm:pb-2xl">
         <div className="flex h-full flex-col justify-end">
           <p className="text-label font-strong tracking-label text-accent-on-dark uppercase">
-            Podcast affiliates
+            Affiliate program
           </p>
           <h3 className="m-0 mt-s text-display leading-[1.02] tracking-[-0.058em] text-text-on-dark">
-            Say it on air. <span className="text-accent-on-dark">Keep half.</span>
+            Your word. Our work. <span className="block text-accent-on-dark">Half each.</span>
           </h3>
           <p className="m-0 mt-s text-body text-text-on-dark-muted">
-            {lowest.share} to {highest.share} every time a listener buys an audit.
+            Receive a complimentary audit and {lowest.share} to {highest.share} for every one sold.
           </p>
         </div>
       </div>
