@@ -42,12 +42,15 @@ export function Header() {
       // After the Contact button, plain: a new visitor has no account. Reads
       // Login or Log out from the session cookies on the server, so the word
       // is right on first paint with no profile request behind it.
-      actions={<SessionLink className={NAV_LINK.body} loginLabel="Login" />}
+      actions={
+        <SessionLink className={NAV_LINK.body} loginLabel="Login" dashboardHref="/dashboard" />
+      }
       mobileExtra={
         <>
           <SessionLink
             className={mobileNavRowClassName}
             loginLabel="Login"
+            dashboardHref="/dashboard"
             trailing={
               <span aria-hidden="true" className="text-text-action">
                 &rarr;

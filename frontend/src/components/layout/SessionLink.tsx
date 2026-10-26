@@ -15,6 +15,9 @@ interface SessionLinkProps {
   trailing?: ReactNode;
   loginLabel?: string;
   logoutLabel?: string;
+  /** Shown before Log out when signed in: the site's role-resolving entry to its portals. */
+  dashboardHref?: string;
+  dashboardLabel?: string;
 }
 
 /**
@@ -23,12 +26,19 @@ interface SessionLinkProps {
  * states wear the composition's own nav classes, so the button is read as the
  * link it replaces; `w-full` is there because a button does not stretch to its
  * row the way a block link does.
+ *
+ * `dashboardHref` is a single address for every role, because the cookie says
+ * nothing about which portal is theirs: point it at a route that asks Django
+ * who they are and redirects, so the one profile request happens on the click
+ * and never on a page view.
  */
 export async function SessionLink({
   className,
   trailing,
   loginLabel = 'Log in',
   logoutLabel = 'Log out',
+  dashboardHref,
+  dashboardLabel = 'Dashboard',
 }: SessionLinkProps) {
   if (!(await hasSession())) {
     return (
@@ -40,11 +50,19 @@ export async function SessionLink({
   }
 
   return (
-    <form action={logout} className="contents">
-      <button type="submit" className={cn('w-full cursor-pointer', className)}>
-        {logoutLabel}
-        {trailing}
-      </button>
-    </form>
+    <>
+      {dashboardHref && (
+        <Link href={dashboardHref} className={className}>
+          {dashboardLabel}
+          {trailing}
+        </Link>
+      )}
+      <form action={logout} className="contents">
+        <button type="submit" className={cn('w-full cursor-pointer', className)}>
+          {logoutLabel}
+          {trailing}
+        </button>
+      </form>
+    </>
   );
 }
