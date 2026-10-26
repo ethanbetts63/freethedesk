@@ -86,15 +86,21 @@ Paying out is not built. Commissions sit as "Owed" on the affiliate's staff page
 
 ## Podcast outreach: owner's steps before the cron is enabled
 
-Added 2026-10-25, updated 2026-10-26. The pipeline is built and 302 prospects sit in
-`affiliates/data/podcasts.jsonl` with openers and relevance ratings, not yet uploaded.
-The upload needs migration `affiliates.0003_prospect_relevance` deployed first, or the
-server rejects every entry's `relevance`. Then:
+Added 2026-10-25, updated 2026-10-26. The first 302 prospects were uploaded on
+2026-10-26 with `INTERNAL_API_KEY` set on both ends; they show at
+/dashboard/admin/outreach. Nothing sends until the scheduled task exists. If the
+server was not deployed past commit 7cf6d22 before that upload, the relevance
+ratings were dropped on the way in; a redeploy does not restore them. Left:
 
-- Set `INTERNAL_API_KEY` (32 or more random characters) in the PythonAnywhere environment and the local `.env`, and `API_SERVER_URL=https://www.freethedesk.com.au` locally. The upload command posts prospects with it.
-- Add two hourly PythonAnywhere scheduled tasks: `python manage.py send_due_messages` (not yet scheduled for freethedesk as far as the docs record) and `python manage.py send_affiliate_outreach` (three an hour by default).
-- Upload one test prospect addressed to yourself, read all three versions in a mail client, then enable the cron.
-
+- Add the hourly PythonAnywhere scheduled task
+  `/home/ethanbetts/freethedesk/venv/bin/python /home/ethanbetts/freethedesk/manage.py send_affiliate_outreach`
+  (three an hour, one of each version, Perth weekdays 8 to 6). Optionally a second
+  hourly task for `send_due_messages`, messaging's crash-recovery sweep.
+- Before enabling it: upload one test prospect addressed to yourself and read all
+  three versions in a mail client. The report cover image and `/affiliates` must be
+  live first (pitch README).
+- 133 unwritten entries remain in `affiliates/data/podcasts.jsonl`; the next run of
+  `affiliates/outreach_instructions.md` writes and uploads them.
 
 ## Forms ledger after the affiliate program commit
 
@@ -103,10 +109,6 @@ Added 2026-10-26. `npm run check` fails on `check:forms` since 91e5089: `app/aff
 ## The schema check in conftest reads the dev database when a run has no database tests
 
 Added 2026-10-26. `_complete_test_schema` depends on `django_db_setup`, but pytest-django only creates the test database for runs that contain a `django_db` test. A run of pure unit tests (for example `affiliates/tests/util_tests/test_scraper.py` alone) therefore introspects the development database instead, and exits with "The test database is missing 1 table(s)" whenever a new app's migration has not been applied there yet. `py manage.py migrate` clears it; the fixture should skip its check when no database was set up.
-
-## Podcast outreach: try one `--dev` upload
-
-Added 2026-10-26. The scraper has run for real (127 terms, 302 shows queued in `affiliates/data/podcasts.jsonl`). The upload has only been exercised through the test client: `upload_prospects --dev` needs `INTERNAL_API_KEY` in `.env` and the Django server on :8010 restarted to read it, then `py manage.py upload_prospects --dev` with a one-line copy of the queue should answer one created and it appears at /dashboard/admin/outreach.
 
 ## Podcast outreach: the second Mailgun domain, parked
 

@@ -50,6 +50,13 @@ def test_itunes_filters_keep_small_recent_shows_with_a_feed():
     assert not scraper.passes_itunes_filters({**base, "releaseDate": "garbage"})
 
 
+def test_a_bare_domain_site_gets_a_scheme():
+    # Three of the first 302 uploads were refused for `website` values like this.
+    rss = scraper.parse_rss_text(FEED.replace("https://www.thetradieshow.com.au", "www.thetradieshow.com.au").encode())
+    assert rss["website"] == "https://www.thetradieshow.com.au"
+    assert scraper.parse_rss_text(FEED.encode())["website"] == "https://www.thetradieshow.com.au"
+
+
 def test_build_entry_lowercases_the_address_and_leaves_the_opener_blank():
     rss = scraper.parse_rss_text(FEED.encode())
     result = {

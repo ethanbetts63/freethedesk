@@ -150,6 +150,13 @@ def _strip_html(text):
     return re.sub(r"\s+", " ", text).strip()
 
 
+def _with_scheme(url):
+    """Feeds sometimes list the site as a bare domain; the server's URL field refuses that."""
+    if url and not re.match(r"^[a-z][a-z0-9+.-]*://", url, re.I):
+        return "https://" + url
+    return url
+
+
 def parse_rss(feed_url):
     try:
         response = requests.get(feed_url, timeout=15)
@@ -190,7 +197,7 @@ def parse_rss_text(content):
     return {
         "host_name": host_name,
         "email": _text(channel, "itunes:owner/itunes:email", ns),
-        "website": _text(channel, "link", ns),
+        "website": _with_scheme(_text(channel, "link", ns)),
         "latest_episode_title": _text(first_item, "title", ns),
         "latest_episode_description": _strip_html(description)[:MAX_DESCRIPTION],
     }
