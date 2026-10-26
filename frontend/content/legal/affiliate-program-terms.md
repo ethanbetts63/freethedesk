@@ -2,7 +2,7 @@
 
 Looking for the program itself? [It is here.](/affiliates)
 
-Effective date: 25 October 2026
+Effective date: 26 October 2026
 
 ## 1. About these terms
 
@@ -26,15 +26,19 @@ representative. You may not make promises or commitments on our behalf.
 
 ## 2. The program
 
-2.1 When you join, we give you a discount code. A listener who enters your code
-when buying an SEO audit from us gets the discount shown on the affiliate page
-on the day your code was made, and the audit counts as yours.
+2.1 When you join, we give you a discount code, and you may add codes of your
+own in your portal, up to the number it allows. A listener who enters one of
+your codes when buying an SEO audit from us gets the discount shown on the
+affiliate page on the day that code was made, and the audit counts as yours.
+A code you add must be one nobody else holds, and we may refuse or remove a
+code that is misleading, offensive or trades on someone else's name.
 
 2.2 We also write you one SEO audit of your own website, free, of the tier the
 affiliate page names at the time you join. It is written under the
 [SEO Audit Terms](/legal/seo-audit-terms) as if you had bought it, except that
 nothing is paid and nothing is refundable. It needs the data access those terms
-describe, and it starts once that access is connected.
+describe. We endeavour to write it promptly once that access is connected, but
+paid audits come first and we write it when we have time.
 
 2.3 You are not obliged to recommend us after reading your audit, and we may
 decline to write a free audit for a website that is not yours or that we could
@@ -50,10 +54,12 @@ applies to audits paid for after we have told you about it.
 share shown on the affiliate page on the day it was paid, worked out on the
 audit's list price before the listener's discount.
 
-3.2 A commission is owed once the audit is paid. If the audit is refunded
-before the commission has been paid to you, the commission is cancelled. If it
-is refunded afterwards, we may deduct it from your next payout or ask you to
-return it.
+3.2 A commission is pending once the audit is paid, and owed once we have
+started writing the audit, which is when the buyer's right to a refund under
+the SEO Audit Terms ends. We pay out owed commissions only. If an audit is
+refunded while its commission is pending, the commission is cancelled; if one
+is refunded after its commission has been paid to you, we may deduct it from
+your next payout or ask you to return it.
 
 3.3 Nothing is earned on an audit you buy yourself, an audit bought for a
 business you own or work for, or an audit bought with a code other than yours.
@@ -125,15 +131,15 @@ purchases.
 yet paid, if you break section 4, give us misleading information, or act
 fraudulently.
 
-7.3 We may close the program with 30 days' notice. Commissions owed at that
-date are still paid.
+7.3 We may close the program at any time. Commissions owed at that date are
+still paid.
 
 ## 8. Liability
 
 8.1 Neither of us is liable to the other for indirect or consequential loss.
 
 8.2 Our total liability to you under this agreement is limited to the
-commissions owed to you in the 6 months before the event giving rise to the
+commissions owed to you in the 3 months before the event giving rise to the
 claim. This limit does not apply to fraud, wilful misconduct or any liability
 the law does not allow us to limit.
 
