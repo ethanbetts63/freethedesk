@@ -17,12 +17,15 @@ export function AuthCard({
   intro,
   children,
   footer,
+  wordmark = true,
 }: {
   kicker: string;
   heading: string;
   intro?: React.ReactNode;
   children: React.ReactNode;
   footer?: React.ReactNode;
+  /** The wordmark at the head of the card. Off where the page is a step in a flow, not a front door. */
+  wordmark?: boolean;
 }) {
   return (
     <main
@@ -35,8 +38,8 @@ export function AuthCard({
         <SignalFlow />
       </div>
       <section className="relative z-1 w-full max-w-[450px] border border-[color-mix(in_srgb,var(--border-strong)_85%,transparent)] bg-[color-mix(in_srgb,var(--surface-page)_92%,transparent)] px-ml py-xl shadow-l backdrop-blur-[13px] sm:p-xl">
-        <Wordmark size="card" href="/" />
-        <p className={cn(kickerClassName, 'mt-xl')}>{kicker}</p>
+        {wordmark && <Wordmark size="card" href="/" />}
+        <p className={cn(kickerClassName, wordmark && 'mt-xl')}>{kicker}</p>
         <h1 className="m-0 text-title tracking-[-0.06em]">{heading}</h1>
         {intro && <p className="mt-s mb-xl text-body-sm leading-normal text-text-muted">{intro}</p>}
         {children}

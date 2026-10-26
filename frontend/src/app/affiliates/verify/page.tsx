@@ -24,7 +24,8 @@ export default async function AffiliateVerifyPage({
     <AuthCard
       kicker="Affiliate program"
       heading="Verify your email"
-      intro="We have emailed you a verification code. Enter it with a password of your choice to open your affiliate portal, where your code and link are waiting."
+      intro="We have emailed you a verification code."
+      wordmark={false}
     >
       <VerifyEmailCodeForm
         destination="/affiliate-portal"
