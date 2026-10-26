@@ -142,7 +142,7 @@ export function PackageChooser<Code extends string>({
   return (
     <>
       <h3 className={selectionHeadingClassName}>
-        {single ? 'Your' : 'Choose your'} <span className="moving-colour-text">{noun}.</span>
+        {single ? 'Your' : 'Choose your'} {noun}.
       </h3>
 
       <div className="relative mt-xl flex flex-1">

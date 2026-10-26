@@ -56,11 +56,7 @@ export function ProjectEnquiry({
           <>
             {eyebrow && <SectionNumber>{eyebrow}</SectionNumber>}
             <Heading className="m-0 text-display leading-[1.02] tracking-[-0.058em] text-text-secondary">
-              {title ?? (
-                <>
-                  Tell us your <span className="moving-colour-text">budget.</span>
-                </>
-              )}
+              {title ?? <>Tell us your budget.</>}
             </Heading>
             <p
               className={cn(

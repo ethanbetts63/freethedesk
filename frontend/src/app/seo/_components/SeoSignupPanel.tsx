@@ -98,7 +98,7 @@ export function SeoSignupPanel({ settings }: { settings: PublicSiteSettings }) {
     >
       <div className={formTitleClassName}>
         <h3 className={selectionHeadingClassName}>
-          Your <span className="moving-colour-text">details.</span>
+          <span className="moving-colour-text">Your details.</span>
         </h3>
       </div>
       <label className={fieldLabelClassName}>

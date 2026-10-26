@@ -105,7 +105,7 @@ export function PackageOrderPanel({
     >
       <div className={formTitleClassName}>
         <h3 className={selectionHeadingClassName}>
-          Your <span className="moving-colour-text">details.</span>
+          <span className="moving-colour-text">Your details.</span>
         </h3>
       </div>
 

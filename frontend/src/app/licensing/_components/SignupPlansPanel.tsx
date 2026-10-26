@@ -158,7 +158,9 @@ export function SignupPlansPanel({
       }
     >
       <div className={formTitleClassName}>
-        <h3 className={formTitleHeadingClassName}>Create your account.</h3>
+        <h3 className={formTitleHeadingClassName}>
+          <span className="moving-colour-text">Create your account.</span>
+        </h3>
         <span className={pillClassName}>No card required yet</span>
       </div>
       <div className={fieldRowClassName}>

@@ -224,7 +224,7 @@ export function ProjectEnquiryPanel({
     >
       <div className={formTitleClassName}>
         <h3 className={formTitleHeadingClassName}>
-          Send your <span className="moving-colour-text">free enquiry.</span>
+          <span className="moving-colour-text">Send your free enquiry.</span>
         </h3>
       </div>
 
