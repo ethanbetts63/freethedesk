@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import {
   PaymentConfirmation,
@@ -13,13 +13,16 @@ import { VerifyEmailCodeForm } from '@/components/auth/VerifyEmailCodeForm';
 /**
  * Back from Stripe. Nobody is signed in yet: the login is made when the payment lands and its
  * verification code is emailed. Entering the code here with a new password verifies the email,
- * signs the customer in and opens the dashboard. See "Accounts a payment opens" in
+ * signs the customer in and opens the dashboard. The status check hands back the email once paid,
+ * so the form starts with it filled in. See "Accounts a payment opens" in
  * freetheplatform/_docs/apps/payments.md.
  */
 export function PaymentComplete({ reference }: { reference: string }) {
+  const [email, setEmail] = useState('');
   const check = useCallback(async (): Promise<ConfirmationResult> => {
     const status = await getSeoCheckoutStatus(reference);
     if (status.paid) {
+      setEmail(status.email);
       trackPurchaseOnce(reference, `seo-${reference}`, {
         items: [
           { item_id: `seo_${status.plan}`, item_name: `SEO ${status.plan}`, item_category: 'seo' },
@@ -55,7 +58,7 @@ export function PaymentComplete({ reference }: { reference: string }) {
       }}
       retryHref={`/seo/payment?ref=${encodeURIComponent(reference)}`}
       activeLink={{ href: '/login', label: 'Sign in' }}
-      activeContent={<VerifyEmailCodeForm destination="/seo-portal" />}
+      activeContent={<VerifyEmailCodeForm destination="/seo-portal" defaultEmail={email} />}
       portalHref="/login"
       portalLabel="Sign in"
     />

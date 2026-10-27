@@ -14,10 +14,12 @@ def _subscriber_url(subscriber: SeoSubscriber) -> str:
 def notify_staff_of_seo_signup(subscriber: SeoSubscriber):
     """Tell us an SEO customer has signed up, by email and SMS."""
     subscriber_url = _subscriber_url(subscriber)
+    # The order form asks for no name, so the contact line only appears once there is one.
+    contact = f"Contact: {subscriber.contact_name}\n" if subscriber.contact_name else ""
     email_body = (
         "A new SEO customer has signed up.\n\n"
         f"Business: {subscriber.business_name}\n"
-        f"Contact: {subscriber.contact_name}\n"
+        f"{contact}"
         f"Email: {subscriber.email}\n"
         f"Phone: {subscriber.phone or 'Not supplied'}\n"
         f"Website: {subscriber.website or 'Not supplied'}\n"
@@ -26,8 +28,8 @@ def notify_staff_of_seo_signup(subscriber: SeoSubscriber):
         f"Open this customer: {subscriber_url}"
     )
     sms_body = (
-        f"New freethedesk {subscriber.get_plan_display()} signup: {subscriber.business_name} — "
-        f"{subscriber.contact_name}. {subscriber_url}"
+        f"New freethedesk {subscriber.get_plan_display()} signup: {subscriber.business_name}"
+        f"{' — ' + subscriber.contact_name if subscriber.contact_name else ''}. {subscriber_url}"
     )
     return send_many(
         [

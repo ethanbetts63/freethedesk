@@ -31,7 +31,8 @@ def test_signup_records_the_details_and_makes_no_login(client):
     assert subscriber.plan == SeoSubscriber.Plan.PLUS
     assert subscriber.payment_status == SeoSubscriber.PaymentStatus.PAYMENT_PENDING
     assert subscriber.business_name == "peakdigital.com.au"
-    assert subscriber.contact_name == "Account owner"
+    # The form asks for no name; the customer can add one in the portal.
+    assert subscriber.contact_name == ""
     assert subscriber.email == PAYLOAD["email"]
     assert subscriber.user is None
     assert not get_user_model().objects.exists()

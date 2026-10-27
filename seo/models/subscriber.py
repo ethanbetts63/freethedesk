@@ -72,7 +72,8 @@ class SeoSubscriber(models.Model):
         max_length=64, unique=True, default=new_checkout_reference, editable=False
     )
     business_name = models.CharField(max_length=180)
-    contact_name = models.CharField(max_length=120)
+    # The order form asks for no name, so this is blank until the customer adds one in the portal.
+    contact_name = models.CharField(max_length=120, blank=True)
     phone = models.CharField(max_length=40, blank=True)
     website = models.URLField(blank=True)
     #: An affiliate's code typed on the signup form, as typed. Checkout passes it

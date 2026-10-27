@@ -75,7 +75,8 @@ export function useAccountDetail<Account extends StaffAccount>({
 
   const replyHref = useMemo(() => {
     if (!account) return '/dashboard/admin/messages/compose';
-    const firstName = account.contact_name.trim().split(/\s+/)[0] || account.contact_name;
+    // An SEO customer gives no name at the order form, so the greeting falls back to "there".
+    const firstName = account.contact_name.trim().split(/\s+/)[0] || 'there';
     const params = new URLSearchParams({
       to: account.email,
       subject: replySubject,

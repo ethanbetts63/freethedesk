@@ -25,6 +25,17 @@ export interface SeoCheckoutStatus {
   plan: SeoPlanCode | RetiredSeoPlanCode;
   payment_status: SeoPaymentStatus;
   paid: boolean;
+  /** The signup's email once paid, for the verify form; empty before. */
+  email: string;
+}
+
+/** What a paid audit's succeeded payment recorded, on the staff detail endpoint. */
+export interface SeoSale {
+  amount_paid: string;
+  paid_at: string;
+  discount_code: string;
+  discount_amount: string;
+  affiliate: { id: number; business_name: string } | null;
 }
 
 export interface SeoCheckout {
@@ -33,7 +44,7 @@ export interface SeoCheckout {
   currency: string;
   /** What checkout calls it: "Plus SEO audit". */
   product_name: string;
-  /** The affiliate code the signup carries, or empty. */
+  /** The discount code the signup carries (an affiliate's), or empty. */
   discount_code: string;
   /** What the code takes off `price`, and what Stripe charges after it. */
   discount_amount: string;

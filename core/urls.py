@@ -13,6 +13,7 @@ from .views import (
     AdminEnquiryDetailView,
     AdminEnquiryListView,
     AdminInvoiceSettingsView,
+    AdminOrderListView,
     AdminPackageOrderDetailView,
     AdminPackageOrderListView,
     AdminSiteSettingsView,
@@ -52,6 +53,7 @@ urlpatterns = [
     ),
     path("admin/enquiries/", AdminEnquiryListView.as_view(), name="admin-enquiry-list"),
     path("admin/enquiries/<int:pk>/", AdminEnquiryDetailView.as_view(), name="admin-enquiry-detail"),
+    path("admin/orders/", AdminOrderListView.as_view(), name="admin-order-list"),
     path("admin/package-orders/", AdminPackageOrderListView.as_view(), name="admin-package-order-list"),
     path(
         "admin/package-orders/<int:pk>/",

@@ -28,7 +28,7 @@ import {
   statusLabel,
   statusTone,
 } from '@/components/dashboard/StatusPill';
-import { formatDateTime, getPackageOrders, type AdminPackageOrder } from '@/lib/adminApi';
+import { formatDateTime, getOrders, type AdminOrder } from '@/lib/adminApi';
 import { formatMoney } from '@/lib/formatting';
 import { Notice } from '@/components/ui/Notice';
 import { cn } from '@/lib/utils';
@@ -36,16 +36,12 @@ import { panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
 
-const SORT_FIELDS = ['created_at', 'package', 'price', 'payment_status'] as const;
-const FILTER_KEYS = ['payment_status', 'package'] as const;
+const SORT_FIELDS = ['created_at', 'product', 'price', 'payment_status'] as const;
+const FILTER_KEYS = ['payment_status', 'kind'] as const;
 
-/** Mirrors PackageOrder.Package. */
-const PACKAGE_OPTIONS = [
-  { value: 'website_one_page', label: 'One-page website' },
-  { value: 'website_small', label: 'Website package 1' },
-  { value: 'website_large', label: 'Website package 2' },
-  { value: 'web_application', label: 'Web application discovery' },
-  { value: 'automation_discovery', label: 'Automation discovery' },
+const KIND_OPTIONS = [
+  { value: 'package', label: 'Website packages' },
+  { value: 'audit', label: 'SEO audits' },
 ];
 
 const COLUMNS = 5;
@@ -54,12 +50,14 @@ function money(value: string) {
   return formatMoney(value, { cents: 'auto' });
 }
 
+/**
+ * Everything bought online: website packages and SEO audits in one list, each row linking to
+ * its own detail page. A package order that has not paid and an audit signup that has not paid
+ * both read "Payment pending", so abandoned checkouts of either kind can be chased from here.
+ */
 function OrdersContent() {
-  const fetchPage = useCallback(
-    (view: AdminListView) => getPackageOrders(adminListParams(view)),
-    [],
-  );
-  const list = useAdminList<AdminPackageOrder>({
+  const fetchPage = useCallback((view: AdminListView) => getOrders(adminListParams(view)), []);
+  const list = useAdminList<AdminOrder>({
     fetchPage,
     filterKeys: FILTER_KEYS,
     sortFields: SORT_FIELDS,
@@ -68,7 +66,7 @@ function OrdersContent() {
 
   return (
     <div className={pageClassName}>
-      <PageHeader kicker="Packages bought online" title="Orders" />
+      <PageHeader kicker="Everything bought online" title="Orders" />
 
       <section className={panelClassName}>
         <AdminFilterBar
@@ -79,7 +77,7 @@ function OrdersContent() {
           search={list.searchDraft}
           onSearchChange={list.setSearchDraft}
           onSearchSubmit={list.submitSearch}
-          searchPlaceholder="Search business, email or notes"
+          searchPlaceholder="Search business or email"
         >
           <FilterSelect
             label="Filter orders by payment"
@@ -89,11 +87,11 @@ function OrdersContent() {
             options={orderStatuses.map((value) => ({ value, label: statusLabel(value) }))}
           />
           <FilterSelect
-            label="Filter orders by package"
-            value={list.filters.package}
-            onChange={(value) => list.setFilter('package', value)}
-            allLabel="All packages"
-            options={PACKAGE_OPTIONS}
+            label="Filter orders by what was bought"
+            value={list.filters.kind}
+            onChange={(value) => list.setFilter('kind', value)}
+            allLabel="Packages and audits"
+            options={KIND_OPTIONS}
           />
         </AdminFilterBar>
 
@@ -106,8 +104,8 @@ function OrdersContent() {
                   Ordered
                 </SortHeader>
                 <th className={adminThClassName}>Customer</th>
-                <SortHeader field="package" ordering={list.ordering} onSort={list.toggleSort}>
-                  Package
+                <SortHeader field="product" ordering={list.ordering} onSort={list.toggleSort}>
+                  Bought
                 </SortHeader>
                 <SortHeader field="price" ordering={list.ordering} onSort={list.toggleSort}>
                   Price
@@ -130,27 +128,23 @@ function OrdersContent() {
             >
               {(order) => (
                 <tr
-                  key={order.id}
+                  key={`${order.kind}-${order.id}`}
                   className={adminRowClassName}
                   style={statusTone(order.payment_status)}
                 >
                   <td className={cn(adminTdClassName, 'relative')}>
-                    <RowLink href={`/dashboard/admin/orders/${order.id}`}>
-                      {formatDateTime(order.created_at)}
-                    </RowLink>
+                    <RowLink href={order.href}>{formatDateTime(order.created_at)}</RowLink>
                   </td>
                   <td className={adminTdClassName}>
                     <CellTitle>{order.business_name || '—'}</CellTitle>
                     <CellNote>{order.email}</CellNote>
                   </td>
                   <td className={adminTdClassName}>
-                    <CellTitle>{order.package_name}</CellTitle>
+                    <CellTitle>{order.product_name}</CellTitle>
                   </td>
                   <td className={adminTdClassName}>
-                    <CellTitle>{money(order.price)}</CellTitle>
-                    {Number(order.balance) > 0 && (
-                      <CellNote>{money(order.balance)} due before launch</CellNote>
-                    )}
+                    <CellTitle>{order.price ? money(order.price) : '—'}</CellTitle>
+                    {order.note && <CellNote>{order.note}</CellNote>}
                   </td>
                   <td className={adminTdClassName}>
                     <StatusPill status={order.payment_status} />

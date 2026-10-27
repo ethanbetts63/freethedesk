@@ -115,7 +115,8 @@ export function AccountContactCard({
       title="Contact"
       rows={[
         ['Business', account.business_name],
-        ['Contact', account.contact_name],
+        // The SEO order form asks for no name, so the row waits until the customer adds one.
+        ...(account.contact_name ? [['Contact', account.contact_name] as [string, ReactNode]] : []),
         [
           'Email',
           <a className={cardLinkClassName} key="email" href={`mailto:${account.email}`}>
@@ -138,7 +139,10 @@ export function AccountContactCard({
   );
 }
 
-/** Plan, billing and lifecycle dates. `extra` appends rows. */
+/**
+ * Plan, billing and lifecycle dates. `extra` appends rows. The period rows belong to a
+ * subscription, so an audit bought once (no period end) does not show them.
+ */
 export function AccountBillingCard({
   account,
   statusChangedAt,
@@ -148,14 +152,19 @@ export function AccountBillingCard({
   statusChangedAt: string | null;
   extra?: [string, ReactNode][];
 }) {
+  const subscription: [string, ReactNode][] = account.subscription_current_period_end
+    ? [
+        ['Current period ends', formatDateTime(account.subscription_current_period_end)],
+        ['Cancels at period end', account.cancel_at_period_end ? 'Yes' : 'No'],
+      ]
+    : [];
   return (
     <DetailCard
       title="Account"
       rows={[
         ['Plan', account.plan_label],
         ['Payment', account.payment_status_label],
-        ['Current period ends', formatDateTime(account.subscription_current_period_end)],
-        ['Cancels at period end', account.cancel_at_period_end ? 'Yes' : 'No'],
+        ...subscription,
         ['Status', account.status_label],
         ['Status changed', formatDateTime(statusChangedAt)],
         ['Signed up', formatDateTime(account.created_at)],

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import type { ReactNode } from 'react';
 
 import {
   AccountBillingCard,
@@ -24,6 +25,39 @@ import { detailGridClassName } from '@/components/ui/Card';
 import { backClassName, pageClassName } from '@/components/ui/layout';
 import { SeoSetupCard } from './_components/SeoSetupCard';
 import { newInvoiceHref } from '@/app/dashboard/admin/invoices/_lib/invoiceStatus';
+import { cardLinkClassName } from '@/components/ui/Card';
+import { formatMoney } from '@/lib/formatting';
+import type { SeoSale } from '@/lib/seoApi';
+
+const money = (value: string) => formatMoney(value, { cents: 'auto' });
+
+/** What the audit sold for, and the code and affiliate behind the price, once a payment succeeded. */
+function saleRows(sale: SeoSale | null | undefined): [string, ReactNode][] {
+  if (!sale) return [];
+  const rows: [string, ReactNode][] = [
+    ['Paid', `${money(sale.amount_paid)} on ${formatDateTime(sale.paid_at)}`],
+  ];
+  if (sale.discount_code) {
+    rows.push([
+      'Discount code',
+      <span key="code">
+        {sale.discount_code} took {money(sale.discount_amount)} off
+        {sale.affiliate && (
+          <>
+            {' · '}
+            <Link
+              className={cardLinkClassName}
+              href={`/dashboard/admin/affiliates/${sale.affiliate.id}`}
+            >
+              {sale.affiliate.business_name}
+            </Link>
+          </>
+        )}
+      </span>,
+    ]);
+  }
+  return rows;
+}
 
 export default function SeoSubscriberDetailPage() {
   const id = Number(useParams<{ subscriberId: string }>().subscriberId);
@@ -62,7 +96,11 @@ export default function SeoSubscriberDetailPage() {
         backLabel="Back to SEO customers"
         kicker={`SEO customer #${account.id}`}
         title={account.business_name}
-        subtitle={`${account.contact_name} · signed up ${formatDateTime(account.created_at)}`}
+        subtitle={
+          account.contact_name
+            ? `${account.contact_name} · signed up ${formatDateTime(account.created_at)}`
+            : `Signed up ${formatDateTime(account.created_at)}`
+        }
         actionHref={replyHref}
         actionLabel="Email customer →"
         invoiceHref={newInvoiceHref(SEO_SUBSCRIBER_TYPE, account.id)}
@@ -88,7 +126,11 @@ export default function SeoSubscriberDetailPage() {
             ['Plan', account.plan_label],
           ]}
         />
-        <AccountBillingCard account={account} statusChangedAt={account.status_changed_at} />
+        <AccountBillingCard
+          account={account}
+          statusChangedAt={account.status_changed_at}
+          extra={saleRows(account.sale)}
+        />
 
         <StaffNotesCard
           notes={notes}

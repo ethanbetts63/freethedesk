@@ -115,7 +115,7 @@ export default function SeoPortalOverviewPage() {
           <h2 className={cardTitleClassName}>Your details</h2>
           <dl className={detailListClassName}>
             <DetailItem term="Business">{account.business_name}</DetailItem>
-            <DetailItem term="Contact">{account.contact_name}</DetailItem>
+            {account.contact_name && <DetailItem term="Contact">{account.contact_name}</DetailItem>}
             <DetailItem term="Email">{account.email}</DetailItem>
             <DetailItem term="Phone">{account.phone || 'Not supplied'}</DetailItem>
             <DetailItem term="Website">{account.website || 'Not supplied'}</DetailItem>

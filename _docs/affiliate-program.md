@@ -74,7 +74,7 @@ decided before `seo` because the affiliate also has the subscriber row.
 
 ## The listener's purchase
 
-The SEO order panel on `/seo` has an "Affiliate code (optional)" field, filled
+The SEO order panel on `/seo` has a "Discount code (optional)" field, filled
 in from `?code=` when a listener arrives on the share link. The code travels on
 the signup (`SeoSubscriber.discount_code`); `SeoRegistrationView` previews it
 with the shared payments app inside the signup transaction, so a code that

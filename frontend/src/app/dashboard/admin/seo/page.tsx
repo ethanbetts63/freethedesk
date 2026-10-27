@@ -119,8 +119,9 @@ function SeoSubscribersContent() {
                     <CellTitle>{subscriber.business_name}</CellTitle>
                   </td>
                   <td className={adminTdClassName}>
-                    <CellTitle>{subscriber.contact_name}</CellTitle>
-                    <CellNote>{subscriber.email}</CellNote>
+                    {/* The order form asks for no name, so the email leads until one is added. */}
+                    <CellTitle>{subscriber.contact_name || subscriber.email}</CellTitle>
+                    {subscriber.contact_name && <CellNote>{subscriber.email}</CellNote>}
                   </td>
                   <td className={adminTdClassName}>{subscriber.plan_label}</td>
                   <td className={adminTdClassName}>{subscriber.payment_status_label}</td>

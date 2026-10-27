@@ -55,8 +55,6 @@ class SeoRegistrationSerializer(serializers.Serializer):
         hostname = urlsplit(validated_data.get("website", "")).hostname or email.partition("@")[2]
         if not validated_data.get("business_name"):
             validated_data["business_name"] = hostname.removeprefix("www.")
-        if not validated_data.get("contact_name"):
-            validated_data["contact_name"] = "Account owner"
         return SeoSubscriber.objects.create(
             payment_status=SeoSubscriber.PaymentStatus.PAYMENT_PENDING, **validated_data
         )

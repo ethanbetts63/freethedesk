@@ -10,7 +10,7 @@ import {
 import type { AffiliateCommission, AffiliateEarnings } from './affiliateApi';
 import type { DealerAccount } from './dealerApi';
 import type { PackageCode } from './servicePricing';
-import type { SeoAccount, SeoSetup, SeoSetupKey } from './seoApi';
+import type { SeoAccount, SeoSale, SeoSetup, SeoSetupKey } from './seoApi';
 import { handleResponse } from '@freetheplatform/web-security';
 
 export type { Paginated, Principal as StaffUser } from './api';
@@ -46,6 +46,8 @@ export type SeoSubscriber = SeoAccount &
   StaffAccountFields & {
     /** Only on the detail endpoint, and null until the subscriber has paid. */
     setup?: SeoSetup | null;
+    /** Only on the detail endpoint, and null until a payment has succeeded. */
+    sale?: SeoSale | null;
   };
 
 /** An affiliate as staff see them: the podcast, the code and what it has earned. */
@@ -325,6 +327,32 @@ export interface AdminPackageOrder {
   paid_at: string | null;
   created_at: string;
   updated_at: string;
+}
+
+/**
+ * One row of the Orders list: a website package or an SEO audit, flattened to the same shape by
+ * `/api/admin/orders/`. `href` is the row's own detail page, which differs by kind.
+ */
+export interface AdminOrder {
+  kind: 'package' | 'audit';
+  id: number;
+  created_at: string;
+  business_name: string;
+  email: string;
+  product_name: string;
+  /** Empty when nothing is known yet (a retired plan with no payment). */
+  price: string;
+  /** A website's balance due before launch, or the discount code a listener used. */
+  note: string;
+  payment_status: 'payment_pending' | 'paid';
+  payment_status_label: string;
+  href: string;
+}
+
+export async function getOrders(
+  params: Record<string, string | number | undefined>,
+): Promise<Paginated<AdminOrder>> {
+  return handleResponse(await authedFetch(`/api/admin/orders/${queryString(params)}`));
 }
 
 export async function getPackageOrders(

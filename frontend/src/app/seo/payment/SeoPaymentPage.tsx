@@ -48,7 +48,7 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
         if (!stripeConfigured)
           throw new Error('Stripe is not configured yet. Add the publishable key to continue.');
         const session = await createSeoCheckout(reference);
-        // What Stripe charges: the list price less the affiliate code, if one applied.
+        // What Stripe charges: the list price less the discount code, if one applied.
         setQuotedPrice(session.total || session.price);
         if (session.discount_code && Number(session.discount_amount) > 0)
           setDiscount({ code: session.discount_code, amount: session.discount_amount });
@@ -118,7 +118,7 @@ export function SeoPaymentPage({ reference }: { reference: string }) {
       ) : codeRefused ? (
         <CheckoutState
           eyebrow="Code not accepted"
-          title="That affiliate code can't be used now."
+          title="That discount code can't be used now."
           body={`${codeRefused} Choose your audit again to continue without it.`}
           link={{ href: '/seo#signup', label: 'Choose an audit' }}
         />

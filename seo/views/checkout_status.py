@@ -10,8 +10,9 @@ class SeoCheckoutStatusView(APIView):
     """Where an SEO signup's payment stands, by its checkout reference.
 
     The payment page and the return-from-Stripe page run before any login
-    exists, so the reference is all they hold. It answers only the plan and the
-    payment state: nothing that identifies the person who signed up.
+    exists, so the reference is all they hold. It answers the plan and the
+    payment state, and once paid the email as well, so the verify form on the
+    return page starts with it filled in. Nothing else about the person.
     """
 
     authentication_classes = []
@@ -24,4 +25,5 @@ class SeoCheckoutStatusView(APIView):
             "plan": subscriber.plan,
             "payment_status": subscriber.payment_status,
             "paid": subscriber.has_paid,
+            "email": subscriber.email if subscriber.has_paid else "",
         })

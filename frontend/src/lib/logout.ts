@@ -4,6 +4,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 import { serverApiFetch } from '@/lib/serverApi';
 import { relaySetCookies } from '@/lib/serverCookies';
@@ -22,14 +23,19 @@ import { relaySetCookies } from '@/lib/serverCookies';
  * and swallowing it would leave the page claiming a session it still has, so
  * it is allowed to surface.
  *
- * The revalidation is what makes the header change in front of them. Relaying
- * the deletions updates the browser's jar, but the router keeps the segments
- * it already has, header included, and would show Log out until the next
- * navigation. Every route reads the jar, so every route is stale: the whole
- * tree goes, and the response carries the page re-rendered as signed out.
+ * The revalidation is what makes the rest of the tree forget the session.
+ * Relaying the deletions updates the browser's jar, but the router keeps the
+ * segments it already has, and every route reads the jar, so the whole tree
+ * goes stale at once.
+ *
+ * Then the sign-in page. Staying put was the first design, and from a public
+ * page it reads fine, but from a portal it leaves the dashboard on screen
+ * with its client-side state intact, looking signed in until the next
+ * navigation. Landing on the sign-in page says plainly that it worked.
  */
 export async function logout(): Promise<void> {
   const response = await serverApiFetch('/api/token/logout/', { method: 'POST' });
   await relaySetCookies(response);
   revalidatePath('/', 'layout');
+  redirect('/login');
 }

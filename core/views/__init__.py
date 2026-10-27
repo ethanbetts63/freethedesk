@@ -6,6 +6,7 @@ from .enquiry import (
 )
 from .health import health_check
 from .invoice_settings import AdminInvoiceSettingsView
+from .orders import AdminOrderListView
 from .package_order import (
     AdminPackageOrderDetailView,
     AdminPackageOrderListView,
@@ -18,6 +19,7 @@ __all__ = [
     "AdminEnquiryDetailView",
     "AdminEnquiryListView",
     "AdminInvoiceSettingsView",
+    "AdminOrderListView",
     "AdminPackageOrderDetailView",
     "AdminPackageOrderListView",
     "AdminSiteSettingsView",
