@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { type FormEvent, Suspense, startTransition, useActionState, useRef, useState } from 'react';
+import { type FormEvent, Suspense, startTransition, useActionState, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { submitComposeMessage, type ComposeMessageState } from './ComposeMessage.actions';
+import { AttachmentPicker } from '@/components/dashboard/AttachmentPicker';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import {
@@ -25,7 +26,6 @@ const initialState: ComposeMessageState = { status: 'idle' };
 
 function ComposeMessageContent() {
   const params = useSearchParams();
-  const inputRef = useRef<HTMLInputElement>(null);
   const [to, setTo] = useState(params.get('to') || '');
   const [subject, setSubject] = useState(params.get('subject') || '');
   const [body, setBody] = useState(params.get('body') || '');
@@ -112,52 +112,12 @@ function ComposeMessageContent() {
               required
             />
           </label>
-          <section className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-s rounded-sm border border-border-default bg-surface-tint p-m">
-            <div>
-              <strong className="block">Attachments</strong>
-              <small className="mt-3xs block text-label text-text-subtle">
-                Up to 10 files; 20 MB each and 24 MB total.
-              </small>
-            </div>
-            <Button variant="quiet" onClick={() => inputRef.current?.click()}>
-              Attach files
-            </Button>
-            <input
-              ref={inputRef}
-              type="file"
-              multiple
-              hidden
-              onChange={(event) => {
-                setAttachments((current) => [...current, ...Array.from(event.target.files ?? [])]);
-                event.target.value = '';
-              }}
-            />
-            {attachments.length > 0 && (
-              <ul className="col-[1/-1] m-0 list-none p-0">
-                {attachments.map((file, index) => (
-                  <li
-                    className="flex items-center justify-between border-t border-border-default py-xs text-caption"
-                    key={`${file.name}-${index}`}
-                  >
-                    <span>
-                      {file.name} ({(file.size / 1024 / 1024).toFixed(1)} MB)
-                    </span>
-                    <button
-                      className="cursor-pointer border-0 bg-transparent text-caption font-heavy text-text-danger"
-                      type="button"
-                      onClick={() =>
-                        setAttachments((current) =>
-                          current.filter((_, currentIndex) => currentIndex !== index),
-                        )
-                      }
-                    >
-                      Remove
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
+          <AttachmentPicker
+            title="Attachments"
+            hint="Up to 10 files; 20 MB each and 24 MB total."
+            files={attachments}
+            onChange={setAttachments}
+          />
           {confirming && (
             <Notice tone="warning" role="alert">
               Send this email to <strong>{to}</strong>? Press send again to confirm, or{' '}

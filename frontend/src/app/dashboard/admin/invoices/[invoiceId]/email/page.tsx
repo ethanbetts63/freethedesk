@@ -1,19 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import {
-  type FormEvent,
-  startTransition,
-  useActionState,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { type FormEvent, startTransition, useActionState, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { apiErrorMessage } from '@freetheplatform/web-security';
 
 import { submitInvoiceEmail, type InvoiceEmailState } from './InvoiceEmail.actions';
 import { getInvoiceEmailDraft } from '../../_lib/invoiceApi';
+import { AttachmentPicker } from '@/components/dashboard/AttachmentPicker';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import {
@@ -35,7 +29,6 @@ const initialState: InvoiceEmailState = { status: 'idle' };
 
 export default function InvoiceEmailPage() {
   const { invoiceId } = useParams<{ invoiceId: string }>();
-  const inputRef = useRef<HTMLInputElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [loadError, setLoadError] = useState('');
   const [to, setTo] = useState('');
@@ -134,55 +127,12 @@ export default function InvoiceEmailPage() {
                 required
               />
             </label>
-            <section className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-s rounded-sm border border-border-default bg-surface-tint p-m">
-              <div>
-                <strong className="block">Other attachments</strong>
-                <small className="mt-3xs block text-label text-text-subtle">
-                  The invoice PDF is attached automatically. Up to 10 more files; 20 MB in total.
-                </small>
-              </div>
-              <Button variant="quiet" type="button" onClick={() => inputRef.current?.click()}>
-                Attach files
-              </Button>
-              <input
-                ref={inputRef}
-                type="file"
-                multiple
-                hidden
-                onChange={(event) => {
-                  setAttachments((current) => [
-                    ...current,
-                    ...Array.from(event.target.files ?? []),
-                  ]);
-                  event.target.value = '';
-                }}
-              />
-              {attachments.length > 0 && (
-                <ul className="col-[1/-1] m-0 list-none p-0">
-                  {attachments.map((file, index) => (
-                    <li
-                      className="flex items-center justify-between border-t border-border-default py-xs text-caption"
-                      key={`${file.name}-${index}`}
-                    >
-                      <span>
-                        {file.name} ({(file.size / 1024 / 1024).toFixed(1)} MB)
-                      </span>
-                      <button
-                        className="cursor-pointer border-0 bg-transparent text-caption font-heavy text-text-danger"
-                        type="button"
-                        onClick={() =>
-                          setAttachments((current) =>
-                            current.filter((_, currentIndex) => currentIndex !== index),
-                          )
-                        }
-                      >
-                        Remove
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
+            <AttachmentPicker
+              title="Other attachments"
+              hint="The invoice PDF is attached automatically. Up to 10 more files; 20 MB in total."
+              files={attachments}
+              onChange={setAttachments}
+            />
             {confirming && (
               <Notice tone="warning" role="alert">
                 Send this invoice to <strong>{to}</strong>? Press send again to confirm, or{' '}
