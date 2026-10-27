@@ -19,7 +19,14 @@ import {
 import { adminFormControlClassName, adminFormLabelClassName } from '@/components/ui/formControl';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { backClassName, pageClassName } from '@/components/ui/layout';
-import { formatDate, formatDateTime, formatMoney } from '@/lib/formatting';
+import { DateInput, todayDayMonthYear } from '@/components/dashboard/DateInput';
+import {
+  dateInputValue,
+  formatDate,
+  formatDateTime,
+  formatDayMonthYearInput,
+  formatMoney,
+} from '@/lib/formatting';
 import { cn } from '@/lib/utils';
 import {
   deleteInvoice,
@@ -42,7 +49,12 @@ export default function InvoiceDetailPage() {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const [busy, setBusy] = useState(false);
-  const [payment, setPayment] = useState<{ method: string; reference: string } | null>(null);
+  const [payment, setPayment] = useState<{
+    paid_on: string;
+    method: string;
+    reference: string;
+  } | null>(null);
+  const [paymentError, setPaymentError] = useState('');
   const [voiding, setVoiding] = useState<string | null>(null);
 
   useEffect(() => {
@@ -101,7 +113,14 @@ export default function InvoiceDetailPage() {
 
   const recordPayment = async () => {
     if (!payment) return;
+    const paidOn = dateInputValue(payment.paid_on.trim());
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(paidOn)) {
+      setPaymentError('Use DD/MM/YYYY.');
+      return;
+    }
+    setPaymentError('');
     const paid = await run('mark-paid', 'Payment recorded.', {
+      paid_on: paidOn,
       method: payment.method,
       reference: payment.reference.trim(),
     });
@@ -203,7 +222,9 @@ export default function InvoiceDetailPage() {
         )}
         {invoice.status === 'issued' && (
           <Button
-            onClick={() => setPayment({ method: 'bank_transfer', reference: '' })}
+            onClick={() =>
+              setPayment({ paid_on: todayDayMonthYear(), method: 'bank_transfer', reference: '' })
+            }
             disabled={busy || payment !== null}
           >
             Mark paid
@@ -249,7 +270,16 @@ export default function InvoiceDetailPage() {
       {payment && (
         <section className={cn(cardClassName, 'mb-l')}>
           <h2 className={cardTitleClassName}>Record payment of {formatMoney(invoice.total)}</h2>
-          <div className="grid grid-cols-[minmax(0,1fr)] items-end gap-m sm:grid-cols-3">
+          <div className="grid grid-cols-[minmax(0,1fr)] items-end gap-m sm:grid-cols-2 lg:grid-cols-4">
+            <DateInput
+              label="Date paid"
+              value={payment.paid_on}
+              error={paymentError}
+              onChange={(event) =>
+                setPayment({ ...payment, paid_on: formatDayMonthYearInput(event.target.value) })
+              }
+              onPick={(value) => setPayment({ ...payment, paid_on: value })}
+            />
             <label className={adminFormLabelClassName}>
               Method
               <select
@@ -278,7 +308,13 @@ export default function InvoiceDetailPage() {
               <Button onClick={recordPayment} disabled={busy}>
                 Record payment
               </Button>
-              <Button variant="quiet" onClick={() => setPayment(null)}>
+              <Button
+                variant="quiet"
+                onClick={() => {
+                  setPayment(null);
+                  setPaymentError('');
+                }}
+              >
                 Cancel
               </Button>
             </div>

@@ -26,8 +26,8 @@ const lineSchema = z.object({
 });
 
 /**
- * Track A: a repeatable line group, and a due date that depends on the issue date. Dates are typed
- * DD/MM/YYYY (the dashboard avoids native date inputs) and converted on submit.
+ * Track A: a repeatable line group, and a due date that depends on the issue date. Dates are held as
+ * DD/MM/YYYY, typed or picked from the calendar (`DateInput`), and converted on submit.
  */
 export const invoiceFormSchema = z
   .object({

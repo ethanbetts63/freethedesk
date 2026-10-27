@@ -1,6 +1,8 @@
 'use client';
 
 import { Suspense, useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { apiErrorMessage } from '@freetheplatform/web-security';
 
 import {
   adminRowClassName,
@@ -29,13 +31,13 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
 import { formatDate, formatMoney } from '@/lib/formatting';
 import { cn } from '@/lib/utils';
-import { getInvoices, getInvoiceSummary } from './_lib/invoiceApi';
+import { getInvoices, getInvoiceSummary, invoiceAction } from './_lib/invoiceApi';
 import { INVOICE_FILTERS, displayStatus, invoiceStatuses } from './_lib/invoiceStatus';
 import type { InvoiceListItem, InvoiceSummary } from './_lib/invoiceTypes';
 
 const SORT_FIELDS = ['created_at'] as const;
 const FILTER_KEYS = ['status'] as const;
-const COLUMNS = 6;
+const COLUMNS = 7;
 
 function Figure({ label, value }: { label: string; value: string | number }) {
   return (
@@ -57,6 +59,22 @@ function InvoicesContent() {
     loadError: 'Invoices could not be loaded.',
   });
   const [summary, setSummary] = useState<InvoiceSummary | null>(null);
+  const [copying, setCopying] = useState<number | null>(null);
+  const [copyError, setCopyError] = useState('');
+  const router = useRouter();
+
+  /** A new draft with the same customer, lines and link, dated today; opens straight in the editor. */
+  const copy = async (invoice: InvoiceListItem) => {
+    setCopying(invoice.id);
+    setCopyError('');
+    try {
+      const draft = await invoiceAction(invoice.id, 'duplicate');
+      router.push(`/dashboard/admin/invoices/${draft.id}/edit`);
+    } catch (reason) {
+      setCopyError(apiErrorMessage(reason, 'The invoice could not be copied.'));
+      setCopying(null);
+    }
+  };
 
   useEffect(() => {
     getInvoiceSummary()
@@ -110,6 +128,7 @@ function InvoicesContent() {
         </AdminFilterBar>
 
         {list.error && <Notice tone="danger">{list.error}</Notice>}
+        {copyError && <Notice tone="danger">{copyError}</Notice>}
         <div className={adminTableWrapClassName}>
           <table className={adminTableClassName}>
             <thead>
@@ -120,6 +139,9 @@ function InvoicesContent() {
                 <th className={adminThClassName}>Due</th>
                 <th className={adminThClassName}>Total</th>
                 <th className={adminThClassName}>Status</th>
+                <th className={adminThClassName}>
+                  <span className="sr-only">Copy</span>
+                </th>
               </tr>
             </thead>
             <AdminTableBody
@@ -147,6 +169,16 @@ function InvoicesContent() {
                     <td className={adminTdClassName}>{formatMoney(invoice.total)}</td>
                     <td className={adminTdClassName}>
                       <StatusPill status={status} />
+                    </td>
+                    <td className={cn(adminTdClassName, 'text-right')}>
+                      <Button
+                        variant="quiet"
+                        aria-label={`Copy ${invoice.number || 'this draft'} to a new draft`}
+                        disabled={copying !== null}
+                        onClick={() => copy(invoice)}
+                      >
+                        {copying === invoice.id ? 'Copying…' : 'Copy'}
+                      </Button>
                     </td>
                   </tr>
                 );

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFieldArray, useForm, useWatch, type UseFormRegisterReturn } from 'react-hook-form';
 
+import { DateInput } from '@/components/dashboard/DateInput';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import { cardClassName, cardTitleClassName } from '@/components/ui/Card';
@@ -108,6 +109,8 @@ export default function InvoiceForm({
     register(name, {
       onChange: (event) => setValue(name, formatDayMonthYearInput(event.target.value)),
     });
+  const pickDate = (name: 'issue_date' | 'due_date') => (value: string) =>
+    setValue(name, value, { shouldDirty: true, shouldValidate: true });
 
   const relatedLink = related ? relatedHref(related) : null;
 
@@ -293,19 +296,17 @@ export default function InvoiceForm({
         <div className={cn(cardClassName, 'flex flex-col gap-m')}>
           <h2 className={cn(cardTitleClassName, 'mb-0')}>Dates</h2>
           <div className="grid grid-cols-2 gap-m">
-            <Field
+            <DateInput
               label="Issue date"
-              field={dateField('issue_date')}
+              {...dateField('issue_date')}
+              onPick={pickDate('issue_date')}
               error={errors.issue_date?.message}
-              placeholder="DD/MM/YYYY"
-              inputMode="numeric"
             />
-            <Field
+            <DateInput
               label="Due date"
-              field={dateField('due_date')}
+              {...dateField('due_date')}
+              onPick={pickDate('due_date')}
               error={errors.due_date?.message}
-              placeholder="DD/MM/YYYY"
-              inputMode="numeric"
             />
           </div>
         </div>
