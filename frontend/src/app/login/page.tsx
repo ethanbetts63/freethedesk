@@ -71,15 +71,12 @@ function LoginContent() {
         <Wordmark size="card" href="/" />
         <p className={cn(kickerClassName, 'mt-xl')}>Sign in</p>
         <h1 className="m-0 text-title tracking-[-0.06em]">Welcome back</h1>
-        <p className="mt-s mb-xl text-body-sm leading-normal text-text-muted">
-          Dealers, staff and customers sign in here — we will take you to the right place.
-        </p>
         {justReset && (
-          <Notice tone="success" size="field">
+          <Notice tone="success" size="field" className="mt-xl">
             Your password has been changed. Sign in with the new one.
           </Notice>
         )}
-        <form className="mt-m flex flex-col gap-m" action={formAction}>
+        <form className="mt-xl flex flex-col gap-m" action={formAction}>
           <label className="text-label font-heavy">
             Email
             <input
