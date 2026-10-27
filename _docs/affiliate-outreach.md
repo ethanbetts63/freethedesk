@@ -156,7 +156,8 @@ Each run:
    c...) until it has `count`, so a run of three sends one of each and the
    A/B/C test stays even hour by hour. Eligible means `pitched_at` null, blank
    `excluded_reason`, no `affiliate`, and an address not suppressed. A version
-   with nothing left gives its turns to the others.
+   with nothing left gives its turns to the others. Ten seconds between one
+   send and the next (owner's ask, 2026-10-27).
 3. Claims each with a conditional update,
    `filter(pk=..., pitched_at__isnull=True).update(pitched_at=now)`, and sends
    only if the update hit a row. Two overlapping runs cannot double-send, and no

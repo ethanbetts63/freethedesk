@@ -21,9 +21,11 @@ def perth(day, hour):
     return datetime(2026, 10, day, hour, 30, tzinfo=PERTH).astimezone(dt_timezone.utc)
 
 
-def run(*args, now=None, monkeypatch=None):
+def run(*args, now=None, monkeypatch=None, sleeps=None):
     if now is not None:
         monkeypatch.setattr(command.timezone, "now", lambda: now)
+    if monkeypatch is not None:
+        monkeypatch.setattr(command.time, "sleep", lambda seconds: (sleeps if sleeps is not None else []).append(seconds))
     out = StringIO()
     call_command("send_affiliate_outreach", *args, stdout=out, stderr=out)
     return out.getvalue()
@@ -66,6 +68,17 @@ def test_sends_the_oldest_eligible_prospects_and_claims_them(outbox, monkeypatch
     # The next run carries on from the third; the two already pitched are never pitched again.
     run("--count", "5", now=now, monkeypatch=monkeypatch)
     assert [m.to for m in outbox] == [first.email, second.email, third.email]
+
+
+def test_a_run_pauses_between_sends_but_not_before_the_first(outbox, monkeypatch):
+    for version in "abc":
+        ProspectFactory(version=version)
+    sleeps = []
+
+    run("--count", "3", now=perth(26, 10), monkeypatch=monkeypatch, sleeps=sleeps)
+
+    assert len(outbox) == 3
+    assert sleeps == [command.PAUSE_SECONDS, command.PAUSE_SECONDS]
 
 
 def test_each_run_takes_one_of_each_version_in_turn(outbox, monkeypatch):

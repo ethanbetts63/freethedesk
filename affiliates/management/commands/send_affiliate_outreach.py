@@ -1,4 +1,5 @@
 import logging
+import time
 from zoneinfo import ZoneInfo
 
 from django.conf import settings
@@ -15,6 +16,8 @@ logger = logging.getLogger(__name__)
 # is a pace a fresh sending domain can hold (owner's number, 2026-10-26).
 WINDOW_START = 8
 WINDOW_END = 18
+# Between one send and the next, so a run's pitches do not land as a burst.
+PAUSE_SECONDS = 10
 
 
 def in_sending_window(now):
@@ -82,6 +85,8 @@ class Command(BaseCommand):
                 break
             if not claim(prospect, now):
                 continue
+            if sent:
+                time.sleep(PAUSE_SECONDS)
             # One failure must not stop the rest. The row stays claimed: the
             # failed message is in the log for staff to resend, not re-pitch.
             try:
