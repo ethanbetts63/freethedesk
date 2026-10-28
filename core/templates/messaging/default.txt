@@ -1,3 +1,6 @@
-{{ subject }}
+{% autoescape off %}{{ subject }}
 
 {{ body }}
+{% if site_url %}
+{{ site_url }}
+{% endif %}{% endautoescape %}{# Plain text, so no autoescape: left on, "we're" goes out as "we&#x27;re". #}
