@@ -57,9 +57,18 @@ export async function submitComposeMessage(
         'Not sent: this address is on the suppression list (bounced, complained or opted out).',
     };
   }
-  // A send failure answers 502 with the recorded message - still a failure to report.
+  // A send failure answers 502 with the recorded message - still a failure to report. A refused
+  // request (too many or too large attachments) says why under `attachments`; a sender problem
+  // under `detail`. Either beats a bare "could not be sent".
   if (!response.ok) {
-    return { status: 'error', error: FAILURE_MESSAGE };
+    const reason = await response
+      .json()
+      .then(
+        (body: { detail?: string; attachments?: string[] }) =>
+          body.attachments?.join(' ') || body.detail,
+      )
+      .catch(() => undefined);
+    return { status: 'error', error: reason || FAILURE_MESSAGE };
   }
 
   redirect(

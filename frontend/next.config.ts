@@ -3,6 +3,16 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   skipTrailingSlashRedirect: true,
+  experimental: {
+    serverActions: {
+      // The composer and the invoice email post their attachments through a
+      // server action. Django allows 24 MB of attachments in total; the
+      // default 1 MB here refused anything larger before Django saw it, as a
+      // bare 500. A little over Django's total, so its limits are the ones
+      // that answer, with room for the multipart framing.
+      bodySizeLimit: '25mb',
+    },
+  },
   // Addresses Google has already seen. They went out on 9 September 2026 with
   // the config rewrite and the Perth page, still listed in Google, answered 404
   // until they came back. Remove one only once Search Console no longer has it.
