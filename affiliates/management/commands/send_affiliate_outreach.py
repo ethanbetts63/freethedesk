@@ -8,7 +8,7 @@ from django.utils import timezone
 from freetheplatform.messaging import Suppression
 
 from affiliates.models import PodcastProspect
-from affiliates.utils.pitching import VERSIONS, pitch_figures, send_pitch
+from affiliates.utils.pitching import ACTIVE_VERSIONS, PAUSED_VERSIONS, next_version, pitch_figures, send_pitch
 
 logger = logging.getLogger(__name__)
 
@@ -35,15 +35,31 @@ def eligible_prospects():
     )
 
 
-def candidates(count):
-    """The oldest eligible prospect of each version in turn: a, b, c, a, b, c...
+def reassign_paused():
+    """Move queued prospects off a paused version, so pausing one never strands anyone.
 
-    A run of three therefore sends one of each, and the A/B/C test stays even
-    hour by hour rather than only over the whole queue. A version with nothing
-    left gives its turns to the others. Each version is over-fetched to `count`
-    because a prospect claimed by a concurrent run is skipped, not counted.
+    Each goes to whichever active version has the fewest prospects, the same
+    rule upload uses. Sent rows keep their version: that is history.
     """
-    pending = {version: iter(list(eligible_prospects().filter(version=version)[:count])) for version in VERSIONS}
+    moved = 0
+    for prospect in eligible_prospects().filter(version__in=PAUSED_VERSIONS):
+        prospect.version = next_version()
+        prospect.save(update_fields=["version"])
+        moved += 1
+    return moved
+
+
+def candidates(count):
+    """The oldest eligible prospect of each active version in turn: a, c, a, c...
+
+    A run therefore alternates, and the test stays even hour by hour rather
+    than only over the whole queue. A version with nothing left gives its turns
+    to the others. Each version is over-fetched to `count` because a prospect
+    claimed by a concurrent run is skipped, not counted.
+    """
+    pending = {
+        version: iter(list(eligible_prospects().filter(version=version)[:count])) for version in ACTIVE_VERSIONS
+    }
     while pending:
         for version in list(pending):
             prospect = next(pending[version], None)
@@ -78,6 +94,9 @@ class Command(BaseCommand):
             self.stdout.write("Outside the sending window; nothing sent.")
             return
 
+        moved = reassign_paused()
+        if moved:
+            self.stdout.write(f"{moved} moved off a paused version.")
         figures = pitch_figures()
         sent = 0
         for prospect in candidates(options["count"]):

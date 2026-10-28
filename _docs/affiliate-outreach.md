@@ -21,16 +21,16 @@ that hurt taken out, and splitcart's local-to-server upload shape
 
 ## What is kept from Bloomprint, and what isn't
 
-| Bloomprint                                                                 | Here                                                                                                                                                         |
-| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| iTunes Search API, AU store, every two-letter term aa to zz, 200 a term    | Kept as is. The AU store is a proxy for Australian shows and a foreign host who signs up is still a client (owner, 2026-10-25). The country review step goes. |
-| 100 episodes or fewer, an episode in the last 30 days, English, DNS check  | Kept.                                                                                                                                                        |
-| RSS gives owner email, host, website, latest episode title and description | Kept. The feed URL is recorded as the address's published source: the Spam Act's inferred-consent evidence, as `FloristProspect.email_source` is.             |
+| Bloomprint                                                                 | Here                                                                                                                                                                                                             |
+| -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| iTunes Search API, AU store, every two-letter term aa to zz, 200 a term    | Kept as is. The AU store is a proxy for Australian shows and a foreign host who signs up is still a client (owner, 2026-10-25). The country review step goes.                                                    |
+| 100 episodes or fewer, an episode in the last 30 days, English, DNS check  | Kept.                                                                                                                                                                                                            |
+| RSS gives owner email, host, website, latest episode title and description | Kept. The feed URL is recorded as the address's published source: the Spam Act's inferred-consent evidence, as `FloristProspect.email_source` is.                                                                |
 | Claude writes a subject and "I just listened to..." per show               | Claude writes the `opener` to the same "I just listened to..." brief (owner's call 2026-10-26; the plan's "never claim to have listened" was reversed). Subjects are the templates', several a version, rotated. |
-| State in gitignored files, split between laptop and server, since lost     | The server database is the only record of who exists and who was emailed. Locally only the search cursor (terms and feeds tried) is kept, and it is committed. |
-| Gmail SMTP from a personal account, no unsubscribe                         | `freetheplatform.messaging` through Mailgun from a freethedesk.com.au address, with the suppression list, bounce webhook and a one-click unsubscribe page.    |
-| One-off `send_outreach --count N` bursts, 30 seconds apart                 | An hourly cron sends the next 5 (stage 4).                                                                                                                   |
-| Upload one JSON per request into server `inbox/` files                     | Upload posts batches of entries; the server upserts them straight into the prospect table and reports what it already knew.                                  |
+| State in gitignored files, split between laptop and server, since lost     | The server database is the only record of who exists and who was emailed. Locally only the search cursor (terms and feeds tried) is kept, and it is committed.                                                   |
+| Gmail SMTP from a personal account, no unsubscribe                         | `freetheplatform.messaging` through Mailgun from a freethedesk.com.au address, with the suppression list, bounce webhook and a one-click unsubscribe page.                                                       |
+| One-off `send_outreach --count N` bursts, 30 seconds apart                 | An hourly cron sends the next 5 (stage 4).                                                                                                                                                                       |
+| Upload one JSON per request into server `inbox/` files                     | Upload posts batches of entries; the server upserts them straight into the prospect table and reports what it already knew.                                                                                      |
 
 ## Where it lives
 
@@ -55,26 +55,26 @@ The one prompt that runs the pipeline is `affiliates/outreach_instructions.md`.
 
 **Model** `affiliates/models/podcast_prospect.py`, `PodcastProspect`:
 
-| Field                                                              | Type                                        | Notes                                                                                        |
-| ------------------------------------------------------------------ | ------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `email`                                                            | `EmailField(unique)`                        | Lowercased on upload. One pitch per address, however many shows share it                     |
-| `email_source`                                                     | `URLField`                                  | The RSS feed URL the address was published in                                                |
-| `podcast_name`, `host_name`                                        | `CharField`                                 | `host_name` blank means the template says "there"                                            |
-| `first_name`                                                       | `CharField(blank)`                          | Derived from `host_name` on upload when it looks like a person's name, else blank            |
-| `website`, `apple_url`                                             | `URLField(blank)`                           |                                                                                              |
-| `genre`                                                            | `CharField(blank)`                          | iTunes primary genre                                                                         |
-| `episode_count`                                                    | `PositiveIntegerField`                      | At scrape time                                                                               |
-| `latest_episode_title`, `latest_episode_description`               | `CharField`, `TextField`                    | What the opener was written from                                                             |
-| `last_release_date`                                                | `DateField(null)`                           |                                                                                              |
-| `opener`                                                           | `TextField(blank)`                          | The one hand-written line. Blank is allowed and sends without it                             |
-| `relevance`                                                        | `CharField(choices high/medium/low, blank)` | The writer's guess at how well an SEO audit fits the audience; added 2026-10-26 so replies can be read against fit |
-| `version`                                                          | `CharField(choices a/b/c)`                  | Assigned on upload by rotation: the version with the fewest prospects gets the next one      |
-| `pitched_at`                                                       | `DateTimeField(null)`                       | Set by the cron's claim before the send (stage 4). Null means queued                         |
-| `reply`                                                            | `CharField(choices none/positive/negative)` | Set by hand on the dashboard; replies land in the owner's inbox                              |
-| `affiliate`                                                        | `FK(affiliates.Affiliate, null, SET_NULL)`  | The affiliate account that matched this address (stage 6)                                    |
-| `excluded_reason`                                                  | `TextField(blank)`                          | Blank means eligible. Set by hand on the dashboard; the cron skips anyone with one           |
-| `scraped_on`                                                       | `DateField`                                 | From the uploaded entry                                                                      |
-| `created_at`, `updated_at`                                         |                                             |                                                                                              |
+| Field                                                | Type                                        | Notes                                                                                                                                                       |
+| ---------------------------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `email`                                              | `EmailField(unique)`                        | Lowercased on upload. One pitch per address, however many shows share it                                                                                    |
+| `email_source`                                       | `URLField`                                  | The RSS feed URL the address was published in                                                                                                               |
+| `podcast_name`, `host_name`                          | `CharField`                                 | `host_name` blank means the template says "there"                                                                                                           |
+| `first_name`                                         | `CharField(blank)`                          | Derived from `host_name` on upload when it looks like a person's name, else blank                                                                           |
+| `website`, `apple_url`                               | `URLField(blank)`                           |                                                                                                                                                             |
+| `genre`                                              | `CharField(blank)`                          | iTunes primary genre                                                                                                                                        |
+| `episode_count`                                      | `PositiveIntegerField`                      | At scrape time                                                                                                                                              |
+| `latest_episode_title`, `latest_episode_description` | `CharField`, `TextField`                    | What the opener was written from                                                                                                                            |
+| `last_release_date`                                  | `DateField(null)`                           |                                                                                                                                                             |
+| `opener`                                             | `TextField(blank)`                          | The one hand-written line. Blank is allowed and sends without it                                                                                            |
+| `relevance`                                          | `CharField(choices high/medium/low, blank)` | The writer's guess at how well an SEO audit fits the audience; added 2026-10-26 so replies can be read against fit                                          |
+| `version`                                            | `CharField(choices a/b/c)`                  | Assigned on upload by rotation among the active versions (`ACTIVE_VERSIONS` in `pitching.py`; B is paused): the one with the fewest prospects gets the next |
+| `pitched_at`                                         | `DateTimeField(null)`                       | Set by the cron's claim before the send (stage 4). Null means queued                                                                                        |
+| `reply`                                              | `CharField(choices none/positive/negative)` | Set by hand on the dashboard; replies land in the owner's inbox                                                                                             |
+| `affiliate`                                          | `FK(affiliates.Affiliate, null, SET_NULL)`  | The affiliate account that matched this address (stage 6)                                                                                                   |
+| `excluded_reason`                                    | `TextField(blank)`                          | Blank means eligible. Set by hand on the dashboard; the cron skips anyone with one                                                                          |
+| `scraped_on`                                         | `DateField`                                 | From the uploaded entry                                                                                                                                     |
+| `created_at`, `updated_at`                           |                                             |                                                                                                                                                             |
 
 No `status` column. The outcome is read from the message log (`related=prospect`,
 `message_type="podcast_pitch.<version>"`): queued, sent, delivered, bounced,
@@ -152,12 +152,15 @@ Each run:
    that window it exits. Three an hour over that window is about 30 a day, the
    owner's pace (2026-10-26) and well under the Mailgun Free plan's 100 a day;
    `--count` changes it.
-2. Takes the oldest eligible prospect of each version in turn (a, b, c, a, b,
-   c...) until it has `count`, so a run of three sends one of each and the
-   A/B/C test stays even hour by hour. Eligible means `pitched_at` null, blank
-   `excluded_reason`, no `affiliate`, and an address not suppressed. A version
-   with nothing left gives its turns to the others. Ten seconds between one
-   send and the next (owner's ask, 2026-10-27).
+2. Moves any queued prospect off a paused version (B, since 2026-10-28) onto
+   the active version with the fewest prospects, then takes the oldest eligible
+   prospect of each active version in turn (a, c, a, c...) until it has
+   `count`, so the test stays even hour by hour. Eligible means `pitched_at`
+   null, blank `excluded_reason`, no `affiliate`, and an address not
+   suppressed. A version with nothing left gives its turns to the others. Ten
+   seconds between one send and the next (owner's ask, 2026-10-27). A and C go
+   out as plain text, the `.txt` template alone with no HTML part: dressed in
+   the branded frame, a note from one person was filed under Promotions.
 3. Claims each with a conditional update,
    `filter(pk=..., pitched_at__isnull=True).update(pitched_at=now)`, and sends
    only if the update hit a row. Two overlapping runs cannot double-send, and no
@@ -213,13 +216,13 @@ use.
 
 **API** `affiliates/views/prospects.py`, `IsAdminUser`, throttle scope `staff`:
 
-| Method | Path                                   | Purpose                                                                 |
-| ------ | -------------------------------------- | ----------------------------------------------------------------------- |
-| GET    | `/api/outreach/admin/prospects/`       | Paginated list; filters `status`, `version`, `reply`; search name, host, email |
-| GET    | `/api/outreach/admin/prospects/<pk>/`  | One prospect with its messages (`related_type`, `related_id` on the messaging log) |
-| PATCH  | `/api/outreach/admin/prospects/<pk>/`  | `reply`, `excluded_reason` only                                         |
-| POST   | `/api/outreach/admin/prospects/<pk>/unsubscribe/` | Suppresses the address, for the "no thanks" replies          |
-| GET    | `/api/outreach/admin/summary/`         | Per version: queued, sent, delivered, bounced, replied positive, signed up |
+| Method | Path                                              | Purpose                                                                            |
+| ------ | ------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| GET    | `/api/outreach/admin/prospects/`                  | Paginated list; filters `status`, `version`, `reply`; search name, host, email     |
+| GET    | `/api/outreach/admin/prospects/<pk>/`             | One prospect with its messages (`related_type`, `related_id` on the messaging log) |
+| PATCH  | `/api/outreach/admin/prospects/<pk>/`             | `reply`, `excluded_reason` only                                                    |
+| POST   | `/api/outreach/admin/prospects/<pk>/unsubscribe/` | Suppresses the address, for the "no thanks" replies                                |
+| GET    | `/api/outreach/admin/summary/`                    | Per version: queued, sent, delivered, bounced, replied positive, signed up         |
 
 **Page**: a summary strip of the three versions at the top (sent, positive
 replies, sign-ups), then the table: podcast, host, email, version, status pill,
@@ -322,4 +325,3 @@ Where the code differs from the stages above:
 - **The frontend's forms ledger** gained the unsubscribe form as Track B.
   `check:forms` also reports two affiliate-portal forms and a renamed verify
   form from the affiliate build as unledgered; that is that build's to fix.
-

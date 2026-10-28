@@ -1,4 +1,4 @@
-Hi {{ first_name|default:"there" }},
+{% autoescape off %}Hi {{ first_name|default:"there" }},
 
 {% if opener %}{{ opener }}
 
@@ -16,3 +16,4 @@ If you're keen, search "freethedesk affiliates" and sign up on the page that com
 
 --
 Reply "no thanks" and we won't write again.
+{% endautoescape %}

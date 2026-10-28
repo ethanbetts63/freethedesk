@@ -19,6 +19,13 @@ from .unsubscribe import unsubscribe_url
 
 VERSIONS = [PodcastProspect.Version.A, PodcastProspect.Version.B, PodcastProspect.Version.C]
 
+# What goes out. A and C are one person writing to one host and are sent as plain text, no
+# template and no HTML part: dressed in a frame, a note like that is filed under Promotions. B is
+# the designed announcement, and is paused (owner's call 2026-10-28). Its prospects stay on the
+# dashboard; any still queued are moved to an active version by the send command.
+ACTIVE_VERSIONS = [PodcastProspect.Version.A, PodcastProspect.Version.C]
+PAUSED_VERSIONS = [PodcastProspect.Version.B]
+
 # Three subject lines a version, rotated by prospect id so each gets a third.
 # C is A with no links, so it shares A's lines.
 SUBJECTS = {
@@ -47,12 +54,12 @@ def message_type(version) -> str:
 
 
 def next_version() -> str:
-    """The version with the fewest prospects, so the three lists stay a third each."""
+    """The active version with the fewest prospects, so the lists stay level."""
     counts = {
         row["version"]: row["n"]
         for row in PodcastProspect.objects.values("version").annotate(n=Count("id"))
     }
-    return min(VERSIONS, key=lambda v: (counts.get(v, 0), VERSIONS.index(v)))
+    return min(ACTIVE_VERSIONS, key=lambda v: (counts.get(v, 0), ACTIVE_VERSIONS.index(v)))
 
 
 def money(amount) -> str:
@@ -107,6 +114,8 @@ def send_pitch(prospect: PodcastProspect, figures: dict | None = None):
         subject=pitch_subject(prospect, context),
         template=f"emails/podcast_pitch/{prospect.version}",
         context=context,
+        # The template's .txt only, no HTML part: a personal email, not a mailout.
+        plain=True,
         related=prospect,
         # The outreach address and domain when they are configured; the site's own otherwise.
         sender=settings.OUTREACH_SENDER,

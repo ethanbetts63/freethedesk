@@ -50,15 +50,15 @@ def test_outside_the_window_nothing_is_sent(outbox, monkeypatch):
 
 def test_sends_the_oldest_eligible_prospects_and_claims_them(outbox, monkeypatch):
     first = ProspectFactory(version="a", podcast_name="First")
-    second = ProspectFactory(version="b", podcast_name="Second")
-    third = ProspectFactory(version="c", podcast_name="Third")
+    second = ProspectFactory(version="c", podcast_name="Second")
+    third = ProspectFactory(version="a", podcast_name="Third")
     now = perth(26, 10)
 
     output = run("--count", "2", now=now, monkeypatch=monkeypatch)
 
     assert "2 sent." in output
     assert [m.to for m in outbox] == [first.email, second.email]
-    assert [m.message_type for m in outbox] == ["podcast_pitch.a", "podcast_pitch.b"]
+    assert [m.message_type for m in outbox] == ["podcast_pitch.a", "podcast_pitch.c"]
     first.refresh_from_db()
     third.refresh_from_db()
     assert first.pitched_at == now
@@ -70,8 +70,23 @@ def test_sends_the_oldest_eligible_prospects_and_claims_them(outbox, monkeypatch
     assert [m.to for m in outbox] == [first.email, second.email, third.email]
 
 
+def test_a_queued_prospect_on_the_paused_version_is_moved_and_a_sent_one_is_not(outbox, monkeypatch):
+    queued = ProspectFactory(version="b")
+    pitched = ProspectFactory(version="b", pitched_at=perth(20, 10))
+
+    output = run("--count", "1", now=perth(26, 10), monkeypatch=monkeypatch)
+
+    assert "1 moved off a paused version." in output
+    queued.refresh_from_db()
+    pitched.refresh_from_db()
+    assert queued.version == "a"
+    assert pitched.version == "b"
+    assert [m.message_type for m in outbox] == ["podcast_pitch.a"]
+    assert outbox[0].body_html == ""
+
+
 def test_a_run_pauses_between_sends_but_not_before_the_first(outbox, monkeypatch):
-    for version in "abc":
+    for version in "aca":
         ProspectFactory(version=version)
     sleeps = []
 

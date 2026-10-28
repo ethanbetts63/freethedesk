@@ -24,7 +24,8 @@ def test_a_batch_creates_prospects_and_assigns_versions_in_rotation(api_client, 
     body = response.json()
     assert (body["created"], body["already_known"], body["suppressed"], body["invalid"]) == (4, 0, 0, 0)
     assert [r["outcome"] for r in body["results"]] == ["created"] * 4
-    assert sorted(PodcastProspect.objects.values_list("version", flat=True)) == ["a", "a", "b", "c"]
+    # Only the active versions: B is paused, so nobody is put on it.
+    assert sorted(PodcastProspect.objects.values_list("version", flat=True)) == ["a", "a", "c", "c"]
     prospect = PodcastProspect.objects.get(email="host0@example.com")
     assert prospect.first_name == "Sam"
     assert prospect.opener == "Came across your episode on quoting jobs."

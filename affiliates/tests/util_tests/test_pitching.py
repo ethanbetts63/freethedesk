@@ -34,15 +34,16 @@ def test_money_formats_whole_dollars_without_cents():
     assert pitching.money(Decimal("12.5")) == "$12.50"
 
 
-def test_next_version_keeps_the_three_lists_level():
+def test_next_version_keeps_the_active_lists_level_and_skips_the_paused_one():
     assert pitching.next_version() == "a"
     ProspectFactory(version="a")
-    assert pitching.next_version() == "b"
-    ProspectFactory(version="b")
     assert pitching.next_version() == "c"
     ProspectFactory(version="c")
     ProspectFactory(version="a")
-    assert pitching.next_version() == "b"
+    assert pitching.next_version() == "c"
+    # B is paused: however few it has, nobody new is put on it.
+    ProspectFactory(version="c")
+    assert pitching.next_version() == "a"
 
 
 def test_subjects_rotate_by_id_and_name_the_podcast():
@@ -94,7 +95,10 @@ def test_send_pitch_renders_the_version_template_with_the_opener(outbox):
     assert "$220 to $560 an audit" in text
     assert "20% off" in text
     assert "/unsubscribe/" in text
-    assert "/affiliates" in outbox[0].body_html
+    assert "/affiliates" in text
+    # Plain text only: no HTML part, and apostrophes as written, not as entities.
+    assert outbox[0].body_html == ""
+    assert "I'm " in text and "&#x27;" not in text
     assert outbox[0].content_object == prospect
 
 

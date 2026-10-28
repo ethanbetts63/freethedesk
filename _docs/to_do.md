@@ -79,7 +79,7 @@ Added 2026-10-24, rewritten 2026-10-25. Owner's steps. The program is built and 
 
 - `migrate` for `affiliates` 0001, `core` 0029 (the two affiliate percentages; the enquiry type is gone) and `seo` 0015 (complimentary audits, the signup's discount code) and 0017 (the order form asks for no name, so `contact_name` may be blank).
 - `FTP_AGREEMENTS` names the Affiliate Program Terms, version 2026-10-25, so deploy Django and the frontend together.
-- `python -m piptools sync requirements.txt` installs freetheplatform v0.40.0, then `migrate` for `ftp_messaging` 0004 (a message now records the names and sizes of the files it went out with; the message detail page lists them). The composer now sends plain text with no template, so a note to one person is not filed under Promotions.
+- `python -m piptools sync requirements.txt` installs freetheplatform v0.41.0, then `migrate` for `ftp_messaging` 0004 (a message now records the names and sizes of the files it went out with; the message detail page lists them). The composer and the podcast pitches (A and C; B is paused) now send plain text with no HTML part, so a note to one person is not filed under Promotions.
 - `DISCOUNTS_ENABLED` is on in settings; nothing else to set. Each affiliate's Stripe coupon is created the first time their code is used.
 - Then open https://www.freethedesk.com.au/affiliates, sign up with a test address, verify it with the emailed code, and check the portal shows the code. Buy a test audit on /seo with that code (Stripe test mode is not available on production, so use a real card and refund it) and check the commission appears on /dashboard/admin/affiliates.
 

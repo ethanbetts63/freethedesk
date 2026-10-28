@@ -1,4 +1,4 @@
-FREETHEDESK PODCAST AFFILIATE PROGRAM
+{% autoescape off %}FREETHEDESK PODCAST AFFILIATE PROGRAM
 
 Earn {{ commission_low }} or more every time a listener buys an audit.
 
@@ -29,3 +29,4 @@ It takes a minute, and your audit is the first thing we do.
 --
 freethedesk · Perth, Western Australia
 Unsubscribe and we won't write again: {{ unsubscribe_url }}
+{% endautoescape %}

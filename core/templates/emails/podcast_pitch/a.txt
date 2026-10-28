@@ -1,4 +1,4 @@
-Hi {{ first_name|default:"there" }},
+{% autoescape off %}Hi {{ first_name|default:"there" }},
 
 {% if opener %}{{ opener }}
 
@@ -18,3 +18,4 @@ If you're keen, sign up on the affiliate page and I'll get started on your audit
 
 --
 Unsubscribe and we won't write again: {{ unsubscribe_url }}
+{% endautoescape %}
