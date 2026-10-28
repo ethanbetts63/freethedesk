@@ -15,7 +15,7 @@ def test_a_plain_message_renders_in_the_branded_frame(outbox):
         body="Hi Sam,\n\nWe're on it.",
     )
 
-    assert message.body_html.count("logo-mark.png") == 2  # header and footer
+    assert message.body_html.count("logo-mark.png") == 1  # the header only
     assert "Perth, Western Australia" in message.body_html
     # The old frame's colours are gone.
     assert "#718f20" not in message.body_html and "#fa6b36" not in message.body_html
