@@ -7,7 +7,7 @@ publishes it with the email that goes with it
 (`_search/projects/<slug>/reports/<version>/email.txt`). This is the half that
 sends that email from this server and tracks the calls that follow. The first
 three (Rebus Legal, Hartley Plumbing, Solar 365, 28 October) went by hand from
-the compose page, before this existed; `send.py` refuses them.
+the compose page, before this existed; `outbox.py` refuses them.
 
 It copies the podcast outreach ([`affiliate-outreach.md`](affiliate-outreach.md))
 wherever it can: the upload by shared secret, the claim before the send, the
@@ -85,14 +85,23 @@ sent, replied and called per subject.
   (`_search/prompts/shared/analyst-prospect.md`), and the deep check reads it
   as before. The analyst's subject is kept for a hand-sent copy; the send uses
   the rotation.
-- `_search/tools/prospecting/send.py -p <slug>`: a new last step for a prospect
-  report, after publish (step 15 of `_search/prompts/01_delegator.md`). It
-  reads `email.txt`, the PDF, `report.json` (the ask's hours plus the owner's
-  one, the recommendation count, the three highest-impact titles) and the
-  ledger's contact; warns when the address's domain is neither the site's nor
-  a webmail one; refuses a business the message log shows was already sent a
-  report; posts; and marks the ledger entry `queued`. `ledger.py sync` moves
-  it to `sent` from the message log. `--dry-run` posts nothing.
+- **Nothing is uploaded until the owner approves it** (owner, 2026-10-28).
+  `_search/tools/prospecting/outbox.py` keeps the local outbox,
+  `_search/prospecting/outbox.json`. The report delegator's last step for a
+  prospect report (step 15 of `_search/prompts/01_delegator.md`) is
+  `outbox.py add -p <slug>`: it reads `email.txt`, the PDF, `report.json` (the
+  ask's hours plus the owner's one, the recommendation count, the three
+  highest-impact titles) and the ledger's contact; warns when the address's
+  domain is neither the site's nor a webmail one; refuses a business the
+  message log shows was already sent a report; and lists it as
+  `awaiting_approval`. The owner asks for the unapproved reports
+  (`outbox.py list --status awaiting_approval`), reads each, asks for any edits,
+  and says it may go: then `outbox.py approve <slug>` records a fingerprint of
+  the PDF and the email, and `outbox.py release` posts every approved report
+  whose files still match it (a report changed after approval goes back to
+  awaiting approval) and marks the ledger entry `queued`. Approval and release
+  happen only on the owner's word; no pipeline step does either. `outbox.py
+  sync` and `ledger.py sync` move it to `sent` from the message log.
 - The key and the address are this repository's own `INTERNAL_API_KEY` and
   `API_SERVER_URL` (`DEV_API_SERVER_URL` with `--dev`) from `.env`, read by
   `freetheplatform`'s `env.secret` and never printed: the same pair
