@@ -1,0 +1,98 @@
+# SEO prospect outreach
+
+Planned 2026-10-28, not built. The prospect report pipeline in `../ftp_search`
+finds Perth businesses paying for searches they do not win
+(`_search/prospecting/`), writes each a free ten-recommendation report, and
+publishes it with the email that goes with it
+(`_search/projects/<slug>/reports/<version>/email.txt`). This is the half that
+sends that email from this server and tracks the calls that follow. Until it is
+built, the owner sends each one by hand from the compose page.
+
+It copies the podcast outreach ([`affiliate-outreach.md`](affiliate-outreach.md))
+wherever it can: the upload by shared secret, the claim before the send, the
+business-hours window, the message log as the status, the dashboard page.
+
+## Decisions (owner, 2026-10-28)
+
+- **Upload, then the cron sends.** Publishing queues the email; the existing
+  hourly `send_affiliate_outreach` run also sends queued prospect emails, in the
+  same Perth weekday window (8am to 6pm) and with the same ten seconds between
+  sends. No new scheduled task.
+- **Five subjects, rotated by prospect**, so replies can be read against them:
+  1. I spent {hours} hours on this. I am not a bot.
+  2. {count} free fixes for {domain}
+  3. Your '{paid search}' ad, and what your site is missing
+  4. A free SEO report for {business}
+  5. {business} isn't on Google's first page for '{paid search}'
+
+  `{hours}` is the report's ask's figure and `{count}` its recommendation
+  count, so a subject never disagrees with its report.
+- **Unsubscribe by reply.** The email ends "Reply 'no thanks' and I won't email
+  again." A reply that asks is suppressed with the dashboard's Unsubscribe
+  action. The Spam Act requires a functional unsubscribe facility; a reply
+  address is one.
+- **Plain text**, as pitches A and C: a note from one person, not a newsletter.
+
+## The server
+
+**Model** `seo/models/prospect.py`, `SeoProspect`. It is the calls list too.
+
+| Field | Notes |
+| --- | --- |
+| `domain` | unique; the ledger's key |
+| `business`, `slug`, `report_version` | |
+| `report_path` | the report's full path on the owner's machine, shown to copy |
+| `report_pdf` | `FileField` in private storage: messaging keeps an attachment's name, not its file, so the cron needs the PDF here |
+| `contact_name`, `email`, `phone` | from the prospecting ledger |
+| `overview` | one line: what the business is, built from the ledger (trading name, Google category, suburb) |
+| `issues` | three short lines: the report's highest-impact recommendation titles |
+| `paid_searches` | the searches its ad was seen on |
+| `subject_version` | 1 to 5, assigned on upload by rotation |
+| `body` | the analyst's email body, signature included |
+| `queued_at`, `sent_at` | `sent_at` set by the cron's claim, as `pitched_at` is |
+| `called_at`, `call_notes` | set by hand on the dashboard |
+| `reply` | none, positive or negative, by hand |
+| `excluded_reason` | blank means eligible; set by hand to hold one back |
+
+The emailed status is read from the message log (`related=prospect`,
+`message_type="seo_prospect.<version>"`), not stored: queued, sent, delivered,
+bounced, suppressed, failed. Register the five message types with the messaging
+registry. Add a Tier 3 row to [`pii_inventory.md`](pii_inventory.md): business
+owners' names and published contact details, from their own public pages.
+
+**Upload** `POST /api/seo/prospects/`, `IsInternalApiRequest`, multipart: the
+fields above and the PDF. A domain, email or slug already present is refused
+with 409, so no business is ever sent two reports; a suppressed address is
+refused too.
+
+**Send** `seo/utils/prospect_sending.py`, called at the end of
+`send_affiliate_outreach` and sharing its window and its Mailgun Free plan
+budget (100 a day across all mail). Claims with
+`filter(pk=..., sent_at__isnull=True).update(sent_at=now)`, then
+`send(..., attachments=[(name, pdf_bytes, "application/pdf")], related=prospect, plain=True)`.
+
+**Dashboard** `/dashboard/admin/prospects`, "Prospects" beside Outreach: the
+calls to-do list. Not yet called first, then by sent date. Each row: business,
+overview, issues, email, phone, emailed status and date, report path, a "Mark
+called" action with notes, reply, exclude, unsubscribe. A summary strip of
+sent, replied and called per subject.
+
+## The pipeline side (ftp_search)
+
+- `email.txt` gets one strict format, `Subject: …`, a blank line, the body, and
+  the deep check reads it as now. The analyst's subject is kept as option 3's
+  source text; the send uses the rotation.
+- `_search/tools/prospecting/send.py -p <slug>`: a new last step for a prospect
+  report, after publish. It reads `email.txt`, `published.json` and the
+  ledger's contact, warns when the address's domain is neither the site's nor
+  a webmail one, posts to the server, and marks the ledger entry `queued`;
+  `ledger.py sync` moves it to `sent` from the message log.
+- The shared secret sits in the env file `../freetheplatform`'s `env.py`
+  reads, never in a prompt or a file the run writes.
+
+## Owner's steps when built
+
+- Deploy, migrate, and check the hourly `send_affiliate_outreach` task exists on
+  PythonAnywhere.
+- Upload one test prospect addressed to yourself and read all five subjects in
+  a mail client before the first real one.

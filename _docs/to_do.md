@@ -121,3 +121,10 @@ The separate outreach domain is decided (owner, 2026-10-26) but blocked: the fre
 2. Add the domain `outreach.freethedesk.com.au` (Send, Domains, Add new domain, US region, 2048-bit DKIM, no Red Sift DMARC), then in Cloudflare add the SPF TXT, the `pic._domainkey` DKIM TXT and the two MX records it lists, all DNS only.
 3. In Mailgun, make a domain sending key for the new domain and a delivery webhook pointed at `https://www.freethedesk.com.au/api/webhooks/messaging/mailgun/` (the same signing key as the main domain).
 4. Set on PythonAnywhere: `OUTREACH_FROM_EMAIL="Ethan Betts <ethan@outreach.freethedesk.com.au>"`, `OUTREACH_MAILGUN_DOMAIN=outreach.freethedesk.com.au`, `OUTREACH_MAILGUN_API_KEY=<that sending key>`. The pitch then goes from the new domain (freetheplatform v0.38.0 named senders); unset, it goes from the site's own address as it does today.
+
+## SEO prospect outreach: automated email and the calls list
+
+Added 2026-10-28. Planned, not built: the design and the owner's decisions are in [`seo-prospect-outreach.md`](seo-prospect-outreach.md). Two parts that follow the prospect report pipeline in `../ftp_search` (the prospecting ledger is `_search/prospecting/candidates.json`):
+
+1. **Automated email.** Once a prospect report is published, the report delegator calls an internal API on this server that sends the analyst's prewritten email (`reports/<version>/email.txt`: its subject and body) to the address the prospecting ledger found, with the report PDF attached.
+2. **Calls list.** A to-do list of every business sent a prospect report: whether the report was emailed and when, and whether the owner has called them (marked by hand). Each entry carries the report's full local path, the contact email and phone, a very brief overview of the business, and the issues the report found.
