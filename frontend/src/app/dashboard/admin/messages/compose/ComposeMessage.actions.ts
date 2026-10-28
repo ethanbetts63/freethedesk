@@ -34,6 +34,9 @@ export async function submitComposeMessage(
   upstream.set('to', parsed.data.to);
   upstream.set('subject', parsed.data.subject);
   upstream.set('body', parsed.data.body);
+  // As typed, with no template and no HTML part: a personal email, not a mailout. Dressed in the
+  // branded frame, a one-to-one note landed in Gmail's Promotions tab.
+  upstream.set('plain', 'true');
   if (parsed.data.relatedEnquiry) {
     upstream.set('related_type', ENQUIRY_TYPE);
     upstream.set('related_id', String(parsed.data.relatedEnquiry));

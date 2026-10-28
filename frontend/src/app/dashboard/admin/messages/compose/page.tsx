@@ -111,6 +111,9 @@ function ComposeMessageContent() {
               onChange={(event) => setBody(event.target.value)}
               required
             />
+            <small className="mt-2xs block text-label font-normal text-text-subtle">
+              Sent as plain text, exactly as written, like a personal email.
+            </small>
           </label>
           <AttachmentPicker
             title="Attachments"
