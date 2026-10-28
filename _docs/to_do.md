@@ -125,3 +125,7 @@ Added 2026-10-28. Owner's step. Built: the automated prospect report email and t
 - Run `migrate` for `seo` 0018, Django before the frontend. The hourly `send_affiliate_outreach` task now sends queued report emails too, so no new scheduled task.
 - `private-media/seo-prospects/` holds the queued PDFs; it sits under the existing `private-media/`.
 - Before the first real one, send a test to yourself from `../ftp_search`, on a published prospect report not yet sent: `python _search/tools/prospecting/outbox.py add -p <slug> --to <your address>`, then `approve <slug>` and `release <slug>`. Read it in a mail client after the next hourly run. Its row on /dashboard/admin/prospects then holds that slug and address, so delete it in the Django admin before the real one is added.
+
+## Affiliate share from 50% to 20%
+
+Added 2026-10-28. Owner's decision, in conversation: 50% devalues the audit, and the trade associations ([`trade-associations.md`](trade-associations.md)) will be offered 20%. Change together: `affiliate_share_percent` at /dashboard/admin/settings/site (the default in code too), the "$220 to $560 an audit" copy in `frontend/src/lib/pages.ts` and the affiliate page, and the pitch emails in `_docs/affiliate-pitch/`. Decide whether affiliates already signed keep 50% for a fixed period, and put the date in the association agreement.
