@@ -136,6 +136,8 @@ export interface AdminMessage {
   subject: string;
   body_text: string;
   body_html: string;
+  /** What went with the message, by name and size. The files themselves are not kept. */
+  attachments: { name: string; size: number }[];
   related: RelatedObject | null;
   status: MessageStatus;
   needs_attention: boolean;

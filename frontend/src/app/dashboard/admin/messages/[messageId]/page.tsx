@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { Paperclip } from 'lucide-react';
+import { formatFileSize } from '@/components/dashboard/AttachmentPicker';
 import { StatusPill } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getMessage, type AdminMessage } from '@/lib/adminApi';
 import { Notice } from '@/components/ui/Notice';
@@ -114,6 +116,27 @@ export default function MessageDetailPage() {
         <section className={cn(cardClassName, cardWideClassName)}>
           <h2 className={cardTitleClassName}>What was sent</h2>
           <pre className={adminMessagePreClassName}>{message.body_text}</pre>
+          {message.attachments.length > 0 && (
+            <>
+              <h3 className="mt-m mb-xs text-label font-heavy text-text-subtle uppercase">
+                {message.attachments.length === 1
+                  ? '1 attachment'
+                  : `${message.attachments.length} attachments`}
+              </h3>
+              <ul className="m-0 list-none p-0 text-body-sm">
+                {message.attachments.map((file, index) => (
+                  <li
+                    key={`${file.name}-${index}`}
+                    className="flex items-center gap-xs border-t border-border-default py-xs first:border-t-0"
+                  >
+                    <Paperclip aria-hidden size={14} className="shrink-0 text-text-subtle" />
+                    <span className="truncate font-heavy">{file.name}</span>
+                    <span className="shrink-0 text-text-subtle">{formatFileSize(file.size)}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </section>
       </div>
     </div>

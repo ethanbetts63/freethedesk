@@ -83,7 +83,7 @@ export function AttachmentPicker({
 }
 
 /** `312 KB` or `2.4 MB`: a size someone can check against the attachment limit. */
-function formatFileSize(bytes: number): string {
+export function formatFileSize(bytes: number): string {
   if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
   return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 }
