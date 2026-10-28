@@ -30,7 +30,6 @@ import {
 } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getAffiliates, type Affiliate } from '@/lib/adminApi';
 import { Notice } from '@/components/ui/Notice';
-import { cn } from '@/lib/utils';
 import { panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
@@ -110,7 +109,7 @@ function AffiliatesContent() {
                   className={adminRowClassName}
                   style={statusTone(affiliate.status)}
                 >
-                  <td className={cn(adminTdClassName, 'relative')}>
+                  <td className={adminTdClassName}>
                     <RowLink href={`/dashboard/admin/affiliates/${affiliate.id}`}>
                       {formatDateTime(affiliate.created_at)}
                     </RowLink>

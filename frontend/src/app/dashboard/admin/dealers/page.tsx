@@ -30,7 +30,6 @@ import {
 } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getDealers, type Dealer } from '@/lib/adminApi';
 import { Notice } from '@/components/ui/Notice';
-import { cn } from '@/lib/utils';
 import { panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
@@ -104,7 +103,7 @@ function DealersContent() {
             >
               {(dealer) => (
                 <tr key={dealer.id} className={adminRowClassName} style={statusTone(dealer.status)}>
-                  <td className={cn(adminTdClassName, 'relative')}>
+                  <td className={adminTdClassName}>
                     <RowLink href={`/dashboard/admin/dealers/${dealer.id}`}>
                       {formatDateTime(dealer.created_at)}
                     </RowLink>

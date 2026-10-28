@@ -6,6 +6,7 @@ import {
   adminRowClassName,
   adminTableClassName,
   adminTableWrapClassName,
+  adminRowActionsClassName,
   adminTdClassName,
   adminThClassName,
   AdminFilterBar,
@@ -146,7 +147,7 @@ function EnquiriesContent() {
                   className={adminRowClassName}
                   style={statusTone(enquiry.status)}
                 >
-                  <td className={cn(adminTdClassName, 'relative')}>
+                  <td className={adminTdClassName}>
                     <RowLink href={`/dashboard/admin/enquiries/${enquiry.id}`}>
                       {formatDateTime(enquiry.created_at)}
                     </RowLink>
@@ -170,7 +171,7 @@ function EnquiriesContent() {
                   <td className={adminTdClassName}>
                     <StatusPill status={enquiry.status} />
                   </td>
-                  <td className={adminTdClassName}>
+                  <td className={adminRowActionsClassName}>
                     <div className="flex justify-end gap-xs">
                       <Button variant="quiet" href={`/dashboard/admin/enquiries/${enquiry.id}`}>
                         Details

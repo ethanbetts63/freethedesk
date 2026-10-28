@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { apiErrorMessage } from '@freetheplatform/web-security';
 
 import {
+  adminRowActionsClassName,
   adminRowClassName,
   adminTableClassName,
   adminTableWrapClassName,
@@ -31,7 +32,7 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
 import { formatDate, formatMoney } from '@/lib/formatting';
 import { cn } from '@/lib/utils';
-import { getInvoices, getInvoiceSummary, invoiceAction } from './_lib/invoiceApi';
+import { getInvoices, getInvoiceSummary, invoiceAction, invoicePdfUrl } from './_lib/invoiceApi';
 import { INVOICE_FILTERS, displayStatus, invoiceStatuses } from './_lib/invoiceStatus';
 import type { InvoiceListItem, InvoiceSummary } from './_lib/invoiceTypes';
 
@@ -155,7 +156,7 @@ function InvoicesContent() {
                 const status = displayStatus(invoice);
                 return (
                   <tr key={invoice.id} className={adminRowClassName} style={statusTone(status)}>
-                    <td className={cn(adminTdClassName, 'relative font-mono')}>
+                    <td className={cn(adminTdClassName, 'font-mono')}>
                       <RowLink href={`/dashboard/admin/invoices/${invoice.id}`}>
                         {invoice.number || 'Draft'}
                       </RowLink>
@@ -170,15 +171,29 @@ function InvoicesContent() {
                     <td className={adminTdClassName}>
                       <StatusPill status={status} />
                     </td>
-                    <td className={cn(adminTdClassName, 'text-right')}>
-                      <Button
-                        variant="quiet"
-                        aria-label={`Copy ${invoice.number || 'this draft'} to a new draft`}
-                        disabled={copying !== null}
-                        onClick={() => copy(invoice)}
-                      >
-                        {copying === invoice.id ? 'Copying…' : 'Copy'}
-                      </Button>
+                    <td className={adminRowActionsClassName}>
+                      <div className="flex justify-end gap-xs">
+                        {/* The PDF is an API response, so not a link: client-side navigation cannot render it. */}
+                        <Button
+                          variant="quiet"
+                          aria-label={`${invoice.status === 'draft' ? 'Preview' : 'Download'} the PDF of ${invoice.number || 'this draft'}`}
+                          onClick={() =>
+                            invoice.status === 'draft'
+                              ? window.open(invoicePdfUrl(invoice.id), '_blank', 'noopener')
+                              : window.location.assign(invoicePdfUrl(invoice.id, true))
+                          }
+                        >
+                          {invoice.status === 'draft' ? 'Preview' : 'Download'}
+                        </Button>
+                        <Button
+                          variant="quiet"
+                          aria-label={`Copy ${invoice.number || 'this draft'} to a new draft`}
+                          disabled={copying !== null}
+                          onClick={() => copy(invoice)}
+                        >
+                          {copying === invoice.id ? 'Copying…' : 'Copy'}
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 );

@@ -30,7 +30,6 @@ import {
 } from '@/components/dashboard/StatusPill';
 import { formatDateTime, getSeoSubscribers, type SeoSubscriber } from '@/lib/adminApi';
 import { Notice } from '@/components/ui/Notice';
-import { cn } from '@/lib/utils';
 import { panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
@@ -110,7 +109,7 @@ function SeoSubscribersContent() {
                   className={adminRowClassName}
                   style={statusTone(subscriber.status)}
                 >
-                  <td className={cn(adminTdClassName, 'relative')}>
+                  <td className={adminTdClassName}>
                     <RowLink href={`/dashboard/admin/seo/${subscriber.id}`}>
                       {formatDateTime(subscriber.created_at)}
                     </RowLink>

@@ -30,7 +30,6 @@ import {
   type StaffAccountRow,
 } from '@/types/StaffAccount';
 import { Notice } from '@/components/ui/Notice';
-import { cn } from '@/lib/utils';
 import { panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
@@ -127,7 +126,7 @@ function UsersContent() {
             >
               {(account) => (
                 <tr key={account.id} className={adminRowClassName}>
-                  <td className={cn(adminTdClassName, 'relative')}>
+                  <td className={adminTdClassName}>
                     <RowLink href={`${STAFF_ACCOUNTS_PATH}/${account.id}`}>
                       <CellTitle>{account.name || account.username}</CellTitle>
                     </RowLink>

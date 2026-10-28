@@ -31,7 +31,6 @@ import {
 import { formatDateTime, getOrders, type AdminOrder } from '@/lib/adminApi';
 import { formatMoney } from '@/lib/formatting';
 import { Notice } from '@/components/ui/Notice';
-import { cn } from '@/lib/utils';
 import { panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
@@ -132,7 +131,7 @@ function OrdersContent() {
                   className={adminRowClassName}
                   style={statusTone(order.payment_status)}
                 >
-                  <td className={cn(adminTdClassName, 'relative')}>
+                  <td className={adminTdClassName}>
                     <RowLink href={order.href}>{formatDateTime(order.created_at)}</RowLink>
                   </td>
                   <td className={adminTdClassName}>

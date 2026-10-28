@@ -137,7 +137,7 @@ function SalesContent() {
                   className={adminRowClassName}
                   style={statusTone(sale.status)}
                 >
-                  <td className={cn(adminTdClassName, 'relative')}>
+                  <td className={adminTdClassName}>
                     <RowLink href={`/portal/sales/${sale.reference}`}>
                       <CellTitle>{sale.reference}</CellTitle>
                     </RowLink>

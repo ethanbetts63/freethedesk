@@ -35,13 +35,25 @@ export const adminTdClassName =
  * `focus-within` rather than `focus` because the focusable thing is the first
  * cell's `<RowLink>`, not the row: the whole row lights up when the link that
  * covers it takes focus.
+ *
+ * `relative` is what lets the `<RowLink>` overlay cover the whole row rather
+ * than its own cell, so the row must be the nearest positioned ancestor: no
+ * cell may be `relative` except one holding its own controls (see
+ * `adminRowActionsClassName`).
  */
 export const adminRowClassName = [
+  'relative cursor-pointer',
   'bg-[color-mix(in_srgb,var(--status-tone)_12%,var(--surface-page))]',
   'transition-[filter] duration-150 hover:brightness-[0.975]',
   'focus-within:brightness-[0.95] focus-within:outline-2 focus-within:-outline-offset-2',
   'focus-within:outline-[var(--focus-ring)]',
 ].join(' ');
+
+/**
+ * A cell of buttons on a clickable row. Positioned, so it paints above the
+ * `<RowLink>` overlay and its buttons take the click instead of the row.
+ */
+export const adminRowActionsClassName = `${adminTdClassName} relative text-right whitespace-nowrap`;
 
 /** Bold first line of a cell. */
 export function CellTitle({ children }: { children: ReactNode }) {

@@ -30,7 +30,6 @@ import {
 import { formatDateTime, getMessages, type AdminMessage } from '@/lib/adminApi';
 import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
-import { cn } from '@/lib/utils';
 import { panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
@@ -113,7 +112,7 @@ function MessagesContent() {
                   className={adminRowClassName}
                   style={statusTone(message.status)}
                 >
-                  <td className={cn(adminTdClassName, 'relative')}>
+                  <td className={adminTdClassName}>
                     <RowLink href={`/dashboard/admin/messages/${message.id}`}>
                       {formatDateTime(message.created_at)}
                     </RowLink>

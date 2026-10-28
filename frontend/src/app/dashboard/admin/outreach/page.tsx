@@ -37,7 +37,6 @@ import {
   type Prospect,
 } from '@/lib/adminApi';
 import { Notice } from '@/components/ui/Notice';
-import { cn } from '@/lib/utils';
 import { cardClassName, cardTitleClassName, panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
@@ -213,7 +212,7 @@ function OutreachContent() {
                   className={adminRowClassName}
                   style={statusTone(prospect.status)}
                 >
-                  <td className={cn(adminTdClassName, 'relative')}>
+                  <td className={adminTdClassName}>
                     <RowLink href={`/dashboard/admin/outreach/${prospect.id}`}>
                       {formatDateTime(prospect.created_at)}
                     </RowLink>
