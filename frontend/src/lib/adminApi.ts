@@ -115,6 +115,54 @@ export interface OutreachVersionSummary extends Record<ProspectStatus, number> {
   positive: number;
 }
 
+/**
+ * A business sent a free prospect SEO report, and the call that follows: the
+ * calls list. See _docs/seo-prospect-outreach.md.
+ */
+export type ReportProspectStatus = Exclude<ProspectStatus, 'signed_up'>;
+
+export interface ReportProspect {
+  id: number;
+  domain: string;
+  business: string;
+  slug: string;
+  report_version: string;
+  /** Where the report sits on the owner's machine. */
+  report_path: string;
+  contact_name: string;
+  email: string;
+  email_source: string;
+  phone: string;
+  overview: string;
+  issues: string[];
+  paid_searches: string[];
+  hours: number;
+  recommendation_count: number;
+  subject_version: number;
+  subject_label: string;
+  subject: string;
+  body: string;
+  sent_at: string | null;
+  status: ReportProspectStatus;
+  message_id: number | null;
+  called_at: string | null;
+  call_notes: string;
+  reply: ProspectReply;
+  reply_label: string;
+  excluded_reason: string;
+  created_at: string;
+  updated_at: string;
+}
+
+/** One subject line's tallies on the prospects page. */
+export interface ReportSubjectSummary extends Record<ReportProspectStatus, number> {
+  subject_version: number;
+  label: string;
+  total: number;
+  positive: number;
+  called: number;
+}
+
 export type SiteSettings = PublicSiteSettings;
 
 /** What a message is about. One field for any model, rather than a pair per relation. */
@@ -157,6 +205,7 @@ export const DEALER_TYPE = 'dealers.dealer';
 export const SEO_SUBSCRIBER_TYPE = 'seo.seosubscriber';
 export const AFFILIATE_TYPE = 'affiliates.affiliate';
 export const PROSPECT_TYPE = 'affiliates.podcastprospect';
+export const REPORT_PROSPECT_TYPE = 'seo.seoprospect';
 
 export async function getEnquiries(
   params: Record<string, string | number | undefined>,
@@ -293,6 +342,39 @@ export async function unsubscribeProspect(id: number): Promise<Prospect> {
 
 export async function getOutreachSummary(): Promise<{ versions: OutreachVersionSummary[] }> {
   return handleResponse(await authedFetch('/api/admin/outreach/summary/'));
+}
+
+export async function getReportProspects(
+  params: Record<string, string | number | undefined>,
+): Promise<Paginated<ReportProspect>> {
+  return handleResponse(await authedFetch(`/api/admin/seo/prospects/${queryString(params)}`));
+}
+
+export async function getReportProspect(id: number): Promise<ReportProspect> {
+  return handleResponse(await authedFetch(`/api/admin/seo/prospects/${id}/`));
+}
+
+export async function updateReportProspect(
+  id: number,
+  changes: Partial<Pick<ReportProspect, 'called_at' | 'call_notes' | 'reply' | 'excluded_reason'>>,
+): Promise<ReportProspect> {
+  return handleResponse(
+    await authedFetch(`/api/admin/seo/prospects/${id}/`, {
+      method: 'PATCH',
+      body: JSON.stringify(changes),
+    }),
+  );
+}
+
+/** A "no thanks" reply: the address goes on the suppression list. */
+export async function unsubscribeReportProspect(id: number): Promise<ReportProspect> {
+  return handleResponse(
+    await authedFetch(`/api/admin/seo/prospects/${id}/unsubscribe/`, { method: 'POST' }),
+  );
+}
+
+export async function getReportProspectSummary(): Promise<{ subjects: ReportSubjectSummary[] }> {
+  return handleResponse(await authedFetch('/api/admin/seo/prospects/summary/'));
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {

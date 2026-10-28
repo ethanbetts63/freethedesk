@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import SeoProfile, SeoSetupStep, SeoSubscriber
+from .models import SeoProfile, SeoProspect, SeoSetupStep, SeoSubscriber
 
 
 @admin.register(SeoSubscriber)
@@ -30,3 +30,11 @@ class SeoSetupStepAdmin(admin.ModelAdmin):
     list_filter = ("key", "state")
     search_fields = ("subscriber__business_name", "subscriber__email")
     readonly_fields = ("marked_done_at", "confirmed_at", "updated_at")
+
+
+@admin.register(SeoProspect)
+class SeoProspectAdmin(admin.ModelAdmin):
+    list_display = ("business", "domain", "email", "subject_version", "sent_at", "called_at", "reply")
+    list_filter = ("subject_version", "reply")
+    search_fields = ("business", "domain", "email", "contact_name")
+    readonly_fields = ("sent_at", "created_at", "updated_at")

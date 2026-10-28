@@ -23,3 +23,16 @@ def paid_seo_subscriber(seo_subscriber):
 @pytest.fixture
 def staff_user():
     return UserFactory(username="staff", email="staff@freethedesk.com.au", is_staff=True)
+
+
+@pytest.fixture(autouse=True)
+def _private_media(settings, tmp_path):
+    """Prospect reports are stored under PRIVATE_MEDIA_ROOT: keep a test's out of the real tree."""
+    settings.PRIVATE_MEDIA_ROOT = tmp_path
+
+
+@pytest.fixture
+def internal_key(settings):
+    """The upload endpoint's shared secret, set for a test."""
+    settings.INTERNAL_API_KEY = "a-shared-secret-of-thirty-two-chars!"
+    return settings.INTERNAL_API_KEY

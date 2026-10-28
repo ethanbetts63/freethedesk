@@ -1,12 +1,13 @@
 # SEO prospect outreach
 
-Planned 2026-10-28, not built. The prospect report pipeline in `../ftp_search`
+Planned and built 2026-10-28. The prospect report pipeline in `../ftp_search`
 finds Perth businesses paying for searches they do not win
 (`_search/prospecting/`), writes each a free ten-recommendation report, and
 publishes it with the email that goes with it
 (`_search/projects/<slug>/reports/<version>/email.txt`). This is the half that
-sends that email from this server and tracks the calls that follow. Until it is
-built, the owner sends each one by hand from the compose page.
+sends that email from this server and tracks the calls that follow. The first
+three (Rebus Legal, Hartley Plumbing, Solar 365, 28 October) went by hand from
+the compose page, before this existed; `send.py` refuses them.
 
 It copies the podcast outreach ([`affiliate-outreach.md`](affiliate-outreach.md))
 wherever it can: the upload by shared secret, the claim before the send, the
@@ -28,7 +29,8 @@ business-hours window, the message log as the status, the dashboard page.
   `{hours}` is the report's ask's figure and `{count}` its recommendation
   count, so a subject never disagrees with its report.
 - **Unsubscribe by reply.** The email ends "Reply 'no thanks' and I won't email
-  again." A reply that asks is suppressed with the dashboard's Unsubscribe
+  again." (the analyst's fixed wording; the server adds it if a body lacks
+  it). A reply that asks is suppressed with the dashboard's Unsubscribe
   action. The Spam Act requires a functional unsubscribe facility; a reply
   address is one.
 - **Plain text**, as pitches A and C: a note from one person, not a newsletter.
@@ -79,20 +81,28 @@ sent, replied and called per subject.
 
 ## The pipeline side (ftp_search)
 
-- `email.txt` gets one strict format, `Subject: …`, a blank line, the body, and
-  the deep check reads it as now. The analyst's subject is kept as option 3's
-  source text; the send uses the rotation.
+- `email.txt` has one strict format, `Subject: …`, a blank line, the body
+  (`_search/prompts/shared/analyst-prospect.md`), and the deep check reads it
+  as before. The analyst's subject is kept for a hand-sent copy; the send uses
+  the rotation.
 - `_search/tools/prospecting/send.py -p <slug>`: a new last step for a prospect
-  report, after publish. It reads `email.txt`, `published.json` and the
-  ledger's contact, warns when the address's domain is neither the site's nor
-  a webmail one, posts to the server, and marks the ledger entry `queued`;
-  `ledger.py sync` moves it to `sent` from the message log.
-- The shared secret sits in the env file `../freetheplatform`'s `env.py`
-  reads, never in a prompt or a file the run writes.
+  report, after publish (step 15 of `_search/prompts/01_delegator.md`). It
+  reads `email.txt`, the PDF, `report.json` (the ask's hours plus the owner's
+  one, the recommendation count, the three highest-impact titles) and the
+  ledger's contact; warns when the address's domain is neither the site's nor
+  a webmail one; refuses a business the message log shows was already sent a
+  report; posts; and marks the ledger entry `queued`. `ledger.py sync` moves
+  it to `sent` from the message log. `--dry-run` posts nothing.
+- The key and the address are this repository's own `INTERNAL_API_KEY` and
+  `API_SERVER_URL` (`DEV_API_SERVER_URL` with `--dev`) from `.env`, read by
+  `freetheplatform`'s `env.secret` and never printed: the same pair
+  `upload_prospects` uses.
 
-## Owner's steps when built
+## As built
 
-- Deploy, migrate, and check the hourly `send_affiliate_outreach` task exists on
-  PythonAnywhere.
-- Upload one test prospect addressed to yourself and read all five subjects in
-  a mail client before the first real one.
+`seo/models/prospect.py` and `storage.py` (migration `seo` 0018),
+`seo/utils/prospect_sending.py` (subjects, claim, send) and `prospects.py` (the
+composed status), `seo/views/prospects.py`, `seo/serializers/prospect.py`, the
+`--reports` count on `send_affiliate_outreach` (default 5 a run), and
+`frontend/src/app/dashboard/admin/prospects/`. Tests in `seo/tests/view_tests/`
+and `seo/tests/command_tests/`. The owner's deploy steps are in `to_do.md`.

@@ -57,6 +57,10 @@ const STATUS: StatusMap = {
   negative: { label: 'Negative', tone: 'var(--status-spam)' },
   none: { label: 'No reply', tone: 'var(--status-closed)' },
 
+  // Prospect reports: whether the owner has called the business yet.
+  to_call: { label: 'To call', tone: 'var(--status-new)' },
+  called: { label: 'Called', tone: 'var(--status-won)' },
+
   // Sale statuses, coloured by who the sale is waiting on rather than by how
   // far through it is: amber where the dealer has something to do, blue where
   // the customer does, purple once it is binding, green when it is finished.
@@ -139,6 +143,15 @@ export const prospectStatuses = [
   'excluded',
 ] as const;
 export const prospectReplies = ['none', 'positive', 'negative'] as const;
+export const reportProspectStatuses = [
+  'queued',
+  'sent',
+  'delivered',
+  'failed',
+  'bounced',
+  'suppressed',
+  'excluded',
+] as const;
 export const messageStatuses = [
   'queued',
   'sent',

@@ -1,6 +1,11 @@
 from django.urls import path
 
 from .views import (
+    AdminSeoProspectDetailView,
+    AdminSeoProspectListView,
+    AdminSeoProspectSummaryView,
+    AdminSeoProspectUnsubscribeView,
+    SeoProspectUploadView,
     AdminSeoSetupStepView,
     AdminSeoSubscriberDetailView,
     AdminSeoSubscriberListView,
@@ -24,6 +29,17 @@ urlpatterns = [
     path("seo/onboarding/", SeoOnboardingView.as_view(), name="seo-onboarding"),
     path("seo/setup/", SeoSetupView.as_view(), name="seo-setup"),
     path("seo/setup/<str:key>/mark/", SeoSetupMarkView.as_view(), name="seo-setup-mark"),
+    # The report pipeline, by shared secret: a published prospect report, queued to email.
+    path("seo/prospects/", SeoProspectUploadView.as_view(), name="seo-prospect-upload"),
+    # Staff: the calls list.
+    path("admin/seo/prospects/", AdminSeoProspectListView.as_view(), name="admin-seo-prospect-list"),
+    path("admin/seo/prospects/summary/", AdminSeoProspectSummaryView.as_view(), name="admin-seo-prospect-summary"),
+    path("admin/seo/prospects/<int:pk>/", AdminSeoProspectDetailView.as_view(), name="admin-seo-prospect-detail"),
+    path(
+        "admin/seo/prospects/<int:pk>/unsubscribe/",
+        AdminSeoProspectUnsubscribeView.as_view(),
+        name="admin-seo-prospect-unsubscribe",
+    ),
     path("admin/seo/", AdminSeoSubscriberListView.as_view(), name="admin-seo-list"),
     path("admin/seo/<int:pk>/", AdminSeoSubscriberDetailView.as_view(), name="admin-seo-detail"),
     path(

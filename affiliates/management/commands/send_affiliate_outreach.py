@@ -9,6 +9,7 @@ from freetheplatform.messaging import Suppression
 
 from affiliates.models import PodcastProspect
 from affiliates.utils.pitching import ACTIVE_VERSIONS, PAUSED_VERSIONS, next_version, pitch_figures, send_pitch
+from seo.utils import prospect_sending
 
 logger = logging.getLogger(__name__)
 
@@ -78,12 +79,16 @@ def claim(prospect, now):
 
 class Command(BaseCommand):
     help = (
-        "Sends the next few podcast pitches. Runs hourly on PythonAnywhere next to send_due_messages, "
+        "Sends the next few podcast pitches, then any queued prospect report emails "
+        "(_docs/seo-prospect-outreach.md). Runs hourly on PythonAnywhere next to send_due_messages, "
         "and only inside Perth business hours on weekdays unless --ignore-window is passed."
     )
 
     def add_arguments(self, parser):
         parser.add_argument("--count", type=int, default=3, help="Pitches to send this run (default 3).")
+        parser.add_argument(
+            "--reports", type=int, default=5, help="Prospect report emails to send this run (default 5)."
+        )
         parser.add_argument(
             "--ignore-window", action="store_true", help="Send now, whatever the hour. For a test send."
         )
@@ -117,3 +122,25 @@ class Command(BaseCommand):
             sent += 1
             self.stdout.write(f"{prospect.version.upper()} -> {prospect.email} ({prospect.podcast_name}): {message.status}")
         self.stdout.write(f"{sent} sent.")
+        self.send_reports(now, options["reports"], pause=bool(sent))
+
+    def send_reports(self, now, count, pause):
+        """The prospect report emails, in the same window, ten seconds apart like the pitches."""
+        sent = 0
+        for prospect in prospect_sending.eligible_prospects()[: count * 2]:
+            if sent >= count:
+                break
+            if not prospect_sending.claim(prospect, now):
+                continue
+            if sent or pause:
+                time.sleep(PAUSE_SECONDS)
+            # As for a pitch: the row stays claimed, and the failed message is in the log to resend.
+            try:
+                message = prospect_sending.send_prospect(prospect)
+            except Exception:
+                self.stderr.write(f"{prospect.email}: report email failed.")
+                logger.exception("Prospect report email failed for prospect %s", prospect.pk)
+                continue
+            sent += 1
+            self.stdout.write(f"Report {prospect.subject_version} -> {prospect.email} ({prospect.business}): {message.status}")
+        self.stdout.write(f"{sent} report email(s) sent.")

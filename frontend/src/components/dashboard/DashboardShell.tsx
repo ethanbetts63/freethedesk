@@ -4,6 +4,7 @@ import {
   Inbox,
   Mail,
   Mic,
+  Phone,
   ReceiptText,
   Search,
   Send,
@@ -25,6 +26,7 @@ const sections: DashboardNavSection[] = [
       { href: '/dashboard/admin/orders', label: 'Orders', icon: <ShoppingBag /> },
       { href: '/dashboard/admin/messages', label: 'Messages', icon: <Mail /> },
       { href: '/dashboard/admin/outreach', label: 'Outreach', icon: <Send /> },
+      { href: '/dashboard/admin/prospects', label: 'Prospects', icon: <Phone /> },
     ],
   },
   {

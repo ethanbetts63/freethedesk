@@ -127,6 +127,7 @@ kept as a lead to follow up on an abandoned checkout.
 | `Enquiry`      | `core/models/enquiry.py`       | `name`, `business`, `email`, `phone`, `website`, `message` (free text), `configuration` | none              |
 | `PackageOrder` | `core/models/package_order.py` | `email`, `phone`, `website`, `business_name`, `notes` (free text), `stripe_customer_id` | none              |
 | `PodcastProspect` | `affiliates/models/podcast_prospect.py` | `email`, `host_name`, `first_name`, `podcast_name`, `website`, `opener` (staff-written, about the show) | Scraped from the show's public RSS feed (`email_source`), a business address published for contact: the Spam Act's inferred consent. Every pitch carries an unsubscribe link that puts the address on messaging's suppression list; kept indefinitely so it is never pitched twice. See `affiliate-outreach.md`. |
+| `SeoProspect` | `seo/models/prospect.py` | `email`, `contact_name`, `phone`, `business`, `call_notes` (staff-written), and the prospect report PDF in `private-media/seo-prospects/` | From the business's own public pages (`email_source`), an address published for contact: the Spam Act's inferred consent. Every email ends with a reply-to-unsubscribe line, and a 'no thanks' is put on messaging's suppression list from the dashboard; kept indefinitely so it is never sent a second report. See `seo-prospect-outreach.md`. |
 
 `message` is free text on a public form, so it can contain anything the sender
 chose to put in it. Bounded at 2,000 characters, not filtered.
