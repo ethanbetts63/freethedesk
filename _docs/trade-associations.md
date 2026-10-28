@@ -1,47 +1,94 @@
-# Trade association partners
+# Business group partners
 
-How a trade or employer association becomes a freethedesk partner: what its
-members get, what the association earns, what it will ask for, and the order
-to approach them in. Planned in conversation on 28 October 2026; nothing is
-built or signed yet. It reuses the podcast affiliate machinery
-([`affiliate-program.md`](affiliate-program.md)): an association is an
-affiliate with a code, a landing page and a commission statement, plus a
-written agreement and a free report for its own site.
+How a local chamber of commerce or business association becomes a freethedesk
+partner: what its members get, what the group gets, what it will ask for, and
+the order to approach them in. Planned in conversation on 28 October 2026;
+nothing is built or signed yet. It reuses the podcast affiliate machinery
+([`affiliate-program.md`](affiliate-program.md)): a group is an affiliate with
+a code, a landing page and a commission statement, plus a written agreement
+and a free report for its own site.
 
-## Why associations
+## Decision (28 October 2026): start with the local groups
 
-One conversation reaches hundreds of owners through someone they already pay
-to be told things. The membership manager needs benefits to show the board;
-a free SEO report and a member discount cost the association nothing, so it
-is an easy win for them. Unions are not the target: they represent employees,
-not businesses. The targets are employer and trade associations, franchise
-groups, and the business networks.
+The first plan aimed at the state trade associations (Master Plumbers, HIA,
+MTA and the like). Read critically, that is too high for a business with two
+customers and no reviews:
+
+- Their digital category is usually sold to a paying sponsor (Thryv, hipages,
+  the tradie-website shops), and the partnerships manager's measure is
+  sponsorship revenue, so a free supplier is a cost to it.
+- An endorsement is their most guarded asset; they want a track record,
+  references and insurance, and a committee takes months, not weeks.
+- Their members skew to the established firms with an agency already. The
+  sole trader who needs freethedesk is not a member of anything.
+- 20% of a discounted audit is about $88; it motivates nobody.
+- The channel multiplies the free-report-to-paid-audit rate, which is still
+  unmeasured (three prospect reports sent, none converted yet).
+
+So the direction is **local chambers of commerce and business associations**:
+Joondalup Business Association, Rockingham Kwinana Chamber, Fremantle
+Chamber, Wanneroo, Swan, Armadale, Melville Cockburn, Mandurah, and the
+community business associations (Indian, Chinese, Vietnamese, Italian), where
+a mainstream agency never shows up. Each has 100 to 300 members, a newsletter,
+a volunteer committee that knows every member by name and says yes in a week,
+and membership of about $200 to $400 a year. Start with the one for the
+suburb freethedesk is in; local counts in these rooms.
+
+The aim of this stage is not revenue. It is the first ten reviews, five case
+studies and a measured conversion rate, with warm recipients who have met the
+owner. If warm recipients do not convert, cold ones never will. **Speaking
+slots and breakfast talks are not part of the plan** (owner's call): the
+channel is the listing, the newsletter and the free report, not events. The
+state associations come later, once there are reviews to show them, and only
+the ones with no digital sponsor in the footer and a bad website of their own.
+
+Two rooms, not eight: the relationship pays only if it is kept up, and the
+constraint is the owner's hours. Each free report is still about three hours
+of pipeline compute; spend the spare credits on this while they are spare.
+
+Reviews, within Google's rules: a report is never conditional on a review.
+Every member gets it free; two weeks later the follow-up asks whether it
+helped and, if so, for a line on Google. A review of a free report is a
+legitimate review. Testimonials for the freethedesk site have no such rule;
+ask every recipient. And ask the two existing customers first.
+
+## Why groups at all
+
+One conversation reaches a few hundred owners through a group they already
+pay to belong to. The committee needs benefits to show members at renewal; a
+free SEO report and a member discount cost the group nothing, so it is an
+easy yes. Unions are not the target: they represent employees, not
+businesses.
 
 ## Who to approach
 
-WA trade and employer associations first: Master Plumbers & Gasfitters WA,
-NECA WA (electricians), Master Builders WA, HIA WA, MTA WA, Master Painters
-WA, AIRAH or ARC (HVAC), the Clean Energy Council (national). Then CCIWA and
-the Small Business Development Corporation's network, then the smaller and
-faster ones: BNI chapters, the local chambers (Joondalup, Rockingham,
-Fremantle) and council business associations.
+The local chambers and business associations above, then the council
+business programs (Stirling, Joondalup, Swan, Wanneroo, Canning run free
+small-business networks and newsletters), then franchise groups. The state
+trade associations (Master Plumbers & Gasfitters WA, NECA WA, Master Builders
+WA, HIA WA, MTA WA, Master Painters WA, AIRAH/ARC, the Clean Energy Council)
+and CCIWA wait until there are reviews, and only where no digital sponsor is
+already listed.
 
-Inside each, the **membership manager** or partnerships manager is the
-person. Their job is to show the board that membership is worth the fee. The
-CEO signs; the membership manager champions.
+Inside a local group it is the **president or secretary**, volunteers who run
+the newsletter themselves. In a state association it is the membership or
+partnerships manager, whose job is to show the board that membership is worth
+the fee; the CEO signs, the manager champions.
 
 ## The offer
 
 Three layers, led with the first:
 
-1. **To the association:** a free report on its own site, before anyone has
-   to believe anything. Association sites are usually poor, so it lands.
+1. **To the group:** a free report on its own site, before anyone has to
+   believe anything. Chamber and association sites are usually poor, so it
+   lands, and it does the vetting for you.
 2. **To members:** a free prospect-style report for any member who asks, and
    20% off a paid audit with the member code (the affiliate discount,
    `affiliate_discount_percent`).
-3. **To the association's budget:** 20% of what members pay through the code,
-   for the first 12 months of each member, paid quarterly with a statement of
-   who. See the commission decision below.
+3. **To the group's budget:** 20% of what members pay through the code, for
+   the first 12 months of each member, paid quarterly with a statement of who.
+   It is not the motivator and should not lead the pitch; it is a quiet line
+   in the agreement. See the commission decision below.
 
 What is asked back is ordinary partner treatment: a listing on the
 member-benefits or preferred-supplier page, one newsletter feature at launch,
@@ -50,8 +97,8 @@ of X". The listing links to freethedesk because listings do. The link is not a
 term of the deal, so nothing needs marking as sponsored and there is no link
 scheme to explain.
 
-If an association pushes on money, 50% on the first audit only is the
-concession, never the opening.
+If a group pushes on money, 50% on the first audit only is the concession,
+never the opening.
 
 ## Commission decision (28 October 2026)
 
@@ -110,7 +157,14 @@ one.
 
 ## Order of attack
 
-One mid-sized association with a matching sample first: Master Plumbers WA
-with the Hartley report, or the CEC with Solar 365 to go national. Get one
-signed, then "endorsed partner of X" goes in the email to the next five. The
-first is the slow one; the rest see a precedent.
+1. Reviews from the two existing customers, this week.
+2. The agents build the list: every chamber and business association in Perth
+   metro, with suburb, membership cost, newsletter cadence, who runs it,
+   whether a digital partner already sits in its footer, and how its own site
+   fares on the fundamentals. Ranked by closeness to freethedesk and openness.
+3. Join the nearest one. Free report on its site, then the offer to the
+   committee.
+4. One quarter, a number to beat (member requests, reviews, paid audits),
+   decided before launch. If it hits, the second group; if not, stop.
+5. Once there are ten reviews and a conversion rate, the state associations,
+   with "partner of X chamber" in the email.
