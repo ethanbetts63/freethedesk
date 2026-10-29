@@ -5,6 +5,7 @@ from .views import (
     AdminSeoProspectListView,
     AdminSeoProspectSummaryView,
     AdminSeoProspectUnsubscribeView,
+    SeoMessageSendView,
     SeoProspectUploadView,
     AdminSeoSetupStepView,
     AdminSeoSubscriberDetailView,
@@ -31,6 +32,8 @@ urlpatterns = [
     path("seo/setup/<str:key>/mark/", SeoSetupMarkView.as_view(), name="seo-setup-mark"),
     # The report pipeline, by shared secret: a published prospect report, queued to email.
     path("seo/prospects/", SeoProspectUploadView.as_view(), name="seo-prospect-upload"),
+    # The same secret: one email written by hand, sent now, with files (the note after a call).
+    path("seo/messages/", SeoMessageSendView.as_view(), name="seo-message-send"),
     # Staff: the calls list.
     path("admin/seo/prospects/", AdminSeoProspectListView.as_view(), name="admin-seo-prospect-list"),
     path("admin/seo/prospects/summary/", AdminSeoProspectSummaryView.as_view(), name="admin-seo-prospect-summary"),

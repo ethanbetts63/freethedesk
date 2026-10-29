@@ -1,6 +1,8 @@
 from django.db import IntegrityError, transaction
 from django.db.models import Count, Q
-from freetheplatform.messaging import Suppression, is_suppressed, suppress
+from django.conf import settings
+from freetheplatform.messaging import Message, Suppression, is_suppressed, send, suppress
+from freetheplatform.messaging.utils import read_uploads
 from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -13,7 +15,7 @@ from core.utils.ordering import apply_ordering
 from core.utils.pagination import DashboardPagination
 
 from ..models import SeoProspect
-from ..serializers.prospect import AdminSeoProspectSerializer, SeoProspectUploadSerializer
+from ..serializers.prospect import AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectUploadSerializer
 from ..utils.prospect_sending import next_subject, subject_for
 from ..utils.prospects import STATUSES, with_status
 
@@ -75,6 +77,55 @@ class SeoProspectUploadView(APIView):
              "subject": subject_for(prospect)},
             status=status.HTTP_201_CREATED,
         )
+
+
+class SeoMessageSendView(APIView):
+    """`POST /api/seo/messages/`: one email written on the local machine, sent now, as given, with its files.
+
+    The note after a call ("thanks for taking my call, here it is again") and
+    any other one-off to a business the owner has spoken to. The upload above
+    refuses a business it already knows, which is right for a first contact and
+    wrong for a follow-up, so this one sends what it is given: the caller, on
+    the owner's word, decides. Plain text, the outreach sender when one is
+    configured, and related to the prospect row with the same address so the
+    dashboard shows it under the call. Its message type is not one of the
+    report's, so it never changes the row's emailed status. A suppressed
+    address is still stopped, by the sending path.
+    """
+
+    throttle_scope = "internal"  # A load limit; access is the shared secret.
+    authentication_classes = []
+    permission_classes = [IsInternalApiRequest]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request):
+        serializer = SeoMessageSendSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+        attachments = read_uploads(request.FILES.getlist("attachments"))
+        message = send(
+            to=data["to"],
+            channel="email",
+            message_type="seo_followup",
+            subject=data["subject"],
+            body=data["body"],
+            plain=True,
+            attachments=attachments,
+            related=SeoProspect.objects.filter(email=data["to"]).first(),
+            sender=settings.OUTREACH_SENDER,
+            meta={"composed_by": "internal-api"},
+        )
+        body = {
+            "id": message.pk, "status": message.status, "to": message.to, "subject": message.subject,
+            "attachments": message.attachments,
+        }
+        if message.status == Message.Status.SUPPRESSED:
+            return Response({"detail": "The message was not sent: the address is on the suppression list.", **body},
+                            status=status.HTTP_409_CONFLICT)
+        if message.status == Message.Status.FAILED:
+            return Response({"detail": f"The message was not sent and is recorded as failed: {message.error_message}",
+                             **body}, status=status.HTTP_502_BAD_GATEWAY)
+        return Response(body, status=status.HTTP_201_CREATED)
 
 
 class AdminSeoProspectListView(ListAPIView):

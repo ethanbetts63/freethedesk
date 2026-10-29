@@ -73,6 +73,16 @@ budget (100 a day across all mail). Claims with
 `filter(pk=..., sent_at__isnull=True).update(sent_at=now)`, then
 `send(..., attachments=[(name, pdf_bytes, "application/pdf")], related=prospect, plain=True)`.
 
+**Send by hand** `POST /api/seo/messages/`, `IsInternalApiRequest`, multipart
+`to`, `subject`, `body` and any `attachments` (added 2026-10-29, after the
+first follow-up went through the compose page). One email, sent now, as
+written, plain text, from the outreach sender; related to the prospect row with
+the same address, under its own message type `seo_followup` so the calls list's
+emailed status is untouched. It sends to a business the server already knows,
+which is the point: the one-per-business rule belongs to the first contact.
+Suppression still applies. Called by `outbox.py send` (below); never by the
+pipeline on its own.
+
 **Dashboard** `/dashboard/admin/prospects`, "Prospects" beside Outreach: the
 calls to-do list. Not yet called first, then by sent date. Each row: business,
 overview, issues, email, phone, emailed status and date, report path, a "Mark
@@ -108,10 +118,17 @@ sent, replied and called per subject.
   Owner's name and phone, ABN and rating from the ledger, the email's address,
   sent time and subject from the outbox, the ad sighting and who sat in the map
   box instead, every recommendation in one line with its page in the report,
-  then the call's opening, a line for each likely no, and the prices. The words
-  come from `_search/prospecting/call_script.md`, which the owner edits. The
-  call is not a sale: it checks the email arrived and points at one free fix.
-  The call itself is still logged on the dashboard, not on the brief.
+  then the call's opening and a line for each likely no. The words come from
+  `_search/prospecting/call_script.md`, which the owner edits. The call is not
+  a sale: it checks the email arrived and points at one free fix. The call
+  itself is still logged on the dashboard, not on the brief.
+- **The note after the call** (owner, 2026-10-29). `outbox.py send <slug>`
+  posts one email to `/api/seo/messages/` with the report attached again: the
+  "After the call" section of `call_script.md` (its first line the subject),
+  or `--body-file` in email.txt's shape, `--subject` to override, `--to` when
+  the address the brief knows is wrong, `--no-pdf` for words alone. It prints
+  the message id and status; the message log is the record. Only on the
+  owner's word, like approve and release.
 - The key and the address are this repository's own `INTERNAL_API_KEY` and
   `API_SERVER_URL` (`DEV_API_SERVER_URL` with `--dev`) from `.env`, read by
   `freetheplatform`'s `env.secret` and never printed: the same pair
@@ -121,7 +138,7 @@ sent, replied and called per subject.
 
 `seo/models/prospect.py` and `storage.py` (migration `seo` 0018),
 `seo/utils/prospect_sending.py` (subjects, claim, send) and `prospects.py` (the
-composed status), `seo/views/prospects.py`, `seo/serializers/prospect.py`, the
+composed status), `seo/views/prospects.py` (the upload, the send by hand, the staff views), `seo/serializers/prospect.py`, the
 `--reports` count on `send_affiliate_outreach` (default 5 a run), and
 `frontend/src/app/dashboard/admin/prospects/`. Tests in `seo/tests/view_tests/`
 and `seo/tests/command_tests/`. The owner's deploy steps are in `to_do.md`.

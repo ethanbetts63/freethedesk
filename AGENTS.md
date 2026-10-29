@@ -63,6 +63,35 @@ directory.
   Work commits straight onto main. See
   [`../freetheplatform/_docs/agent-workflow.md`](../freetheplatform/_docs/agent-workflow.md#branching).
 
+## The server from the terminal
+
+Three ways in, each with its own credential. None is the dashboard's login, so
+none needs a browser; an agent that opens Chrome to read or send what these
+cover is doing it the slow way.
+
+| Want                                                   | Call                                                                                                                                                                                                             | Credential                                                                                                                  |
+| ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Read a table: messages, prospects, orders, enquiries   | `python -m freetheplatform.searchconsole records -p freethedesk "records/?model=ftp_messaging.message&fields=to,subject,attachments,sent_at,status&order=-created_at&limit=20"`, run from `../ftp_search`         | `FREETHEDESK_READ_TOKEN` in `../ftp_search/.env`, a bearer token on `https://api.freethedesk.com.au/api/read/`; read-only   |
+| Queue a prospect report for the hourly send            | `POST /api/seo/prospects/` (multipart), through `../ftp_search/_search/tools/prospecting/outbox.py release`                                                                                                      | `INTERNAL_API_KEY` in this repository's `.env`, sent as `X-Internal-API-Key`; the base is `API_SERVER_URL` (`DEV_API_SERVER_URL` with `--dev`) |
+| Send one email now, as written, with files             | `POST /api/seo/messages/` (multipart `to`, `subject`, `body`, repeated `attachments`), through `outbox.py send <slug>`                                                                                           | the same key                                                                                                                |
+| Upload podcast prospects                               | `py manage.py upload_prospects` (see `affiliates/outreach_instructions.md`)                                                                                                                                      | the same key                                                                                                                |
+
+Rules:
+
+- Read a secret through `freetheplatform.searchconsole.env.secret` (or Django
+  settings on the server). Never print one, paste one into chat, or put one in a
+  command line or a URL.
+- The `/api/admin/...` endpoints take a staff session: they are the dashboard's,
+  not the terminal's. What the dashboard shows can be read from the read API
+  instead; what it does (mark a call, unsubscribe) is done in the dashboard.
+- A prospect report is posted only after the owner has read it and said so in
+  chat ([`_docs/seo-prospect-outreach.md`](_docs/seo-prospect-outreach.md)).
+  `/api/seo/messages/` sends at once and sends to anyone, so it is for the note
+  after a call, on the owner's word, never a first contact: that is the
+  prospect endpoint, with its one-per-business rule.
+- The message log (`ftp_messaging.message`) is the record of what was sent and
+  what became of it; read it before claiming anything went or did not go.
+
 ## Verification
 
 | Changed area                              | Commands from repository root                                                                         |

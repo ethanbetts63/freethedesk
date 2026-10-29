@@ -6,6 +6,7 @@ from freetheplatform.messaging import Suppression, is_suppressed, suppress
 
 from seo.models import SeoProspect
 from seo.tests.factories import PDF, SeoProspectFactory, upload_fields
+from seo.utils.prospects import with_status
 
 pytestmark = pytest.mark.django_db
 
@@ -136,3 +137,47 @@ def test_the_summary_counts_each_subject(api_client, staff_user):
 
 def test_staff_only(api_client):
     assert api_client.get(reverse("admin-seo-prospect-list")).status_code in (401, 403)
+
+
+def send_by_hand(api_client, key, **overrides):
+    data = {
+        "to": "sales@perthpatiomagic.com.au", "subject": "Your report again", "body": "Thanks for taking my call.",
+        "attachments": SimpleUploadedFile("report.pdf", PDF, content_type="application/pdf"), **overrides,
+    }
+    return api_client.post(reverse("seo-message-send"), data, format="multipart", HTTP_X_INTERNAL_API_KEY=key)
+
+
+def test_an_email_written_by_hand_goes_as_given_with_its_file(api_client, internal_key, outbox):
+    prospect = SeoProspectFactory()
+
+    response = send_by_hand(api_client, internal_key, to=prospect.email)
+
+    assert response.status_code == 201
+    assert response.json()["status"] == "sent"
+    [message] = outbox
+    assert message.to == prospect.email
+    assert message.subject == "Your report again"
+    assert message.body_text == "Thanks for taking my call."
+    assert message.body_html == ""
+    assert message.message_type == "seo_followup"
+    assert message.attachments == [{"name": "report.pdf", "size": len(PDF)}]
+    assert message.content_object == prospect
+
+
+def test_a_note_after_the_call_leaves_the_report_email_status_alone(api_client, internal_key, outbox):
+    prospect = SeoProspectFactory(sent_at=timezone.now())
+    send_by_hand(api_client, internal_key, to=prospect.email)
+    assert with_status(SeoProspect.objects.all()).get(pk=prospect.pk).status == "queued"
+
+
+def test_a_suppressed_address_is_not_emailed_by_hand_either(api_client, internal_key, outbox):
+    suppress("sales@perthpatiomagic.com.au", reason=Suppression.Reason.OPTED_OUT)
+    response = send_by_hand(api_client, internal_key)
+    assert response.status_code == 409
+    assert outbox == []
+
+
+def test_a_staff_login_does_not_open_the_terminal_endpoint(api_client, internal_key, staff_user, outbox):
+    api_client.force_authenticate(staff_user)
+    assert send_by_hand(api_client, "wrong").status_code == 403
+    assert outbox == []

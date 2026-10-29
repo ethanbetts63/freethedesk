@@ -8,6 +8,26 @@ from ..utils.prospect_sending import subject_for
 MAX_PDF_BYTES = 15 * 1024 * 1024
 
 
+class SeoMessageSendSerializer(serializers.Serializer):
+    """One email written on the local machine and sent as given (multipart). ``attachments`` are read from the
+    request's files by the view, because a multipart request repeats the key once per file."""
+
+    to = serializers.EmailField()
+    subject = serializers.CharField(max_length=500)
+    body = serializers.CharField(max_length=10000)
+
+    def validate_to(self, value):
+        return value.strip().lower()
+
+    def validate_subject(self, value):
+        return value.strip()
+
+    def validate_body(self, value):
+        if not value.strip():
+            raise serializers.ValidationError("An email body is required.")
+        return value.strip()
+
+
 class SeoProspectUploadSerializer(serializers.Serializer):
     """One published prospect report, as the pipeline's ``send.py`` posts it (multipart)."""
 

@@ -124,6 +124,7 @@ Added 2026-10-28. Owner's step. Built: the automated prospect report email and t
 
 - Run `migrate` for `seo` 0018, Django before the frontend. The hourly `send_affiliate_outreach` task now sends queued report emails too, so no new scheduled task.
 - `private-media/seo-prospects/` holds the queued PDFs; it sits under the existing `private-media/`.
+- Added 2026-10-29, same deploy, no migration: `POST /api/seo/messages/`, the note after a call sent from the terminal (`outbox.py send <slug>`). Until it is deployed the compose page is the way to resend a report.
 - Before the first real one, send a test to yourself from `../ftp_search`, on a published prospect report not yet sent: `python _search/tools/prospecting/outbox.py add -p <slug> --to <your address>`, then `approve <slug>` and `release <slug>`. Read it in a mail client after the next hourly run. Its row on /dashboard/admin/prospects then holds that slug and address, so delete it in the Django admin before the real one is added.
 
 ## Affiliate share from 50% to 20%
