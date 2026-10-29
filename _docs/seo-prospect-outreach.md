@@ -102,6 +102,16 @@ sent, replied and called per subject.
   awaiting approval) and marks the ledger entry `queued`. Approval and release
   happen only on the owner's word; no pipeline step does either. `outbox.py
   sync` and `ledger.py sync` move it to `sent` from the message log.
+- **The call brief** (owner, 2026-10-29). `release` and `sync` print
+  `_search/projects/<slug>/reports/<version>/call_brief.pdf`
+  (`_search/tools/prospecting/brief.py`): one A4 page to read while phoning.
+  Owner's name and phone, ABN and rating from the ledger, the email's address,
+  sent time and subject from the outbox, the ad sighting and who sat in the map
+  box instead, every recommendation in one line with its page in the report,
+  then the call's opening, a line for each likely no, and the prices. The words
+  come from `_search/prospecting/call_script.md`, which the owner edits. The
+  call is not a sale: it checks the email arrived and points at one free fix.
+  The call itself is still logged on the dashboard, not on the brief.
 - The key and the address are this repository's own `INTERNAL_API_KEY` and
   `API_SERVER_URL` (`DEV_API_SERVER_URL` with `--dev`) from `.env`, read by
   `freetheplatform`'s `env.secret` and never printed: the same pair
