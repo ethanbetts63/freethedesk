@@ -129,6 +129,12 @@ sent, replied and called per subject.
   releases on the owner's word; opens the report, brief, site, listing and
   freethedesk.com.au/seo in Chrome for a call; records the call with
   `outbox.py called`; resends with `outbox.py send`.
+- **The call recorded** (owner, 2026-10-29). `record.py <slug>` records the
+  laptop's microphone with the phone on speaker, stops on Enter, transcribes
+  with Whisper small.en through faster-whisper on the CPU, and writes the
+  audio (not committed) and a numbered transcript under the report's `calls/`,
+  noted on the outbox row. The call opens by asking consent to record (WA).
+  The transcript is what the owner and the agent go over afterwards.
 - **The note after the call** (owner, 2026-10-29). `outbox.py send <slug>`
   posts one email to `/api/seo/messages/` with the report attached again: the
   "After the call" section of `call_script.md` (its first line the subject),
