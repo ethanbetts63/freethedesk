@@ -122,6 +122,13 @@ sent, replied and called per subject.
   `_search/prospecting/call_script.md`, which the owner edits. The call is not
   a sale: it checks the email arrived and points at one free fix. The call
   itself is still logged on the dashboard, not on the brief.
+- **The outreach agent** (owner, 2026-10-29). `_search/prompts/outreach.md`: told
+  "you are my outreach agent", it runs `outbox.py sync` and `outbox.py todo`
+  and says what awaits review (full paths) and what was sent and not yet
+  called (with the brief); makes small edits and republishes; approves and
+  releases on the owner's word; opens the report, brief, site, listing and
+  freethedesk.com.au/seo in Chrome for a call; records the call with
+  `outbox.py called`; resends with `outbox.py send`.
 - **The note after the call** (owner, 2026-10-29). `outbox.py send <slug>`
   posts one email to `/api/seo/messages/` with the report attached again: the
   "After the call" section of `call_script.md` (its first line the subject),
