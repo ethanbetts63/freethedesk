@@ -25,11 +25,16 @@ The queue is `affiliates/data/podcasts.jsonl`, one JSON object per line. Count
 the entries already in it and scrape the shortfall:
 
 ```powershell
-py manage.py scrape_podcasts --batch <shortfall>
+py manage.py scrape_podcasts --batch <shortfall> --terms "small business" tradie "marketing agency"
 ```
 
 `--batch` is the number of qualifying entries to write, not a number of search
-terms. The command walks the iTunes AU store term by term (`aa` to `zz`), keeps
+terms. Search by `--terms` first: only high-fit shows are pitched, and a word
+like "small business", "tradie", "business owner", "ecommerce", "real estate
+agent", "bookkeeping" or "business coach" finds in one term what the alphabet
+walk finds in twenty (one in sixteen of the walk's shows rated high on
+2026-10-30). The walk, without `--terms`, is the fallback when the words run
+dry; it alone moves the cursor. The command walks the iTunes AU store term by term (`aa` to `zz`), keeps
 small shows with a recent episode and a published contact address, and keeps
 going until it has written that many. The AU store is only a proxy for
 Australian shows; foreign hosts are fine, there is no country step.

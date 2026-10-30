@@ -90,9 +90,12 @@ opener written about their show.
 
 ## Stage 2 — Scrape and write, locally
 
-**Command** `scrape_podcasts --batch N`. A port
+**Command** `scrape_podcasts --batch N [--terms ...]`. A port
 of `bloomprint/marketing/utils/scraper.py` with the same filters and the same
-term-by-term loop, writing to `affiliates/data/podcasts.jsonl`. Changes:
+term-by-term loop, writing to `affiliates/data/podcasts.jsonl`. `--terms`
+searches the words given ("small business", "tradie") instead of walking the
+alphabet, since only high-fit shows are pitched (2026-10-30); it records the
+feeds it tried but leaves the walk's cursor alone. Changes:
 
 - The cursor files are JSON, not Python modules loaded with `exec`.
 - No `planned_emails` file. The server is the dedupe, at upload (stage 3). The
