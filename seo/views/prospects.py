@@ -65,7 +65,7 @@ class SeoProspectUploadView(APIView):
             with transaction.atomic():
                 prospect = SeoProspect(
                     **data, subject_version=next_subject(has_search=bool(data.get("paid_searches"))),
-                    body_version=next_body(),
+                    body_version=next_body(data.get("purpose", SeoProspect.Purpose.CLIENT)),
                 )
                 prospect.report_pdf.save(f"{data['slug']}_{data['report_version']}.pdf", pdf, save=False)
                 prospect.save()
@@ -74,9 +74,9 @@ class SeoProspectUploadView(APIView):
             return Response({"outcome": "already_known", "detail": "A prospect with these details exists."},
                             status=status.HTTP_409_CONFLICT)
         return Response(
-            {"outcome": "queued", "id": prospect.pk, "subject_version": prospect.subject_version,
-             "subject": subject_for(prospect), "body_version": prospect.body_version,
-             "body_label": prospect.get_body_version_display()},
+            {"outcome": "queued", "id": prospect.pk, "purpose": prospect.purpose,
+             "subject_version": prospect.subject_version, "subject": subject_for(prospect),
+             "body_version": prospect.body_version, "body_label": prospect.get_body_version_display()},
             status=status.HTTP_201_CREATED,
         )
 

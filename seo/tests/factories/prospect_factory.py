@@ -7,7 +7,7 @@ PDF = b"%PDF-1.7\n% a prospect report\n"
 
 
 def upload_fields(**overrides) -> dict:
-    """One published report, as the pipeline's send.py posts it (the PDF apart)."""
+    """One published report, as the pipeline's outbox.py posts it (the PDF apart)."""
     return {
         "domain": "perthpatiomagic.com.au",
         "business": "Perth Patio Magic",
@@ -22,7 +22,6 @@ def upload_fields(**overrides) -> dict:
         "issues": ["No pergola page", "The home page has no heading"],
         "paid_searches": ["pergolas perth"],
         "recommendation_count": 10,
-        "body": "Hi Reece,\n\nI picked Perth Patio Magic because...\n\nEthan Betts",
         **overrides,
     }
 
@@ -43,4 +42,3 @@ class SeoProspectFactory(factory.django.DjangoModelFactory):
     paid_searches = factory.LazyFunction(lambda: ["plumber perth"])
     recommendation_count = 10
     subject_version = 1
-    body = "Hi there,\n\nThe report is attached.\n\nEthan Betts"

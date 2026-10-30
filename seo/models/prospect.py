@@ -7,9 +7,12 @@ class SeoProspect(models.Model):
     """A business sent a free prospect SEO report, and the call that follows it.
 
     Rows arrive through ``POST /api/seo/prospects/`` from the report pipeline
-    (``../ftp_search``, ``_search/tools/prospecting/send.py``) once a report is
-    published, and are never updated by it: one report per business. The
-    hourly ``send_affiliate_outreach`` run emails each in Perth business hours.
+    (``../ftp_search``, ``_search/tools/prospecting/outbox.py release``) once
+    the owner has approved a published report, and are never updated by it:
+    one report per business. The hourly ``send_affiliate_outreach`` run emails
+    each in Perth business hours. The report is the same whatever the
+    ``purpose``; the email differs: a business is asked to consider the paid
+    report, a podcast host is offered the affiliate program.
     Whether and when it was emailed is the message log (``related=prospect``,
     ``message_type="seo_prospect.<subject>"``); the row holds the claim, and
     what only the owner knows: that they called, and what was said. See
@@ -25,11 +28,19 @@ class SeoProspect(models.Model):
         FOUR = 4, "4: A free SEO report for the business"
         FIVE = 5, "5: Not on Google's first page"
 
-    class Body(models.IntegerChoices):
-        """The two email bodies in ``seo/utils/prospect_sending.py``, tested against each other like the subjects."""
+    class Purpose(models.TextChoices):
+        """Why the report was written: a business we hope will buy the full one, or a podcast host we hope will join."""
 
-        ANALYST = 1, "1: the analyst's email"
+        CLIENT = "client", "Client"
+        AFFILIATE = "affiliate", "Affiliate"
+
+    class Body(models.IntegerChoices):
+        """The email bodies in ``seo/utils/prospect_sending.py``. A client gets 1 or 2, levelled like the
+        subjects so the two can be read against each other; an affiliate gets 3."""
+
+        REPORT = 1, "1: the report email"
         BET = 2, "2: the three-hour bet"
+        AFFILIATE = 3, "3: the affiliate offer"
 
     class Reply(models.TextChoices):
         NONE = "none", "No reply"
@@ -59,10 +70,12 @@ class SeoProspect(models.Model):
     paid_searches = models.JSONField(default=list)
     # The report's own count, so subject 2 agrees with it. Every report says three hours (owner, 2026-10-30).
     recommendation_count = models.PositiveSmallIntegerField()
+    purpose = models.CharField(max_length=10, choices=Purpose.choices, default=Purpose.CLIENT, db_index=True)
     subject_version = models.PositiveSmallIntegerField(choices=Subject.choices, db_index=True)
-    body_version = models.PositiveSmallIntegerField(choices=Body.choices, default=Body.ANALYST, db_index=True)
-    # The analyst's email body, signature included: what body 1 sends. Body 2 is the server's fixed text.
-    body = models.TextField()
+    body_version = models.PositiveSmallIntegerField(choices=Body.choices, default=Body.REPORT, db_index=True)
+    # Rows before 2026-10-30 carried the analyst's email, which body 1 sent as written; it is kept for them.
+    # Since then every body is the server's text around the row's own fields, and this is empty.
+    body = models.TextField(blank=True)
     # What the business counts, for body 2's bet: bookings, calls, quotes, sales.
     metric = models.CharField(max_length=40, default="bookings")
     # Set by the cron's claim before the send. Null means still queued.

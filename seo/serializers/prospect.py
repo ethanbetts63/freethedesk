@@ -29,7 +29,11 @@ class SeoMessageSendSerializer(serializers.Serializer):
 
 
 class SeoProspectUploadSerializer(serializers.Serializer):
-    """One published prospect report, as the pipeline's ``send.py`` posts it (multipart)."""
+    """One published prospect report, as the pipeline's ``outbox.py release`` posts it (multipart).
+
+    No email body: the server composes every body from these fields. ``body``
+    is still taken, blank, from an older outbox.
+    """
 
     domain = serializers.CharField(max_length=255)
     business = serializers.CharField(max_length=255)
@@ -47,7 +51,10 @@ class SeoProspectUploadSerializer(serializers.Serializer):
         child=serializers.CharField(max_length=200), max_length=10, required=False
     )
     recommendation_count = serializers.IntegerField(min_value=1, max_value=50)
-    body = serializers.CharField(max_length=10000)
+    # A business we hope will buy the full report, or a podcast host we hope will join the affiliate program.
+    purpose = serializers.ChoiceField(choices=SeoProspect.Purpose.choices, required=False,
+                                      default=SeoProspect.Purpose.CLIENT)
+    body = serializers.CharField(max_length=10000, required=False, allow_blank=True, default="")
     # What the business counts, for the second body's bet.
     metric = serializers.CharField(max_length=40, required=False, default="bookings")
 
@@ -83,7 +90,7 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
         fields = [
             "id", "domain", "business", "slug", "report_version", "report_path", "contact_name",
             "email", "email_source", "phone", "overview", "issues", "paid_searches",
-            "recommendation_count", "subject_version", "subject_label", "subject",
+            "recommendation_count", "purpose", "subject_version", "subject_label", "subject",
             "body_version", "body_label", "metric", "body", "email_body",
             "sent_at", "status", "message_id", "called_at", "call_notes", "reply", "reply_label",
             "excluded_reason", "created_at", "updated_at",
@@ -91,7 +98,7 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
         read_only_fields = [
             "id", "domain", "business", "slug", "report_version", "report_path", "contact_name",
             "email", "email_source", "phone", "overview", "issues", "paid_searches",
-            "recommendation_count", "subject_version", "subject_label", "subject",
+            "recommendation_count", "purpose", "subject_version", "subject_label", "subject",
             "body_version", "body_label", "metric", "body", "email_body",
             "sent_at", "status", "message_id", "reply_label", "created_at", "updated_at",
         ]
@@ -105,5 +112,5 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
         return subject_for(obj)
 
     def get_email_body(self, obj) -> str:
-        """The body as it goes, or went: body 2 filled in, or the analyst's with the way out."""
+        """The body as it goes, or went, composed from the row."""
         return body_for(obj)

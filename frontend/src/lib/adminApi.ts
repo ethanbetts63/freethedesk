@@ -137,17 +137,19 @@ export interface ReportProspect {
   issues: string[];
   paid_searches: string[];
   recommendation_count: number;
+  /** A business we hope will buy the full report, or a podcast host we hope will join the affiliate program. */
+  purpose: 'client' | 'affiliate';
   subject_version: number;
   subject_label: string;
   subject: string;
-  /** 1 is the analyst's email; 2 the owner's fixed "three-hour bet". Levelled like the subjects. */
+  /** A client gets 1 (the report email) or 2 (the owner's "three-hour bet"), levelled; an affiliate gets 3. */
   body_version: number;
   body_label: string;
   /** What the business counts, named in body 2: bookings, calls, quotes, sales. */
   metric: string;
-  /** The analyst's email body; what body 1 sends. */
+  /** The analyst's email, on rows from before the server composed every body; empty since. */
   body: string;
-  /** The body as it goes or went: body 2 filled in, or the analyst's with the way out. */
+  /** The body as it goes or went, composed from the row. */
   email_body: string;
   sent_at: string | null;
   status: ReportProspectStatus;

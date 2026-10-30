@@ -133,9 +133,9 @@ Owner's steps, after that is deployed:
 5. Add `outreach.freethedesk.com.au` to Google Postmaster Tools.
 6. Warm up: `--count 1` on the hourly task for the first two weeks (about 10 a day), then `--count 3`. Stop if Postmaster shows complaints above 0.3%.
 
-## Deploy the second report email body
+## Deploy the composed report emails
 
-Added 2026-10-30. Owner's step. On the Django deploy run `migrate` for `seo` 0019 (the body version and the metric word on each prospect; the hours column goes). Deploy the frontend with it: the prospects page reads the body tallies from the summary. From then on each released report draws body 1 or 2, whichever has fewer; the four queued on 29 October are body 1 with their counted hours. See [`seo-prospect-outreach.md`](seo-prospect-outreach.md).
+Added 2026-10-30. Owner's step. On the Django deploy run `migrate` for `seo` 0019 and 0020 (the body version and the metric word on each prospect, the hours column goes; then `purpose` and the third body). Deploy the frontend with it: the prospects page reads the body tallies from the summary. From then on the server composes every report email from the row (the pipeline writes none): a client report draws body 1 or 2, whichever has fewer, an affiliate report gets body 3; the rows released before the deploy still carry and send the analyst's email. Release no report from `outbox.py` between pulling ftp_search and deploying this: the new outbox sends no `body`, which the old server refuses. See [`seo-prospect-outreach.md`](seo-prospect-outreach.md).
 
 ## Deploy the paused podcast pitches
 

@@ -27,6 +27,7 @@ def test_a_published_report_is_queued_with_its_pdf(api_client, internal_key):
     assert body["subject"] == "I spent 3 hours on this. I am not a bot."
     assert prospect.subject_version == 1
     assert (body["body_version"], prospect.body_version, prospect.metric) == (1, 1, "bookings")
+    assert (body["purpose"], prospect.purpose, prospect.body) == ("client", "client", "")
     assert prospect.issues == ["No pergola page", "The home page has no heading"]
     assert prospect.paid_searches == ["pergolas perth"]
     assert prospect.sent_at is None
@@ -47,6 +48,21 @@ def test_bodies_alternate_so_each_gets_half(api_client, internal_key):
                metric="calls" if n == 1 else "bookings")
     assert list(SeoProspect.objects.order_by("id").values_list("body_version", flat=True)) == [1, 2, 1, 2, 1]
     assert SeoProspect.objects.get(slug="b1").metric == "calls"
+
+
+def test_an_affiliate_prospect_gets_the_affiliate_body_and_leaves_the_client_test_level(api_client, internal_key):
+    """A podcast host's report takes body 3 every time; the two client bodies go on alternating between clients."""
+    upload(api_client, internal_key, domain="b0.com.au", slug="b0", email="o@b0.com.au")
+    response = upload(api_client, internal_key, domain="peachbm.com.au", slug="peachbm", email="fi@peachbm.com.au",
+                      business="Money Secrets", purpose="affiliate", paid_searches=[])
+    upload(api_client, internal_key, domain="b2.com.au", slug="b2", email="o@b2.com.au")
+
+    assert response.status_code == 201
+    assert (response.json()["purpose"], response.json()["body_version"]) == ("affiliate", 3)
+    assert response.json()["body_label"] == "3: the affiliate offer"
+    assert list(SeoProspect.objects.order_by("id").values_list("purpose", "body_version")) == [
+        ("client", 1), ("affiliate", 3), ("client", 2),
+    ]
 
 
 def test_with_no_paid_search_the_subjects_that_name_one_are_skipped(api_client, internal_key):
