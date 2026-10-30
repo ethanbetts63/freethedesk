@@ -85,6 +85,16 @@ Added 2026-10-24, rewritten 2026-10-25. Owner's steps. The program is built and 
 
 Paying out is not built. Commissions sit as "Owed" on the affiliate's staff page; settle the first ones by bank transfer and note it there. The build is Stripe Connect Express per affiliate and a transfer per commission, as Bloomprint's `partners` app does; it needs Connect enabled on the freethedesk Stripe account first.
 
+## Deploy the high-fit-only pitch rule
+
+Added 2026-10-30. Owner's step. After pulling, the first hourly run of
+`send_affiliate_outreach` sets aside every queued prospect rated medium or low
+(about 171 of the 194 queued on 2026-10-30) with an `excluded_reason` saying so;
+they show as "Excluded" on /dashboard/admin/outreach, reversible on each one's
+page. Only the 23 queued high-fit rows, and high-fit uploads after them, are ever
+pitched, under the one subject line "Affiliate commission offer for {podcast}".
+The pitches themselves stay paused until the task passes `--count`. No migration.
+
 ## Podcast outreach: owner's steps before the cron is enabled
 
 Added 2026-10-25, updated 2026-10-26. The first 302 prospects were uploaded on

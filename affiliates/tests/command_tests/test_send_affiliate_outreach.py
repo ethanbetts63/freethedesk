@@ -80,6 +80,39 @@ def test_sends_the_oldest_eligible_prospects_and_claims_them(outbox, monkeypatch
     assert [m.to for m in outbox] == [first.email, second.email, third.email]
 
 
+def test_only_a_high_fit_show_is_pitched_and_the_rest_are_set_aside(outbox, monkeypatch):
+    high = ProspectFactory(relevance="high")
+    medium = ProspectFactory(relevance="medium")
+    low = ProspectFactory(relevance="low")
+    unrated = ProspectFactory(relevance="")
+
+    output = run("--count", "5", now=perth(26, 10), monkeypatch=monkeypatch)
+
+    assert "2 set aside: not high fit." in output
+    assert "1 queued without a rating; none of them is pitched." in output
+    assert [m.to for m in outbox] == [high.email]
+    for prospect in (medium, low, unrated):
+        prospect.refresh_from_db()
+        assert prospect.pitched_at is None
+    assert medium.excluded_reason == low.excluded_reason == command.UNFIT_REASON
+    # Never judged, so neither pitched nor set aside; it waits for a rating.
+    assert unrated.excluded_reason == ""
+
+
+def test_the_set_aside_sweep_runs_while_the_pitches_are_paused(outbox, monkeypatch):
+    low = ProspectFactory(relevance="low")
+    pitched_low = ProspectFactory(relevance="low", pitched_at=perth(20, 10))
+
+    output = run(now=perth(26, 10), monkeypatch=monkeypatch)
+
+    assert "1 set aside: not high fit." in output
+    assert outbox == []
+    low.refresh_from_db()
+    pitched_low.refresh_from_db()
+    assert low.excluded_reason == command.UNFIT_REASON
+    assert pitched_low.excluded_reason == ""  # sent rows are history
+
+
 def test_a_queued_prospect_on_the_paused_version_is_moved_and_a_sent_one_is_not(outbox, monkeypatch):
     queued = ProspectFactory(version="b")
     pitched = ProspectFactory(version="b", pitched_at=perth(20, 10))

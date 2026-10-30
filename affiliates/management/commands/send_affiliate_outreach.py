@@ -26,14 +26,41 @@ def in_sending_window(now):
     return local.weekday() < 5 and WINDOW_START <= local.hour < WINDOW_END
 
 
+# What `set_aside_unfit` writes on a queued medium or low row. Blanking it on the
+# prospect's page is the way back, and only a high rating makes the row eligible.
+UNFIT_REASON = "Not a high-fit show: only high relevance is pitched (owner, 2026-10-30)."
+
+
+def queued_prospects():
+    """Never claimed, not excluded, not signed up: the rows a rating still decides."""
+    return PodcastProspect.objects.filter(pitched_at__isnull=True, excluded_reason="", affiliate__isnull=True)
+
+
 def eligible_prospects():
-    """Queued, not excluded, not signed up, and not on the suppression list; oldest first."""
+    """Queued, rated high fit, and not on the suppression list; oldest first.
+
+    Only a high-fit show is pitched (owner, 2026-10-30: 108 pitches to the whole
+    list, 58% of it rated low, drew no reply and three spam complaints). An
+    unrated row is never pitched either; it waits for a rating.
+    """
     suppressed = Suppression.objects.filter(channel="email").values("address")
     return (
-        PodcastProspect.objects.filter(pitched_at__isnull=True, excluded_reason="", affiliate__isnull=True)
+        queued_prospects()
+        .filter(relevance=PodcastProspect.Relevance.HIGH)
         .exclude(email__in=suppressed)
         .order_by("created_at", "id")
     )
+
+
+def set_aside_unfit():
+    """Exclude the queued rows rated medium or low, so the dashboard shows them set aside, not waiting.
+
+    Runs every hour, paused or not, so the list is honest the run after the rule
+    lands. Unrated rows are left queued: they were never judged.
+    """
+    return queued_prospects().filter(
+        relevance__in=[PodcastProspect.Relevance.MEDIUM, PodcastProspect.Relevance.LOW]
+    ).update(excluded_reason=UNFIT_REASON, updated_at=timezone.now())
 
 
 def reassign_paused():
@@ -81,8 +108,8 @@ class Command(BaseCommand):
     help = (
         "Sends any queued prospect report emails (_docs/seo-prospect-outreach.md), and the next few "
         "podcast pitches when --count says so: the pitches are paused (owner, 2026-10-30), so the default "
-        "sends none. Runs hourly on PythonAnywhere next to send_due_messages, and only inside Perth "
-        "business hours on weekdays unless --ignore-window is passed."
+        "sends none, and only a show rated high fit is ever pitched. Runs hourly on PythonAnywhere next to "
+        "send_due_messages, and only inside Perth business hours on weekdays unless --ignore-window is passed."
     )
 
     def add_arguments(self, parser):
@@ -103,6 +130,18 @@ class Command(BaseCommand):
             self.stdout.write("Outside the sending window; nothing sent.")
             return
 
+        set_aside = set_aside_unfit()
+        if set_aside:
+            self.stdout.write(f"{set_aside} set aside: not high fit.")
+        unrated = queued_prospects().filter(relevance="").count()
+        if unrated:
+            self.stdout.write(f"{unrated} queued without a rating; none of them is pitched.")
+        set_aside = set_aside_unfit()
+        if set_aside:
+            self.stdout.write(f"{set_aside} set aside: not high fit.")
+        unrated = queued_prospects().filter(relevance="").count()
+        if unrated:
+            self.stdout.write(f"{unrated} queued without a rating; none of them is pitched.")
         sent = 0
         if options["count"]:
             moved = reassign_paused()

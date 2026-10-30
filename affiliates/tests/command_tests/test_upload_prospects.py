@@ -60,6 +60,34 @@ def test_accepted_lines_are_archived_and_refused_lines_stay(data_dir, monkeypatc
     ]
 
 
+def test_only_high_fit_entries_are_uploaded_and_the_rest_are_set_aside_or_kept(data_dir, monkeypatch, settings, internal_key):
+    settings.API_SERVER_URL = "https://www.freethedesk.com.au"
+    scraper.save_queue([
+        entry(email="high@example.com", relevance="high"),
+        entry(email="medium@example.com", relevance="medium"),
+        entry(email="low@example.com", relevance="low"),
+        entry(email="unrated@example.com", relevance=""),
+    ])
+    posted = []
+
+    def fake_post(url, json=None, headers=None, timeout=None):
+        posted.extend(e["email"] for e in json["entries"])
+        return FakeResponse([{"email": e["email"], "outcome": "created"} for e in json["entries"]])
+
+    monkeypatch.setattr(command.requests, "post", fake_post)
+
+    output = run()
+
+    assert posted == ["high@example.com"]
+    assert "2 set aside as not high fit, archived unsent." in output
+    assert "1 unrated entries stay in the queue." in output
+    assert [e["email"] for e in scraper.load_queue()] == ["unrated@example.com"]
+    set_aside = next((data_dir / "archive").glob("*-set-aside.jsonl"))
+    assert [json.loads(line)["email"] for line in set_aside.read_text(encoding="utf-8").splitlines()] == [
+        "medium@example.com", "low@example.com",
+    ]
+
+
 def test_dev_targets_the_local_server_and_count_limits_the_run(data_dir, monkeypatch, settings, internal_key):
     settings.API_SERVER_URL = ""
     scraper.save_queue([entry(email="a@example.com"), entry(email="b@example.com")])

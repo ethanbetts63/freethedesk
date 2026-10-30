@@ -5,6 +5,11 @@ share of the list and the one with the most positive replies stays. Drafted 24
 October 2026; the live offer is in the templates, not here. An earlier third
 version, the pitch laid out as a report about the podcast, was dropped the same day.
 
+**Since 2026-10-30 A and C carry one subject line, "Affiliate commission offer
+for {podcast}"**, so the subject says exactly what the email is: seven rotated
+lines ("Quick one about...", "Thoughts on this?") drew no reply and three spam
+complaints from 108 sends (owner's call). B keeps its lines; it is paused.
+
 **Since 2026-10-28 only A and C are sent, and as plain text.** A composed
 email in the branded frame landed in Gmail's Promotions tab; the same note as
 plain text landed in the inbox. So A and C go out through
@@ -44,8 +49,8 @@ pointed at `core/templates` and the context below; images resolve against
 
 | Version | Sounds like                                                                                                           | The visual                                                                                 | Subject lines                                                                                     |
 | ------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
-| A       | One person writing to one host; opens with a line about the show                                                      | The report cover, one small image                                                          | A free SEO audit for {business} · Quick one about {podcast} · $700 an audit for {podcast}         |
-| C       | A, with no links and no image: "search freethedesk affiliates", and a line about not clicking links in strange emails | None                                                                                       | A's subject lines                                                                                 |
+| A       | One person writing to one host; opens with a line about the show                                                      | The report cover, one small image                                                          | Affiliate commission offer for {podcast}                                                          |
+| C       | A, with no links and no image: "search freethedesk affiliates", and a line about not clicking links in strange emails | None                                                                                       | A's subject line                                                                                  |
 | B       | freethedesk announcing an affiliate program                                                                           | Navy hero with the earnings hook, a one-line figures strip, three steps, the sample report | The freethedesk podcast affiliate program · An invitation for {podcast} · {podcast} × freethedesk |
 
 ## Context

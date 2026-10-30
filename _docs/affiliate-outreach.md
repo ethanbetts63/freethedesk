@@ -67,7 +67,7 @@ The one prompt that runs the pipeline is `affiliates/outreach_instructions.md`.
 | `latest_episode_title`, `latest_episode_description` | `CharField`, `TextField`                    | What the opener was written from                                                                                                                            |
 | `last_release_date`                                  | `DateField(null)`                           |                                                                                                                                                             |
 | `opener`                                             | `TextField(blank)`                          | The one hand-written line. Blank is allowed and sends without it                                                                                            |
-| `relevance`                                          | `CharField(choices high/medium/low, blank)` | The writer's guess at how well an SEO audit fits the audience; added 2026-10-26 so replies can be read against fit                                          |
+| `relevance`                                          | `CharField(choices high/medium/low, blank)` | The writer's guess at how well an SEO audit fits the audience; added 2026-10-26 so replies can be read against fit. Since 2026-10-30 only `high` is pitched |
 | `version`                                            | `CharField(choices a/b/c)`                  | Assigned on upload by rotation among the active versions (`ACTIVE_VERSIONS` in `pitching.py`; B is paused): the one with the fewest prospects gets the next |
 | `pitched_at`                                         | `DateTimeField(null)`                       | Set by the cron's claim before the send (stage 4). Null means queued                                                                                        |
 | `reply`                                              | `CharField(choices none/positive/negative)` | Set by hand on the dashboard; replies land in the owner's inbox                                                                                             |
@@ -137,6 +137,10 @@ server's counts: created, already known, suppressed, invalid.
   (`suppressed`); otherwise create it, assigning `version` by rotation. Nothing
   is updated: a prospect's row belongs to the server once it exists.
 
+The local command uploads only entries rated `high` (owner, 2026-10-30; the
+server pitches no other). Medium and low go to `archive/<date>-set-aside.jsonl`
+unsent, opener and all, and unrated entries stay in the queue.
+
 Run `.\scripts\check-security.ps1` after: the route needs its scope and the
 new setting must not trip a deploy check.
 
@@ -158,8 +162,12 @@ Each run:
    the active version with the fewest prospects, then takes the oldest eligible
    prospect of each active version in turn (a, c, a, c...) until it has
    `count`, so the test stays even hour by hour. Eligible means `pitched_at`
-   null, blank `excluded_reason`, no `affiliate`, and an address not
-   suppressed. A version with nothing left gives its turns to the others. Ten
+   null, `relevance` high, blank `excluded_reason`, no `affiliate`, and an
+   address not suppressed. Only a high-fit show is pitched (owner, 2026-10-30,
+   after 108 pitches to the whole list, 58% of it rated low, drew no reply and
+   three spam complaints). Every run, paused or not, first sets aside the
+   queued medium and low rows with an `excluded_reason` saying so, and leaves
+   unrated rows queued and unpitched. A version with nothing left gives its turns to the others. Ten
    seconds between one send and the next (owner's ask, 2026-10-27). A and C go
    out as plain text, the `.txt` template alone with no HTML part: dressed in
    the branded frame, a note from one person was filed under Promotions.
@@ -288,8 +296,11 @@ python manage.py send_due_messages
 python manage.py send_affiliate_outreach
 ```
 
+`upload_prospects` sends only entries rated high; medium and low go to
+`archive/<date>-set-aside.jsonl` unsent, and unrated entries stay in the queue.
 `send_affiliate_outreach` sends only 8am to 6pm Perth time on weekdays and exits
-otherwise; `--ignore-window` sends at once, for the owner's test. A prospect is
+otherwise, pitches only high-fit rows, and sets the queued medium and low rows
+aside as excluded on its first run after the rule; `--ignore-window` sends at once, for the owner's test. A prospect is
 pitched exactly once: a failed send leaves the row claimed and the failure in
 the message log, where staff resend it from the Messages page rather than the
 cron pitching again. `link_prospects` points prospects at affiliate accounts

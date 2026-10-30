@@ -40,5 +40,6 @@ class ProspectFactory(factory.django.DjangoModelFactory):
     latest_episode_title = "An episode"
     latest_episode_description = "About something."
     last_release_date = date(2026, 10, 20)
+    relevance = PodcastProspect.Relevance.HIGH  # the only rating the cron pitches
     version = PodcastProspect.Version.A
     scraped_on = date(2026, 10, 25)

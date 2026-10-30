@@ -55,6 +55,15 @@ def test_subjects_rotate_by_id_and_name_the_podcast():
     assert "An invitation for The Tradie Show" in lines
 
 
+def test_a_and_c_carry_one_subject_that_says_what_the_email_is():
+    prospect = ProspectFactory(podcast_name="The Tradie Show", version="a")
+    context = pitching.pitch_context(prospect)
+
+    assert pitching.pitch_subject(prospect, context) == "Affiliate commission offer for The Tradie Show"
+    assert pitching.SUBJECTS["c"] is pitching.SUBJECTS["a"]
+    assert len(pitching.SUBJECTS["a"]) == 1
+
+
 def test_context_carries_the_offer_the_name_and_a_working_unsubscribe_link(settings):
     settings.SITE_URL = "https://www.freethedesk.com.au/"
     prospect = ProspectFactory(first_name="Sam", opener="Came across your episode on quoting.")

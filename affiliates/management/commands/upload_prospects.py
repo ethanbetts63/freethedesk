@@ -4,6 +4,8 @@ import requests
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
+from affiliates.models import PodcastProspect
+from affiliates.models import PodcastProspect
 from affiliates.serializers.prospect_upload import MAX_BATCH
 from affiliates.utils import scraper
 
@@ -18,7 +20,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("--dev", action="store_true", help="Upload to the local Django server instead.")
-        parser.add_argument("--count", type=int, default=None, help="Upload at most this many entries.")
+        parser.add_argument("--count", type=int, default=None, help="Upload at most this many high-fit entries.")
 
     def handle(self, *args, **options):
         server_url = settings.DEV_API_SERVER_URL if options["dev"] else settings.API_SERVER_URL
@@ -31,8 +33,24 @@ class Command(BaseCommand):
         if not queue:
             self.stdout.write(self.style.WARNING("The queue is empty."))
             return
-        to_send = queue if options["count"] is None else queue[: options["count"]]
-        remaining = queue[len(to_send):]
+        # Only a show rated high fit is uploaded (owner, 2026-10-30; the server pitches no other). Medium
+        # and low go to the archive unsent, opener and all, in case the rule changes; an unrated entry
+        # has not been looked at yet and stays in the queue.
+        rated = lambda entry: entry.get("relevance", "")  # noqa: E731
+        fit = [entry for entry in queue if rated(entry) == PodcastProspect.Relevance.HIGH]
+        set_aside = [entry for entry in queue if rated(entry) and rated(entry) != PodcastProspect.Relevance.HIGH]
+        unrated = [entry for entry in queue if not rated(entry)]
+        if set_aside:
+            scraper.append_entries(set_aside, scraper.ARCHIVE_DIR / f"{date.today().isoformat()}-set-aside.jsonl")
+            self.stdout.write(f"{len(set_aside)} set aside as not high fit, archived unsent.")
+        if unrated:
+            self.stdout.write(f"{len(unrated)} unrated entries stay in the queue.")
+        if not fit:
+            scraper.save_queue(unrated)
+            self.stdout.write(self.style.WARNING("Nothing rated high fit to upload."))
+            return
+        to_send = fit if options["count"] is None else fit[: options["count"]]
+        remaining = fit[len(to_send):] + unrated
 
         url = f"{server_url.rstrip('/')}/api/outreach/upload/"
         headers = {"X-Internal-API-Key": settings.INTERNAL_API_KEY}

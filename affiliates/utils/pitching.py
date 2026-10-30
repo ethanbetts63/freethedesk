@@ -26,17 +26,14 @@ VERSIONS = [PodcastProspect.Version.A, PodcastProspect.Version.B, PodcastProspec
 ACTIVE_VERSIONS = [PodcastProspect.Version.A, PodcastProspect.Version.C]
 PAUSED_VERSIONS = [PodcastProspect.Version.B]
 
-# Three subject lines a version, rotated by prospect id so each gets a third.
-# C is A with no links, so it shares A's lines.
+# Subject lines a version, rotated by prospect id. A and C carry one line that
+# says exactly what the email is (owner's call, 2026-10-30: seven rotated lines,
+# "Quick one about..." and "Thoughts on this?" among them, drew no reply and
+# three spam complaints from 108 sends). B keeps its lines; it is paused. C is A
+# with no links, so it shares A's.
 SUBJECTS = {
     PodcastProspect.Version.A: [
-        "A free SEO audit for {podcast}",
-        "Quick one about {podcast}",
-        "{commission_high} an audit for {podcast}",
-        "Thoughts on this?",
-        "What do you think of this?",
-        "Affiliate offer from freethedesk",
-        "An idea for {podcast}",
+        "Affiliate commission offer for {podcast}",
     ],
     PodcastProspect.Version.B: [
         "The freethedesk podcast affiliate program",

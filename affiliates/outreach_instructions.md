@@ -10,8 +10,12 @@ Three phases, in order. Do not use subagents; the file is edited by hand, by
 you. Nothing you do here sends an email: the server's hourly cron does that
 from what you upload.
 
-Target: **50 new prospects** uploaded, unless the user named a different number.
-If the user named a number, that is the upload target, not a scrape target.
+Target: **30 new high-fit prospects** uploaded, unless the user named a
+different number. If the user named a number, that is the upload target, not a
+scrape target. Only entries rated `high` are uploaded and only those are ever
+pitched (owner, 2026-10-30), so the count that matters is high-fit entries: on
+the first 302, one in eight was high, so expect to scrape and rate several
+batches for each thirty.
 
 ---
 
@@ -37,10 +41,12 @@ searched`.
 The scrape moves the cursor files `affiliates/data/searched_terms.json` and
 `searched_feeds.json`; those are committed with the run (Phase 3).
 
-## Phase 2 — Write the openers and rate the fit
+## Phase 2 — Rate the fit, then write the openers for the high ones
 
-Every entry with `"opener": ""` needs one, and every entry with
-`"relevance": ""` needs a rating. Entries that have both are done; leave them.
+Every entry with `"relevance": ""` needs a rating, and every entry rated `high`
+with `"opener": ""` needs an opener. Rate first: a medium or low entry needs no
+opener, since the upload sets it aside unsent. Entries that are rated, and
+written if high, are done; leave them.
 
 The opener is the second paragraph of the pitch email, straight after
 "Hi {first name}," and before "I'm Ethan. I run freethedesk in Perth". The
@@ -100,8 +106,12 @@ Before uploading, read the whole queue back and check every line:
 - Every `relevance` is `high`, `medium` or `low`.
 - No placeholder or template text, no two entries for the same show.
 
-**Upload is the last reversible step.** Once an entry reaches the server it is
-queued for a real cold email on the next business hour. Then:
+**Upload is the last reversible step.** Once a high-fit entry reaches the server
+it is queued for a real cold email on the next business hour that the pitches are
+running (they are paused as of 2026-10-30; the server sends none until the
+scheduled task passes `--count`). The command uploads only entries rated `high`,
+moves medium and low to `archive/<date>-set-aside.jsonl` unsent, and leaves
+unrated entries in the queue. Then:
 
 ```powershell
 py manage.py upload_prospects
@@ -123,8 +133,8 @@ Do not push.
 
 ## Report
 
-Tell the user: how many were scraped, how many dropped and why, how many
-uploaded as created / already known / suppressed / invalid, and any opener you
-left blank. The uploaded prospects appear at
+Tell the user: how many were scraped, how many dropped and why, how many rated
+high, medium and low, how many high-fit uploaded as created / already known /
+suppressed / invalid, and any opener you left blank. The uploaded prospects appear at
 https://www.freethedesk.com.au/dashboard/admin/outreach, where each one shows its
 version and, once the cron has run, what became of it.
