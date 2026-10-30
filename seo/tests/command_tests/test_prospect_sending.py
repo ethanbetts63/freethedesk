@@ -128,6 +128,28 @@ def test_body_four_is_the_bet_with_five_titles_cut_to_a_line_and_the_rest_counte
     assert "A sixth" not in body and UNSUBSCRIBE_LINE not in body
 
 
+def test_body_five_lists_three_fixes_in_the_owners_words():
+    prospect = SeoProspectFactory(
+        body_version=5, contact_name="Mario Rossi", recommendation_count=9,
+        issues=["Shrink the photos", "Take back the Google listing and make its categories, services and description match",
+                "Give every page a title and main headline that name its search, starting with 'kitchen cabinets perth'",
+                "A fourth, never shown"],
+    )
+
+    body = body_for(prospect)
+
+    assert body.startswith("Hi Mario,\n\nMy name's Ethan. Attached is a list of fixes for your website.")
+    assert (
+        "Here's the first few:\n\n"
+        "1. Shrink the photos\n"
+        "2. Take back the Google listing and make its\u2026\n"
+        "3. Give every page a title and main headline that\u2026\n"
+        "(6 more)\n\n"
+        "Forward the attached pdf to whoever runs your website, if they disagree"
+    ) in body
+    assert "A fourth" not in body and "three hours" not in body and UNSUBSCRIBE_LINE not in body
+
+
 def test_the_affiliate_body_offers_the_program_at_the_live_figures():
     """A podcast host gets the same report and the affiliate offer in place of the paid one; the figures are the
     site settings' on the day, as the podcast pitch's are."""

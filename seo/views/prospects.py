@@ -16,7 +16,7 @@ from core.utils.pagination import DashboardPagination
 
 from ..models import SeoProspect
 from ..serializers.prospect import AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectUploadSerializer
-from ..utils.prospect_sending import next_body, next_subject, subject_for
+from ..utils.prospect_sending import NoSubject, next_body, next_subject, subject_for
 from ..utils.prospects import STATUSES, with_status
 
 PROSPECT_ORDERING = {
@@ -62,9 +62,13 @@ class SeoProspectUploadView(APIView):
             )
         pdf = data.pop("report_pdf")
         try:
+            subject_version = next_subject(has_search=bool(data.get("paid_searches")))
+        except NoSubject as error:
+            return Response({"outcome": "no_subject", "detail": str(error)}, status=status.HTTP_400_BAD_REQUEST)
+        try:
             with transaction.atomic():
                 prospect = SeoProspect(
-                    **data, subject_version=next_subject(has_search=bool(data.get("paid_searches"))),
+                    **data, subject_version=subject_version,
                     body_version=next_body(data.get("purpose", SeoProspect.Purpose.CLIENT)),
                 )
                 prospect.report_pdf.save(f"{data['slug']}_{data['report_version']}.pdf", pdf, save=False)

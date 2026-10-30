@@ -31,8 +31,9 @@ SUBJECTS = {
 }
 # Subjects that need a paid search to make sense.
 NEEDS_SEARCH = {SeoProspect.Subject.THREE, SeoProspect.Subject.FIVE}
-# Retired from the rotation (owner's call, 2026-10-30): kept so the rows that drew it still read right.
-PAUSED_SUBJECTS = {SeoProspect.Subject.ONE}
+# Retired from the rotation (owner's call, 2026-10-30: no "SEO" and no "free" in a subject): kept so the rows
+# that drew them still read right. Only subject 3 remains, and it needs a paid search.
+PAUSED_SUBJECTS = {SeoProspect.Subject.ONE, SeoProspect.Subject.TWO, SeoProspect.Subject.FOUR, SeoProspect.Subject.FIVE}
 
 # The Spam Act's unsubscribe facility: a reply, suppressed by hand on the dashboard.
 UNSUBSCRIBE_LINE = "Reply 'no thanks' and I won't email again."
@@ -104,6 +105,23 @@ If you want to go through it first, I'm a real person that spent real time on th
 LIST_SHOWN = 5
 LIST_WIDTH = 50
 
+# Body 5, the fixes list (owner's words, 2026-10-30): the only client body. Three titles, cut to a line, and the
+# rest counted.
+BODY_FIXES = """Hi {first_name},
+
+My name's Ethan. Attached is a list of fixes for your website. I'm a real person who spent real time on this. The catch is some number of people I do these free reports for buy a full one. The fixes are worth doing either way.
+
+Every recommendation explains the issue, why it's important and how to fix it. Here's the first few:
+
+{listing}
+
+Forward the attached pdf to whoever runs your website, if they disagree with the recommendations I'd be very surprised.
+
+If you want to go through it first, my number is below. I can explain any part in detail.
+
+""" + SIGNATURE
+FIXES_SHOWN = 3
+
 # Body 3, for a podcast host (owner's call, 2026-10-30): the same report, then
 # the affiliate offer instead of the paid one. The figures are the site
 # settings' as they stand on the day it is sent, like the podcast pitch's.
@@ -132,16 +150,22 @@ def next_subject(has_search: bool = True) -> int:
     }
     choices = [s for s in SeoProspect.Subject.values
                if s not in PAUSED_SUBJECTS and (has_search or s not in NEEDS_SEARCH)]
+    if not choices:
+        raise NoSubject("No subject line is in rotation for a prospect without a paid search; approve one first.")
     return min(choices, key=lambda s: (counts.get(s, 0), s))
 
 
-# The client bodies in the test today: the bet and the bet with the list (owner's call, 2026-10-30; body 1, the
-# report email, is paused, not deleted: rows that drew it still show and send it).
-CLIENT_BODIES = [SeoProspect.Body.BET, SeoProspect.Body.LIST]
+# The client bodies in the test today: the fixes list alone (owner's call, 2026-10-30). Bodies 1, 2 and 4 are paused,
+# not deleted: rows that drew them still show and send them.
+CLIENT_BODIES = [SeoProspect.Body.FIXES]
+
+
+class NoSubject(Exception):
+    """No subject is in the rotation for this prospect: every live one needs a paid search it has none of."""
 
 
 def next_body(purpose: str = SeoProspect.Purpose.CLIENT) -> int:
-    """An affiliate's body; else the client body with the fewest prospects, so the test stays level: 2, 4, 2, 4."""
+    """An affiliate's body; else the client body with the fewest prospects, levelled when there is more than one."""
     if purpose == SeoProspect.Purpose.AFFILIATE:
         return SeoProspect.Body.AFFILIATE
     counts = {
@@ -186,9 +210,9 @@ def cut(title: str, width: int = LIST_WIDTH) -> str:
     return f"{head}\u2026"
 
 
-def listing(prospect: SeoProspect) -> str:
-    """Body 4's list: the first five titles, numbered and cut to a line, then how many more the report holds."""
-    titles = [t for t in (prospect.issues or [])[:LIST_SHOWN] if t and t.strip()]
+def listing(prospect: SeoProspect, shown: int = LIST_SHOWN) -> str:
+    """The list: the first ``shown`` titles, numbered and cut to a line, then how many more the report holds."""
+    titles = [t for t in (prospect.issues or [])[:shown] if t and t.strip()]
     lines = [f"{n}. {cut(t)}" for n, t in enumerate(titles, 1)]
     more = max(int(prospect.recommendation_count or 0) - len(titles), 0)
     if more:
@@ -225,6 +249,8 @@ def body_for(prospect: SeoProspect) -> str:
     name = first_name(prospect)
     if prospect.body_version == SeoProspect.Body.BET:
         return BODY_TWO.format(first_name=name, metric=prospect.metric or "bookings")
+    if prospect.body_version == SeoProspect.Body.FIXES:
+        return BODY_FIXES.format(first_name=name, listing=listing(prospect, FIXES_SHOWN))
     if prospect.body_version == SeoProspect.Body.LIST:
         return BODY_LIST.format(first_name=name, metric=prospect.metric or "bookings", listing=listing(prospect))
     if prospect.body_version == SeoProspect.Body.AFFILIATE:

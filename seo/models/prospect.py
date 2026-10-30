@@ -35,13 +35,14 @@ class SeoProspect(models.Model):
         AFFILIATE = "affiliate", "Affiliate"
 
     class Body(models.IntegerChoices):
-        """The email bodies in ``seo/utils/prospect_sending.py``. A client gets one of ``CLIENT_BODIES`` (2 or 4
-        today; 1 is paused), levelled like the subjects so they can be read against each other; an affiliate gets 3."""
+        """The email bodies in ``seo/utils/prospect_sending.py``. A client gets one of ``CLIENT_BODIES`` (5 alone
+        today; 1, 2 and 4 are paused), levelled when there is more than one; an affiliate gets 3."""
 
         REPORT = 1, "1: the report email"
         BET = 2, "2: the three-hour bet"
         AFFILIATE = 3, "3: the affiliate offer"
         LIST = 4, "4: the bet with the list"
+        FIXES = 5, "5: the fixes list"
 
     class Reply(models.TextChoices):
         NONE = "none", "No reply"

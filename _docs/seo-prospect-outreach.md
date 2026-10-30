@@ -20,8 +20,11 @@ business-hours window, the message log as the status, the dashboard page.
   hourly `send_affiliate_outreach` run also sends queued prospect emails, in the
   same Perth weekday window (8am to 6pm) and with the same ten seconds between
   sends. No new scheduled task.
-- **Five subjects, rotated by prospect**, so replies can be read against them
-  (subject 1 retired from the rotation 2026-10-30, owner's call; its rows keep it):
+- **Five subjects, rotated by prospect**, so replies can be read against them.
+  Subjects 1, 2, 4 and 5 were retired from the rotation on 2026-10-30 (owner's
+  call: no "SEO" and no "free" in a subject); their rows keep them. Only 3 is
+  live, and it needs a paid search: a business without one is refused at
+  upload (`no_subject`) until the owner approves a subject that needs none.
   1. I spent 3 hours on this. I am not a bot.
   2. {count} free fixes for {domain}
   3. Your '{paid search}' ad, and what your site is missing
@@ -43,11 +46,12 @@ business-hours window, the message log as the status, the dashboard page.
   full report, or `affiliate`, a podcast host we hope will join the program
   ([`affiliate-program.md`](affiliate-program.md)). The outbox sets it from the
   ledger entry's `source`.
-- **Four bodies, two in the test.** A client gets body 2 or 4
-  (`CLIENT_BODIES`; owner, 2026-10-30: body 1 is paused as the weaker of the
-  three, kept for the rows that drew it), levelled like the subjects: each new
-  client report gets the one with the fewer sends so far, so five a night
-  split 3 and 2, never 5 and 0 as a coin toss can. Body 1 is the report email, in the words the analyst's email used:
+- **Five bodies, one in the test.** A client gets body 5, the fixes list
+  (`CLIENT_BODIES`; owner's words, 2026-10-30): who Ethan is, the catch said
+  plainly, the report's three highest-impact titles cut to a line and the
+  rest counted, the forward line, the number. Bodies 1, 2 and 4 are paused,
+  kept for the rows that drew them; the levelling returns when a second body
+  is added. Body 1 is the report email, in the words the analyst's email used:
   why this business (its ad on a search it does not win, or its site alone),
   the count, the two findings that stand out, and the ask to consider the
   paid report. Body 2 is the owner's fixed words, "the three-hour bet": make
@@ -87,8 +91,8 @@ business-hours window, the message log as the status, the dashboard page.
 | `issues` | the report's five highest-impact recommendation titles, strongest first; body 1 names the first two, body 4 lists all five |
 | `paid_searches` | the searches its ad was seen on; empty for a host, or a business found some other way |
 | `purpose` | `client` or `affiliate`, from the upload; `client` unless it says |
-| `subject_version` | 2 to 5, assigned on upload by rotation (3 and 5 only with a paid search; 1 retired) |
-| `body_version` | a client: 2 or 4, whichever has fewer (1 is paused); an affiliate: 3 |
+| `subject_version` | 3 today (needs a paid search); 1, 2, 4 and 5 retired, kept on their rows |
+| `body_version` | a client: 5 (1, 2 and 4 paused); an affiliate: 3 |
 | `metric` | what the business counts, for body 2; `bookings` unless the upload says |
 | `body` | empty since 2026-10-30; the analyst's email on the rows before it, which body 1 sent as written |
 | `queued_at`, `sent_at` | `sent_at` set by the cron's claim, as `pitched_at` is |

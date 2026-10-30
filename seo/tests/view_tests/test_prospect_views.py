@@ -24,9 +24,9 @@ def test_a_published_report_is_queued_with_its_pdf(api_client, internal_key):
     body = response.json()
     assert body["outcome"] == "queued"
     prospect = SeoProspect.objects.get()
-    assert body["subject"] == "10 free fixes for perthpatiomagic.com.au"
-    assert prospect.subject_version == 2
-    assert (body["body_version"], prospect.body_version, prospect.metric) == (2, 2, "bookings")
+    assert body["subject"] == "Your 'pergolas perth' ad, and what your site is missing"
+    assert prospect.subject_version == 3
+    assert (body["body_version"], prospect.body_version, prospect.metric) == (5, 5, "bookings")
     assert (body["purpose"], prospect.purpose, prospect.body) == ("client", "client", "")
     assert prospect.issues == ["No pergola page", "The home page has no heading"]
     assert prospect.paid_searches == ["pergolas perth"]
@@ -35,41 +35,41 @@ def test_a_published_report_is_queued_with_its_pdf(api_client, internal_key):
         assert handle.read() == PDF
 
 
-def test_subjects_rotate_so_each_gets_a_quarter_and_the_retired_one_is_never_drawn(api_client, internal_key):
-    for n in range(6):
+def test_only_the_subject_in_rotation_is_drawn(api_client, internal_key):
+    """Subjects 1, 2, 4 and 5 are retired (owner, 2026-10-30); 3 is what a business with a paid search gets."""
+    for n in range(3):
         upload(api_client, internal_key, domain=f"b{n}.com.au", slug=f"b{n}", email=f"o@b{n}.com.au")
-    assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [2, 3, 4, 5, 2, 3]
+    assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [3, 3, 3]
 
 
-def test_bodies_take_turns_so_each_gets_half(api_client, internal_key):
-    """Not a coin toss: the client body with fewer sends gets the next report, so five a night split 3 and 2, never
-    5 and 0. Body 1 is paused: nobody new draws it."""
-    for n in range(5):
+def test_every_client_draws_the_fixes_list(api_client, internal_key):
+    """One client body in the test today (owner, 2026-10-30); the levelling returns when a second is added."""
+    for n in range(3):
         upload(api_client, internal_key, domain=f"b{n}.com.au", slug=f"b{n}", email=f"o@b{n}.com.au",
                metric="calls" if n == 1 else "bookings")
-    assert list(SeoProspect.objects.order_by("id").values_list("body_version", flat=True)) == [2, 4, 2, 4, 2]
+    assert list(SeoProspect.objects.order_by("id").values_list("body_version", flat=True)) == [5, 5, 5]
+    assert SeoProspect.objects.get(slug="b1").metric == "calls"
     assert SeoProspect.objects.get(slug="b1").metric == "calls"
 
 
-def test_an_affiliate_prospect_gets_the_affiliate_body_and_leaves_the_client_test_level(api_client, internal_key):
-    """A podcast host's report takes body 3 every time; the two client bodies go on alternating between clients."""
-    upload(api_client, internal_key, domain="b0.com.au", slug="b0", email="o@b0.com.au")
+def test_an_affiliate_prospect_gets_the_affiliate_body(api_client, internal_key):
+    """A podcast host's report takes body 3 every time. (With a paid search here only so a subject exists: see the
+    next test.)"""
     response = upload(api_client, internal_key, domain="peachbm.com.au", slug="peachbm", email="fi@peachbm.com.au",
-                      business="Money Secrets", purpose="affiliate", paid_searches=[])
-    upload(api_client, internal_key, domain="b2.com.au", slug="b2", email="o@b2.com.au")
+                      business="Money Secrets", purpose="affiliate", paid_searches=["bookkeeper melbourne"])
 
     assert response.status_code == 201
     assert (response.json()["purpose"], response.json()["body_version"]) == ("affiliate", 3)
     assert response.json()["body_label"] == "3: the affiliate offer"
-    assert list(SeoProspect.objects.order_by("id").values_list("purpose", "body_version")) == [
-        ("client", 2), ("affiliate", 3), ("client", 4),
-    ]
 
 
-def test_with_no_paid_search_the_subjects_that_name_one_are_skipped(api_client, internal_key):
-    for n in range(3):
-        upload(api_client, internal_key, domain=f"b{n}.com.au", slug=f"b{n}", email=f"o@b{n}.com.au", paid_searches=[])
-    assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [2, 4, 2]
+def test_with_no_paid_search_and_no_subject_in_rotation_the_upload_is_refused(api_client, internal_key):
+    """Every subject still in rotation names a paid search, so a business without one waits for a subject the owner
+    approves; nothing is queued and the outbox says why."""
+    response = upload(api_client, internal_key, paid_searches=[])
+    assert response.status_code == 400
+    assert response.json()["outcome"] == "no_subject"
+    assert not SeoProspect.objects.exists()
 
 
 @pytest.mark.parametrize("field, value", [
