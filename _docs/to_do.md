@@ -106,8 +106,9 @@ ratings were dropped on the way in; a redeploy does not restore them. Left:
 - Before enabling it: upload one test prospect addressed to yourself and read all
   three versions in a mail client. The report cover image and `/affiliates` must be
   live first (pitch README).
-- 133 unwritten entries remain in `affiliates/data/podcasts.jsonl`; the next run of
-  `affiliates/outreach_instructions.md` writes and uploads them.
+- The queue is empty (2026-10-30): 69 high-fit prospects were uploaded that day
+  and 212 medium and low entries archived unsent in `affiliates/data/archive/`.
+  The next run of `affiliates/outreach_instructions.md` scrapes by `--terms`.
 
 ## Forms ledger after the affiliate program commit
 
