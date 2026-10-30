@@ -117,10 +117,10 @@ def test_body_four_is_the_bet_with_five_titles_cut_to_a_line_and_the_rest_counte
     assert "if your quotes don't move in a month" in body
     assert (
         "That's my marketing strategy.\n\n"
-        "1. Give every page a title and main headline that name\u2026\n"
-        "2. Take back the Google listing and make its categories,\u2026\n"
+        "1. Give every page a title and main headline that\u2026\n"
+        "2. Take back the Google listing and make its\u2026\n"
         "3. Shrink the photos\n"
-        "4. Put the phone number and a quote button on the first\u2026\n"
+        "4. Put the phone number and a quote button on the\u2026\n"
         "5. Publish what a kitchen, a laundry and a vanity\u2026\n"
         "(4 more)\n\n"
         "Forward the attached pdf to whoever runs your website."
