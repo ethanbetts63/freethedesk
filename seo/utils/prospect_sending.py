@@ -31,6 +31,8 @@ SUBJECTS = {
 }
 # Subjects that need a paid search to make sense.
 NEEDS_SEARCH = {SeoProspect.Subject.THREE, SeoProspect.Subject.FIVE}
+# Retired from the rotation (owner's call, 2026-10-30): kept so the rows that drew it still read right.
+PAUSED_SUBJECTS = {SeoProspect.Subject.ONE}
 
 # The Spam Act's unsubscribe facility: a reply, suppressed by hand on the dashboard.
 UNSUBSCRIBE_LINE = "Reply 'no thanks' and I won't email again."
@@ -128,7 +130,8 @@ def next_subject(has_search: bool = True) -> int:
         row["subject_version"]: row["n"]
         for row in SeoProspect.objects.values("subject_version").annotate(n=Count("id"))
     }
-    choices = [s for s in SeoProspect.Subject.values if has_search or s not in NEEDS_SEARCH]
+    choices = [s for s in SeoProspect.Subject.values
+               if s not in PAUSED_SUBJECTS and (has_search or s not in NEEDS_SEARCH)]
     return min(choices, key=lambda s: (counts.get(s, 0), s))
 
 

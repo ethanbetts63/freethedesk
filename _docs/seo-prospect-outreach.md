@@ -20,7 +20,8 @@ business-hours window, the message log as the status, the dashboard page.
   hourly `send_affiliate_outreach` run also sends queued prospect emails, in the
   same Perth weekday window (8am to 6pm) and with the same ten seconds between
   sends. No new scheduled task.
-- **Five subjects, rotated by prospect**, so replies can be read against them:
+- **Five subjects, rotated by prospect**, so replies can be read against them
+  (subject 1 retired from the rotation 2026-10-30, owner's call; its rows keep it):
   1. I spent 3 hours on this. I am not a bot.
   2. {count} free fixes for {domain}
   3. Your '{paid search}' ad, and what your site is missing
@@ -86,7 +87,7 @@ business-hours window, the message log as the status, the dashboard page.
 | `issues` | the report's five highest-impact recommendation titles, strongest first; body 1 names the first two, body 4 lists all five |
 | `paid_searches` | the searches its ad was seen on; empty for a host, or a business found some other way |
 | `purpose` | `client` or `affiliate`, from the upload; `client` unless it says |
-| `subject_version` | 1 to 5, assigned on upload by rotation (3 and 5 only with a paid search) |
+| `subject_version` | 2 to 5, assigned on upload by rotation (3 and 5 only with a paid search; 1 retired) |
 | `body_version` | a client: 2 or 4, whichever has fewer (1 is paused); an affiliate: 3 |
 | `metric` | what the business counts, for body 2; `bookings` unless the upload says |
 | `body` | empty since 2026-10-30; the analyst's email on the rows before it, which body 1 sent as written |

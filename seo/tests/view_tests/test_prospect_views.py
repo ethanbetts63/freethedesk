@@ -24,8 +24,8 @@ def test_a_published_report_is_queued_with_its_pdf(api_client, internal_key):
     body = response.json()
     assert body["outcome"] == "queued"
     prospect = SeoProspect.objects.get()
-    assert body["subject"] == "I spent 3 hours on this. I am not a bot."
-    assert prospect.subject_version == 1
+    assert body["subject"] == "10 free fixes for perthpatiomagic.com.au"
+    assert prospect.subject_version == 2
     assert (body["body_version"], prospect.body_version, prospect.metric) == (2, 2, "bookings")
     assert (body["purpose"], prospect.purpose, prospect.body) == ("client", "client", "")
     assert prospect.issues == ["No pergola page", "The home page has no heading"]
@@ -35,10 +35,10 @@ def test_a_published_report_is_queued_with_its_pdf(api_client, internal_key):
         assert handle.read() == PDF
 
 
-def test_subjects_rotate_so_each_gets_a_fifth(api_client, internal_key):
+def test_subjects_rotate_so_each_gets_a_quarter_and_the_retired_one_is_never_drawn(api_client, internal_key):
     for n in range(6):
         upload(api_client, internal_key, domain=f"b{n}.com.au", slug=f"b{n}", email=f"o@b{n}.com.au")
-    assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [1, 2, 3, 4, 5, 1]
+    assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [2, 3, 4, 5, 2, 3]
 
 
 def test_bodies_take_turns_so_each_gets_half(api_client, internal_key):
@@ -69,7 +69,7 @@ def test_an_affiliate_prospect_gets_the_affiliate_body_and_leaves_the_client_tes
 def test_with_no_paid_search_the_subjects_that_name_one_are_skipped(api_client, internal_key):
     for n in range(3):
         upload(api_client, internal_key, domain=f"b{n}.com.au", slug=f"b{n}", email=f"o@b{n}.com.au", paid_searches=[])
-    assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [1, 2, 4]
+    assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [2, 4, 2]
 
 
 @pytest.mark.parametrize("field, value", [
