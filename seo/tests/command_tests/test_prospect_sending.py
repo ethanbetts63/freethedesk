@@ -98,6 +98,36 @@ def test_body_two_goes_as_the_owner_wrote_it_with_the_name_and_the_metric(outbox
     assert message.attachments == [{"name": f"{prospect.slug}_seo_report_r1.pdf", "size": len(PDF)}]
 
 
+def test_body_four_is_the_bet_with_five_titles_cut_to_a_line_and_the_rest_counted():
+    prospect = SeoProspectFactory(
+        body_version=4, contact_name="Mario Rossi", metric="quotes", recommendation_count=9,
+        issues=[
+            "Give every page a title and main headline that name its search, starting with 'kitchen cabinets perth'",
+            "Take back the Google listing and make its categories, services and description match",
+            "Shrink the photos",
+            "Put the phone number and a quote button on the first screen of every page, and keep them in reach",
+            "Publish what a kitchen, a laundry and a vanity typically cost, and what moves the price.",
+            "A sixth, never shown",
+        ],
+    )
+
+    body = body_for(prospect)
+
+    assert body.startswith("Hi Mario,\n\nI spent three hours writing the attached website report.")
+    assert "if your quotes don't move in a month" in body
+    assert (
+        "That's my marketing strategy.\n\n"
+        "1. Give every page a title and main headline that name\u2026\n"
+        "2. Take back the Google listing and make its categories,\u2026\n"
+        "3. Shrink the photos\n"
+        "4. Put the phone number and a quote button on the first\u2026\n"
+        "5. Publish what a kitchen, a laundry and a vanity\u2026\n"
+        "(4 more)\n\n"
+        "Forward the attached pdf to whoever runs your website."
+    ) in body
+    assert "A sixth" not in body and UNSUBSCRIBE_LINE not in body
+
+
 def test_the_affiliate_body_offers_the_program_at_the_live_figures():
     """A podcast host gets the same report and the affiliate offer in place of the paid one; the figures are the
     site settings' on the day, as the podcast pitch's are."""

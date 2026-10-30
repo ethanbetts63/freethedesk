@@ -35,12 +35,13 @@ class SeoProspect(models.Model):
         AFFILIATE = "affiliate", "Affiliate"
 
     class Body(models.IntegerChoices):
-        """The email bodies in ``seo/utils/prospect_sending.py``. A client gets 1 or 2, levelled like the
-        subjects so the two can be read against each other; an affiliate gets 3."""
+        """The email bodies in ``seo/utils/prospect_sending.py``. A client gets 1, 2 or 4, levelled like the
+        subjects so they can be read against each other; an affiliate gets 3."""
 
         REPORT = 1, "1: the report email"
         BET = 2, "2: the three-hour bet"
         AFFILIATE = 3, "3: the affiliate offer"
+        LIST = 4, "4: the bet with the list"
 
     class Reply(models.TextChoices):
         NONE = "none", "No reply"
@@ -64,7 +65,8 @@ class SeoProspect(models.Model):
     phone = models.CharField(max_length=40, blank=True)
     # One line: what the business is.
     overview = models.CharField(max_length=300)
-    # The report's strongest findings, a few short lines.
+    # The report's highest-impact recommendation titles, strongest first: the first two are body 1's "two stand
+    # out", the first five are body 4's list.
     issues = models.JSONField(default=list)
     # The searches its ad was seen on: subjects 3 and 5 name the first.
     paid_searches = models.JSONField(default=list)

@@ -84,6 +84,24 @@ If you want to go through it first, I'm a real person that spent real time on th
 
 """ + SIGNATURE
 
+# Body 4, the bet with the list (owner's call, 2026-10-30): body 2 with the report's five
+# highest-impact titles, each cut to a line, under the strategy line, and the rest counted.
+BODY_LIST = """Hi {first_name},
+
+I spent three hours writing the attached website report. Make the listed changes and if your {metric} don't move in a month, mark this email as spam and I'll have earned it.
+
+When they do move, all I ask is that you consider commissioning a full report from me. That's my marketing strategy.
+
+{listing}
+
+Forward the attached pdf to whoever runs your website. Every recommendation has the what, why and how spelt out. If your web guy disagrees I'd be very surprised.
+
+If you want to go through it first, I'm a real person that spent real time on this, my number is below. I can explain any part in detail.
+
+""" + SIGNATURE
+LIST_SHOWN = 5
+LIST_WIDTH = 50
+
 # Body 3, for a podcast host (owner's call, 2026-10-30): the same report, then
 # the affiliate offer instead of the paid one. The figures are the site
 # settings' as they stand on the day it is sent, like the podcast pitch's.
@@ -114,11 +132,11 @@ def next_subject(has_search: bool = True) -> int:
     return min(choices, key=lambda s: (counts.get(s, 0), s))
 
 
-CLIENT_BODIES = [SeoProspect.Body.REPORT, SeoProspect.Body.BET]
+CLIENT_BODIES = [SeoProspect.Body.REPORT, SeoProspect.Body.BET, SeoProspect.Body.LIST]
 
 
 def next_body(purpose: str = SeoProspect.Purpose.CLIENT) -> int:
-    """An affiliate's body; else the client body with the fewest prospects, so the test stays level: 1, 2, 1, 2."""
+    """An affiliate's body; else the client body with the fewest prospects, so the test stays level: 1, 2, 4, 1, 2, 4."""
     if purpose == SeoProspect.Purpose.AFFILIATE:
         return SeoProspect.Body.AFFILIATE
     counts = {
@@ -154,6 +172,25 @@ def standouts(prospect: SeoProspect) -> str:
     return ""
 
 
+def cut(title: str, width: int = LIST_WIDTH) -> str:
+    """A title cut to about ``width`` characters at a word, with an ellipsis; a short one whole."""
+    title = title.strip().rstrip(".")
+    if len(title) <= width:
+        return title
+    head = title[:width].rsplit(" ", 1)[0].rstrip(",;:")
+    return f"{head}\u2026"
+
+
+def listing(prospect: SeoProspect) -> str:
+    """Body 4's list: the first five titles, numbered and cut to a line, then how many more the report holds."""
+    titles = [t for t in (prospect.issues or [])[:LIST_SHOWN] if t and t.strip()]
+    lines = [f"{n}. {cut(t)}" for n, t in enumerate(titles, 1)]
+    more = max(int(prospect.recommendation_count or 0) - len(titles), 0)
+    if more:
+        lines.append(f"({more} more)")
+    return "\n".join(lines)
+
+
 def picked(prospect: SeoProspect) -> str:
     """Why this business, for body 1: its ad on searches it does not win, when a sweep saw one."""
     searches = [s for s in (prospect.paid_searches or []) if s]
@@ -183,6 +220,8 @@ def body_for(prospect: SeoProspect) -> str:
     name = first_name(prospect)
     if prospect.body_version == SeoProspect.Body.BET:
         return BODY_TWO.format(first_name=name, metric=prospect.metric or "bookings")
+    if prospect.body_version == SeoProspect.Body.LIST:
+        return BODY_LIST.format(first_name=name, metric=prospect.metric or "bookings", listing=listing(prospect))
     if prospect.body_version == SeoProspect.Body.AFFILIATE:
         return BODY_AFFILIATE.format(
             first_name=name, business=prospect.business, domain=prospect.domain,

@@ -41,12 +41,12 @@ def test_subjects_rotate_so_each_gets_a_fifth(api_client, internal_key):
     assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [1, 2, 3, 4, 5, 1]
 
 
-def test_bodies_alternate_so_each_gets_half(api_client, internal_key):
-    """Not a coin toss: the body with fewer sends gets the next report, so five a night split 3 and 2, never 5 and 0."""
-    for n in range(5):
+def test_bodies_take_turns_so_each_gets_a_third(api_client, internal_key):
+    """Not a coin toss: the client body with fewer sends gets the next report, so six a night split 2, 2 and 2."""
+    for n in range(7):
         upload(api_client, internal_key, domain=f"b{n}.com.au", slug=f"b{n}", email=f"o@b{n}.com.au",
                metric="calls" if n == 1 else "bookings")
-    assert list(SeoProspect.objects.order_by("id").values_list("body_version", flat=True)) == [1, 2, 1, 2, 1]
+    assert list(SeoProspect.objects.order_by("id").values_list("body_version", flat=True)) == [1, 2, 4, 1, 2, 4, 1]
     assert SeoProspect.objects.get(slug="b1").metric == "calls"
 
 

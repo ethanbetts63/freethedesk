@@ -42,16 +42,20 @@ business-hours window, the message log as the status, the dashboard page.
   full report, or `affiliate`, a podcast host we hope will join the program
   ([`affiliate-program.md`](affiliate-program.md)). The outbox sets it from the
   ledger entry's `source`.
-- **Three bodies.** A client gets body 1 or 2, levelled like the subjects
-  (owner, 2026-10-30): each new client report gets the one with the fewer
-  sends so far, so five a night split 3 and 2, never 5 and 0 as a coin toss
+- **Four bodies.** A client gets body 1, 2 or 4, levelled like the subjects
+  (owner, 2026-10-30): each new client report gets the one with the fewest
+  sends so far, so six a night split 2, 2 and 2, never 6 and 0 as a coin toss
   can. Body 1 is the report email, in the words the analyst's email used:
   why this business (its ad on a search it does not win, or its site alone),
   the count, the two findings that stand out, and the ask to consider the
   paid report. Body 2 is the owner's fixed words, "the three-hour bet": make
   the changes and if your bookings don't move in a month, mark this as spam.
   Only the greeting and `metric`, the word for what the business counts
-  (bookings, calls, quotes, sales; `outbox.py add --metric`), change. Body 3
+  (bookings, calls, quotes, sales; `outbox.py add --metric`), change. Body 4
+  is body 2 with the report's five highest-impact titles, each cut to about
+  50 characters at a word, numbered under the strategy line, and "(N more)"
+  for the rest, so the reader sees what is inside before opening it; its
+  "Forward" line names the attached pdf. Body 3
   is the affiliate offer, every host: the same report, then the program at
   the live discount, share and commissions (`affiliates.utils.pitching.pitch_figures`),
   and the full report free on sign-up. The source copies are in
@@ -78,11 +82,11 @@ business-hours window, the message log as the status, the dashboard page.
 | `report_pdf` | `FileField` in private storage: messaging keeps an attachment's name, not its file, so the cron needs the PDF here |
 | `contact_name`, `email`, `phone` | from the prospecting ledger |
 | `overview` | one line: what the business is, built from the ledger (trading name, Google category, suburb) |
-| `issues` | three short lines: the report's highest-impact recommendation titles; the first two are the email's "two stand out" |
+| `issues` | the report's five highest-impact recommendation titles, strongest first; body 1 names the first two, body 4 lists all five |
 | `paid_searches` | the searches its ad was seen on; empty for a host, or a business found some other way |
 | `purpose` | `client` or `affiliate`, from the upload; `client` unless it says |
 | `subject_version` | 1 to 5, assigned on upload by rotation (3 and 5 only with a paid search) |
-| `body_version` | a client: 1 or 2, whichever has fewer; an affiliate: 3 |
+| `body_version` | a client: 1, 2 or 4, whichever has fewest; an affiliate: 3 |
 | `metric` | what the business counts, for body 2; `bookings` unless the upload says |
 | `body` | empty since 2026-10-30; the analyst's email on the rows before it, which body 1 sent as written |
 | `queued_at`, `sent_at` | `sent_at` set by the cron's claim, as `pitched_at` is |
