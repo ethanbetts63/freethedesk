@@ -118,16 +118,20 @@ Added 2026-10-26. `npm run check` fails on `check:forms` since 91e5089: `app/aff
 
 Added 2026-10-26. `_complete_test_schema` depends on `django_db_setup`, but pytest-django only creates the test database for runs that contain a `django_db` test. A run of pure unit tests (for example `affiliates/tests/util_tests/test_scraper.py` alone) therefore introspects the development database instead, and exits with "The test database is missing 1 table(s)" whenever a new app's migration has not been applied there yet. `py manage.py migrate` clears it; the fixture should skip its check when no database was set up.
 
-## Podcast outreach: the second Mailgun domain, parked
+## Podcast outreach: the outreach subdomain on a second Mailgun account
 
-Added 2026-10-26, rewritten the same day after the records were done. **Parked the same day: the owner decided not to upgrade the Mailgun plan, so the pitches go from the site's own address and domain, and the Free plan's 100 a day is the ceiling the hourly cron must stay under (3 an hour over the ten-hour window leaves room for the site's own mail). The steps below are what to do if that changes.** In Cloudflare, `mail.freethedesk.com.au` now has its two Mailgun MX records and `_dmarc.freethedesk.com.au` reports to hello@freethedesk.com.au; with the SPF and DKIM that were already there, the current domain is fully set up.
+Added 2026-10-26; rewritten 2026-10-30 after the owner chose the way: **a second, free Mailgun account for a subdomain, `outreach.freethedesk.com.au`** (option B; the Foundation plan at USD 35 a month was the alternative). Why: 3 spam complaints in 108 pitches (2.8%, against Gmail's 0.3% line) went against `freethedesk.com.au`, the domain the sign-in codes, receipts and prospect report emails use. The pitches stay paused until this is done; nothing cold goes from the main domain again. In Cloudflare, `mail.freethedesk.com.au` already has its Mailgun MX records and `_dmarc.freethedesk.com.au` reports to hello@; SPF and DKIM for the current domain are done.
 
-The separate outreach domain is decided (owner, 2026-10-26) but blocked: the freethedesk Mailgun account is on the Free plan (13 of 3,000 sends used in October), and "Add new domain" silently does nothing at that plan's one-custom-domain limit. The Free plan also caps sending at 100 a day, which the hourly pitch at 3 an hour plus the site's own mail sits well under. Owner's steps:
+Build first (agent, freetheplatform): the Mailgun webhook (`api/views/webhooks.py`) verifies one signing key, `MAILGUN.WEBHOOK_SIGNING_KEY`. A second account has its own key, so its delivered, failed and complained events would be rejected and complaints on the outreach domain would go unrecorded. Let a named sender carry `WEBHOOK_SIGNING_KEY` and have the webhook accept any configured key; tests, release note, bump. Then in freethedesk read it from `OUTREACH_MAILGUN_WEBHOOK_SIGNING_KEY`.
 
-1. Upgrade the freethedesk Mailgun account (Upgrade, top bar) to a plan that allows a second custom sending domain; check the domain allowance on the plan page before paying.
-2. Add the domain `outreach.freethedesk.com.au` (Send, Domains, Add new domain, US region, 2048-bit DKIM, no Red Sift DMARC), then in Cloudflare add the SPF TXT, the `pic._domainkey` DKIM TXT and the two MX records it lists, all DNS only.
-3. In Mailgun, make a domain sending key for the new domain and a delivery webhook pointed at `https://www.freethedesk.com.au/api/webhooks/messaging/mailgun/` (the same signing key as the main domain).
-4. Set on PythonAnywhere: `OUTREACH_FROM_EMAIL="Ethan Betts <ethan@outreach.freethedesk.com.au>"`, `OUTREACH_MAILGUN_DOMAIN=outreach.freethedesk.com.au`, `OUTREACH_MAILGUN_API_KEY=<that sending key>`. The pitch then goes from the new domain (freetheplatform v0.38.0 named senders); unset, it goes from the site's own address as it does today.
+Owner's steps, after that is deployed:
+
+1. Open a second Mailgun account (Free plan: 100 a day, one custom domain) under a different login, for example outreach@ or ethan@. Check Mailgun's terms allow two accounts for one business; if not, upgrade the main account to Foundation instead and add the domain there (the steps are the same from 2).
+2. In it add `outreach.freethedesk.com.au` (Send, Domains, Add new domain, US region, 2048-bit DKIM, no Red Sift DMARC), then in Cloudflare add the SPF TXT, the `pic._domainkey` DKIM TXT and the two MX records it lists, all DNS only, plus `_dmarc.outreach.freethedesk.com.au` `v=DMARC1; p=none; rua=mailto:hello@freethedesk.com.au`.
+3. Make a sending key for the domain and a delivery webhook (delivered, permanent failure, complained, unsubscribed) pointed at `https://www.freethedesk.com.au/api/webhooks/messaging/mailgun/`; copy that account's webhook signing key.
+4. Set on PythonAnywhere: `OUTREACH_FROM_EMAIL="Ethan Betts <ethan@outreach.freethedesk.com.au>"`, `OUTREACH_MAILGUN_DOMAIN=outreach.freethedesk.com.au`, `OUTREACH_MAILGUN_API_KEY=<the sending key>`, `OUTREACH_MAILGUN_WEBHOOK_SIGNING_KEY=<that key>`. Reload. Replies to ethan@outreach... need a route or forward in Mailgun (Receiving, Routes: match recipient, forward to hello@), or the host's reply is lost.
+5. Add `outreach.freethedesk.com.au` to Google Postmaster Tools.
+6. Warm up: `--count 1` on the hourly task for the first two weeks (about 10 a day), then `--count 3`. Stop if Postmaster shows complaints above 0.3%.
 
 ## Deploy the second report email body
 
