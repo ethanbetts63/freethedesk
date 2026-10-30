@@ -346,8 +346,12 @@ export default function ReportProspectDetailPage() {
 
         <section className={cn(cardClassName, cardWideClassName)}>
           <h2 className={cardTitleClassName}>The email</h2>
-          <p className="mb-s font-heavy">{prospect.subject}</p>
-          <p className="m-0 whitespace-pre-line text-body-sm">{prospect.body}</p>
+          <p className="mb-2xs font-heavy">{prospect.subject}</p>
+          <p className="mb-s text-body-sm text-text-subtle">
+            Subject {prospect.subject_version}, body {prospect.body_version}:{' '}
+            {prospect.body_label.replace(/^\d: /, '')}
+          </p>
+          <p className="m-0 whitespace-pre-line text-body-sm">{prospect.email_body}</p>
         </section>
 
         <RelatedMessagesCard

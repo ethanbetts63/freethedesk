@@ -34,6 +34,7 @@ import {
   getReportProspects,
   getReportProspectSummary,
   type ReportProspect,
+  type ReportBodySummary,
   type ReportSubjectSummary,
 } from '@/lib/adminApi';
 import { Notice } from '@/components/ui/Notice';
@@ -50,12 +51,14 @@ const CALLED_OPTIONS = [
   { value: 'yes', label: 'Called' },
 ];
 
-/** What each subject line has done so far: the numbers the five-way test is read from. */
-function SubjectSummary({ subjects }: { subjects: ReportSubjectSummary[] }) {
+type Tallies = ReportSubjectSummary | ReportBodySummary;
+
+/** What each subject line, then each body, has done so far: the numbers the two tests are read from. */
+function SummaryCards({ rows, columns }: { rows: Tallies[]; columns: string }) {
   return (
-    <div className="grid gap-m sm:grid-cols-3 lg:grid-cols-5">
-      {subjects.map((row) => (
-        <section key={row.subject_version} className={cardClassName}>
+    <div className={`grid gap-m ${columns}`}>
+      {rows.map((row) => (
+        <section key={row.label} className={cardClassName}>
           <h2 className={cardTitleClassName}>{row.label}</h2>
           <dl className="grid grid-cols-2 gap-x-m gap-y-2xs text-body-sm">
             <dt className="text-text-subtle">Queued</dt>
@@ -87,13 +90,17 @@ function ProspectsContent() {
     loadError: 'Prospects could not be loaded.',
   });
   const [subjects, setSubjects] = useState<ReportSubjectSummary[]>([]);
+  const [bodies, setBodies] = useState<ReportBodySummary[]>([]);
   const [summaryError, setSummaryError] = useState('');
 
   useEffect(() => {
     let active = true;
     getReportProspectSummary()
       .then((result) => {
-        if (active) setSubjects(result.subjects);
+        if (active) {
+          setSubjects(result.subjects);
+          setBodies(result.bodies);
+        }
       })
       .catch(() => {
         if (active) setSummaryError('The subject totals could not be loaded.');
@@ -114,7 +121,10 @@ function ProspectsContent() {
       {summaryError ? (
         <Notice tone="danger">{summaryError}</Notice>
       ) : (
-        <SubjectSummary subjects={subjects} />
+        <>
+          <SummaryCards rows={subjects} columns="sm:grid-cols-3 lg:grid-cols-5" />
+          <SummaryCards rows={bodies} columns="sm:grid-cols-2" />
+        </>
       )}
 
       <section className={panelClassName}>
@@ -202,6 +212,9 @@ function ProspectsContent() {
                   <td className={adminTdClassName}>
                     <StatusPill status={prospect.status} />
                     {prospect.sent_at && <CellNote>{formatDateTime(prospect.sent_at)}</CellNote>}
+                    <CellNote>
+                      Subject {prospect.subject_version}, body {prospect.body_version}
+                    </CellNote>
                   </td>
                   <td className={adminTdClassName}>
                     <StatusPill status={prospect.called_at ? 'called' : 'to_call'} />

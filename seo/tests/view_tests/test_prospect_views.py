@@ -24,8 +24,9 @@ def test_a_published_report_is_queued_with_its_pdf(api_client, internal_key):
     body = response.json()
     assert body["outcome"] == "queued"
     prospect = SeoProspect.objects.get()
-    assert body["subject"] == "I spent 4 hours on this. I am not a bot."
+    assert body["subject"] == "I spent 3 hours on this. I am not a bot."
     assert prospect.subject_version == 1
+    assert (body["body_version"], prospect.body_version, prospect.metric) == (1, 1, "bookings")
     assert prospect.issues == ["No pergola page", "The home page has no heading"]
     assert prospect.paid_searches == ["pergolas perth"]
     assert prospect.sent_at is None
@@ -37,6 +38,15 @@ def test_subjects_rotate_so_each_gets_a_fifth(api_client, internal_key):
     for n in range(6):
         upload(api_client, internal_key, domain=f"b{n}.com.au", slug=f"b{n}", email=f"o@b{n}.com.au")
     assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [1, 2, 3, 4, 5, 1]
+
+
+def test_bodies_alternate_so_each_gets_half(api_client, internal_key):
+    """Not a coin toss: the body with fewer sends gets the next report, so five a night split 3 and 2, never 5 and 0."""
+    for n in range(5):
+        upload(api_client, internal_key, domain=f"b{n}.com.au", slug=f"b{n}", email=f"o@b{n}.com.au",
+               metric="calls" if n == 1 else "bookings")
+    assert list(SeoProspect.objects.order_by("id").values_list("body_version", flat=True)) == [1, 2, 1, 2, 1]
+    assert SeoProspect.objects.get(slug="b1").metric == "calls"
 
 
 def test_with_no_paid_search_the_subjects_that_name_one_are_skipped(api_client, internal_key):
@@ -91,7 +101,7 @@ def test_the_calls_list_puts_the_uncalled_first(api_client, staff_user):
     rows = response.json()["results"]
     assert [r["business"] for r in rows] == [waiting.business, called.business]
     assert rows[0]["report_path"] == waiting.report_path
-    assert rows[0]["subject"] == "I spent 4 hours on this. I am not a bot."
+    assert rows[0]["subject"] == "I spent 3 hours on this. I am not a bot."
 
 
 def test_the_owner_marks_a_call_and_nothing_else(api_client, staff_user):
@@ -133,6 +143,16 @@ def test_the_summary_counts_each_subject(api_client, staff_user):
 
     assert (subjects[2]["total"], subjects[2]["queued"], subjects[2]["called"], subjects[2]["positive"]) == (2, 2, 1, 1)
     assert subjects[1]["total"] == 0
+
+
+def test_the_summary_counts_each_body_too(api_client, staff_user):
+    SeoProspectFactory(body_version=2, reply="positive")
+    SeoProspectFactory(body_version=1)
+    api_client.force_authenticate(staff_user)
+
+    bodies = {b["body_version"]: b for b in api_client.get(reverse("admin-seo-prospect-summary")).json()["bodies"]}
+
+    assert (bodies[2]["total"], bodies[2]["positive"], bodies[1]["total"], bodies[1]["positive"]) == (1, 1, 1, 0)
 
 
 def test_staff_only(api_client):

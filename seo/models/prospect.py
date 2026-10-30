@@ -19,11 +19,17 @@ class SeoProspect(models.Model):
     class Subject(models.IntegerChoices):
         """The five subject lines in ``seo/utils/prospect_sending.py``, tested against each other."""
 
-        ONE = 1, "1: I spent N hours on this"
+        ONE = 1, "1: I spent 3 hours on this"
         TWO = 2, "2: N free fixes for the domain"
         THREE = 3, "3: Your ad, and what your site is missing"
         FOUR = 4, "4: A free SEO report for the business"
         FIVE = 5, "5: Not on Google's first page"
+
+    class Body(models.IntegerChoices):
+        """The two email bodies in ``seo/utils/prospect_sending.py``, tested against each other like the subjects."""
+
+        ANALYST = 1, "1: the analyst's email"
+        BET = 2, "2: the three-hour bet"
 
     class Reply(models.TextChoices):
         NONE = "none", "No reply"
@@ -51,12 +57,14 @@ class SeoProspect(models.Model):
     issues = models.JSONField(default=list)
     # The searches its ad was seen on: subjects 3 and 5 name the first.
     paid_searches = models.JSONField(default=list)
-    # The report's own figures, so subjects 1 and 2 agree with it.
-    hours = models.PositiveSmallIntegerField()
+    # The report's own count, so subject 2 agrees with it. Every report says three hours (owner, 2026-10-30).
     recommendation_count = models.PositiveSmallIntegerField()
     subject_version = models.PositiveSmallIntegerField(choices=Subject.choices, db_index=True)
-    # The analyst's email body, signature included.
+    body_version = models.PositiveSmallIntegerField(choices=Body.choices, default=Body.ANALYST, db_index=True)
+    # The analyst's email body, signature included: what body 1 sends. Body 2 is the server's fixed text.
     body = models.TextField()
+    # What the business counts, for body 2's bet: bookings, calls, quotes, sales.
+    metric = models.CharField(max_length=40, default="bookings")
     # Set by the cron's claim before the send. Null means still queued.
     sent_at = models.DateTimeField(null=True, blank=True, db_index=True)
     # Set by hand on the dashboard.

@@ -136,12 +136,19 @@ export interface ReportProspect {
   overview: string;
   issues: string[];
   paid_searches: string[];
-  hours: number;
   recommendation_count: number;
   subject_version: number;
   subject_label: string;
   subject: string;
+  /** 1 is the analyst's email; 2 the owner's fixed "three-hour bet". Levelled like the subjects. */
+  body_version: number;
+  body_label: string;
+  /** What the business counts, named in body 2: bookings, calls, quotes, sales. */
+  metric: string;
+  /** The analyst's email body; what body 1 sends. */
   body: string;
+  /** The body as it goes or went: body 2 filled in, or the analyst's with the way out. */
+  email_body: string;
   sent_at: string | null;
   status: ReportProspectStatus;
   message_id: number | null;
@@ -157,6 +164,15 @@ export interface ReportProspect {
 /** One subject line's tallies on the prospects page. */
 export interface ReportSubjectSummary extends Record<ReportProspectStatus, number> {
   subject_version: number;
+  label: string;
+  total: number;
+  positive: number;
+  called: number;
+}
+
+/** One email body's tallies on the prospects page, read like the subjects'. */
+export interface ReportBodySummary extends Record<ReportProspectStatus, number> {
+  body_version: number;
   label: string;
   total: number;
   positive: number;
@@ -373,7 +389,10 @@ export async function unsubscribeReportProspect(id: number): Promise<ReportProsp
   );
 }
 
-export async function getReportProspectSummary(): Promise<{ subjects: ReportSubjectSummary[] }> {
+export async function getReportProspectSummary(): Promise<{
+  subjects: ReportSubjectSummary[];
+  bodies: ReportBodySummary[];
+}> {
   return handleResponse(await authedFetch('/api/admin/seo/prospects/summary/'));
 }
 

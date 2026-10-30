@@ -21,7 +21,6 @@ def upload_fields(**overrides) -> dict:
         "overview": "Perth Patio Magic, patio builder in Ascot",
         "issues": ["No pergola page", "The home page has no heading"],
         "paid_searches": ["pergolas perth"],
-        "hours": 4,
         "recommendation_count": 10,
         "body": "Hi Reece,\n\nI picked Perth Patio Magic because...\n\nEthan Betts",
         **overrides,
@@ -42,7 +41,6 @@ class SeoProspectFactory(factory.django.DjangoModelFactory):
     overview = "A Perth business"
     issues = factory.LazyFunction(lambda: ["No page for the search"])
     paid_searches = factory.LazyFunction(lambda: ["plumber perth"])
-    hours = 4
     recommendation_count = 10
     subject_version = 1
     body = "Hi there,\n\nThe report is attached.\n\nEthan Betts"

@@ -2,7 +2,7 @@ from freetheplatform.security import bounds
 from rest_framework import serializers
 
 from ..models import SeoProspect
-from ..utils.prospect_sending import subject_for
+from ..utils.prospect_sending import body_for, subject_for
 
 # A prospect report runs to about 2 MB; Mailgun's ceiling is 25 MB for the whole send.
 MAX_PDF_BYTES = 15 * 1024 * 1024
@@ -46,9 +46,10 @@ class SeoProspectUploadSerializer(serializers.Serializer):
     paid_searches = serializers.ListField(
         child=serializers.CharField(max_length=200), max_length=10, required=False
     )
-    hours = serializers.IntegerField(min_value=1, max_value=100)
     recommendation_count = serializers.IntegerField(min_value=1, max_value=50)
     body = serializers.CharField(max_length=10000)
+    # What the business counts, for the second body's bet.
+    metric = serializers.CharField(max_length=40, required=False, default="bookings")
 
     def validate_domain(self, value):
         return value.strip().lower().removeprefix("www.")
@@ -73,21 +74,25 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
     message_id = serializers.IntegerField(read_only=True, allow_null=True)
     subject = serializers.SerializerMethodField()
     subject_label = serializers.CharField(source="get_subject_version_display", read_only=True)
+    body_label = serializers.CharField(source="get_body_version_display", read_only=True)
+    email_body = serializers.SerializerMethodField()
     reply_label = serializers.CharField(source="get_reply_display", read_only=True)
 
     class Meta:
         model = SeoProspect
         fields = [
             "id", "domain", "business", "slug", "report_version", "report_path", "contact_name",
-            "email", "email_source", "phone", "overview", "issues", "paid_searches", "hours",
-            "recommendation_count", "subject_version", "subject_label", "subject", "body",
+            "email", "email_source", "phone", "overview", "issues", "paid_searches",
+            "recommendation_count", "subject_version", "subject_label", "subject",
+            "body_version", "body_label", "metric", "body", "email_body",
             "sent_at", "status", "message_id", "called_at", "call_notes", "reply", "reply_label",
             "excluded_reason", "created_at", "updated_at",
         ]
         read_only_fields = [
             "id", "domain", "business", "slug", "report_version", "report_path", "contact_name",
-            "email", "email_source", "phone", "overview", "issues", "paid_searches", "hours",
-            "recommendation_count", "subject_version", "subject_label", "subject", "body",
+            "email", "email_source", "phone", "overview", "issues", "paid_searches",
+            "recommendation_count", "subject_version", "subject_label", "subject",
+            "body_version", "body_label", "metric", "body", "email_body",
             "sent_at", "status", "message_id", "reply_label", "created_at", "updated_at",
         ]
         # TextField columns, which DRF maps to a CharField with no maximum.
@@ -98,3 +103,7 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
 
     def get_subject(self, obj) -> str:
         return subject_for(obj)
+
+    def get_email_body(self, obj) -> str:
+        """The body as it goes, or went: body 2 filled in, or the analyst's with the way out."""
+        return body_for(obj)

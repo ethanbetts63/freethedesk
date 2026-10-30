@@ -52,6 +52,22 @@ def test_the_hourly_run_emails_a_queued_report_with_its_pdf(outbox, monkeypatch)
     assert len(outbox) == 1
 
 
+def test_body_two_goes_as_the_owner_wrote_it_with_the_name_and_the_metric(outbox, monkeypatch):
+    """The second body is the server's fixed text: only the greeting and what the business counts change."""
+    prospect = SeoProspectFactory(body_version=2, contact_name="Craig Smith", metric="calls",
+                                  body="Hi Craig,\n\nThe analyst's words, not sent.\n\nEthan Betts")
+
+    run(monkeypatch, perth(26, 10))
+
+    [message] = outbox
+    assert message.to == prospect.email
+    assert message.body_text.startswith("Hi Craig,\n\nI spent three hours writing the attached website report.")
+    assert "if your calls don't move in a month, mark this email as spam" in message.body_text
+    assert "The analyst's words" not in message.body_text
+    assert UNSUBSCRIBE_LINE not in message.body_text
+    assert message.attachments == [{"name": f"{prospect.slug}_seo_report_r1.pdf", "size": len(PDF)}]
+
+
 def test_outside_the_window_no_report_is_sent(outbox, monkeypatch):
     SeoProspectFactory()
     assert "Outside the sending window" in run(monkeypatch, perth(24, 10))
@@ -88,7 +104,7 @@ def test_reports_go_ten_seconds_apart_and_after_the_pitches(outbox, monkeypatch)
 
 
 @pytest.mark.parametrize("version, expected", [
-    (1, "I spent 4 hours on this. I am not a bot."),
+    (1, "I spent 3 hours on this. I am not a bot."),
     (2, "10 free fixes for business0.com.au"),
     (4, "A free SEO report for Business 0"),
     (5, "Business 0 isn't on Google's first page for 'plumber perth'"),

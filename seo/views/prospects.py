@@ -16,7 +16,7 @@ from core.utils.pagination import DashboardPagination
 
 from ..models import SeoProspect
 from ..serializers.prospect import AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectUploadSerializer
-from ..utils.prospect_sending import next_subject, subject_for
+from ..utils.prospect_sending import next_body, next_subject, subject_for
 from ..utils.prospects import STATUSES, with_status
 
 PROSPECT_ORDERING = {
@@ -64,7 +64,8 @@ class SeoProspectUploadView(APIView):
         try:
             with transaction.atomic():
                 prospect = SeoProspect(
-                    **data, subject_version=next_subject(has_search=bool(data.get("paid_searches")))
+                    **data, subject_version=next_subject(has_search=bool(data.get("paid_searches"))),
+                    body_version=next_body(),
                 )
                 prospect.report_pdf.save(f"{data['slug']}_{data['report_version']}.pdf", pdf, save=False)
                 prospect.save()
@@ -74,7 +75,8 @@ class SeoProspectUploadView(APIView):
                             status=status.HTTP_409_CONFLICT)
         return Response(
             {"outcome": "queued", "id": prospect.pk, "subject_version": prospect.subject_version,
-             "subject": subject_for(prospect)},
+             "subject": subject_for(prospect), "body_version": prospect.body_version,
+             "body_label": prospect.get_body_version_display()},
             status=status.HTTP_201_CREATED,
         )
 
@@ -188,25 +190,31 @@ class AdminSeoProspectUnsubscribeView(APIView):
 
 
 class AdminSeoProspectSummaryView(APIView):
-    """Per subject: how many are queued, where the sent ones got to, replies and calls."""
+    """Per subject, and per body: how many are queued, where the sent ones got to, replies and calls."""
 
     throttle_scope = "staff"
     permission_classes = [IsAdminUser]
 
     def get(self, request):
+        return Response({
+            "subjects": self.tallies("subject_version", SeoProspect.Subject.choices),
+            "bodies": self.tallies("body_version", SeoProspect.Body.choices),
+        })
+
+    @staticmethod
+    def tallies(field, choices):
         summary = {
-            value: {"subject_version": value, "label": label, "total": 0, "positive": 0, "called": 0,
-                    **{s: 0 for s in STATUSES}}
-            for value, label in SeoProspect.Subject.choices
+            value: {field: value, "label": label, "total": 0, "positive": 0, "called": 0, **{s: 0 for s in STATUSES}}
+            for value, label in choices
         }
-        for row in with_status(SeoProspect.objects.all()).values("subject_version", "status").annotate(n=Count("id")):
-            entry = summary[row["subject_version"]]
+        for row in with_status(SeoProspect.objects.all()).values(field, "status").annotate(n=Count("id")):
+            entry = summary[row[field]]
             entry[row["status"]] = entry.get(row["status"], 0) + row["n"]
             entry["total"] += row["n"]
-        counts = SeoProspect.objects.values("subject_version").annotate(
+        counts = SeoProspect.objects.values(field).annotate(
             positive=Count("id", filter=Q(reply=SeoProspect.Reply.POSITIVE)),
             called=Count("id", filter=Q(called_at__isnull=False)),
         )
         for row in counts:
-            summary[row["subject_version"]].update(positive=row["positive"], called=row["called"])
-        return Response({"subjects": list(summary.values())})
+            summary[row[field]].update(positive=row["positive"], called=row["called"])
+        return list(summary.values())

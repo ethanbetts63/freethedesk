@@ -20,14 +20,29 @@ business-hours window, the message log as the status, the dashboard page.
   same Perth weekday window (8am to 6pm) and with the same ten seconds between
   sends. No new scheduled task.
 - **Five subjects, rotated by prospect**, so replies can be read against them:
-  1. I spent {hours} hours on this. I am not a bot.
+  1. I spent 3 hours on this. I am not a bot.
   2. {count} free fixes for {domain}
   3. Your '{paid search}' ad, and what your site is missing
   4. A free SEO report for {business}
   5. {business} isn't on Google's first page for '{paid search}'
 
-  `{hours}` is the report's ask's figure and `{count}` its recommendation
-  count, so a subject never disagrees with its report.
+  `{count}` is the report's recommendation count, so the subject never
+  disagrees with its report. Three hours is every report's figure, in the
+  report's ask, the analyst's email and the subject alike (owner, 2026-10-30):
+  believable, under the machine time on every report, and nothing counts it.
+- **Two bodies, levelled like the subjects** (owner, 2026-10-30). Each new
+  report gets the body with the fewer sends so far, so five a night split 3
+  and 2, never 5 and 0 as a coin toss can. Body 1 is the analyst's email,
+  written for the business. Body 2 is the owner's fixed words, "the
+  three-hour bet": make the changes and if your bookings don't move in a
+  month, mark this as spam. Only the greeting and `metric`, the word for what
+  the business counts (bookings, calls, quotes, sales; `outbox.py add
+  --metric`), change. Its source copy is `call_script.md` in ftp_search,
+  "The report email, second body"; the server holds the same text in
+  `prospect_sending.BODY_TWO`, and the two are changed together. Body 2's way
+  out is the spam button, which it names twice; a 'no thanks' reply is still
+  suppressed by hand. The dashboard's summary strip shows the two bodies
+  under the five subjects, and each row says which pair it got.
 - **Unsubscribe by reply.** The email ends "Reply 'no thanks' and I won't email
   again." (the analyst's fixed wording; the server adds it if a body lacks
   it). A reply that asks is suppressed with the dashboard's Unsubscribe
@@ -50,7 +65,9 @@ business-hours window, the message log as the status, the dashboard page.
 | `issues` | three short lines: the report's highest-impact recommendation titles |
 | `paid_searches` | the searches its ad was seen on |
 | `subject_version` | 1 to 5, assigned on upload by rotation |
-| `body` | the analyst's email body, signature included |
+| `body_version` | 1 or 2, assigned on upload to whichever has fewer |
+| `metric` | what the business counts, for body 2; `bookings` unless the upload says |
+| `body` | the analyst's email body, signature included; what body 1 sends |
 | `queued_at`, `sent_at` | `sent_at` set by the cron's claim, as `pitched_at` is |
 | `called_at`, `call_notes` | set by hand on the dashboard |
 | `reply` | none, positive or negative, by hand |
@@ -87,7 +104,7 @@ pipeline on its own.
 calls to-do list. Not yet called first, then by sent date. Each row: business,
 overview, issues, email, phone, emailed status and date, report path, a "Mark
 called" action with notes, reply, exclude, unsubscribe. A summary strip of
-sent, replied and called per subject.
+sent, replied and called per subject, and per body.
 
 ## The pipeline side (ftp_search)
 
