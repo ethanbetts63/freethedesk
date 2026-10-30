@@ -112,7 +112,7 @@ LIST_WIDTH = 50
 # rest counted.
 BODY_FIXES = """Hi {first_name},
 
-My name's Ethan. Attached is a list of fixes for your website. I'm a real person who spent real time on this. The catch is some number of people I do these free reports for buy a full one. The fixes are worth doing either way.
+My name's Ethan. Attached is a list of fixes for your website. I'm a real person who spent real time on this. There's no obligation. Some of the people I write these for buy a full report later, that's why I do it. The fixes are worth doing either way.
 
 Every recommendation explains the issue, why it's important and how to fix it. Here's the first few:
 
