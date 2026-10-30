@@ -20,16 +20,19 @@ business-hours window, the message log as the status, the dashboard page.
   hourly `send_affiliate_outreach` run also sends queued prospect emails, in the
   same Perth weekday window (8am to 6pm) and with the same ten seconds between
   sends. No new scheduled task.
-- **Five subjects, rotated by prospect**, so replies can be read against them.
+- **Subjects, rotated by prospect**, so replies can be read against them.
   Subjects 1, 2, 4 and 5 were retired from the rotation on 2026-10-30 (owner's
-  call: no "SEO" and no "free" in a subject); their rows keep them. Only 3 is
-  live, and it needs a paid search: a business without one is refused at
-  upload (`no_subject`) until the owner approves a subject that needs none.
+  call: no "SEO" and no "free" in a subject); their rows keep them. In
+  rotation: 3 (only with a paid search), 6 and 7, approved the same day for
+  body 5. Should every live subject need a paid search again, a business
+  without one is refused at upload (`no_subject`) until one is approved.
   1. I spent 3 hours on this. I am not a bot.
   2. {count} free fixes for {domain}
   3. Your '{paid search}' ad, and what your site is missing
   4. A free SEO report for {business}
   5. {business} isn't on Google's first page for '{paid search}'
+  6. A list of fixes for {domain}
+  7. What's wrong with {domain}, and how to fix it
 
   `{count}` is the report's recommendation count, so the subject never
   disagrees with its report. Three hours is every report's figure, in the
@@ -91,7 +94,7 @@ business-hours window, the message log as the status, the dashboard page.
 | `issues` | the report's five highest-impact recommendation titles, strongest first; body 1 names the first two, body 4 lists all five |
 | `paid_searches` | the searches its ad was seen on; empty for a host, or a business found some other way |
 | `purpose` | `client` or `affiliate`, from the upload; `client` unless it says |
-| `subject_version` | 3 today (needs a paid search); 1, 2, 4 and 5 retired, kept on their rows |
+| `subject_version` | 3 (needs a paid search), 6 or 7, by rotation; 1, 2, 4 and 5 retired, kept on their rows |
 | `body_version` | a client: 5 (1, 2 and 4 paused); an affiliate: 3 |
 | `metric` | what the business counts, for body 2; `bookings` unless the upload says |
 | `body` | empty since 2026-10-30; the analyst's email on the rows before it, which body 1 sent as written |

@@ -35,11 +35,11 @@ def test_a_published_report_is_queued_with_its_pdf(api_client, internal_key):
         assert handle.read() == PDF
 
 
-def test_only_the_subject_in_rotation_is_drawn(api_client, internal_key):
-    """Subjects 1, 2, 4 and 5 are retired (owner, 2026-10-30); 3 is what a business with a paid search gets."""
-    for n in range(3):
+def test_the_three_subjects_in_rotation_take_turns(api_client, internal_key):
+    """Subjects 1, 2, 4 and 5 are retired (owner, 2026-10-30); 3, 6 and 7 rotate for a business with a paid search."""
+    for n in range(4):
         upload(api_client, internal_key, domain=f"b{n}.com.au", slug=f"b{n}", email=f"o@b{n}.com.au")
-    assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [3, 3, 3]
+    assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [3, 6, 7, 3]
 
 
 def test_every_client_draws_the_fixes_list(api_client, internal_key):
@@ -53,19 +53,28 @@ def test_every_client_draws_the_fixes_list(api_client, internal_key):
 
 
 def test_an_affiliate_prospect_gets_the_affiliate_body(api_client, internal_key):
-    """A podcast host's report takes body 3 every time. (With a paid search here only so a subject exists: see the
-    next test.)"""
+    """A podcast host's report takes body 3 every time, and a subject that names no search."""
     response = upload(api_client, internal_key, domain="peachbm.com.au", slug="peachbm", email="fi@peachbm.com.au",
-                      business="Money Secrets", purpose="affiliate", paid_searches=["bookkeeper melbourne"])
+                      business="Money Secrets", purpose="affiliate", paid_searches=[])
 
     assert response.status_code == 201
     assert (response.json()["purpose"], response.json()["body_version"]) == ("affiliate", 3)
     assert response.json()["body_label"] == "3: the affiliate offer"
+    assert response.json()["subject"] == "A list of fixes for peachbm.com.au"
 
 
-def test_with_no_paid_search_and_no_subject_in_rotation_the_upload_is_refused(api_client, internal_key):
-    """Every subject still in rotation names a paid search, so a business without one waits for a subject the owner
+def test_with_no_paid_search_the_subject_that_names_one_is_skipped(api_client, internal_key):
+    for n in range(3):
+        upload(api_client, internal_key, domain=f"b{n}.com.au", slug=f"b{n}", email=f"o@b{n}.com.au", paid_searches=[])
+    assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [6, 7, 6]
+
+
+def test_with_no_subject_in_rotation_the_upload_is_refused(api_client, internal_key, monkeypatch):
+    """Should every live subject need a paid search again, a business without one waits for a subject the owner
     approves; nothing is queued and the outbox says why."""
+    from seo.utils import prospect_sending
+    monkeypatch.setattr(prospect_sending, "PAUSED_SUBJECTS",
+                        prospect_sending.PAUSED_SUBJECTS | {SeoProspect.Subject.SIX, SeoProspect.Subject.SEVEN})
     response = upload(api_client, internal_key, paid_searches=[])
     assert response.status_code == 400
     assert response.json()["outcome"] == "no_subject"

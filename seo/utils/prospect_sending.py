@@ -28,11 +28,14 @@ SUBJECTS = {
     SeoProspect.Subject.THREE: "Your '{search}' ad, and what your site is missing",
     SeoProspect.Subject.FOUR: "A free SEO report for {business}",
     SeoProspect.Subject.FIVE: "{business} isn't on Google's first page for '{search}'",
+    # Approved 2026-10-30, written for body 5: no "SEO" and no "free".
+    SeoProspect.Subject.SIX: "A list of fixes for {domain}",
+    SeoProspect.Subject.SEVEN: "What's wrong with {domain}, and how to fix it",
 }
 # Subjects that need a paid search to make sense.
 NEEDS_SEARCH = {SeoProspect.Subject.THREE, SeoProspect.Subject.FIVE}
 # Retired from the rotation (owner's call, 2026-10-30: no "SEO" and no "free" in a subject): kept so the rows
-# that drew them still read right. Only subject 3 remains, and it needs a paid search.
+# that drew them still read right. 3 (with a paid search), 6 and 7 rotate.
 PAUSED_SUBJECTS = {SeoProspect.Subject.ONE, SeoProspect.Subject.TWO, SeoProspect.Subject.FOUR, SeoProspect.Subject.FIVE}
 
 # The Spam Act's unsubscribe facility: a reply, suppressed by hand on the dashboard.

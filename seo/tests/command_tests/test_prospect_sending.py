@@ -214,6 +214,8 @@ def test_reports_go_ten_seconds_apart_and_after_the_pitches(outbox, monkeypatch)
     (2, "10 free fixes for business0.com.au"),
     (4, "A free SEO report for Business 0"),
     (5, "Business 0 isn't on Google's first page for 'plumber perth'"),
+    (6, "A list of fixes for business0.com.au"),
+    (7, "What's wrong with business0.com.au, and how to fix it"),
 ])
 def test_each_subject_names_only_what_the_report_says(version, expected):
     prospect = SeoProspectFactory(subject_version=version, domain="business0.com.au", business="Business 0")

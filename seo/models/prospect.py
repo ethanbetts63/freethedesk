@@ -20,13 +20,15 @@ class SeoProspect(models.Model):
     """
 
     class Subject(models.IntegerChoices):
-        """The five subject lines in ``seo/utils/prospect_sending.py``, tested against each other."""
+        """The subject lines in ``seo/utils/prospect_sending.py``, tested against each other; some retired."""
 
         ONE = 1, "1: I spent 3 hours on this"
         TWO = 2, "2: N free fixes for the domain"
         THREE = 3, "3: Your ad, and what your site is missing"
         FOUR = 4, "4: A free SEO report for the business"
         FIVE = 5, "5: Not on Google's first page"
+        SIX = 6, "6: A list of fixes for the domain"
+        SEVEN = 7, "7: What's wrong with the domain, and how to fix it"
 
     class Purpose(models.TextChoices):
         """Why the report was written: a business we hope will buy the full one, or a podcast host we hope will join."""
