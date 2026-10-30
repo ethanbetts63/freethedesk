@@ -42,10 +42,11 @@ business-hours window, the message log as the status, the dashboard page.
   full report, or `affiliate`, a podcast host we hope will join the program
   ([`affiliate-program.md`](affiliate-program.md)). The outbox sets it from the
   ledger entry's `source`.
-- **Four bodies.** A client gets body 1, 2 or 4, levelled like the subjects
-  (owner, 2026-10-30): each new client report gets the one with the fewest
-  sends so far, so six a night split 2, 2 and 2, never 6 and 0 as a coin toss
-  can. Body 1 is the report email, in the words the analyst's email used:
+- **Four bodies, two in the test.** A client gets body 2 or 4
+  (`CLIENT_BODIES`; owner, 2026-10-30: body 1 is paused as the weaker of the
+  three, kept for the rows that drew it), levelled like the subjects: each new
+  client report gets the one with the fewer sends so far, so five a night
+  split 3 and 2, never 5 and 0 as a coin toss can. Body 1 is the report email, in the words the analyst's email used:
   why this business (its ad on a search it does not win, or its site alone),
   the count, the two findings that stand out, and the ask to consider the
   paid report. Body 2 is the owner's fixed words, "the three-hour bet": make
@@ -86,7 +87,7 @@ business-hours window, the message log as the status, the dashboard page.
 | `paid_searches` | the searches its ad was seen on; empty for a host, or a business found some other way |
 | `purpose` | `client` or `affiliate`, from the upload; `client` unless it says |
 | `subject_version` | 1 to 5, assigned on upload by rotation (3 and 5 only with a paid search) |
-| `body_version` | a client: 1, 2 or 4, whichever has fewest; an affiliate: 3 |
+| `body_version` | a client: 2 or 4, whichever has fewer (1 is paused); an affiliate: 3 |
 | `metric` | what the business counts, for body 2; `bookings` unless the upload says |
 | `body` | empty since 2026-10-30; the analyst's email on the rows before it, which body 1 sent as written |
 | `queued_at`, `sent_at` | `sent_at` set by the cron's claim, as `pitched_at` is |

@@ -26,7 +26,7 @@ def test_a_published_report_is_queued_with_its_pdf(api_client, internal_key):
     prospect = SeoProspect.objects.get()
     assert body["subject"] == "I spent 3 hours on this. I am not a bot."
     assert prospect.subject_version == 1
-    assert (body["body_version"], prospect.body_version, prospect.metric) == (1, 1, "bookings")
+    assert (body["body_version"], prospect.body_version, prospect.metric) == (2, 2, "bookings")
     assert (body["purpose"], prospect.purpose, prospect.body) == ("client", "client", "")
     assert prospect.issues == ["No pergola page", "The home page has no heading"]
     assert prospect.paid_searches == ["pergolas perth"]
@@ -41,12 +41,13 @@ def test_subjects_rotate_so_each_gets_a_fifth(api_client, internal_key):
     assert list(SeoProspect.objects.order_by("id").values_list("subject_version", flat=True)) == [1, 2, 3, 4, 5, 1]
 
 
-def test_bodies_take_turns_so_each_gets_a_third(api_client, internal_key):
-    """Not a coin toss: the client body with fewer sends gets the next report, so six a night split 2, 2 and 2."""
-    for n in range(7):
+def test_bodies_take_turns_so_each_gets_half(api_client, internal_key):
+    """Not a coin toss: the client body with fewer sends gets the next report, so five a night split 3 and 2, never
+    5 and 0. Body 1 is paused: nobody new draws it."""
+    for n in range(5):
         upload(api_client, internal_key, domain=f"b{n}.com.au", slug=f"b{n}", email=f"o@b{n}.com.au",
                metric="calls" if n == 1 else "bookings")
-    assert list(SeoProspect.objects.order_by("id").values_list("body_version", flat=True)) == [1, 2, 4, 1, 2, 4, 1]
+    assert list(SeoProspect.objects.order_by("id").values_list("body_version", flat=True)) == [2, 4, 2, 4, 2]
     assert SeoProspect.objects.get(slug="b1").metric == "calls"
 
 
@@ -61,7 +62,7 @@ def test_an_affiliate_prospect_gets_the_affiliate_body_and_leaves_the_client_tes
     assert (response.json()["purpose"], response.json()["body_version"]) == ("affiliate", 3)
     assert response.json()["body_label"] == "3: the affiliate offer"
     assert list(SeoProspect.objects.order_by("id").values_list("purpose", "body_version")) == [
-        ("client", 1), ("affiliate", 3), ("client", 2),
+        ("client", 2), ("affiliate", 3), ("client", 4),
     ]
 
 

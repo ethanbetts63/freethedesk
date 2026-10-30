@@ -132,11 +132,13 @@ def next_subject(has_search: bool = True) -> int:
     return min(choices, key=lambda s: (counts.get(s, 0), s))
 
 
-CLIENT_BODIES = [SeoProspect.Body.REPORT, SeoProspect.Body.BET, SeoProspect.Body.LIST]
+# The client bodies in the test today: the bet and the bet with the list (owner's call, 2026-10-30; body 1, the
+# report email, is paused, not deleted: rows that drew it still show and send it).
+CLIENT_BODIES = [SeoProspect.Body.BET, SeoProspect.Body.LIST]
 
 
 def next_body(purpose: str = SeoProspect.Purpose.CLIENT) -> int:
-    """An affiliate's body; else the client body with the fewest prospects, so the test stays level: 1, 2, 4, 1, 2, 4."""
+    """An affiliate's body; else the client body with the fewest prospects, so the test stays level: 2, 4, 2, 4."""
     if purpose == SeoProspect.Purpose.AFFILIATE:
         return SeoProspect.Body.AFFILIATE
     counts = {
