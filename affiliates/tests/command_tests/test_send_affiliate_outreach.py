@@ -48,6 +48,16 @@ def test_outside_the_window_nothing_is_sent(outbox, monkeypatch):
     assert PodcastProspect.objects.get().pitched_at is None
 
 
+def test_by_default_no_pitch_is_sent_and_the_queue_is_untouched(outbox, monkeypatch):
+    """The pitches are paused (owner, 2026-10-30): the hourly run still goes, for the prospect reports, but
+    sends no pitch and claims no row unless --count asks for some."""
+    ProspectFactory()
+    output = run(now=perth(26, 10), monkeypatch=monkeypatch)
+    assert "0 sent." in output
+    assert outbox == []
+    assert PodcastProspect.objects.get().pitched_at is None
+
+
 def test_sends_the_oldest_eligible_prospects_and_claims_them(outbox, monkeypatch):
     first = ProspectFactory(version="a", podcast_name="First")
     second = ProspectFactory(version="c", podcast_name="Second")
@@ -120,7 +130,7 @@ def test_skips_the_excluded_the_signed_up_and_the_suppressed(outbox, monkeypatch
     suppress(suppressed.email, reason=Suppression.Reason.BOUNCED)
     wanted = ProspectFactory(podcast_name="Wanted")
 
-    run(now=perth(26, 10), monkeypatch=monkeypatch)
+    run("--count", "3", now=perth(26, 10), monkeypatch=monkeypatch)
 
     assert [m.to for m in outbox] == [wanted.email]
     assert PodcastProspect.objects.filter(pitched_at__isnull=False).count() == 1
@@ -139,7 +149,7 @@ def test_a_prospect_claimed_by_a_concurrent_run_is_skipped(outbox, monkeypatch):
 
 def test_ignore_window_sends_at_any_hour(outbox, monkeypatch):
     ProspectFactory()
-    run("--ignore-window", now=perth(25, 3), monkeypatch=monkeypatch)
+    run("--count", "3", "--ignore-window", now=perth(25, 3), monkeypatch=monkeypatch)
     assert len(outbox) == 1
 
 
@@ -155,7 +165,7 @@ def test_one_failure_does_not_stop_the_rest(outbox, monkeypatch):
 
     monkeypatch.setattr(command, "send_pitch", flaky)
 
-    output = run(now=perth(26, 10), monkeypatch=monkeypatch)
+    output = run("--count", "3", now=perth(26, 10), monkeypatch=monkeypatch)
 
     assert "send failed" in output
     assert [m.to for m in outbox] == [fine.email]

@@ -118,6 +118,10 @@ The separate outreach domain is decided (owner, 2026-10-26) but blocked: the fre
 3. In Mailgun, make a domain sending key for the new domain and a delivery webhook pointed at `https://www.freethedesk.com.au/api/webhooks/messaging/mailgun/` (the same signing key as the main domain).
 4. Set on PythonAnywhere: `OUTREACH_FROM_EMAIL="Ethan Betts <ethan@outreach.freethedesk.com.au>"`, `OUTREACH_MAILGUN_DOMAIN=outreach.freethedesk.com.au`, `OUTREACH_MAILGUN_API_KEY=<that sending key>`. The pitch then goes from the new domain (freetheplatform v0.38.0 named senders); unset, it goes from the site's own address as it does today.
 
+## Deploy the paused podcast pitches
+
+Added 2026-10-30. Owner's step. `send_affiliate_outreach` now sends no podcast pitch by default (`--count` is 0); it still sends the queued prospect report emails every hour. Deploy Django, then check the hourly scheduled task on PythonAnywhere runs the command with no `--count`: one that passes `--count 3` keeps pitching. To resume the pitches later, put `--count 3` on the task. Queued podcast prospects are untouched meanwhile, so nothing is lost.
+
 ## SEO prospect outreach: deploy, then send yourself a test
 
 Added 2026-10-28. Owner's step. Built: the automated prospect report email and the calls list at /dashboard/admin/prospects ([`seo-prospect-outreach.md`](seo-prospect-outreach.md)). On deploy:

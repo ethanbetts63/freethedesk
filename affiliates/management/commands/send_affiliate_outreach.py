@@ -79,13 +79,17 @@ def claim(prospect, now):
 
 class Command(BaseCommand):
     help = (
-        "Sends the next few podcast pitches, then any queued prospect report emails "
-        "(_docs/seo-prospect-outreach.md). Runs hourly on PythonAnywhere next to send_due_messages, "
-        "and only inside Perth business hours on weekdays unless --ignore-window is passed."
+        "Sends any queued prospect report emails (_docs/seo-prospect-outreach.md), and the next few "
+        "podcast pitches when --count says so: the pitches are paused (owner, 2026-10-30), so the default "
+        "sends none. Runs hourly on PythonAnywhere next to send_due_messages, and only inside Perth "
+        "business hours on weekdays unless --ignore-window is passed."
     )
 
     def add_arguments(self, parser):
-        parser.add_argument("--count", type=int, default=3, help="Pitches to send this run (default 3).")
+        parser.add_argument(
+            "--count", type=int, default=0,
+            help="Podcast pitches to send this run. Default 0: the pitches are paused; pass 3 to resume the old pace.",
+        )
         parser.add_argument(
             "--reports", type=int, default=5, help="Prospect report emails to send this run (default 5)."
         )
@@ -99,12 +103,13 @@ class Command(BaseCommand):
             self.stdout.write("Outside the sending window; nothing sent.")
             return
 
-        moved = reassign_paused()
-        if moved:
-            self.stdout.write(f"{moved} moved off a paused version.")
-        figures = pitch_figures()
         sent = 0
-        for prospect in candidates(options["count"]):
+        if options["count"]:
+            moved = reassign_paused()
+            if moved:
+                self.stdout.write(f"{moved} moved off a paused version.")
+            figures = pitch_figures()
+        for prospect in candidates(options["count"]) if options["count"] else ():
             if sent >= options["count"]:
                 break
             if not claim(prospect, now):

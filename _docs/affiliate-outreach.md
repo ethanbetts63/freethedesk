@@ -142,7 +142,9 @@ new setting must not trip a deploy check.
 
 ## Stage 4 — The hourly send
 
-**Command** `send_affiliate_outreach` (three an hour by default; `--count` overrides),
+**Command** `send_affiliate_outreach` (`--count` pitches a run; the default is 0 since
+30 October 2026, the pitches paused by the owner, so the hourly run sends only the
+queued prospect report emails until the scheduled task passes `--count 3` again),
 scheduled hourly on PythonAnywhere next to `send_due_messages`, which freethedesk
 needs scheduled too if it is not already (owner's step, in `to_do.md`).
 
