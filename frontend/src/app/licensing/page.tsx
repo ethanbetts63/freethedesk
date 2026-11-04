@@ -56,8 +56,8 @@ export default async function LicensingPage() {
       <Hero
         path="/licensing"
         endId="licensing-hero-end"
-        eyebrow="Online vehicle licensing Perth"
-        titleLines={['License online.']}
+        eyebrow="For WA dealers"
+        titleLines={['Online vehicle licensing.']}
         accentTitle="Lose the visit."
         accentAlternates={['Lose the paperwork.', 'Lose the scanner.', 'Lose the wait.']}
         lead="Use our portal or build it into your website. Perth customers fill in their details, verify their identity and sign online, with no trip across town to the dealership."

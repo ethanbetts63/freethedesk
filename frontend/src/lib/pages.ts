@@ -55,7 +55,7 @@ export const STATIC_PAGES = {
       'One connected system for Perth and WA dealerships: a website built to be found, online licensing, and the admin automation behind it.',
   },
   '/licensing': {
-    updated: '2026-10-26',
+    updated: '2026-11-04',
     label: 'Online licensing',
     title: 'Online Vehicle Licensing for WA Dealers',
     description:
@@ -158,14 +158,14 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
   '/affiliates': {
-    updated: '2026-10-26',
+    updated: '2026-11-04',
     label: 'Affiliates',
     title: 'SEO Audit Affiliate Program: 50% Commission',
     description:
       'Earn 50% of every freethedesk SEO audit sold with your code, $220 to $560 a sale. Your audience gets 20% off, your own audit is free, and you are paid fortnightly.',
   },
   '/contact': {
-    updated: '2026-10-24',
+    updated: '2026-11-04',
     label: 'Contact',
     title: 'Contact Us: Perth Websites, SEO & Automation',
     description:

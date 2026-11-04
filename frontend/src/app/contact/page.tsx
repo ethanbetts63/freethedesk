@@ -56,7 +56,8 @@ export default function ContactPage() {
         headingLevel="h1"
         title={
           <>
-            Talk to a Perth <span className="moving-colour-text">web developer.</span>
+            Contact us about Perth{' '}
+            <span className="moving-colour-text">websites, SEO and automation.</span>
           </>
         }
         lead="Tell us your budget and what you need, and we'll tell you the most valuable thing we can build within it."

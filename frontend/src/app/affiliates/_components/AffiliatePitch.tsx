@@ -23,6 +23,8 @@ export function AffiliatePitch({ settings }: { settings: PublicSiteSettings }) {
         src="/images/affiliates/studio.webp"
         alt=""
         fill
+        // In the first screen, under the hero: loaded at once, not lazily.
+        preload
         sizes="(min-width: 1024px) 60vw, 100vw"
         className="object-cover"
       />

@@ -46,6 +46,9 @@ const nextConfig: NextConfig = {
         destination: '/legal/seo-audit-terms',
         permanent: true,
       },
+      // One address a page: /seo/ goes to /seo. The trailing-slash redirect is skipped above so /api/.../ reaches
+      // Django with its slash, so the pages take theirs off here, /api aside.
+      { source: '/:path((?!api/).+)/', destination: '/:path', permanent: true },
     ];
   },
   async headers() {
