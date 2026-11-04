@@ -11,8 +11,8 @@ export type GuideCtaKind = 'seo' | 'website' | 'licensing' | 'automation';
 
 /**
  * What a guide ends on: the service the reader is closest to buying, with a
- * button to its page. The SEO one is the website page's "Launch SEO strong"
- * section; the website one is its "Websites designed to be obvious" journey;
+ * button to its page. The SEO one is for a site that already exists, over the
+ * SEO page's report visual; the website one is its "Websites designed to be obvious" journey;
  * the licensing one, for the WA dealer guides, is /licensing's opening section;
  * the automation one is the homepage's automation section, with the discovery price.
  */
@@ -49,9 +49,8 @@ export function GuideCta({
         className="bg-surface-tint"
         spacing="standard"
         eyebrow="SEO Perth"
-        title="Launch SEO Strong."
-        accentTitle="Improve with data."
-        mode="improvement"
+        title="Not showing up?"
+        accentTitle="An audit finds why."
         description={
           <div className="flex flex-col gap-l [&>span]:block">
             <span>

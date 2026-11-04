@@ -1,6 +1,6 @@
 ---
 published: 2026-10-14
-updated: 2026-10-24
+updated: 2026-11-04
 title: Why Isn't My Business Showing Up on Google?
 description: The usual reasons a small business is missing from Google search and Maps, how to check each one yourself, and what to fix first.
 ---

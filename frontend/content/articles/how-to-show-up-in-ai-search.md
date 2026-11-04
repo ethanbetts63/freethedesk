@@ -1,6 +1,6 @@
 ---
 published: 2026-10-14
-updated: 2026-10-24
+updated: 2026-11-04
 title: How to Show Up in ChatGPT and AI Search Results
 description: How a small business gets its website read and cited by ChatGPT, Google's AI Overviews, Copilot and Perplexity, with a checklist to work through.
 ---
