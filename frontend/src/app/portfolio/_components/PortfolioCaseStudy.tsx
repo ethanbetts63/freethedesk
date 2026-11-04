@@ -9,7 +9,6 @@ import type { FaqItem } from '@/types/FaqItem';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
 import { CtaButton } from '@/components/CtaButton';
-import { ProcessBar, type ProcessBarStep } from '@/components/ProcessBar';
 import { ProofStrip, type ProofStat } from '@/components/ProofStrip';
 import { ScrollCtaButton } from '@/components/common/ScrollCtaButton';
 import { SectionNumber } from '@/components/SectionNumber';
@@ -91,11 +90,6 @@ type IntentSection = SectionHeading & {
 
 export type PortfolioCaseStudyConfig = {
   path: PagePath;
-  /** The "what this covers" bar under the hero; left out, the page goes straight to its crumbs. */
-  process?: {
-    label: string;
-    steps: readonly ProcessBarStep[];
-  };
   hero: {
     eyebrow: string;
     title: LineHeading;
@@ -643,7 +637,6 @@ export function PortfolioCaseStudy({ config: rawConfig }: { config: PortfolioCas
     <main className="case-page">
       <PageSchema path={config.path} />
       <PortfolioHero config={config.hero} />
-      {config.process && <ProcessBar label={config.process.label} steps={config.process.steps} />}
 
       <Breadcrumbs path={config.path} />
       <PortfolioIntro config={config.intro} />

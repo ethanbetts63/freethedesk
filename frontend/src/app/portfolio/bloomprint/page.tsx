@@ -16,19 +16,6 @@ export const dynamic = 'force-dynamic';
 
 const config = {
   path: '/portfolio/bloomprint',
-  process: {
-    label: 'What this case study covers',
-    steps: [
-      { label: 'The brief', description: 'A different way to order flowers', href: '#overview' },
-      { label: 'Customer journey', description: 'From description to paid order', href: '#tour' },
-      {
-        label: 'Two-sided marketplace',
-        description: 'Customers and florists working together',
-        href: '#operations',
-      },
-      { label: 'Search growth', description: 'How a new brand gets found', href: '#seo-growth' },
-    ],
-  },
   hero: {
     eyebrow: 'Bloomprint case study',
     title: { lines: ['Not a catalogue.', 'A brief.'], accentLine: 1 },
