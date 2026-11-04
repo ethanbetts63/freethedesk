@@ -2,9 +2,9 @@
 
 Open tasks for this repository. Append any you find; delete one once you know it's done.
 
-## Deploy the report's link
+## Redeploy: the report link without the text button
 
-Added 2026-11-04. Owner's step. Deploy Django and the frontend together: `migrate` for `seo` 0026 (the report page, the link token on every row, the opens log), and the frontend's `/r/:token` rewrite, which is what makes the link resolve. Then, from ftp_search, `outbox.py html` for every sent report attaches its page, and `outbox.py register rebuslegal hartleyps solar365` gives the three hand-sent reports their rows and links. Until the deploy, release still works (the server ignores the page) and the dashboard shows no link.
+Added 2026-11-04. Owner's step. The report link went live on 2026-11-04 (seo 0026, the `/r/:token` rewrite, every sent report's page attached and the three hand-sent reports registered). The owner then dropped the dashboard's "Text the link": they text it by hand from the call brief. Deploy Django and the frontend once more to take the button and its SMS endpoint down; nothing else changes.
 
 ## Deploy the prospect follow-up
 
