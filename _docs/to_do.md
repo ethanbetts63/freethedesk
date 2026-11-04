@@ -170,7 +170,7 @@ Added 2026-10-28. Owner's decision, in conversation: 50% devalues the audit, and
 
 ## Guides: the author's photo and bio
 
-Added 2026-11-04. Owner's step. The guide layout's byline and author box show an "E" on a blue disc until there is a photo; send a square headshot and it replaces the disc in `frontend/src/app/guides/_components/GuideAuthor.tsx`. The bio there is a draft ("writes freethedesk's SEO audits and builds its websites in Perth, including Scooter Shop's…"); replace it with your own two or three lines. There is no LinkedIn, so the box links nowhere.
+Added 2026-11-04. Owner's step. The guide layout's byline and author box show an "E" on a blue disc until there is a photo; send a square headshot and it replaces the disc in the registry's `components/guides/GuideAuthor.tsx` (freetheplatform, synced to every site with guides, so one photo serves Scooter Shop's and Bloomprint's guides too). The bio is in `frontend/src/lib/guideSite.ts` and is a draft ("writes freethedesk's SEO audits and builds its websites in Perth, including Scooter Shop's…"); replace it with your own two or three lines. There is no LinkedIn, so the box links nowhere.
 
 ## Business Profile: your photo and the holiday hours
 
