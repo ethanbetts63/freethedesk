@@ -78,7 +78,7 @@ export default function GuidesPage() {
         </div>
       </section>
 
-      <GuideCta kind="website" />
+      <GuideCta kind="seo" />
     </main>
   );
 }
