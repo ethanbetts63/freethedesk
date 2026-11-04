@@ -73,8 +73,10 @@ business-hours window, the message log as the status, the dashboard page.
   way out is the spam button, which it names twice; a 'no thanks' reply is
   still suppressed by hand. The dashboard's summary strip shows the bodies
   under the five subjects, and each row says which pair it got.
-- **Unsubscribe by reply.** The email ends "Reply 'no thanks' and I won't email
-  again." (the server adds it to an old stored body that lacks it). A reply that asks is suppressed with the dashboard's Unsubscribe
+- **Unsubscribe by reply.** Bodies 1, 3 and 5, and so every follow-up, end
+  "Reply 'no thanks' and I won't email again." (body 5 since 2026-11-04; the
+  server adds it to an old stored body that lacks it). A test holds every body
+  in rotation to it. A reply that asks is suppressed with the dashboard's Unsubscribe
   action. The Spam Act requires a functional unsubscribe facility; a reply
   address is one.
 - **Plain text**, as pitches A and C: a note from one person, not a newsletter.

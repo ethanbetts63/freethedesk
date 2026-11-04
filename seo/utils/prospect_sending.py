@@ -111,7 +111,7 @@ LIST_SHOWN = 5
 LIST_WIDTH = 50
 
 # Body 5, the fixes list (owner's words, 2026-10-30): the only client body. Three titles, cut to a line, and the
-# rest counted.
+# rest counted. The way out closes it, as bodies 1 and 3 do (owner, 2026-11-04), and so the follow-up built from it.
 BODY_FIXES = """Hi {first_name},
 
 My name's Ethan. Attached is a list of fixes for your website. I'm a real person who spent real time on this. There's no obligation. Some of the people I write these for buy a full report later, that's why I do it. The fixes are worth doing either way.
@@ -122,7 +122,7 @@ Every recommendation explains the issue, why it's important and how to fix it. H
 {online}
 Forward the attached pdf to whoever runs your website, if they disagree with the recommendations I'd be very surprised.
 
-If you want to go through it first, my number is below. I can explain any part in detail.
+If you want to go through it first, my number is below. I can explain any part in detail. Reply 'no thanks' and I won't email again.
 
 """ + SIGNATURE
 FIXES_SHOWN = 3

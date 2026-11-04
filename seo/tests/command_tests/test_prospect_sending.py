@@ -10,7 +10,7 @@ from affiliates.management.commands import send_affiliate_outreach as command
 from seo.models import SeoProspect
 from seo.tests.factories import PDF, SeoProspectFactory
 from seo.utils.prospect_sending import (
-    FOLLOW_UP_LINE, UNSUBSCRIBE_LINE, body_for, follow_up_body, follow_up_subject_for, subject_for,
+    CLIENT_BODIES, FOLLOW_UP_LINE, UNSUBSCRIBE_LINE, body_for, follow_up_body, follow_up_subject_for, subject_for,
 )
 
 pytestmark = pytest.mark.django_db
@@ -149,7 +149,19 @@ def test_body_five_lists_three_fixes_in_the_owners_words():
         "(6 more)\n\n"
         "Forward the attached pdf to whoever runs your website, if they disagree"
     ) in body
-    assert "A fourth" not in body and "three hours" not in body and UNSUBSCRIBE_LINE not in body
+    assert "A fourth" not in body and "three hours" not in body
+    assert f"I can explain any part in detail. {UNSUBSCRIBE_LINE}\n\nEthan Betts" in body
+
+
+@pytest.mark.parametrize("version", [*CLIENT_BODIES, SeoProspect.Body.AFFILIATE])
+def test_every_body_in_rotation_and_its_follow_up_carries_the_way_out(version):
+    """The Spam Act's unsubscribe statement, once, in each body a prospect can draw today and in the follow-up
+    built from it."""
+    prospect = SeoProspectFactory(body_version=version, follow_up_body_version=version,
+                                  issues=["Fix the title"], recommendation_count=9)
+
+    assert body_for(prospect).count(UNSUBSCRIBE_LINE) == 1
+    assert follow_up_body(prospect).count(UNSUBSCRIBE_LINE) == 1
 
 
 def test_the_affiliate_body_offers_the_program_at_the_live_figures():
