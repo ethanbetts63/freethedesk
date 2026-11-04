@@ -167,3 +167,7 @@ Added 2026-10-28. Owner's step. Built: the automated prospect report email and t
 ## Affiliate share from 50% to 20%
 
 Added 2026-10-28. Owner's decision, in conversation: 50% devalues the audit, and the trade associations ([`trade-associations.md`](trade-associations.md)) will be offered 20%. Change together: `affiliate_share_percent` at /dashboard/admin/settings/site (the default in code too), the "$220 to $560 an audit" copy in `frontend/src/lib/pages.ts` and the affiliate page, and the pitch emails in `_docs/affiliate-pitch/`. Decide whether affiliates already signed keep 50% for a fixed period, and put the date in the association agreement.
+
+## Guides: the author's photo and bio
+
+Added 2026-11-04. Owner's step. The guide layout's byline and author box show an "E" on a blue disc until there is a photo; send a square headshot and it replaces the disc in `frontend/src/app/guides/_components/GuideAuthor.tsx`. The bio there is a draft ("writes freethedesk's SEO audits and builds its websites in Perth, including Scooter Shop's…"); replace it with your own two or three lines. There is no LinkedIn, so the box links nowhere.
