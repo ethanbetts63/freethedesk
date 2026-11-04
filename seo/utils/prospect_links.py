@@ -68,7 +68,7 @@ _STYLE = """<style>
 .ftd-ask h2{margin:0 0 8px;font-size:1.25rem;line-height:1.2;letter-spacing:-.02em;color:#09121b}
 .ftd-ask p{margin:0 0 14px;font-size:.95rem;line-height:1.5;color:#405164}
 .ftd-ask a{display:inline-block;padding:9px 16px;border-radius:999px;background:#2473c6;color:#fff;font-weight:700;font-size:.9rem;text-decoration:none}
-@media (max-width:640px){.ftd-ask{padding:0 18px 40px}.ftd-ask__card{padding:18px 16px}}
+@media (max-width:640px){.ftd-ask{margin-top:-28px;padding:0 18px 36px}.ftd-ask__card{padding:18px 16px}}
 </style>"""
 
 _PHONE_ICON = (

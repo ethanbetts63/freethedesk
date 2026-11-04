@@ -4,7 +4,7 @@ Open tasks for this repository. Append any you find; delete one once you know it
 
 ## Redeploy: the report link without the text button
 
-Added 2026-11-04. Owner's step. The report link went live on 2026-11-04 (seo 0026, the `/r/:token` rewrite, every sent report's page attached and the three hand-sent reports registered). The owner then dropped the dashboard's "Text the link": they text it by hand from the call brief. Deploy Django and the frontend once more to take the button and its SMS endpoint down; nothing else changes.
+Added 2026-11-04. Owner's step. The report link went live on 2026-11-04 (seo 0026, the `/r/:token` rewrite, every sent report's page attached and the three hand-sent reports registered). The owner then dropped the dashboard's "Text the link": they text it by hand from the call brief. Deploy Django and the frontend once more to take the button and its SMS endpoint down. The same deploy changes the page's strip: the number and the address as taps in place of "Call Ethan", and the ask closer under the credits on a phone.
 
 ## Deploy the prospect follow-up
 
