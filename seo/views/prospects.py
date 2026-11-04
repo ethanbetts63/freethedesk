@@ -93,7 +93,8 @@ class SeoProspectFollowUpView(APIView):
     the owner's inbox; the hourly run sends it in the window. Refused with 409
     and the reason when it is too soon, already queued, or anything has since
     stopped it: a call, a reply marked on the dashboard, an exclusion or the
-    suppression list.
+    suppression list. ``early`` (the owner's word) lifts the week's wait and
+    nothing else.
     """
 
     throttle_scope = "internal"  # A load limit; access is the shared secret.
@@ -106,7 +107,8 @@ class SeoProspectFollowUpView(APIView):
             return Response({"outcome": "unknown", "detail": "No prospect has this slug."},
                             status=status.HTTP_404_NOT_FOUND)
         now = timezone.now()
-        refusal = follow_up_refusal(prospect, now)
+        early = str(request.data.get("early", "")).lower() in ("1", "true", "yes")
+        refusal = follow_up_refusal(prospect, now, early=early)
         if refusal:
             return Response({"outcome": refusal, "sent_at": prospect.sent_at,
                              "follow_up_queued_at": prospect.follow_up_queued_at},

@@ -290,13 +290,14 @@ def follow_up_body(prospect: SeoProspect) -> str:
     return f"{greeting}\n\n{FOLLOW_UP_LINE} {rest}"
 
 
-def follow_up_refusal(prospect: SeoProspect, now) -> str:
-    """Why this prospect may not be followed up now; empty when it may."""
+def follow_up_refusal(prospect: SeoProspect, now, early: bool = False) -> str:
+    """Why this prospect may not be followed up now; empty when it may. ``early`` is the owner's word to go before
+    the week is out: it lifts that wait alone."""
     if prospect.follow_up_queued_at or prospect.followed_up_at:
         return "already_queued"
     if not prospect.sent_at:
         return "not_sent"
-    if now - prospect.sent_at < FOLLOW_UP_AFTER:
+    if not early and now - prospect.sent_at < FOLLOW_UP_AFTER:
         return "too_soon"
     if prospect.called_at:
         return "called"

@@ -279,3 +279,17 @@ def test_the_follow_up_takes_the_shared_secret(api_client, internal_key):
     prospect = SeoProspectFactory(sent_at=timezone.now() - timedelta(days=8))
     assert queue_follow_up(api_client, "wrong", prospect.slug).status_code in (401, 403)
     assert queue_follow_up(api_client, internal_key, "nobody").status_code == 404
+
+
+def test_early_lifts_the_week_and_nothing_else(api_client, internal_key):
+    """The owner's word to follow up before the week is out: a called prospect is still refused."""
+    now = timezone.now()
+    prospect = SeoProspectFactory(sent_at=now - timedelta(days=5))
+    called = SeoProspectFactory(sent_at=now - timedelta(days=5), called_at=now)
+
+    def early(slug):
+        return api_client.post(reverse("seo-prospect-follow-up"), {"slug": slug, "early": "1"}, format="json",
+                               HTTP_X_INTERNAL_API_KEY=internal_key)
+
+    assert early(prospect.slug).json()["outcome"] == "queued"
+    assert early(called.slug).json()["outcome"] == "called"
