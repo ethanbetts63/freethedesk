@@ -4,10 +4,14 @@ from .views import (
     AdminSeoProspectDetailView,
     AdminSeoProspectListView,
     AdminSeoProspectSummaryView,
+    AdminSeoProspectTextView,
     AdminSeoProspectUnsubscribeView,
     SeoMessageSendView,
     SeoProspectFollowUpView,
+    SeoProspectHtmlView,
     SeoProspectUploadView,
+    SeoReportPageView,
+    SeoReportPdfView,
     AdminSeoSetupStepView,
     AdminSeoSubscriberDetailView,
     AdminSeoSubscriberListView,
@@ -35,8 +39,13 @@ urlpatterns = [
     path("seo/prospects/", SeoProspectUploadView.as_view(), name="seo-prospect-upload"),
     # The same secret: the one follow-up a week on, queued for the hourly send.
     path("seo/prospects/follow-up/", SeoProspectFollowUpView.as_view(), name="seo-prospect-follow-up"),
+    # The same secret: the report page for a prospect already here (the rows from before the page existed).
+    path("seo/prospects/html/", SeoProspectHtmlView.as_view(), name="seo-prospect-html"),
     # The same secret: one email written by hand, sent now, with files (the note after a call).
     path("seo/messages/", SeoMessageSendView.as_view(), name="seo-message-send"),
+    # The report's link, which the site serves at /r/<token>: the page, and its PDF. No sign-in; the token is the key.
+    path("seo/r/<str:token>/", SeoReportPageView.as_view(), name="seo-report-page"),
+    path("seo/r/<str:token>/pdf/", SeoReportPdfView.as_view(), name="seo-report-pdf"),
     # Staff: the calls list.
     path("admin/seo/prospects/", AdminSeoProspectListView.as_view(), name="admin-seo-prospect-list"),
     path("admin/seo/prospects/summary/", AdminSeoProspectSummaryView.as_view(), name="admin-seo-prospect-summary"),
@@ -46,6 +55,7 @@ urlpatterns = [
         AdminSeoProspectUnsubscribeView.as_view(),
         name="admin-seo-prospect-unsubscribe",
     ),
+    path("admin/seo/prospects/<int:pk>/text/", AdminSeoProspectTextView.as_view(), name="admin-seo-prospect-text"),
     path("admin/seo/", AdminSeoSubscriberListView.as_view(), name="admin-seo-list"),
     path("admin/seo/<int:pk>/", AdminSeoSubscriberDetailView.as_view(), name="admin-seo-detail"),
     path(

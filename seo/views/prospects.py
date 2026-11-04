@@ -1,13 +1,14 @@
 from django.db import IntegrityError, transaction
 from django.db.models import Count, Q
 from django.conf import settings
+from django.http import FileResponse, Http404, HttpResponse
 from django.utils import timezone
 from freetheplatform.messaging import Message, Suppression, is_suppressed, send, suppress
 from freetheplatform.messaging.utils import read_uploads
 from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
 from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -15,8 +16,13 @@ from affiliates.utils.permissions import IsInternalApiRequest
 from core.utils.ordering import apply_ordering
 from core.utils.pagination import DashboardPagination
 
-from ..models import SeoProspect
-from ..serializers.prospect import AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectUploadSerializer
+from ..models import SeoProspect, SeoProspectOpen
+from ..serializers.prospect import (
+    AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectHtmlSerializer, SeoProspectUploadSerializer,
+)
+from ..utils.prospect_links import (
+    page_document, page_headers, pdf_link, record_open, report_link, sms_number, text_body, text_refusal,
+)
 from ..utils.prospect_sending import (
     NoSubject, follow_up_refusal, follow_up_subject_for, next_body, next_follow_up_subject, next_subject,
     subject_for,
@@ -65,28 +71,112 @@ class SeoProspectUploadView(APIView):
                 status=status.HTTP_409_CONFLICT,
             )
         pdf = data.pop("report_pdf")
-        try:
-            subject_version = next_subject(has_search=bool(data.get("paid_searches")))
-        except NoSubject as error:
-            return Response({"outcome": "no_subject", "detail": str(error)}, status=status.HTTP_400_BAD_REQUEST)
+        html = data.pop("report_html", None)
+        # A report that went by hand, registered for its link and its dashboard row: created sent, never queued.
+        went = "sent_at" in data
+        if went:
+            subject_version, body_version = data.pop("subject_version"), data.pop("body_version")
+        else:
+            try:
+                subject_version = next_subject(has_search=bool(data.get("paid_searches")))
+            except NoSubject as error:
+                return Response({"outcome": "no_subject", "detail": str(error)}, status=status.HTTP_400_BAD_REQUEST)
+            body_version = next_body(data.get("purpose", SeoProspect.Purpose.CLIENT))
         try:
             with transaction.atomic():
-                prospect = SeoProspect(
-                    **data, subject_version=subject_version,
-                    body_version=next_body(data.get("purpose", SeoProspect.Purpose.CLIENT)),
-                )
+                prospect = SeoProspect(**data, subject_version=subject_version, body_version=body_version)
                 prospect.report_pdf.save(f"{data['slug']}_{data['report_version']}.pdf", pdf, save=False)
+                if html is not None:
+                    prospect.report_html.save(f"{data['slug']}_{data['report_version']}.html", html, save=False)
                 prospect.save()
         except IntegrityError:
             # Two posts of the same report at once; the first one won.
             return Response({"outcome": "already_known", "detail": "A prospect with these details exists."},
                             status=status.HTTP_409_CONFLICT)
         return Response(
-            {"outcome": "queued", "id": prospect.pk, "purpose": prospect.purpose,
+            {"outcome": "registered" if went else "queued", "id": prospect.pk, "purpose": prospect.purpose,
              "subject_version": prospect.subject_version, "subject": subject_for(prospect),
-             "body_version": prospect.body_version, "body_label": prospect.get_body_version_display()},
+             "body_version": prospect.body_version, "body_label": prospect.get_body_version_display(),
+             "report_link": report_link(prospect), "report_html_ready": bool(prospect.report_html)},
             status=status.HTTP_201_CREATED,
         )
+
+
+class SeoProspectHtmlView(APIView):
+    """`POST /api/seo/prospects/html/`: the report page for a prospect the server already holds, by slug.
+
+    For the reports uploaded before the page existed (``outbox.py html``), and a
+    page re-rendered after a small edit. Replaces the file; the link does not
+    change.
+    """
+
+    throttle_scope = "internal"  # A load limit; access is the shared secret.
+    authentication_classes = []
+    permission_classes = [IsInternalApiRequest]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request):
+        upload = SeoProspectHtmlSerializer(data=request.data)
+        upload.is_valid(raise_exception=True)
+        prospect = SeoProspect.objects.filter(slug=upload.validated_data["slug"]).first()
+        if prospect is None:
+            return Response({"outcome": "unknown", "detail": "No prospect has this slug."},
+                            status=status.HTTP_404_NOT_FOUND)
+        if prospect.report_html:
+            prospect.report_html.delete(save=False)
+        prospect.report_html.save(
+            f"{prospect.slug}_{prospect.report_version}.html", upload.validated_data["report_html"], save=True
+        )
+        return Response({"outcome": "attached", "id": prospect.pk, "report_link": report_link(prospect)},
+                        status=status.HTTP_201_CREATED)
+
+
+class SeoReportPageView(APIView):
+    """`GET /api/seo/r/<token>/`, served at ``/r/<token>`` by the site: the report as a page, for the link.
+
+    No sign-in: the token is the key, and the page is noindexed, linked from
+    nowhere, and never cached between. Each open is logged against the
+    prospect with where the link came from (``?s=``). A row from before the
+    page existed serves its PDF inline instead.
+    """
+
+    throttle_scope = "report"
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def get(self, request, token):
+        prospect = SeoProspect.objects.filter(link_token=token).first()
+        if prospect is None:
+            raise Http404
+        if not prospect.report_html:
+            return _pdf_response(prospect, request)
+        record_open(prospect, request, SeoProspectOpen.Kind.PAGE)
+        with prospect.report_html.open("rb") as handle:
+            document = handle.read().decode("utf-8")
+        return page_headers(HttpResponse(page_document(prospect, document), content_type="text/html; charset=utf-8"))
+
+
+class SeoReportPdfView(APIView):
+    """`GET /api/seo/r/<token>/pdf/`, at ``/r/<token>/pdf``: the same report's PDF, inline, logged as an open."""
+
+    throttle_scope = "report"
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def get(self, request, token):
+        prospect = SeoProspect.objects.filter(link_token=token).first()
+        if prospect is None:
+            raise Http404
+        return _pdf_response(prospect, request)
+
+
+def _pdf_response(prospect, request):
+    record_open(prospect, request, SeoProspectOpen.Kind.PDF)
+    response = FileResponse(
+        prospect.report_pdf.open("rb"), content_type="application/pdf", as_attachment=False,
+        filename=f"{prospect.slug}_seo_report_{prospect.report_version}.pdf",
+    )
+    return page_headers(response)
 
 
 class SeoProspectFollowUpView(APIView):
@@ -216,6 +306,41 @@ class AdminSeoProspectDetailView(RetrieveUpdateAPIView):
         serializer.save()
         # The composed status was annotated before the change; answer with the one after it.
         serializer.instance = self.get_queryset().get(pk=serializer.instance.pk)
+
+
+class AdminSeoProspectTextView(APIView):
+    """`POST /api/admin/seo/prospects/<pk>/text/`: text the report's link to the prospect's mobile, from the
+    dashboard, during or after a call where they said yes to it. One SMS through messaging, related to the row so
+    it shows under the call; the opens it draws say ``text``. Refused for a landline, a 1300 number or a row with
+    no report."""
+
+    throttle_scope = "staff"
+    permission_classes = [IsAdminUser]
+
+    def post(self, request, pk):
+        prospect = SeoProspect.objects.filter(pk=pk).first()
+        if prospect is None:
+            return Response({"detail": "Not found."}, status=404)
+        refusal = text_refusal(prospect)
+        if refusal:
+            return Response({"detail": refusal}, status=status.HTTP_400_BAD_REQUEST)
+        message = send(
+            to=sms_number(prospect.phone),
+            channel="sms",
+            message_type="seo_prospect_link_sms",
+            body=text_body(prospect),
+            related=prospect,
+            meta={"composed_by": "dashboard", "prospect": prospect.pk},
+        )
+        data = AdminSeoProspectSerializer(with_status(SeoProspect.objects.all()).get(pk=pk)).data
+        answer = {"prospect": data, "message": {"id": message.pk, "status": message.status, "to": message.to}}
+        if message.status in (Message.Status.FAILED, Message.Status.SUPPRESSED):
+            answer["detail"] = (
+                f"The text was not sent: {message.error_message}" if message.status == Message.Status.FAILED
+                else "The text was not sent: the number is on the suppression list."
+            )
+            return Response(answer, status=status.HTTP_502_BAD_GATEWAY)
+        return Response(answer, status=status.HTTP_201_CREATED)
 
 
 class AdminSeoProspectUnsubscribeView(APIView):

@@ -1,0 +1,282 @@
+"""The report's link: the page and its PDF at /r/<token>, the opens it logs, the text from the dashboard, and the
+page uploaded with or after the report."""
+
+from datetime import timedelta
+
+import pytest
+from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.urls import reverse
+from django.utils import timezone
+from freetheplatform.messaging import Suppression, suppress
+
+from core.utils.urls import site_url
+from seo.models import SeoProspect, SeoProspectOpen
+from seo.tests.factories import PDF, SeoProspectFactory, upload_fields
+from seo.utils.prospect_links import report_link, sms_number, text_body
+from seo.utils.prospect_sending import body_for, follow_up_body
+
+pytestmark = pytest.mark.django_db
+
+HTML = b"<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Report</title>\n</head>\n<body>\n<article class=\"report\"><p>Fix the title.</p></article>\n</body>\n</html>\n"
+PHONE_UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+PREVIEW_UA = "facebookexternalhit/1.1 Facebot Twitterbot/1.0"
+
+
+def with_page(**fields):
+    prospect = SeoProspectFactory(**fields)
+    prospect.report_html.save(f"{prospect.slug}_r1.html", ContentFile(HTML), save=True)
+    return prospect
+
+
+# -- the page ----------------------------------------------------------------
+
+
+def test_the_link_serves_the_report_page_noindexed_with_the_strip_and_the_ask(client):
+    prospect = with_page(business="Perth Patio Magic")
+
+    response = client.get(reverse("seo-report-page", args=[prospect.link_token]), HTTP_USER_AGENT=PHONE_UA)
+
+    assert response.status_code == 200
+    assert response["Content-Type"].startswith("text/html")
+    assert response["X-Robots-Tag"] == "noindex, nofollow, noarchive"
+    assert set(response["Cache-Control"].split(", ")) == {"private", "no-store"}
+    page = response.content.decode()
+    assert '<meta name="robots" content="noindex, nofollow, noarchive">' in page
+    assert "Written for Perth Patio Magic by freethedesk" in page
+    assert "<p>Fix the title.</p>" in page
+    assert page.index('class="ftd-bar"') < page.index("Fix the title") < page.index('class="ftd-ask"')
+    assert f"/r/{prospect.link_token}/pdf" in page
+
+
+def test_an_open_is_logged_with_its_source_and_whether_a_person_did_it(client):
+    prospect = with_page()
+    url = reverse("seo-report-page", args=[prospect.link_token])
+
+    client.get(url + "?s=text", HTTP_USER_AGENT=PHONE_UA)
+    client.get(url + "?s=email", HTTP_USER_AGENT=PREVIEW_UA)
+    client.get(url + "?s=anything-else", HTTP_USER_AGENT=PHONE_UA)
+    client.get(url)
+
+    opens = list(SeoProspectOpen.objects.filter(prospect=prospect).order_by("id"))
+    assert [(o.source, o.likely_bot, o.kind) for o in opens] == [
+        ("text", False, "page"), ("email", True, "page"), ("", False, "page"), ("", True, "page"),
+    ]
+    assert opens[0].user_agent == PHONE_UA
+
+
+def test_the_pdf_is_served_inline_and_logged_as_its_own_kind(client):
+    prospect = with_page()
+
+    response = client.get(reverse("seo-report-pdf", args=[prospect.link_token]) + "?s=dashboard",
+                          HTTP_USER_AGENT=PHONE_UA)
+
+    assert response.status_code == 200 and response["Content-Type"] == "application/pdf"
+    assert response["Content-Disposition"].startswith("inline")
+    assert b"".join(response.streaming_content) == PDF
+    [opened] = SeoProspectOpen.objects.filter(prospect=prospect)
+    assert (opened.kind, opened.source, opened.likely_bot) == ("pdf", "dashboard", False)
+
+
+def test_a_row_from_before_the_page_existed_serves_its_pdf_at_the_link(client):
+    prospect = SeoProspectFactory()  # no report_html
+
+    response = client.get(reverse("seo-report-page", args=[prospect.link_token]), HTTP_USER_AGENT=PHONE_UA)
+
+    assert response.status_code == 200 and response["Content-Type"] == "application/pdf"
+    assert SeoProspectOpen.objects.get(prospect=prospect).kind == "pdf"
+
+
+def test_an_unknown_token_is_not_found_and_nothing_is_logged(client):
+    assert client.get(reverse("seo-report-page", args=["nothinghere"])).status_code == 404
+    assert client.get(reverse("seo-report-pdf", args=["nothinghere"])).status_code == 404
+    assert not SeoProspectOpen.objects.exists()
+
+
+def test_every_row_gets_its_own_unguessable_token():
+    tokens = {SeoProspectFactory().link_token for _ in range(5)}
+    assert len(tokens) == 5
+    assert all(len(token) == 10 and set(token) <= set("abcdefghjkmnpqrstuvwxyz23456789") for token in tokens)
+
+
+# -- the upload --------------------------------------------------------------
+
+
+def upload(api_client, key, html=HTML, **overrides):
+    data = {
+        **upload_fields(**overrides),
+        "report_pdf": SimpleUploadedFile("report.pdf", PDF, content_type="application/pdf"),
+    }
+    if html is not None:
+        data["report_html"] = SimpleUploadedFile("report.html", html, content_type="text/html")
+    return api_client.post(reverse("seo-prospect-upload"), data, format="multipart", HTTP_X_INTERNAL_API_KEY=key)
+
+
+def test_a_report_uploads_with_its_page_and_answers_with_its_link(api_client, internal_key):
+    response = upload(api_client, internal_key)
+
+    assert response.status_code == 201
+    prospect = SeoProspect.objects.get()
+    assert response.json()["report_link"] == report_link(prospect) == f"{site_url()}/r/{prospect.link_token}"
+    assert response.json()["report_html_ready"] is True
+    with prospect.report_html.open("rb") as handle:
+        assert handle.read() == HTML
+
+
+def test_a_page_that_is_not_html_is_refused(api_client, internal_key):
+    response = upload(api_client, internal_key, html=b"%PDF-1.7 not a page")
+    assert response.status_code == 400 and "report_html" in response.json()
+    assert not SeoProspect.objects.exists()
+
+
+def test_a_report_that_went_by_hand_is_registered_sent_and_never_queued(api_client, internal_key):
+    went = timezone.now() - timedelta(days=8)
+
+    response = upload(api_client, internal_key, sent_at=went.isoformat(), subject_version=1, body_version=1,
+                      body="Hi there,\n\nThe analyst's own words.")
+
+    assert response.status_code == 201 and response.json()["outcome"] == "registered"
+    prospect = SeoProspect.objects.get()
+    assert prospect.sent_at == went and (prospect.subject_version, prospect.body_version) == (1, 1)
+    assert prospect.body.startswith("Hi there")
+    assert response.json()["report_link"] == report_link(prospect)
+
+
+def test_a_report_that_went_by_hand_must_name_its_subject_and_body(api_client, internal_key):
+    response = upload(api_client, internal_key, sent_at=timezone.now().isoformat())
+    assert response.status_code == 400
+    assert not SeoProspect.objects.exists()
+
+
+def test_the_page_can_be_attached_to_a_report_uploaded_before_it_existed(api_client, internal_key):
+    prospect = SeoProspectFactory()
+    assert not prospect.report_html
+
+    response = api_client.post(
+        reverse("seo-prospect-html"),
+        {"slug": prospect.slug, "report_html": SimpleUploadedFile("report.html", HTML, content_type="text/html")},
+        format="multipart", HTTP_X_INTERNAL_API_KEY=internal_key,
+    )
+
+    assert response.status_code == 201 and response.json()["report_link"] == report_link(prospect)
+    prospect.refresh_from_db()
+    with prospect.report_html.open("rb") as handle:
+        assert handle.read() == HTML
+    # Attached again (a re-render after an edit): replaced, the link unchanged.
+    again = api_client.post(
+        reverse("seo-prospect-html"),
+        {"slug": prospect.slug, "report_html": SimpleUploadedFile("report.html", HTML + b"<!-- v2 -->",
+                                                                    content_type="text/html")},
+        format="multipart", HTTP_X_INTERNAL_API_KEY=internal_key,
+    )
+    assert again.status_code == 201 and again.json()["report_link"] == report_link(prospect)
+    prospect.refresh_from_db()
+    with prospect.report_html.open("rb") as handle:
+        assert handle.read().endswith(b"<!-- v2 -->")
+
+
+def test_attaching_a_page_takes_the_shared_secret_and_a_known_slug(api_client, internal_key):
+    file = SimpleUploadedFile("report.html", HTML, content_type="text/html")
+    assert api_client.post(reverse("seo-prospect-html"), {"slug": "nobody", "report_html": file},
+                           format="multipart", HTTP_X_INTERNAL_API_KEY=internal_key).status_code == 404
+    file = SimpleUploadedFile("report.html", HTML, content_type="text/html")
+    assert api_client.post(reverse("seo-prospect-html"), {"slug": "nobody", "report_html": file},
+                           format="multipart", HTTP_X_INTERNAL_API_KEY="wrong").status_code in (401, 403)
+
+
+# -- the email ---------------------------------------------------------------
+
+
+def test_the_report_email_names_the_page_beside_the_pdf_once_there_is_one():
+    prospect = SeoProspectFactory(body_version=SeoProspect.Body.FIXES, issues=["Fix the title"],
+                                  recommendation_count=9)
+    assert "read it online" not in body_for(prospect)  # no page yet: the line is left out, nothing else moves
+
+    prospect.report_html.save("p.html", ContentFile(HTML), save=True)
+    body = body_for(prospect)
+
+    assert f"You can also read it online, which is easier on a phone: {report_link(prospect, 'email')}" in body
+    assert body.index("1. Fix the title") < body.index("read it online") < body.index("Forward the attached pdf")
+    assert "?s=email" in body
+    # The follow-up's link says it came from the follow-up.
+    prospect.follow_up_body_version = SeoProspect.Body.FIXES
+    assert "?s=follow-up" in follow_up_body(prospect) and "?s=email" not in follow_up_body(prospect)
+
+
+# -- the text ----------------------------------------------------------------
+
+
+@pytest.mark.parametrize("phone, number", [
+    ("0497 279 112", "+61497279112"),
+    ("(08) 9303 4111", "+61893034111"),
+    ("+61 497 279 112", "+61497279112"),
+    ("61497279112", "+61497279112"),
+    ("", ""),
+])
+def test_a_printed_number_becomes_the_form_twilio_takes(phone, number):
+    assert sms_number(phone) == number
+
+
+def text(api_client, staff_user, prospect):
+    api_client.force_authenticate(staff_user)
+    return api_client.post(reverse("admin-seo-prospect-text", args=[prospect.pk]))
+
+
+def test_the_dashboard_texts_the_link_to_the_mobile_and_records_it_under_the_prospect(api_client, staff_user, outbox):
+    prospect = with_page(contact_name="Reece Cunningham", phone="0497 279 112")
+
+    response = text(api_client, staff_user, prospect)
+
+    assert response.status_code == 201, response.json()
+    [message] = outbox
+    assert (message.channel, message.to, message.message_type) == ("sms", "+61497279112", "seo_prospect_link_sms")
+    assert message.body_text == text_body(prospect)
+    assert message.body_text.startswith("Hi Reece, Ethan from freethedesk here. As discussed, your website report: ")
+    assert f"{report_link(prospect)}?s=text" in message.body_text and "Reply STOP" in message.body_text
+    assert message.object_id == prospect.pk
+    assert response.json()["message"]["to"] == "+61497279112"
+    assert response.json()["prospect"]["id"] == prospect.pk
+
+
+@pytest.mark.parametrize("phone, reason", [
+    ("(08) 9303 4111", "not a mobile"),
+    ("1300 050 215", "not a mobile"),
+    ("", "no phone"),
+])
+def test_a_landline_or_no_number_cannot_be_texted(api_client, staff_user, outbox, phone, reason):
+    prospect = with_page(phone=phone)
+    response = text(api_client, staff_user, prospect)
+    assert response.status_code == 400 and reason in response.json()["detail"]
+    assert outbox == []
+
+
+def test_a_suppressed_number_is_not_texted(api_client, staff_user, outbox):
+    prospect = with_page(phone="0497 279 112")
+    suppress("+61497279112", reason=Suppression.Reason.OPTED_OUT, channel="sms")
+    response = text(api_client, staff_user, prospect)
+    assert response.status_code == 502 and "suppression" in response.json()["detail"]
+
+
+def test_the_text_needs_a_staff_login(api_client):
+    prospect = with_page(phone="0497 279 112")
+    assert api_client.post(reverse("admin-seo-prospect-text", args=[prospect.pk])).status_code in (401, 403)
+
+
+# -- the dashboard -----------------------------------------------------------
+
+
+def test_the_calls_list_shows_the_link_and_the_opens_by_people(api_client, staff_user, client):
+    prospect = with_page(phone="0497 279 112")
+    url = reverse("seo-report-page", args=[prospect.link_token])
+    client.get(url + "?s=text", HTTP_USER_AGENT=PHONE_UA)
+    client.get(url + "?s=text", HTTP_USER_AGENT=PREVIEW_UA)
+    client.get(url + "?s=email", HTTP_USER_AGENT=PHONE_UA)
+    api_client.force_authenticate(staff_user)
+
+    row = api_client.get(reverse("admin-seo-prospect-detail", args=[prospect.pk])).json()
+
+    assert row["report_link"] == report_link(prospect) and row["report_html_ready"] is True
+    assert row["opens"] == 2 and row["last_opened_at"] is not None
+    assert row["text_refusal"] == ""
+    listed = api_client.get(reverse("admin-seo-prospect-list")).json()["results"]
+    assert [r["opens"] for r in listed] == [2]

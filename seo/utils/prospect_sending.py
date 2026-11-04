@@ -119,13 +119,24 @@ My name's Ethan. Attached is a list of fixes for your website. I'm a real person
 Every recommendation explains the issue, why it's important and how to fix it. Here's the first few:
 
 {listing}
-
+{online}
 Forward the attached pdf to whoever runs your website, if they disagree with the recommendations I'd be very surprised.
 
 If you want to go through it first, my number is below. I can explain any part in detail.
 
 """ + SIGNATURE
 FIXES_SHOWN = 3
+
+#: The line under the list naming the report's page (owner, 2026-11-04): the same report, read on a phone without
+#: opening the attachment; the opens it draws are counted against the email it came from. Rows from before the
+#: page existed have none, and the line is left out.
+ONLINE_LINE = "\nYou can also read it online, which is easier on a phone: {link}\n"
+
+
+def online_line(prospect: SeoProspect, source: str) -> str:
+    from .prospect_links import report_link  # the link module reads the models; sending reads it
+
+    return ONLINE_LINE.format(link=report_link(prospect, source)) if prospect.report_html else ""
 
 # Body 3, for a podcast host (owner's call, 2026-10-30): the same report, then
 # the affiliate offer instead of the paid one. The figures are the site
@@ -245,8 +256,9 @@ def affiliate_figures() -> dict:
     return {**pitch_figures(site_settings), "share": "half" if share == 50 else f"{share}%"}
 
 
-def body_for(prospect: SeoProspect, version=None) -> str:
+def body_for(prospect: SeoProspect, version=None, source: str = "email") -> str:
     """The email as it goes, or went, composed from the row; the follow-up's when ``version`` names its body.
+    ``source`` is what the report's link in it says it came from.
 
     A row from before 2026-10-30 holds the analyst's email in ``body``, which
     body 1 sent as written with the way out added if the analyst left it out;
@@ -257,7 +269,8 @@ def body_for(prospect: SeoProspect, version=None) -> str:
     if version == SeoProspect.Body.BET:
         return BODY_TWO.format(first_name=name, metric=prospect.metric or "bookings")
     if version == SeoProspect.Body.FIXES:
-        return BODY_FIXES.format(first_name=name, listing=listing(prospect, FIXES_SHOWN))
+        return BODY_FIXES.format(first_name=name, listing=listing(prospect, FIXES_SHOWN),
+                                 online=online_line(prospect, source))
     if version == SeoProspect.Body.LIST:
         return BODY_LIST.format(first_name=name, metric=prospect.metric or "bookings", listing=listing(prospect))
     if version == SeoProspect.Body.AFFILIATE:
@@ -311,7 +324,7 @@ def follow_up_subject_for(prospect: SeoProspect) -> str:
 
 def follow_up_body(prospect: SeoProspect) -> str:
     """The follow-up's body, with the follow-up line opening the paragraph after the greeting."""
-    greeting, _, rest = body_for(prospect, prospect.follow_up_body_version).partition("\n\n")
+    greeting, _, rest = body_for(prospect, prospect.follow_up_body_version, source="follow-up").partition("\n\n")
     return f"{greeting}\n\n{FOLLOW_UP_LINE} {rest}"
 
 

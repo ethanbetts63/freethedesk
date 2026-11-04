@@ -15,6 +15,7 @@ import {
   formatDateTime,
   getMessages,
   getReportProspect,
+  textReportLink,
   unsubscribeReportProspect,
   updateReportProspect,
   type AdminMessage,
@@ -129,6 +130,30 @@ export default function ReportProspectDetailPage() {
     }
   }
 
+  async function copyLink() {
+    if (!prospect) return;
+    try {
+      await navigator.clipboard.writeText(prospect.report_link);
+      setNotice('Report link copied.');
+    } catch {
+      setError('The link could not be copied; select it instead.');
+    }
+  }
+
+  function textLink() {
+    if (!prospect) return;
+    if (
+      !confirm(
+        `Text the report's link to ${prospect.phone}? Only after they have said yes to it on the call.`,
+      )
+    )
+      return;
+    void apply(
+      () => textReportLink(prospect.id).then((result) => result.prospect),
+      `Texted to ${prospect.phone}.`,
+    );
+  }
+
   if (loading)
     return (
       <div className={pageClassName}>
@@ -217,6 +242,14 @@ export default function ReportProspectDetailPage() {
             >
               {prospect.called_at ? 'Called again now' : 'Mark called'}
             </Button>
+            <Button
+              variant="secondary"
+              disabled={saving || Boolean(prospect.text_refusal)}
+              title={prospect.text_refusal || undefined}
+              onClick={textLink}
+            >
+              Text the link
+            </Button>
             {prospect.called_at && (
               <Button
                 variant="quiet"
@@ -263,6 +296,33 @@ export default function ReportProspectDetailPage() {
             ['Sent', prospect.sent_at ? formatDateTime(prospect.sent_at) : 'Queued'],
             ['Subject line', prospect.subject_label],
             ['Paid searches', prospect.paid_searches.join(', ') || 'None recorded'],
+            [
+              'Link',
+              <span key="link" className="break-all">
+                <a
+                  className={cardLinkClassName}
+                  href={`${prospect.report_link}?s=dashboard`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {prospect.report_link}
+                </a>{' '}
+                <button type="button" className={cardLinkClassName} onClick={copyLink}>
+                  Copy
+                </button>
+                {!prospect.report_html_ready && (
+                  <span className="block text-text-muted">
+                    No page uploaded yet: the link opens the PDF.
+                  </span>
+                )}
+              </span>,
+            ],
+            [
+              'Opened',
+              prospect.opens
+                ? `${prospect.opens} ${prospect.opens === 1 ? 'time' : 'times'}, last ${formatDateTime(prospect.last_opened_at ?? '')}`
+                : 'Not yet',
+            ],
             [
               'Path',
               <span key="path" className="break-all">

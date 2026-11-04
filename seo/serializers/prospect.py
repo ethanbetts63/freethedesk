@@ -2,6 +2,7 @@ from freetheplatform.security import bounds
 from rest_framework import serializers
 
 from ..models import SeoProspect
+from ..utils.prospect_links import report_link, text_refusal
 from ..utils.prospect_sending import body_for, subject_for
 
 # A prospect report runs to about 2 MB; Mailgun's ceiling is 25 MB for the whole send.
@@ -41,6 +42,8 @@ class SeoProspectUploadSerializer(serializers.Serializer):
     report_version = serializers.CharField(max_length=16)
     report_path = serializers.CharField(max_length=500)
     report_pdf = serializers.FileField()
+    # The same report as a page, for the link; an outbox from before the link existed sends none.
+    report_html = serializers.FileField(required=False)
     contact_name = serializers.CharField(max_length=255, required=False, allow_blank=True)
     email = serializers.EmailField()
     email_source = serializers.URLField(max_length=500, required=False, allow_blank=True)
@@ -57,6 +60,12 @@ class SeoProspectUploadSerializer(serializers.Serializer):
     body = serializers.CharField(max_length=10000, required=False, allow_blank=True, default="")
     # What the business counts, for the second body's bet.
     metric = serializers.CharField(max_length=40, required=False, default="bookings")
+    # A report that went by hand before the server kept prospects (``outbox.py register``): the row is created
+    # already sent, under the subject and body it went with, so it gets a link and a dashboard row and is never
+    # sent by the run. Absent on every report the run sends.
+    sent_at = serializers.DateTimeField(required=False)
+    subject_version = serializers.ChoiceField(choices=SeoProspect.Subject.choices, required=False)
+    body_version = serializers.ChoiceField(choices=SeoProspect.Body.choices, required=False)
 
     def validate_domain(self, value):
         return value.strip().lower().removeprefix("www.")
@@ -73,6 +82,35 @@ class SeoProspectUploadSerializer(serializers.Serializer):
             raise serializers.ValidationError("The report is not a PDF.")
         return value
 
+    def validate_report_html(self, value):
+        return validate_report_html(value)
+
+    def validate(self, data):
+        if "sent_at" in data and ("subject_version" not in data or "body_version" not in data):
+            raise serializers.ValidationError("A report that already went names the subject and body it went with.")
+        return data
+
+
+def validate_report_html(value):
+    """The report page: one self-contained HTML document, as render writes it."""
+    if value.size > MAX_PDF_BYTES:
+        raise serializers.ValidationError("The report page is larger than 15 MB.")
+    head = value.read(64).lstrip().lower()
+    value.seek(0)
+    if not (head.startswith(b"<!doctype html") or head.startswith(b"<html")):
+        raise serializers.ValidationError("The report page is not an HTML document.")
+    return value
+
+
+class SeoProspectHtmlSerializer(serializers.Serializer):
+    """The report page for a prospect the server already holds (``outbox.py html``)."""
+
+    slug = serializers.SlugField(max_length=64)
+    report_html = serializers.FileField()
+
+    def validate_report_html(self, value):
+        return validate_report_html(value)
+
 
 class AdminSeoProspectSerializer(serializers.ModelSerializer):
     """A prospect as the calls list shows it. Only the owner's fields are written."""
@@ -84,6 +122,13 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
     body_label = serializers.CharField(source="get_body_version_display", read_only=True)
     email_body = serializers.SerializerMethodField()
     reply_label = serializers.CharField(source="get_reply_display", read_only=True)
+    # The report's link, whether it serves the page or (a row from before the page) the PDF, and its opens by
+    # people, previews and crawlers counted apart (``with_status`` annotates them).
+    report_link = serializers.SerializerMethodField()
+    report_html_ready = serializers.SerializerMethodField()
+    opens = serializers.IntegerField(source="open_count", read_only=True, default=0)
+    last_opened_at = serializers.DateTimeField(read_only=True, default=None)
+    text_refusal = serializers.SerializerMethodField()
 
     class Meta:
         model = SeoProspect
@@ -94,6 +139,7 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
             "body_version", "body_label", "metric", "body", "email_body",
             "sent_at", "status", "message_id", "follow_up_queued_at", "followed_up_at",
             "follow_up_subject_version", "follow_up_body_version",
+            "report_link", "report_html_ready", "opens", "last_opened_at", "text_refusal",
             "called_at", "call_notes", "reply", "reply_label",
             "excluded_reason", "created_at", "updated_at",
         ]
@@ -104,6 +150,7 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
             "body_version", "body_label", "metric", "body", "email_body",
             "sent_at", "status", "message_id", "follow_up_queued_at", "followed_up_at",
             "follow_up_subject_version", "follow_up_body_version", "reply_label",
+            "report_link", "report_html_ready", "opens", "last_opened_at", "text_refusal",
             "created_at", "updated_at",
         ]
         # TextField columns, which DRF maps to a CharField with no maximum.
@@ -114,6 +161,15 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
 
     def get_subject(self, obj) -> str:
         return subject_for(obj)
+
+    def get_report_link(self, obj) -> str:
+        return report_link(obj)
+
+    def get_report_html_ready(self, obj) -> bool:
+        return bool(obj.report_html)
+
+    def get_text_refusal(self, obj) -> str:
+        return text_refusal(obj)
 
     def get_email_body(self, obj) -> str:
         """The body as it goes, or went, composed from the row."""

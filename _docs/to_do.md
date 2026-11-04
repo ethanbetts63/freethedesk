@@ -2,6 +2,10 @@
 
 Open tasks for this repository. Append any you find; delete one once you know it's done.
 
+## Deploy the report's link
+
+Added 2026-11-04. Owner's step. Deploy Django and the frontend together: `migrate` for `seo` 0026 (the report page, the link token on every row, the opens log), and the frontend's `/r/:token` rewrite, which is what makes the link resolve. Twilio must be configured in production for "Text the link" (`TWILIO_*`, already needed for order SMS). Then, from ftp_search, `outbox.py html` for every sent report attaches its page, and `outbox.py register rebuslegal hartleyps solar365` gives the three hand-sent reports their rows and links. Until the deploy, release still works (the server ignores the page) and the dashboard shows no link.
+
 ## Deploy the prospect follow-up
 
 Added 2026-11-04. Owner's step. Deploy Django and run `migrate` for `seo` 0024 and 0025 (the follow-up fields, then its own subject and body). Until then `outbox.py follow-up` gets a 404 from `/api/seo/prospects/follow-up/` and nothing is queued; the outreach agent says so at startup. No frontend change: the dashboard API now also returns `follow_up_queued_at`, `followed_up_at`, `follow_up_subject_version` and `follow_up_body_version`. Waiting on it: the 13 reports sent on 30 October, which the owner asked to follow up early.

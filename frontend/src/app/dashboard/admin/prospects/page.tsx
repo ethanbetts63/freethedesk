@@ -177,7 +177,7 @@ function ProspectsContent() {
                 <SortHeader field="called_at" ordering={list.ordering} onSort={list.toggleSort}>
                   Called
                 </SortHeader>
-                <th className={adminThClassName}>Report</th>
+                <th className={adminThClassName}>Link opened</th>
               </tr>
             </thead>
             <AdminTableBody
@@ -223,6 +223,16 @@ function ProspectsContent() {
                     )}
                   </td>
                   <td className={adminTdClassName}>
+                    <CellTitle>
+                      {prospect.opens
+                        ? `Opened ${prospect.opens}×`
+                        : prospect.sent_at
+                          ? 'Not opened'
+                          : '—'}
+                    </CellTitle>
+                    {prospect.last_opened_at && (
+                      <CellNote>{formatDateTime(prospect.last_opened_at)}</CellNote>
+                    )}
                     <CellNote>{prospect.report_path}</CellNote>
                   </td>
                 </tr>

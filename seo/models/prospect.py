@@ -1,6 +1,17 @@
+import secrets
+
 from django.db import models
 
 from .storage import private_prospect_report_storage
+
+
+#: Ten characters from an alphabet with no 0/o, 1/l/i: a link read out on a call must be typed as heard.
+LINK_TOKEN_ALPHABET = "abcdefghjkmnpqrstuvwxyz23456789"
+LINK_TOKEN_LENGTH = 10
+
+
+def new_link_token() -> str:
+    return "".join(secrets.choice(LINK_TOKEN_ALPHABET) for _ in range(LINK_TOKEN_LENGTH))
 
 
 class SeoProspect(models.Model):
@@ -60,6 +71,12 @@ class SeoProspect(models.Model):
     # Where the report sits on the owner's machine, shown to copy.
     report_path = models.CharField(max_length=500)
     report_pdf = models.FileField(storage=private_prospect_report_storage, upload_to="", max_length=255)
+    # The same report as a page, for the link (``/r/<token>``, ``seo/utils/prospect_links.py``): texted during a
+    # call and named in every report email beside the PDF (owner, 2026-11-04). Blank on a row uploaded before the
+    # link existed; the link then serves the PDF.
+    report_html = models.FileField(storage=private_prospect_report_storage, upload_to="", max_length=255, blank=True)
+    # The unguessable part of the link, set once; the page is noindexed and linked from nowhere else.
+    link_token = models.CharField(max_length=16, unique=True, default=new_link_token)
     contact_name = models.CharField(max_length=255, blank=True)
     # Lowercased on upload. One report per address, as per business.
     email = models.EmailField(unique=True)
