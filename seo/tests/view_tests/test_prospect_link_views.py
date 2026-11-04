@@ -45,6 +45,8 @@ def test_the_link_serves_the_report_page_noindexed_with_the_strip_and_the_ask(cl
     assert "<p>Fix the title.</p>" in page
     assert page.index('class="ftd-bar"') < page.index("Fix the title") < page.index('class="ftd-ask"')
     assert f"/r/{prospect.link_token}/pdf" in page
+    assert 'href="tel:+61423853830"' in page and "0423 853 830" in page
+    assert 'href="mailto:analytics@freethedesk.com.au"' in page
 
 
 def test_an_open_is_logged_with_its_source_and_whether_a_person_did_it(client):

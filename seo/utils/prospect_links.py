@@ -57,11 +57,12 @@ ROBOTS = '<meta name="robots" content="noindex, nofollow, noarchive">'
 # The strip over the report and the ask under it: the only parts of the page that are the site's rather than the
 # report's. Inline, prefixed, and small, so the report's own stylesheet is left alone.
 _STYLE = """<style>
-.ftd-bar{position:sticky;top:0;z-index:9;display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:9px 16px;background:#09121b;color:#fff;font:600 13px/1.4 Archivo,"Helvetica Neue",Arial,sans-serif}
-.ftd-bar__who{flex:1 1 auto;min-width:0;opacity:.85;font-weight:500}
-.ftd-bar a{color:#fff;text-decoration:none;white-space:nowrap}
-.ftd-bar a.ftd-bar__call{padding:5px 11px;border-radius:999px;background:#2473c6}
-.ftd-bar a.ftd-bar__pdf{opacity:.85;text-decoration:underline}
+.ftd-bar{position:sticky;top:0;z-index:9;padding:8px 16px 9px;background:#09121b;color:#fff;font:500 12.5px/1.4 Archivo,"Helvetica Neue",Arial,sans-serif}
+.ftd-bar__who{display:block;opacity:.8}
+.ftd-bar__row{display:flex;flex-wrap:wrap;align-items:center;gap:4px 16px;margin-top:3px}
+.ftd-bar a{display:inline-flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-weight:600;white-space:nowrap}
+.ftd-bar svg{width:13px;height:13px;flex:none;fill:currentColor}
+.ftd-bar a.ftd-bar__pdf{margin-left:auto;opacity:.8;text-decoration:underline}
 .ftd-ask{max-width:744px;margin:0 auto;padding:0 24px 56px;font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
 .ftd-ask__card{padding:22px 24px;border:1px solid #d3dbe4;border-radius:8px;background:#f6f7f9}
 .ftd-ask h2{margin:0 0 8px;font-size:1.25rem;line-height:1.2;letter-spacing:-.02em;color:#09121b}
@@ -70,10 +71,23 @@ _STYLE = """<style>
 @media (max-width:640px){.ftd-ask{padding:0 18px 40px}.ftd-ask__card{padding:18px 16px}}
 </style>"""
 
+_PHONE_ICON = (
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25'
+    " 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4"
+    ' 0 0 0 .6 3.6 1 1 0 0 1-.25 1z"/></svg>'
+)
+_MAIL_ICON = (
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1'
+    " 1 0 0 1 1-1zm1 2.6V18h16V7.6l-8 5.4zm.9-.6L12 11.6 19.1 7z\"/></svg>"
+)
+
+# The strip: whom it was written for, then the number, the address and the PDF, each a tap (owner, 2026-11-04).
 _BAR = (
     '<div class="ftd-bar"><span class="ftd-bar__who">Written for {business} by freethedesk</span>'
-    '<a class="ftd-bar__pdf" href="{pdf}">PDF</a>'
-    '<a class="ftd-bar__call" href="tel:+61423853830">Call Ethan</a></div>'
+    '<span class="ftd-bar__row">'
+    f'<a href="tel:+61423853830">{_PHONE_ICON}0423 853 830</a>'
+    f'<a href="mailto:analytics@freethedesk.com.au">{_MAIL_ICON}analytics@freethedesk.com.au</a>'
+    '<a class="ftd-bar__pdf" href="{pdf}">PDF</a></span></div>'
 )
 
 _ASK = (
