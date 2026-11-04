@@ -1,6 +1,7 @@
 from django.db import IntegrityError, transaction
 from django.db.models import Count, Q
 from django.conf import settings
+from django.utils import timezone
 from freetheplatform.messaging import Message, Suppression, is_suppressed, send, suppress
 from freetheplatform.messaging.utils import read_uploads
 from rest_framework import status
@@ -16,7 +17,7 @@ from core.utils.pagination import DashboardPagination
 
 from ..models import SeoProspect
 from ..serializers.prospect import AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectUploadSerializer
-from ..utils.prospect_sending import NoSubject, next_body, next_subject, subject_for
+from ..utils.prospect_sending import NoSubject, follow_up_refusal, next_body, next_subject, subject_for
 from ..utils.prospects import STATUSES, with_status
 
 PROSPECT_ORDERING = {
@@ -83,6 +84,37 @@ class SeoProspectUploadView(APIView):
              "body_version": prospect.body_version, "body_label": prospect.get_body_version_display()},
             status=status.HTTP_201_CREATED,
         )
+
+
+class SeoProspectFollowUpView(APIView):
+    """`POST /api/seo/prospects/follow-up/`: queue the one follow-up for a prospect, by slug.
+
+    The outreach agent queues it at startup once it has looked for a reply in
+    the owner's inbox; the hourly run sends it in the window. Refused with 409
+    and the reason when it is too soon, already queued, or anything has since
+    stopped it: a call, a reply marked on the dashboard, an exclusion or the
+    suppression list.
+    """
+
+    throttle_scope = "internal"  # A load limit; access is the shared secret.
+    authentication_classes = []
+    permission_classes = [IsInternalApiRequest]
+
+    def post(self, request):
+        prospect = SeoProspect.objects.filter(slug=str(request.data.get("slug", ""))).first()
+        if prospect is None:
+            return Response({"outcome": "unknown", "detail": "No prospect has this slug."},
+                            status=status.HTTP_404_NOT_FOUND)
+        now = timezone.now()
+        refusal = follow_up_refusal(prospect, now)
+        if refusal:
+            return Response({"outcome": refusal, "sent_at": prospect.sent_at,
+                             "follow_up_queued_at": prospect.follow_up_queued_at},
+                            status=status.HTTP_409_CONFLICT)
+        prospect.follow_up_queued_at = now
+        prospect.save(update_fields=["follow_up_queued_at", "updated_at"])
+        return Response({"outcome": "queued", "subject": subject_for(prospect), "sent_at": prospect.sent_at},
+                        status=status.HTTP_201_CREATED)
 
 
 class SeoMessageSendView(APIView):

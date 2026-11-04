@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
@@ -227,3 +229,53 @@ def test_a_staff_login_does_not_open_the_terminal_endpoint(api_client, internal_
     api_client.force_authenticate(staff_user)
     assert send_by_hand(api_client, "wrong").status_code == 403
     assert outbox == []
+
+
+def queue_follow_up(api_client, key, slug):
+    return api_client.post(reverse("seo-prospect-follow-up"), {"slug": slug}, format="json",
+                           HTTP_X_INTERNAL_API_KEY=key)
+
+
+def test_a_follow_up_is_queued_a_week_after_the_report_email(api_client, internal_key):
+    prospect = SeoProspectFactory(sent_at=timezone.now() - timedelta(days=7, minutes=1))
+
+    response = queue_follow_up(api_client, internal_key, prospect.slug)
+
+    assert response.status_code == 201 and response.json()["outcome"] == "queued"
+    prospect.refresh_from_db()
+    assert prospect.follow_up_queued_at is not None and prospect.followed_up_at is None
+    # Once only.
+    assert queue_follow_up(api_client, internal_key, prospect.slug).json()["outcome"] == "already_queued"
+
+
+@pytest.mark.parametrize("fields, outcome", [
+    ({"sent_at": None}, "not_sent"),
+    ({"days": 6}, "too_soon"),
+    ({"called_at": True}, "called"),
+    ({"reply": SeoProspect.Reply.NEGATIVE}, "replied"),
+    ({"excluded_reason": "Asked us not to"}, "excluded"),
+])
+def test_a_follow_up_is_refused_when_anything_has_stopped_it(api_client, internal_key, fields, outcome):
+    now = timezone.now()
+    days = fields.pop("days", 8)
+    if fields.pop("called_at", False):
+        fields["called_at"] = now
+    prospect = SeoProspectFactory(**{"sent_at": now - timedelta(days=days), **fields})
+
+    response = queue_follow_up(api_client, internal_key, prospect.slug)
+
+    assert response.status_code == 409 and response.json()["outcome"] == outcome
+    prospect.refresh_from_db()
+    assert prospect.follow_up_queued_at is None
+
+
+def test_a_suppressed_address_gets_no_follow_up(api_client, internal_key):
+    prospect = SeoProspectFactory(sent_at=timezone.now() - timedelta(days=8))
+    suppress(prospect.email, reason=Suppression.Reason.OPTED_OUT)
+    assert queue_follow_up(api_client, internal_key, prospect.slug).json()["outcome"] == "suppressed"
+
+
+def test_the_follow_up_takes_the_shared_secret(api_client, internal_key):
+    prospect = SeoProspectFactory(sent_at=timezone.now() - timedelta(days=8))
+    assert queue_follow_up(api_client, "wrong", prospect.slug).status_code in (401, 403)
+    assert queue_follow_up(api_client, internal_key, "nobody").status_code == 404

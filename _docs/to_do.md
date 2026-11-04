@@ -2,6 +2,10 @@
 
 Open tasks for this repository. Append any you find; delete one once you know it's done.
 
+## Deploy the prospect follow-up
+
+Added 2026-11-04. Owner's step. Deploy Django and run `migrate` for `seo` 0024 (the follow-up fields). Until then `outbox.py follow-up` gets a 404 from `/api/seo/prospects/follow-up/` and nothing is queued; the outreach agent says so at startup. No frontend change: the dashboard API now also returns `follow_up_queued_at` and `followed_up_at`.
+
 ## Deploy invoicing and package checkout
 
 Added 2026-10-09. Owner's step. Everything up to f3d3853 was pushed on 2026-10-08: invoicing, the package order checkout and the Web Development Terms. On deploy:

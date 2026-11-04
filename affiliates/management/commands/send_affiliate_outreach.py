@@ -188,3 +188,24 @@ class Command(BaseCommand):
             sent += 1
             self.stdout.write(f"Report {prospect.subject_version} -> {prospect.email} ({prospect.business}): {message.status}")
         self.stdout.write(f"{sent} report email(s) sent.")
+        self.send_follow_ups(now, count, pause=pause or bool(sent))
+
+    def send_follow_ups(self, now, count, pause):
+        """The follow-ups the outreach agent queued, in the same window and at the same pace."""
+        sent = 0
+        for prospect in prospect_sending.due_follow_ups()[: count * 2]:
+            if sent >= count:
+                break
+            if not prospect_sending.claim_follow_up(prospect, now):
+                continue
+            if sent or pause:
+                time.sleep(PAUSE_SECONDS)
+            try:
+                message = prospect_sending.send_follow_up(prospect)
+            except Exception:
+                self.stderr.write(f"{prospect.email}: follow-up failed.")
+                logger.exception("Prospect follow-up failed for prospect %s", prospect.pk)
+                continue
+            sent += 1
+            self.stdout.write(f"Follow-up -> {prospect.email} ({prospect.business}): {message.status}")
+        self.stdout.write(f"{sent} follow-up(s) sent.")

@@ -78,6 +78,17 @@ business-hours window, the message log as the status, the dashboard page.
   action. The Spam Act requires a functional unsubscribe facility; a reply
   address is one.
 - **Plain text**, as pitches A and C: a note from one person, not a newsletter.
+- **One follow-up, a week on** (owner, 2026-11-04). When seven days have passed
+  with no call and no reply in the owner's inbox (ethanbetts63@gmail.com, where
+  replies land), the outreach agent queues it at startup:
+  `POST /api/seo/prospects/follow-up/` with the slug, through `outbox.py
+  follow-up`. It is refused (409, with the reason) when it is too soon, already
+  queued, or the row is called, replied, excluded or suppressed. The hourly run
+  sends it in the same window and at the same pace: the report email again, same
+  subject and PDF, its first paragraph opening "Just following up on my email
+  from last week, in case it got buried." Its message type is
+  `seo_prospect_follow_up.<subject>`, so the dashboard's status still reads the
+  first email; `followed_up_at` on the row is when it went. Once only.
 
 ## The server
 

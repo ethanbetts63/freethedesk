@@ -9,6 +9,8 @@ Sent by the hourly ``send_affiliate_outreach`` run, inside its window. See
 ``_docs/seo-prospect-outreach.md``.
 """
 
+from datetime import timedelta
+
 from django.conf import settings
 from django.db.models import Count
 from freetheplatform.messaging import Suppression, send
@@ -269,6 +271,74 @@ def body_for(prospect: SeoProspect) -> str:
     return BODY_ONE.format(
         first_name=name, picked=picked(prospect), count=prospect.recommendation_count,
         standouts=standouts(prospect),
+    )
+
+
+#: The one follow-up: the same email, a week on, opening with this line (owner, 2026-11-04).
+FOLLOW_UP_AFTER = timedelta(days=7)
+FOLLOW_UP_LINE = "Just following up on my email from last week, in case it got buried."
+
+
+def follow_up_type(subject_version) -> str:
+    """Not ``seo_prospect.``: the dashboard's status reads the report email alone."""
+    return f"seo_prospect_follow_up.{int(subject_version)}"
+
+
+def follow_up_body(prospect: SeoProspect) -> str:
+    """The report email as it went, with the follow-up line opening the paragraph after the greeting."""
+    greeting, _, rest = body_for(prospect).partition("\n\n")
+    return f"{greeting}\n\n{FOLLOW_UP_LINE} {rest}"
+
+
+def follow_up_refusal(prospect: SeoProspect, now) -> str:
+    """Why this prospect may not be followed up now; empty when it may."""
+    if prospect.follow_up_queued_at or prospect.followed_up_at:
+        return "already_queued"
+    if not prospect.sent_at:
+        return "not_sent"
+    if now - prospect.sent_at < FOLLOW_UP_AFTER:
+        return "too_soon"
+    if prospect.called_at:
+        return "called"
+    if prospect.reply != SeoProspect.Reply.NONE:
+        return "replied"
+    if prospect.excluded_reason:
+        return "excluded"
+    if Suppression.objects.filter(channel="email", address=prospect.email).exists():
+        return "suppressed"
+    return ""
+
+
+def due_follow_ups():
+    """Queued, not yet sent, and still nothing has stopped them since: no call, reply, exclusion or suppression."""
+    suppressed = Suppression.objects.filter(channel="email").values("address")
+    return (
+        SeoProspect.objects.filter(follow_up_queued_at__isnull=False, followed_up_at__isnull=True,
+                                   called_at__isnull=True, reply=SeoProspect.Reply.NONE, excluded_reason="")
+        .exclude(email__in=suppressed)
+        .order_by("follow_up_queued_at", "id")
+    )
+
+
+def claim_follow_up(prospect: SeoProspect, now) -> bool:
+    """True for exactly one of any number of concurrent runs."""
+    return SeoProspect.objects.filter(pk=prospect.pk, followed_up_at__isnull=True).update(followed_up_at=now) == 1
+
+
+def send_follow_up(prospect: SeoProspect):
+    """The follow-up: the report email's subject and attachment, the follow-up body. The caller has claimed the row."""
+    with prospect.report_pdf.open("rb") as handle:
+        pdf = handle.read()
+    return send(
+        to=prospect.email,
+        channel="email",
+        message_type=follow_up_type(prospect.subject_version),
+        subject=subject_for(prospect),
+        body=follow_up_body(prospect),
+        plain=True,
+        attachments=[(f"{prospect.slug}_seo_report_{prospect.report_version}.pdf", pdf, "application/pdf")],
+        related=prospect,
+        sender=settings.OUTREACH_SENDER,
     )
 
 

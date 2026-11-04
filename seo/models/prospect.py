@@ -85,6 +85,10 @@ class SeoProspect(models.Model):
     metric = models.CharField(max_length=40, default="bookings")
     # Set by the cron's claim before the send. Null means still queued.
     sent_at = models.DateTimeField(null=True, blank=True, db_index=True)
+    # The one follow-up (owner, 2026-11-04): queued through ``POST /api/seo/prospects/follow-up/`` once a week has
+    # passed with no call and no reply, then claimed and sent by the hourly run, like the report email.
+    follow_up_queued_at = models.DateTimeField(null=True, blank=True)
+    followed_up_at = models.DateTimeField(null=True, blank=True)
     # Set by hand on the dashboard.
     called_at = models.DateTimeField(null=True, blank=True, db_index=True)
     call_notes = models.TextField(blank=True)

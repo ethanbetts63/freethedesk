@@ -9,7 +9,7 @@ from freetheplatform.messaging import Message, Suppression, suppress
 from affiliates.management.commands import send_affiliate_outreach as command
 from seo.models import SeoProspect
 from seo.tests.factories import PDF, SeoProspectFactory
-from seo.utils.prospect_sending import UNSUBSCRIBE_LINE, body_for, subject_for
+from seo.utils.prospect_sending import FOLLOW_UP_LINE, UNSUBSCRIBE_LINE, body_for, follow_up_body, subject_for
 
 pytestmark = pytest.mark.django_db
 
@@ -220,3 +220,37 @@ def test_reports_go_ten_seconds_apart_and_after_the_pitches(outbox, monkeypatch)
 def test_each_subject_names_only_what_the_report_says(version, expected):
     prospect = SeoProspectFactory(subject_version=version, domain="business0.com.au", business="Business 0")
     assert subject_for(prospect) == expected
+
+
+def test_the_follow_up_is_the_same_email_opening_with_the_follow_up_line():
+    prospect = SeoProspectFactory(contact_name="Tom Smith", body_version=SeoProspect.Body.FIXES,
+                                  issues=["Fix the title"], recommendation_count=9)
+
+    body = follow_up_body(prospect)
+
+    assert body.startswith(f"Hi Tom,\n\n{FOLLOW_UP_LINE} My name's Ethan. Attached is a list of fixes")
+    assert body.replace(f"{FOLLOW_UP_LINE} ", "", 1) == body_for(prospect)
+
+
+def test_the_hourly_run_sends_a_queued_follow_up_once_with_the_pdf(outbox, monkeypatch):
+    now = perth(27, 10)
+    prospect = SeoProspectFactory(subject_version=6, body_version=SeoProspect.Body.FIXES,
+                                  sent_at=perth(19, 10), follow_up_queued_at=now)
+    stopped = SeoProspectFactory(sent_at=perth(19, 10), follow_up_queued_at=now, called_at=now)
+
+    output = run(monkeypatch, now)
+
+    assert "1 follow-up(s) sent." in output
+    [message] = outbox
+    assert (message.to, message.message_type) == (prospect.email, "seo_prospect_follow_up.6")
+    assert message.subject == subject_for(prospect)
+    assert message.body_text == follow_up_body(prospect).rstrip()
+    assert message.attachments == [{"name": f"{prospect.slug}_seo_report_r1.pdf", "size": len(PDF)}]
+    prospect.refresh_from_db()
+    stopped.refresh_from_db()
+    assert prospect.followed_up_at == now and stopped.followed_up_at is None
+    # The report email's own record is untouched: the dashboard status reads seo_prospect.* alone.
+    assert prospect.sent_at == perth(19, 10)
+
+    run(monkeypatch, now)
+    assert len(outbox) == 1

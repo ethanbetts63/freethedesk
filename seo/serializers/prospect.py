@@ -92,7 +92,8 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
             "email", "email_source", "phone", "overview", "issues", "paid_searches",
             "recommendation_count", "purpose", "subject_version", "subject_label", "subject",
             "body_version", "body_label", "metric", "body", "email_body",
-            "sent_at", "status", "message_id", "called_at", "call_notes", "reply", "reply_label",
+            "sent_at", "status", "message_id", "follow_up_queued_at", "followed_up_at",
+            "called_at", "call_notes", "reply", "reply_label",
             "excluded_reason", "created_at", "updated_at",
         ]
         read_only_fields = [
@@ -100,7 +101,8 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
             "email", "email_source", "phone", "overview", "issues", "paid_searches",
             "recommendation_count", "purpose", "subject_version", "subject_label", "subject",
             "body_version", "body_label", "metric", "body", "email_body",
-            "sent_at", "status", "message_id", "reply_label", "created_at", "updated_at",
+            "sent_at", "status", "message_id", "follow_up_queued_at", "followed_up_at", "reply_label",
+            "created_at", "updated_at",
         ]
         # TextField columns, which DRF maps to a CharField with no maximum.
         extra_kwargs = {

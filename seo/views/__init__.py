@@ -7,6 +7,7 @@ from .prospects import (
     AdminSeoProspectSummaryView,
     AdminSeoProspectUnsubscribeView,
     SeoMessageSendView,
+    SeoProspectFollowUpView,
     SeoProspectUploadView,
 )
 from .registration import SeoRegistrationView
@@ -19,6 +20,7 @@ __all__ = [
     "AdminSeoProspectSummaryView",
     "AdminSeoProspectUnsubscribeView",
     "SeoMessageSendView",
+    "SeoProspectFollowUpView",
     "SeoProspectUploadView",
     "AdminSeoSetupStepView",
     "AdminSeoSubscriberDetailView",
