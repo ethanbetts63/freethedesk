@@ -4,7 +4,7 @@ Open tasks for this repository. Append any you find; delete one once you know it
 
 ## Deploy the report's link
 
-Added 2026-11-04. Owner's step. Deploy Django and the frontend together: `migrate` for `seo` 0026 (the report page, the link token on every row, the opens log), and the frontend's `/r/:token` rewrite, which is what makes the link resolve. Twilio must be configured in production for "Text the link" (`TWILIO_*`, already needed for order SMS). Then, from ftp_search, `outbox.py html` for every sent report attaches its page, and `outbox.py register rebuslegal hartleyps solar365` gives the three hand-sent reports their rows and links. Until the deploy, release still works (the server ignores the page) and the dashboard shows no link.
+Added 2026-11-04. Owner's step. Deploy Django and the frontend together: `migrate` for `seo` 0026 (the report page, the link token on every row, the opens log), and the frontend's `/r/:token` rewrite, which is what makes the link resolve. Then, from ftp_search, `outbox.py html` for every sent report attaches its page, and `outbox.py register rebuslegal hartleyps solar365` gives the three hand-sent reports their rows and links. Until the deploy, release still works (the server ignores the page) and the dashboard shows no link.
 
 ## Deploy the prospect follow-up
 

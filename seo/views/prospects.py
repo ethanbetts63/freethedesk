@@ -20,9 +20,7 @@ from ..models import SeoProspect, SeoProspectOpen
 from ..serializers.prospect import (
     AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectHtmlSerializer, SeoProspectUploadSerializer,
 )
-from ..utils.prospect_links import (
-    page_document, page_headers, pdf_link, record_open, report_link, sms_number, text_body, text_refusal,
-)
+from ..utils.prospect_links import page_document, page_headers, record_open, report_link
 from ..utils.prospect_sending import (
     NoSubject, follow_up_refusal, follow_up_subject_for, next_body, next_follow_up_subject, next_subject,
     subject_for,
@@ -306,41 +304,6 @@ class AdminSeoProspectDetailView(RetrieveUpdateAPIView):
         serializer.save()
         # The composed status was annotated before the change; answer with the one after it.
         serializer.instance = self.get_queryset().get(pk=serializer.instance.pk)
-
-
-class AdminSeoProspectTextView(APIView):
-    """`POST /api/admin/seo/prospects/<pk>/text/`: text the report's link to the prospect's mobile, from the
-    dashboard, during or after a call where they said yes to it. One SMS through messaging, related to the row so
-    it shows under the call; the opens it draws say ``text``. Refused for a landline, a 1300 number or a row with
-    no report."""
-
-    throttle_scope = "staff"
-    permission_classes = [IsAdminUser]
-
-    def post(self, request, pk):
-        prospect = SeoProspect.objects.filter(pk=pk).first()
-        if prospect is None:
-            return Response({"detail": "Not found."}, status=404)
-        refusal = text_refusal(prospect)
-        if refusal:
-            return Response({"detail": refusal}, status=status.HTTP_400_BAD_REQUEST)
-        message = send(
-            to=sms_number(prospect.phone),
-            channel="sms",
-            message_type="seo_prospect_link_sms",
-            body=text_body(prospect),
-            related=prospect,
-            meta={"composed_by": "dashboard", "prospect": prospect.pk},
-        )
-        data = AdminSeoProspectSerializer(with_status(SeoProspect.objects.all()).get(pk=pk)).data
-        answer = {"prospect": data, "message": {"id": message.pk, "status": message.status, "to": message.to}}
-        if message.status in (Message.Status.FAILED, Message.Status.SUPPRESSED):
-            answer["detail"] = (
-                f"The text was not sent: {message.error_message}" if message.status == Message.Status.FAILED
-                else "The text was not sent: the number is on the suppression list."
-            )
-            return Response(answer, status=status.HTTP_502_BAD_GATEWAY)
-        return Response(answer, status=status.HTTP_201_CREATED)
 
 
 class AdminSeoProspectUnsubscribeView(APIView):

@@ -2,7 +2,7 @@ from freetheplatform.security import bounds
 from rest_framework import serializers
 
 from ..models import SeoProspect
-from ..utils.prospect_links import report_link, text_refusal
+from ..utils.prospect_links import report_link
 from ..utils.prospect_sending import body_for, subject_for
 
 # A prospect report runs to about 2 MB; Mailgun's ceiling is 25 MB for the whole send.
@@ -128,7 +128,6 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
     report_html_ready = serializers.SerializerMethodField()
     opens = serializers.IntegerField(source="open_count", read_only=True, default=0)
     last_opened_at = serializers.DateTimeField(read_only=True, default=None)
-    text_refusal = serializers.SerializerMethodField()
 
     class Meta:
         model = SeoProspect
@@ -139,7 +138,7 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
             "body_version", "body_label", "metric", "body", "email_body",
             "sent_at", "status", "message_id", "follow_up_queued_at", "followed_up_at",
             "follow_up_subject_version", "follow_up_body_version",
-            "report_link", "report_html_ready", "opens", "last_opened_at", "text_refusal",
+            "report_link", "report_html_ready", "opens", "last_opened_at",
             "called_at", "call_notes", "reply", "reply_label",
             "excluded_reason", "created_at", "updated_at",
         ]
@@ -150,7 +149,7 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
             "body_version", "body_label", "metric", "body", "email_body",
             "sent_at", "status", "message_id", "follow_up_queued_at", "followed_up_at",
             "follow_up_subject_version", "follow_up_body_version", "reply_label",
-            "report_link", "report_html_ready", "opens", "last_opened_at", "text_refusal",
+            "report_link", "report_html_ready", "opens", "last_opened_at",
             "created_at", "updated_at",
         ]
         # TextField columns, which DRF maps to a CharField with no maximum.
@@ -167,9 +166,6 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
 
     def get_report_html_ready(self, obj) -> bool:
         return bool(obj.report_html)
-
-    def get_text_refusal(self, obj) -> str:
-        return text_refusal(obj)
 
     def get_email_body(self, obj) -> str:
         """The body as it goes, or went, composed from the row."""

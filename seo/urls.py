@@ -4,7 +4,6 @@ from .views import (
     AdminSeoProspectDetailView,
     AdminSeoProspectListView,
     AdminSeoProspectSummaryView,
-    AdminSeoProspectTextView,
     AdminSeoProspectUnsubscribeView,
     SeoMessageSendView,
     SeoProspectFollowUpView,
@@ -55,7 +54,6 @@ urlpatterns = [
         AdminSeoProspectUnsubscribeView.as_view(),
         name="admin-seo-prospect-unsubscribe",
     ),
-    path("admin/seo/prospects/<int:pk>/text/", AdminSeoProspectTextView.as_view(), name="admin-seo-prospect-text"),
     path("admin/seo/", AdminSeoSubscriberListView.as_view(), name="admin-seo-list"),
     path("admin/seo/<int:pk>/", AdminSeoSubscriberDetailView.as_view(), name="admin-seo-detail"),
     path(

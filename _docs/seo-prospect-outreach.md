@@ -156,8 +156,9 @@ sent, replied and called per subject, and per body.
 Every report has an address of its own on the site, `freethedesk.com.au/r/<token>`:
 the report as a page, the layout a phone shows, with the site's strip over it
 (written for whom, call Ethan, the PDF) and the ask for the full report under
-it. The owner texts it during a call; every report email and follow-up names it
-beside the PDF ("You can also read it online"); nothing else links to it.
+it. The owner texts it by hand during a call, from the call brief, which prints
+it with `?s=text`; every report email and follow-up names it beside the PDF
+("You can also read it online"); nothing else links to it.
 
 - **The page.** `report_html` on the row, the `report.html` beside the PDF in
   the project, uploaded with the report (`outbox.py release`) or after it for
@@ -178,14 +179,11 @@ beside the PDF ("You can also read it online"); nothing else links to it.
   (iMessage and WhatsApp fetch a link the moment it is sent). No address is
   kept. The dashboard shows the opens by people and the last one, on the list
   and the row; the first engagement signal the outreach has.
-- **The text.** "Text the link" on the row (`POST
-  /api/admin/seo/prospects/<pk>/text/`) sends one SMS through messaging to the
-  prospect's mobile (`sms_number` makes `+61...` of the printed form), related
-  to the row so it shows under the call. Refused for a landline, a 1300 number,
-  no number or no report. The words are `TEXT_BODY` in
-  `seo/utils/prospect_links.py`: named sender, "Reply STOP to opt out". Only
-  during or after a call where the person said yes to it; a cold text is a
-  commercial message the Spam Act does not allow on inferred consent.
+- **The text is the owner's own.** No button sends one (owner, 2026-11-04):
+  the owner texts the link from their phone, during or after a call where the
+  person said yes to it, which is express consent; a cold text is a commercial
+  message the Spam Act does not allow on inferred consent. The brief's link
+  carries `?s=text`, so those opens read as from a text.
 - **The three hand-sent reports** (Rebus Legal, Hartley Plumbing, Solar 365)
   had no row. `outbox.py register` posts them with `sent_at`, the subject and
   body they went with and the analyst's words, and the server creates the row

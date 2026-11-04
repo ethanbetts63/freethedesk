@@ -161,8 +161,6 @@ export interface ReportProspect {
   /** Opens of the link by people; link previews and crawlers are counted apart. */
   opens: number;
   last_opened_at: string | null;
-  /** Why the link cannot be texted (a landline, no number, no report); empty when it can. */
-  text_refusal: string;
   called_at: string | null;
   call_notes: string;
   reply: ProspectReply;
@@ -390,15 +388,6 @@ export async function updateReportProspect(
       method: 'PATCH',
       body: JSON.stringify(changes),
     }),
-  );
-}
-
-/** The report's link, texted to the prospect's mobile during or after a call where they said yes to it. */
-export async function textReportLink(
-  id: number,
-): Promise<{ prospect: ReportProspect; message: { id: number; status: string; to: string } }> {
-  return handleResponse(
-    await authedFetch(`/api/admin/seo/prospects/${id}/text/`, { method: 'POST' }),
   );
 }
 

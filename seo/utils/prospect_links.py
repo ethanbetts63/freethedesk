@@ -1,7 +1,7 @@
 """The report's own address on the site: ``freethedesk.com.au/r/<token>``, the report as a phone shows it.
 
-The owner texts it during a call, and every report email carries it beside the
-PDF (owner, 2026-11-04). The token is unguessable and the page is noindexed and
+The owner texts it by hand during a call (the brief prints it with ``?s=text``),
+and every report email carries it beside the PDF (owner, 2026-11-04). The token is unguessable and the page is noindexed and
 linked from nowhere. Each open is logged against the prospect with where the
 link came from, so the dashboard shows who looked: the first engagement signal
 the outreach has. See ``_docs/seo-prospect-outreach.md``.
@@ -48,42 +48,6 @@ def record_open(prospect: SeoProspect, request, kind: str = SeoProspectOpen.Kind
         user_agent=user_agent,
         likely_bot=not user_agent or bool(LIKELY_BOT.search(user_agent)),
     )
-
-
-# -- the text --------------------------------------------------------------
-
-#: The text sent from the dashboard during or after a call, on the owner's word that the person said yes to it.
-#: Named sender and a way to stop, as a commercial message must carry (Spam Act 2003).
-TEXT_BODY = "Hi {first_name}, Ethan from freethedesk here. As discussed, your website report: {link}  Reply STOP to opt out."
-
-
-def text_body(prospect: SeoProspect) -> str:
-    first_name = (prospect.contact_name or "").strip().split(" ")[0] or "there"
-    return TEXT_BODY.format(first_name=first_name, link=report_link(prospect, "text"))
-
-
-def sms_number(phone: str) -> str:
-    """An Australian number as Twilio takes it (+61...), from the forms a site prints it in."""
-    digits = re.sub(r"[^\d+]", "", phone or "")
-    if digits.startswith("+"):
-        return digits
-    if digits.startswith("61"):
-        return f"+{digits}"
-    if digits.startswith("0"):
-        return f"+61{digits[1:]}"
-    return f"+61{digits}" if digits else ""
-
-
-def text_refusal(prospect: SeoProspect) -> str:
-    """Why the link cannot be texted; empty when it can."""
-    if not prospect.report_html and not prospect.report_pdf:
-        return "The prospect has no report file to link to."
-    number = sms_number(prospect.phone)
-    if not number:
-        return "The prospect has no phone number."
-    if not number.startswith("+614"):
-        return f"{prospect.phone} is not a mobile; a text cannot reach it."
-    return ""
 
 
 # -- the page --------------------------------------------------------------

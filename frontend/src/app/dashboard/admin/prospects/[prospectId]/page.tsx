@@ -15,7 +15,6 @@ import {
   formatDateTime,
   getMessages,
   getReportProspect,
-  textReportLink,
   unsubscribeReportProspect,
   updateReportProspect,
   type AdminMessage,
@@ -140,20 +139,6 @@ export default function ReportProspectDetailPage() {
     }
   }
 
-  function textLink() {
-    if (!prospect) return;
-    if (
-      !confirm(
-        `Text the report's link to ${prospect.phone}? Only after they have said yes to it on the call.`,
-      )
-    )
-      return;
-    void apply(
-      () => textReportLink(prospect.id).then((result) => result.prospect),
-      `Texted to ${prospect.phone}.`,
-    );
-  }
-
   if (loading)
     return (
       <div className={pageClassName}>
@@ -241,14 +226,6 @@ export default function ReportProspectDetailPage() {
               }
             >
               {prospect.called_at ? 'Called again now' : 'Mark called'}
-            </Button>
-            <Button
-              variant="secondary"
-              disabled={saving || Boolean(prospect.text_refusal)}
-              title={prospect.text_refusal || undefined}
-              onClick={textLink}
-            >
-              Text the link
             </Button>
             {prospect.called_at && (
               <Button

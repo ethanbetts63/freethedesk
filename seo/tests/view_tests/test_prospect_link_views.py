@@ -1,5 +1,5 @@
-"""The report's link: the page and its PDF at /r/<token>, the opens it logs, the text from the dashboard, and the
-page uploaded with or after the report."""
+"""The report's link: the page and its PDF at /r/<token>, the opens it logs, and the page uploaded with or after
+the report."""
 
 from datetime import timedelta
 
@@ -8,12 +8,10 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from django.utils import timezone
-from freetheplatform.messaging import Suppression, suppress
-
 from core.utils.urls import site_url
 from seo.models import SeoProspect, SeoProspectOpen
 from seo.tests.factories import PDF, SeoProspectFactory, upload_fields
-from seo.utils.prospect_links import report_link, sms_number, text_body
+from seo.utils.prospect_links import report_link
 from seo.utils.prospect_sending import body_for, follow_up_body
 
 pytestmark = pytest.mark.django_db
@@ -203,65 +201,6 @@ def test_the_report_email_names_the_page_beside_the_pdf_once_there_is_one():
     assert "?s=follow-up" in follow_up_body(prospect) and "?s=email" not in follow_up_body(prospect)
 
 
-# -- the text ----------------------------------------------------------------
-
-
-@pytest.mark.parametrize("phone, number", [
-    ("0497 279 112", "+61497279112"),
-    ("(08) 9303 4111", "+61893034111"),
-    ("+61 497 279 112", "+61497279112"),
-    ("61497279112", "+61497279112"),
-    ("", ""),
-])
-def test_a_printed_number_becomes_the_form_twilio_takes(phone, number):
-    assert sms_number(phone) == number
-
-
-def text(api_client, staff_user, prospect):
-    api_client.force_authenticate(staff_user)
-    return api_client.post(reverse("admin-seo-prospect-text", args=[prospect.pk]))
-
-
-def test_the_dashboard_texts_the_link_to_the_mobile_and_records_it_under_the_prospect(api_client, staff_user, outbox):
-    prospect = with_page(contact_name="Reece Cunningham", phone="0497 279 112")
-
-    response = text(api_client, staff_user, prospect)
-
-    assert response.status_code == 201, response.json()
-    [message] = outbox
-    assert (message.channel, message.to, message.message_type) == ("sms", "+61497279112", "seo_prospect_link_sms")
-    assert message.body_text == text_body(prospect)
-    assert message.body_text.startswith("Hi Reece, Ethan from freethedesk here. As discussed, your website report: ")
-    assert f"{report_link(prospect)}?s=text" in message.body_text and "Reply STOP" in message.body_text
-    assert message.object_id == prospect.pk
-    assert response.json()["message"]["to"] == "+61497279112"
-    assert response.json()["prospect"]["id"] == prospect.pk
-
-
-@pytest.mark.parametrize("phone, reason", [
-    ("(08) 9303 4111", "not a mobile"),
-    ("1300 050 215", "not a mobile"),
-    ("", "no phone"),
-])
-def test_a_landline_or_no_number_cannot_be_texted(api_client, staff_user, outbox, phone, reason):
-    prospect = with_page(phone=phone)
-    response = text(api_client, staff_user, prospect)
-    assert response.status_code == 400 and reason in response.json()["detail"]
-    assert outbox == []
-
-
-def test_a_suppressed_number_is_not_texted(api_client, staff_user, outbox):
-    prospect = with_page(phone="0497 279 112")
-    suppress("+61497279112", reason=Suppression.Reason.OPTED_OUT, channel="sms")
-    response = text(api_client, staff_user, prospect)
-    assert response.status_code == 502 and "suppression" in response.json()["detail"]
-
-
-def test_the_text_needs_a_staff_login(api_client):
-    prospect = with_page(phone="0497 279 112")
-    assert api_client.post(reverse("admin-seo-prospect-text", args=[prospect.pk])).status_code in (401, 403)
-
-
 # -- the dashboard -----------------------------------------------------------
 
 
@@ -277,6 +216,5 @@ def test_the_calls_list_shows_the_link_and_the_opens_by_people(api_client, staff
 
     assert row["report_link"] == report_link(prospect) and row["report_html_ready"] is True
     assert row["opens"] == 2 and row["last_opened_at"] is not None
-    assert row["text_refusal"] == ""
     listed = api_client.get(reverse("admin-seo-prospect-list")).json()["results"]
     assert [r["opens"] for r in listed] == [2]
