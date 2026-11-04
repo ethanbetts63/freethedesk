@@ -171,3 +171,7 @@ Added 2026-10-28. Owner's decision, in conversation: 50% devalues the audit, and
 ## Guides: the author's photo and bio
 
 Added 2026-11-04. Owner's step. The guide layout's byline and author box show an "E" on a blue disc until there is a photo; send a square headshot and it replaces the disc in `frontend/src/app/guides/_components/GuideAuthor.tsx`. The bio there is a draft ("writes freethedesk's SEO audits and builds its websites in Perth, including Scooter Shop's…"); replace it with your own two or three lines. There is no LinkedIn, so the box links nowhere.
+
+## Business Profile: your photo and the holiday hours
+
+Added 2026-11-04. Owner's step. The r6 rec "profile-sells-audit" is in (three audit services, the description's SEO sentence, an update linking /seo, three sample-report photos, online service hours removed). Two parts are yours: upload a photo of yourself to the profile (Photos, as nahte12321), and set Christmas and New Year hours before December. The update and the three photos were pending Google's review on 4 November.
