@@ -120,7 +120,7 @@ ratings were dropped on the way in; a redeploy does not restore them. Left:
 
 ## Forms ledger after the affiliate program commit
 
-Added 2026-10-26. `npm run check` fails on `check:forms` since 91e5089: `app/affiliate-portal/account/page.tsx` and `components/auth/VerifyEmailCodeForm.tsx` render a form and are not in `frontend/scripts/check-forms.mjs`, and `app/seo/payment/complete/VerifyEmailForm.tsx` is in the ledger but no longer renders one. Add the two rows with their track and repoint or drop the third.
+Added 2026-10-26. `npm run check` fails on `check:forms` since 91e5089: `app/affiliate-portal/account/page.tsx` and `components/auth/VerifyEmailCodeForm.tsx` render a form and are not in `frontend/scripts/check-forms.mjs`, and `app/seo/payment/complete/VerifyEmailForm.tsx` is in the ledger but no longer renders one. Add the two rows with their track and repoint or drop the third. Still failing on 2026-11-04, and `components/layout/SessionLink.tsx` now renders an unlisted form too.
 
 ## The schema check in conftest reads the dev database when a run has no database tests
 
