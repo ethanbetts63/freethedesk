@@ -10,8 +10,8 @@ export const SITE_URL = (
 ).replace(/\/$/, '');
 
 /*
- * Websites and SEO lead: they are the business. The dealership products share one
- * item; dealers are one line of the business, not half the menu.
+ * Websites and SEO lead: they are the business. Dealerships are in the footer
+ * alone (owner, 2026-11-04): one line of the business, not a menu item.
  */
 export const PRIMARY_NAVIGATION = [
   {
@@ -24,7 +24,6 @@ export const PRIMARY_NAVIGATION = [
   },
   { href: '/seo', label: 'SEO' },
   { href: '/automation', label: 'Automation' },
-  { href: '/dealers', label: 'Dealerships' },
   // Login is not here: the header puts it after the Contact button, plain, since
   // a new visitor has no account and Contact is the CTA.
 ] as const;
@@ -36,6 +35,7 @@ export const FOOTER_NAVIGATION = [
   { href: '/web-design-subiaco', label: 'Web design Subiaco' },
   { href: '/seo', label: 'SEO audits' },
   { href: '/automation', label: 'Automation' },
+  { href: '/dealers', label: 'Dealerships' },
   { href: '/licensing', label: 'Online licensing' },
   { href: '/guides', label: 'Guides & articles' },
   { href: '/affiliates', label: 'Affiliate program' },
