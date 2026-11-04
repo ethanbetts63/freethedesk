@@ -185,8 +185,9 @@ def first_name(prospect: SeoProspect) -> str:
     return (prospect.contact_name or "").strip().split(" ")[0] or "there"
 
 
-def subject_for(prospect: SeoProspect) -> str:
-    return SUBJECTS[prospect.subject_version].format(
+def subject_for(prospect: SeoProspect, version=None) -> str:
+    """The report email's subject, or the follow-up's when ``version`` names it."""
+    return SUBJECTS[prospect.subject_version if version is None else version].format(
         count=prospect.recommendation_count,
         domain=prospect.domain,
         business=prospect.business,
@@ -244,21 +245,22 @@ def affiliate_figures() -> dict:
     return {**pitch_figures(site_settings), "share": "half" if share == 50 else f"{share}%"}
 
 
-def body_for(prospect: SeoProspect) -> str:
-    """The email as it goes, or went, composed from the row.
+def body_for(prospect: SeoProspect, version=None) -> str:
+    """The email as it goes, or went, composed from the row; the follow-up's when ``version`` names its body.
 
     A row from before 2026-10-30 holds the analyst's email in ``body``, which
     body 1 sent as written with the way out added if the analyst left it out;
     that is kept so the dashboard shows what went.
     """
+    version = prospect.body_version if version is None else version
     name = first_name(prospect)
-    if prospect.body_version == SeoProspect.Body.BET:
+    if version == SeoProspect.Body.BET:
         return BODY_TWO.format(first_name=name, metric=prospect.metric or "bookings")
-    if prospect.body_version == SeoProspect.Body.FIXES:
+    if version == SeoProspect.Body.FIXES:
         return BODY_FIXES.format(first_name=name, listing=listing(prospect, FIXES_SHOWN))
-    if prospect.body_version == SeoProspect.Body.LIST:
+    if version == SeoProspect.Body.LIST:
         return BODY_LIST.format(first_name=name, metric=prospect.metric or "bookings", listing=listing(prospect))
-    if prospect.body_version == SeoProspect.Body.AFFILIATE:
+    if version == SeoProspect.Body.AFFILIATE:
         return BODY_AFFILIATE.format(
             first_name=name, business=prospect.business, domain=prospect.domain,
             count=prospect.recommendation_count, standouts=standouts(prospect), **affiliate_figures(),
@@ -274,7 +276,9 @@ def body_for(prospect: SeoProspect) -> str:
     )
 
 
-#: The one follow-up: the same email, a week on, opening with this line (owner, 2026-11-04).
+#: The one follow-up, a week on (owner, 2026-11-04): the report again under a subject from the live rotation, not
+#: the report email's, and the body of the day, opening with this line. Both are chosen when it is queued and
+#: kept on the row, so the dashboard can read replies against them.
 FOLLOW_UP_AFTER = timedelta(days=7)
 FOLLOW_UP_LINE = "Just following up on my email from last week, in case it got buried."
 
@@ -284,9 +288,30 @@ def follow_up_type(subject_version) -> str:
     return f"seo_prospect_follow_up.{int(subject_version)}"
 
 
+def next_follow_up_subject(prospect: SeoProspect) -> int:
+    """A live subject other than the report email's, the one fewest follow-ups have drawn; the report email's own
+    only when it is the sole live subject for this prospect."""
+    has_search = bool([s for s in (prospect.paid_searches or []) if s])
+    choices = [s for s in SeoProspect.Subject.values
+               if s not in PAUSED_SUBJECTS and (has_search or s not in NEEDS_SEARCH)]
+    choices = [s for s in choices if s != prospect.subject_version] or choices
+    if not choices:
+        raise NoSubject("No subject line is in rotation for a prospect without a paid search; approve one first.")
+    counts = {
+        row["follow_up_subject_version"]: row["n"]
+        for row in SeoProspect.objects.filter(follow_up_subject_version__isnull=False)
+        .values("follow_up_subject_version").annotate(n=Count("id"))
+    }
+    return min(choices, key=lambda s: (counts.get(s, 0), s))
+
+
+def follow_up_subject_for(prospect: SeoProspect) -> str:
+    return subject_for(prospect, prospect.follow_up_subject_version)
+
+
 def follow_up_body(prospect: SeoProspect) -> str:
-    """The report email as it went, with the follow-up line opening the paragraph after the greeting."""
-    greeting, _, rest = body_for(prospect).partition("\n\n")
+    """The follow-up's body, with the follow-up line opening the paragraph after the greeting."""
+    greeting, _, rest = body_for(prospect, prospect.follow_up_body_version).partition("\n\n")
     return f"{greeting}\n\n{FOLLOW_UP_LINE} {rest}"
 
 
@@ -327,14 +352,14 @@ def claim_follow_up(prospect: SeoProspect, now) -> bool:
 
 
 def send_follow_up(prospect: SeoProspect):
-    """The follow-up: the report email's subject and attachment, the follow-up body. The caller has claimed the row."""
+    """The follow-up: its own subject and body, the report attached again. The caller has claimed the row."""
     with prospect.report_pdf.open("rb") as handle:
         pdf = handle.read()
     return send(
         to=prospect.email,
         channel="email",
-        message_type=follow_up_type(prospect.subject_version),
-        subject=subject_for(prospect),
+        message_type=follow_up_type(prospect.follow_up_subject_version),
+        subject=follow_up_subject_for(prospect),
         body=follow_up_body(prospect),
         plain=True,
         attachments=[(f"{prospect.slug}_seo_report_{prospect.report_version}.pdf", pdf, "application/pdf")],

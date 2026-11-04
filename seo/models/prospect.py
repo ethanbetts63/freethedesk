@@ -89,6 +89,10 @@ class SeoProspect(models.Model):
     # passed with no call and no reply, then claimed and sent by the hourly run, like the report email.
     follow_up_queued_at = models.DateTimeField(null=True, blank=True)
     followed_up_at = models.DateTimeField(null=True, blank=True)
+    # The follow-up's own subject and body, chosen when it is queued: a subject from the live rotation, not the
+    # report email's, and the client body of the day (owner, 2026-11-04). Null until queued.
+    follow_up_subject_version = models.PositiveSmallIntegerField(choices=Subject.choices, null=True, blank=True)
+    follow_up_body_version = models.PositiveSmallIntegerField(choices=Body.choices, null=True, blank=True)
     # Set by hand on the dashboard.
     called_at = models.DateTimeField(null=True, blank=True, db_index=True)
     call_notes = models.TextField(blank=True)

@@ -17,7 +17,10 @@ from core.utils.pagination import DashboardPagination
 
 from ..models import SeoProspect
 from ..serializers.prospect import AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectUploadSerializer
-from ..utils.prospect_sending import NoSubject, follow_up_refusal, next_body, next_subject, subject_for
+from ..utils.prospect_sending import (
+    NoSubject, follow_up_refusal, follow_up_subject_for, next_body, next_follow_up_subject, next_subject,
+    subject_for,
+)
 from ..utils.prospects import STATUSES, with_status
 
 PROSPECT_ORDERING = {
@@ -114,8 +117,13 @@ class SeoProspectFollowUpView(APIView):
                              "follow_up_queued_at": prospect.follow_up_queued_at},
                             status=status.HTTP_409_CONFLICT)
         prospect.follow_up_queued_at = now
-        prospect.save(update_fields=["follow_up_queued_at", "updated_at"])
-        return Response({"outcome": "queued", "subject": subject_for(prospect), "sent_at": prospect.sent_at},
+        prospect.follow_up_subject_version = next_follow_up_subject(prospect)
+        prospect.follow_up_body_version = next_body(prospect.purpose)
+        prospect.save(update_fields=["follow_up_queued_at", "follow_up_subject_version", "follow_up_body_version",
+                                     "updated_at"])
+        return Response({"outcome": "queued", "subject": follow_up_subject_for(prospect),
+                         "subject_version": prospect.follow_up_subject_version,
+                         "body_version": prospect.follow_up_body_version, "sent_at": prospect.sent_at},
                         status=status.HTTP_201_CREATED)
 
 

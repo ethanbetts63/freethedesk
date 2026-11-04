@@ -84,11 +84,15 @@ business-hours window, the message log as the status, the dashboard page.
   `POST /api/seo/prospects/follow-up/` with the slug, through `outbox.py
   follow-up`. It is refused (409, with the reason) when it is too soon, already
   queued, or the row is called, replied, excluded or suppressed. The hourly run
-  sends it in the same window and at the same pace: the report email again, same
-  subject and PDF, its first paragraph opening "Just following up on my email
-  from last week, in case it got buried." Its message type is
-  `seo_prospect_follow_up.<subject>`, so the dashboard's status still reads the
-  first email; `followed_up_at` on the row is when it went. Once only.
+  sends it in the same window and at the same pace: the report attached again,
+  under a subject drawn from the live rotation (never the report email's own,
+  unless it is the only live one for that prospect) and the client body of the
+  day, its first paragraph opening "Just following up on my email from last
+  week, in case it got buried." Both are chosen when it is queued and kept on
+  the row (`follow_up_subject_version`, `follow_up_body_version`), levelled
+  across follow-ups the way the first email's are. Its message type is
+  `seo_prospect_follow_up.<its subject>`, so the dashboard's status still reads
+  the first email; `followed_up_at` on the row is when it went. Once only.
 
 ## The server
 

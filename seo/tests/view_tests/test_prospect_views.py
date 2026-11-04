@@ -244,8 +244,30 @@ def test_a_follow_up_is_queued_a_week_after_the_report_email(api_client, interna
     assert response.status_code == 201 and response.json()["outcome"] == "queued"
     prospect.refresh_from_db()
     assert prospect.follow_up_queued_at is not None and prospect.followed_up_at is None
+    # Its subject is drawn from the live rotation (the report went under 1, now retired) and its body is the
+    # client body of the day, both kept on the row and named in the answer.
+    assert prospect.follow_up_subject_version == 3 and prospect.follow_up_body_version == SeoProspect.Body.FIXES
+    assert response.json()["subject"] == f"Your 'plumber perth' ad, and what your site is missing"
+    assert response.json()["subject_version"] == 3 and response.json()["body_version"] == SeoProspect.Body.FIXES
     # Once only.
     assert queue_follow_up(api_client, internal_key, prospect.slug).json()["outcome"] == "already_queued"
+
+
+def test_the_follow_up_subject_is_never_the_report_emails_and_is_levelled(api_client, internal_key):
+    """A report that went under 6 is followed up under 3 or 7; without a paid search, under 7 alone; and the
+    follow-ups level across the live subjects between them."""
+    a = SeoProspectFactory(subject_version=6, sent_at=timezone.now() - timedelta(days=8))
+    b = SeoProspectFactory(subject_version=6, sent_at=timezone.now() - timedelta(days=8), paid_searches=[])
+    c = SeoProspectFactory(subject_version=7, sent_at=timezone.now() - timedelta(days=8))
+
+    chosen = []
+    for prospect in (a, b, c):
+        assert queue_follow_up(api_client, internal_key, prospect.slug).status_code == 201
+        prospect.refresh_from_db()
+        chosen.append(prospect.follow_up_subject_version)
+
+    assert chosen[0] in (3, 7) and chosen[1] == 7 and chosen[2] in (3, 6)
+    assert chosen[0] != 6 and chosen[2] != 7
 
 
 @pytest.mark.parametrize("fields, outcome", [
