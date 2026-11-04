@@ -3,6 +3,10 @@ published: 2026-10-14
 updated: 2026-11-04
 title: WordPress Website Cost in Perth: What You Pay
 description: What a WordPress site costs a Perth small business over time: hosting, plugins and upkeep, and when a custom-coded site is the better buy.
+takeaways:
+  - Beyond the build, a WordPress site keeps costing, with shared hosting usually $10 to $30 a month and premium plugins a few hundred US dollars yearly.
+  - The biggest running cost is updates, since most published security problems sit in plugins, so budget for someone to apply them and test the site afterwards.
+  - WordPress suits frequent publishing, several editors or standard needs on a tight budget; a custom-coded site suits specific features and no plugins to maintain.
 ---
 
 # WordPress website cost in Perth: what you pay

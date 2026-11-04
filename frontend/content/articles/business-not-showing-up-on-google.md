@@ -3,6 +3,10 @@ published: 2026-10-14
 updated: 2026-11-04
 title: Why Isn't My Business Showing Up on Google?
 description: The usual reasons a small business is missing from Google search and Maps, how to check each one yourself, and what to fix first.
+takeaways:
+  - First check whether Google has your pages at all; free Google Search Console's Page indexing report shows which are missing and why.
+  - Map results come from your Google Business Profile, not your website, so claim and verify it, choose the most specific category and fill it in.
+  - Then make your name, address and phone number match everywhere; most missing businesses fail one of these three checks, usually the quickest to fix.
 ---
 
 # Why isn't my business showing up on Google?

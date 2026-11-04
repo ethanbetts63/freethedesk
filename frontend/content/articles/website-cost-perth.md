@@ -3,6 +3,10 @@ published: 2026-11-04
 updated: 2026-11-04
 title: Website Cost in Perth: Prices by Type of Site
 description: What a website costs a Perth business, from DIY builders to custom web applications, with the ranges Perth studios publish and what keeps costing after launch.
+takeaways:
+  - Perth studios publish prices from a few hundred dollars to well over $20,000; most professionally built small business sites land between $2,000 and $10,000.
+  - Then budget for running costs, which studios put at about $100 to $500 a year for hosting and $100 to $500 a month for maintenance.
+  - freethedesk builds custom-coded sites at fixed prices, $750 for one page, $3,000 for six and $6,000 for ten, half upfront and half before launch.
 ---
 
 # How much does a website cost in Perth?

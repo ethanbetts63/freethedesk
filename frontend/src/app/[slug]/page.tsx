@@ -1,12 +1,16 @@
 import type { Metadata } from 'next';
+import { BookOpen } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import Eyebrow from '@/components/common/eyebrow';
+import { GuideAuthorBio, GuideByline } from '@/app/guides/_components/GuideAuthor';
+import { GuideCards } from '@/app/guides/_components/GuideCards';
+import { GuideContents } from '@/app/guides/_components/GuideContents';
 import { GuideCta, type GuideCtaKind } from '@/app/guides/_components/GuideCta';
 import { GuideOffer, type GuideOfferKind } from '@/app/guides/_components/GuideOffer';
-import { RelatedPages } from '@/components/marketing/RelatedPages';
-import { GuideHero, GuideTrail } from '@/components/marketing/GuideHero';
+import { guideCards, guideView, type GuideView } from '@/app/guides/_lib/guideView';
+import { GuideTrail } from '@/components/marketing/GuideHero';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import type { PublicSiteSettings } from '@/lib/api';
 import { getAllArticleSlugs, getArticleBySlug, type Article } from '@/lib/articles';
@@ -41,6 +45,14 @@ const GUIDE_CTA: Record<string, GuideCtaKind> = {
   'seo-cost-perth': 'seo',
   'website-cost-perth': 'website',
   'what-to-automate-in-a-small-business': 'automation',
+};
+
+/** The tag in a guide's hero: the line of the business it ends on. */
+const TOPIC: Record<GuideCtaKind, string> = {
+  seo: 'SEO',
+  website: 'Websites',
+  licensing: 'Licensing',
+  automation: 'Automation',
 };
 
 /**
@@ -122,23 +134,55 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   );
 }
 
-function ArticleView({ article, settings }: { article: Article; settings: PublicSiteSettings }) {
-  const [opening, rest] = splitAfterFirstSection(article.html);
+const dateFormatter = new Intl.DateTimeFormat('en-AU', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'Australia/Perth',
+});
 
-  const publishedDate = new Intl.DateTimeFormat('en-AU', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'Australia/Perth',
-  }).format(new Date(`${article.publishedDate}T00:00:00+08:00`));
+const formatDate = (date: string) => dateFormatter.format(new Date(`${date}T00:00:00+08:00`));
+
+/** The hero's picture: the guide's own, or the plain card until it has one. */
+function GuidePicture({ image }: { image: string | null }) {
+  if (image) {
+    return (
+      <Image
+        src={image}
+        alt=""
+        width={1536}
+        height={1024}
+        preload
+        sizes="(min-width: 1024px) 45vw, 100vw"
+        className="aspect-[3/2] h-auto w-full rounded-lg border border-border-default object-cover"
+      />
+    );
+  }
+  return (
+    <span
+      aria-hidden="true"
+      className="flex aspect-[3/2] w-full items-center justify-center rounded-lg border border-border-default bg-surface-page"
+    >
+      <BookOpen className="size-[72px] text-text-action" strokeWidth={1.25} />
+    </span>
+  );
+}
+
+/**
+ * A guide: the heading, its tag, date, reading time and author beside its picture; then the summary, the sections
+ * listed beside the text, the box after the first section, who wrote it, and related guides as cards.
+ */
+function ArticleView({ article, settings }: { article: Article; settings: PublicSiteSettings }) {
+  const guide: GuideView = guideView(article);
+  const [opening, rest] = splitAfterFirstSection(guide.html);
+  const kind = GUIDE_CTA[article.slug] ?? 'website';
+  const updated = guide.lastModified !== guide.publishedDate;
 
   return (
     <>
-      <GuideHero title={article.title} description={article.excerpt} titleAs="p" />
-
-      <section className="bg-surface-page py-section-half">
-        <div className="site-shell">
-          <div className="mx-auto max-w-measure-wide">
+      <section className="bg-surface-tint">
+        <div className="site-shell grid gap-2xl pt-xl pb-section-half lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center lg:pt-section-half">
+          <div>
             <GuideTrail
               trail={[
                 { href: '/', label: 'Home' },
@@ -146,14 +190,60 @@ function ArticleView({ article, settings }: { article: Article; settings: Public
                 { label: article.title },
               ]}
             />
-            <div className="mb-l">
-              <Eyebrow size="sm" tone="primary">
-                By {article.authorName} | Published{' '}
-                <time dateTime={article.publishedDate}>{publishedDate}</time>
-              </Eyebrow>
+            <h1 className="m-0 text-title leading-[1.08] font-heavy tracking-[-0.045em] text-text-primary sm:text-display">
+              {guide.heading}
+            </h1>
+            <p className="m-0 mt-l flex flex-wrap items-center gap-x-s gap-y-xs text-body-sm text-text-muted">
+              <span className="rounded-xs border border-border-default bg-surface-page px-xs py-3xs font-strong text-text-action">
+                {TOPIC[kind]}
+              </span>
+              <span>
+                {updated ? 'Updated ' : ''}
+                <time dateTime={guide.lastModified}>{formatDate(guide.lastModified)}</time>
+              </span>
+              <span aria-hidden="true">·</span>
+              <span>{guide.readMinutes} min read</span>
+            </p>
+            <GuideByline />
+          </div>
+          <GuidePicture image={guide.image} />
+        </div>
+      </section>
+
+      <section className="bg-surface-page py-section-half">
+        <div className="site-shell grid gap-xl lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-2xl">
+          <aside className="lg:order-none">
+            <div className="lg:sticky lg:top-[calc(var(--header-height-lg)+var(--space-l))]">
+              <GuideContents sections={guide.sections} />
             </div>
+          </aside>
+          <div className="min-w-0 max-w-measure-wide">
+            <p className="m-0 text-lead leading-relaxed font-strong text-text-primary">
+              {article.excerpt}
+            </p>
+            {guide.takeaways.length > 0 && (
+              <div className="mt-xl rounded-md border-2 border-action-primary p-l sm:p-xl">
+                <p className="m-0 text-label font-heavy tracking-label text-text-action uppercase">
+                  The short answer
+                </p>
+                <ul className="m-0 mt-s flex list-none flex-col gap-s p-0">
+                  {guide.takeaways.map((point) => (
+                    <li
+                      key={point}
+                      className="flex gap-s text-body leading-relaxed text-text-secondary"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="mt-xs size-[8px] shrink-0 rounded-circle bg-action-primary"
+                      />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             {/* Two prose blocks with the box between them, outside the prose rules. */}
-            <article>
+            <article className="mt-xl">
               <div
                 className={cn('prose-article', styles.article)}
                 dangerouslySetInnerHTML={{ __html: opening }}
@@ -166,6 +256,7 @@ function ArticleView({ article, settings }: { article: Article; settings: Public
                 />
               )}
             </article>
+            <GuideAuthorBio />
             <div className="mt-2xl border-t border-border-default pt-xl">
               <Link
                 href="/guides"
@@ -178,11 +269,8 @@ function ArticleView({ article, settings }: { article: Article; settings: Public
         </div>
       </section>
 
-      <RelatedPages path={`/${article.slug}`} />
-      <GuideCta
-        kind={GUIDE_CTA[article.slug] ?? 'website'}
-        discoveryTotal={servicePrices(settings).discoveryTotal}
-      />
+      <GuideCards path={`/${article.slug}`} guides={guideCards()} />
+      <GuideCta kind={kind} discoveryTotal={servicePrices(settings).discoveryTotal} />
     </>
   );
 }

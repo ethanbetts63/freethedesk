@@ -1,8 +1,12 @@
 ---
 published: 2026-10-14
-updated: 2026-10-15
+updated: 2026-11-04
 title: What to Automate First in a Small Business
 description: How to spot the admin worth automating in a small business, the usual first candidates, and how to tell whether it will pay for itself.
+takeaways:
+  - Start with the task, not the tool; the best candidates repeat daily or weekly, follow the same steps and involve copying, chasing or checking.
+  - The usual first candidates are website enquiries, quote follow-ups, invoice reminders, booking reminders, re-entering data between systems and weekly reporting.
+  - To check it pays, multiply the weekly hours by their hourly cost and working weeks, then compare that with the build and any subscription.
 ---
 
 # What to automate first in a small business

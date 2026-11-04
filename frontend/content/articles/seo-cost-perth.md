@@ -3,6 +3,10 @@ published: 2026-11-04
 updated: 2026-11-04
 title: SEO Cost in Perth: What You Pay
 description: What SEO costs a Perth business: monthly retainers, paid clicks and one-off audits, with the prices Perth firms publish and which to pay for first.
+takeaways:
+  - Most Perth SEO is sold as a monthly retainer, and the prices Perth firms publish run from about $500 to more than $10,000 a month.
+  - Start with a one-off audit if you're unsure what's holding your site back; if you need enquiries this week, only Google Ads can deliver them.
+  - freethedesk sells three one-off audits, not retainers, at $550, $850 and $1,400, each with plain-English recommendations ranked by what they are worth.
 ---
 
 # How much does SEO cost in Perth?

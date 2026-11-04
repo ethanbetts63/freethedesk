@@ -46,3 +46,9 @@ main {
 main:has(.service-scroll) {
   overflow: visible;
 }
+/* A guide's contents list is sticky too. `clip`, not `hidden`, still trims the
+   sideways overflow but is not a scroll container, so the list can stick. */
+main:has(.guide-contents) {
+  overflow: visible;
+  overflow-x: clip;
+}

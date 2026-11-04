@@ -1,8 +1,13 @@
 ---
 published: 2026-10-14
-updated: 2026-10-24
+updated: 2026-11-04
 title: Dealer Online WA: Login and Who Can Join
 description: The WA Dealer Online login, what the DoT dealer portal lets licensed dealers do, who can apply, and the sale paperwork it still leaves at the yard.
+takeaways:
+  - Dealer Online is the WA Department of Transport's portal for licensed dealers to lodge licensing transactions themselves, open weekdays 7.45am to 6pm and Saturday mornings.
+  - Dealerships need a dealer licence, licensed WA premises, at least 3 months' trading and 25 transactions a month, plus a Bulk Licensing Permit for new vehicles.
+  - To apply, email dealerinterface@transport.wa.gov.au; approved dealers sign a contract and send one employee through DoT's two-part training before using it.
+  - Dealer Online doesn't reach the buyer, so their details, ID and signatures still come in on paper; freethedesk's online licensing sends a secure link instead.
 ---
 
 # Dealer Online WA: login and who can join

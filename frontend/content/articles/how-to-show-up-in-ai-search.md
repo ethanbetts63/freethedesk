@@ -3,6 +3,11 @@ published: 2026-10-14
 updated: 2026-11-04
 title: How to Show Up in ChatGPT and AI Search Results
 description: How a small business gets its website read and cited by ChatGPT, Google's AI Overviews, Copilot and Perplexity, with a checklist to work through.
+takeaways:
+  - There is no secret trick; if your site is in Google's and Bing's indexes and AI crawlers are allowed in, you've covered most of the ground.
+  - Make sure robots.txt and your hosting or firewall let search crawlers like OAI-SearchBot in; you can block training crawlers and still appear.
+  - Pass PageSpeed Insights' Agentic Browsing and SEO checks, make sure your text is in the page source, not only JavaScript, and set up Bing Webmaster Tools.
+  - Then open each service page with a plain answer, keep your name, phone and address identical everywhere, and ask every happy customer for a review.
 ---
 
 # How to show up in ChatGPT and AI search results
