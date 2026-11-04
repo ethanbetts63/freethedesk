@@ -40,7 +40,7 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-10-26',
+    updated: '2026-11-04',
     label: 'Home',
     title: 'Websites, SEO & Business Automation Perth - freethedesk',
     description:
@@ -48,7 +48,7 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-10-26',
+    updated: '2026-11-04',
     label: 'Dealer websites',
     title: 'Dealership Websites & Online Licensing, WA',
     description:
@@ -67,7 +67,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-10-26',
+    updated: '2026-11-04',
     label: 'Website development',
     title: 'Web Design & Development Perth',
     description:
@@ -81,7 +81,7 @@ export const STATIC_PAGES = {
     },
   },
   '/web-design-subiaco': {
-    updated: '2026-10-26',
+    updated: '2026-11-04',
     label: 'Web design Subiaco',
     title: 'Web Design Subiaco',
     description:
@@ -117,7 +117,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-10-27',
+    updated: '2026-11-04',
     label: 'SEO',
     title: 'SEO Audit & Reporting Perth',
     description: `Organic clicks up ${SCOOTER_SHOP_GROWTH.percent}% for a Perth dealer. Each audit is a written SEO report of your site: the searches you're losing and what to fix.`,
@@ -135,14 +135,14 @@ export const STATIC_PAGES = {
       'A sample SEO report for an invented Perth plumber: ranked fixes with cost and impact, what each change did, and the questions its data answers.',
   },
   '/guides': {
-    updated: '2026-10-24',
+    updated: '2026-11-04',
     label: 'Guides',
     title: 'Website, SEO & Automation Guides',
     description:
       'Practical guides for Perth businesses on websites, web applications, search visibility, automation and the systems behind them.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-10-24',
+    updated: '2026-11-04',
     label: 'Scooter Shop',
     title: 'Perth Dealer Website Case Study: Scooter Shop',
     description:
@@ -150,7 +150,7 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {
-    updated: '2026-10-24',
+    updated: '2026-11-04',
     label: 'Bloomprint',
     title: 'Marketplace Website Case Study: Bloomprint',
     description:
@@ -204,7 +204,7 @@ export const STATIC_PAGES = {
       'Terms for the freethedesk podcast affiliate program: your code, the listener discount, and how half of every audit is paid to you.',
   },
   '/legal/web-development-terms': {
-    updated: '2026-10-24',
+    updated: '2026-11-04',
     label: 'Web development terms',
     title: 'Web Development Terms',
     description:

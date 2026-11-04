@@ -411,7 +411,7 @@ FTP_AGREEMENTS = {
         },
         "webdev.services": {
             "TITLE": "Web Development Terms",
-            "VERSION": "2026-10-08",
+            "VERSION": "2026-11-04",
             "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "web-development-terms.md",
             "FORMAT": "markdown",
         },

@@ -77,7 +77,7 @@ const improvementSections: readonly ReportCardItem[] = [
   },
   {
     title: 'What to improve next',
-    description: 'Rewrite the title and compare the result next cycle.',
+    description: 'Rewrite the title and measure the clicks it earns.',
     icon: actionIcon,
   },
 ];
@@ -88,7 +88,10 @@ export function SeoReportVisual({ mode }: { mode: 'report' | 'improvement' }) {
   return (
     <ReportCardVisual
       title={improvement ? 'SEO findings' : 'Your SEO findings'}
-      subtitle={improvement ? 'Real search data · this cycle' : 'Your business · this cycle'}
+      // An example report's month: the sample report's, September 2026.
+      subtitle={
+        improvement ? 'Real search data · September 2026' : 'Your business · September 2026'
+      }
       badge={improvement ? 'Next actions' : 'Ranked'}
       items={improvement ? improvementSections : reportSections}
       footerItems={
@@ -96,7 +99,7 @@ export function SeoReportVisual({ mode }: { mode: 'report' | 'improvement' }) {
           ? ['Evidence first', 'Plain English', 'Tracked over time']
           : ['Plain English', 'Impact and cost on every item', 'Every claim sourced']
       }
-      ariaLabel={improvement ? 'Example SEO findings' : 'Example SEO findings for one cycle'}
+      ariaLabel={improvement ? 'Example SEO findings' : 'Example SEO findings for one month'}
     />
   );
 }

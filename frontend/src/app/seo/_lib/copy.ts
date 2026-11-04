@@ -16,7 +16,8 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
 
     {
       question: 'How much does SEO cost in Perth?',
-      answer: `An Essentials audit is ${prices.essentials}, Plus is ${prices.plus} and Complete is ${prices.complete}, each paid once with no subscription. It's a fraction of a typical agency retainer.`,
+      answer: `An Essentials audit is ${prices.essentials}, Plus is ${prices.plus} and Complete is ${prices.complete}, each paid once with no subscription. It's a fraction of a typical agency retainer. Our guide to what SEO costs in Perth sets the audits beside the monthly retainers and paid clicks Perth firms publish prices for.`,
+      links: [{ phrase: 'what SEO costs in Perth', href: '/seo-cost-perth' }],
     },
 
     {

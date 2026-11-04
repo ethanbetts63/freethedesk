@@ -61,6 +61,16 @@ const LINKS = {
     label: 'WordPress website cost in Perth',
     line: 'What a WordPress site really costs to build and keep.',
   },
+  websiteCost: {
+    href: '/website-cost-perth',
+    label: 'Website cost in Perth',
+    line: 'What each kind of site costs to build and run.',
+  },
+  seoCost: {
+    href: '/seo-cost-perth',
+    label: 'SEO cost in Perth',
+    line: 'Audits, retainers and paid clicks, side by side.',
+  },
   notShowing: {
     href: '/business-not-showing-up-on-google',
     label: "Why isn't my business showing up on Google?",
@@ -150,6 +160,14 @@ const RELATED: Record<string, { title: string; links: readonly Key[] }> = {
   '/wordpress-website-cost-perth': {
     title: 'Redesigns, new websites and a case study',
     links: ['redesign', 'websites', 'bloomprint', 'notShowing'],
+  },
+  '/seo-cost-perth': {
+    title: 'SEO audits, the sample report and search guides',
+    links: ['seo', 'sampleReport', 'notShowing', 'aiSearch'],
+  },
+  '/website-cost-perth': {
+    title: 'New websites, WordPress costs and a case study',
+    links: ['websites', 'wordpressCost', 'redesign', 'bloomprint'],
   },
 };
 

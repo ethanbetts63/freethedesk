@@ -59,8 +59,11 @@ function webDesignFaqs(prices: ServicePrices, place: string, local: FaqItem[] = 
   return [
     {
       question: `How much does web design cost in ${place}?`,
-      answer: `Our ${one.name} is ${money(one.price)}, our ${small.name} ${money(small.price)} and our ${large.name} ${money(large.price)}, each priced per page, and you can buy any of them on this page: half when you buy, the rest before launch. Work outside a package is ${prices.hourlyRate} an hour.`,
-      links: [{ phrase: `${prices.hourlyRate} an hour`, href: '/#pricing' }],
+      answer: `Our ${one.name} is ${money(one.price)}, our ${small.name} ${money(small.price)} and our ${large.name} ${money(large.price)}, each priced per page, and you can buy any of them on this page: half when you buy, the rest before launch. Work outside a package is ${prices.hourlyRate} an hour. Our guide to what a website costs in Perth sets these beside the ranges other Perth studios publish.`,
+      links: [
+        { phrase: `${prices.hourlyRate} an hour`, href: '/#pricing' },
+        { phrase: 'what a website costs in Perth', href: '/website-cost-perth' },
+      ],
     },
     ...local,
     ...WEBSITE_DEV_FAQS,

@@ -73,8 +73,13 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
       productName: 'Complete SEO audit',
       price: price(settings.seo_complete_price),
       cadence: 'paid once',
-      summary: 'Plus, with your Google Ads account and a legal check of your site.',
-      features: ['Everything in Plus', 'Your Google Ads account', 'A legal check of your site'],
+      summary: 'Plus, with your Google Ads, a legal check and a second look three months on.',
+      features: [
+        'Everything in Plus',
+        'Your Google Ads account',
+        'A legal check of your site',
+        'A second look three months on',
+      ],
     },
   ];
 }

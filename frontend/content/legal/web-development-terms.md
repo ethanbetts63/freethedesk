@@ -1,6 +1,6 @@
 # Web Development Terms
 
-Effective date: 8 October 2026
+Effective date: 4 November 2026
 
 ## 1. About these terms
 
@@ -102,7 +102,7 @@ and problems caused by changes made by anyone other than us are not defects.
 and mobile.
 
 5.4 Where a package includes an SEO audit, it is delivered about three months
-after launch under our SEO Subscription Terms, and needs your data access
+after launch under our SEO Audit Terms, and needs your data access
 connected.
 
 5.5 Where a package includes a Google Business Profile review, we review your

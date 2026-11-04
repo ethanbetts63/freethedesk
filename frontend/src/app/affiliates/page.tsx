@@ -74,8 +74,8 @@ export default async function AffiliatesPage() {
         showPrimaryAction={false}
       >
         <p>
-          The changes its audit recommended, fast structured pages and search content aimed at what
-          Perth riders search for, grew its organic clicks {SCOOTER_SHOP_GROWTH.percent}% in{' '}
+          Scooter Shop&apos;s website, fast structured pages and search content aimed at what Perth
+          riders search for, grew its organic clicks {SCOOTER_SHOP_GROWTH.percent}% in{' '}
           {SCOOTER_SHOP_GROWTH.span}.
         </p>
       </CaseStudyTeaser>

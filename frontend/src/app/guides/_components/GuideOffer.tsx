@@ -2,7 +2,8 @@ import { CtaButton } from '@/components/CtaButton';
 import { money, servicePrices } from '@/lib/servicePricing';
 import type { PublicSiteSettings } from '@/lib/api';
 
-export type GuideOfferKind = 'website' | 'redesign' | 'seo' | 'automation' | 'licensing';
+export type GuideOfferKind =
+  'website' | 'redesign' | 'seo' | 'seoAudits' | 'automation' | 'licensing';
 
 /**
  * The box after a guide's first section: the matching service's price and a button to its
@@ -32,6 +33,12 @@ export function GuideOffer({
       line: `SEO audits from ${prices.seoFrom}, with a sample report to read first.`,
       href: '/seo',
       label: 'See the SEO audits',
+    },
+    // Under the SEO cost guide's tier table: all three prices, straight to the tiers.
+    seoAudits: {
+      line: `Essentials ${money(settings.seo_essentials_price)}, Plus ${money(settings.seo_plus_price)}, Complete ${money(settings.seo_complete_price)}: each audit paid once.`,
+      href: '/seo#signup',
+      label: 'Choose an audit',
     },
     automation: {
       line: `Automation starts with a ${prices.discoveryTotal} discovery: your work mapped and the build priced.`,

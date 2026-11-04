@@ -38,14 +38,21 @@ const GUIDE_CTA: Record<string, GuideCtaKind> = {
   'business-not-showing-up-on-google': 'seo',
   'dealer-online-wa': 'licensing',
   'how-to-show-up-in-ai-search': 'seo',
+  'seo-cost-perth': 'seo',
+  'website-cost-perth': 'website',
   'what-to-automate-in-a-small-business': 'automation',
 };
 
-/** Which service a guide's opening box offers. Anything not listed offers websites. */
+/**
+ * Which service a guide's opening box offers. Anything not listed offers websites.
+ * The cost guides put their price table in the first section, so the box is the button under it.
+ */
 const GUIDE_OFFER: Record<string, GuideOfferKind> = {
   'business-not-showing-up-on-google': 'seo',
   'dealer-online-wa': 'licensing',
   'how-to-show-up-in-ai-search': 'seo',
+  'seo-cost-perth': 'seoAudits',
+  'website-cost-perth': 'website',
   'what-to-automate-in-a-small-business': 'automation',
   'wordpress-website-cost-perth': 'redesign',
 };

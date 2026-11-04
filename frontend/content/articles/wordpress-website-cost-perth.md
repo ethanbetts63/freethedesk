@@ -1,6 +1,6 @@
 ---
 published: 2026-10-14
-updated: 2026-10-24
+updated: 2026-11-04
 title: WordPress Website Cost in Perth: What You Pay
 description: What a WordPress site costs a Perth small business over time: hosting, plugins and upkeep, and when a custom-coded site is the better buy.
 ---
@@ -23,7 +23,7 @@ Most small business sites built by a freelancer or agency are WordPress.org site
 
 Quotes for a WordPress site vary more than almost anything else in this industry, because "a WordPress website" can mean very different jobs. At one end, a ready-made theme with your logo, photos and text dropped in. At the other, weeks of custom design and development that happens to use WordPress underneath.
 
-Neither is wrong. They are different products, and the cheaper one often costs more later. When you compare quotes, ask each one:
+Neither is wrong. They are different products, and the cheaper one often costs more later. Our guide to [what a website costs in Perth](/website-cost-perth) sets out the ranges Perth studios publish for each kind of build, WordPress and otherwise. When you compare quotes, ask each one:
 
 - Is the design custom, or a theme with our content added?
 - Which plugins will the site rely on, and do any need a paid licence?

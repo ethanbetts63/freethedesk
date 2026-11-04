@@ -27,6 +27,8 @@ type Tile = {
   dark?: boolean;
   /** The moving-colour border and price, as on the enquiry form. */
   moving?: boolean;
+  /** A guide that puts the price in context, linked under the tile: the tile is already one link. */
+  guide?: { href: string; label: string };
 };
 
 const tileClassName =
@@ -73,6 +75,7 @@ export async function HomePricingMosaic() {
       href: '/seo',
       className: 'col-span-2',
       moving: true,
+      guide: { href: '/seo-cost-perth', label: 'How an audit compares with a retainer' },
     },
     {
       label: 'Discovery',
@@ -95,12 +98,12 @@ export async function HomePricingMosaic() {
     <section className="site-shell py-section-half" id="pricing" aria-label="Prices">
       <ul className="m-0 grid list-none auto-rows-[minmax(220px,auto)] grid-cols-2 gap-s p-0 lg:grid-cols-4">
         {tiles.map((tile) => (
-          <li key={tile.label} className={cn('flex', tile.className)}>
+          <li key={tile.label} className={cn('flex flex-col gap-xs', tile.className)}>
             <Link
               href={tile.href}
               className={cn(
                 tileClassName,
-                'w-full',
+                'w-full flex-1',
                 focusRingClassName,
                 tile.dark
                   ? 'border-surface-dark bg-surface-dark text-text-on-dark hover:bg-surface-dark-hover'
@@ -168,6 +171,17 @@ export async function HomePricingMosaic() {
                 {tile.line}
               </span>
             </Link>
+            {tile.guide && (
+              <Link
+                href={tile.guide.href}
+                className={cn(
+                  'self-start text-body-sm font-strong text-text-action hover:underline',
+                  focusRingClassName,
+                )}
+              >
+                {tile.guide.label} →
+              </Link>
+            )}
           </li>
         ))}
       </ul>

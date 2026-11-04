@@ -6,6 +6,12 @@ Open tasks for this repository. Append any you find; delete one once you know it
 
 Added 2026-11-04. Owner's step. The report link went live on 2026-11-04 (seo 0026, the `/r/:token` rewrite, every sent report's page attached and the three hand-sent reports registered). The owner then dropped the dashboard's "Text the link": they text it by hand from the call brief. Deploy Django and the frontend once more to take the button and its SMS endpoint down. The same deploy changes the page's strip: the number and the address as taps in place of "Call Ethan", and the ask closer under the credits on a phone.
 
+## Web Development Terms 2026-11-04: deploy, and name the package's audit tier
+
+Added 2026-11-04. Owner's step. Web Development Terms 5.4 now names the SEO Audit Terms in place of the SEO Subscription Terms, so `FTP_AGREEMENTS` names `webdev.services` version 2026-11-04 (effective 4 November 2026). Deploy Django and the frontend together so the new terms and their version arrive at once; a package checkout against new text under the old version is refused. No migration.
+
+Owner's decision: which audit the 10-page website includes. Its card says "An SEO audit at three months" and 5.4 names no tier, and nothing in the code says Essentials, Plus or Complete. Once decided, name it on the card (`includes` of `website_large` in `frontend/src/lib/servicePricing.ts`) and in 5.4, and bump the terms' version again (search report r6, rec 7, step 5).
+
 ## Deploy the prospect follow-up
 
 Added 2026-11-04. Owner's step. Deploy Django and run `migrate` for `seo` 0024 and 0025 (the follow-up fields, then its own subject and body). Until then `outbox.py follow-up` gets a 404 from `/api/seo/prospects/follow-up/` and nothing is queued; the outreach agent says so at startup. No frontend change: the dashboard API now also returns `follow_up_queued_at`, `followed_up_at`, `follow_up_subject_version` and `follow_up_body_version`. Waiting on it: the 13 reports sent on 30 October, which the owner asked to follow up early.
