@@ -43,7 +43,7 @@ export function CaseStudyTeaser({
             </span>
           </div>
           <div className="relative z-1">
-            <PhoneFrame size="standalone" menu>
+            <PhoneFrame size="standalone">
               <Image
                 src="/case-studies/scooter-shop/inventory-mobile.png"
                 alt="Scooter Shop inventory page on mobile"

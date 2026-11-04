@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
- * A drawn phone: bezel, notch, optional menu overlay, optional home bar.
+ * A drawn phone: bezel, notch, optional home bar. A screenshot inside shows its own menu.
  *
  * The site drew three of these — a diagram in the licensing illustrations, a
  * small one pinned into the case-study hero, and a large free-standing one —
@@ -46,13 +46,10 @@ const SIZES = {
 export function PhoneFrame({
   children,
   size = 'diagram',
-  menu = false,
   className,
 }: {
   children: ReactNode;
   size?: keyof typeof SIZES;
-  /** The three-line menu button drawn over the top right of a screenshot. */
-  menu?: boolean;
   className?: string;
 }) {
   const preset = SIZES[size];
@@ -66,13 +63,6 @@ export function PhoneFrame({
       aria-hidden="true"
     >
       <div className={cn('absolute top-0 left-1/2 -translate-x-1/2', preset.notch)} />
-      {menu ? (
-        <div className="absolute top-[10px] right-[5px] z-4 flex w-[25px] flex-col items-stretch justify-center gap-4xs bg-surface-inverse p-2xs [&>i]:block [&>i]:h-px [&>i]:w-full [&>i]:bg-surface-page">
-          <i />
-          <i />
-          <i />
-        </div>
-      ) : null}
       {size === 'diagram' ? (
         <div className="relative h-full w-full overflow-hidden bg-surface-tint">{children}</div>
       ) : (

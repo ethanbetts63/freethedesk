@@ -222,7 +222,6 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
           <BrowserFrame image={config.desktopImage} browserUrl={config.browserUrl} hero />
           <PhoneFrame
             size="inset"
-            menu
             className={cn(config.mobileImage.className && 'aspect-[390/844]')}
           >
             <Image
@@ -318,7 +317,7 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
         {/* Graph paper at its own scale: this is a stage for a drawn object,
             not a page surface, so the 46px grid is literal. */}
         <div className="relative flex min-h-[550px] items-center justify-center overflow-hidden bg-surface-dark [background-image:linear-gradient(var(--tint-grid-on-dark-strong)_1px,transparent_1px),linear-gradient(90deg,var(--tint-grid-on-dark-strong)_1px,transparent_1px)] [background-size:46px_46px] lg:min-h-[620px]">
-          <PhoneFrame size="standalone" menu>
+          <PhoneFrame size="standalone">
             <Image
               className={config.image.className}
               src={config.image.src}
