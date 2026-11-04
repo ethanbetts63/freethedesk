@@ -137,9 +137,9 @@ export const STATIC_PAGES = {
   '/guides': {
     updated: '2026-11-04',
     label: 'Guides',
-    title: 'Website, SEO & Automation Guides',
+    title: 'SEO & Website Development Guides for Perth',
     description:
-      'Practical guides for Perth businesses on websites, web applications, search visibility, automation and the systems behind them.',
+      'Practical guides for Perth businesses on SEO, website development and what each costs, with automation and dealer licensing besides.',
   },
   '/portfolio/scooter-shop': {
     updated: '2026-11-04',

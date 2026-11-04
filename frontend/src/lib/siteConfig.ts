@@ -37,7 +37,7 @@ export const FOOTER_NAVIGATION = [
   { href: '/automation', label: 'Automation' },
   { href: '/dealers', label: 'Dealerships' },
   { href: '/licensing', label: 'Online licensing' },
-  { href: '/guides', label: 'Guides & articles' },
+  { href: '/guides', label: 'SEO & website guides' },
   { href: '/affiliates', label: 'Affiliate program' },
   { href: '/contact', label: 'Contact' },
   // No Login row: the header's entry reads the session and says Log out when

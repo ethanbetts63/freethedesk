@@ -26,7 +26,10 @@ export default function GuidesPage() {
   return (
     <main>
       <PageSchema path="/guides" />
-      <GuideHero title="Guides & articles" description={STATIC_PAGES['/guides'].description} />
+      <GuideHero
+        title="SEO and website development guides"
+        description={STATIC_PAGES['/guides'].description}
+      />
 
       <section className="bg-surface-page py-section-half" aria-label="All guides">
         <div className="site-shell">
