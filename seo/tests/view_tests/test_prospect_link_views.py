@@ -191,6 +191,44 @@ def test_the_page_can_be_attached_to_a_report_uploaded_before_it_existed(api_cli
         assert handle.read().endswith(b"<!-- v2 -->")
 
 
+def test_a_pdf_sent_with_the_page_replaces_the_one_the_link_serves(api_client, internal_key):
+    prospect = with_page()
+    printed = PDF + b"% v2"
+
+    response = api_client.post(
+        reverse("seo-prospect-html"),
+        {"slug": prospect.slug, "report_html": SimpleUploadedFile("report.html", HTML, content_type="text/html"),
+         "report_pdf": SimpleUploadedFile("report.pdf", printed, content_type="application/pdf")},
+        format="multipart", HTTP_X_INTERNAL_API_KEY=internal_key,
+    )
+
+    assert response.status_code == 201 and response.json()["pdf_replaced"] is True
+    prospect.refresh_from_db()
+    with prospect.report_pdf.open("rb") as handle:
+        assert handle.read() == printed
+    # A page alone leaves the PDF as it was.
+    alone = api_client.post(
+        reverse("seo-prospect-html"),
+        {"slug": prospect.slug, "report_html": SimpleUploadedFile("report.html", HTML, content_type="text/html")},
+        format="multipart", HTTP_X_INTERNAL_API_KEY=internal_key,
+    )
+    assert alone.status_code == 201 and alone.json()["pdf_replaced"] is False
+    prospect.refresh_from_db()
+    with prospect.report_pdf.open("rb") as handle:
+        assert handle.read() == printed
+
+
+def test_a_pdf_sent_with_the_page_must_be_a_pdf(api_client, internal_key):
+    prospect = with_page()
+    response = api_client.post(
+        reverse("seo-prospect-html"),
+        {"slug": prospect.slug, "report_html": SimpleUploadedFile("report.html", HTML, content_type="text/html"),
+         "report_pdf": SimpleUploadedFile("report.pdf", HTML, content_type="application/pdf")},
+        format="multipart", HTTP_X_INTERNAL_API_KEY=internal_key,
+    )
+    assert response.status_code == 400 and "report_pdf" in response.json()
+
+
 def test_attaching_a_page_takes_the_shared_secret_and_a_known_slug(api_client, internal_key):
     file = SimpleUploadedFile("report.html", HTML, content_type="text/html")
     assert api_client.post(reverse("seo-prospect-html"), {"slug": "nobody", "report_html": file},

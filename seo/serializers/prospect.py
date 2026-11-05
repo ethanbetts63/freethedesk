@@ -74,13 +74,7 @@ class SeoProspectUploadSerializer(serializers.Serializer):
         return value.strip().lower()
 
     def validate_report_pdf(self, value):
-        if value.size > MAX_PDF_BYTES:
-            raise serializers.ValidationError("The report is larger than 15 MB.")
-        head = value.read(5)
-        value.seek(0)
-        if head != b"%PDF-":
-            raise serializers.ValidationError("The report is not a PDF.")
-        return value
+        return validate_report_pdf(value)
 
     def validate_report_html(self, value):
         return validate_report_html(value)
@@ -89,6 +83,17 @@ class SeoProspectUploadSerializer(serializers.Serializer):
         if "sent_at" in data and ("subject_version" not in data or "body_version" not in data):
             raise serializers.ValidationError("A report that already went names the subject and body it went with.")
         return data
+
+
+def validate_report_pdf(value):
+    """The report's PDF, as render prints it."""
+    if value.size > MAX_PDF_BYTES:
+        raise serializers.ValidationError("The report is larger than 15 MB.")
+    head = value.read(5)
+    value.seek(0)
+    if head != b"%PDF-":
+        raise serializers.ValidationError("The report is not a PDF.")
+    return value
 
 
 def validate_report_html(value):
@@ -103,13 +108,18 @@ def validate_report_html(value):
 
 
 class SeoProspectHtmlSerializer(serializers.Serializer):
-    """The report page for a prospect the server already holds (``outbox.py html``)."""
+    """The report page for a prospect the server already holds (``outbox.py html``), and the PDF printed with it, so
+    the page's PDF link serves the same version as the page."""
 
     slug = serializers.SlugField(max_length=64)
     report_html = serializers.FileField()
+    report_pdf = serializers.FileField(required=False)
 
     def validate_report_html(self, value):
         return validate_report_html(value)
+
+    def validate_report_pdf(self, value):
+        return validate_report_pdf(value)
 
 
 class AdminSeoProspectSerializer(serializers.ModelSerializer):

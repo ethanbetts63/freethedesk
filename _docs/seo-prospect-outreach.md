@@ -166,7 +166,9 @@ it with `?s=text`; every report email and follow-up names it beside the PDF
 - **The page.** `report_html` on the row, the `report.html` beside the PDF in
   the project, uploaded with the report (`outbox.py release`) or after it for
   the rows from before the page existed (`POST /api/seo/prospects/html/`,
-  `outbox.py html`). The site rewrites `/r/:token` and `/r/:token/pdf` to
+  `outbox.py html`). A re-attach sends the PDF printed with the page too, and
+  the endpoint replaces the row's `report_pdf` with it, so the page's PDF link
+  serves the same version as the page. The site rewrites `/r/:token` and `/r/:token/pdf` to
   Django's `/api/seo/r/<token>/` and `.../pdf/` (`seo/views/prospects.py`,
   `SeoReportPageView`, `SeoReportPdfView`). A row with no page serves its PDF at
   the link. Both answer `X-Robots-Tag: noindex, nofollow, noarchive`,

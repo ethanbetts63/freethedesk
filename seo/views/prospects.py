@@ -104,8 +104,9 @@ class SeoProspectHtmlView(APIView):
     """`POST /api/seo/prospects/html/`: the report page for a prospect the server already holds, by slug.
 
     For the reports uploaded before the page existed (``outbox.py html``), and a
-    page re-rendered after a small edit. Replaces the file; the link does not
-    change.
+    page re-rendered after a small edit. Replaces the file, and the PDF when one
+    is sent with it, so the page's PDF link serves the same version; the link
+    does not change.
     """
 
     throttle_scope = "internal"  # A load limit; access is the shared secret.
@@ -123,9 +124,16 @@ class SeoProspectHtmlView(APIView):
         if prospect.report_html:
             prospect.report_html.delete(save=False)
         prospect.report_html.save(
-            f"{prospect.slug}_{prospect.report_version}.html", upload.validated_data["report_html"], save=True
+            f"{prospect.slug}_{prospect.report_version}.html", upload.validated_data["report_html"], save=False
         )
-        return Response({"outcome": "attached", "id": prospect.pk, "report_link": report_link(prospect)},
+        pdf = upload.validated_data.get("report_pdf")
+        if pdf is not None:
+            if prospect.report_pdf:
+                prospect.report_pdf.delete(save=False)
+            prospect.report_pdf.save(f"{prospect.slug}_{prospect.report_version}.pdf", pdf, save=False)
+        prospect.save()
+        return Response({"outcome": "attached", "id": prospect.pk, "report_link": report_link(prospect),
+                         "pdf_replaced": pdf is not None},
                         status=status.HTTP_201_CREATED)
 
 
