@@ -33,6 +33,8 @@ export function ManualAdminCta({
       className={cn(
         'site-shell bg-surface-tint py-section text-center sm:px-xl sm:py-3xl',
         spacing === 'joined' ? 'my-section-half' : 'my-section',
+        // The related block after it pads its own top; a margin as well doubles the gap.
+        '[&:has(+nav[aria-labelledby=related-pages-title])]:mb-0',
       )}
       id={id}
     >

@@ -2,16 +2,14 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { GuideCta, type GuideCtaKind } from '@/app/guides/_components/GuideCta';
-import { GUIDE_PLACEHOLDER, guideIconFor } from '@/app/guides/_components/guideIcons';
+import { GUIDE_PLACEHOLDER } from '@/app/guides/_components/guideIcons';
 import { GuideOffer, type GuideOfferKind } from '@/app/guides/_components/GuideOffer';
 import { GuideArticle } from '@/components/guides/GuideArticle';
-import { GuideCards } from '@/components/guides/GuideCards';
-import { SectionNumber } from '@/components/SectionNumber';
+import { RelatedPages } from '@/components/marketing/RelatedPages';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import type { PublicSiteSettings } from '@/lib/api';
 import { getAllArticleSlugs, getArticleBySlug, type Article } from '@/lib/articles';
-import { guideCards, guideView } from '@/lib/guideView';
-import { relatedPagesFor } from '@/lib/relatedPages';
+import { guideView } from '@/lib/guideView';
 import {
   buildArticleSchema,
   buildBreadcrumbSchema,
@@ -168,12 +166,7 @@ function ArticleView({ article, settings }: { article: Article; settings: Public
         )}
       </GuideArticle>
 
-      <GuideCards
-        related={relatedPagesFor(`/${article.slug}`)}
-        guides={guideCards()}
-        kicker={<SectionNumber>Related</SectionNumber>}
-        iconFor={guideIconFor}
-      />
+      <RelatedPages path={`/${article.slug}`} />
       <GuideCta kind={kind} discoveryTotal={servicePrices(settings).discoveryTotal} />
     </>
   );
