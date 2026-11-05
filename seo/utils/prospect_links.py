@@ -69,6 +69,8 @@ _STYLE = """<style>
 .ftd-ask p{margin:0 0 14px;font-size:.95rem;line-height:1.5;color:#405164}
 .ftd-ask a{display:inline-block;padding:9px 16px;border-radius:999px;background:#2473c6;color:#fff;font-weight:700;font-size:.9rem;text-decoration:none}
 @media (max-width:640px){.ftd-ask{margin-top:-28px;padding:0 18px 36px}.ftd-ask__card{padding:18px 16px}}
+/* On a desktop the report lays itself out as the site's guides are (the cover, then the contents as a menu stuck beside one column); the menu sticks under the strip. */
+@media (min-width:1024px){html:root{--menu-top:72px}}
 </style>"""
 
 _PHONE_ICON = (
