@@ -77,13 +77,18 @@ export function GuideCards({
                   )}
                 >
                   <Picture image={guide?.image ?? null} icon={iconFor(link.href)} />
-                  {guide && (
+                  {/* A page with no date keeps the line empty, so every card's title starts level. */}
+                  {guide ? (
                     <span className="text-body-sm text-text-muted">
                       <time dateTime={guide.lastModified}>
                         {formatDateLong(guide.lastModified)}
                       </time>
                       {' · '}
                       {guide.readMinutes} min read
+                    </span>
+                  ) : (
+                    <span aria-hidden="true" className="text-body-sm">
+                      &nbsp;
                     </span>
                   )}
                   <span className="text-lead leading-snug font-strong text-text-primary transition-colors group-hover:text-text-action">

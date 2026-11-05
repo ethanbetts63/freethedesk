@@ -11,7 +11,7 @@ import { GuideTrail, type GuideTrailStep } from '@/components/guides/GuideTrail'
 import { formatDateLong } from '@/lib/formatting';
 import type { GuideImage, GuidePage } from '@/lib/guide';
 
-/** The hero's picture: the guide's own, or the plain card with the site's mark until it has one. */
+/** The hero's picture: the guide's own, or, on wide screens, the plain card with the site's mark until it has one. */
 function GuidePicture({ image, placeholder }: { image: GuideImage; placeholder: ReactNode }) {
   if (image) {
     return (
@@ -29,7 +29,8 @@ function GuidePicture({ image, placeholder }: { image: GuideImage; placeholder: 
   return (
     <span
       aria-hidden="true"
-      className="flex aspect-[3/2] w-full items-center justify-center rounded-lg border border-border-default bg-surface-page"
+      // Wide screens only: on a phone it was a screen of empty box above the text.
+      className="hidden aspect-[3/2] w-full items-center justify-center rounded-lg border border-border-default bg-surface-page lg:flex"
     >
       {placeholder}
     </span>
