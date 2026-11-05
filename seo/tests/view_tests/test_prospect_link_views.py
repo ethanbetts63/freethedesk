@@ -44,9 +44,25 @@ def test_the_link_serves_the_report_page_noindexed_with_the_strip_and_the_ask(cl
     assert "Written for Perth Patio Magic by freethedesk" in page
     assert "<p>Fix the title.</p>" in page
     assert page.index('class="ftd-bar"') < page.index("Fix the title") < page.index('class="ftd-ask"')
+    # The site's footer closes the page.
+    assert page.index('class="ftd-ask"') < page.index('class="ftd-foot"') < page.index("</body>")
+    assert 'href="/seo">SEO audits</a>' in page and "ABN 11 493 753 896" in page
     assert f"/r/{prospect.link_token}/pdf" in page
     assert 'href="tel:+61423853830"' in page and "0423 853 830" in page
     assert 'href="mailto:analytics@freethedesk.com.au"' in page
+
+
+def test_the_ask_takes_the_reports_column_when_the_report_is_a_grid():
+    from seo.utils.prospect_links import page_document
+
+    grid = HTML.decode().replace(
+        '<article class="report"><p>Fix the title.</p></article>',
+        '<div class="report-grid">\n<div class="cover-page"></div>\n<article class="report"><p>Fix the title.</p>'
+        "</article>\n</div>",
+    )
+    page = page_document(SeoProspectFactory.build(business="Perth Patio Magic", link_token="t0k3n"), grid)
+    assert page.index("</article>") < page.index('class="ftd-ask"') < page.index("</div>\n<footer")
+    assert page.count('class="ftd-ask"') == 1
 
 
 def test_an_open_is_logged_with_its_source_and_whether_a_person_did_it(client):

@@ -8,6 +8,7 @@ the outreach has. See ``_docs/seo-prospect-outreach.md``.
 """
 
 import re
+from datetime import date
 from html import escape
 
 from core.utils.urls import site_url
@@ -54,8 +55,11 @@ def record_open(prospect: SeoProspect, request, kind: str = SeoProspectOpen.Kind
 
 ROBOTS = '<meta name="robots" content="noindex, nofollow, noarchive">'
 
-# The strip over the report and the ask under it: the only parts of the page that are the site's rather than the
-# report's. Inline, prefixed, and small, so the report's own stylesheet is left alone.
+# The strip over the report, the ask under it and the site's footer: the only parts of the page that are the site's
+# rather than the report's. Inline, prefixed, and small, so the report's own stylesheet is left alone. On a desktop
+# the report is a grid (the cover, then the contents as a menu beside one column) and the ask takes the column under
+# the report; the footer is the site's own, in plain CSS (Footer.tsx and SiteFooter.tsx are its source), without the
+# canvas.
 _STYLE = """<style>
 .ftd-bar{position:sticky;top:0;z-index:9;padding:8px 16px 9px;background:#09121b;color:#fff;font:500 12.5px/1.4 Archivo,"Helvetica Neue",Arial,sans-serif}
 .ftd-bar__who{display:block;opacity:.8}
@@ -69,6 +73,23 @@ _STYLE = """<style>
 .ftd-ask p{margin:0 0 14px;font-size:.95rem;line-height:1.5;color:#405164}
 .ftd-ask a{display:inline-block;padding:9px 16px;border-radius:999px;background:#2473c6;color:#fff;font-weight:700;font-size:.9rem;text-decoration:none}
 @media (max-width:640px){.ftd-ask{margin-top:-28px;padding:0 18px 36px}.ftd-ask__card{padding:18px 16px}}
+@media (min-width:1024px){.report-grid>.ftd-ask{grid-column:4;grid-row:3;max-width:var(--measure,768px);margin:0;padding:0 0 56px}}
+.ftd-foot{position:relative;padding:64px 0 24px;background:#fff;color:#09121b;font-family:Archivo,"Helvetica Neue",Arial,sans-serif;background-image:linear-gradient(to top,#fff 0%,transparent 20%),linear-gradient(to right,#fff 0%,transparent 14%),linear-gradient(to left,#fff 0%,transparent 14%),linear-gradient(rgba(17,70,126,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(17,70,126,.035) 1px,transparent 1px);background-size:100% 100%,100% 100%,100% 100%,64px 64px,64px 64px;background-repeat:no-repeat,no-repeat,no-repeat,repeat,repeat}
+.ftd-foot__shell{max-width:1240px;margin:0 auto;padding:0 24px}
+.ftd-foot__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:40px}
+.ftd-foot__mark{font:900 1.35rem/1 Arial,Helvetica,sans-serif;letter-spacing:-.085em;color:#09121b;text-decoration:none}
+.ftd-foot__the{color:#1a5fa8}.ftd-foot__dot{color:#2473c6}
+.ftd-foot__brand p{max-width:360px;margin:20px 0 0;font-size:.95rem;line-height:1.6;color:#405164}
+.ftd-foot__col{display:flex;flex-direction:column;font-size:.88rem;line-height:1.5}
+.ftd-foot__col a,.ftd-foot__col>span{display:flex;align-items:center;min-height:44px;color:#405164;text-decoration:none;overflow-wrap:anywhere}
+.ftd-foot__col a:hover{color:#2473c6}
+.ftd-foot__eyebrow{display:block;margin:0 0 6px;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#718498}
+.ftd-foot__eyebrow--later{margin-top:20px}
+.ftd-foot__hours{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0;color:#405164}
+.ftd-foot__hours dt{font-weight:600;color:#405164}.ftd-foot__hours dd{margin:0;white-space:nowrap}
+.ftd-foot__legal{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-top:48px;padding-top:20px;border-top:1px solid #d3dbe4;font-size:.78rem;color:#718498}
+@media (min-width:640px){.ftd-foot__grid{grid-template-columns:1fr 1fr}.ftd-foot__brand{grid-column:1/-1}}
+@media (min-width:1024px){.ftd-foot__grid{grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr))}.ftd-foot__brand{grid-column:auto}.ftd-foot__col{gap:10px}.ftd-foot__col a,.ftd-foot__col>span{display:inline;min-height:0}.ftd-foot__legal{flex-direction:row;justify-content:space-between;align-items:center;gap:0}}
 </style>"""
 
 _PHONE_ICON = (
@@ -98,14 +119,74 @@ _ASK = (
 )
 
 
+# The site's footer, as Footer.tsx sets it: the wordmark and the standing copy, how to reach us, where and when,
+# the pages, the terms, then the legal line. The lists mirror siteConfig.ts (FOOTER_NAVIGATION, OPENING_HOURS).
+_EXPLORE = (
+    ("/website-development", "Website development"),
+    ("/website-redesign-perth", "Website redesign"),
+    ("/web-design-subiaco", "Web design Subiaco"),
+    ("/seo", "SEO audits"),
+    ("/automation", "Automation"),
+    ("/dealers", "Dealerships"),
+    ("/licensing", "Online licensing"),
+    ("/guides", "SEO &amp; website guides"),
+    ("/affiliates", "Affiliate program"),
+    ("/contact", "Contact"),
+)
+_TERMS = (
+    ("/legal/privacy", "Privacy policy"),
+    ("/legal/dealer-subscription-terms", "Dealer subscription terms"),
+    ("/legal/customer-terms", "Customer terms"),
+    ("/legal/seo-audit-terms", "SEO audit terms"),
+    ("/legal/affiliate-program-terms", "Affiliate program terms"),
+    ("/legal/web-development-terms", "Web development terms"),
+)
+_WEEK = ("Mon", "Tue", "Wed", "Thu", "Fri")
+
+
+def _links(rows) -> str:
+    return "".join(f'<a href="{href}">{label}</a>' for href, label in rows)
+
+
+def site_footer() -> str:
+    hours = "".join(f"<dt>{day}</dt><dd>9:00 AM – 5:00 PM</dd>" for day in _WEEK)
+    return (
+        '<footer class="ftd-foot"><div class="ftd-foot__shell ftd-foot__grid">'
+        '<div class="ftd-foot__brand"><a class="ftd-foot__mark" href="/">free<span class="ftd-foot__the">the</span>'
+        'desk<span class="ftd-foot__dot">.</span></a>'
+        "<p>Websites, web applications, automation and SEO audits for Perth businesses, built by a Perth development "
+        "team with years of hands-on experience.</p></div>"
+        '<div class="ftd-foot__col"><b class="ftd-foot__eyebrow">Contact</b>'
+        '<a href="tel:+61423853830">0423 853 830</a><a href="mailto:hello@freethedesk.com.au">hello@freethedesk.com.au</a>'
+        '<b class="ftd-foot__eyebrow ftd-foot__eyebrow--later">Based in</b><span>Perth, Western Australia</span>'
+        f'<b class="ftd-foot__eyebrow ftd-foot__eyebrow--later">Hours</b><dl class="ftd-foot__hours">{hours}</dl></div>'
+        f'<div class="ftd-foot__col"><b class="ftd-foot__eyebrow">Explore</b>{_links(_EXPLORE)}</div>'
+        f'<div class="ftd-foot__col"><b class="ftd-foot__eyebrow">Terms &amp; policies</b>{_links(_TERMS)}</div>'
+        '</div><div class="ftd-foot__shell ftd-foot__legal">'
+        f"<span>&copy; {date.today().year} freethedesk</span><span>ABN 11 493 753 896</span>"
+        "<span>Perth-based, with clients across Australia</span></div></footer>"
+    )
+
+
+#: Where the report's grid closes, as render writes it: the ask goes in before it, so on a desktop it takes the
+#: report's column (the grid's fourth) under the article.
+_GRID_CLOSE = "</article>\n</div>"
+
+
 def page_document(prospect: SeoProspect, document: str) -> str:
-    """The report's HTML with the robots meta in its head, the site's strip over it and the ask under it."""
+    """The report's HTML with the robots meta in its head, the site's strip over it, the ask under it (in the
+    report's column, when the report is laid out as a grid) and the site's footer last."""
     document = document.replace("<head>", f"<head>\n{ROBOTS}\n{_STYLE}", 1)
     document = document.replace(
         "<body>", "<body>\n" + _BAR.format(business=escape(prospect.business), pdf=escape(pdf_link(prospect))), 1
     )
+    grid = document.find(_GRID_CLOSE) if '<div class="report-grid">' in document else -1
+    if grid >= 0:
+        cut = grid + len("</article>\n")
+        document = document[:cut] + _ASK + "\n" + document[cut:]
     foot = document.rfind("</body>")
-    return document[:foot] + _ASK + "\n" + document[foot:] if foot >= 0 else document + _ASK
+    tail = ("" if grid >= 0 else _ASK + "\n") + site_footer() + "\n"
+    return document[:foot] + tail + document[foot:] if foot >= 0 else document + tail
 
 
 def page_headers(response):
