@@ -192,6 +192,16 @@ def test_outside_the_window_no_report_is_sent(outbox, monkeypatch):
     assert SeoProspect.objects.get().sent_at is None
 
 
+def test_a_held_report_waits_for_the_owners_word(outbox, monkeypatch):
+    held = SeoProspectFactory(approved_at=None)
+    approved = SeoProspectFactory()
+
+    run(monkeypatch, perth(26, 10))
+
+    assert [m.to for m in outbox] == [approved.email]
+    assert SeoProspect.objects.get(pk=held.pk).sent_at is None
+
+
 def test_excluded_and_suppressed_prospects_wait(outbox, monkeypatch):
     SeoProspectFactory(excluded_reason="Called them first.")
     gone = SeoProspectFactory()

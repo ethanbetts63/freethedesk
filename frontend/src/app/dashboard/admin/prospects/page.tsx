@@ -61,6 +61,8 @@ function SummaryCards({ rows, columns }: { rows: Tallies[]; columns: string }) {
         <section key={row.label} className={cardClassName}>
           <h2 className={cardTitleClassName}>{row.label}</h2>
           <dl className="grid grid-cols-2 gap-x-m gap-y-2xs text-body-sm">
+            <dt className="text-text-subtle">Awaiting approval</dt>
+            <dd className="m-0 font-heavy">{row.held}</dd>
             <dt className="text-text-subtle">Queued</dt>
             <dd className="m-0 font-heavy">{row.queued}</dd>
             <dt className="text-text-subtle">Reached</dt>

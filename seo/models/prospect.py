@@ -18,10 +18,13 @@ class SeoProspect(models.Model):
     """A business sent a free prospect SEO report, and the call that follows it.
 
     Rows arrive through ``POST /api/seo/prospects/`` from the report pipeline
-    (``../ftp_search``, ``_search/tools/prospecting/outbox.py release``) once
-    the owner has approved a published report, and are never updated by it:
-    one report per business. The hourly ``send_affiliate_outreach`` run emails
-    each in Perth business hours. The report is the same whatever the
+    (``../ftp_search``, ``_search/tools/prospecting/outbox.py add``) as soon as
+    a report is published, held: the row gives the report its link, which the
+    owner reads it at. ``POST /api/seo/prospects/approve/`` records the owner's
+    word (``approved_at``), and only then does the hourly
+    ``send_affiliate_outreach`` run email it, in Perth business hours (owner,
+    2026-11-05: uploaded when done, sent only when approved). One report per
+    business; the page and PDF may be replaced, nothing else is updated. The report is the same whatever the
     ``purpose``; the email differs: a business is asked to consider the paid
     report, a podcast host is offered the affiliate program.
     Whether and when it was emailed is the message log (``related=prospect``,
@@ -100,7 +103,10 @@ class SeoProspect(models.Model):
     body = models.TextField(blank=True)
     # What the business counts, for body 2's bet: bookings, calls, quotes, sales.
     metric = models.CharField(max_length=40, default="bookings")
-    # Set by the cron's claim before the send. Null means still queued.
+    # The owner's word that the report may be emailed (``POST /api/seo/prospects/approve/``). Null means held:
+    # uploaded for its link and the owner's reading, and the hourly run leaves it alone.
+    approved_at = models.DateTimeField(null=True, blank=True, db_index=True)
+    # Set by the cron's claim before the send. Null means still queued (or held, with no approved_at).
     sent_at = models.DateTimeField(null=True, blank=True, db_index=True)
     # The one follow-up (owner, 2026-11-04): queued through ``POST /api/seo/prospects/follow-up/`` once a week has
     # passed with no call and no reply, then claimed and sent by the hourly run, like the report email.

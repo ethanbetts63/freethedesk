@@ -8,7 +8,9 @@ from ..models import SeoProspect
 
 # Statuses a prospect can show on the dashboard, composed from the row and the
 # message log. The message statuses are messaging's own words.
-STATUSES = ["queued", "sent", "delivered", "failed", "bounced", "suppressed", "excluded"]
+#: ``held``: uploaded for its link, waiting for the owner's approval; ``queued``: approved, waiting for the hourly
+#: send; the rest are the report email's.
+STATUSES = ["held", "queued", "sent", "delivered", "failed", "bounced", "suppressed", "excluded"]
 
 
 def with_status(queryset):
@@ -29,6 +31,7 @@ def with_status(queryset):
     ).annotate(
         status=Case(
             When(~Q(excluded_reason=""), then=Value("excluded")),
+            When(approved_at__isnull=True, then=Value("held")),
             When(sent_at__isnull=True, then=Value("queued")),
             When(message_status__isnull=True, then=Value("queued")),
             default="message_status",

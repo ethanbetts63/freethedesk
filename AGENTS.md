@@ -16,25 +16,25 @@ its agreements and messaging capabilities.
 
 ## Read before changing
 
-| Work                                                             | Required document                                                           |
-| ---------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| Any cross-project or reusable capability                         | `../freetheplatform/_docs/strategy.md`                                      |
-| Frontend styling, Tailwind, CSS, lint, or breakpoints            | `../freetheplatform/_docs/lint-rules.md`                                    |
-| Design tokens                                                    | `../freetheplatform/_docs/token-contract.md`                                |
-| Shared frontend components (nav, footer, FAQ, the registry)      | `../freetheplatform/_docs/component-registry.md`                            |
-| FreeTheDesk Tailwind conversion                                  | `_docs/tailwind-migration.md`                                               |
-| Backend tests or test infrastructure                             | `../freetheplatform/_docs/testing-standard-backend.md`                      |
-| Frontend tests or test infrastructure                            | `../freetheplatform/_docs/testing-standard-frontend.md`                     |
-| Shared agent workflow or definition of done                      | `../freetheplatform/_docs/agent-workflow.md`                                |
-| Licensing                                                        | `_docs/licensing/README.md` and the relevant plan/research file             |
-| Stripe subscriptions                                             | `_docs/stripe-subscriptions.md`                                             |
-| Security, authentication, sessions, headers, or input            | `../freetheplatform/_docs/security-standard.md`                             |
-| Personal data                                                    | `_docs/pii_inventory.md`                                                    |
-| Any form (new, edited, or converted)                             | `../freetheplatform/_docs/forms-standard.md` and `_docs/forms-migration.md` |
-| Metadata, structured data, sitemap, robots, or indexation policy | `../freetheplatform/_docs/seo-standard.md` — read its sourcing rule first   |
-| Podcast affiliate outreach (scrape, upload, pitch cron, dashboard)   | `_docs/affiliate-outreach.md`, `_docs/affiliate-pitch/README.md`, and `affiliates/outreach_instructions.md` to run it |
-| SEO prospect outreach (the report email, the calls list)           | `_docs/seo-prospect-outreach.md`                                            |
-| Files under `frontend/`                                          | `frontend/AGENTS.md` in addition to this file                               |
+| Work                                                               | Required document                                                                                                     |
+| ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| Any cross-project or reusable capability                           | `../freetheplatform/_docs/strategy.md`                                                                                |
+| Frontend styling, Tailwind, CSS, lint, or breakpoints              | `../freetheplatform/_docs/lint-rules.md`                                                                              |
+| Design tokens                                                      | `../freetheplatform/_docs/token-contract.md`                                                                          |
+| Shared frontend components (nav, footer, FAQ, the registry)        | `../freetheplatform/_docs/component-registry.md`                                                                      |
+| FreeTheDesk Tailwind conversion                                    | `_docs/tailwind-migration.md`                                                                                         |
+| Backend tests or test infrastructure                               | `../freetheplatform/_docs/testing-standard-backend.md`                                                                |
+| Frontend tests or test infrastructure                              | `../freetheplatform/_docs/testing-standard-frontend.md`                                                               |
+| Shared agent workflow or definition of done                        | `../freetheplatform/_docs/agent-workflow.md`                                                                          |
+| Licensing                                                          | `_docs/licensing/README.md` and the relevant plan/research file                                                       |
+| Stripe subscriptions                                               | `_docs/stripe-subscriptions.md`                                                                                       |
+| Security, authentication, sessions, headers, or input              | `../freetheplatform/_docs/security-standard.md`                                                                       |
+| Personal data                                                      | `_docs/pii_inventory.md`                                                                                              |
+| Any form (new, edited, or converted)                               | `../freetheplatform/_docs/forms-standard.md` and `_docs/forms-migration.md`                                           |
+| Metadata, structured data, sitemap, robots, or indexation policy   | `../freetheplatform/_docs/seo-standard.md` — read its sourcing rule first                                             |
+| Podcast affiliate outreach (scrape, upload, pitch cron, dashboard) | `_docs/affiliate-outreach.md`, `_docs/affiliate-pitch/README.md`, and `affiliates/outreach_instructions.md` to run it |
+| SEO prospect outreach (the report email, the calls list)           | `_docs/seo-prospect-outreach.md`                                                                                      |
+| Files under `frontend/`                                            | `frontend/AGENTS.md` in addition to this file                                                                         |
 
 Read only the documents relevant to the issue; do not load the whole `_docs`
 directory.
@@ -69,12 +69,13 @@ Three ways in, each with its own credential. None is the dashboard's login, so
 none needs a browser; an agent that opens Chrome to read or send what these
 cover is doing it the slow way.
 
-| Want                                                   | Call                                                                                                                                                                                                             | Credential                                                                                                                  |
-| ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Read a table: messages, prospects, orders, enquiries   | `python -m freetheplatform.searchconsole records -p freethedesk "records/?model=ftp_messaging.message&fields=to,subject,attachments,sent_at,status&order=-created_at&limit=20"`, run from `../ftp_search`         | `FREETHEDESK_READ_TOKEN` in `../ftp_search/.env`, a bearer token on `https://api.freethedesk.com.au/api/read/`; read-only   |
-| Queue a prospect report for the hourly send            | `POST /api/seo/prospects/` (multipart), through `../ftp_search/_search/tools/prospecting/outbox.py release`                                                                                                      | `INTERNAL_API_KEY` in this repository's `.env`, sent as `X-Internal-API-Key`; the base is `API_SERVER_URL` (`DEV_API_SERVER_URL` with `--dev`) |
-| Send one email now, as written, with files             | `POST /api/seo/messages/` (multipart `to`, `subject`, `body`, repeated `attachments`), through `outbox.py send <slug>`                                                                                           | the same key                                                                                                                |
-| Upload podcast prospects                               | `py manage.py upload_prospects` (see `affiliates/outreach_instructions.md`)                                                                                                                                      | the same key                                                                                                                |
+| Want                                                 | Call                                                                                                                                                                                                      | Credential                                                                                                                                     |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Read a table: messages, prospects, orders, enquiries | `python -m freetheplatform.searchconsole records -p freethedesk "records/?model=ftp_messaging.message&fields=to,subject,attachments,sent_at,status&order=-created_at&limit=20"`, run from `../ftp_search` | `FREETHEDESK_READ_TOKEN` in `../ftp_search/.env`, a bearer token on `https://api.freethedesk.com.au/api/read/`; read-only                      |
+| Upload a prospect report, held, for its link         | `POST /api/seo/prospects/` (multipart), through `../ftp_search/_search/tools/prospecting/outbox.py add`                                                                                                   | `INTERNAL_API_KEY` in this repository's `.env`, sent as `X-Internal-API-Key`; the base is `API_SERVER_URL` (`DEV_API_SERVER_URL` with `--dev`) |
+| Approve a held report for the hourly send            | `POST /api/seo/prospects/approve/`, through `outbox.py approve <slug>`, on the owner's word only                                                                                                          | the same key                                                                                                                                   |
+| Send one email now, as written, with files           | `POST /api/seo/messages/` (multipart `to`, `subject`, `body`, repeated `attachments`), through `outbox.py send <slug>`                                                                                    | the same key                                                                                                                                   |
+| Upload podcast prospects                             | `py manage.py upload_prospects` (see `affiliates/outreach_instructions.md`)                                                                                                                               | the same key                                                                                                                                   |
 
 Rules:
 
@@ -84,8 +85,9 @@ Rules:
 - The `/api/admin/...` endpoints take a staff session: they are the dashboard's,
   not the terminal's. What the dashboard shows can be read from the read API
   instead; what it does (mark a call, unsubscribe) is done in the dashboard.
-- A prospect report is posted only after the owner has read it and said so in
-  chat ([`_docs/seo-prospect-outreach.md`](_docs/seo-prospect-outreach.md)).
+- A prospect report is uploaded held the moment it is done, for its link, and
+  emailed only after the owner has read it and said so in chat
+  ([`_docs/seo-prospect-outreach.md`](_docs/seo-prospect-outreach.md)).
   `/api/seo/messages/` sends at once and sends to anyone, so it is for the note
   after a call, on the owner's word, never a first contact: that is the
   prospect endpoint, with its one-per-business rule.

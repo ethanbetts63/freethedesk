@@ -119,7 +119,8 @@ export interface OutreachVersionSummary extends Record<ProspectStatus, number> {
  * A business sent a free prospect SEO report, and the call that follows: the
  * calls list. See _docs/seo-prospect-outreach.md.
  */
-export type ReportProspectStatus = Exclude<ProspectStatus, 'signed_up'>;
+/** `held`: uploaded for its link, waiting for the owner's approval (owner, 2026-11-05); the rest are the email's. */
+export type ReportProspectStatus = 'held' | Exclude<ProspectStatus, 'signed_up'>;
 
 export interface ReportProspect {
   id: number;

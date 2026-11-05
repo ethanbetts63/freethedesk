@@ -38,6 +38,7 @@ business-hours window, the message log as the status, the dashboard page.
   disagrees with its report. Three hours is every report's figure, in the
   report's ask, the email and the subject alike (owner, 2026-10-30):
   believable, under the machine time on every report, and nothing counts it.
+
 - **The server composes every body** (owner, 2026-10-30). The pipeline writes
   the report and nothing about why; the email is where the purpose shows, so
   it is written here from the row's own fields: the business, the paid
@@ -84,7 +85,7 @@ business-hours window, the message log as the status, the dashboard page.
   with no call and no reply in the owner's inbox (ethanbetts63@gmail.com, where
   replies land), the outreach agent queues it at startup:
   `POST /api/seo/prospects/follow-up/` with the slug, through `outbox.py
-  follow-up`. It is refused (409, with the reason) when it is too soon, already
+follow-up`. It is refused (409, with the reason) when it is too soon, already
   queued, or the row is called, replied, excluded or suppressed. The hourly run
   sends it in the same window and at the same pace: the report attached again,
   under a subject drawn from the live rotation (never the report email's own,
@@ -100,25 +101,25 @@ business-hours window, the message log as the status, the dashboard page.
 
 **Model** `seo/models/prospect.py`, `SeoProspect`. It is the calls list too.
 
-| Field | Notes |
-| --- | --- |
-| `domain` | unique; the ledger's key |
-| `business`, `slug`, `report_version` | |
-| `report_path` | the report's full path on the owner's machine, shown to copy |
-| `report_pdf` | `FileField` in private storage: messaging keeps an attachment's name, not its file, so the cron needs the PDF here |
-| `contact_name`, `email`, `phone` | from the prospecting ledger |
-| `overview` | one line: what the business is, built from the ledger (trading name, Google category, suburb) |
-| `issues` | the report's five highest-impact recommendation titles, strongest first; body 1 names the first two, body 4 lists all five |
-| `paid_searches` | the searches its ad was seen on; empty for a host, or a business found some other way |
-| `purpose` | `client` or `affiliate`, from the upload; `client` unless it says |
-| `subject_version` | 3 (needs a paid search), 6 or 7, by rotation; 1, 2, 4 and 5 retired, kept on their rows |
-| `body_version` | a client: 5 (1, 2 and 4 paused); an affiliate: 3 |
-| `metric` | what the business counts, for body 2; `bookings` unless the upload says |
-| `body` | empty since 2026-10-30; the analyst's email on the rows before it, which body 1 sent as written |
-| `queued_at`, `sent_at` | `sent_at` set by the cron's claim, as `pitched_at` is |
-| `called_at`, `call_notes` | set by hand on the dashboard |
-| `reply` | none, positive or negative, by hand |
-| `excluded_reason` | blank means eligible; set by hand to hold one back |
+| Field                                | Notes                                                                                                                      |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `domain`                             | unique; the ledger's key                                                                                                   |
+| `business`, `slug`, `report_version` |                                                                                                                            |
+| `report_path`                        | the report's full path on the owner's machine, shown to copy                                                               |
+| `report_pdf`                         | `FileField` in private storage: messaging keeps an attachment's name, not its file, so the cron needs the PDF here         |
+| `contact_name`, `email`, `phone`     | from the prospecting ledger                                                                                                |
+| `overview`                           | one line: what the business is, built from the ledger (trading name, Google category, suburb)                              |
+| `issues`                             | the report's five highest-impact recommendation titles, strongest first; body 1 names the first two, body 4 lists all five |
+| `paid_searches`                      | the searches its ad was seen on; empty for a host, or a business found some other way                                      |
+| `purpose`                            | `client` or `affiliate`, from the upload; `client` unless it says                                                          |
+| `subject_version`                    | 3 (needs a paid search), 6 or 7, by rotation; 1, 2, 4 and 5 retired, kept on their rows                                    |
+| `body_version`                       | a client: 5 (1, 2 and 4 paused); an affiliate: 3                                                                           |
+| `metric`                             | what the business counts, for body 2; `bookings` unless the upload says                                                    |
+| `body`                               | empty since 2026-10-30; the analyst's email on the rows before it, which body 1 sent as written                            |
+| `queued_at`, `sent_at`               | `sent_at` set by the cron's claim, as `pitched_at` is                                                                      |
+| `called_at`, `call_notes`            | set by hand on the dashboard                                                                                               |
+| `reply`                              | none, positive or negative, by hand                                                                                        |
+| `excluded_reason`                    | blank means eligible; set by hand to hold one back                                                                         |
 
 The emailed status is read from the message log (`related=prospect`,
 `message_type="seo_prospect.<version>"`), not stored: queued, sent, delivered,
@@ -164,7 +165,7 @@ it with `?s=text`; every report email and follow-up names it beside the PDF
 ("You can also read it online"); nothing else links to it.
 
 - **The page.** `report_html` on the row, the `report.html` beside the PDF in
-  the project, uploaded with the report (`outbox.py release`) or after it for
+  the project, uploaded with the report (`outbox.py add`) or after it for
   the rows from before the page existed (`POST /api/seo/prospects/html/`,
   `outbox.py html`). A re-attach sends the PDF printed with the page too, and
   the endpoint replaces the row's `report_pdf` with it, so the page's PDF link
@@ -202,7 +203,8 @@ it with `?s=text`; every report email and follow-up names it beside the PDF
   told nothing about ads or podcasts. What the sweep saw stays in the ledger
   and reaches the server through the outbox, for the subject lines and the
   call brief.
-- **Nothing is uploaded until the owner approves it** (owner, 2026-10-28).
+- **Uploaded when done, emailed only when approved** (owner, 2026-11-05;
+  until then nothing was uploaded before approval, 2026-10-28).
   `_search/tools/prospecting/outbox.py` keeps the local outbox,
   `_search/prospecting/outbox.json`. The report delegator's last step for a
   prospect report (step 15 of `_search/prompts/01_delegator.md`) is
@@ -210,15 +212,23 @@ it with `?s=text`; every report email and follow-up names it beside the PDF
   recommendation count, the three highest-impact titles) and the ledger entry
   (the contact, the sightings, the `source` that sets the purpose); warns when
   the address's domain is neither the site's nor a webmail one; refuses a
-  business the message log shows was already sent a report; and lists it as
-  `awaiting_approval`. The owner asks for the unapproved reports
-  (`outbox.py list --status awaiting_approval`), reads each, asks for any edits,
-  and says it may go: then `outbox.py approve <slug>` records a fingerprint of
-  the PDF, and `outbox.py release` posts every approved report
-  whose files still match it (a report changed after approval goes back to
-  awaiting approval) and marks the ledger entry `queued`. Approval and release
-  happen only on the owner's word; no pipeline step does either. `outbox.py
-  sync` and `ledger.py sync` move it to `sent` from the message log.
+  business the message log shows was already sent a report; posts the report
+  with its page to `POST /api/seo/prospects/`, which creates the row **held**
+  (`approved_at` null) with its link and the subject and body chosen; and
+  lists it as `awaiting_approval` with the link. The hourly run sends only
+  rows with an `approved_at`. The owner reads each report at its link, asks
+  for any edits (`render --pdf`, then `add` again, which puts the new page and
+  PDF behind the same link through `/api/seo/prospects/html/`), and says it
+  may go: then `outbox.py approve <slug>` posts the word to `POST
+/api/seo/prospects/approve/` (`approved` 1, or 0 to take it back:
+  `outbox.py unapprove`, or an `add` after approval), the next hourly run
+  sends it, and the ledger entry is marked `queued`. `approve` refuses a PDF
+  that is not the one uploaded, so what goes out is what the owner read.
+  Approval happens only on the owner's word; no pipeline step does it.
+  `outbox.py add` refuses to post to a server without the approve endpoint,
+  since one from before it queued every upload. `outbox.py sync` and
+  `ledger.py sync` move it to `sent` from the message log. The dashboard
+  shows a held row as "Awaiting approval" (status `held`), before `queued`.
 - **The call brief** (owner, 2026-10-29). `release` and `sync` print
   `_search/projects/<slug>/reports/<version>/call_brief.pdf`
   (`_search/tools/prospecting/brief.py`): one A4 page to read while phoning.
@@ -231,9 +241,9 @@ it with `?s=text`; every report email and follow-up names it beside the PDF
   itself is still logged on the dashboard, not on the brief.
 - **The outreach agent** (owner, 2026-10-29). `_search/prompts/outreach.md`: told
   "you are my outreach agent", it runs `outbox.py sync` and `outbox.py todo`
-  and says what awaits review (full paths) and what was sent and not yet
-  called (with the brief); makes small edits and republishes; approves and
-  releases on the owner's word; opens the report, brief, site, listing and
+  and says what awaits review (links and full paths) and what was sent and not yet
+  called (with the brief); makes small edits and republishes; approves on the
+  owner's word; opens the report, brief, site, listing and
   freethedesk.com.au/seo in Chrome for a call; records the call with
   `outbox.py called`; resends with `outbox.py send`.
 - **The call recorded** (owner, 2026-10-29). `record.py <slug>` records the
@@ -249,7 +259,7 @@ it with `?s=text`; every report email and follow-up names it beside the PDF
   `--subject` to override, `--to` when
   the address the brief knows is wrong, `--no-pdf` for words alone. It prints
   the message id and status; the message log is the record. Only on the
-  owner's word, like approve and release.
+  owner's word, like approve.
 - The key and the address are this repository's own `INTERNAL_API_KEY` and
   `API_SERVER_URL` (`DEV_API_SERVER_URL` with `--dev`) from `.env`, read by
   `freetheplatform`'s `env.secret` and never printed: the same pair

@@ -41,6 +41,7 @@ const STATUS: StatusMap = {
   suspended: { label: 'Suspended', tone: 'var(--status-suspended)' },
   denied: { label: 'Denied', tone: 'var(--status-spam)' },
 
+  held: { label: 'Awaiting approval', tone: 'var(--status-contacted)' },
   queued: { label: 'Queued', tone: 'var(--status-new)' },
   sent: { label: 'Sent', tone: 'var(--status-won)' },
   delivered: { label: 'Delivered', tone: 'var(--status-won)' },
@@ -144,6 +145,7 @@ export const prospectStatuses = [
 ] as const;
 export const prospectReplies = ['none', 'positive', 'negative'] as const;
 export const reportProspectStatuses = [
+  'held',
   'queued',
   'sent',
   'delivered',

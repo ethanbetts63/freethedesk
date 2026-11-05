@@ -382,10 +382,11 @@ def send_follow_up(prospect: SeoProspect):
 
 
 def eligible_prospects():
-    """Queued, not excluded, and not on the suppression list; oldest first."""
+    """Approved and not yet sent, not excluded, and not on the suppression list; oldest first. A held row (no
+    ``approved_at``) is the owner's to read first."""
     suppressed = Suppression.objects.filter(channel="email").values("address")
     return (
-        SeoProspect.objects.filter(sent_at__isnull=True, excluded_reason="")
+        SeoProspect.objects.filter(approved_at__isnull=False, sent_at__isnull=True, excluded_reason="")
         .exclude(email__in=suppressed)
         .order_by("created_at", "id")
     )

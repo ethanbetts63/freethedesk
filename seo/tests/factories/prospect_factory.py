@@ -1,4 +1,5 @@
 import factory
+from django.utils import timezone
 from django.core.files.base import ContentFile
 
 from seo.models import SeoProspect
@@ -41,4 +42,6 @@ class SeoProspectFactory(factory.django.DjangoModelFactory):
     issues = factory.LazyFunction(lambda: ["No page for the search"])
     paid_searches = factory.LazyFunction(lambda: ["plumber perth"])
     recommendation_count = 10
+    # Approved, as every row was before the hold existed; a test of the hold says ``approved_at=None``.
+    approved_at = factory.LazyFunction(timezone.now)
     subject_version = 1

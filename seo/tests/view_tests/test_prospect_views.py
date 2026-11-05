@@ -19,13 +19,16 @@ def upload(api_client, key, pdf=PDF, **overrides):
     return api_client.post(reverse("seo-prospect-upload"), data, format="multipart", HTTP_X_INTERNAL_API_KEY=key)
 
 
-def test_a_published_report_is_queued_with_its_pdf(api_client, internal_key):
+def test_a_published_report_is_held_with_its_pdf_until_the_owner_approves_it(api_client, internal_key):
     response = upload(api_client, internal_key)
 
     assert response.status_code == 201
     body = response.json()
-    assert body["outcome"] == "queued"
+    assert body["outcome"] == "held"
     prospect = SeoProspect.objects.get()
+    assert prospect.approved_at is None
+    assert with_status(SeoProspect.objects.all()).get().status == "held"
+    assert body["report_link"].endswith(f"/r/{prospect.link_token}")
     assert body["subject"] == "Your 'pergolas perth' ad, and what your site is missing"
     assert prospect.subject_version == 3
     assert (body["body_version"], prospect.body_version, prospect.metric) == (5, 5, "bookings")
@@ -35,6 +38,48 @@ def test_a_published_report_is_queued_with_its_pdf(api_client, internal_key):
     assert prospect.sent_at is None
     with prospect.report_pdf.open("rb") as handle:
         assert handle.read() == PDF
+
+
+def approve(api_client, key, slug="perthpatiomagic", **fields):
+    return api_client.post(reverse("seo-prospect-approve"), {"slug": slug, **fields}, HTTP_X_INTERNAL_API_KEY=key)
+
+
+def test_the_owners_word_approves_a_held_report_and_names_what_will_go(api_client, internal_key):
+    upload(api_client, internal_key)
+
+    response = approve(api_client, internal_key, metric="calls")
+
+    assert response.status_code == 201
+    body = response.json()
+    prospect = SeoProspect.objects.get()
+    assert body["outcome"] == "approved" and prospect.approved_at is not None
+    assert body["subject"] == "Your 'pergolas perth' ad, and what your site is missing"
+    assert (body["body_version"], body["metric"], prospect.metric) == (5, "calls", "calls")
+    assert body["report_link"].endswith(f"/r/{prospect.link_token}")
+    assert with_status(SeoProspect.objects.all()).get().status == "queued"
+
+
+def test_the_word_taken_back_holds_the_report_again(api_client, internal_key):
+    upload(api_client, internal_key)
+    approve(api_client, internal_key)
+
+    response = approve(api_client, internal_key, approved="0")
+
+    assert response.status_code == 201 and response.json()["outcome"] == "held"
+    assert SeoProspect.objects.get().approved_at is None
+
+
+def test_a_report_already_sent_is_neither_approved_nor_held(api_client, internal_key):
+    SeoProspectFactory(slug="gone", sent_at=timezone.now())
+    assert approve(api_client, internal_key, slug="gone").status_code == 409
+    assert approve(api_client, internal_key, slug="gone", approved="0").status_code == 409
+    assert approve(api_client, internal_key, slug="nobody").status_code == 404
+
+
+def test_approval_takes_the_shared_secret(api_client, internal_key):
+    upload(api_client, internal_key)
+    assert api_client.post(reverse("seo-prospect-approve"), {"slug": "perthpatiomagic"}).status_code in (401, 403)
+    assert SeoProspect.objects.get().approved_at is None
 
 
 def test_the_three_subjects_in_rotation_take_turns(api_client, internal_key):

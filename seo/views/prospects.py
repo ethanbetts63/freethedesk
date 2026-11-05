@@ -41,11 +41,14 @@ def _csv(params, key):
 
 
 class SeoProspectUploadView(APIView):
-    """`POST /api/seo/prospects/`: a published prospect report, queued for the hourly send.
+    """`POST /api/seo/prospects/`: a published prospect report, held for the owner's approval.
 
-    One report per business: a domain, slug or address already here is refused
-    with 409 and the row is left as it is, so a pipeline run that posts twice
-    never sends twice. A suppressed address is refused too.
+    The row gives the report its link (``/r/<token>``), which the owner reads
+    it at; the subject and body are chosen now, so the outbox can say what
+    will go; nothing is emailed until ``SeoProspectApproveView`` records the
+    owner's word. One report per business: a domain, slug or address already
+    here is refused with 409 and the row is left as it is, so a pipeline run
+    that posts twice never holds two. A suppressed address is refused too.
     """
 
     throttle_scope = "internal"  # A load limit; access is the shared secret.
@@ -70,10 +73,12 @@ class SeoProspectUploadView(APIView):
             )
         pdf = data.pop("report_pdf")
         html = data.pop("report_html", None)
-        # A report that went by hand, registered for its link and its dashboard row: created sent, never queued.
+        # A report that went by hand, registered for its link and its dashboard row: created sent, never queued,
+        # and approved by the fact of it.
         went = "sent_at" in data
         if went:
             subject_version, body_version = data.pop("subject_version"), data.pop("body_version")
+            data["approved_at"] = data["sent_at"]
         else:
             try:
                 subject_version = next_subject(has_search=bool(data.get("paid_searches")))
@@ -92,12 +97,50 @@ class SeoProspectUploadView(APIView):
             return Response({"outcome": "already_known", "detail": "A prospect with these details exists."},
                             status=status.HTTP_409_CONFLICT)
         return Response(
-            {"outcome": "registered" if went else "queued", "id": prospect.pk, "purpose": prospect.purpose,
+            {"outcome": "registered" if went else "held", "id": prospect.pk, "purpose": prospect.purpose,
              "subject_version": prospect.subject_version, "subject": subject_for(prospect),
              "body_version": prospect.body_version, "body_label": prospect.get_body_version_display(),
              "report_link": report_link(prospect), "report_html_ready": bool(prospect.report_html)},
             status=status.HTTP_201_CREATED,
         )
+
+
+class SeoProspectApproveView(APIView):
+    """`POST /api/seo/prospects/approve/`: the owner's word on a held report, by slug (``outbox.py approve``).
+
+    ``approved`` 1 (the default) marks the row approved and the next hourly
+    run sends it; 0 takes the word back (``outbox.py unapprove``, or a report
+    edited after approval) and the row is held again. A report already sent
+    is refused with 409 either way: there is nothing left to hold. ``metric``,
+    when given, is what the business counts, for the second body's bet.
+    """
+
+    throttle_scope = "internal"  # A load limit; access is the shared secret.
+    authentication_classes = []
+    permission_classes = [IsInternalApiRequest]
+
+    def post(self, request):
+        prospect = SeoProspect.objects.filter(slug=str(request.data.get("slug", ""))).first()
+        if prospect is None:
+            return Response({"outcome": "unknown", "detail": "No prospect has this slug."},
+                            status=status.HTTP_404_NOT_FOUND)
+        if prospect.sent_at is not None:
+            return Response({"outcome": "already_sent", "sent_at": prospect.sent_at}, status=status.HTTP_409_CONFLICT)
+        approved = str(request.data.get("approved", "1")).lower() not in ("0", "false", "no")
+        prospect.approved_at = timezone.now() if approved else None
+        fields = ["approved_at", "updated_at"]
+        metric = str(request.data.get("metric", "")).strip()
+        if metric:
+            prospect.metric = metric[:40]
+            fields.append("metric")
+        prospect.save(update_fields=fields)
+        return Response({"outcome": "approved" if approved else "held", "id": prospect.pk,
+                         "approved_at": prospect.approved_at, "metric": prospect.metric,
+                         "subject_version": prospect.subject_version, "subject": subject_for(prospect),
+                         "body_version": prospect.body_version, "body_label": prospect.get_body_version_display(),
+                         "purpose": prospect.purpose, "report_link": report_link(prospect),
+                         "report_html_ready": bool(prospect.report_html)},
+                        status=status.HTTP_201_CREATED)
 
 
 class SeoProspectHtmlView(APIView):
