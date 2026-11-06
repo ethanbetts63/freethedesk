@@ -11,6 +11,8 @@ export interface RelatedLink {
   line: string;
   /** Opens in a new tab: a page the reader looks at and comes back from. */
   newTab?: boolean;
+  /** The card's picture, a path under `public/`; none, and the card shows the page's icon. */
+  image?: string;
 }
 
 const LINKS = {
@@ -30,6 +32,8 @@ const LINKS = {
     label: 'Sample SEO report',
     line: 'Read a whole audit before you buy one.',
     newTab: true,
+    // The report's cover: its site in a browser, and on a phone.
+    image: '/case-studies/sample-report/cover-desktop.png',
   },
   automation: {
     href: '/automation',
@@ -50,11 +54,14 @@ const LINKS = {
     href: '/portfolio/scooter-shop',
     label: 'Scooter Shop case study',
     line: 'A Perth dealership: stock, service and licensing in one site.',
+    image: '/case-studies/scooter-shop/home-desktop.png',
   },
   bloomprint: {
     href: '/portfolio/bloomprint',
     label: 'Bloomprint case study',
     line: 'A flower marketplace with customers on one side and florists on the other.',
+    // The case study's desktop shot cut to the card's 3:2 from the left, so the headline stays.
+    image: '/case-studies/bloomprint/home-desktop-tile.png',
   },
   wordpressCost: {
     href: '/wordpress-website-cost-perth',

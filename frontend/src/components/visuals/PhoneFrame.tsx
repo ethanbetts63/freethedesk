@@ -3,74 +3,60 @@ import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
- * A drawn phone: bezel, notch, optional home bar. A screenshot inside shows its own menu.
+ * The site's one drawn phone: a dark handset with an even bezel, the screen's
+ * corners rounded inside it, and the flat slab every visual on the site sits
+ * on, offset down and right. No notch and no home bar. It is the sample
+ * report cover's handset, and every phone on the site is this one.
  *
- * The site drew three of these — a diagram in the licensing illustrations, a
- * small one pinned into the case-study hero, and a large free-standing one —
- * in two places (this file and `styles/phone-mockup.css`) under three sets of
- * names. They are one object at three scales, so they are one component at
- * three sizes now:
+ * Every measure is a share of the frame's width (`cqw`), so the handset keeps
+ * the cover's proportions at any size: the cover draws it 228 wide with a
+ * 216-wide body, an 8 bezel, 30 and 23 corners and a 12 slab. Only the width
+ * and placement differ by size:
  *
- *   diagram    175x340, fixed. Invented contents, not a screenshot.
- *   inset      pinned into a larger composition; grows 84 -> 105 -> 160px.
- *   standalone free-standing, 218x410 growing to 250x465.
+ *   diagram    175 wide, a phone-shaped screen. Invented contents, not a screenshot.
+ *   inset      pinned into a larger composition; grows 84 -> 105 -> 160.
+ *   standalone free-standing, 218 growing to 250.
+ *   fill       the width of whatever holds it, the screen as tall as its contents.
  *
- * Every dimension here is literal. These are the proportions of a drawn
- * object, not interface spacing, so no token applies.
+ * Every size but `fill` gives the screen a phone's proportions, so a phone
+ * screenshot fills it exactly and anything else can crop to it.
  */
 /* eslint-disable no-restricted-syntax -- A drawn object, not an interface element:
-   these are a phone's corner radii, measured off the device, and there is no rung
-   in the radius ramp that means "the corner of a phone". */
+   these are the cover handset's own proportions, as shares of its width, and its
+   placements in the compositions it is pinned into. No token means either. */
 const SIZES = {
-  diagram: {
-    frame:
-      'relative h-[340px] w-[175px] flex-none rounded-[26px] border-[6px] border-surface-inverse bg-surface-inverse shadow-block-s',
-    notch: 'z-3 h-[8px] w-[44px] rounded-b-md bg-surface-inverse',
-    homeBar: true,
-  },
+  diagram: { frame: 'relative w-[175px] flex-none', phoneScreen: true, hidden: true },
   inset: {
     frame:
-      'absolute bottom-[10px] left-[-6px] z-3 w-[84px] rounded-[20px] border-4 border-surface-dark bg-surface-dark shadow-block-s sm:bottom-0 sm:left-0 sm:w-[105px] lg:w-[160px]',
-    notch: 'z-2 h-[10px] w-[55px] rounded-b-m bg-surface-dark',
-    homeBar: false,
+      'absolute bottom-[10px] left-[-6px] z-3 w-[84px] sm:bottom-0 sm:left-0 sm:w-[105px] lg:w-[160px]',
+    phoneScreen: true,
+    hidden: true,
   },
-  standalone: {
-    frame:
-      'relative z-2 h-[410px] w-[218px] rounded-[29px] border-[7px] border-surface-inverse bg-surface-inverse shadow-block-s lg:h-[465px] lg:w-[250px]',
-    notch: 'z-2 h-[16px] w-[80px] rounded-b-l bg-surface-inverse',
-    homeBar: false,
-  },
+  standalone: { frame: 'relative z-2 w-[218px] lg:w-[250px]', phoneScreen: true, hidden: true },
+  fill: { frame: 'w-full', phoneScreen: false, hidden: false },
 } as const;
+
+const bodyClassName =
+  'mr-[5.3cqw] mb-[5.3cqw] rounded-[13.2cqw] bg-text-primary p-[3.5cqw] shadow-[5.3cqw_5.3cqw_0_var(--surface-tint-strong)]';
+const screenClassName =
+  'relative overflow-hidden rounded-[10.1cqw] bg-surface-page [&_img]:block [&_img]:h-auto [&_img]:w-full';
 /* eslint-enable no-restricted-syntax */
 
 export function PhoneFrame({
   children,
   size = 'diagram',
-  className,
 }: {
   children: ReactNode;
   size?: keyof typeof SIZES;
-  className?: string;
 }) {
   const preset = SIZES[size];
   return (
-    <div
-      className={cn(
-        'overflow-hidden [&_img]:block [&_img]:h-auto [&_img]:w-full',
-        preset.frame,
-        className,
-      )}
-      aria-hidden="true"
-    >
-      <div className={cn('absolute top-0 left-1/2 -translate-x-1/2', preset.notch)} />
-      {size === 'diagram' ? (
-        <div className="relative h-full w-full overflow-hidden bg-surface-tint">{children}</div>
-      ) : (
-        children
-      )}
-      {preset.homeBar ? (
-        <div className="absolute bottom-[8px] left-1/2 z-3 h-[3px] w-[46px] -translate-x-1/2 rounded-2xs bg-surface-page opacity-50" />
-      ) : null}
+    <div className={cn('@container', preset.frame)} aria-hidden={preset.hidden || undefined}>
+      <div className={bodyClassName}>
+        <div className={cn(screenClassName, preset.phoneScreen && 'aspect-[390/844]')}>
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

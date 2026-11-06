@@ -35,7 +35,7 @@ function Picture({ image, icon }: { image: GuideImage; icon: ReactNode }) {
 
 /**
  * The related block a guide ends on, as cards: a picture over each, and a guide's date and reading time. A guide
- * among the links is shown as its card, with its picture.
+ * among the links is shown as its card, with its picture; another page shows the link's own picture, if it has one.
  *
  * Per-site, from the composition: the links (`related`, already resolved; none and the block does not render), the
  * kicker over the heading, and `iconFor`, the pale mark on the plain card of a link with no picture. Icons stay the
@@ -76,7 +76,7 @@ export function GuideCards({
                     focusRingClassName,
                   )}
                 >
-                  <Picture image={guide?.image ?? null} icon={iconFor(link.href)} />
+                  <Picture image={guide?.image ?? link.image ?? null} icon={iconFor(link.href)} />
                   {/* A page with no date keeps the line empty, so every card's title starts level. */}
                   {guide ? (
                     <span className="text-body-sm text-text-muted">

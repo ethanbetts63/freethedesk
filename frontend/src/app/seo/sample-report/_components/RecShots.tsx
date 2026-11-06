@@ -1,3 +1,4 @@
+import { PhoneFrame } from '@/components/visuals/PhoneFrame';
 import { cn } from '@/lib/utils';
 
 import { BUSINESS, type ShotKind } from '../_lib/report';
@@ -13,10 +14,10 @@ import { Logo, Stars } from './SiteMock';
 
 /*
  * The frames are the delivered report's own (searchconsole/assets/report/recommendations.css, .rec__shot): a desktop
- * shot in a browser window on an 11px flat slab, a phone shot in a handset padded 6px all round on a 6px slab. The
- * slab is the one freethedesk.com.au puts behind its screenshots. Each frame keeps a margin the size of its slab, so
- * the slab stays inside the frame's column. The sizes are the report stylesheet's pixels, not this site's scale, so
- * the sample's frames match a real report's exactly.
+ * shot in a browser window on an 11px flat slab. The slab is the one freethedesk.com.au puts behind its screenshots.
+ * Each frame keeps a margin the size of its slab, so the slab stays inside the frame's column. The sizes are the
+ * report stylesheet's pixels, not this site's scale, so the sample's frames match a real report's exactly. A phone
+ * shot is in the site's one handset, the cover's.
  */
 
 const browserClass =
@@ -29,11 +30,6 @@ const browserDotClass = 'size-[6px] flex-none rounded-full';
 const browserUrlClass =
   // eslint-disable-next-line no-restricted-syntax -- the report stylesheet's .rec__shot-bar span, copied exactly
   'mx-auto min-w-0 truncate rounded-[4px] border border-border-default bg-surface-page px-[10px] py-px text-[0.56rem] text-text-subtle';
-const phoneClass =
-  // eslint-disable-next-line no-restricted-syntax -- the report stylesheet's .rec__shot--phone, copied exactly
-  'mx-auto mb-[6px] w-full max-w-[12rem] rounded-[22px] bg-text-primary p-[6px] shadow-[6px_6px_0_var(--surface-tint-strong)]';
-// eslint-disable-next-line no-restricted-syntax -- the report stylesheet's .rec__shot--phone img, copied exactly
-const phoneScreenClass = 'overflow-hidden rounded-[16px]';
 
 /** A browser window around a drawing, with the address it was taken from. */
 function BrowserFrame({ url, children }: { url: string; children: React.ReactNode }) {
@@ -50,57 +46,50 @@ function BrowserFrame({ url, children }: { url: string; children: React.ReactNod
   );
 }
 
-/** A handset around a phone screen: dark, padded all round, the screen's corners rounded inside it. */
-function PhoneFrame({ children }: { children: React.ReactNode }) {
-  return (
-    <div className={phoneClass}>
-      <div className={phoneScreenClass}>{children}</div>
-    </div>
-  );
-}
-
 /** Recommendation 1: the phone header, menu open, the number inside it as plain text. */
 function PhoneHeaderShot() {
   return (
-    <PhoneFrame>
-      <svg
-        viewBox="8 8 200 290"
-        className="block h-auto w-full"
-        role="img"
-        aria-label={`The site on a phone with its menu open: the logo and a close button in the header, five links, and ${BUSINESS.phone} as plain grey text under them, with no call button.`}
-      >
-        <g>
-          <rect x="8" y="8" width="200" height="290" className="fill-surface-page" />
-          <Logo x={18} y={26} scale={0.62} />
-          {/* The menu is open: its button is now a close cross, and still no call button. */}
-          <g className="stroke-text-secondary" strokeWidth="2" strokeLinecap="round">
-            <path d="M178 34 L190 46 M190 34 L178 46" />
+    <div className="mx-auto w-full max-w-[12rem]">
+      <PhoneFrame size="fill">
+        <svg
+          viewBox="8 8 200 290"
+          className="block h-auto w-full"
+          role="img"
+          aria-label={`The site on a phone with its menu open: the logo and a close button in the header, five links, and ${BUSINESS.phone} as plain grey text under them, with no call button.`}
+        >
+          <g>
+            <rect x="8" y="8" width="200" height="290" className="fill-surface-page" />
+            <Logo x={18} y={26} scale={0.62} />
+            {/* The menu is open: its button is now a close cross, and still no call button. */}
+            <g className="stroke-text-secondary" strokeWidth="2" strokeLinecap="round">
+              <path d="M178 34 L190 46 M190 34 L178 46" />
+            </g>
+            <line x1="8" y1="64" x2="208" y2="64" className="stroke-border-subtle" />
+            <g fontSize="12" fontWeight={700} className="fill-text-secondary">
+              {['Hot water', 'Blocked drains', 'Gas fitting', 'Areas we cover', 'Contact'].map(
+                (label, i) => (
+                  <g key={label}>
+                    <text x="22" y={92 + i * 34}>
+                      {label}
+                    </text>
+                    <line
+                      x1="22"
+                      y1={104 + i * 34}
+                      x2="194"
+                      y2={104 + i * 34}
+                      className="stroke-border-subtle"
+                    />
+                  </g>
+                ),
+              )}
+            </g>
+            <text x="22" y="276" fontSize="9" className="fill-text-subtle">
+              Call us on {BUSINESS.phone}
+            </text>
           </g>
-          <line x1="8" y1="64" x2="208" y2="64" className="stroke-border-subtle" />
-          <g fontSize="12" fontWeight={700} className="fill-text-secondary">
-            {['Hot water', 'Blocked drains', 'Gas fitting', 'Areas we cover', 'Contact'].map(
-              (label, i) => (
-                <g key={label}>
-                  <text x="22" y={92 + i * 34}>
-                    {label}
-                  </text>
-                  <line
-                    x1="22"
-                    y1={104 + i * 34}
-                    x2="194"
-                    y2={104 + i * 34}
-                    className="stroke-border-subtle"
-                  />
-                </g>
-              ),
-            )}
-          </g>
-          <text x="22" y="276" fontSize="9" className="fill-text-subtle">
-            Call us on {BUSINESS.phone}
-          </text>
-        </g>
-      </svg>
-    </PhoneFrame>
+        </svg>
+      </PhoneFrame>
+    </div>
   );
 }
 

@@ -50,6 +50,8 @@ export interface GuideLink {
   line: string;
   /** Opens in a new tab: a page the reader looks at and comes back from. */
   newTab?: boolean;
+  /** The card's picture for a page that is not a guide; none, and the card shows the site's icon. */
+  image?: GuideImage;
 }
 
 export interface GuideRelated {
