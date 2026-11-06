@@ -60,12 +60,12 @@ ROBOTS = '<meta name="robots" content="noindex, nofollow, noarchive">'
 # band the page's width between the report and the footer; the footer is the site's own, in plain CSS (Footer.tsx
 # and SiteFooter.tsx are its source), without the canvas.
 _STYLE = """<style>
-.ftd-bar{position:sticky;top:0;z-index:9;padding:8px 16px 9px;background:#09121b;color:#fff;font:500 12.5px/1.4 Archivo,"Helvetica Neue",Arial,sans-serif}
-.ftd-bar__who{display:block;opacity:.8}
-.ftd-bar__row{display:flex;flex-wrap:wrap;align-items:center;gap:4px 16px;margin-top:3px}
+.ftd-bar{position:sticky;top:0;z-index:9;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;padding:8px 16px;background:#09121b;color:#fff;font:500 12.5px/1.4 Archivo,"Helvetica Neue",Arial,sans-serif}
 .ftd-bar a{display:inline-flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-weight:600;white-space:nowrap}
 .ftd-bar svg{width:13px;height:13px;flex:none;fill:currentColor}
-.ftd-bar a.ftd-bar__pdf{margin-left:auto;opacity:.8;text-decoration:underline}
+.ftd-bar a.ftd-bar__cta{margin-left:auto;padding:5px 12px;border-radius:999px;background:#2473c6;font-weight:700}
+.ftd-bar a.ftd-bar__cta:hover{background:#1a5fa8}
+.ftd-bar a.ftd-bar__pdf{opacity:.8;text-decoration:underline}
 .ftd-ask{background:#f1f7fc;font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
 .ftd-ask__shell{display:grid;gap:28px;align-items:center;max-width:1240px;margin:0 auto;padding:44px 24px}
 .ftd-ask__eyebrow{display:block;margin:0 0 10px;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1a5fa8}
@@ -103,13 +103,14 @@ _MAIL_ICON = (
     " 1 0 0 1 1-1zm1 2.6V18h16V7.6l-8 5.4zm.9-.6L12 11.6 19.1 7z\"/></svg>"
 )
 
-# The strip: whom it was written for, then the number, the address and the PDF, each a tap (owner, 2026-11-04).
+# The strip: the number, the address, a button to the SEO page and the PDF, each a tap (owner, 2026-11-04; the
+# button in place of "written for whom", 2026-11-06).
 _BAR = (
-    '<div class="ftd-bar"><span class="ftd-bar__who">Written for {business} by freethedesk</span>'
-    '<span class="ftd-bar__row">'
+    '<div class="ftd-bar">'
     f'<a href="tel:+61423853830">{_PHONE_ICON}0423 853 830</a>'
     f'<a href="mailto:analytics@freethedesk.com.au">{_MAIL_ICON}analytics@freethedesk.com.au</a>'
-    '<a class="ftd-bar__pdf" href="{pdf}">PDF</a></span></div>'
+    '<a class="ftd-bar__cta" href="https://www.freethedesk.com.au/seo">Get the full report</a>'
+    '<a class="ftd-bar__pdf" href="{pdf}">PDF</a></div>'
 )
 
 # The ask: a band the page's width under the report, the site's light blue behind a guide's picture of the
@@ -180,7 +181,7 @@ def page_document(prospect: SeoProspect, document: str) -> str:
     site's footer last."""
     document = document.replace("<head>", f"<head>\n{ROBOTS}\n{_STYLE}", 1)
     document = document.replace(
-        "<body>", "<body>\n" + _BAR.format(business=escape(prospect.business), pdf=escape(pdf_link(prospect))), 1
+        "<body>", "<body>\n" + _BAR.format(pdf=escape(pdf_link(prospect))), 1
     )
     foot = document.rfind("</body>")
     tail = _ASK + "\n" + site_footer() + "\n"

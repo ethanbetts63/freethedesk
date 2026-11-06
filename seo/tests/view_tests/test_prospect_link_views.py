@@ -41,7 +41,7 @@ def test_the_link_serves_the_report_page_noindexed_with_the_strip_and_the_ask(cl
     assert set(response["Cache-Control"].split(", ")) == {"private", "no-store"}
     page = response.content.decode()
     assert '<meta name="robots" content="noindex, nofollow, noarchive">' in page
-    assert "Written for Perth Patio Magic by freethedesk" in page
+    assert 'class="ftd-bar__cta" href="https://www.freethedesk.com.au/seo"' in page
     assert "<p>Fix the title.</p>" in page
     assert page.index('class="ftd-bar"') < page.index("Fix the title") < page.index('class="ftd-ask"')
     # The site's footer closes the page.
