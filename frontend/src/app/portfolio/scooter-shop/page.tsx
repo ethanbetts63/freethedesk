@@ -44,6 +44,14 @@ const config = {
   },
   sections: [
     {
+      kind: 'intro',
+      eyebrow: 'How it works',
+      title: 'Data-driven SEO.',
+      accentTitle: 'Not guesswork.',
+      description:
+        "Every recommendation started in the site's own search data and ended with a measurement. Three of them below: what we found, what changed, and what each change earned.",
+    },
+    {
       kind: 'split',
       eyebrow: 'The word',
       title: 'Customers say moped.',
@@ -61,7 +69,8 @@ const config = {
         height: 960,
       },
       browserUrl: 'www.scootershop.com.au/50cc-scooters-perth',
-      textSide: 'left',
+      // The hero's screen sits right, so the sides alternate from the left.
+      textSide: 'right',
       background: 'white',
     },
     {
@@ -81,7 +90,7 @@ const config = {
         height: 960,
       },
       browserUrl: 'www.scootershop.com.au/service',
-      textSide: 'right',
+      textSide: 'left',
       background: 'tint',
     },
     {
@@ -90,14 +99,15 @@ const config = {
       title: 'Fast on real phones.',
       accentTitle: 'Not a perfect score.',
       description:
-        'Every page scores 90 plus in PageSpeed and we leave it there: the last ten points cost real money, and no visitor or ranking notices them. What Google ranks on is how real visitors experience the site, and every page passes. Try yours.',
+        'We build things to be more than good enough, not perfect. Perfect costs exponentially more than really good, for almost no benefit, so every page scores 90 plus and we leave it there. Try yours.',
       image: {
         src: '/case-studies/scooter-shop/core-web-vitals.webp',
         alt: "Google's Core Web Vitals assessment for scootershop.com.au: passed, with largest contentful paint 1.2 seconds, cumulative layout shift 0, first contentful paint 1.1 seconds and time to first byte 0.4 seconds",
         width: 1904,
         height: 738,
       },
-      textSide: 'left',
+      // Google's panel is too wide to share a row with the words.
+      textSide: 'above',
       background: 'white',
       speedCheck: true,
     },

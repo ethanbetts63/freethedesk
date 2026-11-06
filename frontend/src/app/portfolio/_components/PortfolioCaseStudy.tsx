@@ -8,8 +8,10 @@ import type { FaqItem } from '@/types/FaqItem';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
 import { CtaButton } from '@/components/CtaButton';
+import { SectionHeader } from '@/components/SectionHeader';
 import { SectionNumber } from '@/components/SectionNumber';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
+import { Introduction } from '@/components/marketing/Introduction';
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
 import type { PagePath } from '@/lib/pages';
@@ -103,10 +105,19 @@ type SplitSection = {
   image: PortfolioImage;
   /** Set when the picture is a page of the site, which then sits in a browser frame. */
   browserUrl?: string;
-  textSide: 'left' | 'right';
+  /** `above` stacks the words over a picture too wide to share a row with them. */
+  textSide: 'left' | 'right' | 'above';
   background: 'white' | 'tint';
   /** The visitor's own site into PageSpeed, under the words. */
   speedCheck?: boolean;
+};
+
+/** The centred "How it works" opening the SEO page has, before the sections; it takes no number. */
+type IntroSection = {
+  eyebrow: string;
+  title: string;
+  accentTitle: string;
+  description: string;
 };
 
 /**
@@ -120,6 +131,7 @@ export type CaseSection =
   | ({ kind: 'feature' } & (OperationsFeature | DualStepsFeature))
   | ({ kind: 'intent' } & IntentSection)
   | ({ kind: 'growth' } & GrowthSection)
+  | ({ kind: 'intro' } & IntroSection)
   | ({ kind: 'split' } & SplitSection);
 
 export type PortfolioCaseStudyConfig = {
@@ -470,54 +482,98 @@ function PortfolioGrowth({ config }: { config: GrowthSection }) {
   );
 }
 
+/** The paragraph and, under it, the readings: the figure heavy and black under a black rule, the label in the accent beneath. */
+function SplitWords({ config }: { config: SplitSection }) {
+  return (
+    <>
+      <p>{config.description}</p>
+      {config.figures && (
+        <ul className="m-0 mt-l grid list-none grid-cols-2 gap-l border-t-2 border-text-primary p-0 pt-m">
+          {config.figures.map((figure) => (
+            <li key={figure.label}>
+              <strong className="block text-title font-heavy tracking-[-0.04em] whitespace-nowrap text-text-primary tabular-nums">
+                {figure.value}
+              </strong>
+              <span className="mt-2xs block text-label font-heavy tracking-label text-text-action uppercase">
+                {figure.label}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+}
+
+function SplitVisual({ config, sizes }: { config: SplitSection; sizes: string }) {
+  return config.browserUrl ? (
+    <BrowserFrame image={config.image} browserUrl={config.browserUrl} />
+  ) : (
+    <Image
+      className={cn(
+        'h-auto w-full rounded-md border border-border-default',
+        config.image.className,
+      )}
+      src={config.image.src}
+      alt={config.image.alt}
+      width={config.image.width}
+      height={config.image.height}
+      sizes={sizes}
+    />
+  );
+}
+
 function PortfolioSplit({ config }: { config: SplitSection }) {
+  if (config.textSide === 'above') {
+    return (
+      <section
+        className={cn(
+          'text-text-secondary',
+          config.background === 'tint' ? 'bg-surface-tint' : 'bg-surface-page',
+        )}
+      >
+        <div className="site-shell py-section">
+          <SectionHeader
+            eyebrow={config.eyebrow}
+            title={config.title}
+            accentTitle={config.accentTitle}
+            size="display-sm"
+            titleBreak="always"
+          />
+          <div className="mt-ml max-w-[62ch] text-lead leading-[1.74] text-text-muted [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+            <SplitWords config={config} />
+          </div>
+          {config.speedCheck && (
+            <div className="mt-l max-w-[560px]">
+              <SpeedCheckForm />
+            </div>
+          )}
+          <div className="mt-2xl">
+            <SplitVisual config={config} sizes="(min-width: 1280px) 1200px, 100vw" />
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <SplitFeatureSection
       eyebrow={config.eyebrow}
       title={config.title}
       accentTitle={config.accentTitle}
-      description={
-        <>
-          <p>{config.description}</p>
-          {config.figures && (
-            // The reports' readings: the figure heavy and black under a black
-            // rule, the label in the accent beneath.
-            <ul className="m-0 mt-l grid list-none grid-cols-2 gap-l border-t-2 border-text-primary p-0 pt-m">
-              {config.figures.map((figure) => (
-                <li key={figure.label}>
-                  <strong className="block text-title font-heavy tracking-[-0.04em] whitespace-nowrap text-text-primary tabular-nums">
-                    {figure.value}
-                  </strong>
-                  <span className="mt-2xs block text-label font-heavy tracking-label text-text-action uppercase">
-                    {figure.label}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </>
-      }
+      description={<SplitWords config={config} />}
       action={config.speedCheck ? <SpeedCheckForm /> : undefined}
-      visual={
-        config.browserUrl ? (
-          <BrowserFrame image={config.image} browserUrl={config.browserUrl} />
-        ) : (
-          <Image
-            className={cn(
-              'h-auto w-full rounded-md border border-border-default',
-              config.image.className,
-            )}
-            src={config.image.src}
-            alt={config.image.alt}
-            width={config.image.width}
-            height={config.image.height}
-            sizes="(min-width: 1024px) 55vw, 100vw"
-          />
-        )
-      }
+      visual={<SplitVisual config={config} sizes="(min-width: 1024px) 55vw, 100vw" />}
       textSide={config.textSide}
       background={config.background}
     />
+  );
+}
+
+function PortfolioIntro({ config }: { config: IntroSection }) {
+  return (
+    <Introduction eyebrow={config.eyebrow} title={config.title} accentTitle={config.accentTitle}>
+      {config.description}
+    </Introduction>
   );
 }
 
@@ -533,21 +589,23 @@ function CaseSectionView({ section }: { section: CaseSection }) {
       return <PortfolioIntent config={section} />;
     case 'growth':
       return <PortfolioGrowth config={section} />;
+    case 'intro':
+      return <PortfolioIntro config={section} />;
     case 'split':
       return <PortfolioSplit config={section} />;
   }
 }
 
-/** Derives the "01 / ..." eyebrow numbers from section order. */
+/** Derives the "01 / ..." eyebrow numbers from section order; an intro is a preface and takes none. */
 function withSectionNumbers(config: PortfolioCaseStudyConfig): PortfolioCaseStudyConfig {
-  const numbered = numberSections([...config.sections.map((s) => s.eyebrow), config.faq.eyebrow]);
+  const counted = config.sections.filter((s) => s.kind !== 'intro');
+  const numbered = numberSections([...counted.map((s) => s.eyebrow), config.faq.eyebrow]);
 
   return {
     ...config,
-    sections: config.sections.map((section) => ({
-      ...section,
-      eyebrow: numbered[section.eyebrow],
-    })),
+    sections: config.sections.map((section) =>
+      section.kind === 'intro' ? section : { ...section, eyebrow: numbered[section.eyebrow] },
+    ),
     faq: { ...config.faq, eyebrow: numbered[config.faq.eyebrow] },
   };
 }
