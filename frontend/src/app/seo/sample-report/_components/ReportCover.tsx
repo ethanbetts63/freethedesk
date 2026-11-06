@@ -1,3 +1,4 @@
+import { SiteShot } from '@/components/visuals/SiteShot';
 import { Wordmark } from '@/components/Wordmark';
 import { cn } from '@/lib/utils';
 
@@ -36,24 +37,13 @@ export function ReportCover() {
             <strong className="font-semibold text-text-secondary">{BUSINESS.period}</strong>.
           </p>
 
-          <div className="relative mt-xl mb-2xl sm:mb-3xl">
-            <figure className="m-0 overflow-hidden rounded-md border border-border-default bg-surface-page shadow-block-m">
-              <div className="flex h-l items-center gap-3xs border-b border-border-default bg-surface-muted px-xs">
-                <i className="size-xs rounded-circle bg-fill-danger" />
-                <i className="size-xs rounded-circle bg-fill-warning" />
-                <i className="size-xs rounded-circle bg-fill-success" />
-                <span className="mx-auto rounded-xs border border-border-default bg-surface-page px-m py-4xs text-caption text-text-subtle">
-                  {BUSINESS.host}
-                </span>
-              </div>
-              <DesktopMock />
-              <figcaption className="sr-only">
-                The invented business’s homepage on a desktop, and the same page on a phone.
-              </figcaption>
-            </figure>
-            <div className="absolute right-s -bottom-xl w-1/4 min-w-20 sm:right-l sm:-bottom-2xl">
-              <PhoneMock />
-            </div>
+          <div className="mt-xl mb-2xl sm:mb-3xl">
+            <SiteShot
+              url={BUSINESS.host}
+              desktop={<DesktopMock />}
+              phone={<PhoneMock />}
+              caption="The invented business’s homepage on a desktop, and the same page on a phone."
+            />
           </div>
 
           <dl className="m-0 grid grid-cols-2 gap-x-m border-t-2 border-text-primary sm:grid-cols-4">

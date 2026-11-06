@@ -15,8 +15,6 @@ export type PortfolioTourItem = {
   alt: string;
   width: number;
   height: number;
-  url: string;
-  linkLabel: string;
 };
 
 type PortfolioTourProps = {
@@ -140,14 +138,6 @@ export function PortfolioTour({ label, browserUrl, items }: PortfolioTourProps) 
           }}
           browserUrl={browserUrl}
         />
-        <a
-          className="mt-m inline-flex gap-m border-b border-text-primary pb-3xs text-label font-heavy lg:float-right"
-          href={active.url}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {active.linkLabel} <span>↗</span>
-        </a>
       </div>
     </div>
   );

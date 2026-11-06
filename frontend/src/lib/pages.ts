@@ -142,7 +142,7 @@ export const STATIC_PAGES = {
       'Practical guides for Perth businesses on SEO, website development and what each costs, with automation and dealer licensing besides.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-11-04',
+    updated: '2026-11-06',
     label: 'Scooter Shop',
     title: 'Perth Dealer Website Case Study: Scooter Shop',
     description:
@@ -150,7 +150,7 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {
-    updated: '2026-11-04',
+    updated: '2026-11-06',
     label: 'Bloomprint',
     title: 'Marketplace Website Case Study: Bloomprint',
     description:

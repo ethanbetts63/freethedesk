@@ -36,46 +36,6 @@ const config = {
       width: 390,
       height: 844,
     },
-    liveLabel: 'Live dealership website',
-    capabilities: ['Strategy', 'Design', 'Development', 'SEO'],
-  },
-  proof: {
-    id: 'results',
-    stats: [
-      {
-        value: SCOOTER_SHOP_GROWTH.stat,
-        label: 'Organic clicks',
-        description: `Google Search Console, ${SCOOTER_SHOP_GROWTH.period}.`,
-      },
-      {
-        value: '08',
-        label: 'Connected capabilities',
-        description: 'From first search to service after the sale.',
-      },
-      {
-        value: '01',
-        label: 'Dealership system',
-        description: 'Customer journeys and daily operations designed together.',
-      },
-    ],
-  },
-  intro: {
-    eyebrow: 'The brief',
-    title: { lines: ['Not a brochure.', 'A working dealership.'] },
-    paragraphs: [
-      'Scooter Shop needed to represent several very different parts of the business without making the experience feel fragmented. Customers should be able to discover stock, make a decision, buy, find a part or book the workshop without starting again each time.',
-    ],
-    capabilities: [
-      'Inventory',
-      'Online purchasing',
-      'Licensing',
-      'Parts',
-      'Service bookings',
-      'Hire',
-      'Guides',
-      'SEO',
-    ],
-    showCta: false,
   },
   tour: {
     eyebrow: 'The customer experience',
@@ -92,8 +52,6 @@ const config = {
         alt: 'Used motorcycle inventory with buying steps, stock alert and filters',
         width: 1440,
         height: 960,
-        url: 'https://www.scootershop.com.au/inventory/motorcycles/used',
-        linkLabel: 'Open this page live',
       },
       {
         number: '02',
@@ -104,8 +62,6 @@ const config = {
         alt: 'Ducati vehicle detail page with photography, price and reserve option',
         width: 1440,
         height: 960,
-        url: 'https://www.scootershop.com.au/inventory/motorcycles/2013-ducati-streetfighter-848-41',
-        linkLabel: 'Open this page live',
       },
       {
         number: '03',
@@ -116,8 +72,6 @@ const config = {
         alt: 'Online motorcycle service booking form',
         width: 1440,
         height: 960,
-        url: 'https://www.scootershop.com.au/service',
-        linkLabel: 'Open this page live',
       },
       {
         number: '04',
@@ -128,8 +82,6 @@ const config = {
         alt: 'SYM visual parts catalogue with exploded diagram and matching parts list',
         width: 1440,
         height: 960,
-        url: 'https://www.scootershop.com.au/parts/new/sym/crox50-ae05w6-ru/e03-cam-shaft-cyl-head-l-side-cover',
-        linkLabel: 'Open this page live',
       },
     ],
   },
@@ -138,11 +90,6 @@ const config = {
     title: 'Designed for the screen customers use.',
     description:
       'For Scooter Shop we found that an average of 66% of users are browsing on mobile. That is why every journey starts with the smallest screen in our process—not as a reduced version of desktop.',
-    stat: {
-      value: '66%',
-      label: 'of dealership users are on mobile',
-      description: 'Average across the Australian dealership traffic we see.',
-    },
     image: {
       src: '/case-studies/scooter-shop/inventory-mobile.png',
       alt: 'Responsive Scooter Shop inventory page showing the online buying steps',
@@ -193,84 +140,7 @@ const config = {
     eyebrow: 'High-intent pages',
     title: { lines: ['Search pages built', 'around customer intent.'] },
     description:
-      'Different customers reveal different intent in the way they search: a Vespa service, a used motorcycle or a specific SYM part. We build focused pages around those searches to capture more high-intent organic traffic—then give each visitor a more relevant next step.',
-    groups: [
-      {
-        number: '01',
-        title: 'Ready to buy',
-        pages: [
-          { label: 'New Scooters', href: 'https://www.scootershop.com.au/inventory/scooters/new' },
-          {
-            label: 'Used Scooters',
-            href: 'https://www.scootershop.com.au/inventory/scooters/used',
-          },
-          {
-            label: 'Used Motorcycles',
-            href: 'https://www.scootershop.com.au/inventory/motorcycles/used',
-          },
-          { label: 'E-Scooters', href: 'https://www.scootershop.com.au/escooters' },
-          {
-            label: '50cc Scooters Perth',
-            href: 'https://www.scootershop.com.au/50cc-scooters-perth',
-          },
-          {
-            label: '125cc Scooters Perth',
-            href: 'https://www.scootershop.com.au/125cc-scooters-perth',
-          },
-          {
-            label: '250cc Scooters Perth',
-            href: 'https://www.scootershop.com.au/250cc-scooters-perth',
-          },
-        ],
-      },
-      {
-        number: '02',
-        title: 'Need the workshop',
-        pages: [
-          { label: 'Servicing', href: 'https://www.scootershop.com.au/service' },
-          { label: 'Tyre Fitting', href: 'https://www.scootershop.com.au/tyre-fitting' },
-          {
-            label: 'Scooter Service North Perth',
-            href: 'https://www.scootershop.com.au/scooter-service-north-perth',
-          },
-        ],
-      },
-      {
-        number: '03',
-        title: 'Brand, parts or hire',
-        pages: [
-          { label: 'SYM Scooters', href: 'https://www.scootershop.com.au/sym' },
-          { label: 'SYM Parts', href: 'https://www.scootershop.com.au/parts/new/sym' },
-          { label: 'Electric Mopeds Perth', href: 'https://www.scootershop.com.au/segway' },
-          { label: 'Patrol Mountain Bikes', href: 'https://www.scootershop.com.au/patrol' },
-          { label: 'Motorcycle Hire Perth', href: 'https://www.scootershop.com.au/hire' },
-        ],
-      },
-      {
-        number: '04',
-        title: 'Local and researching',
-        pages: [
-          { label: 'Motorcycles Perth', href: 'https://www.scootershop.com.au/motorcycles-perth' },
-          {
-            label: 'Used Vespa Scooters Perth',
-            href: 'https://www.scootershop.com.au/vespa-perth',
-          },
-          { label: 'Scooters Morley', href: 'https://www.scootershop.com.au/scooters-morley' },
-          {
-            label: 'Scooters Mount Lawley',
-            href: 'https://www.scootershop.com.au/scooters-mount-lawley',
-          },
-          {
-            label: 'Scooters Rockingham',
-            href: 'https://www.scootershop.com.au/scooters-rockingham',
-          },
-          {
-            label: 'Car vs Moped Cost Calculator',
-            href: 'https://www.scootershop.com.au/commute-cost-calculator',
-          },
-        ],
-      },
-    ],
+      'A service, a used bike, a part: each search gets its own page and a relevant next step.',
   },
   seo: {
     eyebrow: 'SEO growth',

@@ -1,6 +1,5 @@
 import Image from 'next/image';
 
-import { cn } from '@/lib/utils';
 import { TrafficLights } from '@/components/visuals/chrome';
 
 export type PortfolioImage = {
@@ -12,7 +11,8 @@ export type PortfolioImage = {
 };
 
 /**
- * The browser mockup wrapping every case-study screenshot.
+ * The browser mockup wrapping the case-study tour screenshots; the hero's is
+ * `SiteShot`, shared with the sample report's cover.
  *
  * The site draws five browser windows in total — this one, the two feature
  * visuals, the flow card and the SEO redirect illustration — at four different
@@ -24,19 +24,9 @@ export type PortfolioImage = {
 const caseBrowserClassName =
   'overflow-hidden rounded-md border border-border-strong bg-surface-page shadow-block-s [&>img]:block [&>img]:h-auto [&>img]:w-full';
 
-export function BrowserFrame({
-  image,
-  browserUrl,
-  hero = false,
-}: {
-  image: PortfolioImage;
-  browserUrl: string;
-  hero?: boolean;
-}) {
+export function BrowserFrame({ image, browserUrl }: { image: PortfolioImage; browserUrl: string }) {
   return (
-    // A half-degree of rotation on the hero only: enough to read as a real
-    // window sitting on the page rather than a flat screenshot.
-    <div className={cn(caseBrowserClassName, hero && 'rotate-[0.5deg]')}>
+    <div className={caseBrowserClassName}>
       <div className="flex h-[32px] items-center gap-2xs border-b border-border-default bg-surface-tint-strong px-s">
         <TrafficLights />
         <span className="mx-auto rounded-xs bg-surface-page px-l py-3xs text-caption text-text-subtle lg:px-2xl">
@@ -50,7 +40,6 @@ export function BrowserFrame({
         alt={image.alt}
         width={image.width}
         height={image.height}
-        priority={hero}
       />
     </div>
   );

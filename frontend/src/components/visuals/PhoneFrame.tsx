@@ -14,7 +14,6 @@ import { cn } from '@/lib/utils';
  * and placement differ by size:
  *
  *   diagram    175 wide, a phone-shaped screen. Invented contents, not a screenshot.
- *   inset      pinned into a larger composition; grows 84 -> 105 -> 160.
  *   standalone free-standing, 218 growing to 250.
  *   fill       the width of whatever holds it, the screen as tall as its contents.
  *
@@ -23,15 +22,9 @@ import { cn } from '@/lib/utils';
  */
 /* eslint-disable no-restricted-syntax -- A drawn object, not an interface element:
    these are the cover handset's own proportions, as shares of its width, and its
-   placements in the compositions it is pinned into. No token means either. */
+   placement when it stands alone. No token means either. */
 const SIZES = {
   diagram: { frame: 'relative w-[175px] flex-none', phoneScreen: true, hidden: true },
-  inset: {
-    frame:
-      'absolute bottom-[10px] left-[-6px] z-3 w-[84px] sm:bottom-0 sm:left-0 sm:w-[105px] lg:w-[160px]',
-    phoneScreen: true,
-    hidden: true,
-  },
   standalone: { frame: 'relative z-2 w-[218px] lg:w-[250px]', phoneScreen: true, hidden: true },
   fill: { frame: 'w-full', phoneScreen: false, hidden: false },
 } as const;
@@ -76,12 +69,5 @@ export function FloatingPill({ children, className }: { children: ReactNode; cla
     >
       {children}
     </div>
-  );
-}
-
-/** The green dot that opens the hero's "live" pill. */
-export function LiveMark() {
-  return (
-    <i className="h-[7px] w-[7px] rounded-circle bg-[var(--status-won)] shadow-halo [--ring-halo-colour:var(--status-won)]" />
   );
 }

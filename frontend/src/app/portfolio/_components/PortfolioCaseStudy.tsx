@@ -9,20 +9,19 @@ import type { FaqItem } from '@/types/FaqItem';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
 import { CtaButton } from '@/components/CtaButton';
-import { ProofStrip, type ProofStat } from '@/components/ProofStrip';
-import { ScrollCtaButton } from '@/components/common/ScrollCtaButton';
 import { SectionNumber } from '@/components/SectionNumber';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
 import type { PagePath } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
 
-import { BrowserFrame, type PortfolioImage } from './BrowserFrame';
+import type { PortfolioImage } from './BrowserFrame';
 import { PortfolioEnquiryCta } from './PortfolioEnquiryCta';
 import { PortfolioTour, type PortfolioTourItem } from './PortfolioTour';
 import { heroGridClassName } from '@/lib/gridSurface';
 import { cn } from '@/lib/utils';
-import { FloatingPill, LiveMark, PhoneFrame } from '@/components/visuals/PhoneFrame';
+import { FloatingPill, PhoneFrame } from '@/components/visuals/PhoneFrame';
+import { SiteShot } from '@/components/visuals/SiteShot';
 
 type LineHeading = {
   lines: readonly string[];
@@ -33,7 +32,6 @@ type MobileStory = {
   eyebrow: string;
   title: string;
   description: string;
-  stat: ProofStat;
   image: PortfolioImage;
   callout: string;
 };
@@ -41,7 +39,7 @@ type MobileStory = {
 type SectionHeading = {
   eyebrow: string;
   title: LineHeading;
-  description: string;
+  description?: string;
 };
 
 type OperationsFeature = SectionHeading & {
@@ -68,25 +66,7 @@ type DualStepsFeature = SectionHeading & {
   }[];
 };
 
-type MediaFeature = {
-  eyebrow: string;
-  title: string;
-  description: string;
-  points: readonly string[];
-  image: PortfolioImage;
-  browserUrl: string;
-  reverse?: boolean;
-  tinted?: boolean;
-};
-
-type IntentSection = SectionHeading & {
-  groups: readonly {
-    number: string;
-    title: string;
-    /** Each one a live page on the client's site, so the arrow beside it is a real link. */
-    pages: readonly { label: string; href: string }[];
-  }[];
-};
+type IntentSection = SectionHeading;
 
 export type PortfolioCaseStudyConfig = {
   path: PagePath;
@@ -98,19 +78,6 @@ export type PortfolioCaseStudyConfig = {
     browserUrl: string;
     desktopImage: PortfolioImage;
     mobileImage: PortfolioImage;
-    liveLabel: string;
-    capabilities: readonly string[];
-  };
-  proof: {
-    id: string;
-    stats: readonly ProofStat[];
-  };
-  intro: {
-    eyebrow: string;
-    title: LineHeading;
-    paragraphs: readonly string[];
-    capabilities: readonly string[];
-    showCta?: boolean;
   };
   tour: {
     eyebrow: string;
@@ -121,7 +88,6 @@ export type PortfolioCaseStudyConfig = {
   };
   mobile: MobileStory;
   feature: OperationsFeature | DualStepsFeature;
-  mediaFeatures?: readonly MediaFeature[];
   intent: IntentSection;
   seo: {
     eyebrow: string;
@@ -172,9 +138,17 @@ const caseSectionHeadingClassName =
 const caseButtonRowClassName =
   'flex flex-col flex-wrap items-start gap-l sm:flex-row sm:items-center';
 
-function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] }) {
+function PortfolioHero({
+  config,
+  path,
+}: {
+  config: PortfolioCaseStudyConfig['hero'];
+  path: PortfolioCaseStudyConfig['path'];
+}) {
   return (
     <section className="relative min-h-auto overflow-hidden py-3xl lg:min-h-[720px]">
+      {/* Top right in the hero, as every page with a hero places its trail. */}
+      <Breadcrumbs path={path} variant="overlay" />
       <div
         className={cn(
           heroGridClassName,
@@ -199,73 +173,36 @@ function PortfolioHero({ config }: { config: PortfolioCaseStudyConfig['hero'] })
             <CtaButton href={config.liveHref} target="_blank" rel="noreferrer">
               Visit the live website
             </CtaButton>
-            <ScrollCtaButton
-              targetId="tour"
-              classes="cursor-pointer appearance-none border-0 border-b border-b-text-primary bg-transparent pt-3xs pb-2xs font-[inherit] text-body font-heavy text-inherit [&>span]:ml-xs"
-            >
-              Explore the build <span>↓</span>
-            </ScrollCtaButton>
-          </div>
-          <div className="mt-xl flex flex-wrap gap-x-l gap-y-s border-t border-border-default pt-m lg:mt-2xl [&>span]:text-label [&>span]:font-heavy [&>span]:tracking-label-tight [&>span]:text-text-subtle [&>span]:uppercase">
-            {config.capabilities.map((capability) => (
-              <span key={capability}>{capability}</span>
-            ))}
           </div>
         </div>
 
-        {/* Bleeds past the page rail from lg so the window runs off the edge.
-            The negative margins are literal: there is no token for absence. */}
-        {/* eslint-disable-next-line no-restricted-syntax -- A bleed, not spacing: the
-          panel overhangs its column by however much the artwork beside it needs,
-          measured against the image rather than chosen from the scale. */}
-        <div className="relative m-0 pt-l pr-0 pb-2xl pl-s sm:pl-xl lg:mr-[-190px] lg:pt-xl lg:pl-2xl xl:mr-[-105px]">
-          <BrowserFrame image={config.desktopImage} browserUrl={config.browserUrl} hero />
-          <PhoneFrame size="inset">
-            <Image
-              className={config.mobileImage.className}
-              src={config.mobileImage.src}
-              alt={config.mobileImage.alt}
-              width={config.mobileImage.width}
-              height={config.mobileImage.height}
-              priority
-            />
-          </PhoneFrame>
-          <FloatingPill className="top-[9px] right-[-4px] shadow-block-s lg:right-[22px]">
-            <LiveMark /> {config.liveLabel}
-          </FloatingPill>
+        {/* Room under the shot for the phone's overhang; the shot itself keeps
+            to the shell, as the sample report's cover does (owner, 2026-11-06). */}
+        <div className="relative pt-l pb-3xl sm:pb-section lg:pt-xl">
+          <SiteShot
+            url={config.browserUrl}
+            desktop={
+              <Image
+                className={config.desktopImage.className}
+                src={config.desktopImage.src}
+                alt={config.desktopImage.alt}
+                width={config.desktopImage.width}
+                height={config.desktopImage.height}
+                priority
+              />
+            }
+            phone={
+              <Image
+                className={config.mobileImage.className}
+                src={config.mobileImage.src}
+                alt={config.mobileImage.alt}
+                width={config.mobileImage.width}
+                height={config.mobileImage.height}
+                priority
+              />
+            }
+          />
         </div>
-      </div>
-    </section>
-  );
-}
-
-function PortfolioIntro({ config }: { config: PortfolioCaseStudyConfig['intro'] }) {
-  return (
-    <section
-      className="section site-shell grid grid-cols-[minmax(0,1fr)] gap-xl py-section lg:grid-cols-[minmax(0,0.42fr)_minmax(0,1.58fr)] lg:gap-section"
-      id="overview"
-    >
-      <SectionNumber>{config.eyebrow}</SectionNumber>
-      <div className="max-w-[880px]">
-        <h2 className={caseHeadingClassName}>
-          <HeadingLines heading={config.title} />
-        </h2>
-        {config.paragraphs.map((paragraph) => (
-          <p
-            key={paragraph}
-            className="my-xl max-w-[720px] text-lead leading-[1.72] text-text-muted"
-          >
-            {paragraph}
-          </p>
-        ))}
-        {/* One row per capability on a phone, two from sm, four from lg. The
-            dot is a ::before so the text can wrap under itself. */}
-        <div className="grid grid-cols-[minmax(0,1fr)] border-t border-border-default sm:grid-cols-2 lg:grid-cols-4 [&>span]:relative [&>span]:border-b [&>span]:border-border-default [&>span]:py-m [&>span]:pr-xs [&>span]:pl-ml [&>span]:text-body-sm [&>span]:font-strong [&>span]:text-text-muted [&>span]:before:absolute [&>span]:before:top-[21px] [&>span]:before:left-[2px] [&>span]:before:h-[5px] [&>span]:before:w-[5px] [&>span]:before:rounded-circle [&>span]:before:bg-action-primary [&>span]:before:content-['']">
-          {config.capabilities.map((capability) => (
-            <span key={capability}>{capability}</span>
-          ))}
-        </div>
-        {config.showCta !== false && <PortfolioEnquiryCta />}
       </div>
     </section>
   );
@@ -295,20 +232,6 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
           <SectionNumber>{config.eyebrow}</SectionNumber>
           <h2 className={caseHeadingClassName}>{config.title}</h2>
           <p className={cn(caseLeadClassName, 'mt-xl mb-0 max-w-[540px]')}>{config.description}</p>
-          <div className="mt-xl grid max-w-[540px] grid-cols-[auto_minmax(0,1fr)] items-center gap-l border-y border-border-default py-ml">
-            {/* The trailing padding is optical kerning after the last glyph:
-                em-relative to the number's own size, not interface spacing. */}
-            {/* eslint-disable-next-line no-restricted-syntax -- Optical kerning after the final glyph: em-relative to the numeral's own size, not interface spacing. */}
-            <strong className="moving-colour-text pr-[0.08em] text-hero leading-[0.85] tracking-[-0.08em]">
-              {config.stat.value}
-            </strong>
-            <span className="block">
-              <b className="block text-body leading-[1.35]">{config.stat.label}</b>
-              <small className="mt-2xs block text-caption leading-normal text-text-subtle">
-                {config.stat.description}
-              </small>
-            </span>
-          </div>
           <PortfolioEnquiryCta />
         </div>
         {/* Graph paper at its own scale: this is a stage for a drawn object,
@@ -476,9 +399,11 @@ function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig['featur
               <HeadingLines heading={config.title} />
             </h2>
           </div>
-          <p className="m-0 max-w-[540px] self-end text-lead leading-[1.72] text-[color-mix(in_srgb,var(--surface-page)_78%,transparent)]">
-            {config.description}
-          </p>
+          {config.description && (
+            <p className="m-0 max-w-[540px] self-end text-lead leading-[1.72] text-[color-mix(in_srgb,var(--surface-page)_78%,transparent)]">
+              {config.description}
+            </p>
+          )}
         </div>
         {config.variant === 'operations' ? (
           <OperationsConsole config={config.console} />
@@ -490,80 +415,28 @@ function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig['featur
   );
 }
 
-function PortfolioMediaFeature({ config }: { config: MediaFeature }) {
-  return (
-    <section className={config.tinted ? 'bg-surface-tint py-section' : 'section'}>
-      <div className="site-shell grid grid-cols-[minmax(0,1fr)] items-center gap-2xl lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] xl:gap-3xl">
-        {/* Reversed bands put the copy second from lg; on a phone it always
-            leads, so the order swap is a breakpoint away. */}
-        <div className={cn(config.reverse && 'lg:order-2')}>
-          <SectionNumber>{config.eyebrow}</SectionNumber>
-          <h2 className="m-0 text-display leading-[1] tracking-[-0.062em]">{config.title}</h2>
-          <p className={cn(caseLeadClassName, 'my-xl max-w-copy')}>{config.description}</p>
-          <div className="grid grid-cols-[minmax(0,1fr)] border-t border-border-default sm:grid-cols-2 [&>span]:border-b [&>span]:border-border-default [&>span]:py-s [&>span]:text-label [&>span]:font-heavy [&>span]:text-text-muted">
-            {config.points.map((point) => (
-              <span key={point}>{point}</span>
-            ))}
-          </div>
-          <PortfolioEnquiryCta />
-        </div>
-        <div>
-          <BrowserFrame image={config.image} browserUrl={config.browserUrl} />
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function PortfolioIntent({ config }: { config: IntentSection }) {
   return (
     <section className="bg-surface-tint py-section" id="search-structure">
-      <div className="site-shell">
-        <div className="mb-2xl grid grid-cols-[minmax(0,1fr)] items-start gap-xl lg:mb-3xl lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-2xl xl:gap-section">
-          <div>
-            <SectionNumber>{config.eyebrow}</SectionNumber>
-            <h2 className="m-0 text-hero leading-[0.95] tracking-[-0.068em]">
-              <HeadingLines heading={config.title} />
-            </h2>
-          </div>
-          <p className={cn(caseLeadClassName, 'm-0 max-w-[530px]')}>{config.description}</p>
+      <div className="site-shell grid grid-cols-[minmax(0,1fr)] items-center gap-2xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:gap-3xl">
+        <div>
+          <SectionNumber>{config.eyebrow}</SectionNumber>
+          <h2 className="m-0 text-hero leading-[0.95] tracking-[-0.068em]">
+            <HeadingLines heading={config.title} />
+          </h2>
+          <p className={cn(caseLeadClassName, 'my-xl max-w-[520px]')}>{config.description}</p>
+          <PortfolioEnquiryCta />
         </div>
-        {/* One column on a phone, two from lg, four from xl. The outer rules
-            come from the grid's own top and left borders; every cell draws its
-            own right and bottom so they never double up. */}
-        <div className="grid grid-cols-[minmax(0,1fr)] border-t border-l border-border-strong lg:grid-cols-2 xl:grid-cols-4">
-          {config.groups.map((group) => (
-            <article
-              className="flex flex-col border-r border-b border-border-strong px-l py-xl lg:min-h-[420px] xl:min-h-[460px]"
-              key={group.number}
-            >
-              <header className="lg:min-h-[118px]">
-                <span className="mb-ml block text-label font-black text-text-action lg:mb-xl">
-                  {group.number}
-                </span>
-                <h3 className="m-0 text-lead tracking-[-0.035em]">{group.title}</h3>
-              </header>
-              {/* Pinned to the bottom of the card from lg, where the cards
-                  share a height and the headers are padded to match. */}
-              <ul className="mx-0 mt-xl mb-0 list-none p-0 lg:mt-auto">
-                {group.pages.map((page) => (
-                  <li className="border-t border-border-default" key={page.href}>
-                    <a
-                      className="flex items-center justify-between py-s text-label font-strong leading-[1.35] text-text-muted transition-colors hover:text-text-primary"
-                      href={page.href}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {page.label}
-                      <span className="ml-xs text-label text-text-action">↗</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-        <PortfolioEnquiryCta />
+        {/* The guide's picture of a search, in place of the lists of pages
+            (owner, 2026-11-06), framed as the guides frame theirs. */}
+        <Image
+          src="/images/guides/business-not-showing-up-on-google.webp"
+          alt=""
+          width={1536}
+          height={1024}
+          sizes="(min-width: 1024px) 55vw, 100vw"
+          className="aspect-[3/2] h-auto w-full rounded-lg border border-border-default object-cover"
+        />
       </div>
     </section>
   );
@@ -598,13 +471,10 @@ function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, 's
 
 /** Derives the "01 / ..." eyebrow numbers from section order. */
 function withSectionNumbers(config: PortfolioCaseStudyConfig): PortfolioCaseStudyConfig {
-  const mediaFeatures = config.mediaFeatures ?? [];
   const numbered = numberSections([
-    config.intro.eyebrow,
     config.tour.eyebrow,
     config.mobile.eyebrow,
     config.feature.eyebrow,
-    ...mediaFeatures.map((feature) => feature.eyebrow),
     config.intent.eyebrow,
     config.seo.eyebrow,
     config.faq.eyebrow,
@@ -612,14 +482,9 @@ function withSectionNumbers(config: PortfolioCaseStudyConfig): PortfolioCaseStud
 
   return {
     ...config,
-    intro: { ...config.intro, eyebrow: numbered[config.intro.eyebrow] },
     tour: { ...config.tour, eyebrow: numbered[config.tour.eyebrow] },
     mobile: { ...config.mobile, eyebrow: numbered[config.mobile.eyebrow] },
     feature: { ...config.feature, eyebrow: numbered[config.feature.eyebrow] },
-    mediaFeatures: mediaFeatures.map((feature) => ({
-      ...feature,
-      eyebrow: numbered[feature.eyebrow],
-    })),
     intent: { ...config.intent, eyebrow: numbered[config.intent.eyebrow] },
     seo: { ...config.seo, eyebrow: numbered[config.seo.eyebrow] },
     faq: { ...config.faq, eyebrow: numbered[config.faq.eyebrow] },
@@ -632,17 +497,11 @@ export function PortfolioCaseStudy({ config: rawConfig }: { config: PortfolioCas
   return (
     <main className="case-page">
       <PageSchema path={config.path} />
-      <PortfolioHero config={config.hero} />
+      <PortfolioHero config={config.hero} path={config.path} />
 
-      <Breadcrumbs path={config.path} />
-      <PortfolioIntro config={config.intro} />
-      <ProofStrip id={config.proof.id} stats={config.proof.stats} />
       <PortfolioTourSection config={config.tour} />
       <PortfolioMobileStory config={config.mobile} />
       <PortfolioFeature config={config.feature} />
-      {config.mediaFeatures?.map((feature) => (
-        <PortfolioMediaFeature config={feature} key={feature.eyebrow} />
-      ))}
       <PortfolioIntent config={config.intent} />
       <PortfolioEnding config={config} />
       <RelatedPages path={config.path} />

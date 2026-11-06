@@ -35,46 +35,6 @@ const config = {
       width: 390,
       height: 844,
     },
-    liveLabel: 'Live marketplace',
-    capabilities: ['Strategy', 'Design', 'Development', 'SEO'],
-  },
-  proof: {
-    id: 'build',
-    stats: [
-      {
-        value: '02',
-        label: 'Sides of a marketplace',
-        description: 'Customer ordering and florist supply designed as one system.',
-      },
-      {
-        value: '06',
-        label: 'Delivery cities live',
-        description: 'Perth, Sydney, Melbourne, Brisbane, Adelaide and Hobart.',
-      },
-      {
-        value: '20+',
-        label: 'Pages built to be found',
-        description: 'City, occasion, subscription and guide pages feeding one order engine.',
-      },
-    ],
-  },
-  intro: {
-    eyebrow: 'The brief',
-    title: { lines: ['Sell a brief,', 'not a bouquet photo.'] },
-    paragraphs: [
-      'Online flower delivery usually means scrolling near-identical warehouse bouquets and hoping the photo resembles what turns up. Bloomprint works the other way around: the customer sets the occasion, the budget and their preferences, and an independent florist near the recipient designs to that brief from what is fresh that day.',
-      'That is a harder website. It needs an ordering experience that captures intent instead of a product ID, a supply-side product that convinces working florists to sign up, and enough of a search presence to sell a name nobody is looking up yet.',
-    ],
-    capabilities: [
-      'Brief builder',
-      'Custom budgets',
-      'Checkout',
-      'Delivery scheduling',
-      'Florist onboarding',
-      'Order routing',
-      'Subscriptions',
-      'Landing pages',
-    ],
   },
   tour: {
     eyebrow: 'The experience',
@@ -91,8 +51,6 @@ const config = {
         alt: 'Bloomprint order builder showing budget tiers, custom preferences, delivery date and card message',
         width: 1440,
         height: 681,
-        url: 'https://www.bloomprint.com.au/',
-        linkLabel: 'Open the order builder',
       },
       {
         number: '02',
@@ -103,8 +61,6 @@ const config = {
         alt: 'Bloomprint checkout step two collecting sender and recipient details',
         width: 1440,
         height: 681,
-        url: 'https://www.bloomprint.com.au/',
-        linkLabel: 'Start an order live',
       },
       {
         number: '03',
@@ -115,20 +71,6 @@ const config = {
         alt: 'Bloomprint florist signup page with account creation form',
         width: 1440,
         height: 681,
-        url: 'https://www.bloomprint.com.au/florists',
-        linkLabel: 'Open the florist page',
-      },
-      {
-        number: '04',
-        label: 'Local landing pages',
-        title: 'Every city gets a real page, not a swapped-out word.',
-        copy: 'City pages carry their own copy, delivery information and suburb coverage—then hand the visitor the same order builder as the homepage, already framed around a local florist.',
-        src: '/case-studies/bloomprint/city-desktop.png',
-        alt: 'Bloomprint Perth flower delivery landing page with the order builder',
-        width: 1440,
-        height: 681,
-        url: 'https://www.bloomprint.com.au/flower-delivery-perth',
-        linkLabel: 'Open the Perth page',
       },
     ],
   },
@@ -137,17 +79,11 @@ const config = {
     title: 'The whole order works on mobile.',
     description:
       'Flower orders often begin on a phone, so the brief, budget, delivery details and payment path were designed for the smallest screen first. The mobile journey is the product—not a compressed desktop checkout.',
-    stat: {
-      value: '03',
-      label: 'steps from brief to payment',
-      description: 'One continuous mobile journey with the customer’s choices carried forward.',
-    },
     image: {
-      src: '/case-studies/bloomprint/brief-desktop.png',
-      alt: 'Bloomprint order brief shown in a mobile frame',
-      width: 1440,
-      height: 681,
-      className: 'h-full! object-cover object-[72%_top]',
+      src: '/case-studies/bloomprint/home-mobile.png',
+      alt: 'Bloomprint homepage and order builder on a phone',
+      width: 390,
+      height: 844,
     },
     callout: 'Brief stays attached',
   },
@@ -155,8 +91,6 @@ const config = {
     variant: 'dual-steps',
     eyebrow: 'Both sides',
     title: { lines: ['One marketplace.', 'Two customers.'] },
-    description:
-      'A customer journey that ends in a beautiful order is worthless if no florist wants to make it. Both sides were designed together, so what the customer is asked for is exactly what the florist needs to start work.',
     columns: [
       {
         label: 'Demand',
@@ -188,107 +122,11 @@ const config = {
       },
     ],
   },
-  mediaFeatures: [
-    {
-      eyebrow: 'Pricing as a product decision',
-      title: 'The budget is set before anything is designed.',
-      description:
-        'Most flower sites reveal the real price at checkout. Here the customer names the amount—a tier or any custom figure—and that is what they pay, with delivery included over $100. It removes the biggest reason gift buyers abandon an order, and it gives the florist a firm number to design against.',
-      points: [
-        'Customer-set budgets',
-        'Delivery included over $100',
-        'No checkout markup',
-        'A firm brief for the florist',
-      ],
-      browserUrl: 'www.bloomprint.com.au/pricing',
-      image: {
-        src: '/case-studies/bloomprint/pricing-desktop.png',
-        alt: 'Bloomprint pricing page explaining budget-led ordering',
-        width: 1440,
-        height: 681,
-      },
-    },
-    {
-      eyebrow: 'Built to be found',
-      title: 'A new brand needs pages people are already searching for.',
-      description:
-        'Nobody searches for a marketplace that launched last month. They search for flower delivery in their city, for a subscription, for Mother’s Day, or for a comparison of who is actually any good. The content and landing page structure was built around those searches from the first sprint, not bolted on later.',
-      points: ['City landing pages', 'Occasion pages', 'Comparison guides', 'Internal linking'],
-      browserUrl: 'www.bloomprint.com.au/articles',
-      image: {
-        src: '/case-studies/bloomprint/guides-desktop.png',
-        alt: 'Bloomprint guides and articles index',
-        width: 1440,
-        height: 681,
-      },
-      reverse: true,
-      tinted: true,
-    },
-  ],
   intent: {
     eyebrow: 'Front doors',
     title: { lines: ['Many ways in.', 'One way to order.'] },
     description:
-      'Each page speaks to a different search, then hands the visitor the same order builder—already framed around their city, their occasion or the way they want flowers to arrive. New front doors can be added without rebuilding the thing behind them.',
-    groups: [
-      {
-        number: '01',
-        title: 'Perth and Australia-wide',
-        pages: [
-          { label: 'Flower Delivery Perth', href: 'https://www.bloomprint.com.au/' },
-          {
-            label: 'Flower Delivery Australia',
-            href: 'https://www.bloomprint.com.au/flower-delivery-australia',
-          },
-        ],
-      },
-      {
-        number: '02',
-        title: 'Occasions',
-        pages: [
-          {
-            label: 'Birthday Flowers',
-            href: 'https://www.bloomprint.com.au/birthday-flower-delivery',
-          },
-          {
-            label: "Valentine's Day Flowers",
-            href: 'https://www.bloomprint.com.au/valentines-day-flower-delivery',
-          },
-          {
-            label: "Mother's Day Flowers",
-            href: 'https://www.bloomprint.com.au/mothers-day-flower-delivery',
-          },
-        ],
-      },
-      {
-        number: '03',
-        title: 'Recurring & business',
-        pages: [
-          {
-            label: 'Flower Subscription',
-            href: 'https://www.bloomprint.com.au/flower-subscription',
-          },
-          {
-            label: 'Corporate Flower Subscriptions',
-            href: 'https://www.bloomprint.com.au/corporate-flower-subscriptions',
-          },
-          { label: 'Pricing', href: 'https://www.bloomprint.com.au/pricing' },
-          { label: 'For Florists', href: 'https://www.bloomprint.com.au/florists' },
-          { label: 'Affiliates', href: 'https://www.bloomprint.com.au/affiliates' },
-        ],
-      },
-      {
-        number: '04',
-        title: 'Guides',
-        pages: [
-          {
-            label: 'Best Flower Delivery Perth',
-            href: 'https://www.bloomprint.com.au/articles/best-flower-delivery-perth',
-          },
-          { label: 'All Articles', href: 'https://www.bloomprint.com.au/articles' },
-        ],
-      },
-    ],
+      'Each page answers a different search, then hands the visitor the same order builder.',
   },
   seo: {
     eyebrow: 'SEO growth',
