@@ -54,6 +54,11 @@ checkFormLedger({
       why: 'Track A on useFieldArray, deliberately unvalidated: a dealer’s own clauses are never reviewed or commented on (licensing/open-questions.md Q2).',
     },
     {
+      file: 'app/portfolio/_components/SpeedCheckForm.tsx',
+      track: 'excluded',
+      why: 'A plain GET form to Google PageSpeed Insights in a new tab: one field, no write to us, nothing to validate beyond the scheme the script completes.',
+    },
+    {
       file: 'components/forms/SelectionFormPanel.tsx',
       track: 'excluded',
       why: 'Presentational {chooser, children, onSubmit} wrapper. Holds the <form> for SignupPlansPanel, ProjectEnquiryPanel, PackageOrderPanel, SeoSignupPanel and AffiliateSignupForm, whose schemas and actions sit beside those panels.',

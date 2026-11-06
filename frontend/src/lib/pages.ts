@@ -146,7 +146,7 @@ export const STATIC_PAGES = {
     label: 'Scooter Shop',
     title: 'Perth Dealer Website Case Study: Scooter Shop',
     description:
-      'A connected website for a Perth scooter dealership: sales, online purchasing, licensing, parts, service, hire and long-term organic growth.',
+      "How a Perth scooter dealership's website grew: three decisions made from its own search data, what changed, and what the data said afterwards.",
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {

@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { Fragment } from 'react';
 
 import Eyebrow from '@/components/common/eyebrow';
 import { FaqSection } from '@/components/marketing/FaqSection';
@@ -11,21 +10,34 @@ import { PageSchema } from '@/components/PageSchema';
 import { CtaButton } from '@/components/CtaButton';
 import { SectionNumber } from '@/components/SectionNumber';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
 import type { PagePath } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
 
-import type { PortfolioImage } from './BrowserFrame';
+import { BrowserFrame, type PortfolioImage } from './BrowserFrame';
+import {
+  HeadingLines,
+  caseHeadingClassName,
+  caseLeadClassName,
+  caseSectionHeadingClassName,
+  type LineHeading,
+} from './caseHeading';
+import { PortfolioDecisions, type DecisionsSection } from './PortfolioDecisions';
 import { PortfolioEnquiryCta } from './PortfolioEnquiryCta';
 import { PortfolioTour, type PortfolioTourItem } from './PortfolioTour';
+import { SpeedCheckForm } from './SpeedCheckForm';
 import { heroGridClassName } from '@/lib/gridSurface';
 import { cn } from '@/lib/utils';
 import { PhoneFrame } from '@/components/visuals/PhoneFrame';
 import { SiteShot } from '@/components/visuals/SiteShot';
 
-type LineHeading = {
-  lines: readonly string[];
-  accentLine?: number;
+type TourSection = {
+  eyebrow: string;
+  title: LineHeading;
+  label: string;
+  browserUrl: string;
+  items: readonly PortfolioTourItem[];
 };
 
 type MobileStory = {
@@ -68,6 +80,44 @@ type DualStepsFeature = SectionHeading & {
 
 type IntentSection = SectionHeading;
 
+/** The organic growth figure beside the report drawing, with the call to action its reader wants. */
+type GrowthSection = {
+  eyebrow: string;
+  title: string;
+  accentTitle: string;
+  description: string;
+  /** `report` sends an SEO reader to the report page; `enquiry` a website reader down to the form. */
+  action: 'report' | 'enquiry';
+};
+
+/** The visitor's own site into PageSpeed, on the navy band. */
+type CheckSection = SectionHeading & { description: string };
+
+/** The site as something we build and run, for the website reader. */
+type BuiltSection = {
+  eyebrow: string;
+  title: string;
+  accentTitle: string;
+  description: string;
+  browserUrl: string;
+  image: PortfolioImage;
+};
+
+/**
+ * The page's body is an ordered list of sections, numbered in that order, so
+ * a case study chooses which to tell and in what order: the dealership tells
+ * three measured decisions and the marketplace tells a tour.
+ */
+export type CaseSection =
+  | ({ kind: 'tour' } & TourSection)
+  | ({ kind: 'mobile' } & MobileStory)
+  | ({ kind: 'feature' } & (OperationsFeature | DualStepsFeature))
+  | ({ kind: 'intent' } & IntentSection)
+  | ({ kind: 'growth' } & GrowthSection)
+  | ({ kind: 'decisions' } & DecisionsSection)
+  | ({ kind: 'check' } & CheckSection)
+  | ({ kind: 'built' } & BuiltSection);
+
 export type PortfolioCaseStudyConfig = {
   path: PagePath;
   hero: {
@@ -79,61 +129,12 @@ export type PortfolioCaseStudyConfig = {
     desktopImage: PortfolioImage;
     mobileImage: PortfolioImage;
   };
-  tour: {
-    eyebrow: string;
-    title: LineHeading;
-    label: string;
-    browserUrl: string;
-    items: readonly PortfolioTourItem[];
-  };
-  mobile: MobileStory;
-  feature: OperationsFeature | DualStepsFeature;
-  intent: IntentSection;
-  seo: {
-    eyebrow: string;
-    title: string;
-    accentTitle: string;
-    description: string;
-  };
+  sections: readonly CaseSection[];
   faq: {
     eyebrow: string;
     items: FaqItem[];
   };
 };
-
-function HeadingLines({ heading }: { heading: LineHeading }) {
-  return (
-    <>
-      {heading.lines.map((line, index) => (
-        <Fragment key={line}>
-          {index === heading.accentLine ? <span>{line}</span> : line}
-          {index < heading.lines.length - 1 && <br />}
-        </Fragment>
-      ))}
-    </>
-  );
-}
-
-/**
- * Every section below the hero opens with this heading. It was four selectors
- * sharing one rule in the case-study stylesheet, which is exactly the shape
- * that has to become a named constant rather than a descendant selector.
- */
-const caseHeadingClassName = 'm-0 text-hero leading-[0.96] tracking-[-0.067em]';
-
-/**
- * The hero's pair of calls to action. Was the last consumer of the global
- * `.button-row` that Phase 3 removed everywhere else.
- */
-/** The muted lead paragraph that follows a section heading. */
-const caseLeadClassName = 'text-lead leading-[1.72] text-text-muted';
-
-/**
- * A section's opening block: the number in a narrow first column, the heading
- * in a wide second. Three columns from xl, the last left empty as a rail.
- */
-const caseSectionHeadingClassName =
-  'mb-2xl grid grid-cols-[minmax(0,1fr)] gap-ml lg:mb-3xl lg:grid-cols-[minmax(0,0.4fr)_minmax(0,1.2fr)] lg:gap-x-3xl lg:gap-y-xl xl:grid-cols-[minmax(0,0.5fr)_minmax(0,1.2fr)_minmax(0,0.7fr)]';
 
 const caseButtonRowClassName =
   'flex flex-col flex-wrap items-start gap-l sm:flex-row sm:items-center';
@@ -208,7 +209,7 @@ function PortfolioHero({
   );
 }
 
-function PortfolioTourSection({ config }: { config: PortfolioCaseStudyConfig['tour'] }) {
+function PortfolioTourSection({ config }: { config: TourSection }) {
   return (
     <section className="bg-surface-tint py-section" id="tour">
       <div className="site-shell">
@@ -381,7 +382,7 @@ function DualSteps({ columns }: { columns: DualStepsFeature['columns'] }) {
   );
 }
 
-function PortfolioFeature({ config }: { config: PortfolioCaseStudyConfig['feature'] }) {
+function PortfolioFeature({ config }: { config: OperationsFeature | DualStepsFeature }) {
   return (
     <section className="bg-surface-dark py-section text-text-on-dark" id="operations">
       <div className="site-shell">
@@ -442,51 +443,100 @@ function PortfolioIntent({ config }: { config: IntentSection }) {
   );
 }
 
-function PortfolioEnding({ config }: { config: Pick<PortfolioCaseStudyConfig, 'seo' | 'faq'> }) {
+function PortfolioGrowth({ config }: { config: GrowthSection }) {
   return (
-    <>
-      <SeoReportOverview
-        id="seo-growth"
-        eyebrow={config.seo.eyebrow}
-        title={config.seo.title}
-        accentTitle={config.seo.accentTitle}
-        description={
-          <>
-            <p>{config.seo.description}</p>
+    <SeoReportOverview
+      id="seo-growth"
+      eyebrow={config.eyebrow}
+      title={config.title}
+      accentTitle={config.accentTitle}
+      description={
+        <>
+          <p>{config.description}</p>
+          {config.action === 'report' ? (
+            <CtaButton className="mt-xl" href="/seo">
+              See the SEO report
+            </CtaButton>
+          ) : (
             <PortfolioEnquiryCta />
-          </>
-        }
-      />
-      <ProjectEnquiry id="enquiry" />
-      <FaqSection
-        emitSchema
-        eyebrow={config.faq.eyebrow}
-        title="Website project questions."
-        items={config.faq.items}
-      />
-      <ManualAdminCta href="#enquiry" buttonLabel="Get a price for yours" />
-    </>
+          )}
+        </>
+      }
+    />
   );
+}
+
+/** The same navy band as the feature section: the form's field is drawn for it. */
+function PortfolioCheck({ config }: { config: CheckSection }) {
+  return (
+    <section className="bg-surface-dark py-section text-text-on-dark" id="check">
+      <div className="site-shell grid grid-cols-[minmax(0,1fr)] items-center gap-2xl lg:grid-cols-2 xl:gap-section">
+        <div>
+          <SectionNumber
+            className="text-[color-mix(in_srgb,var(--surface-page)_72%,transparent)]"
+            onDark
+          >
+            {config.eyebrow}
+          </SectionNumber>
+          <h2 className={caseHeadingClassName}>
+            <HeadingLines heading={config.title} />
+          </h2>
+          <p className="mt-xl mb-0 max-w-[520px] text-lead leading-[1.72] text-[color-mix(in_srgb,var(--surface-page)_78%,transparent)]">
+            {config.description}
+          </p>
+        </div>
+        <SpeedCheckForm />
+      </div>
+    </section>
+  );
+}
+
+function PortfolioBuilt({ config }: { config: BuiltSection }) {
+  return (
+    <SplitFeatureSection
+      id="built"
+      eyebrow={config.eyebrow}
+      title={config.title}
+      accentTitle={config.accentTitle}
+      description={<p>{config.description}</p>}
+      visual={<BrowserFrame image={config.image} browserUrl={config.browserUrl} />}
+      action={<PortfolioEnquiryCta flush />}
+      background="white"
+    />
+  );
+}
+
+function CaseSectionView({ section }: { section: CaseSection }) {
+  switch (section.kind) {
+    case 'tour':
+      return <PortfolioTourSection config={section} />;
+    case 'mobile':
+      return <PortfolioMobileStory config={section} />;
+    case 'feature':
+      return <PortfolioFeature config={section} />;
+    case 'intent':
+      return <PortfolioIntent config={section} />;
+    case 'growth':
+      return <PortfolioGrowth config={section} />;
+    case 'decisions':
+      return <PortfolioDecisions config={section} />;
+    case 'check':
+      return <PortfolioCheck config={section} />;
+    case 'built':
+      return <PortfolioBuilt config={section} />;
+  }
 }
 
 /** Derives the "01 / ..." eyebrow numbers from section order. */
 function withSectionNumbers(config: PortfolioCaseStudyConfig): PortfolioCaseStudyConfig {
-  const numbered = numberSections([
-    config.tour.eyebrow,
-    config.mobile.eyebrow,
-    config.feature.eyebrow,
-    config.intent.eyebrow,
-    config.seo.eyebrow,
-    config.faq.eyebrow,
-  ]);
+  const numbered = numberSections([...config.sections.map((s) => s.eyebrow), config.faq.eyebrow]);
 
   return {
     ...config,
-    tour: { ...config.tour, eyebrow: numbered[config.tour.eyebrow] },
-    mobile: { ...config.mobile, eyebrow: numbered[config.mobile.eyebrow] },
-    feature: { ...config.feature, eyebrow: numbered[config.feature.eyebrow] },
-    intent: { ...config.intent, eyebrow: numbered[config.intent.eyebrow] },
-    seo: { ...config.seo, eyebrow: numbered[config.seo.eyebrow] },
+    sections: config.sections.map((section) => ({
+      ...section,
+      eyebrow: numbered[section.eyebrow],
+    })),
     faq: { ...config.faq, eyebrow: numbered[config.faq.eyebrow] },
   };
 }
@@ -499,11 +549,17 @@ export function PortfolioCaseStudy({ config: rawConfig }: { config: PortfolioCas
       <PageSchema path={config.path} />
       <PortfolioHero config={config.hero} path={config.path} />
 
-      <PortfolioTourSection config={config.tour} />
-      <PortfolioMobileStory config={config.mobile} />
-      <PortfolioFeature config={config.feature} />
-      <PortfolioIntent config={config.intent} />
-      <PortfolioEnding config={config} />
+      {config.sections.map((section) => (
+        <CaseSectionView section={section} key={section.kind} />
+      ))}
+      <ProjectEnquiry id="enquiry" />
+      <FaqSection
+        emitSchema
+        eyebrow={config.faq.eyebrow}
+        title="Website project questions."
+        items={config.faq.items}
+      />
+      <ManualAdminCta href="#enquiry" buttonLabel="Get a price for yours" />
       <RelatedPages path={config.path} />
     </main>
   );
