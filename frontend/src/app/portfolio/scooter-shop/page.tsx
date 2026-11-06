@@ -55,7 +55,7 @@ const config = {
       title: 'Data-driven SEO.',
       accentTitle: 'Not guesswork.',
       description:
-        "Every recommendation started in the site's own search data and ended with a measurement. Three of them below: what we found, what changed, and what each change earned.",
+        "The site's own search data said what to change. Here are three of those changes and what happened next.",
     },
     {
       kind: 'split',
@@ -121,7 +121,7 @@ const config = {
       kind: 'growth',
       eyebrow: 'The report',
       title: 'It starts with data.',
-      accentTitle: 'Then it adds up.',
+      accentTitle: 'SEO auditing.',
       description:
         "No single change made the difference. Each report reads the site's own data, says what to change next, and measures what the last changes earned. Small, certain steps, month after month.",
       action: 'report',

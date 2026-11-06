@@ -14,6 +14,7 @@ export function Introduction({
   accentTitle,
   id,
   measure = 'narrow',
+  spacing = 'standard',
   children,
 }: {
   eyebrow: string;
@@ -22,12 +23,17 @@ export function Introduction({
   id?: string;
   /** `wide` lets the paragraph run to about 90 characters, for a case study's shell (owner, 2026-11-06). */
   measure?: 'narrow' | 'wide';
+  /** `tight` sits close under a hero that already leaves air below its screenshot. */
+  spacing?: 'standard' | 'tight';
   children: ReactNode;
 }) {
   const titleId = id ? `${id}-title` : undefined;
   return (
     <section
-      className="site-shell pb-xl pt-section lg:text-center"
+      className={cn(
+        'site-shell pb-xl lg:text-center',
+        spacing === 'tight' ? 'pt-xl' : 'pt-section',
+      )}
       id={id}
       aria-labelledby={titleId}
     >

@@ -163,7 +163,7 @@ function PortfolioHero({
   path: PortfolioCaseStudyConfig['path'];
 }) {
   return (
-    <section className="relative min-h-auto overflow-hidden py-3xl lg:min-h-[720px]">
+    <section className="relative min-h-auto overflow-hidden pt-3xl pb-xl lg:min-h-[720px]">
       {/* Top right in the hero, as every page with a hero places its trail. */}
       <Breadcrumbs path={path} variant="overlay" />
       <div
@@ -193,9 +193,10 @@ function PortfolioHero({
           </div>
         </div>
 
-        {/* Room under the shot for the phone's overhang; the shot itself keeps
-            to the shell, as the sample report's cover does (owner, 2026-11-06). */}
-        <div className="relative pt-l pb-3xl sm:pb-section lg:pt-xl">
+        {/* Exactly the phone's overhang under the shot, no more, so the section
+            after the hero sits close (owner, 2026-11-06); the shot itself keeps
+            to the shell, as the sample report's cover does. */}
+        <div className="relative pt-l pb-xl sm:pb-2xl lg:pt-xl">
           <SiteShot
             url={config.browserUrl}
             desktop={
@@ -584,6 +585,7 @@ function PortfolioIntro({ config }: { config: IntroSection }) {
       title={config.title}
       accentTitle={config.accentTitle}
       measure="wide"
+      spacing="tight"
     >
       {config.description}
     </Introduction>
