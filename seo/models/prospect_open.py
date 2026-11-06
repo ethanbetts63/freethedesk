@@ -4,7 +4,7 @@ from .prospect import SeoProspect
 
 
 class SeoProspectOpen(models.Model):
-    """One open of a prospect report's link (``/r/<token>``), the page or its PDF: when, where the link came from
+    """One open of a prospect report's link (``/r/<business>-<token>``), the page or its PDF: when, where the link came from
     (the report email, the follow-up, a text, the dashboard) and whether it looks like a person or a link preview.
     The first engagement signal the outreach has (owner, 2026-11-04). No address is kept: the user agent alone
     says whether it was a preview fetch, which is all the dashboard needs to count people apart from bots."""

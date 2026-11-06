@@ -1,8 +1,11 @@
-"""The report's own address on the site: ``freethedesk.com.au/r/<token>``, the report as a phone shows it.
+"""The report's own address on the site: ``freethedesk.com.au/r/<business>-<token>``, the report as a phone
+shows it.
 
 The owner texts it by hand during a call (the brief prints it with ``?s=text``),
-and every report email carries it beside the PDF (owner, 2026-11-04). The token is unguessable and the page is noindexed and
-linked from nowhere. Each open is logged against the prospect with where the
+and every report email carries it beside the PDF (owner, 2026-11-04). The business's name leads the address so it
+reads as the business's own page; the token after it is the key, unguessable, and the page is noindexed and
+linked from nowhere (owner, 2026-11-06). A link with the token alone, or under another name (the first links went
+out as ``/r/<token>``), is sent on to the named address. Each open is logged against the prospect with where the
 link came from, so the dashboard shows who looked: the first engagement signal
 the outreach has. See ``_docs/seo-prospect-outreach.md``.
 """
@@ -10,6 +13,8 @@ the outreach has. See ``_docs/seo-prospect-outreach.md``.
 import re
 from datetime import date
 from html import escape
+
+from django.utils.text import slugify
 
 from core.utils.urls import site_url
 
@@ -28,14 +33,31 @@ LIKELY_BOT = re.compile(
 )
 
 
+#: The most of the business's name the address carries, so a long trading name does not swallow the token.
+NAME_LENGTH = 60
+
+
+def link_key(prospect: SeoProspect) -> str:
+    """The path segment: the business's name as a slug, then the token (``bedford-chiropractic-clinic-xufxp7pjfd``).
+    A name that slugifies to nothing leaves the token alone."""
+    name = slugify(prospect.business)[:NAME_LENGTH].strip("-")
+    return f"{name}-{prospect.link_token}" if name else prospect.link_token
+
+
+def token_of(key: str) -> str:
+    """The token out of a link's path segment: what follows the last hyphen (the token's alphabet has none), or
+    the whole segment for a link from before the name was added."""
+    return key.rsplit("-", 1)[-1]
+
+
 def report_link(prospect: SeoProspect, source: str = "") -> str:
     """The page's address, with ``?s=<source>`` when the link is placed somewhere the opens should name."""
-    base = f"{site_url()}/r/{prospect.link_token}"
+    base = f"{site_url()}/r/{link_key(prospect)}"
     return f"{base}?s={source}" if source else base
 
 
 def pdf_link(prospect: SeoProspect) -> str:
-    return f"{site_url()}/r/{prospect.link_token}/pdf"
+    return f"{site_url()}/r/{link_key(prospect)}/pdf"
 
 
 def record_open(prospect: SeoProspect, request, kind: str = SeoProspectOpen.Kind.PAGE) -> SeoProspectOpen:

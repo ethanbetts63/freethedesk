@@ -116,10 +116,10 @@ const nextConfig: NextConfig = {
     return [
       { source: '/api/:path*/', destination: `${apiUrl}/api/:path*/` },
       { source: '/api/:path*', destination: `${apiUrl}/api/:path*` },
-      // A prospect report's link: the page and its PDF, served by Django, noindexed and linked from nowhere
-      // (_docs/seo-prospect-outreach.md, "The report's link").
-      { source: '/r/:token/pdf', destination: `${apiUrl}/api/seo/r/:token/pdf/` },
-      { source: '/r/:token', destination: `${apiUrl}/api/seo/r/:token/` },
+      // A prospect report's link, /r/<business>-<token>: the page and its PDF, served by Django, noindexed and
+      // linked from nowhere (_docs/seo-prospect-outreach.md, "The report's link").
+      { source: '/r/:key/pdf', destination: `${apiUrl}/api/seo/r/:key/pdf/` },
+      { source: '/r/:key', destination: `${apiUrl}/api/seo/r/:key/` },
     ];
   },
 };

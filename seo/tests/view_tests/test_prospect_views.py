@@ -28,7 +28,7 @@ def test_a_published_report_is_held_with_its_pdf_until_the_owner_approves_it(api
     prospect = SeoProspect.objects.get()
     assert prospect.approved_at is None
     assert with_status(SeoProspect.objects.all()).get().status == "held"
-    assert body["report_link"].endswith(f"/r/{prospect.link_token}")
+    assert body["report_link"].endswith(f"-{prospect.link_token}")
     assert body["subject"] == "Your 'pergolas perth' ad, and what your site is missing"
     assert prospect.subject_version == 3
     assert (body["body_version"], prospect.body_version, prospect.metric) == (5, 5, "bookings")
@@ -55,7 +55,7 @@ def test_the_owners_word_approves_a_held_report_and_names_what_will_go(api_clien
     assert body["outcome"] == "approved" and prospect.approved_at is not None
     assert body["subject"] == "Your 'pergolas perth' ad, and what your site is missing"
     assert (body["body_version"], body["metric"], prospect.metric) == (5, "calls", "calls")
-    assert body["report_link"].endswith(f"/r/{prospect.link_token}")
+    assert body["report_link"].endswith(f"-{prospect.link_token}")
     assert with_status(SeoProspect.objects.all()).get().status == "queued"
 
 

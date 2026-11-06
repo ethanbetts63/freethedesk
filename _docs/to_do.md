@@ -2,6 +2,10 @@
 
 Open tasks for this repository. Append any you find; delete one once you know it's done.
 
+## Deploy the report link with the business's name in it
+
+Added 2026-11-06. Owner's step. The report link is now `/r/<business>-<token>` (`/r/bedford-chiropractic-clinic-xufxp7pjfd`); a bare `/r/<token>` link, which every report sent before this deploy carries, is sent on to the named address. Deploy Django and the frontend (the rewrite's parameter was renamed, nothing else). No migration. After it, the outbox still holds the bare links: run `outbox.py html <slug>` for every row (ftp_search/_search/tools/prospecting), which the PDF step below needs anyway; its answer carries the named link and the outbox keeps it. Until then `todo` and the call brief print the bare links, which still land.
+
 ## Deploy the held upload: reports go up when done, emailed only on approval
 
 Added 2026-11-05. Owner's step. Deploy Django and the frontend, and run `migrate` for `seo` 0027 (`approved_at` on the prospect; every existing row is marked approved when it was created, so nothing queued is held back). Until this deploy, `outbox.py add` lists a report but refuses to upload it (the old server would email it at once); after it, run `add` again for anything listed without a link, and `approve` on the owner's word sends. The dashboard gains the "Awaiting approval" status and count.

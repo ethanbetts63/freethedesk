@@ -74,11 +74,12 @@ class SeoProspect(models.Model):
     # Where the report sits on the owner's machine, shown to copy.
     report_path = models.CharField(max_length=500)
     report_pdf = models.FileField(storage=private_prospect_report_storage, upload_to="", max_length=255)
-    # The same report as a page, for the link (``/r/<token>``, ``seo/utils/prospect_links.py``): texted during a
+    # The same report as a page, for the link (``/r/<business>-<token>``, ``seo/utils/prospect_links.py``): texted during a
     # call and named in every report email beside the PDF (owner, 2026-11-04). Blank on a row uploaded before the
     # link existed; the link then serves the PDF.
     report_html = models.FileField(storage=private_prospect_report_storage, upload_to="", max_length=255, blank=True)
-    # The unguessable part of the link, set once; the page is noindexed and linked from nowhere else.
+    # The unguessable part of the link (its tail, after the business's name), set once; the page is noindexed and
+    # linked from nowhere else.
     link_token = models.CharField(max_length=16, unique=True, default=new_link_token)
     contact_name = models.CharField(max_length=255, blank=True)
     # Lowercased on upload. One report per address, as per business.

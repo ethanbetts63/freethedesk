@@ -1,7 +1,7 @@
 from django.db import IntegrityError, transaction
 from django.db.models import Count, Q
 from django.conf import settings
-from django.http import FileResponse, Http404, HttpResponse
+from django.http import FileResponse, Http404, HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from freetheplatform.messaging import Message, Suppression, is_suppressed, send, suppress
 from freetheplatform.messaging.utils import read_uploads
@@ -20,7 +20,9 @@ from ..models import SeoProspect, SeoProspectOpen
 from ..serializers.prospect import (
     AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectHtmlSerializer, SeoProspectUploadSerializer,
 )
-from ..utils.prospect_links import page_document, page_headers, record_open, report_link
+from ..utils.prospect_links import (
+    link_key, page_document, page_headers, pdf_link, record_open, report_link, token_of,
+)
 from ..utils.prospect_sending import (
     NoSubject, follow_up_refusal, follow_up_subject_for, next_body, next_follow_up_subject, next_subject,
     subject_for,
@@ -180,8 +182,25 @@ class SeoProspectHtmlView(APIView):
                         status=status.HTTP_201_CREATED)
 
 
+def _by_key(key: str) -> SeoProspect:
+    """The prospect a link's path segment names by its token, or 404."""
+    prospect = SeoProspect.objects.filter(link_token=token_of(key)).first()
+    if prospect is None:
+        raise Http404
+    return prospect
+
+
+def _sent_on(request, key: str, prospect: SeoProspect, address: str):
+    """A link with the token alone (the first links went out so) or under another name: sent on to the named
+    address, the query kept, so the open is logged once, there. None when the key is already the named one."""
+    if key == link_key(prospect):
+        return None
+    query = request.META.get("QUERY_STRING", "")
+    return page_headers(HttpResponseRedirect(f"{address}?{query}" if query else address))
+
+
 class SeoReportPageView(APIView):
-    """`GET /api/seo/r/<token>/`, served at ``/r/<token>`` by the site: the report as a page, for the link.
+    """`GET /api/seo/r/<key>/`, served at ``/r/<business>-<token>`` by the site: the report as a page, for the link.
 
     No sign-in: the token is the key, and the page is noindexed, linked from
     nowhere, and never cached between. Each open is logged against the
@@ -193,10 +212,10 @@ class SeoReportPageView(APIView):
     authentication_classes = []
     permission_classes = [AllowAny]
 
-    def get(self, request, token):
-        prospect = SeoProspect.objects.filter(link_token=token).first()
-        if prospect is None:
-            raise Http404
+    def get(self, request, key):
+        prospect = _by_key(key)
+        if sent_on := _sent_on(request, key, prospect, report_link(prospect)):
+            return sent_on
         if not prospect.report_html:
             return _pdf_response(prospect, request)
         record_open(prospect, request, SeoProspectOpen.Kind.PAGE)
@@ -206,16 +225,17 @@ class SeoReportPageView(APIView):
 
 
 class SeoReportPdfView(APIView):
-    """`GET /api/seo/r/<token>/pdf/`, at ``/r/<token>/pdf``: the same report's PDF, inline, logged as an open."""
+    """`GET /api/seo/r/<key>/pdf/`, at ``/r/<business>-<token>/pdf``: the same report's PDF, inline, logged as
+    an open."""
 
     throttle_scope = "report"
     authentication_classes = []
     permission_classes = [AllowAny]
 
-    def get(self, request, token):
-        prospect = SeoProspect.objects.filter(link_token=token).first()
-        if prospect is None:
-            raise Http404
+    def get(self, request, key):
+        prospect = _by_key(key)
+        if sent_on := _sent_on(request, key, prospect, pdf_link(prospect)):
+            return sent_on
         return _pdf_response(prospect, request)
 
 

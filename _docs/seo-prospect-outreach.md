@@ -156,7 +156,8 @@ sent, replied and called per subject, and per body.
 
 ## The report's link (owner, 2026-11-04)
 
-Every report has an address of its own on the site, `freethedesk.com.au/r/<token>`:
+Every report has an address of its own on the site,
+`freethedesk.com.au/r/<business>-<token>` (`/r/bedford-chiropractic-clinic-xufxp7pjfd`):
 the report as a page, the layout a phone shows and, on a desktop, the
 site's guide layout (the cover full width, the contents as a menu beside one
 column), with the site's strip over it (the number, the address, a button to
@@ -171,16 +172,23 @@ it with `?s=text`; every report email and follow-up names it beside the PDF
   the rows from before the page existed (`POST /api/seo/prospects/html/`,
   `outbox.py html`). A re-attach sends the PDF printed with the page too, and
   the endpoint replaces the row's `report_pdf` with it, so the page's PDF link
-  serves the same version as the page. The site rewrites `/r/:token` and `/r/:token/pdf` to
-  Django's `/api/seo/r/<token>/` and `.../pdf/` (`seo/views/prospects.py`,
+  serves the same version as the page. The site rewrites `/r/:key` and `/r/:key/pdf` to
+  Django's `/api/seo/r/<key>/` and `.../pdf/` (`seo/views/prospects.py`,
   `SeoReportPageView`, `SeoReportPdfView`). A row with no page serves its PDF at
-  the link. Both answer `X-Robots-Tag: noindex, nofollow, noarchive`,
+  the link.
+- **The name.** The address leads with the business's name as a slug, then
+  the token (`prospect_links.link_key`), so it reads as the business's own page
+  and not a random string (owner, 2026-11-06). The name is not a key: the
+  server finds the row by the token after the last hyphen, and a link with the
+  token alone (every link sent before 2026-11-06) or under another name is sent
+  on (302, the query kept) to the named address, where the open is logged. A
+  business renamed on its row moves its link; the old one still lands. Both answer `X-Robots-Tag: noindex, nofollow, noarchive`,
   `Cache-Control: private, no-store`, and a `robots` meta in the page; the
   site's CSP allows the report's inline charts and embedded fonts.
-- **The token.** Ten characters from an alphabet with no 0/o or 1/l/i
-  (`new_link_token`), so a link read out on a call is typed as heard; set once
-  per row, unique, never regenerated, so a texted link keeps working after a
-  re-render.
+- **The token.** Ten characters from an alphabet with no 0/o or 1/l/i and no
+  hyphen (`new_link_token`), so a link read out on a call is typed as heard and
+  the name before it parses; set once per row, unique, never regenerated, so a
+  texted link keeps working after a re-render.
 - **The opens.** `SeoProspectOpen`: one row per open, the page or the PDF, when,
   where the link came from (`?s=email`, `follow-up`, `text`, `dashboard`), the
   user agent, and `likely_bot` for a crawler or a messaging app's link preview
