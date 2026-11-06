@@ -40,7 +40,7 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-11-04',
+    updated: '2026-11-06',
     label: 'Home',
     title: 'Websites, SEO & Business Automation Perth - freethedesk',
     description:
