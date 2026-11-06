@@ -160,7 +160,9 @@ Every report has an address of its own on the site, `freethedesk.com.au/r/<token
 the report as a page, the layout a phone shows and, on a desktop, the
 site's guide layout (the cover full width, the contents as a menu beside one
 column), with the site's strip over it (written for whom, the number, the
-address, the PDF) and the ask for the full report under it. The owner texts it by hand during a call, from the call brief, which prints
+address, the PDF), the ask for the full report under it (a band the page's
+width: the words beside a guide's picture of the report) and the site's
+footer last. The owner texts it by hand during a call, from the call brief, which prints
 it with `?s=text`; every report email and follow-up names it beside the PDF
 ("You can also read it online"); nothing else links to it.
 

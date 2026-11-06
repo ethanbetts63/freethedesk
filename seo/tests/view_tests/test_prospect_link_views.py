@@ -52,7 +52,7 @@ def test_the_link_serves_the_report_page_noindexed_with_the_strip_and_the_ask(cl
     assert 'href="mailto:analytics@freethedesk.com.au"' in page
 
 
-def test_the_ask_takes_the_reports_column_when_the_report_is_a_grid():
+def test_the_ask_is_a_band_under_the_whole_report_before_the_footer():
     from seo.utils.prospect_links import page_document
 
     grid = HTML.decode().replace(
@@ -61,8 +61,9 @@ def test_the_ask_takes_the_reports_column_when_the_report_is_a_grid():
         "</article>\n</div>",
     )
     page = page_document(SeoProspectFactory.build(business="Perth Patio Magic", link_token="t0k3n"), grid)
-    assert page.index("</article>") < page.index('class="ftd-ask"') < page.index("</div>\n<footer")
+    assert page.index("</article>\n</div>") < page.index('class="ftd-ask"') < page.index('class="ftd-foot"')
     assert page.count('class="ftd-ask"') == 1
+    assert 'src="https://www.freethedesk.com.au/images/guides/seo-cost-perth.webp"' in page
 
 
 def test_an_open_is_logged_with_its_source_and_whether_a_person_did_it(client):
