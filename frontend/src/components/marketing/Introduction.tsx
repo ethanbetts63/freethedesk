@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { SectionHeader } from '@/components/SectionHeader';
+import { cn } from '@/lib/utils';
 
 /**
  * The centred preface under a page's hero: an eyebrow, a heading with its
@@ -12,12 +13,15 @@ export function Introduction({
   title,
   accentTitle,
   id,
+  measure = 'narrow',
   children,
 }: {
   eyebrow: string;
   title: string;
   accentTitle: string;
   id?: string;
+  /** `wide` lets the paragraph run to about 90 characters, for a case study's shell (owner, 2026-11-06). */
+  measure?: 'narrow' | 'wide';
   children: ReactNode;
 }) {
   const titleId = id ? `${id}-title` : undefined;
@@ -34,7 +38,12 @@ export function Introduction({
         titleId={titleId}
         titleClassName="mb-m"
       />
-      <p className="m-0 max-w-[62ch] lg:mx-auto text-lead leading-relaxed text-text-muted">
+      <p
+        className={cn(
+          'm-0 text-lead leading-relaxed text-text-muted lg:mx-auto',
+          measure === 'wide' ? 'max-w-[90ch]' : 'max-w-[62ch]',
+        )}
+      >
         {children}
       </p>
     </section>

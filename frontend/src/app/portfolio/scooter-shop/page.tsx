@@ -99,7 +99,7 @@ const config = {
       title: 'Fast on real phones.',
       accentTitle: 'Not a perfect score.',
       description:
-        'We build things to be more than good enough, not perfect. Perfect costs exponentially more than really good, for almost no benefit, so every page scores 90 plus and we leave it there. Try yours.',
+        'We build things to be more than fast enough, not perfect. Perfect costs exponentially more than really good, for almost no benefit, so every page scores 90 plus and we leave it there. Try yours.',
       image: {
         src: '/case-studies/scooter-shop/core-web-vitals.webp',
         alt: "Google's Core Web Vitals assessment for scootershop.com.au: passed, with largest contentful paint 1.2 seconds, cumulative layout shift 0, first contentful paint 1.1 seconds and time to first byte 0.4 seconds",

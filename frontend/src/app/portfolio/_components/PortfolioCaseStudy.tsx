@@ -10,7 +10,7 @@ import { PageSchema } from '@/components/PageSchema';
 import { CtaButton } from '@/components/CtaButton';
 import { SectionHeader } from '@/components/SectionHeader';
 import { SectionNumber } from '@/components/SectionNumber';
-import { SeoReportOverview } from '@/components/SeoReportOverview';
+import { SeoReportVisual } from '@/components/SeoReportVisual';
 import { Introduction } from '@/components/marketing/Introduction';
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
@@ -461,11 +461,19 @@ function PortfolioIntent({ config }: { config: IntentSection }) {
 
 function PortfolioGrowth({ config }: { config: GrowthSection }) {
   return (
-    <SeoReportOverview
+    <SplitFeatureSection
       id="seo-growth"
       eyebrow={config.eyebrow}
       title={config.title}
       accentTitle={config.accentTitle}
+      // The report drawing at four-fifths of its column: smaller than the
+      // SEO page draws it (owner, 2026-11-06).
+      visual={
+        <div className="mx-auto max-w-[520px]">
+          <SeoReportVisual mode="report" />
+        </div>
+      }
+      spacing="compact"
       description={
         <>
           <p>{config.description}</p>
@@ -482,13 +490,13 @@ function PortfolioGrowth({ config }: { config: GrowthSection }) {
   );
 }
 
-/** The paragraph and, under it, the readings: the figure heavy and black under a black rule, the label in the accent beneath. */
+/** The paragraph and, under it, the readings: the figure heavy and black, the label in the accent beneath. */
 function SplitWords({ config }: { config: SplitSection }) {
   return (
     <>
       <p>{config.description}</p>
       {config.figures && (
-        <ul className="m-0 mt-l grid list-none grid-cols-2 gap-l border-t-2 border-text-primary p-0 pt-m">
+        <ul className="m-0 mt-l grid list-none grid-cols-2 gap-l p-0">
           {config.figures.map((figure) => (
             <li key={figure.label}>
               <strong className="block text-title font-heavy tracking-[-0.04em] whitespace-nowrap text-text-primary tabular-nums">
@@ -532,7 +540,7 @@ function PortfolioSplit({ config }: { config: SplitSection }) {
           config.background === 'tint' ? 'bg-surface-tint' : 'bg-surface-page',
         )}
       >
-        <div className="site-shell py-section">
+        <div className="site-shell py-section text-center">
           <SectionHeader
             eyebrow={config.eyebrow}
             title={config.title}
@@ -540,11 +548,11 @@ function PortfolioSplit({ config }: { config: SplitSection }) {
             size="display-sm"
             titleBreak="always"
           />
-          <div className="mt-ml max-w-[62ch] text-lead leading-[1.74] text-text-muted [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+          <div className="mx-auto mt-ml max-w-[62ch] text-lead leading-[1.74] text-text-muted [&>:first-child]:mt-0 [&>:last-child]:mb-0">
             <SplitWords config={config} />
           </div>
           {config.speedCheck && (
-            <div className="mt-l max-w-[560px]">
+            <div className="mx-auto mt-l max-w-[560px] text-left">
               <SpeedCheckForm />
             </div>
           )}
@@ -571,7 +579,12 @@ function PortfolioSplit({ config }: { config: SplitSection }) {
 
 function PortfolioIntro({ config }: { config: IntroSection }) {
   return (
-    <Introduction eyebrow={config.eyebrow} title={config.title} accentTitle={config.accentTitle}>
+    <Introduction
+      eyebrow={config.eyebrow}
+      title={config.title}
+      accentTitle={config.accentTitle}
+      measure="wide"
+    >
       {config.description}
     </Introduction>
   );
