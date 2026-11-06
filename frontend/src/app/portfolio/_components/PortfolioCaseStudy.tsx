@@ -23,7 +23,6 @@ import {
   caseSectionHeadingClassName,
   type LineHeading,
 } from './caseHeading';
-import { PortfolioDecisions, type DecisionsSection } from './PortfolioDecisions';
 import { PortfolioEnquiryCta } from './PortfolioEnquiryCta';
 import { PortfolioTour, type PortfolioTourItem } from './PortfolioTour';
 import { SpeedCheckForm } from './SpeedCheckForm';
@@ -90,17 +89,24 @@ type GrowthSection = {
   action: 'report' | 'enquiry';
 };
 
-/** The visitor's own site into PageSpeed, on the navy band. */
-type CheckSection = SectionHeading & { description: string };
-
-/** The site as something we build and run, for the website reader. */
-type BuiltSection = {
+/**
+ * One decision: a few lines of text on one side and the site's own screen on
+ * the other, the sides alternating down the page (owner, 2026-11-06).
+ */
+type SplitSection = {
   eyebrow: string;
   title: string;
   accentTitle: string;
   description: string;
-  browserUrl: string;
+  /** A reading or two under the words, as the reports' cover shows its figures. */
+  figures?: readonly { value: string; label: string }[];
   image: PortfolioImage;
+  /** Set when the picture is a page of the site, which then sits in a browser frame. */
+  browserUrl?: string;
+  textSide: 'left' | 'right';
+  background: 'white' | 'tint';
+  /** The visitor's own site into PageSpeed, under the words. */
+  speedCheck?: boolean;
 };
 
 /**
@@ -114,9 +120,7 @@ export type CaseSection =
   | ({ kind: 'feature' } & (OperationsFeature | DualStepsFeature))
   | ({ kind: 'intent' } & IntentSection)
   | ({ kind: 'growth' } & GrowthSection)
-  | ({ kind: 'decisions' } & DecisionsSection)
-  | ({ kind: 'check' } & CheckSection)
-  | ({ kind: 'built' } & BuiltSection);
+  | ({ kind: 'split' } & SplitSection);
 
 export type PortfolioCaseStudyConfig = {
   path: PagePath;
@@ -466,42 +470,53 @@ function PortfolioGrowth({ config }: { config: GrowthSection }) {
   );
 }
 
-/** The same navy band as the feature section: the form's field is drawn for it. */
-function PortfolioCheck({ config }: { config: CheckSection }) {
-  return (
-    <section className="bg-surface-dark py-section text-text-on-dark" id="check">
-      <div className="site-shell grid grid-cols-[minmax(0,1fr)] items-center gap-2xl lg:grid-cols-2 xl:gap-section">
-        <div>
-          <SectionNumber
-            className="text-[color-mix(in_srgb,var(--surface-page)_72%,transparent)]"
-            onDark
-          >
-            {config.eyebrow}
-          </SectionNumber>
-          <h2 className={caseHeadingClassName}>
-            <HeadingLines heading={config.title} />
-          </h2>
-          <p className="mt-xl mb-0 max-w-[520px] text-lead leading-[1.72] text-[color-mix(in_srgb,var(--surface-page)_78%,transparent)]">
-            {config.description}
-          </p>
-        </div>
-        <SpeedCheckForm />
-      </div>
-    </section>
-  );
-}
-
-function PortfolioBuilt({ config }: { config: BuiltSection }) {
+function PortfolioSplit({ config }: { config: SplitSection }) {
   return (
     <SplitFeatureSection
-      id="built"
       eyebrow={config.eyebrow}
       title={config.title}
       accentTitle={config.accentTitle}
-      description={<p>{config.description}</p>}
-      visual={<BrowserFrame image={config.image} browserUrl={config.browserUrl} />}
-      action={<PortfolioEnquiryCta flush />}
-      background="white"
+      description={
+        <>
+          <p>{config.description}</p>
+          {config.figures && (
+            // The reports' readings: the figure heavy and black under a black
+            // rule, the label in the accent beneath.
+            <ul className="m-0 mt-l grid list-none grid-cols-2 gap-l border-t-2 border-text-primary p-0 pt-m">
+              {config.figures.map((figure) => (
+                <li key={figure.label}>
+                  <strong className="block text-title font-heavy tracking-[-0.04em] whitespace-nowrap text-text-primary tabular-nums">
+                    {figure.value}
+                  </strong>
+                  <span className="mt-2xs block text-label font-heavy tracking-label text-text-action uppercase">
+                    {figure.label}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
+      }
+      action={config.speedCheck ? <SpeedCheckForm /> : undefined}
+      visual={
+        config.browserUrl ? (
+          <BrowserFrame image={config.image} browserUrl={config.browserUrl} />
+        ) : (
+          <Image
+            className={cn(
+              'h-auto w-full rounded-md border border-border-default',
+              config.image.className,
+            )}
+            src={config.image.src}
+            alt={config.image.alt}
+            width={config.image.width}
+            height={config.image.height}
+            sizes="(min-width: 1024px) 55vw, 100vw"
+          />
+        )
+      }
+      textSide={config.textSide}
+      background={config.background}
     />
   );
 }
@@ -518,12 +533,8 @@ function CaseSectionView({ section }: { section: CaseSection }) {
       return <PortfolioIntent config={section} />;
     case 'growth':
       return <PortfolioGrowth config={section} />;
-    case 'decisions':
-      return <PortfolioDecisions config={section} />;
-    case 'check':
-      return <PortfolioCheck config={section} />;
-    case 'built':
-      return <PortfolioBuilt config={section} />;
+    case 'split':
+      return <PortfolioSplit config={section} />;
   }
 }
 
@@ -550,7 +561,7 @@ export function PortfolioCaseStudy({ config: rawConfig }: { config: PortfolioCas
       <PortfolioHero config={config.hero} path={config.path} />
 
       {config.sections.map((section) => (
-        <CaseSectionView section={section} key={section.kind} />
+        <CaseSectionView section={section} key={section.eyebrow} />
       ))}
       <ProjectEnquiry id="enquiry" />
       <FaqSection

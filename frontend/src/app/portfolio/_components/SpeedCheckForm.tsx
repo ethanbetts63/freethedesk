@@ -3,8 +3,9 @@
 import { useRef } from 'react';
 
 import { MovingColourButton } from '@/components/MovingColourButton';
-import { onDarkFieldClassName } from '@/components/marketing/AiReadinessForm';
+import { formControlClassName, formControlPaddingClassName } from '@/components/ui/formControl';
 import { trackEvent } from '@/lib/analytics';
+import { cn } from '@/lib/utils';
 
 /** PageSpeed's analysis page runs the test on the address in `url`. */
 const PAGESPEED_ANALYSIS = 'https://pagespeed.web.dev/analysis';
@@ -25,7 +26,7 @@ export function SpeedCheckForm() {
 
   return (
     <form
-      className="grid min-w-0 grid-cols-[minmax(0,1fr)] items-center gap-xs sm:grid-cols-[minmax(200px,1fr)_auto]"
+      className="grid min-w-0 grid-cols-[minmax(0,1fr)] items-center gap-xs sm:grid-cols-[minmax(180px,1fr)_auto]"
       action={PAGESPEED_ANALYSIS}
       method="get"
       target="_blank"
@@ -40,7 +41,12 @@ export function SpeedCheckForm() {
         {/* Not type="url": it rejects a scheme-less host before withScheme adds one. */}
         <input
           ref={input}
-          className={onDarkFieldClassName}
+          // The button's row height, so the pair sits level.
+          className={cn(
+            formControlClassName,
+            formControlPaddingClassName,
+            'min-h-[var(--tap-min)] sm:min-h-[40px]',
+          )}
           name="url"
           type="text"
           inputMode="url"
@@ -57,7 +63,7 @@ export function SpeedCheckForm() {
       >
         Check my site
       </MovingColourButton>
-      <p className="col-[1/-1] m-0 text-caption text-[color-mix(in_srgb,var(--surface-page)_62%,transparent)]">
+      <p className="col-[1/-1] m-0 text-caption text-text-muted">
         Opens Google&apos;s PageSpeed Insights in a new tab. Nothing is sent to us.
       </p>
     </form>
