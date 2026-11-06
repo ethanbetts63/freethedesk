@@ -20,7 +20,7 @@ import { PortfolioEnquiryCta } from './PortfolioEnquiryCta';
 import { PortfolioTour, type PortfolioTourItem } from './PortfolioTour';
 import { heroGridClassName } from '@/lib/gridSurface';
 import { cn } from '@/lib/utils';
-import { FloatingPill, PhoneFrame } from '@/components/visuals/PhoneFrame';
+import { PhoneFrame } from '@/components/visuals/PhoneFrame';
 import { SiteShot } from '@/components/visuals/SiteShot';
 
 type LineHeading = {
@@ -33,7 +33,6 @@ type MobileStory = {
   title: string;
   description: string;
   image: PortfolioImage;
-  callout: string;
 };
 
 type SectionHeading = {
@@ -61,7 +60,8 @@ type DualStepsFeature = SectionHeading & {
   columns: readonly {
     label: string;
     title: string;
-    description: string;
+    /** A portrait of this side's person, drawn as the guides' pictures are. */
+    portrait: PortfolioImage;
     steps: readonly { number: string; detail: string }[];
   }[];
 };
@@ -246,10 +246,6 @@ function PortfolioMobileStory({ config }: { config: MobileStory }) {
               height={config.image.height}
             />
           </PhoneFrame>
-          <FloatingPill className="top-[25%] right-[1%] shadow-block-s lg:right-[7%]">
-            <b className="text-label text-text-action">01</b>
-            <span>{config.callout}</span>
-          </FloatingPill>
         </div>
       </div>
     </section>
@@ -334,24 +330,28 @@ function DualSteps({ columns }: { columns: DualStepsFeature['columns'] }) {
             )}
             key={column.label}
           >
-            <header className="border-b border-border-default pb-l">
-              <small
-                className={cn(
-                  'mb-s block text-label font-black tracking-label uppercase',
-                  alt ? 'text-text-primary' : 'text-text-action',
-                )}
-              >
-                {column.label}
-              </small>
-              <h3 className="m-0 text-display tracking-[-0.06em]">{column.title}</h3>
-              <p
-                className={cn(
-                  'mt-s mb-0 max-w-[380px] text-body leading-relaxed',
-                  alt ? 'text-text-on-accent' : 'text-text-muted',
-                )}
-              >
-                {column.description}
-              </p>
+            {/* The person beside the words: a portrait in the guides' style, so
+                the two sides are two faces rather than two paragraphs
+                (owner, 2026-11-06). */}
+            <header className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-l border-b border-border-default pb-l">
+              <div>
+                <small
+                  className={cn(
+                    'mb-s block text-label font-black tracking-label uppercase',
+                    alt ? 'text-text-primary' : 'text-text-action',
+                  )}
+                >
+                  {column.label}
+                </small>
+                <h3 className="m-0 text-display tracking-[-0.06em]">{column.title}</h3>
+              </div>
+              <Image
+                className="w-[110px] rounded-md border border-border-default sm:w-[140px]"
+                src={column.portrait.src}
+                alt={column.portrait.alt}
+                width={column.portrait.width}
+                height={column.portrait.height}
+              />
             </header>
             <ol className="m-0 list-none p-0">
               {column.steps.map((step) => (

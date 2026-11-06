@@ -85,7 +85,6 @@ const config = {
       width: 390,
       height: 844,
     },
-    callout: 'Brief stays attached',
   },
   feature: {
     variant: 'dual-steps',
@@ -95,29 +94,31 @@ const config = {
       {
         label: 'Demand',
         title: 'The customer',
-        description: 'Describes the outcome and pays once—no catalogue, no surprises at checkout.',
+        portrait: {
+          src: '/case-studies/bloomprint/customer.webp',
+          alt: '',
+          width: 768,
+          height: 1152,
+        },
         steps: [
-          { number: '01', detail: 'Choose an occasion and the feeling behind it.' },
-          { number: '02', detail: 'Set the budget—a tier, or any custom amount from $65.' },
-          {
-            number: '03',
-            detail: 'Add favourite colours, dislikes, allergies and special requests.',
-          },
-          { number: '04', detail: 'Pick the delivery date and write the card message.' },
-          { number: '05', detail: 'Pay once. Delivery is included over $100.' },
+          { number: '01', detail: 'Describe the occasion and set a budget.' },
+          { number: '02', detail: 'Add preferences and a card message.' },
+          { number: '03', detail: 'Pay once. Delivery is included over $100.' },
         ],
       },
       {
         label: 'Supply',
         title: 'The florist',
-        description:
-          'Gets paid work near the shop with the creative freedom to design it properly.',
+        portrait: {
+          src: '/case-studies/bloomprint/florist.webp',
+          alt: '',
+          width: 768,
+          height: 1152,
+        },
         steps: [
-          { number: '01', detail: 'Join free with a two-step store account.' },
-          { number: '02', detail: 'Receive fully paid local orders near the store.' },
-          { number: '03', detail: "Take the ones that suit the week's stock and diary." },
-          { number: '04', detail: 'Design from what is fresh instead of a fixed recipe.' },
-          { number: '05', detail: "Deliver under the store's own name and brand." },
+          { number: '01', detail: 'Join free and take the paid local orders that suit the week.' },
+          { number: '02', detail: 'Design from what is fresh, not a fixed recipe.' },
+          { number: '03', detail: "Deliver under the shop's own name." },
         ],
       },
     ],

@@ -53,21 +53,3 @@ export function PhoneFrame({
     </div>
   );
 }
-
-/**
- * A small white pill floating over a drawn composition: the case-study hero's
- * "live" note and the mobile story's numbered callout are the same object at
- * different corners, so position and shadow come from the caller.
- */
-export function FloatingPill({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <div
-      className={cn(
-        'absolute z-4 flex items-center gap-xs bg-surface-page p-xs text-label font-heavy sm:px-m sm:py-s sm:text-caption',
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
-}

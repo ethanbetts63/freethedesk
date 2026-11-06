@@ -96,7 +96,6 @@ const config = {
       width: 390,
       height: 844,
     },
-    callout: 'Clear buying path',
   },
   feature: {
     variant: 'operations',
