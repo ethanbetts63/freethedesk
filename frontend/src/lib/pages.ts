@@ -48,7 +48,7 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-11-04',
+    updated: '2026-11-06',
     label: 'Dealer websites',
     title: 'Dealership Websites & Online Licensing, WA',
     description:
@@ -67,7 +67,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-11-04',
+    updated: '2026-11-06',
     label: 'Website development',
     title: 'Web Design & Development Perth',
     description:
@@ -158,7 +158,7 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
   '/affiliates': {
-    updated: '2026-11-04',
+    updated: '2026-11-06',
     label: 'Affiliates',
     title: 'SEO Audit Affiliate Program: 50% Commission',
     description:

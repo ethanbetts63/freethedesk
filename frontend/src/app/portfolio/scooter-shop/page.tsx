@@ -25,8 +25,14 @@ const config = {
   path: '/portfolio/scooter-shop',
   hero: {
     eyebrow: 'Scooter Shop case study',
-    title: { lines: ['Grown by decisions,', 'measured one at a time.'], accentLine: 1 },
-    description: `A Perth scooter dealership whose Google visits grew ${SCOOTER_SHOP_GROWTH.percent}% in ${SCOOTER_SHOP_GROWTH.span}, one measured decision at a time.`,
+    title: {
+      lines: [
+        `${SCOOTER_SHOP_GROWTH.percent}% more Google visits`,
+        `in ${SCOOTER_SHOP_GROWTH.span}.`,
+      ],
+      accentLine: 1,
+    },
+    description: "A Perth scooter dealership's website, grown one measured decision at a time.",
     liveHref: 'https://www.scootershop.com.au/',
     browserUrl: 'www.scootershop.com.au',
     desktopImage: {
@@ -113,10 +119,11 @@ const config = {
     },
     {
       kind: 'growth',
-      eyebrow: 'The growth',
-      title: `${SCOOTER_SHOP_GROWTH.percent}% growth.`,
-      accentTitle: '5 months.',
-      description: `Across ${SCOOTER_SHOP_GROWTH.period}, Google sent ${SCOOTER_SHOP_GROWTH.percent}% more visits. The decisions above are how, each one read in the site's own report afterwards.`,
+      eyebrow: 'The report',
+      title: 'It starts with data.',
+      accentTitle: 'Then it adds up.',
+      description:
+        "No single change made the difference. Each report reads the site's own data, says what to change next, and measures what the last changes earned. Small, certain steps, month after month.",
       action: 'report',
     },
   ],
