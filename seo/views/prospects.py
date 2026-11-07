@@ -75,6 +75,7 @@ class SeoProspectUploadView(APIView):
             )
         pdf = data.pop("report_pdf")
         html = data.pop("report_html", None)
+        cover = data.pop("report_cover", None)
         # A report that went by hand, registered for its link and its dashboard row: created sent, never queued,
         # and approved by the fact of it.
         went = "sent_at" in data
@@ -93,6 +94,8 @@ class SeoProspectUploadView(APIView):
                 prospect.report_pdf.save(f"{data['slug']}_{data['report_version']}.pdf", pdf, save=False)
                 if html is not None:
                     prospect.report_html.save(f"{data['slug']}_{data['report_version']}.html", html, save=False)
+                if cover is not None:
+                    prospect.report_cover.save(_cover_name(prospect, cover), cover, save=False)
                 prospect.save()
         except IntegrityError:
             # Two posts of the same report at once; the first one won.
@@ -176,10 +179,21 @@ class SeoProspectHtmlView(APIView):
             if prospect.report_pdf:
                 prospect.report_pdf.delete(save=False)
             prospect.report_pdf.save(f"{prospect.slug}_{prospect.report_version}.pdf", pdf, save=False)
+        cover = upload.validated_data.get("report_cover")
+        if cover is not None:
+            if prospect.report_cover:
+                prospect.report_cover.delete(save=False)
+            prospect.report_cover.save(_cover_name(prospect, cover), cover, save=False)
         prospect.save()
         return Response({"outcome": "attached", "id": prospect.pk, "report_link": report_link(prospect),
-                         "pdf_replaced": pdf is not None},
+                         "pdf_replaced": pdf is not None, "cover_replaced": cover is not None},
                         status=status.HTTP_201_CREATED)
+
+
+def _cover_name(prospect, upload) -> str:
+    """The stored name of the link's preview picture, keeping the extension it came with (JPEG or PNG)."""
+    extension = ".png" if str(upload.name).lower().endswith(".png") else ".jpg"
+    return f"{prospect.slug}_{prospect.report_version}_cover{extension}"
 
 
 def _by_key(key: str) -> SeoProspect:
@@ -237,6 +251,26 @@ class SeoReportPdfView(APIView):
         if sent_on := _sent_on(request, key, prospect, pdf_link(prospect)):
             return sent_on
         return _pdf_response(prospect, request)
+
+
+class SeoReportCoverView(APIView):
+    """`GET /api/seo/r/<key>/cover.jpg/`, at ``/reports/<business>-<token>/cover.jpg``: the picture a chat or text
+    app shows beside the link (the page's og:image). Public and cacheable, unlike the page: the apps fetch it apart
+    from the page, and a refused or uncacheable picture leaves the link bare. Not logged: no person opens it."""
+
+    throttle_scope = "report"
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def get(self, request, key):
+        prospect = _by_key(key)
+        if not prospect.report_cover:
+            raise Http404
+        png = prospect.report_cover.name.lower().endswith(".png")
+        response = FileResponse(prospect.report_cover.open("rb"), content_type="image/png" if png else "image/jpeg")
+        response["X-Robots-Tag"] = "noindex"
+        response["Cache-Control"] = "public, max-age=86400"
+        return response
 
 
 def _pdf_response(prospect, request):

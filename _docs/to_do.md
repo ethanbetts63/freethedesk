@@ -2,6 +2,10 @@
 
 Open tasks for this repository. Append any you find; delete one once you know it's done.
 
+## Deploy the report link's preview picture
+
+Added 2026-11-07. Owner's step. A report link pasted into a chat or a text now shows a card: the page carries Open Graph tags, and the row keeps a cover picture (`seo` 0028, `report_cover`), served at `/reports/<business>-<token>/cover.jpg` through a new rewrite. Deploy Django with `migrate` for `seo` 0028, and the frontend for the rewrite and the fallback picture (`public/og-images/seo-report.jpg`). Until the deploy, `outbox.py add` and `html` send the picture and the old server ignores the field (it says `cover_replaced` only once deployed). After it, `render --pdf` each held report once more (it writes `preview.jpg` beside the PDF) and run `outbox.py html <slug>` so each link gets its own cover; a row without one shows the site's picture. The apps cache a link's card, so test with a link not pasted before.
+
 ## Deploy the report link with the business's name in it
 
 Added 2026-11-06. Owner's step. The report link is now `/r/<business>-<token>` (`/r/bedford-chiropractic-clinic-xufxp7pjfd`); a bare `/r/<token>` link, which every report sent before this deploy carries, is sent on to the named address. Deploy Django and the frontend (the rewrite's parameter was renamed, nothing else). No migration. After it, the outbox still holds the bare links: run `outbox.py html <slug>` for every row (ftp_search/_search/tools/prospecting), which the PDF step below needs anyway; its answer carries the named link and the outbox keeps it. Until then `todo` and the call brief print the bare links, which still land.

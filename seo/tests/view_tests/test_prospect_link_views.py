@@ -11,7 +11,7 @@ from django.utils import timezone
 from core.utils.urls import site_url
 from seo.models import SeoProspect, SeoProspectOpen
 from seo.tests.factories import PDF, SeoProspectFactory, upload_fields
-from seo.utils.prospect_links import link_key, pdf_link, report_link
+from seo.utils.prospect_links import cover_link, link_key, pdf_link, report_link
 from seo.utils.prospect_sending import body_for, follow_up_body
 
 pytestmark = pytest.mark.django_db
@@ -19,6 +19,7 @@ pytestmark = pytest.mark.django_db
 HTML = b"<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Report</title>\n</head>\n<body>\n<article class=\"report\"><p>Fix the title.</p></article>\n</body>\n</html>\n"
 PHONE_UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
 PREVIEW_UA = "facebookexternalhit/1.1 Facebot Twitterbot/1.0"
+JPEG = b"\xff\xd8\xff\xe0" + b"\x00" * 64
 
 
 def with_page(**fields):
@@ -28,6 +29,51 @@ def with_page(**fields):
 
 
 # -- the page ----------------------------------------------------------------
+
+
+def test_the_page_carries_a_link_preview_with_the_site_s_picture_when_the_row_has_none(client):
+    """A link in a chat or a text showed nothing (owner, 2026-11-07): the apps read Open Graph tags, and the page
+    had none."""
+    prospect = with_page(business="Perth Patio Magic")
+
+    page = client.get(reverse("seo-report-page", args=[link_key(prospect)]), HTTP_USER_AGENT=PREVIEW_UA)
+    document = page.content.decode()
+
+    assert '<meta property="og:title" content="Perth Patio Magic: SEO report">' in document
+    assert f'<meta property="og:url" content="{report_link(prospect)}">' in document
+    assert f'<meta property="og:image" content="{site_url()}/og-images/seo-report.jpg">' in document
+    assert '<meta property="og:image:width" content="1200">' in document
+    assert '<meta name="twitter:card" content="summary_large_image">' in document
+    assert 'content="What to change first for Perth Patio Magic to be found on Google' in document
+    # In the head, before the site's styles, where every fetcher looks.
+    assert document.index("og:image") < document.index("<style>")
+    assert client.get(reverse("seo-report-cover", args=[link_key(prospect)])).status_code == 404
+
+
+def test_a_report_s_own_cover_is_the_preview_picture_and_is_served_cacheable(api_client, internal_key, client):
+    prospect = with_page()
+
+    response = api_client.post(
+        reverse("seo-prospect-html"),
+        {"slug": prospect.slug, "report_html": SimpleUploadedFile("report.html", HTML, content_type="text/html"),
+         "report_cover": SimpleUploadedFile("preview.jpg", JPEG, content_type="image/jpeg")},
+        format="multipart", HTTP_X_INTERNAL_API_KEY=internal_key,
+    )
+
+    assert response.status_code == 201 and response.json()["cover_replaced"] is True
+    prospect.refresh_from_db()
+    document = client.get(reverse("seo-report-page", args=[link_key(prospect)])).content.decode()
+    assert f'<meta property="og:image" content="{cover_link(prospect)}">' in document
+    assert cover_link(prospect) == f"{site_url()}/reports/{link_key(prospect)}/cover.jpg"
+
+    opens = SeoProspectOpen.objects.filter(prospect=prospect).count()
+    cover = client.get(reverse("seo-report-cover", args=[link_key(prospect)]), HTTP_USER_AGENT=PREVIEW_UA)
+    assert cover.status_code == 200 and cover["Content-Type"] == "image/jpeg"
+    assert cover["Cache-Control"] == "public, max-age=86400" and cover["X-Robots-Tag"] == "noindex"
+    assert b"".join(cover.streaming_content) == JPEG
+    # A picture fetch is no open: nothing more is logged against the prospect.
+    assert SeoProspectOpen.objects.filter(prospect=prospect).count() == opens
+
 
 
 def test_the_link_serves_the_report_page_noindexed_with_the_strip_and_the_ask(client):
@@ -152,13 +198,15 @@ def test_every_row_gets_its_own_unguessable_token():
 # -- the upload --------------------------------------------------------------
 
 
-def upload(api_client, key, html=HTML, **overrides):
+def upload(api_client, key, html=HTML, cover=None, **overrides):
     data = {
         **upload_fields(**overrides),
         "report_pdf": SimpleUploadedFile("report.pdf", PDF, content_type="application/pdf"),
     }
     if html is not None:
         data["report_html"] = SimpleUploadedFile("report.html", html, content_type="text/html")
+    if cover is not None:
+        data["report_cover"] = SimpleUploadedFile("preview.jpg", cover, content_type="image/jpeg")
     return api_client.post(reverse("seo-prospect-upload"), data, format="multipart", HTTP_X_INTERNAL_API_KEY=key)
 
 
@@ -172,6 +220,19 @@ def test_a_report_uploads_with_its_page_and_answers_with_its_link(api_client, in
     assert response.json()["report_html_ready"] is True
     with prospect.report_html.open("rb") as handle:
         assert handle.read() == HTML
+
+
+def test_a_cover_uploads_with_the_report_and_must_be_a_picture(api_client, internal_key):
+    response = upload(api_client, internal_key, cover=JPEG)
+    assert response.status_code == 201
+    prospect = SeoProspect.objects.get()
+    with prospect.report_cover.open("rb") as handle:
+        assert handle.read() == JPEG
+    prospect.delete()
+
+    refused = upload(api_client, internal_key, cover=b"%PDF-1.7 not a picture")
+    assert refused.status_code == 400 and "report_cover" in refused.json()
+    assert not SeoProspect.objects.exists()
 
 
 def test_a_page_that_is_not_html_is_refused(api_client, internal_key):

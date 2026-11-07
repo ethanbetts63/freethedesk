@@ -178,6 +178,19 @@ it with `?s=text`; every report email and follow-up names it beside the PDF
   Django's `/api/seo/r/<key>/` and `.../pdf/` (`seo/views/prospects.py`,
   `SeoReportPageView`, `SeoReportPdfView`). A row with no page serves its PDF at
   the link.
+- **The preview.** A link pasted into a chat or a text shows a card only if
+  the page carries Open Graph tags, and it carried none (owner, 2026-11-07).
+  `page_document` now writes them into the head: the title ("<business>: SEO
+  report"), one line, the address, and a 1200 by 630 picture. The picture is
+  the report's own cover when the row has one (`report_cover`, taken by
+  `render --pdf` as `preview.jpg` beside the PDF and uploaded with the page by
+  `outbox.py add` or `html`), served public and cacheable at
+  `/reports/<business>-<token>/cover.jpg` (`SeoReportCoverView`; the apps
+  fetch it apart from the page, and a refused or uncacheable picture leaves
+  the link bare); otherwise the site's SEO picture, the one the ask shows, at
+  `/og-images/seo-report.jpg`. The apps cache a link's card for a day or
+  more, so a link pasted before the tags existed keeps showing nothing; test
+  with a link not pasted before, or one with `?v=2` on it.
 - **The name.** The address leads with the business's name as a slug, then
   the token (`prospect_links.link_key`), so it reads as the business's own page
   and not a random string (owner, 2026-11-06). The name is not a key: the

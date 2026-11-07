@@ -78,6 +78,10 @@ class SeoProspect(models.Model):
     # call and named in every report email beside the PDF (owner, 2026-11-04). Blank on a row uploaded before the
     # link existed; the link then serves the PDF.
     report_html = models.FileField(storage=private_prospect_report_storage, upload_to="", max_length=255, blank=True)
+    # The picture a chat or text app shows beside the link (the page's og:image): the report's cover at 1200 by
+    # 630, taken by render beside the PDF and uploaded with the page (owner, 2026-11-07). Blank on a row from
+    # before it; the page then names the site's SEO picture instead (``prospect_links.preview_image``).
+    report_cover = models.FileField(storage=private_prospect_report_storage, upload_to="", max_length=255, blank=True)
     # The unguessable part of the link (its tail, after the business's name), set once; the page is noindexed and
     # linked from nowhere else.
     link_token = models.CharField(max_length=16, unique=True, default=new_link_token)

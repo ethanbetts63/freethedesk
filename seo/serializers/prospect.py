@@ -44,6 +44,8 @@ class SeoProspectUploadSerializer(serializers.Serializer):
     report_pdf = serializers.FileField()
     # The same report as a page, for the link; an outbox from before the link existed sends none.
     report_html = serializers.FileField(required=False)
+    # The link's preview picture (the page's og:image), rendered beside the PDF; optional the same way.
+    report_cover = serializers.FileField(required=False)
     contact_name = serializers.CharField(max_length=255, required=False, allow_blank=True)
     email = serializers.EmailField()
     email_source = serializers.URLField(max_length=500, required=False, allow_blank=True)
@@ -79,6 +81,9 @@ class SeoProspectUploadSerializer(serializers.Serializer):
     def validate_report_html(self, value):
         return validate_report_html(value)
 
+    def validate_report_cover(self, value):
+        return validate_report_cover(value)
+
     def validate(self, data):
         if "sent_at" in data and ("subject_version" not in data or "body_version" not in data):
             raise serializers.ValidationError("A report that already went names the subject and body it went with.")
@@ -107,6 +112,22 @@ def validate_report_html(value):
     return value
 
 
+#: A link preview picture is one JPEG or PNG, small: the chat and text apps fetch it on every send and give up on
+#: a large one (WhatsApp past about 300 KB; nothing accepts megabytes).
+MAX_COVER_BYTES = 2 * 1024 * 1024
+
+
+def validate_report_cover(value):
+    """The link's preview picture: a JPEG or PNG, as render takes it."""
+    if value.size > MAX_COVER_BYTES:
+        raise serializers.ValidationError("The preview picture is larger than 2 MB.")
+    head = value.read(8)
+    value.seek(0)
+    if not (head.startswith(b"\xff\xd8\xff") or head.startswith(b"\x89PNG\r\n\x1a\n")):
+        raise serializers.ValidationError("The preview picture is not a JPEG or a PNG.")
+    return value
+
+
 class SeoProspectHtmlSerializer(serializers.Serializer):
     """The report page for a prospect the server already holds (``outbox.py html``), and the PDF printed with it, so
     the page's PDF link serves the same version as the page."""
@@ -114,9 +135,13 @@ class SeoProspectHtmlSerializer(serializers.Serializer):
     slug = serializers.SlugField(max_length=64)
     report_html = serializers.FileField()
     report_pdf = serializers.FileField(required=False)
+    report_cover = serializers.FileField(required=False)
 
     def validate_report_html(self, value):
         return validate_report_html(value)
+
+    def validate_report_cover(self, value):
+        return validate_report_cover(value)
 
     def validate_report_pdf(self, value):
         return validate_report_pdf(value)

@@ -11,6 +11,7 @@ from .prospects import (
     SeoProspectApproveView,
     SeoProspectHtmlView,
     SeoReportPageView,
+    SeoReportCoverView,
     SeoReportPdfView,
     SeoProspectUploadView,
 )

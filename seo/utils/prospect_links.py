@@ -61,6 +61,46 @@ def pdf_link(prospect: SeoProspect) -> str:
     return f"{site_url()}/reports/{link_key(prospect)}/pdf"
 
 
+def cover_link(prospect: SeoProspect) -> str:
+    """The link's preview picture, where the site serves it (``SeoReportCoverView``)."""
+    return f"{site_url()}/reports/{link_key(prospect)}/cover.jpg"
+
+
+#: The preview picture for a row with no cover of its own: the SEO page's picture of what an audit reads, the one
+#: the ask under the report shows, cut to the 1200 by 630 the apps expect (owner, 2026-11-07).
+PREVIEW_FALLBACK = "/og-images/seo-report.jpg"
+PREVIEW_WIDTH, PREVIEW_HEIGHT = 1200, 630
+
+
+def preview_image(prospect: SeoProspect) -> str:
+    return cover_link(prospect) if prospect.report_cover else f"{site_url()}{PREVIEW_FALLBACK}"
+
+
+def preview_tags(prospect: SeoProspect) -> str:
+    """What a chat or text app shows beside the link: Open Graph and Twitter tags for the title, a line, the
+    picture and the address. Without them the apps show nothing, since the page is noindexed and has no other
+    picture to pick (owner, 2026-11-07). The title and the line are the server's, so every report reads the same."""
+    title = escape(f"{prospect.business}: SEO report")
+    line = escape(f"What to change first for {prospect.business} to be found on Google, ranked by impact, and "
+                  "why. A report by freethedesk.")
+    image = escape(preview_image(prospect))
+    url = escape(report_link(prospect))
+    return "\n".join((
+        f'<meta property="og:title" content="{title}">',
+        f'<meta property="og:description" content="{line}">',
+        f'<meta property="og:image" content="{image}">',
+        f'<meta property="og:image:width" content="{PREVIEW_WIDTH}">',
+        f'<meta property="og:image:height" content="{PREVIEW_HEIGHT}">',
+        f'<meta property="og:url" content="{url}">',
+        '<meta property="og:type" content="website">',
+        '<meta property="og:site_name" content="freethedesk">',
+        '<meta name="twitter:card" content="summary_large_image">',
+        f'<meta name="twitter:title" content="{title}">',
+        f'<meta name="twitter:description" content="{line}">',
+        f'<meta name="twitter:image" content="{image}">',
+    ))
+
+
 def record_open(prospect: SeoProspect, request, kind: str = SeoProspectOpen.Kind.PAGE) -> SeoProspectOpen:
     """One row per open: when, which file, where the link came from, and whether a person or a preview did it."""
     source = request.GET.get("s", "")[:20]
@@ -202,9 +242,9 @@ def site_footer() -> str:
 
 
 def page_document(prospect: SeoProspect, document: str) -> str:
-    """The report's HTML with the robots meta in its head, the site's strip over it, the ask under it and the
-    site's footer last."""
-    document = document.replace("<head>", f"<head>\n{ROBOTS}\n{_STYLE}", 1)
+    """The report's HTML with the robots meta and the link-preview tags in its head, the site's strip over it, the
+    ask under it and the site's footer last."""
+    document = document.replace("<head>", f"<head>\n{ROBOTS}\n{preview_tags(prospect)}\n{_STYLE}", 1)
     document = document.replace(
         "<body>", "<body>\n" + _BAR.format(pdf=escape(pdf_link(prospect))), 1
     )

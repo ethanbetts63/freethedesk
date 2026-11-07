@@ -123,6 +123,8 @@ const nextConfig: NextConfig = {
       // A prospect report's link, /reports/<business>-<token>: the page and its PDF, served by Django, noindexed
       // and linked from nowhere (_docs/seo-prospect-outreach.md, "The report's link").
       { source: '/reports/:key/pdf', destination: `${apiUrl}/api/seo/r/:key/pdf/` },
+      // The link's preview picture (the page's og:image), which chat and text apps fetch apart from the page.
+      { source: '/reports/:key/cover.jpg', destination: `${apiUrl}/api/seo/r/:key/cover.jpg/` },
       { source: '/reports/:key', destination: `${apiUrl}/api/seo/r/:key/` },
     ];
   },

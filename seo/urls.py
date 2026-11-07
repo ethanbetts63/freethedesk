@@ -10,6 +10,7 @@ from .views import (
     SeoProspectApproveView,
     SeoProspectHtmlView,
     SeoProspectUploadView,
+    SeoReportCoverView,
     SeoReportPageView,
     SeoReportPdfView,
     AdminSeoSetupStepView,
@@ -49,6 +50,8 @@ urlpatterns = [
     # token at the end is the key (``prospect_links.link_key``).
     path("seo/r/<str:key>/", SeoReportPageView.as_view(), name="seo-report-page"),
     path("seo/r/<str:key>/pdf/", SeoReportPdfView.as_view(), name="seo-report-pdf"),
+    # The link's preview picture (the page's og:image), fetched by chat and text apps apart from the page.
+    path("seo/r/<str:key>/cover.jpg/", SeoReportCoverView.as_view(), name="seo-report-cover"),
     # Staff: the calls list.
     path("admin/seo/prospects/", AdminSeoProspectListView.as_view(), name="admin-seo-prospect-list"),
     path("admin/seo/prospects/summary/", AdminSeoProspectSummaryView.as_view(), name="admin-seo-prospect-summary"),
