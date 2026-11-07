@@ -41,8 +41,6 @@
   --accent: var(--blue-600);
   --accent-bright: var(--blue-500);
   --accent-deep: var(--blue-800);
-  /* The site's light blue behind the ask a prospect report ends on (ask.css). */
-  --ask-wash: #f1f7fc;
 
   /* Feedback families; components read --tone-*, bound per variant (see patterns.css). */
   --good: #17653f;
@@ -249,8 +247,8 @@ code {
 /* From 1024 pixels the page is laid out as the site lays out a guide: the cover across the whole width, as the
  * site's hero is, then the contents as a menu down the left, stuck in view, and the report in one column beside it,
  * the whole in the site's shell. The grid is the report's own box (render writes it round the cover, the contents
- * and the article), so the page the site serves the report in keeps its strip over the box, and a prospect report's
- * ask (ask.css) follows it, outside the grid. The contents and the article share a row, which is what lets the contents stick down the
+ * and the article), so the page the site serves the report in keeps its strip over the box and its ask under it,
+ * outside the grid. The contents and the article share a row, which is what lets the contents stick down the
  * article's whole height. Figures break out to the column, no wider: the report's parts were at three widths
  * before, the cover's, the prose's and the figures' (owner, 2026-11-05). */
 @media screen and (min-width: 1024px) {
@@ -1670,6 +1668,15 @@ tbody tr:last-child td {
   border-radius: 16px;
 }
 
+/* The upsell's picture (compose.UPSELL_PICTURES): a drawing, not a screenshot, framed as the site's SEO page frames
+ * it, with no browser bar. */
+.rec__shot--picture {
+  width: 44%;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 /* A card may split across a page (holding each whole leaves pages half blank); the title must stay with its first
  * paragraph and no paragraph strands a line. How a split card closes is the tile's, in patterns.css. */
 @media print {
@@ -1797,6 +1804,10 @@ tbody tr:last-child td {
     margin-right: 0;
     margin-bottom: 20px;
     box-shadow: 8px 8px 0 var(--slate-100);
+  }
+
+  .rec__shot--picture {
+    width: 100%;
   }
 
   .rec__shot--desktop img {
@@ -2606,111 +2617,6 @@ tbody tr:last-child td {
   .contents__line--topic[aria-current] {
     color: var(--ink);
     font-weight: 600;
-  }
-}
-
-/* ===== ask.css ===== */
-/* The ask a prospect report ends on (guide.ASK): a band the page's width under the report, outside its grid, the
- * site's light blue behind the words and the picture of what an audit reads. The same band on screen and on paper,
- * where it is the last sheet; freethedesk's /seo/sample-report sets the same in the site's own components. */
-
-.report-ask {
-  background: var(--ask-wash);
-  font-family: var(--display);
-  print-color-adjust: exact;
-  -webkit-print-color-adjust: exact;
-}
-
-.report-ask__shell {
-  display: grid;
-  gap: 28px;
-  align-items: center;
-  max-width: var(--shell);
-  margin: 0 auto;
-  padding: 44px var(--gutter);
-}
-
-.report-ask__eyebrow {
-  display: block;
-  margin: 0 0 10px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent-deep);
-}
-
-.report-ask h2 {
-  margin: 0 0 12px;
-  font-family: var(--display);
-  font-size: 1.65rem;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-}
-
-.report-ask p {
-  max-width: 520px;
-  margin: 0 0 22px;
-  font-size: 1rem;
-  line-height: 1.55;
-  color: var(--ink-2);
-}
-
-.report-ask__button {
-  display: inline-block;
-  padding: 11px 20px;
-  border-radius: 999px;
-  background: var(--accent);
-  color: var(--on-field);
-  font-size: 0.95rem;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.report-ask__button:hover {
-  background: var(--accent-deep);
-}
-
-/* Framed as the site's SEO page frames it. */
-.report-ask__picture {
-  display: block;
-  width: 100%;
-  max-width: 560px;
-  height: auto;
-  margin: 0 auto;
-  border: 1px solid var(--rule);
-  border-radius: 8px;
-}
-
-@media screen and (min-width: 768px) {
-  .report-ask__shell {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 40px;
-    padding: 56px var(--gutter);
-  }
-
-  .report-ask h2 {
-    font-size: 2rem;
-  }
-}
-
-/* The last sheet: the band across the page box, the words beside the picture as a desktop sets them. */
-@media print {
-  .report-ask {
-    break-before: page;
-    page-break-before: always;
-  }
-
-  .report-ask__shell {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 10mm;
-    max-width: none;
-    padding: 16mm 14mm;
-  }
-
-  .report-ask h2 {
-    font-size: 1.6rem;
   }
 }
 }

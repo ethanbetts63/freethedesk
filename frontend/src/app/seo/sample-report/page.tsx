@@ -26,7 +26,7 @@ export const metadata: Metadata = metadataFor('/seo/sample-report');
  * The sample report is a delivered report, laid out as the engine lays one out (owner, 2026-11-07): the engine's
  * markup (compose.py, render.py), its stylesheet copied (_styles/report.generated.css) and its contents menu
  * following the reader. The site's own parts, the note that it is a sample and the ask at the foot, sit outside the
- * report's box; the ask is the one every prospect report ends on (the report engine's guide.ASK).
+ * report's box; the ask is the one a hosted prospect report's page carries (seo/utils/prospect_links.py, _ASK).
  */
 function SampleNote() {
   return (
@@ -50,7 +50,7 @@ function SampleNote() {
 }
 
 /**
- * The ask under the report: the band every prospect report ends on (the report engine's guide.ASK), the words
+ * The ask under the report: the band a hosted prospect report's page ends on (prospect_links._ASK), the words
  * beside the SEO page's picture of what an audit reads, framed as that page frames it. One sentence differs: a
  * prospect's says that report was written from public data; this one says it is a sample.
  */
