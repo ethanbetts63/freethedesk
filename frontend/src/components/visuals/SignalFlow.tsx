@@ -14,15 +14,6 @@ type Stream = {
   width: number;
 };
 
-type Point = {
-  x: number;
-  y: number;
-};
-
-type SignalFlowProps = {
-  smooth?: boolean;
-};
-
 const STREAMS: Stream[] = [
   {
     y: 0.2,
@@ -103,29 +94,7 @@ function createDotSprite(fillColor: string, shadowColor: string, radius: number,
 
 type Sprite = ReturnType<typeof createDotSprite>;
 
-function traceSmoothPath(context: CanvasRenderingContext2D, points: Point[]) {
-  if (points.length === 0) return;
-
-  context.moveTo(points[0].x, points[0].y);
-
-  for (let index = 0; index < points.length - 1; index += 1) {
-    const previous = points[Math.max(0, index - 1)];
-    const current = points[index];
-    const next = points[index + 1];
-    const following = points[Math.min(points.length - 1, index + 2)];
-
-    context.bezierCurveTo(
-      current.x + (next.x - previous.x) / 6,
-      current.y + (next.y - previous.y) / 6,
-      next.x - (following.x - current.x) / 6,
-      next.y - (following.y - current.y) / 6,
-      next.x,
-      next.y,
-    );
-  }
-}
-
-export function SignalFlow({ smooth = false }: SignalFlowProps) {
+export function SignalFlow() {
   const sprites = useRef<{ dark: Sprite; light: Sprite } | null>(null);
 
   const onResize = useCallback(({ ratio }: { ratio: number }) => {
@@ -137,61 +106,48 @@ export function SignalFlow({ smooth = false }: SignalFlowProps) {
     };
   }, []);
 
-  const draw = useCallback(
-    ({ context, width, height, time, reduceMotion }: CanvasFrame) => {
-      context.clearRect(0, 0, width, height);
+  const draw = useCallback(({ context, width, height, time, reduceMotion }: CanvasFrame) => {
+    context.clearRect(0, 0, width, height);
 
-      const point = (stream: Stream, progress: number) => {
-        const x = progress * (width + 240) - 120;
-        const wave = Math.sin(
-          progress * Math.PI * 2 * stream.frequency + stream.phase + time * stream.speed,
-        );
-        const fineWave = Math.sin(progress * Math.PI * 6 + stream.phase) * 9;
-        return { x, y: height * stream.y + wave * stream.amplitude + fineWave };
-      };
+    const point = (stream: Stream, progress: number) => {
+      const x = progress * (width + 240) - 120;
+      const wave = Math.sin(
+        progress * Math.PI * 2 * stream.frequency + stream.phase + time * stream.speed,
+      );
+      const fineWave = Math.sin(progress * Math.PI * 6 + stream.phase) * 9;
+      return { x, y: height * stream.y + wave * stream.amplitude + fineWave };
+    };
 
-      STREAMS.forEach((stream, streamIndex) => {
-        const stepCount = smooth ? 32 : 100;
-        const points = Array.from({ length: stepCount + 1 }, (_, step) =>
-          point(stream, step / stepCount),
-        );
+    STREAMS.forEach((stream, streamIndex) => {
+      const stepCount = 100;
+      const points = Array.from({ length: stepCount + 1 }, (_, step) =>
+        point(stream, step / stepCount),
+      );
 
-        context.beginPath();
-        if (smooth) {
-          traceSmoothPath(context, points);
-        } else {
-          points.forEach((position, step) => {
-            if (step === 0) context.moveTo(position.x, position.y);
-            else context.lineTo(position.x, position.y);
-          });
-        }
-        context.strokeStyle = stream.color;
-        context.lineWidth = stream.width;
-        context.lineCap = 'round';
-        context.lineJoin = 'round';
-        context.stroke();
-
-        const pulseCount = streamIndex % 2 === 0 ? 3 : 2;
-        for (let pulse = 0; pulse < pulseCount; pulse += 1) {
-          const raw = reduceMotion
-            ? (pulse + 1) / (pulseCount + 1)
-            : time * (0.000021 + streamIndex * 0.0000012) + pulse / pulseCount + streamIndex * 0.13;
-          const position = point(stream, raw % 1);
-          const sprite = sprites.current?.[(pulse + streamIndex) % 3 === 0 ? 'dark' : 'light'];
-          if (!sprite) continue;
-          const { size } = sprite;
-          context.drawImage(
-            sprite.canvas,
-            position.x - size / 2,
-            position.y - size / 2,
-            size,
-            size,
-          );
-        }
+      context.beginPath();
+      points.forEach((position, step) => {
+        if (step === 0) context.moveTo(position.x, position.y);
+        else context.lineTo(position.x, position.y);
       });
-    },
-    [smooth],
-  );
+      context.strokeStyle = stream.color;
+      context.lineWidth = stream.width;
+      context.lineCap = 'round';
+      context.lineJoin = 'round';
+      context.stroke();
+
+      const pulseCount = streamIndex % 2 === 0 ? 3 : 2;
+      for (let pulse = 0; pulse < pulseCount; pulse += 1) {
+        const raw = reduceMotion
+          ? (pulse + 1) / (pulseCount + 1)
+          : time * (0.000021 + streamIndex * 0.0000012) + pulse / pulseCount + streamIndex * 0.13;
+        const position = point(stream, raw % 1);
+        const sprite = sprites.current?.[(pulse + streamIndex) % 3 === 0 ? 'dark' : 'light'];
+        if (!sprite) continue;
+        const { size } = sprite;
+        context.drawImage(sprite.canvas, position.x - size / 2, position.y - size / 2, size, size);
+      }
+    });
+  }, []);
 
   const canvasRef = useCanvasAnimation({ draw, onResize });
 

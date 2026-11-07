@@ -1,14 +1,14 @@
 import { FOOTER_NAVIGATION, OPENING_HOURS } from '@/lib/siteConfig';
 import Eyebrow from '@/components/common/eyebrow';
-import { DeferredSignalFlow } from '@/components/visuals/DeferredSignalFlow';
 import { SiteFooter, type FooterColumn } from '@/components/layout/SiteFooter';
 import { Wordmark } from '@/components/Wordmark';
 
 /**
- * The graph-paper backdrop plus the signal-flow canvas, the two things that
- * make this footer this site's rather than a shared shell. The grid layers are
- * the hero's, from `--tint-hero-grid`; only the fade is the footer's own, so
- * the pattern never meets a hard boundary at the top or either edge.
+ * The graph-paper backdrop, what makes this footer this site's rather than a
+ * shared shell. It is still: the moving signal lines were taken out (owner,
+ * 2026-11-07). The grid layers are the hero's, from `--tint-hero-grid`; only
+ * the fade is the footer's own, so the pattern never meets a hard boundary at
+ * the top or either edge.
  */
 const gridBackdropClassName = [
   "absolute inset-0 pointer-events-none content-['']",
@@ -71,15 +71,7 @@ export function Footer() {
   return (
     <SiteFooter
       columns={COLUMNS}
-      backdrop={
-        <>
-          <div aria-hidden="true" className={gridBackdropClassName} />
-          {/* Hidden below `sm`: the canvas costs more than it reads at phone width. */}
-          <div className="pointer-events-none absolute inset-0 hidden opacity-60 sm:block [&_canvas]:h-full [&_canvas]:w-full">
-            <DeferredSignalFlow smooth />
-          </div>
-        </>
-      }
+      backdrop={<div aria-hidden="true" className={gridBackdropClassName} />}
       brand={
         <>
           <Wordmark href="/" />

@@ -8,7 +8,7 @@ import { useHostVisible } from './useHostVisible';
 const SignalFlow = dynamic(() => import('./SignalFlow').then((m) => m.SignalFlow), { ssr: false });
 
 /** SignalFlow, fetched only once its container is on screen. */
-export function DeferredSignalFlow({ smooth = false }: { smooth?: boolean }) {
+export function DeferredSignalFlow() {
   const { sentinel, visible } = useHostVisible();
-  return visible ? <SignalFlow smooth={smooth} /> : <span ref={sentinel} />;
+  return visible ? <SignalFlow /> : <span ref={sentinel} />;
 }
