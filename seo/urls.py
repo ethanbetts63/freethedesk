@@ -45,7 +45,7 @@ urlpatterns = [
     path("seo/prospects/html/", SeoProspectHtmlView.as_view(), name="seo-prospect-html"),
     # The same secret: one email written by hand, sent now, with files (the note after a call).
     path("seo/messages/", SeoMessageSendView.as_view(), name="seo-message-send"),
-    # The report's link, which the site serves at /r/<business>-<token>: the page, and its PDF. No sign-in; the
+    # The report's link, which the site serves at /reports/<business>-<token>: the page, and its PDF. No sign-in; the
     # token at the end is the key (``prospect_links.link_key``).
     path("seo/r/<str:key>/", SeoReportPageView.as_view(), name="seo-report-page"),
     path("seo/r/<str:key>/pdf/", SeoReportPdfView.as_view(), name="seo-report-pdf"),

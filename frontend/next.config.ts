@@ -46,6 +46,10 @@ const nextConfig: NextConfig = {
         destination: '/legal/seo-audit-terms',
         permanent: true,
       },
+      // A prospect report's first links went out as /r/<business>-<token> (2026-11-04); the address is
+      // /reports/ since 2026-11-07, and every link already sent or texted is sent on to it, query and all.
+      { source: '/r/:key/pdf', destination: '/reports/:key/pdf', permanent: true },
+      { source: '/r/:key', destination: '/reports/:key', permanent: true },
       // One address a page: /seo/ goes to /seo. The trailing-slash redirect is skipped above so /api/.../ reaches
       // Django with its slash, so the pages take theirs off here, /api aside.
       { source: '/:path((?!api/).+)/', destination: '/:path', permanent: true },
@@ -116,10 +120,10 @@ const nextConfig: NextConfig = {
     return [
       { source: '/api/:path*/', destination: `${apiUrl}/api/:path*/` },
       { source: '/api/:path*', destination: `${apiUrl}/api/:path*` },
-      // A prospect report's link, /r/<business>-<token>: the page and its PDF, served by Django, noindexed and
-      // linked from nowhere (_docs/seo-prospect-outreach.md, "The report's link").
-      { source: '/r/:key/pdf', destination: `${apiUrl}/api/seo/r/:key/pdf/` },
-      { source: '/r/:key', destination: `${apiUrl}/api/seo/r/:key/` },
+      // A prospect report's link, /reports/<business>-<token>: the page and its PDF, served by Django, noindexed
+      // and linked from nowhere (_docs/seo-prospect-outreach.md, "The report's link").
+      { source: '/reports/:key/pdf', destination: `${apiUrl}/api/seo/r/:key/pdf/` },
+      { source: '/reports/:key', destination: `${apiUrl}/api/seo/r/:key/` },
     ];
   },
 };

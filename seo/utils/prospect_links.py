@@ -1,11 +1,12 @@
-"""The report's own address on the site: ``freethedesk.com.au/r/<business>-<token>``, the report as a phone
-shows it.
+"""The report's own address on the site: ``freethedesk.com.au/reports/<business>-<token>``, the report as a
+phone shows it.
 
 The owner texts it by hand during a call (the brief prints it with ``?s=text``),
 and every report email carries it beside the PDF (owner, 2026-11-04). The business's name leads the address so it
 reads as the business's own page; the token after it is the key, unguessable, and the page is noindexed and
 linked from nowhere (owner, 2026-11-06). A link with the token alone, or under another name (the first links went
-out as ``/r/<token>``), is sent on to the named address. Each open is logged against the prospect with where the
+out as ``/r/<token>``), is sent on to the named address; the site sends any ``/r/`` link on to ``/reports/``
+(owner, 2026-11-07). Each open is logged against the prospect with where the
 link came from, so the dashboard shows who looked: the first engagement signal
 the outreach has. See ``_docs/seo-prospect-outreach.md``.
 """
@@ -52,12 +53,12 @@ def token_of(key: str) -> str:
 
 def report_link(prospect: SeoProspect, source: str = "") -> str:
     """The page's address, with ``?s=<source>`` when the link is placed somewhere the opens should name."""
-    base = f"{site_url()}/r/{link_key(prospect)}"
+    base = f"{site_url()}/reports/{link_key(prospect)}"
     return f"{base}?s={source}" if source else base
 
 
 def pdf_link(prospect: SeoProspect) -> str:
-    return f"{site_url()}/r/{link_key(prospect)}/pdf"
+    return f"{site_url()}/reports/{link_key(prospect)}/pdf"
 
 
 def record_open(prospect: SeoProspect, request, kind: str = SeoProspectOpen.Kind.PAGE) -> SeoProspectOpen:

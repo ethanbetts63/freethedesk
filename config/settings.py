@@ -181,7 +181,7 @@ REST_FRAMEWORK = {
         "internal": "120/hour",
         # The unsubscribe link in every pitch: a token check and one row written.
         "unsubscribe": "30/hour",
-        # A prospect report's link (/r/<token>): one business reading its own report, and its link previews.
+        # A prospect report's link (/reports/<business>-<token>): one business reading its own report, and its link previews.
         "report": "120/hour",
         # Each accepted request mints a password and sends an email.
         "sale-link": "60/hour",

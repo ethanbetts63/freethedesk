@@ -1,4 +1,4 @@
-"""The report's link: the page and its PDF at /r/<business>-<token>, the opens it logs, and the page uploaded
+"""The report's link: the page and its PDF at /reports/<business>-<token>, the opens it logs, and the page uploaded
 with or after the report."""
 
 from datetime import timedelta
@@ -47,7 +47,7 @@ def test_the_link_serves_the_report_page_noindexed_with_the_strip_and_the_ask(cl
     # The site's footer closes the page.
     assert page.index('class="ftd-ask"') < page.index('class="ftd-foot"') < page.index("</body>")
     assert 'href="/seo">SEO audits</a>' in page and "ABN 11 493 753 896" in page
-    assert f"/r/perth-patio-magic-{prospect.link_token}/pdf" in page
+    assert f"/reports/perth-patio-magic-{prospect.link_token}/pdf" in page
     assert 'href="tel:+61423853830"' in page and "0423 853 830" in page
     assert 'href="mailto:analytics@freethedesk.com.au"' in page
 
@@ -71,9 +71,9 @@ def test_the_ask_is_a_band_under_the_whole_report_before_the_footer():
 def test_the_address_carries_the_business_s_name_before_the_token():
     prospect = SeoProspectFactory.build(business="Bedford Chiropractic Clinic", link_token="xufxp7pjfd")
     assert link_key(prospect) == "bedford-chiropractic-clinic-xufxp7pjfd"
-    assert report_link(prospect) == f"{site_url()}/r/bedford-chiropractic-clinic-xufxp7pjfd"
-    assert report_link(prospect, "text") == f"{site_url()}/r/bedford-chiropractic-clinic-xufxp7pjfd?s=text"
-    assert pdf_link(prospect) == f"{site_url()}/r/bedford-chiropractic-clinic-xufxp7pjfd/pdf"
+    assert report_link(prospect) == f"{site_url()}/reports/bedford-chiropractic-clinic-xufxp7pjfd"
+    assert report_link(prospect, "text") == f"{site_url()}/reports/bedford-chiropractic-clinic-xufxp7pjfd?s=text"
+    assert pdf_link(prospect) == f"{site_url()}/reports/bedford-chiropractic-clinic-xufxp7pjfd/pdf"
     # Punctuation and case go; a name that is nothing but them leaves the token alone; a long one is cut.
     assert link_key(SeoProspectFactory.build(business="Richo's Plumbing & Gas", link_token="t0k3n")) == "richos-plumbing-gas-t0k3n"
     assert link_key(SeoProspectFactory.build(business="***", link_token="t0k3n")) == "t0k3n"
@@ -93,7 +93,9 @@ def test_a_link_with_the_token_alone_or_under_another_name_is_sent_on_to_the_nam
     assert pdf.status_code == 302 and pdf["Location"] == pdf_link(prospect)
     # Sent on, not served: the open is logged once, at the named address.
     assert not SeoProspectOpen.objects.exists()
-    assert client.get(named.replace(site_url(), "/api/seo").rstrip("/") + "/", HTTP_USER_AGENT=PHONE_UA).status_code == 200
+    # The site serves /reports/<key> from Django's /api/seo/r/<key>/ (next.config.ts).
+    served = named.replace(f"{site_url()}/reports/", "/api/seo/r/") + "/"
+    assert client.get(served, HTTP_USER_AGENT=PHONE_UA).status_code == 200
 
 
 def test_an_open_is_logged_with_its_source_and_whether_a_person_did_it(client):
@@ -165,7 +167,7 @@ def test_a_report_uploads_with_its_page_and_answers_with_its_link(api_client, in
 
     assert response.status_code == 201
     prospect = SeoProspect.objects.get()
-    assert response.json()["report_link"] == report_link(prospect) == f"{site_url()}/r/{link_key(prospect)}"
+    assert response.json()["report_link"] == report_link(prospect) == f"{site_url()}/reports/{link_key(prospect)}"
     assert report_link(prospect).endswith(f"-{prospect.link_token}")
     assert response.json()["report_html_ready"] is True
     with prospect.report_html.open("rb") as handle:

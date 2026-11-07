@@ -45,7 +45,7 @@ def _csv(params, key):
 class SeoProspectUploadView(APIView):
     """`POST /api/seo/prospects/`: a published prospect report, held for the owner's approval.
 
-    The row gives the report its link (``/r/<token>``), which the owner reads
+    The row gives the report its link (``/reports/<business>-<token>``), which the owner reads
     it at; the subject and body are chosen now, so the outbox can say what
     will go; nothing is emailed until ``SeoProspectApproveView`` records the
     owner's word. One report per business: a domain, slug or address already
@@ -200,7 +200,7 @@ def _sent_on(request, key: str, prospect: SeoProspect, address: str):
 
 
 class SeoReportPageView(APIView):
-    """`GET /api/seo/r/<key>/`, served at ``/r/<business>-<token>`` by the site: the report as a page, for the link.
+    """`GET /api/seo/r/<key>/`, served at ``/reports/<business>-<token>`` by the site: the report as a page, for the link.
 
     No sign-in: the token is the key, and the page is noindexed, linked from
     nowhere, and never cached between. Each open is logged against the
@@ -225,7 +225,7 @@ class SeoReportPageView(APIView):
 
 
 class SeoReportPdfView(APIView):
-    """`GET /api/seo/r/<key>/pdf/`, at ``/r/<business>-<token>/pdf``: the same report's PDF, inline, logged as
+    """`GET /api/seo/r/<key>/pdf/`, at ``/reports/<business>-<token>/pdf``: the same report's PDF, inline, logged as
     an open."""
 
     throttle_scope = "report"

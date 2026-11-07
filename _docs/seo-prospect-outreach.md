@@ -157,12 +157,14 @@ sent, replied and called per subject, and per body.
 ## The report's link (owner, 2026-11-04)
 
 Every report has an address of its own on the site,
-`freethedesk.com.au/r/<business>-<token>` (`/r/bedford-chiropractic-clinic-xufxp7pjfd`):
+`freethedesk.com.au/reports/<business>-<token>` (`/reports/bedford-chiropractic-clinic-xufxp7pjfd`;
+the first links went out under `/r/`, and the site sends them on, owner 2026-11-07):
 the report as a page, the layout a phone shows and, on a desktop, the
 site's guide layout (the cover full width, the contents as a menu beside one
 column), with the site's strip over it (the number, the address, a button to
 the SEO page, the PDF), the ask for the full report under it (a band the page's
-width: the words beside a guide's picture of the report) and the site's
+width: the words beside the SEO page's picture of what an audit reads; the
+page's alone, since the PDF's upsell card carries the picture) and the site's
 footer last. The owner texts it by hand during a call, from the call brief, which prints
 it with `?s=text`; every report email and follow-up names it beside the PDF
 ("You can also read it online"); nothing else links to it.
@@ -172,7 +174,7 @@ it with `?s=text`; every report email and follow-up names it beside the PDF
   the rows from before the page existed (`POST /api/seo/prospects/html/`,
   `outbox.py html`). A re-attach sends the PDF printed with the page too, and
   the endpoint replaces the row's `report_pdf` with it, so the page's PDF link
-  serves the same version as the page. The site rewrites `/r/:key` and `/r/:key/pdf` to
+  serves the same version as the page. The site rewrites `/reports/:key` and `/reports/:key/pdf` to
   Django's `/api/seo/r/<key>/` and `.../pdf/` (`seo/views/prospects.py`,
   `SeoReportPageView`, `SeoReportPdfView`). A row with no page serves its PDF at
   the link.
