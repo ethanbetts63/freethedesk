@@ -1515,6 +1515,15 @@ tbody tr:last-child td {
   text-wrap: pretty;
 }
 
+/* A card's title stands above its "What we found:" labels, which are body-size bold: the base h3 is smaller than
+ * the body, so the size is set here (owner, 2026-11-07). */
+.rec__title,
+.exp__title {
+  font-size: 1.3rem;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
 .rec__title {
   font-family: var(--display);
   font-weight: 700;
