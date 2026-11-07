@@ -110,32 +110,6 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     ],
   },
   {
-    id: 'suburb-pages',
-    title: 'Fold the six suburb pages into the service pages they copy',
-    impact: 'medium',
-    cost: 'medium',
-    what: 'Six pages, one for each suburb from Joondalup to Scarborough, carry the same text with the suburb name swapped. Google showed four of them for nothing in September, and the other two compete with the blocked drains page for the same searches.',
-    why: 'Pages that differ only by a place name read to Google as one page said six times. They split the standing that one strong page would hold, and the two that are shown take clicks the blocked drains page would earn with a price on it.',
-    how: [
-      'Redirect each suburb page permanently to the service page it repeats.',
-      'Keep one list of the suburbs you cover on the contact page, with any travel charge beside it.',
-      'Take the six old addresses out of the sitemap.',
-    ],
-  },
-  {
-    id: 'name-the-plumber',
-    title: 'Name Marcus and the licences on every service page',
-    impact: 'medium',
-    cost: 'low',
-    what: "Marcus is thanked by name in 38 of the 64 Google reviews and appears on no page. The pages say 'our team of licensed plumbers', none gives a plumbing or gas licence number or says the work is insured, and the three plumbers most often ranked beside the site print all three.",
-    why: 'A customer letting a stranger into the house to work on gas or hot water looks for proof before price. The proof already exists, in the licences behind the work and in what customers wrote on Google; the site is the one place it is missing.',
-    how: [
-      'Put Marcus, his photo, the plumbing and gas fitting licence numbers and that the work is insured under the heading of the hot water, gas fitting and blocked drains pages.',
-      'Quote two reviews that name him beside it, each with the suburb and the job.',
-      'Add two or three recent jobs to each of those pages: a photo, the suburb, what was wrong and what was done.',
-    ],
-  },
-  {
     id: 'reply-to-reviews',
     title: 'Ask for a review after every job, and reply to each one',
     impact: 'medium',
@@ -147,18 +121,6 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
       'Add the profile’s review link to the job-complete text you send customers, so every job is asked.',
       'Reply to the three complaints first: say what happened and what you now do, such as a text when the plumber is on the way.',
       'Thank the most recent five-star reviewers by the job they mention.',
-    ],
-  },
-  {
-    id: 'homepage-photo',
-    title: 'Make the homepage photo small, so it loads fast on a phone',
-    impact: 'low',
-    cost: 'low',
-    what: 'The photo at the top of the homepage is a large camera original, sent whole to every phone. On a mid-range phone it takes about four seconds to appear, and the heading waits for it.',
-    why: 'Most visitors arrive on a phone, often in a hurry. A blank screen for four seconds is long enough for some of them to go back and ring the next result.',
-    how: [
-      'Save the photo at the width it is shown, in a modern format such as WebP, so it is a fraction of its size.',
-      'Let the heading and the call button show before the photo, not after it.',
     ],
   },
   {
