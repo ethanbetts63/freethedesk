@@ -4,7 +4,7 @@ import { headers } from 'next/headers';
 
 import { firstError } from '@/lib/api';
 import { serverApiFetch } from '@/lib/serverApi';
-import { seoSignupSchema } from './SeoSignupPanel.schema';
+import { seoSignupSchema } from './SeoSignupDialog.schema';
 
 export interface SeoSignupState {
   status: 'idle' | 'success' | 'error';

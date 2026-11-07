@@ -1,7 +1,6 @@
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
 import { SampleReportLink } from './SampleReportLink';
-
 import { SeoAnalysisVisual } from './SeoAnalysisVisual';
 
 export function SeoAnalysis({ eyebrow }: { eyebrow: string }) {

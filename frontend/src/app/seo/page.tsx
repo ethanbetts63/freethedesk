@@ -18,7 +18,7 @@ import { SeoAnalysis } from './_components/SeoAnalysis';
 import { SampleReportLink } from './_components/SampleReportLink';
 import { SeoImprovement } from './_components/SeoImprovement';
 import { SeoIntroduction } from './_components/SeoIntroduction';
-import { SeoSignup } from './_components/SeoSignup';
+import { SeoPackages } from './_components/SeoPackages';
 import { seoFaqs } from './_lib/copy';
 import { buildSeoPlans, PRICE_FIELD } from './_lib/plans';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
@@ -81,7 +81,13 @@ export default async function SeoPage() {
         trustLine="Paid once, no subscription · Fixed prices · Perth-based"
       />
 
-      <SeoSignup settings={settings} />
+      {/* Three drawings of the audits, stacked for the owner to choose between (2026-11-07); the one
+          chosen stays, labelled no longer. Each opens the same order form. */}
+      <SeoPackages settings={settings} variant="cards" id="signup" optionLabel="Option A: cards" />
+      <SeoPackages settings={settings} variant="stage" optionLabel="Option B: dark stage" />
+      <SeoPackages settings={settings} variant="table" optionLabel="Option C: comparison table" />
+      {/* Where the page's floating call to action may appear: past the audits. */}
+      <div id="signup-end" aria-hidden="true" />
 
       <SeoIntroduction />
 
