@@ -283,7 +283,7 @@ const REVIEWS = [
   },
 ] as const;
 
-/** Recommendation 9: the Business Profile's reviews, a late arrival among them, and no reply under any. */
+/** Recommendation 8: the Business Profile's reviews, a late arrival among them, and no reply under any. */
 function ReviewsShot() {
   return (
     <BrowserFrame url="google.com/maps › Wattle & Wrench Plumbing › Reviews">
@@ -352,72 +352,6 @@ function ReviewsShot() {
   );
 }
 
-/** Recommendation 6: the contact page after a quote request, with three different reply promises on it. */
-function QuoteThanksShot() {
-  return (
-    <BrowserFrame url={`${BUSINESS.host.replace(/^www\./, '')}/contact`}>
-      <svg
-        viewBox="0 0 360 290"
-        className="block h-auto w-full"
-        role="img"
-        aria-label="The contact page after a quote request is sent. The form is replaced by 'Thanks, we'll be in touch' and nothing else. Beside it the page says 'We call back within the hour', and the footer says 'Quotes answered the same business day'."
-      >
-        <rect width="360" height="290" className="fill-surface-page" />
-        <Logo x={16} y={12} scale={0.6} />
-        <line x1="0" y1="44" x2="360" y2="44" className="stroke-border-subtle" />
-        <text x="18" y="74" fontSize="16" fontWeight={800} className="fill-text-secondary">
-          Get a quote
-        </text>
-        <g fontSize="8.5" className="fill-text-muted">
-          <text x="18" y="94">
-            Tell us what needs fixing.
-          </text>
-          <text x="18" y="107">
-            We call back within the hour.
-          </text>
-        </g>
-        {/* Where the form was: one line, and no confirmation sent. */}
-        <rect
-          x="180"
-          y="62"
-          width="162"
-          height="130"
-          rx="5"
-          className="fill-surface-muted stroke-border-default"
-        />
-        <circle cx="261" cy="104" r="14" className="fill-surface-success" />
-        <path
-          d="M254 104 l5 5 l9 -10"
-          fill="none"
-          strokeWidth="2.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="stroke-text-success"
-        />
-        <text
-          x="261"
-          y="140"
-          fontSize="10.5"
-          fontWeight={700}
-          textAnchor="middle"
-          className="fill-text-secondary"
-        >
-          Thanks, we’ll be in touch.
-        </text>
-        <rect x="0" y="232" width="360" height="58" className="fill-surface-dark" />
-        <g fontSize="8.5" className="fill-text-on-dark-muted">
-          <text x="18" y="256">
-            {BUSINESS.phone} · Northern suburbs
-          </text>
-          <text x="18" y="272">
-            Quotes answered the same business day
-          </text>
-        </g>
-      </svg>
-    </BrowserFrame>
-  );
-}
-
 const PROFILE_ROWS = [
   { label: 'Category', value: 'Contractor', flag: true },
   { label: 'Address', value: '14 Peregrine Way, Kingsley', flag: true },
@@ -471,7 +405,6 @@ const SHOTS: Record<ShotKind, () => React.JSX.Element> = {
   'page-titles': PageTitlesShot,
   'search-results': SearchResultShot,
   reviews: ReviewsShot,
-  'quote-thanks': QuoteThanksShot,
   'profile-details': ProfileDetailsShot,
 };
 

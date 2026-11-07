@@ -18,12 +18,7 @@ export type Cost = 'low' | 'medium' | 'high';
 
 /** The drawn screenshots a few recommendations carry, as a delivered report's do. */
 export type ShotKind =
-  | 'phone-header'
-  | 'page-titles'
-  | 'search-results'
-  | 'reviews'
-  | 'quote-thanks'
-  | 'profile-details';
+  'phone-header' | 'page-titles' | 'search-results' | 'reviews' | 'profile-details';
 
 export type Recommendation = {
   /** The card's anchor; the contents link to it. */
@@ -112,20 +107,6 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
       `Put a 'Call ${BUSINESS.phone}' button in the phone header, visible without opening the menu.`,
       'Make every printed number dial when tapped, including the contact page and the quote form’s thank-you message, and delete the old mobile wherever it appears.',
       'Use the same number everywhere: the site, the Business Profile and the directory listings.',
-    ],
-  },
-  {
-    id: 'quote-form-alerts',
-    title: 'Answer the quote form: our test request went unanswered',
-    impact: 'high',
-    cost: 'low',
-    shot: 'quote-thanks',
-    what: "We sent a test quote request from a phone on 3 October. The form said 'Thanks, we'll be in touch' and sent the customer nothing, and no call or email came in four days: its alert goes to an address from the Osborne Park office that nobody reads. The contact page promises a call back 'within the hour', the footer 'same business day', and the form says neither.",
-    why: 'Someone who asked two plumbers for a quote rings the one who answers first, and every request since the move has gone where ours went. One promise, kept, sets the wait a customer expects.',
-    how: [
-      'Send the form’s alerts, by text and email, to whoever answers quotes, then send a test request from a phone and check it arrives.',
-      "Choose one promise, such as 'We call back within two working hours', and use it on the form, the contact page and the footer.",
-      'Send the customer an email or a text when the form is sent, repeating that promise and the number to ring if it is urgent.',
     ],
   },
   {
