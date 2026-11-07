@@ -283,7 +283,7 @@ const REVIEWS = [
   },
 ] as const;
 
-/** Recommendation 8: the Business Profile's reviews, a late arrival among them, and no reply under any. */
+/** Recommendation 6: the Business Profile's reviews, a late arrival among them, and no reply under any. */
 function ReviewsShot() {
   return (
     <BrowserFrame url="google.com/maps › Wattle & Wrench Plumbing › Reviews">
@@ -361,7 +361,7 @@ const PROFILE_ROWS = [
   { label: 'Reviews', value: '4.6 from 64 · no replies', flag: false },
 ] as const;
 
-/** Recommendation 3: the Business Profile's details, as the owner's edit page lists them. */
+/** Recommendation 8: the Business Profile's details, as the owner's edit page lists them. */
 function ProfileDetailsShot() {
   return (
     <BrowserFrame url={`google.com › ${BUSINESS.fullName} › Edit profile`}>
