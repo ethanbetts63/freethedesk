@@ -13,21 +13,6 @@ import { cn } from '@/lib/utils';
 import { buildSeoPlans, type SeoPlan, type SeoPlanCode } from '../_lib/plans';
 import { SeoSignupDialog } from './SeoSignupDialog';
 
-/**
- * Three drawings of the same layout, stacked on the page for the owner to choose between
- * (2026-11-07): three equal cards, name, a line on who it suits, the price, what it reads, a button.
- * They differ only in how the recommended card is marked and what the three sit on. Once one is
- * chosen the others go.
- *
- * - `outline`: white cards with a hairline border on the page's white; the recommended one wears the
- *   moving border.
- * - `filled`: the recommended card is filled navy, as a chosen card is across the site's forms; the
- *   others stay white.
- * - `joined`: one frame on a tinted band, the cards divided by rules rather than gaps; the recommended
- *   one carries the moving colour across its top.
- */
-export type PackagesVariant = 'outline' | 'filled' | 'joined';
-
 const KICKER = 'Recommendations based on';
 
 /** One audit's button: the recommended one carries the moving colour, the others are dark. */
@@ -64,125 +49,53 @@ function ChooseButton({
   );
 }
 
-function TickList({ items, onDark = false }: { items: readonly string[]; onDark?: boolean }) {
-  return (
-    <ul className="m-0 grid list-none gap-xs p-0">
-      {items.map((line) => (
-        <li
-          key={line}
-          className={cn(
-            'grid grid-cols-[auto_minmax(0,1fr)] gap-xs text-body-sm leading-snug',
-            onDark ? 'text-text-on-dark-muted' : 'text-text-muted',
-          )}
-        >
-          <Check
-            aria-hidden="true"
-            className={cn(
-              'mt-4xs size-[14px]',
-              onDark ? 'text-accent-on-dark' : 'text-action-primary',
-            )}
-          />
-          {line}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-/** The recommended card's word, in the card's top right. */
-function RecommendedTag({ onDark = false, pill = false }: { onDark?: boolean; pill?: boolean }) {
-  return (
-    <span
-      className={cn(
-        'text-label font-heavy tracking-label uppercase',
-        onDark ? 'text-accent-on-dark' : 'text-text-action',
-        pill && 'bg-surface-tint-strong px-xs py-2xs',
-      )}
-    >
-      Recommended
-    </span>
-  );
-}
-
-function Card({
-  plan,
-  variant,
-  onChoose,
-}: {
-  plan: SeoPlan;
-  variant: PackagesVariant;
-  onChoose: (code: SeoPlanCode) => void;
-}) {
-  const dark = variant === 'filled' && Boolean(plan.recommended);
+/**
+ * One audit: its name, a line on who it suits, the price, what it reads, a button. Three equal
+ * white cards with a hairline border; the recommended one wears the moving border and says so
+ * (owner, 2026-11-07, chosen over a filled card and a joined frame).
+ */
+function Card({ plan, onChoose }: { plan: SeoPlan; onChoose: (code: SeoPlanCode) => void }) {
   return (
     <li
       className={cn(
-        'relative flex flex-col p-xl',
-        variant === 'outline' &&
-          (plan.recommended
-            ? 'moving-colour-border bg-surface-page'
-            : 'border border-border-default bg-surface-page'),
-        variant === 'filled' &&
-          (dark
-            ? 'bg-surface-dark text-text-on-dark'
-            : 'border border-border-default bg-surface-page'),
-        variant === 'joined' && 'bg-surface-page lg:pt-2xl',
+        'flex flex-col bg-surface-page p-xl',
+        plan.recommended ? 'moving-colour-border' : 'border border-border-default',
       )}
     >
-      {variant === 'joined' && plan.recommended && (
-        <span
-          aria-hidden="true"
-          // The button class for its gradient and motion alone: its tap-height floor lifted, so the band is its height.
-          className="moving-colour-button absolute inset-x-0 top-0 h-[5px] min-h-0"
-        />
-      )}
       <div className="flex items-baseline justify-between gap-s">
-        <h3
-          className={cn(
-            'm-0 text-lead leading-tight font-heavy tracking-[-0.025em]',
-            dark ? 'text-text-on-dark' : 'text-text-primary',
-          )}
-        >
+        <h3 className="m-0 text-lead leading-tight font-heavy tracking-[-0.025em] text-text-primary">
           {plan.name}
         </h3>
-        {plan.recommended && <RecommendedTag onDark={dark} pill={variant === 'joined'} />}
-      </div>
-      <p
-        className={cn(
-          'mt-xs mb-0 min-h-[2lh] text-body-sm leading-snug',
-          dark ? 'text-text-on-dark-muted' : 'text-text-muted',
+        {plan.recommended && (
+          <span className="text-label font-heavy tracking-label text-text-action uppercase">
+            Recommended
+          </span>
         )}
-      >
+      </div>
+      <p className="mt-xs mb-0 min-h-[2lh] text-body-sm leading-snug text-text-muted">
         {plan.summary}
       </p>
       <p className="mt-l mb-0 flex items-baseline gap-xs">
-        <span
-          className={cn(
-            'text-title leading-none font-heavy tracking-[-0.05em]',
-            dark ? 'text-text-on-dark' : 'text-text-primary',
-          )}
-        >
+        <span className="text-title leading-none font-heavy tracking-[-0.05em] text-text-primary">
           {plan.price}
         </span>
-        <span className={cn('text-body-sm', dark ? 'text-text-on-dark-muted' : 'text-text-muted')}>
-          {plan.cadence}
-        </span>
+        <span className="text-body-sm text-text-muted">{plan.cadence}</span>
       </p>
-      <div
-        className={cn(
-          'mt-l mb-xl border-t pt-l',
-          dark ? 'border-border-on-dark' : 'border-border-subtle',
-        )}
-      >
-        <span
-          className={cn(
-            'mb-s block text-label font-heavy tracking-label uppercase',
-            dark ? 'text-accent-on-dark' : 'text-text-action',
-          )}
-        >
+      <div className="mt-l mb-xl border-t border-border-subtle pt-l">
+        <span className="mb-s block text-label font-heavy tracking-label text-text-action uppercase">
           {KICKER}
         </span>
-        <TickList items={plan.features} onDark={dark} />
+        <ul className="m-0 grid list-none gap-xs p-0">
+          {plan.features.map((line) => (
+            <li
+              key={line}
+              className="grid grid-cols-[auto_minmax(0,1fr)] gap-xs text-body-sm leading-snug text-text-muted"
+            >
+              <Check aria-hidden="true" className="mt-4xs size-[14px] text-action-primary" />
+              {line}
+            </li>
+          ))}
+        </ul>
       </div>
       <div className="mt-auto">
         <ChooseButton plan={plan} onChoose={onChoose} />
@@ -192,21 +105,11 @@ function Card({
 }
 
 /**
- * The audits a customer can buy, each with a button that opens the order form over the page. The
- * form keeps the choice and lets it change. `id="signup"` is where the hero's button lands.
+ * The audits a customer can buy, each with a button that opens the order form over the page
+ * (SeoSignupDialog). The form keeps the choice and lets it change. `id="signup"` is where the
+ * hero's button lands.
  */
-export function SeoPackages({
-  settings,
-  variant,
-  id,
-  /** The owner's label while the three are compared; gone once one is chosen. */
-  optionLabel,
-}: {
-  settings: PublicSiteSettings;
-  variant: PackagesVariant;
-  id?: string;
-  optionLabel?: string;
-}) {
+export function SeoPackages({ settings }: { settings: PublicSiteSettings }) {
   const plans = useMemo(() => buildSeoPlans(settings), [settings]);
   const [selectedCode, setSelectedCode] = useState<SeoPlanCode>(
     (plans.find((plan) => plan.recommended) ?? plans[0]).code,
@@ -223,20 +126,9 @@ export function SeoPackages({
     if (dialog && !dialog.open) dialog.showModal();
   };
 
-  const joined = variant === 'joined';
-
   return (
-    <section
-      id={id}
-      aria-label="Audits"
-      className={cn('py-section', joined ? 'bg-surface-tint' : 'bg-surface-page')}
-    >
+    <section id="signup" aria-label="Audits" className="bg-surface-page py-section">
       <div className="site-shell">
-        {optionLabel && (
-          <p className="m-0 mb-xl inline-block border border-border-danger px-s py-2xs text-label font-heavy tracking-label text-text-danger uppercase">
-            {optionLabel}
-          </p>
-        )}
         <div className="mb-xl max-w-measure-tight">
           <SectionHeader
             eyebrow="Audits"
@@ -248,15 +140,9 @@ export function SeoPackages({
             One written report of your site, paid once. The three differ in what they read.
           </p>
         </div>
-        <ul
-          className={cn(
-            'm-0 grid list-none grid-cols-1 p-0 lg:grid-cols-3',
-            // The frame: one border round the three, and the gap shows the border colour as the rules between them.
-            joined ? 'gap-px border border-border-default bg-border-default' : 'gap-m',
-          )}
-        >
+        <ul className="m-0 grid list-none grid-cols-1 gap-m p-0 lg:grid-cols-3">
           {plans.map((plan) => (
-            <Card key={plan.code} plan={plan} variant={variant} onChoose={open} />
+            <Card key={plan.code} plan={plan} onChoose={open} />
           ))}
         </ul>
       </div>
