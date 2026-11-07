@@ -64,6 +64,17 @@ def test_the_ask_is_a_band_under_the_whole_report_before_the_footer():
     assert page.index("</article>\n</div>") < page.index('class="ftd-ask"') < page.index('class="ftd-foot"')
     assert page.count('class="ftd-ask"') == 1
     assert 'src="https://www.freethedesk.com.au/images/guides/seo-cost-perth.webp"' in page
+    assert ">Get the full SEO report, written from your own data</h2>" in page
+    assert ">Explore SEO reports</a>" in page
+
+
+def test_the_reports_trying_the_audit_picture_carry_it_in_place_of_the_guide_s():
+    from seo.utils.prospect_links import AUDIT_PICTURE_TOKENS, page_document
+
+    token = next(iter(AUDIT_PICTURE_TOKENS))
+    page = page_document(SeoProspectFactory.build(business="Support Perth", link_token=token), HTML.decode())
+    assert 'src="https://www.freethedesk.com.au/images/seo/what-google-looks-at.webp"' in page
+    assert "seo-cost-perth.webp" not in page
 
 
 def test_the_address_carries_the_business_s_name_before_the_token():

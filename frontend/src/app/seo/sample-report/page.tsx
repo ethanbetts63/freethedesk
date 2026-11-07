@@ -51,8 +51,8 @@ function SampleNote() {
 
 /**
  * The ask under the report: the band a hosted prospect report ends on (prospect_links._ASK), the words beside the
- * SEO cost guide's picture. One sentence differs: a prospect's says that report was written from public data; this
- * one says it is a sample.
+ * SEO page's picture of what an audit reads, framed as that page frames it. One sentence differs: a prospect's says
+ * that report was written from public data; this one says it is a sample.
  */
 function NextStep() {
   return (
@@ -63,21 +63,21 @@ function NextStep() {
             The next step
           </span>
           <h2 id="next-step-title" className="m-0 mb-m text-title tracking-tighter">
-            The full report, written from your own data
+            Get the full SEO report, written from your own data
           </h2>
           <p className="m-0 mb-l max-w-copy text-body leading-relaxed text-text-muted">
             This one is a sample. The full report works from your Search Console and analytics,
             makes better-informed recommendations, and tracks whether each one worked.
           </p>
-          <CtaButton href="/seo">See what it covers</CtaButton>
+          <CtaButton href="/seo">Explore SEO reports</CtaButton>
         </div>
         <Image
-          src="/images/guides/seo-cost-perth.webp"
+          src="/images/seo/what-google-looks-at.webp"
           alt=""
           width={1536}
           height={1024}
           sizes="(min-width: 768px) 50vw, 100vw"
-          className="mx-auto block h-auto w-full max-w-[560px]"
+          className="mx-auto block h-auto w-full max-w-[560px] rounded-lg border border-border-default"
         />
       </div>
     </section>
