@@ -142,12 +142,13 @@ export function SeoExperimentCard() {
     >
       {/* The verdict pill is the report's own, at the card's top right beside the title. */}
       <header className="mb-m flex flex-wrap items-center justify-between gap-s">
-        <h3
+        {/* A paragraph, not a heading: the card is an example, not a section of the page. */}
+        <p
           id="seo-experiment-card-title"
           className="m-0 text-lead leading-snug font-heavy tracking-[-0.02em] text-text-primary"
         >
           Workshop pages folded into /service
-        </h3>
+        </p>
         <ExperimentTag impact="high" />
       </header>
 

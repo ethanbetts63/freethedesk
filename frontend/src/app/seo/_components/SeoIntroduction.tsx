@@ -5,11 +5,12 @@ export function SeoIntroduction() {
     <Introduction
       id="seo-overview"
       eyebrow="How it works"
-      title="Data-driven SEO."
-      accentTitle="Not guesswork."
+      title="What is in"
+      accentTitle="an SEO audit?"
     >
-      Every recommendation starts in your own search data and ends with a measurement. You see what
-      we found, what to change, and what each change earned.
+      An SEO audit is a written report of your website: what Google and AI search see when they read
+      it, the searches you&apos;re losing and to whom, and a ranked list of fixes with what each one
+      is worth. Every recommendation starts in your own search data and ends with a measurement.
     </Introduction>
   );
 }

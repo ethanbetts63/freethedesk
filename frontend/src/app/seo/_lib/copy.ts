@@ -15,9 +15,22 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
     },
 
     {
+      question: 'Is a free SEO audit worth anything?',
+      answer:
+        "A free audit is usually a tool's scan: a score, a list of warnings and a sales call. It can't tell you which searches you're losing or what a fix is worth, because it never reads your Search Console. Ours does, and every recommendation comes ranked by value. Read the sample report and judge for yourself.",
+      links: [{ phrase: 'sample report', href: '/seo/sample-report' }],
+    },
+
+    {
       question: 'How much does SEO cost in Perth?',
       answer: `An Essentials audit is ${prices.essentials}, Plus is ${prices.plus} and Complete is ${prices.complete}, each paid once with no subscription. It's a fraction of a typical agency retainer. Our guide to what SEO costs in Perth sets the audits beside the monthly retainers and paid clicks Perth firms publish prices for.`,
       links: [{ phrase: 'what SEO costs in Perth', href: '/seo-cost-perth' }],
+    },
+
+    {
+      question: 'Do you offer ongoing SEO packages or services?',
+      answer:
+        "No retainers. Each audit is one written report, paid once. If you'd rather not make the changes yourself, any recommendation can come with a fixed implementation price, and a Complete audit looks again three months on to show what the changes earned.",
     },
 
     {
@@ -40,9 +53,15 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
     },
 
     {
-      question: "What's the difference between Essentials, Plus and Complete?",
+      question: 'What does each SEO audit include?',
       answer:
         "What each one reads. Essentials reads your site on a computer and a phone, its speed, the search results and the sites that outrank you, and your Search Console. Plus adds your Google Business Profile, your reviews and your rivals', and your website analytics. Complete adds your Google Ads account and a check of your site against the Australian rules that apply to it, then looks again three months later to show what the changes you made earned.",
+    },
+
+    {
+      question: 'Does the audit cover technical SEO?',
+      answer:
+        'Yes. Every audit reads your site on a computer and a phone and checks whether Google can reach and index each page, how fast the pages load, structured data, broken links and redirects, and what Search Console reports about them. Each fault found becomes a recommendation, ranked beside the rest.',
     },
 
     {
@@ -52,15 +71,21 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
     },
 
     {
+      question: 'How long does an SEO audit take?',
+      answer:
+        'Usually the report is back within seven days of getting access. A larger site, or one with a lot of search traffic to read, can take longer, and we say so up front.',
+    },
+
+    {
       question: 'Should we keep paying for Google Ads?',
       answer:
         "Ads are useful while your rankings catch up, but every ad click is rented: it stops when the budget does. Each audit shows the searches you're closest to winning organically. If you're also paying for clicks on those searches, they're the first places to earn the click instead of buying it.",
     },
 
     {
-      question: 'Do you only work with Perth businesses?',
+      question: "Can I get an SEO audit if I'm not in Perth?",
       answer:
-        'No. We work primarily in Perth, and we also have clients in cities across Australia. Local results, Google Maps and the suburbs or regions you serve are part of every audit, wherever you are.',
+        "Yes. The audit is written from your site and your search data, so it's delivered the same way anywhere in Australia. We work primarily in Perth and have clients in cities across the country. Local results, Google Maps and the suburbs or regions you serve are part of every audit, wherever you are.",
     },
   ];
 }

@@ -68,7 +68,7 @@ export default async function SeoPage() {
       <Hero
         path="/seo"
         eyebrow="SEO audit Perth"
-        titleLines={['Perth SEO audits that make you']}
+        titleLines={['SEO audit Perth:', 'the report that makes you']}
         accentTitle="Google's"
         accentAlternates={["ChatGPT's", "Claude's", "Gemini's", "Perplexity's"]}
         titleSuffix="first pick."
@@ -104,7 +104,7 @@ export default async function SeoPage() {
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
-        title={`A Perth website that grew organic clicks ${SCOOTER_SHOP_GROWTH.percent}%.`}
+        title={`SEO results for a Perth business: organic clicks up ${SCOOTER_SHOP_GROWTH.percent}%.`}
         points={casePoints}
         primaryHref="#signup"
         primaryLabel="Choose an audit"
@@ -130,7 +130,7 @@ export default async function SeoPage() {
       <FaqSection
         emitSchema
         eyebrow={sections['Common questions']}
-        title="SEO questions."
+        title="SEO audit Perth: common questions."
         items={seoFaqs(settings)}
       />
 

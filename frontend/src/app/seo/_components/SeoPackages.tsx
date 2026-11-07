@@ -64,7 +64,7 @@ function Card({ plan, onChoose }: { plan: SeoPlan; onChoose: (code: SeoPlanCode)
     >
       <div className="flex items-baseline justify-between gap-s">
         <h3 className="m-0 text-lead leading-tight font-heavy tracking-[-0.025em] text-text-primary">
-          {plan.name}
+          {plan.name} SEO audit
         </h3>
         {plan.recommended && (
           <span className="text-label font-heavy tracking-label text-text-action uppercase">
@@ -127,13 +127,14 @@ export function SeoPackages({ settings }: { settings: PublicSiteSettings }) {
   };
 
   return (
-    <section id="signup" aria-label="Audits" className="bg-surface-page py-section">
+    // Top padding only: the section after it opens with its own `pt-section`.
+    <section id="signup" aria-label="Audits" className="bg-surface-page pt-section">
       <div className="site-shell">
         <div className="mb-xl max-w-measure-tight">
           <SectionHeader
             eyebrow="Audits"
-            title="Choose your"
-            accentTitle="audit."
+            title="SEO audit packages"
+            accentTitle="and prices."
             size="display-sm"
           />
           <p className="mt-m mb-0 text-lead leading-relaxed text-text-muted">
