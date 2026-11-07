@@ -92,8 +92,8 @@ export default async function SeoPage() {
       <SeoReportOverview
         id="recommend"
         eyebrow={sections['Recommend']}
-        title="Ranked by value."
-        accentTitle="Ready to hand over."
+        title="One SEO report."
+        accentTitle="Ranked recommendations."
         description="Every recommendation says what to change, why the data points to it and how to do it. Written so you, or your IT person can quickly make the change."
         spacing="joined"
         textSide="right"
