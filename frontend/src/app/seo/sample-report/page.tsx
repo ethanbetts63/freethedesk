@@ -4,31 +4,34 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { CtaButton } from '@/components/CtaButton';
 import { PageSchema } from '@/components/PageSchema';
 import { SectionNumber } from '@/components/SectionNumber';
-import { Wordmark } from '@/components/Wordmark';
 import { metadataFor } from '@/lib/pages';
 import { getSiteSettingsServer } from '@/lib/serverApi';
 import { cn } from '@/lib/utils';
 
 import { AnalysisOverview, AnalysisQuestions, Provenance } from './_components/Analysis';
+import { Credits } from './_components/Credits';
 import { HowItWorks } from './_components/HowItWorks';
 import { ExperimentList, RecommendationList } from './_components/Recommendations';
+import { ReportContents } from './_components/ReportContents';
 import { ReportCover } from './_components/ReportCover';
-import { ReportSection, cardClass, display, labelClass } from './_components/ReportPrimitives';
-import { reportSerif } from './_lib/fonts';
-import { seoAuditPrices, type SeoAuditPrices } from '../_lib/plans';
+import { ReportSection } from './_components/ReportPrimitives';
+import { CONTENTS } from './_lib/contents';
+import { reportDisplay, reportSerif } from './_lib/fonts';
 import { BUSINESS } from './_lib/report';
+import { seoAuditPrices, type SeoAuditPrices } from '../_lib/plans';
+import './_styles/sample.css';
 
 export const metadata: Metadata = metadataFor('/seo/sample-report');
 
 /* The button's prices come from the admin, so this page renders per request. */
 export const dynamic = 'force-dynamic';
 
-const contents = [
-  { number: '01', title: 'Recommendations', href: '#recommendations' },
-  { number: '02', title: 'What changed, and what it did', href: '#experiments' },
-  { number: '03', title: 'What the data shows', href: '#analysis' },
-] as const;
-
+/**
+ * The sample report is a delivered report, laid out as the engine lays one out (owner, 2026-11-07): the engine's
+ * markup (compose.py, render.py), its stylesheet copied (_styles/report.generated.css) and its contents menu
+ * following the reader. The site's own parts, the note that it is a sample and the ask at the foot, sit outside the
+ * report's box, as the strip and the ask do on a prospect report's page.
+ */
 function SampleNote() {
   return (
     <aside className="border-b border-border-default bg-surface-tint">
@@ -47,36 +50,6 @@ function SampleNote() {
         </div>
       </div>
     </aside>
-  );
-}
-
-function Contents() {
-  return (
-    <nav aria-label="Report contents" className={cn(cardClass, display, 'mt-2xl')}>
-      <h2 className="m-0 mb-s text-lead font-strong text-text-primary">Contents</h2>
-      <ol className="m-0 list-none p-0">
-        {contents.map((item) => (
-          <li key={item.href} className="border-t border-border-subtle first:border-t-0">
-            <a
-              href={item.href}
-              className="flex items-baseline gap-m py-xs text-body text-text-secondary no-underline hover:text-action-primary"
-            >
-              <span className="w-6 text-action-primary tabular-nums">{item.number}</span>
-              {item.title}
-            </a>
-          </li>
-        ))}
-        <li className="border-t border-border-subtle">
-          <a
-            href="#provenance"
-            className="flex items-baseline gap-m py-xs text-body text-text-secondary no-underline hover:text-action-primary"
-          >
-            <span className="w-6" />
-            Where the data came from
-          </a>
-        </li>
-      </ol>
-    </nav>
   );
 }
 
@@ -111,61 +84,52 @@ export default async function SampleReportPage() {
       <PageSchema path="/seo/sample-report" />
       <Breadcrumbs path="/seo/sample-report" />
       <SampleNote />
-      <ReportCover />
 
-      <div className={cn(reportSerif.className, 'site-shell')}>
-        <article className="mx-auto max-w-4xl text-body leading-relaxed">
-          <Contents />
-
-          <div className="mt-2xl">
-            <HowItWorks />
+      {/* The report's box: the engine's stylesheet applies inside it and nowhere else. The two font variables
+          set the faces it reads. */}
+      <div className={cn('seo-report', reportDisplay.variable, reportSerif.variable)}>
+        {/* The cover, the contents and the article in one box, which a desktop lays out as a grid: the contents
+            beside the article, stuck in view (render.render). `guide-contents` lets the menu stick past the
+            site's clipping `main`, as a guide's contents do (base.css). */}
+        <div className="report-grid">
+          <ReportCover />
+          <div className="report contents-page guide-contents">
+            <ReportContents sections={CONTENTS} />
           </div>
+          <article className="report">
+            <HowItWorks />
 
-          <div className="mt-xl">
-            <ReportSection
-              id="recommendations"
-              number="01"
-              kicker="What to do"
-              title="Recommendations"
-            >
+            <ReportSection id="section-01" number="01" kicker="What to do" title="Recommendations">
               <RecommendationList />
             </ReportSection>
-          </div>
 
-          <ReportSection
-            id="experiments"
-            number="02"
-            kicker="Changes"
-            title="What changed, and what it did"
-          >
-            <ExperimentList />
-          </ReportSection>
+            <ReportSection
+              id="section-02"
+              number="02"
+              kicker="Experiments"
+              title="What changed, and what it did"
+            >
+              <ExperimentList />
+            </ReportSection>
 
-          <ReportSection
-            id="analysis"
-            number="03"
-            kicker="Data analysis"
-            title="What the data shows"
-          >
-            <AnalysisOverview />
-            <AnalysisQuestions />
-          </ReportSection>
+            <ReportSection
+              id="section-03"
+              number="03"
+              kicker="Data analysis"
+              title="What the data shows"
+            >
+              <AnalysisOverview />
+              <AnalysisQuestions />
+            </ReportSection>
 
-          <Provenance />
-
-          <div
-            className={cn(
-              display,
-              'mt-l flex flex-wrap items-center justify-between gap-m border-t border-border-subtle pt-s pb-s',
-            )}
-          >
-            <span className="text-body-sm text-text-subtle">{BUSINESS.fullName} search report</span>
-            <span className="flex items-center gap-s">
-              <span className={cn(labelClass, 'tracking-label-wide')}>Report written by</span>
-              <Wordmark size="mini" className="text-body" />
-            </span>
-          </div>
-        </article>
+            {/* Provenance answers questions rather than opening the argument, so it sits at the back, with the
+                credits. */}
+            <div className="closing-page">
+              <Provenance />
+              <Credits where="closing" />
+            </div>
+          </article>
+        </div>
       </div>
 
       <SampleCta prices={prices} />

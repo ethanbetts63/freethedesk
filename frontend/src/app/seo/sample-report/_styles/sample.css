@@ -1,0 +1,32 @@
+/* The sample report's box.
+ *
+ * report.generated.css is the report engine's own stylesheet, nested under .seo-report by
+ * scripts/sync-report-styles.mjs (its header says how and why). It sits in the components layer, under the
+ * utilities, so the drawn screenshots inside the box keep their utility classes, and over Preflight, so the
+ * engine's element rules (its headings, paragraphs and tables) win as they do in a delivered report.
+ *
+ * What follows is the little the site has to say over the engine: its two faces arrive through next/font rather
+ * than inlined, and the menu sticks under the site's header rather than under the strip the served report has. */
+@import './report.generated.css' layer(components);
+
+@layer components {
+  .seo-report {
+    --display: var(--font-report-display);
+    --serif: var(--font-report-serif);
+  }
+
+  @media (min-width: 64rem) {
+    .seo-report {
+      --menu-top: calc(var(--header-height-lg) + var(--space-m));
+    }
+  }
+}
+
+/* The engine names its contents menu `.contents`, which is also Tailwind's utility for `display: contents`, and a
+ * utility outranks the components layer: the menu's box vanished, border, padding and all. The menu is the block
+ * the engine makes it. */
+@layer utilities {
+  .seo-report .contents {
+    display: block;
+  }
+}

@@ -128,7 +128,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo/sample-report': {
-    updated: '2026-10-24',
+    updated: '2026-11-07',
     label: 'Sample report',
     title: 'Sample SEO Report: What an Audit Includes',
     description:

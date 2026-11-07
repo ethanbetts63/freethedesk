@@ -1,25 +1,17 @@
-import { cn } from '@/lib/utils';
-
-import { display } from './ReportPrimitives';
+import { AXIS, CHART_FONT } from './chartFrame';
 
 /**
- * The experiments' line chart, drawn as inline SVG in the house colours: blue
- * is this experiment, grey where it would be on the site-wide trend alone. The
- * renderer draws these with Vega; this reproduces its look (dotted grid, axis
- * titles, the dashed goal and the "Shipped" rule) without shipping a chart
- * library for one page.
- *
- * SVG text scales with the drawing, so each chart is drawn twice, at a wide
- * and a narrow viewBox, and the breakpoint shows one: a single wide drawing
- * shrank its labels to a few pixels on a phone.
+ * The experiments' line chart, drawn as inline SVG in the house look the engine's Vega config gives it: blue is this
+ * experiment, grey where it would be on the site-wide trend alone, a dotted grid, axis titles, the dashed goal and
+ * the "Shipped" rule, the legend over the plot. The engine draws each chart twice, at a desktop's width and a
+ * phone's, and the stylesheet shows one; so does this.
  */
 
 export type Tone = 'now' | 'compare';
 
-/** Complete class strings, one per tone (Tailwind only sees literal names). */
-const toneClass: Record<Tone, string> = {
-  now: 'text-action-primary',
-  compare: 'text-text-subtle',
+const STROKE: Record<Tone, string> = {
+  now: 'var(--accent)',
+  compare: 'var(--slate-400)',
 };
 
 export type LineSeries = {
@@ -46,20 +38,29 @@ export type LineChartProps = {
   goal?: { value: number; label: string };
 };
 
-type Frame = { width: number; height: number; font: number };
+type Frame = { width: number; height: number };
 
-const WIDE: Frame = { width: 760, height: 280, font: 11 };
-const NARROW: Frame = { width: 300, height: 220, font: 11 };
+const WIDE: Frame = { width: 760, height: 300 };
+const NARROW: Frame = { width: 320, height: 240 };
 
-function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
-  const { width, height, font } = frame;
+function Drawing({
+  frame,
+  props,
+  className,
+}: {
+  frame: Frame;
+  props: LineChartProps;
+  className: string;
+}) {
+  const { width, height } = frame;
   const { series, left, invert, marker, goal, xTitle } = props;
   const labels = frame === NARROW && props.xLabelsNarrow ? props.xLabelsNarrow : props.xLabels;
   const count = series[0]?.values.length ?? 0;
 
   const plotLeft = left.title ? 46 : 32;
-  const plotRight = width - 10;
-  const plotTop = 10;
+  // Room past the last point for its date and the goal's label, which centre and end on the plot's edge.
+  const plotRight = width - 26;
+  const plotTop = 30;
   const plotBottom = height - (xTitle ? 40 : 24);
 
   const x = (index: number) =>
@@ -73,12 +74,34 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
 
   return (
     <svg
+      className={className}
       viewBox={`0 0 ${width} ${height}`}
-      className="block h-auto w-full overflow-visible"
       role="img"
       aria-label={props.ariaLabel}
     >
-      <g className="text-border-default">
+      {/* The legend over the plot, as the house config places it. */}
+      <g fontSize={CHART_FONT} style={{ fill: AXIS.ink }}>
+        {series.map((line, index) => {
+          const at = plotLeft + index * (frame === NARROW ? 130 : 190);
+          return (
+            <g key={line.label}>
+              <line
+                x1={at}
+                x2={at + 14}
+                y1={11}
+                y2={11}
+                strokeWidth="2"
+                style={{ stroke: STROKE[line.tone] }}
+              />
+              <text x={at + 19} y={15}>
+                {line.label}
+              </text>
+            </g>
+          );
+        })}
+      </g>
+
+      <g style={{ stroke: AXIS.rule }}>
         {left.ticks.map((tick) => (
           <line
             key={tick}
@@ -86,14 +109,13 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
             x2={plotRight}
             y1={yLeft(tick)}
             y2={yLeft(tick)}
-            stroke="currentColor"
             strokeDasharray="2 3"
           />
         ))}
-        <line x1={plotLeft} x2={plotRight} y1={plotBottom} y2={plotBottom} stroke="currentColor" />
+        <line x1={plotLeft} x2={plotRight} y1={plotBottom} y2={plotBottom} />
       </g>
 
-      <g className="fill-current text-text-subtle" fontSize={font}>
+      <g fontSize={CHART_FONT} style={{ fill: AXIS.muted }}>
         {left.ticks.map((tick) => (
           <text key={tick} x={plotLeft - 6} y={yLeft(tick) + 4} textAnchor="end">
             {tick.toLocaleString('en-AU')}
@@ -106,7 +128,7 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
         ))}
       </g>
 
-      <g className="fill-current text-text-subtle" fontSize={font} fontWeight={600}>
+      <g fontSize={CHART_FONT} fontWeight={600} style={{ fill: AXIS.muted }}>
         {left.title && (
           <text
             transform={`translate(12 ${(plotTop + plotBottom) / 2}) rotate(-90)`}
@@ -123,13 +145,12 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
       </g>
 
       {goal && (
-        <g className="text-text-success">
+        <g style={{ stroke: 'var(--good-fill)', fill: 'var(--good)' }}>
           <line
             x1={plotLeft}
             x2={plotRight}
             y1={yLeft(goal.value)}
             y2={yLeft(goal.value)}
-            stroke="currentColor"
             strokeWidth="1.5"
             strokeDasharray="6 5"
           />
@@ -137,8 +158,8 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
             x={plotRight}
             y={yLeft(goal.value) - 5}
             textAnchor="end"
-            fontSize={font}
-            className="fill-current"
+            fontSize={CHART_FONT}
+            style={{ stroke: 'none' }}
           >
             {goal.label}
           </text>
@@ -146,16 +167,14 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
       )}
 
       {marker && (
-        <g className="text-text-secondary">
-          <line
-            x1={x(marker.at)}
-            x2={x(marker.at)}
-            y1={plotTop}
-            y2={plotBottom}
-            stroke="currentColor"
-            strokeWidth="1"
-          />
-          <text x={x(marker.at) + 4} y={plotBottom - 5} fontSize={font} className="fill-current">
+        <g style={{ stroke: 'var(--ink-2)', fill: 'var(--ink-2)' }}>
+          <line x1={x(marker.at)} x2={x(marker.at)} y1={plotTop} y2={plotBottom} strokeWidth="1" />
+          <text
+            x={x(marker.at) + 4}
+            y={plotBottom - 5}
+            fontSize={CHART_FONT}
+            style={{ stroke: 'none' }}
+          >
             {marker.label}
           </text>
         </g>
@@ -164,17 +183,11 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
       {series.map((line) => {
         const points = line.values.map((value, index) => `${x(index)},${yLeft(value)}`).join(' ');
         return (
-          <g key={line.label} className={toneClass[line.tone]}>
-            <polyline
-              points={points}
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinejoin="round"
-            />
+          <g key={line.label} style={{ stroke: STROKE[line.tone], fill: STROKE[line.tone] }}>
+            <polyline points={points} fill="none" strokeWidth="1.8" strokeLinejoin="round" />
             {line.dots &&
               line.values.map((value, index) => (
-                <circle key={index} cx={x(index)} cy={yLeft(value)} r="2.8" fill="currentColor" />
+                <circle key={index} cx={x(index)} cy={yLeft(value)} r="2.8" stroke="none" />
               ))}
           </g>
         );
@@ -183,37 +196,11 @@ function Drawing({ frame, props }: { frame: Frame; props: LineChartProps }) {
   );
 }
 
-function Legend({ series }: Pick<LineChartProps, 'series'>) {
-  return (
-    <ul
-      className={cn(
-        display,
-        'm-0 mb-xs flex list-none flex-wrap gap-x-m gap-y-3xs p-0 text-body-sm text-text-secondary',
-      )}
-    >
-      {series.map((line) => (
-        <li key={line.label} className="flex items-center gap-2xs">
-          <span
-            aria-hidden="true"
-            className={cn('h-4xs w-3 rounded-pill bg-current', toneClass[line.tone])}
-          />
-          {line.label}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 export function LineChart(props: LineChartProps) {
   return (
-    <div className={display}>
-      <Legend series={props.series} />
-      <div className="hidden sm:block">
-        <Drawing frame={WIDE} props={props} />
-      </div>
-      <div className="sm:hidden">
-        <Drawing frame={NARROW} props={props} />
-      </div>
-    </div>
+    <>
+      <Drawing frame={WIDE} props={props} className="chart chart--wide" />
+      <Drawing frame={NARROW} props={props} className="chart chart--phone" />
+    </>
   );
 }

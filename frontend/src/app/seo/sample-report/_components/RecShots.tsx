@@ -1,8 +1,4 @@
-import { PhoneFrame } from '@/components/visuals/PhoneFrame';
-import { cn } from '@/lib/utils';
-
 import { BUSINESS, type ShotKind } from '../_lib/report';
-import { display } from './ReportPrimitives';
 import { Logo, Stars } from './SiteMock';
 
 /**
@@ -13,83 +9,72 @@ import { Logo, Stars } from './SiteMock';
  */
 
 /*
- * The frames are the delivered report's own (searchconsole/assets/report/recommendations.css, .rec__shot): a desktop
- * shot in a browser window on an 11px flat slab. The slab is the one freethedesk.com.au puts behind its screenshots.
- * Each frame keeps a margin the size of its slab, so the slab stays inside the frame's column. The sizes are the
- * report stylesheet's pixels, not this site's scale, so the sample's frames match a real report's exactly. A phone
- * shot is in the site's one handset, the cover's.
+ * The frames are the engine's own (compose.shot, recommendations.css): a desktop shot in a browser window at the
+ * address it was taken from, a phone shot in a handset, each floated beside what was found on the flat slab. The
+ * stylesheet sizes an <img>; a drawing stands in its place and carries the same shape itself.
  */
-
-const browserClass =
-  // eslint-disable-next-line no-restricted-syntax -- the report stylesheet's .rec__shot--desktop, copied exactly
-  'mr-[11px] mb-[11px] overflow-hidden rounded-[8px] border border-border-default bg-surface-page shadow-[11px_11px_0_var(--surface-tint-strong)]';
-const browserBarClass =
-  // eslint-disable-next-line no-restricted-syntax -- the report stylesheet's .rec__shot-bar, copied exactly
-  'flex h-[20px] items-center gap-[4px] border-b border-border-default bg-surface-muted px-[8px]';
-const browserDotClass = 'size-[6px] flex-none rounded-full';
-const browserUrlClass =
-  // eslint-disable-next-line no-restricted-syntax -- the report stylesheet's .rec__shot-bar span, copied exactly
-  'mx-auto min-w-0 truncate rounded-[4px] border border-border-default bg-surface-page px-[10px] py-px text-[0.56rem] text-text-subtle';
 
 /** A browser window around a drawing, with the address it was taken from. */
 function BrowserFrame({ url, children }: { url: string; children: React.ReactNode }) {
   return (
-    <div className={browserClass}>
-      <div className={browserBarClass}>
-        <span aria-hidden="true" className={cn(browserDotClass, 'bg-fill-danger')} />
-        <span aria-hidden="true" className={cn(browserDotClass, 'bg-fill-warning')} />
-        <span aria-hidden="true" className={cn(browserDotClass, 'bg-fill-success')} />
-        <span className={cn(display, browserUrlClass)}>{url}</span>
+    <figure className="rec__shot rec__shot--desktop">
+      <div className="rec__shot-bar">
+        <i />
+        <i />
+        <i />
+        <span>{url}</span>
       </div>
       {children}
-    </div>
+    </figure>
   );
 }
 
-/** Recommendation 1: the phone header, menu open, the number inside it as plain text. */
+/**
+ * Recommendation 1: the phone header, menu open, the number inside it as plain text. Drawn a phone's shape (1.6 to
+ * 2.3 times as tall as wide), as the engine now requires of a phone shot (shots.PHONE_SHOT_RATIO).
+ */
 function PhoneHeaderShot() {
   return (
-    <div className="mx-auto w-full max-w-[12rem]">
-      <PhoneFrame size="fill">
-        <svg
-          viewBox="8 8 200 290"
-          className="block h-auto w-full"
-          role="img"
-          aria-label={`The site on a phone with its menu open: the logo and a close button in the header, five links, and ${BUSINESS.phone} as plain grey text under them, with no call button.`}
-        >
-          <g>
-            <rect x="8" y="8" width="200" height="290" className="fill-surface-page" />
-            <Logo x={18} y={26} scale={0.62} />
-            {/* The menu is open: its button is now a close cross, and still no call button. */}
-            <g className="stroke-text-secondary" strokeWidth="2" strokeLinecap="round">
-              <path d="M178 34 L190 46 M190 34 L178 46" />
-            </g>
-            <line x1="8" y1="64" x2="208" y2="64" className="stroke-border-subtle" />
-            <g fontSize="12" fontWeight={700} className="fill-text-secondary">
-              {['Hot water', 'Blocked drains', 'Gas fitting', 'Areas we cover', 'Contact'].map(
-                (label, i) => (
-                  <g key={label}>
-                    <text x="22" y={92 + i * 34}>
-                      {label}
-                    </text>
-                    <line
-                      x1="22"
-                      y1={104 + i * 34}
-                      x2="194"
-                      y2={104 + i * 34}
-                      className="stroke-border-subtle"
-                    />
-                  </g>
-                ),
-              )}
-            </g>
-            <text x="22" y="276" fontSize="9" className="fill-text-subtle">
-              Call us on {BUSINESS.phone}
-            </text>
+    <figure className="rec__shot rec__shot--phone">
+      <svg
+        viewBox="8 8 200 330"
+        // eslint-disable-next-line no-restricted-syntax -- the engine's .rec__shot--phone img, which rounds the screen 16px inside the handset
+        className="block h-auto w-full overflow-hidden rounded-[16px]"
+        role="img"
+        aria-label={`The site on a phone with its menu open: the logo and a close button in the header, five links, and ${BUSINESS.phone} as plain grey text under them, with no call button.`}
+      >
+        <g>
+          <rect x="8" y="8" width="200" height="330" className="fill-surface-page" />
+          <Logo x={18} y={26} scale={0.62} />
+          {/* The menu is open: its button is now a close cross, and still no call button. */}
+          <g className="stroke-text-secondary" strokeWidth="2" strokeLinecap="round">
+            <path d="M178 34 L190 46 M190 34 L178 46" />
           </g>
-        </svg>
-      </PhoneFrame>
-    </div>
+          <line x1="8" y1="64" x2="208" y2="64" className="stroke-border-subtle" />
+          <g fontSize="12" fontWeight={700} className="fill-text-secondary">
+            {['Hot water', 'Blocked drains', 'Gas fitting', 'Areas we cover', 'Contact'].map(
+              (label, i) => (
+                <g key={label}>
+                  <text x="22" y={92 + i * 34}>
+                    {label}
+                  </text>
+                  <line
+                    x1="22"
+                    y1={104 + i * 34}
+                    x2="194"
+                    y2={104 + i * 34}
+                    className="stroke-border-subtle"
+                  />
+                </g>
+              ),
+            )}
+          </g>
+          <text x="22" y="276" fontSize="9" className="fill-text-subtle">
+            Call us on {BUSINESS.phone}
+          </text>
+        </g>
+      </svg>
+    </figure>
   );
 }
 
@@ -406,11 +391,7 @@ const SHOTS: Record<ShotKind, () => React.JSX.Element> = {
   'profile-services': ProfileServicesShot,
 };
 
-export function RecShot({ kind, className }: { kind: ShotKind; className?: string }) {
+export function RecShot({ kind }: { kind: ShotKind }) {
   const Shot = SHOTS[kind];
-  return (
-    <figure className={cn('m-0 mb-m', className)}>
-      <Shot />
-    </figure>
-  );
+  return <Shot />;
 }

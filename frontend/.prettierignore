@@ -15,3 +15,6 @@ tsconfig.json
 
 # Next regenerates this on every dev/build. Machine-managed; nobody formats it.
 next-env.d.ts
+
+# The report engine's stylesheet, copied byte for byte by scripts/sync-report-styles.mjs.
+src/app/seo/sample-report/_styles/report.generated.css

@@ -27,7 +27,12 @@ const ARTWORK_EXCEPTIONS = [
 export default {
   ...stylelintBaseConfig,
 
-  ignoreFiles: ['**/node_modules/**', '.next/**'],
+  ignoreFiles: [
+    '**/node_modules/**',
+    '.next/**',
+    // The report engine's stylesheet, copied by scripts/sync-report-styles.mjs; the engine's lint is its own.
+    'src/app/seo/sample-report/_styles/report.generated.css',
+  ],
 
   rules: {
     ...stylelintBaseConfig.rules,

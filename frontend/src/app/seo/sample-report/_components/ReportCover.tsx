@@ -1,80 +1,73 @@
-import { SiteShot } from '@/components/visuals/SiteShot';
-import { Wordmark } from '@/components/Wordmark';
-import { cn } from '@/lib/utils';
-
-import { BUSINESS, HIGHLIGHTS } from '../_lib/report';
-import { display } from './ReportPrimitives';
+import { BUSINESS, COVER_CLICKS, RECOMMENDATIONS, issueCounts } from '../_lib/report';
+import { Credits } from './Credits';
 import { DesktopMock, PhoneMock } from './SiteMock';
 
 /**
- * Page one of the PDF: white paper on a faint grid, heavy black type over a
- * blue second line, the site in a browser frame with the phone over its
- * corner, the four readings under a black rule, and the credit at the foot.
+ * Page one, as render.py builds it: the masthead (the version and the site on one line, the business's name over
+ * "search report." in blue, a sentence saying what the report reads and when), the site in a browser frame with
+ * the phone over its corner, the cover row, and the credits at the foot. The drawn mocks stand where a delivered
+ * report's screenshots do, since the invented business has no site to capture.
  */
 export function ReportCover() {
+  const counts = issueCounts(RECOMMENDATIONS);
   return (
-    <header className="relative overflow-hidden bg-surface-page [background-image:linear-gradient(var(--tint-grid)_1px,transparent_1px),linear-gradient(90deg,var(--tint-grid)_1px,transparent_1px)] [background-size:34px_34px]">
-      <div className={cn(display, 'site-shell')}>
-        <div className="mx-auto max-w-4xl pt-2xl pb-xl">
-          <div className="flex flex-wrap items-center justify-between gap-m">
-            {/* The page's h1 says what it is; the cover's big title is the sample's own. */}
-            <h1 className="m-0 inline-flex items-center gap-xs text-caption font-strong tracking-label-eyebrow text-action-primary uppercase">
-              <span
-                aria-hidden="true"
-                className="size-2xs rounded-circle bg-action-primary shadow-halo"
-              />
-              Sample SEO report
-            </h1>
-            <span className="text-body-sm font-strong text-text-secondary">{BUSINESS.host}</span>
-          </div>
-
-          <p className="m-0 mt-2xl text-hero leading-none font-black tracking-tighter text-text-primary">
-            {BUSINESS.name}
-            <span className="block text-action-primary">search report.</span>
-          </p>
-          <p className="m-0 mt-ml max-w-copy text-lead leading-normal text-text-muted">
-            How people found and used {BUSINESS.host} in search,{' '}
-            <strong className="font-semibold text-text-secondary">{BUSINESS.period}</strong>.
-          </p>
-
-          <div className="mt-xl mb-2xl sm:mb-3xl">
-            <SiteShot
-              url={BUSINESS.host}
-              desktop={<DesktopMock />}
-              phone={<PhoneMock />}
-              caption="The invented business’s homepage on a desktop, and the same page on a phone."
-            />
-          </div>
-
-          <dl className="m-0 grid grid-cols-2 gap-x-m border-t-2 border-text-primary sm:grid-cols-4">
-            {HIGHLIGHTS.map((reading) => (
-              <div key={reading.label} className="flex flex-col pt-s pb-xs">
-                <dt className="order-last mt-xs text-caption font-strong tracking-label-wide text-action-primary uppercase">
-                  {reading.label}
-                </dt>
-                <dd className="m-0 flex flex-wrap items-baseline gap-x-2xs text-title leading-none font-black tracking-tighter text-text-primary tabular-nums">
-                  {reading.value}
-                  {reading.unit && (
-                    <span className="text-body-sm font-strong tracking-normal text-text-muted">
-                      {reading.unit}
-                    </span>
-                  )}
-                  <span className="text-caption font-strong tracking-label text-text-subtle uppercase">
-                    {reading.direction}
-                  </span>
-                </dd>
-              </div>
-            ))}
-          </dl>
-
-          <div className="mt-l flex items-center justify-between gap-m border-t border-border-subtle pt-s">
-            <span className="text-caption font-strong tracking-label-wide text-text-subtle uppercase">
-              Report written by
+    <div className="cover-page">
+      <div className="cover">
+        <header className="masthead">
+          <div className="masthead__top">
+            <span className="masthead__eyebrow">
+              <i className="masthead__dot" />
+              Search report · {BUSINESS.version}
             </span>
-            <Wordmark size="mini" className="text-body" />
+            {/* The engine links the host; an invented one leads nowhere, so it stands as text. */}
+            <span className="masthead__host">{BUSINESS.host}</span>
+          </div>
+          <h1>
+            {BUSINESS.fullName}
+            <span className="masthead__second">search report.</span>
+          </h1>
+          <p className="masthead__meta">
+            How people found and used {BUSINESS.host} in search, <strong>{BUSINESS.period}</strong>.
+          </p>
+        </header>
+
+        <div className="cover-shots">
+          <figure className="browser-shot">
+            <div className="browser-shot__bar">
+              <i />
+              <i />
+              <i />
+              <span>{BUSINESS.host}</span>
+            </div>
+            <DesktopMock />
+          </figure>
+          <figure className="phone-shot">
+            <PhoneMock />
+          </figure>
+        </div>
+
+        {/* The owner's cover row (vocab.OWNER_COVER): the issues by impact, then the clicks against the period
+            before, its label saying how long that is (compose.stats). */}
+        <div className="stat-row stat-row--counts">
+          <div className="stat stat--high">
+            <span className="stat__value">{counts.high}</span>
+            <span className="stat__label">High-impact issues</span>
+          </div>
+          <div className="stat stat--medium">
+            <span className="stat__value">{counts.medium}</span>
+            <span className="stat__label">Medium-impact issues</span>
+          </div>
+          <div className="stat stat--low">
+            <span className="stat__value">{counts.low}</span>
+            <span className="stat__label">Low-impact issues</span>
+          </div>
+          <div className="stat stat--clicks">
+            <span className="stat__value">{COVER_CLICKS}</span>
+            <span className="stat__label">Clicks (30 day period)</span>
           </div>
         </div>
       </div>
-    </header>
+      <Credits where="cover" />
+    </div>
   );
 }

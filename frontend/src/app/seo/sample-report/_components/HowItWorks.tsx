@@ -1,24 +1,18 @@
-import { ChartPie } from 'lucide-react';
-
-import { cn } from '@/lib/utils';
-
-import { CostTag, EXPERIMENT_IMPACTS, ExperimentTag, ImpactTag, display } from './ReportPrimitives';
+import { CostTag, EXPERIMENT_IMPACTS, ExperimentTag, ImpactTag } from './ReportPrimitives';
 
 /**
- * The loop every delivered report opens with, unnumbered before section 01. The
- * words are the report renderer's own (freetheplatform searchconsole/guide.py),
- * so the sample reads as a real report does.
+ * 'How this report works': the loop as a timeline, unnumbered before section 01, the same in every report. The
+ * markup and the words are the engine's own (freetheplatform searchconsole/guide.py), so the sample reads as a
+ * delivered report does.
  */
 const STEPS = [
   {
     name: 'Recommendations',
-    where: { href: '#recommendations', label: 'Section 01' },
-    text: 'What we think you should change, ranked by impact. Each recommendation says what we found, why it matters and how to fix it. We also estimate the size of the change and list sources if available.',
+    where: { href: '#section-01', label: 'Section 01' },
+    text: 'What we think you should change, ranked by impact. Each recommendation says what we found, why it matters and how to fix it. We also estimate the size of the change, likely impact and list sources if available.',
     pills: (
       <>
-        <ImpactTag impact="high" />
-        <ImpactTag impact="medium" />
-        <ImpactTag impact="low" />
+        <ImpactTag impact="high" /> <ImpactTag impact="medium" /> <ImpactTag impact="low" />{' '}
         <CostTag cost="low" />
       </>
     ),
@@ -30,12 +24,15 @@ const STEPS = [
   },
   {
     name: 'Experiments',
-    where: { href: '#experiments', label: 'Section 02' },
+    where: { href: '#section-02', label: 'Section 02' },
     text: 'Most recommendations once implemented can have their impact tracked empirically. This allows us to learn. False recommendations should be undone, and good recommendations should be implemented more if possible.',
     pills: (
       <>
-        {EXPERIMENT_IMPACTS.map((impact) => (
-          <ExperimentTag key={impact} impact={impact} />
+        {EXPERIMENT_IMPACTS.map((impact, index) => (
+          <span key={impact}>
+            {index > 0 && ' '}
+            <ExperimentTag impact={impact} />
+          </span>
         ))}
       </>
     ),
@@ -52,77 +49,57 @@ const STEPS = [
   pills?: React.ReactNode;
 }[];
 
-const whereClass = cn(display, 'text-caption font-semibold tracking-label uppercase');
+/** The decorative pie beside the data analysis (guide.PIE): shares of the loop's colours, clockwise from twelve. */
+const PIE =
+  'conic-gradient(var(--blue-600) 0deg 151deg, var(--sky-500) 151deg 245deg, var(--purple-accent) 245deg 310deg, var(--blue-950) 310deg 360deg)';
 
 function Where({ where }: { where: { href?: string; label: string } }) {
   return 'href' in where && where.href ? (
-    <a href={where.href} className={cn(whereClass, 'text-text-action underline')}>
+    <a className="guide__where" href={where.href}>
       {where.label}
     </a>
   ) : (
-    <span className={cn(whereClass, 'text-text-subtle')}>{where.label}</span>
+    <span className="guide__where">{where.label}</span>
   );
 }
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="scroll-mt-2xl border-t border-border-subtle pt-2xl">
-      <h2
-        className={cn(
-          display,
-          'm-0 mb-ml text-title-sm leading-tight font-strong tracking-tight text-text-secondary',
-        )}
-      >
-        How this report works
-      </h2>
-      <ol className="relative m-0 list-none p-0">
-        {/* The loop's line, from the first step to the last and back. */}
-        <span
-          aria-hidden="true"
-          className="absolute top-s bottom-s left-[1.1875rem] w-px bg-border-default"
-        />
-        {STEPS.map((step, index) => (
-          <li
-            key={step.name}
-            className="relative grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-m pb-ml"
-          >
-            <span
-              className={cn(
-                display,
-                'relative flex size-10 items-center justify-center rounded-full bg-surface-dark text-body font-strong text-text-on-dark tabular-nums',
-              )}
-            >
-              {index + 1}
-            </span>
-            <div className="min-w-0 pt-2xs">
-              <h3 className="m-0 mb-2xs flex flex-wrap items-baseline gap-x-s">
-                <span className={cn(display, 'text-lead font-strong text-text-primary')}>
-                  {step.name}
-                </span>
-                <Where where={step.where} />
-              </h3>
-              <p className="m-0">{step.text}</p>
-              {'pills' in step && <p className="m-0 mt-s flex flex-wrap gap-2xs">{step.pills}</p>}
-            </div>
-          </li>
-        ))}
-      </ol>
-      <aside className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-m rounded-md bg-surface-tint px-m py-ml">
-        <ChartPie aria-hidden="true" className="size-10 text-action-primary" />
-        <div className="min-w-0">
-          <h3 className="m-0 mb-2xs flex flex-wrap items-baseline gap-x-s">
-            <span className={cn(display, 'text-lead font-strong text-text-primary')}>
-              Data analysis
-            </span>
-            <Where where={{ href: '#analysis', label: 'Section 03' }} />
-          </h3>
-          <p className="m-0">
+    <section className="section section--guide" id="how-it-works">
+      <h2>How this report works</h2>
+      <div className="guide">
+        <ol className="guide__list">
+          {STEPS.map((step, index) => (
+            <li key={step.name} className="guide__step">
+              <span className="guide__dot">{index + 1}</span>
+              <div>
+                <p className="guide__name">
+                  <strong>{step.name}</strong> <Where where={step.where} />
+                </p>
+                <p>{step.text}</p>
+                {'pills' in step && <p className="guide__pills">{step.pills}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
+        <div className="guide__back" aria-hidden="true">
+          <span>back to 1</span>
+        </div>
+      </div>
+      <div className="guide__aside">
+        <span className="guide__pie" aria-hidden="true" style={{ background: PIE }} />
+        <div>
+          <p className="guide__name">
+            <strong>Data analysis</strong>{' '}
+            <Where where={{ href: '#section-03', label: 'Section 03' }} />
+          </p>
+          <p>
             A deep dive into the data behind your digital presence. Every report, we search for
             interesting trends, anomalies and observations to help us and you better understand your
             business.
           </p>
         </div>
-      </aside>
+      </div>
     </section>
   );
 }

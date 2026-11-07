@@ -1,5 +1,3 @@
-import { PhoneFrame } from '@/components/visuals/PhoneFrame';
-
 import { BUSINESS } from '../_lib/report';
 
 /**
@@ -212,94 +210,100 @@ export function DesktopMock() {
   );
 }
 
-/** The homepage on a phone, in the site's handset. */
+/**
+ * The homepage on a phone, for the engine's handset over the cover's browser (.phone-shot): the drawing stands where
+ * the screenshot does, rounded as the stylesheet rounds the screenshot inside the handset (19px, 13px on a phone).
+ */
 export function PhoneMock() {
   return (
-    <PhoneFrame size="fill">
-      <svg viewBox="8 8 200 428" className="block h-auto w-full" aria-hidden="true">
-        <g>
-          <rect x="8" y="8" width="200" height="428" className="fill-surface-page" />
-          <Logo x={18} y={26} scale={0.62} />
-          {/* The menu button, and no call button beside it. */}
-          <g className="stroke-text-secondary" strokeWidth="2" strokeLinecap="round">
-            <path d="M176 36 H192 M176 42 H192 M176 48 H192" />
-          </g>
-          <rect x="8" y="66" width="200" height="214" className="fill-surface-dark" />
-          <text
-            x="22"
-            y="94"
-            fontSize="7"
-            fontWeight={700}
-            letterSpacing="1.6"
-            className="fill-accent"
-          >
-            NORTHERN SUBURBS
+    <svg
+      viewBox="8 8 200 428"
+      // eslint-disable-next-line no-restricted-syntax -- the engine's .phone-shot img radii, copied exactly
+      className="block h-auto w-full overflow-hidden rounded-[19px] max-sm:rounded-[13px]"
+      aria-hidden="true"
+    >
+      <g>
+        <rect x="8" y="8" width="200" height="428" className="fill-surface-page" />
+        <Logo x={18} y={26} scale={0.62} />
+        {/* The menu button, and no call button beside it. */}
+        <g className="stroke-text-secondary" strokeWidth="2" strokeLinecap="round">
+          <path d="M176 36 H192 M176 42 H192 M176 48 H192" />
+        </g>
+        <rect x="8" y="66" width="200" height="214" className="fill-surface-dark" />
+        <text
+          x="22"
+          y="94"
+          fontSize="7"
+          fontWeight={700}
+          letterSpacing="1.6"
+          className="fill-accent"
+        >
+          NORTHERN SUBURBS
+        </text>
+        <g fontSize="22" fontWeight={900} letterSpacing="-0.8" className="fill-surface-page">
+          <text x="21" y="124">
+            Perth plumbing,
           </text>
-          <g fontSize="22" fontWeight={900} letterSpacing="-0.8" className="fill-surface-page">
-            <text x="21" y="124">
-              Perth plumbing,
-            </text>
-            <text x="21" y="150" className="fill-accent">
-              fixed the
-            </text>
-            <text x="21" y="176" className="fill-accent">
-              same day.
-            </text>
-          </g>
-          <g fontSize="8.6" className="fill-text-on-dark-muted">
-            <text x="22" y="200">
-              Hot water, blocked drains and gas
-            </text>
-            <text x="22" y="213">
-              fitting, with a fixed quote first.
-            </text>
-          </g>
-          <rect x="22" y="230" width="172" height="30" rx="3" className="fill-action-primary" />
-          <text
-            x="108"
-            y="249"
-            fontSize="8.5"
-            fontWeight={700}
-            textAnchor="middle"
-            className="fill-surface-page"
-          >
-            GET A QUOTE →
+          <text x="21" y="150" className="fill-accent">
+            fixed the
           </text>
-          <rect x="8" y="280" width="200" height="160" className="fill-surface-muted" />
-          <Stars x={22} y={296} size={8} />
-          <text x="76" y="303.5" fontSize="8.5" fontWeight={700} className="fill-text-secondary">
-            4.6 on Google
-          </text>
-          <rect
-            x="22"
-            y="318"
-            width="172"
-            height="52"
-            rx="5"
-            className="fill-surface-page stroke-border-default"
-          />
-          <text x="36" y="340" fontSize="11" fontWeight={800} className="fill-text-secondary">
-            Hot water
-          </text>
-          <text x="36" y="356" fontSize="8.5" className="fill-text-muted">
-            From $1,490 installed
-          </text>
-          <rect
-            x="22"
-            y="378"
-            width="172"
-            height="52"
-            rx="5"
-            className="fill-surface-page stroke-border-default"
-          />
-          <text x="36" y="400" fontSize="11" fontWeight={800} className="fill-text-secondary">
-            Blocked drains
-          </text>
-          <text x="36" y="416" fontSize="8.5" className="fill-text-muted">
-            Since 1998
+          <text x="21" y="176" className="fill-accent">
+            same day.
           </text>
         </g>
-      </svg>
-    </PhoneFrame>
+        <g fontSize="8.6" className="fill-text-on-dark-muted">
+          <text x="22" y="200">
+            Hot water, blocked drains and gas
+          </text>
+          <text x="22" y="213">
+            fitting, with a fixed quote first.
+          </text>
+        </g>
+        <rect x="22" y="230" width="172" height="30" rx="3" className="fill-action-primary" />
+        <text
+          x="108"
+          y="249"
+          fontSize="8.5"
+          fontWeight={700}
+          textAnchor="middle"
+          className="fill-surface-page"
+        >
+          GET A QUOTE →
+        </text>
+        <rect x="8" y="280" width="200" height="160" className="fill-surface-muted" />
+        <Stars x={22} y={296} size={8} />
+        <text x="76" y="303.5" fontSize="8.5" fontWeight={700} className="fill-text-secondary">
+          4.6 on Google
+        </text>
+        <rect
+          x="22"
+          y="318"
+          width="172"
+          height="52"
+          rx="5"
+          className="fill-surface-page stroke-border-default"
+        />
+        <text x="36" y="340" fontSize="11" fontWeight={800} className="fill-text-secondary">
+          Hot water
+        </text>
+        <text x="36" y="356" fontSize="8.5" className="fill-text-muted">
+          From $1,490 installed
+        </text>
+        <rect
+          x="22"
+          y="378"
+          width="172"
+          height="52"
+          rx="5"
+          className="fill-surface-page stroke-border-default"
+        />
+        <text x="36" y="400" fontSize="11" fontWeight={800} className="fill-text-secondary">
+          Blocked drains
+        </text>
+        <text x="36" y="416" fontSize="8.5" className="fill-text-muted">
+          Since 1998
+        </text>
+      </g>
+    </svg>
   );
 }

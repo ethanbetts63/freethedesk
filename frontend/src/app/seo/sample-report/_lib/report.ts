@@ -7,17 +7,11 @@ export const BUSINESS = {
   period: '1 September 2026 to 30 September 2026 (30 days)',
 } as const;
 
-export type Direction = 'better' | 'worse';
-
-export type Highlight = { value: string; unit?: string; direction: Direction; label: string };
-
-/** The four cover readings, against 2 August to 31 August 2026. */
-export const HIGHLIGHTS: readonly Highlight[] = [
-  { value: '+37%', direction: 'better', label: 'Clicks' },
-  { value: '+21%', direction: 'better', label: 'Impressions' },
-  { value: '+0.34', unit: 'pts', direction: 'better', label: 'Click-through rate' },
-  { value: '−3.1', direction: 'better', label: 'Average position' },
-];
+/**
+ * The cover's clicks reading, against 2 August to 31 August 2026. The cover's other three figures are counts of the
+ * recommendations below by impact, as the engine counts them (vocab.owner_cover), so they are not written here.
+ */
+export const COVER_CLICKS = '+37%';
 
 export type Impact = 'high' | 'medium' | 'low';
 export type Cost = 'low' | 'medium' | 'high';
@@ -27,9 +21,15 @@ export type ShotKind =
   'phone-header' | 'search-results' | 'reviews' | 'quote-thanks' | 'profile-services';
 
 export type Recommendation = {
+  /** The card's anchor; the contents link to it. */
+  id: string;
+  /** A line, not a sentence: 60 characters at most, as the engine's schema holds a delivered report's to. */
   title: string;
   impact: Impact;
   cost: Cost;
+  /** `data` marks the ask for access to the owner's data: printed last, whatever its impact, and left out of the
+   * cover's counts (vocab.in_print_order, vocab.issue_counts). */
+  line?: 'data';
   what: string;
   why: string;
   how: readonly string[];
@@ -38,6 +38,7 @@ export type Recommendation = {
 
 export const RECOMMENDATIONS: readonly Recommendation[] = [
   {
+    id: 'tap-to-call',
     title: 'Make the phone number in the header tap to call on every page',
     impact: 'high',
     cost: 'low',
@@ -51,7 +52,8 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     ],
   },
   {
-    title: 'Lead the blocked drains page with its price and a same-day promise',
+    id: 'drains-price',
+    title: 'Lead the blocked drains page with its price and same day',
     impact: 'high',
     cost: 'low',
     shot: 'search-results',
@@ -64,6 +66,7 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     ],
   },
   {
+    id: 'suburb-pages',
     title: 'Fold the six suburb pages into the service pages they copy',
     impact: 'medium',
     cost: 'medium',
@@ -76,6 +79,7 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     ],
   },
   {
+    id: 'directory-listings',
     title: 'Give the directory listings your current address and number',
     impact: 'medium',
     cost: 'low',
@@ -87,7 +91,8 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     ],
   },
   {
-    title: 'Reply to your Google reviews, starting with the three complaints',
+    id: 'reply-to-reviews',
+    title: 'Reply to your Google reviews, starting with the complaints',
     impact: 'medium',
     cost: 'low',
     shot: 'reviews',
@@ -100,7 +105,8 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     ],
   },
   {
-    title: 'Say on the quote form how soon you reply, and confirm every request',
+    id: 'quote-form-promise',
+    title: 'Say on the quote form how soon you reply, and confirm it',
     impact: 'medium',
     cost: 'low',
     shot: 'quote-thanks',
@@ -113,7 +119,8 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     ],
   },
   {
-    title: 'Name your licence numbers and show recent jobs on each service page',
+    id: 'licences-and-jobs',
+    title: 'Name your licences and show recent jobs on each service page',
     impact: 'medium',
     cost: 'high',
     what: 'No page gives a plumbing or gas licence number, says the work is insured, or shows a job the business has done. The three plumbers most often ranked beside the site each show all three.',
@@ -125,7 +132,8 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     ],
   },
   {
-    title: 'Make the homepage photo smaller, so the page appears quickly on a phone',
+    id: 'homepage-photo',
+    title: 'Make the homepage photo small, so it loads fast on a phone',
     impact: 'low',
     cost: 'low',
     what: 'The photo at the top of the homepage is a large camera original, sent whole to every phone. On a mid-range phone it takes about four seconds to appear, and the heading waits for it.',
@@ -136,7 +144,8 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     ],
   },
   {
-    title: 'List every service on the Business Profile, and post a recent job each month',
+    id: 'profile-services',
+    title: 'List every service on the Business Profile, and post monthly',
     impact: 'low',
     cost: 'low',
     shot: 'profile-services',
@@ -148,7 +157,9 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     ],
   },
   {
-    title: 'Count a call and a sent quote form as an enquiry in Google Analytics',
+    id: 'count-enquiries',
+    title: 'Count calls and sent quote forms as enquiries in Analytics',
+    line: 'data',
     impact: 'high',
     cost: 'low',
     what: 'Google Analytics records visits, but neither a tapped phone number nor a sent quote form counts as anything, and Google Search Console is not linked to it.',
@@ -165,6 +176,7 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
 export type ExperimentImpact = 'high' | 'low' | 'none' | 'negative' | 'unclear';
 
 export type Experiment = {
+  id: string;
   title: string;
   impact: ExperimentImpact;
   what: string;
@@ -194,11 +206,12 @@ export const EXPERIMENT_WEEKS = [
   '27 Sep',
 ] as const;
 
-const TREND_NOTE =
-  'The grey line is where this would be had it only followed the site-wide trend; the gap between the lines is what the change added.';
+/** The engine's line under an experiment's chart (compose.experiment_chart). */
+const TREND_NOTE = 'The grey line is where this would be had it only followed the site-wide trend.';
 
 export const EXPERIMENTS: readonly Experiment[] = [
   {
+    id: 'hot-water-prices',
     title: 'The hot water page leads with its prices',
     impact: 'high',
     what: "On 9 September the hot water page's title, description and opening line were rewritten to lead with 'Hot water repairs and replacements, from $1,490 installed', and the price table moved from the foot of the page to the top.",
@@ -219,13 +232,14 @@ export const EXPERIMENTS: readonly Experiment[] = [
       'The new reviews block on the homepage, which links the hot water page, may also be affecting progress towards the goal.',
   },
   {
+    id: 'gas-fitting-jobs',
     title: 'The gas fitting page names the jobs people search for',
     impact: 'unclear',
     what: "On 16 September the gas fitting page's title changed from 'Gas Services' to 'Gas Fitter Perth: Leaks, Cooktops and Heater Installs', its description was rewritten to name the same three jobs, and each job got a heading of its own on the page.",
     hypothesis:
       'If the title and headings use the words people search with, Google will rank the page higher for gas fitter searches, because today nothing on it says which jobs it covers.',
     label: 'Where the gas fitting page ranks on gas searches',
-    window: `Weekly, to 27 September 2026; first place is at the top. ${TREND_NOTE}`,
+    window: `Weekly, to 27 September 2026. ${TREND_NOTE}`,
     shipped: '16 September',
     // Wednesday 16 September, three-sevenths of the way from 13 to 20 September.
     shippedAt: 4 + 3 / 7,
@@ -268,7 +282,10 @@ export type Chart =
  */
 export type Question = {
   id: string;
+  /** A line, not a sentence: 60 characters at most, as a delivered report's. */
   title: string;
+  /** Its line on the contents page, where the question itself is too long. */
+  contents: string;
   caption: string;
   window: string;
   chart: Chart;
@@ -279,6 +296,7 @@ export const QUESTIONS: readonly Question[] = [
   {
     id: 'after-five',
     title: 'When do the urgent jobs come in?',
+    contents: 'When the urgent jobs come in',
     caption: 'Share of burst-pipe, leak and blocked-drain jobs, by the hour they were booked',
     window: '2 January to 30 September 2026, 212 jobs; the business’s own job book',
     chart: {
@@ -302,7 +320,8 @@ export const QUESTIONS: readonly Question[] = [
   },
   {
     id: 'what-reviews-praise',
-    title: 'What do customers praise, and what do they hold against a plumber?',
+    title: 'What do customers praise, and what do they hold against you?',
+    contents: 'What customers praise',
     caption:
       'Share of Google reviews that mention each thing, this business against its two nearest rivals',
     window:
@@ -328,6 +347,7 @@ export const QUESTIONS: readonly Question[] = [
   {
     id: 'ai-answers',
     title: 'What do AI answers use the site for?',
+    contents: 'What AI answers use the site for',
     caption: 'Times a page of the site was shown in Google’s AI answers',
     window: '1 July to 30 September 2026; Google Search Console, AI answers only',
     chart: {
@@ -428,3 +448,21 @@ export const SOURCES: readonly Source[] = [
   },
   { source: 'The law that applies to the site', status: 'present', detail: 'Read 3 October 2026' },
 ];
+
+/** How a delivered report orders its cards (vocab.in_print_order): impact first, the access ask last. */
+const IMPACT_ORDER: Record<Impact, number> = { high: 0, medium: 1, low: 2 };
+
+export function printOrder(items: readonly Recommendation[]): Recommendation[] {
+  return [...items].sort(
+    (a, b) =>
+      Number(a.line === 'data') - Number(b.line === 'data') ||
+      IMPACT_ORDER[a.impact] - IMPACT_ORDER[b.impact],
+  );
+}
+
+/** The cover's counts (vocab.issue_counts): the recommendations by impact, the access ask left out. */
+export function issueCounts(items: readonly Recommendation[]): Record<Impact, number> {
+  const counts: Record<Impact, number> = { high: 0, medium: 0, low: 0 };
+  for (const item of items) if (item.line !== 'data') counts[item.impact] += 1;
+  return counts;
+}
