@@ -77,10 +77,10 @@ def record_open(prospect: SeoProspect, request, kind: str = SeoProspectOpen.Kind
 
 ROBOTS = '<meta name="robots" content="noindex, nofollow, noarchive">'
 
-# The strip over the report, the ask under it and the site's footer: the only parts of the page that are the site's
-# rather than the report's. Inline, prefixed, and small, so the report's own stylesheet is left alone. The ask is a
-# band the page's width between the report and the footer; the footer is the site's own, in plain CSS (Footer.tsx
-# and SiteFooter.tsx are its source), without the canvas.
+# The strip over the report and the site's footer under it: the only parts of the page that are the site's rather
+# than the report's. Inline, prefixed, and small, so the report's own stylesheet is left alone. The ask under the
+# report is the report's own since 2026-11-07, so the PDF carries it too (the engine's guide.ASK). The footer is the
+# site's own, in plain CSS (Footer.tsx and SiteFooter.tsx are its source), without the canvas.
 _STYLE = """<style>
 .ftd-bar{position:sticky;top:0;z-index:9;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;padding:8px 16px;background:#09121b;color:#fff;font:500 12.5px/1.4 Archivo,"Helvetica Neue",Arial,sans-serif}
 .ftd-bar a{display:inline-flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-weight:600;white-space:nowrap}
@@ -88,16 +88,6 @@ _STYLE = """<style>
 .ftd-bar a.ftd-bar__cta{margin-left:auto;padding:5px 12px;border-radius:999px;background:#2473c6;font-weight:700}
 .ftd-bar a.ftd-bar__cta:hover{background:#1a5fa8}
 .ftd-bar a.ftd-bar__pdf{opacity:.8;text-decoration:underline}
-.ftd-ask{background:#f1f7fc;font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
-.ftd-ask__shell{display:grid;gap:28px;align-items:center;max-width:1240px;margin:0 auto;padding:44px 24px}
-.ftd-ask__eyebrow{display:block;margin:0 0 10px;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1a5fa8}
-.ftd-ask h2{margin:0 0 12px;font-size:1.65rem;line-height:1.15;letter-spacing:-.02em;color:#09121b}
-.ftd-ask p{max-width:520px;margin:0 0 22px;font-size:1rem;line-height:1.55;color:#405164}
-.ftd-ask a{display:inline-block;padding:11px 20px;border-radius:999px;background:#2473c6;color:#fff;font-weight:700;font-size:.95rem;text-decoration:none}
-.ftd-ask a:hover{background:#1a5fa8}
-.ftd-ask img{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
-.ftd-ask img.ftd-ask__framed{border:1px solid #d3dbe4;border-radius:8px}
-@media (min-width:768px){.ftd-ask__shell{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;padding:56px 24px}.ftd-ask h2{font-size:2rem}}
 .ftd-foot{position:relative;padding:64px 0 24px;background:#fff;color:#09121b;font-family:Archivo,"Helvetica Neue",Arial,sans-serif;background-image:linear-gradient(to top,#fff 0%,transparent 20%),linear-gradient(to right,#fff 0%,transparent 14%),linear-gradient(to left,#fff 0%,transparent 14%),linear-gradient(rgba(17,70,126,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(17,70,126,.035) 1px,transparent 1px);background-size:100% 100%,100% 100%,100% 100%,64px 64px,64px 64px;background-repeat:no-repeat,no-repeat,no-repeat,repeat,repeat}
 .ftd-foot__shell{max-width:1240px;margin:0 auto;padding:0 24px}
 .ftd-foot__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:40px}
@@ -135,32 +125,6 @@ _BAR = (
     '<a class="ftd-bar__cta" href="https://www.freethedesk.com.au/seo">Get the full report</a>'
     '<a class="ftd-bar__pdf" href="{pdf}">PDF</a></div>'
 )
-
-# The ask: a band the page's width under the report, the site's light blue behind a picture beside the words
-# (owner, 2026-11-06; the heading and the button reworded, 2026-11-07).
-_ASK = (
-    '<section class="ftd-ask" aria-labelledby="ftd-ask-title"><div class="ftd-ask__shell"><div>'
-    '<b class="ftd-ask__eyebrow">The next step</b>'
-    '<h2 id="ftd-ask-title">Get the full SEO report, written from your own data</h2>'
-    "<p>This one was written from what anyone can see. The full report works from your Search Console and "
-    "analytics, makes better-informed recommendations, and tracks whether each one worked.</p>"
-    '<a href="https://www.freethedesk.com.au/seo">Explore SEO reports</a></div>'
-    "{picture}</div></section>"
-)
-
-# The SEO cost guide's picture of the report, and the SEO page's picture of what an audit reads, framed as that page
-# frames it. The second is tried first on the reports whose tokens are listed (owner, 2026-11-07: "just to start",
-# the sample report and Support Perth's).
-_GUIDE_PICTURE = (
-    '<img src="https://www.freethedesk.com.au/images/guides/seo-cost-perth.webp" alt="" width="1536" height="1024" '
-    'loading="lazy">'
-)
-_AUDIT_PICTURE = (
-    '<img class="ftd-ask__framed" src="https://www.freethedesk.com.au/images/seo/what-google-looks-at.webp" alt="" '
-    'width="1536" height="1024" loading="lazy">'
-)
-AUDIT_PICTURE_TOKENS = frozenset({"u7cjbs7e6b"})
-
 
 # The site's footer, as Footer.tsx sets it: the wordmark and the standing copy, how to reach us, where and when,
 # the pages, the terms, then the legal line. The lists mirror siteConfig.ts (FOOTER_NAVIGATION, OPENING_HOURS).
@@ -212,15 +176,13 @@ def site_footer() -> str:
 
 
 def page_document(prospect: SeoProspect, document: str) -> str:
-    """The report's HTML with the robots meta in its head, the site's strip over it, the ask under it and the
-    site's footer last."""
+    """The report's HTML with the robots meta in its head, the site's strip over it and the site's footer last."""
     document = document.replace("<head>", f"<head>\n{ROBOTS}\n{_STYLE}", 1)
     document = document.replace(
         "<body>", "<body>\n" + _BAR.format(pdf=escape(pdf_link(prospect))), 1
     )
     foot = document.rfind("</body>")
-    picture = _AUDIT_PICTURE if prospect.link_token in AUDIT_PICTURE_TOKENS else _GUIDE_PICTURE
-    tail = _ASK.format(picture=picture) + "\n" + site_footer() + "\n"
+    tail = site_footer() + "\n"
     return document[:foot] + tail + document[foot:] if foot >= 0 else document + tail
 
 

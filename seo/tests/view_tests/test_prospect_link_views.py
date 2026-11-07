@@ -30,7 +30,7 @@ def with_page(**fields):
 # -- the page ----------------------------------------------------------------
 
 
-def test_the_link_serves_the_report_page_noindexed_with_the_strip_and_the_ask(client):
+def test_the_link_serves_the_report_page_noindexed_with_the_strip_and_the_footer(client):
     prospect = with_page(business="Perth Patio Magic")
 
     response = client.get(reverse("seo-report-page", args=[link_key(prospect)]), HTTP_USER_AGENT=PHONE_UA)
@@ -43,38 +43,25 @@ def test_the_link_serves_the_report_page_noindexed_with_the_strip_and_the_ask(cl
     assert '<meta name="robots" content="noindex, nofollow, noarchive">' in page
     assert 'class="ftd-bar__cta" href="https://www.freethedesk.com.au/seo"' in page
     assert "<p>Fix the title.</p>" in page
-    assert page.index('class="ftd-bar"') < page.index("Fix the title") < page.index('class="ftd-ask"')
     # The site's footer closes the page.
-    assert page.index('class="ftd-ask"') < page.index('class="ftd-foot"') < page.index("</body>")
+    assert page.index('class="ftd-bar"') < page.index("Fix the title") < page.index('class="ftd-foot"') < page.index("</body>")
     assert 'href="/seo">SEO audits</a>' in page and "ABN 11 493 753 896" in page
     assert f"/r/perth-patio-magic-{prospect.link_token}/pdf" in page
     assert 'href="tel:+61423853830"' in page and "0423 853 830" in page
     assert 'href="mailto:analytics@freethedesk.com.au"' in page
 
 
-def test_the_ask_is_a_band_under_the_whole_report_before_the_footer():
+def test_the_report_s_own_ask_is_left_as_it_is_and_the_page_adds_none():
+    """The ask under the report is the report's own (the engine's guide.ASK), so the PDF carries it too: the page
+    adds the strip and the footer around it and nothing between."""
     from seo.utils.prospect_links import page_document
 
-    grid = HTML.decode().replace(
-        '<article class="report"><p>Fix the title.</p></article>',
-        '<div class="report-grid">\n<div class="cover-page"></div>\n<article class="report"><p>Fix the title.</p>'
-        "</article>\n</div>",
+    asked = HTML.decode().replace(
+        "</article>\n", '</article>\n<section class="report-ask"><h2>The next step</h2></section>\n'
     )
-    page = page_document(SeoProspectFactory.build(business="Perth Patio Magic", link_token="t0k3n"), grid)
-    assert page.index("</article>\n</div>") < page.index('class="ftd-ask"') < page.index('class="ftd-foot"')
-    assert page.count('class="ftd-ask"') == 1
-    assert 'src="https://www.freethedesk.com.au/images/guides/seo-cost-perth.webp"' in page
-    assert ">Get the full SEO report, written from your own data</h2>" in page
-    assert ">Explore SEO reports</a>" in page
-
-
-def test_the_reports_trying_the_audit_picture_carry_it_in_place_of_the_guide_s():
-    from seo.utils.prospect_links import AUDIT_PICTURE_TOKENS, page_document
-
-    token = next(iter(AUDIT_PICTURE_TOKENS))
-    page = page_document(SeoProspectFactory.build(business="Support Perth", link_token=token), HTML.decode())
-    assert 'src="https://www.freethedesk.com.au/images/seo/what-google-looks-at.webp"' in page
-    assert "seo-cost-perth.webp" not in page
+    page = page_document(SeoProspectFactory.build(business="Perth Patio Magic", link_token="t0k3n"), asked)
+    assert page.count("<section") == 1
+    assert page.index("</article>") < page.index('class="report-ask"') < page.index('class="ftd-foot"')
 
 
 def test_the_address_carries_the_business_s_name_before_the_token():
