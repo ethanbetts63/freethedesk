@@ -81,11 +81,16 @@ export default async function SeoPage() {
         trustLine="Paid once, no subscription · Fixed prices · Perth-based"
       />
 
-      {/* Three drawings of the audits, stacked for the owner to choose between (2026-11-07); the one
+      {/* The card layout drawn three ways, stacked for the owner to choose between (2026-11-07); the one
           chosen stays, labelled no longer. Each opens the same order form. */}
-      <SeoPackages settings={settings} variant="cards" id="signup" optionLabel="Option A: cards" />
-      <SeoPackages settings={settings} variant="stage" optionLabel="Option B: dark stage" />
-      <SeoPackages settings={settings} variant="table" optionLabel="Option C: comparison table" />
+      <SeoPackages
+        settings={settings}
+        variant="outline"
+        id="signup"
+        optionLabel="Option 1: outline"
+      />
+      <SeoPackages settings={settings} variant="filled" optionLabel="Option 2: filled" />
+      <SeoPackages settings={settings} variant="joined" optionLabel="Option 3: joined" />
       {/* Where the page's floating call to action may appear: past the audits. */}
       <div id="signup-end" aria-hidden="true" />
 

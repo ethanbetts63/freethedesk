@@ -83,30 +83,3 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
     },
   ];
 }
-
-/** The tier a source is first read in: Plus reads everything Essentials does, Complete everything Plus does. */
-export const TIER_ORDER: readonly SeoPlanCode[] = ['essentials', 'plus', 'complete'];
-
-/**
- * Every source an audit reads, in the order the report reads them, each with the
- * first audit that reads it. One row of the comparison table each; the cards'
- * `features` say the same thing tier by tier.
- */
-export const AUDIT_READS: readonly { label: string; from: SeoPlanCode }[] = [
-  { label: 'How your site looks and works, on a phone and a desktop', from: 'essentials' },
-  { label: 'Page speed', from: 'essentials' },
-  { label: 'The search results and the sites that outrank you', from: 'essentials' },
-  { label: 'Data-backed SEO checks', from: 'essentials' },
-  { label: 'Your Search Console data', from: 'essentials' },
-  { label: 'Your Google Business Profile', from: 'plus' },
-  { label: 'Your reviews and your rivals’', from: 'plus' },
-  { label: 'Your visitor analytics', from: 'plus' },
-  { label: 'Your Google Ads account', from: 'complete' },
-  { label: 'A legal check of your site', from: 'complete' },
-  { label: 'A second look three months on', from: 'complete' },
-];
-
-/** Whether an audit reads a source: it does if its tier is the source's first tier or a later one. */
-export function reads(code: SeoPlanCode, from: SeoPlanCode) {
-  return TIER_ORDER.indexOf(code) >= TIER_ORDER.indexOf(from);
-}
