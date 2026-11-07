@@ -19,7 +19,7 @@ export function Credits({ where }: { where: 'cover' | 'closing' }) {
         <span className="credit__text">
           <span className="credit__role">Written by</span>
           <span className="credit__name">{AUTHOR_NAME}</span>
-          <span className="credit__sub">Lead Analyst, freethedesk</span>
+          <span className="credit__sub">Director, freethedesk</span>
         </span>
       </span>
       <span className="credit">

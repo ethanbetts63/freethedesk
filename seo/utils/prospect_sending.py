@@ -44,7 +44,7 @@ PAUSED_SUBJECTS = {SeoProspect.Subject.ONE, SeoProspect.Subject.TWO, SeoProspect
 UNSUBSCRIBE_LINE = "Reply 'no thanks' and I won't email again."
 
 SIGNATURE = """Ethan Betts
-Lead Analyst, freethedesk
+Director, freethedesk
 0423 853 830
 www.freethedesk.com.au/seo
 """

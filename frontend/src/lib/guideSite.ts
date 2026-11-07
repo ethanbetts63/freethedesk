@@ -7,7 +7,7 @@ import { AUTHOR } from '@/lib/author';
 
 export const GUIDE_AUTHOR: { role: string | null; bio: string | null } = {
   /** Under the byline, as the email signature signs it. */
-  role: 'Lead Analyst, freethedesk',
+  role: 'Director, freethedesk',
   bio: `${AUTHOR.givenName} writes freethedesk's SEO audits and builds its websites in Perth, including Scooter Shop's, the dealership site in the case study. He writes these guides from what the audits find on real Perth businesses' sites.`,
 };
 
