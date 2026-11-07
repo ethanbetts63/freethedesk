@@ -18,7 +18,12 @@ export type Cost = 'low' | 'medium' | 'high';
 
 /** The drawn screenshots a few recommendations carry, as a delivered report's do. */
 export type ShotKind =
-  'phone-header' | 'search-results' | 'reviews' | 'quote-thanks' | 'profile-services';
+  | 'phone-header'
+  | 'page-titles'
+  | 'search-results'
+  | 'reviews'
+  | 'quote-thanks'
+  | 'profile-details';
 
 export type Recommendation = {
   /** The card's anchor; the contents link to it. */
@@ -38,17 +43,46 @@ export type Recommendation = {
 
 export const RECOMMENDATIONS: readonly Recommendation[] = [
   {
-    id: 'tap-to-call',
-    title: 'Make the phone number in the header tap to call on every page',
+    id: 'page-titles',
+    title: 'Title every page for its search and Perth, with one heading',
     impact: 'high',
     cost: 'low',
-    shot: 'phone-header',
-    what: 'On a phone the header shows the logo and a menu button. The number sits inside the menu as plain text, and the only number that dials when tapped is in the footer, below the reviews.',
-    why: 'Seven in ten visitors from Google arrive on a phone, and someone with water coming through the ceiling wants to ring, not fill in a form. A caller who has to open a menu and copy a number is a caller who goes back to the results and rings the next plumber.',
+    shot: 'page-titles',
+    what: `Twelve of the site's fourteen pages are titled with their menu name and the business name: 'Blocked Drains | ${BUSINESS.fullName}', 'Contact | ${BUSINESS.fullName}', and the home page 'Home | ${BUSINESS.fullName}'. None says Perth, and on every page the heading Google reads as the main one is the logo, not the big words under it.`,
+    why: "Google builds a result's headline from the title and the main heading, and asks for a title that describes the page. On 'plumber perth' the home page sits 14th under eleven titles that say plumber and Perth. The two pages retitled in September, hot water and gas fitting, are the two that moved.",
     how: [
-      `Put a 'Call ${BUSINESS.phone}' button in the phone header, visible without opening the menu.`,
-      'Make every printed number dial when tapped, including the contact page and the quote form’s thank-you message.',
-      'Use the same number everywhere: the site, the Business Profile and the directory listings.',
+      `Retitle each page for its search, the business after a dash: the home page 'Plumber Perth, Northern Suburbs - ${BUSINESS.name}', blocked drains 'Blocked Drains Perth, Cleared From $150 - ${BUSINESS.name}', and the service pages the same way.`,
+      "Make the heading at the top of each page its one main heading, in the title's words, and change the header logo from a heading to plain text on every page.",
+      'Write each page a description of its own: the job, the suburbs you cover and one reason to choose you, such as the fixed quote.',
+    ],
+  },
+  {
+    id: 'service-pages',
+    title: 'A page each for emergency call-outs, leaks and bathrooms',
+    impact: 'high',
+    cost: 'medium',
+    what: "Emergency call-outs, leak detection and bathroom plumbing are three paragraphs on one Services page. Google showed that page 1,900 times in September for emergency plumber searches, at about 14th, for one click; seven of the nine free results on 'emergency plumber perth' are a page about emergencies alone.",
+    why: 'A page per job gives Google one page to match to each search, and the urgent jobs are the best paid of the week. The hot water page has had a page and a price of its own since September, and it is the page whose clicks doubled.',
+    how: [
+      "Write three pages, each titled for its search: 'Emergency Plumber Perth, 24/7 Northern Suburbs', 'Leak Detection Perth' and 'Bathroom Plumbing Perth'.",
+      'Open each with who comes, how soon and what the call-out costs, then the call button; put the detail from the Services page under it.',
+      'Keep the Services page as a short list linking the pages, link each from the menu and the home page tiles, and end each with links to the other service pages.',
+    ],
+  },
+  {
+    id: 'business-profile',
+    title: 'Make the Business Profile a plumber, open when you are',
+    impact: 'high',
+    cost: 'low',
+    shot: 'profile-details',
+    what: "The profile's category is 'Contractor', it is pinned to the house in Kingsley with no service area, its hours say closed from 5pm and all weekend, and it lists three services. Three directory listings still give the old Osborne Park workshop and the old mobile.",
+    why: "Google ranks the map box on how well a listing matches the search and how near it is. Every map-box card on 'emergency plumber perth' reads Plumber or Emergency plumber, and yours, with more reviews than two of them, holds none of those places. A searcher at 9pm is told you are closed, though two in five urgent jobs are booked after 5pm.",
+    how: [
+      'Change the main category to Plumber, and add Emergency plumber and Hot water system supplier.',
+      'Clear the street address, as Google asks of a business that goes to its customers, and set a service area of the northern suburbs you reach fastest.',
+      'Set the hours to the hours the phone is answered, including the nights and weekends you take urgent jobs.',
+      'Add hot water, blocked drains, gas fitting, leak detection and emergency call-outs as services, each with a line saying what it covers.',
+      'Update Yellow Pages, True Local and Hotfrog to the address and number on the site, so every listing agrees with the profile.',
     ],
   },
   {
@@ -58,11 +92,40 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     cost: 'low',
     shot: 'search-results',
     what: "Google shows the blocked drains page more than any other page on the site, near the top of the first page, but few of the people shown it click. Its description in the results is the year the business started, and the page opens on a stock photo and the company's history.",
-    why: "The two plumbers above it both lead with a call-out price and 'same day'. A searcher with a drain backing up is choosing on speed and price, and this result answers neither. The hot water page made the same change in September and drew twice the clicks.",
+    why: "The two plumbers above it both lead with a call-out price and 'same day'. A searcher with a drain backing up is choosing on speed and price, and this result answers neither. Your $150 call-out, included, is a dollar from the cheaper of the two, so saying it costs you nothing. The hot water page made the same change in September and drew twice the clicks.",
     how: [
-      "Open the page with one line such as 'Blocked drains cleared from $180, call-out included, same day across the northern suburbs', kept to your current price.",
+      "Open the page with one line such as 'Blocked drains cleared from $150, call-out included, same day across the northern suburbs', kept to your current price.",
       'Rewrite the page title and description to carry the price and the words same day.',
+      'Print a price only where it is as good as the rivals’ beside you in the results. Where it is not, lead with same day and the fixed quote instead.',
       'Move the history of the business to the about page.',
+    ],
+  },
+  {
+    id: 'tap-to-call',
+    title: 'Make the header number tap to call, and ring the right phone',
+    impact: 'high',
+    cost: 'low',
+    shot: 'phone-header',
+    what: "On a phone the header shows the logo and a menu button. The number sits inside the menu as plain text, and the only number that dials when tapped is in the footer, below the reviews. The contact page's 'Call now' button still dials the old mobile: we tapped it on 3 October and it rang out.",
+    why: 'Seven in ten visitors from Google arrive on a phone, and someone with water coming through the ceiling wants to ring, not fill in a form. A caller who has to open a menu and copy a number is a caller who goes back to the results and rings the next plumber, and the one who taps the contact page reaches nobody.',
+    how: [
+      `Put a 'Call ${BUSINESS.phone}' button in the phone header, visible without opening the menu.`,
+      'Make every printed number dial when tapped, including the contact page and the quote form’s thank-you message, and delete the old mobile wherever it appears.',
+      'Use the same number everywhere: the site, the Business Profile and the directory listings.',
+    ],
+  },
+  {
+    id: 'quote-form-alerts',
+    title: 'Answer the quote form: our test request went unanswered',
+    impact: 'high',
+    cost: 'low',
+    shot: 'quote-thanks',
+    what: "We sent a test quote request from a phone on 3 October. The form said 'Thanks, we'll be in touch' and sent the customer nothing, and no call or email came in four days: its alert goes to an address from the Osborne Park office that nobody reads. The contact page promises a call back 'within the hour', the footer 'same business day', and the form says neither.",
+    why: 'Someone who asked two plumbers for a quote rings the one who answers first, and every request since the move has gone where ours went. One promise, kept, sets the wait a customer expects.',
+    how: [
+      'Send the form’s alerts, by text and email, to whoever answers quotes, then send a test request from a phone and check it arrives.',
+      "Choose one promise, such as 'We call back within two working hours', and use it on the form, the contact page and the footer.",
+      'Send the customer an email or a text when the form is sent, repeating that promise and the number to ring if it is urgent.',
     ],
   },
   {
@@ -79,56 +142,30 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     ],
   },
   {
-    id: 'directory-listings',
-    title: 'Give the directory listings your current address and number',
+    id: 'name-the-plumber',
+    title: 'Name Marcus and the licences on every service page',
     impact: 'medium',
     cost: 'low',
-    what: 'Three directory listings still give the old Osborne Park workshop and a mobile number that is no longer answered. They are most of the outside links pointing at the site.',
-    why: 'Google matches a business across the web by its name, address and phone. Listings that disagree with the site tell it there may be two businesses, and a customer who rings the old mobile reaches nobody.',
+    what: "Marcus is thanked by name in 38 of the 64 Google reviews and appears on no page. The pages say 'our team of licensed plumbers', none gives a plumbing or gas licence number or says the work is insured, and the three plumbers most often ranked beside the site print all three.",
+    why: 'A customer letting a stranger into the house to work on gas or hot water looks for proof before price. The proof already exists, in the licences behind the work and in what customers wrote on Google; the site is the one place it is missing.',
     how: [
-      'Update the address and phone on Yellow Pages, True Local and Hotfrog to match the site exactly.',
-      'Check the Business Profile carries the same number as the site header.',
+      'Put Marcus, his photo, the plumbing and gas fitting licence numbers and that the work is insured under the heading of the hot water, gas fitting and blocked drains pages.',
+      'Quote two reviews that name him beside it, each with the suburb and the job.',
+      'Add two or three recent jobs to each of those pages: a photo, the suburb, what was wrong and what was done.',
     ],
   },
   {
     id: 'reply-to-reviews',
-    title: 'Reply to your Google reviews, starting with the complaints',
+    title: 'Ask for a review after every job, and reply to each one',
     impact: 'medium',
     cost: 'low',
     shot: 'reviews',
-    what: 'The profile holds a 4.6 rating, and nobody from the business has replied to a review this year. Three one- and two-star reviews describe an arrival window that was missed, with no call to say so.',
-    why: 'People compare plumbers on the map before they open a website. The praise repeats a fixed quote and a tidy job; the complaints repeat lateness, not the work. A short reply that says what changed is read by every later customer.',
+    what: 'The profile holds a 4.6 rating from 64 reviews, eleven of them this year, and nobody from the business has replied to one. Three one- and two-star reviews describe an arrival window that was missed, with no call to say so.',
+    why: 'People compare plumbers on the map before they open a website, and the map-box plumbers on your searches hold 140 to 400 reviews. The praise repeats a fixed quote and a tidy job; the complaints repeat lateness, not the work. A short reply that says what changed is read by every later customer.',
     how: [
+      'Add the profile’s review link to the job-complete text you send customers, so every job is asked.',
       'Reply to the three complaints first: say what happened and what you now do, such as a text when the plumber is on the way.',
       'Thank the most recent five-star reviewers by the job they mention.',
-      'Add the profile’s review link to the job-complete text you send customers.',
-    ],
-  },
-  {
-    id: 'quote-form-promise',
-    title: 'Say on the quote form how soon you reply, and confirm it',
-    impact: 'medium',
-    cost: 'low',
-    shot: 'quote-thanks',
-    what: "The quote form ends on 'Thanks, we'll be in touch' and sends the customer nothing. The contact page promises a call back 'within the hour', the footer says 'same business day', and the form says neither.",
-    why: 'Someone who asked two plumbers for a quote rings the one who answers first. A customer told nothing waits, then asks someone else; one promise, kept, sets the wait they expect.',
-    how: [
-      "Choose one promise, such as 'We call back within two working hours', and use it on the form, the contact page and the footer.",
-      'Send the customer an email or a text when the form is sent, repeating that promise and the number to ring if it is urgent.',
-      'Send a test request from a phone and check the alert reaches whoever answers quotes.',
-    ],
-  },
-  {
-    id: 'licences-and-jobs',
-    title: 'Name your licences and show recent jobs on each service page',
-    impact: 'medium',
-    cost: 'high',
-    what: 'No page gives a plumbing or gas licence number, says the work is insured, or shows a job the business has done. The three plumbers most often ranked beside the site each show all three.',
-    why: 'A customer letting a stranger into the house to work on gas or hot water looks for proof before price. A page with none reads as the riskier choice, however good the reviews are.',
-    how: [
-      'Put your plumbing and gas fitting licence numbers, and that the work is insured, under the heading of the hot water, gas fitting and blocked drains pages.',
-      'Add two or three recent jobs to each of those pages: a photo, the suburb, what was wrong and what was done.',
-      'Ask the customers behind your best reviews whether you may quote them beside their job.',
     ],
   },
   {
@@ -141,19 +178,6 @@ export const RECOMMENDATIONS: readonly Recommendation[] = [
     how: [
       'Save the photo at the width it is shown, in a modern format such as WebP, so it is a fraction of its size.',
       'Let the heading and the call button show before the photo, not after it.',
-    ],
-  },
-  {
-    id: 'profile-services',
-    title: 'List every service on the Business Profile, and post monthly',
-    impact: 'low',
-    cost: 'low',
-    shot: 'profile-services',
-    what: "The profile lists three services, all under 'Plumber', and has never had a post. Its photos are all of the vans.",
-    why: 'The searches that show the profile most are for hot water and blocked drains, ahead of the business name. A searcher who opens it finds nothing about either job, and no sign the business is busy.',
-    how: [
-      'Add hot water repairs and installs, blocked drains, gas fitting, leak detection and emergency call-outs as services, each with a one-line description.',
-      'Post one recent job a month with a photo and the suburb, linking the page that sells that job.',
     ],
   },
   {
@@ -235,7 +259,7 @@ export const EXPERIMENTS: readonly Experiment[] = [
     id: 'gas-fitting-jobs',
     title: 'The gas fitting page names the jobs people search for',
     impact: 'unclear',
-    what: "On 16 September the gas fitting page's title changed from 'Gas Services' to 'Gas Fitter Perth: Leaks, Cooktops and Heater Installs', its description was rewritten to name the same three jobs, and each job got a heading of its own on the page.",
+    what: "On 16 September the gas fitting page's title changed from 'Gas Services | Wattle & Wrench Plumbing' to 'Gas Fitter Perth: Leaks, Cooktops and Heater Installs', its description was rewritten to name the same three jobs, and each job got a heading of its own on the page.",
     hypothesis:
       'If the title and headings use the words people search with, Google will rank the page higher for gas fitter searches, because today nothing on it says which jobs it covers.',
     label: 'Where the gas fitting page ranks on gas searches',

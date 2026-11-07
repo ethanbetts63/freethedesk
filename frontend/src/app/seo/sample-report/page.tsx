@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import Image from 'next/image';
+
 import { CtaButton } from '@/components/CtaButton';
 import { PageSchema } from '@/components/PageSchema';
-import { SectionNumber } from '@/components/SectionNumber';
 import { metadataFor } from '@/lib/pages';
-import { getSiteSettingsServer } from '@/lib/serverApi';
 import { cn } from '@/lib/utils';
 
 import { AnalysisOverview, AnalysisQuestions, Provenance } from './_components/Analysis';
@@ -18,19 +18,15 @@ import { ReportSection } from './_components/ReportPrimitives';
 import { CONTENTS } from './_lib/contents';
 import { reportDisplay, reportSerif } from './_lib/fonts';
 import { BUSINESS } from './_lib/report';
-import { seoAuditPrices, type SeoAuditPrices } from '../_lib/plans';
 import './_styles/sample.css';
 
 export const metadata: Metadata = metadataFor('/seo/sample-report');
-
-/* The button's prices come from the admin, so this page renders per request. */
-export const dynamic = 'force-dynamic';
 
 /**
  * The sample report is a delivered report, laid out as the engine lays one out (owner, 2026-11-07): the engine's
  * markup (compose.py, render.py), its stylesheet copied (_styles/report.generated.css) and its contents menu
  * following the reader. The site's own parts, the note that it is a sample and the ask at the foot, sit outside the
- * report's box, as the strip and the ask do on a prospect report's page.
+ * report's box; the ask is the one a hosted prospect report carries (seo/utils/prospect_links.py, _ASK).
  */
 function SampleNote() {
   return (
@@ -53,32 +49,42 @@ function SampleNote() {
   );
 }
 
-function SampleCta({ prices }: { prices: SeoAuditPrices }) {
+/**
+ * The ask under the report: the band a hosted prospect report ends on (prospect_links._ASK), the words beside the
+ * SEO cost guide's picture. One sentence differs: a prospect's says that report was written from public data; this
+ * one says it is a sample.
+ */
+function NextStep() {
   return (
-    <section className="site-shell my-section bg-surface-tint py-section text-center sm:px-xl sm:py-3xl">
-      <SectionNumber>Your business next</SectionNumber>
-      <h2 className="m-0 text-display tracking-tighter">Get a report for your business.</h2>
-      <p className="mx-auto my-xl max-w-copy text-lead leading-relaxed text-text-muted">
-        The same report, written about your site from your own search data: what to fix first, why
-        it matters and how to do it. A Complete audit then looks again to show what each change
-        earned.
-      </p>
-      <div className="flex flex-col items-center gap-s">
-        <CtaButton href="/seo" size="large">
-          Get a report for your business
-        </CtaButton>
-        <p className="m-0 text-body-sm font-strong text-text-muted">
-          Essentials {prices.essentials}, Plus {prices.plus}, Complete {prices.complete}, each paid
-          once
-        </p>
+    <section className="bg-surface-tint" aria-labelledby="next-step-title">
+      <div className="site-shell grid items-center gap-xl py-section md:grid-cols-2 md:gap-2xl">
+        <div>
+          <span className="mb-s block text-label font-black tracking-label-wide text-action-primary uppercase">
+            The next step
+          </span>
+          <h2 id="next-step-title" className="m-0 mb-m text-title tracking-tighter">
+            The full report, written from your own data
+          </h2>
+          <p className="m-0 mb-l max-w-copy text-body leading-relaxed text-text-muted">
+            This one is a sample. The full report works from your Search Console and analytics,
+            makes better-informed recommendations, and tracks whether each one worked.
+          </p>
+          <CtaButton href="/seo">See what it covers</CtaButton>
+        </div>
+        <Image
+          src="/images/guides/seo-cost-perth.webp"
+          alt=""
+          width={1536}
+          height={1024}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          className="mx-auto block h-auto w-full max-w-[560px]"
+        />
       </div>
     </section>
   );
 }
 
-export default async function SampleReportPage() {
-  const prices = seoAuditPrices(await getSiteSettingsServer());
-
+export default function SampleReportPage() {
   return (
     <main className="bg-surface-page text-text-secondary">
       <PageSchema path="/seo/sample-report" />
@@ -132,7 +138,7 @@ export default async function SampleReportPage() {
         </div>
       </div>
 
-      <SampleCta prices={prices} />
+      <NextStep />
     </main>
   );
 }

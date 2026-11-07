@@ -30,7 +30,7 @@ function BrowserFrame({ url, children }: { url: string; children: React.ReactNod
 }
 
 /**
- * Recommendation 1: the phone header, menu open, the number inside it as plain text. Drawn a phone's shape (1.6 to
+ * Recommendation 5: the phone header, menu open, the number inside it as plain text. Drawn a phone's shape (1.6 to
  * 2.3 times as tall as wide), as the engine now requires of a phone shot (shots.PHONE_SHOT_RATIO).
  */
 function PhoneHeaderShot() {
@@ -78,6 +78,95 @@ function PhoneHeaderShot() {
   );
 }
 
+const TABS = ['Home', 'Hot water', 'Blocked Drains', 'Gas Fitting', 'Services', 'About', 'Contact'];
+
+/**
+ * Recommendation 1: the site's pages open in a row of tabs, every title its menu name and the business, and the
+ * page under them headed by the logo.
+ */
+function PageTitlesShot() {
+  return (
+    <BrowserFrame url={`${BUSINESS.host.replace(/^www\./, '')} › every page`}>
+      <svg
+        viewBox="0 0 360 240"
+        className="block h-auto w-full"
+        role="img"
+        aria-label={`Seven of the site's pages open in browser tabs. Each tab reads its menu name and then the business: 'Home | ${BUSINESS.fullName}', 'Blocked Drains | ${BUSINESS.fullName}' and so on. The open page's main heading is the logo.`}
+      >
+        <rect width="360" height="240" className="fill-surface-muted" />
+        {/* The tab strip: the open tab stands proud, the rest sit behind it, each title cut by its tab's width. */}
+        {TABS.map((tab, i) => {
+          const x = 6 + i * 50;
+          const open = i === 2;
+          return (
+            <g key={tab}>
+              <path
+                d={`M${x} 34 V12 a4 4 0 0 1 4 -4 H${x + 44} a4 4 0 0 1 4 4 V34 Z`}
+                className={open ? 'fill-surface-page' : 'fill-surface-tint-strong'}
+              />
+              <text
+                x={x + 7}
+                y="24"
+                fontSize="7"
+                fontWeight={open ? 700 : 500}
+                className={open ? 'fill-text-secondary' : 'fill-text-muted'}
+              >
+                {`${tab} | ${BUSINESS.name.slice(0, open ? 9 : 6)}…`}
+              </text>
+            </g>
+          );
+        })}
+        <rect x="0" y="34" width="360" height="206" className="fill-surface-page" />
+        <text x="14" y="52" fontSize="8.5" className="fill-text-subtle">
+          {`Blocked Drains | ${BUSINESS.fullName}`}
+        </text>
+        <line x1="0" y1="60" x2="360" y2="60" className="stroke-border-subtle" />
+        {/* The page's main heading, outlined: it is the logo, on this page as on every other. */}
+        <rect
+          x="14"
+          y="72"
+          width="200"
+          height="44"
+          rx="4"
+          fill="none"
+          strokeWidth="1.2"
+          strokeDasharray="4 3"
+          className="stroke-fill-warning"
+        />
+        <Logo x={26} y={80} scale={0.8} />
+        <text x="222" y="98" fontSize="8" fontWeight={700} className="fill-fill-warning">
+          h1
+        </text>
+        <text x="14" y="146" fontSize="16" fontWeight={800} className="fill-text-secondary">
+          Blocked Drains
+        </text>
+        <g fontSize="8.5" className="fill-text-muted">
+          <text x="14" y="166">
+            {`${BUSINESS.name} has served Perth families since 1998. A family`}
+          </text>
+          <text x="14" y="179">
+            owned and operated business you can trust, with a plumber on
+          </text>
+          <text x="14" y="192">
+            call across the northern suburbs.
+          </text>
+        </g>
+        <rect x="14" y="206" width="110" height="20" rx="10" className="fill-action-primary" />
+        <text
+          x="69"
+          y="219"
+          fontSize="8.5"
+          fontWeight={700}
+          textAnchor="middle"
+          className="fill-text-on-dark"
+        >
+          Get a quote
+        </text>
+      </svg>
+    </BrowserFrame>
+  );
+}
+
 type Result = { site: string; url: string; title: string; lines: readonly string[] };
 
 const RESULTS: readonly Result[] = [
@@ -110,7 +199,7 @@ const RESULTS: readonly Result[] = [
   },
 ];
 
-/** Recommendation 2: the results for a blocked-drain search, the two above with a price, this one with a history. */
+/** Recommendation 4: the results for a blocked-drain search, the two above with a price, this one with a history. */
 function SearchResultShot() {
   return (
     <BrowserFrame url="google.com/search?q=blocked+drain+plumber+perth">
@@ -187,13 +276,14 @@ const REVIEWS = [
     stars: 5,
     when: '1 month ago',
     lines: [
-      'Fixed price before he started and it didn’t',
-      'change. Left the laundry tidier than he found it.',
+      'Marcus gave a fixed price before he started and',
+      'it didn’t change. Left the laundry tidier than he',
+      'found it.',
     ],
   },
 ] as const;
 
-/** Recommendation 5: the Business Profile's reviews, a late arrival among them, and no reply under any. */
+/** Recommendation 9: the Business Profile's reviews, a late arrival among them, and no reply under any. */
 function ReviewsShot() {
   return (
     <BrowserFrame url="google.com/maps › Wattle & Wrench Plumbing › Reviews">
@@ -201,7 +291,7 @@ function ReviewsShot() {
         viewBox="0 0 360 290"
         className="block h-auto w-full"
         role="img"
-        aria-label={`${BUSINESS.fullName}'s Google reviews: 4.6 from 64 reviews. A two-star review describes a plumber arriving more than two hours late without a call; a five-star review praises the fixed price. Neither has a reply from the business.`}
+        aria-label={`${BUSINESS.fullName}'s Google reviews: 4.6 from 64 reviews. A two-star review describes a plumber arriving more than two hours late without a call; a five-star review praises Marcus for a fixed price. Neither has a reply from the business.`}
       >
         <rect width="360" height="290" className="fill-surface-page" />
         <text x="18" y="34" fontSize="26" fontWeight={800} className="fill-text-secondary">
@@ -328,56 +418,49 @@ function QuoteThanksShot() {
   );
 }
 
-/** Recommendation 9: the Business Profile's services and updates, and photos that are all of the vans. */
-function ProfileServicesShot() {
+const PROFILE_ROWS = [
+  { label: 'Category', value: 'Contractor', flag: true },
+  { label: 'Address', value: '14 Peregrine Way, Kingsley', flag: true },
+  { label: 'Service area', value: 'None set', flag: true },
+  { label: 'Hours', value: 'Mon to Fri 7am to 5pm · Sat, Sun closed', flag: true },
+  { label: 'Services', value: '3 listed', flag: false },
+  { label: 'Reviews', value: '4.6 from 64 · no replies', flag: false },
+] as const;
+
+/** Recommendation 3: the Business Profile's details, as the owner's edit page lists them. */
+function ProfileDetailsShot() {
   return (
     <BrowserFrame url={`google.com › ${BUSINESS.fullName} › Edit profile`}>
       <svg
         viewBox="0 0 360 300"
         className="block h-auto w-full"
         role="img"
-        aria-label={`${BUSINESS.fullName}'s Business Profile. Services: three, all under Plumber, with no descriptions. Updates: no posts yet. Photos: four, every one of the work vans.`}
+        aria-label={`${BUSINESS.fullName}'s Business Profile, as the owner edits it. Category: Contractor. Address: a house in Kingsley. Service area: none set. Hours: Monday to Friday 7am to 5pm, closed Saturday and Sunday. Services: three listed. Reviews: 4.6 from 64, no replies.`}
       >
         <rect width="360" height="300" className="fill-surface-page" />
         <text x="18" y="30" fontSize="13" fontWeight={800} className="fill-text-secondary">
-          Services
+          About your business
         </text>
-        <text x="18" y="50" fontSize="9" fontWeight={700} className="fill-text-chrome">
-          Plumber
-        </text>
-        {['General plumbing', 'Hot water', 'Drains'].map((service, i) => (
-          <g key={service}>
-            <text x="18" y={70 + i * 20} fontSize="9.5" className="fill-text-muted">
-              {service}
-            </text>
-            <line
-              x1="18"
-              y1={76 + i * 20}
-              x2="342"
-              y2={76 + i * 20}
-              className="stroke-border-subtle"
-            />
-          </g>
-        ))}
-        <text x="18" y="148" fontSize="13" fontWeight={800} className="fill-text-secondary">
-          Updates
-        </text>
-        <text x="18" y="166" fontSize="9.5" className="fill-text-subtle">
-          No posts yet
-        </text>
-        <text x="18" y="200" fontSize="13" fontWeight={800} className="fill-text-secondary">
-          Photos
-        </text>
-        {[0, 1, 2, 3].map((i) => (
-          <g key={i} transform={`translate(${18 + i * 82} 214)`}>
-            <rect width="74" height="62" rx="4" className="fill-surface-tint-strong" />
-            {/* A work van, side on. */}
-            <path d="M8 40 V22 H44 L56 30 H66 V40 Z" className="fill-surface-page" />
-            <rect x="12" y="25" width="24" height="7" rx="1" className="fill-action-primary" />
-            <circle cx="20" cy="42" r="5" className="fill-text-chrome" />
-            <circle cx="54" cy="42" r="5" className="fill-text-chrome" />
-          </g>
-        ))}
+        <line x1="18" y1="44" x2="342" y2="44" className="stroke-border-subtle" />
+        {PROFILE_ROWS.map((row, i) => {
+          const y = 70 + i * 40;
+          return (
+            <g key={row.label}>
+              <text x="18" y={y} fontSize="8" fontWeight={700} className="fill-text-subtle">
+                {row.label.toUpperCase()}
+              </text>
+              <text x="18" y={y + 15} fontSize="10.5" className="fill-text-secondary">
+                {row.value}
+              </text>
+              {/* A pencil at the row's end: each of these is a setting the owner can change. */}
+              <path
+                d={`M326 ${y + 2} l8 -8 l5 5 l-8 8 h-5 z`}
+                className={row.flag ? 'fill-fill-warning' : 'fill-border-default'}
+              />
+              <line x1="18" y1={y + 26} x2="342" y2={y + 26} className="stroke-border-subtle" />
+            </g>
+          );
+        })}
       </svg>
     </BrowserFrame>
   );
@@ -385,10 +468,11 @@ function ProfileServicesShot() {
 
 const SHOTS: Record<ShotKind, () => React.JSX.Element> = {
   'phone-header': PhoneHeaderShot,
+  'page-titles': PageTitlesShot,
   'search-results': SearchResultShot,
   reviews: ReviewsShot,
   'quote-thanks': QuoteThanksShot,
-  'profile-services': ProfileServicesShot,
+  'profile-details': ProfileDetailsShot,
 };
 
 export function RecShot({ kind }: { kind: ShotKind }) {
