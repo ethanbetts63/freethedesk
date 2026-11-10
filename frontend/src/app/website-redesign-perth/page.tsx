@@ -6,7 +6,7 @@ import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { Hero } from '@/components/marketing/Hero';
 import { IndexedFeatureSection } from '@/components/marketing/IndexedFeatureSection';
-import { PackagesSection } from '@/components/marketing/PackagesSection';
+import { ServicePackages } from '@/components/marketing/ServicePackages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
@@ -73,14 +73,19 @@ export default async function WebsiteRedesignPage() {
         trustLine="Fixed prices · Every old address redirected · Perth-based"
       />
 
-      <PackagesSection packages={prices.packages.filter((item) => !item.discovery)} redesign />
+      <ServicePackages
+        title="Website redesign packages"
+        lead="Priced like a new build: a fixed price per page, half when you buy and the rest before launch. Moving your pages across and redirecting the old addresses is part of it."
+        packages={prices.packages.filter((item) => !item.discovery)}
+        redesign
+      />
 
       <div className="pt-section">
         <IndexedFeatureSection
           id="wordpress"
           eyebrow={sections['Why not WordPress']}
-          title="Fewer moving parts."
-          accentTitle="Less to go wrong."
+          title="Why move off WordPress:"
+          accentTitle="fewer plugins and updates"
           lead="WordPress itself is fine software. The trouble is what gets stacked on top of it: a theme, a page builder and a dozen plugins, each from a different developer, each with its own updates and licence. A custom-coded site does the same jobs without that layer."
           items={WORDPRESS_REASONS}
           footer={
@@ -99,8 +104,8 @@ export default async function WebsiteRedesignPage() {
       <IndexedFeatureSection
         id="rankings"
         eyebrow={sections['Keeping your rankings']}
-        title="Every old address,"
-        accentTitle="sent somewhere useful."
+        title="Redirects that keep"
+        accentTitle="your Google rankings"
         lead="Most of the risk in a redesign is in the addresses. When a page Google ranks disappears without a redirect, the searches it won usually go with it. So the move is planned from your search data, not from the new design."
         items={RANKING_STEPS}
         footer={
@@ -116,7 +121,7 @@ export default async function WebsiteRedesignPage() {
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
-        title={`A Perth website that grew organic clicks ${SCOOTER_SHOP_GROWTH.percent}%.`}
+        title={`Case study: Scooter Shop, organic clicks up ${SCOOTER_SHOP_GROWTH.percent}%`}
         points={casePoints}
         primaryHref="#packages"
         primaryLabel="Choose your package"
@@ -141,7 +146,7 @@ export default async function WebsiteRedesignPage() {
       <FaqSection
         emitSchema
         eyebrow={sections['Common questions']}
-        title="Website redesign questions."
+        title="Website redesign Perth: common questions"
         items={redesignFaqs(prices)}
       />
 

@@ -1,10 +1,10 @@
 import { ServiceScroll, type Service } from '@/components/ServiceScroll';
 
-/** "Features we can build in": a service page's capabilities, scrolled through one at a time. */
+/** "Website features and integrations we build": a service page's capabilities, scrolled through one at a time. */
 export function FeatureScrollSection({
   eyebrow,
   services,
-  title = 'Features we can build in.',
+  title = 'Website features and integrations we build',
 }: {
   eyebrow: string;
   services: Service[];

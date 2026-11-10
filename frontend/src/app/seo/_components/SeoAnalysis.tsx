@@ -8,8 +8,8 @@ export function SeoAnalysis({ eyebrow }: { eyebrow: string }) {
     <SplitFeatureSection
       id="analyse"
       eyebrow={eyebrow}
-      title="What it checks:"
-      accentTitle="technical, local and AI search."
+      title="What an SEO audit checks:"
+      accentTitle="technical, local and AI search"
       description="Whether Google can reach and index every page, how fast the pages load on a phone, structured data, broken links and redirects, your Google Business Profile and reviews, and whether AI crawlers can read the site. Many sources go in; one ranked list of recommendations comes out."
       visual={<SeoAnalysisVisual />}
       textSide="left"

@@ -61,7 +61,12 @@ checkFormLedger({
     {
       file: 'components/forms/SelectionFormPanel.tsx',
       track: 'excluded',
-      why: 'Presentational {chooser, children, onSubmit} wrapper. Holds the <form> for SignupPlansPanel, ProjectEnquiryPanel, PackageOrderPanel, SeoSignupPanel and AffiliateSignupForm, whose schemas and actions sit beside those panels.',
+      why: 'Presentational {chooser, children, onSubmit} wrapper. Holds the <form> for SignupPlansPanel, ProjectEnquiryPanel and AffiliateSignupForm, whose schemas and actions sit beside those panels.',
+    },
+    {
+      file: 'components/forms/OrderDialog.tsx',
+      track: 'excluded',
+      why: 'Presentational <dialog> and <form> the package cards open. Holds the Track B order forms SeoSignupDialog and PackageOrderDialog, whose schemas and actions sit beside them.',
     },
     {
       file: 'components/checkout/CheckoutShell.tsx',

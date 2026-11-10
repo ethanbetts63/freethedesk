@@ -33,8 +33,8 @@ export async function HomeSeoFeature() {
       spacing="standard"
       textSide="right"
       eyebrow="SEO Perth"
-      title="A ranked SEO action plan."
-      accentTitle="Written for humans."
+      title="SEO audits"
+      accentTitle="for Perth businesses"
       description={
         <div className="flex flex-col gap-l [&>span]:block">
           <span>

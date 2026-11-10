@@ -4,8 +4,8 @@ import { packageByCode, money, type ServicePrices } from '@/lib/servicePricing';
 import type { FaqItem } from '@/types/FaqItem';
 
 export const WEB_DESIGN_JOURNEY: JourneyContent = {
-  title: 'Websites designed to',
-  accentTitle: 'be obvious.',
+  title: 'Web design that leads visitors',
+  accentTitle: 'to enquire or buy',
   description:
     'Good web design means visitors never have to work out what to do next. We create clear paths from their first click to a purchase, booking or enquiry.',
   bullets: [
@@ -85,7 +85,7 @@ export const PERTH_WEB_DESIGN: WebDesignCopy = {
     'Web design with clear layouts and simple steps that guide visitors towards a purchase, booking or enquiry, on mobile and desktop.',
   seoDescription:
     'Every website launches with strong SEO foundations, but ranking in Perth takes iteration. We analyse live data as it arrives and give you ranked, plain-English opportunities with implementation costs.',
-  faqTitle: 'Website development questions.',
+  faqTitle: 'Web design and development Perth: common questions',
   faqs: (prices) => webDesignFaqs(prices, 'Perth'),
   ctaTitle: 'What should your website make easier?',
 };

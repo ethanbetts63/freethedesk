@@ -105,8 +105,8 @@ export default async function Dealers() {
       <SeoReportOverview
         id="seo"
         eyebrow={sections['SEO']}
-        title="Launch SEO Strong."
-        accentTitle="Improve with data."
+        title="SEO built in at launch,"
+        accentTitle="then improved with search data"
         mode="improvement"
         description="Every dealership website launches with strong SEO foundations. As search data arrives, we rank the best opportunities across stock, service and the Perth suburbs you sell into."
       />

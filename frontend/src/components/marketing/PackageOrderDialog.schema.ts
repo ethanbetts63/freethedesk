@@ -7,7 +7,7 @@ import { normaliseWebsiteUrl } from '@/lib/api';
 /**
  * The free enquiry's fields, which package is being bought, and the terms.
  *
- * `package` is set by the panel rather than typed; the radio group's own `name` would otherwise
+ * `package` is set by the dialog rather than typed; its chips' own `name` would otherwise
  * travel too, and a `z.object` strips what it does not declare.
  */
 export const packageOrderSchema = z.object({

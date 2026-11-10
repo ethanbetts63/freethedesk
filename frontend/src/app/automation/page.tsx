@@ -7,7 +7,7 @@ import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSection';
 import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
-import { PackagesSection } from '@/components/marketing/PackagesSection';
+import { ServicePackages } from '@/components/marketing/ServicePackages';
 import { metadataFor } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
 import { buildOneOffOffer } from '@/lib/seo';
@@ -53,7 +53,11 @@ export default async function AutomationPage() {
         secondaryLabel="Explore workflows"
       />
 
-      <PackagesSection packages={[discovery]} />
+      <ServicePackages
+        title="Automation package"
+        lead="Automation starts with discovery: we map your repetitive work and write a scope, then price the build to your budget."
+        packages={[discovery]}
+      />
 
       <AutomationIntroduction />
 

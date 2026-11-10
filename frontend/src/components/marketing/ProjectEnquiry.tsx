@@ -14,7 +14,7 @@ export function ProjectEnquiry({
   footer,
   leadAction,
   lead = 'You give us the constraint, and we tell you the most valuable thing we can build within it.',
-  headingLevel = 'h2',
+  headingLevel = 'p',
   title,
   compact = false,
   spacing = 'standard',
@@ -29,8 +29,11 @@ export function ProjectEnquiry({
   lead?: string;
   /** A control on its own line under the lead, such as /contact's call button. */
   leadAction?: ReactNode;
-  /** `h1` where the form is the page, as on /contact. */
-  headingLevel?: 'h1' | 'h2';
+  /**
+   * `h1` where the form is the page, as on /contact. Elsewhere it is an enquiry form under the
+   * page's real sections, not one of them, so it is no heading.
+   */
+  headingLevel?: 'h1' | 'p';
   /** Replaces "Tell us your budget." */
   title?: ReactNode;
   /**

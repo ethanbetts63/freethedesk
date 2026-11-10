@@ -10,7 +10,7 @@ export function SeoImprovement({ eyebrow }: { eyebrow: string }) {
       id="experiment"
       eyebrow={eyebrow}
       title="Every change is"
-      accentTitle="an experiment."
+      accentTitle="an SEO experiment"
       description="Every recommendation you implement becomes an experiment. We track our decisions numerically. What earns is kept and built on; what doesn't is dropped."
       visual={<SeoExperimentCard />}
       textSide="left"

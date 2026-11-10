@@ -8,7 +8,7 @@ export function DealershipAutomation({ eyebrow }: { eyebrow: string }) {
       <ServiceScroll
         services={dealerServices}
         eyebrow={eyebrow}
-        title="Features we can build in."
+        title="Dealership website features we build"
       />
     </section>
   );

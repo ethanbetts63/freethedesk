@@ -31,8 +31,8 @@ export function SubscriptionSwap({
     <IndexedFeatureSection
       id="subscriptions"
       eyebrow={eyebrow}
-      title="Not another"
-      accentTitle="****ing subscription."
+      title="A one-off build instead of"
+      accentTitle="monthly software subscriptions"
       lead={lead}
       items={steps}
     />

@@ -39,7 +39,8 @@ export function ManualAdminCta({
       id={id}
     >
       <SectionNumber>{eyebrow}</SectionNumber>
-      <h2 className="m-0 text-display tracking-[-0.05em]">{title}</h2>
+      {/* A closing call to action, not a section of the page, so not a heading. */}
+      <p className="m-0 text-display tracking-[-0.05em]">{title}</p>
       <p className="mx-auto my-xl max-w-[570px] text-lead leading-[1.7] text-text-muted">
         {children}
       </p>

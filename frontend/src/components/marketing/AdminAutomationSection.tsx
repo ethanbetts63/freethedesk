@@ -28,8 +28,8 @@ export function AdminAutomationSection({
     <SplitFeatureSection
       id={id}
       eyebrow={eyebrow}
-      title="Let your website"
-      accentTitle="automate the admin."
+      title="Admin automation"
+      accentTitle="built into your website"
       description={description}
       visual={<AdminAutomationVisual jobs={jobs} eyebrow={panelEyebrow} title={panelTitle} />}
       textSide="left"

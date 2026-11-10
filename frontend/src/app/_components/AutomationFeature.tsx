@@ -8,8 +8,8 @@ export function AutomationFeature() {
     <SplitFeatureSection
       id="automation"
       eyebrow="Business automation Perth"
-      title="Automation built"
-      accentTitle="around your business."
+      title="Business and AI"
+      accentTitle="automation"
       description="We connect the systems you already use and build the missing pieces, so information moves without your team moving it by hand."
       action={
         <CtaButton href="/automation" size="compact">

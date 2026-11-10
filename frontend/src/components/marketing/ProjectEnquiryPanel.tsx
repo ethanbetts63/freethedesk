@@ -223,9 +223,9 @@ export function ProjectEnquiryPanel({
       }
     >
       <div className={formTitleClassName}>
-        <h3 className={formTitleHeadingClassName}>
+        <p className={formTitleHeadingClassName}>
           <span className="moving-colour-text">Send your free enquiry.</span>
-        </h3>
+        </p>
       </div>
 
       {state.status === 'success' ? (

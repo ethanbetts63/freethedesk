@@ -44,7 +44,7 @@ export default function Home() {
       <FaqSection
         emitSchema
         eyebrow="Common questions"
-        title="Questions about working with us."
+        title="Websites, SEO and automation: common questions"
         items={HOME_FAQS}
       />
       <ManualAdminCta buttonLabel="Get in touch" spacing="joined" />

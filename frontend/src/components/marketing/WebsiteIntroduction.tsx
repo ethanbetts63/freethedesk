@@ -26,7 +26,8 @@ export function WebsiteIntroduction({
     <section className="site-shell pt-section pb-xl" id={id} aria-labelledby={`${id}-title`}>
       <SectionNumber>What we build</SectionNumber>
       <h2 id={`${id}-title`} className="m-0 mb-xl text-display leading-[1.05] tracking-[-0.055em]">
-        Three jobs. <span className="moving-colour-text">One website.</span>
+        SEO, web design and admin automation{' '}
+        <span className="moving-colour-text">in one website</span>
       </h2>
       <div className="grid gap-l lg:grid-cols-3 lg:gap-0">
         <div className="flex flex-col border-t border-border-default pt-l lg:border-t-0 lg:px-l lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:[&+div]:border-l lg:[&+div]:border-border-default">

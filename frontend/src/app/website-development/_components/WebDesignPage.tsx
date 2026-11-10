@@ -8,7 +8,7 @@ import { FaqSection } from '@/components/marketing/FaqSection';
 import { FeatureScrollSection } from '@/components/marketing/FeatureScrollSection';
 import { Hero } from '@/components/marketing/Hero';
 import { JourneySection } from '@/components/marketing/JourneySection';
-import { PackagesSection } from '@/components/marketing/PackagesSection';
+import { ServicePackages } from '@/components/marketing/ServicePackages';
 import { SubscriptionSwap } from '@/components/marketing/SubscriptionSwap';
 import { WebsiteIntroduction } from '@/components/marketing/WebsiteIntroduction';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
@@ -86,15 +86,19 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
         secondaryLabel="Read the full case study"
       />
 
-      <PackagesSection packages={prices.packages} />
+      <ServicePackages
+        title="Website packages"
+        lead="Websites at a fixed price per page, half when you buy and the rest before launch. A web application starts with paid discovery and a written scope."
+        packages={prices.packages}
+      />
 
       <WebsiteIntroduction designDescription={copy.designDescription} />
 
       <SeoReportOverview
         id="seo"
         eyebrow={sections['SEO']}
-        title="Launch SEO Strong."
-        accentTitle="Improve with data."
+        title="SEO built in at launch,"
+        accentTitle="then improved with search data"
         mode="improvement"
         description={copy.seoDescription}
       />
@@ -116,7 +120,7 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
-        title={`A Perth website that grew organic clicks ${SCOOTER_SHOP_GROWTH.percent}%.`}
+        title={`Case study: Scooter Shop, organic clicks up ${SCOOTER_SHOP_GROWTH.percent}%`}
         points={casePoints}
         primaryHref="#packages"
         primaryLabel="Choose your package"

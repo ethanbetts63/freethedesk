@@ -79,8 +79,6 @@ export default async function SeoPage() {
       />
 
       <SeoPackages settings={settings} />
-      {/* Where the page's floating call to action may appear: past the audits. */}
-      <div id="signup-end" aria-hidden="true" />
 
       <SeoIntroduction />
 
@@ -89,8 +87,8 @@ export default async function SeoPage() {
       <SeoReportOverview
         id="recommend"
         eyebrow={sections['Recommend']}
-        title="One SEO report."
-        accentTitle="Ranked recommendations."
+        title="SEO recommendations,"
+        accentTitle="ranked by what each is worth"
         description="Every recommendation says what to change, why the data points to it and how to do it. Written so you, or your IT person can quickly make the change."
         spacing="joined"
         textSide="right"

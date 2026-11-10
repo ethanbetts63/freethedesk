@@ -4,7 +4,7 @@ import { headers } from 'next/headers';
 
 import { firstError } from '@/lib/api';
 import { serverApiFetch } from '@/lib/serverApi';
-import { packageOrderSchema } from './PackageOrderPanel.schema';
+import { packageOrderSchema } from './PackageOrderDialog.schema';
 
 export interface PackageOrderState {
   status: 'idle' | 'success' | 'error';
