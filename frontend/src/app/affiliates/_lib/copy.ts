@@ -7,7 +7,7 @@ import { buildSeoPlans } from '@/app/seo/_lib/plans';
 /**
  * The share an affiliate keeps of each audit sold with their code, as a fraction. The live
  * number is the admin's `affiliate_share_percent`; this is what the copy assumes when the
- * settings have not loaded, and what "Keep half" is written around.
+ * settings have not loaded, and what the page's title ("50% Commission") is written around.
  */
 export const AFFILIATE_SHARE = 0.5;
 

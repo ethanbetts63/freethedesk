@@ -67,11 +67,8 @@ export default async function SeoPage() {
       <PageSchema path="/seo" serviceOffers={serviceOffers} />
       <Hero
         path="/seo"
-        eyebrow="SEO audit Perth"
-        titleLines={['SEO audit Perth:', 'the report that makes you']}
-        accentTitle="Google's"
-        accentAlternates={["ChatGPT's", "Claude's", "Gemini's", "Perplexity's"]}
-        titleSuffix="first pick."
+        titleLines={['SEO audit Perth:', 'technical, local and']}
+        accentTitle="AI search reports."
         lead="A written SEO report of your website: the searches you're losing, what to fix and what each fix is worth. For businesses in Perth and across Australia."
         primaryHref="#signup"
         primaryLabel={`Audits from ${fromPrice}`}

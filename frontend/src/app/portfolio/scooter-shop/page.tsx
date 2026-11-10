@@ -24,15 +24,11 @@ export const dynamic = 'force-dynamic';
 const config = {
   path: '/portfolio/scooter-shop',
   hero: {
-    eyebrow: 'Scooter Shop case study',
     title: {
-      lines: [
-        `${SCOOTER_SHOP_GROWTH.percent}% more Google visits`,
-        `in ${SCOOTER_SHOP_GROWTH.span}.`,
-      ],
+      lines: ['Scooter Shop case study:', 'a Perth dealer website and SEO'],
       accentLine: 1,
     },
-    description: "A Perth scooter dealership's website, grown one measured decision at a time.",
+    description: `A Perth scooter dealership's website: ${SCOOTER_SHOP_GROWTH.percent}% more Google visits in ${SCOOTER_SHOP_GROWTH.span}, grown one measured decision at a time.`,
     liveHref: 'https://www.scootershop.com.au/',
     browserUrl: 'www.scootershop.com.au',
     desktopImage: {

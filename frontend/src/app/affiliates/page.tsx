@@ -18,7 +18,7 @@ import { AffiliatePayout } from './_components/AffiliatePayout';
 import { AffiliatePitch } from './_components/AffiliatePitch';
 import { AffiliateExperience } from './_components/AffiliateExperience';
 import { AffiliateSignup } from './_components/AffiliateSignup';
-import { affiliateEarnings, affiliateFaqs } from './_lib/copy';
+import { affiliateEarnings, affiliateFaqs, shareFraction } from './_lib/copy';
 
 const sections = numberSections([
   'What to say',
@@ -44,9 +44,8 @@ export default async function AffiliatesPage() {
       <PageSchema path="/affiliates" />
       <Hero
         path="/affiliates"
-        eyebrow="Recommend an SEO audit"
-        titleLines={['SEO audit affiliate program.']}
-        accentTitle="Keep half."
+        titleLines={['SEO audit affiliate program:']}
+        accentTitle={`${Math.round(shareFraction(settings) * 100)}% commission`}
         lead={`Recommend our SEO audits and get ${lowest.share} to ${highest.share} of every sale, 20% off for your followers and a free audit for your own website.`}
         primaryHref="#signup"
         primaryLabel="Become an affiliate"

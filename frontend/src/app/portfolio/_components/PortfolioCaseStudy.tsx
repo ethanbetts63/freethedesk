@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 
-import Eyebrow from '@/components/common/eyebrow';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import type { FaqItem } from '@/types/FaqItem';
@@ -137,7 +136,7 @@ export type CaseSection =
 export type PortfolioCaseStudyConfig = {
   path: PagePath;
   hero: {
-    eyebrow: string;
+    /** The h1, naming the client and what was built: the case study's own search words. */
     title: LineHeading;
     description: string;
     liveHref: string;
@@ -177,10 +176,7 @@ function PortfolioHero({
           take more of the room it needs. */}
       <div className="site-shell relative grid grid-cols-[minmax(0,1fr)] items-center gap-2xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] xl:gap-3xl">
         <div className="relative z-3">
-          <Eyebrow dot tone="accent">
-            {config.eyebrow}
-          </Eyebrow>
-          <h1 className="m-0 text-display font-heavy leading-[0.91] tracking-[-0.078em] lg:text-hero [&_span]:text-text-action">
+          <h1 className="m-0 text-display font-heavy leading-[0.91] tracking-[-0.078em] [&_span]:text-text-action">
             <HeadingLines heading={config.title} />
           </h1>
           <p className="my-xl max-w-[555px] text-lead leading-relaxed text-text-muted">

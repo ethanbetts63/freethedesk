@@ -1,7 +1,7 @@
 ---
 published: 2026-10-14
-updated: 2026-11-04
-title: What to Automate First in a Small Business
+updated: 2026-11-10
+title: How to Automate a Small Business: What to Do First
 description: How to spot the admin worth automating in a small business, the usual first candidates, and how to tell whether it will pay for itself.
 takeaways:
   - Start with the task, not the tool; the best candidates repeat daily or weekly, follow the same steps and involve copying, chasing or checking.
@@ -9,7 +9,7 @@ takeaways:
   - To check it pays, multiply the weekly hours by their hourly cost and working weeks, then compare that with the build and any subscription.
 ---
 
-# What to automate first in a small business
+# How to automate a small business: what to do first
 
 Most small businesses do not need artificial intelligence or a new software platform. They need the same three or four jobs to stop eating hours every week. This guide covers how to spot those jobs, the ones that are usually worth automating first, how to work out whether it pays, and what to leave alone.
 

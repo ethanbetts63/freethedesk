@@ -1,10 +1,8 @@
 import Link from 'next/link';
 
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import Eyebrow from '@/components/common/eyebrow';
 import { ScrollCtaButton } from '@/components/common/ScrollCtaButton';
 import { CtaButton } from '@/components/CtaButton';
-import { HeroRotatingWord } from '@/components/marketing/HeroRotatingWord';
 import { NetworkField } from '@/components/visuals/NetworkField';
 import type { PagePath } from '@/lib/pages';
 import { heroGridClassName } from '@/lib/gridSurface';
@@ -17,20 +15,12 @@ export const secondaryLinkClassName =
 type HeroProps = {
   /** Set to float the breadcrumb trail over the top-right of the hero. */
   path?: PagePath;
-  eyebrow: string;
   /**
-   * Make the eyebrow the page's h1, and the big title the line under it: for a page whose title
-   * is a slogan, so its main heading still says the words people search for.
+   * The page's h1, in the words people search for: the plain lines, then the accent line in blue.
+   * Read together they are the whole heading, so no slogan sits in its place.
    */
-  eyebrowIsHeading?: boolean;
-
   titleLines: readonly string[];
-
   accentTitle: string;
-  /** Further accent lines, rotated in after `accentTitle` once the page hydrates. */
-  accentAlternates?: readonly string[];
-  /** A closing line after the accent, for a heading the rotating word sits inside. */
-  titleSuffix?: string;
   lead: string;
   primaryHref: string;
   primaryLabel: string;
@@ -45,12 +35,8 @@ type HeroProps = {
 
 export function Hero({
   path,
-  eyebrow,
-  eyebrowIsHeading = false,
   titleLines,
   accentTitle,
-  accentAlternates = [],
-  titleSuffix,
   lead,
   primaryHref,
   primaryLabel,
@@ -60,7 +46,6 @@ export function Hero({
   trustLine = 'Perth-based · clients across Australia',
   endId,
 }: HeroProps) {
-  const Title = eyebrowIsHeading ? 'p' : 'h1';
   return (
     <>
       {/* Full-screen from sm up. On a phone it hugs its content, so the next
@@ -86,25 +71,7 @@ export function Hero({
           CTAs render as buttons (ScrollCtaButton), so buttons need it as much as links. */}
         <div className="site-shell pointer-events-none py-3xl [&_a]:pointer-events-auto [&_button]:pointer-events-auto">
           <div>
-            {/* The title's tight leading leaves about --space-xl-half under an accent
-              word, so this sits the eyebrow as far above the title as the lead is
-              below it. */}
-            {/* eslint-disable-next-line no-restricted-syntax -- --ring-halo plus a second
-              glow: the live dot is lit, not raised, and one ring does not draw it. */}
-            <div className="mb-xl-half [--eyebrow-accent:var(--action-primary)] [&_span]:shadow-[var(--ring-halo),0_0_10px_2px_color-mix(in_srgb,var(--action-primary)_70%,transparent)]">
-              {eyebrowIsHeading ? (
-                // Eyebrow draws a <p>, which cannot sit in an h1: the same look, as the heading.
-                <h1 className="m-0 flex items-center gap-s text-body-sm font-bold tracking-label-eyebrow text-[var(--eyebrow-accent,var(--text-action))] uppercase">
-                  <span aria-hidden="true" className="h-[7px] w-[7px] rounded-full bg-current" />
-                  {eyebrow}
-                </h1>
-              ) : (
-                <Eyebrow dot tone="accent">
-                  {eyebrow}
-                </Eyebrow>
-              )}
-            </div>
-            <Title className="m-0 max-w-[1000px] text-balance text-hero leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] lg:leading-[0.83]">
+            <h1 className="m-0 max-w-[1000px] text-balance text-hero leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] lg:leading-[0.83]">
               {titleLines.map((line, index) => (
                 /* The trailing space collapses to nothing on screen, but it keeps
                  the lines separate words for anything that flattens the heading
@@ -113,31 +80,11 @@ export function Hero({
                   {line} <br />
                 </span>
               ))}
-              {/* With a line after it, the accent word keeps its descenders off that line. */}
-              <em
-                className={cn(
-                  'inline-block pt-s not-italic text-[var(--action-primary)]',
-                  titleSuffix && 'pb-xs',
-                )}
-              >
-                <HeroRotatingWord words={[accentTitle, ...accentAlternates]} />
+              <em className="inline-block pt-s not-italic text-[var(--action-primary)]">
+                {accentTitle}
               </em>
-              {titleSuffix ? (
-                <>
-                  {' '}
-                  <br />
-                  {titleSuffix}
-                </>
-              ) : null}
-            </Title>
-            {/* A title ending on a plain line has none of the accent word's overhang,
-              so its lead comes up by that much to sit the same distance under it. */}
-            <p
-              className={cn(
-                'mb-xl max-w-[420px] text-lead leading-relaxed text-text-muted lg:max-w-[570px]',
-                titleSuffix ? 'mt-xl-half' : 'mt-xl',
-              )}
-            >
+            </h1>
+            <p className="mt-xl mb-xl max-w-[420px] text-lead leading-relaxed text-text-muted lg:max-w-[570px]">
               {lead}
             </p>
             <div className="flex flex-wrap items-center gap-m [&>*]:w-full sm:gap-xl sm:[&>*]:w-auto">

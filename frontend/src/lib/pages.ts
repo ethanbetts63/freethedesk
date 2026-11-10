@@ -40,7 +40,7 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-11-06',
+    updated: '2026-11-10',
     label: 'Home',
     title: 'Websites, SEO & Business Automation Perth - freethedesk',
     description:
@@ -48,14 +48,14 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-11-06',
+    updated: '2026-11-10',
     label: 'Dealer websites',
     title: 'Dealership Websites & Online Licensing, WA',
     description:
       'One connected system for Perth and WA dealerships: a website built to be found, online licensing, and the admin automation behind it.',
   },
   '/licensing': {
-    updated: '2026-11-04',
+    updated: '2026-11-10',
     label: 'Online licensing',
     title: 'Online Vehicle Licensing for WA Dealers',
     description:
@@ -67,13 +67,13 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-11-06',
+    updated: '2026-11-10',
     label: 'Website development',
-    title: 'Web Design & Development Perth',
+    title: 'Custom Web Design & Development Perth',
     description:
       'Fixed-price web design and development for Perth businesses that need more than a template: custom websites, ecommerce, integrations and web applications.',
-    // Perth rather than Australia, matching the page's own "Web design &
-    // development Perth" eyebrow and the local intent the title targets.
+    // Perth rather than Australia, matching the page's own h1 and the local
+    // intent the title targets.
     service: {
       name: 'Web Design & Development Perth',
       serviceType: 'Web design, website development and web application development',
@@ -81,9 +81,9 @@ export const STATIC_PAGES = {
     },
   },
   '/web-design-subiaco': {
-    updated: '2026-11-04',
+    updated: '2026-11-10',
     label: 'Web design Subiaco',
-    title: 'Web Design Subiaco',
+    title: 'Web Design & Development Subiaco',
     description:
       'Web design and development for Subiaco businesses: custom websites priced per page, built to show up in local search and automate the admin behind them.',
     service: {
@@ -93,7 +93,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-redesign-perth': {
-    updated: '2026-10-26',
+    updated: '2026-11-10',
     label: 'Website redesign',
     title: 'Website Redesign Perth: Moving Off WordPress',
     description:
@@ -105,7 +105,7 @@ export const STATIC_PAGES = {
     },
   },
   '/automation': {
-    updated: '2026-10-26',
+    updated: '2026-11-10',
     label: 'Automation',
     title: 'Business & AI Automation Perth',
     description:
@@ -117,9 +117,9 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-11-07',
+    updated: '2026-11-10',
     label: 'SEO',
-    title: 'SEO Audit & Reporting Perth',
+    title: 'SEO Audit Perth: Technical, Local & AI Search',
     description: `Organic clicks up ${SCOOTER_SHOP_GROWTH.percent}% for a Perth dealer. Each audit is a written SEO report of your site: the searches you're losing and what to fix.`,
     service: {
       name: 'SEO Audit Perth',
@@ -142,23 +142,23 @@ export const STATIC_PAGES = {
       'Practical guides for Perth businesses on SEO, website development and what each costs, with automation and dealer licensing besides.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-11-06',
+    updated: '2026-11-10',
     label: 'Scooter Shop',
-    title: 'Perth Dealer Website Case Study: Scooter Shop',
+    title: 'Scooter Shop Case Study: Dealer Website & SEO',
     description:
       "How a Perth scooter dealership's website grew: three decisions made from its own search data, what changed, and what the data said afterwards.",
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {
-    updated: '2026-11-06',
+    updated: '2026-11-10',
     label: 'Bloomprint',
-    title: 'Marketplace Website Case Study: Bloomprint',
+    title: 'Bloomprint Case Study: Flower Delivery Marketplace',
     description:
       'A two-sided flower delivery marketplace: brief-led ordering for customers, paid local orders for florists, and landing pages built to be found.',
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
   '/affiliates': {
-    updated: '2026-11-06',
+    updated: '2026-11-10',
     label: 'Affiliates',
     title: 'SEO Audit Affiliate Program: 50% Commission',
     description:

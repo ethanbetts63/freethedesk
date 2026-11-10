@@ -86,11 +86,8 @@ export default async function Dealers() {
       <Hero
         path="/dealers"
         endId="dealers-hero-end"
-        eyebrow="Dealership websites and online licensing for WA dealers"
-        eyebrowIsHeading
-        titleLines={['Digital']}
-        accentTitle="dealerships."
-        accentAlternates={['licensing.', 'contracts.', 'handovers.']}
+        titleLines={['Dealership websites and online licensing']}
+        accentTitle="for WA dealers"
         lead="Connected websites and operational systems for Perth and WA dealerships, built for the way they sell, service and work."
         primaryHref="#project-enquiry"
         primaryLabel="Discuss your dealership"

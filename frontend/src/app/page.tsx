@@ -27,10 +27,8 @@ export default function Home() {
       <PageSchema path="/" />
       <AiReadinessBanner />
       <Hero
-        eyebrow="Websites, SEO & automation Perth"
-        titleLines={['Help your business']}
-        accentTitle="get found."
-        accentAlternates={['win customers.', 'lose the admin.', 'grow faster.']}
+        titleLines={['Websites, SEO and business automation']}
+        accentTitle="in Perth"
         lead="Connected websites, SEO and automation for Perth businesses, built to bring customers in and take the repetitive work off your team."
         primaryHref="/contact"
         primaryLabel="Get in touch"

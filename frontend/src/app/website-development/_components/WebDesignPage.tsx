@@ -32,10 +32,9 @@ import { websiteServices } from '../_lib/websiteServices';
  * a location page is a different audience for the same offer, not a copy.
  */
 export interface WebDesignCopy {
-  heroEyebrow: string;
-  /** The eyebrow is the h1; Subiaco's slogan title already names the place, and the trial stays as it was. */
-  heroEyebrowIsHeading?: boolean;
+  /** The h1: the plain lines, then the accent line in blue. */
   heroTitleLines: readonly string[];
+  heroAccentTitle: string;
   heroLead: string;
   designDescription: string;
   seoDescription: string;
@@ -78,11 +77,8 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
       <AiReadinessBanner />
       <Hero
         path={path}
-        eyebrow={copy.heroEyebrow}
-        eyebrowIsHeading={copy.heroEyebrowIsHeading}
         titleLines={copy.heroTitleLines}
-        accentTitle="work harder."
-        accentAlternates={['be faster.', 'grow faster.', 'be easier.', 'sell more.']}
+        accentTitle={copy.heroAccentTitle}
         lead={copy.heroLead}
         primaryHref="#packages"
         primaryLabel="See the packages"

@@ -77,9 +77,8 @@ function webDesignFaqs(prices: ServicePrices, place: string, local: FaqItem[] = 
 
 /** /website-development: web design for Perth. */
 export const PERTH_WEB_DESIGN: WebDesignCopy = {
-  heroEyebrow: 'Web design and development in Perth',
-  heroEyebrowIsHeading: true,
-  heroTitleLines: ['Websites should'],
+  heroTitleLines: ['Custom web design and development'],
+  heroAccentTitle: 'in Perth',
   heroLead:
     'Custom web design and development for Perth businesses: websites that turn visitors into customers and automate the repetitive work behind them.',
   designDescription:
@@ -96,8 +95,8 @@ export const PERTH_WEB_DESIGN: WebDesignCopy = {
  * can stand behind: we are in Dianella and work across Perth, not in Subiaco.
  */
 export const SUBIACO_WEB_DESIGN: WebDesignCopy = {
-  heroEyebrow: 'Web design Subiaco',
-  heroTitleLines: ['Subiaco websites should'],
+  heroTitleLines: ['Web design and development'],
+  heroAccentTitle: 'in Subiaco',
   heroLead:
     'Web design and development for Subiaco businesses, from Rokeby Road shopfronts to the clinics and offices off Hay Street: websites that turn local searches into customers and automate the work behind them.',
   designDescription:

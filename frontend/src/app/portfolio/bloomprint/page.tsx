@@ -17,8 +17,10 @@ export const dynamic = 'force-dynamic';
 const config = {
   path: '/portfolio/bloomprint',
   hero: {
-    eyebrow: 'Bloomprint case study',
-    title: { lines: ['Not a catalogue.', 'A brief.'], accentLine: 1 },
+    title: {
+      lines: ['Bloomprint case study:', 'a flower delivery marketplace'],
+      accentLine: 1,
+    },
     description:
       'A national flower delivery marketplace where the customer describes what they want and an independent local florist designs it. Customer ordering, florist supply and organic growth built as one product.',
     liveHref: 'https://www.bloomprint.com.au/',
