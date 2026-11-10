@@ -1,7 +1,7 @@
 # SEO prospect outreach
 
 Planned and built 2026-10-28. The prospect report pipeline in `../ftp_search`
-finds businesses to write a free ten-recommendation report for, mostly Perth
+finds businesses to write a short free report, four recommendations and the offer of the full one, for, mostly Perth
 businesses paying for searches they do not win (`_search/prospecting/`), and
 since 2026-10-30 podcast hosts for the affiliate program too. The report is
 written the same way whoever it is for. This is the half that writes the
