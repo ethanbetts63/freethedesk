@@ -130,7 +130,7 @@ FIXES_SHOWN = 3
 #: The line under the list naming the report's page (owner, 2026-11-04): the same report, read on a phone without
 #: opening the attachment; the opens it draws are counted against the email it came from. Rows from before the
 #: page existed have none, and the line is left out.
-ONLINE_LINE = "\nYou can also read it online, which is easier on a phone: {link}\n"
+ONLINE_LINE = "\nYou can also read it online: {link}\n"
 
 
 def online_line(prospect: SeoProspect, source: str) -> str:

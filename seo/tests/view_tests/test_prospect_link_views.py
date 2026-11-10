@@ -345,7 +345,7 @@ def test_the_report_email_names_the_page_beside_the_pdf_once_there_is_one():
     prospect.report_html.save("p.html", ContentFile(HTML), save=True)
     body = body_for(prospect)
 
-    assert f"You can also read it online, which is easier on a phone: {report_link(prospect, 'email')}" in body
+    assert f"You can also read it online: {report_link(prospect, 'email')}" in body
     assert body.index("1. Fix the title") < body.index("read it online") < body.index("Forward the attached pdf")
     assert "?s=email" in body
     # The follow-up's link says it came from the follow-up.
