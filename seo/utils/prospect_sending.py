@@ -138,7 +138,7 @@ If you want to go through it first, my number is below. I can explain any part i
 # they stand on the day it is sent, like the podcast pitch's.
 BODY_AFFILIATE = """Hi {first_name},
 
-I'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes for your website. There's no obligation, and the fixes are worth doing either way.
+I'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes for your website. There's no obligation, and the fixes are worth doing.
 
 This is a sample so that you have an idea of what you'd be advertising if you're interested.
 

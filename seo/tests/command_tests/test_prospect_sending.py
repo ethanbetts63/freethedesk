@@ -195,7 +195,7 @@ def test_the_affiliate_body_is_the_owners_sample_and_the_offer_at_the_live_figur
     assert subject_for(prospect) == "Podcast affiliate offer for Money Secrets"
     assert body.startswith(
         "Hi Fi,\n\nI'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes for "
-        "your website. There's no obligation, and the fixes are worth doing either way.\n\n"
+        "your website. There's no obligation, and the fixes are worth doing.\n\n"
         "This is a sample so that you have an idea of what you'd be advertising if you're interested.\n\n"
     )
     assert (
