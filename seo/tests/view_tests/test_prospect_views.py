@@ -69,6 +69,38 @@ def test_the_word_taken_back_holds_the_report_again(api_client, internal_key):
     assert SeoProspect.objects.get().approved_at is None
 
 
+def test_a_partner_prospect_gets_the_partner_body_and_subject(api_client, internal_key):
+    """A coach's or adviser's report takes body 6 and subject 9 every time, out of the client rotation."""
+    response = upload(api_client, internal_key, domain="alignedsuccess.com.au", slug="alignedsuccess",
+                      email="tanya@alignedsuccess.com.au", business="Aligned Success", purpose="partner")
+
+    assert response.status_code == 201
+    assert (response.json()["purpose"], response.json()["body_version"]) == ("partner", 6)
+    assert (response.json()["subject_version"], response.json()["subject"]) == (
+        9, "A partnership idea for Aligned Success")
+
+
+def test_the_owners_word_can_make_a_held_client_report_a_partner_one(api_client, internal_key):
+    """A coach found by a client sweep: approve with the partner purpose, and the subject and body follow it."""
+    upload(api_client, internal_key)
+
+    held = approve(api_client, internal_key, approved="0", purpose="partner")
+    prospect = SeoProspect.objects.get()
+    assert held.status_code == 201 and held.json()["outcome"] == "held" and prospect.approved_at is None
+    assert (prospect.purpose, prospect.subject_version, prospect.body_version) == ("partner", 9, 6)
+
+    approved = approve(api_client, internal_key, purpose="partner")
+    assert approved.json()["outcome"] == "approved" and approved.json()["purpose"] == "partner"
+    assert approved.json()["subject_version"] == 9 and approved.json()["body_version"] == 6
+
+
+def test_an_unknown_purpose_is_refused_and_the_row_left_held(api_client, internal_key):
+    upload(api_client, internal_key)
+    assert approve(api_client, internal_key, purpose="friend").status_code == 400
+    prospect = SeoProspect.objects.get()
+    assert (prospect.purpose, prospect.approved_at) == ("client", None)
+
+
 def test_a_report_already_sent_is_neither_approved_nor_held(api_client, internal_key):
     SeoProspectFactory(slug="gone", sent_at=timezone.now())
     assert approve(api_client, internal_key, slug="gone").status_code == 409

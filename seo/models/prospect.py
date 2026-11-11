@@ -44,22 +44,27 @@ class SeoProspect(models.Model):
         SIX = 6, "6: A list of fixes for the domain"
         SEVEN = 7, "7: What's wrong with the domain, and how to fix it"
         EIGHT = 8, "8: Podcast affiliate offer for the podcast"
+        NINE = 9, "9: A partnership idea for the business"
 
     class Purpose(models.TextChoices):
-        """Why the report was written: a business we hope will buy the full one, or a podcast host we hope will join."""
+        """Why the report was written: a business we hope will buy the full one, a podcast host we hope will join the
+        affiliate program, or a coach or adviser we hope will partner with us and refer their clients."""
 
         CLIENT = "client", "Client"
         AFFILIATE = "affiliate", "Affiliate"
+        PARTNER = "partner", "Partner"
 
     class Body(models.IntegerChoices):
         """The email bodies in ``seo/utils/prospect_sending.py``. A client gets one of ``CLIENT_BODIES`` (5 alone
-        today; 1, 2 and 4 are paused), levelled when there is more than one; an affiliate gets 3, under subject 8."""
+        today; 1, 2 and 4 are paused), levelled when there is more than one; an affiliate gets 3, under subject 8; a
+        partner gets 6, under subject 9."""
 
         REPORT = 1, "1: the report email"
         BET = 2, "2: the three-hour bet"
         AFFILIATE = 3, "3: the affiliate offer"
         LIST = 4, "4: the bet with the list"
         FIXES = 5, "5: the fixes list"
+        PARTNER = 6, "6: the partner offer"
 
     class Reply(models.TextChoices):
         NONE = "none", "No reply"

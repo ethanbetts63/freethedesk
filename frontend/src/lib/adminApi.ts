@@ -139,7 +139,7 @@ export interface ReportProspect {
   paid_searches: string[];
   recommendation_count: number;
   /** A business we hope will buy the full report, or a podcast host we hope will join the affiliate program. */
-  purpose: 'client' | 'affiliate';
+  purpose: 'client' | 'affiliate' | 'partner';
   subject_version: number;
   subject_label: string;
   subject: string;

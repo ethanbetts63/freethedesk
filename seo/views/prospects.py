@@ -119,6 +119,9 @@ class SeoProspectApproveView(APIView):
     edited after approval) and the row is held again. A report already sent
     is refused with 409 either way: there is nothing left to hold. ``metric``,
     when given, is what the business counts, for the second body's bet.
+    ``purpose``, when given and not the row's, changes why the report was
+    written before it goes (a coach found by a client sweep, sent the partner
+    offer), and the subject and body are chosen again for it.
     """
 
     throttle_scope = "internal"  # A load limit; access is the shared secret.
@@ -132,9 +135,21 @@ class SeoProspectApproveView(APIView):
                             status=status.HTTP_404_NOT_FOUND)
         if prospect.sent_at is not None:
             return Response({"outcome": "already_sent", "sent_at": prospect.sent_at}, status=status.HTTP_409_CONFLICT)
+        purpose = str(request.data.get("purpose", "")).strip()
+        if purpose and purpose not in SeoProspect.Purpose.values:
+            return Response({"outcome": "unknown_purpose", "detail": f"No purpose is called {purpose!r}."},
+                            status=status.HTTP_400_BAD_REQUEST)
         approved = str(request.data.get("approved", "1")).lower() not in ("0", "false", "no")
         prospect.approved_at = timezone.now() if approved else None
         fields = ["approved_at", "updated_at"]
+        if purpose and purpose != prospect.purpose:
+            try:
+                subject_version = next_subject(has_search=bool(prospect.paid_searches), purpose=purpose)
+            except NoSubject as error:
+                return Response({"outcome": "no_subject", "detail": str(error)}, status=status.HTTP_400_BAD_REQUEST)
+            prospect.purpose, prospect.subject_version, prospect.body_version = (
+                purpose, subject_version, next_body(purpose))
+            fields += ["purpose", "subject_version", "body_version"]
         metric = str(request.data.get("metric", "")).strip()
         if metric:
             prospect.metric = metric[:40]

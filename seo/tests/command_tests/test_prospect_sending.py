@@ -160,7 +160,7 @@ def test_body_five_lists_every_fix_whole_and_links_the_report_in_the_owners_word
     assert f"I can explain any part in detail. {UNSUBSCRIBE_LINE}\n\nEthan Betts" in body
 
 
-@pytest.mark.parametrize("version", [*CLIENT_BODIES, SeoProspect.Body.AFFILIATE])
+@pytest.mark.parametrize("version", [*CLIENT_BODIES, SeoProspect.Body.AFFILIATE, SeoProspect.Body.PARTNER])
 def test_every_body_in_rotation_and_its_follow_up_carries_the_way_out(version):
     """The Spam Act's unsubscribe statement, once, in each body a prospect can draw today and in the follow-up
     built from it."""
@@ -212,6 +212,31 @@ def test_the_affiliate_body_is_the_owners_sample_and_the_offer_at_the_live_figur
             "report with your code, and you get half of every report they buy: $220 to $560 each, paid after each "
             "sale. Everything's explained here: www.freethedesk.com.au/affiliates") in body
     assert "is yours free" not in body and "pdf" not in body
+
+
+def test_the_partner_body_is_the_owners_sample_and_the_partnership_at_the_live_figures():
+    """A coach or adviser gets every title, the report's link, and the program offered for their clients."""
+    prospect = host(purpose="partner", subject_version=9, body_version=6, business="Aligned Success",
+                    domain="alignedsuccess.com.au", contact_name="Tanya Mills")
+
+    body = body_for(prospect)
+
+    assert subject_for(prospect) == "A partnership idea for Aligned Success"
+    assert body.startswith(
+        "Hi Tanya,\n\nI'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes "
+        "for your website. There's no obligation, and the fixes are worth doing.\n\n"
+        "I'm writing because I'd like to partner with you. You work with business owners, and plenty of them will "
+        "have websites with the same kind of problems as yours. You help them run the business; I show them what's "
+        "stopping their website from bringing in work. This report is a sample of what I'd do for your clients.\n\n"
+    )
+    assert "1. Retitle the home and program pages for their searches\n" in body
+    assert f"You can read the whole report here: {report_link(prospect, 'email')}\n\n" in body
+    assert ("Here's how the partnership would work. Your clients get 20% off a report with your code, and you get "
+            "half of what they pay: $220 to $560 a report, paid after each sale. Your clients get something useful "
+            "at a better price, and you get paid for recommending it. Everything's explained here: "
+            "www.freethedesk.com.au/affiliates") in body
+    assert "podcast" not in body.lower() and "listener" not in body and "pdf" not in body
+    assert f"If you'd like to talk it over first, my number is below. {UNSUBSCRIBE_LINE}\n\nEthan Betts" in body
 
 
 def test_a_report_without_a_page_waits_and_no_pdf_goes_in_its_place(outbox, monkeypatch):
@@ -298,6 +323,7 @@ def test_reports_go_ten_seconds_apart_and_after_the_pitches(outbox, monkeypatch)
     (6, "A list of fixes for business0.com.au"),
     (7, "What's wrong with business0.com.au, and how to fix it"),
     (8, "Podcast affiliate offer for Business 0"),
+    (9, "A partnership idea for Business 0"),
 ])
 def test_each_subject_names_only_what_the_report_says(version, expected):
     prospect = SeoProspectFactory(subject_version=version, domain="business0.com.au", business="Business 0")

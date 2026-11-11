@@ -4,7 +4,8 @@ The report is written the same way for everyone; the email is where the purpose
 shows. The server composes every body from the row's own fields (the business,
 its paid searches when a sweep saw its ad, the report's two strongest titles,
 the count) so the pipeline knows nothing about why a report was written. A
-client prospect gets body 5; a podcast host (an affiliate prospect) gets body 3 and subject 8.
+client prospect gets body 5; a podcast host (an affiliate prospect) gets body 3 and subject 8; a coach or adviser
+(a partner prospect) gets body 6 and subject 9.
 Sent by the hourly ``send_affiliate_outreach`` run, inside its window. See
 ``_docs/seo-prospect-outreach.md``.
 """
@@ -35,14 +36,18 @@ SUBJECTS = {
     SeoProspect.Subject.SEVEN: "What's wrong with {domain}, and how to fix it",
     # A podcast host's, every host (owner's words, 2026-11-11): the email says what it is.
     SeoProspect.Subject.EIGHT: "Podcast affiliate offer for {business}",
+    # A coach's or adviser's, every one (owner's words, 2026-11-11).
+    SeoProspect.Subject.NINE: "A partnership idea for {business}",
 }
 # Subjects that need a paid search to make sense.
 NEEDS_SEARCH = {SeoProspect.Subject.THREE, SeoProspect.Subject.FIVE}
 # Retired from the rotation (owner's call, 2026-10-30: no "SEO" and no "free" in a subject): kept so the rows
 # that drew them still read right. 3 (with a paid search), 6 and 7 rotate.
 PAUSED_SUBJECTS = {SeoProspect.Subject.ONE, SeoProspect.Subject.TWO, SeoProspect.Subject.FOUR, SeoProspect.Subject.FIVE}
-# A podcast host's subject, out of the client rotation.
+# A podcast host's subject and a partner's, each its own and out of the client rotation.
 AFFILIATE_SUBJECT = SeoProspect.Subject.EIGHT
+PARTNER_SUBJECT = SeoProspect.Subject.NINE
+OWN_SUBJECTS = {SeoProspect.Purpose.AFFILIATE: AFFILIATE_SUBJECT, SeoProspect.Purpose.PARTNER: PARTNER_SUBJECT}
 
 # The Spam Act's unsubscribe facility: a reply, suppressed by hand on the dashboard.
 UNSUBSCRIBE_LINE = "Reply 'no thanks' and I won't email again."
@@ -157,16 +162,40 @@ If you want to go through it first, my number is below. I can explain any part i
 """ + SIGNATURE
 
 
+# Body 6, for a coach or adviser (owner's words, 2026-11-11): the fixes list as a sample of what we would do for their
+# clients, then the partnership: the affiliate program's discount and share, at the live figures, for their clients.
+BODY_PARTNER = """Hi {first_name},
+
+I'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes for your website. There's no obligation, and the fixes are worth doing.
+
+I'm writing because I'd like to partner with you. You work with business owners, and plenty of them will have websites with the same kind of problems as yours. You help them run the business; I show them what's stopping their website from bringing in work. This report is a sample of what I'd do for your clients.
+
+Every recommendation explains the issue, why it's important and how to fix it. Here they are:
+
+{listing}
+
+You can read the whole report here: {link}
+
+Forward the link to whoever runs your website, if they disagree with the recommendations I'd be very surprised.
+
+Here's how the partnership would work. Your clients get {discount} off a report with your code, and you get {share} of what they pay: {commission_low} to {commission_high} a report, paid after each sale. Your clients get something useful at a better price, and you get paid for recommending it. Everything's explained here: www.freethedesk.com.au/affiliates
+
+If you'd like to talk it over first, my number is below. """ + UNSUBSCRIBE_LINE + """
+
+""" + SIGNATURE
+
+
 def message_type(subject_version) -> str:
     return f"seo_prospect.{int(subject_version)}"
 
 
 def live_subjects(has_search: bool = True, purpose: str = SeoProspect.Purpose.CLIENT) -> list:
-    """The subjects a prospect may draw: a host's own, else the client rotation it has the search for."""
-    if purpose == SeoProspect.Purpose.AFFILIATE:
-        return [AFFILIATE_SUBJECT]
+    """The subjects a prospect may draw: a host's or a partner's own, else the client rotation it has the search for."""
+    if purpose in OWN_SUBJECTS:
+        return [OWN_SUBJECTS[purpose]]
+    own = set(OWN_SUBJECTS.values())
     return [s for s in SeoProspect.Subject.values
-            if s not in PAUSED_SUBJECTS and s != AFFILIATE_SUBJECT and (has_search or s not in NEEDS_SEARCH)]
+            if s not in PAUSED_SUBJECTS and s not in own and (has_search or s not in NEEDS_SEARCH)]
 
 
 def next_subject(has_search: bool = True, purpose: str = SeoProspect.Purpose.CLIENT) -> int:
@@ -191,9 +220,12 @@ class NoSubject(Exception):
 
 
 def next_body(purpose: str = SeoProspect.Purpose.CLIENT) -> int:
-    """An affiliate's body; else the client body with the fewest prospects, levelled when there is more than one."""
+    """An affiliate's or a partner's body; else the client body with the fewest prospects, levelled when there is
+    more than one."""
     if purpose == SeoProspect.Purpose.AFFILIATE:
         return SeoProspect.Body.AFFILIATE
+    if purpose == SeoProspect.Purpose.PARTNER:
+        return SeoProspect.Body.PARTNER
     counts = {
         row["body_version"]: row["n"]
         for row in SeoProspect.objects.values("body_version").annotate(n=Count("id"))
@@ -279,13 +311,15 @@ def body_for(prospect: SeoProspect, version=None, source: str = "email") -> str:
     name = first_name(prospect)
     if version == SeoProspect.Body.BET:
         return BODY_TWO.format(first_name=name, metric=prospect.metric or "bookings")
-    if version in (SeoProspect.Body.FIXES, SeoProspect.Body.AFFILIATE):
+    if version in (SeoProspect.Body.FIXES, SeoProspect.Body.AFFILIATE, SeoProspect.Body.PARTNER):
         from .prospect_links import report_link  # the link module reads the models; sending reads it
 
         every = listing(prospect, len(prospect.issues or []), whole=True)
         link = report_link(prospect, source)
         if version == SeoProspect.Body.FIXES:
             return BODY_FIXES.format(first_name=name, listing=every, link=link)
+        if version == SeoProspect.Body.PARTNER:
+            return BODY_PARTNER.format(first_name=name, listing=every, link=link, **affiliate_figures())
         return BODY_AFFILIATE.format(first_name=name, listing=every, link=link, **affiliate_figures())
     if version == SeoProspect.Body.LIST:
         return BODY_LIST.format(first_name=name, metric=prospect.metric or "bookings", listing=listing(prospect))

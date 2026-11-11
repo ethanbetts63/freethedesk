@@ -47,10 +47,14 @@ business-hours window, the message log as the status, the dashboard page.
   the count, and for a host the affiliate figures from the site settings.
   Until 2026-10-30 the analyst wrote the email (`email.txt`) and body 1 sent it
   as written; rows from then still hold it in `body` and show it.
-- **Two purposes.** `purpose` is `client`, a business we hope will buy the
-  full report, or `affiliate`, a podcast host we hope will join the program
-  ([`affiliate-program.md`](affiliate-program.md)). The outbox sets it from the
-  ledger entry's `source`.
+- **Three purposes.** `purpose` is `client`, a business we hope will buy the
+  full report, `affiliate`, a podcast host we hope will join the program
+  ([`affiliate-program.md`](affiliate-program.md)), or `partner`, a coach or
+  adviser we hope will refer their clients through the same program (owner,
+  2026-11-11). The outbox sets it from the ledger entry's `source`, or
+  `--purpose`; a held row's purpose changes on approval
+  (`outbox.py approve --purpose partner`, `purpose` on the approve endpoint),
+  and its subject and body are chosen again.
 - **Five bodies, one in the test.** A client gets body 5, the fixes list
   (`CLIENT_BODIES`; owner's words, 2026-11-11): who Ethan is, the catch said
   plainly, every title of the report whole, the report's link, the forward
@@ -72,7 +76,11 @@ business-hours window, the message log as the status, the dashboard page.
   the report's link, then the program at the live discount, share and
   commissions (`affiliates.utils.pitching.pitch_figures`) and the affiliate
   page. It goes under subject 8, "Podcast affiliate offer for {business}"
-  (the podcast's name), out of the client rotation. No email carries the pdf:
+  (the podcast's name), out of the client rotation. Body 6 is the partner
+  offer, every coach or adviser, in the owner's words of 2026-11-11: body 3
+  with the partnership in place of the podcast offer (their clients get the
+  discount, they get the share), under subject 9, "A partnership idea for
+  {business}", also out of the client rotation. No email carries the pdf:
   a row without a page is neither sent nor followed up. The source copies are in
   `call_script.md` in ftp_search, "The report email"; the server holds the
   same text in `prospect_sending`, and the two are changed together. Body 2's
@@ -117,9 +125,9 @@ follow-up`. It is refused (409, with the reason) when it is too soon, already
 | `overview`                           | one line: what the business is, built from the ledger (trading name, Google category, suburb)                              |
 | `issues`                             | the report's five highest-impact recommendation titles, strongest first; body 1 names the first two, body 4 lists all five |
 | `paid_searches`                      | the searches its ad was seen on; empty for a host, or a business found some other way                                      |
-| `purpose`                            | `client` or `affiliate`, from the upload; `client` unless it says                                                          |
-| `subject_version`                    | a client: 3 (needs a paid search), 6 or 7, by rotation, 1, 2, 4 and 5 retired; an affiliate: 8                             |
-| `body_version`                       | a client: 5 (1, 2 and 4 paused); an affiliate: 3                                                                           |
+| `purpose`                            | `client`, `affiliate` or `partner`, from the upload or approval; `client` unless it says                                   |
+| `subject_version`                    | a client: 3 (needs a paid search), 6 or 7, by rotation, 1, 2, 4 and 5 retired; an affiliate: 8; a partner: 9               |
+| `body_version`                       | a client: 5 (1, 2 and 4 paused); an affiliate: 3; a partner: 6                                                             |
 | `metric`                             | what the business counts, for body 2; `bookings` unless the upload says                                                    |
 | `body`                               | empty since 2026-10-30; the analyst's email on the rows before it, which body 1 sent as written                            |
 | `queued_at`, `sent_at`               | `sent_at` set by the cron's claim, as `pitched_at` is                                                                      |
