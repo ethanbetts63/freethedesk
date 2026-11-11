@@ -3,12 +3,14 @@ from io import StringIO
 from zoneinfo import ZoneInfo
 
 import pytest
+from django.core.files.base import ContentFile
 from django.core.management import call_command
 from freetheplatform.messaging import Message, Suppression, suppress
 
 from affiliates.management.commands import send_affiliate_outreach as command
 from seo.models import SeoProspect
 from seo.tests.factories import PDF, SeoProspectFactory
+from seo.utils.prospect_links import report_link
 from seo.utils.prospect_sending import (
     CLIENT_BODIES, FOLLOW_UP_LINE, UNSUBSCRIBE_LINE, body_for, follow_up_body, follow_up_subject_for, subject_for,
 )
@@ -164,25 +166,72 @@ def test_every_body_in_rotation_and_its_follow_up_carries_the_way_out(version):
     assert follow_up_body(prospect).count(UNSUBSCRIBE_LINE) == 1
 
 
-def test_the_affiliate_body_offers_the_program_at_the_live_figures():
-    """A podcast host gets the same report and the affiliate offer in place of the paid one; the figures are the
-    site settings' on the day, as the podcast pitch's are."""
-    prospect = SeoProspectFactory(
-        purpose="affiliate", body_version=3, business="Money Secrets", domain="peachbm.com.au",
-        contact_name="Fi Johnston", recommendation_count=8, paid_searches=[],
-        issues=["Name the city on the home page", "Put the podcast on its own page"],
-    )
+def host(**overrides):
+    """A podcast host's held-then-approved report, with its page."""
+    prospect = SeoProspectFactory(**{
+        "purpose": "affiliate", "subject_version": 8, "body_version": 3, "business": "Money Secrets",
+        "domain": "peachbm.com.au", "contact_name": "Fi Johnston", "recommendation_count": 4, "paid_searches": [],
+        "issues": ["Retitle the home and program pages for their searches",
+                   "Close the second Google listing and use one address",
+                   "Add hours, a booking link and your programs to the listing",
+                   "Fix the Challenge's buy buttons and the member videos"],
+        **overrides,
+    })
+    prospect.report_html.save(f"{prospect.slug}_r1.html", ContentFile(b"<html></html>"), save=True)
+    return prospect
+
+
+def test_the_affiliate_body_is_the_owners_sample_and_the_offer_at_the_live_figures():
+    """A podcast host gets every title, the report's link, and the program at the site settings' figures."""
+    prospect = host()
 
     body = body_for(prospect)
 
-    assert body.startswith("Hi Fi,\n\nI picked Money Secrets because your listeners are the people we write for")
-    assert "Attached: 8 recommendations, from what anyone can see of peachbm.com.au" in body
-    assert "Two stand out: name the city on the home page, and put the podcast on its own page." in body
-    assert "Your listeners get 20% off an SEO audit with your code, and you get half of every audit they buy: " \
-           "$220 to $560 an audit" in body
-    assert "the one customers pay $850 for, is written for you free" in body
-    assert "www.freethedesk.com.au/affiliates" in body
-    assert "three hours" not in body
+    assert subject_for(prospect) == "Podcast affiliate offer for Money Secrets"
+    assert body.startswith(
+        "Hi Fi,\n\nI'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes for "
+        "your website. There's no obligation, and the fixes are worth doing either way.\n\n"
+        "This is a sample so that you have an idea of what you'd be advertising if you're interested.\n\n"
+    )
+    assert (
+        "Here they are:\n\n"
+        "1. Retitle the home and program pages for their searches\n"
+        "2. Close the second Google listing and use one address\n"
+        "3. Add hours, a booking link and your programs to the listing\n"
+        "4. Fix the Challenge's buy buttons and the member videos\n\n"
+        f"You can read the whole report here: {report_link(prospect, 'email')}\n\n"
+        "Forward the link to whoever runs your website"
+    ) in body
+    assert "more)" not in body
+    assert ("Now the offer. We are running an affiliate program for podcasts. Your listeners get 20% off an SEO "
+            "report with your code, and you get half of every report they buy: $220 to $560 each, paid after each "
+            "sale. Everything's explained here: www.freethedesk.com.au/affiliates") in body
+    assert "is yours free" not in body and "pdf" not in body
+
+
+def test_a_host_without_a_page_gets_the_pdf_and_is_told_so():
+    prospect = SeoProspectFactory(purpose="affiliate", body_version=3, issues=["Fix the title"])
+
+    body = body_for(prospect)
+
+    assert "The whole report is attached.\n\nForward the attached pdf to whoever runs your website" in body
+
+
+def test_a_hosts_report_and_follow_up_go_with_the_link_alone(outbox, monkeypatch):
+    prospect = host()
+
+    run(monkeypatch, perth(26, 10))
+
+    [message] = outbox
+    assert message.subject == "Podcast affiliate offer for Money Secrets"
+    assert message.attachments == []
+    assert report_link(prospect, "email") in message.body_text
+
+    later = perth(27, 10)
+    SeoProspect.objects.filter(pk=prospect.pk).update(follow_up_queued_at=later, follow_up_subject_version=8,
+                                                      follow_up_body_version=3)
+    run(monkeypatch, later)
+    assert outbox[1].attachments == [] and outbox[1].subject == "Podcast affiliate offer for Money Secrets"
 
 
 def test_outside_the_window_no_report_is_sent(outbox, monkeypatch):
@@ -240,6 +289,7 @@ def test_reports_go_ten_seconds_apart_and_after_the_pitches(outbox, monkeypatch)
     (5, "Business 0 isn't on Google's first page for 'plumber perth'"),
     (6, "A list of fixes for business0.com.au"),
     (7, "What's wrong with business0.com.au, and how to fix it"),
+    (8, "Podcast affiliate offer for Business 0"),
 ])
 def test_each_subject_names_only_what_the_report_says(version, expected):
     prospect = SeoProspectFactory(subject_version=version, domain="business0.com.au", business="Business 0")

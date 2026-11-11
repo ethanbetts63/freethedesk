@@ -66,9 +66,13 @@ business-hours window, the message log as the status, the dashboard page.
   50 characters at a word, numbered under the strategy line, and "(N more)"
   for the rest, so the reader sees what is inside before opening it; its
   "Forward" line names the attached pdf. Body 3
-  is the affiliate offer, every host: the same report, then the program at
-  the live discount, share and commissions (`affiliates.utils.pitching.pitch_figures`),
-  and the full report free on sign-up. The source copies are in
+  is the affiliate offer, every host, in the owner's words of 2026-11-11: the
+  report as a sample of what they would be advertising, every title in full,
+  the report's link, then the program at the live discount, share and
+  commissions (`affiliates.utils.pitching.pitch_figures`) and the affiliate
+  page. It goes under subject 8, "Podcast affiliate offer for {business}"
+  (the podcast's name), out of the client rotation, and with no pdf when the
+  report has a page (a host without one gets the pdf, and is told so). The source copies are in
   `call_script.md` in ftp_search, "The report email"; the server holds the
   same text in `prospect_sending`, and the two are changed together. Body 2's
   way out is the spam button, which it names twice; a 'no thanks' reply is
@@ -112,7 +116,7 @@ follow-up`. It is refused (409, with the reason) when it is too soon, already
 | `issues`                             | the report's five highest-impact recommendation titles, strongest first; body 1 names the first two, body 4 lists all five |
 | `paid_searches`                      | the searches its ad was seen on; empty for a host, or a business found some other way                                      |
 | `purpose`                            | `client` or `affiliate`, from the upload; `client` unless it says                                                          |
-| `subject_version`                    | 3 (needs a paid search), 6 or 7, by rotation; 1, 2, 4 and 5 retired, kept on their rows                                    |
+| `subject_version`                    | a client: 3 (needs a paid search), 6 or 7, by rotation, 1, 2, 4 and 5 retired; an affiliate: 8                             |
 | `body_version`                       | a client: 5 (1, 2 and 4 paused); an affiliate: 3                                                                           |
 | `metric`                             | what the business counts, for body 2; `bookings` unless the upload says                                                    |
 | `body`                               | empty since 2026-10-30; the analyst's email on the rows before it, which body 1 sent as written                            |

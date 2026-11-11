@@ -43,6 +43,7 @@ class SeoProspect(models.Model):
         FIVE = 5, "5: Not on Google's first page"
         SIX = 6, "6: A list of fixes for the domain"
         SEVEN = 7, "7: What's wrong with the domain, and how to fix it"
+        EIGHT = 8, "8: Podcast affiliate offer for the podcast"
 
     class Purpose(models.TextChoices):
         """Why the report was written: a business we hope will buy the full one, or a podcast host we hope will join."""
@@ -52,7 +53,7 @@ class SeoProspect(models.Model):
 
     class Body(models.IntegerChoices):
         """The email bodies in ``seo/utils/prospect_sending.py``. A client gets one of ``CLIENT_BODIES`` (5 alone
-        today; 1, 2 and 4 are paused), levelled when there is more than one; an affiliate gets 3."""
+        today; 1, 2 and 4 are paused), levelled when there is more than one; an affiliate gets 3, under subject 8."""
 
         REPORT = 1, "1: the report email"
         BET = 2, "2: the three-hour bet"

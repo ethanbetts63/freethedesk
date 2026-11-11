@@ -100,14 +100,15 @@ def test_every_client_draws_the_fixes_list(api_client, internal_key):
 
 
 def test_an_affiliate_prospect_gets_the_affiliate_body(api_client, internal_key):
-    """A podcast host's report takes body 3 every time, and a subject that names no search."""
+    """A podcast host's report takes body 3 and subject 8 every time, and leaves the client rotation level."""
     response = upload(api_client, internal_key, domain="peachbm.com.au", slug="peachbm", email="fi@peachbm.com.au",
                       business="Money Secrets", purpose="affiliate", paid_searches=[])
 
     assert response.status_code == 201
     assert (response.json()["purpose"], response.json()["body_version"]) == ("affiliate", 3)
     assert response.json()["body_label"] == "3: the affiliate offer"
-    assert response.json()["subject"] == "A list of fixes for peachbm.com.au"
+    assert (response.json()["subject_version"], response.json()["subject"]) == (
+        8, "Podcast affiliate offer for Money Secrets")
 
 
 def test_with_no_paid_search_the_subject_that_names_one_is_skipped(api_client, internal_key):

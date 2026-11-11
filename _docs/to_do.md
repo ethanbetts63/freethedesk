@@ -2,6 +2,10 @@
 
 Open tasks for this repository. Append any you find; delete one once you know it's done.
 
+## Deploy the podcast email and the online line
+
+Added 2026-11-11. Owner's step. Deploy Django and run `migrate` for `seo` 0029: subject 8, "Podcast affiliate offer for <podcast>", for every podcast host, and the step that moves the hosts' held reports onto it. Body 3 is now the owner's podcast email of 2026-11-11 (the report as a sample, every title, its link, then the affiliate offer), sent with no pdf when the report has a page. The same deploy takes 36d6653, the client email's line "You can also read it online: <link>". No frontend change. Until then an approved host's report goes out with the old affiliate body, the pdf, and a client subject, so hold the hosts' approvals until it is deployed.
+
 ## Deploy the report link's preview picture
 
 Added 2026-11-07. Owner's step. A report link pasted into a chat or a text now shows a card: the page carries Open Graph tags, and the row keeps a cover picture (`seo` 0028, `report_cover`), served at `/reports/<business>-<token>/cover.jpg` through a new rewrite. Deploy Django with `migrate` for `seo` 0028, and the frontend for the rewrite and the fallback picture (`public/og-images/seo-report.jpg`). Until the deploy, `outbox.py add` and `html` send the picture and the old server ignores the field (it says `cover_replaced` only once deployed). After it, `render --pdf` each held report once more (it writes `preview.jpg` beside the PDF) and run `outbox.py html <slug>` so each link gets its own cover; a row without one shows the site's picture. The apps cache a link's card, so test with a link not pasted before.

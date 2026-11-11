@@ -84,7 +84,8 @@ class SeoProspectUploadView(APIView):
             data["approved_at"] = data["sent_at"]
         else:
             try:
-                subject_version = next_subject(has_search=bool(data.get("paid_searches")))
+                subject_version = next_subject(has_search=bool(data.get("paid_searches")),
+                                               purpose=data.get("purpose", SeoProspect.Purpose.CLIENT))
             except NoSubject as error:
                 return Response({"outcome": "no_subject", "detail": str(error)}, status=status.HTTP_400_BAD_REQUEST)
             body_version = next_body(data.get("purpose", SeoProspect.Purpose.CLIENT))

@@ -4,7 +4,7 @@ The report is written the same way for everyone; the email is where the purpose
 shows. The server composes every body from the row's own fields (the business,
 its paid searches when a sweep saw its ad, the report's two strongest titles,
 the count) so the pipeline knows nothing about why a report was written. A
-client prospect gets body 1 or 2, levelled; an affiliate prospect gets body 3.
+client prospect gets body 5; a podcast host (an affiliate prospect) gets body 3 and subject 8.
 Sent by the hourly ``send_affiliate_outreach`` run, inside its window. See
 ``_docs/seo-prospect-outreach.md``.
 """
@@ -33,12 +33,16 @@ SUBJECTS = {
     # Approved 2026-10-30, written for body 5: no "SEO" and no "free".
     SeoProspect.Subject.SIX: "A list of fixes for {domain}",
     SeoProspect.Subject.SEVEN: "What's wrong with {domain}, and how to fix it",
+    # A podcast host's, every host (owner's words, 2026-11-11): the email says what it is.
+    SeoProspect.Subject.EIGHT: "Podcast affiliate offer for {business}",
 }
 # Subjects that need a paid search to make sense.
 NEEDS_SEARCH = {SeoProspect.Subject.THREE, SeoProspect.Subject.FIVE}
 # Retired from the rotation (owner's call, 2026-10-30: no "SEO" and no "free" in a subject): kept so the rows
 # that drew them still read right. 3 (with a paid search), 6 and 7 rotate.
 PAUSED_SUBJECTS = {SeoProspect.Subject.ONE, SeoProspect.Subject.TWO, SeoProspect.Subject.FOUR, SeoProspect.Subject.FIVE}
+# A podcast host's subject, out of the client rotation.
+AFFILIATE_SUBJECT = SeoProspect.Subject.EIGHT
 
 # The Spam Act's unsubscribe facility: a reply, suppressed by hand on the dashboard.
 UNSUBSCRIBE_LINE = "Reply 'no thanks' and I won't email again."
@@ -138,34 +142,64 @@ def online_line(prospect: SeoProspect, source: str) -> str:
 
     return ONLINE_LINE.format(link=report_link(prospect, source)) if prospect.report_html else ""
 
-# Body 3, for a podcast host (owner's call, 2026-10-30): the same report, then
-# the affiliate offer instead of the paid one. The figures are the site
-# settings' as they stand on the day it is sent, like the podcast pitch's.
+# Body 3, for a podcast host (owner's words, 2026-11-11): the fixes list as a sample of what they would be
+# advertising, every title listed, read by its link, then the affiliate offer. The figures are the site settings' as
+# they stand on the day it is sent, like the podcast pitch's. It goes without the pdf when the report has a page.
 BODY_AFFILIATE = """Hi {first_name},
 
-I picked {business} because your listeners are the people we write for: owners of small businesses whose websites could be doing more. So I wrote a report about your own site, the way I'd write one for them. Attached: {count} recommendations, from what anyone can see of {domain} and the search results. {standouts}
+I'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes for your website. There's no obligation, and the fixes are worth doing either way.
 
-The report is yours, free, whatever you make of the rest of this email.
+This is a sample so that you have an idea of what you'd be advertising if you're interested.
 
-Here's the rest. freethedesk runs an affiliate program for podcasts like yours. Your listeners get {discount} off an SEO audit with your code, and you get {share} of every audit they buy: {commission_low} to {commission_high} an audit, paid to you after each sale. Sign up at www.freethedesk.com.au/affiliates and the full version of this report, the one customers pay {free_audit_price} for, is written for you free as part of it.
+Every recommendation explains the issue, why it's important and how to fix it. Here they are:
 
-I'd be happy to walk you through the report. If you have questions my number is below. Reply 'no thanks' and I won't email again.
+{listing}
+
+{report_line}
+
+Forward {forward} to whoever runs your website, if they disagree with the recommendations I'd be very surprised.
+
+Now the offer. We are running an affiliate program for podcasts. Your listeners get {discount} off an SEO report with your code, and you get {share} of every report they buy: {commission_low} to {commission_high} each, paid after each sale. Everything's explained here: www.freethedesk.com.au/affiliates
+
+If you want to go through it first, my number is below. I can explain any part in detail. """ + UNSUBSCRIBE_LINE + """
 
 """ + SIGNATURE
+
+
+def link_only(prospect: SeoProspect, version=None) -> bool:
+    """A podcast host's email goes with the report's page alone, no pdf, when the report has one."""
+    version = prospect.body_version if version is None else version
+    return version == SeoProspect.Body.AFFILIATE and bool(prospect.report_html)
+
+
+def attachments(prospect: SeoProspect, version=None) -> list:
+    """The report's pdf, unless the email links the page alone."""
+    if link_only(prospect, version):
+        return []
+    with prospect.report_pdf.open("rb") as handle:
+        pdf = handle.read()
+    return [(f"{prospect.slug}_seo_report_{prospect.report_version}.pdf", pdf, "application/pdf")]
 
 
 def message_type(subject_version) -> str:
     return f"seo_prospect.{int(subject_version)}"
 
 
-def next_subject(has_search: bool = True) -> int:
+def live_subjects(has_search: bool = True, purpose: str = SeoProspect.Purpose.CLIENT) -> list:
+    """The subjects a prospect may draw: a host's own, else the client rotation it has the search for."""
+    if purpose == SeoProspect.Purpose.AFFILIATE:
+        return [AFFILIATE_SUBJECT]
+    return [s for s in SeoProspect.Subject.values
+            if s not in PAUSED_SUBJECTS and s != AFFILIATE_SUBJECT and (has_search or s not in NEEDS_SEARCH)]
+
+
+def next_subject(has_search: bool = True, purpose: str = SeoProspect.Purpose.CLIENT) -> int:
     """The subject with the fewest prospects, so the test stays level."""
     counts = {
         row["subject_version"]: row["n"]
         for row in SeoProspect.objects.values("subject_version").annotate(n=Count("id"))
     }
-    choices = [s for s in SeoProspect.Subject.values
-               if s not in PAUSED_SUBJECTS and (has_search or s not in NEEDS_SEARCH)]
+    choices = live_subjects(has_search, purpose)
     if not choices:
         raise NoSubject("No subject line is in rotation for a prospect without a paid search; approve one first.")
     return min(choices, key=lambda s: (counts.get(s, 0), s))
@@ -227,10 +261,11 @@ def cut(title: str, width: int = LIST_WIDTH) -> str:
     return f"{head}\u2026"
 
 
-def listing(prospect: SeoProspect, shown: int = LIST_SHOWN) -> str:
-    """The list: the first ``shown`` titles, numbered and cut to a line, then how many more the report holds."""
+def listing(prospect: SeoProspect, shown: int = LIST_SHOWN, whole: bool = False) -> str:
+    """The list: the first ``shown`` titles, numbered and cut to a line (``whole``: as written), then how many more
+    the report holds."""
     titles = [t for t in (prospect.issues or [])[:shown] if t and t.strip()]
-    lines = [f"{n}. {cut(t)}" for n, t in enumerate(titles, 1)]
+    lines = [f"{n}. {t.strip().rstrip('.') if whole else cut(t)}" for n, t in enumerate(titles, 1)]
     more = max(int(prospect.recommendation_count or 0) - len(titles), 0)
     if more:
         lines.append(f"({more} more)")
@@ -274,9 +309,14 @@ def body_for(prospect: SeoProspect, version=None, source: str = "email") -> str:
     if version == SeoProspect.Body.LIST:
         return BODY_LIST.format(first_name=name, metric=prospect.metric or "bookings", listing=listing(prospect))
     if version == SeoProspect.Body.AFFILIATE:
+        from .prospect_links import report_link  # as online_line
+
+        page = link_only(prospect, version)
         return BODY_AFFILIATE.format(
-            first_name=name, business=prospect.business, domain=prospect.domain,
-            count=prospect.recommendation_count, standouts=standouts(prospect), **affiliate_figures(),
+            first_name=name, listing=listing(prospect, len(prospect.issues or []), whole=True),
+            report_line=(f"You can read the whole report here: {report_link(prospect, source)}" if page
+                         else "The whole report is attached."),
+            forward="the link" if page else "the attached pdf", **affiliate_figures(),
         )
     if prospect.body:
         body = prospect.body.rstrip()
@@ -305,8 +345,7 @@ def next_follow_up_subject(prospect: SeoProspect) -> int:
     """A live subject other than the report email's, the one fewest follow-ups have drawn; the report email's own
     only when it is the sole live subject for this prospect."""
     has_search = bool([s for s in (prospect.paid_searches or []) if s])
-    choices = [s for s in SeoProspect.Subject.values
-               if s not in PAUSED_SUBJECTS and (has_search or s not in NEEDS_SEARCH)]
+    choices = live_subjects(has_search, prospect.purpose)
     choices = [s for s in choices if s != prospect.subject_version] or choices
     if not choices:
         raise NoSubject("No subject line is in rotation for a prospect without a paid search; approve one first.")
@@ -365,9 +404,8 @@ def claim_follow_up(prospect: SeoProspect, now) -> bool:
 
 
 def send_follow_up(prospect: SeoProspect):
-    """The follow-up: its own subject and body, the report attached again. The caller has claimed the row."""
-    with prospect.report_pdf.open("rb") as handle:
-        pdf = handle.read()
+    """The follow-up: its own subject and body, the report attached again (or linked again, for a host). The
+    caller has claimed the row."""
     return send(
         to=prospect.email,
         channel="email",
@@ -375,7 +413,7 @@ def send_follow_up(prospect: SeoProspect):
         subject=follow_up_subject_for(prospect),
         body=follow_up_body(prospect),
         plain=True,
-        attachments=[(f"{prospect.slug}_seo_report_{prospect.report_version}.pdf", pdf, "application/pdf")],
+        attachments=attachments(prospect, prospect.follow_up_body_version),
         related=prospect,
         sender=settings.OUTREACH_SENDER,
     )
@@ -399,8 +437,6 @@ def claim(prospect: SeoProspect, now) -> bool:
 
 def send_prospect(prospect: SeoProspect):
     """Email the report. The caller has already claimed the row."""
-    with prospect.report_pdf.open("rb") as handle:
-        pdf = handle.read()
     return send(
         to=prospect.email,
         channel="email",
@@ -409,7 +445,7 @@ def send_prospect(prospect: SeoProspect):
         body=body_for(prospect),
         # A note from one person, not a mailout: no branded frame, no HTML part.
         plain=True,
-        attachments=[(f"{prospect.slug}_seo_report_{prospect.report_version}.pdf", pdf, "application/pdf")],
+        attachments=attachments(prospect),
         related=prospect,
         # The outreach address and domain when they are configured; the site's own otherwise.
         sender=settings.OUTREACH_SENDER,
