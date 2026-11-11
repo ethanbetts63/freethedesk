@@ -1,18 +1,35 @@
 /* Component registry: freetheplatform/frontend/registry/src/components/guides/GuideAuthor.tsx
    Copied, not imported. Edit the registry and re-sync; a deliberate local
    change here must be marked. See _docs/component-registry.md. */
+import Image from 'next/image';
+
 import { AUTHOR } from '@/lib/author';
 import { GUIDE_AUTHOR } from '@/lib/guideSite';
 import { cn } from '@/lib/utils';
 
 /**
  * Who wrote a guide: the byline in its hero and the box at its end. The name is `lib/author`'s, so it matches the
- * Article schema's `author`. Per-site: the role under the name and the bio (`GUIDE_AUTHOR` in `lib/guideSite`); a
- * site with neither yet shows the name alone.
+ * Article schema's `author`. Per-site: the photo, the role under the name and the bio (`GUIDE_AUTHOR` in
+ * `lib/guideSite`); a site with none yet shows the initial and the name alone.
  */
 
-/** Until there is a photo (owner, 2026-11-04): the initial on a disc, as a Google profile without a picture shows. */
+/** The author's photo, or, until the site has one, the initial on a disc, as a Google profile without a picture shows. */
 function Avatar({ size }: { size: 'sm' | 'md' }) {
+  const px = size === 'sm' ? 44 : 64;
+  if (GUIDE_AUTHOR.photo) {
+    return (
+      <Image
+        src={GUIDE_AUTHOR.photo}
+        alt=""
+        width={px}
+        height={px}
+        className={cn(
+          'shrink-0 rounded-circle object-cover',
+          size === 'sm' ? 'size-[44px]' : 'size-[64px]',
+        )}
+      />
+    );
+  }
   return (
     <span
       aria-hidden="true"

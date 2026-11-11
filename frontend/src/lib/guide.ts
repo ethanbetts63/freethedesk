@@ -11,6 +11,17 @@ import type { ImageProps } from 'next/image';
 /** A guide's picture: a path under `public/` or an imported asset. `null` shows the plain card. */
 export type GuideImage = ImageProps['src'] | null;
 
+/**
+ * What a site's `lib/guideSite` says about the author: the role under the name, the bio in the end box, and the
+ * photo, a square picture as a path under `public/`. Each is `null` until the site has it; without a photo the avatar
+ * is the initial on a disc, as a Google profile without a picture shows.
+ */
+export interface GuideSiteAuthor {
+  role: string | null;
+  bio: string | null;
+  photo: string | null;
+}
+
 /** One `h2` of a guide, for the contents list: its anchor and its text. */
 export interface GuideSection {
   id: string;
