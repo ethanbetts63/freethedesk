@@ -1,4 +1,3 @@
-import { AUTHOR } from '@/lib/author';
 import type { GuideSiteAuthor } from '@/lib/guide';
 
 /**
@@ -9,7 +8,7 @@ import type { GuideSiteAuthor } from '@/lib/guide';
 export const GUIDE_AUTHOR: GuideSiteAuthor = {
   /** Under the byline, as the email signature signs it. */
   role: 'Director, freethedesk',
-  bio: `${AUTHOR.givenName} writes freethedesk's SEO audits and builds its websites in Perth, including Scooter Shop's, the dealership site in the case study. He writes these guides from what the audits find on real Perth businesses' sites.`,
+  bio: null,
   /** The headshot, 256px square, under `public/`. */
   photo: '/images/ethan-betts-ingram.webp',
 };
