@@ -5,7 +5,8 @@ finds businesses to write a short free report, four recommendations and the offe
 businesses paying for searches they do not win (`_search/prospecting/`), and
 since 2026-10-30 podcast hosts for the affiliate program too. The report is
 written the same way whoever it is for. This is the half that writes the
-email, sends it from this server with the report attached, and tracks the
+email, sends it from this server with the report's link (no pdf since
+2026-11-11, owner's call: the attachment was the likely road to spam), and tracks the
 calls that follow. The first three (Rebus Legal, Hartley Plumbing, Solar 365,
 28 October) went by hand from the compose page, before this existed;
 `outbox.py` refuses them.
@@ -51,9 +52,9 @@ business-hours window, the message log as the status, the dashboard page.
   ([`affiliate-program.md`](affiliate-program.md)). The outbox sets it from the
   ledger entry's `source`.
 - **Five bodies, one in the test.** A client gets body 5, the fixes list
-  (`CLIENT_BODIES`; owner's words, 2026-10-30): who Ethan is, the catch said
-  plainly, the report's three highest-impact titles cut to a line and the
-  rest counted, the forward line, the number. Bodies 1, 2 and 4 are paused,
+  (`CLIENT_BODIES`; owner's words, 2026-11-11): who Ethan is, the catch said
+  plainly, every title of the report whole, the report's link, the forward
+  line, the number. Bodies 1, 2 and 4 are paused,
   kept for the rows that drew them; the levelling returns when a second body
   is added. Body 1 is the report email, in the words the analyst's email used:
   why this business (its ad on a search it does not win, or its site alone),
@@ -71,8 +72,8 @@ business-hours window, the message log as the status, the dashboard page.
   the report's link, then the program at the live discount, share and
   commissions (`affiliates.utils.pitching.pitch_figures`) and the affiliate
   page. It goes under subject 8, "Podcast affiliate offer for {business}"
-  (the podcast's name), out of the client rotation, and with no pdf when the
-  report has a page (a host without one gets the pdf, and is told so). The source copies are in
+  (the podcast's name), out of the client rotation. No email carries the pdf:
+  a row without a page is neither sent nor followed up. The source copies are in
   `call_script.md` in ftp_search, "The report email"; the server holds the
   same text in `prospect_sending`, and the two are changed together. Body 2's
   way out is the spam button, which it names twice; a 'no thanks' reply is
@@ -85,17 +86,18 @@ business-hours window, the message log as the status, the dashboard page.
   action. The Spam Act requires a functional unsubscribe facility; a reply
   address is one.
 - **Plain text**, as pitches A and C: a note from one person, not a newsletter.
-- **One follow-up, a week on** (owner, 2026-11-04). When seven days have passed
+- **The follow-up, a week on** (owner, 2026-11-04), **and again on the owner's word** (2026-11-11). When seven days have passed
   with no call and no reply in the owner's inbox (ethanbetts63@gmail.com, where
   replies land), the outreach agent queues it at startup:
   `POST /api/seo/prospects/follow-up/` with the slug, through `outbox.py
 follow-up`. It is refused (409, with the reason) when it is too soon, already
   queued, or the row is called, replied, excluded or suppressed. The hourly run
-  sends it in the same window and at the same pace: the report attached again,
+  sends it in the same window and at the same pace: the report linked again,
   under a subject drawn from the live rotation (never the report email's own,
-  unless it is the only live one for that prospect) and the client body of the
-  day, its first paragraph opening "Just following up on my email from last
-  week, in case it got buried." Both are chosen when it is queued and kept on
+  nor an earlier follow-up's, unless no other is live for that prospect) and the
+  client body of the day, its first paragraph opening "Just following up on my
+  previous email, in case it got buried." Once one has gone, `again`
+  (`outbox.py follow-up --again`) queues another; never while one still waits. Both are chosen when it is queued and kept on
   the row (`follow_up_subject_version`, `follow_up_body_version`), levelled
   across follow-ups the way the first email's are. Its message type is
   `seo_prospect_follow_up.<its subject>`, so the dashboard's status still reads
@@ -140,7 +142,7 @@ refused too.
 `send_affiliate_outreach` and sharing its window and its Mailgun Free plan
 budget (100 a day across all mail). Claims with
 `filter(pk=..., sent_at__isnull=True).update(sent_at=now)`, then
-`send(..., attachments=[(name, pdf_bytes, "application/pdf")], related=prospect, plain=True)`.
+`send(..., related=prospect, plain=True)`, with no attachment.
 
 **Send by hand** `POST /api/seo/messages/`, `IsInternalApiRequest`, multipart
 `to`, `subject`, `body` and any `attachments` (added 2026-10-29, after the
@@ -170,8 +172,10 @@ the SEO page, the PDF), the ask for the full report under it (a band the page's
 width: the words beside the SEO page's picture of what an audit reads; the
 page's alone, since the PDF's upsell card carries the picture) and the site's
 footer last. The owner texts it by hand during a call, from the call brief, which prints
-it with `?s=text`; every report email and follow-up names it beside the PDF
-("You can also read it online"); nothing else links to it.
+it with `?s=text`; every report email and follow-up links it, the only way
+the report reaches them ("You can read the whole report here"); nothing else
+links to it. A re-attach (`outbox.py html`) also brings the report's titles and
+count, so the email lists what the page holds after a cut.
 
 - **The page.** `report_html` on the row, the `report.html` beside the PDF in
   the project, uploaded with the report (`outbox.py add`) or after it for

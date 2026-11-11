@@ -174,7 +174,7 @@ def test_the_pdf_is_served_inline_and_logged_as_its_own_kind(client):
 
 
 def test_a_row_from_before_the_page_existed_serves_its_pdf_at_the_link(client):
-    prospect = SeoProspectFactory()  # no report_html
+    prospect = SeoProspectFactory(report_html="")
 
     response = client.get(reverse("seo-report-page", args=[link_key(prospect)]), HTTP_USER_AGENT=PHONE_UA)
 
@@ -235,6 +235,21 @@ def test_a_cover_uploads_with_the_report_and_must_be_a_picture(api_client, inter
     assert not SeoProspect.objects.exists()
 
 
+def test_a_page_attached_again_brings_the_reports_titles_and_count_after_a_cut(api_client, internal_key):
+    prospect = with_page(issues=["One", "Two", "Three", "Four", "Five"], recommendation_count=9)
+
+    response = api_client.post(
+        reverse("seo-prospect-html"),
+        {"slug": prospect.slug, "report_html": SimpleUploadedFile("report.html", HTML, content_type="text/html"),
+         "issues": ["One", "Three"], "recommendation_count": 2},
+        format="multipart", HTTP_X_INTERNAL_API_KEY=internal_key,
+    )
+
+    assert response.status_code == 201
+    prospect.refresh_from_db()
+    assert (prospect.issues, prospect.recommendation_count) == (["One", "Three"], 2)
+
+
 def test_a_page_that_is_not_html_is_refused(api_client, internal_key):
     response = upload(api_client, internal_key, html=b"%PDF-1.7 not a page")
     assert response.status_code == 400 and "report_html" in response.json()
@@ -261,7 +276,7 @@ def test_a_report_that_went_by_hand_must_name_its_subject_and_body(api_client, i
 
 
 def test_the_page_can_be_attached_to_a_report_uploaded_before_it_existed(api_client, internal_key):
-    prospect = SeoProspectFactory()
+    prospect = SeoProspectFactory(report_html="")
     assert not prospect.report_html
 
     response = api_client.post(
@@ -337,16 +352,14 @@ def test_attaching_a_page_takes_the_shared_secret_and_a_known_slug(api_client, i
 # -- the email ---------------------------------------------------------------
 
 
-def test_the_report_email_names_the_page_beside_the_pdf_once_there_is_one():
+def test_the_report_email_links_the_page_under_the_list():
     prospect = SeoProspectFactory(body_version=SeoProspect.Body.FIXES, issues=["Fix the title"],
-                                  recommendation_count=9)
-    assert "read it online" not in body_for(prospect)  # no page yet: the line is left out, nothing else moves
+                                  recommendation_count=1)
 
-    prospect.report_html.save("p.html", ContentFile(HTML), save=True)
     body = body_for(prospect)
 
-    assert f"You can also read it online: {report_link(prospect, 'email')}" in body
-    assert body.index("1. Fix the title") < body.index("read it online") < body.index("Forward the attached pdf")
+    assert f"You can read the whole report here: {report_link(prospect, 'email')}" in body
+    assert body.index("1. Fix the title") < body.index("read the whole report") < body.index("Forward the link")
     assert "?s=email" in body
     # The follow-up's link says it came from the follow-up.
     prospect.follow_up_body_version = SeoProspect.Body.FIXES

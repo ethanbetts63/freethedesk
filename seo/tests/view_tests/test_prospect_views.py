@@ -337,6 +337,26 @@ def test_a_follow_up_is_refused_when_anything_has_stopped_it(api_client, interna
     assert prospect.follow_up_queued_at is None
 
 
+def test_again_queues_another_follow_up_under_a_subject_neither_email_used(api_client, internal_key):
+    """The owner's word for one more after the follow-up has gone; never while one is still waiting to go."""
+    now = timezone.now()
+    prospect = SeoProspectFactory(subject_version=6, sent_at=now - timedelta(days=12), follow_up_queued_at=now
+                                  - timedelta(days=6), followed_up_at=now - timedelta(days=6),
+                                  follow_up_subject_version=3, follow_up_body_version=SeoProspect.Body.FIXES)
+
+    assert queue_follow_up(api_client, internal_key, prospect.slug).json()["outcome"] == "already_queued"
+    response = api_client.post(reverse("seo-prospect-follow-up"), {"slug": prospect.slug, "again": "1"},
+                               format="json", HTTP_X_INTERNAL_API_KEY=internal_key)
+
+    assert response.status_code == 201
+    prospect.refresh_from_db()
+    assert prospect.followed_up_at is None and prospect.follow_up_queued_at > now - timedelta(minutes=1)
+    assert prospect.follow_up_subject_version == 7
+    again = api_client.post(reverse("seo-prospect-follow-up"), {"slug": prospect.slug, "again": "1"},
+                            format="json", HTTP_X_INTERNAL_API_KEY=internal_key)
+    assert again.json()["outcome"] == "already_queued"
+
+
 def test_a_suppressed_address_gets_no_follow_up(api_client, internal_key):
     prospect = SeoProspectFactory(sent_at=timezone.now() - timedelta(days=8))
     suppress(prospect.email, reason=Suppression.Reason.OPTED_OUT)

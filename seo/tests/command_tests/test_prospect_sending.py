@@ -9,7 +9,7 @@ from freetheplatform.messaging import Message, Suppression, suppress
 
 from affiliates.management.commands import send_affiliate_outreach as command
 from seo.models import SeoProspect
-from seo.tests.factories import PDF, SeoProspectFactory
+from seo.tests.factories import SeoProspectFactory
 from seo.utils.prospect_links import report_link
 from seo.utils.prospect_sending import (
     CLIENT_BODIES, FOLLOW_UP_LINE, UNSUBSCRIBE_LINE, body_for, follow_up_body, follow_up_subject_for, subject_for,
@@ -33,7 +33,7 @@ def run(monkeypatch, now, *args, sleeps=None):
     return out.getvalue()
 
 
-def test_the_hourly_run_emails_a_queued_report_with_its_pdf(outbox, monkeypatch):
+def test_the_hourly_run_emails_a_queued_report_with_its_link_and_no_pdf(outbox, monkeypatch):
     prospect = SeoProspectFactory(subject_version=3, paid_searches=["plumber perth"])
     now = perth(26, 10)
 
@@ -47,7 +47,7 @@ def test_the_hourly_run_emails_a_queued_report_with_its_pdf(outbox, monkeypatch)
     assert message.body_html == ""
     assert UNSUBSCRIBE_LINE in message.body_text
     assert message.body_text == body_for(prospect).rstrip()
-    assert message.attachments == [{"name": f"{prospect.slug}_seo_report_r1.pdf", "size": len(PDF)}]
+    assert message.attachments == []
     prospect.refresh_from_db()
     assert prospect.sent_at == now
     assert Message.objects.get().content_object == prospect
@@ -89,6 +89,7 @@ def test_body_one_with_no_paid_search_speaks_of_the_site_alone():
 
 
 def test_body_two_goes_as_the_owner_wrote_it_with_the_name_and_the_metric(outbox, monkeypatch):
+    """Paused, but a row that drew it still sends it, without the pdf like every email now."""
     """The second body is the server's fixed text: only the greeting and what the business counts change."""
     prospect = SeoProspectFactory(body_version=2, contact_name="Craig Smith", metric="calls")
 
@@ -99,7 +100,7 @@ def test_body_two_goes_as_the_owner_wrote_it_with_the_name_and_the_metric(outbox
     assert message.body_text.startswith("Hi Craig,\n\nI spent three hours writing the attached website report.")
     assert "if your calls don't move in a month, mark this email as spam" in message.body_text
     assert UNSUBSCRIBE_LINE not in message.body_text
-    assert message.attachments == [{"name": f"{prospect.slug}_seo_report_r1.pdf", "size": len(PDF)}]
+    assert message.attachments == []
 
 
 def test_body_four_is_the_bet_with_five_titles_cut_to_a_line_and_the_rest_counted():
@@ -132,26 +133,30 @@ def test_body_four_is_the_bet_with_five_titles_cut_to_a_line_and_the_rest_counte
     assert "A sixth" not in body and UNSUBSCRIBE_LINE not in body
 
 
-def test_body_five_lists_three_fixes_in_the_owners_words():
+def test_body_five_lists_every_fix_whole_and_links_the_report_in_the_owners_words():
     prospect = SeoProspectFactory(
-        body_version=5, contact_name="Mario Rossi", recommendation_count=9,
+        body_version=5, contact_name="Mario Rossi", recommendation_count=4,
         issues=["Shrink the photos", "Take back the Google listing and make its categories, services and description match",
                 "Give every page a title and main headline that name its search, starting with 'kitchen cabinets perth'",
-                "A fourth, never shown"],
+                "Link the hidden pages from the menu"],
     )
 
     body = body_for(prospect)
 
-    assert body.startswith("Hi Mario,\n\nMy name's Ethan. Attached is a list of fixes for your website.")
+    assert body.startswith(
+        "Hi Mario,\n\nI'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes "
+        "for your website. There's no obligation."
+    )
     assert (
-        "Here's the first few:\n\n"
+        "Here they are:\n\n"
         "1. Shrink the photos\n"
-        "2. Take back the Google listing and make its\u2026\n"
-        "3. Give every page a title and main headline that\u2026\n"
-        "(6 more)\n\n"
-        "Forward the attached pdf to whoever runs your website, if they disagree"
+        "2. Take back the Google listing and make its categories, services and description match\n"
+        "3. Give every page a title and main headline that name its search, starting with 'kitchen cabinets perth'\n"
+        "4. Link the hidden pages from the menu\n\n"
+        f"You can read the whole report here: {report_link(prospect, 'email')}\n\n"
+        "Forward the link to whoever runs your website, if they disagree"
     ) in body
-    assert "A fourth" not in body and "three hours" not in body
+    assert "more)" not in body and "pdf" not in body and "ttached" not in body
     assert f"I can explain any part in detail. {UNSUBSCRIBE_LINE}\n\nEthan Betts" in body
 
 
@@ -209,12 +214,15 @@ def test_the_affiliate_body_is_the_owners_sample_and_the_offer_at_the_live_figur
     assert "is yours free" not in body and "pdf" not in body
 
 
-def test_a_host_without_a_page_gets_the_pdf_and_is_told_so():
-    prospect = SeoProspectFactory(purpose="affiliate", body_version=3, issues=["Fix the title"])
+def test_a_report_without_a_page_waits_and_no_pdf_goes_in_its_place(outbox, monkeypatch):
+    """Nothing but the link carries a report now: a row without a page is neither sent nor followed up."""
+    SeoProspectFactory(report_html="")
+    SeoProspectFactory(report_html="", sent_at=perth(19, 10), follow_up_queued_at=perth(26, 9),
+                       follow_up_subject_version=7, follow_up_body_version=SeoProspect.Body.FIXES)
 
-    body = body_for(prospect)
+    run(monkeypatch, perth(26, 10))
 
-    assert "The whole report is attached.\n\nForward the attached pdf to whoever runs your website" in body
+    assert outbox == []
 
 
 def test_a_hosts_report_and_follow_up_go_with_the_link_alone(outbox, monkeypatch):
@@ -304,12 +312,13 @@ def test_the_follow_up_is_the_body_of_the_day_opening_with_the_follow_up_line():
 
     body = follow_up_body(prospect)
 
-    assert body.startswith(f"Hi Tom,\n\n{FOLLOW_UP_LINE} My name's Ethan. Attached is a list of fixes")
-    assert body.replace(f"{FOLLOW_UP_LINE} ", "", 1) == body_for(prospect, SeoProspect.Body.FIXES)
+    assert FOLLOW_UP_LINE == "Just following up on my previous email, in case it got buried."
+    assert body.startswith(f"Hi Tom,\n\n{FOLLOW_UP_LINE} I'm a real person who spent real time on this.")
+    assert body.replace(f"{FOLLOW_UP_LINE} ", "", 1) == body_for(prospect, SeoProspect.Body.FIXES, source="follow-up")
     assert "I picked" in body_for(prospect)  # the report email itself is still body 1
 
 
-def test_the_hourly_run_sends_a_queued_follow_up_once_with_the_pdf(outbox, monkeypatch):
+def test_the_hourly_run_sends_a_queued_follow_up_once_with_the_link_and_no_pdf(outbox, monkeypatch):
     now = perth(27, 10)
     prospect = SeoProspectFactory(subject_version=6, body_version=SeoProspect.Body.REPORT,
                                   follow_up_subject_version=7, follow_up_body_version=SeoProspect.Body.FIXES,
@@ -326,7 +335,8 @@ def test_the_hourly_run_sends_a_queued_follow_up_once_with_the_pdf(outbox, monke
     assert message.subject == follow_up_subject_for(prospect) == f"What's wrong with {prospect.domain}, and how to fix it"
     assert message.subject != subject_for(prospect)
     assert message.body_text == follow_up_body(prospect).rstrip()
-    assert message.attachments == [{"name": f"{prospect.slug}_seo_report_r1.pdf", "size": len(PDF)}]
+    assert message.attachments == []
+    assert report_link(prospect, "follow-up") in message.body_text
     prospect.refresh_from_db()
     stopped.refresh_from_db()
     assert prospect.followed_up_at == now and stopped.followed_up_at is None

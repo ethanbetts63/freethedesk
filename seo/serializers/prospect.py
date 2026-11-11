@@ -136,6 +136,9 @@ class SeoProspectHtmlSerializer(serializers.Serializer):
     report_html = serializers.FileField()
     report_pdf = serializers.FileField(required=False)
     report_cover = serializers.FileField(required=False)
+    # The report's titles and count as they stand now, so the email lists what the page holds after a cut.
+    issues = serializers.ListField(child=serializers.CharField(max_length=300), max_length=10, required=False)
+    recommendation_count = serializers.IntegerField(min_value=1, max_value=50, required=False)
 
     def validate_report_html(self, value):
         return validate_report_html(value)

@@ -5,6 +5,7 @@ from django.core.files.base import ContentFile
 from seo.models import SeoProspect
 
 PDF = b"%PDF-1.7\n% a prospect report\n"
+PAGE = b"<!doctype html><html lang=\"en\"><head><title>Report</title></head><body><p>A report.</p></body></html>"
 
 
 def upload_fields(**overrides) -> dict:
@@ -37,6 +38,9 @@ class SeoProspectFactory(factory.django.DjangoModelFactory):
     report_version = "r1"
     report_path = factory.LazyAttribute(lambda o: f"C:/reports/{o.slug}/r1/{o.slug}_seo_report_r1.pdf")
     report_pdf = factory.LazyAttribute(lambda o: ContentFile(PDF, name=f"{o.slug}_r1.pdf"))
+    # Its page, which every email links (no pdf goes since 2026-11-11); a test of a row without one says
+    # ``report_html=""``.
+    report_html = factory.LazyAttribute(lambda o: ContentFile(PAGE, name=f"{o.slug}_r1.html"))
     email = factory.Sequence(lambda n: f"owner{n}@business{n}.com.au")
     overview = "A Perth business"
     issues = factory.LazyFunction(lambda: ["No page for the search"])

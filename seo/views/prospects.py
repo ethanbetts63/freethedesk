@@ -185,6 +185,9 @@ class SeoProspectHtmlView(APIView):
             if prospect.report_cover:
                 prospect.report_cover.delete(save=False)
             prospect.report_cover.save(_cover_name(prospect, cover), cover, save=False)
+        for field in ("issues", "recommendation_count"):
+            if field in upload.validated_data:
+                setattr(prospect, field, upload.validated_data[field])
         prospect.save()
         return Response({"outcome": "attached", "id": prospect.pk, "report_link": report_link(prospect),
                          "pdf_replaced": pdf is not None, "cover_replaced": cover is not None},
@@ -284,14 +287,15 @@ def _pdf_response(prospect, request):
 
 
 class SeoProspectFollowUpView(APIView):
-    """`POST /api/seo/prospects/follow-up/`: queue the one follow-up for a prospect, by slug.
+    """`POST /api/seo/prospects/follow-up/`: queue the follow-up for a prospect, by slug.
 
     The outreach agent queues it at startup once it has looked for a reply in
     the owner's inbox; the hourly run sends it in the window. Refused with 409
     and the reason when it is too soon, already queued, or anything has since
     stopped it: a call, a reply marked on the dashboard, an exclusion or the
     suppression list. ``early`` (the owner's word) lifts the week's wait and
-    nothing else.
+    nothing else; ``again`` (the owner's word, 2026-11-11) queues another
+    after one has gone, under a subject neither email has used.
     """
 
     throttle_scope = "internal"  # A load limit; access is the shared secret.
@@ -305,16 +309,19 @@ class SeoProspectFollowUpView(APIView):
                             status=status.HTTP_404_NOT_FOUND)
         now = timezone.now()
         early = str(request.data.get("early", "")).lower() in ("1", "true", "yes")
-        refusal = follow_up_refusal(prospect, now, early=early)
+        again = str(request.data.get("again", "")).lower() in ("1", "true", "yes")
+        refusal = follow_up_refusal(prospect, now, early=early, again=again)
         if refusal:
             return Response({"outcome": refusal, "sent_at": prospect.sent_at,
                              "follow_up_queued_at": prospect.follow_up_queued_at},
                             status=status.HTTP_409_CONFLICT)
         prospect.follow_up_queued_at = now
+        # The earlier follow-up's send stays in the message log; the row now waits on this one.
+        prospect.followed_up_at = None
         prospect.follow_up_subject_version = next_follow_up_subject(prospect)
         prospect.follow_up_body_version = next_body(prospect.purpose)
-        prospect.save(update_fields=["follow_up_queued_at", "follow_up_subject_version", "follow_up_body_version",
-                                     "updated_at"])
+        prospect.save(update_fields=["follow_up_queued_at", "followed_up_at", "follow_up_subject_version",
+                                     "follow_up_body_version", "updated_at"])
         return Response({"outcome": "queued", "subject": follow_up_subject_for(prospect),
                          "subject_version": prospect.follow_up_subject_version,
                          "body_version": prospect.follow_up_body_version, "sent_at": prospect.sent_at},

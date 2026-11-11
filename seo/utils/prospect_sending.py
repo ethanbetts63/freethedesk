@@ -114,37 +114,28 @@ If you want to go through it first, I'm a real person that spent real time on th
 LIST_SHOWN = 5
 LIST_WIDTH = 50
 
-# Body 5, the fixes list (owner's words, 2026-10-30): the only client body. Three titles, cut to a line, and the
-# rest counted. The way out closes it, as bodies 1 and 3 do (owner, 2026-11-04), and so the follow-up built from it.
+# Body 5, the fixes list: the only client body. The owner's words of 2026-11-11: every title, whole, and the report
+# read by its link, with no pdf (no prospect email carries one since). The way out closes it, as bodies 1 and 3 do.
 BODY_FIXES = """Hi {first_name},
 
-My name's Ethan. Attached is a list of fixes for your website. I'm a real person who spent real time on this. There's no obligation. Some of the people I write these for buy a full report later, that's why I do it. The fixes are worth doing either way.
+I'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes for your website. There's no obligation. Some of the people I write these for buy a full report later, that's why I do it. The fixes are worth doing either way.
 
-Every recommendation explains the issue, why it's important and how to fix it. Here's the first few:
+Every recommendation explains the issue, why it's important and how to fix it. Here they are:
 
 {listing}
-{online}
-Forward the attached pdf to whoever runs your website, if they disagree with the recommendations I'd be very surprised.
 
-If you want to go through it first, my number is below. I can explain any part in detail. Reply 'no thanks' and I won't email again.
+You can read the whole report here: {link}
+
+Forward the link to whoever runs your website, if they disagree with the recommendations I'd be very surprised.
+
+If you want to go through it first, my number is below. I can explain any part in detail. """ + UNSUBSCRIBE_LINE + """
 
 """ + SIGNATURE
-FIXES_SHOWN = 3
 
-#: The line under the list naming the report's page (owner, 2026-11-04): the same report, read on a phone without
-#: opening the attachment; the opens it draws are counted against the email it came from. Rows from before the
-#: page existed have none, and the line is left out.
-ONLINE_LINE = "\nYou can also read it online: {link}\n"
-
-
-def online_line(prospect: SeoProspect, source: str) -> str:
-    from .prospect_links import report_link  # the link module reads the models; sending reads it
-
-    return ONLINE_LINE.format(link=report_link(prospect, source)) if prospect.report_html else ""
 
 # Body 3, for a podcast host (owner's words, 2026-11-11): the fixes list as a sample of what they would be
 # advertising, every title listed, read by its link, then the affiliate offer. The figures are the site settings' as
-# they stand on the day it is sent, like the podcast pitch's. It goes without the pdf when the report has a page.
+# they stand on the day it is sent, like the podcast pitch's.
 BODY_AFFILIATE = """Hi {first_name},
 
 I'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes for your website. There's no obligation, and the fixes are worth doing either way.
@@ -155,30 +146,15 @@ Every recommendation explains the issue, why it's important and how to fix it. H
 
 {listing}
 
-{report_line}
+You can read the whole report here: {link}
 
-Forward {forward} to whoever runs your website, if they disagree with the recommendations I'd be very surprised.
+Forward the link to whoever runs your website, if they disagree with the recommendations I'd be very surprised.
 
 Now the offer. We are running an affiliate program for podcasts. Your listeners get {discount} off an SEO report with your code, and you get {share} of every report they buy: {commission_low} to {commission_high} each, paid after each sale. Everything's explained here: www.freethedesk.com.au/affiliates
 
 If you want to go through it first, my number is below. I can explain any part in detail. """ + UNSUBSCRIBE_LINE + """
 
 """ + SIGNATURE
-
-
-def link_only(prospect: SeoProspect, version=None) -> bool:
-    """A podcast host's email goes with the report's page alone, no pdf, when the report has one."""
-    version = prospect.body_version if version is None else version
-    return version == SeoProspect.Body.AFFILIATE and bool(prospect.report_html)
-
-
-def attachments(prospect: SeoProspect, version=None) -> list:
-    """The report's pdf, unless the email links the page alone."""
-    if link_only(prospect, version):
-        return []
-    with prospect.report_pdf.open("rb") as handle:
-        pdf = handle.read()
-    return [(f"{prospect.slug}_seo_report_{prospect.report_version}.pdf", pdf, "application/pdf")]
 
 
 def message_type(subject_version) -> str:
@@ -303,21 +279,16 @@ def body_for(prospect: SeoProspect, version=None, source: str = "email") -> str:
     name = first_name(prospect)
     if version == SeoProspect.Body.BET:
         return BODY_TWO.format(first_name=name, metric=prospect.metric or "bookings")
-    if version == SeoProspect.Body.FIXES:
-        return BODY_FIXES.format(first_name=name, listing=listing(prospect, FIXES_SHOWN),
-                                 online=online_line(prospect, source))
+    if version in (SeoProspect.Body.FIXES, SeoProspect.Body.AFFILIATE):
+        from .prospect_links import report_link  # the link module reads the models; sending reads it
+
+        every = listing(prospect, len(prospect.issues or []), whole=True)
+        link = report_link(prospect, source)
+        if version == SeoProspect.Body.FIXES:
+            return BODY_FIXES.format(first_name=name, listing=every, link=link)
+        return BODY_AFFILIATE.format(first_name=name, listing=every, link=link, **affiliate_figures())
     if version == SeoProspect.Body.LIST:
         return BODY_LIST.format(first_name=name, metric=prospect.metric or "bookings", listing=listing(prospect))
-    if version == SeoProspect.Body.AFFILIATE:
-        from .prospect_links import report_link  # as online_line
-
-        page = link_only(prospect, version)
-        return BODY_AFFILIATE.format(
-            first_name=name, listing=listing(prospect, len(prospect.issues or []), whole=True),
-            report_line=(f"You can read the whole report here: {report_link(prospect, source)}" if page
-                         else "The whole report is attached."),
-            forward="the link" if page else "the attached pdf", **affiliate_figures(),
-        )
     if prospect.body:
         body = prospect.body.rstrip()
         if "no thanks" not in body.lower():
@@ -329,11 +300,11 @@ def body_for(prospect: SeoProspect, version=None, source: str = "email") -> str:
     )
 
 
-#: The one follow-up, a week on (owner, 2026-11-04): the report again under a subject from the live rotation, not
+#: The follow-up, a week on (owner, 2026-11-04), and once more on the owner's word (``again``, 2026-11-11): the report again under a subject from the live rotation, not
 #: the report email's, and the body of the day, opening with this line. Both are chosen when it is queued and
 #: kept on the row, so the dashboard can read replies against them.
 FOLLOW_UP_AFTER = timedelta(days=7)
-FOLLOW_UP_LINE = "Just following up on my email from last week, in case it got buried."
+FOLLOW_UP_LINE = "Just following up on my previous email, in case it got buried."
 
 
 def follow_up_type(subject_version) -> str:
@@ -342,11 +313,13 @@ def follow_up_type(subject_version) -> str:
 
 
 def next_follow_up_subject(prospect: SeoProspect) -> int:
-    """A live subject other than the report email's, the one fewest follow-ups have drawn; the report email's own
-    only when it is the sole live subject for this prospect."""
+    """A live subject neither the report email nor an earlier follow-up used, the one fewest follow-ups have drawn;
+    the report email's own only when it is the sole live subject for this prospect."""
     has_search = bool([s for s in (prospect.paid_searches or []) if s])
     choices = live_subjects(has_search, prospect.purpose)
-    choices = [s for s in choices if s != prospect.subject_version] or choices
+    seen = {prospect.subject_version, prospect.follow_up_subject_version}
+    choices = ([s for s in choices if s not in seen] or [s for s in choices if s != prospect.subject_version]
+               or choices)
     if not choices:
         raise NoSubject("No subject line is in rotation for a prospect without a paid search; approve one first.")
     counts = {
@@ -367,10 +340,13 @@ def follow_up_body(prospect: SeoProspect) -> str:
     return f"{greeting}\n\n{FOLLOW_UP_LINE} {rest}"
 
 
-def follow_up_refusal(prospect: SeoProspect, now, early: bool = False) -> str:
+def follow_up_refusal(prospect: SeoProspect, now, early: bool = False, again: bool = False) -> str:
     """Why this prospect may not be followed up now; empty when it may. ``early`` is the owner's word to go before
-    the week is out: it lifts that wait alone."""
-    if prospect.follow_up_queued_at or prospect.followed_up_at:
+    the week is out: it lifts that wait alone. ``again`` is the owner's word for another follow-up after one has
+    gone: it lifts that refusal alone, never one still waiting to go."""
+    if prospect.follow_up_queued_at and not prospect.followed_up_at:
+        return "already_queued"
+    if prospect.followed_up_at and not again:
         return "already_queued"
     if not prospect.sent_at:
         return "not_sent"
@@ -388,12 +364,14 @@ def follow_up_refusal(prospect: SeoProspect, now, early: bool = False) -> str:
 
 
 def due_follow_ups():
-    """Queued, not yet sent, and still nothing has stopped them since: no call, reply, exclusion or suppression."""
+    """Queued, not yet sent, and still nothing has stopped them since: no call, reply, exclusion or suppression;
+    and with a page to link."""
     suppressed = Suppression.objects.filter(channel="email").values("address")
     return (
         SeoProspect.objects.filter(follow_up_queued_at__isnull=False, followed_up_at__isnull=True,
                                    called_at__isnull=True, reply=SeoProspect.Reply.NONE, excluded_reason="")
         .exclude(email__in=suppressed)
+        .exclude(report_html="")
         .order_by("follow_up_queued_at", "id")
     )
 
@@ -404,8 +382,7 @@ def claim_follow_up(prospect: SeoProspect, now) -> bool:
 
 
 def send_follow_up(prospect: SeoProspect):
-    """The follow-up: its own subject and body, the report attached again (or linked again, for a host). The
-    caller has claimed the row."""
+    """The follow-up: its own subject and body, the report linked again. The caller has claimed the row."""
     return send(
         to=prospect.email,
         channel="email",
@@ -413,19 +390,19 @@ def send_follow_up(prospect: SeoProspect):
         subject=follow_up_subject_for(prospect),
         body=follow_up_body(prospect),
         plain=True,
-        attachments=attachments(prospect, prospect.follow_up_body_version),
         related=prospect,
         sender=settings.OUTREACH_SENDER,
     )
 
 
 def eligible_prospects():
-    """Approved and not yet sent, not excluded, and not on the suppression list; oldest first. A held row (no
-    ``approved_at``) is the owner's to read first."""
+    """Approved and not yet sent, not excluded, not on the suppression list, and with a page to link (no email
+    carries the pdf); oldest first. A held row (no ``approved_at``) is the owner's to read first."""
     suppressed = Suppression.objects.filter(channel="email").values("address")
     return (
         SeoProspect.objects.filter(approved_at__isnull=False, sent_at__isnull=True, excluded_reason="")
         .exclude(email__in=suppressed)
+        .exclude(report_html="")
         .order_by("created_at", "id")
     )
 
@@ -436,7 +413,7 @@ def claim(prospect: SeoProspect, now) -> bool:
 
 
 def send_prospect(prospect: SeoProspect):
-    """Email the report. The caller has already claimed the row."""
+    """Email the report's link; no pdf goes (owner, 2026-11-11). The caller has already claimed the row."""
     return send(
         to=prospect.email,
         channel="email",
@@ -445,7 +422,6 @@ def send_prospect(prospect: SeoProspect):
         body=body_for(prospect),
         # A note from one person, not a mailout: no branded frame, no HTML part.
         plain=True,
-        attachments=attachments(prospect),
         related=prospect,
         # The outreach address and domain when they are configured; the site's own otherwise.
         sender=settings.OUTREACH_SENDER,

@@ -2,9 +2,9 @@
 
 Open tasks for this repository. Append any you find; delete one once you know it's done.
 
-## Deploy the podcast email and the online line
+## Deploy the link-only report email and the second follow-up
 
-Added 2026-11-11. Owner's step. Deploy Django and run `migrate` for `seo` 0029: subject 8, "Podcast affiliate offer for <podcast>", for every podcast host, and the step that moves the hosts' held reports onto it. Body 3 is now the owner's podcast email of 2026-11-11 (the report as a sample, every title, its link, then the affiliate offer), sent with no pdf when the report has a page. The same deploy takes 36d6653, the client email's line "You can also read it online: <link>". No frontend change. Until then an approved host's report goes out with the old affiliate body, the pdf, and a client subject, so hold the hosts' approvals until it is deployed.
+Added 2026-11-11. Owner's step. Deploy Django (no migration, no frontend change). After it: no prospect email carries the pdf; the client body is the owner's words of 2026-11-11 (every title, the report's link); the follow-up opens "Just following up on my previous email"; `outbox.py follow-up --again` queues a second follow-up; and `outbox.py html` brings each report's titles and count with its page. Then, from ftp_search: `outbox.py html` for the 24 uncalled sent reports and the 8 held clients (their titles predate the cut), queue the 24 with `follow-up` (`--again` for the 30 October ones; West Coast Trades already had it by hand at 10:27), and approve the 8 held clients again. Until the deploy, the server would send any approved client email with the old body and the pdf, so they stay held.
 
 ## Name the audit tier the 10-page website includes
 
