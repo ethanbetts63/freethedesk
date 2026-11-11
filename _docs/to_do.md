@@ -4,12 +4,15 @@ Open tasks for this repository. Append any you find; delete one once you know it
 
 ## Delete the Arena Joondalup Physiotherapy prospect from the server
 
-Added 2026-11-11. Owner's step. The owner withdrew this report (slug `arenajoondalupphysio`, link `/reports/arena-joondalup-physiotherapy-ksa2jg9tuw`) and deleted its project; it was uploaded and held, never emailed. There is no delete route, and a `SeoProspect` row's files stay in the private report storage when the row goes, so in a Django shell on the server delete the three files, then the row:
+Added 2026-11-11. Owner's step. The owner withdrew this report (slug `arenajoondalupphysio`, link `/reports/arena-joondalup-physiotherapy-ksa2jg9tuw`) and deleted its project; it was uploaded and held, never emailed. There is no delete route, and a `SeoProspect` row's files stay in the private report storage when the row goes, so on the server, in the repo with the venv active, open `python manage.py shell` and at its `>>>` prompt delete the three files, then the row:
 
 ```
+from seo.models import SeoProspect
 p = SeoProspect.objects.get(slug="arenajoondalupphysio")
 for f in (p.report_pdf, p.report_html, p.report_cover):
-    if f: f.delete(save=False)
+    if f:
+        f.delete(save=False)
+
 p.delete()
 ```
 
