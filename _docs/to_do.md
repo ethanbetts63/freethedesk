@@ -2,6 +2,19 @@
 
 Open tasks for this repository. Append any you find; delete one once you know it's done.
 
+## Delete the Arena Joondalup Physiotherapy prospect from the server
+
+Added 2026-11-11. Owner's step. The owner withdrew this report (slug `arenajoondalupphysio`, link `/reports/arena-joondalup-physiotherapy-ksa2jg9tuw`) and deleted its project; it was uploaded and held, never emailed. There is no delete route, and a `SeoProspect` row's files stay in the private report storage when the row goes, so in a Django shell on the server delete the three files, then the row:
+
+```
+p = SeoProspect.objects.get(slug="arenajoondalupphysio")
+for f in (p.report_pdf, p.report_html, p.report_cover):
+    if f: f.delete(save=False)
+p.delete()
+```
+
+Until then the link still answers and the dashboard still lists the row under "Awaiting approval".
+
 ## Deploy the report link's preview picture
 
 Added 2026-11-07. Owner's step. A report link pasted into a chat or a text now shows a card: the page carries Open Graph tags, and the row keeps a cover picture (`seo` 0028, `report_cover`), served at `/reports/<business>-<token>/cover.jpg` through a new rewrite. Deploy Django with `migrate` for `seo` 0028, and the frontend for the rewrite and the fallback picture (`public/og-images/seo-report.jpg`). Until the deploy, `outbox.py add` and `html` send the picture and the old server ignores the field (it says `cover_replaced` only once deployed). After it, `render --pdf` each held report once more (it writes `preview.jpg` beside the PDF) and run `outbox.py html <slug>` so each link gets its own cover; a row without one shows the site's picture. The apps cache a link's card, so test with a link not pasted before.
