@@ -40,7 +40,7 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-11-10',
+    updated: '2026-11-11',
     label: 'Home',
     title: 'Websites, SEO & Business Automation Perth - freethedesk',
     description:
@@ -48,7 +48,7 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-11-10',
+    updated: '2026-11-11',
     label: 'Dealer websites',
     title: 'Dealership Websites & Online Licensing, WA',
     description:
@@ -67,7 +67,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-11-10',
+    updated: '2026-11-11',
     label: 'Website development',
     title: 'Custom Web Design & Development Perth',
     description:
@@ -81,7 +81,7 @@ export const STATIC_PAGES = {
     },
   },
   '/web-design-subiaco': {
-    updated: '2026-11-10',
+    updated: '2026-11-11',
     label: 'Web design Subiaco',
     title: 'Web Design & Development Subiaco',
     description:

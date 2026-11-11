@@ -33,7 +33,7 @@ export function WebsiteDevelopmentFeature() {
           className="aspect-[3/2] h-auto w-full rounded-lg border border-border-default object-cover"
         />
       }
-      textSide="left"
+      textSide="right"
       spacing="joined"
     />
   );

@@ -56,15 +56,6 @@ export async function HomePricingMosaic() {
 
   const tiles: Tile[] = [
     {
-      label: 'Websites',
-      from: true,
-      price: prices.websiteFrom,
-      line: `${cheapest.priceNote}, half when you buy and half before launch.`,
-      href: '/website-development#packages',
-      className: 'col-span-2 lg:row-span-2',
-      dark: true,
-    },
-    {
       label: 'SEO audits',
       from: true,
       price: prices.seoFrom,
@@ -73,6 +64,15 @@ export async function HomePricingMosaic() {
       href: '/seo',
       className: 'col-span-2',
       moving: true,
+    },
+    {
+      label: 'Websites',
+      from: true,
+      price: prices.websiteFrom,
+      line: `${cheapest.priceNote}, half when you buy and half before launch.`,
+      href: '/website-development#packages',
+      className: 'col-span-2 lg:row-span-2',
+      dark: true,
     },
     {
       label: 'Discovery',

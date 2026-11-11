@@ -1,6 +1,6 @@
 ---
 published: 2026-10-14
-updated: 2026-11-10
+updated: 2026-11-11
 title: DoT Dealer Online WA: Login and Who Can Join
 description: The WA Dealer Online login, what the DoT dealer portal lets licensed dealers do, who can apply, and the sale paperwork it still leaves at the yard.
 takeaways:
@@ -98,7 +98,7 @@ Dealer Online handles the licensing half of a sale: getting the vehicle onto, of
 
 That list is where most of the back-and-forth in a sale sits. It is why a buyer who has already agreed a price can still end up driving across Perth just to sign.
 
-This is the gap our [online licensing](/licensing) product is built for. Your team enters the vehicle details and sends the customer a secure link. The customer fills in their own details, uploads photos of their licence and a selfie for your team to check, and signs the licensing and contract documents online, and the completed paperwork lands back in your dealer queue. It does not log into Dealer Online for you: your team still lodges the transaction the way it does now. You can use it as a hosted portal alongside the website you already have, or have it built into a [dealership website](/dealers) we make for you.
+This is the gap our [online licensing](/licensing) product is built for. Your team enters the vehicle details and sends the customer a secure link. The customer fills in their own details, uploads photos of their licence and a selfie for your team to check, and signs the licensing and contract documents online, and the completed paperwork lands back in your dealer queue. It does not log into Dealer Online for you: your team still lodges the transaction the way it does now. You can use it as a hosted portal alongside the website you already have, or have it built into a [dealership website](/dealers) we make for you. If you already have a website and want more Perth buyers finding it on Google, an [SEO audit](/seo) shows what is holding it back.
 
 ## Common questions
 

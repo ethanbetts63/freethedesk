@@ -14,6 +14,7 @@ export const SITE_URL = (
  * alone (owner, 2026-11-04): one line of the business, not a menu item.
  */
 export const PRIMARY_NAVIGATION = [
+  { href: '/seo', label: 'SEO' },
   {
     href: '/website-development',
     label: 'Websites',
@@ -22,18 +23,17 @@ export const PRIMARY_NAVIGATION = [
       { href: '/website-redesign-perth', label: 'Website redesign' },
     ],
   },
-  { href: '/seo', label: 'SEO' },
   { href: '/automation', label: 'Automation' },
   // Login is not here: the header puts it after the Contact button, plain, since
   // a new visitor has no account and Contact is the CTA.
 ] as const;
 
 export const FOOTER_NAVIGATION = [
+  { href: '/seo', label: 'SEO audits' },
   { href: '/website-development', label: 'Website development' },
   { href: '/website-redesign-perth', label: 'Website redesign' },
   // A trial suburb page; the footer is its only link (2026-10-07).
   { href: '/web-design-subiaco', label: 'Web design Subiaco' },
-  { href: '/seo', label: 'SEO audits' },
   { href: '/automation', label: 'Automation' },
   { href: '/dealers', label: 'Dealerships' },
   { href: '/licensing', label: 'Online licensing' },

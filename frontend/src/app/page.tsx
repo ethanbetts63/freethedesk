@@ -37,8 +37,8 @@ export default function Home() {
       />
 
       <HomePricingMosaic />
-      <WebsiteDevelopmentFeature />
       <HomeSeoFeature />
+      <WebsiteDevelopmentFeature />
       <AutomationFeature />
       <ProjectEnquiry spacing="joined" />
       <FaqSection

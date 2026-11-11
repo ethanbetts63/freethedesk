@@ -100,7 +100,15 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
         title="SEO built in at launch,"
         accentTitle="then improved with search data"
         mode="improvement"
-        description={copy.seoDescription}
+        description={
+          <>
+            {copy.seoDescription} Already have a website? An{' '}
+            <Link className="text-text-action underline underline-offset-[3px]" href="/seo">
+              SEO audit
+            </Link>{' '}
+            does the same for the one you have, paid once.
+          </>
+        }
       />
 
       <JourneySection eyebrow={sections['Web Design']} content={WEB_DESIGN_JOURNEY} />

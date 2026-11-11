@@ -108,7 +108,17 @@ export default async function Dealers() {
         title="SEO built in at launch,"
         accentTitle="then improved with search data"
         mode="improvement"
-        description="Every dealership website launches with strong SEO foundations. As search data arrives, we rank the best opportunities across stock, service and the Perth suburbs you sell into."
+        description={
+          <>
+            Every dealership website launches with strong SEO foundations. As search data arrives,
+            we rank the best opportunities across stock, service and the Perth suburbs you sell
+            into. Already have a dealership website? An{' '}
+            <Link href="/seo" className={inlineLinkClassName}>
+              SEO audit of your current site
+            </Link>{' '}
+            ranks what to fix first.
+          </>
+        }
       />
 
       <DealerWebsiteSection eyebrow={sections['Website Design']} />

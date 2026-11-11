@@ -31,7 +31,7 @@ export async function HomeSeoFeature() {
       id="seo-reporting"
       className="bg-surface-tint"
       spacing="standard"
-      textSide="right"
+      textSide="left"
       eyebrow="SEO Perth"
       title="SEO audits"
       accentTitle="for Perth businesses"
