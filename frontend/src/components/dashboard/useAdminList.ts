@@ -97,10 +97,12 @@ export function useAdminList<Row>({
     [setQuery, searchDraft],
   );
 
+  /** First click sorts ascending, or descending with `descendingFirst`; the next click flips it. */
   const toggleSort = useCallback(
-    (field: string) => {
+    (field: string, descendingFirst = false) => {
       const active = ordering.replace(/^-/, '') === field;
-      setQuery({ ordering: active && !ordering.startsWith('-') ? `-${field}` : field, page: null });
+      const descending = active ? !ordering.startsWith('-') : descendingFirst;
+      setQuery({ ordering: descending ? `-${field}` : field, page: null });
     },
     [ordering, setQuery],
   );

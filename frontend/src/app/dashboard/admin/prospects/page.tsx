@@ -35,9 +35,9 @@ import { panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
 
-const SORT_FIELDS = ['created_at', 'sent_at', 'called_at', 'business', 'status'] as const;
+const SORT_FIELDS = ['created_at', 'sent_at', 'called_at', 'business', 'status', 'opens'] as const;
 const FILTER_KEYS = ['called', 'status', 'reply'] as const;
-const COLUMNS = 6;
+const COLUMNS = 5;
 
 const CALLED_OPTIONS = [
   { value: 'no', label: 'To call' },
@@ -106,14 +106,19 @@ function ProspectsContent() {
                   Business
                 </SortHeader>
                 <th className={adminThClassName}>Contact</th>
-                <th className={adminThClassName}>Issues found</th>
                 <SortHeader field="sent_at" ordering={list.ordering} onSort={list.toggleSort}>
                   Emailed
                 </SortHeader>
                 <SortHeader field="called_at" ordering={list.ordering} onSort={list.toggleSort}>
                   Called
                 </SortHeader>
-                <th className={adminThClassName}>Link opened</th>
+                <SortHeader
+                  field="opens"
+                  ordering={list.ordering}
+                  onSort={(field) => list.toggleSort(field, true)}
+                >
+                  Link opened
+                </SortHeader>
               </tr>
             </thead>
             <AdminTableBody
@@ -139,11 +144,6 @@ function ProspectsContent() {
                     <CellTitle>{prospect.contact_name || '—'}</CellTitle>
                     <CellNote>{prospect.email}</CellNote>
                     {prospect.phone && <CellNote>{prospect.phone}</CellNote>}
-                  </td>
-                  <td className={adminTdClassName}>
-                    {prospect.issues.slice(0, 3).map((issue) => (
-                      <CellNote key={issue}>{issue}</CellNote>
-                    ))}
                   </td>
                   <td className={adminTdClassName}>
                     <StatusPill status={prospect.status} />

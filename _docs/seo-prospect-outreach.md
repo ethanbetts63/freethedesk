@@ -164,8 +164,9 @@ pipeline on its own.
 
 **Dashboard** `/dashboard/admin/prospects`, "Prospects" beside Outreach: the
 calls to-do list. Not yet called first, then by sent date. Each row: business,
-overview, issues, email, phone, emailed status and date, report path, a "Mark
-called" action with notes, reply, exclude, unsubscribe.
+overview, email, phone, emailed status and date, the link's opens by people
+(sortable, most first) and report path, a "Mark called" action with notes,
+reply, exclude, unsubscribe.
 
 ## The report's link (owner, 2026-11-04)
 

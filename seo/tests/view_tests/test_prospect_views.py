@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils import timezone
 from freetheplatform.messaging import Suppression, is_suppressed, suppress
 
-from seo.models import SeoProspect
+from seo.models import SeoProspect, SeoProspectOpen
 from seo.tests.factories import PDF, SeoProspectFactory, upload_fields
 from seo.utils.prospects import with_status
 
@@ -208,6 +208,18 @@ def test_the_calls_list_puts_the_uncalled_first(api_client, staff_user):
     assert [r["business"] for r in rows] == [waiting.business, called.business]
     assert rows[0]["report_path"] == waiting.report_path
     assert rows[0]["subject"] == "I spent 3 hours on this. I am not a bot."
+
+
+def test_the_calls_list_sorts_by_opens_by_people(api_client, staff_user):
+    once, never, twice = (SeoProspectFactory(business=name) for name in ("Once", "Never", "Twice"))
+    SeoProspectOpen.objects.create(prospect=once)
+    SeoProspectOpen.objects.bulk_create([SeoProspectOpen(prospect=twice), SeoProspectOpen(prospect=twice)])
+    SeoProspectOpen.objects.bulk_create([SeoProspectOpen(prospect=never, likely_bot=True) for _ in range(3)])
+    api_client.force_authenticate(staff_user)
+
+    rows = api_client.get(reverse("admin-seo-prospect-list"), {"ordering": "-opens"}).json()["results"]
+
+    assert [(r["business"], r["opens"]) for r in rows] == [("Twice", 2), ("Once", 1), ("Never", 0)]
 
 
 def test_the_owner_marks_a_call_and_nothing_else(api_client, staff_user):

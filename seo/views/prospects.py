@@ -35,6 +35,8 @@ PROSPECT_ORDERING = {
     "called_at": ("called_at",),
     "business": ("business",),
     "status": ("status",),
+    # Opens by people: previews and crawlers left out, as the column counts them.
+    "opens": ("open_count",),
 }
 
 
