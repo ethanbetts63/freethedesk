@@ -9,3 +9,7 @@ Added 2026-10-26, still failing 2026-11-11. `frontend/scripts/check-forms.mjs` n
 ## Pull the backend on PythonAnywhere (owner)
 
 Added 2026-11-12. `cdf72bd` makes the prospects page's "Link opened" column sortable; the sort is the server's (`ordering=opens`), so until the next pull the column sorts by date added instead. The same pull drops the unused prospect summary endpoint (`7b9c02c`) and stops counting the owner's own visits to a report link while signed in to the dashboard. No migration. Delete this once pulled and the column sorts by opens.
+
+## Deploy the prospect reports without a PDF (owner)
+
+Added 2026-11-12. `09c23b9` takes the PDF out of prospect reports: the upload takes the page alone and `report_pdf` goes. Pull, run `migrate` (0031 drops the column), reload, and rebuild the frontend so `/reports/<key>/pdf` is sent on to the page. Until then `outbox.py add` fails, because the old server still requires a PDF. The old PDFs stay under `PRIVATE_MEDIA_ROOT/seo-prospects/*.pdf`; delete them by hand when you like. Delete this once deployed and an `add` goes through.
