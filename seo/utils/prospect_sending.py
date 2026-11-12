@@ -120,7 +120,7 @@ LIST_SHOWN = 5
 LIST_WIDTH = 50
 
 # Body 5, the fixes list: the only client body. The owner's words of 2026-11-11: every title, whole, and the report
-# read by its link, with no pdf (no prospect email carries one since). The way out closes it, as bodies 1 and 3 do.
+# read by its link. The way out closes it, as bodies 1 and 3 do.
 BODY_FIXES = """Hi {first_name},
 
 I'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes for your website. There's no obligation. Some of the people I write these for buy a full report later, that's why I do it. The fixes are worth doing either way.
@@ -398,14 +398,12 @@ def follow_up_refusal(prospect: SeoProspect, now, early: bool = False, again: bo
 
 
 def due_follow_ups():
-    """Queued, not yet sent, and still nothing has stopped them since: no call, reply, exclusion or suppression;
-    and with a page to link."""
+    """Queued, not yet sent, and still nothing has stopped them since: no call, reply, exclusion or suppression."""
     suppressed = Suppression.objects.filter(channel="email").values("address")
     return (
         SeoProspect.objects.filter(follow_up_queued_at__isnull=False, followed_up_at__isnull=True,
                                    called_at__isnull=True, reply=SeoProspect.Reply.NONE, excluded_reason="")
         .exclude(email__in=suppressed)
-        .exclude(report_html="")
         .order_by("follow_up_queued_at", "id")
     )
 
@@ -430,13 +428,12 @@ def send_follow_up(prospect: SeoProspect):
 
 
 def eligible_prospects():
-    """Approved and not yet sent, not excluded, not on the suppression list, and with a page to link (no email
-    carries the pdf); oldest first. A held row (no ``approved_at``) is the owner's to read first."""
+    """Approved and not yet sent, not excluded and not on the suppression list; oldest first. A held row (no
+    ``approved_at``) is the owner's to read first."""
     suppressed = Suppression.objects.filter(channel="email").values("address")
     return (
         SeoProspect.objects.filter(approved_at__isnull=False, sent_at__isnull=True, excluded_reason="")
         .exclude(email__in=suppressed)
-        .exclude(report_html="")
         .order_by("created_at", "id")
     )
 
@@ -447,7 +444,7 @@ def claim(prospect: SeoProspect, now) -> bool:
 
 
 def send_prospect(prospect: SeoProspect):
-    """Email the report's link; no pdf goes (owner, 2026-11-11). The caller has already claimed the row."""
+    """Email the report's link, the report's only copy. The caller has already claimed the row."""
     return send(
         to=prospect.email,
         channel="email",

@@ -1,9 +1,8 @@
 """A private tree of its own for the prospect reports waiting to be emailed.
 
 Under ``PRIVATE_MEDIA_ROOT`` like the dealer documents and identity images, in a
-subdirectory of its own: messaging keeps an attachment's name and size but not
-its file, so the hourly send reads the PDF from here. No webserver is pointed at
-this tree.
+subdirectory of its own: each report's page and its link's preview picture,
+served only through the report's link. No webserver is pointed at this tree.
 """
 
 import os

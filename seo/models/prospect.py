@@ -24,7 +24,7 @@ class SeoProspect(models.Model):
     word (``approved_at``), and only then does the hourly
     ``send_affiliate_outreach`` run email it, in Perth business hours (owner,
     2026-11-05: uploaded when done, sent only when approved). One report per
-    business; the page and PDF may be replaced, nothing else is updated. The report is the same whatever the
+    business; the page may be replaced, nothing else is updated. The report is the same whatever the
     ``purpose``; the email differs: a business is asked to consider the paid
     report, a podcast host is offered the affiliate program.
     Whether and when it was emailed is the message log (``related=prospect``,
@@ -77,15 +77,14 @@ class SeoProspect(models.Model):
     # The report's project in ../ftp_search/_search/projects/.
     slug = models.CharField(max_length=64, unique=True)
     report_version = models.CharField(max_length=16)
-    # Where the report sits on the owner's machine, shown to copy.
+    # Where the report's page sits on the owner's machine, shown to copy.
     report_path = models.CharField(max_length=500)
-    report_pdf = models.FileField(storage=private_prospect_report_storage, upload_to="", max_length=255)
-    # The same report as a page, for the link (``/reports/<business>-<token>``, ``seo/utils/prospect_links.py``): texted during a
-    # call and named in every report email beside the PDF (owner, 2026-11-04). Blank on a row uploaded before the
-    # link existed; the link then serves the PDF.
+    # The report, as a page, for the link (``/reports/<business>-<token>``, ``seo/utils/prospect_links.py``): texted
+    # during a call and named in every report email (owner, 2026-11-04). The only copy since the PDF went (owner,
+    # 2026-11-12); every row holds one, the earliest attached after upload by ``outbox.py html``.
     report_html = models.FileField(storage=private_prospect_report_storage, upload_to="", max_length=255, blank=True)
     # The picture a chat or text app shows beside the link (the page's og:image): the report's cover at 1200 by
-    # 630, taken by render beside the PDF and uploaded with the page (owner, 2026-11-07). Blank on a row from
+    # 630, taken by render beside the page and uploaded with it (owner, 2026-11-07). Blank on a row from
     # before it; the page then names the site's SEO picture instead (``prospect_links.preview_image``).
     report_cover = models.FileField(storage=private_prospect_report_storage, upload_to="", max_length=255, blank=True)
     # The unguessable part of the link (its tail, after the business's name), set once; the page is noindexed and

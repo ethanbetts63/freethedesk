@@ -158,7 +158,6 @@ export interface ReportProspect {
   /** The report's own page on the site (/reports/<business>-<token>): texted during a call, named in every email. */
   report_link: string;
   /** False on a row from before the page existed; the link then serves the PDF. */
-  report_html_ready: boolean;
   /** Opens of the link by people; link previews and crawlers are counted apart. */
   opens: number;
   last_opened_at: string | null;

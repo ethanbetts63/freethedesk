@@ -21,7 +21,7 @@ from ..serializers.prospect import (
     AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectHtmlSerializer, SeoProspectUploadSerializer,
 )
 from ..utils.prospect_links import (
-    link_key, page_document, page_headers, pdf_link, record_open, report_link, token_of,
+    link_key, page_document, page_headers, record_open, report_link, token_of,
 )
 from ..utils.prospect_sending import (
     NoSubject, follow_up_refusal, follow_up_subject_for, next_body, next_follow_up_subject, next_subject,
@@ -75,8 +75,7 @@ class SeoProspectUploadView(APIView):
                 {"outcome": "suppressed", "detail": "The address is on the suppression list."},
                 status=status.HTTP_409_CONFLICT,
             )
-        pdf = data.pop("report_pdf")
-        html = data.pop("report_html", None)
+        html = data.pop("report_html")
         cover = data.pop("report_cover", None)
         # A report that went by hand, registered for its link and its dashboard row: created sent, never queued,
         # and approved by the fact of it.
@@ -94,9 +93,7 @@ class SeoProspectUploadView(APIView):
         try:
             with transaction.atomic():
                 prospect = SeoProspect(**data, subject_version=subject_version, body_version=body_version)
-                prospect.report_pdf.save(f"{data['slug']}_{data['report_version']}.pdf", pdf, save=False)
-                if html is not None:
-                    prospect.report_html.save(f"{data['slug']}_{data['report_version']}.html", html, save=False)
+                prospect.report_html.save(f"{data['slug']}_{data['report_version']}.html", html, save=False)
                 if cover is not None:
                     prospect.report_cover.save(_cover_name(prospect, cover), cover, save=False)
                 prospect.save()
@@ -108,7 +105,7 @@ class SeoProspectUploadView(APIView):
             {"outcome": "registered" if went else "held", "id": prospect.pk, "purpose": prospect.purpose,
              "subject_version": prospect.subject_version, "subject": subject_for(prospect),
              "body_version": prospect.body_version, "body_label": prospect.get_body_version_display(),
-             "report_link": report_link(prospect), "report_html_ready": bool(prospect.report_html)},
+             "report_link": report_link(prospect)},
             status=status.HTTP_201_CREATED,
         )
 
@@ -161,18 +158,16 @@ class SeoProspectApproveView(APIView):
                          "approved_at": prospect.approved_at, "metric": prospect.metric,
                          "subject_version": prospect.subject_version, "subject": subject_for(prospect),
                          "body_version": prospect.body_version, "body_label": prospect.get_body_version_display(),
-                         "purpose": prospect.purpose, "report_link": report_link(prospect),
-                         "report_html_ready": bool(prospect.report_html)},
+                         "purpose": prospect.purpose, "report_link": report_link(prospect)},
                         status=status.HTTP_201_CREATED)
 
 
 class SeoProspectHtmlView(APIView):
     """`POST /api/seo/prospects/html/`: the report page for a prospect the server already holds, by slug.
 
-    For the reports uploaded before the page existed (``outbox.py html``), and a
-    page re-rendered after a small edit. Replaces the file, and the PDF when one
-    is sent with it, so the page's PDF link serves the same version; the link
-    does not change.
+    A page re-rendered after a small edit (``outbox.py html``, or ``add`` again).
+    Replaces the file, and the preview picture when one is sent with it; the
+    link does not change.
     """
 
     throttle_scope = "internal"  # A load limit; access is the shared secret.
@@ -192,11 +187,6 @@ class SeoProspectHtmlView(APIView):
         prospect.report_html.save(
             f"{prospect.slug}_{prospect.report_version}.html", upload.validated_data["report_html"], save=False
         )
-        pdf = upload.validated_data.get("report_pdf")
-        if pdf is not None:
-            if prospect.report_pdf:
-                prospect.report_pdf.delete(save=False)
-            prospect.report_pdf.save(f"{prospect.slug}_{prospect.report_version}.pdf", pdf, save=False)
         cover = upload.validated_data.get("report_cover")
         if cover is not None:
             if prospect.report_cover:
@@ -207,7 +197,7 @@ class SeoProspectHtmlView(APIView):
                 setattr(prospect, field, upload.validated_data[field])
         prospect.save()
         return Response({"outcome": "attached", "id": prospect.pk, "report_link": report_link(prospect),
-                         "pdf_replaced": pdf is not None, "cover_replaced": cover is not None},
+                         "cover_replaced": cover is not None},
                         status=status.HTTP_201_CREATED)
 
 
@@ -239,8 +229,7 @@ class SeoReportPageView(APIView):
 
     No sign-in: the token is the key, and the page is noindexed, linked from
     nowhere, and never cached between. Each open is logged against the
-    prospect with where the link came from (``?s=``). A row from before the
-    page existed serves its PDF inline instead.
+    prospect with where the link came from (``?s=``).
     """
 
     throttle_scope = "report"
@@ -252,26 +241,11 @@ class SeoReportPageView(APIView):
         if sent_on := _sent_on(request, key, prospect, report_link(prospect)):
             return sent_on
         if not prospect.report_html:
-            return _pdf_response(prospect, request)
+            raise Http404
         record_open(prospect, request, SeoProspectOpen.Kind.PAGE)
         with prospect.report_html.open("rb") as handle:
             document = handle.read().decode("utf-8")
         return page_headers(HttpResponse(page_document(prospect, document), content_type="text/html; charset=utf-8"))
-
-
-class SeoReportPdfView(APIView):
-    """`GET /api/seo/r/<key>/pdf/`, at ``/reports/<business>-<token>/pdf``: the same report's PDF, inline, logged as
-    an open."""
-
-    throttle_scope = "report"
-    authentication_classes = []
-    permission_classes = [AllowAny]
-
-    def get(self, request, key):
-        prospect = _by_key(key)
-        if sent_on := _sent_on(request, key, prospect, pdf_link(prospect)):
-            return sent_on
-        return _pdf_response(prospect, request)
 
 
 class SeoReportCoverView(APIView):
@@ -292,15 +266,6 @@ class SeoReportCoverView(APIView):
         response["X-Robots-Tag"] = "noindex"
         response["Cache-Control"] = "public, max-age=86400"
         return response
-
-
-def _pdf_response(prospect, request):
-    record_open(prospect, request, SeoProspectOpen.Kind.PDF)
-    response = FileResponse(
-        prospect.report_pdf.open("rb"), content_type="application/pdf", as_attachment=False,
-        filename=f"{prospect.slug}_seo_report_{prospect.report_version}.pdf",
-    )
-    return page_headers(response)
 
 
 class SeoProspectFollowUpView(APIView):

@@ -7,19 +7,22 @@ from django.utils import timezone
 from freetheplatform.messaging import Suppression, is_suppressed, suppress
 
 from seo.models import SeoProspect, SeoProspectOpen
-from seo.tests.factories import PDF, SeoProspectFactory, upload_fields
+from seo.tests.factories import PAGE, SeoProspectFactory, upload_fields
 from seo.utils.prospects import with_status
 
 pytestmark = pytest.mark.django_db
 
+# A file sent with an email written by hand: any file, as the after-call note's attachments are.
+ATTACHMENT = b"%PDF-1.7\n% a price list\n"
 
-def upload(api_client, key, pdf=PDF, **overrides):
+
+def upload(api_client, key, page=PAGE, **overrides):
     fields = upload_fields(**overrides)
-    data = {**fields, "report_pdf": SimpleUploadedFile("report.pdf", pdf, content_type="application/pdf")}
+    data = {**fields, "report_html": SimpleUploadedFile("report.html", page, content_type="text/html")}
     return api_client.post(reverse("seo-prospect-upload"), data, format="multipart", HTTP_X_INTERNAL_API_KEY=key)
 
 
-def test_a_published_report_is_held_with_its_pdf_until_the_owner_approves_it(api_client, internal_key):
+def test_a_published_report_is_held_with_its_page_until_the_owner_approves_it(api_client, internal_key):
     response = upload(api_client, internal_key)
 
     assert response.status_code == 201
@@ -36,8 +39,8 @@ def test_a_published_report_is_held_with_its_pdf_until_the_owner_approves_it(api
     assert prospect.issues == ["No pergola page", "The home page has no heading"]
     assert prospect.paid_searches == ["pergolas perth"]
     assert prospect.sent_at is None
-    with prospect.report_pdf.open("rb") as handle:
-        assert handle.read() == PDF
+    with prospect.report_html.open("rb") as handle:
+        assert handle.read() == PAGE
 
 
 def approve(api_client, key, slug="perthpatiomagic", **fields):
@@ -184,10 +187,17 @@ def test_a_suppressed_address_is_refused(api_client, internal_key):
     assert response.json()["outcome"] == "suppressed"
 
 
-def test_only_a_pdf_is_taken(api_client, internal_key):
-    response = upload(api_client, internal_key, pdf=b"<html>not a report</html>")
+def test_only_an_html_page_is_taken(api_client, internal_key):
+    response = upload(api_client, internal_key, page=b"%PDF-1.7 not a page")
     assert response.status_code == 400
-    assert "report_pdf" in response.json()
+    assert "report_html" in response.json()
+
+
+def test_a_report_without_its_page_is_refused(api_client, internal_key):
+    response = api_client.post(reverse("seo-prospect-upload"), upload_fields(), format="multipart",
+                               HTTP_X_INTERNAL_API_KEY=internal_key)
+    assert response.status_code == 400
+    assert "report_html" in response.json()
 
 
 def test_the_shared_secret_is_the_whole_credential(api_client, internal_key, settings):
@@ -259,7 +269,7 @@ def test_staff_only(api_client):
 def send_by_hand(api_client, key, **overrides):
     data = {
         "to": "sales@perthpatiomagic.com.au", "subject": "Your report again", "body": "Thanks for taking my call.",
-        "attachments": SimpleUploadedFile("report.pdf", PDF, content_type="application/pdf"), **overrides,
+        "attachments": SimpleUploadedFile("prices.pdf", ATTACHMENT, content_type="application/pdf"), **overrides,
     }
     return api_client.post(reverse("seo-message-send"), data, format="multipart", HTTP_X_INTERNAL_API_KEY=key)
 
@@ -277,7 +287,7 @@ def test_an_email_written_by_hand_goes_as_given_with_its_file(api_client, intern
     assert message.body_text == "Thanks for taking my call."
     assert message.body_html == ""
     assert message.message_type == "seo_followup"
-    assert message.attachments == [{"name": "report.pdf", "size": len(PDF)}]
+    assert message.attachments == [{"name": "prices.pdf", "size": len(ATTACHMENT)}]
     assert message.content_object == prospect
 
 

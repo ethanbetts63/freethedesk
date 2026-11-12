@@ -89,7 +89,7 @@ def test_body_one_with_no_paid_search_speaks_of_the_site_alone():
 
 
 def test_body_two_goes_as_the_owner_wrote_it_with_the_name_and_the_metric(outbox, monkeypatch):
-    """Paused, but a row that drew it still sends it, without the pdf like every email now."""
+    """Paused, but a row that drew it still sends it, with the link like every email now."""
     """The second body is the server's fixed text: only the greeting and what the business counts change."""
     prospect = SeoProspectFactory(body_version=2, contact_name="Craig Smith", metric="calls")
 
@@ -237,17 +237,6 @@ def test_the_partner_body_is_the_owners_sample_and_the_partnership_at_the_live_f
             "www.freethedesk.com.au/affiliates") in body
     assert "podcast" not in body.lower() and "listener" not in body and "pdf" not in body
     assert f"If you'd like to talk it over first, my number is below. {UNSUBSCRIBE_LINE}\n\nEthan Betts" in body
-
-
-def test_a_report_without_a_page_waits_and_no_pdf_goes_in_its_place(outbox, monkeypatch):
-    """Nothing but the link carries a report now: a row without a page is neither sent nor followed up."""
-    SeoProspectFactory(report_html="")
-    SeoProspectFactory(report_html="", sent_at=perth(19, 10), follow_up_queued_at=perth(26, 9),
-                       follow_up_subject_version=7, follow_up_body_version=SeoProspect.Body.FIXES)
-
-    run(monkeypatch, perth(26, 10))
-
-    assert outbox == []
 
 
 def test_a_hosts_report_and_follow_up_go_with_the_link_alone(outbox, monkeypatch):

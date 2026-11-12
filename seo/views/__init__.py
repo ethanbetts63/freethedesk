@@ -11,7 +11,6 @@ from .prospects import (
     SeoProspectHtmlView,
     SeoReportPageView,
     SeoReportCoverView,
-    SeoReportPdfView,
     SeoProspectUploadView,
 )
 from .registration import SeoRegistrationView
@@ -27,7 +26,6 @@ __all__ = [
     "SeoProspectApproveView",
     "SeoProspectHtmlView",
     "SeoReportPageView",
-    "SeoReportPdfView",
     "SeoProspectUploadView",
     "AdminSeoSetupStepView",
     "AdminSeoSubscriberDetailView",

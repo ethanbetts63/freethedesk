@@ -5,8 +5,8 @@ from ..models import SeoProspect
 from ..utils.prospect_links import report_link
 from ..utils.prospect_sending import body_for, subject_for
 
-# A prospect report runs to about 2 MB; Mailgun's ceiling is 25 MB for the whole send.
-MAX_PDF_BYTES = 15 * 1024 * 1024
+# A prospect report's page runs to about 2 MB, its pictures inlined.
+MAX_PAGE_BYTES = 15 * 1024 * 1024
 
 
 class SeoMessageSendSerializer(serializers.Serializer):
@@ -41,10 +41,9 @@ class SeoProspectUploadSerializer(serializers.Serializer):
     slug = serializers.SlugField(max_length=64)
     report_version = serializers.CharField(max_length=16)
     report_path = serializers.CharField(max_length=500)
-    report_pdf = serializers.FileField()
-    # The same report as a page, for the link; an outbox from before the link existed sends none.
-    report_html = serializers.FileField(required=False)
-    # The link's preview picture (the page's og:image), rendered beside the PDF; optional the same way.
+    # The report as a page, for the link: the only copy (owner, 2026-11-12).
+    report_html = serializers.FileField()
+    # The link's preview picture (the page's og:image), rendered beside the page; optional.
     report_cover = serializers.FileField(required=False)
     contact_name = serializers.CharField(max_length=255, required=False, allow_blank=True)
     email = serializers.EmailField()
@@ -75,9 +74,6 @@ class SeoProspectUploadSerializer(serializers.Serializer):
     def validate_email(self, value):
         return value.strip().lower()
 
-    def validate_report_pdf(self, value):
-        return validate_report_pdf(value)
-
     def validate_report_html(self, value):
         return validate_report_html(value)
 
@@ -90,20 +86,9 @@ class SeoProspectUploadSerializer(serializers.Serializer):
         return data
 
 
-def validate_report_pdf(value):
-    """The report's PDF, as render prints it."""
-    if value.size > MAX_PDF_BYTES:
-        raise serializers.ValidationError("The report is larger than 15 MB.")
-    head = value.read(5)
-    value.seek(0)
-    if head != b"%PDF-":
-        raise serializers.ValidationError("The report is not a PDF.")
-    return value
-
-
 def validate_report_html(value):
     """The report page: one self-contained HTML document, as render writes it."""
-    if value.size > MAX_PDF_BYTES:
+    if value.size > MAX_PAGE_BYTES:
         raise serializers.ValidationError("The report page is larger than 15 MB.")
     head = value.read(64).lstrip().lower()
     value.seek(0)
@@ -129,12 +114,10 @@ def validate_report_cover(value):
 
 
 class SeoProspectHtmlSerializer(serializers.Serializer):
-    """The report page for a prospect the server already holds (``outbox.py html``), and the PDF printed with it, so
-    the page's PDF link serves the same version as the page."""
+    """The report page for a prospect the server already holds (``outbox.py html``), re-rendered after an edit."""
 
     slug = serializers.SlugField(max_length=64)
     report_html = serializers.FileField()
-    report_pdf = serializers.FileField(required=False)
     report_cover = serializers.FileField(required=False)
     # The report's titles and count as they stand now, so the email lists what the page holds after a cut.
     issues = serializers.ListField(child=serializers.CharField(max_length=300), max_length=10, required=False)
@@ -145,9 +128,6 @@ class SeoProspectHtmlSerializer(serializers.Serializer):
 
     def validate_report_cover(self, value):
         return validate_report_cover(value)
-
-    def validate_report_pdf(self, value):
-        return validate_report_pdf(value)
 
 
 class AdminSeoProspectSerializer(serializers.ModelSerializer):
@@ -160,10 +140,9 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
     body_label = serializers.CharField(source="get_body_version_display", read_only=True)
     email_body = serializers.SerializerMethodField()
     reply_label = serializers.CharField(source="get_reply_display", read_only=True)
-    # The report's link, whether it serves the page or (a row from before the page) the PDF, and its opens by
-    # people, previews and crawlers counted apart (``with_status`` annotates them).
+    # The report's link, and its opens by people, previews and crawlers counted apart (``with_status`` annotates
+    # them).
     report_link = serializers.SerializerMethodField()
-    report_html_ready = serializers.SerializerMethodField()
     opens = serializers.IntegerField(source="open_count", read_only=True, default=0)
     last_opened_at = serializers.DateTimeField(read_only=True, default=None)
 
@@ -176,7 +155,7 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
             "body_version", "body_label", "metric", "body", "email_body",
             "approved_at", "sent_at", "status", "message_id", "follow_up_queued_at", "followed_up_at",
             "follow_up_subject_version", "follow_up_body_version",
-            "report_link", "report_html_ready", "opens", "last_opened_at",
+            "report_link", "opens", "last_opened_at",
             "called_at", "call_notes", "reply", "reply_label",
             "excluded_reason", "created_at", "updated_at",
         ]
@@ -187,7 +166,7 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
             "body_version", "body_label", "metric", "body", "email_body",
             "approved_at", "sent_at", "status", "message_id", "follow_up_queued_at", "followed_up_at",
             "follow_up_subject_version", "follow_up_body_version", "reply_label",
-            "report_link", "report_html_ready", "opens", "last_opened_at",
+            "report_link", "opens", "last_opened_at",
             "created_at", "updated_at",
         ]
         # TextField columns, which DRF maps to a CharField with no maximum.
@@ -201,9 +180,6 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
 
     def get_report_link(self, obj) -> str:
         return report_link(obj)
-
-    def get_report_html_ready(self, obj) -> bool:
-        return bool(obj.report_html)
 
     def get_email_body(self, obj) -> str:
         """The body as it goes, or went, composed from the row."""

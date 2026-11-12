@@ -287,11 +287,6 @@ export default function ReportProspectDetailPage() {
                 <button type="button" className={cardLinkClassName} onClick={copyLink}>
                   Copy
                 </button>
-                {!prospect.report_html_ready && (
-                  <span className="block text-text-muted">
-                    No page uploaded yet: the link opens the PDF.
-                  </span>
-                )}
               </span>,
             ],
             [

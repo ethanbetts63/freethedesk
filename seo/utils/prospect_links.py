@@ -2,7 +2,8 @@
 phone shows it.
 
 The owner texts it by hand during a call (the brief prints it with ``?s=text``),
-and every report email carries it beside the PDF (owner, 2026-11-04). The business's name leads the address so it
+and every report email carries it (owner, 2026-11-04); it is the report's only copy since the PDF went (owner,
+2026-11-12). The business's name leads the address so it
 reads as the business's own page; the token after it is the key, unguessable, and the page is noindexed and
 linked from nowhere (owner, 2026-11-06). A link with the token alone, or under another name (the first links went
 out as ``/r/<token>``), is sent on to the named address; the site sends any ``/r/`` link on to ``/reports/``
@@ -60,10 +61,6 @@ def report_link(prospect: SeoProspect, source: str = "") -> str:
     """The page's address, with ``?s=<source>`` when the link is placed somewhere the opens should name."""
     base = f"{site_url()}/reports/{link_key(prospect)}"
     return f"{base}?s={source}" if source else base
-
-
-def pdf_link(prospect: SeoProspect) -> str:
-    return f"{site_url()}/reports/{link_key(prospect)}/pdf"
 
 
 def cover_link(prospect: SeoProspect) -> str:
@@ -157,7 +154,6 @@ _STYLE = """<style>
 .ftd-bar svg{width:13px;height:13px;flex:none;fill:currentColor}
 .ftd-bar a.ftd-bar__cta{margin-left:auto;padding:5px 12px;border-radius:999px;background:#2473c6;font-weight:700}
 .ftd-bar a.ftd-bar__cta:hover{background:#1a5fa8}
-.ftd-bar a.ftd-bar__pdf{opacity:.8;text-decoration:underline}
 .ftd-ask{background:#f1f7fc;font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
 .ftd-ask__shell{display:grid;gap:28px;align-items:center;max-width:1240px;margin:0 auto;padding:44px 24px}
 .ftd-ask__eyebrow{display:block;margin:0 0 10px;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1a5fa8}
@@ -195,20 +191,18 @@ _MAIL_ICON = (
     " 1 0 0 1 1-1zm1 2.6V18h16V7.6l-8 5.4zm.9-.6L12 11.6 19.1 7z\"/></svg>"
 )
 
-# The strip: the number, the address, a button to the SEO page and the PDF, each a tap (owner, 2026-11-04; the
-# button in place of "written for whom", 2026-11-06).
+# The strip: the number, the address and a button to the SEO page, each a tap (owner, 2026-11-04; the button in
+# place of "written for whom", 2026-11-06; the PDF link gone with the PDF, 2026-11-12).
 _BAR = (
     '<div class="ftd-bar">'
     f'<a href="tel:+61423853830">{_PHONE_ICON}0423 853 830</a>'
     f'<a href="mailto:analytics@freethedesk.com.au">{_MAIL_ICON}analytics@freethedesk.com.au</a>'
-    '<a class="ftd-bar__cta" href="https://www.freethedesk.com.au/seo">Get the full report</a>'
-    '<a class="ftd-bar__pdf" href="{pdf}">PDF</a></div>'
+    '<a class="ftd-bar__cta" href="https://www.freethedesk.com.au/seo">Get the full report</a></div>'
 )
 
 # The ask: a band the page's width under the report, the site's light blue behind the SEO page's picture of what an
 # audit reads, framed as that page frames it, beside the words (owner, 2026-11-06; the heading, the button and the
-# picture, 2026-11-07, as the sample report's). The page's alone: the PDF ends on the report, whose upsell card carries
-# the same picture (owner, 2026-11-07).
+# picture, 2026-11-07, as the sample report's).
 _ASK = (
     '<section class="ftd-ask" aria-labelledby="ftd-ask-title"><div class="ftd-ask__shell"><div>'
     '<b class="ftd-ask__eyebrow">The next step</b>'
@@ -274,9 +268,7 @@ def page_document(prospect: SeoProspect, document: str) -> str:
     """The report's HTML with the robots meta and the link-preview tags in its head, the site's strip over it, the
     ask under it and the site's footer last."""
     document = document.replace("<head>", f"<head>\n{ROBOTS}\n{preview_tags(prospect)}\n{_STYLE}", 1)
-    document = document.replace(
-        "<body>", "<body>\n" + _BAR.format(pdf=escape(pdf_link(prospect))), 1
-    )
+    document = document.replace("<body>", "<body>\n" + _BAR, 1)
     foot = document.rfind("</body>")
     tail = _ASK + "\n" + site_footer() + "\n"
     return document[:foot] + tail + document[foot:] if foot >= 0 else document + tail

@@ -6,7 +6,8 @@ businesses paying for searches they do not win (`_search/prospecting/`), and
 since 2026-10-30 podcast hosts for the affiliate program too. The report is
 written the same way whoever it is for. This is the half that writes the
 email, sends it from this server with the report's link (no pdf since
-2026-11-11, owner's call: the attachment was the likely road to spam), and tracks the
+2026-11-11, owner's call: the attachment was the likely road to spam; and no
+PDF at all since 2026-11-12: the page at the link is the report), and tracks the
 calls that follow. The first three (Rebus Legal, Hartley Plumbing, Solar 365,
 28 October) went by hand from the compose page, before this existed;
 `outbox.py` refuses them.
@@ -119,8 +120,8 @@ follow-up`. It is refused (409, with the reason) when it is too soon, already
 | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
 | `domain`                             | unique; the ledger's key                                                                                                   |
 | `business`, `slug`, `report_version` |                                                                                                                            |
-| `report_path`                        | the report's full path on the owner's machine, shown to copy                                                               |
-| `report_pdf`                         | `FileField` in private storage: messaging keeps an attachment's name, not its file, so the cron needs the PDF here         |
+| `report_path`                        | the report page's full path on the owner's machine, shown to copy                                                          |
+| `report_html`, `report_cover`        | `FileField`s in private storage: the page the link serves, and its preview picture                                         |
 | `contact_name`, `email`, `phone`     | from the prospecting ledger                                                                                                |
 | `overview`                           | one line: what the business is, built from the ledger (trading name, Google category, suburb)                              |
 | `issues`                             | the report's five highest-impact recommendation titles, strongest first; body 1 names the first two, body 4 lists all five |
@@ -142,7 +143,7 @@ registry. Add a Tier 3 row to [`pii_inventory.md`](pii_inventory.md): business
 owners' names and published contact details, from their own public pages.
 
 **Upload** `POST /api/seo/prospects/`, `IsInternalApiRequest`, multipart: the
-fields above and the PDF. A domain, email or slug already present is refused
+fields above and the page (`report_html`), required. A domain, email or slug already present is refused
 with 409, so no business is ever sent two reports; a suppressed address is
 refused too.
 
@@ -176,30 +177,27 @@ the first links went out under `/r/`, and the site sends them on, owner 2026-11-
 the report as a page, the layout a phone shows and, on a desktop, the
 site's guide layout (the cover full width, the contents as a menu beside one
 column), with the site's strip over it (the number, the address, a button to
-the SEO page, the PDF), the ask for the full report under it (a band the page's
-width: the words beside the SEO page's picture of what an audit reads; the
-page's alone, since the PDF's upsell card carries the picture) and the site's
-footer last. The owner texts it by hand during a call, from the call brief, which prints
+the SEO page), the ask for the full report under it (a band the page's
+width: the words beside the SEO page's picture of what an audit reads) and
+the site's footer last. The owner texts it by hand during a call, from the call brief, which prints
 it with `?s=text`; every report email and follow-up links it, the only way
 the report reaches them ("You can read the whole report here"); nothing else
 links to it. A re-attach (`outbox.py html`) also brings the report's titles and
 count, so the email lists what the page holds after a cut.
 
-- **The page.** `report_html` on the row, the `report.html` beside the PDF in
-  the project, uploaded with the report (`outbox.py add`) or after it for
-  the rows from before the page existed (`POST /api/seo/prospects/html/`,
-  `outbox.py html`). A re-attach sends the PDF printed with the page too, and
-  the endpoint replaces the row's `report_pdf` with it, so the page's PDF link
-  serves the same version as the page. The site rewrites `/reports/:key` and `/reports/:key/pdf` to
-  Django's `/api/seo/r/<key>/` and `.../pdf/` (`seo/views/prospects.py`,
-  `SeoReportPageView`, `SeoReportPdfView`). A row with no page serves its PDF at
-  the link.
+- **The page.** `report_html` on the row, the project's `report.html` (written
+  by `render --page`), uploaded with the report (`outbox.py add`) and replaced
+  after an edit (`POST /api/seo/prospects/html/`, `outbox.py html`). It is the
+  report's only copy: prospect reports have no PDF (owner, 2026-11-12). The
+  site rewrites `/reports/:key` to Django's `/api/seo/r/<key>/`
+  (`seo/views/prospects.py`, `SeoReportPageView`), and sends the old
+  `/reports/:key/pdf` address on to the page.
 - **The preview.** A link pasted into a chat or a text shows a card only if
   the page carries Open Graph tags, and it carried none (owner, 2026-11-07).
   `page_document` now writes them into the head: the title ("<business>: SEO
   report"), one line, the address, and a 1200 by 630 picture. The picture is
   the report's own cover when the row has one (`report_cover`, taken by
-  `render --pdf` as `preview.jpg` beside the PDF and uploaded with the page by
+  `render --page` as `preview.jpg` beside the page and uploaded with it by
   `outbox.py add` or `html`), served public and cacheable at
   `/reports/<business>-<token>/cover.jpg` (`SeoReportCoverView`; the apps
   fetch it apart from the page, and a refused or uncacheable picture leaves
@@ -220,7 +218,8 @@ count, so the email lists what the page holds after a cut.
   hyphen (`new_link_token`), so a link read out on a call is typed as heard and
   the name before it parses; set once per row, unique, never regenerated, so a
   texted link keeps working after a re-render.
-- **The opens.** `SeoProspectOpen`: one row per open, the page or the PDF, when,
+- **The opens.** `SeoProspectOpen`: one row per open of the page (opens of the
+  PDF, before it went, keep their own kind), when,
   where the link came from (`?s=email`, `follow-up`, `text`, `dashboard`), the
   user agent, and `likely_bot` for a crawler or a messaging app's link preview
   (iMessage and WhatsApp fetch a link the moment it is sent). No address is
@@ -255,7 +254,7 @@ count, so the email lists what the page holds after a cut.
   `_search/tools/prospecting/outbox.py` keeps the local outbox,
   `_search/prospecting/outbox.json`. The report delegator's last step for a
   prospect report (step 15 of `_search/prompts/01_delegator.md`) is
-  `outbox.py add -p <slug>`: it reads the PDF, `report.json` (the
+  `outbox.py add -p <slug>`: it reads the page, `report.json` (the
   recommendation count, the three highest-impact titles) and the ledger entry
   (the contact, the sightings, the `source` that sets the purpose); warns when
   the address's domain is neither the site's nor a webmail one; refuses a
@@ -264,12 +263,12 @@ count, so the email lists what the page holds after a cut.
   (`approved_at` null) with its link and the subject and body chosen; and
   lists it as `awaiting_approval` with the link. The hourly run sends only
   rows with an `approved_at`. The owner reads each report at its link, asks
-  for any edits (`render --pdf`, then `add` again, which puts the new page and
-  PDF behind the same link through `/api/seo/prospects/html/`), and says it
+  for any edits (`render --page`, then `add` again, which puts the new page
+  behind the same link through `/api/seo/prospects/html/`), and says it
   may go: then `outbox.py approve <slug>` posts the word to `POST
 /api/seo/prospects/approve/` (`approved` 1, or 0 to take it back:
   `outbox.py unapprove`, or an `add` after approval), the next hourly run
-  sends it, and the ledger entry is marked `queued`. `approve` refuses a PDF
+  sends it, and the ledger entry is marked `queued`. `approve` refuses a page
   that is not the one uploaded, so what goes out is what the owner read.
   Approval happens only on the owner's word; no pipeline step does it.
   `outbox.py add` refuses to post to a server without the approve endpoint,
@@ -300,11 +299,12 @@ count, so the email lists what the page holds after a cut.
   noted on the outbox row. The call opens by asking consent to record (WA).
   The transcript is what the owner and the agent go over afterwards.
 - **The note after the call** (owner, 2026-10-29). `outbox.py send <slug>`
-  posts one email to `/api/seo/messages/` with the report attached again: the
+  posts one email to `/api/seo/messages/` with the report's link again: the
   "After the call" section of `call_script.md` (its first line the subject),
   or `--body-file`, a file of `Subject: …`, a blank line and the body,
   `--subject` to override, `--to` when
-  the address the brief knows is wrong, `--no-pdf` for words alone. It prints
+  the address the brief knows is wrong, `--attach <file>` (repeated) for any
+  files to send with it. It prints
   the message id and status; the message log is the record. Only on the
   owner's word, like approve.
 - The key and the address are this repository's own `INTERNAL_API_KEY` and

@@ -1,5 +1,5 @@
-"""The report's link: the page and its PDF at /reports/<business>-<token>, the opens it logs, and the page uploaded
-with or after the report."""
+"""The report's link: the page at /reports/<business>-<token>, the opens it logs, and the page uploaded with the
+report or re-attached after an edit."""
 
 from datetime import timedelta
 
@@ -14,8 +14,8 @@ from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from core.tests.factories import UserFactory
 from core.utils.urls import site_url
 from seo.models import SeoProspect, SeoProspectOpen
-from seo.tests.factories import PDF, SeoProspectFactory, upload_fields
-from seo.utils.prospect_links import cover_link, link_key, pdf_link, report_link
+from seo.tests.factories import SeoProspectFactory, upload_fields
+from seo.utils.prospect_links import cover_link, link_key, report_link
 from seo.utils.prospect_sending import body_for, follow_up_body
 
 pytestmark = pytest.mark.django_db
@@ -97,7 +97,7 @@ def test_the_link_serves_the_report_page_noindexed_with_the_strip_and_the_ask(cl
     # The site's footer closes the page.
     assert page.index('class="ftd-ask"') < page.index('class="ftd-foot"') < page.index("</body>")
     assert 'href="/seo">SEO audits</a>' in page and "ABN 11 493 753 896" in page
-    assert f"/reports/perth-patio-magic-{prospect.link_token}/pdf" in page
+    assert "/pdf" not in page
     assert 'href="tel:+61423853830"' in page and "0423 853 830" in page
     assert 'href="mailto:analytics@freethedesk.com.au"' in page
 
@@ -123,7 +123,6 @@ def test_the_address_carries_the_business_s_name_before_the_token():
     assert link_key(prospect) == "bedford-chiropractic-clinic-xufxp7pjfd"
     assert report_link(prospect) == f"{site_url()}/reports/bedford-chiropractic-clinic-xufxp7pjfd"
     assert report_link(prospect, "text") == f"{site_url()}/reports/bedford-chiropractic-clinic-xufxp7pjfd?s=text"
-    assert pdf_link(prospect) == f"{site_url()}/reports/bedford-chiropractic-clinic-xufxp7pjfd/pdf"
     # Punctuation and case go; a name that is nothing but them leaves the token alone; a long one is cut.
     assert link_key(SeoProspectFactory.build(business="Richo's Plumbing & Gas", link_token="t0k3n")) == "richos-plumbing-gas-t0k3n"
     assert link_key(SeoProspectFactory.build(business="***", link_token="t0k3n")) == "t0k3n"
@@ -139,8 +138,6 @@ def test_a_link_with_the_token_alone_or_under_another_name_is_sent_on_to_the_nam
     assert bare["X-Robots-Tag"] == "noindex, nofollow, noarchive"
     other = client.get(reverse("seo-report-page", args=[f"another-name-{prospect.link_token}"]))
     assert other.status_code == 302 and other["Location"] == named
-    pdf = client.get(reverse("seo-report-pdf", args=[prospect.link_token]))
-    assert pdf.status_code == 302 and pdf["Location"] == pdf_link(prospect)
     # Sent on, not served: the open is logged once, at the named address.
     assert not SeoProspectOpen.objects.exists()
     # The site serves /reports/<key> from Django's /api/seo/r/<key>/ (next.config.ts).
@@ -176,9 +173,8 @@ def test_the_owner_signed_in_is_not_an_open(client, staff_user, cookie):
         client.cookies[refresh_name] = str(RefreshToken.for_user(staff_user))
 
     page = client.get(reverse("seo-report-page", args=[link_key(prospect)]), HTTP_USER_AGENT=PHONE_UA)
-    pdf = client.get(reverse("seo-report-pdf", args=[link_key(prospect)]), HTTP_USER_AGENT=PHONE_UA)
 
-    assert page.status_code == 200 and pdf.status_code == 200
+    assert page.status_code == 200
     assert not SeoProspectOpen.objects.filter(prospect=prospect).exists()
 
 
@@ -200,32 +196,10 @@ def test_a_signed_out_or_revoked_or_non_staff_browser_still_counts(client, staff
     assert SeoProspectOpen.objects.filter(prospect=prospect).count() == 3
 
 
-def test_the_pdf_is_served_inline_and_logged_as_its_own_kind(client):
-    prospect = with_page()
-
-    response = client.get(reverse("seo-report-pdf", args=[link_key(prospect)]) + "?s=dashboard",
-                          HTTP_USER_AGENT=PHONE_UA)
-
-    assert response.status_code == 200 and response["Content-Type"] == "application/pdf"
-    assert response["Content-Disposition"].startswith("inline")
-    assert b"".join(response.streaming_content) == PDF
-    [opened] = SeoProspectOpen.objects.filter(prospect=prospect)
-    assert (opened.kind, opened.source, opened.likely_bot) == ("pdf", "dashboard", False)
-
-
-def test_a_row_from_before_the_page_existed_serves_its_pdf_at_the_link(client):
-    prospect = SeoProspectFactory(report_html="")
-
-    response = client.get(reverse("seo-report-page", args=[link_key(prospect)]), HTTP_USER_AGENT=PHONE_UA)
-
-    assert response.status_code == 200 and response["Content-Type"] == "application/pdf"
-    assert SeoProspectOpen.objects.get(prospect=prospect).kind == "pdf"
-
-
 def test_an_unknown_token_is_not_found_and_nothing_is_logged(client):
     assert client.get(reverse("seo-report-page", args=["nothinghere"])).status_code == 404
     assert client.get(reverse("seo-report-page", args=["some-name-nothinghere"])).status_code == 404
-    assert client.get(reverse("seo-report-pdf", args=["nothinghere"])).status_code == 404
+    assert client.get(f"/api/seo/r/{link_key(SeoProspectFactory())}/pdf/").status_code == 404
     assert not SeoProspectOpen.objects.exists()
 
 
@@ -239,10 +213,7 @@ def test_every_row_gets_its_own_unguessable_token():
 
 
 def upload(api_client, key, html=HTML, cover=None, **overrides):
-    data = {
-        **upload_fields(**overrides),
-        "report_pdf": SimpleUploadedFile("report.pdf", PDF, content_type="application/pdf"),
-    }
+    data = upload_fields(**overrides)
     if html is not None:
         data["report_html"] = SimpleUploadedFile("report.html", html, content_type="text/html")
     if cover is not None:
@@ -257,7 +228,6 @@ def test_a_report_uploads_with_its_page_and_answers_with_its_link(api_client, in
     prospect = SeoProspect.objects.get()
     assert response.json()["report_link"] == report_link(prospect) == f"{site_url()}/reports/{link_key(prospect)}"
     assert report_link(prospect).endswith(f"-{prospect.link_token}")
-    assert response.json()["report_html_ready"] is True
     with prospect.report_html.open("rb") as handle:
         assert handle.read() == HTML
 
@@ -315,21 +285,9 @@ def test_a_report_that_went_by_hand_must_name_its_subject_and_body(api_client, i
     assert not SeoProspect.objects.exists()
 
 
-def test_the_page_can_be_attached_to_a_report_uploaded_before_it_existed(api_client, internal_key):
-    prospect = SeoProspectFactory(report_html="")
-    assert not prospect.report_html
+def test_a_page_attached_again_after_an_edit_replaces_the_one_the_link_serves(api_client, internal_key):
+    prospect = with_page()
 
-    response = api_client.post(
-        reverse("seo-prospect-html"),
-        {"slug": prospect.slug, "report_html": SimpleUploadedFile("report.html", HTML, content_type="text/html")},
-        format="multipart", HTTP_X_INTERNAL_API_KEY=internal_key,
-    )
-
-    assert response.status_code == 201 and response.json()["report_link"] == report_link(prospect)
-    prospect.refresh_from_db()
-    with prospect.report_html.open("rb") as handle:
-        assert handle.read() == HTML
-    # Attached again (a re-render after an edit): replaced, the link unchanged.
     again = api_client.post(
         reverse("seo-prospect-html"),
         {"slug": prospect.slug, "report_html": SimpleUploadedFile("report.html", HTML + b"<!-- v2 -->",
@@ -340,44 +298,6 @@ def test_the_page_can_be_attached_to_a_report_uploaded_before_it_existed(api_cli
     prospect.refresh_from_db()
     with prospect.report_html.open("rb") as handle:
         assert handle.read().endswith(b"<!-- v2 -->")
-
-
-def test_a_pdf_sent_with_the_page_replaces_the_one_the_link_serves(api_client, internal_key):
-    prospect = with_page()
-    printed = PDF + b"% v2"
-
-    response = api_client.post(
-        reverse("seo-prospect-html"),
-        {"slug": prospect.slug, "report_html": SimpleUploadedFile("report.html", HTML, content_type="text/html"),
-         "report_pdf": SimpleUploadedFile("report.pdf", printed, content_type="application/pdf")},
-        format="multipart", HTTP_X_INTERNAL_API_KEY=internal_key,
-    )
-
-    assert response.status_code == 201 and response.json()["pdf_replaced"] is True
-    prospect.refresh_from_db()
-    with prospect.report_pdf.open("rb") as handle:
-        assert handle.read() == printed
-    # A page alone leaves the PDF as it was.
-    alone = api_client.post(
-        reverse("seo-prospect-html"),
-        {"slug": prospect.slug, "report_html": SimpleUploadedFile("report.html", HTML, content_type="text/html")},
-        format="multipart", HTTP_X_INTERNAL_API_KEY=internal_key,
-    )
-    assert alone.status_code == 201 and alone.json()["pdf_replaced"] is False
-    prospect.refresh_from_db()
-    with prospect.report_pdf.open("rb") as handle:
-        assert handle.read() == printed
-
-
-def test_a_pdf_sent_with_the_page_must_be_a_pdf(api_client, internal_key):
-    prospect = with_page()
-    response = api_client.post(
-        reverse("seo-prospect-html"),
-        {"slug": prospect.slug, "report_html": SimpleUploadedFile("report.html", HTML, content_type="text/html"),
-         "report_pdf": SimpleUploadedFile("report.pdf", HTML, content_type="application/pdf")},
-        format="multipart", HTTP_X_INTERNAL_API_KEY=internal_key,
-    )
-    assert response.status_code == 400 and "report_pdf" in response.json()
 
 
 def test_attaching_a_page_takes_the_shared_secret_and_a_known_slug(api_client, internal_key):
@@ -419,7 +339,7 @@ def test_the_calls_list_shows_the_link_and_the_opens_by_people(api_client, staff
 
     row = api_client.get(reverse("admin-seo-prospect-detail", args=[prospect.pk])).json()
 
-    assert row["report_link"] == report_link(prospect) and row["report_html_ready"] is True
+    assert row["report_link"] == report_link(prospect)
     assert row["opens"] == 2 and row["last_opened_at"] is not None
     listed = api_client.get(reverse("admin-seo-prospect-list")).json()["results"]
     assert [r["opens"] for r in listed] == [2]
