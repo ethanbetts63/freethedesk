@@ -225,7 +225,13 @@ count, so the email lists what the page holds after a cut.
   user agent, and `likely_bot` for a crawler or a messaging app's link preview
   (iMessage and WhatsApp fetch a link the moment it is sent). No address is
   kept. The dashboard shows the opens by people and the last one, on the list
-  and the row; the first engagement signal the outreach has.
+  and the row; the first engagement signal the outreach has. A browser signed
+  in to the dashboard as staff logs no open (owner, 2026-11-12): the owner's
+  own looks are not the business's. The sign-in is the test, not the address,
+  which the owner's VPN changes; the refresh cookie counts as signed in, so it
+  holds for the week a sign-in lasts, not only the access token's hour
+  (`prospect_links.signed_in_staff`). Opens logged before this are not told
+  apart.
 - **The text is the owner's own.** No button sends one (owner, 2026-11-04):
   the owner texts the link from their phone, during or after a call where the
   person said yes to it, which is express consent; a cold text is a commercial

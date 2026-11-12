@@ -8,6 +8,10 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from django.utils import timezone
+from freetheplatform.auth.conf import cookie_names
+from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
+
+from core.tests.factories import UserFactory
 from core.utils.urls import site_url
 from seo.models import SeoProspect, SeoProspectOpen
 from seo.tests.factories import PDF, SeoProspectFactory, upload_fields
@@ -158,6 +162,42 @@ def test_an_open_is_logged_with_its_source_and_whether_a_person_did_it(client):
         ("text", False, "page"), ("email", True, "page"), ("", False, "page"), ("", True, "page"),
     ]
     assert opens[0].user_agent == PHONE_UA
+
+
+@pytest.mark.parametrize("cookie", ["access", "refresh"])
+def test_the_owner_signed_in_is_not_an_open(client, staff_user, cookie):
+    """The owner's own looks at a report were counted as the business's (owner, 2026-11-12). The access cookie
+    lapses in an hour; the refresh cookie still says who it is for a week."""
+    prospect = with_page()
+    access_name, refresh_name = cookie_names()
+    if cookie == "access":
+        client.cookies[access_name] = str(AccessToken.for_user(staff_user))
+    else:
+        client.cookies[refresh_name] = str(RefreshToken.for_user(staff_user))
+
+    page = client.get(reverse("seo-report-page", args=[link_key(prospect)]), HTTP_USER_AGENT=PHONE_UA)
+    pdf = client.get(reverse("seo-report-pdf", args=[link_key(prospect)]), HTTP_USER_AGENT=PHONE_UA)
+
+    assert page.status_code == 200 and pdf.status_code == 200
+    assert not SeoProspectOpen.objects.filter(prospect=prospect).exists()
+
+
+def test_a_signed_out_or_revoked_or_non_staff_browser_still_counts(client, staff_user):
+    prospect = with_page()
+    url = reverse("seo-report-page", args=[link_key(prospect)])
+    access_name, refresh_name = cookie_names()
+
+    client.cookies[access_name] = str(AccessToken.for_user(UserFactory(username="dealer@bikes.example")))
+    client.get(url, HTTP_USER_AGENT=PHONE_UA)
+    del client.cookies[access_name]
+    revoked = RefreshToken.for_user(staff_user)
+    revoked.blacklist()
+    client.cookies[refresh_name] = str(revoked)
+    client.get(url, HTTP_USER_AGENT=PHONE_UA)
+    client.cookies[refresh_name] = "not-a-token"
+    client.get(url, HTTP_USER_AGENT=PHONE_UA)
+
+    assert SeoProspectOpen.objects.filter(prospect=prospect).count() == 3
 
 
 def test_the_pdf_is_served_inline_and_logged_as_its_own_kind(client):

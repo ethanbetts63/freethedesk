@@ -8,4 +8,4 @@ Added 2026-10-26, still failing 2026-11-11. `frontend/scripts/check-forms.mjs` n
 
 ## Pull the backend on PythonAnywhere (owner)
 
-Added 2026-11-12. `cdf72bd` makes the prospects page's "Link opened" column sortable; the sort is the server's (`ordering=opens`), so until the next pull the column sorts by date added instead. The same pull drops the unused prospect summary endpoint (`7b9c02c`). No migration. Delete this once pulled and the column sorts by opens.
+Added 2026-11-12. `cdf72bd` makes the prospects page's "Link opened" column sortable; the sort is the server's (`ordering=opens`), so until the next pull the column sorts by date added instead. The same pull drops the unused prospect summary endpoint (`7b9c02c`) and stops counting the owner's own visits to a report link while signed in to the dashboard. No migration. Delete this once pulled and the column sorts by opens.
