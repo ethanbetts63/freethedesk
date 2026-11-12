@@ -1,5 +1,5 @@
 from django.db import IntegrityError, transaction
-from django.db.models import Count, Q
+from django.db.models import Q
 from django.conf import settings
 from django.http import FileResponse, Http404, HttpResponse, HttpResponseRedirect
 from django.utils import timezone
@@ -27,7 +27,7 @@ from ..utils.prospect_sending import (
     NoSubject, follow_up_refusal, follow_up_subject_for, next_body, next_follow_up_subject, next_subject,
     subject_for,
 )
-from ..utils.prospects import STATUSES, with_status
+from ..utils.prospects import with_status
 
 PROSPECT_ORDERING = {
     "created_at": ("created_at",),
@@ -449,34 +449,3 @@ class AdminSeoProspectUnsubscribeView(APIView):
             prospect.reply = SeoProspect.Reply.NEGATIVE
             prospect.save(update_fields=["reply", "updated_at"])
         return Response(AdminSeoProspectSerializer(with_status(SeoProspect.objects.all()).get(pk=pk)).data)
-
-
-class AdminSeoProspectSummaryView(APIView):
-    """Per subject, and per body: how many are queued, where the sent ones got to, replies and calls."""
-
-    throttle_scope = "staff"
-    permission_classes = [IsAdminUser]
-
-    def get(self, request):
-        return Response({
-            "subjects": self.tallies("subject_version", SeoProspect.Subject.choices),
-            "bodies": self.tallies("body_version", SeoProspect.Body.choices),
-        })
-
-    @staticmethod
-    def tallies(field, choices):
-        summary = {
-            value: {field: value, "label": label, "total": 0, "positive": 0, "called": 0, **{s: 0 for s in STATUSES}}
-            for value, label in choices
-        }
-        for row in with_status(SeoProspect.objects.all()).values(field, "status").annotate(n=Count("id")):
-            entry = summary[row[field]]
-            entry[row["status"]] = entry.get(row["status"], 0) + row["n"]
-            entry["total"] += row["n"]
-        counts = SeoProspect.objects.values(field).annotate(
-            positive=Count("id", filter=Q(reply=SeoProspect.Reply.POSITIVE)),
-            called=Count("id", filter=Q(called_at__isnull=False)),
-        )
-        for row in counts:
-            summary[row[field]].update(positive=row["positive"], called=row["called"])
-        return list(summary.values())

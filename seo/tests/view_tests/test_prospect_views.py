@@ -240,27 +240,6 @@ def test_no_thanks_suppresses_the_address(api_client, staff_user):
     assert response.json()["reply"] == "negative"
 
 
-def test_the_summary_counts_each_subject(api_client, staff_user):
-    SeoProspectFactory(subject_version=2, called_at=timezone.now(), reply="positive")
-    SeoProspectFactory(subject_version=2)
-    api_client.force_authenticate(staff_user)
-
-    subjects = {s["subject_version"]: s for s in api_client.get(reverse("admin-seo-prospect-summary")).json()["subjects"]}
-
-    assert (subjects[2]["total"], subjects[2]["queued"], subjects[2]["called"], subjects[2]["positive"]) == (2, 2, 1, 1)
-    assert subjects[1]["total"] == 0
-
-
-def test_the_summary_counts_each_body_too(api_client, staff_user):
-    SeoProspectFactory(body_version=2, reply="positive")
-    SeoProspectFactory(body_version=1)
-    api_client.force_authenticate(staff_user)
-
-    bodies = {b["body_version"]: b for b in api_client.get(reverse("admin-seo-prospect-summary")).json()["bodies"]}
-
-    assert (bodies[2]["total"], bodies[2]["positive"], bodies[1]["total"], bodies[1]["positive"]) == (1, 1, 1, 0)
-
-
 def test_staff_only(api_client):
     assert api_client.get(reverse("admin-seo-prospect-list")).status_code in (401, 403)
 

@@ -4,7 +4,6 @@ from .onboarding import SeoOnboardingView
 from .prospects import (
     AdminSeoProspectDetailView,
     AdminSeoProspectListView,
-    AdminSeoProspectSummaryView,
     AdminSeoProspectUnsubscribeView,
     SeoMessageSendView,
     SeoProspectFollowUpView,
@@ -22,7 +21,6 @@ from .subscriber import SeoAccountView
 __all__ = [
     "AdminSeoProspectDetailView",
     "AdminSeoProspectListView",
-    "AdminSeoProspectSummaryView",
     "AdminSeoProspectUnsubscribeView",
     "SeoMessageSendView",
     "SeoProspectFollowUpView",

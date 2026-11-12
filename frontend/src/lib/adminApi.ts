@@ -171,24 +171,6 @@ export interface ReportProspect {
   updated_at: string;
 }
 
-/** One subject line's tallies on the prospects page. */
-export interface ReportSubjectSummary extends Record<ReportProspectStatus, number> {
-  subject_version: number;
-  label: string;
-  total: number;
-  positive: number;
-  called: number;
-}
-
-/** One email body's tallies on the prospects page, read like the subjects'. */
-export interface ReportBodySummary extends Record<ReportProspectStatus, number> {
-  body_version: number;
-  label: string;
-  total: number;
-  positive: number;
-  called: number;
-}
-
 export type SiteSettings = PublicSiteSettings;
 
 /** What a message is about. One field for any model, rather than a pair per relation. */
@@ -397,13 +379,6 @@ export async function unsubscribeReportProspect(id: number): Promise<ReportProsp
   return handleResponse(
     await authedFetch(`/api/admin/seo/prospects/${id}/unsubscribe/`, { method: 'POST' }),
   );
-}
-
-export async function getReportProspectSummary(): Promise<{
-  subjects: ReportSubjectSummary[];
-  bodies: ReportBodySummary[];
-}> {
-  return handleResponse(await authedFetch('/api/admin/seo/prospects/summary/'));
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {

@@ -85,8 +85,8 @@ business-hours window, the message log as the status, the dashboard page.
   `call_script.md` in ftp_search, "The report email"; the server holds the
   same text in `prospect_sending`, and the two are changed together. Body 2's
   way out is the spam button, which it names twice; a 'no thanks' reply is
-  still suppressed by hand. The dashboard's summary strip shows the bodies
-  under the five subjects, and each row says which pair it got.
+  still suppressed by hand. Each dashboard row says which subject and body it
+  got.
 - **Unsubscribe by reply.** Bodies 1, 3 and 5, and so every follow-up, end
   "Reply 'no thanks' and I won't email again." (body 5 since 2026-11-04; the
   server adds it to an old stored body that lacks it). A test holds every body
@@ -165,8 +165,7 @@ pipeline on its own.
 **Dashboard** `/dashboard/admin/prospects`, "Prospects" beside Outreach: the
 calls to-do list. Not yet called first, then by sent date. Each row: business,
 overview, issues, email, phone, emailed status and date, report path, a "Mark
-called" action with notes, reply, exclude, unsubscribe. A summary strip of
-sent, replied and called per subject, and per body.
+called" action with notes, reply, exclude, unsubscribe.
 
 ## The report's link (owner, 2026-11-04)
 

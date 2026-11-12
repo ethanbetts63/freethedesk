@@ -6,16 +6,13 @@ from freetheplatform.messaging import Message
 
 from ..models import SeoProspect
 
-# Statuses a prospect can show on the dashboard, composed from the row and the
-# message log. The message statuses are messaging's own words.
-#: ``held``: uploaded for its link, waiting for the owner's approval; ``queued``: approved, waiting for the hourly
-#: send; the rest are the report email's.
-STATUSES = ["held", "queued", "sent", "delivered", "failed", "bounced", "suppressed", "excluded"]
-
 
 def with_status(queryset):
     """Annotate ``message_status`` (the latest email's), ``message_id``, the composed ``status``, and the link's
-    ``open_count`` by people (previews and crawlers left out) with ``last_opened_at``."""
+    ``open_count`` by people (previews and crawlers left out) with ``last_opened_at``.
+
+    ``status`` is ``held`` (uploaded for its link, waiting for the owner's approval), ``queued`` (approved, waiting
+    for the hourly send), ``excluded``, or the latest email's own status in the message log."""
     content_type = ContentType.objects.get_for_model(SeoProspect)
     latest = Message.objects.filter(
         content_type=content_type,

@@ -3,7 +3,6 @@ from django.urls import path
 from .views import (
     AdminSeoProspectDetailView,
     AdminSeoProspectListView,
-    AdminSeoProspectSummaryView,
     AdminSeoProspectUnsubscribeView,
     SeoMessageSendView,
     SeoProspectFollowUpView,
@@ -54,7 +53,6 @@ urlpatterns = [
     path("seo/r/<str:key>/cover.jpg/", SeoReportCoverView.as_view(), name="seo-report-cover"),
     # Staff: the calls list.
     path("admin/seo/prospects/", AdminSeoProspectListView.as_view(), name="admin-seo-prospect-list"),
-    path("admin/seo/prospects/summary/", AdminSeoProspectSummaryView.as_view(), name="admin-seo-prospect-summary"),
     path("admin/seo/prospects/<int:pk>/", AdminSeoProspectDetailView.as_view(), name="admin-seo-prospect-detail"),
     path(
         "admin/seo/prospects/<int:pk>/unsubscribe/",

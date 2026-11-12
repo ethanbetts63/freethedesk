@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback } from 'react';
 
 import {
   adminRowClassName,
@@ -29,16 +29,9 @@ import {
   statusLabel,
   statusTone,
 } from '@/components/dashboard/StatusPill';
-import {
-  formatDateTime,
-  getReportProspects,
-  getReportProspectSummary,
-  type ReportProspect,
-  type ReportBodySummary,
-  type ReportSubjectSummary,
-} from '@/lib/adminApi';
+import { formatDateTime, getReportProspects, type ReportProspect } from '@/lib/adminApi';
 import { Notice } from '@/components/ui/Notice';
-import { cardClassName, cardTitleClassName, panelClassName } from '@/components/ui/Card';
+import { panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
 
@@ -51,35 +44,6 @@ const CALLED_OPTIONS = [
   { value: 'yes', label: 'Called' },
 ];
 
-type Tallies = ReportSubjectSummary | ReportBodySummary;
-
-/** What each subject line, then each body, has done so far: the numbers the two tests are read from. */
-function SummaryCards({ rows, columns }: { rows: Tallies[]; columns: string }) {
-  return (
-    <div className={`grid gap-m ${columns}`}>
-      {rows.map((row) => (
-        <section key={row.label} className={cardClassName}>
-          <h2 className={cardTitleClassName}>{row.label}</h2>
-          <dl className="grid grid-cols-2 gap-x-m gap-y-2xs text-body-sm">
-            <dt className="text-text-subtle">Awaiting approval</dt>
-            <dd className="m-0 font-heavy">{row.held}</dd>
-            <dt className="text-text-subtle">Queued</dt>
-            <dd className="m-0 font-heavy">{row.queued}</dd>
-            <dt className="text-text-subtle">Reached</dt>
-            <dd className="m-0 font-heavy">{row.sent + row.delivered}</dd>
-            <dt className="text-text-subtle">Bounced or failed</dt>
-            <dd className="m-0 font-heavy">{row.bounced + row.failed + row.suppressed}</dd>
-            <dt className="text-text-subtle">Called</dt>
-            <dd className="m-0 font-heavy">{row.called}</dd>
-            <dt className="text-text-subtle">Positive replies</dt>
-            <dd className="m-0 font-heavy">{row.positive}</dd>
-          </dl>
-        </section>
-      ))}
-    </div>
-  );
-}
-
 function ProspectsContent() {
   const fetchPage = useCallback(
     (view: AdminListView) => getReportProspects(adminListParams(view)),
@@ -91,27 +55,6 @@ function ProspectsContent() {
     sortFields: SORT_FIELDS,
     loadError: 'Prospects could not be loaded.',
   });
-  const [subjects, setSubjects] = useState<ReportSubjectSummary[]>([]);
-  const [bodies, setBodies] = useState<ReportBodySummary[]>([]);
-  const [summaryError, setSummaryError] = useState('');
-
-  useEffect(() => {
-    let active = true;
-    getReportProspectSummary()
-      .then((result) => {
-        if (active) {
-          setSubjects(result.subjects);
-          setBodies(result.bodies);
-        }
-      })
-      .catch(() => {
-        if (active) setSummaryError('The subject totals could not be loaded.');
-      });
-    return () => {
-      active = false;
-    };
-  }, []);
-
   return (
     <div className={pageClassName}>
       <PageHeader
@@ -119,15 +62,6 @@ function ProspectsContent() {
         title="Prospects"
         subtitle="Every business sent a free report, the ones still to call first."
       />
-
-      {summaryError ? (
-        <Notice tone="danger">{summaryError}</Notice>
-      ) : (
-        <>
-          <SummaryCards rows={subjects} columns="sm:grid-cols-3 lg:grid-cols-5" />
-          <SummaryCards rows={bodies} columns="sm:grid-cols-2" />
-        </>
-      )}
 
       <section className={panelClassName}>
         <AdminFilterBar
