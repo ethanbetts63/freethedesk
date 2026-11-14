@@ -1,4 +1,4 @@
-from django.db.models import Count, Q
+from django.db.models import Q
 from freetheplatform.messaging import Suppression, suppress
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAdminUser
@@ -10,8 +10,7 @@ from core.utils.pagination import DashboardPagination
 
 from ..models import PodcastProspect
 from ..serializers.prospect import AdminProspectSerializer
-from ..utils.pitching import VERSIONS
-from ..utils.prospects import STATUSES, with_status
+from ..utils.prospects import with_status
 
 PROSPECT_ORDERING = {
     "created_at": ("created_at",),
@@ -81,33 +80,3 @@ class AdminProspectUnsubscribeView(APIView):
             prospect.save(update_fields=["reply", "updated_at"])
         prospect = with_status(PodcastProspect.objects.select_related("affiliate")).get(pk=pk)
         return Response(AdminProspectSerializer(prospect).data)
-
-
-class AdminOutreachSummaryView(APIView):
-    """Per version: how many are queued, where the sent ones got to, replies and sign-ups."""
-
-    throttle_scope = "staff"
-    permission_classes = [IsAdminUser]
-
-    def get(self, request):
-        rows = (
-            with_status(PodcastProspect.objects.all())
-            .values("version", "status")
-            .annotate(n=Count("id"))
-        )
-        replies = (
-            PodcastProspect.objects.filter(reply=PodcastProspect.Reply.POSITIVE)
-            .values("version")
-            .annotate(n=Count("id"))
-        )
-        summary = {
-            version: {"version": version, "total": 0, "positive": 0, **{status: 0 for status in STATUSES}}
-            for version in VERSIONS
-        }
-        for row in rows:
-            entry = summary[row["version"]]
-            entry[row["status"]] = entry.get(row["status"], 0) + row["n"]
-            entry["total"] += row["n"]
-        for row in replies:
-            summary[row["version"]]["positive"] = row["n"]
-        return Response({"versions": [summary[version] for version in VERSIONS]})

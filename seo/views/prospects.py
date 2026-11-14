@@ -18,7 +18,8 @@ from core.utils.pagination import DashboardPagination
 
 from ..models import SeoProspect, SeoProspectOpen
 from ..serializers.prospect import (
-    AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectHtmlSerializer, SeoProspectUploadSerializer,
+    AdminSeoProspectDetailSerializer, AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectHtmlSerializer,
+    SeoProspectUploadSerializer,
 )
 from ..utils.prospect_links import (
     CLICK_PLACES, link_key, page_document, page_headers, record_open, report_link, seo_destination, token_of,
@@ -406,7 +407,7 @@ class AdminSeoProspectListView(ListAPIView):
 class AdminSeoProspectDetailView(RetrieveUpdateAPIView):
     throttle_scope = "staff"  # Runaway-client limit; access is gated by the permission class.
     permission_classes = [IsAdminUser]
-    serializer_class = AdminSeoProspectSerializer
+    serializer_class = AdminSeoProspectDetailSerializer
     http_method_names = ["get", "patch", "head", "options"]
 
     def get_queryset(self):

@@ -91,8 +91,10 @@ business-hours window, the message log as the status, the dashboard page.
 - **Unsubscribe by reply.** Bodies 1, 3 and 5, and so every follow-up, end
   "Reply 'no thanks' and I won't email again." (body 5 since 2026-11-04; the
   server adds it to an old stored body that lacks it). A test holds every body
-  in rotation to it. A reply that asks is suppressed with the dashboard's Unsubscribe
-  action. The Spam Act requires a functional unsubscribe facility; a reply
+  in rotation to it. A reply that asks must be suppressed (the staff
+  unsubscribe endpoint); the dashboard's button for
+  it went with the prospect page's boxes (owner, 2026-11-14), so nothing calls it
+  yet: see `to_do.md`. The Spam Act requires a functional unsubscribe facility; a reply
   address is one.
 - **Plain text**, as pitches A and C: a note from one person, not a newsletter.
 - **The follow-up, a week on** (owner, 2026-11-04), **and again on the owner's word** (2026-11-11). When seven days have passed
@@ -166,8 +168,13 @@ pipeline on its own.
 **Dashboard** `/dashboard/admin/prospects`, "Prospects" beside Outreach: the
 calls to-do list. Not yet called first, then by sent date. Each row: business,
 overview, email, phone, emailed status and date, the link's opens by people
-(sortable, most first) and report path, a "Mark called" action with notes,
-reply, exclude, unsubscribe.
+(sortable, most first) and report path. A prospect's own page: who to call, the
+report (link, opens, clicks on to /seo), **every view** of it newest first
+(when, the page or a click on to /seo, where the link came from, the device
+named from the user agent with the whole of it on hover, and whether the counts
+take it: not a bot or preview, and after the email), the email and the messages
+sent. The call, reply, hold-back and unsubscribe boxes went (owner,
+2026-11-14); the PATCH and unsubscribe endpoints are still there.
 
 ## The report's link (owner, 2026-11-04)
 

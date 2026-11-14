@@ -24,7 +24,6 @@ def test_the_outreach_pages_are_staff_only(api_client):
     api_client.force_authenticate(UserFactory())
     assert api_client.get(LIST).status_code == 403
     assert api_client.get(detail(prospect)).status_code == 403
-    assert api_client.get(reverse("admin-outreach-summary")).status_code == 403
     assert api_client.post(reverse("admin-prospect-unsubscribe", args=[prospect.pk])).status_code == 403
 
 
@@ -96,20 +95,3 @@ def test_the_no_thanks_button_suppresses_and_records_a_negative_reply(api_client
     assert response.json()["reply"] == "negative"
     assert Suppression.objects.get(address="sam@thetradieshow.com.au").reason == Suppression.Reason.OPTED_OUT
     assert api_client.post(reverse("admin-prospect-unsubscribe", args=[prospect.pk + 99])).status_code == 404
-
-
-def test_the_summary_counts_each_version(api_client, staff_user, outbox):
-    ProspectFactory(version="a")
-    sent = ProspectFactory(version="a", pitched_at=timezone.now(), reply="positive")
-    send_pitch(sent)
-    ProspectFactory(version="b", affiliate=AffiliateFactory())
-    api_client.force_authenticate(staff_user)
-
-    versions = {row["version"]: row for row in api_client.get(reverse("admin-outreach-summary")).json()["versions"]}
-
-    assert versions["a"]["total"] == 2
-    assert versions["a"]["queued"] == 1
-    assert versions["a"]["sent"] == 1
-    assert versions["a"]["positive"] == 1
-    assert versions["b"] == {**versions["b"], "total": 1, "signed_up": 1, "positive": 0}
-    assert versions["c"]["total"] == 0

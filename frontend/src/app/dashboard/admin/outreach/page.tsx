@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback } from 'react';
 
 import {
   adminRowClassName,
@@ -29,15 +29,9 @@ import {
   statusLabel,
   statusTone,
 } from '@/components/dashboard/StatusPill';
-import {
-  formatDateTime,
-  getOutreachSummary,
-  getProspects,
-  type OutreachVersionSummary,
-  type Prospect,
-} from '@/lib/adminApi';
+import { formatDateTime, getProspects, type Prospect } from '@/lib/adminApi';
 import { Notice } from '@/components/ui/Notice';
-import { cardClassName, cardTitleClassName, panelClassName } from '@/components/ui/Card';
+import { panelClassName } from '@/components/ui/Card';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
 
@@ -64,34 +58,6 @@ const RELEVANCE_OPTIONS = [
   { value: 'low', label: 'Low relevance' },
 ];
 
-/** What each version has done so far: the numbers the A/B/C test is read from. */
-function VersionSummary({ versions }: { versions: OutreachVersionSummary[] }) {
-  return (
-    <div className="grid gap-m sm:grid-cols-3">
-      {versions.map((row) => {
-        const reached = row.sent + row.delivered;
-        return (
-          <section key={row.version} className={cardClassName}>
-            <h2 className={cardTitleClassName}>Version {row.version.toUpperCase()}</h2>
-            <dl className="grid grid-cols-2 gap-x-m gap-y-2xs text-body-sm">
-              <dt className="text-text-subtle">Queued</dt>
-              <dd className="m-0 font-heavy">{row.queued}</dd>
-              <dt className="text-text-subtle">Reached</dt>
-              <dd className="m-0 font-heavy">{reached}</dd>
-              <dt className="text-text-subtle">Bounced or failed</dt>
-              <dd className="m-0 font-heavy">{row.bounced + row.failed + row.suppressed}</dd>
-              <dt className="text-text-subtle">Positive replies</dt>
-              <dd className="m-0 font-heavy">{row.positive}</dd>
-              <dt className="text-text-subtle">Signed up</dt>
-              <dd className="m-0 font-heavy">{row.signed_up}</dd>
-            </dl>
-          </section>
-        );
-      })}
-    </div>
-  );
-}
-
 function OutreachContent() {
   const fetchPage = useCallback((view: AdminListView) => getProspects(adminListParams(view)), []);
   const list = useAdminList<Prospect>({
@@ -100,23 +66,6 @@ function OutreachContent() {
     sortFields: SORT_FIELDS,
     loadError: 'Prospects could not be loaded.',
   });
-  const [versions, setVersions] = useState<OutreachVersionSummary[]>([]);
-  const [summaryError, setSummaryError] = useState('');
-
-  useEffect(() => {
-    let active = true;
-    getOutreachSummary()
-      .then((result) => {
-        if (active) setVersions(result.versions);
-      })
-      .catch(() => {
-        if (active) setSummaryError('The version totals could not be loaded.');
-      });
-    return () => {
-      active = false;
-    };
-  }, []);
-
   return (
     <div className={pageClassName}>
       <PageHeader
@@ -124,12 +73,6 @@ function OutreachContent() {
         title="Outreach"
         subtitle="Every podcast host the hourly pitch has been, or will be, sent to."
       />
-
-      {summaryError ? (
-        <Notice tone="danger">{summaryError}</Notice>
-      ) : (
-        <VersionSummary versions={versions} />
-      )}
 
       <section className={panelClassName}>
         <AdminFilterBar

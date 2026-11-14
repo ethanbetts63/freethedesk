@@ -108,13 +108,6 @@ export interface Prospect {
   updated_at: string;
 }
 
-/** One pitch version's tallies on the outreach page. */
-export interface OutreachVersionSummary extends Record<ProspectStatus, number> {
-  version: PitchVersion;
-  total: number;
-  positive: number;
-}
-
 /**
  * A business sent a free prospect SEO report, and the call that follows: the
  * calls list. See _docs/seo-prospect-outreach.md.
@@ -169,6 +162,27 @@ export interface ReportProspect {
   excluded_reason: string;
   created_at: string;
   updated_at: string;
+}
+
+/** One logged view of a prospect report: the page opened, or a click from it on to /seo. */
+export interface ProspectView {
+  id: number;
+  at: string;
+  kind: 'page' | 'pdf' | 'seo';
+  kind_label: string;
+  /** Where the link came from (email, follow-up, text, dashboard), or for a click where on the page it was. */
+  source: string;
+  /** The user agent in a few words: "iPhone · Safari", "WhatsApp preview". */
+  device: string;
+  user_agent: string;
+  likely_bot: boolean;
+  /** Why the counts leave it out ("a bot or preview", "before the email"), or empty when they take it. */
+  not_counted: string;
+}
+
+/** A prospect's own page: the row and every view of its report, newest first. */
+export interface ReportProspectDetail extends ReportProspect {
+  views: ProspectView[];
 }
 
 export type SiteSettings = PublicSiteSettings;
@@ -348,37 +362,14 @@ export async function unsubscribeProspect(id: number): Promise<Prospect> {
   );
 }
 
-export async function getOutreachSummary(): Promise<{ versions: OutreachVersionSummary[] }> {
-  return handleResponse(await authedFetch('/api/admin/outreach/summary/'));
-}
-
 export async function getReportProspects(
   params: Record<string, string | number | undefined>,
 ): Promise<Paginated<ReportProspect>> {
   return handleResponse(await authedFetch(`/api/admin/seo/prospects/${queryString(params)}`));
 }
 
-export async function getReportProspect(id: number): Promise<ReportProspect> {
+export async function getReportProspect(id: number): Promise<ReportProspectDetail> {
   return handleResponse(await authedFetch(`/api/admin/seo/prospects/${id}/`));
-}
-
-export async function updateReportProspect(
-  id: number,
-  changes: Partial<Pick<ReportProspect, 'called_at' | 'call_notes' | 'reply' | 'excluded_reason'>>,
-): Promise<ReportProspect> {
-  return handleResponse(
-    await authedFetch(`/api/admin/seo/prospects/${id}/`, {
-      method: 'PATCH',
-      body: JSON.stringify(changes),
-    }),
-  );
-}
-
-/** A "no thanks" reply: the address goes on the suppression list. */
-export async function unsubscribeReportProspect(id: number): Promise<ReportProspect> {
-  return handleResponse(
-    await authedFetch(`/api/admin/seo/prospects/${id}/unsubscribe/`, { method: 'POST' }),
-  );
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {

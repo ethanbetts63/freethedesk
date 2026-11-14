@@ -2,7 +2,6 @@ from django.urls import path
 
 from .views.prospect_upload import UploadProspectsView
 from .views.prospects import (
-    AdminOutreachSummaryView,
     AdminProspectDetailView,
     AdminProspectListView,
     AdminProspectUnsubscribeView,
@@ -24,5 +23,4 @@ urlpatterns = [
         AdminProspectUnsubscribeView.as_view(),
         name="admin-prospect-unsubscribe",
     ),
-    path("admin/outreach/summary/", AdminOutreachSummaryView.as_view(), name="admin-outreach-summary"),
 ]

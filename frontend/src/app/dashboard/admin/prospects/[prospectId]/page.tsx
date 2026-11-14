@@ -10,18 +10,16 @@ import {
   RelatedMessagesCard,
 } from '@/components/dashboard/AccountDetail';
 import { StatusPill } from '@/components/dashboard/StatusPill';
+import { adminTdClassName, adminThClassName } from '@/components/dashboard/AdminList';
 import {
   REPORT_PROSPECT_TYPE,
   formatDateTime,
   getMessages,
   getReportProspect,
-  unsubscribeReportProspect,
-  updateReportProspect,
   type AdminMessage,
-  type ProspectReply,
-  type ReportProspect,
+  type ProspectView,
+  type ReportProspectDetail,
 } from '@/lib/adminApi';
-import { Button } from '@/components/ui/Button';
 import { Notice } from '@/components/ui/Notice';
 import {
   cardClassName,
@@ -30,29 +28,80 @@ import {
   cardWideClassName,
   detailGridClassName,
 } from '@/components/ui/Card';
-import { formControlClassName } from '@/components/ui/formControl';
 import { backClassName, pageClassName } from '@/components/ui/layout';
 import { cn } from '@/lib/utils';
 
-const REPLY_CHOICES: { value: ProspectReply; label: string }[] = [
-  { value: 'positive', label: 'Positive' },
-  { value: 'negative', label: 'Negative' },
-  { value: 'none', label: 'No reply' },
-];
+/** Where a view came from: the link's `?s=`, or for a click on to /seo, where on the page it was. */
+const SOURCE_LABELS: Record<string, string> = {
+  email: 'Report email',
+  'follow-up': 'Follow-up email',
+  text: 'Text',
+  dashboard: 'Dashboard copy',
+  bar: 'Strip at the top',
+  report: "The report's own link",
+  ask: 'Ask band at the bottom',
+};
+
+/** Every logged view of the report, newest first, each saying whether the counts take it. */
+function ViewsCard({ views }: { views: ProspectView[] }) {
+  return (
+    <section className={cn(cardClassName, cardWideClassName)}>
+      <h2 className={cardTitleClassName}>Every view</h2>
+      <p className="mb-s text-body-sm text-text-muted">
+        Only views after the email went, by people, are counted above. Your own views while signed
+        in are never logged.
+      </p>
+      {views.length ? (
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[720px] border-collapse">
+            <thead>
+              <tr>
+                <th className={adminThClassName}>When</th>
+                <th className={adminThClassName}>What</th>
+                <th className={adminThClassName}>From</th>
+                <th className={adminThClassName}>Device</th>
+                <th className={adminThClassName}>Counted</th>
+              </tr>
+            </thead>
+            <tbody>
+              {views.map((view) => (
+                <tr key={view.id} className={view.not_counted ? 'opacity-60' : undefined}>
+                  <td className={cn(adminTdClassName, 'whitespace-nowrap')}>
+                    {formatDateTime(view.at)}
+                  </td>
+                  <td className={adminTdClassName}>
+                    {view.kind === 'seo' ? 'Clicked on to /seo' : view.kind_label}
+                  </td>
+                  <td className={adminTdClassName}>
+                    {SOURCE_LABELS[view.source] ?? (view.source || 'No tag')}
+                  </td>
+                  <td className={adminTdClassName} title={view.user_agent || undefined}>
+                    {view.device}
+                  </td>
+                  <td className={adminTdClassName}>
+                    {view.not_counted ? `No: ${view.not_counted}` : 'Yes'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="text-label text-text-subtle">No views logged yet.</p>
+      )}
+    </section>
+  );
+}
 
 /**
- * One business sent a prospect report: who to call, what the report found, the
- * email exactly as it goes out, and the call. The call, its notes and any reply
- * are recorded here by hand, because they happen on the phone and in the inbox.
+ * One business sent a prospect report: who to call, the report and every view
+ * of it, and the email exactly as it goes out.
  */
 export default function ReportProspectDetailPage() {
   const id = Number(useParams<{ prospectId: string }>().prospectId);
-  const [prospect, setProspect] = useState<ReportProspect | null>(null);
+  const [prospect, setProspect] = useState<ReportProspectDetail | null>(null);
   const [messages, setMessages] = useState<AdminMessage[]>([]);
-  const [callNotes, setCallNotes] = useState('');
-  const [excludedReason, setExcludedReason] = useState('');
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
 
@@ -65,8 +114,6 @@ export default function ReportProspectDetailPage() {
       .then(([result, messagePage]) => {
         if (!active) return;
         setProspect(result);
-        setCallNotes(result.call_notes);
-        setExcludedReason(result.excluded_reason);
         setMessages(messagePage.results);
       })
       .catch((reason) => {
@@ -90,34 +137,6 @@ export default function ReportProspectDetailPage() {
     });
     return `/dashboard/admin/messages/compose?${params}`;
   }, [prospect]);
-
-  async function apply(work: () => Promise<ReportProspect>, message: string) {
-    setSaving(true);
-    setError('');
-    setNotice('');
-    try {
-      const next = await work();
-      setProspect(next);
-      setCallNotes(next.call_notes);
-      setExcludedReason(next.excluded_reason);
-      setNotice(message);
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'The prospect could not be updated.');
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  function unsubscribe() {
-    if (!prospect) return;
-    if (
-      !confirm(
-        `Put ${prospect.email} on the suppression list? Nothing will be sent to it again, from any part of the site.`,
-      )
-    )
-      return;
-    void apply(() => unsubscribeReportProspect(prospect.id), 'Address suppressed.');
-  }
 
   async function copyPath() {
     if (!prospect) return;
@@ -207,65 +226,6 @@ export default function ReportProspectDetailPage() {
           ]}
         />
 
-        <section className={cardClassName}>
-          <h2 className={cardTitleClassName}>The call</h2>
-          <p className="mb-s text-body-sm">
-            {prospect.called_at
-              ? `Called ${formatDateTime(prospect.called_at)}.`
-              : 'Not called yet.'}
-          </p>
-          <div className="mb-m flex flex-wrap gap-xs">
-            <Button
-              variant="primary"
-              disabled={saving}
-              onClick={() =>
-                apply(
-                  () => updateReportProspect(prospect.id, { called_at: new Date().toISOString() }),
-                  'Marked called.',
-                )
-              }
-            >
-              {prospect.called_at ? 'Called again now' : 'Mark called'}
-            </Button>
-            {prospect.called_at && (
-              <Button
-                variant="quiet"
-                disabled={saving}
-                onClick={() =>
-                  apply(
-                    () => updateReportProspect(prospect.id, { called_at: null }),
-                    'Back on the list to call.',
-                  )
-                }
-              >
-                Not called
-              </Button>
-            )}
-          </div>
-          <textarea
-            className={cn(formControlClassName, 'min-h-[6rem] p-s')}
-            value={callNotes}
-            maxLength={2000}
-            onChange={(event) => setCallNotes(event.target.value)}
-            aria-label="Notes from the call"
-            placeholder="What was said, and what happens next."
-          />
-          <div className="mt-s">
-            <Button
-              variant="secondary"
-              disabled={saving || callNotes === prospect.call_notes}
-              onClick={() =>
-                apply(
-                  () => updateReportProspect(prospect.id, { call_notes: callNotes.trim() }),
-                  'Notes saved.',
-                )
-              }
-            >
-              Save notes
-            </Button>
-          </div>
-        </section>
-
         <DetailCard
           title="Report"
           rows={[
@@ -313,74 +273,7 @@ export default function ReportProspectDetailPage() {
           ]}
         />
 
-        <section className={cardClassName}>
-          <h2 className={cardTitleClassName}>What the report found</h2>
-          <ul className="m-0 grid gap-2xs pl-m text-body-sm">
-            {prospect.issues.map((issue) => (
-              <li key={issue}>{issue}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section className={cardClassName}>
-          <h2 className={cardTitleClassName}>Record the reply</h2>
-          <p className="mb-s text-body-sm text-text-muted">
-            Replies arrive in the inbox. Mark them here so the five subject lines can be compared.
-          </p>
-          <div className="flex flex-wrap gap-xs">
-            {REPLY_CHOICES.map((choice) => (
-              <Button
-                key={choice.value}
-                variant={prospect.reply === choice.value ? 'primary' : 'secondary'}
-                disabled={saving || prospect.reply === choice.value}
-                onClick={() =>
-                  apply(
-                    () => updateReportProspect(prospect.id, { reply: choice.value }),
-                    `Reply recorded as ${choice.label.toLowerCase()}.`,
-                  )
-                }
-              >
-                {choice.label}
-              </Button>
-            ))}
-          </div>
-          <p className="mt-m mb-xs text-body-sm text-text-muted">
-            The email asks for a &ldquo;no thanks&rdquo; reply instead of a link, so suppress the
-            address here when one comes.
-          </p>
-          <Button variant="quiet" disabled={saving} onClick={unsubscribe}>
-            Unsubscribe this address
-          </Button>
-        </section>
-
-        <section className={cardClassName}>
-          <h2 className={cardTitleClassName}>Hold back</h2>
-          <p className="mb-s text-body-sm text-text-muted">
-            A reason here keeps the email from going. Clear it to put it back in the queue.
-          </p>
-          <textarea
-            className={cn(formControlClassName, 'min-h-[5rem] p-s')}
-            value={excludedReason}
-            maxLength={2000}
-            onChange={(event) => setExcludedReason(event.target.value)}
-            aria-label="Reason for holding this email back"
-          />
-          <div className="mt-s">
-            <Button
-              variant="secondary"
-              disabled={saving || excludedReason === prospect.excluded_reason}
-              onClick={() =>
-                apply(
-                  () =>
-                    updateReportProspect(prospect.id, { excluded_reason: excludedReason.trim() }),
-                  excludedReason.trim() ? 'Held back.' : 'Back in the queue.',
-                )
-              }
-            >
-              Save
-            </Button>
-          </div>
-        </section>
+        <ViewsCard views={prospect.views} />
 
         <section className={cn(cardClassName, cardWideClassName)}>
           <h2 className={cardTitleClassName}>The email</h2>

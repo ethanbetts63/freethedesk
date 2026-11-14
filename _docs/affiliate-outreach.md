@@ -235,10 +235,9 @@ use.
 | GET    | `/api/outreach/admin/prospects/<pk>/`             | One prospect with its messages (`related_type`, `related_id` on the messaging log) |
 | PATCH  | `/api/outreach/admin/prospects/<pk>/`             | `reply`, `excluded_reason` only                                                    |
 | POST   | `/api/outreach/admin/prospects/<pk>/unsubscribe/` | Suppresses the address, for the "no thanks" replies                                |
-| GET    | `/api/outreach/admin/summary/`                    | Per version: queued, sent, delivered, bounced, replied positive, signed up         |
 
-**Page**: a summary strip of the three versions at the top (sent, positive
-replies, sign-ups), then the table: podcast, host, email, version, status pill,
+**Page**: the table (the per-version summary strip above it went, owner,
+2026-11-14): podcast, host, email, version, status pill,
 sent at, reply. Row actions: mark reply positive or negative, exclude,
 unsubscribe. The detail page shows the episode the opener was written from, the
 opener, and the messages sent, linking into `/dashboard/admin/messages/<id>`.
@@ -272,7 +271,7 @@ Into `to_do.md` as they arise. Known now:
 - Unsubscribe: GET validates without suppressing, POST suppresses, a bad token
   is 400, the address is never echoed.
 - Sign-up linking: a matching affiliate sets `affiliate`; a non-matching one does not.
-- Admin API: filters, the PATCH whitelist, the summary counts.
+- Admin API: filters, the PATCH whitelist.
 
 ## Running it
 

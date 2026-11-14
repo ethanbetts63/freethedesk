@@ -46,6 +46,33 @@ LIKELY_BOT = re.compile(
     re.IGNORECASE,
 )
 
+# What a user agent names, for the dashboard's list of views: the first match of each list wins.
+_PREVIEWS = (("whatsapp", "WhatsApp preview"), ("facebookexternalhit|facebot", "Facebook/Messenger preview"),
+             ("slack", "Slack preview"), ("telegram", "Telegram preview"), ("discord", "Discord preview"),
+             ("skype", "Skype preview"), ("googlebot|google-inspectiontool", "Google crawler"),
+             ("bingbot", "Bing crawler"), ("headless|lighthouse", "Automated browser"))
+_SYSTEMS = (("iphone", "iPhone"), ("ipad", "iPad"), ("android", "Android"), ("cros", "Chromebook"),
+            ("windows", "Windows"), ("macintosh|mac os x", "Mac"), ("linux", "Linux"))
+_BROWSERS = (("fban|fbav|fb_iab", "Facebook app"), ("instagram", "Instagram app"), ("linkedinapp", "LinkedIn app"),
+             ("gsa/", "Google app"), ("outlook", "Outlook"), ("edgios|edga|edg/", "Edge"),
+             ("samsungbrowser", "Samsung Internet"), ("opr/|opera", "Opera"), ("fxios|firefox", "Firefox"),
+             ("crios|chrome", "Chrome"), ("safari", "Safari"))
+
+
+def device_of(user_agent: str, likely_bot: bool) -> str:
+    """A view's user agent in a few words: "iPhone · Safari", "WhatsApp preview", "Bot or preview"."""
+    if not user_agent:
+        return "No user agent"
+    ua = user_agent.lower()
+    for pattern, name in _PREVIEWS:
+        if re.search(pattern, ua):
+            return name
+    if likely_bot:
+        return "Bot or preview"
+    system = next((name for pattern, name in _SYSTEMS if re.search(pattern, ua)), "")
+    browser = next((name for pattern, name in _BROWSERS if re.search(pattern, ua)), "")
+    return " · ".join(part for part in (system, browser) if part) or "Unknown"
+
 
 #: The most of the business's name the address carries, so a long trading name does not swallow the token.
 NAME_LENGTH = 60

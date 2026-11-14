@@ -15,7 +15,7 @@ from core.tests.factories import UserFactory
 from core.utils.urls import site_url
 from seo.models import SeoProspect, SeoProspectOpen
 from seo.tests.factories import SeoProspectFactory, upload_fields
-from seo.utils.prospect_links import cover_link, link_key, report_link
+from seo.utils.prospect_links import cover_link, device_of, link_key, report_link
 from seo.utils.prospect_sending import body_for, follow_up_body
 
 pytestmark = pytest.mark.django_db
@@ -366,6 +366,44 @@ def test_only_opens_and_clicks_after_the_email_went_are_counted(api_client, staf
     prospect.save(update_fields=["sent_at"])
     row = api_client.get(reverse("admin-seo-prospect-detail", args=[prospect.pk])).json()
     assert row["opens"] == 0 and row["last_opened_at"] is None
+
+
+def test_the_prospect_page_lists_every_view_with_what_is_known_of_it(api_client, staff_user, client):
+    """The owner reads each view, previews and the ones before the send too, with why a view is not counted."""
+    went = timezone.now() - timedelta(hours=1)
+    prospect = with_page(sent_at=went)
+    page = reverse("seo-report-page", args=[link_key(prospect)])
+    client.get(page + "?s=email", HTTP_USER_AGENT=PHONE_UA)
+    client.get(page + "?s=text", HTTP_USER_AGENT="WhatsApp/2.23.20.0 A")
+    client.get(reverse("seo-report-seo", args=[link_key(prospect)]) + "?from=ask", HTTP_USER_AGENT=PHONE_UA)
+    early = SeoProspectOpen.objects.create(prospect=prospect, source="dashboard", user_agent=PHONE_UA)
+    SeoProspectOpen.objects.filter(pk=early.pk).update(opened_at=went - timedelta(days=1))
+    api_client.force_authenticate(staff_user)
+
+    views = api_client.get(reverse("admin-seo-prospect-detail", args=[prospect.pk])).json()["views"]
+
+    assert [(v["kind"], v["source"], v["not_counted"]) for v in views] == [
+        ("seo", "ask", ""), ("page", "text", "a bot or preview"), ("page", "email", ""),
+        ("page", "dashboard", "before the email"),
+    ]
+    assert views[1]["device"] == "WhatsApp preview" and views[0]["device"] == device_of(PHONE_UA, False)
+    assert views[0]["user_agent"] == PHONE_UA
+    # The calls list carries the counts, not the views.
+    assert "views" not in api_client.get(reverse("admin-seo-prospect-list")).json()["results"][0]
+
+
+@pytest.mark.parametrize(("user_agent", "device"), [
+    ("Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) "
+     "Version/17.5 Mobile/15E148 Safari/604.1", "iPhone · Safari"),
+    ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36 "
+     "Edg/130.0", "Windows · Edge"),
+    ("Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Mobile Safari/537.36",
+     "Android · Chrome"),
+    ("facebookexternalhit/1.1", "Facebook/Messenger preview"),
+    ("", "No user agent"),
+])
+def test_a_user_agent_is_named_in_a_few_words(user_agent, device):
+    assert device_of(user_agent, False) == device
 
 
 # -- clicks on to the SEO page ------------------------------------------------

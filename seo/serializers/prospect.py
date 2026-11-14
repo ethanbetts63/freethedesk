@@ -2,7 +2,7 @@ from freetheplatform.security import bounds
 from rest_framework import serializers
 
 from ..models import SeoProspect
-from ..utils.prospect_links import report_link
+from ..utils.prospect_links import device_of, report_link
 from ..utils.prospect_sending import body_for, subject_for
 
 # A prospect report's page runs to about 2 MB, its pictures inlined.
@@ -186,3 +186,34 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
     def get_email_body(self, obj) -> str:
         """The body as it goes, or went, composed from the row."""
         return body_for(obj)
+
+
+class AdminSeoProspectDetailSerializer(AdminSeoProspectSerializer):
+    """A prospect's own page: the row, and every view of the report with what is known of it (owner, 2026-11-14).
+    Every logged view is listed, previews and the ones before the email went included, each saying whether the
+    counts take it; the owner's own looks, signed in, were never logged."""
+
+    views = serializers.SerializerMethodField()
+
+    class Meta(AdminSeoProspectSerializer.Meta):
+        fields = [*AdminSeoProspectSerializer.Meta.fields, "views"]
+        read_only_fields = [*AdminSeoProspectSerializer.Meta.read_only_fields, "views"]
+
+    def get_views(self, obj) -> list[dict]:
+        sent = obj.sent_at
+        return [
+            {
+                "id": view.id,
+                "at": view.opened_at,
+                "kind": view.kind,
+                "kind_label": view.get_kind_display(),
+                "source": view.source,
+                "device": device_of(view.user_agent, view.likely_bot),
+                "user_agent": view.user_agent,
+                "likely_bot": view.likely_bot,
+                # Why the counts leave it out, or "" when they take it (``with_status``).
+                "not_counted": ("a bot or preview" if view.likely_bot else
+                                "before the email" if sent is None or view.opened_at < sent else ""),
+            }
+            for view in obj.opens.order_by("-opened_at", "-id")
+        ]
