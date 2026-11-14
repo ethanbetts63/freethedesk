@@ -11,6 +11,7 @@ from .views import (
     SeoProspectUploadView,
     SeoReportCoverView,
     SeoReportPageView,
+    SeoReportSeoView,
     AdminSeoSetupStepView,
     AdminSeoSubscriberDetailView,
     AdminSeoSubscriberListView,
@@ -47,6 +48,8 @@ urlpatterns = [
     # The report's link, which the site serves at /reports/<business>-<token>: the page. No sign-in; the
     # token at the end is the key (``prospect_links.link_key``).
     path("seo/r/<str:key>/", SeoReportPageView.as_view(), name="seo-report-page"),
+    # A click from the report on to the SEO page: logged, then sent on with the campaign tags.
+    path("seo/r/<str:key>/seo/", SeoReportSeoView.as_view(), name="seo-report-seo"),
     # The link's preview picture (the page's og:image), fetched by chat and text apps apart from the page.
     path("seo/r/<str:key>/cover.jpg/", SeoReportCoverView.as_view(), name="seo-report-cover"),
     # Staff: the calls list.

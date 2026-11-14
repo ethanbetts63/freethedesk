@@ -4,7 +4,9 @@ from .prospect import SeoProspect
 
 
 class SeoProspectOpen(models.Model):
-    """One open of a prospect report's link (``/reports/<business>-<token>``): when, where the link came from
+    """One open of a prospect report's link, or one click from the report on to the SEO page (``kind`` ``seo``,
+    with where on the page it was in ``source``: the strip, the report's own links or the ask under it; owner,
+    2026-11-14). One open of a prospect report's link (``/reports/<business>-<token>``): when, where the link came from
     (the report email, the follow-up, a text, the dashboard) and whether it looks like a person or a link preview.
     The first engagement signal the outreach has (owner, 2026-11-04). No address is kept: the user agent alone
     says whether it was a preview fetch, which is all the dashboard needs to count people apart from bots."""
@@ -14,11 +16,14 @@ class SeoProspectOpen(models.Model):
         # The PDF behind the page's link, until prospect reports stopped having one (owner, 2026-11-12); kept for
         # the opens recorded before.
         PDF = "pdf", "The PDF"
+        # A click from the report on to the SEO page, through ``/reports/<key>/seo``.
+        SEO = "seo", "On to the SEO page"
 
     prospect = models.ForeignKey(SeoProspect, on_delete=models.CASCADE, related_name="opens")
     opened_at = models.DateTimeField(auto_now_add=True, db_index=True)
     kind = models.CharField(max_length=8, choices=Kind.choices, default=Kind.PAGE)
-    # ``?s=`` on the link: email, follow-up, text, dashboard; blank when the link carried none.
+    # ``?s=`` on the link: email, follow-up, text, dashboard; blank when the link carried none. For a click on to the
+    # SEO page, where it was: bar, report or ask.
     source = models.CharField(max_length=20, blank=True)
     user_agent = models.CharField(max_length=300, blank=True)
     # A crawler, a messaging app's link preview, or no user agent at all.

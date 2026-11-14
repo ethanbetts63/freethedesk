@@ -126,6 +126,8 @@ const nextConfig: NextConfig = {
       // from nowhere (_docs/seo-prospect-outreach.md, "The report's link").
       // The link's preview picture (the page's og:image), which chat and text apps fetch apart from the page.
       { source: '/reports/:key/cover.jpg', destination: `${apiUrl}/api/seo/r/:key/cover.jpg/` },
+      // A click from the report on to the SEO page: logged against the prospect, then sent on with campaign tags.
+      { source: '/reports/:key/seo', destination: `${apiUrl}/api/seo/r/:key/seo/` },
       { source: '/reports/:key', destination: `${apiUrl}/api/seo/r/:key/` },
     ];
   },

@@ -296,6 +296,12 @@ export default function ReportProspectDetailPage() {
                 : 'Not yet',
             ],
             [
+              'On to /seo',
+              prospect.seo_clicks
+                ? `${prospect.seo_clicks} ${prospect.seo_clicks === 1 ? 'click' : 'clicks'}`
+                : 'Not yet',
+            ],
+            [
               'Path',
               <span key="path" className="break-all">
                 {prospect.report_path}{' '}

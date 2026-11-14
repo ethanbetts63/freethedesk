@@ -31,6 +31,13 @@ from ..models import SeoProspect, SeoProspectOpen
 #: dashboard's own copy. Anything else is recorded as nothing.
 SOURCES = ("email", "follow-up", "text", "dashboard")
 
+#: Where on the page a click on to the SEO page was: the strip over the report, the report's own links (the ask
+#: card and the locked cards' "Purchase here"), or the ask band under it.
+CLICK_PLACES = ("bar", "report", "ask")
+
+#: Every link to the SEO page in a report as uploaded, however it was spelt.
+SEO_PAGE = re.compile(r'href="https?://(?:www\.)?freethedesk\.com\.au/seo/?(?:[?#][^"]*)?"')
+
 #: A user agent that is a link preview or a crawler, not a person: a text message's preview fetch (iMessage,
 #: WhatsApp, Facebook Messenger), a mail client's link scanner, or a monitor. Counted apart on the dashboard.
 LIKELY_BOT = re.compile(
@@ -61,6 +68,19 @@ def report_link(prospect: SeoProspect, source: str = "") -> str:
     """The page's address, with ``?s=<source>`` when the link is placed somewhere the opens should name."""
     base = f"{site_url()}/reports/{link_key(prospect)}"
     return f"{base}?s={source}" if source else base
+
+
+def seo_link(prospect: SeoProspect, place: str) -> str:
+    """The SEO page's address as the report page links it: through ``/reports/<key>/seo``, which logs the click
+    against the prospect and sends the reader on (``SeoReportSeoView``)."""
+    return f"{site_url()}/reports/{link_key(prospect)}/seo?from={place}"
+
+
+def seo_destination(prospect: SeoProspect, place: str) -> str:
+    """Where a click lands: the SEO page, tagged so Google Analytics names the campaign, the prospect and the place.
+    The report page sends no referrer, so without the tags the visit reads as typed in."""
+    return (f"{site_url()}/seo?utm_source=prospect-report&utm_medium=report"
+            f"&utm_campaign={prospect.slug}&utm_content={place}")
 
 
 def cover_link(prospect: SeoProspect) -> str:
@@ -122,19 +142,22 @@ def signed_in_staff(request) -> bool:
     return False
 
 
-def record_open(prospect: SeoProspect, request, kind: str = SeoProspectOpen.Kind.PAGE) -> SeoProspectOpen | None:
+def record_open(prospect: SeoProspect, request, kind: str = SeoProspectOpen.Kind.PAGE,
+                source: str | None = None) -> SeoProspectOpen | None:
     """One row per open: when, which file, where the link came from, and whether a person or a preview did it.
 
     The owner's own looks are not opens: none is logged while the browser is signed in as staff (owner, 2026-11-12).
     The sign-in is the test, not the address, which a VPN changes."""
     if signed_in_staff(request):
         return None
-    source = request.GET.get("s", "")[:20]
+    if source is None:
+        source = request.GET.get("s", "")[:20]
+        source = source if source in SOURCES else ""
     user_agent = request.META.get("HTTP_USER_AGENT", "")[:300]
     return SeoProspectOpen.objects.create(
         prospect=prospect,
         kind=kind,
-        source=source if source in SOURCES else "",
+        source=source,
         user_agent=user_agent,
         likely_bot=not user_agent or bool(LIKELY_BOT.search(user_agent)),
     )
@@ -266,11 +289,13 @@ def site_footer() -> str:
 
 def page_document(prospect: SeoProspect, document: str) -> str:
     """The report's HTML with the robots meta and the link-preview tags in its head, the site's strip over it, the
-    ask under it and the site's footer last."""
+    ask under it and the site's footer last. Every link to the SEO page, the report's own and the site's, goes
+    through ``seo_link``, so a click is logged; a report already uploaded is tracked as it is served."""
+    document = SEO_PAGE.sub(f'href="{seo_link(prospect, "report")}"', document)
     document = document.replace("<head>", f"<head>\n{ROBOTS}\n{preview_tags(prospect)}\n{_STYLE}", 1)
-    document = document.replace("<body>", "<body>\n" + _BAR, 1)
+    document = document.replace("<body>", "<body>\n" + SEO_PAGE.sub(f'href="{seo_link(prospect, "bar")}"', _BAR), 1)
     foot = document.rfind("</body>")
-    tail = _ASK + "\n" + site_footer() + "\n"
+    tail = SEO_PAGE.sub(f'href="{seo_link(prospect, "ask")}"', _ASK) + "\n" + site_footer() + "\n"
     return document[:foot] + tail + document[foot:] if foot >= 0 else document + tail
 
 

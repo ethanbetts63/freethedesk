@@ -145,6 +145,8 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
     report_link = serializers.SerializerMethodField()
     opens = serializers.IntegerField(source="open_count", read_only=True, default=0)
     last_opened_at = serializers.DateTimeField(read_only=True, default=None)
+    # Clicks from the report on to the SEO page, by people.
+    seo_clicks = serializers.IntegerField(source="seo_click_count", read_only=True, default=0)
 
     class Meta:
         model = SeoProspect
@@ -155,7 +157,7 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
             "body_version", "body_label", "metric", "body", "email_body",
             "approved_at", "sent_at", "status", "message_id", "follow_up_queued_at", "followed_up_at",
             "follow_up_subject_version", "follow_up_body_version",
-            "report_link", "opens", "last_opened_at",
+            "report_link", "opens", "last_opened_at", "seo_clicks",
             "called_at", "call_notes", "reply", "reply_label",
             "excluded_reason", "created_at", "updated_at",
         ]
@@ -166,7 +168,7 @@ class AdminSeoProspectSerializer(serializers.ModelSerializer):
             "body_version", "body_label", "metric", "body", "email_body",
             "approved_at", "sent_at", "status", "message_id", "follow_up_queued_at", "followed_up_at",
             "follow_up_subject_version", "follow_up_body_version", "reply_label",
-            "report_link", "opens", "last_opened_at",
+            "report_link", "opens", "last_opened_at", "seo_clicks",
             "created_at", "updated_at",
         ]
         # TextField columns, which DRF maps to a CharField with no maximum.

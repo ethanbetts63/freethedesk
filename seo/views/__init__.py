@@ -10,6 +10,7 @@ from .prospects import (
     SeoProspectApproveView,
     SeoProspectHtmlView,
     SeoReportPageView,
+    SeoReportSeoView,
     SeoReportCoverView,
     SeoProspectUploadView,
 )
@@ -26,6 +27,7 @@ __all__ = [
     "SeoProspectApproveView",
     "SeoProspectHtmlView",
     "SeoReportPageView",
+    "SeoReportSeoView",
     "SeoProspectUploadView",
     "AdminSeoSetupStepView",
     "AdminSeoSubscriberDetailView",

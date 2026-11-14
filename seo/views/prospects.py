@@ -21,7 +21,7 @@ from ..serializers.prospect import (
     AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectHtmlSerializer, SeoProspectUploadSerializer,
 )
 from ..utils.prospect_links import (
-    link_key, page_document, page_headers, record_open, report_link, token_of,
+    CLICK_PLACES, link_key, page_document, page_headers, record_open, report_link, seo_destination, token_of,
 )
 from ..utils.prospect_sending import (
     NoSubject, follow_up_refusal, follow_up_subject_for, next_body, next_follow_up_subject, next_subject,
@@ -246,6 +246,23 @@ class SeoReportPageView(APIView):
         with prospect.report_html.open("rb") as handle:
             document = handle.read().decode("utf-8")
         return page_headers(HttpResponse(page_document(prospect, document), content_type="text/html; charset=utf-8"))
+
+
+class SeoReportSeoView(APIView):
+    """`GET /api/seo/r/<key>/seo/`, at ``/reports/<business>-<token>/seo``: a click from the report on to the SEO
+    page, logged against the prospect with where on the page it was (``?from=``), then sent on to the page with its
+    campaign tags. The owner signed in is not logged, as with opens."""
+
+    throttle_scope = "report"
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def get(self, request, key):
+        prospect = _by_key(key)
+        place = request.GET.get("from", "")
+        place = place if place in CLICK_PLACES else "report"
+        record_open(prospect, request, SeoProspectOpen.Kind.SEO, source=place)
+        return page_headers(HttpResponseRedirect(seo_destination(prospect, place)))
 
 
 class SeoReportCoverView(APIView):

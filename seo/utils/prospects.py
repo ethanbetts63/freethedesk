@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Case, CharField, Count, Max, OuterRef, Q, Subquery, Value, When
 from freetheplatform.messaging import Message
 
-from ..models import SeoProspect
+from ..models import SeoProspect, SeoProspectOpen
 
 
 def with_status(queryset):
@@ -20,11 +20,15 @@ def with_status(queryset):
         message_type__startswith="seo_prospect.",
     ).order_by("-created_at")
     people = Q(opens__likely_bot=False)
+    # A click on to the SEO page is logged beside the opens but is not one.
+    opened = people & Q(opens__kind__in=(SeoProspectOpen.Kind.PAGE, SeoProspectOpen.Kind.PDF))
+    clicked = people & Q(opens__kind=SeoProspectOpen.Kind.SEO)
     return queryset.annotate(
         message_status=Subquery(latest.values("status")[:1], output_field=CharField()),
         message_id=Subquery(latest.values("id")[:1]),
-        open_count=Count("opens", filter=people, distinct=True),
-        last_opened_at=Max("opens__opened_at", filter=people),
+        open_count=Count("opens", filter=opened, distinct=True),
+        last_opened_at=Max("opens__opened_at", filter=opened),
+        seo_click_count=Count("opens", filter=clicked, distinct=True),
     ).annotate(
         status=Case(
             When(~Q(excluded_reason=""), then=Value("excluded")),

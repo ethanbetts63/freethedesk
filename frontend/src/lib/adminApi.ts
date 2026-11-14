@@ -157,10 +157,11 @@ export interface ReportProspect {
   message_id: number | null;
   /** The report's own page on the site (/reports/<business>-<token>): texted during a call, named in every email. */
   report_link: string;
-  /** False on a row from before the page existed; the link then serves the PDF. */
   /** Opens of the link by people; link previews and crawlers are counted apart. */
   opens: number;
   last_opened_at: string | null;
+  /** Clicks by people from the report on to the SEO page. */
+  seo_clicks: number;
   called_at: string | null;
   call_notes: string;
   reply: ProspectReply;

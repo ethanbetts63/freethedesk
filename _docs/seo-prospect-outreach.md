@@ -218,6 +218,15 @@ count, so the email lists what the page holds after a cut.
   hyphen (`new_link_token`), so a link read out on a call is typed as heard and
   the name before it parses; set once per row, unique, never regenerated, so a
   texted link keeps working after a re-render.
+- **Clicks on to the SEO page** (owner, 2026-11-14). As the page is served,
+  every link to `/seo` in it, the report's own (the ask card, the locked cards'
+  "Purchase here") and the strip's and ask band's, is rewritten to
+  `/reports/<key>/seo?from=report|bar|ask`. That logs a `SeoProspectOpen` of
+  kind `seo` (the place in `source`; staff signed in not logged), then sends
+  the reader on to `/seo?utm_source=prospect-report&utm_medium=report&utm_campaign=<slug>&utm_content=<place>`,
+  so Google Analytics names the visit too: the page sends no referrer, and the
+  visit read as typed in before. Reports already uploaded are tracked as served;
+  nothing is re-rendered. The dashboard counts clicks apart from opens.
 - **The opens.** `SeoProspectOpen`: one row per open of the page (opens of the
   PDF, before it went, keep their own kind), when,
   where the link came from (`?s=email`, `follow-up`, `text`, `dashboard`), the

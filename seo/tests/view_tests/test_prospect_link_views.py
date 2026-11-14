@@ -91,7 +91,7 @@ def test_the_link_serves_the_report_page_noindexed_with_the_strip_and_the_ask(cl
     assert set(response["Cache-Control"].split(", ")) == {"private", "no-store"}
     page = response.content.decode()
     assert '<meta name="robots" content="noindex, nofollow, noarchive">' in page
-    assert 'class="ftd-bar__cta" href="https://www.freethedesk.com.au/seo"' in page
+    assert f'class="ftd-bar__cta" href="{site_url()}/reports/{link_key(prospect)}/seo?from=bar"' in page
     assert "<p>Fix the title.</p>" in page
     assert page.index('class="ftd-bar"') < page.index("Fix the title") < page.index('class="ftd-ask"')
     # The site's footer closes the page.
@@ -343,3 +343,62 @@ def test_the_calls_list_shows_the_link_and_the_opens_by_people(api_client, staff
     assert row["opens"] == 2 and row["last_opened_at"] is not None
     listed = api_client.get(reverse("admin-seo-prospect-list")).json()["results"]
     assert [r["opens"] for r in listed] == [2]
+
+
+# -- clicks on to the SEO page ------------------------------------------------
+
+
+def test_every_link_to_the_seo_page_goes_through_the_click_log_with_its_place(client):
+    """A prospect who goes on to the SEO page is the strongest signal the report gives (owner, 2026-11-14): every
+    link to it, the report's own (however it was spelt) and the site's strip and ask, is tracked as served."""
+    prospect = SeoProspectFactory()
+    body = (b'<!doctype html>\n<html>\n<head>\n<title>Report</title>\n</head>\n<body>\n'
+            b'<p>Go to <a href="https://www.freethedesk.com.au/seo">www.freethedesk.com.au/seo</a></p>'
+            b'<p><a href="https://freethedesk.com.au/seo/?x=1">Purchase here.</a></p>\n</body>\n</html>\n')
+    prospect.report_html.save(f"{prospect.slug}_r1.html", ContentFile(body), save=True)
+
+    document = client.get(reverse("seo-report-page", args=[link_key(prospect)])).content.decode()
+
+    base = f"{site_url()}/reports/{link_key(prospect)}/seo?from="
+    assert document.count(f'href="{base}report"') == 2
+    assert document.count(f'href="{base}bar"') == 1 and document.count(f'href="{base}ask"') == 1
+    assert 'href="https://www.freethedesk.com.au/seo"' not in document
+    # The link's text is left as written.
+    assert ">www.freethedesk.com.au/seo</a>" in document
+
+
+def test_a_click_is_logged_and_sent_on_to_the_seo_page_with_its_campaign(client):
+    prospect = with_page(slug="perthpatiomagic")
+    url = reverse("seo-report-seo", args=[link_key(prospect)])
+
+    response = client.get(url + "?from=ask", HTTP_USER_AGENT=PHONE_UA)
+    client.get(url + "?from=elsewhere", HTTP_USER_AGENT=PHONE_UA)
+
+    assert response.status_code == 302
+    assert response["Location"] == (f"{site_url()}/seo?utm_source=prospect-report&utm_medium=report"
+                                    "&utm_campaign=perthpatiomagic&utm_content=ask")
+    assert response["Referrer-Policy"] == "no-referrer"
+    clicks = list(SeoProspectOpen.objects.filter(prospect=prospect).order_by("id"))
+    assert [(c.kind, c.source) for c in clicks] == [("seo", "ask"), ("seo", "report")]
+
+
+def test_the_owner_signed_in_is_sent_on_but_not_logged(client, staff_user):
+    prospect = with_page()
+    client.cookies[cookie_names()[0]] = str(AccessToken.for_user(staff_user))
+
+    response = client.get(reverse("seo-report-seo", args=[link_key(prospect)]) + "?from=bar")
+
+    assert response.status_code == 302 and "/seo?utm_source=prospect-report" in response["Location"]
+    assert not SeoProspectOpen.objects.filter(prospect=prospect).exists()
+
+
+def test_clicks_are_counted_apart_from_the_opens(api_client, staff_user, client):
+    prospect = with_page()
+    client.get(reverse("seo-report-page", args=[link_key(prospect)]), HTTP_USER_AGENT=PHONE_UA)
+    client.get(reverse("seo-report-seo", args=[link_key(prospect)]) + "?from=bar", HTTP_USER_AGENT=PHONE_UA)
+    client.get(reverse("seo-report-seo", args=[link_key(prospect)]) + "?from=ask", HTTP_USER_AGENT=PREVIEW_UA)
+    api_client.force_authenticate(staff_user)
+
+    row = api_client.get(reverse("admin-seo-prospect-detail", args=[prospect.pk])).json()
+
+    assert row["opens"] == 1 and row["seo_clicks"] == 1

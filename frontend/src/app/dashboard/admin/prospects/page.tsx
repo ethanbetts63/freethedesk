@@ -169,6 +169,9 @@ function ProspectsContent() {
                     {prospect.last_opened_at && (
                       <CellNote>{formatDateTime(prospect.last_opened_at)}</CellNote>
                     )}
+                    {prospect.seo_clicks > 0 && (
+                      <CellNote>Went on to /seo {prospect.seo_clicks}×</CellNote>
+                    )}
                     <CellNote>{prospect.report_path}</CellNote>
                   </td>
                 </tr>
