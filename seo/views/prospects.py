@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.conf import settings
 from django.http import FileResponse, Http404, HttpResponse, HttpResponseRedirect
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 from freetheplatform.messaging import Message, Suppression, is_suppressed, send, suppress
 from freetheplatform.messaging.utils import read_uploads
 from rest_framework import status
@@ -284,6 +285,40 @@ class SeoReportCoverView(APIView):
         response["X-Robots-Tag"] = "noindex"
         response["Cache-Control"] = "public, max-age=86400"
         return response
+
+
+class SeoProspectCalledView(APIView):
+    """`POST /api/seo/prospects/called/`: a call to a prospect, by slug (``outbox.py called``), so the dashboard's
+    calls list and the follow-up rules know of it. The calls were kept only in the local outbox until 2026-11-14,
+    and the dashboard showed none (owner). ``called_at`` (ISO, default now) is when; ``notes``, when given, is the
+    whole of the call notes, so posting a row again changes nothing. ``called_at`` empty with ``clear`` 1 takes a
+    call back."""
+
+    throttle_scope = "internal"  # A load limit; access is the shared secret.
+    authentication_classes = []
+    permission_classes = [IsInternalApiRequest]
+
+    def post(self, request):
+        prospect = SeoProspect.objects.filter(slug=str(request.data.get("slug", ""))).first()
+        if prospect is None:
+            return Response({"outcome": "unknown", "detail": "No prospect has this slug."},
+                            status=status.HTTP_404_NOT_FOUND)
+        fields = ["called_at", "updated_at"]
+        if str(request.data.get("clear", "")).lower() in ("1", "true", "yes"):
+            prospect.called_at = None
+        else:
+            given = str(request.data.get("called_at", "")).strip()
+            at = parse_datetime(given) if given else timezone.now()
+            if at is None or timezone.is_naive(at):
+                return Response({"outcome": "bad_time", "detail": "called_at is an ISO time with its offset."},
+                                status=status.HTTP_400_BAD_REQUEST)
+            prospect.called_at = at
+        if "notes" in request.data:
+            prospect.call_notes = str(request.data["notes"]).strip()[:2000]
+            fields.append("call_notes")
+        prospect.save(update_fields=fields)
+        return Response({"outcome": "called" if prospect.called_at else "not_called", "id": prospect.pk,
+                         "called_at": prospect.called_at})
 
 
 class SeoProspectFollowUpView(APIView):

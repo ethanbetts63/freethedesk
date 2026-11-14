@@ -263,6 +263,43 @@ def test_no_thanks_suppresses_the_address(api_client, staff_user):
     assert response.json()["reply"] == "negative"
 
 
+def called(api_client, key, slug, **fields):
+    return api_client.post(reverse("seo-prospect-called"), {"slug": slug, **fields}, HTTP_X_INTERNAL_API_KEY=key)
+
+
+def test_a_call_recorded_from_the_terminal_shows_on_the_calls_list(api_client, internal_key, staff_user):
+    """Calls were kept only in the local outbox, and the dashboard's "called" filter showed none (owner,
+    2026-11-14): ``outbox.py called`` posts each one."""
+    prospect = SeoProspectFactory(sent_at=timezone.now() - timedelta(days=8))
+    SeoProspectFactory(sent_at=timezone.now() - timedelta(days=8))
+
+    response = called(api_client, internal_key, prospect.slug, called_at="2026-11-04T15:02:58+08:00",
+                      notes="2026-11-04T15:02: not interested.")
+
+    assert response.status_code == 200 and response.json()["outcome"] == "called"
+    prospect.refresh_from_db()
+    assert prospect.called_at.isoformat() == "2026-11-04T07:02:58+00:00"
+    assert prospect.call_notes == "2026-11-04T15:02: not interested."
+    api_client.force_authenticate(staff_user)
+    rows = api_client.get(reverse("admin-seo-prospect-list"), {"called": "yes"}).json()["results"]
+    assert [r["slug"] for r in rows] == [prospect.slug]
+    # Posting the same row again changes nothing; clear takes the call back and leaves the notes.
+    called(api_client, internal_key, prospect.slug, called_at="2026-11-04T15:02:58+08:00")
+    assert SeoProspect.objects.get(pk=prospect.pk).call_notes == "2026-11-04T15:02: not interested."
+    assert called(api_client, internal_key, prospect.slug, clear="1").json()["outcome"] == "not_called"
+    assert SeoProspect.objects.get(pk=prospect.pk).called_at is None
+
+
+def test_a_call_needs_the_secret_a_known_slug_and_a_time_with_its_offset(api_client, internal_key):
+    prospect = SeoProspectFactory()
+    assert api_client.post(reverse("seo-prospect-called"), {"slug": prospect.slug}).status_code in (401, 403)
+    assert called(api_client, internal_key, "nobody").status_code == 404
+    assert called(api_client, internal_key, prospect.slug, called_at="2026-11-04 15:02").status_code == 400
+    assert called(api_client, internal_key, prospect.slug, called_at="soon").status_code == 400
+    assert SeoProspect.objects.get(pk=prospect.pk).called_at is None
+    assert called(api_client, internal_key, prospect.slug).json()["outcome"] == "called"
+
+
 def test_staff_only(api_client):
     assert api_client.get(reverse("admin-seo-prospect-list")).status_code in (401, 403)
 

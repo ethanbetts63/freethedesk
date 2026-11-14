@@ -5,6 +5,7 @@ from .views import (
     AdminSeoProspectListView,
     AdminSeoProspectUnsubscribeView,
     SeoMessageSendView,
+    SeoProspectCalledView,
     SeoProspectFollowUpView,
     SeoProspectApproveView,
     SeoProspectHtmlView,
@@ -39,6 +40,8 @@ urlpatterns = [
     path("seo/prospects/", SeoProspectUploadView.as_view(), name="seo-prospect-upload"),
     # The same secret: the owner's word on a held report, after which the hourly run sends it.
     path("seo/prospects/approve/", SeoProspectApproveView.as_view(), name="seo-prospect-approve"),
+    # The same secret: a call to a prospect, for the calls list and the follow-up rules.
+    path("seo/prospects/called/", SeoProspectCalledView.as_view(), name="seo-prospect-called"),
     # The same secret: the one follow-up a week on, queued for the hourly send.
     path("seo/prospects/follow-up/", SeoProspectFollowUpView.as_view(), name="seo-prospect-follow-up"),
     # The same secret: the report page for a prospect already here (the rows from before the page existed).

@@ -168,7 +168,11 @@ pipeline on its own.
 **Dashboard** `/dashboard/admin/prospects`, "Prospects" beside Outreach: the
 calls to-do list. Not yet called first, then by sent date. Each row: business,
 overview, email, phone, emailed status and date, the link's opens by people
-(sortable, most first) and report path. A prospect's own page: who to call, the
+(sortable, most first) and report path. A call is recorded from the terminal,
+`outbox.py called`, which posts it to `POST /api/seo/prospects/called/` (shared
+secret; slug, `called_at`, the whole of the notes); until 2026-11-14 calls stayed
+in the local outbox and the "called" filter showed none. `outbox.py sync` posts
+any call the server has not taken. A prospect's own page: who to call, the
 report (link, opens, clicks on to /seo), **every view** of it newest first
 (when, the page or a click on to /seo, where the link came from, the device
 named from the user agent with the whole of it on hover, and whether the counts
