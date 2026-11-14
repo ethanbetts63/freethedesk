@@ -9,6 +9,13 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
 
   return [
     {
+      question: 'Is there a money-back guarantee?',
+      answer:
+        "Yes. Make at least three of the report's ranking recommendations within 30 days and tell us the date they went live. We then compare your Google clicks, as your own Search Console counts them, for the next 90 days with the same 90 days a year earlier. If they aren't higher, ask and we refund the full price. It covers every audit; the SEO audit terms set it out in full.",
+      links: [{ phrase: 'SEO audit terms', href: '/legal/seo-audit-terms' }],
+    },
+
+    {
       question: 'Can I do SEO myself?',
       answer:
         "Yes, and that's the idea. Every recommendation is written in plain English so you, your IT person or whatever platform you already use (GoDaddy, Wix, Squarespace and the rest) can make the change. If you'd rather we did it, each one can come with a fixed implementation price.",

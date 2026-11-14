@@ -21,3 +21,11 @@ Added 2026-11-14. The prospect page's Unsubscribe button went with its call, rep
 ## Deploy the prospect reports without a PDF (owner)
 
 Added 2026-11-12. `09c23b9` takes the PDF out of prospect reports: the upload takes the page alone and `report_pdf` goes. Pull, run `migrate` (0031 drops the column), reload, and rebuild the frontend so `/reports/<key>/pdf` is sent on to the page. Until then `outbox.py add` fails, because the old server still requires a PDF. The old PDFs stay under `PRIVATE_MEDIA_ROOT/seo-prospects/*.pdf`; delete them by hand when you like. Delete this once deployed and an `add` goes through.
+
+## Deploy the growth guarantee (owner)
+
+Added 2026-11-14. The SEO Audit Terms gain section 6, a full refund if Search Console clicks don't grow in the 90 days after three ranking recommendations are made; the terms' version is now `2026-11-14`, and `/seo`, the report email (body 5), the ask under every prospect report and the cost guide all say it. Pull, reload, and rebuild the frontend; no migration. The backend and frontend must go together, or checkout records the new terms while the site still shows the old. Delete this once deployed and `/legal/seo-audit-terms` shows section 6.
+
+## Mark which recommendations are ranking recommendations
+
+Added 2026-11-14. The growth guarantee counts only recommendations meant to improve ranking or clicks in search, not fixes to details, page faults or conversion (terms 6.3), and promises to say which are which on request. Nothing in a report marks them yet. Have the full report label each recommendation (in `../ftp_search`), so a customer can see which three count without asking.

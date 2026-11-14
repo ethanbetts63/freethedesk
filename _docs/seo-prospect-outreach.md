@@ -59,7 +59,10 @@ business-hours window, the message log as the status, the dashboard page.
 - **Five bodies, one in the test.** A client gets body 5, the fixes list
   (`CLIENT_BODIES`; owner's words, 2026-11-11): who Ethan is, the catch said
   plainly, every title of the report whole, the report's link, the forward
-  line, the number. Bodies 1, 2 and 4 are paused,
+  line, the number; since 2026-11-14 it also says the full report is money
+  back if Google clicks don't grow (the growth guarantee, section 6 of the SEO
+  Audit Terms), as do the ask under every report and the call script's "How
+  much?". Bodies 1, 2 and 4 are paused,
   kept for the rows that drew them; the levelling returns when a second body
   is added. Body 1 is the report email, in the words the analyst's email used:
   why this business (its ad on a search it does not win, or its site alone),

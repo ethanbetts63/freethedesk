@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useMemo } from 'react';
 
 import { PackagesSection, usePackageChoice } from '@/components/marketing/Packages';
@@ -24,6 +25,18 @@ export function SeoPackages({ settings }: { settings: PublicSiteSettings }) {
       plans={plans}
       kicker="Recommendations based on"
       cardTitle={(plan) => `${plan.name} SEO audit`}
+      note={
+        <>
+          Make three of the ranking changes. If your Google clicks aren&rsquo;t up 90 days later,
+          you get every dollar back.{' '}
+          <Link
+            className="text-text-action underline underline-offset-[3px] hover:opacity-70"
+            href="/legal/seo-audit-terms"
+          >
+            How the guarantee works
+          </Link>
+        </>
+      }
       onChoose={open}
     >
       <SeoSignupDialog

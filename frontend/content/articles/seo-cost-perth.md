@@ -1,6 +1,6 @@
 ---
 published: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-14
 title: SEO Cost in Perth: What You Pay
 description: What SEO costs a Perth business: monthly retainers, paid clicks and one-off audits, with the prices Perth firms publish and which to pay for first.
 takeaways:
@@ -92,6 +92,6 @@ Whoever you pay, and however you pay them, get answers to these first:
 3. **Is there a lock-in contract?** If there is, ask what you get if you leave early.
 4. **Who owns the accounts?** Search Console, Analytics, your Business Profile and your Ads account should all be in your business's name, with the agency added as a user.
 5. **What access do you need?** [Google's own advice on hiring an SEO](https://developers.google.com/search/docs/fundamentals/do-i-need-seo) is to give read access to Search Console for an audit, not write access.
-6. **Do you guarantee rankings?** Google says plainly that "no one can guarantee a #1 ranking on Google". Anyone who promises one is a reason to keep looking.
+6. **Do you guarantee rankings?** Google says plainly that "no one can guarantee a #1 ranking on Google". Anyone who promises one is a reason to keep looking. A refund if your search clicks don't grow is a different promise, and a fair one to ask for: ours is in the [SEO audit terms](/legal/seo-audit-terms).
 
 A good provider, monthly or one-off, will be glad you asked. If you would like to see what an audit finds on your own site before deciding anything else, our [SEO audits](/seo) start at $550, paid once.

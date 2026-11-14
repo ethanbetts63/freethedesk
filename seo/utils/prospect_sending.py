@@ -123,7 +123,7 @@ LIST_WIDTH = 50
 # read by its link. The way out closes it, as bodies 1 and 3 do.
 BODY_FIXES = """Hi {first_name},
 
-I'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes for your website. There's no obligation. Some of the people I write these for buy a full report later, that's why I do it. The fixes are worth doing either way.
+I'm a real person who spent real time on this. My name's Ethan. I've written a list of fixes for your website. There's no obligation. Some of the people I write these for buy a full report later, that's why I do it. The full report is money back if your Google clicks don't grow. The fixes are worth doing either way.
 
 Every recommendation explains the issue, why it's important and how to fix it. Here they are:
 

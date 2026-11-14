@@ -163,6 +163,7 @@ export function PackagesSection<Code extends string>({
   plans,
   kicker,
   cardTitle = (plan) => plan.name,
+  note,
   onChoose,
   children,
 }: {
@@ -178,6 +179,8 @@ export function PackagesSection<Code extends string>({
   kicker: string;
   /** The card's heading, where it says more than the button's name: "Plus SEO audit". */
   cardTitle?: (plan: Plan<Code>) => string;
+  /** One line under the cards that holds for all of them: the audits' money-back guarantee. */
+  note?: ReactNode;
   onChoose: (code: Code) => void;
   /** The order dialog the cards open. */
   children: ReactNode;
@@ -210,6 +213,9 @@ export function PackagesSection<Code extends string>({
             />
           ))}
         </ul>
+        {note ? (
+          <p className="mt-l mb-0 text-body leading-relaxed text-text-muted">{note}</p>
+        ) : null}
       </div>
       {children}
       <div id={endId} aria-hidden="true" />

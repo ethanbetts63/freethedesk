@@ -75,7 +75,7 @@ export default async function SeoPage() {
         secondaryHref="/seo/sample-report"
         secondaryLabel="See a sample report"
         secondaryNewTab
-        trustLine="Paid once, no subscription · Fixed prices · Perth-based"
+        trustLine="Money back if your Google clicks don't grow · Paid once, no subscription · Perth-based"
       />
 
       <SeoPackages settings={settings} />

@@ -117,7 +117,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-11-10',
+    updated: '2026-11-14',
     label: 'SEO',
     title: 'SEO Audit Perth: Technical, Local & AI Search',
     description: `Organic clicks up ${SCOOTER_SHOP_GROWTH.percent}% for a Perth dealer. Each audit is a written SEO report of your site: the searches you're losing and what to fix.`,
@@ -191,7 +191,7 @@ export const STATIC_PAGES = {
     description: 'Terms for freethedesk dealer licensing and contract subscriptions.',
   },
   '/legal/seo-audit-terms': {
-    updated: '2026-10-24',
+    updated: '2026-11-14',
     label: 'SEO audit terms',
     title: 'SEO Audit Terms',
     description: 'Terms for freethedesk SEO audits: Essentials, Plus and Complete, each paid once.',

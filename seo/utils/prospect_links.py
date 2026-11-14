@@ -258,7 +258,8 @@ _ASK = (
     '<b class="ftd-ask__eyebrow">The next step</b>'
     '<h2 id="ftd-ask-title">Get the full SEO report, written from your own data</h2>'
     "<p>This one was written from what anyone can see. The full report works from your Search Console and "
-    "analytics, makes better-informed recommendations, and tracks whether each one worked.</p>"
+    "analytics, makes better-informed recommendations, and tracks whether each one worked. Make three of its "
+    "ranking changes, and if your Google clicks aren't up 90 days later you get every dollar back.</p>"
     '<a href="https://www.freethedesk.com.au/seo">Explore SEO reports</a></div>'
     '<img src="https://www.freethedesk.com.au/images/seo/what-google-looks-at.webp" alt="" width="1536" '
     'height="1024" loading="lazy"></div></section>'

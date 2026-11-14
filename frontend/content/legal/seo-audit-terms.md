@@ -2,7 +2,7 @@
 
 Looking for the SEO audit itself? [It is here.](/seo)
 
-Effective date: 24 October 2026
+Effective date: 14 November 2026
 
 ## 1. About these terms
 
@@ -22,7 +22,8 @@ them on behalf of the business.
 - Email: hello@freethedesk.com.au
 
 1.4 If you bought an SEO subscription before 24 October 2026, the terms you
-accepted then continue to apply to that subscription until it ends.
+accepted then continue to apply to that subscription until it ends. The growth
+guarantee in section 6 applies to audits bought on or after 14 November 2026.
 
 ## 2. The audit
 
@@ -93,17 +94,46 @@ you, and you can cancel and receive a full refund.
 
 5.1 An audit that we have not started is refunded in full.
 
-5.2 Once we have started an audit, it is not refunded for a change of mind.
+5.2 Once we have started an audit, it is not refunded for a change of mind,
+except under the growth guarantee in section 6.
 
 5.3 Nothing in these terms limits any right you have under the Australian
 Consumer Law.
 
-## 6. Results
+## 6. Growth guarantee
 
-6.1 We do not guarantee rankings, traffic, enquiries or revenue. Search engines,
-AI tools and other platforms change in ways outside our control, and results
-also depend on your market, your competitors and how recommendations are put
-into practice.
+6.1 If you make the changes and your clicks from Google search do not grow, we
+refund the full price you paid for the audit.
+
+6.2 To qualify, you must:
+
+- within 30 days of the day we deliver the report, make at least three of its
+  ranking recommendations, or all of them if it has fewer than three;
+- email us the date the last of those changes went live; and
+- keep your Google Search Console access connected until the measurement ends.
+
+6.3 A ranking recommendation is one whose purpose is to improve how your
+business ranks or how often it is clicked in search. A recommendation whose
+purpose is to correct details, fix a fault on a page or turn more visitors into
+enquiries is not one. If you ask, we will tell you which recommendations in
+your report are ranking recommendations.
+
+6.4 We measure the total clicks Google Search Console reports for your website
+in web search over the 90 days starting the day after the date you email us,
+against the same 90 days one year earlier. Where Search Console does not hold
+that earlier period, we measure against the 90 days before we delivered the
+report.
+
+6.5 If the later figure is not higher, ask us for the refund within 30 days of
+the end of the 90 days, and we will pay it within 14 days.
+
+6.6 We may check that the changes were made as recommended and stayed in place
+for the 90 days. The guarantee applies once to each audit you buy.
+
+6.7 Apart from this guarantee, we do not promise rankings, traffic, enquiries
+or revenue. Search engines, AI tools and other platforms change in ways outside
+our control, and results also depend on your market, your competitors and how
+recommendations are put into practice.
 
 ## 7. Your responsibilities
 
