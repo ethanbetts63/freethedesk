@@ -10,10 +10,6 @@ Added 2026-10-26, still failing 2026-11-11. `frontend/scripts/check-forms.mjs` n
 
 Added 2026-11-12. `cdf72bd` makes the prospects page's "Link opened" column sortable; the sort is the server's (`ordering=opens`), so until the next pull the column sorts by date added instead. The same pull drops the unused prospect summary endpoint (`7b9c02c`) and stops counting the owner's own visits to a report link while signed in to the dashboard. No migration. Delete this once pulled and the column sorts by opens.
 
-## Deploy the calls endpoint, then post the calls (owner, then agent)
-
-Added 2026-11-14. The dashboard's "called" filter showed nothing because calls were kept only in `ftp_search`'s outbox. `POST /api/seo/prospects/called/` now takes them (no migration). Once the backend is deployed, run `py _search/tools/prospecting/outbox.py sync` from `../ftp_search`: it posts the nine calls recorded since 29 Oct. Delete this once the filter shows them.
-
 ## Deploy the click tracking on prospect reports (owner)
 
 Added 2026-11-14. Links from a prospect report on to `/seo` now go through `/reports/<key>/seo`, which logs the click and sends the reader on with campaign tags. Pull, run `migrate` (0032 adds the `seo` kind to `SeoProspectOpen`; no data change), reload, and rebuild the frontend for the `/reports/:key/seo` rewrite. Until the frontend is rebuilt, a served report's links to `/seo` 404, so deploy both together. Delete this once deployed and a click from a report lands on `/seo` with `utm_source=prospect-report`.
