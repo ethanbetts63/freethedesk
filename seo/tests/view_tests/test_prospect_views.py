@@ -221,7 +221,8 @@ def test_the_calls_list_puts_the_uncalled_first(api_client, staff_user):
 
 
 def test_the_calls_list_sorts_by_opens_by_people(api_client, staff_user):
-    once, never, twice = (SeoProspectFactory(business=name) for name in ("Once", "Never", "Twice"))
+    went = timezone.now() - timedelta(hours=1)
+    once, never, twice = (SeoProspectFactory(business=name, sent_at=went) for name in ("Once", "Never", "Twice"))
     SeoProspectOpen.objects.create(prospect=once)
     SeoProspectOpen.objects.bulk_create([SeoProspectOpen(prospect=twice), SeoProspectOpen(prospect=twice)])
     SeoProspectOpen.objects.bulk_create([SeoProspectOpen(prospect=never, likely_bot=True) for _ in range(3)])

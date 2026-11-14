@@ -330,7 +330,7 @@ def test_the_report_email_links_the_page_under_the_list():
 
 
 def test_the_calls_list_shows_the_link_and_the_opens_by_people(api_client, staff_user, client):
-    prospect = with_page(phone="0497 279 112")
+    prospect = with_page(phone="0497 279 112", sent_at=timezone.now() - timedelta(hours=1))
     url = reverse("seo-report-page", args=[link_key(prospect)])
     client.get(url + "?s=text", HTTP_USER_AGENT=PHONE_UA)
     client.get(url + "?s=text", HTTP_USER_AGENT=PREVIEW_UA)
@@ -343,6 +343,29 @@ def test_the_calls_list_shows_the_link_and_the_opens_by_people(api_client, staff
     assert row["opens"] == 2 and row["last_opened_at"] is not None
     listed = api_client.get(reverse("admin-seo-prospect-list")).json()["results"]
     assert [r["opens"] for r in listed] == [2]
+
+
+def test_only_opens_and_clicks_after_the_email_went_are_counted(api_client, staff_user, client):
+    """A look before the send is the owner checking the page, or a preview: not the prospect (owner, 2026-11-14)."""
+    went = timezone.now() - timedelta(hours=1)
+    prospect = with_page(sent_at=went)
+    page = reverse("seo-report-page", args=[link_key(prospect)])
+    for _ in range(3):
+        client.get(page, HTTP_USER_AGENT=PHONE_UA)
+    client.get(reverse("seo-report-seo", args=[link_key(prospect)]) + "?from=bar", HTTP_USER_AGENT=PHONE_UA)
+    before = SeoProspectOpen.objects.filter(prospect=prospect).order_by("id")
+    SeoProspectOpen.objects.filter(pk__in=[o.pk for o in before[:2]]).update(opened_at=went - timedelta(days=1))
+    SeoProspectOpen.objects.filter(kind=SeoProspectOpen.Kind.SEO).update(opened_at=went - timedelta(minutes=1))
+    api_client.force_authenticate(staff_user)
+
+    row = api_client.get(reverse("admin-seo-prospect-detail", args=[prospect.pk])).json()
+
+    assert row["opens"] == 1 and row["seo_clicks"] == 0
+    # Not yet sent: nothing counts.
+    prospect.sent_at = None
+    prospect.save(update_fields=["sent_at"])
+    row = api_client.get(reverse("admin-seo-prospect-detail", args=[prospect.pk])).json()
+    assert row["opens"] == 0 and row["last_opened_at"] is None
 
 
 # -- clicks on to the SEO page ------------------------------------------------
@@ -393,7 +416,7 @@ def test_the_owner_signed_in_is_sent_on_but_not_logged(client, staff_user):
 
 
 def test_clicks_are_counted_apart_from_the_opens(api_client, staff_user, client):
-    prospect = with_page()
+    prospect = with_page(sent_at=timezone.now() - timedelta(hours=1))
     client.get(reverse("seo-report-page", args=[link_key(prospect)]), HTTP_USER_AGENT=PHONE_UA)
     client.get(reverse("seo-report-seo", args=[link_key(prospect)]) + "?from=bar", HTTP_USER_AGENT=PHONE_UA)
     client.get(reverse("seo-report-seo", args=[link_key(prospect)]) + "?from=ask", HTTP_USER_AGENT=PREVIEW_UA)

@@ -239,7 +239,10 @@ count, so the email lists what the page holds after a cut.
   which the owner's VPN changes; the refresh cookie counts as signed in, so it
   holds for the week a sign-in lasts, not only the access token's hour
   (`prospect_links.signed_in_staff`). Opens logged before this are not told
-  apart.
+  apart, but only opens and clicks after `sent_at` are counted (owner,
+  2026-11-14): a look before the email went is the owner's or a preview, and a
+  report not yet sent shows none. The rows are kept; only the counts filter
+  (`utils.prospects.with_status`).
 - **The text is the owner's own.** No button sends one (owner, 2026-11-04):
   the owner texts the link from their phone, during or after a call where the
   person said yes to it, which is express consent; a cold text is a commercial
