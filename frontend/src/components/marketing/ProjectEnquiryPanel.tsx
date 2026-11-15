@@ -29,6 +29,7 @@ import {
 } from '@/components/forms/selectionFormClassNames';
 import { cn } from '@/lib/utils';
 import { formatMoney } from '@/lib/formatting';
+import { GBP_OPTIMISATION_PRICE, money } from '@/lib/servicePricing';
 
 const initialState: ProjectEnquiryState = { status: 'idle' };
 
@@ -60,6 +61,25 @@ const SUMMARY: Record<ProjectType, string> = {
   automation: 'The repetitive work behind your business, handled without you.',
   both: 'A website and the automation behind it, designed as one system.',
   seo: 'A report on how people find you on Google and what to change first, at a fixed price per report.',
+  gbp: 'Your Google Business Profile filled in and set up properly, at one fixed price, paid once.',
+};
+
+/** The scopes sold at a published price: what the total shows in place of a budget, and the words around the form. */
+const FIXED_PRICE: Partial<
+  Record<ProjectType, { total: string; thanks: string; submit: string; notes?: string }>
+> = {
+  seo: {
+    total: 'SEO audit',
+    thanks: 'We’ll come back with what the audit would cover for your site, and its price.',
+    submit: 'Ask about an audit',
+  },
+  gbp: {
+    total: money(GBP_OPTIMISATION_PRICE),
+    thanks:
+      'We’ll check your profile and come back with a start date and how to add us as a manager.',
+    submit: 'Ask for your profile optimisation',
+    notes: 'e.g. We’re a mobile mechanic and drive to customers across the northern suburbs.',
+  },
 };
 
 /** The stateful half of the enquiry section. `heading` arrives already rendered
@@ -86,8 +106,9 @@ export function ProjectEnquiryPanel({
   const projectTypes = showSeo
     ? PROJECT_TYPES
     : PROJECT_TYPES.filter((option) => option.code !== 'seo');
-  // An SEO audit has a fixed price, so it asks no budget.
-  const asksBudget = projectType !== 'seo';
+  // An SEO audit and a profile optimisation have fixed prices, so they ask no budget.
+  const fixedPrice = FIXED_PRICE[projectType];
+  const asksBudget = !fixedPrice;
   const budgetLabel = budget === 'custom' ? formatCustomBudget(customBudget) : budget;
   // Once a submission succeeds the form fields are replaced by a thank-you
   // message (below), so there's no need to separately reset `customBudget`.
@@ -214,7 +235,7 @@ export function ProjectEnquiryPanel({
           >
             <div className={totalFigureClassName}>
               <strong className={`${totalPriceClassName} moving-colour-text`}>
-                {asksBudget ? budgetLabel : 'SEO audit'}
+                {fixedPrice?.total ?? budgetLabel}
               </strong>
             </div>
             <span className={totalSummaryClassName}>{SUMMARY[projectType]}</span>
@@ -240,9 +261,8 @@ export function ProjectEnquiryPanel({
             Thanks — that&apos;s with us.
           </strong>
           <p className="mt-xs text-body leading-relaxed text-text-muted">
-            {asksBudget
-              ? 'We’ll come back with what we’d suggest building for that budget, and what it would take.'
-              : 'We’ll come back with what the audit would cover for your site, and its price.'}
+            {fixedPrice?.thanks ??
+              'We’ll come back with what we’d suggest building for that budget, and what it would take.'}
           </p>
         </div>
       ) : (
@@ -286,7 +306,10 @@ export function ProjectEnquiryPanel({
               name="notes"
               rows={3}
               maxLength={2000}
-              placeholder="e.g. It takes our team a lot of manual copy and paste to write and send a quote."
+              placeholder={
+                fixedPrice?.notes ??
+                'e.g. It takes our team a lot of manual copy and paste to write and send a quote.'
+              }
             />
           </label>
           {state.status === 'error' && (
@@ -302,11 +325,7 @@ export function ProjectEnquiryPanel({
             fullWidth
             disabled={isPending}
           >
-            {isPending
-              ? 'Sending…'
-              : asksBudget
-                ? 'Show me what you’d build'
-                : 'Ask about an audit'}
+            {isPending ? 'Sending…' : (fixedPrice?.submit ?? 'Show me what you’d build')}
           </MovingColourButton>
         </>
       )}

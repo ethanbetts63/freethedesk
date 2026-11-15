@@ -1,6 +1,8 @@
 import { type PublicSiteSettings } from '@/lib/api';
 import type { FaqItem } from '@/types/FaqItem';
 
+import { GBP_OPTIMISATION_PRICE, money } from '@/lib/servicePricing';
+
 import { seoAuditPrices } from './plans';
 
 /** Built per request so the cost answer quotes the prices the admin has set. */
@@ -63,6 +65,17 @@ export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
       question: 'What does each SEO audit include?',
       answer:
         "What each one reads. Essentials reads your site on a computer and a phone, its speed, the search results and the sites that outrank you, and your Search Console. Plus adds your Google Business Profile, your reviews and your rivals', and your website analytics. Complete adds your Google Ads account and a check of your site against the Australian rules that apply to it, then looks again three months later to show what the changes you made earned.",
+    },
+
+    {
+      question: 'Can you optimise my Google Business Profile for me?',
+      answer: `Yes, as a separate job. The Plus audit reads your Business Profile and says what to change; Google Business Profile optimisation is the change itself, made in your profile by us for ${money(GBP_OPTIMISATION_PRICE)}, paid once: categories, services and prices, photos, posts, review replies and links that agree with your site.`,
+      links: [
+        {
+          phrase: 'Google Business Profile optimisation',
+          href: '/google-business-profile-optimisation',
+        },
+      ],
     },
 
     {

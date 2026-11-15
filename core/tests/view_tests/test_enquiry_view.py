@@ -130,7 +130,21 @@ def test_an_seo_audit_enquiry_needs_no_budget(api_client):
     assert enquiry.message == "SEO audit enquiry."
 
 
-def test_a_project_enquiry_other_than_seo_needs_a_budget(api_client):
+def test_a_business_profile_optimisation_enquiry_needs_no_budget(api_client):
+    response = api_client.post(
+        "/api/project-enquiries/",
+        {"project_type": "gbp", "website": "https://example.com.au", "email": "owner@example.com.au"},
+        format="json",
+    )
+
+    assert response.status_code == 201
+    enquiry = Enquiry.objects.get()
+    assert enquiry.help_with == Enquiry.HelpWith.GBP
+    assert enquiry.configuration == {"project_type": "gbp"}
+    assert enquiry.message == "Google Business Profile optimisation enquiry."
+
+
+def test_a_project_enquiry_without_a_fixed_price_needs_a_budget(api_client):
     response = api_client.post(
         "/api/project-enquiries/",
         {"project_type": "website", "budget": " ", "email": "owner@example.com.au"},

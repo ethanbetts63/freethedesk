@@ -5,10 +5,11 @@ import { z } from 'zod';
 import { normaliseWebsiteUrl } from '@/lib/api';
 
 export const projectEnquirySchema = z.object({
-  project_type: z.enum(['website', 'automation', 'both', 'seo']),
+  project_type: z.enum(['website', 'automation', 'both', 'seo', 'gbp']),
   // Free text on one line, because the "custom" option lets people write
-  // their own figure in words rather than pick one. Blank for an SEO audit,
-  // which has a fixed price; the API requires it for every other scope.
+  // their own figure in words rather than pick one. Blank for an SEO audit or
+  // a Business Profile optimisation, which have fixed prices; the API requires
+  // it for every other scope.
   budget: z.string().trim().max(FIELD_MAX.line).optional().default(''),
   // Optional, so someone with no website yet can still enquire. Bounded before
   // `normaliseWebsiteUrl` rather than after: the transform adds a scheme, so

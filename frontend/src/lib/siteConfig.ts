@@ -14,7 +14,14 @@ export const SITE_URL = (
  * alone (owner, 2026-11-04): one line of the business, not a menu item.
  */
 export const PRIMARY_NAVIGATION = [
-  { href: '/seo', label: 'SEO' },
+  {
+    href: '/seo',
+    label: 'SEO',
+    items: [
+      { href: '/seo', label: 'SEO audits' },
+      { href: '/google-business-profile-optimisation', label: 'Business Profile optimisation' },
+    ],
+  },
   {
     href: '/website-development',
     label: 'Websites',
@@ -30,6 +37,7 @@ export const PRIMARY_NAVIGATION = [
 
 export const FOOTER_NAVIGATION = [
   { href: '/seo', label: 'SEO audits' },
+  { href: '/google-business-profile-optimisation', label: 'Business Profile optimisation' },
   { href: '/website-development', label: 'Website development' },
   { href: '/website-redesign-perth', label: 'Website redesign' },
   // A trial suburb page; the footer is its only link (2026-10-07).

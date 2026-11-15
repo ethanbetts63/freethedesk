@@ -27,6 +27,11 @@ const LINKS = {
     line: 'Moving off WordPress without losing the searches you win.',
   },
   seo: { href: '/seo', label: 'SEO audits', line: 'A ranked, written plan of what to fix first.' },
+  gbp: {
+    href: '/google-business-profile-optimisation',
+    label: 'Business Profile optimisation',
+    line: 'Your Google Business Profile set up properly, paid once.',
+  },
   sampleReport: {
     href: '/seo/sample-report',
     label: 'Sample SEO report',
@@ -121,8 +126,12 @@ const RELATED: Record<string, { title: string; links: readonly Key[] }> = {
     links: ['websites', 'wordpressCost', 'bloomprint', 'scooterShop'],
   },
   '/seo': {
-    title: 'The sample report and our search guides',
-    links: ['sampleReport', 'notShowing', 'aiSearch', 'scooterShop'],
+    title: 'The sample report, profile optimisation and our search guides',
+    links: ['sampleReport', 'gbp', 'notShowing', 'aiSearch'],
+  },
+  '/google-business-profile-optimisation': {
+    title: 'SEO audits, the sample report and local search',
+    links: ['seo', 'sampleReport', 'notShowing'],
   },
   '/affiliates': {
     title: 'The audits you would be recommending',
@@ -149,8 +158,8 @@ const RELATED: Record<string, { title: string; links: readonly Key[] }> = {
     links: ['scooterShop', 'websites', 'seo'],
   },
   '/business-not-showing-up-on-google': {
-    title: 'SEO audits, the sample report and AI search',
-    links: ['seo', 'sampleReport', 'aiSearch'],
+    title: 'SEO audits, profile optimisation and AI search',
+    links: ['seo', 'gbp', 'sampleReport', 'aiSearch'],
   },
   '/how-to-show-up-in-ai-search': {
     title: 'SEO audits, the sample report and Google',

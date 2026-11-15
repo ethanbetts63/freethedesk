@@ -117,13 +117,25 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-11-14',
+    updated: '2026-11-15',
     label: 'SEO',
     title: 'SEO Audit Perth: Technical, Local & AI Search',
     description: `Organic clicks up ${SCOOTER_SHOP_GROWTH.percent}% for a Perth dealer. Each audit is a written SEO report of your site: the searches you're losing and what to fix.`,
     service: {
       name: 'SEO Audit Perth',
       serviceType: 'SEO audits and consulting',
+      areaServed: { type: 'City', name: 'Perth' },
+    },
+  },
+  '/google-business-profile-optimisation': {
+    updated: '2026-11-15',
+    label: 'Business Profile optimisation',
+    title: 'Google Business Profile Optimisation Perth',
+    description:
+      'Your Google Business Profile set up properly for a fixed $650, paid once: categories, services and prices, photos, posts, review replies and links that agree with your site.',
+    service: {
+      name: 'Google Business Profile Optimisation Perth',
+      serviceType: 'Google Business Profile optimisation',
       areaServed: { type: 'City', name: 'Perth' },
     },
   },

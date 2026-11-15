@@ -26,21 +26,25 @@ class AiReadinessEnquirySerializer(serializers.Serializer):
         )
 
 class ProjectEnquirySerializer(serializers.Serializer):
-    """The short project lead form: pick a scope, name a budget. An SEO audit is sold at a fixed price, so it
-    comes without one."""
+    """The short project lead form: pick a scope, name a budget. An SEO audit and a Business Profile
+    optimisation are sold at a fixed price, so they come without one."""
 
     HELP_WITH_BY_TYPE = {
         "website": Enquiry.HelpWith.WEBSITE,
         "automation": Enquiry.HelpWith.AUTOMATION,
         "both": Enquiry.HelpWith.EVERYTHING,
         "seo": Enquiry.HelpWith.SEO,
+        "gbp": Enquiry.HelpWith.GBP,
     }
     PROJECT_LABELS = {
         "website": "Website",
         "automation": "Automation",
         "both": "Website and automation",
         "seo": "SEO audit",
+        "gbp": "Google Business Profile optimisation",
     }
+    #: Sold at a published price, so the form asks no budget.
+    FIXED_PRICE = {"seo", "gbp"}
 
     project_type = serializers.ChoiceField(choices=sorted(HELP_WITH_BY_TYPE))
     # Free text on one line: the "custom" option lets people write their own
@@ -53,7 +57,7 @@ class ProjectEnquirySerializer(serializers.Serializer):
     notes = bounds.text("note", required=False, allow_blank=True, default="")
 
     def validate(self, attrs):
-        if attrs["project_type"] != "seo" and not attrs["budget"].strip():
+        if attrs["project_type"] not in self.FIXED_PRICE and not attrs["budget"].strip():
             raise serializers.ValidationError({"budget": "Budget is required."})
         return attrs
 
