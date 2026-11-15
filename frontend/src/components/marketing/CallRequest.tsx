@@ -4,7 +4,7 @@ import { CallRequestForm } from './CallRequestForm';
 import { GoogleRatingBadge } from './GoogleRatingBadge';
 
 /**
- * "Get in touch": one of the guides' pictures, with the Google rating under it, on the left and the call-back form on the right, in
+ * "Ready to be found?": one of the guides' pictures, with the Google rating under it, on the left and the call-back form on the right, in
  * a rounded tinted panel (after the "value of the badge" block on Google's partner page). Stacked
  * below `lg`, picture first. It replaced the project enquiry form everywhere on 2026-11-15.
  * `source` records which page a request came from.
@@ -33,7 +33,7 @@ export function CallRequest({ id = 'call-back', source }: { id?: string; source:
             id={`${id}-title`}
             className="m-0 mb-xl text-display leading-[1.02] tracking-[-0.058em] text-text-secondary"
           >
-            Get in touch.
+            Ready to be found?
           </h2>
           <CallRequestForm source={source} />
         </div>
