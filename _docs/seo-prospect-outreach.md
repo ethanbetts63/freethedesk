@@ -1,9 +1,9 @@
 # SEO prospect outreach
 
-Planned and built 2026-10-28. The prospect report pipeline in `../ftp_search`
-finds businesses to write a short free report, four recommendations and the offer of the full one, for, mostly Perth
-businesses paying for searches they do not win (`_search/prospecting/`), and
-since 2026-10-30 podcast hosts for the affiliate program too. The report is
+Planned and built 2026-10-28. The prospect report pipeline in `../ftp_search/_prospect/`
+finds businesses to write a short free report, three recommendations and the offer of the full one, for: mostly Perth
+businesses ranking sixth to twentieth on a search (until 2026-11-14, ones paying for searches they do not win), and
+podcast hosts for the affiliate program, named by hand. The report is
 written the same way whoever it is for. This is the half that writes the
 email, sends it from this server with the report's link (no pdf since
 2026-11-11, owner's call: the attachment was the likely road to spam; and no
@@ -277,9 +277,9 @@ count, so the email lists what the page holds after a cut.
   call brief.
 - **Uploaded when done, emailed only when approved** (owner, 2026-11-05;
   until then nothing was uploaded before approval, 2026-10-28).
-  `_search/tools/prospecting/outbox.py` keeps the local outbox,
-  `_search/prospecting/outbox.json`. The report delegator's last step for a
-  prospect report (step 15 of `_search/prompts/01_delegator.md`) is
+  `_prospect/tools/outreach/outbox.py` keeps the local outbox,
+  `_prospect/outreach/outbox.json`. The report delegator's last step for a
+  prospect report (`outbox`, in `_prospect/prompts/01_delegator.md`) is
   `outbox.py add -p <slug>`: it reads the page, `report.json` (the
   recommendation count, the three highest-impact titles) and the ledger entry
   (the contact, the sightings, the `source` that sets the purpose); warns when
@@ -303,15 +303,15 @@ count, so the email lists what the page holds after a cut.
   shows a held row as "Awaiting approval" (status `held`), before `queued`.
 - **The call brief** (owner, 2026-10-29). `release` and `sync` print
   `_search/projects/<slug>/reports/<version>/call_brief.pdf`
-  (`_search/tools/prospecting/brief.py`): one A4 page to read while phoning.
+  (`_prospect/tools/outreach/brief.py`): one A4 page to read while phoning.
   Owner's name and phone, ABN and rating from the ledger, the email's address,
   sent time and subject from the outbox, the ad sighting and who sat in the map
   box instead, every recommendation in one line with its page in the report,
   then the call's opening and a line for each likely no. The words come from
-  `_search/prospecting/call_script.md`, which the owner edits. The call is not
+  `_prospect/outreach/call_script.md`, which the owner edits. The call is not
   a sale: it checks the email arrived and points at one free fix. The call
   itself is still logged on the dashboard, not on the brief.
-- **The outreach agent** (owner, 2026-10-29). `_search/prompts/outreach.md`: told
+- **The outreach agent** (owner, 2026-10-29). `_prospect/prompts/outreach.md`: told
   "you are my outreach agent", it runs `outbox.py sync` and `outbox.py todo`
   and says what awaits review (links and full paths) and what was sent and not yet
   called (with the brief); makes small edits and republishes; approves on the
