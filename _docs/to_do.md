@@ -34,7 +34,7 @@ Added 2026-11-14. The growth guarantee counts only recommendations meant to impr
 
 Started from a comparison of the top Perth SEO firms on 2026-11-15. All of them sell monthly retainers with a free call or free audit as the way in. Keep every thread here until it's shipped or the owner drops it.
 
-1. **Call-back form (the strategy piece).** Built 2026-11-15. The owner tried a timed booking the same day and dropped it. It asks for a phone number, plus an optional website and notes, and the owner rings back as soon as he can. Each request emails and texts the owner; listed under Calls in the dashboard. It replaced the project enquiry form on /contact, the home page, dealers, the portfolio case studies and the GBP page; /seo has a one-line link to it under the audits. Still to do:
+1. **Call-back form (the strategy piece).** Built 2026-11-15. The owner tried a timed booking the same day and dropped it. It asks for an email or phone number, plus an optional website and notes, and the owner gets back to them as soon as he can. Each request emails and texts the owner; listed under Calls in the dashboard. It replaced the project enquiry form on /contact, the home page, dealers, the portfolio case studies and the GBP page; /seo has a one-line link to it under the audits. Still to do:
    - put the call-back link in the prospect report emails and under each report
    - rewrite the /seo FAQ "Is a free SEO audit worth anything?" if it reads against the offer to look at a site for free
    - the form's copy is about SEO; the owner is to go over how website and automation work is enquired about (the dealers and portfolio pages show it too)

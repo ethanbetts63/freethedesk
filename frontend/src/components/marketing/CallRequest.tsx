@@ -1,7 +1,5 @@
 import Image from 'next/image';
 
-import { CONTACT } from '@/lib/contact';
-
 import { CallRequestForm } from './CallRequestForm';
 
 /**
@@ -29,17 +27,10 @@ export function CallRequest({ id = 'call-back', source }: { id?: string; source:
         <div>
           <h2
             id={`${id}-title`}
-            className="m-0 text-display leading-[1.02] tracking-[-0.058em] text-text-secondary"
+            className="m-0 mb-xl text-display leading-[1.02] tracking-[-0.058em] text-text-secondary"
           >
             Get in touch.
           </h2>
-          <p className="mt-s mb-xl text-lead leading-relaxed text-text-muted">
-            Leave your number and we&apos;ll ring you back, or call{' '}
-            <a className="font-heavy text-action-primary underline" href={CONTACT.phoneHref}>
-              {CONTACT.phone}
-            </a>
-            .
-          </p>
           <CallRequestForm source={source} />
         </div>
       </div>

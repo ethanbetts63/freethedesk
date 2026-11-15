@@ -10,9 +10,10 @@ export type CallStatus = 'new' | 'called' | 'no_answer' | 'closed';
 /** A request from the site to be rung back, as the dashboard shows it. */
 export interface CallRequest {
   id: number;
-  phone: string;
+  /** An email address or a phone number, whichever they gave. */
+  contact: string;
   website: string;
-  /** The website's host, or the phone number when no website was given. */
+  /** The website's host, or the contact when no website was given. */
   site: string;
   notes: string;
   source: string;
@@ -44,4 +45,9 @@ export async function updateCall(
       body: JSON.stringify(changes),
     }),
   );
+}
+
+/** A link that reaches whoever asked: mailto for an email address, tel for a number. */
+export function contactHref(contact: string): string {
+  return contact.includes('@') ? `mailto:${contact}` : `tel:${contact.replace(/[^\d+]/g, '')}`;
 }

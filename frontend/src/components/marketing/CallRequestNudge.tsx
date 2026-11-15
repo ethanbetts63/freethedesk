@@ -13,9 +13,9 @@ export function CallRequestNudge() {
           className="font-heavy text-action-primary underline underline-offset-2"
           href="/contact#call-back"
         >
-          Leave your number
+          Get in touch
         </Link>{' '}
-        and we&apos;ll ring you back.
+        and we&apos;ll get back to you.
       </p>
     </section>
   );

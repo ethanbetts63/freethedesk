@@ -6,10 +6,10 @@ import { normaliseWebsiteUrl } from '@/lib/api';
 
 /**
  * Track B under the forms standard. The field names are the call request serializer's
- * (`seo.serializers.call_request`). Only the phone number is required.
+ * (`seo.serializers.call_request`). Only the email or phone is required; the API checks which it is.
  */
 export const callRequestSchema = z.object({
-  phone: requiredString('phone', 'Your phone number is required.'),
+  contact: requiredString('email', 'Your email or phone number is required.'),
   // Bounded before `normaliseWebsiteUrl`, which adds a scheme to "yoursite.com.au".
   website: z
     .string()

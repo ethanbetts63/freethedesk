@@ -35,7 +35,7 @@ import { Notice } from '@/components/ui/Notice';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
 import { formatDateTime } from '@/lib/formatting';
-import { getCalls, type CallRequest } from '@/lib/callsApi';
+import { contactHref, getCalls, type CallRequest } from '@/lib/callsApi';
 import { cn } from '@/lib/utils';
 
 const SORT_FIELDS = ['created_at', 'status'] as const;
@@ -64,7 +64,7 @@ function CallsContent() {
           search={list.searchDraft}
           onSearchChange={list.setSearchDraft}
           onSearchSubmit={list.submitSearch}
-          searchPlaceholder="Search phone, website or notes"
+          searchPlaceholder="Search email, phone, website or notes"
         >
           <FilterSelect
             label="Filter calls by status"
@@ -84,7 +84,7 @@ function CallsContent() {
                   Received
                 </SortHeader>
                 <th className={adminThClassName}>Website</th>
-                <th className={adminThClassName}>Phone</th>
+                <th className={adminThClassName}>Email or phone</th>
                 <SortHeader field="status" ordering={list.ordering} onSort={list.toggleSort}>
                   Status
                 </SortHeader>
@@ -110,15 +110,15 @@ function CallsContent() {
                     {call.notes && <CellNote>{call.notes}</CellNote>}
                   </td>
                   <td className={adminTdClassName}>
-                    <CellTitle>{call.phone}</CellTitle>
+                    <CellTitle>{call.contact}</CellTitle>
                   </td>
                   <td className={adminTdClassName}>
                     <StatusPill status={call.status} />
                   </td>
                   <td className={adminRowActionsClassName}>
                     <div className="flex justify-end gap-xs">
-                      <Button variant="quiet" href={`tel:${call.phone}`}>
-                        Call
+                      <Button variant="quiet" href={contactHref(call.contact)}>
+                        {call.contact.includes('@') ? 'Email' : 'Call'}
                       </Button>
                       <Button variant="quiet" href={`/dashboard/admin/calls/${call.id}`}>
                         Details

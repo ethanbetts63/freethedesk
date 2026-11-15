@@ -27,7 +27,13 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import { backClassName, pageClassName } from '@/components/ui/layout';
 import { formatDateTime, getMessages, type AdminMessage } from '@/lib/adminApi';
 import { safeWebsiteHref } from '@/lib/api';
-import { CALL_REQUEST_TYPE, getCall, updateCall, type CallRequest } from '@/lib/callsApi';
+import {
+  CALL_REQUEST_TYPE,
+  contactHref,
+  getCall,
+  updateCall,
+  type CallRequest,
+} from '@/lib/callsApi';
 import { cn } from '@/lib/utils';
 
 export default function CallDetailPage() {
@@ -103,7 +109,9 @@ export default function CallDetailPage() {
         title={call.site}
         subtitle={`Received ${formatDateTime(call.created_at)}`}
       >
-        <Button href={`tel:${call.phone}`}>Call {call.phone}</Button>
+        <Button href={contactHref(call.contact)}>
+          {call.contact.includes('@') ? 'Email' : 'Call'} {call.contact}
+        </Button>
       </PageHeader>
       {error && <Notice tone="danger">{error}</Notice>}
       <div className={detailGridClassName}>
@@ -128,9 +136,9 @@ export default function CallDetailPage() {
         <section className={cardClassName}>
           <h2 className={cardTitleClassName}>Contact</h2>
           <dl className={detailListClassName}>
-            <DetailItem term="Phone">
-              <a className={cardLinkClassName} href={`tel:${call.phone}`}>
-                {call.phone}
+            <DetailItem term="Email or phone">
+              <a className={cardLinkClassName} href={contactHref(call.contact)}>
+                {call.contact}
               </a>
             </DetailItem>
             <DetailItem term="Website">

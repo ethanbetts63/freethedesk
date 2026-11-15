@@ -49,7 +49,7 @@ class AdminSeoCallRequestListView(ListAPIView):
         search = params.get("search", "").strip()
         if search:
             queryset = queryset.filter(
-                Q(phone__icontains=search) | Q(website__icontains=search) | Q(notes__icontains=search)
+                Q(contact__icontains=search) | Q(website__icontains=search) | Q(notes__icontains=search)
             )
         return apply_ordering(queryset, params, CALL_ORDERING)
 

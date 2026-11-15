@@ -20,7 +20,7 @@ export default function ContactPage() {
         path="/contact"
         titleLines={['Contact freethedesk:']}
         accentTitle="SEO in Perth."
-        lead={`Ring ${CONTACT.phone}, email ${CONTACT.email}, or leave your number below and we'll ring you back.`}
+        lead={`Ring ${CONTACT.phone}, email ${CONTACT.email}, or leave your details below and we'll get back to you.`}
         primaryHref={CONTACT.phoneHref}
         primaryLabel={`Call ${CONTACT.phone}`}
         secondaryHref={CONTACT.emailHref}

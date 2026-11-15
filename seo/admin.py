@@ -45,8 +45,8 @@ class SeoProspectAdmin(admin.ModelAdmin):
 class SeoCallRequestAdmin(admin.ModelAdmin):
     """Requests from the site for a call back, newest first."""
 
-    list_display = ("created_at", "phone", "website", "status", "source")
+    list_display = ("created_at", "contact", "website", "status", "source")
     list_filter = ("status",)
-    search_fields = ("phone", "website", "notes")
+    search_fields = ("contact", "website", "notes")
     raw_id_fields = ("prospect",)
     readonly_fields = ("created_at", "updated_at")

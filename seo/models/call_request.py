@@ -4,11 +4,11 @@ from django.db import models
 
 
 class SeoCallRequest(models.Model):
-    """A request from the site for us to ring a business back: a phone number, and optionally its website and a note.
+    """A request from the site for us to get back to a business: an email or phone number, and optionally its website and a note.
 
     It replaced the timed booking on 2026-11-15. The owner said: "number, url optional, and optional
-    notes section and we'll get back to them asap". There's no email address, so nothing is sent to the
-    business. The owner is emailed and texted at once (``seo.utils.call_requests``).
+    notes section and we'll get back to them asap", then "lets do email or phone". Nothing is sent to
+    the business. The owner is emailed and texted at once (``seo.utils.call_requests``).
     """
 
     class Status(models.TextChoices):
@@ -17,7 +17,8 @@ class SeoCallRequest(models.Model):
         NO_ANSWER = "no_answer", "No answer"
         CLOSED = "closed", "Closed"
 
-    phone = models.CharField(max_length=40)
+    # An email address or a phone number, whichever they gave.
+    contact = models.CharField(max_length=150)
     website = models.URLField(blank=True)
     notes = models.TextField(blank=True)
     # The page the request came from, for measuring the call as an offer.
@@ -39,7 +40,7 @@ class SeoCallRequest(models.Model):
 
     @property
     def site(self) -> str:
-        """The website's host, which names the business, or the phone number when no website was given."""
+        """The website's host, which names the business, or the contact when no website was given."""
         if not self.website:
-            return self.phone
+            return self.contact
         return (urlsplit(self.website).hostname or self.website).removeprefix("www.")

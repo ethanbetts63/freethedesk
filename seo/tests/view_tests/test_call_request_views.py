@@ -14,7 +14,7 @@ def _clear_throttles():
 
 
 def ask(api_client, **fields):
-    data = {"phone": "0400 111 222", "website": "https://www.peakplumbing.com.au", "notes": "Not on Maps.", "source": "/contact"}
+    data = {"contact": "0400 111 222", "website": "https://www.peakplumbing.com.au", "notes": "Not on Maps.", "source": "/contact"}
     return api_client.post(reverse("seo-call-request"), {**data, **fields}, format="json")
 
 
@@ -30,11 +30,22 @@ def test_a_request_emails_and_texts_the_owner(api_client, settings):
     assert text.channel == "sms" and text.to == "+61400000000" and "peakplumbing.com.au" in text.body_text
 
 
-def test_only_the_phone_number_is_required(api_client):
+def test_only_an_email_or_phone_is_required(api_client):
     assert ask(api_client, website="", notes="").status_code == 201
     assert SeoCallRequest.objects.get().site == "0400 111 222"
-    response = ask(api_client, phone="")
-    assert response.status_code == 400 and "phone" in response.data
+    response = ask(api_client, contact="")
+    assert response.status_code == 400 and "contact" in response.data
+
+
+@pytest.mark.parametrize("contact", ["sam@peakplumbing.com.au", "+61 400 111 222", "(08) 9000 0000"])
+def test_an_email_or_a_phone_number_is_accepted(api_client, contact):
+    assert ask(api_client, contact=contact).status_code == 201
+
+
+@pytest.mark.parametrize("contact", ["sam@", "call me", "1234"])
+def test_something_that_is_neither_is_refused(api_client, contact):
+    response = ask(api_client, contact=contact)
+    assert response.status_code == 400 and "contact" in response.data
 
 
 def test_the_call_request_endpoints_are_staff_only(api_client):
@@ -48,9 +59,9 @@ def test_staff_list_requests_and_mark_one_called(api_client, staff_user):
     assert [row["site"] for row in rows] == ["peakplumbing.com.au"]
     response = api_client.patch(
         reverse("admin-seo-call-detail", args=[rows[0]["id"]]),
-        {"status": "called", "call_notes": "Wants Plus.", "phone": "0499 999 999"},
+        {"status": "called", "call_notes": "Wants Plus.", "contact": "0499 999 999"},
         format="json",
     )
     assert response.status_code == 200 and response.data["status_label"] == "Called"
     request = SeoCallRequest.objects.get()
-    assert request.call_notes == "Wants Plus." and request.phone == "0400 111 222"
+    assert request.call_notes == "Wants Plus." and request.contact == "0400 111 222"

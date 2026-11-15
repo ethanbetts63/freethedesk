@@ -12,13 +12,14 @@ import {
 } from '@/components/forms/selectionFormClassNames';
 import { MovingColourButton } from '@/components/MovingColourButton';
 import { trackEvent } from '@/lib/analytics';
+import { cn } from '@/lib/utils';
 
 import { submitCallRequest, type CallRequestState } from './CallRequestForm.actions';
 
 const initialState: CallRequestState = { status: 'idle' };
 
 /**
- * Ask for a call back: a phone number, and optionally the website and a note. Dispatched from
+ * Ask us to get back to you: an email or a phone number, and optionally the website and a note. Dispatched from
  * `onSubmit`, so a failed submit keeps what was typed.
  */
 export function CallRequestForm({ source }: { source: string }) {
@@ -39,7 +40,7 @@ export function CallRequestForm({ source }: { source: string }) {
       <div role="status" className="grid gap-s">
         <p className="m-0 text-title-sm tracking-[-0.04em] text-text-secondary">Thanks.</p>
         <p className="m-0 text-body leading-relaxed text-text-muted">
-          We&apos;ll ring you back as soon as we can.
+          We&apos;ll get back to you as soon as we can.
         </p>
       </div>
     );
@@ -49,13 +50,13 @@ export function CallRequestForm({ source }: { source: string }) {
     <form onSubmit={onSubmit}>
       <input type="hidden" name="source" value={source} />
       <label className={fieldLabelClassName}>
-        <span className={fieldLabelSpanClassName}>Phone</span>
+        <span className={fieldLabelSpanClassName}>Email or phone</span>
         <input
           className={fieldInputClassName}
-          name="phone"
-          type="tel"
-          autoComplete="tel"
-          placeholder="e.g. 0400 000 000"
+          name="contact"
+          type="text"
+          autoComplete="email"
+          placeholder="e.g. you@example.com or 0400 000 000"
           required
         />
       </label>
@@ -73,7 +74,13 @@ export function CallRequestForm({ source }: { source: string }) {
       </label>
       <label className={fieldLabelClassName}>
         <span className={fieldLabelSpanClassName}>Anything we should know? (optional)</span>
-        <textarea className={fieldTextareaClassName} name="notes" rows={3} maxLength={2000} />
+        {/* Half the shared textarea's height: one line to start, and it can be dragged taller. */}
+        <textarea
+          className={cn(fieldTextareaClassName, 'min-h-0')}
+          name="notes"
+          rows={1}
+          maxLength={2000}
+        />
       </label>
 
       {state.status === 'error' && (
@@ -89,7 +96,7 @@ export function CallRequestForm({ source }: { source: string }) {
         fullWidth
         disabled={isPending}
       >
-        {isPending ? 'Sending…' : 'Ring me back'}
+        {isPending ? 'Sending…' : 'Get in touch'}
       </MovingColourButton>
     </form>
   );
