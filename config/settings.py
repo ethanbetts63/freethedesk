@@ -177,6 +177,8 @@ REST_FRAMEWORK = {
         "dealer-signup": "5/hour",
         "seo-signup": "5/hour",
         "affiliate-signup": "5/hour",
+        # A booked SEO review call: a row, two emails and a text.
+        "seo-call": "5/hour",
         # The local machine uploading prospects, by shared secret. A load limit.
         "internal": "120/hour",
         # The unsubscribe link in every pitch: a token check and one row written.

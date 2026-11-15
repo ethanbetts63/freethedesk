@@ -51,128 +51,6 @@ def test_free_ai_readiness_check_requires_a_website_and_email(api_client):
     assert not Enquiry.objects.exists()
 
 
-def test_project_enquiry_records_the_scope_and_budget(api_client, outbox):
-    response = api_client.post(
-        "/api/project-enquiries/",
-        {
-            "project_type": "both",
-            "budget": "$3,000",
-            "website": "https://www.example.com.au",
-            "email": "owner@example.com.au",
-            "phone": "0400 000 000",
-            "notes": "We want enquiries routed to different teams by location.",
-        },
-        format="json",
-    )
-
-    assert response.status_code == 201
-    enquiry = Enquiry.objects.get()
-    assert enquiry.help_with == Enquiry.HelpWith.EVERYTHING
-    assert enquiry.business == "example.com.au"
-    assert enquiry.configuration == {"project_type": "both", "budget": "$3,000"}
-    assert "Budget: $3,000." in enquiry.message
-    assert "Notes:\nWe want enquiries routed to different teams by location." in enquiry.message
-    assert [message.channel for message in outbox] == ["email"]
-    assert "example.com.au" in outbox[0].subject
-    assert "We want enquiries routed to different teams by location." in outbox[0].body_text
-    assert outbox[0].content_object == enquiry
-
-
-def test_project_enquiry_accepts_a_custom_budget_without_a_phone_number(api_client):
-    response = api_client.post(
-        "/api/project-enquiries/",
-        {
-            "project_type": "automation",
-            "budget": "Around 12k, flexible",
-            "website": "https://example.com.au",
-            "email": "owner@example.com.au",
-        },
-        format="json",
-    )
-
-    assert response.status_code == 201
-    enquiry = Enquiry.objects.get()
-    assert enquiry.help_with == Enquiry.HelpWith.AUTOMATION
-    assert enquiry.phone == ""
-    assert enquiry.configuration["budget"] == "Around 12k, flexible"
-    assert "Notes:" not in enquiry.message
-
-
-def test_project_enquiry_accepts_someone_with_no_website_yet(api_client):
-    response = api_client.post(
-        "/api/project-enquiries/",
-        {
-            "project_type": "website",
-            "budget": "$5,000",
-            "website": "",
-            "email": "owner@example.com.au",
-        },
-        format="json",
-    )
-
-    assert response.status_code == 201
-    enquiry = Enquiry.objects.get()
-    assert enquiry.website == ""
-    assert enquiry.business == ""
-
-
-def test_an_seo_audit_enquiry_needs_no_budget(api_client):
-    response = api_client.post(
-        "/api/project-enquiries/",
-        {"project_type": "seo", "website": "https://example.com.au", "email": "owner@example.com.au"},
-        format="json",
-    )
-
-    assert response.status_code == 201
-    enquiry = Enquiry.objects.get()
-    assert enquiry.help_with == Enquiry.HelpWith.SEO
-    assert enquiry.configuration == {"project_type": "seo"}
-    assert enquiry.message == "SEO audit enquiry."
-
-
-def test_a_business_profile_optimisation_enquiry_needs_no_budget(api_client):
-    response = api_client.post(
-        "/api/project-enquiries/",
-        {"project_type": "gbp", "website": "https://example.com.au", "email": "owner@example.com.au"},
-        format="json",
-    )
-
-    assert response.status_code == 201
-    enquiry = Enquiry.objects.get()
-    assert enquiry.help_with == Enquiry.HelpWith.GBP
-    assert enquiry.configuration == {"project_type": "gbp"}
-    assert enquiry.message == "Google Business Profile optimisation enquiry."
-
-
-def test_a_project_enquiry_without_a_fixed_price_needs_a_budget(api_client):
-    response = api_client.post(
-        "/api/project-enquiries/",
-        {"project_type": "website", "budget": " ", "email": "owner@example.com.au"},
-        format="json",
-    )
-
-    assert response.status_code == 400
-    assert "budget" in response.json()
-    assert not Enquiry.objects.exists()
-
-
-def test_project_enquiry_rejects_an_unknown_project_type(api_client):
-    response = api_client.post(
-        "/api/project-enquiries/",
-        {
-            "project_type": "spaceship",
-            "budget": "$1,000",
-            "website": "https://example.com.au",
-            "email": "owner@example.com.au",
-        },
-        format="json",
-    )
-
-    assert response.status_code == 400
-    assert "project_type" in response.json()
-    assert not Enquiry.objects.exists()
-
-
 def test_enquiry_dashboard_requires_staff(api_client):
     response = api_client.get("/api/admin/enquiries/")
     assert response.status_code == 401
@@ -232,6 +110,18 @@ def test_the_retired_free_form_enquiry_endpoint_is_gone(api_client):
     response = api_client.post(
         "/api/enquiries/",
         {"email": "a@example.com", "help_with": "website", "message": "Hello there, friend"},
+        format="json",
+    )
+
+    assert response.status_code == 404
+    assert not Enquiry.objects.exists()
+
+
+def test_the_retired_project_enquiry_endpoint_is_gone(api_client):
+    """The free SEO review booking replaced the project enquiry form everywhere on 2026-11-15."""
+    response = api_client.post(
+        "/api/project-enquiries/",
+        {"project_type": "seo", "email": "a@example.com", "notes": "Hello"},
         format="json",
     )
 

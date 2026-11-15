@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { Hero } from '@/components/marketing/Hero';
-import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
+import { CallBooking } from '@/components/marketing/CallBooking';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { PageSchema } from '@/components/PageSchema';
 import { metadataFor } from '@/lib/pages';
@@ -32,7 +32,7 @@ export const metadata: Metadata = metadataFor(PATH);
 
 /**
  * The /seo page's layout for the one job that changes a Business Profile rather than reading it.
- * Sold by enquiry for now, so the card and the floating button lead to the form at the foot.
+ * No online checkout yet, so the card and the floating button lead to the free SEO review booking at the foot.
  */
 export default function GoogleBusinessProfileOptimisationPage() {
   // The Service node is declared in STATIC_PAGES; only its one price is added here.
@@ -78,18 +78,7 @@ export default function GoogleBusinessProfileOptimisationPage() {
         items={gbpFaqs}
       />
 
-      <ProjectEnquiry
-        id={GBP_ENQUIRY_ID}
-        eyebrow="Ask for it"
-        showProjectType={false}
-        defaultProjectType="gbp"
-        title={
-          <>
-            Get your profile <span className="moving-colour-text">set up properly.</span>
-          </>
-        }
-        lead={`${gbpPrice}, paid once. Send your details and we'll look at your profile, then reply with a start date and how to add us as a manager. Nothing is charged online.`}
-      />
+      <CallBooking id={GBP_ENQUIRY_ID} source={PATH} />
       <RelatedPages path={PATH} />
     </main>
   );

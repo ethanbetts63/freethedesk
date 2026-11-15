@@ -192,9 +192,6 @@ export function safeWebsiteHref(value: string | null | undefined): string | null
   }
 }
 
-/** A project form's scope. `seo` and `gbp` are sold at a published price, so they ask no budget. */
-export type ProjectType = 'website' | 'automation' | 'both' | 'seo' | 'gbp';
-
 /**
  * Fetch a file and hand it to the browser as a download.
  *

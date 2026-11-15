@@ -40,7 +40,7 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-11-11',
+    updated: '2026-11-15',
     label: 'Home',
     title: 'Websites, SEO & Business Automation Perth - freethedesk',
     description:
@@ -48,7 +48,7 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-11-11',
+    updated: '2026-11-15',
     label: 'Dealer websites',
     title: 'Dealership Websites & Online Licensing, WA',
     description:
@@ -154,7 +154,7 @@ export const STATIC_PAGES = {
       'Practical guides for Perth businesses on SEO, website development and what each costs, with automation and dealer licensing besides.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-11-10',
+    updated: '2026-11-15',
     label: 'Scooter Shop',
     title: 'Scooter Shop Case Study: Dealer Website & SEO',
     description:
@@ -162,7 +162,7 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {
-    updated: '2026-11-10',
+    updated: '2026-11-15',
     label: 'Bloomprint',
     title: 'Bloomprint Case Study: Flower Delivery Marketplace',
     description:
@@ -177,11 +177,11 @@ export const STATIC_PAGES = {
       'Earn 50% of every freethedesk SEO audit sold with your code, $220 to $560 a sale. Your audience gets 20% off, your own audit is free, and you are paid fortnightly.',
   },
   '/contact': {
-    updated: '2026-11-04',
+    updated: '2026-11-15',
     label: 'Contact',
-    title: 'Contact Us: Perth Websites, SEO & Automation',
+    title: 'Contact Us: Book a Free SEO Review in Perth',
     description:
-      'Talk to freethedesk, a Perth team, about a custom website, SEO audit, online licensing, web application or business automation project.',
+      'Call, email or book a free 30-minute SEO review with freethedesk, Dianella-based and by appointment only. We look at your site first, then ring you.',
   },
   '/legal/privacy': {
     updated: '2026-10-24',

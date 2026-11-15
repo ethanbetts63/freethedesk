@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import SeoProfile, SeoProspect, SeoSetupStep, SeoSubscriber
+from .models import SeoCallBooking, SeoCallSettings, SeoProfile, SeoProspect, SeoSetupStep, SeoSubscriber
 
 
 @admin.register(SeoSubscriber)
@@ -38,3 +38,19 @@ class SeoProspectAdmin(admin.ModelAdmin):
     list_filter = ("subject_version", "reply")
     search_fields = ("business", "domain", "email", "contact_name")
     readonly_fields = ("sent_at", "created_at", "updated_at")
+
+
+@admin.register(SeoCallBooking)
+class SeoCallBookingAdmin(admin.ModelAdmin):
+    """The free SEO review calls, soonest first. Set the status after the call and link the prospect report."""
+
+    list_display = ("starts_at", "name", "phone", "website", "status", "source")
+    list_filter = ("status",)
+    search_fields = ("name", "email", "phone", "website")
+    raw_id_fields = ("prospect",)
+    readonly_fields = ("created_at", "updated_at")
+
+
+@admin.register(SeoCallSettings)
+class SeoCallSettingsAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "booking_advance_notice", "start_time", "end_time")

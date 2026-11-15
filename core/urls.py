@@ -20,7 +20,6 @@ from .views import (
     PackageOrderStatusView,
     PackageOrderView,
     create_ai_readiness_enquiry,
-    create_project_enquiry,
     health_check,
     site_settings,
 )
@@ -29,7 +28,6 @@ from .views import (
 urlpatterns = [
     path("health/", health_check, name="health-check"),
     path("ai-readiness/", create_ai_readiness_enquiry, name="create-ai-readiness-enquiry"),
-    path("project-enquiries/", create_project_enquiry, name="create-project-enquiry"),
     path("package-orders/", PackageOrderView.as_view(), name="create-package-order"),
     path(
         "package-orders/<str:reference>/",

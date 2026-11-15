@@ -34,14 +34,14 @@ Added 2026-11-14. The growth guarantee counts only recommendations meant to impr
 
 Started from a comparison of the top Perth SEO firms on 2026-11-15. All of them sell monthly retainers with a free call or free audit as the way in. Keep every thread here until it's shipped or the owner drops it.
 
-1. **Free 30-minute call, bookable (the strategy piece).** "Free 30-minute SEO review": we prepare a one-page snapshot from public data (site, Maps position, Business Profile) and show the three things holding the business back, with no pitch. The call ends with one recommendation. Planned places for the booking link:
-   - prospect report emails (the biggest win)
-   - the Business Profile booking link, with "Online appointments" switched on
-   - /seo and the new GBP page
-   - the FAQ, where "Is a free SEO audit worth anything?" must be rewritten so it doesn't contradict the call
-
-   Proposed first version: a Google Calendar appointment schedule. Measure bookings, how many turn up, and how many buy. Waiting on the owner: who takes the calls and when, video or phone, and whether Search Console access is asked for beforehand (proposed: optional). The call is also the way in to the done-for-you offers (2, 3, 5).
-2. **Google Business Profile optimisation, fixed one-off price.** Built 2026-11-15 at `/google-business-profile-optimisation`, $650 paid once, sold by enquiry. What is left is in the three GBP sections below; drop this line once they are done.
+1. **Free 30-minute SEO review call (the strategy piece).** Built 2026-11-15 and taken by phone. The owner writes the business a prospect report and goes through its three main recommendations. It's booked on the site at set half-hour slots (Call settings in the dashboard), and the owner gets an email and a text for each booking. The booking section replaced the project enquiry form on /contact, the home page, dealers, the portfolio case studies and the GBP page; /seo has a one-line link to it under the audits. Still to do:
+   - put the booking link in the prospect report emails and under each report (the biggest win)
+   - set the Business Profile booking link to `/contact#book-a-call` and switch on "Online appointments"
+   - rewrite the /seo FAQ "Is a free SEO audit worth anything?" so it doesn't contradict the free call
+   - the booking section's copy is about SEO; the owner is to go over how website and automation work is enquired about (the dealers and portfolio pages now show it too)
+   - no reminder before the call, and no self-serve cancel or move: a business replies to the confirmation email
+   - measure bookings, how many turn up and how many buy, from the Calls page and its statuses
+2. **Google Business Profile optimisation, fixed one-off price.** Built 2026-11-15 at `/google-business-profile-optimisation`, $650 paid once. The way in is now the free SEO review booking at its foot, not an enquiry. What is left is in the three GBP sections below; drop this line once they are done.
 3. **Done-for-you without a retainer.** Fixed bundles such as "Essentials + we make the top 5 fixes" at one price.
 4. **Optional monthly tracking.** Rank tracking and a short monthly report, cancel anytime, priced well below rival retainers.
 5. **Google Ads optimisation (done-for-you).** Added by the owner. The Complete audit already reads the Ads account; this would do the work. It needs the free call to scope each account. Research rivals' Ads management prices the way the GBP price was researched.
@@ -51,14 +51,14 @@ Smaller ideas, not started:
 - audits that web designers can resell (wholesale)
 - a paid walkthrough call
 
-## Deploy Business Profile optimisation (owner)
+## Deploy the free SEO review booking and the GBP page (owner)
 
-Added 2026-11-15. The new page `/google-business-profile-optimisation` asks for an enquiry with the project type `gbp`, which the server must know first. Pull, run `migrate` (core 0030 adds the `gbp` choice to `Enquiry.help_with`; choices only, no data change), reload, then rebuild the frontend. If the frontend goes first, the page's form fails with "We could not send that." Delete this once deployed and a test enquiry from the page shows as "Business Profile optimisation" on the enquiries dashboard.
+Added 2026-11-15. Pull, then run `migrate`: core 0030 adds the `gbp` enquiry choice, and seo 0033 adds `SeoCallBooking` and `SeoCallSettings`. Reload, then rebuild the frontend. The backend goes first: the booking form reads `/api/seo/calls/slots/` and posts to `/api/seo/calls/`. The old `/api/project-enquiries/` endpoint is gone, so the old frontend's enquiry form fails until the rebuild. Deploy both together. Check that `ADMIN_NUMBER` is set on the server, because each booking texts it. Then open Call settings in the dashboard: 3 days' notice, 9 to 5, Monday to Friday and 2 weeks shown are the defaults. Delete this once deployed, a test booking from /contact has emailed and texted you, and you've cancelled it on the Calls page.
 
 ## Business Profile optimisation: decide the guarantee and how it is paid (owner)
 
-Added 2026-11-15. The page says nothing about a refund, because the SEO Audit Terms' guarantee covers audits only and no terms cover this job. Decide whether it carries one (for example, a refund if the work isn't done within a set time, never one tied to rankings), and which terms it is sold under: a section in the Web Development Terms, or terms of its own. The page also tells an enquirer "we'll reply with a start date and how to add us as a manager. Nothing is charged online", so decide whether the $650 is invoiced before or after the work and say so in the reply.
+Added 2026-11-15. The page says nothing about a refund, because the SEO Audit Terms' guarantee covers audits only and no terms cover this job. Decide whether it carries one (for example, a refund if the work isn't done within a set time, never one tied to rankings), and which terms it is sold under: a section in the Web Development Terms, or terms of its own. Also decide whether the $650 is invoiced before or after the work, and say so on the call.
 
 ## Business Profile optimisation: buy online
 
-Added 2026-11-15. Once the terms exist, sell it the way the website packages are sold: a `PackageOrder.Package` code, `quote_package`, `PackageOrderDialog` and `/order/payment`, with the price moved from the `GBP_OPTIMISATION_PRICE` constant (`frontend/src/lib/servicePricing.ts`) to a `SiteSettings` field (model, migration, serializer, Django admin and the dashboard's site settings page). Then the card on the page opens the order dialog instead of scrolling to the enquiry form. Until it moves, three places state $650 by hand: the constant, the page's `description` in `frontend/src/lib/pages.ts` and `frontend/content/articles/business-not-showing-up-on-google.md`.
+Added 2026-11-15. Once the terms exist, sell it the way the website packages are sold: a `PackageOrder.Package` code, `quote_package`, `PackageOrderDialog` and `/order/payment`, with the price moved from the `GBP_OPTIMISATION_PRICE` constant (`frontend/src/lib/servicePricing.ts`) to a `SiteSettings` field (model, migration, serializer, Django admin and the dashboard's site settings page). Then the card on the page opens the order dialog instead of scrolling to the free SEO review booking. Until it moves, three places state $650 by hand: the constant, the page's `description` in `frontend/src/lib/pages.ts` and `frontend/content/articles/business-not-showing-up-on-google.md`.

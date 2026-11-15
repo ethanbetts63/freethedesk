@@ -9,7 +9,7 @@ import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSe
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { DealerWebsiteSection } from '@/components/marketing/DealerWebsiteSection';
 import { Hero } from '@/components/marketing/Hero';
-import { ProjectEnquiry } from '@/components/marketing/ProjectEnquiry';
+import { CallBooking } from '@/components/marketing/CallBooking';
 import { SubscriptionSwap } from '@/components/marketing/SubscriptionSwap';
 import { WebsiteIntroduction } from '@/components/marketing/WebsiteIntroduction';
 import { PageSchema } from '@/components/PageSchema';
@@ -181,10 +181,7 @@ export default async function Dealers() {
         <p>The same dealership system keeps customer actions and admin moving together.</p>
       </CaseStudyTeaser>
 
-      <ProjectEnquiry
-        eyebrow={null}
-        lead="Give us the constraint, and we'll tell you the most valuable dealership system we can build within it."
-      />
+      <CallBooking id="project-enquiry" source="/dealers" />
 
       <FloatingPageCta
         label="Discuss your dealership"
