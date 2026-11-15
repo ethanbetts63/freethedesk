@@ -3,12 +3,11 @@ import Image from 'next/image';
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
 const WORK = [
-  'Primary and secondary categories',
-  'Services, each with a description and a price',
-  'The business description',
-  'Attributes, such as online appointments and on-site services',
-  'Hours and service area',
+  'Categories, services and prices',
+  'Description, attributes, hours and service area',
   'Photos, posts and replies to your reviews',
+  'Name, address and phone matching your website',
+  'A booking link and a website link your analytics can count',
 ] as const;
 
 export function GbpSetup({ eyebrow }: { eyebrow: string }) {
@@ -18,7 +17,7 @@ export function GbpSetup({ eyebrow }: { eyebrow: string }) {
       eyebrow={eyebrow}
       title="Every part of the profile,"
       accentTitle="filled in properly"
-      description="We go through the profile section by section and fill in what is missing or wrong. Nothing is made up: every service, price and opening hour comes from you, and we write it up and put it in."
+      description="We fill in what is missing or wrong, and match the profile to your website. Every fact comes from you."
       bullets={WORK}
       visual={
         <Image

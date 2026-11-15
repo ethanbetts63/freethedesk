@@ -11,22 +11,15 @@ import { buildOneOffOffer } from '@/lib/seo';
 import { numberSections } from '@/lib/sectionNumbers';
 import { GBP_OPTIMISATION_PRICE } from '@/lib/servicePricing';
 
-import { GbpConsistency } from './_components/GbpConsistency';
 import { GbpIntroduction } from './_components/GbpIntroduction';
 import { GBP_ENQUIRY_ID, GbpPackage } from './_components/GbpPackage';
-import { GbpRules } from './_components/GbpRules';
 import { GbpSetup } from './_components/GbpSetup';
 import { gbpFaqs } from './_lib/copy';
 import { GBP_PRODUCT_NAME, gbpPrice } from './_lib/plan';
 
 const PATH = '/google-business-profile-optimisation';
 
-const sections = numberSections([
-  'Set up',
-  'Match your site',
-  'Kept clean',
-  'Common questions',
-] as const);
+const sections = numberSections(['Set up', 'Common questions'] as const);
 
 export const metadata: Metadata = metadataFor(PATH);
 
@@ -45,7 +38,7 @@ export default function GoogleBusinessProfileOptimisationPage() {
         path={PATH}
         titleLines={['Google Business Profile', 'optimisation Perth:']}
         accentTitle="done for you, once."
-        lead="We fill in your Google Business Profile properly: categories, services and prices, hours, photos, posts and review replies, with your website and profile telling Google the same thing. For businesses in Perth and across Australia."
+        lead="We fill in your Google Business Profile properly, from categories and prices to photos and review replies. One job, paid once."
         primaryHref="#package"
         primaryLabel={`Done for you, ${gbpPrice}`}
         secondaryHref="/seo"
@@ -59,12 +52,8 @@ export default function GoogleBusinessProfileOptimisationPage() {
 
       <GbpSetup eyebrow={sections['Set up']} />
 
-      <GbpConsistency eyebrow={sections['Match your site']} />
-
-      <GbpRules eyebrow={sections['Kept clean']} />
-
       <FloatingPageCta
-        label="Ask for your optimisation"
+        label="Book a free call"
         href={`#${GBP_ENQUIRY_ID}`}
         direction="down"
         showAfterId="package-end"
