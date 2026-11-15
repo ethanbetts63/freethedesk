@@ -6,6 +6,8 @@ import { PageSchema } from '@/components/PageSchema';
 import { CONTACT } from '@/lib/contact';
 import { metadataFor } from '@/lib/pages';
 
+import { ContactBenefits } from './_components/ContactBenefits';
+
 export const metadata: Metadata = metadataFor('/contact');
 
 /**
@@ -28,6 +30,7 @@ export default function ContactPage() {
         trustLine="Dianella-based · By appointment only · Perth and across Australia"
       />
       <CallRequest source="/contact" />
+      <ContactBenefits />
     </main>
   );
 }
