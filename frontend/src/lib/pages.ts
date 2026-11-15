@@ -139,6 +139,54 @@ export const STATIC_PAGES = {
       areaServed: { type: 'City', name: 'Perth' },
     },
   },
+  '/seo/tradies': {
+    updated: '2026-11-15',
+    label: 'Tradies',
+    title: 'SEO for Tradies in Perth: What Holds Trades Back',
+    description:
+      "We've written SEO reports for 22 Perth trade businesses. The faults we found most often, and an SEO audit that checks yours, paid once.",
+    service: {
+      name: 'SEO for Tradies Perth',
+      serviceType: 'SEO audits and consulting',
+      areaServed: { type: 'City', name: 'Perth' },
+    },
+  },
+  '/seo/builders': {
+    updated: '2026-11-15',
+    label: 'Builders and renovators',
+    title: 'SEO for Builders & Renovators in Perth',
+    description:
+      "We've written SEO reports for 8 Perth builders and renovators. The faults we found most often, and an SEO audit that checks yours, paid once.",
+    service: {
+      name: 'SEO for Builders and Renovators Perth',
+      serviceType: 'SEO audits and consulting',
+      areaServed: { type: 'City', name: 'Perth' },
+    },
+  },
+  '/seo/health-clinics': {
+    updated: '2026-11-15',
+    label: 'Health clinics',
+    title: 'SEO for Health Clinics in Perth: Physios & More',
+    description:
+      "We've written SEO reports for 6 Perth health clinics. The faults we found most often, and an SEO audit that checks yours, paid once.",
+    service: {
+      name: 'SEO for Health Clinics Perth',
+      serviceType: 'SEO audits and consulting',
+      areaServed: { type: 'City', name: 'Perth' },
+    },
+  },
+  '/seo/professional-services': {
+    updated: '2026-11-15',
+    label: 'Professional services',
+    title: 'SEO for Professional Services in Perth',
+    description:
+      "We've written SEO reports for 6 Perth professional firms. The faults we found most often, and an SEO audit that checks yours, paid once.",
+    service: {
+      name: 'SEO for Professional Services Perth',
+      serviceType: 'SEO audits and consulting',
+      areaServed: { type: 'City', name: 'Perth' },
+    },
+  },
   '/seo/sample-report': {
     updated: '2026-11-07',
     label: 'Sample report',

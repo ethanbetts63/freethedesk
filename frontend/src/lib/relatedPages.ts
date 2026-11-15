@@ -32,6 +32,26 @@ const LINKS = {
     label: 'Business Profile optimisation',
     line: 'Your Google Business Profile set up properly, paid once.',
   },
+  tradies: {
+    href: '/seo/tradies',
+    label: 'SEO for tradies',
+    line: 'What holds Perth trades back on Google.',
+  },
+  builders: {
+    href: '/seo/builders',
+    label: 'SEO for builders',
+    line: 'What holds Perth builders and renovators back.',
+  },
+  healthClinics: {
+    href: '/seo/health-clinics',
+    label: 'SEO for health clinics',
+    line: 'What holds Perth physios and clinics back.',
+  },
+  professionalServices: {
+    href: '/seo/professional-services',
+    label: 'SEO for professional services',
+    line: 'What holds Perth law and professional firms back.',
+  },
   sampleReport: {
     href: '/seo/sample-report',
     label: 'Sample SEO report',
@@ -128,6 +148,22 @@ const RELATED: Record<string, { title: string; links: readonly Key[] }> = {
   '/seo': {
     title: 'The sample report, profile optimisation and our search guides',
     links: ['sampleReport', 'gbp', 'notShowing', 'aiSearch'],
+  },
+  '/seo/tradies': {
+    title: 'The sample report, profile optimisation and other industries',
+    links: ['sampleReport', 'gbp', 'builders', 'notShowing'],
+  },
+  '/seo/builders': {
+    title: 'The sample report, profile optimisation and other industries',
+    links: ['sampleReport', 'gbp', 'tradies', 'notShowing'],
+  },
+  '/seo/health-clinics': {
+    title: 'The sample report, profile optimisation and other industries',
+    links: ['sampleReport', 'gbp', 'professionalServices', 'notShowing'],
+  },
+  '/seo/professional-services': {
+    title: 'The sample report, profile optimisation and other industries',
+    links: ['sampleReport', 'gbp', 'healthClinics', 'notShowing'],
   },
   '/google-business-profile-optimisation': {
     title: 'SEO audits, the sample report and local search',

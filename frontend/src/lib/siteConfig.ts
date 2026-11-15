@@ -20,6 +20,10 @@ export const PRIMARY_NAVIGATION = [
     items: [
       { href: '/seo', label: 'SEO audits' },
       { href: '/google-business-profile-optimisation', label: 'Business Profile optimisation' },
+      { href: '/seo/tradies', label: 'SEO for tradies' },
+      { href: '/seo/builders', label: 'SEO for builders' },
+      { href: '/seo/health-clinics', label: 'SEO for health clinics' },
+      { href: '/seo/professional-services', label: 'SEO for professional services' },
     ],
   },
   {
