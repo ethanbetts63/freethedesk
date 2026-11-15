@@ -29,3 +29,24 @@ Added 2026-11-14. The SEO Audit Terms gain section 6, a full refund if Search Co
 ## Mark which recommendations are ranking recommendations
 
 Added 2026-11-14. The growth guarantee counts only recommendations meant to improve ranking or clicks in search, not fixes to details, page faults or conversion (terms 6.3), and promises to say which are which on request. Nothing in a report marks them yet. Have the full report label each recommendation (in `../ftp_search`), so a customer can see which three count without asking.
+
+## New offers to match the Perth SEO competition (owner's threads, 2026-11-15)
+
+Started from a comparison of the top Perth SEO firms on 2026-11-15. All of them sell monthly retainers with a free call or free audit as the way in. Keep every thread here until it's shipped or the owner drops it.
+
+1. **Free 30-minute call, bookable (the strategy piece).** "Free 30-minute SEO review": we prepare a one-page snapshot from public data (site, Maps position, Business Profile) and show the three things holding the business back, with no pitch. The call ends with one recommendation. Planned places for the booking link:
+   - prospect report emails (the biggest win)
+   - the Business Profile booking link, with "Online appointments" switched on
+   - /seo and the new GBP page
+   - the FAQ, where "Is a free SEO audit worth anything?" must be rewritten so it doesn't contradict the call
+
+   Proposed first version: a Google Calendar appointment schedule. Measure bookings, how many turn up, and how many buy. Waiting on the owner: who takes the calls and when, video or phone, and whether Search Console access is asked for beforehand (proposed: optional). The call is also the way in to the done-for-you offers (2, 3, 5).
+2. **Google Business Profile optimisation, fixed one-off price.** The page mirrors /seo; it was being built on 2026-11-15.
+3. **Done-for-you without a retainer.** Fixed bundles such as "Essentials + we make the top 5 fixes" at one price.
+4. **Optional monthly tracking.** Rank tracking and a short monthly report, cancel anytime, priced well below rival retainers.
+5. **Google Ads optimisation (done-for-you).** Added by the owner. The Complete audit already reads the Ads account; this would do the work. It needs the free call to scope each account. Research rivals' Ads management prices the way the GBP price was researched.
+6. **Google rating on the site.** Show "5.0 on Google" (rating only, no review count) in the header and hero, linking to the Google reviews. otterair.com.au is the model. Freethedesk's rating was 5.0 from 3 reviews on 2026-11-15. The badge must stay true, so re-check the rating whenever a review arrives. Don't add AggregateRating markup for our own reviews: Google ignores self-serving review markup for a business.
+
+Smaller ideas, not started:
+- audits that web designers can resell (wholesale)
+- a paid walkthrough call
