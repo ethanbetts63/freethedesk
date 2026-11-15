@@ -177,7 +177,7 @@ REST_FRAMEWORK = {
         "dealer-signup": "5/hour",
         "seo-signup": "5/hour",
         "affiliate-signup": "5/hour",
-        # A booked SEO review call: a row, two emails and a text.
+        # A call-back request: a row, an email and a text to the owner.
         "seo-call": "5/hour",
         # The local machine uploading prospects, by shared secret. A load limit.
         "internal": "120/hour",

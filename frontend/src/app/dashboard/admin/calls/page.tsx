@@ -34,22 +34,17 @@ import { panelClassName } from '@/components/ui/Card';
 import { Notice } from '@/components/ui/Notice';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { pageClassName } from '@/components/ui/layout';
-import { getCalls, type CallBooking } from '@/lib/callsApi';
+import { formatDateTime } from '@/lib/formatting';
+import { getCalls, type CallRequest } from '@/lib/callsApi';
 import { cn } from '@/lib/utils';
 
-import { CallDiary } from './_components/CallDiary';
-
-const SORT_FIELDS = ['starts_at', 'created_at', 'name', 'status'] as const;
+const SORT_FIELDS = ['created_at', 'status'] as const;
 const FILTER_KEYS = ['status'] as const;
 const COLUMNS = 5;
 
 function CallsContent() {
-  const fetchPage = useCallback(
-    (view: AdminListView) =>
-      getCalls(adminListParams({ ...view, ordering: view.ordering || '-starts_at' })),
-    [],
-  );
-  const list = useAdminList<CallBooking>({
+  const fetchPage = useCallback((view: AdminListView) => getCalls(adminListParams(view)), []);
+  const list = useAdminList<CallRequest>({
     fetchPage,
     filterKeys: FILTER_KEYS,
     sortFields: SORT_FIELDS,
@@ -58,15 +53,9 @@ function CallsContent() {
 
   return (
     <div className={pageClassName}>
-      <PageHeader kicker="Free SEO review" title="Calls">
-        <Button variant="secondary" href="/dashboard/admin/settings/calls">
-          Call settings
-        </Button>
-      </PageHeader>
+      <PageHeader kicker="Call-back requests" title="Calls" />
 
-      <CallDiary />
-
-      <section className={cn(panelClassName, 'mt-l')}>
+      <section className={panelClassName}>
         <AdminFilterBar
           total={list.total}
           noun="call"
@@ -75,7 +64,7 @@ function CallsContent() {
           search={list.searchDraft}
           onSearchChange={list.setSearchDraft}
           onSearchSubmit={list.submitSearch}
-          searchPlaceholder="Search name, website, phone or email"
+          searchPlaceholder="Search phone, website or notes"
         >
           <FilterSelect
             label="Filter calls by status"
@@ -91,13 +80,11 @@ function CallsContent() {
           <table className={adminTableClassName}>
             <thead>
               <tr>
-                <SortHeader field="starts_at" ordering={list.ordering} onSort={list.toggleSort}>
-                  Call time
+                <SortHeader field="created_at" ordering={list.ordering} onSort={list.toggleSort}>
+                  Received
                 </SortHeader>
                 <th className={adminThClassName}>Website</th>
-                <SortHeader field="name" ordering={list.ordering} onSort={list.toggleSort}>
-                  Contact
-                </SortHeader>
+                <th className={adminThClassName}>Phone</th>
                 <SortHeader field="status" ordering={list.ordering} onSort={list.toggleSort}>
                   Status
                 </SortHeader>
@@ -114,15 +101,16 @@ function CallsContent() {
               {(call) => (
                 <tr key={call.id} className={adminRowClassName} style={statusTone(call.status)}>
                   <td className={adminTdClassName}>
-                    <RowLink href={`/dashboard/admin/calls/${call.id}`}>{call.when}</RowLink>
+                    <RowLink href={`/dashboard/admin/calls/${call.id}`}>
+                      {formatDateTime(call.created_at)}
+                    </RowLink>
                   </td>
                   <td className={adminTdClassName}>
-                    <CellTitle>{call.site}</CellTitle>
+                    <CellTitle>{call.website ? call.site : '—'}</CellTitle>
                     {call.notes && <CellNote>{call.notes}</CellNote>}
                   </td>
                   <td className={adminTdClassName}>
-                    <CellTitle>{call.name}</CellTitle>
-                    <CellNote>{call.phone}</CellNote>
+                    <CellTitle>{call.phone}</CellTitle>
                   </td>
                   <td className={adminTdClassName}>
                     <StatusPill status={call.status} />

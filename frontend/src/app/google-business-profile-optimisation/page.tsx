@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { Hero } from '@/components/marketing/Hero';
-import { CallBooking } from '@/components/marketing/CallBooking';
+import { CallRequest } from '@/components/marketing/CallRequest';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { PageSchema } from '@/components/PageSchema';
 import { metadataFor } from '@/lib/pages';
@@ -25,7 +25,7 @@ export const metadata: Metadata = metadataFor(PATH);
 
 /**
  * The /seo page's layout for the one job that changes a Business Profile rather than reading it.
- * No online checkout yet, so the card and the floating button lead to the free SEO review booking at the foot.
+ * No online checkout yet, so the card and the floating button lead to the call-back form at the foot.
  */
 export default function GoogleBusinessProfileOptimisationPage() {
   // The Service node is declared in STATIC_PAGES; only its one price is added here.
@@ -53,7 +53,7 @@ export default function GoogleBusinessProfileOptimisationPage() {
       <GbpSetup eyebrow={sections['Set up']} />
 
       <FloatingPageCta
-        label="Book a free call"
+        label="Ask for a call back"
         href={`#${GBP_ENQUIRY_ID}`}
         direction="down"
         showAfterId="package-end"
@@ -67,7 +67,7 @@ export default function GoogleBusinessProfileOptimisationPage() {
         items={gbpFaqs}
       />
 
-      <CallBooking id={GBP_ENQUIRY_ID} source={PATH} />
+      <CallRequest id={GBP_ENQUIRY_ID} source={PATH} />
       <RelatedPages path={PATH} />
     </main>
   );

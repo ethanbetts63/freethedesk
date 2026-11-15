@@ -19,5 +19,5 @@ class AffiliateSignupRateThrottle(ScopedAnonThrottle):
     scope = "affiliate-signup"
 
 
-class SeoCallBookingRateThrottle(ScopedAnonThrottle):
+class SeoCallRequestRateThrottle(ScopedAnonThrottle):
     scope = "seo-call"

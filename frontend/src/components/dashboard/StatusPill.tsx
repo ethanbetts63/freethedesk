@@ -90,10 +90,8 @@ const STATUS: StatusMap = {
   paid: { label: 'Paid', tone: 'var(--status-won)' },
   void: { label: 'Void', tone: 'var(--status-closed)' },
 
-  // Free SEO review calls. `cancelled` is shared with messages above.
-  booked: { label: 'Booked', tone: 'var(--status-new)' },
-  done: { label: 'Call taken', tone: 'var(--status-won)' },
-  no_show: { label: 'No answer', tone: 'var(--status-suspended)' },
+  // Call-back requests. `new`, `called` and `closed` are shared with the lists above and below.
+  no_answer: { label: 'No answer', tone: 'var(--status-suspended)' },
 
   // SEO setup steps. Marked done is waiting on us to confirm the access, so it
   // takes the colour of the other "waiting on someone" states.
@@ -124,7 +122,7 @@ export const enquiryStatuses = [
   'spam',
   'ignored',
 ] as const;
-export const callStatuses = ['booked', 'done', 'no_show', 'cancelled'] as const;
+export const callStatuses = ['new', 'called', 'no_answer', 'closed'] as const;
 export const orderStatuses = ['payment_pending', 'paid'] as const;
 export const dealerStatuses = ['pending', 'active', 'suspended', 'denied'] as const;
 export const saleStatuses = [

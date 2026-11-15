@@ -27,12 +27,12 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import { backClassName, pageClassName } from '@/components/ui/layout';
 import { formatDateTime, getMessages, type AdminMessage } from '@/lib/adminApi';
 import { safeWebsiteHref } from '@/lib/api';
-import { CALL_BOOKING_TYPE, getCall, updateCall, type CallBooking } from '@/lib/callsApi';
+import { CALL_REQUEST_TYPE, getCall, updateCall, type CallRequest } from '@/lib/callsApi';
 import { cn } from '@/lib/utils';
 
 export default function CallDetailPage() {
   const id = Number(useParams<{ callId: string }>().callId);
-  const [call, setCall] = useState<CallBooking | null>(null);
+  const [call, setCall] = useState<CallRequest | null>(null);
   const [notes, setNotes] = useState('');
   const [messages, setMessages] = useState<AdminMessage[]>([]);
   const [loading, setLoading] = useState(true);
@@ -43,7 +43,7 @@ export default function CallDetailPage() {
   useEffect(() => {
     Promise.all([
       getCall(id),
-      getMessages({ related_type: CALL_BOOKING_TYPE, related_id: id, page_size: 20 }),
+      getMessages({ related_type: CALL_REQUEST_TYPE, related_id: id, page_size: 20 }),
     ])
       .then(([result, messagePage]) => {
         setCall(result);
@@ -99,9 +99,9 @@ export default function CallDetailPage() {
       </Link>
       <PageHeader
         align="center"
-        kicker={`Free SEO review · call #${call.id}`}
+        kicker={`Call-back request #${call.id}`}
         title={call.site}
-        subtitle={`${call.when} · booked ${formatDateTime(call.created_at)}`}
+        subtitle={`Received ${formatDateTime(call.created_at)}`}
       >
         <Button href={`tel:${call.phone}`}>Call {call.phone}</Button>
       </PageHeader>
@@ -116,7 +116,7 @@ export default function CallDetailPage() {
             className={statusCardSelectClassName}
             value={call.status}
             disabled={saving}
-            onChange={(event) => save({ status: event.target.value as CallBooking['status'] })}
+            onChange={(event) => save({ status: event.target.value as CallRequest['status'] })}
           >
             {callStatuses.map((status) => (
               <option key={status} value={status}>
@@ -128,15 +128,9 @@ export default function CallDetailPage() {
         <section className={cardClassName}>
           <h2 className={cardTitleClassName}>Contact</h2>
           <dl className={detailListClassName}>
-            <DetailItem term="Name">{call.name}</DetailItem>
             <DetailItem term="Phone">
               <a className={cardLinkClassName} href={`tel:${call.phone}`}>
                 {call.phone}
-              </a>
-            </DetailItem>
-            <DetailItem term="Email">
-              <a className={cardLinkClassName} href={`mailto:${call.email}`}>
-                {call.email}
               </a>
             </DetailItem>
             <DetailItem term="Website">
@@ -150,10 +144,10 @@ export default function CallDetailPage() {
                   {call.website} ↗
                 </a>
               ) : (
-                call.website
+                call.website || 'Not given'
               )}
             </DetailItem>
-            <DetailItem term="Booked from">{call.source || 'Not recorded'}</DetailItem>
+            <DetailItem term="Sent from">{call.source || 'Not recorded'}</DetailItem>
           </dl>
         </section>
         <section className={cn(cardClassName, cardWideClassName)}>

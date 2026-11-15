@@ -13,7 +13,7 @@ import { AutomationFeature } from './_components/AutomationFeature';
 import { HomePricingMosaic } from './_components/HomePricingMosaic';
 import { HomeSeoFeature } from './_components/HomeSeoFeature';
 import { Hero } from '@/components/marketing/Hero';
-import { CallBooking } from '@/components/marketing/CallBooking';
+import { CallRequest } from '@/components/marketing/CallRequest';
 import { WebsiteDevelopmentFeature } from './_components/WebsiteDevelopmentFeature';
 
 export const metadata: Metadata = metadataFor('/');
@@ -40,7 +40,7 @@ export default function Home() {
       <HomeSeoFeature />
       <WebsiteDevelopmentFeature />
       <AutomationFeature />
-      <CallBooking source="/" />
+      <CallRequest source="/" />
       <FaqSection
         emitSchema
         eyebrow="Common questions"

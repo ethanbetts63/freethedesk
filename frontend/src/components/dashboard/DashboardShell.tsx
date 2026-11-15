@@ -1,8 +1,7 @@
 'use client';
 
 import {
-  CalendarClock,
-  CalendarCog,
+  PhoneIncoming,
   Inbox,
   Mail,
   Mic,
@@ -24,7 +23,7 @@ import { PortalShell } from './PortalShell';
 const sections: DashboardNavSection[] = [
   {
     items: [
-      { href: '/dashboard/admin/calls', label: 'Calls', icon: <CalendarClock /> },
+      { href: '/dashboard/admin/calls', label: 'Calls', icon: <PhoneIncoming /> },
       { href: '/dashboard/admin/enquiries', label: 'Enquiries', icon: <Inbox /> },
       { href: '/dashboard/admin/orders', label: 'Orders', icon: <ShoppingBag /> },
       { href: '/dashboard/admin/messages', label: 'Messages', icon: <Mail /> },
@@ -59,11 +58,6 @@ const sections: DashboardNavSection[] = [
         href: '/dashboard/admin/settings/site',
         label: 'Site settings',
         icon: <SlidersHorizontal />,
-      },
-      {
-        href: '/dashboard/admin/settings/calls',
-        label: 'Call settings',
-        icon: <CalendarCog />,
       },
     ],
   },

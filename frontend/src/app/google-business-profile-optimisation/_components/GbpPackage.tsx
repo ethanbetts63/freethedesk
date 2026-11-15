@@ -8,12 +8,12 @@ import { scrollToId } from '@/lib/scrollToId';
 
 import { GBP_PLAN, GBP_PRODUCT_NAME } from '../_lib/plan';
 
-/** Where the card's button lands: the free SEO review booking at the foot of the page. */
+/** Where the card's button lands: the call-back form at the foot of the page. */
 export const GBP_ENQUIRY_ID = 'enquire';
 
 /**
  * The one card, laid out as the SEO audits are. It has no terms or checkout of its own yet
- * (_docs/to_do.md), so the button scrolls to the free SEO review booking instead of opening an
+ * (_docs/to_do.md), so the button scrolls to the call-back form instead of opening an
  * order dialog.
  */
 export function GbpPackage() {

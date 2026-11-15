@@ -4,7 +4,7 @@ import { FaqSection } from '@/components/marketing/FaqSection';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
-import { CallBookingNudge } from '@/components/marketing/CallBookingNudge';
+import { CallRequestNudge } from '@/components/marketing/CallRequestNudge';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
@@ -81,7 +81,7 @@ export default async function SeoPage() {
 
       <SeoPackages settings={settings} />
 
-      <CallBookingNudge />
+      <CallRequestNudge />
 
       <SeoIntroduction />
 

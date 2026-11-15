@@ -45,11 +45,10 @@ checkFormLedger({
     { file: 'app/seo-portal/account/page.tsx', track: 'B' },
     { file: 'components/marketing/AiReadinessForm.tsx', track: 'B' },
     {
-      file: 'components/marketing/CallBookingForm.tsx',
+      file: 'components/marketing/CallRequestForm.tsx',
       track: 'B',
-      summary: 'Its one error sits above the button it stops.',
+      summary: 'Three fields; the error sits above the button.',
     },
-    { file: 'app/dashboard/admin/settings/calls/page.tsx', track: 'B' },
     { file: 'app/unsubscribe/[token]/_components/UnsubscribeForm.tsx', track: 'B' },
 
     // Excluded, with the argument. Re-opening one means disagreeing with the

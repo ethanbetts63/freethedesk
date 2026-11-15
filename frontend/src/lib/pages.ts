@@ -179,9 +179,9 @@ export const STATIC_PAGES = {
   '/contact': {
     updated: '2026-11-15',
     label: 'Contact',
-    title: 'Contact Us: Book a Free SEO Review in Perth',
+    title: 'Contact Us: SEO in Perth',
     description:
-      'Call, email or book a free 30-minute SEO review with freethedesk, Dianella-based and by appointment only. We look at your site first, then ring you.',
+      'Call or email freethedesk, Dianella-based and by appointment only, or leave your number and we will ring you back about your site.',
   },
   '/legal/privacy': {
     updated: '2026-10-24',

@@ -1,11 +1,9 @@
 from django.urls import path
 
-from .views.call_booking import (
-    AdminSeoCallBookingDetailView,
-    AdminSeoCallBookingListView,
-    AdminSeoCallSettingsView,
-    SeoCallBookingView,
-    SeoCallSlotsView,
+from .views.call_request import (
+    AdminSeoCallRequestDetailView,
+    AdminSeoCallRequestListView,
+    SeoCallRequestView,
 )
 
 from .views import (
@@ -34,9 +32,8 @@ from .views import (
 
 
 urlpatterns = [
-    # The free 30-minute SEO review: the open times, and a booking.
-    path("seo/calls/slots/", SeoCallSlotsView.as_view(), name="seo-call-slots"),
-    path("seo/calls/", SeoCallBookingView.as_view(), name="seo-call-booking"),
+    # A request from the site to be rung back about SEO.
+    path("seo/calls/", SeoCallRequestView.as_view(), name="seo-call-request"),
     path("seo/signup/", SeoRegistrationView.as_view(), name="seo-signup"),
     path(
         "seo/checkout/<str:reference>/",
@@ -66,10 +63,9 @@ urlpatterns = [
     path("seo/r/<str:key>/seo/", SeoReportSeoView.as_view(), name="seo-report-seo"),
     # The link's preview picture (the page's og:image), fetched by chat and text apps apart from the page.
     path("seo/r/<str:key>/cover.jpg/", SeoReportCoverView.as_view(), name="seo-report-cover"),
-    # Staff: the booked SEO review calls (the diary and table), one call, and when calls can be booked.
-    path("admin/seo/calls/", AdminSeoCallBookingListView.as_view(), name="admin-seo-call-list"),
-    path("admin/seo/calls/settings/", AdminSeoCallSettingsView.as_view(), name="admin-seo-call-settings"),
-    path("admin/seo/calls/<int:pk>/", AdminSeoCallBookingDetailView.as_view(), name="admin-seo-call-detail"),
+    # Staff: the call-back requests, and one request.
+    path("admin/seo/calls/", AdminSeoCallRequestListView.as_view(), name="admin-seo-call-list"),
+    path("admin/seo/calls/<int:pk>/", AdminSeoCallRequestDetailView.as_view(), name="admin-seo-call-detail"),
     # Staff: the calls list.
     path("admin/seo/prospects/", AdminSeoProspectListView.as_view(), name="admin-seo-prospect-list"),
     path("admin/seo/prospects/<int:pk>/", AdminSeoProspectDetailView.as_view(), name="admin-seo-prospect-detail"),

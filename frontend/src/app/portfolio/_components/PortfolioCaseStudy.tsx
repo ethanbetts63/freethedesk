@@ -12,7 +12,7 @@ import { SectionNumber } from '@/components/SectionNumber';
 import { SeoReportVisual } from '@/components/SeoReportVisual';
 import { Introduction } from '@/components/marketing/Introduction';
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
-import { CallBooking } from '@/components/marketing/CallBooking';
+import { CallRequest } from '@/components/marketing/CallRequest';
 import type { PagePath } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
 
@@ -632,7 +632,7 @@ export function PortfolioCaseStudy({ config: rawConfig }: { config: PortfolioCas
       {config.sections.map((section) => (
         <CaseSectionView section={section} key={section.eyebrow} />
       ))}
-      <CallBooking id="enquiry" source={config.path} />
+      <CallRequest id="enquiry" source={config.path} />
       <FaqSection
         emitSchema
         eyebrow={config.faq.eyebrow}
