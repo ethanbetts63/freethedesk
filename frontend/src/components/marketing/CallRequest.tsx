@@ -18,7 +18,7 @@ export function CallRequest({ id = 'call-back', source }: { id?: string; source:
           {/* eslint-disable-next-line no-restricted-syntax -- as above, one step inside the panel's */}
           <div className="w-full overflow-hidden rounded-[1.5rem] border border-border-default bg-surface-page">
             <Image
-              src="/images/guides/how-to-show-up-in-ai-search.webp"
+              src="/images/guides/business-not-showing-up-on-google.webp"
               alt=""
               width={1536}
               height={1024}

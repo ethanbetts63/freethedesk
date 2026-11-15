@@ -21,7 +21,7 @@ export function GbpSetup({ eyebrow }: { eyebrow: string }) {
       bullets={WORK}
       visual={
         <Image
-          src="/images/guides/business-not-showing-up-on-google.webp"
+          src="/images/seo/what-google-looks-at.webp"
           alt=""
           width={1536}
           height={1024}
