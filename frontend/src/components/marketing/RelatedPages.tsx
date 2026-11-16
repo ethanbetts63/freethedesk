@@ -15,7 +15,7 @@ export function RelatedPages({ path }: { path: string }) {
     <GuideCards
       related={relatedPagesFor(path)}
       guides={guideCards()}
-      kicker={<SectionNumber>Related</SectionNumber>}
+      kicker={<SectionNumber>Related SEO &amp; Website Content</SectionNumber>}
       iconFor={guideIconFor}
     />
   );
