@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
-import { SeoExperimentCard } from '@/app/seo/_components/SeoExperimentCard';
 import { CallRequestNudge } from '@/components/marketing/CallRequestNudge';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { FaqSection } from '@/components/marketing/FaqSection';
@@ -21,7 +20,6 @@ import { getSiteSettingsServer, SERVICE_PRICE_FIELDS } from '@/lib/serverApi';
 import { money, offerName, servicePrices } from '@/lib/servicePricing';
 
 import { CaseStudyLink } from './_components/CaseStudyLink';
-import { RedirectMapCard } from './_components/RedirectMapCard';
 import { WordPressCostLink } from './_components/WordPressCostLink';
 import { redesignFaqs } from './_lib/copy';
 
@@ -47,6 +45,20 @@ const casePoints = [
   'Structured data',
   'Measured in Search Console',
 ];
+
+/** A section's picture, in the guide illustrations' 3:2 frame, as /seo's Analyse picture is. */
+function SectionPicture({ src }: { src: string }) {
+  return (
+    <Image
+      src={src}
+      alt=""
+      width={1536}
+      height={1024}
+      sizes="(min-width: 1024px) 55vw, 100vw"
+      className="aspect-[3/2] h-auto w-full rounded-lg border border-border-default object-cover"
+    />
+  );
+}
 
 /**
  * Website redesign, for the businesses searching to replace a site they already have: mostly
@@ -110,16 +122,7 @@ export default async function WebsiteRedesignPage() {
         title="Why move off WordPress:"
         accentTitle="fewer plugins and updates"
         description="WordPress itself is fine software. The trouble is the theme, page builder and dozen plugins stacked on top, each with its own updates and licence. A custom-coded site does the same jobs with nothing to patch each month, no yearly licences in US dollars, and pages that load only what they need."
-        visual={
-          <Image
-            src="/images/redesign/why-not-wordpress.webp"
-            alt=""
-            width={1536}
-            height={1024}
-            sizes="(min-width: 1024px) 55vw, 100vw"
-            className="aspect-[3/2] h-auto w-full rounded-lg border border-border-default object-cover"
-          />
-        }
+        visual={<SectionPicture src="/images/redesign/why-not-wordpress.webp" />}
         textSide="left"
         background="white"
         spacing="joined"
@@ -132,7 +135,7 @@ export default async function WebsiteRedesignPage() {
         title="Redirects that keep"
         accentTitle="your Google rankings"
         description="Most of the risk in a redesign is in the addresses. Before anything is built we pull every page Google shows today from your Search Console. Each old address then gets a permanent redirect to the page that replaces it, and the titles and wording that already rank are kept."
-        visual={<RedirectMapCard />}
+        visual={<SectionPicture src="/images/guides/business-not-showing-up-on-google.webp" />}
         textSide="right"
         spacing="joined"
         action={<CaseStudyLink />}
@@ -143,8 +146,8 @@ export default async function WebsiteRedesignPage() {
         eyebrow={sections['Measured after launch']}
         title="Every move is"
         accentTitle="measured in Search Console"
-        description="The new sitemap goes to Google on launch day, and Search Console is watched in the weeks after, so a missing redirect is caught early rather than months later. Here, three of Scooter Shop's workshop pages were folded into one and followed week by week."
-        visual={<SeoExperimentCard />}
+        description="The new sitemap goes to Google on launch day, and Search Console is watched in the weeks after, so a missing redirect is caught early rather than months later."
+        visual={<SectionPicture src="/images/guides/seo-cost-perth.webp" />}
         textSide="left"
         background="white"
         spacing="joined"
