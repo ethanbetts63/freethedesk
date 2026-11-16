@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 import { FaqSection } from '@/components/marketing/FaqSection';
+import { GoogleRatingBadge } from '@/components/marketing/GoogleRatingBadge';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import type { FaqItem } from '@/types/FaqItem';
 import { ManualAdminCta } from '@/components/ManualAdminCta';
@@ -176,6 +177,7 @@ function PortfolioHero({
           take more of the room it needs. */}
       <div className="site-shell relative grid grid-cols-[minmax(0,1fr)] items-center gap-2xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] xl:gap-3xl">
         <div className="relative z-3">
+          <GoogleRatingBadge className="mb-xl" />
           <h1 className="m-0 text-display font-heavy leading-[0.91] tracking-[-0.078em] [&_span]:text-text-action">
             <HeadingLines heading={config.title} />
           </h1>

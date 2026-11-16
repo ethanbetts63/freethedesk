@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 import { GOOGLE_RATING } from '@/lib/contact';
-import { cn } from '@/lib/utils';
 
 /** A review star, in the site's warning gold: the colour people read as a rating. */
 function Star() {
@@ -17,18 +16,27 @@ function Star() {
  * reviews on Google Maps. Copied from otterair.com.au's hero (owner's choice, 2026-11-15), and,
  * like theirs, it shows no review count. The rating is typed in `GOOGLE_RATING`: it must be checked
  * whenever a review arrives, so it never claims more than Google shows.
+ *
+ * It sits above every hero's h1 (owner, 2026-11-16), so it must never read as the title: it is a
+ * plain link, never a heading, `data-nosnippet` keeps it out of Google's snippets, and the link to
+ * the reviews is `nofollow`.
  */
 export function GoogleRatingBadge({ className }: { className?: string }) {
+  return (
+    <div data-nosnippet className={className}>
+      <RatingLink />
+    </div>
+  );
+}
+
+function RatingLink() {
   return (
     <a
       href={GOOGLE_RATING.reviewsUrl}
       target="_blank"
-      rel="noreferrer"
+      rel="nofollow noopener noreferrer"
       aria-label={`Rated ${GOOGLE_RATING.rating} on Google. Read the reviews on Google Maps.`}
-      className={cn(
-        'group inline-flex flex-nowrap items-center gap-xs rounded-full bg-surface-dark py-2xs pr-m pl-2xs no-underline shadow-l ring-1 ring-inset ring-white/15 transition hover:-translate-y-0.5',
-        className,
-      )}
+      className="group inline-flex flex-nowrap items-center gap-xs rounded-full bg-surface-dark py-2xs pr-m pl-2xs no-underline shadow-l ring-1 ring-inset ring-white/15 transition hover:-translate-y-0.5"
     >
       <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-surface-page">
         {/* Google's "G" in Google's colours, kept as a file because it is their mark, not our palette. */}

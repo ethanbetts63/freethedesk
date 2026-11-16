@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { ScrollCtaButton } from '@/components/common/ScrollCtaButton';
 import { CtaButton } from '@/components/CtaButton';
+import { GoogleRatingBadge } from '@/components/marketing/GoogleRatingBadge';
 import { NetworkField } from '@/components/visuals/NetworkField';
 import type { PagePath } from '@/lib/pages';
 import { heroGridClassName } from '@/lib/gridSurface';
@@ -71,6 +72,7 @@ export function Hero({
           CTAs render as buttons (ScrollCtaButton), so buttons need it as much as links. */}
         <div className="site-shell pointer-events-none py-3xl [&_a]:pointer-events-auto [&_button]:pointer-events-auto">
           <div>
+            <GoogleRatingBadge className="mb-xl" />
             <h1 className="m-0 max-w-[1000px] text-balance text-hero leading-[0.87] font-heavy tracking-[-0.085em] text-text-primary [overflow-wrap:break-word] sm:[overflow-wrap:normal] lg:leading-[0.83]">
               {titleLines.map((line, index) => (
                 /* The trailing space collapses to nothing on screen, but it keeps

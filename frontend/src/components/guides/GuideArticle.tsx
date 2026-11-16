@@ -8,6 +8,7 @@ import type { ReactNode } from 'react';
 import { GuideAuthorBio, GuideByline } from '@/components/guides/GuideAuthor';
 import { GuideContents } from '@/components/guides/GuideContents';
 import { GuideTrail, type GuideTrailStep } from '@/components/guides/GuideTrail';
+import { GoogleRatingBadge } from '@/components/marketing/GoogleRatingBadge';
 import { formatDateLong } from '@/lib/formatting';
 import type { GuideImage, GuidePage } from '@/lib/guide';
 
@@ -69,6 +70,7 @@ export function GuideArticle({
         <div className="site-shell grid gap-2xl pt-xl pb-section-half lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center lg:pt-section-half">
           <div>
             <GuideTrail trail={trail} />
+            <GoogleRatingBadge className="mb-l" />
             <h1 className="m-0 text-title leading-[1.08] font-heavy tracking-[-0.045em] text-text-primary sm:text-display">
               {guide.heading}
             </h1>
