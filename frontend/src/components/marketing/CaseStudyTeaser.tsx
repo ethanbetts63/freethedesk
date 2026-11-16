@@ -4,10 +4,35 @@ import Link from 'next/link';
 import { CtaButton } from '@/components/CtaButton';
 import { SectionHeader } from '@/components/SectionHeader';
 import { PhoneFrame } from '@/components/visuals/PhoneFrame';
-import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
+import { BLOOMPRINT_GROWTH, SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
+
+/**
+ * The case studies this section can stand on. Half the pages show Scooter Shop and half Bloomprint
+ * (owner, 2026-11-16), so the pages that share this section don't all say the same words.
+ */
+const STUDIES = {
+  'scooter-shop': {
+    title: 'Scooter Shop, Perth.',
+    stat: SCOOTER_SHOP_GROWTH.stat,
+    image: '/case-studies/scooter-shop/inventory-mobile.png',
+    alt: 'Scooter Shop inventory page on mobile',
+    href: '/portfolio/scooter-shop',
+  },
+  bloomprint: {
+    title: 'Bloomprint.',
+    stat: BLOOMPRINT_GROWTH.stat,
+    image: '/case-studies/bloomprint/home-mobile.png',
+    alt: 'Bloomprint home page on mobile',
+    href: '/portfolio/bloomprint',
+  },
+} as const;
+
+export type CaseStudyKey = keyof typeof STUDIES;
 
 type CaseStudyTeaserProps = {
   eyebrow: string;
+  /** Which case study: its figure, its phone screenshot and its link. Scooter Shop by default. */
+  study?: CaseStudyKey;
   title?: React.ReactNode;
   children: React.ReactNode;
   /** Tag-like facts under the copy; none when the page has nothing to add to the paragraph. */
@@ -19,13 +44,15 @@ type CaseStudyTeaserProps = {
 
 export function CaseStudyTeaser({
   eyebrow,
-  title = 'Scooter Shop, Perth.',
+  study = 'scooter-shop',
+  title,
   children,
   points = [],
   primaryHref,
   primaryLabel,
   showPrimaryAction = true,
 }: CaseStudyTeaserProps) {
+  const caseStudy = STUDIES[study];
   return (
     <section className="mt-section bg-surface-dark py-section text-text-on-dark sm:mt-xl">
       <div className="site-shell grid grid-cols-1 items-center gap-split lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
@@ -36,7 +63,7 @@ export function CaseStudyTeaser({
               Google Search Console
             </small>
             <strong className="mt-xs mb-4xs block text-display leading-none font-strong tracking-[-0.06em]">
-              {SCOOTER_SHOP_GROWTH.stat}
+              {caseStudy.stat}
             </strong>
             <span className="whitespace-nowrap text-body text-[var(--text-on-dark-muted)]">
               organic clicks
@@ -44,12 +71,7 @@ export function CaseStudyTeaser({
           </div>
           <div className="relative z-1">
             <PhoneFrame size="standalone">
-              <Image
-                src="/case-studies/scooter-shop/inventory-mobile.png"
-                alt="Scooter Shop inventory page on mobile"
-                width={390}
-                height={844}
-              />
+              <Image src={caseStudy.image} alt={caseStudy.alt} width={390} height={844} />
             </PhoneFrame>
           </div>
         </div>
@@ -57,7 +79,7 @@ export function CaseStudyTeaser({
           {/* Tracking is -0.05em rather than the scale's -0.055em; see SectionHeader. */}
           <SectionHeader
             eyebrow={eyebrow}
-            title={title}
+            title={title ?? caseStudy.title}
             onDark
             titleClassName="mb-ml tracking-[-0.05em]"
           />
@@ -81,7 +103,7 @@ export function CaseStudyTeaser({
               </CtaButton>
             )}
             <Link
-              href="/portfolio/scooter-shop"
+              href={caseStudy.href}
               className="text-body-sm font-strong tracking-[0.04em] text-text-on-dark uppercase [&>span]:ml-2xs [&>span]:inline-block [&>span]:transition-transform [&>span]:duration-200 hover:[&>span]:translate-x-1"
             >
               Read the full case study <span>↗</span>

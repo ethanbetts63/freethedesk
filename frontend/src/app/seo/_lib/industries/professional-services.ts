@@ -1,4 +1,4 @@
-import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
+import { BLOOMPRINT_GROWTH } from '@/lib/caseStudies';
 import { GBP_OPTIMISATION_PRICE, money } from '@/lib/servicePricing';
 
 import type { SeoPageCopy } from '../pageCopy';
@@ -39,8 +39,9 @@ export const PROFESSIONAL_SERVICES_COPY: SeoPageCopy = {
       "Every recommendation you implement becomes an experiment, measured in the clicks and enquiries it brings in. We track our decisions numerically. What earns is kept and built on; what doesn't is dropped.",
   },
   caseStudy: {
-    title: `SEO results for a Perth business: organic clicks up ${SCOOTER_SHOP_GROWTH.percent}%.`,
-    body: `Scooter Shop is a Perth scooter dealership. Its website combines inventory, parts, purchasing and service journeys in one connected experience. Fast structured pages and search content aimed at what Perth customers search for grew its organic clicks ${SCOOTER_SHOP_GROWTH.percent}% in ${SCOOTER_SHOP_GROWTH.span}.`,
+    study: 'bloomprint',
+    title: `SEO results for a new brand: organic clicks up ${BLOOMPRINT_GROWTH.percent}%.`,
+    body: `Bloomprint is a national flower delivery marketplace: the customer describes what they want and a local florist designs it. A page for each city, occasion and question, each answering its own search, grew the new site's organic clicks ${BLOOMPRINT_GROWTH.percent}% in ${BLOOMPRINT_GROWTH.span}. A firm's site wins the same way: a page for each practice area and client question, aimed at what Perth clients search for.`,
   },
   faqTitle: 'SEO for professional services Perth: common questions.',
   faqs: (prices) => [

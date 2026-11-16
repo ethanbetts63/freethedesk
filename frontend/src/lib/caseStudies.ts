@@ -22,3 +22,20 @@ export const SCOOTER_SHOP_GROWTH = {
   period: 'April to October 2026',
   span: 'six months',
 } as const;
+
+/**
+ * Bloomprint's organic growth, quoted where its case study stands in for Scooter Shop's.
+ *
+ * Source: Search Console, https://www.bloomprint.com.au/, the stored daily series read 2026-11-16
+ * (it starts 2 August 2026). Organic clicks in the 31 days to 15 November 2026 against the 30
+ * days before. The site is new and its counts are small, so only the percentage is published
+ * (owner, 2026-11-16); the counts stay out of the repo, as Scooter Shop's do.
+ *
+ * Re-read Search Console before changing it.
+ */
+export const BLOOMPRINT_GROWTH = {
+  percent: 150,
+  stat: '+150%',
+  period: 'mid-October to mid-November 2026',
+  span: 'a month',
+} as const;

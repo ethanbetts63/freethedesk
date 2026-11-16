@@ -47,6 +47,7 @@ export const FOOTER_NAVIGATION = [
   { href: '/seo/builders', label: 'SEO for builders' },
   { href: '/seo/health-clinics', label: 'SEO for health clinics' },
   { href: '/seo/professional-services', label: 'SEO for professional services' },
+  { href: '/seo/dealerships', label: 'SEO for dealerships' },
   { href: '/website-development', label: 'Website development' },
   { href: '/website-redesign-perth', label: 'Website redesign' },
   // A trial suburb page; the footer is its only link (2026-10-07).

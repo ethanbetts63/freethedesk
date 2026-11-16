@@ -15,7 +15,7 @@ import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { CallRequest } from '@/components/marketing/CallRequest';
 import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
-import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
+import { BLOOMPRINT_GROWTH } from '@/lib/caseStudies';
 import type { PagePath } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
 import { buildOneOffOffer } from '@/lib/seo';
@@ -56,8 +56,8 @@ const sections = numberSections([
 ] as const);
 
 const casePoints = [
-  'Indexable stock',
-  'Intent-focused pages',
+  'City pages',
+  'Occasion pages',
   'Structured data',
   'Measured in Search Console',
 ];
@@ -129,28 +129,29 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
-        title={`Case study: Scooter Shop, organic clicks up ${SCOOTER_SHOP_GROWTH.percent}%`}
+        study="bloomprint"
+        title={`Case study: Bloomprint, organic clicks up ${BLOOMPRINT_GROWTH.percent}%`}
         points={casePoints}
         primaryHref="#packages"
         primaryLabel="Choose your package"
         showPrimaryAction={false}
       >
         <p>
-          Scooter Shop is a Perth scooter dealership. Its website combines inventory, parts,
-          purchasing and service journeys in one connected experience. Fast structured pages and
-          focused search content grew its organic clicks {SCOOTER_SHOP_GROWTH.percent}% in{' '}
-          {SCOOTER_SHOP_GROWTH.span}.
+          Bloomprint is a national flower delivery marketplace. Its website combines the
+          customer&apos;s brief, ordering, payment and the florists&apos; side in one connected
+          experience. Fast structured pages for each city, occasion and question grew the new
+          site&apos;s organic clicks {BLOOMPRINT_GROWTH.percent}% in {BLOOMPRINT_GROWTH.span}.
         </p>
         <p>
           It is a practical example of what happens when the public website and the work behind it
           are designed as one system. For a different build, see{' '}
           <Link
             className="text-text-action underline underline-offset-[3px]"
-            href="/portfolio/bloomprint"
+            href="/portfolio/scooter-shop"
           >
-            Bloomprint
+            Scooter Shop
           </Link>
-          , a flower marketplace with customers on one side and florists on the other.
+          , a Perth dealership with stock, parts and service in one site.
         </p>
       </CaseStudyTeaser>
 

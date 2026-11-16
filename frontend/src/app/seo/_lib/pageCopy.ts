@@ -1,3 +1,4 @@
+import { type CaseStudyKey } from '@/components/marketing/CaseStudyTeaser';
 import { type PublicSiteSettings } from '@/lib/api';
 import type { FaqItem } from '@/types/FaqItem';
 
@@ -16,7 +17,8 @@ export interface SeoPageCopy {
   analyse: { title: string; accentTitle: string; description: string };
   recommend: { title: string; accentTitle: string; description: string };
   experiment: { title: string; accentTitle: string; description: string };
-  caseStudy: { title: string; body: string };
+  /** Half the pages stand on Scooter Shop, half on Bloomprint (owner, 2026-11-16). */
+  caseStudy: { study: CaseStudyKey; title: string; body: string };
   faqTitle: string;
   /** Built per request so the cost answer quotes the prices the admin has set. */
   faqs: (prices: SeoAuditPrices) => FaqItem[];

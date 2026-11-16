@@ -74,6 +74,12 @@ const LINKS = {
     line: 'SEO audits for lawyers, accountants and brokers.',
     image: '/images/pages/seo-professional-services.webp',
   },
+  dealerships: {
+    href: '/seo/dealerships',
+    label: 'SEO for dealerships',
+    line: 'SEO audits for car, motorcycle, caravan and boat dealers.',
+  },
+
   sampleReport: {
     href: '/seo/sample-report',
     label: 'Sample SEO report',
@@ -198,6 +204,11 @@ const RELATED: Record<string, { title: string; links: readonly Key[] }> = {
     title: 'SEO audits, the sample report, profile optimisation and another industry',
     links: ['seo', 'sampleReport', 'gbp', 'healthClinics'],
   },
+  '/seo/dealerships': {
+    title: 'SEO audits, the sample report, dealer websites and a dealer case study',
+    links: ['seo', 'sampleReport', 'dealers', 'scooterShop'],
+  },
+
   '/google-business-profile-optimisation': {
     title: 'SEO audits, the sample report and local search',
     links: ['seo', 'sampleReport', 'notShowing'],
@@ -211,8 +222,8 @@ const RELATED: Record<string, { title: string; links: readonly Key[] }> = {
     links: ['seo', 'whatToAutomate', 'scooterShop', 'websites'],
   },
   '/dealers': {
-    title: 'SEO audits, online licensing, Dealer Online and a dealer case study',
-    links: ['seo', 'licensing', 'dealerOnline', 'scooterShop'],
+    title: 'Dealership SEO, online licensing, Dealer Online and a dealer case study',
+    links: ['dealerships', 'licensing', 'dealerOnline', 'scooterShop'],
   },
   '/licensing': {
     title: 'SEO audits, Dealer Online, dealer websites and a dealer case study',

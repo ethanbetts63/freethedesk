@@ -15,7 +15,7 @@ import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { PageSchema } from '@/components/PageSchema';
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
-import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
+import { BLOOMPRINT_GROWTH } from '@/lib/caseStudies';
 import { formatMoney } from '@/lib/formatting';
 import { metadataFor } from '@/lib/pages';
 import { numberSections } from '@/lib/sectionNumbers';
@@ -44,8 +44,8 @@ const sections = numberSections([
 
 /** The bar under the case study: what the search work behind it was. */
 const casePoints = [
-  'Indexable stock',
-  'Intent-focused pages',
+  'Question-led guides',
+  'City pages',
   'Structured data',
   'Measured in Search Console',
 ];
@@ -167,17 +167,18 @@ export default async function AiSeoPage() {
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
-        title={`AI answers start with search: a Perth business's organic clicks up ${SCOOTER_SHOP_GROWTH.percent}%.`}
+        study="bloomprint"
+        title={`AI answers start with search: a new brand's organic clicks up ${BLOOMPRINT_GROWTH.percent}%.`}
         points={casePoints}
         primaryHref="#signup"
         primaryLabel="Choose an audit"
         showPrimaryAction={false}
       >
         <p>
-          Scooter Shop is a Perth scooter dealership. Fast pages a machine can read, structured data
-          for every bike and search content aimed at what Perth riders ask grew its organic clicks{' '}
-          {SCOOTER_SHOP_GROWTH.percent}% in {SCOOTER_SHOP_GROWTH.span}: the same pages AI answers
-          are built from.
+          Bloomprint is a national flower delivery marketplace. Fast pages a machine can read, a
+          guide for each question buyers ask and a page for each city grew the new site&apos;s
+          organic clicks {BLOOMPRINT_GROWTH.percent}% in {BLOOMPRINT_GROWTH.span}: the same pages AI
+          answers are built from.
         </p>
       </CaseStudyTeaser>
 

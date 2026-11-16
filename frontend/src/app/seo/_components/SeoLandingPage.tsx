@@ -29,12 +29,15 @@ const sections = numberSections([
   'Common questions',
 ] as const);
 
-const casePoints = [
-  'Indexable stock',
-  'Intent-focused pages',
-  'Structured data',
-  'Measured in Search Console',
-];
+const casePoints = {
+  'scooter-shop': [
+    'Indexable stock',
+    'Intent-focused pages',
+    'Structured data',
+    'Measured in Search Console',
+  ],
+  bloomprint: ['City pages', 'Occasion pages', 'Search-led guides', 'Measured in Search Console'],
+} as const;
 
 /**
  * The /seo page, and each industry SEO page: the same sections in the same order, with the words
@@ -101,8 +104,9 @@ export async function SeoLandingPage({ path, copy }: { path: PagePath; copy: Seo
 
       <CaseStudyTeaser
         eyebrow={sections['Proof this works']}
+        study={copy.caseStudy.study}
         title={copy.caseStudy.title}
-        points={casePoints}
+        points={casePoints[copy.caseStudy.study]}
         primaryHref="#signup"
         primaryLabel="Choose an audit"
         showPrimaryAction={false}

@@ -211,6 +211,19 @@ export const STATIC_PAGES = {
       areaServed: { type: 'City', name: 'Perth' },
     },
   },
+  '/seo/dealerships': {
+    updated: '2026-11-16',
+    label: 'Dealerships',
+    title: 'SEO for Dealerships Perth: Technical, Local & AI Search',
+    description:
+      "A written SEO report of your dealership's website: the stock and model searches you're losing and what to fix. For car, motorcycle, caravan and boat dealers.",
+    service: {
+      name: 'SEO for Dealerships Perth',
+      serviceType: 'SEO audits and consulting',
+      areaServed: { type: 'City', name: 'Perth' },
+    },
+  },
+
   '/seo/sample-report': {
     updated: '2026-11-16',
     label: 'Sample report',

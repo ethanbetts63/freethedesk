@@ -40,6 +40,7 @@ export const SEO_COPY: SeoPageCopy = {
       "Every recommendation you implement becomes an experiment. We track our decisions numerically. What earns is kept and built on; what doesn't is dropped.",
   },
   caseStudy: {
+    study: 'scooter-shop',
     title: `SEO results for a Perth business: organic clicks up ${SCOOTER_SHOP_GROWTH.percent}%.`,
     body: `Scooter Shop is a Perth scooter dealership. Its website combines inventory, parts, purchasing and service journeys in one connected experience. Fast structured pages and search content aimed at what Perth riders search for grew its organic clicks ${SCOOTER_SHOP_GROWTH.percent}% in ${SCOOTER_SHOP_GROWTH.span}.`,
   },
