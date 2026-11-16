@@ -11,7 +11,8 @@ export const SITE_URL = (
 
 /*
  * Websites and SEO lead: they are the business. Dealerships are in the footer
- * alone (owner, 2026-11-04): one line of the business, not a menu item.
+ * alone (owner, 2026-11-04): one line of the business, not a menu item. So are
+ * the industry SEO pages (owner, 2026-11-16): the SEO menu lists services only.
  */
 export const PRIMARY_NAVIGATION = [
   {
@@ -20,10 +21,6 @@ export const PRIMARY_NAVIGATION = [
     items: [
       { href: '/seo', label: 'SEO audits' },
       { href: '/google-business-profile-optimisation', label: 'Business Profile optimisation' },
-      { href: '/seo/tradies', label: 'SEO for tradies' },
-      { href: '/seo/builders', label: 'SEO for builders' },
-      { href: '/seo/health-clinics', label: 'SEO for health clinics' },
-      { href: '/seo/professional-services', label: 'SEO for professional services' },
     ],
   },
   {
@@ -42,6 +39,10 @@ export const PRIMARY_NAVIGATION = [
 export const FOOTER_NAVIGATION = [
   { href: '/seo', label: 'SEO audits' },
   { href: '/google-business-profile-optimisation', label: 'Business Profile optimisation' },
+  { href: '/seo/tradies', label: 'SEO for tradies' },
+  { href: '/seo/builders', label: 'SEO for builders' },
+  { href: '/seo/health-clinics', label: 'SEO for health clinics' },
+  { href: '/seo/professional-services', label: 'SEO for professional services' },
   { href: '/website-development', label: 'Website development' },
   { href: '/website-redesign-perth', label: 'Website redesign' },
   // A trial suburb page; the footer is its only link (2026-10-07).
