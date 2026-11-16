@@ -67,9 +67,11 @@ it takes; what it costs; whether you need llms.txt.
 Where freethedesk can differ:
 
 - **Prices.** Most rivals hide them; freethedesk's audits are priced up front.
-- **The truth about llms.txt.** Most rivals sell it. Google says you need no
-  special files for its AI features, and the ledger finds llms.txt does
-  nothing.
+- **llms.txt, sold plainly.** freethedesk sells it too (owner, 2026-11-16).
+  Most rivals sell it as a ranking lever. Google says its AI features need no
+  special files, and the ledger (T5) finds no ranking effect. So sell it for
+  what it is, a clean summary of the site for AI tools to read, and never
+  promise rankings or citations from it.
 - **Our own data, as aiseoperth.net.au does it.** The audits already read AI
   crawler access and Search Console's Generative AI report.
 

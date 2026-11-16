@@ -104,6 +104,18 @@ export const STATIC_PAGES = {
       areaServed: { type: 'City', name: 'Perth' },
     },
   },
+  '/website-migration-seo-perth': {
+    updated: '2026-11-16',
+    label: 'Website migration SEO',
+    title: 'Website Migration SEO Perth: Keep Your Rankings',
+    description:
+      'Moving to a new website, platform or domain? Keep the searches your old site wins: every ranking page found, redirected to its replacement and checked after launch.',
+    service: {
+      name: 'Website Migration SEO Perth',
+      serviceType: 'Website migration SEO',
+      areaServed: { type: 'City', name: 'Perth' },
+    },
+  },
   '/automation': {
     updated: '2026-11-16',
     label: 'Automation',

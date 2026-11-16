@@ -21,6 +21,7 @@ export const PRIMARY_NAVIGATION = [
     items: [
       { href: '/seo', label: 'SEO audits' },
       { href: '/google-business-profile-optimisation', label: 'Business Profile optimisation' },
+      { href: '/website-migration-seo-perth', label: 'Website migration SEO' },
     ],
   },
   {
@@ -39,6 +40,7 @@ export const PRIMARY_NAVIGATION = [
 export const FOOTER_NAVIGATION = [
   { href: '/seo', label: 'SEO audits' },
   { href: '/google-business-profile-optimisation', label: 'Business Profile optimisation' },
+  { href: '/website-migration-seo-perth', label: 'Website migration SEO' },
   { href: '/seo/tradies', label: 'SEO for tradies' },
   { href: '/seo/builders', label: 'SEO for builders' },
   { href: '/seo/health-clinics', label: 'SEO for health clinics' },

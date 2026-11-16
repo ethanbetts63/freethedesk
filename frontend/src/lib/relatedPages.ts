@@ -28,6 +28,11 @@ const LINKS = {
     line: 'Moving off WordPress without losing the searches you win.',
     image: '/images/pages/website-redesign-perth.webp',
   },
+  migration: {
+    href: '/website-migration-seo-perth',
+    label: 'Website migration SEO',
+    line: 'Moving site, platform or domain without losing your rankings.',
+  },
   seo: {
     href: '/seo',
     label: 'SEO audits',
@@ -157,8 +162,12 @@ const RELATED: Record<string, { title: string; links: readonly Key[] }> = {
     links: ['seo', 'redesign', 'bloomprint', 'scooterShop'],
   },
   '/website-redesign-perth': {
-    title: 'SEO audits, new websites, WordPress costs and a case study',
-    links: ['seo', 'websites', 'wordpressCost', 'bloomprint'],
+    title: 'SEO audits, new websites, WordPress costs and migration SEO',
+    links: ['seo', 'websites', 'wordpressCost', 'migration'],
+  },
+  '/website-migration-seo-perth': {
+    title: 'SEO audits, redesigns, the sample report and a case study',
+    links: ['seo', 'redesign', 'sampleReport', 'scooterShop'],
   },
   '/seo': {
     title: 'The sample report, profile optimisation and our search guides',
