@@ -77,8 +77,8 @@ SEO is sold as one audit, paid once, in three tiers by what it reads, each
 with its own price in site settings: `essentials` (`seo_essentials_price`:
 public data and Search Console), `plus` (`seo_plus_price`: adds the Business
 Profile, reviews and analytics) and `complete` (`seo_complete_price`: adds
-Google Ads, the legal check, business records and a second look three months
-on). Every one is a Stripe one-off payment on the `seo.oneoff` flow; nothing
+Google Ads, the audit for legal concerns and business records; the second look
+three months on was dropped 2026-11-16). Every one is a Stripe one-off payment on the `seo.oneoff` flow; nothing
 renews. The customer who wants more buys another audit.
 
 The monthly, quarterly and yearly subscriptions and the one-off audit were

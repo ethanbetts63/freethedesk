@@ -17,7 +17,7 @@ class SiteSettings(models.Model):
     for new subscriptions; existing subscriptions retain their accepted price.
     SEO is one report, bought once, at one of three prices: Essentials reads
     the public data and Search Console, Plus adds the Business Profile and
-    analytics, and Complete reads everything and checks again three months on.
+    analytics, and Complete reads everything and audits the site for legal concerns.
 
     The rest price the website development packages and the quoted work. Work
     is billed at the hourly rate. Two website packages are each a page count at

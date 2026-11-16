@@ -34,8 +34,8 @@ class SeoSubscriber(models.Model):
 
         One report, bought once, in three tiers by what it reads: Essentials
         the public data and Search Console, Plus the Business Profile and
-        analytics as well, Complete everything, with a second look three
-        months on. The subscriptions and the one-off audit sold before
+        analytics as well, Complete everything, with an audit for legal
+        concerns. The subscriptions and the one-off audit sold before
         24 October 2026 stay so their rows and renewals still mean something;
         they are no longer sold.
         """

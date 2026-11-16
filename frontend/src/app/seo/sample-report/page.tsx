@@ -39,9 +39,8 @@ function SampleNote() {
           <p className="m-0 text-body-sm leading-relaxed text-text-muted">
             {BUSINESS.fullName} is an invented business, and every figure, page and review below is
             made up. The kinds of findings, the experiments and the way each is written come from
-            real reports. It is a Complete audit: the experiments come from its second look, three
-            months on. A real report runs longer: every recommendation found, and a chart for each
-            line of the business.
+            real reports. It is a Complete audit. A real report runs longer: every recommendation
+            found, and a chart for each line of the business.
           </p>
         </div>
       </div>

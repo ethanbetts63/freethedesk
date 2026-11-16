@@ -33,8 +33,8 @@ export type SeoAuditPrices = ReturnType<typeof seoAuditPrices>;
 /**
  * What a customer can buy: one audit, paid once, in three tiers by what it
  * reads. Essentials reads what is public and Search Console; Plus adds the
- * Business Profile, reviews and analytics; Complete reads everything and looks
- * again three months on. Mirrors SeoSubscriber.Plan and the SEO Audit Terms.
+ * Business Profile, reviews and analytics; Complete reads everything and audits
+ * the site for legal concerns. Mirrors SeoSubscriber.Plan and the SEO Audit Terms.
  */
 export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
   return [
@@ -73,12 +73,11 @@ export function buildSeoPlans(settings: PublicSiteSettings): SeoPlan[] {
       productName: 'Complete SEO audit',
       price: price(settings.seo_complete_price),
       cadence: 'paid once',
-      summary: 'Plus, with your Google Ads, a legal check and a second look three months on.',
+      summary: 'Plus, with your Google Ads and an audit for legal concerns.',
       features: [
         'Everything in Plus',
         'Your Google Ads account',
-        'A legal check of your site',
-        'A second look three months on',
+        'An audit of your site for legal concerns',
       ],
     },
   ];

@@ -407,7 +407,7 @@ FTP_AGREEMENTS = {
         },
         "seo.reporting": {
             "TITLE": "SEO Audit Terms",
-            "VERSION": "2026-11-14",
+            "VERSION": "2026-11-16",
             "SOURCE": BASE_DIR / "frontend" / "content" / "legal" / "seo-audit-terms.md",
             "FORMAT": "markdown",
         },

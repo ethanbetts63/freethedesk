@@ -83,7 +83,7 @@ function seoFaqs(prices: SeoAuditPrices): FaqItem[] {
     {
       question: 'Do you offer ongoing SEO packages or services?',
       answer:
-        "No retainers. Each audit is one written report, paid once. If you'd rather not make the changes yourself, any recommendation can come with a fixed implementation price, and a Complete audit looks again three months on to show what the changes earned.",
+        "No retainers. Each audit is one written report, paid once. If you'd rather not make the changes yourself, any recommendation can come with a fixed implementation price.",
     },
 
     {
@@ -108,7 +108,7 @@ function seoFaqs(prices: SeoAuditPrices): FaqItem[] {
     {
       question: 'What does each SEO audit include?',
       answer:
-        "What each one reads. Essentials reads your site on a computer and a phone, its speed, the search results and the sites that outrank you, and your Search Console. Plus adds your Google Business Profile, your reviews and your rivals', and your website analytics. Complete adds your Google Ads account and a check of your site against the Australian rules that apply to it, then looks again three months later to show what the changes you made earned.",
+        "What each one reads. Essentials reads your site on a computer and a phone, its speed, the search results and the sites that outrank you, and your Search Console. Plus adds your Google Business Profile, your reviews and your rivals', and your website analytics. Complete adds your Google Ads account and an audit of your site for legal concerns under the Australian rules that apply to it.",
     },
 
     {

@@ -2,7 +2,7 @@
 
 Looking for the SEO audit itself? [It is here.](/seo)
 
-Effective date: 14 November 2026
+Effective date: 16 November 2026
 
 ## 1. About these terms
 
@@ -39,24 +39,19 @@ audit you buy:
   Google reviews and your main competitors' reviews, and your website
   analytics.
 - **Complete**: everything in Plus, and your Google Ads account if you have
-  one, a check of your website against the Australian rules that apply to it,
-  your own business records where you share them, and a second look about
-  three months after we deliver the report.
+  one, an audit of your website for legal concerns under the Australian rules
+  that apply to it, and your own business records where you share them.
 
-2.2 The second look in a Complete audit reads the same sources again and
-reports what has changed since the first report, including what the changes
-you made earned. It needs your data access to still be connected.
+2.2 The audit for legal concerns points out what your website appears to be
+missing. It is not legal advice.
 
-2.3 The check against Australian rules points out what your website appears to
-be missing. It is not legal advice.
+2.3 We prepare audits using our own tools and review them before delivery.
 
-2.4 We prepare audits using our own tools and review them before delivery.
-
-2.5 Our audits are iterative and change over time. Within the audit you buy,
+2.4 Our audits are iterative and change over time. Within the audit you buy,
 what each report covers, includes or leaves out is at our discretion. A data
 source you do not connect is left out.
 
-2.6 The service is analysis and recommendations. It does not include
+2.5 The service is analysis and recommendations. It does not include
 implementing changes, writing content, link building, managing Google Ads or
 development work. We can quote any of these separately at our hourly rate.
 

@@ -1,6 +1,6 @@
 ---
 published: 2026-11-04
-updated: 2026-11-14
+updated: 2026-11-16
 title: SEO Cost in Perth: What You Pay
 description: What SEO costs a Perth business: monthly retainers, paid clicks and one-off audits, with the prices Perth firms publish and which to pay for first.
 takeaways:
@@ -55,11 +55,11 @@ An audit does nothing on its own. As All Marketing puts it, "an audit that ident
 
 freethedesk sells SEO audits, not retainers. There are three, each paid once, and they differ in what they read:
 
-| Audit      | Price  | What it reads                                                                                                                                                                                   |
-| ---------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Essentials | $550   | Your site on a computer and a phone, its speed, the search results and the sites that outrank you, and your Search Console                                                                      |
-| Plus       | $850   | Everything in Essentials, plus your Google Business Profile, your reviews and your rivals', and your website analytics                                                                          |
-| Complete   | $1,400 | Everything in Plus, plus your Google Ads account and a check of your site against the Australian rules that apply to it, then a second look three months later to show what your changes earned |
+| Audit      | Price  | What it reads                                                                                                                             |
+| ---------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Essentials | $550   | Your site on a computer and a phone, its speed, the search results and the sites that outrank you, and your Search Console                |
+| Plus       | $850   | Everything in Essentials, plus your Google Business Profile, your reviews and your rivals', and your website analytics                    |
+| Complete   | $1,400 | Everything in Plus, plus your Google Ads account and an audit of your site for legal concerns under the Australian rules that apply to it |
 
 Every recommendation is ranked by what it is worth and written in plain English, so you or your IT person can make the change. Access is read-only: we can't edit your site, your profile or your ads. You can read a whole [sample report](/seo/sample-report) before you buy.
 
