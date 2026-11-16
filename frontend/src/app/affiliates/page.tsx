@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
-import { ManualAdminCta } from '@/components/ManualAdminCta';
+import { CallRequest } from '@/components/marketing/CallRequest';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
@@ -95,15 +95,7 @@ export default async function AffiliatesPage() {
         items={affiliateFaqs(settings)}
       />
 
-      <ManualAdminCta
-        id="page-cta"
-        eyebrow="Affiliate program"
-        title="Half the audit. All the credit."
-        href="#signup"
-        buttonLabel="Become an affiliate"
-      >
-        They get 20% off and a real report. You get {lowest.share} to {highest.share}.
-      </ManualAdminCta>
+      <CallRequest id="page-cta" source="/affiliates" title="Ready to start referring?" />
       <RelatedPages path="/affiliates" />
     </main>
   );

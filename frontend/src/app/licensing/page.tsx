@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
-import { ManualAdminCta } from '@/components/ManualAdminCta';
+import { CallRequest } from '@/components/marketing/CallRequest';
 import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
 import { metadataFor } from '@/lib/pages';
@@ -29,7 +29,6 @@ const sections = numberSections([
   'Two ways to use it',
   'Choose your plan',
   'Common questions',
-  'Remove the barrier',
 ] as const);
 
 export const metadata: Metadata = metadataFor('/licensing');
@@ -89,15 +88,7 @@ export default async function LicensingPage() {
         items={LICENSING_FAQS}
       />
 
-      <ManualAdminCta
-        eyebrow={sections['Remove the barrier']}
-        title="A signature shouldn't require an appointment."
-        href="#signup"
-        buttonLabel="Choose your plan"
-      >
-        Let customers fill, verify and sign from anywhere in Perth or regional WA. The paperwork
-        travels—not the customer.
-      </ManualAdminCta>
+      <CallRequest source="/licensing" title="Ready to go paperless?" />
       <RelatedPages path="/licensing" />
     </main>
   );

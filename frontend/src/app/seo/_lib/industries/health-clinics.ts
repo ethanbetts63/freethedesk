@@ -129,9 +129,5 @@ export const HEALTH_CLINICS_COPY: SeoPageCopy = {
         "Yes. The audit is written from your site and your search data, so it's delivered the same way anywhere in Australia. We work primarily in Perth and have clients in cities across the country. Local results, Google Maps and the suburbs your patients come from are part of every audit, wherever you are.",
     },
   ],
-  cta: {
-    eyebrow: 'Stop renting your bookings',
-    title: 'Google Ads is SEO you pay for, click by click.',
-    body: 'An ad click stops the day the budget does. A patient you earn in search keeps coming back.',
-  },
+  callTitle: 'Ready for more bookings from search?',
 };

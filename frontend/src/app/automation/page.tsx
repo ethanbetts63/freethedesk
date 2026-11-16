@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
-import { ManualAdminCta } from '@/components/ManualAdminCta';
+import { CallRequest } from '@/components/marketing/CallRequest';
 import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSection';
 import { Hero } from '@/components/marketing/Hero';
 import { PageSchema } from '@/components/PageSchema';
@@ -81,7 +81,7 @@ export default async function AutomationPage() {
         title="Business automation questions."
         items={AUTOMATION_FAQS}
       />
-      <ManualAdminCta id="page-cta" href="#packages" buttonLabel="Automate your admin" />
+      <CallRequest id="page-cta" source="/automation" title="Ready to automate the busywork?" />
       <RelatedPages path="/automation" />
     </main>
   );

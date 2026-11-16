@@ -1,7 +1,7 @@
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
-import { ManualAdminCta } from '@/components/ManualAdminCta';
+import { CallRequest } from '@/components/marketing/CallRequest';
 import { CallRequestNudge } from '@/components/marketing/CallRequestNudge';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { Hero } from '@/components/marketing/Hero';
@@ -126,15 +126,7 @@ export async function SeoLandingPage({ path, copy }: { path: PagePath; copy: Seo
         items={faqsFor(copy, settings)}
       />
 
-      <ManualAdminCta
-        id="page-cta"
-        eyebrow={copy.cta.eyebrow}
-        title={copy.cta.title}
-        href="#signup"
-        buttonLabel="Choose an audit"
-      >
-        {copy.cta.body}
-      </ManualAdminCta>
+      <CallRequest id="page-cta" source={path} title={copy.callTitle} />
       <RelatedPages path={path} />
     </main>
   );

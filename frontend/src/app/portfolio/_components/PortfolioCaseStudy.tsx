@@ -5,7 +5,6 @@ import { FaqSection } from '@/components/marketing/FaqSection';
 import { GoogleRatingBadge } from '@/components/marketing/GoogleRatingBadge';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import type { FaqItem } from '@/types/FaqItem';
-import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
 import { CtaButton } from '@/components/CtaButton';
 import { SectionHeader } from '@/components/SectionHeader';
@@ -146,6 +145,8 @@ export type PortfolioCaseStudyConfig = {
     mobileImage: PortfolioImage;
   };
   sections: readonly CaseSection[];
+  /** The call-back form's heading, the case study's own. */
+  callTitle: string;
   faq: {
     eyebrow: string;
     items: FaqItem[];
@@ -634,14 +635,13 @@ export function PortfolioCaseStudy({ config: rawConfig }: { config: PortfolioCas
       {config.sections.map((section) => (
         <CaseSectionView section={section} key={section.eyebrow} />
       ))}
-      <CallRequest id="enquiry" source={config.path} />
+      <CallRequest id="enquiry" source={config.path} title={config.callTitle} />
       <FaqSection
         emitSchema
         eyebrow={config.faq.eyebrow}
         title="Website project questions."
         items={config.faq.items}
       />
-      <ManualAdminCta href="#enquiry" buttonLabel="Get a price for yours" />
       <RelatedPages path={config.path} />
     </main>
   );

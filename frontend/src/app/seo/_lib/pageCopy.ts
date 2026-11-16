@@ -20,7 +20,8 @@ export interface SeoPageCopy {
   faqTitle: string;
   /** Built per request so the cost answer quotes the prices the admin has set. */
   faqs: (prices: SeoAuditPrices) => FaqItem[];
-  cta: { eyebrow: string; title: string; body: string };
+  /** The call-back form's heading at the foot of the page, the page's own. */
+  callTitle: string;
 }
 
 export function faqsFor(copy: SeoPageCopy, settings: PublicSiteSettings): FaqItem[] {

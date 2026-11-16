@@ -12,7 +12,7 @@ import { ServicePackages } from '@/components/marketing/ServicePackages';
 import { SubscriptionSwap } from '@/components/marketing/SubscriptionSwap';
 import { WebsiteIntroduction } from '@/components/marketing/WebsiteIntroduction';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
-import { ManualAdminCta } from '@/components/ManualAdminCta';
+import { CallRequest } from '@/components/marketing/CallRequest';
 import { PageSchema } from '@/components/PageSchema';
 import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
@@ -40,7 +40,8 @@ export interface WebDesignCopy {
   seoDescription: string;
   faqTitle: string;
   faqs: (prices: ServicePrices) => FaqItem[];
-  ctaTitle: string;
+  /** The call-back form's heading, the page's own. */
+  callTitle: string;
 }
 
 /* Section eyebrows in page order. */
@@ -169,15 +170,7 @@ export async function WebDesignPage({ path, copy }: { path: PagePath; copy: WebD
         items={copy.faqs(prices)}
       />
 
-      <ManualAdminCta
-        id="page-cta"
-        eyebrow="Start with the useful part"
-        title={copy.ctaTitle}
-        href="#packages"
-        buttonLabel="Choose your package"
-      >
-        Tell us what you sell, who the site is for and where the current process gets in the way.
-      </ManualAdminCta>
+      <CallRequest id="page-cta" source={path} title={copy.callTitle} />
       <RelatedPages path={path} />
     </main>
   );

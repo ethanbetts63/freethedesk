@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
-import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { PageSchema } from '@/components/PageSchema';
 import { metadataFor } from '@/lib/pages';
 
@@ -40,14 +39,13 @@ export default function Home() {
       <HomeSeoFeature />
       <WebsiteDevelopmentFeature />
       <AutomationFeature />
-      <CallRequest source="/" />
+      <CallRequest source="/" title="Ready to be found?" />
       <FaqSection
         emitSchema
         eyebrow="Common questions"
         title="Websites, SEO and automation: common questions"
         items={HOME_FAQS}
       />
-      <ManualAdminCta buttonLabel="Get in touch" spacing="joined" />
       <RelatedPages path="/" />
     </main>
   );

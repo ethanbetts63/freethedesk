@@ -16,6 +16,7 @@ export const dynamic = 'force-dynamic';
 
 const config = {
   path: '/portfolio/bloomprint',
+  callTitle: 'Ready to build your marketplace?',
   hero: {
     title: {
       lines: ['Bloomprint case study:', 'a flower delivery marketplace'],

@@ -87,7 +87,7 @@ export const PERTH_WEB_DESIGN: WebDesignCopy = {
     'Every website launches with strong SEO foundations, but ranking in Perth takes iteration. We analyse live data as it arrives and give you ranked, plain-English opportunities with implementation costs.',
   faqTitle: 'Web design and development Perth: common questions',
   faqs: (prices) => webDesignFaqs(prices, 'Perth'),
-  ctaTitle: 'What should your website make easier?',
+  callTitle: 'Ready for a better website?',
 };
 
 /**
@@ -118,5 +118,5 @@ export const SUBIACO_WEB_DESIGN: WebDesignCopy = {
         links: [{ phrase: 'SEO audits', href: '/seo' }],
       },
     ]),
-  ctaTitle: 'What should your Subiaco website make easier?',
+  callTitle: 'Ready for a better Subiaco website?',
 };

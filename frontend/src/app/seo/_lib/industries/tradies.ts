@@ -129,9 +129,5 @@ export const TRADIES_COPY: SeoPageCopy = {
         "Yes. The audit is written from your site and your search data, so it's delivered the same way anywhere in Australia. We work primarily in Perth and have clients in cities across the country. Local results, Google Maps and the suburbs or regions you work in are part of every audit, wherever you are.",
     },
   ],
-  cta: {
-    eyebrow: 'Stop renting your leads',
-    title: 'Google Ads is SEO you pay for, job by job.',
-    body: 'An ad click stops the day the budget does. A job you earn in search keeps arriving.',
-  },
+  callTitle: 'Ready for more jobs from Google?',
 };

@@ -40,7 +40,7 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-11-15',
+    updated: '2026-11-16',
     label: 'Home',
     title: 'Websites, SEO & Business Automation Perth - freethedesk',
     description:
@@ -48,14 +48,14 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-11-15',
+    updated: '2026-11-16',
     label: 'Dealer websites',
     title: 'Dealership Websites & Online Licensing, WA',
     description:
       'One connected system for Perth and WA dealerships: a website built to be found, online licensing, and the admin automation behind it.',
   },
   '/licensing': {
-    updated: '2026-11-10',
+    updated: '2026-11-16',
     label: 'Online licensing',
     title: 'Online Vehicle Licensing for WA Dealers',
     description:
@@ -67,7 +67,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-11-11',
+    updated: '2026-11-16',
     label: 'Website development',
     title: 'Custom Web Design & Development Perth',
     description:
@@ -81,7 +81,7 @@ export const STATIC_PAGES = {
     },
   },
   '/web-design-subiaco': {
-    updated: '2026-11-11',
+    updated: '2026-11-16',
     label: 'Web design Subiaco',
     title: 'Web Design & Development Subiaco',
     description:
@@ -105,7 +105,7 @@ export const STATIC_PAGES = {
     },
   },
   '/automation': {
-    updated: '2026-11-10',
+    updated: '2026-11-16',
     label: 'Automation',
     title: 'Business & AI Automation Perth',
     description:
@@ -128,7 +128,7 @@ export const STATIC_PAGES = {
     },
   },
   '/google-business-profile-optimisation': {
-    updated: '2026-11-15',
+    updated: '2026-11-16',
     label: 'Business Profile optimisation',
     title: 'Google Business Profile Optimisation Perth',
     description:
@@ -202,7 +202,7 @@ export const STATIC_PAGES = {
       'Practical guides for Perth businesses on SEO, website development and what each costs, with automation and dealer licensing besides.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-11-15',
+    updated: '2026-11-16',
     label: 'Scooter Shop',
     title: 'Scooter Shop Case Study: Dealer Website & SEO',
     description:
@@ -210,7 +210,7 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {
-    updated: '2026-11-15',
+    updated: '2026-11-16',
     label: 'Bloomprint',
     title: 'Bloomprint Case Study: Flower Delivery Marketplace',
     description:
@@ -218,14 +218,14 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
   '/affiliates': {
-    updated: '2026-11-10',
+    updated: '2026-11-16',
     label: 'Affiliates',
     title: 'SEO Audit Affiliate Program: 50% Commission',
     description:
       'Earn 50% of every freethedesk SEO audit sold with your code, $220 to $560 a sale. Your audience gets 20% off, your own audit is free, and you are paid fortnightly.',
   },
   '/contact': {
-    updated: '2026-11-15',
+    updated: '2026-11-16',
     label: 'Contact',
     title: 'Contact Us: SEO in Perth',
     description:

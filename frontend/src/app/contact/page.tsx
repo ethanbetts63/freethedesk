@@ -29,7 +29,7 @@ export default function ContactPage() {
         secondaryLabel={CONTACT.email}
         trustLine="Dianella-based · By appointment only · Perth and across Australia"
       />
-      <CallRequest source="/contact" />
+      <CallRequest source="/contact" title="Ready to talk?" />
       <ContactBenefits />
     </main>
   );

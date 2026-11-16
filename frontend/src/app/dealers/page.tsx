@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
-import { ManualAdminCta } from '@/components/ManualAdminCta';
 import { AdminAutomationSection } from '@/components/marketing/AdminAutomationSection';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { DealerWebsiteSection } from '@/components/marketing/DealerWebsiteSection';
@@ -181,7 +180,11 @@ export default async function Dealers() {
         <p>The same dealership system keeps customer actions and admin moving together.</p>
       </CaseStudyTeaser>
 
-      <CallRequest id="project-enquiry" source="/dealers" />
+      <CallRequest
+        id="project-enquiry"
+        source="/dealers"
+        title="Ready to modernise your dealership?"
+      />
 
       <FloatingPageCta
         label="Discuss your dealership"
@@ -196,15 +199,6 @@ export default async function Dealers() {
         title="Dealership website and automation questions."
         items={faqs}
       />
-      <ManualAdminCta
-        eyebrow="Start with the dealership admin"
-        title="What is dealership admin actually costing you?"
-        href="#project-enquiry"
-        buttonLabel="Discuss your dealership"
-      >
-        Tell us where leads, contracts, licensing or handovers slow down. We&apos;ll find the
-        simplest worthwhile place to begin.
-      </ManualAdminCta>
       <RelatedPages path="/dealers" />
     </main>
   );

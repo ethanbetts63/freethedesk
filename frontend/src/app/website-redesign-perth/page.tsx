@@ -9,7 +9,7 @@ import { Introduction } from '@/components/marketing/Introduction';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { ServicePackages } from '@/components/marketing/ServicePackages';
 import { FloatingPageCta } from '@/components/FloatingPageCta';
-import { ManualAdminCta } from '@/components/ManualAdminCta';
+import { CallRequest } from '@/components/marketing/CallRequest';
 import { PageSchema } from '@/components/PageSchema';
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
@@ -186,16 +186,11 @@ export default async function WebsiteRedesignPage() {
         items={redesignFaqs(prices)}
       />
 
-      <ManualAdminCta
+      <CallRequest
         id="page-cta"
-        eyebrow="Start with what ranks"
-        title="What is your current site found for?"
-        href="/contact"
-        buttonLabel="Get in touch"
-      >
-        Send us its address and we&apos;ll tell you what it ranks for today and what a move would
-        need to keep.
-      </ManualAdminCta>
+        source="/website-redesign-perth"
+        title="Ready to move off WordPress?"
+      />
       <RelatedPages path="/website-redesign-perth" />
     </main>
   );

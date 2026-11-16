@@ -67,7 +67,7 @@ export default function GoogleBusinessProfileOptimisationPage() {
         items={gbpFaqs}
       />
 
-      <CallRequest id={GBP_ENQUIRY_ID} source={PATH} />
+      <CallRequest id={GBP_ENQUIRY_ID} source={PATH} title="Ready to show up on Maps?" />
       <RelatedPages path={PATH} />
     </main>
   );

@@ -45,11 +45,7 @@ export const SEO_COPY: SeoPageCopy = {
   },
   faqTitle: 'SEO audit Perth: common questions.',
   faqs: seoFaqs,
-  cta: {
-    eyebrow: 'Stop renting your traffic',
-    title: 'Google Ads is SEO you pay for, click by click.',
-    body: 'An ad click stops the day the budget does. A click you earn in search keeps arriving.',
-  },
+  callTitle: 'Ready to win more searches?',
 };
 
 function seoFaqs(prices: SeoAuditPrices): FaqItem[] {

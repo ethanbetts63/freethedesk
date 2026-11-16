@@ -23,6 +23,7 @@ export const dynamic = 'force-dynamic';
  */
 const config = {
   path: '/portfolio/scooter-shop',
+  callTitle: "Ready for a site like Scooter Shop's?",
   hero: {
     title: {
       lines: ['Scooter Shop case study:', 'a Perth dealer website and SEO'],

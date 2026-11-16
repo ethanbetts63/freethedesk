@@ -242,3 +242,12 @@ export function relatedPagesFor(path: string): { title: string; links: RelatedLi
   const entry = RELATED[path];
   return entry ? { title: entry.title, links: entry.links.map((key) => LINKS[key]) } : null;
 }
+
+/**
+ * A page's own illustration, the picture on its card in other pages' related blocks, for its
+ * call-back panel. Only the drawn pictures under `/images/`, not the case studies' screenshots.
+ */
+export function pagePicture(path: string): string | undefined {
+  const own = (Object.values(LINKS) as RelatedLink[]).find((link) => link.href === path);
+  return own?.image?.startsWith('/images/') ? own.image : undefined;
+}
