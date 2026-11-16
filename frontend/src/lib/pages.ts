@@ -93,7 +93,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-redesign-perth': {
-    updated: '2026-11-10',
+    updated: '2026-11-16',
     label: 'Website redesign',
     title: 'Website Redesign Perth: Moving Off WordPress',
     description:
