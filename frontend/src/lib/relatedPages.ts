@@ -28,6 +28,11 @@ const LINKS = {
     line: 'Moving off WordPress without losing the searches you win.',
     image: '/images/pages/website-redesign-perth.webp',
   },
+  aiSeo: {
+    href: '/ai-seo-perth',
+    label: 'AI SEO',
+    line: 'Get your business named in ChatGPT and AI Overviews.',
+  },
   migration: {
     href: '/website-migration-seo-perth',
     label: 'Website migration SEO',
@@ -165,6 +170,10 @@ const RELATED: Record<string, { title: string; links: readonly Key[] }> = {
     title: 'SEO audits, new websites, WordPress costs and migration SEO',
     links: ['seo', 'websites', 'wordpressCost', 'migration'],
   },
+  '/ai-seo-perth': {
+    title: 'SEO audits, the AI search guide, the sample report and profile optimisation',
+    links: ['seo', 'aiSearch', 'sampleReport', 'gbp'],
+  },
   '/website-migration-seo-perth': {
     title: 'SEO audits, redesigns, the sample report and a case study',
     links: ['seo', 'redesign', 'sampleReport', 'scooterShop'],
@@ -222,8 +231,8 @@ const RELATED: Record<string, { title: string; links: readonly Key[] }> = {
     links: ['seo', 'gbp', 'sampleReport', 'aiSearch'],
   },
   '/how-to-show-up-in-ai-search': {
-    title: 'SEO audits, the sample report and Google',
-    links: ['seo', 'sampleReport', 'notShowing'],
+    title: 'SEO audits, AI SEO, the sample report and Google',
+    links: ['seo', 'aiSeo', 'sampleReport', 'notShowing'],
   },
   '/dealer-online-wa': {
     title: 'SEO audits, online licensing, dealer websites and a dealer case study',

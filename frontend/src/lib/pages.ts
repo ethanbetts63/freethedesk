@@ -104,6 +104,18 @@ export const STATIC_PAGES = {
       areaServed: { type: 'City', name: 'Perth' },
     },
   },
+  '/ai-seo-perth': {
+    updated: '2026-11-16',
+    label: 'AI SEO',
+    title: 'AI SEO Perth: Get Named in ChatGPT & AI Overviews',
+    description:
+      "AI SEO for Perth businesses: what ChatGPT, Google's AI Overviews, Copilot and Perplexity need to find your site, read it and name you. Audits paid once.",
+    service: {
+      name: 'AI SEO Perth',
+      serviceType: 'AI search optimisation (GEO)',
+      areaServed: { type: 'City', name: 'Perth' },
+    },
+  },
   '/website-migration-seo-perth': {
     updated: '2026-11-16',
     label: 'Website migration SEO',

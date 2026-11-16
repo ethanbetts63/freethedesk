@@ -48,8 +48,8 @@ Started from a comparison of the top Perth SEO firms on 2026-11-15. All of them 
 7. **Industry SEO pages.** `/seo/tradies`, `/seo/builders`, `/seo/health-clinics` and `/seo/professional-services`, remade 2026-11-16 as copies of /seo: the same components in the same order (`frontend/src/app/seo/_components/SeoLandingPage.tsx`), with only the words changed for the trade. Each page's words are in `frontend/src/app/seo/_lib/industries/`; /seo's are in `_lib/copy.ts`. A change to /seo's structure changes all five. Check each page's Search Console impressions about 8 weeks after deploy, before adding more.
 8. **AI SEO and website migration SEO pages.** Owner's choice 2026-11-16, two of Net Search's ten SEO pages: the others are covered already, or are services freethedesk doesn't sell. What ranks in Perth, Melbourne and Sydney, and where freethedesk can differ, is in `_docs/service-page-research.md`.
    - `/website-migration-seo-perth` built 2026-11-16 on the redesign page's sections. It sells the SEO audits (before a move, and after a drop) and points to redesigns for a move we build. No rival publishes a migration price: decide whether a move with the client's own developer gets a fixed price of its own (redirect map, launch checks, 90 days of Search Console checks), and swap it in as the page's package if so.
-   - Check its Search Console impressions about 8 weeks after deploy.
-   - The AI SEO page is still to build; it sells llms.txt too.
+   - `/ai-seo-perth` built 2026-11-16 the same way, with the free AI readiness check above the hero. It sells the audits and says we write an llms.txt file "at a fixed price alongside the audit's other fixes"; set that price, or make llms.txt a line of its own, when you decide how it's sold.
+   - Check both pages' Search Console impressions about 8 weeks after deploy.
 
 Smaller ideas, not started:
 
