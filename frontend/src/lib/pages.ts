@@ -140,11 +140,11 @@ export const STATIC_PAGES = {
     },
   },
   '/seo/tradies': {
-    updated: '2026-11-15',
+    updated: '2026-11-16',
     label: 'Tradies',
-    title: 'SEO for Tradies in Perth: What Holds Trades Back',
+    title: 'SEO for Tradies Perth: Technical, Local & AI Search',
     description:
-      "We've written SEO reports for 22 Perth trade businesses. The faults we found most often, and an SEO audit that checks yours, paid once.",
+      "A written SEO report of your trade website: the local jobs you're losing on Google and what to fix. For plumbers, electricians and every trade.",
     service: {
       name: 'SEO for Tradies Perth',
       serviceType: 'SEO audits and consulting',
@@ -152,23 +152,23 @@ export const STATIC_PAGES = {
     },
   },
   '/seo/builders': {
-    updated: '2026-11-15',
-    label: 'Builders and renovators',
-    title: 'SEO for Builders & Renovators in Perth',
+    updated: '2026-11-16',
+    label: 'Builders',
+    title: 'SEO for Builders Perth: Technical, Local & AI Search',
     description:
-      "We've written SEO reports for 8 Perth builders and renovators. The faults we found most often, and an SEO audit that checks yours, paid once.",
+      "A written SEO report of your building website: the project searches you're losing and what to fix. For home builders, renovators and building trades.",
     service: {
-      name: 'SEO for Builders and Renovators Perth',
+      name: 'SEO for Builders Perth',
       serviceType: 'SEO audits and consulting',
       areaServed: { type: 'City', name: 'Perth' },
     },
   },
   '/seo/health-clinics': {
-    updated: '2026-11-15',
+    updated: '2026-11-16',
     label: 'Health clinics',
-    title: 'SEO for Health Clinics in Perth: Physios & More',
+    title: 'SEO for Health Clinics Perth: Local & AI Search',
     description:
-      "We've written SEO reports for 6 Perth health clinics. The faults we found most often, and an SEO audit that checks yours, paid once.",
+      "A written SEO report of your clinic's website: the patient searches you're losing and what to fix. For physios, podiatrists, chiros and allied health.",
     service: {
       name: 'SEO for Health Clinics Perth',
       serviceType: 'SEO audits and consulting',
@@ -176,11 +176,11 @@ export const STATIC_PAGES = {
     },
   },
   '/seo/professional-services': {
-    updated: '2026-11-15',
+    updated: '2026-11-16',
     label: 'Professional services',
-    title: 'SEO for Professional Services in Perth',
+    title: 'SEO for Professional Services Perth: Local & AI Search',
     description:
-      "We've written SEO reports for 6 Perth professional firms. The faults we found most often, and an SEO audit that checks yours, paid once.",
+      "A written SEO report of your firm's website: the client searches you're losing and what to fix. For lawyers, accountants, brokers and professional firms.",
     service: {
       name: 'SEO for Professional Services Perth',
       serviceType: 'SEO audits and consulting',

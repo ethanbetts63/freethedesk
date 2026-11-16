@@ -1,14 +1,58 @@
-import { type PublicSiteSettings } from '@/lib/api';
+import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
+import { GBP_OPTIMISATION_PRICE, money } from '@/lib/servicePricing';
 import type { FaqItem } from '@/types/FaqItem';
 
-import { GBP_OPTIMISATION_PRICE, money } from '@/lib/servicePricing';
+import type { SeoPageCopy } from './pageCopy';
+import type { SeoAuditPrices } from './plans';
 
-import { seoAuditPrices } from './plans';
+/** The /seo page's words. The industry pages in `industries/` say the same for their trade. */
+export const SEO_COPY: SeoPageCopy = {
+  hero: {
+    titleLines: ['SEO audit Perth:', 'technical, local and'],
+    accentTitle: 'AI search reports.',
+    lead: "A written SEO report of your website: the searches you're losing, what to fix and what each fix is worth. For businesses in Perth and across Australia.",
+  },
+  packages: {
+    title: 'SEO audit packages',
+    lead: 'One written report of your site, paid once. The three differ in what they read.',
+  },
+  introduction: {
+    title: 'What is in an',
+    accentTitle: 'SEO audit?',
+    body: "An SEO audit is a written report of your website: what Google and AI search see when they read it, the searches you're losing and to whom, and a ranked list of fixes with what each one is worth. Every recommendation starts in your own search data and ends with a measurement.",
+  },
+  analyse: {
+    title: 'What an SEO audit checks:',
+    accentTitle: 'technical, local and AI search',
+    description:
+      'Whether Google can reach and index every page, how fast the pages load on a phone, structured data, broken links and redirects, your Google Business Profile and reviews, and whether AI crawlers can read the site. Many sources go in; one ranked list of recommendations comes out.',
+  },
+  recommend: {
+    title: 'SEO recommendations,',
+    accentTitle: 'ranked by what each is worth',
+    description:
+      'Every recommendation says what to change, why the data points to it and how to do it. Written so you, or your IT person can quickly make the change.',
+  },
+  experiment: {
+    title: 'Every change is',
+    accentTitle: 'an SEO experiment',
+    description:
+      "Every recommendation you implement becomes an experiment. We track our decisions numerically. What earns is kept and built on; what doesn't is dropped.",
+  },
+  caseStudy: {
+    title: `SEO results for a Perth business: organic clicks up ${SCOOTER_SHOP_GROWTH.percent}%.`,
+    body: `Scooter Shop is a Perth scooter dealership. Its website combines inventory, parts, purchasing and service journeys in one connected experience. Fast structured pages and search content aimed at what Perth riders search for grew its organic clicks ${SCOOTER_SHOP_GROWTH.percent}% in ${SCOOTER_SHOP_GROWTH.span}.`,
+  },
+  faqTitle: 'SEO audit Perth: common questions.',
+  faqs: seoFaqs,
+  cta: {
+    eyebrow: 'Stop renting your traffic',
+    title: 'Google Ads is SEO you pay for, click by click.',
+    body: 'An ad click stops the day the budget does. A click you earn in search keeps arriving.',
+  },
+};
 
-/** Built per request so the cost answer quotes the prices the admin has set. */
-export function seoFaqs(settings: PublicSiteSettings): FaqItem[] {
-  const prices = seoAuditPrices(settings);
-
+function seoFaqs(prices: SeoAuditPrices): FaqItem[] {
   return [
     {
       question: 'Is there a money-back guarantee?',

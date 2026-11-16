@@ -1,17 +1,23 @@
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
+import type { SeoPageCopy } from '../_lib/pageCopy';
 import { SampleReportLink } from './SampleReportLink';
-
 import { SeoExperimentCard } from './SeoExperimentCard';
 
-export function SeoImprovement({ eyebrow }: { eyebrow: string }) {
+export function SeoImprovement({
+  eyebrow,
+  copy,
+}: {
+  eyebrow: string;
+  copy: SeoPageCopy['experiment'];
+}) {
   return (
     <SplitFeatureSection
       id="experiment"
       eyebrow={eyebrow}
-      title="Every change is"
-      accentTitle="an SEO experiment"
-      description="Every recommendation you implement becomes an experiment. We track our decisions numerically. What earns is kept and built on; what doesn't is dropped."
+      title={copy.title}
+      accentTitle={copy.accentTitle}
+      description={copy.description}
       visual={<SeoExperimentCard />}
       textSide="left"
       background="white"

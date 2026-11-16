@@ -1,24 +1,24 @@
 'use client';
 
-import Link from 'next/link';
 import { useMemo } from 'react';
 
 import { PackagesSection, usePackageChoice } from '@/components/marketing/Packages';
 import { type PublicSiteSettings } from '@/lib/api';
 
+import type { SeoPageCopy } from '../_lib/pageCopy';
 import { buildSeoPlans } from '../_lib/plans';
 import { SeoSignupDialog } from './SeoSignupDialog';
 
 /**
- * The audits a customer can buy, each card opening the order form over the page. An industry page
- * passes `audience` ("tradies") to title the section and the cards for its trade; the audits are the same.
+ * The audits a customer can buy, each card opening the order form over the page. An industry page's
+ * copy names its `audience` ("tradies") to title the cards for its trade; the audits are the same.
  */
 export function SeoPackages({
   settings,
-  audience,
+  copy,
 }: {
   settings: PublicSiteSettings;
-  audience?: string;
+  copy: SeoPageCopy['packages'];
 }) {
   const plans = useMemo(() => buildSeoPlans(settings), [settings]);
   const { selectedCode, choose, open, dialogRef } = usePackageChoice(plans, 'seo');
@@ -28,24 +28,12 @@ export function SeoPackages({
       id="signup"
       endId="signup-end"
       eyebrow="Audits"
-      title={audience ? `SEO audits for ${audience}` : 'SEO audit packages'}
+      title={copy.title}
       accentTitle="and prices."
-      lead="One written report of your site, paid once. The three differ in what they read."
+      lead={copy.lead}
       plans={plans}
       kicker="Recommendations based on"
-      cardTitle={(plan) => `${plan.name} SEO audit${audience ? ` for ${audience}` : ''}`}
-      note={
-        <>
-          Make three of the ranking changes. If your Google clicks aren&rsquo;t up 90 days later,
-          you get every dollar back.{' '}
-          <Link
-            className="text-text-action underline underline-offset-[3px] hover:opacity-70"
-            href="/legal/seo-audit-terms"
-          >
-            How the guarantee works
-          </Link>
-        </>
-      }
+      cardTitle={(plan) => `${plan.name} SEO audit${copy.audience ? ` for ${copy.audience}` : ''}`}
       onChoose={open}
     >
       <SeoSignupDialog

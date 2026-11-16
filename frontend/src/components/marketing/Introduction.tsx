@@ -15,6 +15,7 @@ export function Introduction({
   id,
   measure = 'narrow',
   spacing = 'standard',
+  flushBottom = false,
   children,
 }: {
   eyebrow: string;
@@ -25,14 +26,17 @@ export function Introduction({
   measure?: 'narrow' | 'wide';
   /** `tight` sits close under a hero that already leaves air below its screenshot. */
   spacing?: 'standard' | 'tight';
+  /** No bottom padding, for a section below that brings its own (the SEO pages, owner 2026-11-16). */
+  flushBottom?: boolean;
   children: ReactNode;
 }) {
   const titleId = id ? `${id}-title` : undefined;
   return (
     <section
       className={cn(
-        'site-shell pb-xl lg:text-center',
+        'site-shell lg:text-center',
         spacing === 'tight' ? 'pt-xl' : 'pt-section',
+        !flushBottom && 'pb-xl',
       )}
       id={id}
       aria-labelledby={titleId}

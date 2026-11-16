@@ -1,16 +1,17 @@
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 
+import type { SeoPageCopy } from '../_lib/pageCopy';
 import { SampleReportLink } from './SampleReportLink';
 import { SeoAnalysisVisual } from './SeoAnalysisVisual';
 
-export function SeoAnalysis({ eyebrow }: { eyebrow: string }) {
+export function SeoAnalysis({ eyebrow, copy }: { eyebrow: string; copy: SeoPageCopy['analyse'] }) {
   return (
     <SplitFeatureSection
       id="analyse"
       eyebrow={eyebrow}
-      title="What an SEO audit checks:"
-      accentTitle="technical, local and AI search"
-      description="Whether Google can reach and index every page, how fast the pages load on a phone, structured data, broken links and redirects, your Google Business Profile and reviews, and whether AI crawlers can read the site. Many sources go in; one ranked list of recommendations comes out."
+      title={copy.title}
+      accentTitle={copy.accentTitle}
+      description={copy.description}
       visual={<SeoAnalysisVisual />}
       textSide="left"
       background="white"

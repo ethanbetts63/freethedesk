@@ -35,22 +35,22 @@ const LINKS = {
   tradies: {
     href: '/seo/tradies',
     label: 'SEO for tradies',
-    line: 'What holds Perth trades back on Google.',
+    line: 'SEO audits for plumbers, electricians and every trade.',
   },
   builders: {
     href: '/seo/builders',
     label: 'SEO for builders',
-    line: 'What holds Perth builders and renovators back.',
+    line: 'SEO audits for home builders and renovators.',
   },
   healthClinics: {
     href: '/seo/health-clinics',
     label: 'SEO for health clinics',
-    line: 'What holds Perth physios and clinics back.',
+    line: 'SEO audits for physios, podiatrists and allied health.',
   },
   professionalServices: {
     href: '/seo/professional-services',
     label: 'SEO for professional services',
-    line: 'What holds Perth law and professional firms back.',
+    line: 'SEO audits for lawyers, accountants and brokers.',
   },
   sampleReport: {
     href: '/seo/sample-report',

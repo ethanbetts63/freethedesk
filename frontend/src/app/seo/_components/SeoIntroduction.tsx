@@ -1,16 +1,20 @@
 import { Introduction } from '@/components/marketing/Introduction';
 
-export function SeoIntroduction() {
+import type { SeoPageCopy } from '../_lib/pageCopy';
+
+export function SeoIntroduction({ copy }: { copy: SeoPageCopy['introduction'] }) {
   return (
     <Introduction
       id="seo-overview"
       eyebrow="How it works"
-      title="What is in an"
-      accentTitle="SEO audit?"
+      // The gaps above and below are halved (owner, 2026-11-16): the nudge above and the Analyse
+      // section below each already leave half a section.
+      spacing="tight"
+      flushBottom
+      title={copy.title}
+      accentTitle={copy.accentTitle}
     >
-      An SEO audit is a written report of your website: what Google and AI search see when they read
-      it, the searches you&apos;re losing and to whom, and a ranked list of fixes with what each one
-      is worth. Every recommendation starts in your own search data and ends with a measurement.
+      {copy.body}
     </Introduction>
   );
 }

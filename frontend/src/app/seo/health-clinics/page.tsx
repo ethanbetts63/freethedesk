@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 
 import { metadataFor } from '@/lib/pages';
 
-import { IndustryPage } from '../_components/IndustryPage';
+import { SeoLandingPage } from '../_components/SeoLandingPage';
+import { INDUSTRIES } from '../_lib/industries';
 
 const PATH = '/seo/health-clinics';
 
@@ -12,5 +13,5 @@ export const metadata: Metadata = metadataFor(PATH);
 export const dynamic = 'force-dynamic';
 
 export default function Page() {
-  return <IndustryPage path={PATH} />;
+  return <SeoLandingPage path={PATH} copy={INDUSTRIES[PATH]} />;
 }
