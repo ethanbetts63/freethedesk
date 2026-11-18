@@ -17,7 +17,7 @@ from affiliates.utils.permissions import IsInternalApiRequest
 from core.utils.ordering import apply_ordering
 from core.utils.pagination import DashboardPagination
 
-from ..models import SeoProspect, SeoProspectOpen
+from ..models import SeoProspect, SeoProspectOpen, SeoSampleReport
 from ..serializers.prospect import (
     AdminSeoProspectDetailSerializer, AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectHtmlSerializer,
     SeoProspectUploadSerializer,
@@ -226,6 +226,20 @@ def _sent_on(request, key: str, prospect: SeoProspect, address: str):
     return page_headers(HttpResponseRedirect(f"{address}?{query}" if query else address))
 
 
+def _sample_page(request, key: str):
+    from ..utils.sample_links import record_sample_open, sample_key, sample_link, sample_page_document
+
+    sample = SeoSampleReport.objects.filter(link_token=token_of(key)).first()
+    if sample is None or not sample.report_html:
+        raise Http404
+    if key != sample_key(sample):
+        return page_headers(HttpResponseRedirect(sample_link(sample)))
+    record_sample_open(sample, request)
+    with sample.report_html.open("rb") as handle:
+        document = handle.read().decode("utf-8")
+    return page_headers(HttpResponse(sample_page_document(sample, document), content_type="text/html; charset=utf-8"))
+
+
 class SeoReportPageView(APIView):
     """`GET /api/seo/r/<key>/`, served at ``/reports/<business>-<token>`` by the site: the report as a page, for the link.
 
@@ -239,7 +253,10 @@ class SeoReportPageView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request, key):
-        prospect = _by_key(key)
+        prospect = SeoProspect.objects.filter(link_token=token_of(key)).first()
+        if prospect is None:
+            # A sample's companion report shares the address (``SeoSampleReport``).
+            return _sample_page(request, key)
         if sent_on := _sent_on(request, key, prospect, report_link(prospect)):
             return sent_on
         if not prospect.report_html:

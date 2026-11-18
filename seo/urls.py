@@ -1,5 +1,6 @@
 from django.urls import path
 
+from .views.samples import SeoSampleUploadView
 from .views.call_request import (
     AdminSeoCallRequestDetailView,
     AdminSeoCallRequestListView,
@@ -56,6 +57,8 @@ urlpatterns = [
     path("seo/prospects/html/", SeoProspectHtmlView.as_view(), name="seo-prospect-html"),
     # The same secret: one email written by hand, sent now, with files (the note after a call).
     path("seo/messages/", SeoMessageSendView.as_view(), name="seo-message-send"),
+    # The same secret: a sample's companion report, from the sample pipeline's publish; it shares the report link.
+    path("seo/samples/", SeoSampleUploadView.as_view(), name="seo-sample-upload"),
     # The report's link, which the site serves at /reports/<business>-<token>: the page. No sign-in; the
     # token at the end is the key (``prospect_links.link_key``).
     path("seo/r/<str:key>/", SeoReportPageView.as_view(), name="seo-report-page"),

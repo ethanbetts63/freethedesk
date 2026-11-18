@@ -4,5 +4,6 @@ from .setup_step import SeoSetupStep
 from .prospect import SeoProspect
 from .prospect_open import SeoProspectOpen
 from .call_request import SeoCallRequest
+from .sample_report import SeoSampleReport
 
-__all__ = ["SeoSubscriber", "SeoProfile", "SeoSetupStep", "SeoProspect", "SeoProspectOpen", "SeoCallRequest"]
+__all__ = ["SeoSubscriber", "SeoProfile", "SeoSetupStep", "SeoProspect", "SeoProspectOpen", "SeoCallRequest", "SeoSampleReport"]
