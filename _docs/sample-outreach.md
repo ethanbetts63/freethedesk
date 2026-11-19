@@ -18,7 +18,8 @@ Support Perth's are never held, so never sent.
   what goes out is the page the owner read; a publish that changes the page, business or domain of an approved, unsent
   sample holds it again.
 - **One first email per business.** A hold is refused for an address or domain another held sample has, or any
-  prospect report row has; a prospect report upload is refused for a business with a held sample. The suppression
+  prospect report row has; a prospect report upload is refused for a business with a held sample. The hold view
+  checks it: production's MySQL does not build the conditional unique constraint on `email` (`models.W036`). The suppression
   list applies at hold and at send.
 - **Follow-ups on the owner's word only.** No wait, no rotation: the same subject and email, its first paragraph
   opening "Just following up on my previous email, in case it got buried." Once; `again` for another after it went.

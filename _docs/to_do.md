@@ -67,3 +67,13 @@ Added 2026-11-15. The page says nothing about a refund, because the SEO Audit Te
 ## Business Profile optimisation: buy online
 
 Added 2026-11-15. Once the terms exist, sell it the way the website packages are sold: a `PackageOrder.Package` code, `quote_package`, `PackageOrderDialog` and `/order/payment`, with the price moved from the `GBP_OPTIMISATION_PRICE` constant (`frontend/src/lib/servicePricing.ts`) to a `SiteSettings` field (model, migration, serializer, Django admin and the dashboard's site settings page). Then the card on the page opens the order dialog instead of scrolling to the call-back form. Until it moves, three places state $650 by hand: the constant, the page's `description` in `frontend/src/lib/pages.ts` and `frontend/content/articles/business-not-showing-up-on-google.md`.
+
+## Website sample emails: three held for your word (owner)
+
+Added 2026-11-19 ([`sample-outreach.md`](sample-outreach.md)). Deployed (seo 0035 migrated, app reloaded). Emby
+Cabinets (Scott), Sankey Tax and Accounting (Karen) and JSR Massage (Greg, named "Owner" on the site's therapists
+page, not in facts.md: check the name) are held; each is emailed only after you approve it in chat
+(`../ftp_search/_samples/tools/outreach/outreach.py approve <project>`). BennoAir is not held: no owner or contact
+name anywhere the pipeline holds; hold it with `--name` and `--source` once one is found. The read API's account
+cannot see `seo.SeoSampleReport` (nor `seo.SeoProspect`) until `python manage.py readapi grant-view --username
+<the read account>` is run on PythonAnywhere. Delete this once the three are decided.
