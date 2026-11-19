@@ -88,7 +88,7 @@ in the same Perth weekday window, ten seconds apart, up to `--reports` a run. Cl
 ## The pipeline side
 
 `../ftp_search/_samples/tools/outreach/outreach.py`: `hold`, `approve`, `unapprove`, `follow-up`, `sync`, `todo` and
-`brief` (the one-page call brief, `_search/projects/<project>/sample/call_brief.pdf`). Its docstring says where the
+`brief` (the one-page call brief, `_samples/projects/<project>/call_brief.pdf`). Its docstring says where the
 contact comes from. The outreach agent (`_prospect/prompts/outreach.md`) runs its `sync` and `todo` beside the
 prospect outbox's.
 
