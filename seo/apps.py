@@ -15,3 +15,5 @@ class SeoConfig(AppConfig):
         )
         # Not under "seo_prospect.": the calls list reads that prefix as the report email's status.
         registry.register_many({"seo_followup": "Note to a prospect after a call, written by hand"})
+        # A website sample's report link, and its follow-up (``_docs/sample-outreach.md``).
+        registry.register_many({"seo_sample": "Website sample email", "seo_sample_follow_up": "Website sample follow-up"})

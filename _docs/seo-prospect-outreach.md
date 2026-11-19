@@ -272,12 +272,12 @@ count, so the email lists what the page holds after a cut.
 
 A website sample's companion report (what a concept redesign changed, and why) has the same kind of link,
 `freethedesk.com.au/reports/<business>-<token>`, served by the same view from its own model, `SeoSampleReport`:
-no email, no subject, no one-per-business rule, since it is sent by hand. The demo itself is a static site at
+no prospect row, and its own email ([`sample-outreach.md`](sample-outreach.md)). The demo itself is a static site at
 `samples.freethedesk.com.au/<demo>/` (Vercel project `ftd-samples`); `../ftp_search/_samples/tools/publish/publish.py`
 deploys it and posts each report to `POST /api/seo/samples/` (the shared secret), which creates the row, or replaces
 the page and keeps the link. The page carries the robots meta, link-preview tags, the site's strip (its button opens
 the redesign) and footer; no ask band. Opens by people, the owner signed in and previews left out, are a count on the
-row.
+row. Since 2026-11-19 the row can also be held, approved and emailed: [`sample-outreach.md`](sample-outreach.md).
 
 ## The pipeline side (ftp_search)
 

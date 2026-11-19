@@ -30,6 +30,7 @@ from ..utils.prospect_sending import (
     subject_for,
 )
 from ..utils.prospects import with_status
+from .samples import sample_holds
 
 PROSPECT_ORDERING = {
     "created_at": ("created_at",),
@@ -72,6 +73,12 @@ class SeoProspectUploadView(APIView):
                     {"outcome": "already_known", "field": field, "detail": f"A prospect with this {field} exists."},
                     status=status.HTTP_409_CONFLICT,
                 )
+        # One first email per business: a sample held for it counts (``_docs/sample-outreach.md``).
+        if field := sample_holds(data["email"], data["domain"]):
+            return Response(
+                {"outcome": "already_known", "field": field, "detail": f"A sample held for email has this {field}."},
+                status=status.HTTP_409_CONFLICT,
+            )
         if is_suppressed(data["email"]):
             return Response(
                 {"outcome": "suppressed", "detail": "The address is on the suppression list."},

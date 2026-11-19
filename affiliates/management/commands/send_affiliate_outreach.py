@@ -9,7 +9,7 @@ from freetheplatform.messaging import Suppression
 
 from affiliates.models import PodcastProspect
 from affiliates.utils.pitching import ACTIVE_VERSIONS, PAUSED_VERSIONS, next_version, pitch_figures, send_pitch
-from seo.utils import prospect_sending
+from seo.utils import prospect_sending, sample_sending
 
 logger = logging.getLogger(__name__)
 
@@ -106,7 +106,8 @@ def claim(prospect, now):
 
 class Command(BaseCommand):
     help = (
-        "Sends any queued prospect report emails (_docs/seo-prospect-outreach.md), and the next few "
+        "Sends any queued prospect report emails (_docs/seo-prospect-outreach.md) and approved website sample "
+        "emails (_docs/sample-outreach.md), and the next few "
         "podcast pitches when --count says so: the pitches are paused (owner, 2026-10-30), so the default "
         "sends none, and only a show rated high fit is ever pitched. Runs hourly on PythonAnywhere next to "
         "send_due_messages, and only inside Perth business hours on weekdays unless --ignore-window is passed."
@@ -209,3 +210,29 @@ class Command(BaseCommand):
             sent += 1
             self.stdout.write(f"Follow-up -> {prospect.email} ({prospect.business}): {message.status}")
         self.stdout.write(f"{sent} follow-up(s) sent.")
+        self.send_samples(now, count, pause=pause or bool(sent))
+
+    def send_samples(self, now, count, pause):
+        """The website sample emails the owner approved, and their follow-ups, in the same window and pace."""
+        sent = 0
+        jobs = [(sample, sample_sending.claim, sample_sending.send_sample, "Sample")
+                for sample in sample_sending.eligible_samples()[: count * 2]]
+        jobs += [(sample, sample_sending.claim_follow_up, sample_sending.send_follow_up, "Sample follow-up")
+                 for sample in sample_sending.due_follow_ups()[: count * 2]]
+        for sample, claim_it, send_it, label in jobs:
+            if sent >= count:
+                break
+            if not claim_it(sample, now):
+                continue
+            if sent or pause:
+                time.sleep(PAUSE_SECONDS)
+            # As for a report: the row stays claimed, and the failed message is in the log to resend.
+            try:
+                message = send_it(sample)
+            except Exception:
+                self.stderr.write(f"{sample.email}: {label.lower()} email failed.")
+                logger.exception("%s email failed for sample %s", label, sample.pk)
+                continue
+            sent += 1
+            self.stdout.write(f"{label} -> {sample.email} ({sample.business}): {message.status}")
+        self.stdout.write(f"{sent} sample email(s) sent.")
