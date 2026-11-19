@@ -125,7 +125,7 @@ class SeoSampleUploadView(APIView):
 class SampleHoldSerializer(serializers.Serializer):
     project = serializers.RegexField(r"^[a-z0-9][a-z0-9-]{0,63}$")
     email = serializers.EmailField()
-    first_name = serializers.CharField(max_length=60)
+    first_name = serializers.CharField(max_length=60, required=False, allow_blank=True)
     contact_name = serializers.CharField(max_length=255, required=False, allow_blank=True)
     email_source = serializers.CharField(max_length=500, required=False, allow_blank=True)
     phone = serializers.CharField(max_length=40, required=False, allow_blank=True)

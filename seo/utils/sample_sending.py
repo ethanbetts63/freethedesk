@@ -55,7 +55,8 @@ def listing(sample: SeoSampleReport) -> str:
 
 
 def body_for(sample: SeoSampleReport) -> str:
-    return BODY.format(first_name=sample.first_name, listing=listing(sample), link=sample_link(sample))
+    # 'there' when no name is known, as the prospect emails greet (owner, 2026-11-19: a name is a bonus).
+    return BODY.format(first_name=sample.first_name.strip() or "there", listing=listing(sample), link=sample_link(sample))
 
 
 def follow_up_body(sample: SeoSampleReport) -> str:
@@ -67,8 +68,6 @@ def follow_up_body(sample: SeoSampleReport) -> str:
 def hold_problems(sample: SeoSampleReport) -> list[str]:
     """What the row lacks to be emailed as written; empty when it has it all."""
     missing = []
-    if not sample.first_name.strip():
-        missing.append("first_name")
     if not sample.email:
         missing.append("email")
     if not sample.domain.strip():

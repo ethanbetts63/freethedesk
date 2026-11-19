@@ -101,11 +101,20 @@ def test_hold_needs_the_secret_and_a_published_sample(api_client, internal_key):
     assert hold(api_client, internal_key).status_code == 404
 
 
-def test_hold_refuses_a_missing_name_or_fewer_than_four_titles(api_client, internal_key):
+def test_hold_refuses_fewer_than_four_titles(api_client, internal_key):
     publish(api_client, internal_key)
-    assert hold(api_client, internal_key, first_name="").status_code == 400
     assert hold(api_client, internal_key, titles=TITLES[:3]).status_code == 400
     assert SeoSampleReport.objects.get().held_at is None
+
+
+def test_a_sample_with_no_name_is_held_and_greets_there(api_client, internal_key):
+    from seo.utils.sample_sending import body_for
+
+    publish(api_client, internal_key)
+    assert hold(api_client, internal_key, first_name="", contact_name="").status_code in (200, 201)
+    sample = SeoSampleReport.objects.get()
+    assert sample.held_at is not None
+    assert body_for(sample).startswith("Hi there,\n\n")
 
 
 def test_a_held_sample_is_not_sent_and_an_approved_one_is_sent_once(api_client, internal_key, held, outbox,

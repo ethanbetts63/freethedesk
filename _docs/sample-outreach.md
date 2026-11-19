@@ -59,7 +59,7 @@ fields, and the dashboard pages are not mirrored: a sample's call is the owner's
 
 | Field                                          | Notes                                                                    |
 | ---------------------------------------------- | ------------------------------------------------------------------------ |
-| `contact_name`, `first_name`, `email`, `phone` | from the hold; never made up: the pipeline refuses a sample without them |
+| `contact_name`, `first_name`, `email`, `phone` | from the hold; never made up. Only `email` is required: with no name the greeting is "Hi there", as the prospect emails' is (owner, 2026-11-19) |
 | `email_source`                                 | where the address and name came from                                     |
 | `domain`                                       | the subject's; the hold sets it, `publish.py` sends the same             |
 | `titles`                                       | the first four change titles                                             |
