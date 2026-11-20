@@ -24,7 +24,7 @@ TITLES_SHOWN = 4
 
 SUBJECT = "A redesign of {domain}"
 
-# The owner's words, approved 2026-11-19. The source copy is ftp_search's call_script.md, "The sample email";
+# The owner's words, approved 2026-11-19; the redesign's own link added 2026-11-20. The source copy is ftp_search's call_script.md, "The sample email";
 # change both together.
 BODY = """Hi {first_name},
 
@@ -34,7 +34,9 @@ The report goes through every change: what your site does now, what the redesign
 
 {listing}
 
-You can read the report and click through to the redesign here: {link}
+You can read the report here: {link}
+
+And see the redesign itself here: {demo}
 
 If you want to go through it first, my number is below. I can explain any part of it. Reply 'no thanks' and I won't email again.
 
@@ -56,7 +58,8 @@ def listing(sample: SeoSampleReport) -> str:
 
 def body_for(sample: SeoSampleReport) -> str:
     # 'there' when no name is known, as the prospect emails greet (owner, 2026-11-19: a name is a bonus).
-    return BODY.format(first_name=sample.first_name.strip() or "there", listing=listing(sample), link=sample_link(sample))
+    return BODY.format(first_name=sample.first_name.strip() or "there", listing=listing(sample), link=sample_link(sample),
+                       demo=sample.demo_url)
 
 
 def follow_up_body(sample: SeoSampleReport) -> str:

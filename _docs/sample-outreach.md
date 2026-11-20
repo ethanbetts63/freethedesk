@@ -38,7 +38,9 @@ The report goes through every change: what your site does now, what the redesign
 3. {title}
 4. {title}
 
-You can read the report and click through to the redesign here: {link}
+You can read the report here: {link}
+
+And see the redesign itself here: {demo}
 
 If you want to go through it first, my number is below. I can explain any part of it. Reply 'no thanks' and I won't email again.
 

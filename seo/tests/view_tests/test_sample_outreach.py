@@ -85,7 +85,9 @@ The report goes through every change: what your site does now, what the redesign
 3. Your number and Book a Consultation on every page
 4. A home page that says what you do and where
 
-You can read the report and click through to the redesign here: {sample_link(held)}
+You can read the report here: {sample_link(held)}
+
+And see the redesign itself here: https://samples.freethedesk.com.au/emby-cabinets/
 
 If you want to go through it first, my number is below. I can explain any part of it. Reply 'no thanks' and I won't email again.
 
