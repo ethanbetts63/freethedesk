@@ -1,12 +1,12 @@
 ---
 published: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-22
 title: Website Cost in Perth: Prices by Type of Site
 description: What a website costs a Perth business, from DIY builders to custom web applications, with the ranges Perth studios publish and what keeps costing after launch.
 takeaways:
   - Perth studios publish prices from a few hundred dollars to well over $20,000; most professionally built small business sites land between $2,000 and $10,000.
   - Then budget for running costs, which studios put at about $100 to $500 a year for hosting and $100 to $500 a month for maintenance.
-  - freethedesk builds custom-coded sites at fixed prices, $750 for one page, $3,000 for six and $6,000 for ten, half upfront and half before launch.
+  - freethedesk builds custom-coded sites in three packages at fixed prices, $1,500, $3,000 and $4,500, half upfront and half before launch.
 ---
 
 # How much does a website cost in Perth?
@@ -31,13 +31,13 @@ The ranges overlap because the labels do. One studio's "starter site" is another
 
 ### What our websites cost
 
-freethedesk builds custom-coded websites at fixed prices, worked out per page and published on our [website development page](/website-development). Every package is paid half when you buy and the rest before launch.
+freethedesk builds custom-coded websites in three packages, at fixed prices published on our [website development page](/website-development). Every package is paid half upfront and the rest before launch.
 
-| Package          | Price  | Per page      | What it includes                                                                                                                              |
-| ---------------- | ------ | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| One-page website | $750   | A single page | One custom, mobile-first page, an enquiry form to your inbox, SEO foundations built in, and Search Console and Analytics set up               |
-| 6-page website   | $3,000 | $500 a page   | Custom, mobile-first design, an enquiry form to your inbox, SEO foundations built in, and Search Console and Analytics set up                 |
-| 10-page website  | $6,000 | $600 a page   | Everything in the 6-page website, plus pages planned from keyword research, a Google Business Profile review and an SEO audit at three months |
+| Package  | Price  | What it includes                                                                                                                                                          |
+| -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Basic    | $1,500 | Home, a page for each service, about and contact, laid out for phones first, with an enquiry form on every page, SEO foundations, and Search Console and Analytics set up |
+| Growth   | $3,000 | Everything in Basic, plus up to five suburb pages, three homepage variations, a page for each of your five best jobs, and your Google Business Profile optimised          |
+| Complete | $4,500 | Everything in Growth, plus five guides answering what your customers search and an SEO audit at three months, with its fixes made                                         |
 
 Work outside a package, such as a new feature after launch, is $150 an hour, agreed before we start.
 

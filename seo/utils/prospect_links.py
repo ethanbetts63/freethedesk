@@ -270,7 +270,7 @@ _ASK = (
 # the pages, the terms, then the legal line. The lists mirror siteConfig.ts (FOOTER_NAVIGATION, OPENING_HOURS).
 _EXPLORE = (
     ("/website-development", "Website development"),
-    ("/website-redesign-perth", "Website redesign"),
+    ("/wordpress-web-design-perth", "WordPress website redesign"),
     ("/web-design-subiaco", "Web design Subiaco"),
     ("/seo", "SEO audits"),
     ("/automation", "Automation"),

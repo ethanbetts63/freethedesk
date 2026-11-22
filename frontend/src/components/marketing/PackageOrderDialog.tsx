@@ -33,14 +33,11 @@ export function PackageOrderDialog({
   packages,
   selectedCode,
   onChoose,
-  redesign,
 }: {
   dialogRef: RefObject<HTMLDialogElement | null>;
   packages: readonly PurchasePackage[];
   selectedCode: PackageCode;
   onChoose: (code: PackageCode) => void;
-  /** A redesign: the current website is the job, so it is asked for rather than optional. */
-  redesign: boolean;
 }) {
   const router = useRouter();
   const selected = packages.find((item) => item.code === selectedCode) ?? packages[0];
@@ -108,20 +105,15 @@ export function PackageOrderDialog({
     >
       <OrderContactFields />
       <label className={fieldLabelClassName}>
-        <span className={fieldLabelSpanClassName}>
-          {redesign ? 'Your current website' : 'Website (optional)'}
-        </span>
+        <span className={fieldLabelSpanClassName}>Website (optional)</span>
         {/* Not type="url": it rejects a scheme-less host like the placeholder example. */}
         <input
           className={fieldInputClassName}
           name="website"
           type="text"
           inputMode="url"
-          placeholder={
-            redesign ? 'e.g. www.yourbusiness.com.au' : "Leave blank if you don't have one yet"
-          }
+          placeholder="Leave blank if you don't have one yet"
           autoComplete="url"
-          required={redesign}
         />
       </label>
       <label className={fieldLabelClassName}>
@@ -131,11 +123,7 @@ export function PackageOrderDialog({
           name="notes"
           rows={3}
           maxLength={2000}
-          placeholder={
-            redesign
-              ? 'e.g. Our WordPress site is slow and the plugins keep breaking.'
-              : 'e.g. We sell outdoor furniture and want our range online.'
-          }
+          placeholder="e.g. We sell outdoor furniture and want our range online."
         />
       </label>
       <TermsAgreement

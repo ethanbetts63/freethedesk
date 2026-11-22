@@ -30,7 +30,7 @@ export const PRIMARY_NAVIGATION = [
     label: 'Websites',
     items: [
       { href: '/website-development', label: 'Website development' },
-      { href: '/website-redesign-perth', label: 'Website redesign' },
+      { href: '/wordpress-web-design-perth', label: 'WordPress website redesign' },
     ],
   },
   { href: '/automation', label: 'Automation' },
@@ -49,7 +49,7 @@ export const FOOTER_NAVIGATION = [
   { href: '/seo/professional-services', label: 'SEO for professional services' },
   { href: '/seo/dealerships', label: 'SEO for dealerships' },
   { href: '/website-development', label: 'Website development' },
-  { href: '/website-redesign-perth', label: 'Website redesign' },
+  { href: '/wordpress-web-design-perth', label: 'WordPress website redesign' },
   // A trial suburb page; the footer is its only link (2026-10-07).
   { href: '/web-design-subiaco', label: 'Web design Subiaco' },
   { href: '/automation', label: 'Automation' },

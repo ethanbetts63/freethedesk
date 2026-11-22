@@ -1,6 +1,6 @@
 ---
 published: 2026-10-14
-updated: 2026-11-04
+updated: 2026-11-22
 title: WordPress Website Cost in Perth: What You Pay
 description: What a WordPress site costs a Perth small business over time: hosting, plugins and upkeep, and when a custom-coded site is the better buy.
 takeaways:
@@ -94,4 +94,4 @@ A good developer, WordPress or otherwise, will be glad you asked.
 
 ## Where freethedesk fits
 
-We build custom-coded websites for Perth businesses, at fixed prices published on the page: a 6-page website for $3,000 and a 10-page website for $6,000, half when you buy and the rest before launch. Running costs charged by other providers, such as hosting and your domain, are paid to them directly, and our terms list them before you commit. If WordPress suits you better, we will say so, and our [SEO audits](/seo) work on WordPress sites as well as ours. You can see what a custom build includes on our [website development page](/website-development), and how a move off WordPress keeps your Google rankings on our [website redesign page](/website-redesign-perth).
+We build custom-coded websites for Perth businesses, in three packages at fixed prices published on the page: $1,500, $3,000 and $4,500, half upfront and the rest before launch. Running costs charged by other providers, such as hosting and your domain, are paid to them directly, and our terms list them before you commit. If WordPress suits you better, we will say so, and our [SEO audits](/seo) work on WordPress sites as well as ours. You can see what a custom build includes on our [website development page](/website-development), and how a move off WordPress keeps your Google rankings on our [website redesign page](/wordpress-web-design-perth).

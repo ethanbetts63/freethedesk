@@ -2,18 +2,26 @@ import type { PublicSiteSettings } from './api';
 import { formatMoney } from './formatting';
 
 /**
- * The website development packages and the quoted services' prices, worked out
- * once from the admin's settings so every page that states one agrees.
+ * The prices pages quote, worked out once so every page that states one agrees.
  *
- * The websites are priced per page: the one-page website is one page at its
- * own price, the other two a page count at a per-page price. The web application is bought as its discovery: that many
- * hours at the hourly rate, paid upfront, with the build then priced to the
- * customer's budget. A website is paid half when bought and half before
- * launch; discovery is paid in full. The backend's PackageOrderSerializer
- * works out the same split. What each package includes is copy and lives here; the
- * counts and prices belong to the admin. The codes match the backend's
- * PackageOrderSerializer.PACKAGES.
+ * A website is one of three packages at a fixed price, agreed on a call (owner, 2026-11-21).
+ * What is bought online is discovery: so many hours at the admin's hourly rate, paid in full,
+ * with the build then priced to the customer's budget.
+ *
+ * `purchasePackages` also holds the websites once bought online, priced per page from the
+ * admin's counts and prices and paid half when bought, half before launch. No page sells them
+ * now; the payment page still reads them for an order already placed. The codes match the
+ * backend's PackageOrderSerializer.PACKAGES, which works out the same split.
  */
+
+export type WebsitePackageCode = 'basic' | 'growth' | 'complete';
+
+/** The three website packages' prices, typed here until they move to the admin (see _docs/to_do.md). */
+export const WEBSITE_PACKAGE_PRICES: Record<WebsitePackageCode, number> = {
+  basic: 1500,
+  growth: 3000,
+  complete: 4500,
+};
 
 export type PackageCode =
   | 'website_one_page'
@@ -144,33 +152,20 @@ export function automationDiscovery(settings: PublicSiteSettings): PurchasePacka
  */
 export const GBP_OPTIMISATION_PRICE = 650;
 
-/** One package by its code, for copy that names a particular one. */
-export function packageByCode(
-  packages: readonly PurchasePackage[],
-  code: PackageCode,
-): PurchasePackage {
-  const found = packages.find((item) => item.code === code);
-  if (!found) throw new Error(`No package ${code}.`);
-  return found;
-}
-
 /** The figures most pages quote, already formatted. */
 export function servicePrices(settings: PublicSiteSettings) {
-  const packages = purchasePackages(settings);
   const hourly = Number(settings.hourly_rate);
   const seoFrom = Math.min(
     ...[settings.seo_essentials_price, settings.seo_plus_price, settings.seo_complete_price].map(
       Number,
     ),
   );
-  const websites = packages.filter((item) => item.code !== 'web_application');
 
   return {
-    packages,
     hourlyRate: money(hourly),
     discoveryHours: settings.discovery_hours,
     discoveryTotal: money(hourly * settings.discovery_hours),
-    websiteFrom: money(Math.min(...websites.map((item) => item.price))),
+    websiteFrom: money(Math.min(...Object.values(WEBSITE_PACKAGE_PRICES))),
     seoFrom: money(seoFrom),
   };
 }

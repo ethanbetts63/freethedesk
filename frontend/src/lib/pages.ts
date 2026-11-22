@@ -40,7 +40,7 @@ export interface StaticPage {
 
 export const STATIC_PAGES = {
   '/': {
-    updated: '2026-11-16',
+    updated: '2026-11-22',
     label: 'Home',
     title: 'Websites, SEO & Business Automation Perth - freethedesk',
     description:
@@ -48,7 +48,7 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-11-16',
+    updated: '2026-11-22',
     label: 'Dealer websites',
     title: 'Dealership Websites & Online Licensing, WA',
     description:
@@ -67,11 +67,11 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-11-16',
+    updated: '2026-11-22',
     label: 'Website development',
-    title: 'Custom Web Design & Development Perth',
+    title: 'Website Design Perth: Fixed-Price Packages',
     description:
-      'Fixed-price web design and development for Perth businesses that need more than a template: custom websites, ecommerce, integrations and web applications.',
+      'Custom web design and development for Perth businesses: three website packages at fixed prices, built to rank on Google, load fast and bring in enquiries.',
     // Perth rather than Australia, matching the page's own h1 and the local
     // intent the title targets.
     service: {
@@ -81,25 +81,25 @@ export const STATIC_PAGES = {
     },
   },
   '/web-design-subiaco': {
-    updated: '2026-11-16',
+    updated: '2026-11-22',
     label: 'Web design Subiaco',
     title: 'Web Design & Development Subiaco',
     description:
-      'Web design and development for Subiaco businesses: custom websites priced per page, built to show up in local search and automate the admin behind them.',
+      'Web design and development for Subiaco businesses: custom websites in three fixed-price packages, built to show up in local search and bring in enquiries.',
     service: {
       name: 'Web Design Subiaco',
       serviceType: 'Web design, website development and web application development',
       areaServed: { type: 'Place', name: 'Subiaco, Western Australia' },
     },
   },
-  '/website-redesign-perth': {
-    updated: '2026-11-16',
-    label: 'Website redesign',
-    title: 'Website Redesign Perth: Moving Off WordPress',
+  '/wordpress-web-design-perth': {
+    updated: '2026-11-22',
+    label: 'WordPress website redesign',
+    title: 'WordPress Website Redesign Perth: Load Faster, Rank Higher',
     description:
-      'Website redesign for Perth businesses moving off WordPress: a custom-coded site with no plugins to update, moved across so your Google rankings come too.',
+      'Web design for Perth businesses still on WordPress: your site rebuilt as an industry-grade website, built to load fast, rank higher and convert more.',
     service: {
-      name: 'Website Redesign Perth',
+      name: 'WordPress Website Redesign Perth',
       serviceType: 'Website redesign and WordPress migration',
       areaServed: { type: 'City', name: 'Perth' },
     },
@@ -239,7 +239,7 @@ export const STATIC_PAGES = {
       'Practical guides for Perth businesses on SEO, website development and what each costs, with automation and dealer licensing besides.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-11-16',
+    updated: '2026-11-22',
     label: 'Scooter Shop',
     title: 'Scooter Shop Case Study: Dealer Website & SEO',
     description:
@@ -247,7 +247,7 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {
-    updated: '2026-11-16',
+    updated: '2026-11-22',
     label: 'Bloomprint',
     title: 'Bloomprint Case Study: Flower Delivery Marketplace',
     description:

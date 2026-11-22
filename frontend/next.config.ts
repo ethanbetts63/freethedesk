@@ -37,6 +37,13 @@ const nextConfig: NextConfig = {
         destination: '/website-development',
         permanent: true,
       },
+      // The redesign page became the WordPress page on 2026-11-22: the same move off WordPress,
+      // at an address that says so.
+      {
+        source: '/website-redesign-perth',
+        destination: '/wordpress-web-design-perth',
+        permanent: true,
+      },
       { source: '/dealers/signup', destination: '/licensing#signup', permanent: true },
       { source: '/work/:path*', destination: '/portfolio/:path*', permanent: true },
       // Retired on 2026-10-14; every price is on the homepage mosaic and its service page.

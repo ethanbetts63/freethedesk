@@ -7,8 +7,8 @@ export type GuideOfferKind =
 
 /**
  * The box after a guide's first section: the matching service's price and a button to its
- * page, so a reader ready to buy does not have to reach the end first. Priced from the admin
- * like the service pages, so the box cannot quote a figure they do not.
+ * page, so a reader ready to buy does not have to reach the end first. Priced from where the
+ * service page is, so the box cannot quote a figure that page does not.
  */
 export function GuideOffer({
   kind,
@@ -26,7 +26,7 @@ export function GuideOffer({
     },
     redesign: {
       line: `Moving off WordPress? Redesigns from ${prices.websiteFrom}, fixed price.`,
-      href: '/website-redesign-perth#packages',
+      href: '/wordpress-web-design-perth#packages',
       label: 'See the redesign packages',
     },
     seo: {

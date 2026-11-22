@@ -21,10 +21,13 @@ export function CallRequest({
   id = 'call-back',
   source,
   title,
+  picture,
 }: {
   id?: string;
   source: string;
   title: string;
+  /** The panel's picture, where the page chooses one other than its own related-card illustration. */
+  picture?: string;
 }) {
   return (
     <section
@@ -42,7 +45,7 @@ export function CallRequest({
           {/* eslint-disable-next-line no-restricted-syntax -- as above, one step inside the panel's */}
           <div className="w-full overflow-hidden rounded-[1.5rem] border border-border-default bg-surface-page">
             <Image
-              src={pagePicture(source) ?? DEFAULT_PICTURE}
+              src={picture ?? pagePicture(source) ?? DEFAULT_PICTURE}
               alt=""
               width={1536}
               height={1024}

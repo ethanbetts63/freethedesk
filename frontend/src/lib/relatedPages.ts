@@ -19,13 +19,13 @@ const LINKS = {
   websites: {
     href: '/website-development',
     label: 'Website development',
-    line: 'Fixed-price websites, from one page to ten.',
+    line: 'Custom websites in three fixed-price packages.',
     image: '/images/pages/website-development.webp',
   },
   redesign: {
-    href: '/website-redesign-perth',
-    label: 'Website redesign',
-    line: 'Moving off WordPress without losing the searches you win.',
+    href: '/wordpress-web-design-perth',
+    label: 'WordPress website redesign',
+    line: 'Your WordPress site rebuilt to load faster and rank higher.',
     image: '/images/pages/website-redesign-perth.webp',
   },
   aiSeo: {
@@ -172,7 +172,7 @@ const RELATED: Record<string, { title: string; links: readonly Key[] }> = {
     title: 'SEO audits, redesigns and case studies',
     links: ['seo', 'redesign', 'bloomprint', 'scooterShop'],
   },
-  '/website-redesign-perth': {
+  '/wordpress-web-design-perth': {
     title: 'SEO audits, new websites, WordPress costs and migration SEO',
     links: ['seo', 'websites', 'wordpressCost', 'migration'],
   },

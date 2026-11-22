@@ -12,7 +12,7 @@ export function migrationFaqs(prices: SeoAuditPrices): FaqItem[] {
     {
       question: 'How much does website migration SEO cost?',
       answer: `An Essentials audit is ${prices.essentials}, Plus is ${prices.plus} and Complete is ${prices.complete}, each paid once with no subscription. If we build your new site, moving your pages across and redirecting the old addresses is part of the redesign price.`,
-      links: [{ phrase: 'part of the redesign price', href: '/website-redesign-perth' }],
+      links: [{ phrase: 'part of the redesign price', href: '/wordpress-web-design-perth' }],
     },
     {
       question: 'When should SEO start in a website move?',
@@ -28,7 +28,7 @@ export function migrationFaqs(prices: SeoAuditPrices): FaqItem[] {
       question: 'Do you build the new website as well?',
       answer:
         'If you want us to. Our website redesigns are custom-coded sites at a fixed price, and every old address is redirected as part of the build. If your own developer is building it, the audit is written for them, and any recommendation can come with a fixed price for us to make the change instead.',
-      links: [{ phrase: 'website redesigns', href: '/website-redesign-perth' }],
+      links: [{ phrase: 'website redesigns', href: '/wordpress-web-design-perth' }],
     },
     {
       question: 'Should I change my domain at the same time?',

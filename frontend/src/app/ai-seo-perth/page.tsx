@@ -32,7 +32,7 @@ export const metadata: Metadata = metadataFor(PATH);
 /* The audits and the cost answer quote the admin's prices, so this page renders per request. */
 export const dynamic = 'force-dynamic';
 
-/* /website-redesign-perth's sections, one for one (owner, 2026-11-16): letting the AI crawlers
+/* /seo's sections, one for one (owner, 2026-11-16): letting the AI crawlers
    in, pages a machine can read, and measuring where you appear. */
 const sections = numberSections([
   'Found',
@@ -67,7 +67,7 @@ function SectionPicture({ src }: { src: string }) {
 /**
  * AI SEO, for businesses asking how to be named by ChatGPT, Google's AI Overviews, Copilot and
  * Perplexity. What it buys is an SEO audit, every one of which checks for AI search; the free AI
- * readiness check sits above the hero, as on the website pages. Built as /website-redesign-perth
+ * readiness check sits above the hero, as on the website pages. Built as /seo
  * is, section for section, its splits alternating left and right.
  */
 export default async function AiSeoPage() {

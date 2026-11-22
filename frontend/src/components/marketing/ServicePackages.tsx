@@ -10,21 +10,18 @@ import { PackagesSection, usePackageChoice } from './Packages';
 
 /**
  * A service page's packages, sold as the SEO audits are: cards under a heading, each opening the
- * order form over the page. The website, Subiaco, redesign and automation pages differ only in
+ * order form over the page. The website, Subiaco and automation pages differ only in
  * the words and the packages they pass. `id="packages"` is where their heroes' buttons land.
  */
 export function ServicePackages({
   title,
   lead,
   packages,
-  redesign = false,
 }: {
   /** The heading before "and prices.": "Website packages". */
   title: string;
   lead: string;
   packages: readonly PurchasePackage[];
-  /** The buyer is replacing a site, so the form asks for it. */
-  redesign?: boolean;
 }) {
   // The cards' words: the name, how the price is reached, the price and how it's paid, what it
   // includes.
@@ -70,7 +67,6 @@ export function ServicePackages({
         packages={packages}
         selectedCode={selectedCode}
         onChoose={choose}
-        redesign={redesign}
       />
     </PackagesSection>
   );

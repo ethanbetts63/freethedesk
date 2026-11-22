@@ -21,12 +21,13 @@ const gridColumns: Record<number, string> = {
 /** One card's button: the recommended one carries the moving colour, the others are dark. */
 function ChooseButton<Code extends string>({
   plan,
+  label,
   onChoose,
 }: {
   plan: Plan<Code>;
+  label: string;
   onChoose: (code: Code) => void;
 }) {
-  const label = `Choose ${plan.name}`;
   if (plan.recommended) {
     return (
       <MovingColourButton
@@ -61,11 +62,13 @@ function Card<Code extends string>({
   plan,
   title,
   kicker,
+  chooseLabel,
   onChoose,
 }: {
   plan: Plan<Code>;
   title: string;
   kicker: string;
+  chooseLabel: string;
   onChoose: (code: Code) => void;
 }) {
   return (
@@ -113,7 +116,7 @@ function Card<Code extends string>({
         </ul>
       </div>
       <div className="mt-auto">
-        <ChooseButton plan={plan} onChoose={onChoose} />
+        <ChooseButton plan={plan} label={chooseLabel} onChoose={onChoose} />
       </div>
     </li>
   );
@@ -160,9 +163,11 @@ export function PackagesSection<Code extends string>({
   title,
   accentTitle,
   lead,
+  wideHeader = false,
   plans,
   kicker,
   cardTitle = (plan) => plan.name,
+  chooseLabel = (plan) => `Choose ${plan.name}`,
   note,
   onChoose,
   children,
@@ -174,21 +179,25 @@ export function PackagesSection<Code extends string>({
   title: string;
   accentTitle: string;
   lead: string;
+  /** Lets the heading and lead run the width of the cards, where the default keeps them to a reading measure. */
+  wideHeader?: boolean;
   plans: readonly Plan<Code>[];
   /** Small capitals over each card's ticks, saying what they are: "Recommendations based on". */
   kicker: string;
   /** The card's heading, where it says more than the button's name: "Plus SEO audit". */
   cardTitle?: (plan: Plan<Code>) => string;
+  /** The card's button, where choosing is not buying: "Book a call". */
+  chooseLabel?: (plan: Plan<Code>) => string;
   /** One line under the cards that holds for all of them: the audits' money-back guarantee. */
   note?: ReactNode;
   onChoose: (code: Code) => void;
-  /** The order dialog the cards open. */
-  children: ReactNode;
+  /** The order dialog the cards open; none where a card leads to the call-back form instead. */
+  children?: ReactNode;
 }) {
   return (
     <section id={id} aria-label={eyebrow} className="bg-surface-page pt-section">
       <div className="site-shell">
-        <div className="mb-xl max-w-measure-tight">
+        <div className={cn('mb-xl', !wideHeader && 'max-w-measure-tight')}>
           <SectionHeader
             eyebrow={eyebrow}
             title={title}
@@ -209,6 +218,7 @@ export function PackagesSection<Code extends string>({
               plan={plan}
               title={cardTitle(plan)}
               kicker={kicker}
+              chooseLabel={chooseLabel(plan)}
               onChoose={onChoose}
             />
           ))}

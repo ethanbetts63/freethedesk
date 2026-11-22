@@ -3,16 +3,38 @@ import { SeoReportOverview } from '@/components/SeoReportOverview';
 import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 import { LicensingFillVisual } from '@/app/licensing/_components/LicensingFillVisual';
 import { AutomationFeatureVisual } from '@/app/_components/AutomationFeatureVisual';
-import { WEB_DESIGN_JOURNEY } from '@/app/website-development/_lib/copy';
 
-import { JourneySection } from '@/components/marketing/JourneySection';
+import { type JourneyContent, JourneySection } from '@/components/marketing/JourneySection';
+
+const WEBSITE_JOURNEY: JourneyContent = {
+  title: 'Web design that leads visitors',
+  accentTitle: 'to enquire or buy',
+  description:
+    'Good web design means visitors never have to work out what to do next. We create clear paths from their first click to a purchase, booking or enquiry.',
+  bullets: [
+    'One clear action at every stage',
+    'Fewer fields, choices and dead ends',
+    'A clear confirmation and handoff at the end',
+  ],
+  flow: {
+    label: 'Customer journey',
+    start: { label: 'Point A', title: 'Interested visitor', description: 'Intent captured' },
+    steps: [
+      { title: 'Find the path', description: 'One clear route forward' },
+      { title: 'Understand the offer', description: 'The right detail, in the right order' },
+      { title: 'Take action', description: 'Only the essential effort' },
+    ],
+    end: { label: 'Point B', title: 'Action complete', description: 'Next step confirmed' },
+    ariaLabel: 'A clear customer journey from interest to completed action',
+  },
+};
 
 export type GuideCtaKind = 'seo' | 'website' | 'licensing' | 'automation';
 
 /**
  * What a guide ends on: the service the reader is closest to buying, with a
  * button to its page. The SEO one is for a site that already exists, over the
- * SEO page's report visual; the website one is its "Websites designed to be obvious" journey;
+ * SEO page's report visual; the website one is a journey from interest to action;
  * the licensing one, for the WA dealer guides, is /licensing's opening section;
  * the automation one is the homepage's automation section, with the discovery price.
  */
@@ -86,7 +108,7 @@ export function GuideCta({
   return (
     <JourneySection
       eyebrow="Web design Perth"
-      content={WEB_DESIGN_JOURNEY}
+      content={WEBSITE_JOURNEY}
       action={
         <CtaButton href="/website-development" size="compact">
           Explore website development

@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { SampleReportLink } from '@/app/seo/_components/SampleReportLink';
 import { SeoPackages } from '@/app/seo/_components/SeoPackages';
 import { buildSeoPlans, PRICE_FIELD, seoAuditPrices } from '@/app/seo/_lib/plans';
-import { CaseStudyLink } from '@/app/website-redesign-perth/_components/CaseStudyLink';
 import { CallRequest } from '@/components/marketing/CallRequest';
 import { CallRequestNudge } from '@/components/marketing/CallRequestNudge';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
@@ -22,6 +21,7 @@ import { numberSections } from '@/lib/sectionNumbers';
 import { buildOneOffOffer } from '@/lib/seo';
 import { getSiteSettingsServer } from '@/lib/serverApi';
 
+import { CaseStudyLink } from './_components/CaseStudyLink';
 import { migrationFaqs } from './_lib/copy';
 
 const PATH = '/website-migration-seo-perth';
@@ -31,7 +31,7 @@ export const metadata: Metadata = metadataFor(PATH);
 /* The audits and the cost answer quote the admin's prices, so this page renders per request. */
 export const dynamic = 'force-dynamic';
 
-/* /website-redesign-perth's sections, one for one (owner, 2026-11-16): before the move, the
+/* /seo's sections, one for one (owner, 2026-11-16): before the move, the
    redirects, and the measuring after launch. */
 const sections = numberSections([
   'Before the move',
@@ -66,7 +66,7 @@ function SectionPicture({ src }: { src: string }) {
 /**
  * Website migration SEO, for a business moving to a new site, platform or domain with any
  * developer, or one whose traffic fell after the move. What it buys is an SEO audit read for the
- * move; a redesign with us includes the move. Built as /website-redesign-perth is, section for
+ * move; a redesign with us includes the move. Built as /seo is, section for
  * section, its splits alternating left and right.
  */
 export default async function WebsiteMigrationSeoPage() {

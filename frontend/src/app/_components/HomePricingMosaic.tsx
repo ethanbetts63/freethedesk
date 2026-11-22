@@ -49,11 +49,6 @@ export async function HomePricingMosaic() {
     return null;
   }
 
-  // The package the "from" figure is, so its sum is the one printed beside it.
-  const cheapest = prices.packages
-    .filter((item) => !item.discovery)
-    .reduce((low, item) => (item.price < low.price ? item : low));
-
   const tiles: Tile[] = [
     {
       label: 'SEO audits',
@@ -69,7 +64,7 @@ export async function HomePricingMosaic() {
       label: 'Websites',
       from: true,
       price: prices.websiteFrom,
-      line: `${cheapest.priceNote}, half when you buy and half before launch.`,
+      line: 'Three fixed-price packages, half upfront and half before launch.',
       href: '/website-development#packages',
       className: 'col-span-2 lg:row-span-2',
       dark: true,

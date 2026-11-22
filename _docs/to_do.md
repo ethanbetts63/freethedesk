@@ -77,3 +77,26 @@ page, not in facts.md: check the name) are held; each is emailed only after you 
 name anywhere the pipeline holds; hold it with `--name` and `--source` once one is found. The read API's account
 cannot see `seo.SeoSampleReport` (nor `seo.SeoProspect`) until `python manage.py readapi grant-view --username
 <the read account>` is run on PythonAnywhere. Delete this once the three are decided.
+
+## Website pages: the three packages (owner)
+
+Added 2026-11-21, updated 2026-11-22.
+
+Since 2026-11-22 a website is sold as three packages (Basic $1,500, Growth $3,000, Complete $4,500) by what the
+site does, each card leading to the call-back form, not a checkout: on `/website-development`,
+`/web-design-subiaco` and `/wordpress-web-design-perth`, which `/website-redesign-perth` now redirects to. The
+homepage, the dealer and case study pages, the guide boxes and the two cost guides quote the same figures. Left
+to do:
+
+- Bring `frontend/content/legal/web-development-terms.md` into line: sections 2 and 4 describe per-page packages
+  bought online, and no page sells those now.
+- Move the three prices to `SiteSettings`. They are typed as `WEBSITE_PACKAGE_PRICES` in
+  `frontend/src/lib/servicePricing.ts`.
+- Decide what becomes of the per-page website packages nothing sells: the backend's `PackageOrderSerializer`
+  still takes an order for one, the admin's site settings still hold their page counts and prices, and
+  `purchasePackages` keeps them so the payment page can show an order already placed. The web application
+  package went with them; `/automation` still sells discovery.
+- After the deploy, ask Search Console to index `/wordpress-web-design-perth`, and watch the old address drop
+  out. Remove the redirect in `next.config.ts` only once Search Console no longer has it.
+- `/web-design-subiaco` took the website page's words with its own heading, opening line and two local
+  questions, unread by the owner before it went out. Read it.
