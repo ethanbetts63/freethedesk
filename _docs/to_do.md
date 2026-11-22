@@ -98,5 +98,10 @@ to do:
   package went with them; `/automation` still sells discovery.
 - After the deploy, ask Search Console to index `/wordpress-web-design-perth`, and watch the old address drop
   out. Remove the redirect in `next.config.ts` only once Search Console no longer has it.
+- Google Ads (702-260-4011) sells websites since 2026-11-22: the Websites ad group is on and the SEO one
+  paused. The ad says "Perth Websites From $1,500" and "Three fixed-price packages from $1,500", so change
+  it whenever the Basic price changes. Perth web design clicks cost A$14 to A$32 at the top of the page
+  against a A$10 a day budget: read the search terms after the first week and decide whether to raise the
+  budget or add a WordPress ad group for `/wordpress-web-design-perth`, whose searches had no bids on them.
 - `/web-design-subiaco` took the website page's words with its own heading, opening line and two local
   questions, unread by the owner before it went out. Read it.
