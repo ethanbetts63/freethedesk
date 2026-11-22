@@ -1,6 +1,6 @@
 ---
 published: 2026-10-14
-updated: 2026-11-15
+updated: 2026-11-22
 title: Why Isn't My Business Showing Up on Google?
 description: The usual reasons a small business is missing from Google search and Maps, how to check each one yourself, and what to fix first.
 takeaways:
@@ -42,14 +42,14 @@ Search Console will usually tell you which of these it is. The fix might be a si
 
 Many small business owners mean the map when they say "Google". The map results come from your **Google Business Profile**, not your website, and they follow different rules.
 
-Google says [local results are based mainly on three things](https://support.google.com/business/answer/7091): **relevance** (how well your profile matches the search), **distance** (how far you are from the person searching) and **prominence** (how well known your business is, including how many reviews you have and how many websites link to you).
+Google says [local results are based mainly on three things](https://support.google.com/business/answer/7091): **relevance** (how well your profile matches the search), **distance** (how far you are from the person searching) and **popularity**, which Google also calls prominence (how well known your business is, including how many reviews you have and how many websites link to you).
 
 You cannot change distance. A business in Dianella will find it harder to appear on the map for someone searching from Rockingham, however good its profile is. You can work on the other two:
 
 - **Claim and verify your profile.** An unverified profile, or one a previous owner or agency still controls, is a common reason a business is missing.
 - **Pick the right primary category.** This is one of the clearest signals of what you do. Choose the most specific category that fits, not the broadest.
 - **Fill in everything.** Services, service areas, opening hours, photos and a description that says plainly what you do and where.
-- **Ask for reviews.** Steadily, from real customers, and reply to them. Reviews count towards prominence and are what searchers read first.
+- **Ask for reviews.** Steadily, from real customers, and reply to them. Reviews count towards popularity and are what searchers read first.
 
 If you would rather not do this yourself, we offer [Google Business Profile optimisation](/google-business-profile-optimisation): we make these changes in your profile for a fixed $650, paid once.
 

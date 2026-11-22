@@ -152,6 +152,21 @@ const LINKS = {
     label: 'What to automate first',
     line: 'Where a small business gets its time back soonest.',
   },
+  smallBusinessSeo: {
+    href: '/small-business-seo-perth',
+    label: 'Small business SEO in Perth',
+    line: 'Titles, headings, a page per service and your Business Profile.',
+  },
+  chooseDesigner: {
+    href: '/how-to-choose-a-web-designer-perth',
+    label: 'How to choose a web designer in Perth',
+    line: 'What to ask, what you should own and what to walk away from.',
+  },
+  builderOrDesigner: {
+    href: '/website-builder-vs-web-designer-perth',
+    label: 'Website builder or web designer?',
+    line: 'Wix, Squarespace, WordPress or custom, side by side.',
+  },
   dealerOnline: {
     href: '/dealer-online-wa',
     label: 'Dealer Online WA',
@@ -246,8 +261,8 @@ const RELATED: Record<string, { title: string; links: readonly OwnKey[] }> = {
     links: ['scooterShop', 'seo'],
   },
   '/business-not-showing-up-on-google': {
-    title: 'Websites, WordPress redesigns, SEO audits and profile optimisation',
-    links: ['seo', 'gbp'],
+    title: 'Websites, WordPress redesigns, small business SEO and profile optimisation',
+    links: ['smallBusinessSeo', 'gbp'],
   },
   '/how-to-show-up-in-ai-search': {
     title: 'Websites, WordPress redesigns, AI SEO and SEO audits',
@@ -262,16 +277,28 @@ const RELATED: Record<string, { title: string; links: readonly OwnKey[] }> = {
     links: ['automation', 'seo'],
   },
   '/wordpress-website-cost-perth': {
-    title: 'New websites, WordPress redesigns, SEO audits and a case study',
-    links: ['seo', 'bloomprint'],
+    title: 'New websites, WordPress redesigns, builders compared and a case study',
+    links: ['builderOrDesigner', 'bloomprint'],
   },
   '/seo-cost-perth': {
     title: 'Websites, WordPress redesigns, SEO audits and the sample report',
     links: ['seo', 'sampleReport'],
   },
   '/website-cost-perth': {
-    title: 'New websites, WordPress redesigns, WordPress costs and SEO audits',
-    links: ['wordpressCost', 'seo'],
+    title: 'New websites, WordPress redesigns, WordPress costs and choosing a designer',
+    links: ['wordpressCost', 'chooseDesigner'],
+  },
+  '/small-business-seo-perth': {
+    title: 'Websites, WordPress redesigns, SEO audits and profile optimisation',
+    links: ['seo', 'gbp'],
+  },
+  '/how-to-choose-a-web-designer-perth': {
+    title: 'Websites, WordPress redesigns, website costs and builders compared',
+    links: ['websiteCost', 'builderOrDesigner'],
+  },
+  '/website-builder-vs-web-designer-perth': {
+    title: 'Websites, WordPress redesigns, choosing a designer and WordPress costs',
+    links: ['chooseDesigner', 'wordpressCost'],
   },
 };
 

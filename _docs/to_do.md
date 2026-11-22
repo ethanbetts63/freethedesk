@@ -105,3 +105,18 @@ to do:
   budget or add a WordPress ad group for `/wordpress-web-design-perth`, whose searches had no bids on them.
 - `/web-design-subiaco` took the website page's words with its own heading, opening line and two local
   questions, unread by the owner before it went out. Read it.
+
+## Three website guides, unread before they went out (owner)
+
+Added 2026-11-22. `/small-business-seo-perth`, `/how-to-choose-a-web-designer-perth` and
+`/website-builder-vs-web-designer-perth` were written from published sources and fact-checked against every
+cited page, then published on the owner's word without a read. Read them. Two things date:
+
+- The builder guide quotes Wix, Squarespace and Shopify prices as their Australian pricing pages showed them on
+  2026-11-22 (Squarespace's cards also carried a "50% off" badge with no terms, left out), HTTP Archive's
+  October 2026 Core Web Vitals pass rates and W3Techs' WordPress share. Reread them when the guide is next
+  touched.
+- The web designer guide states auDA's licensing rules (approved 2026-06-22) and the ACCC's pages on consumer
+  guarantees and unfair contract terms as read on 2026-11-22.
+
+Delete this once read.
