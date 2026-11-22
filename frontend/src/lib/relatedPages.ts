@@ -2,6 +2,9 @@
  * The block of related pages a service page, guide or case study ends on: one
  * place that says which pages lead to which, so every page is linked from the
  * pages a buyer reads beside it and none is left reachable only from the menu.
+ *
+ * Every block opens on the two pages that sell a website, and each page adds
+ * its own cards after them to make four.
  */
 
 export interface RelatedLink {
@@ -158,118 +161,125 @@ const LINKS = {
 
 type Key = keyof typeof LINKS;
 
-/** Each page's block: a heading naming what is in it, and the pages in order. */
-const RELATED: Record<string, { title: string; links: readonly Key[] }> = {
+/** The cards every block opens on. A page leaves its own out, and lists a third card of its own instead. */
+const ALWAYS = ['websites', 'redesign'] as const satisfies readonly Key[];
+
+type OwnKey = Exclude<Key, (typeof ALWAYS)[number]>;
+
+/** Each page's block: a heading naming what is in it, and the page's own cards, in order, after the two above. */
+const RELATED: Record<string, { title: string; links: readonly OwnKey[] }> = {
   '/': {
-    title: 'SEO audits, case studies and the sample report',
-    links: ['seo', 'scooterShop', 'bloomprint', 'sampleReport'],
+    title: 'Websites, WordPress redesigns, SEO audits and a case study',
+    links: ['seo', 'scooterShop'],
   },
   '/website-development': {
-    title: 'SEO audits, redesigns and case studies',
-    links: ['seo', 'redesign', 'bloomprint', 'scooterShop'],
+    title: 'WordPress redesigns, SEO audits and case studies',
+    links: ['seo', 'bloomprint', 'scooterShop'],
   },
   '/web-design-subiaco': {
-    title: 'SEO audits, redesigns and case studies',
-    links: ['seo', 'redesign', 'bloomprint', 'scooterShop'],
+    title: 'Websites, WordPress redesigns and case studies',
+    links: ['bloomprint', 'scooterShop'],
   },
   '/wordpress-web-design-perth': {
-    title: 'SEO audits, new websites, WordPress costs and migration SEO',
-    links: ['seo', 'websites', 'wordpressCost', 'migration'],
+    title: 'New websites, WordPress costs, migration SEO and SEO audits',
+    links: ['wordpressCost', 'migration', 'seo'],
   },
   '/ai-seo-perth': {
-    title: 'SEO audits, the AI search guide, the sample report and profile optimisation',
-    links: ['seo', 'aiSearch', 'sampleReport', 'gbp'],
+    title: 'Websites, WordPress redesigns, SEO audits and the AI search guide',
+    links: ['seo', 'aiSearch'],
   },
   '/website-migration-seo-perth': {
-    title: 'SEO audits, redesigns, the sample report and a case study',
-    links: ['seo', 'redesign', 'sampleReport', 'scooterShop'],
+    title: 'Websites, WordPress redesigns, SEO audits and the sample report',
+    links: ['seo', 'sampleReport'],
   },
   '/seo': {
-    title: 'The sample report, profile optimisation and our search guides',
-    links: ['sampleReport', 'gbp', 'notShowing', 'aiSearch'],
+    title: 'Websites, WordPress redesigns, the sample report and profile optimisation',
+    links: ['sampleReport', 'gbp'],
   },
   '/seo/tradies': {
-    title: 'SEO audits, the sample report, profile optimisation and another industry',
-    links: ['seo', 'sampleReport', 'gbp', 'builders'],
+    title: 'Websites, WordPress redesigns, SEO audits and another industry',
+    links: ['seo', 'builders'],
   },
   '/seo/builders': {
-    title: 'SEO audits, the sample report, profile optimisation and another industry',
-    links: ['seo', 'sampleReport', 'gbp', 'tradies'],
+    title: 'Websites, WordPress redesigns, SEO audits and another industry',
+    links: ['seo', 'tradies'],
   },
   '/seo/health-clinics': {
-    title: 'SEO audits, the sample report, profile optimisation and another industry',
-    links: ['seo', 'sampleReport', 'gbp', 'professionalServices'],
+    title: 'Websites, WordPress redesigns, SEO audits and another industry',
+    links: ['seo', 'professionalServices'],
   },
   '/seo/professional-services': {
-    title: 'SEO audits, the sample report, profile optimisation and another industry',
-    links: ['seo', 'sampleReport', 'gbp', 'healthClinics'],
+    title: 'Websites, WordPress redesigns, SEO audits and another industry',
+    links: ['seo', 'healthClinics'],
   },
   '/seo/dealerships': {
-    title: 'SEO audits, the sample report, dealer websites and a dealer case study',
-    links: ['seo', 'sampleReport', 'dealers', 'scooterShop'],
+    title: 'Websites, WordPress redesigns, SEO audits and dealer websites',
+    links: ['seo', 'dealers'],
   },
 
   '/google-business-profile-optimisation': {
-    title: 'SEO audits, the sample report and local search',
-    links: ['seo', 'sampleReport', 'notShowing'],
+    title: 'Websites, WordPress redesigns, SEO audits and local search',
+    links: ['seo', 'notShowing'],
   },
   '/affiliates': {
-    title: 'The audits you would be recommending',
-    links: ['seo', 'sampleReport', 'scooterShop'],
+    title: 'Websites, WordPress redesigns, SEO audits and the sample report',
+    links: ['seo', 'sampleReport'],
   },
   '/automation': {
-    title: 'SEO audits, an automation guide and a case study',
-    links: ['seo', 'whatToAutomate', 'scooterShop', 'websites'],
+    title: 'Websites, WordPress redesigns, SEO audits and an automation guide',
+    links: ['seo', 'whatToAutomate'],
   },
   '/dealers': {
-    title: 'Dealership SEO, online licensing, Dealer Online and a dealer case study',
-    links: ['dealerships', 'licensing', 'dealerOnline', 'scooterShop'],
+    title: 'Websites, WordPress redesigns, dealership SEO and online licensing',
+    links: ['dealerships', 'licensing'],
   },
   '/licensing': {
-    title: 'SEO audits, Dealer Online, dealer websites and a dealer case study',
-    links: ['seo', 'dealerOnline', 'dealers', 'scooterShop'],
+    title: 'Websites, WordPress redesigns, Dealer Online and dealer websites',
+    links: ['dealerOnline', 'dealers'],
   },
   '/portfolio/scooter-shop': {
-    title: 'SEO audits, another case study and the services behind this one',
-    links: ['seo', 'bloomprint', 'dealers', 'websites'],
+    title: 'Websites, WordPress redesigns, another case study and dealer websites',
+    links: ['bloomprint', 'dealers'],
   },
   '/portfolio/bloomprint': {
-    title: 'SEO audits, another case study and the services behind this one',
-    links: ['seo', 'scooterShop', 'websites'],
+    title: 'Websites, WordPress redesigns, another case study and SEO audits',
+    links: ['scooterShop', 'seo'],
   },
   '/business-not-showing-up-on-google': {
-    title: 'SEO audits, profile optimisation and AI search',
-    links: ['seo', 'gbp', 'sampleReport', 'aiSearch'],
+    title: 'Websites, WordPress redesigns, SEO audits and profile optimisation',
+    links: ['seo', 'gbp'],
   },
   '/how-to-show-up-in-ai-search': {
-    title: 'SEO audits, AI SEO, the sample report and Google',
-    links: ['seo', 'aiSeo', 'sampleReport', 'notShowing'],
+    title: 'Websites, WordPress redesigns, AI SEO and SEO audits',
+    links: ['aiSeo', 'seo'],
   },
   '/dealer-online-wa': {
-    title: 'SEO audits, online licensing, dealer websites and a dealer case study',
-    links: ['seo', 'licensing', 'dealers', 'scooterShop'],
+    title: 'Websites, WordPress redesigns, online licensing and dealer websites',
+    links: ['licensing', 'dealers'],
   },
   '/what-to-automate-in-a-small-business': {
-    title: 'SEO audits, automation and a case study',
-    links: ['seo', 'automation', 'scooterShop', 'websites'],
+    title: 'Websites, WordPress redesigns, automation and SEO audits',
+    links: ['automation', 'seo'],
   },
   '/wordpress-website-cost-perth': {
-    title: 'SEO audits, redesigns, new websites and a case study',
-    links: ['seo', 'redesign', 'websites', 'bloomprint'],
+    title: 'New websites, WordPress redesigns, SEO audits and a case study',
+    links: ['seo', 'bloomprint'],
   },
   '/seo-cost-perth': {
-    title: 'SEO audits, the sample report and search guides',
-    links: ['seo', 'sampleReport', 'notShowing', 'aiSearch'],
+    title: 'Websites, WordPress redesigns, SEO audits and the sample report',
+    links: ['seo', 'sampleReport'],
   },
   '/website-cost-perth': {
-    title: 'SEO audits, new websites, WordPress costs and redesigns',
-    links: ['seo', 'websites', 'wordpressCost', 'redesign'],
+    title: 'New websites, WordPress redesigns, WordPress costs and SEO audits',
+    links: ['wordpressCost', 'seo'],
   },
 };
 
 export function relatedPagesFor(path: string): { title: string; links: RelatedLink[] } | null {
   const entry = RELATED[path];
-  return entry ? { title: entry.title, links: entry.links.map((key) => LINKS[key]) } : null;
+  if (!entry) return null;
+  const links: RelatedLink[] = [...ALWAYS, ...entry.links].map((key) => LINKS[key]);
+  return { title: entry.title, links: links.filter((link) => link.href !== path) };
 }
 
 /**
