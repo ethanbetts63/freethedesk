@@ -24,19 +24,20 @@ TITLES_SHOWN = 4
 
 SUBJECT = "A redesign of {domain}"
 
-# The owner's words, approved 2026-11-19; the redesign's own link added 2026-11-20. The source copy is ftp_search's call_script.md, "The sample email";
+# The owner's words, approved 2026-11-19; the redesign's own link added 2026-11-20; the first paragraph reworded and the
+# redesign's link put first 2026-11-23. The source copy is ftp_search's call_script.md, "The sample email";
 # change both together.
 BODY = """Hi {first_name},
 
-My name's Ethan. I've rebuilt your website as a sample: the same pages, with your own words and photos, laid out to make it easier for customers to get in touch. There's no obligation. If you like it, I can put it live on your own domain.
+My name's Ethan. I've rebuilt your website to look, rank and load better. I've hosted it on the links below so you can take a look. There's obviously no obligation but if you like it I'd love to talk to you about it.
 
 The report goes through every change: what your site does now, what the redesign does instead, and why it matters to your customers or to Google. A few of them:
 
 {listing}
 
-You can read the report here: {link}
+See the redesign itself here: {demo}
 
-And see the redesign itself here: {demo}
+You can read an explanation of the changes here: {link}
 
 If you want to go through it first, my number is below. I can explain any part of it. Reply 'no thanks' and I won't email again.
 

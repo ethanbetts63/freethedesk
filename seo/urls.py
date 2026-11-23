@@ -1,6 +1,9 @@
 from django.urls import path
 
-from .views.samples import SeoSampleApproveView, SeoSampleFollowUpView, SeoSampleHoldView, SeoSampleUploadView
+from .views.samples import (
+    SeoSampleApproveView, SeoSampleFollowUpView, SeoSampleHoldView, SeoSampleStatusView, SeoSampleUploadView,
+    SeoSampleVisitView,
+)
 from .views.call_request import (
     AdminSeoCallRequestDetailView,
     AdminSeoCallRequestListView,
@@ -65,6 +68,10 @@ urlpatterns = [
     path("seo/samples/approve/", SeoSampleApproveView.as_view(), name="seo-sample-approve"),
     # The same secret: a sample's follow-up, on the owner's word, for the hourly send.
     path("seo/samples/follow-up/", SeoSampleFollowUpView.as_view(), name="seo-sample-follow-up"),
+    # The same secret: every sample's opens and redesign visits since its email, for the sample outbox.
+    path("seo/samples/status/", SeoSampleStatusView.as_view(), name="seo-sample-status"),
+    # Public: a visit to a sample's redesign, from the counter on the samples site's pages.
+    path("seo/samples/visit/", SeoSampleVisitView.as_view(), name="seo-sample-visit"),
     # The report's link, which the site serves at /reports/<business>-<token>: the page. No sign-in; the
     # token at the end is the key (``prospect_links.link_key``).
     path("seo/r/<str:key>/", SeoReportPageView.as_view(), name="seo-report-page"),

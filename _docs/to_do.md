@@ -120,3 +120,49 @@ cited page, then published on the owner's word without a read. Read them. Two th
   guarantees and unfair contract terms as read on 2026-11-22.
 
 Delete this once read.
+
+## Mail moved to Google Workspace: test it, then point the sample emails at it (owner)
+
+Added 2026-11-23. `freethedesk.com.au` mail now arrives in a Google Workspace mailbox, `ethan@freethedesk.com.au`
+(Business Starter, 14-day trial from 2026-11-22), in place of Cloudflare Email Routing, which is switched off and
+its four forwarding rules deleted. `hello@` and `admin@` are aliases on that user; a Gmail routing rule
+("Catch-all: unknown addresses to ethan@") delivers every other address, `analytics@` included, to the same
+inbox. DNS: MX `smtp.google.com` (priority 1), SPF `include:_spf.google.com`, DKIM at `google._domainkey`.
+Mailgun on `mail.freethedesk.com.au` is unchanged and still sends receipts, sign-in codes and the outreach emails.
+
+- Send one email from a personal account to `ethan@`, `hello@`, `admin@` and `analytics@` and check all four
+  arrive. `analytics@` is the one to watch: it is a personal Google account's address and must never be created
+  as a Workspace user or alias, and its sign-in codes and Ads notices now arrive through the catch-all.
+- Send the same sample email to a Gmail and an Outlook inbox that have never had mail from freethedesk, once
+  through the pipeline (Mailgun) and once by hand from `ethan@`, and compare where each lands.
+- If the mailbox lands in the inbox, change the sample emails to send through it instead of Mailgun (the approve
+  step and message log stay).
+- Choose the plan before the trial ends: the pricing page defaulted to the yearly commitment (A$9.90 a user a
+  month); the flexible plan is A$11.80.
+- Google's daily DMARC reports to `hello@` now land in the inbox; filter them or point `rua` at another address.
+- The sample email was reworded on 2026-11-23 (new first paragraph, the redesign's link ahead of the report's) in
+  `seo/utils/sample_sending.py`, its test, `sample-outreach.md` and ftp_search's `call_script.md`. Uncommitted: the
+  server sends the old words until this is pushed and the app reloaded on PythonAnywhere.
+
+## Sample opens and redesign visits: deploy, then publish (owner)
+
+Added 2026-11-23 ([`sample-outreach.md`](sample-outreach.md), "Opens and visits"). Sample reports now log opens as
+prospect reports do, and the samples site's pages get a visit counter at publish. Built and tested locally,
+uncommitted in freethedesk and ftp_search. In order:
+
+1. Push freethedesk; on PythonAnywhere pull, `python manage.py migrate seo` (0036 turns each sample's running
+   total into one row for its last open and drops the total) and reload the app.
+2. Run `py -I _samples/tools/publish/publish.py` in `../ftp_search` (after `npx next build` in
+   `ftd_samples/frontend`): it redeploys every live demo with the counter. Check the demos' pages did not change
+   since they were sent before running it; it also re-renders and re-uploads every report.
+3. `py -I _samples/tools/outreach/outreach.py sync`, then `todo`, shows opens and visits on each sent sample.
+
+Until step 1 the counter's posts get a 404 and nothing is counted.
+
+## Two core tests fail locally, not from the open log (found 2026-11-23)
+
+- `core/tests/test_serializer_bounds.py::test_no_writable_string_field_is_unbounded`: five serializer fields with
+  no ceiling (`SeoMessageSendSerializer.to`, `SeoProspectUploadSerializer.email`, `SampleHoldSerializer.project` and
+  `.email`, `SampleUploadSerializer.project`).
+- `core/tests/view_tests/test_package_order_view.py::test_a_website_order_records_the_admin_price_and_half_due_now`:
+  expects the staff alert at `staff@example.com` and gets the address in the local `.env`.

@@ -7,13 +7,12 @@ that nothing is sent from here and no ask band follows: the report's own last se
 
 from html import escape
 
-from django.utils import timezone
 from django.utils.text import slugify
 
 from core.utils.urls import site_url
 
 from ..models import SeoSampleReport
-from .prospect_links import _MAIL_ICON, _PHONE_ICON, _STYLE, LIKELY_BOT, NAME_LENGTH, ROBOTS, signed_in_staff, site_footer
+from .prospect_links import _MAIL_ICON, _PHONE_ICON, _STYLE, NAME_LENGTH, ROBOTS, site_footer
 
 #: The picture a chat or text app shows beside the link: the site's own.
 PREVIEW_IMAGE = "/og-images/og-default.webp"
@@ -47,8 +46,14 @@ def _preview_tags(sample: SeoSampleReport) -> str:
     ))
 
 
+def demo_link(sample: SeoSampleReport, source: str = "") -> str:
+    """The redesign's address, with ``?s=<source>`` when the link is placed somewhere its visits should name (the
+    counter on the redesign's pages reads it; ``SeoSampleVisitView``)."""
+    return f"{sample.demo_url}?s={source}" if source else sample.demo_url
+
+
 def _bar(sample: SeoSampleReport) -> str:
-    demo = escape(sample.demo_url, quote=True)
+    demo = escape(demo_link(sample, "report"), quote=True)
     return (
         '<div class="ftd-bar">'
         f'<a href="tel:+61423853830">{_PHONE_ICON}0423 853 830</a>'
@@ -65,12 +70,3 @@ def sample_page_document(sample: SeoSampleReport, document: str) -> str:
     foot = document.rfind("</body>")
     tail = site_footer() + "\n"
     return document[:foot] + tail + document[foot:] if foot >= 0 else document + tail
-
-
-def record_sample_open(sample: SeoSampleReport, request) -> bool:
-    """Counts an open by a person: not the owner signed in, not a link preview or a crawler."""
-    user_agent = request.META.get("HTTP_USER_AGENT", "")
-    if signed_in_staff(request) or not user_agent or LIKELY_BOT.search(user_agent):
-        return False
-    SeoSampleReport.objects.filter(pk=sample.pk).update(opens=sample.opens + 1, last_opened_at=timezone.now())
-    return True

@@ -1,17 +1,21 @@
 import hashlib
 import json
+import re
 
 from django.db import IntegrityError
+from django.db.models import Count, Max
 from django.utils import timezone
 from freetheplatform.messaging import is_suppressed
 from rest_framework import serializers, status
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from affiliates.utils.permissions import IsInternalApiRequest
 
-from ..models import SeoProspect, SeoSampleReport
+from ..models import SeoProspect, SeoSampleOpen, SeoSampleReport
+from ..utils.report_opens import SOURCES, counted, record_open
 from ..utils.sample_links import sample_link
 from ..utils.sample_sending import (
     TITLES_SHOWN, body_for, follow_up_refusal, hold_problems, subject_for,
@@ -263,6 +267,65 @@ class SeoSampleFollowUpView(APIView):
         sample.save(update_fields=["follow_up_queued_at", "followed_up_at", "updated_at"])
         return Response({"outcome": "queued", "subject": subject_for(sample), "sent_at": sample.sent_at},
                         status=status.HTTP_201_CREATED)
+
+
+#: A redesign's folder on the samples site, as the counter reports it: the first part of the page's path.
+DEMO = re.compile(r"[a-z0-9][a-z0-9-]{0,79}")
+
+#: Where a visit to a redesign came from: a link's own ``?s=``, or the companion report's "Open the redesign".
+VISIT_SOURCES = (*SOURCES, "report")
+
+
+class SeoSampleVisitView(APIView):
+    """`POST /api/seo/samples/visit/` (form fields ``demo``, ``s``): a visit to a sample's redesign, from the counter
+    every page on the samples site carries (``../ftp_search``, ``publish.py``'s ``visit.js``), once per browser tab.
+
+    Logged as a companion report's open is, beside it (``kind`` ``demo``): not the owner signed in, previews and
+    crawlers marked, counted only from the email's send on. Public, since anyone the link reaches may open the
+    redesign; all it can write is one bounded row against a redesign that exists. The counter posts to the site's
+    own address, so the request carries the site's cookies and no CORS is opened.
+    """
+
+    throttle_scope = "sample-visit"
+    authentication_classes = []
+    permission_classes = [AllowAny]
+    parser_classes = [FormParser]
+
+    def post(self, request):
+        demo = str(request.data.get("demo", ""))
+        if not DEMO.fullmatch(demo):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        sample = SeoSampleReport.objects.filter(demo_url__endswith=f"/{demo}/").first()
+        if sample is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        source = str(request.data.get("s", ""))
+        record_open(sample, request, SeoSampleOpen.Kind.DEMO, source=source if source in VISIT_SOURCES else "")
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class SeoSampleStatusView(APIView):
+    """`GET /api/seo/samples/status/`: every sample with what became of its email, for the sample outbox
+    (``outreach.py sync``): how many people opened the report and how many visited the redesign since it was sent,
+    and when last."""
+
+    throttle_scope = "internal"  # A load limit; access is the shared secret.
+    authentication_classes = []
+    permission_classes = [IsInternalApiRequest]
+
+    def get(self, request):
+        opened, visited = counted(SeoSampleOpen.Kind.PAGE), counted(SeoSampleOpen.Kind.DEMO)
+        rows = SeoSampleReport.objects.annotate(
+            open_count=Count("opens", filter=opened, distinct=True),
+            last_opened_at=Max("opens__opened_at", filter=opened),
+            visit_count=Count("opens", filter=visited, distinct=True),
+            last_visited_at=Max("opens__opened_at", filter=visited),
+        ).order_by("created_at")
+        return Response({"samples": [
+            {"project": row.project, "sent_at": row.sent_at, "opens": row.open_count,
+             "last_opened_at": row.last_opened_at, "demo_visits": row.visit_count,
+             "last_visited_at": row.last_visited_at}
+            for row in rows
+        ]})
 
 
 def sample_holds(email: str, domain: str) -> str:

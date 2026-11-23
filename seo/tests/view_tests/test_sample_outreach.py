@@ -76,7 +76,7 @@ def test_the_email_is_the_owners_words_with_four_titles_and_the_link(held):
     assert subject_for(held) == "A redesign of embycabinets.com"
     assert body_for(held) == f"""Hi Scott,
 
-My name's Ethan. I've rebuilt your website as a sample: the same pages, with your own words and photos, laid out to make it easier for customers to get in touch. There's no obligation. If you like it, I can put it live on your own domain.
+My name's Ethan. I've rebuilt your website to look, rank and load better. I've hosted it on the links below so you can take a look. There's obviously no obligation but if you like it I'd love to talk to you about it.
 
 The report goes through every change: what your site does now, what the redesign does instead, and why it matters to your customers or to Google. A few of them:
 
@@ -85,9 +85,9 @@ The report goes through every change: what your site does now, what the redesign
 3. Your number and Book a Consultation on every page
 4. A home page that says what you do and where
 
-You can read the report here: {sample_link(held)}
+See the redesign itself here: https://samples.freethedesk.com.au/emby-cabinets/
 
-And see the redesign itself here: https://samples.freethedesk.com.au/emby-cabinets/
+You can read an explanation of the changes here: {sample_link(held)}
 
 If you want to go through it first, my number is below. I can explain any part of it. Reply 'no thanks' and I won't email again.
 

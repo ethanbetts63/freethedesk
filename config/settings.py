@@ -185,6 +185,8 @@ REST_FRAMEWORK = {
         "unsubscribe": "30/hour",
         # A prospect report's link (/reports/<business>-<token>): one business reading its own report, and its link previews.
         "report": "120/hour",
+        # A visit to a sample's redesign, from the counter on its pages: one row each, once per browser tab.
+        "sample-visit": "240/hour",
         # Each accepted request mints a password and sends an email.
         "sale-link": "60/hour",
         # Redeeming a token the caller already holds grants nothing new, so this

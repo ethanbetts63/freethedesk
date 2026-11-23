@@ -241,7 +241,8 @@ count, so the email lists what the page holds after a cut.
   so Google Analytics names the visit too: the page sends no referrer, and the
   visit read as typed in before. Reports already uploaded are tracked as served;
   nothing is re-rendered. The dashboard counts clicks apart from opens.
-- **The opens.** `SeoProspectOpen`: one row per open of the page (opens of the
+- **The opens.** `SeoProspectOpen` (a `ReportOpen`, as a sample's `SeoSampleOpen`
+  is; `utils/report_opens.py` logs and counts both): one row per open of the page (opens of the
   PDF, before it went, keep their own kind), when,
   where the link came from (`?s=email`, `follow-up`, `text`, `dashboard`), the
   user agent, and `likely_bot` for a crawler or a messaging app's link preview
@@ -252,11 +253,11 @@ count, so the email lists what the page holds after a cut.
   own looks are not the business's. The sign-in is the test, not the address,
   which the owner's VPN changes; the refresh cookie counts as signed in, so it
   holds for the week a sign-in lasts, not only the access token's hour
-  (`prospect_links.signed_in_staff`). Opens logged before this are not told
+  (`report_opens.signed_in_staff`). Opens logged before this are not told
   apart, but only opens and clicks after `sent_at` are counted (owner,
   2026-11-14): a look before the email went is the owner's or a preview, and a
   report not yet sent shows none. The rows are kept; only the counts filter
-  (`utils.prospects.with_status`).
+  (`report_opens.counted`, in `utils.prospects.with_status`).
 - **The text is the owner's own.** No button sends one (owner, 2026-11-04):
   the owner texts the link from their phone, during or after a call where the
   person said yes to it, which is express consent; a cold text is a commercial
@@ -276,8 +277,9 @@ no prospect row, and its own email ([`sample-outreach.md`](sample-outreach.md)).
 `samples.freethedesk.com.au/<demo>/` (Vercel project `ftd-samples`); `../ftp_search/_samples/tools/publish/publish.py`
 deploys it and posts each report to `POST /api/seo/samples/` (the shared secret), which creates the row, or replaces
 the page and keeps the link. The page carries the robots meta, link-preview tags, the site's strip (its button opens
-the redesign) and footer; no ask band. Opens by people, the owner signed in and previews left out, are a count on the
-row. Since 2026-11-19 the row can also be held, approved and emailed: [`sample-outreach.md`](sample-outreach.md).
+the redesign) and footer; no ask band. Its opens, and the visits to its redesign, are logged and counted as a
+prospect report's are (owner, 2026-11-23): [`sample-outreach.md`](sample-outreach.md), "Opens and visits". Since
+2026-11-19 the row can also be held, approved and emailed, as that document says.
 
 ## The pipeline side (ftp_search)
 

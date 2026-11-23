@@ -32,9 +32,8 @@ class SeoSampleReport(models.Model):
     page_sha256 = models.CharField(max_length=64, blank=True)
     # The unguessable tail of the link, set once and kept when the page is replaced.
     link_token = models.CharField(max_length=16, unique=True, default=new_link_token)
-    # People who opened the link, the owner signed in and link previews left out.
-    opens = models.PositiveIntegerField(default=0)
-    last_opened_at = models.DateTimeField(null=True, blank=True)
+    # Who opened the link, and who visited the redesign: ``SeoSampleOpen`` rows (``opens``), logged and counted as a
+    # prospect report's are (``report_opens``).
 
     # The email, from the pipeline's hold: whom it goes to, from what the business publishes (never made up).
     contact_name = models.CharField(max_length=255, blank=True)

@@ -1,10 +1,11 @@
 """Reading what became of a prospect report email, for the calls list."""
 
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Case, CharField, Count, F, Max, OuterRef, Q, Subquery, Value, When
+from django.db.models import Case, CharField, Count, Max, OuterRef, Q, Subquery, Value, When
 from freetheplatform.messaging import Message
 
 from ..models import SeoProspect, SeoProspectOpen
+from .report_opens import counted
 
 
 def with_status(queryset):
@@ -21,10 +22,9 @@ def with_status(queryset):
         object_id=OuterRef("pk"),
         message_type__startswith="seo_prospect.",
     ).order_by("-created_at")
-    people = Q(opens__likely_bot=False, opens__opened_at__gte=F("sent_at"))
     # A click on to the SEO page is logged beside the opens but is not one.
-    opened = people & Q(opens__kind__in=(SeoProspectOpen.Kind.PAGE, SeoProspectOpen.Kind.PDF))
-    clicked = people & Q(opens__kind=SeoProspectOpen.Kind.SEO)
+    opened = counted(SeoProspectOpen.Kind.PAGE, SeoProspectOpen.Kind.PDF)
+    clicked = counted(SeoProspectOpen.Kind.SEO)
     return queryset.annotate(
         message_status=Subquery(latest.values("status")[:1], output_field=CharField()),
         message_id=Subquery(latest.values("id")[:1]),

@@ -17,19 +17,20 @@ from affiliates.utils.permissions import IsInternalApiRequest
 from core.utils.ordering import apply_ordering
 from core.utils.pagination import DashboardPagination
 
-from ..models import SeoProspect, SeoProspectOpen, SeoSampleReport
+from ..models import SeoProspect, SeoProspectOpen, SeoSampleOpen, SeoSampleReport
 from ..serializers.prospect import (
     AdminSeoProspectDetailSerializer, AdminSeoProspectSerializer, SeoMessageSendSerializer, SeoProspectHtmlSerializer,
     SeoProspectUploadSerializer,
 )
 from ..utils.prospect_links import (
-    CLICK_PLACES, link_key, page_document, page_headers, record_open, report_link, seo_destination, token_of,
+    CLICK_PLACES, link_key, page_document, page_headers, report_link, seo_destination, token_of,
 )
 from ..utils.prospect_sending import (
     NoSubject, follow_up_refusal, follow_up_subject_for, next_body, next_follow_up_subject, next_subject,
     subject_for,
 )
 from ..utils.prospects import with_status
+from ..utils.report_opens import record_open
 from .samples import sample_holds
 
 PROSPECT_ORDERING = {
@@ -234,14 +235,14 @@ def _sent_on(request, key: str, prospect: SeoProspect, address: str):
 
 
 def _sample_page(request, key: str):
-    from ..utils.sample_links import record_sample_open, sample_key, sample_link, sample_page_document
+    from ..utils.sample_links import sample_key, sample_link, sample_page_document
 
     sample = SeoSampleReport.objects.filter(link_token=token_of(key)).first()
     if sample is None or not sample.report_html:
         raise Http404
     if key != sample_key(sample):
         return page_headers(HttpResponseRedirect(sample_link(sample)))
-    record_sample_open(sample, request)
+    record_open(sample, request, SeoSampleOpen.Kind.PAGE)
     with sample.report_html.open("rb") as handle:
         document = handle.read().decode("utf-8")
     return page_headers(HttpResponse(sample_page_document(sample, document), content_type="text/html; charset=utf-8"))

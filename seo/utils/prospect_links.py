@@ -16,20 +16,11 @@ import re
 from datetime import date
 from html import escape
 
-from django.contrib.auth import get_user_model
 from django.utils.text import slugify
-from freetheplatform.auth.conf import cookie_names
-from rest_framework_simplejwt.exceptions import TokenError
-from rest_framework_simplejwt.settings import api_settings
-from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 
 from core.utils.urls import site_url
 
-from ..models import SeoProspect, SeoProspectOpen
-
-#: Where a link came from, as its ``?s=`` says: the report email, the follow-up, a text during a call, or the
-#: dashboard's own copy. Anything else is recorded as nothing.
-SOURCES = ("email", "follow-up", "text", "dashboard")
+from ..models import SeoProspect
 
 #: Where on the page a click on to the SEO page was: the strip over the report, the report's own links (the ask
 #: card and the locked cards' "Purchase here"), or the ask band under it.
@@ -37,14 +28,6 @@ CLICK_PLACES = ("bar", "report", "ask")
 
 #: Every link to the SEO page in a report as uploaded, however it was spelt.
 SEO_PAGE = re.compile(r'href="https?://(?:www\.)?freethedesk\.com\.au/seo/?(?:[?#][^"]*)?"')
-
-#: A user agent that is a link preview or a crawler, not a person: a text message's preview fetch (iMessage,
-#: WhatsApp, Facebook Messenger), a mail client's link scanner, or a monitor. Counted apart on the dashboard.
-LIKELY_BOT = re.compile(
-    r"bot|crawl|spider|preview|facebookexternalhit|facebot|slack|whatsapp|telegram|discord|skype|curl|wget|"
-    r"python-requests|headless|lighthouse|pingdom|uptime|monitor|validator|scan|fetch|http",
-    re.IGNORECASE,
-)
 
 # What a user agent names, for the dashboard's list of views: the first match of each list wins.
 _PREVIEWS = (("whatsapp", "WhatsApp preview"), ("facebookexternalhit|facebot", "Facebook/Messenger preview"),
@@ -148,46 +131,6 @@ def preview_tags(prospect: SeoProspect) -> str:
         f'<meta name="twitter:description" content="{line}">',
         f'<meta name="twitter:image" content="{image}">',
     ))
-
-
-def signed_in_staff(request) -> bool:
-    """Whether the browser is signed in to the dashboard as staff: a live access cookie, or the refresh cookie that
-    outlasts it (an hour against seven days). The cookies are the site's own, so the report's link carries them."""
-    for name, token_class in zip(cookie_names(), (AccessToken, RefreshToken)):
-        raw = request.COOKIES.get(name)
-        if not raw:
-            continue
-        try:
-            token = token_class(raw)
-            if token_class is RefreshToken:
-                token.check_blacklist()
-        except TokenError:
-            continue
-        user_id = token.get(api_settings.USER_ID_CLAIM)
-        if get_user_model().objects.filter(pk=user_id, is_active=True, is_staff=True).exists():
-            return True
-    return False
-
-
-def record_open(prospect: SeoProspect, request, kind: str = SeoProspectOpen.Kind.PAGE,
-                source: str | None = None) -> SeoProspectOpen | None:
-    """One row per open: when, which file, where the link came from, and whether a person or a preview did it.
-
-    The owner's own looks are not opens: none is logged while the browser is signed in as staff (owner, 2026-11-12).
-    The sign-in is the test, not the address, which a VPN changes."""
-    if signed_in_staff(request):
-        return None
-    if source is None:
-        source = request.GET.get("s", "")[:20]
-        source = source if source in SOURCES else ""
-    user_agent = request.META.get("HTTP_USER_AGENT", "")[:300]
-    return SeoProspectOpen.objects.create(
-        prospect=prospect,
-        kind=kind,
-        source=source,
-        user_agent=user_agent,
-        likely_bot=not user_agent or bool(LIKELY_BOT.search(user_agent)),
-    )
 
 
 # -- the page --------------------------------------------------------------

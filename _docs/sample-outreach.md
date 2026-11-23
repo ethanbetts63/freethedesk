@@ -12,6 +12,9 @@ Support Perth's are never held, so never sent.
   HTML part, no picture, no attachment. The source copy is `../ftp_search/_prospect/outreach/call_script.md`, "The
   sample email"; the server holds the same text in `seo/utils/sample_sending.py` (`SUBJECT`, `BODY`). Change both
   together.
+- **A copy sent by hand** from the Workspace mailbox (`ethan@freethedesk.com.au`, since 2026-11-23) is typed in
+  Gmail's normal mode, with no formatting. Gmail's "plain text mode" breaks every line at about 75 characters, so
+  the email reads as a narrow column (owner, 2026-11-23).
 - **The four titles** are the report's first four change cards in the order the report shows them (`companion.py`
   sorts by each card's first kind, UX first), sent by the pipeline at hold time and kept on the row.
 - **Held, then approved.** Nothing is sent unless the owner says so in chat. Approval names the page's SHA-256, so
@@ -29,7 +32,7 @@ Support Perth's are never held, so never sent.
 ```
 Hi {first_name},
 
-My name's Ethan. I've rebuilt your website as a sample: the same pages, with your own words and photos, laid out to make it easier for customers to get in touch. There's no obligation. If you like it, I can put it live on your own domain.
+My name's Ethan. I've rebuilt your website to look, rank and load better. I've hosted it on the links below so you can take a look. There's obviously no obligation but if you like it I'd love to talk to you about it.
 
 The report goes through every change: what your site does now, what the redesign does instead, and why it matters to your customers or to Google. A few of them:
 
@@ -38,9 +41,9 @@ The report goes through every change: what your site does now, what the redesign
 3. {title}
 4. {title}
 
-You can read the report here: {link}
+See the redesign itself here: {demo}
 
-And see the redesign itself here: {demo}
+You can read an explanation of the changes here: {link}
 
 If you want to go through it first, my number is below. I can explain any part of it. Reply 'no thanks' and I won't email again.
 
@@ -70,6 +73,29 @@ fields, and the dashboard pages are not mirrored: a sample's call is the owner's
 | `follow_up_queued_at`, `followed_up_at`        | the owner-triggered follow-up                                            |
 | `excluded_reason`                              | blank means eligible; set by hand (admin) to hold one back               |
 
+## Opens and visits (owner, 2026-11-23)
+
+A sample logs who looked the way a prospect report does, through the same code (`seo/utils/report_opens.py`,
+[`seo-prospect-outreach.md`](seo-prospect-outreach.md), "The opens"): one `SeoSampleOpen` row (a `ReportOpen`, as
+`SeoProspectOpen` is) for each open, never one for the owner signed in, previews and crawlers marked `likely_bot`,
+no address kept. The counts take people only, and only from `sent_at` on (`report_opens.counted`).
+
+- **The report** (`kind` `page`): each open of `/reports/<business>-<token>`, with the link's `?s=` as its source
+  (`text` on the call brief's link).
+- **The redesign** (`kind` `demo`): each visit to the demo on the samples site. Every page `publish.py` puts there
+  carries one tag for the site's `/visit.js`, which posts the demo's folder and the link's `?s=` to
+  `POST /api/seo/samples/visit/` once per browser tab. The tag is added at publish, not in the demo, so a frozen demo
+  counts and a handed-off one (Support Perth's) never does. The email's own two links carry no `?s=` (a plain-text
+  email shows the whole address), so an open or a visit with no source is the email's or its follow-up's. The post goes to the site's own address
+  (`www.freethedesk.com.au/api/...`, which the site proxies), so it carries the site's cookies, the owner signed in is
+  left out, and no CORS is opened. The report's "Open the redesign" button links with `?s=report`.
+- **Reading them.** `GET /api/seo/samples/status/` (the shared secret) lists every sample with `opens`,
+  `last_opened_at`, `demo_visits` and `last_visited_at`; `outreach.py sync` keeps them in the outbox and `todo` shows
+  them on each sent sample.
+
+Until 2026-11-23 a sample kept one running total from publication on. Migration `seo` 0036 turned each total's last
+open into one row, the only open whose time was known, and dropped the total.
+
 ## Endpoints (shared secret, `X-Internal-API-Key`)
 
 - `POST /api/seo/samples/hold/`: `project`, `email`, `first_name`, `contact_name`, `phone`, `email_source`, `domain`,
@@ -80,6 +106,11 @@ fields, and the dashboard pages are not mirrored: a sample's call is the owner's
   `already_sent`, `incomplete` or `page_changed`.
 - `POST /api/seo/samples/follow-up/`: `project`, `again`. 409 for `not_sent`, `already_queued`,
   `already_followed_up`, `excluded`, `suppressed`.
+- `GET /api/seo/samples/status/`: every sample's opens and redesign visits since its email went.
+
+One endpoint is public, with its own throttle scope (`sample-visit`): `POST /api/seo/samples/visit/`, form fields
+`demo` (the redesign's folder, letters, digits and hyphens) and `s`. 204 when logged or the owner's own; 400 for a
+`demo` that is not a folder name; 404 for one no sample has.
 
 **Send.** `send_affiliate_outreach` sends approved samples and queued sample follow-ups after the prospect reports,
 in the same Perth weekday window, ten seconds apart, up to `--reports` a run. Claim first
@@ -94,4 +125,4 @@ in the same Perth weekday window, ten seconds apart, up to `--reports` a run. Cl
 contact comes from. The outreach agent (`_prospect/prompts/outreach.md`) runs its `sync` and `todo` beside the
 prospect outbox's.
 
-Tests: `seo/tests/view_tests/test_sample_outreach.py`.
+Tests: `seo/tests/view_tests/test_sample_outreach.py`; the opens and visits in `test_sample_report_views.py`.
