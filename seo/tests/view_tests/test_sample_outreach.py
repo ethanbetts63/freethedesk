@@ -78,16 +78,15 @@ def test_the_email_is_the_owners_words_with_four_titles_and_the_link(held):
 
 My name's Ethan. I've rebuilt your website to look, rank and load better. I've hosted it on the links below so you can take a look. There's obviously no obligation but if you like it I'd love to talk to you about it.
 
+See the redesign itself here: https://samples.freethedesk.com.au/emby-cabinets/
+You can read an explanation of the changes here: {sample_link(held)}
+
 The report goes through every change: what your site does now, what the redesign does instead, and why it matters to your customers or to Google. A few of them:
 
 1. A clean header and one look, not graffiti over photos
 2. Call or book from the first screen on a phone
 3. Your number and Book a Consultation on every page
 4. A home page that says what you do and where
-
-See the redesign itself here: https://samples.freethedesk.com.au/emby-cabinets/
-
-You can read an explanation of the changes here: {sample_link(held)}
 
 If you want to go through it first, my number is below. I can explain any part of it. Reply 'no thanks' and I won't email again.
 
