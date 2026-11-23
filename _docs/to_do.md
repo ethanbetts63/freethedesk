@@ -140,24 +140,6 @@ Mailgun on `mail.freethedesk.com.au` is unchanged and still sends receipts, sign
 - Choose the plan before the trial ends: the pricing page defaulted to the yearly commitment (A$9.90 a user a
   month); the flexible plan is A$11.80.
 - Google's daily DMARC reports to `hello@` now land in the inbox; filter them or point `rua` at another address.
-- The sample email was reworded on 2026-11-23 (new first paragraph, the redesign's link ahead of the report's) in
-  `seo/utils/sample_sending.py`, its test, `sample-outreach.md` and ftp_search's `call_script.md`. Uncommitted: the
-  server sends the old words until this is pushed and the app reloaded on PythonAnywhere.
-
-## Sample opens and redesign visits: deploy, then publish (owner)
-
-Added 2026-11-23 ([`sample-outreach.md`](sample-outreach.md), "Opens and visits"). Sample reports now log opens as
-prospect reports do, and the samples site's pages get a visit counter at publish. Built and tested locally,
-uncommitted in freethedesk and ftp_search. In order:
-
-1. Push freethedesk; on PythonAnywhere pull, `python manage.py migrate seo` (0036 turns each sample's running
-   total into one row for its last open and drops the total) and reload the app.
-2. Run `py -I _samples/tools/publish/publish.py` in `../ftp_search` (after `npx next build` in
-   `ftd_samples/frontend`): it redeploys every live demo with the counter. Check the demos' pages did not change
-   since they were sent before running it; it also re-renders and re-uploads every report.
-3. `py -I _samples/tools/outreach/outreach.py sync`, then `todo`, shows opens and visits on each sent sample.
-
-Until step 1 the counter's posts get a 404 and nothing is counted.
 
 ## Two core tests fail locally, not from the open log (found 2026-11-23)
 
