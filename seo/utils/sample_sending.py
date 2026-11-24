@@ -26,11 +26,11 @@ SUBJECT = "A redesign of {domain}"
 
 # The owner's words, approved 2026-11-19; the redesign's own link added 2026-11-20; the first paragraph reworded and the
 # redesign's link put first 2026-11-23; the links moved up under the first paragraph the same day (the hand-sent copy
-# puts the report's comparison picture under them). The source copy is ftp_search's call_script.md, "The sample
-# email"; change both together.
+# puts the report's comparison picture under them); "Ethan Betts. I'm from Perth." added 2026-11-24. The source copy is
+# ftp_search's call_script.md, "The sample email"; change both together.
 BODY = """Hi {first_name},
 
-My name's Ethan. I've rebuilt your website to look, rank and load better. I've hosted it on the links below so you can take a look. There's obviously no obligation but if you like it I'd love to talk to you about it.
+My name's Ethan Betts. I'm from Perth. I've rebuilt your website to look, rank and load better. I've hosted it on the links below so you can take a look. There's obviously no obligation but if you like it I'd love to talk to you about it.
 
 See the redesign itself here: {demo}
 You can read an explanation of the changes here: {link}

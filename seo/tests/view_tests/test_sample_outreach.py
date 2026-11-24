@@ -76,7 +76,7 @@ def test_the_email_is_the_owners_words_with_four_titles_and_the_link(held):
     assert subject_for(held) == "A redesign of embycabinets.com"
     assert body_for(held) == f"""Hi Scott,
 
-My name's Ethan. I've rebuilt your website to look, rank and load better. I've hosted it on the links below so you can take a look. There's obviously no obligation but if you like it I'd love to talk to you about it.
+My name's Ethan Betts. I'm from Perth. I've rebuilt your website to look, rank and load better. I've hosted it on the links below so you can take a look. There's obviously no obligation but if you like it I'd love to talk to you about it.
 
 See the redesign itself here: https://samples.freethedesk.com.au/emby-cabinets/
 You can read an explanation of the changes here: {sample_link(held)}
@@ -213,6 +213,6 @@ def test_the_follow_up_goes_on_the_owners_word_once(api_client, internal_key, he
     assert len(outbox) == 2
     assert follow.message_type == "seo_sample_follow_up"
     assert follow.subject == "A redesign of embycabinets.com"
-    assert follow.body_text.startswith(f"Hi Scott,\n\n{FOLLOW_UP_LINE} My name's Ethan.")
+    assert follow.body_text.startswith(f"Hi Scott,\n\n{FOLLOW_UP_LINE} My name's Ethan Betts. I'm from Perth.")
     assert follow_up().json()["outcome"] == "already_followed_up"
     assert follow_up(again="1").status_code == 201
