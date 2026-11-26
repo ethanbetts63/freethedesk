@@ -42,6 +42,7 @@ export function GbpPackage({
       title={copy.title}
       accentTitle={copy.accentTitle}
       plans={[plan]}
+      picture="/images/guides/small-business-seo-perth.webp"
       kicker="Includes"
       cardTitle={() => GBP_PRODUCT_NAME}
       chooseLabel={() => 'Book a call'}

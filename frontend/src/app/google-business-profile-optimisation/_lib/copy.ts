@@ -13,7 +13,10 @@ export interface GbpSectionCopy {
 }
 
 /**
- * Every word on the Business Profile page, laid out as the /seo page is (owner, 2026-11-26).
+ * Every word on the Business Profile page. Every heading carries a search with impressions in
+ * Search Console (owner, 2026-11-26): local SEO Perth, local SEO services Perth, Google My Business,
+ * Google Maps and Google Business Profile optimisation.
+ * laid out as the /seo page is (owner, 2026-11-26).
  * The title leads with "local SEO", which Support Perth's Search Console shows about twenty times
  * the impressions of the Business Profile searches. The heading and words carry Google Business
  * Profile, Google My Business and Google Maps: the searches this page has had impressions for.
@@ -22,14 +25,14 @@ export interface GbpSectionCopy {
 export const GBP_COPY = {
   hero: {
     titleLines: ['Local SEO Perth:'],
-    accentTitle: 'your Google Business Profile, done properly',
+    accentTitle: 'improved Google Business Profile rankings',
     lead: 'We fill in your Google Business Profile, from categories to photos and review replies, so you show up on Google Maps. One job, one fixed price, paid once.',
     trustLine: 'Paid once, no subscription · Perth-based',
   },
   packages: {
     eyebrow: 'Business Profile optimisation price',
     title: 'Google Business Profile optimisation',
-    accentTitle: 'and price.',
+    accentTitle: 'pricing.',
   },
   introduction: {
     eyebrow: 'How Business Profile optimisation works',
@@ -41,8 +44,8 @@ export const GBP_COPY = {
     {
       id: 'audit',
       label: 'Local SEO audit',
-      title: 'Local SEO starts with',
-      accentTitle: 'the businesses above you',
+      title: 'Local SEO services in Perth',
+      accentTitle: 'start with your rivals',
       description:
         'We search for what you sell and read the profiles that beat you to the map: their categories, services, photos and reviews. Then we fill the gaps in yours, biggest first.',
       link: {
@@ -53,17 +56,17 @@ export const GBP_COPY = {
     {
       id: 'profile',
       label: 'Google Business Profile optimisation',
-      title: 'Every part of your profile,',
-      accentTitle: 'filled in properly',
+      title: 'Google My Business optimisation:',
+      accentTitle: 'every field filled in',
       description:
         'The right categories, a service for everything you sell with its price, your hours, area and attributes, a description written for customers, photos and review replies. Every fact comes from you.',
       link: { label: 'See what an SEO audit reads', href: '/seo/sample-report', newTab: true },
     },
     {
       id: 'website',
-      label: 'Google Maps optimisation',
-      title: 'Your profile and your website,',
-      accentTitle: 'telling Google the same story',
+      label: 'Google Maps SEO',
+      title: 'Google Maps optimisation:',
+      accentTitle: 'your profile and website agree',
       description:
         'Your name, phone and hours match on the profile and the site, the booking button opens the right page, and the website link is tagged so your analytics counts every visit it sends.',
       link: { label: 'Compare the SEO audits', href: '/seo#signup' },
@@ -71,7 +74,7 @@ export const GBP_COPY = {
   ],
   caseStudy: {
     label: 'Local SEO case study',
-    title: `Local SEO for a Perth dealer: organic clicks up ${SCOOTER_SHOP_GROWTH.percent}%.`,
+    title: `Local SEO results in Perth: organic clicks up ${SCOOTER_SHOP_GROWTH.percent}%.`,
     body: `We look after a Perth scooter dealer's website and Business Profile: a service under each category, the booking button fixed and a tagged website link. Its organic clicks grew ${SCOOTER_SHOP_GROWTH.percent}% in ${SCOOTER_SHOP_GROWTH.span}.`,
     points: [
       'Services under each category',
@@ -82,16 +85,17 @@ export const GBP_COPY = {
   },
   faq: {
     label: 'Local SEO questions',
-    title: 'Business Profile optimisation: common questions.',
+    title: 'Google Business Profile optimisation: common questions.',
   },
   call: {
-    title: 'Ready to show up on Google Maps?',
+    title: 'Ready to rank on Google Maps?',
     picture: '/images/pages/google-business-profile-optimisation.webp',
   },
 } as const;
 
-/** The first section's picture; the other two are drawn cards, as on /seo. */
+/** The first and third sections' pictures; the second is a drawn card, as on /seo. */
 export const GBP_AUDIT_PICTURE = '/images/guides/business-not-showing-up-on-google.webp';
+export const GBP_WEBSITE_PICTURE = '/images/guides/how-to-choose-a-web-designer-perth.webp';
 
 /** Built per request, so the cost answer quotes the price the admin has set. */
 export function gbpFaqs(price: string): FaqItem[] {

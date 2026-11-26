@@ -18,9 +18,14 @@ import { getSiteSettingsServer } from '@/lib/serverApi';
 import { money } from '@/lib/servicePricing';
 
 import { GBP_CALL_FORM_ID, GbpPackage } from './_components/GbpPackage';
-import { GbpMatchCard } from './_components/GbpMatchCard';
 import { GbpProfileCard } from './_components/GbpProfileCard';
-import { GBP_AUDIT_PICTURE, GBP_COPY, gbpFaqs, type GbpSectionCopy } from './_lib/copy';
+import {
+  GBP_AUDIT_PICTURE,
+  GBP_COPY,
+  GBP_WEBSITE_PICTURE,
+  gbpFaqs,
+  type GbpSectionCopy,
+} from './_lib/copy';
 import { GBP_PRODUCT_NAME, gbpPlan } from './_lib/plan';
 
 const PATH = '/google-business-profile-optimisation';
@@ -33,19 +38,24 @@ const SECTION_LAYOUT = [
   { textSide: 'left', background: 'white' },
 ] as const;
 
-/* As on /seo: a picture first, then a drawn report card and a drawn check card. */
+/* A guide picture, the drawn profile card (as /seo draws its report), then a guide picture. */
+function SectionPicture({ src }: { src: string }) {
+  return (
+    <Image
+      src={src}
+      alt=""
+      width={1536}
+      height={1024}
+      sizes="(min-width: 1024px) 55vw, 100vw"
+      className="aspect-[3/2] h-auto w-full rounded-lg border border-border-default object-cover"
+    />
+  );
+}
+
 const SECTION_VISUALS = [
-  <Image
-    key="audit"
-    src={GBP_AUDIT_PICTURE}
-    alt=""
-    width={1536}
-    height={1024}
-    sizes="(min-width: 1024px) 55vw, 100vw"
-    className="aspect-[3/2] h-auto w-full rounded-lg border border-border-default object-cover"
-  />,
+  <SectionPicture key="audit" src={GBP_AUDIT_PICTURE} />,
   <GbpProfileCard key="profile" />,
-  <GbpMatchCard key="website" />,
+  <SectionPicture key="website" src={GBP_WEBSITE_PICTURE} />,
 ] as const;
 
 export const metadata: Metadata = metadataFor(PATH);
@@ -67,7 +77,7 @@ function SectionLink({ link }: { link: GbpSectionCopy['link'] }) {
 
 /**
  * /seo's layout, section for section (owner, 2026-11-26): the hero, the one card, the
- * introduction, three numbered sections (a picture, then two drawn cards), the case study, the
+ * introduction, three numbered sections (a picture, a drawn card, a picture), the case study, the
  * questions and the call-back form. No nudge under the card (owner, 2026-11-26). No online checkout yet, so the card and the floating button lead to the
  * call-back form.
  */

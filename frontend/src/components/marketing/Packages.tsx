@@ -1,6 +1,7 @@
 'use client';
 
 import { Check } from 'lucide-react';
+import Image from 'next/image';
 import { type ReactNode, useRef, useState } from 'react';
 
 import { CtaButton } from '@/components/CtaButton';
@@ -13,7 +14,7 @@ import { cn } from '@/lib/utils';
 /** Whole cards per row from `lg`, by how many there are: four would be too narrow in three. */
 const gridColumns: Record<number, string> = {
   // A lone card sits in the right half of the split, at its natural width.
-  1: 'lg:justify-self-end lg:w-full lg:max-w-[440px]',
+  1: '',
   2: 'lg:grid-cols-2',
   3: 'lg:grid-cols-3',
   4: 'md:grid-cols-2 xl:grid-cols-4',
@@ -181,6 +182,7 @@ export function PackagesSection<Code extends string>({
   cardTitle = (plan) => plan.name,
   chooseLabel = (plan) => `Choose ${plan.name}`,
   note,
+  picture,
   onChoose,
   children,
 }: {
@@ -203,12 +205,14 @@ export function PackagesSection<Code extends string>({
   chooseLabel?: (plan: Plan<Code>) => string;
   /** One line under the cards that holds for all of them: the audits' money-back guarantee. */
   note?: ReactNode;
+  /** A guide illustration under the heading, as wide as it, a path under `public/`. */
+  picture?: string;
   onChoose: (code: Code) => void;
   /** The order dialog the cards open; none where a card leads to the call-back form instead. */
   children?: ReactNode;
 }) {
-  // One card is no row to compare: on a large screen the heading takes the left half and the card
-  // the right (owner, 2026-11-26).
+  // One card is no row to compare: on a large screen the heading, and any picture under it at the
+  // heading's width, take the left and the card the rest of the row (owner, 2026-11-26).
   const alone = plans.length === 1;
   return (
     <section id={id} aria-label={eyebrow} className="bg-surface-page pt-section">
@@ -216,10 +220,16 @@ export function PackagesSection<Code extends string>({
         className={cn(
           'site-shell',
           alone &&
-            'lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-x-3xl',
+            'lg:grid lg:grid-cols-[var(--container-measure-tight)_minmax(0,1fr)] lg:gap-x-2xl',
         )}
       >
-        <div className={cn('mb-xl', !wideHeader && 'max-w-measure-tight', alone && 'lg:mb-0')}>
+        <div
+          className={cn(
+            'mb-xl',
+            !wideHeader && 'max-w-measure-tight',
+            alone && 'lg:mb-0 lg:flex lg:flex-col',
+          )}
+        >
           <SectionHeader
             eyebrow={eyebrow}
             title={title}
@@ -228,6 +238,24 @@ export function PackagesSection<Code extends string>({
           />
           {lead ? (
             <p className="mt-m mb-0 text-lead leading-relaxed text-text-muted">{lead}</p>
+          ) : null}
+          {/* Beside a lone card it fills the column under the heading, so its foot lines up with the
+              card's; on a phone it keeps its 3:2 (owner, 2026-11-26). */}
+          {picture ? (
+            <div
+              className={cn(
+                'relative mt-l aspect-[3/2] w-full overflow-hidden rounded-lg border border-border-default',
+                alone && 'lg:aspect-auto lg:min-h-0 lg:flex-1',
+              )}
+            >
+              <Image
+                src={picture}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 576px, 100vw"
+                className="object-cover"
+              />
+            </div>
           ) : null}
         </div>
         <ul

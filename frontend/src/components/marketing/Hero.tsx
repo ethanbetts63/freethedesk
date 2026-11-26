@@ -82,7 +82,9 @@ export function Hero({
                   {line} <br />
                 </span>
               ))}
-              <em className="inline-block pt-s not-italic text-[var(--action-primary)]">
+              {/* Its own, looser leading: wrapped onto two lines at the heading's 0.83 the lines
+                  overlapped (owner, 2026-11-26). The gap above it is the padding, not the leading. */}
+              <em className="inline-block pt-s leading-[0.95] not-italic text-[var(--action-primary)]">
                 {accentTitle}
               </em>
             </h1>
