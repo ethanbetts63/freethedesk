@@ -4,7 +4,6 @@ import Link from 'next/link';
 
 import { FloatingPageCta } from '@/components/FloatingPageCta';
 import { CallRequest } from '@/components/marketing/CallRequest';
-import { CallRequestNudge } from '@/components/marketing/CallRequestNudge';
 import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { Hero, secondaryLinkClassName } from '@/components/marketing/Hero';
@@ -19,17 +18,34 @@ import { getSiteSettingsServer } from '@/lib/serverApi';
 import { money } from '@/lib/servicePricing';
 
 import { GBP_CALL_FORM_ID, GbpPackage } from './_components/GbpPackage';
-import { GBP_COPY, gbpFaqs, type GbpSectionCopy } from './_lib/copy';
+import { GbpMatchCard } from './_components/GbpMatchCard';
+import { GbpProfileCard } from './_components/GbpProfileCard';
+import { GBP_AUDIT_PICTURE, GBP_COPY, gbpFaqs, type GbpSectionCopy } from './_lib/copy';
 import { GBP_PRODUCT_NAME, gbpPlan } from './_lib/plan';
 
 const PATH = '/google-business-profile-optimisation';
 const CALL_FORM = `#${GBP_CALL_FORM_ID}`;
 
-/* The website page's three sections alternate sides, the outer two on white. */
+/* /seo's three sections alternate sides, the outer two on white. */
 const SECTION_LAYOUT = [
   { textSide: 'left', background: 'white' },
   { textSide: 'right', background: 'transparent' },
   { textSide: 'left', background: 'white' },
+] as const;
+
+/* As on /seo: a picture first, then a drawn report card and a drawn check card. */
+const SECTION_VISUALS = [
+  <Image
+    key="audit"
+    src={GBP_AUDIT_PICTURE}
+    alt=""
+    width={1536}
+    height={1024}
+    sizes="(min-width: 1024px) 55vw, 100vw"
+    className="aspect-[3/2] h-auto w-full rounded-lg border border-border-default object-cover"
+  />,
+  <GbpProfileCard key="profile" />,
+  <GbpMatchCard key="website" />,
 ] as const;
 
 export const metadata: Metadata = metadataFor(PATH);
@@ -50,9 +66,9 @@ function SectionLink({ link }: { link: GbpSectionCopy['link'] }) {
 }
 
 /**
- * The website page's layout, section for section (owner, 2026-11-26): the hero, the one card,
- * the nudge, the introduction, three numbered sections, the case study, the questions and the
- * call-back form. No online checkout yet, so the card and the floating button lead to the
+ * /seo's layout, section for section (owner, 2026-11-26): the hero, the one card, the
+ * introduction, three numbered sections (a picture, then two drawn cards), the case study, the
+ * questions and the call-back form. No nudge under the card (owner, 2026-11-26). No online checkout yet, so the card and the floating button lead to the
  * call-back form.
  */
 export default async function GoogleBusinessProfileOptimisationPage() {
@@ -79,7 +95,7 @@ export default async function GoogleBusinessProfileOptimisationPage() {
         accentTitle={copy.hero.accentTitle}
         lead={copy.hero.lead}
         primaryHref="#package"
-        primaryLabel={`Done for you, ${price}`}
+        primaryLabel="Pricing"
         secondaryHref={CALL_FORM}
         secondaryLabel="Book a call"
         trustLine={copy.hero.trustLine}
@@ -87,13 +103,9 @@ export default async function GoogleBusinessProfileOptimisationPage() {
 
       <GbpPackage plan={plan} copy={copy.packages} />
 
-      <CallRequestNudge question={copy.nudge} href={CALL_FORM} />
-
       <Introduction
         id="gbp-overview"
         eyebrow={copy.introduction.eyebrow}
-        spacing="tight"
-        flushBottom
         title={copy.introduction.title}
         accentTitle={copy.introduction.accentTitle}
       >
@@ -108,16 +120,7 @@ export default async function GoogleBusinessProfileOptimisationPage() {
           title={section.title}
           accentTitle={section.accentTitle}
           description={section.description}
-          visual={
-            <Image
-              src={section.picture}
-              alt=""
-              width={1536}
-              height={1024}
-              sizes="(min-width: 1024px) 55vw, 100vw"
-              className="aspect-[3/2] h-auto w-full rounded-lg border border-border-default object-cover"
-            />
-          }
+          visual={SECTION_VISUALS[index]}
           textSide={SECTION_LAYOUT[index].textSide}
           background={SECTION_LAYOUT[index].background}
           spacing="joined"

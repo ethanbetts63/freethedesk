@@ -41,7 +41,6 @@ export function GbpPackage({
       eyebrow={copy.eyebrow}
       title={copy.title}
       accentTitle={copy.accentTitle}
-      lead={copy.lead}
       plans={[plan]}
       kicker="Includes"
       cardTitle={() => GBP_PRODUCT_NAME}

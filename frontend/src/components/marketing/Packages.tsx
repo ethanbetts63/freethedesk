@@ -12,23 +12,26 @@ import { cn } from '@/lib/utils';
 
 /** Whole cards per row from `lg`, by how many there are: four would be too narrow in three. */
 const gridColumns: Record<number, string> = {
-  1: 'lg:max-w-[400px]',
+  // A lone card sits in the right half of the split, at its natural width.
+  1: 'lg:justify-self-end lg:w-full lg:max-w-[440px]',
   2: 'lg:grid-cols-2',
   3: 'lg:grid-cols-3',
   4: 'md:grid-cols-2 xl:grid-cols-4',
 };
 
-/** One card's button: the recommended one carries the moving colour, the others are dark. */
+/** One card's button: the highlighted one carries the moving colour, the others are dark. */
 function ChooseButton<Code extends string>({
   plan,
   label,
+  highlighted,
   onChoose,
 }: {
   plan: Plan<Code>;
   label: string;
+  highlighted: boolean;
   onChoose: (code: Code) => void;
 }) {
-  if (plan.recommended) {
+  if (highlighted) {
     return (
       <MovingColourButton
         type="button"
@@ -56,26 +59,30 @@ function ChooseButton<Code extends string>({
 /**
  * One thing to buy: its name, a line on what it is, the price, what it includes, a button. White
  * cards with a hairline border; the recommended one wears the moving border and says so (owner,
- * 2026-11-07, chosen over a filled card and a joined frame).
+ * 2026-11-07, chosen over a filled card and a joined frame). A card on its own wears the same
+ * colour without the label, as there is nothing to recommend it over (owner, 2026-11-26).
  */
 function Card<Code extends string>({
   plan,
   title,
   kicker,
   chooseLabel,
+  alone,
   onChoose,
 }: {
   plan: Plan<Code>;
   title: string;
   kicker: string;
   chooseLabel: string;
+  alone: boolean;
   onChoose: (code: Code) => void;
 }) {
+  const highlighted = alone || Boolean(plan.recommended);
   return (
     <li
       className={cn(
         'flex flex-col bg-surface-page p-xl',
-        plan.recommended ? 'moving-colour-border' : 'border border-border-default',
+        highlighted ? 'moving-colour-border' : 'border border-border-default',
       )}
     >
       {/* The label drops under the name when a card in a row of four has no room beside it. */}
@@ -116,7 +123,12 @@ function Card<Code extends string>({
         </ul>
       </div>
       <div className="mt-auto">
-        <ChooseButton plan={plan} label={chooseLabel} onChoose={onChoose} />
+        <ChooseButton
+          plan={plan}
+          label={chooseLabel}
+          highlighted={highlighted}
+          onChoose={onChoose}
+        />
       </div>
     </li>
   );
@@ -178,7 +190,8 @@ export function PackagesSection<Code extends string>({
   eyebrow: string;
   title: string;
   accentTitle: string;
-  lead: string;
+  /** A line under the heading; left out where the heading says enough. */
+  lead?: string;
   /** Lets the heading and lead run the width of the cards, where the default keeps them to a reading measure. */
   wideHeader?: boolean;
   plans: readonly Plan<Code>[];
@@ -194,17 +207,28 @@ export function PackagesSection<Code extends string>({
   /** The order dialog the cards open; none where a card leads to the call-back form instead. */
   children?: ReactNode;
 }) {
+  // One card is no row to compare: on a large screen the heading takes the left half and the card
+  // the right (owner, 2026-11-26).
+  const alone = plans.length === 1;
   return (
     <section id={id} aria-label={eyebrow} className="bg-surface-page pt-section">
-      <div className="site-shell">
-        <div className={cn('mb-xl', !wideHeader && 'max-w-measure-tight')}>
+      <div
+        className={cn(
+          'site-shell',
+          alone &&
+            'lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-x-3xl',
+        )}
+      >
+        <div className={cn('mb-xl', !wideHeader && 'max-w-measure-tight', alone && 'lg:mb-0')}>
           <SectionHeader
             eyebrow={eyebrow}
             title={title}
             accentTitle={accentTitle}
             size="display-sm"
           />
-          <p className="mt-m mb-0 text-lead leading-relaxed text-text-muted">{lead}</p>
+          {lead ? (
+            <p className="mt-m mb-0 text-lead leading-relaxed text-text-muted">{lead}</p>
+          ) : null}
         </div>
         <ul
           className={cn(
@@ -219,12 +243,15 @@ export function PackagesSection<Code extends string>({
               title={cardTitle(plan)}
               kicker={kicker}
               chooseLabel={chooseLabel(plan)}
+              alone={alone}
               onChoose={onChoose}
             />
           ))}
         </ul>
         {note ? (
-          <p className="mt-l mb-0 text-body leading-relaxed text-text-muted">{note}</p>
+          <p className="mt-l mb-0 text-body leading-relaxed text-text-muted lg:col-span-2">
+            {note}
+          </p>
         ) : null}
       </div>
       {children}
