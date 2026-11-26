@@ -18,6 +18,7 @@ export const WEBSITE_COPY: WebsitePageCopy = {
     trustLine: 'Fixed prices · The site is yours · Perth-based',
   },
   packages: {
+    keyword: 'Web design',
     title: 'Website design packages',
     lead: 'Fixed prices: half upfront, the rest before launch. Online shops and bookings are add-ons.',
   },

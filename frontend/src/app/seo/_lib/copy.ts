@@ -12,6 +12,7 @@ export const SEO_COPY: SeoPageCopy = {
     lead: "A written SEO report of your website: the searches you're losing, what to fix and what each fix is worth. For businesses in Perth and across Australia.",
   },
   packages: {
+    keyword: 'SEO audit',
     title: 'SEO audit packages',
   },
   introduction: {

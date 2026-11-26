@@ -30,6 +30,7 @@ export const GBP_COPY = {
     trustLine: 'Paid once, no subscription · Perth-based',
   },
   packages: {
+    keyword: 'Local SEO',
     title: 'Google Business Profile optimisation package',
   },
   introduction: {

@@ -38,6 +38,7 @@ export function GbpPackage({
     <PackagesSection
       id="package"
       endId="package-end"
+      keyword={copy.keyword}
       title={copy.title}
       plans={[plan]}
       picture="/images/guides/small-business-seo-perth.webp"

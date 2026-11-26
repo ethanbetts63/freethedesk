@@ -54,6 +54,7 @@ export default async function AutomationPage() {
       />
 
       <ServicePackages
+        keyword="Business automation"
         title="Automation package"
         lead="Automation starts with discovery: we map your repetitive work and write a scope, then price the build to your budget."
         packages={[discovery]}

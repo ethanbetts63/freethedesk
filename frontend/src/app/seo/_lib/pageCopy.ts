@@ -13,7 +13,7 @@ export interface SeoPageCopy {
   hero: { titleLines: readonly string[]; accentTitle: string; lead: string };
   /** `audience` ("tradies") titles the audit cards and the schema offers for the group. */
   /** "SEO audit packages": the section's heading. Its line under it is the same on every audit page. */
-  packages: { title: string; audience?: string };
+  packages: { keyword: string; title: string; audience?: string };
   introduction: { title: string; accentTitle: string; body: string };
   analyse: { title: string; accentTitle: string; description: string };
   recommend: { title: string; accentTitle: string; description: string };

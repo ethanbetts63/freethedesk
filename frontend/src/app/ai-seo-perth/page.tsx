@@ -106,6 +106,7 @@ export default async function AiSeoPage() {
       <SeoPackages
         settings={settings}
         copy={{
+          keyword: 'AI SEO',
           title: 'AI SEO audit packages',
         }}
       />

@@ -167,15 +167,17 @@ export function usePackageChoice<Code extends string>(
  * redesign and automation packages all sell this way, so a buyer picks first and gives their
  * details second. `id` is where the hero's button lands.
  *
- * The same, dry heading on every page that sells (owner, 2026-11-26): "Pricing" over "[service]
- * packages and prices." (or "package and price." for one card), and one plain line on how it is
- * paid. A page names only the service and that line. The heading runs the width of the cards.
+ * The same, dry heading on every page that sells (owner, 2026-11-26): "[keyword] pricing" over
+ * "[service] packages and prices." (or "package and price." for one card), and one plain line on how
+ * it is paid. A page names only the keyword, the service and that line; the label is never a bare
+ * "Pricing", which wastes a keyword. The heading runs the width of the cards.
  *
  * Top padding only: the section after it opens with its own `pt-section`.
  */
 export function PackagesSection<Code extends string>({
   id,
   endId,
+  keyword,
   title,
   lead,
   plans,
@@ -190,6 +192,8 @@ export function PackagesSection<Code extends string>({
   id: string;
   /** A marker past the section for the page's floating button to watch (`showAfterId`). */
   endId: string;
+  /** The search term the label carries, "[keyword] pricing": "Local SEO". */
+  keyword: string;
   /** "[service] packages", or "package" for one card: "SEO audit packages". */
   title: string;
   /** One plain line on how it is paid; left out where the heading says enough. */
@@ -223,7 +227,7 @@ export function PackagesSection<Code extends string>({
       >
         <div className={cn('mb-xl', alone && 'lg:mb-0 lg:flex lg:flex-col')}>
           <SectionHeader
-            eyebrow="Pricing"
+            eyebrow={`${keyword} pricing`}
             title={title}
             accentTitle={alone ? 'and price.' : 'and prices.'}
             size="display-sm"

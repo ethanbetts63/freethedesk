@@ -104,6 +104,7 @@ export default async function WebsiteMigrationSeoPage() {
       <SeoPackages
         settings={settings}
         copy={{
+          keyword: 'Website migration SEO',
           title: 'Website migration SEO audit packages',
         }}
       />

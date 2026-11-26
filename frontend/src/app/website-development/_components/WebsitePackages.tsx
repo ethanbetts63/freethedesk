@@ -29,6 +29,7 @@ export function WebsitePackages({ copy }: { copy: WebsitePageCopy['packages'] })
     <PackagesSection
       id="packages"
       endId="packages-end"
+      keyword={copy.keyword}
       title={copy.title}
       lead={copy.lead}
       plans={WEBSITE_PLANS}

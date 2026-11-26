@@ -10,6 +10,7 @@ export const DEALERSHIPS_COPY: SeoPageCopy = {
     lead: "A written SEO report of your dealership's website: the stock and model searches you're losing, what to fix and what each fix is worth. For car, motorcycle, scooter, caravan and boat dealers in Perth and across Australia.",
   },
   packages: {
+    keyword: 'Dealership SEO',
     title: 'SEO audit packages for dealerships',
     audience: 'dealerships',
   },

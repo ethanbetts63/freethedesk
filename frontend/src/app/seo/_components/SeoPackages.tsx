@@ -27,6 +27,7 @@ export function SeoPackages({
     <PackagesSection
       id="signup"
       endId="signup-end"
+      keyword={copy.keyword}
       title={copy.title}
       lead="One written report, paid once. The three differ in what they read."
       plans={plans}

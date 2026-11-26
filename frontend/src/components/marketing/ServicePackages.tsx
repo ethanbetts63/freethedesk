@@ -14,11 +14,14 @@ import { PackagesSection, usePackageChoice } from './Packages';
  * the words and the packages they pass. `id="packages"` is where their heroes' buttons land.
  */
 export function ServicePackages({
+  keyword,
   title,
   lead,
   packages,
 }: {
   /** The heading before "and prices.": "Website packages". */
+  /** The pricing label's search term: "[keyword] pricing". */
+  keyword: string;
   title: string;
   lead: string;
   packages: readonly PurchasePackage[];
@@ -52,6 +55,7 @@ export function ServicePackages({
     <PackagesSection
       id="packages"
       endId="packages-end"
+      keyword={keyword}
       title={title}
       lead={lead}
       plans={plans}
