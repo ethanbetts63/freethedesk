@@ -10,8 +10,7 @@ export const BUILDERS_COPY: SeoPageCopy = {
     lead: "A written SEO report of your building website: the project searches you're losing, what to fix and what each fix is worth. For home builders, renovators and building trades in Perth and across Australia.",
   },
   packages: {
-    title: 'SEO audits for builders',
-    lead: 'One written report of your building website, paid once. The three differ in what they read.',
+    title: 'SEO audit packages for builders',
     audience: 'builders',
   },
   introduction: {

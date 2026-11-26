@@ -27,10 +27,8 @@ export function SeoPackages({
     <PackagesSection
       id="signup"
       endId="signup-end"
-      eyebrow="Audits"
       title={copy.title}
-      accentTitle="and prices."
-      lead={copy.lead}
+      lead="One written report, paid once. The three differ in what they read."
       plans={plans}
       kicker="Recommendations based on"
       cardTitle={(plan) => `${plan.name} SEO audit${copy.audience ? ` for ${copy.audience}` : ''}`}

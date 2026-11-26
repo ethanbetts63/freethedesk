@@ -22,7 +22,7 @@ export interface WebsiteSectionCopy {
  */
 export interface WebsitePageCopy {
   hero: { titleLines: readonly string[]; accentTitle: string; lead: string; trustLine: string };
-  packages: { eyebrow: string; title: string; accentTitle: string; lead: string };
+  packages: { title: string; lead: string };
   /** The question in the line under the packages that leads to the call-back form. */
   nudge: string;
   introduction: { eyebrow: string; title: string; accentTitle: string; body: string };

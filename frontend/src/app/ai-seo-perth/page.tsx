@@ -35,11 +35,11 @@ export const dynamic = 'force-dynamic';
 /* /seo's sections, one for one (owner, 2026-11-16): letting the AI crawlers
    in, pages a machine can read, and measuring where you appear. */
 const sections = numberSections([
-  'Found',
-  'Read',
-  'Measured',
-  'Proof this works',
-  'Common questions',
+  'Found in AI search',
+  'Read by AI crawlers',
+  'AI SEO results',
+  'AI SEO case study',
+  'AI SEO questions',
 ] as const);
 
 /** The bar under the case study: what the search work behind it was. */
@@ -106,8 +106,7 @@ export default async function AiSeoPage() {
       <SeoPackages
         settings={settings}
         copy={{
-          title: 'AI SEO audits',
-          lead: 'One written report, paid once. Every audit checks whether AI crawlers can reach your site and what AI answers say about your business.',
+          title: 'AI SEO audit packages',
         }}
       />
 
@@ -129,7 +128,7 @@ export default async function AiSeoPage() {
 
       <SplitFeatureSection
         id="found"
-        eyebrow={sections['Found']}
+        eyebrow={sections['Found in AI search']}
         title="Let the AI crawlers"
         accentTitle="into your site"
         description="ChatGPT, Claude and Perplexity each send their own crawler, and Copilot reads Bing. One line in robots.txt, a hosting firewall or a Search Console setting can shut them out without you knowing. The audit checks whether each one can reach your site."
@@ -142,7 +141,7 @@ export default async function AiSeoPage() {
 
       <SplitFeatureSection
         id="read"
-        eyebrow={sections['Read']}
+        eyebrow={sections['Read by AI crawlers']}
         title="Pages an AI can"
         accentTitle="read and quote"
         description="An answer is built from words a machine can read: in the page itself, not only in scripts, with structured data saying who you are, where you work and what you charge, and your business details matching everywhere you're listed. We add an llms.txt file too, a plain summary of your site for the AI tools that read one."
@@ -154,7 +153,7 @@ export default async function AiSeoPage() {
 
       <SplitFeatureSection
         id="measured"
-        eyebrow={sections['Measured']}
+        eyebrow={sections['AI SEO results']}
         title="Where you appear,"
         accentTitle="measured"
         description="Search Console now reports how often Google shows your pages in AI Overviews and AI Mode, and Bing reports citations in Copilot. Every change the audit recommends becomes an experiment, measured in your Search Console: what earns is kept, and what doesn't is dropped."
@@ -166,7 +165,7 @@ export default async function AiSeoPage() {
       />
 
       <CaseStudyTeaser
-        eyebrow={sections['Proof this works']}
+        eyebrow={sections['AI SEO case study']}
         study="bloomprint"
         title={`AI answers start with search: a new brand's organic clicks up ${BLOOMPRINT_GROWTH.percent}%.`}
         points={casePoints}
@@ -193,7 +192,7 @@ export default async function AiSeoPage() {
 
       <FaqSection
         emitSchema
-        eyebrow={sections['Common questions']}
+        eyebrow={sections['AI SEO questions']}
         title="AI SEO Perth: common questions."
         items={aiSeoFaqs(seoAuditPrices(settings))}
       />

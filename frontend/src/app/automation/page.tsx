@@ -21,11 +21,11 @@ import { AutomationWorkflowList } from './_components/AutomationWorkflowList';
 import { AUTOMATION_FAQS } from './_lib/copy';
 
 const sections = numberSections([
-  'Identify',
-  'Budget',
-  'Automate',
-  'Examples',
-  'Common questions',
+  'What to automate',
+  'Automation budget',
+  'Business automation',
+  'Automation examples',
+  'Automation questions',
 ] as const);
 
 export const metadata: Metadata = metadataFor('/automation');
@@ -61,10 +61,14 @@ export default async function AutomationPage() {
 
       <AutomationIntroduction />
 
-      <AutomationIdentify eyebrow={sections['Identify']} />
-      <AutomationBudgetSplit eyebrow={sections['Budget']} />
-      <AdminAutomationSection id="automate" eyebrow={sections['Automate']} spacing="joined" />
-      <AutomationWorkflowList eyebrow={sections['Examples']} />
+      <AutomationIdentify eyebrow={sections['What to automate']} />
+      <AutomationBudgetSplit eyebrow={sections['Automation budget']} />
+      <AdminAutomationSection
+        id="automate"
+        eyebrow={sections['Business automation']}
+        spacing="joined"
+      />
+      <AutomationWorkflowList eyebrow={sections['Automation examples']} />
 
       <FloatingPageCta
         label="Automate your admin"
@@ -77,7 +81,7 @@ export default async function AutomationPage() {
 
       <FaqSection
         emitSchema
-        eyebrow={sections['Common questions']}
+        eyebrow={sections['Automation questions']}
         title="Business automation questions."
         items={AUTOMATION_FAQS}
       />

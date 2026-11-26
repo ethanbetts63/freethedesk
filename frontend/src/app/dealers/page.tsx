@@ -23,13 +23,13 @@ import { dealerFaqs } from './_lib/copy';
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
 
 const sections = numberSections([
-  'SEO',
-  'Website Design',
-  'Admin Automation',
-  "What you're paying for",
-  'Features and integrations',
-  'Proof this works',
-  'Common questions',
+  'Dealership SEO',
+  'Dealer website design',
+  'Dealer admin automation',
+  'Dealer website pricing',
+  'Dealer software features',
+  'Dealer case study',
+  'Dealer website questions',
 ] as const);
 
 const dealerAdminJobs = [
@@ -103,7 +103,7 @@ export default async function Dealers() {
 
       <SeoReportOverview
         id="seo"
-        eyebrow={sections['SEO']}
+        eyebrow={sections['Dealership SEO']}
         title="SEO built in at launch,"
         accentTitle="then improved with search data"
         mode="improvement"
@@ -120,11 +120,11 @@ export default async function Dealers() {
         }
       />
 
-      <DealerWebsiteSection eyebrow={sections['Website Design']} />
+      <DealerWebsiteSection eyebrow={sections['Dealer website design']} />
 
       <AdminAutomationSection
         id="website-automation"
-        eyebrow={sections['Admin Automation']}
+        eyebrow={sections['Dealer admin automation']}
         spacing="joined"
         description={
           <>
@@ -152,15 +152,15 @@ export default async function Dealers() {
       />
 
       <SubscriptionSwap
-        eyebrow={sections["What you're paying for"]}
+        eyebrow={sections['Dealer website pricing']}
         lead="Most dealerships pay for four or five tools every month and use one feature from each. We add up what those dealership systems cost, work out which parts your team actually uses, and price a connected build against the bill. Stop renting. Own the tools you use."
         steps={dealerSubscriptionSteps}
       />
 
-      <DealershipAutomation eyebrow={sections['Features and integrations']} />
+      <DealershipAutomation eyebrow={sections['Dealer software features']} />
 
       <CaseStudyTeaser
-        eyebrow={sections['Proof this works']}
+        eyebrow={sections['Dealer case study']}
         title={
           <>
             Organic clicks grew{' '}
@@ -195,7 +195,7 @@ export default async function Dealers() {
 
       <FaqSection
         emitSchema
-        eyebrow={sections['Common questions']}
+        eyebrow={sections['Dealer website questions']}
         title="Dealership website and automation questions."
         items={faqs}
       />

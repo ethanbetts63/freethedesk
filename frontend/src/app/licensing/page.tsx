@@ -22,13 +22,13 @@ import { LICENSING_FAQS } from './_lib/copy';
 import { buildDealerPlans, PRICE_FIELD } from './_lib/plans';
 
 const sections = numberSections([
-  'Fill',
-  'Verify',
-  'Sign',
-  'Additional features',
-  'Two ways to use it',
-  'Choose your plan',
-  'Common questions',
+  'Vehicle forms online',
+  'Identity verification',
+  'Online contract signing',
+  'Licensing features',
+  'Two ways to license online',
+  'Licensing plans',
+  'Online licensing questions',
 ] as const);
 
 export const metadata: Metadata = metadataFor('/licensing');
@@ -66,13 +66,13 @@ export default async function LicensingPage() {
 
       <LicensingIntroduction />
 
-      <LicensingFill eyebrow={sections['Fill']} />
-      <LicensingVerify eyebrow={sections['Verify']} />
-      <LicensingSign eyebrow={sections['Sign']} />
-      <LicensingAdditionalFeatures eyebrow={sections['Additional features']} />
+      <LicensingFill eyebrow={sections['Vehicle forms online']} />
+      <LicensingVerify eyebrow={sections['Identity verification']} />
+      <LicensingSign eyebrow={sections['Online contract signing']} />
+      <LicensingAdditionalFeatures eyebrow={sections['Licensing features']} />
 
-      <LicensingConfigurationOptions eyebrow={sections['Two ways to use it']} />
-      <SignupPlans settings={settings} eyebrow={sections['Choose your plan']} />
+      <LicensingConfigurationOptions eyebrow={sections['Two ways to license online']} />
+      <SignupPlans settings={settings} eyebrow={sections['Licensing plans']} />
 
       <FloatingPageCta
         label="Choose your plan"
@@ -83,7 +83,7 @@ export default async function LicensingPage() {
 
       <FaqSection
         emitSchema
-        eyebrow={sections['Common questions']}
+        eyebrow={sections['Online licensing questions']}
         title="Online licensing questions."
         items={LICENSING_FAQS}
       />

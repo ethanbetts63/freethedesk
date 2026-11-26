@@ -10,8 +10,7 @@ export const TRADIES_COPY: SeoPageCopy = {
     lead: "A written SEO report of your trade website: the local jobs you're losing on Google, what to fix and what each fix is worth. For plumbers, electricians and every trade in Perth and across Australia.",
   },
   packages: {
-    title: 'SEO audits for tradies',
-    lead: 'One written report of your trade website, paid once. The three differ in what they read.',
+    title: 'SEO audit packages for tradies',
     audience: 'tradies',
   },
   introduction: {

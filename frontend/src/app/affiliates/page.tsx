@@ -21,11 +21,11 @@ import { AffiliateSignup } from './_components/AffiliateSignup';
 import { affiliateEarnings, affiliateFaqs, shareFraction } from './_lib/copy';
 
 const sections = numberSections([
-  'What to say',
-  'What you sell',
-  'Get paid',
-  'Proof this works',
-  'Common questions',
+  'Affiliate pitch',
+  'SEO audits you sell',
+  'Affiliate commission',
+  'Affiliate results',
+  'Affiliate program questions',
 ] as const);
 
 export const metadata: Metadata = metadataFor('/affiliates');
@@ -59,14 +59,14 @@ export default async function AffiliatesPage() {
 
       <AffiliateIntroduction />
 
-      <AffiliateExperience eyebrow={sections['What to say']} />
+      <AffiliateExperience eyebrow={sections['Affiliate pitch']} />
 
-      <AffiliateAudit eyebrow={sections['What you sell']} />
+      <AffiliateAudit eyebrow={sections['SEO audits you sell']} />
 
-      <AffiliatePayout eyebrow={sections['Get paid']} settings={settings} />
+      <AffiliatePayout eyebrow={sections['Affiliate commission']} settings={settings} />
 
       <CaseStudyTeaser
-        eyebrow={sections['Proof this works']}
+        eyebrow={sections['Affiliate results']}
         title={`A Perth website that grew organic clicks ${SCOOTER_SHOP_GROWTH.percent}%.`}
         primaryHref="#signup"
         primaryLabel="Become an affiliate"
@@ -90,7 +90,7 @@ export default async function AffiliatesPage() {
 
       <FaqSection
         emitSchema
-        eyebrow={sections['Common questions']}
+        eyebrow={sections['Affiliate program questions']}
         title="Affiliate questions."
         items={affiliateFaqs(settings)}
       />

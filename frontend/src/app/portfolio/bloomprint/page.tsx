@@ -42,7 +42,7 @@ const config = {
   sections: [
     {
       kind: 'tour',
-      eyebrow: 'The experience',
+      eyebrow: 'Marketplace UX',
       title: { lines: ['Four journeys,', 'one order engine.'] },
       label: 'Bloomprint website tour',
       browserUrl: 'www.bloomprint.com.au',
@@ -81,7 +81,7 @@ const config = {
     },
     {
       kind: 'mobile',
-      eyebrow: 'Every screen',
+      eyebrow: 'Web app screens',
       title: 'The whole order works on mobile.',
       description:
         'Flower orders often begin on a phone, so the brief, budget, delivery details and payment path were designed for the smallest screen first. The mobile journey is the product—not a compressed desktop checkout.',
@@ -95,7 +95,7 @@ const config = {
     {
       kind: 'feature',
       variant: 'dual-steps',
-      eyebrow: 'Both sides',
+      eyebrow: 'Two-sided marketplace',
       title: { lines: ['One marketplace.', 'Two customers.'] },
       columns: [
         {
@@ -135,7 +135,7 @@ const config = {
     },
     {
       kind: 'intent',
-      eyebrow: 'Front doors',
+      eyebrow: 'SEO landing pages',
       title: { lines: ['Many ways in.', 'One way to order.'] },
       description:
         'Each page answers a different search, then hands the visitor the same order builder.',
@@ -156,7 +156,7 @@ export default async function BloomprintCaseStudy() {
   const prices = servicePrices(await getSiteSettingsServer(SERVICE_PRICE_FIELDS));
   return (
     <PortfolioCaseStudy
-      config={{ ...config, faq: { eyebrow: 'Common questions', items: portfolioFaqs(prices) } }}
+      config={{ ...config, faq: { eyebrow: 'Case study questions', items: portfolioFaqs(prices) } }}
     />
   );
 }

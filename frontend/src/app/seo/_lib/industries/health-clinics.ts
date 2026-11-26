@@ -10,8 +10,7 @@ export const HEALTH_CLINICS_COPY: SeoPageCopy = {
     lead: "A written SEO report of your clinic's website: the patient searches you're losing, what to fix and what each fix is worth. For physios, podiatrists, chiropractors and allied health clinics in Perth and across Australia.",
   },
   packages: {
-    title: 'SEO audits for health clinics',
-    lead: "One written report of your clinic's website, paid once. The three differ in what they read.",
+    title: 'SEO audit packages for health clinics',
     audience: 'health clinics',
   },
   introduction: {

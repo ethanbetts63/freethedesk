@@ -38,9 +38,7 @@ export function GbpPackage({
     <PackagesSection
       id="package"
       endId="package-end"
-      eyebrow={copy.eyebrow}
       title={copy.title}
-      accentTitle={copy.accentTitle}
       plans={[plan]}
       picture="/images/guides/small-business-seo-perth.webp"
       kicker="Includes"

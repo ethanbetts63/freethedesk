@@ -34,11 +34,11 @@ export const dynamic = 'force-dynamic';
 /* /seo's sections, one for one (owner, 2026-11-16): before the move, the
    redirects, and the measuring after launch. */
 const sections = numberSections([
-  'Before the move',
-  'Redirects',
-  'After launch',
-  'Proof this works',
-  'Common questions',
+  'Before the website migration',
+  'SEO redirects',
+  'SEO after launch',
+  'Migration SEO case study',
+  'Website migration questions',
 ] as const);
 
 /** The bar under the case study: how the old site became the new one. */
@@ -104,8 +104,7 @@ export default async function WebsiteMigrationSeoPage() {
       <SeoPackages
         settings={settings}
         copy={{
-          title: 'Website migration SEO audits',
-          lead: 'One written report, paid once. Before a move it lists the pages and searches to keep; after one, it finds what went missing.',
+          title: 'Website migration SEO audit packages',
         }}
       />
 
@@ -127,7 +126,7 @@ export default async function WebsiteMigrationSeoPage() {
 
       <SplitFeatureSection
         id="before"
-        eyebrow={sections['Before the move']}
+        eyebrow={sections['Before the website migration']}
         title="Know which pages"
         accentTitle="you can't afford to lose"
         description="Before anything is designed, the audit reads your Search Console and lists the pages Google sends people to now, and the searches each one wins. Those are the addresses the new site has to keep or redirect, and the titles and wording that already rank are the ones to carry across."
@@ -140,7 +139,7 @@ export default async function WebsiteMigrationSeoPage() {
 
       <SplitFeatureSection
         id="redirects"
-        eyebrow={sections['Redirects']}
+        eyebrow={sections['SEO redirects']}
         title="A permanent redirect"
         accentTitle="for every old address"
         description="Most of the risk in a move is in the addresses. Each old page needs a 301 redirect to the page that replaces it: not to the home page, and not a temporary 302, which can leave Google showing the old address for months. The report sets them out for your developer, or we add them when we build the site."
@@ -152,7 +151,7 @@ export default async function WebsiteMigrationSeoPage() {
 
       <SplitFeatureSection
         id="after-launch"
-        eyebrow={sections['After launch']}
+        eyebrow={sections['SEO after launch']}
         title="Checked after launch"
         accentTitle="in Search Console"
         description="Google can take about three months to re-read a moved site, so a dip in the first weeks is normal. A page still down after that is a fault, usually a redirect that was never added. If your traffic has already dropped, an audit reads your Search Console from before and after launch day and names what went missing."
@@ -164,7 +163,7 @@ export default async function WebsiteMigrationSeoPage() {
       />
 
       <CaseStudyTeaser
-        eyebrow={sections['Proof this works']}
+        eyebrow={sections['Migration SEO case study']}
         title={`Website migration results for a Perth business: organic clicks up ${SCOOTER_SHOP_GROWTH.percent}%.`}
         points={casePoints}
         primaryHref="#signup"
@@ -190,7 +189,7 @@ export default async function WebsiteMigrationSeoPage() {
 
       <FaqSection
         emitSchema
-        eyebrow={sections['Common questions']}
+        eyebrow={sections['Website migration questions']}
         title="Website migration SEO Perth: common questions."
         items={migrationFaqs(seoAuditPrices(settings))}
       />

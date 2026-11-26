@@ -13,7 +13,6 @@ export const SEO_COPY: SeoPageCopy = {
   },
   packages: {
     title: 'SEO audit packages',
-    lead: 'One written report of your site, paid once. The three differ in what they read.',
   },
   introduction: {
     title: 'What is in an',

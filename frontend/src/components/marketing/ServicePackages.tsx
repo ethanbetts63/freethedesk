@@ -52,9 +52,7 @@ export function ServicePackages({
     <PackagesSection
       id="packages"
       endId="packages-end"
-      eyebrow="Packages"
       title={title}
-      accentTitle={packages.length === 1 ? 'and price.' : 'and prices.'}
       lead={lead}
       plans={plans}
       kicker="Includes"

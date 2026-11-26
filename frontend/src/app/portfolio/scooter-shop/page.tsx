@@ -48,7 +48,7 @@ const config = {
   sections: [
     {
       kind: 'intro',
-      eyebrow: 'How it works',
+      eyebrow: 'Dealer website design',
       title: 'Data-driven SEO.',
       accentTitle: 'Not guesswork.',
       description:
@@ -56,7 +56,7 @@ const config = {
     },
     {
       kind: 'split',
-      eyebrow: 'The word',
+      eyebrow: 'Dealer SEO wording',
       title: 'Customers say moped.',
       accentTitle: 'The site said scooter.',
       description:
@@ -78,7 +78,7 @@ const config = {
     },
     {
       kind: 'split',
-      eyebrow: 'Fewer pages',
+      eyebrow: 'Fewer, stronger pages',
       title: 'Four workshop pages.',
       accentTitle: 'Folded into one.',
       description:
@@ -98,7 +98,7 @@ const config = {
     },
     {
       kind: 'split',
-      eyebrow: 'Speed',
+      eyebrow: 'Website speed',
       title: 'Fast on real phones.',
       accentTitle: 'Not a perfect score.',
       description:
@@ -116,7 +116,7 @@ const config = {
     },
     {
       kind: 'growth',
-      eyebrow: 'The report',
+      eyebrow: 'SEO report',
       title: 'It starts with data.',
       accentTitle: 'SEO auditing.',
       description:
@@ -130,7 +130,7 @@ export default async function ScooterShopCaseStudy() {
   const prices = servicePrices(await getSiteSettingsServer(SERVICE_PRICE_FIELDS));
   return (
     <PortfolioCaseStudy
-      config={{ ...config, faq: { eyebrow: 'Common questions', items: portfolioFaqs(prices) } }}
+      config={{ ...config, faq: { eyebrow: 'Case study questions', items: portfolioFaqs(prices) } }}
     />
   );
 }

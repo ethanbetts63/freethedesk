@@ -48,14 +48,14 @@ export const STATIC_PAGES = {
     absoluteTitle: true,
   },
   '/dealers': {
-    updated: '2026-11-22',
+    updated: '2026-11-26',
     label: 'Dealer websites',
     title: 'Dealership Websites & Online Licensing, WA',
     description:
       'One connected system for Perth and WA dealerships: a website built to be found, online licensing, and the admin automation behind it.',
   },
   '/licensing': {
-    updated: '2026-11-16',
+    updated: '2026-11-26',
     label: 'Online licensing',
     title: 'Online Vehicle Licensing for WA Dealers',
     description:
@@ -67,7 +67,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-development': {
-    updated: '2026-11-22',
+    updated: '2026-11-26',
     label: 'Website development',
     title: 'Website Design Perth: Fixed-Price Packages',
     description:
@@ -81,7 +81,7 @@ export const STATIC_PAGES = {
     },
   },
   '/web-design-subiaco': {
-    updated: '2026-11-22',
+    updated: '2026-11-26',
     label: 'Web design Subiaco',
     title: 'Web Design & Development Subiaco',
     description:
@@ -93,7 +93,7 @@ export const STATIC_PAGES = {
     },
   },
   '/wordpress-web-design-perth': {
-    updated: '2026-11-22',
+    updated: '2026-11-26',
     label: 'WordPress website redesign',
     title: 'WordPress Website Redesign Perth: Load Faster, Rank Higher',
     description:
@@ -105,7 +105,7 @@ export const STATIC_PAGES = {
     },
   },
   '/ai-seo-perth': {
-    updated: '2026-11-16',
+    updated: '2026-11-26',
     label: 'AI SEO',
     title: 'AI SEO Perth: Get Named in ChatGPT & AI Overviews',
     description:
@@ -117,7 +117,7 @@ export const STATIC_PAGES = {
     },
   },
   '/website-migration-seo-perth': {
-    updated: '2026-11-16',
+    updated: '2026-11-26',
     label: 'Website migration SEO',
     title: 'Website Migration SEO Perth: Keep Your Rankings',
     description:
@@ -129,7 +129,7 @@ export const STATIC_PAGES = {
     },
   },
   '/automation': {
-    updated: '2026-11-16',
+    updated: '2026-11-26',
     label: 'Automation',
     title: 'Business & AI Automation Perth',
     description:
@@ -241,7 +241,7 @@ export const STATIC_PAGES = {
       'Practical guides for Perth businesses on SEO, website development and what each costs, with automation and dealer licensing besides.',
   },
   '/portfolio/scooter-shop': {
-    updated: '2026-11-22',
+    updated: '2026-11-26',
     label: 'Scooter Shop',
     title: 'Scooter Shop Case Study: Dealer Website & SEO',
     description:
@@ -249,7 +249,7 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/scooter-shop/home-desktop.png',
   },
   '/portfolio/bloomprint': {
-    updated: '2026-11-22',
+    updated: '2026-11-26',
     label: 'Bloomprint',
     title: 'Bloomprint Case Study: Flower Delivery Marketplace',
     description:
@@ -257,7 +257,7 @@ export const STATIC_PAGES = {
     ogImage: '/case-studies/bloomprint/home-desktop.png',
   },
   '/affiliates': {
-    updated: '2026-11-16',
+    updated: '2026-11-26',
     label: 'Affiliates',
     title: 'SEO Audit Affiliate Program: 50% Commission',
     description:

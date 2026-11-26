@@ -167,16 +167,17 @@ export function usePackageChoice<Code extends string>(
  * redesign and automation packages all sell this way, so a buyer picks first and gives their
  * details second. `id` is where the hero's button lands.
  *
+ * The same, dry heading on every page that sells (owner, 2026-11-26): "Pricing" over "[service]
+ * packages and prices." (or "package and price." for one card), and one plain line on how it is
+ * paid. A page names only the service and that line. The heading runs the width of the cards.
+ *
  * Top padding only: the section after it opens with its own `pt-section`.
  */
 export function PackagesSection<Code extends string>({
   id,
   endId,
-  eyebrow,
   title,
-  accentTitle,
   lead,
-  wideHeader = false,
   plans,
   kicker,
   cardTitle = (plan) => plan.name,
@@ -189,13 +190,10 @@ export function PackagesSection<Code extends string>({
   id: string;
   /** A marker past the section for the page's floating button to watch (`showAfterId`). */
   endId: string;
-  eyebrow: string;
+  /** "[service] packages", or "package" for one card: "SEO audit packages". */
   title: string;
-  accentTitle: string;
-  /** A line under the heading; left out where the heading says enough. */
+  /** One plain line on how it is paid; left out where the heading says enough. */
   lead?: string;
-  /** Lets the heading and lead run the width of the cards, where the default keeps them to a reading measure. */
-  wideHeader?: boolean;
   plans: readonly Plan<Code>[];
   /** Small capitals over each card's ticks, saying what they are: "Recommendations based on". */
   kicker: string;
@@ -215,7 +213,7 @@ export function PackagesSection<Code extends string>({
   // heading's width, take the left and the card the rest of the row (owner, 2026-11-26).
   const alone = plans.length === 1;
   return (
-    <section id={id} aria-label={eyebrow} className="bg-surface-page pt-section">
+    <section id={id} aria-label={title} className="bg-surface-page pt-section">
       <div
         className={cn(
           'site-shell',
@@ -223,17 +221,11 @@ export function PackagesSection<Code extends string>({
             'lg:grid lg:grid-cols-[var(--container-measure-tight)_minmax(0,1fr)] lg:gap-x-2xl',
         )}
       >
-        <div
-          className={cn(
-            'mb-xl',
-            !wideHeader && 'max-w-measure-tight',
-            alone && 'lg:mb-0 lg:flex lg:flex-col',
-          )}
-        >
+        <div className={cn('mb-xl', alone && 'lg:mb-0 lg:flex lg:flex-col')}>
           <SectionHeader
-            eyebrow={eyebrow}
+            eyebrow="Pricing"
             title={title}
-            accentTitle={accentTitle}
+            accentTitle={alone ? 'and price.' : 'and prices.'}
             size="display-sm"
           />
           {lead ? (

@@ -29,11 +29,8 @@ export function WebsitePackages({ copy }: { copy: WebsitePageCopy['packages'] })
     <PackagesSection
       id="packages"
       endId="packages-end"
-      eyebrow={copy.eyebrow}
       title={copy.title}
-      accentTitle={copy.accentTitle}
       lead={copy.lead}
-      wideHeader
       plans={WEBSITE_PLANS}
       kicker="Includes"
       chooseLabel={() => 'Book a call'}

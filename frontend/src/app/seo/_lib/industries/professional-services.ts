@@ -10,8 +10,7 @@ export const PROFESSIONAL_SERVICES_COPY: SeoPageCopy = {
     lead: "A written SEO report of your firm's website: the client searches you're losing, what to fix and what each fix is worth. For lawyers, accountants, brokers and professional firms in Perth and across Australia.",
   },
   packages: {
-    title: 'SEO audits for professional firms',
-    lead: "One written report of your firm's website, paid once. The three differ in what they read.",
+    title: 'SEO audit packages for professional firms',
     audience: 'professional firms',
   },
   introduction: {

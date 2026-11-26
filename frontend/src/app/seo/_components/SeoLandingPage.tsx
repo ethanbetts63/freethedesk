@@ -22,11 +22,11 @@ import { SeoIntroduction } from './SeoIntroduction';
 import { SeoPackages } from './SeoPackages';
 
 const sections = numberSections([
-  'Analyse',
-  'Recommend',
-  'Experiment',
-  'Proof this works',
-  'Common questions',
+  'SEO audit',
+  'SEO recommendations',
+  'SEO experiments',
+  'SEO case study',
+  'SEO audit questions',
 ] as const);
 
 const casePoints = {
@@ -91,11 +91,11 @@ export async function SeoLandingPage({ path, copy }: { path: PagePath; copy: Seo
 
       <SeoIntroduction copy={copy.introduction} />
 
-      <SeoAnalysis eyebrow={sections['Analyse']} copy={copy.analyse} />
+      <SeoAnalysis eyebrow={sections['SEO audit']} copy={copy.analyse} />
 
       <SeoReportOverview
         id="recommend"
-        eyebrow={sections['Recommend']}
+        eyebrow={sections['SEO recommendations']}
         title={copy.recommend.title}
         accentTitle={copy.recommend.accentTitle}
         description={copy.recommend.description}
@@ -104,10 +104,10 @@ export async function SeoLandingPage({ path, copy }: { path: PagePath; copy: Seo
         action={<SampleReportLink />}
       />
 
-      <SeoImprovement eyebrow={sections['Experiment']} copy={copy.experiment} />
+      <SeoImprovement eyebrow={sections['SEO experiments']} copy={copy.experiment} />
 
       <CaseStudyTeaser
-        eyebrow={sections['Proof this works']}
+        eyebrow={sections['SEO case study']}
         study={copy.caseStudy.study}
         title={copy.caseStudy.title}
         points={casePoints[copy.caseStudy.study]}
@@ -129,7 +129,7 @@ export async function SeoLandingPage({ path, copy }: { path: PagePath; copy: Seo
 
       <FaqSection
         emitSchema
-        eyebrow={sections['Common questions']}
+        eyebrow={sections['SEO audit questions']}
         title={copy.faqTitle}
         items={faqsFor(copy, settings)}
       />

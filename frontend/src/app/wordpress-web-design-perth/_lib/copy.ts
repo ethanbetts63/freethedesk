@@ -24,9 +24,7 @@ export const WORDPRESS_COPY: WebsitePageCopy = {
     trustLine: 'Fixed prices · Perth-based',
   },
   packages: {
-    eyebrow: 'WordPress Website Redesign Packages',
-    title: 'SEO optimised WordPress',
-    accentTitle: 'redesign packages.',
+    title: 'WordPress website redesign packages',
     lead: 'Fixed prices: half upfront, the rest before launch. Moving your pages and redirecting the old addresses is included.',
   },
   nudge: 'Not sure which package fits your WordPress site?',

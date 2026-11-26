@@ -30,9 +30,7 @@ export const GBP_COPY = {
     trustLine: 'Paid once, no subscription · Perth-based',
   },
   packages: {
-    eyebrow: 'Business Profile optimisation price',
-    title: 'Google Business Profile optimisation',
-    accentTitle: 'pricing.',
+    title: 'Google Business Profile optimisation package',
   },
   introduction: {
     eyebrow: 'How Business Profile optimisation works',
