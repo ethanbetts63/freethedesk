@@ -22,6 +22,7 @@ def test_site_settings_are_publicly_readable(api_client):
     assert data["website_large_page_price"] == "600.00"
     assert "website_connect_pages" not in data
     assert data["automation_from_price"] == "1200.00"
+    assert data["gbp_optimisation_price"] == "150.00"
 
 
 def test_site_settings_dashboard_requires_staff(api_client):

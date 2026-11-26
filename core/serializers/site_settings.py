@@ -13,7 +13,7 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
             "website_one_page_price",
             "website_small_pages", "website_small_page_price",
             "website_large_pages", "website_large_page_price",
-            "automation_from_price",
+            "automation_from_price", "gbp_optimisation_price",
             "affiliate_discount_percent", "affiliate_share_percent",
             "updated_at",
         ]

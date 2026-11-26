@@ -26,6 +26,8 @@ class SiteSettings(models.Model):
     paid upfront. Web applications and automation also carry a "from"
     price, the smallest project of each worth starting.
 
+    The Google Business Profile optimisation price is one job, paid once.
+
     The last two are the affiliate program's percentages, which the affiliate
     page, the portal and the pitch emails all quote.
     """
@@ -82,6 +84,12 @@ class SiteSettings(models.Model):
     )
     automation_from_price = models.DecimalField(
         max_digits=8, decimal_places=2, default=Decimal("1200.00"),
+        validators=[MinValueValidator(Decimal("0.01"))],
+    )
+    #: Google Business Profile optimisation: the profile filled in by us, one
+    #: job paid once. Sold by a call for now, so nothing charges it yet.
+    gbp_optimisation_price = models.DecimalField(
+        max_digits=8, decimal_places=2, default=Decimal("150.00"),
         validators=[MinValueValidator(Decimal("0.01"))],
     )
     #: The podcast affiliate program (/affiliates). The listener's discount off

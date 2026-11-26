@@ -55,7 +55,7 @@ page publishes one.
 | Local Digital (local SEO Syd #4)   | —                                        | GBP-only $500–1,000; local SEO $1,500–3,000 |
 | Net Search, Digital Hitmen (Perth) | —                                        | from $1,000; $1,900–4,900                   |
 
-freethedesk's $650 paid once sits above the cheap one-offs ($297–$500) and below
+freethedesk's $650 paid once (cut to $150 the same day, by the owner) sat above the cheap one-offs ($297–$500) and below
 EZY Boost. Most rivals sell monthly management. A one-off job is the exception,
 and it is common only at the cheap end.
 

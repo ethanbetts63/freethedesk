@@ -8,7 +8,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
     list_display = (
         "licensing_price", "contracts_price", "complete_price",
         "seo_essentials_price", "seo_plus_price", "seo_complete_price",
-        "updated_at",
+        "gbp_optimisation_price", "updated_at",
     )
     readonly_fields = ("updated_at",)
 
