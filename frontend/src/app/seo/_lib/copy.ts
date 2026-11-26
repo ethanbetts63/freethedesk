@@ -1,5 +1,4 @@
 import { SCOOTER_SHOP_GROWTH } from '@/lib/caseStudies';
-import { GBP_OPTIMISATION_PRICE, money } from '@/lib/servicePricing';
 import type { FaqItem } from '@/types/FaqItem';
 
 import type { SeoPageCopy } from './pageCopy';
@@ -110,7 +109,7 @@ function seoFaqs(prices: SeoAuditPrices): FaqItem[] {
 
     {
       question: 'Can you optimise my Google Business Profile for me?',
-      answer: `Yes, as a separate job. The Plus audit reads your Business Profile and says what to change; Google Business Profile optimisation is the change itself, made in your profile by us for ${money(GBP_OPTIMISATION_PRICE)}, paid once: categories, services and prices, photos, posts, review replies and links that agree with your site.`,
+      answer: `Yes, as a separate job. The Plus audit reads your Business Profile and says what to change; Google Business Profile optimisation is the change itself, made in your profile by us for ${prices.gbp}, paid once: categories, services and prices, photos, posts, review replies and links that agree with your site.`,
       links: [
         {
           phrase: 'Google Business Profile optimisation',

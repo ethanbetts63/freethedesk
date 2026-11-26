@@ -1,6 +1,6 @@
 ---
 published: 2026-10-14
-updated: 2026-11-22
+updated: 2026-11-26
 title: Why Isn't My Business Showing Up on Google?
 description: The usual reasons a small business is missing from Google search and Maps, how to check each one yourself, and what to fix first.
 takeaways:
@@ -51,7 +51,7 @@ You cannot change distance. A business in Dianella will find it harder to appear
 - **Fill in everything.** Services, service areas, opening hours, photos and a description that says plainly what you do and where.
 - **Ask for reviews.** Steadily, from real customers, and reply to them. Reviews count towards popularity and are what searchers read first.
 
-If you would rather not do this yourself, we offer [Google Business Profile optimisation](/google-business-profile-optimisation): we make these changes in your profile for a fixed $650, paid once.
+If you would rather not do this yourself, we offer [Google Business Profile optimisation](/google-business-profile-optimisation): we make these changes in your profile for one fixed price, paid once.
 
 ## Google can't tell your website and your profile are the same business
 

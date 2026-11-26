@@ -4,35 +4,48 @@ import Link from 'next/link';
 
 import { PackagesSection } from '@/components/marketing/Packages';
 import { trackSelectPlanOnce } from '@/lib/analytics';
+import type { Plan } from '@/lib/plans';
 import { scrollToId } from '@/lib/scrollToId';
 
-import { GBP_PLAN, GBP_PRODUCT_NAME } from '../_lib/plan';
+import type { GBP_COPY } from '../_lib/copy';
+import { GBP_PRODUCT_NAME, type GbpPlanCode } from '../_lib/plan';
 
-/** Where the card's button lands: the call-back form at the foot of the page. */
-export const GBP_ENQUIRY_ID = 'enquire';
+/** The call-back form at the foot of the page. */
+export const GBP_CALL_FORM_ID = 'page-cta';
 
 /**
- * The one card, laid out as the SEO audits are. It has no terms or checkout of its own yet
- * (_docs/to_do.md), so the button scrolls to the call-back form instead of opening an
- * order dialog.
+ * The one card, laid out as the website packages are. It has no terms or checkout of its own yet
+ * (_docs/to_do.md), so the button leads to the call-back form and names the job in its note,
+ * unless the visitor has already written one.
  */
-export function GbpPackage() {
-  const choose = () => {
-    trackSelectPlanOnce('seo', GBP_PLAN.code);
-    scrollToId(GBP_ENQUIRY_ID);
+export function GbpPackage({
+  plan,
+  copy,
+}: {
+  plan: Plan<GbpPlanCode>;
+  copy: (typeof GBP_COPY)['packages'];
+}) {
+  const bookCall = () => {
+    trackSelectPlanOnce('seo', plan.code);
+    const notes = document.querySelector<HTMLTextAreaElement>(
+      `#${GBP_CALL_FORM_ID} [name="notes"]`,
+    );
+    if (notes && !notes.value) notes.value = `Interested in ${GBP_PRODUCT_NAME}.`;
+    scrollToId(GBP_CALL_FORM_ID);
   };
 
   return (
     <PackagesSection
       id="package"
       endId="package-end"
-      eyebrow="Price"
-      title="Business Profile optimisation"
-      accentTitle="and price."
-      lead="One job, done in your profile by us, paid once."
-      plans={[GBP_PLAN]}
+      eyebrow={copy.eyebrow}
+      title={copy.title}
+      accentTitle={copy.accentTitle}
+      lead={copy.lead}
+      plans={[plan]}
       kicker="Includes"
       cardTitle={() => GBP_PRODUCT_NAME}
+      chooseLabel={() => 'Book a call'}
       note={
         <>
           Not sure the profile is what&rsquo;s holding you back? The Plus SEO audit reads it beside
@@ -45,9 +58,7 @@ export function GbpPackage() {
           </Link>
         </>
       }
-      onChoose={choose}
-    >
-      {null}
-    </PackagesSection>
+      onChoose={bookCall}
+    />
   );
 }

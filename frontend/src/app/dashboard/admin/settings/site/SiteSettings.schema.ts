@@ -19,6 +19,7 @@ export const siteSettingsSchema = z.object({
   website_large_pages: price,
   website_large_page_price: price,
   automation_from_price: price,
+  gbp_optimisation_price: price,
   affiliate_discount_percent: price,
   affiliate_share_percent: price,
 });

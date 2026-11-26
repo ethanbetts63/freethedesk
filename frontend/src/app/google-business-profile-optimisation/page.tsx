@@ -1,73 +1,161 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 
 import { FloatingPageCta } from '@/components/FloatingPageCta';
-import { FaqSection } from '@/components/marketing/FaqSection';
-import { Hero } from '@/components/marketing/Hero';
 import { CallRequest } from '@/components/marketing/CallRequest';
+import { CallRequestNudge } from '@/components/marketing/CallRequestNudge';
+import { CaseStudyTeaser } from '@/components/marketing/CaseStudyTeaser';
+import { FaqSection } from '@/components/marketing/FaqSection';
+import { Hero, secondaryLinkClassName } from '@/components/marketing/Hero';
+import { Introduction } from '@/components/marketing/Introduction';
 import { RelatedPages } from '@/components/marketing/RelatedPages';
 import { PageSchema } from '@/components/PageSchema';
+import { SplitFeatureSection } from '@/components/SplitFeatureSection';
 import { metadataFor } from '@/lib/pages';
 import { buildOneOffOffer } from '@/lib/seo';
 import { numberSections } from '@/lib/sectionNumbers';
-import { GBP_OPTIMISATION_PRICE } from '@/lib/servicePricing';
+import { getSiteSettingsServer } from '@/lib/serverApi';
+import { money } from '@/lib/servicePricing';
 
-import { GbpIntroduction } from './_components/GbpIntroduction';
-import { GBP_ENQUIRY_ID, GbpPackage } from './_components/GbpPackage';
-import { GbpSetup } from './_components/GbpSetup';
-import { gbpFaqs } from './_lib/copy';
-import { GBP_PRODUCT_NAME, gbpPrice } from './_lib/plan';
+import { GBP_CALL_FORM_ID, GbpPackage } from './_components/GbpPackage';
+import { GBP_COPY, gbpFaqs, type GbpSectionCopy } from './_lib/copy';
+import { GBP_PRODUCT_NAME, gbpPlan } from './_lib/plan';
 
 const PATH = '/google-business-profile-optimisation';
+const CALL_FORM = `#${GBP_CALL_FORM_ID}`;
 
-const sections = numberSections(['Set up', 'Common questions'] as const);
+/* The website page's three sections alternate sides, the outer two on white. */
+const SECTION_LAYOUT = [
+  { textSide: 'left', background: 'white' },
+  { textSide: 'right', background: 'transparent' },
+  { textSide: 'left', background: 'white' },
+] as const;
 
 export const metadata: Metadata = metadataFor(PATH);
 
+/* The price is the admin's, so this page renders per request. */
+export const dynamic = 'force-dynamic';
+
+function SectionLink({ link }: { link: GbpSectionCopy['link'] }) {
+  return (
+    <Link
+      className={secondaryLinkClassName}
+      href={link.href}
+      {...(link.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+    >
+      {link.label} <span>{link.newTab ? '↗' : '→'}</span>
+    </Link>
+  );
+}
+
 /**
- * The /seo page's layout for the one job that changes a Business Profile rather than reading it.
- * No online checkout yet, so the card and the floating button lead to the call-back form at the foot.
+ * The website page's layout, section for section (owner, 2026-11-26): the hero, the one card,
+ * the nudge, the introduction, three numbered sections, the case study, the questions and the
+ * call-back form. No online checkout yet, so the card and the floating button lead to the
+ * call-back form.
  */
-export default function GoogleBusinessProfileOptimisationPage() {
+export default async function GoogleBusinessProfileOptimisationPage() {
+  const settings = await getSiteSettingsServer(['gbp_optimisation_price']);
+  const priceValue = Number(settings.gbp_optimisation_price);
+  const price = money(priceValue);
+  const plan = gbpPlan(price);
   // The Service node is declared in STATIC_PAGES; only its one price is added here.
-  const serviceOffers = buildOneOffOffer({ price: GBP_OPTIMISATION_PRICE, name: GBP_PRODUCT_NAME });
+  const serviceOffers = buildOneOffOffer({ price: priceValue, name: GBP_PRODUCT_NAME });
+  const copy = GBP_COPY;
+  /* Section eyebrows in page order. */
+  const numbered: Record<string, string> = numberSections([
+    ...copy.sections.map((section) => section.label),
+    copy.caseStudy.label,
+    copy.faq.label,
+  ]);
 
   return (
     <main className="bg-surface-page text-text-secondary">
       <PageSchema path={PATH} serviceOffers={serviceOffers} />
       <Hero
         path={PATH}
-        titleLines={['Google Business Profile', 'optimisation Perth:']}
-        accentTitle="done for you, once."
-        lead="We fill in your Google Business Profile properly, from categories and prices to photos and review replies. One job, paid once."
+        titleLines={copy.hero.titleLines}
+        accentTitle={copy.hero.accentTitle}
+        lead={copy.hero.lead}
         primaryHref="#package"
-        primaryLabel={`Done for you, ${gbpPrice}`}
-        secondaryHref="/seo"
-        secondaryLabel="Or start with an SEO audit"
-        trustLine="Paid once, no subscription · Manager access only · Perth-based"
+        primaryLabel={`Done for you, ${price}`}
+        secondaryHref={CALL_FORM}
+        secondaryLabel="Book a call"
+        trustLine={copy.hero.trustLine}
       />
 
-      <GbpPackage />
+      <GbpPackage plan={plan} copy={copy.packages} />
 
-      <GbpIntroduction />
+      <CallRequestNudge question={copy.nudge} href={CALL_FORM} />
 
-      <GbpSetup eyebrow={sections['Set up']} />
+      <Introduction
+        id="gbp-overview"
+        eyebrow={copy.introduction.eyebrow}
+        spacing="tight"
+        flushBottom
+        title={copy.introduction.title}
+        accentTitle={copy.introduction.accentTitle}
+      >
+        {copy.introduction.body}
+      </Introduction>
+
+      {copy.sections.map((section, index) => (
+        <SplitFeatureSection
+          key={section.id}
+          id={section.id}
+          eyebrow={numbered[section.label]}
+          title={section.title}
+          accentTitle={section.accentTitle}
+          description={section.description}
+          visual={
+            <Image
+              src={section.picture}
+              alt=""
+              width={1536}
+              height={1024}
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              className="aspect-[3/2] h-auto w-full rounded-lg border border-border-default object-cover"
+            />
+          }
+          textSide={SECTION_LAYOUT[index].textSide}
+          background={SECTION_LAYOUT[index].background}
+          spacing="joined"
+          action={<SectionLink link={section.link} />}
+        />
+      ))}
+
+      <CaseStudyTeaser
+        eyebrow={numbered[copy.caseStudy.label]}
+        title={copy.caseStudy.title}
+        points={copy.caseStudy.points}
+        primaryHref={CALL_FORM}
+        primaryLabel="Book a call"
+        showPrimaryAction={false}
+      >
+        <p>{copy.caseStudy.body}</p>
+      </CaseStudyTeaser>
 
       <FloatingPageCta
-        label="Ask for a call back"
-        href={`#${GBP_ENQUIRY_ID}`}
-        direction="down"
+        label="Book a call"
+        href={CALL_FORM}
         showAfterId="package-end"
-        hideAtId={GBP_ENQUIRY_ID}
+        hideAtId={GBP_CALL_FORM_ID}
       />
 
       <FaqSection
         emitSchema
-        eyebrow={sections['Common questions']}
-        title="Business Profile optimisation: common questions."
-        items={gbpFaqs}
+        eyebrow={numbered[copy.faq.label]}
+        title={copy.faq.title}
+        items={gbpFaqs(price)}
       />
 
-      <CallRequest id={GBP_ENQUIRY_ID} source={PATH} title="Ready to show up on Maps?" />
+      <CallRequest
+        id={GBP_CALL_FORM_ID}
+        source={PATH}
+        title={copy.call.title}
+        picture={copy.call.picture}
+      />
       <RelatedPages path={PATH} />
     </main>
   );

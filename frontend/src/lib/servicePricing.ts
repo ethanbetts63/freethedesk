@@ -144,14 +144,6 @@ export function automationDiscovery(settings: PublicSiteSettings): PurchasePacka
   };
 }
 
-/**
- * Google Business Profile optimisation: one fixed price, paid once. A constant rather than an
- * admin setting while it is sold by enquiry; it moves to SiteSettings with the online checkout
- * (see _docs/to_do.md). Chosen 2026-11-15 from published Australian prices: above the cheapest
- * one-off setups, under the Perth one-off ranges and a fraction of a monthly retainer.
- */
-export const GBP_OPTIMISATION_PRICE = 650;
-
 /** The figures most pages quote, already formatted. */
 export function servicePrices(settings: PublicSiteSettings) {
   const hourly = Number(settings.hourly_rate);

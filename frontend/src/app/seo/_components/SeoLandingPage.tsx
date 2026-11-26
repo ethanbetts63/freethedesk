@@ -11,7 +11,7 @@ import { formatMoney } from '@/lib/formatting';
 import { type PagePath } from '@/lib/pages';
 import { buildOneOffOffer } from '@/lib/seo';
 import { numberSections } from '@/lib/sectionNumbers';
-import { getSiteSettingsServer } from '@/lib/serverApi';
+import { CHECKOUT_PRICE_FIELDS, getSiteSettingsServer } from '@/lib/serverApi';
 
 import { faqsFor, type SeoPageCopy } from '../_lib/pageCopy';
 import { buildSeoPlans, PRICE_FIELD } from '../_lib/plans';
@@ -45,7 +45,11 @@ const casePoints = {
  * file the sitemap and crumb checks can find.
  */
 export async function SeoLandingPage({ path, copy }: { path: PagePath; copy: SeoPageCopy }) {
-  const settings = await getSiteSettingsServer();
+  // The questions quote the Business Profile job's price beside the audits'.
+  const settings = await getSiteSettingsServer([
+    ...CHECKOUT_PRICE_FIELDS,
+    'gbp_optimisation_price',
+  ]);
 
   // The Service node itself is declared in STATIC_PAGES; only the prices are dynamic.
   // One offer per audit, priced as the cards are.

@@ -40,7 +40,7 @@ export async function serverApiFetch(
 }
 
 /** What /licensing and /seo sell online. */
-const CHECKOUT_PRICE_FIELDS = [
+export const CHECKOUT_PRICE_FIELDS = [
   'licensing_price',
   'contracts_price',
   'complete_price',

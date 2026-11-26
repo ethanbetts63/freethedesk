@@ -19,12 +19,13 @@ export const PRICE_FIELD = {
   complete: 'seo_complete_price',
 } as const satisfies Record<SeoPlanCode, keyof PublicSiteSettings>;
 
-/** Each audit's price, for copy that names all three beside a call to buy. */
+/** Each audit's price, for copy that names all three beside a call to buy, and the Business Profile job's. */
 export function seoAuditPrices(settings: PublicSiteSettings) {
   return {
     essentials: price(settings.seo_essentials_price),
     plus: price(settings.seo_plus_price),
     complete: price(settings.seo_complete_price),
+    gbp: price(settings.gbp_optimisation_price),
   };
 }
 

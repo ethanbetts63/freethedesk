@@ -40,6 +40,10 @@ const SEO_FIELDS: FieldSpec[] = [
   { field: 'seo_complete_price', label: 'SEO audit, Complete ($ once)' },
 ];
 
+const GBP_FIELDS: FieldSpec[] = [
+  { field: 'gbp_optimisation_price', label: 'Business Profile optimisation ($ once)' },
+];
+
 const HOURLY_FIELDS: FieldSpec[] = [
   { field: 'hourly_rate', label: 'Hourly rate ($ / hour)' },
   { field: 'discovery_hours', label: 'Discovery (hours, paid upfront)', count: true },
@@ -69,6 +73,7 @@ const AFFILIATE_FIELDS: FieldSpec[] = [
 const ALL_FIELDS = [
   ...LICENSING_FIELDS,
   ...SEO_FIELDS,
+  ...GBP_FIELDS,
   ...HOURLY_FIELDS,
   ...WEBSITE_FIELDS,
   ...PROJECT_FIELDS,
@@ -171,6 +176,15 @@ export default function SiteSettingsPage() {
             affiliate&apos;s code takes the listener discount below off these.
           </p>
           <div className={adminFormClassName}>{SEO_FIELDS.map(renderField)}</div>
+        </section>
+
+        <section className={cn(cardClassName, cardWideClassName)}>
+          <h2 className={cardTitleClassName}>Business Profile optimisation</h2>
+          <p className="text-label text-text-subtle">
+            The one price for Google Business Profile optimisation, paid once. Its page, the SEO
+            pages&rsquo; questions and its schema offer all quote it.
+          </p>
+          <div className={adminFormClassName}>{GBP_FIELDS.map(renderField)}</div>
         </section>
 
         <section className={cn(cardClassName, cardWideClassName)}>

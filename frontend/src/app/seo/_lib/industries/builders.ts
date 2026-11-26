@@ -1,5 +1,4 @@
 import { BLOOMPRINT_GROWTH } from '@/lib/caseStudies';
-import { GBP_OPTIMISATION_PRICE, money } from '@/lib/servicePricing';
 
 import type { SeoPageCopy } from '../pageCopy';
 
@@ -96,7 +95,7 @@ export const BUILDERS_COPY: SeoPageCopy = {
     },
     {
       question: 'Can you optimise the Google Business Profile for my building company?',
-      answer: `Yes, as a separate job. The Plus audit reads your Business Profile and says what to change; Google Business Profile optimisation is the change itself, made in your profile by us for ${money(GBP_OPTIMISATION_PRICE)}, paid once: categories, services and prices, photos of your projects, posts, review replies and links that agree with your site.`,
+      answer: `Yes, as a separate job. The Plus audit reads your Business Profile and says what to change; Google Business Profile optimisation is the change itself, made in your profile by us for ${prices.gbp}, paid once: categories, services and prices, photos of your projects, posts, review replies and links that agree with your site.`,
       links: [
         {
           phrase: 'Google Business Profile optimisation',

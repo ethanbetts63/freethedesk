@@ -141,7 +141,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo': {
-    updated: '2026-11-16',
+    updated: '2026-11-26',
     label: 'SEO',
     title: 'SEO Audit Perth: Technical, Local & AI Search',
     description: `Organic clicks up ${SCOOTER_SHOP_GROWTH.percent}% for a Perth dealer. Each audit is a written SEO report of your site: the searches you're losing and what to fix.`,
@@ -152,19 +152,21 @@ export const STATIC_PAGES = {
     },
   },
   '/google-business-profile-optimisation': {
-    updated: '2026-11-16',
+    updated: '2026-11-26',
     label: 'Business Profile optimisation',
-    title: 'Google Business Profile Optimisation Perth',
+    // "Local SEO" leads for its volume; the heading and copy carry the Business Profile searches
+    // (_docs/gbp-page-research.md). No price here: it is the admin's, and metadata is static.
+    title: 'Local SEO Perth: Google Business Profile Optimisation',
     description:
-      'Your Google Business Profile set up properly for a fixed $650, paid once: categories, services and prices, photos, posts, review replies and links that agree with your site.',
+      'Local SEO for Perth businesses: your Google Business Profile filled in properly at one fixed price, paid once. Categories, services, photos, reviews and a website that agrees.',
     service: {
       name: 'Google Business Profile Optimisation Perth',
-      serviceType: 'Google Business Profile optimisation',
+      serviceType: 'Local SEO and Google Business Profile optimisation',
       areaServed: { type: 'City', name: 'Perth' },
     },
   },
   '/seo/tradies': {
-    updated: '2026-11-16',
+    updated: '2026-11-26',
     label: 'Tradies',
     title: 'SEO for Tradies Perth: Technical, Local & AI Search',
     description:
@@ -176,7 +178,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo/builders': {
-    updated: '2026-11-16',
+    updated: '2026-11-26',
     label: 'Builders',
     title: 'SEO for Builders Perth: Technical, Local & AI Search',
     description:
@@ -188,7 +190,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo/health-clinics': {
-    updated: '2026-11-16',
+    updated: '2026-11-26',
     label: 'Health clinics',
     title: 'SEO for Health Clinics Perth: Local & AI Search',
     description:
@@ -200,7 +202,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo/professional-services': {
-    updated: '2026-11-16',
+    updated: '2026-11-26',
     label: 'Professional services',
     title: 'SEO for Professional Services Perth: Local & AI Search',
     description:
@@ -212,7 +214,7 @@ export const STATIC_PAGES = {
     },
   },
   '/seo/dealerships': {
-    updated: '2026-11-16',
+    updated: '2026-11-26',
     label: 'Dealerships',
     title: 'SEO for Dealerships Perth: Technical, Local & AI Search',
     description:

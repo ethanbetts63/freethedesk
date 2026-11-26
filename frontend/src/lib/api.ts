@@ -125,6 +125,7 @@ export interface PublicSiteSettings {
   website_large_pages: number;
   website_large_page_price: string;
   automation_from_price: string;
+  gbp_optimisation_price: string;
   /** The podcast affiliate program: the listener's discount and the affiliate's share, whole percentages. */
   affiliate_discount_percent: number;
   affiliate_share_percent: number;
